@@ -40,7 +40,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 | 层级 | 类型 | 存入 Git | 网站提供原文件 |
 | --- | --- | --- | --- |
 | `site` | `song_art`、`pack_cover`、`character`、`background`、`part`、`promotional`、`process` | 是 | 是 |
-| `archive` | `reference`、`gameplay_screenshot`、`store_screenshot`，以及所有 PDF | 是 | 否：查看器显示预览图，并链接到 GitHub 仓库中的原文件 |
+| `archive` | `reference`、`gameplay_screenshot`、`store_screenshot`，以及所有 PDF | 是 | 否：查看器显示预览图（PDF 没有预览图），并链接到 GitHub 仓库中的原文件 |
 
 `reference` 指资料性图片和文档：谱面/难度一览、回归/新谱面及更新公告图、新闻稿 PDF 等。`promotional` 保留主视觉、横幅、活动/周年/联动视觉和预告图等不属于谱面一览的宣传图。商店截图是应用商店的渲染版本，不是美术原稿。
 
@@ -84,7 +84,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 
 ## 收藏统计
 
-下方标记之间的数字在构建目录时由 `data/coverage.json` 生成，不是手工填写的。记录数、文件数、图片数和曲目数是不同的量，分别报告。
+下方标记之间的数字在构建目录时由 `data/coverage.json` 生成，不是手工填写的，并把记录数、文件数、图片数和曲目数作为不同的量分别报告。
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->
@@ -222,7 +222,7 @@ licenses/                              第三方许可文本和许可索引
 LICENSE, NOTICE                        软件许可证和署名
 ```
 
-每份 Markdown 文档都有后缀为 `.zh-CN.md` 的简体中文版本。
+公开文档（本 README、`docs/sources-*.md`、`docs/coverage.md` 和 `licenses/README.md`）各有后缀为 `.zh-CN.md` 的简体中文版本；`assets/site/README.md` 内含中文部分。
 
 ## 许可与署名
 

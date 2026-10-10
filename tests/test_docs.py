@@ -230,6 +230,8 @@ class StatisticsMarkerTests(unittest.TestCase):
                 prose = [line for line in outside if line.strip()]
                 self.assertEqual(len(prose), 1, "one sentence explaining where the numbers come from")
                 self.assertIn("data/coverage.json", prose[0])
+                self.assertEqual(len(re.findall(r"[.。!?！？]", INLINE_CODE.sub("", prose[0]))), 1,
+                                 "a single sentence")
                 self.assertIsNone(re.search(r"\d", prose[0]), "no hand-written numbers in the statistics section")
 
     def test_no_collection_counts_outside_the_markers(self):

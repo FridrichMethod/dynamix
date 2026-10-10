@@ -40,7 +40,7 @@ Each file has one kind. The kind decides whether the website serves the original
 | Tier | Kinds | In Git | Original served by the website |
 | --- | --- | --- | --- |
 | `site` | `song_art`, `pack_cover`, `character`, `background`, `part`, `promotional`, `process` | yes | yes |
-| `archive` | `reference`, `gameplay_screenshot`, `store_screenshot`, and every PDF | yes | no: the viewer shows a preview and links the original in the GitHub repository |
+| `archive` | `reference`, `gameplay_screenshot`, `store_screenshot`, and every PDF | yes | no: the viewer shows a preview (PDFs have none) and links the original in the GitHub repository |
 
 `reference` covers informational graphics and documents: chart/difficulty lists, comeback/new-chart and update announcement graphics, press PDFs and similar material. `promotional` keeps key art, banners, event, anniversary and collaboration visuals and teasers that are not chart listings. Store screenshots are app-store renditions, not artwork masters.
 
@@ -84,7 +84,7 @@ Song IDs come from `data/sources/song-index.json`, the dated original-game song 
 
 ## Collection statistics
 
-The numbers between the markers below are generated from `data/coverage.json` when the catalog is built; they are not written by hand. Record, file, image and song counts are different quantities and are reported separately.
+The numbers between the markers below are generated from `data/coverage.json` when the catalog is built, are not written by hand, and report records, files, images and songs as separate quantities.
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->
@@ -222,7 +222,7 @@ licenses/                              third-party license texts and the license
 LICENSE, NOTICE                        software license and attribution
 ```
 
-Every Markdown document has a Simplified Chinese version with the suffix `.zh-CN.md`.
+The public documents (this README, `docs/sources-*.md`, `docs/coverage.md` and `licenses/README.md`) each have a Simplified Chinese version with the suffix `.zh-CN.md`; `assets/site/README.md` includes a Chinese section.
 
 ## Licensing and attribution
 
