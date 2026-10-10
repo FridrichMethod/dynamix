@@ -74,6 +74,14 @@ def page_text(document: BeautifulSoup) -> str:
     return " ".join(document.get_text(" ").split())
 
 
+def headline(document: BeautifulSoup) -> str:
+    """A page's headline for record titles: ``h1``, else ``og:title``, else the document title."""
+    h1 = document.find("h1")
+    text = " ".join(h1.get_text(" ").split()) if h1 else ""
+    return text or meta_content(document, "og:title") or (
+        document.title.get_text(" ", strip=True) if document.title else "")
+
+
 def json_ld(document: BeautifulSoup) -> list[dict]:
     """Every JSON-LD object on the page (invalid blocks are skipped)."""
     found = []

@@ -78,13 +78,18 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             discovery.continuation["seed-pages"] = "no-matching-links"
         else:  # every link of the page was read: a link it no longer has is gone from the page
             pages_read.add(page_url)
-        for key, url in found:
+        title = base.headline(document)
+        for position, (key, url) in enumerate(found, start=1):
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             name = base.last_segment(url)
             ext = name.rsplit(".", 1)[-1] if "." in name else None
+            # Titled from the page it cites: its headline and the file's position among the page's links.
+            default = (f"{item['title_prefix']}{name}" if item.get("title_prefix") else
+                       f"{model.clip(title, 120)} ({position}/{len(found)})" if title and len(found) > 1 else
+                       title or name)
             discovery.candidates.append(model.apply_rule(
                 rule, key=key, page_url=page_url, texts=texts, file_url=base.stored(url),
-                default_title=f"{item.get('title_prefix', '')}{name}",
+                default_title=default,
                 default_quality=ctx.quality, default_rights=ctx.rights, original_filename=name,
                 base_evidence=evidence, source_reported=base.reported(url=url, mime=base.mime_for(ext))))
     return discovery

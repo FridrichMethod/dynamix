@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import model, runner  # noqa: E402
-from primary.adapters import wayback  # noqa: E402
+from primary.adapters import direct as direct_adapter, wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/archives"
@@ -247,6 +247,10 @@ class PressReleaseTests(ArchivesTestCase):
         self.assertEqual(schema.tier_for(asset["kind"], asset["format"]), "archive")
         self.assertEqual(paths.safe_path(self.root, asset["path"]).read_bytes(), MINIMAL_PDF)
         self.assertEqual(asset["sha256"], hashlib.sha256(MINIMAL_PDF).hexdigest())
+        # Titled from the page it cites (its headline and the link's position), not from the file name.
+        self.assertTrue(asset["title"].startswith("科技园培育公司多元发展"), asset["title"])
+        self.assertRegex(asset["title"], r" \(\d/4\)$")
+        self.assertEqual(asset["original_filename"], "appendix3.pdf")
         self.assertEqual(network.count("other.example.org"), 0)
         self.verify()
 
@@ -271,6 +275,90 @@ class PressReleaseTests(ArchivesTestCase):
         self.assertEqual(snapshot["continuation"], {"seed-pages": "not-read:http_5xx"})
         self.assertEqual([c["upstream_key"] for c in snapshot["candidates"]], [f"page:{self.PAGE}"])
         self.verify()
+
+
+class PressArticleTests(ArchivesTestCase):
+    PAGE = "https://news.example.org/detail.php?sn=129234"
+    IMG = "https://img.example.org/B/2KU/{}.{}"
+
+    def seed(self, rules, *, select="div.article-body", items=None):
+        return {"id": "archives:press", "name": "Press", "url": "https://news.example.org/", "platform": "web",
+                "adapter": "direct_files", "hosts": ["news.example.org", "img.example.org"], "quality": QUALITY,
+                "params": {"article_images": [{
+                    "page_url": self.PAGE, "key_prefix": "gnn129234:", "select": select, "og_image": True,
+                    "rewrite": [["^https://img\\.example\\.org/[MS]/2KU/", "https://img.example.org/B/2KU/"]],
+                    "pattern": "https://img\\.example\\.org/B/2KU/\\d+/(?P<key>\\d+)\\.(?:JPG|PNG)"}]},
+                "items": items if items is not None else [
+                    {"key": "gnn129234:0001345596", "page_url": self.PAGE, "read_page": True,
+                     "file_url": self.IMG.format("96/0001345596", "JPG")}],
+                "rules": rules}
+
+    RULES = [{"match": "^gnn129234:0001345596$", "role": "reference", "evidence_quotes": ["Dynamix"]},
+             {"match": "^gnn129234:0001345608$", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]},
+             {"match": "^gnn129234:0001345632$", "action": "exclude", "reason": "out_of_scope_other: header copy"},
+             {"match": "^gnn129234:0001345692$", "action": "exclude", "reason": "site_ui: QR code"}]
+
+    def routes(self):
+        routes = {self.PAGE: {"text": (FIXTURES / "press_article.html").read_text(encoding="utf-8")}}
+        for name, size in (("96/0001345596", (40, 23)), ("08/0001345608", (40, 22))):
+            routes[self.IMG.format(name, "JPG")] = {"bytes": image_bytes("JPEG", size), "content_type": "image/jpeg"}
+        return routes
+
+    def test_every_article_image_gets_a_disposition(self):
+        network = FakeNetwork(self.routes())
+        self.run_family([self.seed(self.RULES)], network)
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        # og:image, the body images (srcset/data-src, an M/ rendition rewritten to B/), never the sidebar or logo.
+        self.assertEqual(sorted(found), ["gnn129234:0001345595", "gnn129234:0001345596", "gnn129234:0001345608",
+                                         "gnn129234:0001345632", "gnn129234:0001345692"])
+        self.assertEqual(found["gnn129234:0001345595"]["disposition"], "pending")  # no rule: held, not dropped
+        self.assertEqual(found["gnn129234:0001345595"]["file_url"], self.IMG.format("95/0001345595", "JPG"))
+        self.assertEqual(found["gnn129234:0001345692"]["file_url"], self.IMG.format("92/0001345692", "PNG"))
+        self.assertEqual(found["gnn129234:0001345608"]["disposition"], "downloaded")
+        self.assertTrue(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"], {"article-images": None, "seed-files": None})
+        self.assertEqual(network.count("news.example.org"), 1)  # the page is read once
+        titles = {a["candidate_id"].split(":", 2)[2]: a["title"] for a in self.manifest()["assets"]}
+        headline = "音樂遊戲《Dynamix》近期更新內容預告"
+        self.assertEqual(titles["gnn129234:0001345596"], f"{headline} (2/5)")  # the named item takes its position
+        self.assertEqual(titles["gnn129234:0001345608"], f"{headline} — GameParty2016 活動的來場特典曲，Play A Day (3/5)")
+        self.assertNotIn("4", found["gnn129234:0001345595"]["title"].replace("(4/5)", ""))  # alt repeating the headline
+        self.verify()
+
+    def test_a_missing_article_selection_keeps_the_list_open(self):
+        self.run_family([self.seed(self.RULES, select="div.no-such-body")], FakeNetwork(self.routes()))
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"]["article-images"], "selection-not-found")
+        self.assertEqual(sorted(c["upstream_key"] for c in snapshot["candidates"]), ["gnn129234:0001345596"])
+        self.verify()
+
+    def test_an_unreadable_article_page_keeps_both_lists_open(self):
+        network = FakeNetwork({self.PAGE: {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}})
+        self.run_family([self.seed(self.RULES)], network)
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertEqual(snapshot["continuation"], {"article-images": "not-read:http_5xx",
+                                                    "seed-files": "not-read:http_5xx"})
+        self.verify()
+
+    def test_named_item_matched_by_url_is_not_enumerated_twice(self):
+        items = [{"key": "gnn129234:og", "page_url": self.PAGE, "read_page": True,
+                  "file_url": self.IMG.format("32/0001345632", "JPG")}]
+        self.run_family([self.seed(self.RULES, items=items)], FakeNetwork(self.routes()))
+        keys = sorted(c["upstream_key"] for c in manifest.load_discovery(self.root, "archives:press")["candidates"])
+        self.assertIn("gnn129234:og", keys)
+        self.assertNotIn("gnn129234:0001345632", keys)
+
+    def test_seed_validation(self):
+        seed = self.seed(self.RULES)
+        seed["params"]["article_images"][0]["pattern"] = "("
+        with self.assertRaises(Exception):
+            direct_adapter.check_seed(seed, "test")
+        seed = self.seed(self.RULES)
+        del seed["params"]["article_images"][0]["select"]
+        with self.assertRaises(ValueError):
+            direct_adapter.check_seed(seed, "test")
 
 
 class PrimaryEvidenceTests(ArchivesTestCase):
