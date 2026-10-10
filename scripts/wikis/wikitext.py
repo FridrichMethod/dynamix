@@ -35,8 +35,11 @@ _LITERAL = re.compile("\ue000(\\d+)\ue001")
 # ideographic space U+3000 in the exact title "MEGA\u3000POP").
 _ASCII_SPACES = re.compile(r"[ \t\f\v\r]+")
 _BR = re.compile(r"<br\s*/?>", re.IGNORECASE)
-# Display text may hold single-bracketed text: [[Artists#.5Bsound_shinobi.5D|[sound shinobi]]] shows "[sound shinobi]".
-_WIKILINK = re.compile(r"\[\[([^\[\]|]*)(?:\|((?:[^\[\]]|\[[^\[\]]*\])*))?\]\]")
+# As in MediaWiki's parser, a link label ends at the first "]]" and may hold a lone "[" or "]" (never "[["): the
+# label of [[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] is shown verbatim, and [[Artists#.5Bsound_shinobi.5D|[sound
+# shinobi]]] shows "[sound shinobi]" (MediaWiki moves the third "]" into a label holding "["; as plain text the result
+# is the same).
+_WIKILINK = re.compile(r"\[\[([^\[\]|]*)(?:\|((?:(?!\[\[).)*?))?\]\]", re.DOTALL)
 _EXTLINK = re.compile(r"\[(?:https?:)?//[^\s\]]+(?:\s+([^\]]*))?\]")
 _QUOTES = re.compile(r"'{2,}")
 _LINK_OPTION = re.compile(

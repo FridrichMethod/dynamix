@@ -66,6 +66,18 @@ class WikitextTests(unittest.TestCase):
         self.assertEqual(wikitext.credit_names("[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"), ["[sound shinobi]"])
         self.assertEqual(wikitext.clean_markup("[[A|B]] and [[C]], [x] [[D|[E] F]]"), "B and C, [x] [E] F")
 
+    def test_link_label_with_an_unbalanced_bracket(self) -> None:
+        """MediaWiki ends a link label at the first ']]' (one more ']' joins a label holding '['), so a label may hold
+        a lone '[' or ']' and '<>': the Knight of Tripletz page's caption renders as its label."""
+        caption = "[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List"
+        self.assertEqual(wikitext.clean_markup(caption),
+                         "^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List")
+        self.assertEqual(wikitext.clean_markup("[[A|x]y]] z"), "x]y z")
+        self.assertEqual(wikitext.clean_markup("[[A|a [b]]] c"), "a [b] c")
+        self.assertEqual(wikitext.clean_markup("[[A|plain]]] c"), "plain] c")  # no '[' in the label: ']' stays text
+        self.assertEqual(wikitext.clean_markup("[[A|see [[B|inner]] text]]"), "[[A|see inner text]]")  # no nesting
+        self.assertEqual(wikitext.clean_markup("[[A|<nowiki>]]</nowiki>]]"), "]]")
+
     def test_loose_keys_and_upside_down_titles(self) -> None:
         # A spacing modifier letter standing in for "_" is punctuation; kana/CJK modifiers stay letters.
         self.assertEqual(wikitext.normalize_key("^/7(L∣?［ˍ(L+⌗‹›+&⎥^(o)"),
