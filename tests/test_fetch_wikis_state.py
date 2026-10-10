@@ -233,6 +233,42 @@ class WorkDirTests(WikiRun):
         self.assertTrue((self.root / other["path"]).is_file())
         self.assertTrue((self.root / asset["path"]).is_file())
 
+    def withdraw_unused_event(self) -> dict:
+        """An acquiring run that carries out a reviewed withdrawal of File:Unused Event.png; its asset record."""
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
+        event = self.asset("miraheze", "File:Unused Event.png")
+        table = self.scenario.reviews_json()
+        entry = next(item for item in table["reviews"] if item["title"] == "File:Unused Event.png")
+        entry.update(role="fanart", evidence="visual_inspection: fan-made event poster")
+        for key in ("game", "game_evidence", "songs"):
+            entry.pop(key)
+        table["withdrawals"] = [{"title": "File:Unused Event.png", "sha256": [event["sha256"]], "reason": "fanart",
+                                 "evidence": "visual_inspection: fan-made event poster"}]
+        self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
+        self.assertNotIn(event["id"], {a["id"] for a in self.manifest()["assets"]})
+        return event
+
+    def test_withdrawal_written_before_a_crash_is_not_replayed(self) -> None:
+        # The run died after writing its outputs and before clearing the journal: the withdrawal is already done.
+        event = self.withdraw_unused_event()
+        journal = acquire.Journal(self.work / "journal.jsonl", self.root)
+        journal.append({"event": "withdraw", "id": event["id"], "path": event["path"], "reason": "fanart"})
+        before = (self.root / "data/sources/wikis.json").read_bytes()
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
+        self.assertEqual((self.root / "data/sources/wikis.json").read_bytes(), before)
+        self.assertFalse(journal.path.exists())
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_withdrawal_of_a_missing_record_whose_file_exists_is_refused(self) -> None:
+        event = self.withdraw_unused_event()
+        (self.root / event["path"]).write_bytes(b"restored by hand")  # the journal does not describe this root
+        journal = acquire.Journal(self.work / "journal.jsonl", self.root)
+        journal.append({"event": "withdraw", "id": event["id"], "path": event["path"], "reason": "fanart"})
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 3)
+        self.assertTrue((self.root / event["path"]).is_file())  # nothing is deleted on a refused replay
+        self.assertTrue(journal.path.exists())
+
     def test_corrupt_journal_lines(self) -> None:
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
         journal = acquire.Journal(self.work / "journal.jsonl", self.root)

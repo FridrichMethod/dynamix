@@ -102,6 +102,10 @@ class State:
         state = cls({s["id"]: s for s in data["sources"]}, {a["id"]: a for a in data["assets"]},
                     {f["id"]: f for f in data["failures"]}, data["fetched_at"], previous)
         for number, event in enumerate(journal.read() if journal else [], start=2):
+            if state.withdrawal_applied(root, event):
+                # Written before the crash: the manifest already lacks the record and the file is gone (the run died
+                # after writing its outputs and before clearing the journal). Nothing is left to redo.
+                continue
             problem = state.replay_problem(event)
             if problem:
                 raise UnsafeWorkDir(f"{journal.path}: line {number}: {problem}; the journal does not fit this "
@@ -110,6 +114,21 @@ class State:
             if event["event"] == "withdraw":  # the file may outlive a crash between the journal entry and unlink
                 delete_asset_file(root, event["path"])
         return state
+
+    def withdrawal_applied(self, root: Path, event: Mapping[str, Any]) -> bool:
+        """A journaled withdrawal that the written outputs already carry out: the manifest holds no record with its
+        asset ID, no record uses its path, and no file exists at that path (a safe path inside the wiki assets). A
+        withdrawal naming an archived record, or a path that still holds a file, is replayed or refused instead."""
+        if event.get("event") != "withdraw" or not isinstance(event.get("id"), str) \
+                or not isinstance(event.get("path"), str) or event["id"] in self.assets:
+            return False
+        if any(asset["path"] == event["path"] for asset in self.assets.values()):
+            return False
+        try:
+            target = paths.safe_path(root, event["path"], under=f"{paths.ASSET_ROOT}/{FAMILY}")
+        except ValueError:
+            return False
+        return not target.exists() and not target.is_symlink()
 
     def replay_problem(self, event: Mapping[str, Any]) -> str | None:
         """Why a journal event cannot be replayed onto this state (None when it can): records must validate, belong
