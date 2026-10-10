@@ -12940,6 +12940,7 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:e12fcae5b1f0d900",
+        "wikis:miraheze:c955c6db95f44d29",
         "wikis:miraheze:e12fcae5b1f0d900"
       ]
     },
@@ -14448,6 +14449,7 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:65aad25dbf6947eb",
+        "wikis:miraheze:56afe4c4f7ee25c5",
         "wikis:miraheze:65aad25dbf6947eb"
       ]
     },
@@ -27882,6 +27884,10 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:f319495827a3fae3",
+        "wikis:miraheze:2a60fe8805d1ede0",
+        "wikis:miraheze:7331f542a48ae436",
+        "wikis:miraheze:7e3ad047eabf9b43",
+        "wikis:miraheze:da64170fd4ea521d",
         "wikis:miraheze:f319495827a3fae3"
       ]
     },
