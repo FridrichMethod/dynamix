@@ -138,11 +138,13 @@ https://github.com/FridrichMethod/dynamix
 
         var slideIndex = 1;
         var imgTargets = document.getElementsByClassName("dynamix-draw");
-        // index.html?asset=<id> (the reference gallery's form) or index.html#<id> opens straight on that slide.
-        function requestedId() {
-            var fromQuery = new URLSearchParams(location.search).get("asset");
-            if (fromQuery) return fromQuery;
+        // index.html?asset=<id> (the reference gallery's form) or index.html#<id> opens straight on that slide; ?asset=
+        // wins on load only, while a later change of the fragment is read on its own (see the hashchange listener).
+        function hashId() {
             try { return decodeURIComponent(location.hash.slice(1)); } catch (err) { return ""; }
+        }
+        function requestedId() {
+            return new URLSearchParams(location.search).get("asset") || hashId();
         }
         function indexOfAsset(id) {
             return id ? Array.from(imgTargets).findIndex(function(img) { return img.dataset.id === id; }) : -1;
@@ -204,7 +206,7 @@ https://github.com/FridrichMethod/dynamix
 
         // A changed #<id> (Back, or a link on the page) turns to that slide and pauses autoplay.
         window.addEventListener("hashchange", function() {
-            var index = indexOfAsset(requestedId());
+            var index = indexOfAsset(hashId());
             if (index < 0) return;
             slideIndex = index + 1;
             plusSlides(0);

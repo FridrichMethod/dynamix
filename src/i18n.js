@@ -74,7 +74,8 @@
     if (next === lang) return;
     lang = next;
     try { localStorage.setItem(STORAGE_KEY, lang); } catch { /* ?lang= still carries the choice */ }
-    try { history.replaceState(history.state, "", location.pathname + localizeHref(location.search + location.hash)); } catch { /* some file:// contexts reject history updates */ }
+    // The query is localized on its own: a URL with only a fragment (archive.html#<id>, index.html#<id>) gains ?lang= too.
+    try { history.replaceState(history.state, "", location.pathname + localizeHref(location.search) + location.hash); } catch { /* some file:// contexts reject history updates */ }
     apply();
     for (const listener of listeners) listener(lang);
   }
