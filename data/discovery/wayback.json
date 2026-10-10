@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-10T17:45:07Z",
-  "finished_at": "2026-10-10T17:48:15Z",
+  "started_at": "2026-10-10T20:56:01Z",
+  "finished_at": "2026-10-10T20:59:09Z",
   "scope": {
     "lists": [
       "official-img",
@@ -22,7 +22,9 @@
       "pixiv-86481781",
       "pixiv-91845485",
       "pixiv-51262301",
-      "pixiv-63416349"
+      "pixiv-63416349",
+      "pixiv-46835674-thumb",
+      "facebook-rotaeno-kv"
     ],
     "api": "https://web.archive.org/cdx/search/cdx",
     "notes": "Explicit CDX queries; one candidate per distinct archived payload (earliest capture). Pages linking elsewhere are not followed."
@@ -45,7 +47,9 @@
     "pixiv-86481781": null,
     "pixiv-91845485": null,
     "pixiv-51262301": null,
-    "pixiv-63416349": null
+    "pixiv-63416349": null,
+    "pixiv-46835674-thumb": null,
+    "facebook-rotaeno-kv": null
   },
   "discovery_complete": true,
   "candidates": [
@@ -1742,9 +1746,10 @@
       "file_url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
       "title": "63416349_p0.png (archived 20221215)",
       "role": "song_art",
-      "game": "unknown",
+      "game": "dynamix",
       "game_evidence": [
-        "capture of https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png"
+        "capture of https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+        "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (MAD 6.7, edge-only residual)"
       ],
       "source_reported": {
         "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
@@ -1756,10 +1761,16 @@
         "timestamp": "2022-12-15T19:40:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: the caption says the artwork's use in Dynamix was still undecided",
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:67d39fd6aec05d6c",
       "song_titles": [
         "ぺたるすてっぷ"
+      ],
+      "illustrators": [
+        "clear"
+      ],
+      "composers": [
+        "dawn-system feat. 一之瀬りと"
       ],
       "notes": "Wayback capture 20221215194007 of https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png (CDX mimetype image/png, status 200, WARC record length 992639)."
     },
@@ -2001,6 +2012,63 @@
         "Spiegel vs Yukino"
       ],
       "notes": "Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014)."
+    },
+    {
+      "id": "archives:wayback:i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg@20141103014629",
+      "source_id": "archives:wayback",
+      "upstream_key": "i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg@20141103014629",
+      "page_url": "https://web.archive.org/web/20141103014629/http://i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
+      "file_url": "https://web.archive.org/web/20141103014629id_/http://i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
+      "title": "46835674_p0_master1200.jpg (archived 20141103)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
+        "archived 2015 page https://web.archive.org/web/20151009050015/http://www.pixiv.net/member_illust.php?mode=medium&illust_id=46835674 (og:description '我們團隊的音樂遊戲《Dynamix》推出了~ 這些是我畫的小cover們~', research 2026-10-10)"
+      ],
+      "source_reported": {
+        "url": "http://i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "bad8fb9741d8e18fdab7a50b359818689b8a1e3e",
+        "timestamp": "2014-11-03T01:46:29Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:79bb00a5e64d5c3c",
+      "notes": "Only surviving image of Nano Kun's deleted 'Dynamix Music Cover小合集' (pixiv 46835674): a 150px listing thumbnail of its first page (a strip of small covers)."
+    },
+    {
+      "id": "archives:wayback:scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847@20250517214330",
+      "source_id": "archives:wayback",
+      "upstream_key": "scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847@20250517214330",
+      "page_url": "https://web.archive.org/web/20250517214330/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
+      "file_url": "https://web.archive.org/web/20250517214330id_/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
+      "title": "490801394_1381747516345539_1180893236473663295_n.jpg (archived 20250517)",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "capture of https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gi…",
+        "poster of the c4cat.dynamix video 'Dynamix X Rotaeno Collaboration Announcement' (Wayback capture https://web.archive.org/web/20250517184208/https://www.facebook.com/c4cat.dynamix/videos/dynamix-x-rotaeno-collaboration-announcement/1122492832979982/)"
+      ],
+      "source_reported": {
+        "url": "https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "99a4f81290af7dea1c22773a020a537ee409dc95",
+        "timestamp": "2025-05-17T21:43:30Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:6b9137d00ba715ef",
+      "collections": [
+        "Rotaeno Collaboration"
+      ],
+      "notes": "Dynamix X Rotaeno collaboration key visual (video poster), 2025-04."
     },
     {
       "id": "archives:wayback:www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",

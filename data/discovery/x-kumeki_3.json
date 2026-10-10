@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:kumeki_3",
-  "started_at": "2026-10-10T17:44:08Z",
-  "finished_at": "2026-10-10T17:44:09Z",
+  "started_at": "2026-10-10T20:47:28Z",
+  "finished_at": "2026-10-10T20:47:31Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -38,6 +38,41 @@
       "disposition": "excluded",
       "reason": "out_of_scope_other: the post has no image attachment",
       "notes": "Credit evidence: 'オレンジ描かせて頂きました' quoting the official event post."
+    },
+    {
+      "id": "artists:x:kumeki_3:1156842676290854912:1",
+      "source_id": "artists:x:kumeki_3",
+      "upstream_key": "1156842676290854912:1",
+      "page_url": "https://x.com/KUMEKI_3/status/1156842676290854912",
+      "file_url": "https://pbs.twimg.com/media/EA3uRXyUIAIV_9r?format=jpg&name=orig",
+      "title": "@KUMEKI_3 post 1156842676290854912 image 1",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KUMEKI_3/status/1156842676290854912",
+        "text: オレンジ"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EA3uRXyUIAIV_9r.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-08-01T08:22:41.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kumeki_3:09aca7a9dfbb9442",
+      "song_titles": [
+        "オレンジ"
+      ],
+      "illustrators": [
+        "クメキ"
+      ],
+      "composers": [
+        "Dragon_Klub & 残響P"
+      ]
     }
   ],
   "errors": []

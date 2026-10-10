@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source_id": "official:facebook-c4cats",
+  "started_at": "2026-10-10T20:49:07Z",
+  "finished_at": "2026-10-10T20:49:07Z",
+  "scope": {
+    "lists": [
+      "seed-permalinks",
+      "page-timeline"
+    ],
+    "api": null,
+    "notes": "Explicit permalinks only, read logged out; the Open Graph image of each is the file. The page timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-permalinks": null,
+    "page-timeline": "the timeline is not served to logged-out non-browser clients; the photos research saw (TGS 2017 poster, magazine page, leaflet, booth photos) need manual access"
+  },
+  "discovery_complete": false,
+  "candidates": [
+    {
+      "id": "official:facebook-c4cats:page",
+      "source_id": "official:facebook-c4cats",
+      "upstream_key": "page",
+      "page_url": "https://www.facebook.com/c4cats/",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/310338388_499204985549249_9083721302457246943_n.jpg?stp=dst-jpg_tt6&cstp=mx1000x1000&ctp=s720x720&_nc_cat=109&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dln9zyXGU9IQ7kNvwFGcWZK&_nc_oc=AdoTDYsvg3WWQz5ynCKrzqlYM_Qz4YIOJTO0Owo4FLHeQUJ_XIvbuye5fR8VALjX2q4&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=IaxKb6OrwFHg7DScpGUfUw&_nc_ss=7b20f&oh=00_AQMouWqxvTi8iqs0RJ2G6w0ylxKjxO5pmasGs0GCmmFjpQ&oe=6AD07D91",
+      "title": "C4Cat",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.facebook.com/c4cats/"
+      ],
+      "source_reported": {
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/310338388_499204985549249_9083721302457246943_n.jpg?stp=dst-jpg_tt6&cstp=mx1000x1000&ctp=s720x720&_nc_cat=109&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dln9zyXGU9IQ7kNvwFGcWZK&_nc_oc=AdoTDYsvg3WWQz5ynCKrzqlYM_Qz4YIOJTO0Owo4FLHeQUJ_XIvbuye5fR8VALjX2q4&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=IaxKb6OrwFHg7DScpGUfUw&_nc_ss=7b20f&oh=00_AQMouWqxvTi8iqs0RJ2G6w0ylxKjxO5pmasGs0GCmmFjpQ&oe=6AD07D91",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: company profile picture (C4Cat mascot logo), not Dynamix artwork",
+      "notes": "Open Graph image of https://www.facebook.com/c4cats/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size s720x720, source bound mx1000x1000)."
+    }
+  ],
+  "errors": []
+}

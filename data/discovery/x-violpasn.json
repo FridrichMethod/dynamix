@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:violpasn",
+  "started_at": "2026-10-10T20:47:49Z",
+  "finished_at": "2026-10-10T20:47:54Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:violpasn:1483409021378121731",
+      "source_id": "artists:x:violpasn",
+      "upstream_key": "1483409021378121731",
+      "page_url": "https://x.com/Violpasn/status/1483409021378121731",
+      "file_url": null,
+      "title": "@Violpasn post 1483409021378121731",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: 'ジャケ絵描いてます！' quoting the official NOVA event post."
+    },
+    {
+      "id": "artists:x:violpasn:1483451866457714690:1",
+      "source_id": "artists:x:violpasn",
+      "upstream_key": "1483451866457714690:1",
+      "page_url": "https://x.com/Violpasn/status/1483451866457714690",
+      "file_url": "https://pbs.twimg.com/media/FJZHma3acAAZHNc?format=jpg&name=orig",
+      "title": "@Violpasn post 1483451866457714690 image 1",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/Violpasn/status/1483451866457714690"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FJZHma3acAAZHNc.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-01-18T14:51:00.000Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved_role: image posted as a bare link on the day the artist announced the NOVA jacket; same character and palette as the jacket but a different close-up composition (research MAD 69), so its relation to the jacket rests on timing only",
+      "song_titles": [
+        "NOVA"
+      ]
+    },
+    {
+      "id": "artists:x:violpasn:1483455865696960521",
+      "source_id": "artists:x:violpasn",
+      "upstream_key": "1483455865696960521",
+      "page_url": "https://x.com/Violpasn/status/1483455865696960521",
+      "file_url": null,
+      "title": "@Violpasn post 1483455865696960521",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: 'NOVAのジャケットイラスト…テクスチャは海の写真使ってる'."
+    },
+    {
+      "id": "artists:x:violpasn:1492833474193272833",
+      "source_id": "artists:x:violpasn",
+      "upstream_key": "1492833474193272833",
+      "page_url": "https://x.com/Violpasn/status/1492833474193272833",
+      "file_url": null,
+      "title": "@Violpasn post 1492833474193272833",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Comment that fans use the NOVA jacket as a PC wallpaper."
+    }
+  ],
+  "errors": []
+}

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T17:49:42Z",
-  "finished_at": "2026-10-10T17:49:52Z",
+  "started_at": "2026-10-10T20:49:07Z",
+  "finished_at": "2026-10-10T20:54:05Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -15,10 +15,75 @@
   "continuation": {
     "seed-posts": null,
     "timeline:c4c4cat": "not-read",
-    "wayback-status-captures": "about 2,089 archived status URL keys were not processed"
+    "wayback-status-captures": "research resolved about 840 archived @c4c4cat status IDs through the embed endpoint (2026-10-10); the posts whose images it measured are seeded explicitly, the remaining event-banner photos (about 350, mostly 1200x628) and about 1,250 unresolved archived status keys are not processed"
   },
   "discovery_complete": false,
   "candidates": [
+    {
+      "id": "official:x:1060502195374714881:1",
+      "source_id": "official:x",
+      "upstream_key": "1060502195374714881:1",
+      "page_url": "https://x.com/c4c4cat/status/1060502195374714881",
+      "file_url": "https://pbs.twimg.com/media/DreYHaTV4AAfwm1?format=jpg&name=orig",
+      "title": "@c4c4cat post 1060502195374714881 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1060502195374714881",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DreYHaTV4AAfwm1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2018-11-08T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ced9f5b49ad20718",
+      "song_titles": [
+        "Soul Army",
+        "Marion.net",
+        "銀梅花"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1156165289907838977:1",
+      "source_id": "official:x",
+      "upstream_key": "1156165289907838977:1",
+      "page_url": "https://x.com/c4c4cat/status/1156165289907838977",
+      "file_url": "https://pbs.twimg.com/media/EAt84UoVAAAN2oQ?format=jpg&name=orig",
+      "title": "@c4c4cat post 1156165289907838977 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1156165289907838977",
+        "text: Dynamix 2019夏祭"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EAt84UoVAAAN2oQ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2019-07-30T11:31:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:382e1f759f67406b",
+      "collections": [
+        "Dynamix 2019夏祭"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2019夏祭 (event key art with parts and title rewards)."
+    },
     {
       "id": "official:x:1156172591872167937:1",
       "source_id": "official:x",
@@ -55,6 +120,231 @@
         "Event"
       ],
       "notes": "Official event announcement image for オレンジ."
+    },
+    {
+      "id": "official:x:1178640887355719681:1",
+      "source_id": "official:x",
+      "upstream_key": "1178640887355719681:1",
+      "page_url": "https://x.com/c4c4cat/status/1178640887355719681",
+      "file_url": "https://pbs.twimg.com/media/EFtc1NUUUAEagmM?format=jpg&name=orig",
+      "title": "@c4c4cat post 1178640887355719681 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1178640887355719681",
+        "text: 5周年記念xハロウィーンイベント"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EFtc1NUUUAEagmM.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2019-09-30T12:01:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6df76a69cf796cdc",
+      "collections": [
+        "5周年記念xハロウィーンイベント"
+      ],
+      "notes": "Official seasonal event poster: 5周年記念xハロウィーンイベント (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1186975557067653120:1",
+      "source_id": "official:x",
+      "upstream_key": "1186975557067653120:1",
+      "page_url": "https://x.com/c4c4cat/status/1186975557067653120",
+      "file_url": "https://pbs.twimg.com/media/EF3kK-aXoAE2YEH?format=jpg&name=orig",
+      "title": "@c4c4cat post 1186975557067653120 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1186975557067653120",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EF3kK-aXoAE2YEH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-10-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:466cd8972fe67172",
+      "song_titles": [
+        "Unshakable",
+        "Own The Night",
+        "Prismatic Flipper"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1189512271703269376:1",
+      "source_id": "official:x",
+      "upstream_key": "1189512271703269376:1",
+      "page_url": "https://x.com/c4c4cat/status/1189512271703269376",
+      "file_url": "https://pbs.twimg.com/media/EIH7rtuU0AIB5LF?format=jpg&name=orig",
+      "title": "@c4c4cat post 1189512271703269376 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1189512271703269376",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EIH7rtuU0AIB5LF.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-10-30T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:abdd9e5610a93e71",
+      "song_titles": [
+        "Pandemik",
+        "Hopeful Warrior",
+        "Black：Magnam"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1192048987358019585:1",
+      "source_id": "official:x",
+      "upstream_key": "1192048987358019585:1",
+      "page_url": "https://x.com/c4c4cat/status/1192048987358019585",
+      "file_url": "https://pbs.twimg.com/media/EIrsqgQU4AYCcZ9?format=jpg&name=orig",
+      "title": "@c4c4cat post 1192048987358019585 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1192048987358019585",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EIrsqgQU4AYCcZ9.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-11-06T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b825409f9b7f6916",
+      "song_titles": [
+        "Rain",
+        "Cross†Soul",
+        "Nightmare Girl"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1204007768987881472:1",
+      "source_id": "official:x",
+      "upstream_key": "1204007768987881472:1",
+      "page_url": "https://x.com/c4c4cat/status/1204007768987881472",
+      "file_url": "https://pbs.twimg.com/media/ELV-lIPUwAE0kdx?format=jpg&name=orig",
+      "title": "@c4c4cat post 1204007768987881472 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1204007768987881472",
+        "text: 運営とイベントのお知らせ"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ELV-lIPUwAE0kdx.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2019-12-09T11:59:56.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8d5a64128d00238a",
+      "collections": [
+        "運営とイベントのお知らせ"
+      ],
+      "notes": "Official seasonal event poster: 運営とイベントのお知らせ (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1216690549182230528:1",
+      "source_id": "official:x",
+      "upstream_key": "1216690549182230528:1",
+      "page_url": "https://x.com/c4c4cat/status/1216690549182230528",
+      "file_url": "https://pbs.twimg.com/media/EOKNFnnUYAEOm_R?format=jpg&name=orig",
+      "title": "@c4c4cat post 1216690549182230528 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1216690549182230528",
+        "text: 運営とイベントのお知らせ"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EOKNFnnUYAEOm_R.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-01-13T11:56:46.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6f87043564abaf40",
+      "collections": [
+        "運営とイベントのお知らせ"
+      ],
+      "notes": "Official seasonal event poster: 運営とイベントのお知らせ (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1217763427189309440:1",
+      "source_id": "official:x",
+      "upstream_key": "1217763427189309440:1",
+      "page_url": "https://x.com/c4c4cat/status/1217763427189309440",
+      "file_url": "https://pbs.twimg.com/media/EOZA6mlVAAEvSJj?format=jpg&name=orig",
+      "title": "@c4c4cat post 1217763427189309440 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1217763427189309440",
+        "text: 「Intruders」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EOZA6mlVAAEvSJj.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-01-16T11:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0b07b1a05992b561",
+      "collections": [
+        "Intruders"
+      ],
+      "notes": "Official package release visual for Intruders."
     },
     {
       "id": "official:x:1239884186070265856:1",
@@ -94,6 +384,2432 @@
       "notes": "Official event announcement image for 終の舞姫."
     },
     {
+      "id": "official:x:1247131946095972353:1",
+      "source_id": "official:x",
+      "upstream_key": "1247131946095972353:1",
+      "page_url": "https://x.com/c4c4cat/status/1247131946095972353",
+      "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
+      "title": "@c4c4cat post 1247131946095972353 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1247131946095972353",
+        "text: Dynamix Easter Event 2020"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-04-06T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:3f69eb697c1a213e",
+      "collections": [
+        "Dynamix Easter Event 2020"
+      ],
+      "notes": "Official seasonal event poster: Dynamix Easter Event 2020 (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1250393437095911427:1",
+      "source_id": "official:x",
+      "upstream_key": "1250393437095911427:1",
+      "page_url": "https://x.com/c4c4cat/status/1250393437095911427",
+      "file_url": "https://pbs.twimg.com/media/EVpEHqTUYAIntSM?format=jpg&name=orig",
+      "title": "@c4c4cat post 1250393437095911427 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1250393437095911427",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EVpEHqTUYAIntSM.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-15T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b94303e3d3e5da81",
+      "song_titles": [
+        "Arcana Idola",
+        "Blue"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1251842986339598337:1",
+      "source_id": "official:x",
+      "upstream_key": "1251842986339598337:1",
+      "page_url": "https://x.com/c4c4cat/status/1251842986339598337",
+      "file_url": "https://pbs.twimg.com/media/EVpGq4oU4AEPnbq?format=jpg&name=orig",
+      "title": "@c4c4cat post 1251842986339598337 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1251842986339598337",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EVpGq4oU4AEPnbq.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-19T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:32bbf0b058d37739",
+      "song_titles": [
+        "ほしぞらトラベル",
+        "Peony"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1252930152625049603:1",
+      "source_id": "official:x",
+      "upstream_key": "1252930152625049603:1",
+      "page_url": "https://x.com/c4c4cat/status/1252930152625049603",
+      "file_url": "https://pbs.twimg.com/media/EWNBf3ZU8AEDzXs?format=jpg&name=orig",
+      "title": "@c4c4cat post 1252930152625049603 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1252930152625049603",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EWNBf3ZU8AEDzXs.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-22T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:625d1412186eb9c8",
+      "song_titles": [
+        "Soul fire lit",
+        "BLUFF"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1253292191897681920:1",
+      "source_id": "official:x",
+      "upstream_key": "1253292191897681920:1",
+      "page_url": "https://x.com/c4c4cat/status/1253292191897681920",
+      "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
+      "title": "@c4c4cat post 1253292191897681920 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1253292191897681920",
+        "text: パッケージセール"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-04-23T11:58:38.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1247131946095972353:1",
+      "asset_id": "official:x:3f69eb697c1a213e",
+      "notes": "Package sale post re-using an earlier visual."
+    },
+    {
+      "id": "official:x:1254666590727155713:1",
+      "source_id": "official:x",
+      "upstream_key": "1254666590727155713:1",
+      "page_url": "https://x.com/c4c4cat/status/1254666590727155713",
+      "file_url": "https://pbs.twimg.com/media/EWlrkBwUYAATQWN?format=jpg&name=orig",
+      "title": "@c4c4cat post 1254666590727155713 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1254666590727155713",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EWlrkBwUYAATQWN.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-27T07:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c42a467965c3cdf4",
+      "song_titles": [
+        "Defended",
+        "Justice Justice"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1272499095123267585:1",
+      "source_id": "official:x",
+      "upstream_key": "1272499095123267585:1",
+      "page_url": "https://x.com/c4c4cat/status/1272499095123267585",
+      "file_url": "https://pbs.twimg.com/media/EajQRVgUcAA4ukS?format=jpg&name=orig",
+      "title": "@c4c4cat post 1272499095123267585 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1272499095123267585",
+        "text: Dynamix Dragon Boat Festival Event 2020"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EajQRVgUcAA4ukS.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-06-15T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:de364ac7ddd80ad7",
+      "collections": [
+        "Dynamix Dragon Boat Festival Event 2020"
+      ],
+      "notes": "Official seasonal event poster: Dynamix Dragon Boat Festival Event 2020 (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1275760589386776577:1",
+      "source_id": "official:x",
+      "upstream_key": "1275760589386776577:1",
+      "page_url": "https://x.com/c4c4cat/status/1275760589386776577",
+      "file_url": "https://pbs.twimg.com/media/EbRM1IXWAAEj46G?format=jpg&name=orig",
+      "title": "@c4c4cat post 1275760589386776577 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1275760589386776577",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EbRM1IXWAAEj46G.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-06-24T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1d1b14a95d26c993",
+      "song_titles": [
+        "Angel x Angel",
+        "Vanilla_Sky"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1277210136273027073:1",
+      "source_id": "official:x",
+      "upstream_key": "1277210136273027073:1",
+      "page_url": "https://x.com/c4c4cat/status/1277210136273027073",
+      "file_url": "https://pbs.twimg.com/media/EbRSVn-U4AE7nfP?format=jpg&name=orig",
+      "title": "@c4c4cat post 1277210136273027073 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1277210136273027073",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EbRSVn-U4AE7nfP.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-06-28T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:3ade0e637be0242a",
+      "song_titles": [
+        "CORONA",
+        "交差して歪む過去と未来"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1285907445466804224:1",
+      "source_id": "official:x",
+      "upstream_key": "1285907445466804224:1",
+      "page_url": "https://x.com/c4c4cat/status/1285907445466804224",
+      "file_url": "https://pbs.twimg.com/media/EdhX_DkUcAAO4x_?format=png&name=orig",
+      "title": "@c4c4cat post 1285907445466804224 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1285907445466804224",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EdhX_DkUcAAO4x_.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-07-22T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5a728c2c415db1b8",
+      "song_titles": [
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1287357000016224260:1",
+      "source_id": "official:x",
+      "upstream_key": "1287357000016224260:1",
+      "page_url": "https://x.com/c4c4cat/status/1287357000016224260",
+      "file_url": "https://pbs.twimg.com/media/EdhY3GyU8AU8oUN?format=png&name=orig",
+      "title": "@c4c4cat post 1287357000016224260 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1287357000016224260",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EdhY3GyU8AU8oUN.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-07-26T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1936c6b809397971",
+      "song_titles": [
+        "The Endless for Traveler",
+        "NOISIΛ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1288444160018612224:1",
+      "source_id": "official:x",
+      "upstream_key": "1288444160018612224:1",
+      "page_url": "https://x.com/c4c4cat/status/1288444160018612224",
+      "file_url": "https://pbs.twimg.com/media/Ed7NC7MUYAI9LeO?format=png&name=orig",
+      "title": "@c4c4cat post 1288444160018612224 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1288444160018612224",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ed7NC7MUYAI9LeO.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-07-29T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:63d4c79dde31fb46",
+      "song_titles": [
+        "Nova Highway",
+        "soar to Ø"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1289893710214262786:1",
+      "source_id": "official:x",
+      "upstream_key": "1289893710214262786:1",
+      "page_url": "https://x.com/c4c4cat/status/1289893710214262786",
+      "file_url": "https://pbs.twimg.com/media/Ed7NchHUcAExQlq?format=png&name=orig",
+      "title": "@c4c4cat post 1289893710214262786 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1289893710214262786",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ed7NchHUcAExQlq.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-08-02T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:83c6cbbb32688e2d",
+      "song_titles": [
+        "Lily",
+        "Sunset Road"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1298591025418481664:1",
+      "source_id": "official:x",
+      "upstream_key": "1298591025418481664:1",
+      "page_url": "https://x.com/c4c4cat/status/1298591025418481664",
+      "file_url": "https://pbs.twimg.com/media/EgVD8tRUcAAqNor?format=jpg&name=orig",
+      "title": "@c4c4cat post 1298591025418481664 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1298591025418481664",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EgVD8tRUcAAqNor.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-08-26T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c9c0c6b072e79188",
+      "song_titles": [
+        "to soar",
+        "哀しい竜とカイツール"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1300040576968962048:1",
+      "source_id": "official:x",
+      "upstream_key": "1300040576968962048:1",
+      "page_url": "https://x.com/c4c4cat/status/1300040576968962048",
+      "file_url": "https://pbs.twimg.com/media/EgVEFIBUYAAp64w?format=jpg&name=orig",
+      "title": "@c4c4cat post 1300040576968962048 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1300040576968962048",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EgVEFIBUYAAp64w.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-08-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:94c999c6934b47df",
+      "song_titles": [
+        "Dement ~After Legend~",
+        "Knight of Tripletz (for DNX Edit)"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1305114005191757824:1",
+      "source_id": "official:x",
+      "upstream_key": "1305114005191757824:1",
+      "page_url": "https://x.com/c4c4cat/status/1305114005191757824",
+      "file_url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk?format=jpg&name=orig",
+      "title": "@c4c4cat post 1305114005191757824 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1305114005191757824",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-09-13T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8a10ba24f26ac2bb",
+      "song_titles": [
+        "Destruction"
+      ],
+      "composers": [
+        "桃源郷華"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Destruction."
+    },
+    {
+      "id": "official:x:1305838780729917441:1",
+      "source_id": "official:x",
+      "upstream_key": "1305838780729917441:1",
+      "page_url": "https://x.com/c4c4cat/status/1305838780729917441",
+      "file_url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64?format=jpg&name=orig",
+      "title": "@c4c4cat post 1305838780729917441 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1305838780729917441",
+        "text: Moving On"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-09-15T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a5e46e7793cbe06e",
+      "song_titles": [
+        "Moving On"
+      ],
+      "composers": [
+        "CROWLIA"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Moving On."
+    },
+    {
+      "id": "official:x:1306201168503332870:1",
+      "source_id": "official:x",
+      "upstream_key": "1306201168503332870:1",
+      "page_url": "https://x.com/c4c4cat/status/1306201168503332870",
+      "file_url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5?format=jpg&name=orig",
+      "title": "@c4c4cat post 1306201168503332870 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1306201168503332870",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-09-16T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6cc91f344951b151",
+      "song_titles": [
+        "Cryonix"
+      ],
+      "composers": [
+        "sky_delta"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Cryonix."
+    },
+    {
+      "id": "official:x:1308737882526425088:1",
+      "source_id": "official:x",
+      "upstream_key": "1308737882526425088:1",
+      "page_url": "https://x.com/c4c4cat/status/1308737882526425088",
+      "file_url": "https://pbs.twimg.com/media/EimApnSVoAAcWIJ?format=jpg&name=orig",
+      "title": "@c4c4cat post 1308737882526425088 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1308737882526425088",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EimApnSVoAAcWIJ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-09-23T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ee6d74d870f0aa73",
+      "song_titles": [
+        "Triumph & Regret",
+        "Youth"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1310187433485504513:1",
+      "source_id": "official:x",
+      "upstream_key": "1310187433485504513:1",
+      "page_url": "https://x.com/c4c4cat/status/1310187433485504513",
+      "file_url": "https://pbs.twimg.com/media/EimCJjJVgAEhAcX?format=jpg&name=orig",
+      "title": "@c4c4cat post 1310187433485504513 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1310187433485504513",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EimCJjJVgAEhAcX.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-09-27T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:681eb6506120b95d",
+      "song_titles": [
+        "DeaDLiNE",
+        "夏色メランコリー"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1310910948119425025:1",
+      "source_id": "official:x",
+      "upstream_key": "1310910948119425025:1",
+      "page_url": "https://x.com/c4c4cat/status/1310910948119425025",
+      "file_url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U?format=jpg&name=orig",
+      "title": "@c4c4cat post 1310910948119425025 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1310910948119425025",
+        "text: 「Crossing Delta」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-09-29T11:55:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:3cd2433c5a65f04e",
+      "collections": [
+        "Crossing Delta"
+      ],
+      "notes": "Official package release visual for Crossing Delta."
+    },
+    {
+      "id": "official:x:1315623248558686209:1",
+      "source_id": "official:x",
+      "upstream_key": "1315623248558686209:1",
+      "page_url": "https://x.com/c4c4cat/status/1315623248558686209",
+      "file_url": "https://pbs.twimg.com/media/EkHxQefU0AA7NAF?format=jpg&name=orig",
+      "title": "@c4c4cat post 1315623248558686209 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1315623248558686209",
+        "text: Dynamix Halloween Event 2020 x 6th Anniversary"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EkHxQefU0AA7NAF.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-10-12T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b0c9d1930e06d84b",
+      "collections": [
+        "Dynamix Halloween Event 2020 x 6th Anniversary"
+      ],
+      "notes": "Official seasonal event poster: Dynamix Halloween Event 2020 x 6th Anniversary (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1318884743513919490:1",
+      "source_id": "official:x",
+      "upstream_key": "1318884743513919490:1",
+      "page_url": "https://x.com/c4c4cat/status/1318884743513919490",
+      "file_url": "https://pbs.twimg.com/media/Ek2SC4TVgAMAlh6?format=jpg&name=orig",
+      "title": "@c4c4cat post 1318884743513919490 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1318884743513919490",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ek2SC4TVgAMAlh6.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-10-21T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:fccb7400f428c517",
+      "song_titles": [
+        "Link To Dungeons",
+        "Sultan Madness"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1320334293516709889:1",
+      "source_id": "official:x",
+      "upstream_key": "1320334293516709889:1",
+      "page_url": "https://x.com/c4c4cat/status/1320334293516709889",
+      "file_url": "https://pbs.twimg.com/media/Ek2SojJVcAE2Iec?format=jpg&name=orig",
+      "title": "@c4c4cat post 1320334293516709889 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1320334293516709889",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ek2SojJVcAE2Iec.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-10-25T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0dbd5dc516992e2f",
+      "song_titles": [
+        "Arty Party",
+        "Ice Chandelier"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1321421459638681601:1",
+      "source_id": "official:x",
+      "upstream_key": "1321421459638681601:1",
+      "page_url": "https://x.com/c4c4cat/status/1321421459638681601",
+      "file_url": "https://pbs.twimg.com/media/ElaYs8AUUAIDYVG?format=jpg&name=orig",
+      "title": "@c4c4cat post 1321421459638681601 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1321421459638681601",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ElaYs8AUUAIDYVG.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-10-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:006b6c12164867ae",
+      "song_titles": [
+        "Sky land",
+        "Rudy"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1322871006357315585:1",
+      "source_id": "official:x",
+      "upstream_key": "1322871006357315585:1",
+      "page_url": "https://x.com/c4c4cat/status/1322871006357315585",
+      "file_url": "https://pbs.twimg.com/media/ElaahtdVMAE5RME?format=jpg&name=orig",
+      "title": "@c4c4cat post 1322871006357315585 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1322871006357315585",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ElaahtdVMAE5RME.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-01T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:7bb8daeb73628f72",
+      "song_titles": [
+        "Time & Space (Dynamix Edit)",
+        "16383"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1323490087397658624:1",
+      "source_id": "official:x",
+      "upstream_key": "1323490087397658624:1",
+      "page_url": "https://x.com/c4c4cat/status/1323490087397658624",
+      "file_url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U?format=jpg&name=orig",
+      "title": "@c4c4cat post 1323490087397658624 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1323490087397658624",
+        "text: Package Sale"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-03T05:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1310910948119425025:1",
+      "asset_id": "official:x:3cd2433c5a65f04e",
+      "notes": "Package sale post re-using an earlier visual."
+    },
+    {
+      "id": "official:x:1325407725623283712:1",
+      "source_id": "official:x",
+      "upstream_key": "1325407725623283712:1",
+      "page_url": "https://x.com/c4c4cat/status/1325407725623283712",
+      "file_url": "https://pbs.twimg.com/media/El-TYtJVoAcIT1L?format=jpg&name=orig",
+      "title": "@c4c4cat post 1325407725623283712 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1325407725623283712",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/El-TYtJVoAcIT1L.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-11-08T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:58d5475d92d245db",
+      "song_titles": [
+        "Black：Magnam"
+      ],
+      "composers": [
+        "adaptor"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Black：Magnam."
+    },
+    {
+      "id": "official:x:1331568315706142723:1",
+      "source_id": "official:x",
+      "upstream_key": "1331568315706142723:1",
+      "page_url": "https://x.com/c4c4cat/status/1331568315706142723",
+      "file_url": "https://pbs.twimg.com/media/EnBdyDZUUAETadH?format=jpg&name=orig",
+      "title": "@c4c4cat post 1331568315706142723 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1331568315706142723",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EnBdyDZUUAETadH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-25T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:47ae656af1faa96d",
+      "song_titles": [
+        "Hall of Fame",
+        "Glory of the Sacred Kingdom"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1333017872860213255:1",
+      "source_id": "official:x",
+      "upstream_key": "1333017872860213255:1",
+      "page_url": "https://x.com/c4c4cat/status/1333017872860213255",
+      "file_url": "https://pbs.twimg.com/media/EnBfi_ZVkAEQm63?format=jpg&name=orig",
+      "title": "@c4c4cat post 1333017872860213255 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1333017872860213255",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EnBfi_ZVkAEQm63.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-29T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a82b78412cb97420",
+      "song_titles": [
+        "BOUNCE THE TECH",
+        "Chrysoberyl"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1338453689703555072:1",
+      "source_id": "official:x",
+      "upstream_key": "1338453689703555072:1",
+      "page_url": "https://x.com/c4c4cat/status/1338453689703555072",
+      "file_url": "https://pbs.twimg.com/media/EpMXSZrUwAAWUI8?format=jpg&name=orig",
+      "title": "@c4c4cat post 1338453689703555072 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1338453689703555072",
+        "text: Dynamix 2020 Christmas Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EpMXSZrUwAAWUI8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-12-14T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:f75528d1fbf516ad",
+      "collections": [
+        "Dynamix 2020 Christmas Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2020 Christmas Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1341715177331335169:1",
+      "source_id": "official:x",
+      "upstream_key": "1341715177331335169:1",
+      "page_url": "https://x.com/c4c4cat/status/1341715177331335169",
+      "file_url": "https://pbs.twimg.com/media/EoOdjO6VkAEg6RD?format=jpg&name=orig",
+      "title": "@c4c4cat post 1341715177331335169 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1341715177331335169",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EoOdjO6VkAEg6RD.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-12-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:87bc1655b3671ff9",
+      "song_titles": [
+        "Speedster, Trickster",
+        "Empty Stars"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1343164731750694917:1",
+      "source_id": "official:x",
+      "upstream_key": "1343164731750694917:1",
+      "page_url": "https://x.com/c4c4cat/status/1343164731750694917",
+      "file_url": "https://pbs.twimg.com/media/EoOelXgVcAEJLH9?format=jpg&name=orig",
+      "title": "@c4c4cat post 1343164731750694917 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1343164731750694917",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EoOelXgVcAEJLH9.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-12-27T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c44206c899a67f6d",
+      "song_titles": [
+        "Anökumene",
+        "JOACHIM : D"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1351862036330905601:1",
+      "source_id": "official:x",
+      "upstream_key": "1351862036330905601:1",
+      "page_url": "https://x.com/c4c4cat/status/1351862036330905601",
+      "file_url": "https://pbs.twimg.com/media/Eqe07uhUwAELAuK?format=jpg&name=orig",
+      "title": "@c4c4cat post 1351862036330905601 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1351862036330905601",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe07uhUwAELAuK.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-20T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:720f71fe125951c8",
+      "song_titles": [
+        "曇る鑑《かがみ》の霧を含みて",
+        "白色の夢で。"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1353311589705854978:1",
+      "source_id": "official:x",
+      "upstream_key": "1353311589705854978:1",
+      "page_url": "https://x.com/c4c4cat/status/1353311589705854978",
+      "file_url": "https://pbs.twimg.com/media/Eqe1fYXUUAIZR4U?format=jpg&name=orig",
+      "title": "@c4c4cat post 1353311589705854978 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1353311589705854978",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe1fYXUUAIZR4U.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-24T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5940aaf11f99f5e3",
+      "song_titles": [
+        "Dead Master",
+        "Lumina"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1354398754414051334:1",
+      "source_id": "official:x",
+      "upstream_key": "1354398754414051334:1",
+      "page_url": "https://x.com/c4c4cat/status/1354398754414051334",
+      "file_url": "https://pbs.twimg.com/media/Eqe13YHVQAAeBiu?format=jpg&name=orig",
+      "title": "@c4c4cat post 1354398754414051334 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1354398754414051334",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe13YHVQAAeBiu.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-27T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1d2b4f1a806ad032",
+      "song_titles": [
+        "声が届かないのなら",
+        "Marion.net"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1355848303439581188:1",
+      "source_id": "official:x",
+      "upstream_key": "1355848303439581188:1",
+      "page_url": "https://x.com/c4c4cat/status/1355848303439581188",
+      "file_url": "https://pbs.twimg.com/media/Eqe2RpoVoAEsnQk?format=jpg&name=orig",
+      "title": "@c4c4cat post 1355848303439581188 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1355848303439581188",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe2RpoVoAEsnQk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-31T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8ca5d1910a19f236",
+      "song_titles": [
+        "The Clockwork Doll",
+        "Wish"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1356210690101489665:1",
+      "source_id": "official:x",
+      "upstream_key": "1356210690101489665:1",
+      "page_url": "https://x.com/c4c4cat/status/1356210690101489665",
+      "file_url": "https://pbs.twimg.com/media/EtI5i4yUYAM7l-e?format=jpg&name=orig",
+      "title": "@c4c4cat post 1356210690101489665 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1356210690101489665",
+        "text: イベント曲を予告"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtI5i4yUYAM7l-e.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1500,
+        "height": 500,
+        "sha1": null,
+        "timestamp": "2021-02-01T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d6121546cd900c64",
+      "song_titles": [
+        "My life is mine",
+        "(XD)",
+        "WHIRLWIND"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Monthly upcoming-events lineup (list graphic)."
+    },
+    {
+      "id": "official:x:1358747410151870464:1",
+      "source_id": "official:x",
+      "upstream_key": "1358747410151870464:1",
+      "page_url": "https://x.com/c4c4cat/status/1358747410151870464",
+      "file_url": "https://pbs.twimg.com/media/EtsoXDrVoAAVULZ?format=jpg&name=orig",
+      "title": "@c4c4cat post 1358747410151870464 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1358747410151870464",
+        "text: Dynamix 2021 Lunar New Year Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtsoXDrVoAAVULZ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2021-02-08T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:66f8c60a43a23cd9",
+      "collections": [
+        "Dynamix 2021 Lunar New Year Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Lunar New Year Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1361646516008443909:1",
+      "source_id": "official:x",
+      "upstream_key": "1361646516008443909:1",
+      "page_url": "https://x.com/c4c4cat/status/1361646516008443909",
+      "file_url": "https://pbs.twimg.com/media/EuUhfVSVoAMk5x5?format=jpg&name=orig",
+      "title": "@c4c4cat post 1361646516008443909 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1361646516008443909",
+        "text: WHIRLWIND"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EuUhfVSVoAMk5x5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2021-02-16T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:529235db7535a1bc",
+      "song_titles": [
+        "WHIRLWIND"
+      ],
+      "composers": [
+        "Linne X SCTL"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for WHIRLWIND."
+    },
+    {
+      "id": "official:x:1364545616563507202:1",
+      "source_id": "official:x",
+      "upstream_key": "1364545616563507202:1",
+      "page_url": "https://x.com/c4c4cat/status/1364545616563507202",
+      "file_url": "https://pbs.twimg.com/media/EtS6TO0U4AYmRLg?format=jpg&name=orig",
+      "title": "@c4c4cat post 1364545616563507202 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1364545616563507202",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtS6TO0U4AYmRLg.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-02-24T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:37d974533599e8a7",
+      "song_titles": [
+        "Crank up",
+        "Aujourd'hui"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1365995165387792390:1",
+      "source_id": "official:x",
+      "upstream_key": "1365995165387792390:1",
+      "page_url": "https://x.com/c4c4cat/status/1365995165387792390",
+      "file_url": "https://pbs.twimg.com/media/EtS59PgU4AIZ2cW?format=jpg&name=orig",
+      "title": "@c4c4cat post 1365995165387792390 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1365995165387792390",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtS59PgU4AIZ2cW.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-02-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5f9334357fe1449a",
+      "song_titles": [
+        "Evoltex (poppi'n mix)",
+        "Regenerate Violence"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1374692479027580930:1",
+      "source_id": "official:x",
+      "upstream_key": "1374692479027580930:1",
+      "page_url": "https://x.com/c4c4cat/status/1374692479027580930",
+      "file_url": "https://pbs.twimg.com/media/ExOFa9sVcAYlj6A?format=jpg&name=orig",
+      "title": "@c4c4cat post 1374692479027580930 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1374692479027580930",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ExOFa9sVcAYlj6A.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-03-24T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ac5bc1971fe2a62e",
+      "song_titles": [
+        "Xetta",
+        "Oriental Landscape"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1376142026622828546:1",
+      "source_id": "official:x",
+      "upstream_key": "1376142026622828546:1",
+      "page_url": "https://x.com/c4c4cat/status/1376142026622828546",
+      "file_url": "https://pbs.twimg.com/media/ExOIV54VkAAk06Q?format=jpg&name=orig",
+      "title": "@c4c4cat post 1376142026622828546 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1376142026622828546",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ExOIV54VkAAk06Q.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-03-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ad6b57d1b1bed2e7",
+      "song_titles": [
+        "終の舞姫",
+        "Kreuz"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1376504413452439553:1",
+      "source_id": "official:x",
+      "upstream_key": "1376504413452439553:1",
+      "page_url": "https://x.com/c4c4cat/status/1376504413452439553",
+      "file_url": "https://pbs.twimg.com/media/ExpKp94UYAAkb4e?format=jpg&name=orig",
+      "title": "@c4c4cat post 1376504413452439553 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1376504413452439553",
+        "text: Dynamix 2021 Easter Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ExpKp94UYAAkb4e.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 821,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2021-03-29T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:fb25bfb3cf57354a",
+      "collections": [
+        "Dynamix 2021 Easter Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Easter Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1385201723678003201:1",
+      "source_id": "official:x",
+      "upstream_key": "1385201723678003201:1",
+      "page_url": "https://x.com/c4c4cat/status/1385201723678003201",
+      "file_url": "https://pbs.twimg.com/media/EzkTRRYUcAE3bwR?format=jpg&name=orig",
+      "title": "@c4c4cat post 1385201723678003201 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1385201723678003201",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EzkTRRYUcAE3bwR.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-04-22T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c02eaaa198b196de",
+      "song_titles": [
+        "Startail",
+        "Blue"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1386288886435876868:1",
+      "source_id": "official:x",
+      "upstream_key": "1386288886435876868:1",
+      "page_url": "https://x.com/c4c4cat/status/1386288886435876868",
+      "file_url": "https://pbs.twimg.com/media/Ezkyos0VEAAsmGH?format=jpg&name=orig",
+      "title": "@c4c4cat post 1386288886435876868 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1386288886435876868",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ezkyos0VEAAsmGH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-04-25T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ae90d497e74bfd38",
+      "song_titles": [
+        "Now Is The Time, Do It",
+        "Arcana Idola"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1387376051807047689:1",
+      "source_id": "official:x",
+      "upstream_key": "1387376051807047689:1",
+      "page_url": "https://x.com/c4c4cat/status/1387376051807047689",
+      "file_url": "https://pbs.twimg.com/media/E0DRsr8UUAAo2lx?format=jpg&name=orig",
+      "title": "@c4c4cat post 1387376051807047689 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1387376051807047689",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E0DRsr8UUAAo2lx.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-04-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:2a6f000d28e0a1a7",
+      "song_titles": [
+        "月奏リバイバル",
+        "Mass Control"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1388825604774977538:1",
+      "source_id": "official:x",
+      "upstream_key": "1388825604774977538:1",
+      "page_url": "https://x.com/c4c4cat/status/1388825604774977538",
+      "file_url": "https://pbs.twimg.com/media/E0DVENlVEAYH_e3?format=jpg&name=orig",
+      "title": "@c4c4cat post 1388825604774977538 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1388825604774977538",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E0DVENlVEAYH_e3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-05-02T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9d34f76cb6f75ee0",
+      "song_titles": [
+        "Fernand System Operating!!",
+        "ほしぞらトラベル"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1397522911678840838:1",
+      "source_id": "official:x",
+      "upstream_key": "1397522911678840838:1",
+      "page_url": "https://x.com/c4c4cat/status/1397522911678840838",
+      "file_url": "https://pbs.twimg.com/media/E2T5jGJUcAErvEE?format=jpg&name=orig",
+      "title": "@c4c4cat post 1397522911678840838 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1397522911678840838",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E2T5jGJUcAErvEE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-05-26T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b0b3af2d5e23b774",
+      "song_titles": [
+        "New Story",
+        "αterlβus"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1398972463879438337:1",
+      "source_id": "official:x",
+      "upstream_key": "1398972463879438337:1",
+      "page_url": "https://x.com/c4c4cat/status/1398972463879438337",
+      "file_url": "https://pbs.twimg.com/media/E2T6hMxVgAMOExz?format=jpg&name=orig",
+      "title": "@c4c4cat post 1398972463879438337 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1398972463879438337",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E2T6hMxVgAMOExz.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-05-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0d8c9e9f7b8bf0fc",
+      "song_titles": [
+        "Forbidden Area",
+        "Snowy Light"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1407669775799623683:1",
+      "source_id": "official:x",
+      "upstream_key": "1407669775799623683:1",
+      "page_url": "https://x.com/c4c4cat/status/1407669775799623683",
+      "file_url": "https://pbs.twimg.com/media/E4kH7QdVgAIK-yq?format=jpg&name=orig",
+      "title": "@c4c4cat post 1407669775799623683 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1407669775799623683",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E4kH7QdVgAIK-yq.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-06-23T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:01205e79b8d11c8a",
+      "song_titles": [
+        "Flarebirds of Scarlet Prism",
+        "Sky Adventure!"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1409116629825294344:1",
+      "source_id": "official:x",
+      "upstream_key": "1409116629825294344:1",
+      "page_url": "https://x.com/c4c4cat/status/1409116629825294344",
+      "file_url": "https://pbs.twimg.com/media/E44wDiZVkAMg9HG?format=jpg&name=orig",
+      "title": "@c4c4cat post 1409116629825294344 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1409116629825294344",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E44wDiZVkAMg9HG.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-06-27T11:49:19.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d894e3a7684cf794",
+      "song_titles": [
+        "Starbirds of Zenith Blue",
+        "涅槃を灯すシャーデンフロイデ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1410901066380623872:1",
+      "source_id": "official:x",
+      "upstream_key": "1410901066380623872:1",
+      "page_url": "https://x.com/c4c4cat/status/1410901066380623872",
+      "file_url": "https://pbs.twimg.com/media/E5RlMB7VkAAqCzB?format=jpg&name=orig",
+      "title": "@c4c4cat post 1410901066380623872 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1410901066380623872",
+        "text: RAVON",
+        "text: テーマアート"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5RlMB7VkAAqCzB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-07-02T10:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:97a9b4dd29646a8f",
+      "illustrators": [
+        "takelifesoul"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON x Dynamix collaboration announcement key art."
+    },
+    {
+      "id": "official:x:1417816629401030660:1",
+      "source_id": "official:x",
+      "upstream_key": "1417816629401030660:1",
+      "page_url": "https://x.com/c4c4cat/status/1417816629401030660",
+      "file_url": "https://pbs.twimg.com/media/E5HphI5VcAE28_1?format=jpg&name=orig",
+      "title": "@c4c4cat post 1417816629401030660 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1417816629401030660",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5HphI5VcAE28_1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-07-21T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a39148c9c240feb9",
+      "song_titles": [
+        "Angel x Angel",
+        "The Path"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1418541403244617732:1",
+      "source_id": "official:x",
+      "upstream_key": "1418541403244617732:1",
+      "page_url": "https://x.com/c4c4cat/status/1418541403244617732",
+      "file_url": "https://pbs.twimg.com/media/E69KT6rVkAYVLlF?format=jpg&name=orig",
+      "title": "@c4c4cat post 1418541403244617732 image 1",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1418541403244617732"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E69KT6rVkAYVLlF.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1365,
+        "sha1": null,
+        "timestamp": "2021-07-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "fanart: weekly [Artwork Submission] repost of a player's drawing (メイドさん by Yunana), not game artwork"
+    },
+    {
+      "id": "official:x:1419266181224177668:1",
+      "source_id": "official:x",
+      "upstream_key": "1419266181224177668:1",
+      "page_url": "https://x.com/c4c4cat/status/1419266181224177668",
+      "file_url": "https://pbs.twimg.com/media/E5Hp6YbUYAQ-gAZ?format=jpg&name=orig",
+      "title": "@c4c4cat post 1419266181224177668 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1419266181224177668",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5Hp6YbUYAQ-gAZ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-07-25T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c28cc335048e6f53",
+      "song_titles": [
+        "RASeed",
+        "Dolqueen"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1420353347035582469:1",
+      "source_id": "official:x",
+      "upstream_key": "1420353347035582469:1",
+      "page_url": "https://x.com/c4c4cat/status/1420353347035582469",
+      "file_url": "https://pbs.twimg.com/media/E5HqUBJVkAYG1X3?format=jpg&name=orig",
+      "title": "@c4c4cat post 1420353347035582469 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1420353347035582469",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5HqUBJVkAYG1X3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-07-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:95336dd6981c898a",
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Enhanced Lights"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1421802897663139843:1",
+      "source_id": "official:x",
+      "upstream_key": "1421802897663139843:1",
+      "page_url": "https://x.com/c4c4cat/status/1421802897663139843",
+      "file_url": "https://pbs.twimg.com/media/E5HqpGoVUAMwWfU?format=jpg&name=orig",
+      "title": "@c4c4cat post 1421802897663139843 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1421802897663139843",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5HqpGoVUAMwWfU.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-08-01T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:67faa2271adff3ea",
+      "song_titles": [
+        "CORONA",
+        "Between Boundaries"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1427842694999527428:1",
+      "source_id": "official:x",
+      "upstream_key": "1427842694999527428:1",
+      "page_url": "https://x.com/c4c4cat/status/1427842694999527428",
+      "file_url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
+      "title": "@c4c4cat post 1427842694999527428 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1427842694999527428",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-18T04:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:041252f0496cabc0",
+      "song_titles": [
+        "White：Revolve"
+      ],
+      "composers": [
+        "adaptor"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1428205081292251137:1",
+      "source_id": "official:x",
+      "upstream_key": "1428205081292251137:1",
+      "page_url": "https://x.com/c4c4cat/status/1428205081292251137",
+      "file_url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH?format=jpg&name=orig",
+      "title": "@c4c4cat post 1428205081292251137 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428205081292251137",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-19T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9ae51520ad1e1bb5",
+      "song_titles": [
+        "Astral"
+      ],
+      "composers": [
+        "Titan Chaos"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1428567468444950530:1",
+      "source_id": "official:x",
+      "upstream_key": "1428567468444950530:1",
+      "page_url": "https://x.com/c4c4cat/status/1428567468444950530",
+      "file_url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi?format=jpg&name=orig",
+      "title": "@c4c4cat post 1428567468444950530 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428567468444950530",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-20T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:7d9659da9017b37f",
+      "song_titles": [
+        "Mitochondria"
+      ],
+      "composers": [
+        "5argon"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1428839259532836867:1",
+      "source_id": "official:x",
+      "upstream_key": "1428839259532836867:1",
+      "page_url": "https://x.com/c4c4cat/status/1428839259532836867",
+      "file_url": "https://pbs.twimg.com/media/E9EPwbSVoAQy4ZX?format=jpg&name=orig",
+      "title": "@c4c4cat post 1428839259532836867 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428839259532836867",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9EPwbSVoAQy4ZX.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-20T22:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b70d6c0362b2def2",
+      "song_titles": [
+        "ReLyna"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1428960055492321284:1",
+      "source_id": "official:x",
+      "upstream_key": "1428960055492321284:1",
+      "page_url": "https://x.com/c4c4cat/status/1428960055492321284",
+      "file_url": "https://pbs.twimg.com/media/E9END1JVIAk8djf?format=jpg&name=orig",
+      "title": "@c4c4cat post 1428960055492321284 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428960055492321284",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9END1JVIAk8djf.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-21T06:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:115ec68fc024f6a6",
+      "song_titles": [
+        "White：Revolve",
+        "Astral",
+        "Mitochondria",
+        "ReLyna"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration pack visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1430500213030936583:1",
+      "source_id": "official:x",
+      "upstream_key": "1430500213030936583:1",
+      "page_url": "https://x.com/c4c4cat/status/1430500213030936583",
+      "file_url": "https://pbs.twimg.com/media/E78abygVcAUiCoE?format=jpg&name=orig",
+      "title": "@c4c4cat post 1430500213030936583 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1430500213030936583",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E78abygVcAUiCoE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-08-25T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:14c5034f27731c91",
+      "song_titles": [
+        "diSTractiOn PoInT",
+        "The Endless for Traveler"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1431949753311432704:1",
+      "source_id": "official:x",
+      "upstream_key": "1431949753311432704:1",
+      "page_url": "https://x.com/c4c4cat/status/1431949753311432704",
+      "file_url": "https://pbs.twimg.com/media/E78cecNVIAMnStE?format=jpg&name=orig",
+      "title": "@c4c4cat post 1431949753311432704 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1431949753311432704",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E78cecNVIAMnStE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-08-29T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0bcbd9a63e447feb",
+      "song_titles": [
+        "Frontline B-Side",
+        "NOISIΛ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1434365675686879233:1",
+      "source_id": "official:x",
+      "upstream_key": "1434365675686879233:1",
+      "page_url": "https://x.com/c4c4cat/status/1434365675686879233",
+      "file_url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
+      "title": "@c4c4cat post 1434365675686879233 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1434365675686879233",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-05T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:aca9b669cb4310f2",
+      "song_titles": [
+        "Rave! and Get On It!"
+      ],
+      "composers": [
+        "Woof"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1434728063649079298:1",
+      "source_id": "official:x",
+      "upstream_key": "1434728063649079298:1",
+      "page_url": "https://x.com/c4c4cat/status/1434728063649079298",
+      "file_url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw?format=jpg&name=orig",
+      "title": "@c4c4cat post 1434728063649079298 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1434728063649079298",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-06T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:15d01e5a7debd02a",
+      "song_titles": [
+        "Totally bounded"
+      ],
+      "composers": [
+        "影虎。"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1435090451833315331:1",
+      "source_id": "official:x",
+      "upstream_key": "1435090451833315331:1",
+      "page_url": "https://x.com/c4c4cat/status/1435090451833315331",
+      "file_url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS?format=jpg&name=orig",
+      "title": "@c4c4cat post 1435090451833315331 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1435090451833315331",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-07T04:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a751b31e7ba30526",
+      "song_titles": [
+        "Euouae"
+      ],
+      "composers": [
+        "Spyro Kong"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1435452837211803651:1",
+      "source_id": "official:x",
+      "upstream_key": "1435452837211803651:1",
+      "page_url": "https://x.com/c4c4cat/status/1435452837211803651",
+      "file_url": "https://pbs.twimg.com/media/E-cEBF4UUAI96Tk?format=jpg&name=orig",
+      "title": "@c4c4cat post 1435452837211803651 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1435452837211803651",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cEBF4UUAI96Tk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-08T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:842f07662ac8dd0c",
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1435483036779483139:1",
+      "source_id": "official:x",
+      "upstream_key": "1435483036779483139:1",
+      "page_url": "https://x.com/c4c4cat/status/1435483036779483139",
+      "file_url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO?format=jpg&name=orig",
+      "title": "@c4c4cat post 1435483036779483139 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1435483036779483139",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-08T06:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0977a070859fd5c0",
+      "song_titles": [
+        "Rave! and Get On It!",
+        "Totally bounded",
+        "Euouae",
+        "MassacrE || 3rc4224M"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration pack visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1437430883837956097:1",
+      "source_id": "official:x",
+      "upstream_key": "1437430883837956097:1",
+      "page_url": "https://x.com/c4c4cat/status/1437430883837956097",
+      "file_url": "https://pbs.twimg.com/media/E_LApDjVgAcCD2o?format=jpg&name=orig",
+      "title": "@c4c4cat post 1437430883837956097 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1437430883837956097",
+        "text: Dynamix 2021 Mid-Autumn Festival Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E_LApDjVgAcCD2o.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1230,
+        "height": 1800,
+        "sha1": null,
+        "timestamp": "2021-09-13T15:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a923f203fc14f9e1",
+      "collections": [
+        "Dynamix 2021 Mid-Autumn Festival Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Mid-Autumn Festival Event (event key art with parts and title rewards)."
+    },
+    {
       "id": "official:x:1437747970875674626:1",
       "source_id": "official:x",
       "upstream_key": "1437747970875674626:1",
@@ -129,6 +2845,826 @@
         "Event"
       ],
       "notes": "Official event announcement image for 玲瓏メテオ."
+    },
+    {
+      "id": "official:x:1440662164495237120:1",
+      "source_id": "official:x",
+      "upstream_key": "1440662164495237120:1",
+      "page_url": "https://x.com/c4c4cat/status/1440662164495237120",
+      "file_url": "https://pbs.twimg.com/media/E_46yojVEAMaNQG?format=jpg&name=orig",
+      "title": "@c4c4cat post 1440662164495237120 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1440662164495237120",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E_46yojVEAMaNQG.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-09-22T13:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:85786f5af3f79955",
+      "song_titles": [
+        "MLG",
+        "おもひでファンタジア"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1450809024216059910:1",
+      "source_id": "official:x",
+      "upstream_key": "1450809024216059910:1",
+      "page_url": "https://x.com/c4c4cat/status/1450809024216059910",
+      "file_url": "https://pbs.twimg.com/media/FCJJmugVIAQGusP?format=jpg&name=orig",
+      "title": "@c4c4cat post 1450809024216059910 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1450809024216059910",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCJJmugVIAQGusP.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-20T13:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6c91e7383996eef4",
+      "song_titles": [
+        "^/7(L⎥?[_(L+#<>+&⎥^(o)",
+        "Knight of Tripletz (for DNX Edit)"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1452606530516230145:1",
+      "source_id": "official:x",
+      "upstream_key": "1452606530516230145:1",
+      "page_url": "https://x.com/c4c4cat/status/1452606530516230145",
+      "file_url": "https://pbs.twimg.com/media/FCix0aVVcAIoDEh?format=jpg&name=orig",
+      "title": "@c4c4cat post 1452606530516230145 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1452606530516230145",
+        "text: Dynamix 2021 Halloween Event X 7th Anniversiry"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCix0aVVcAIoDEh.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1244,
+        "height": 1766,
+        "sha1": null,
+        "timestamp": "2021-10-25T12:02:39.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:60a05fa769ac12ad",
+      "collections": [
+        "Dynamix 2021 Halloween Event X 7th Anniversiry"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Halloween Event X 7th Anniversiry (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1452615928441720832:1",
+      "source_id": "official:x",
+      "upstream_key": "1452615928441720832:1",
+      "page_url": "https://x.com/c4c4cat/status/1452615928441720832",
+      "file_url": "https://pbs.twimg.com/media/FCi0SbFUUAc3dku?format=jpg&name=orig",
+      "title": "@c4c4cat post 1452615928441720832 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1452615928441720832",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCi0SbFUUAc3dku.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-25T12:40:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1de3b7b2d75aa3ab",
+      "song_titles": [
+        "to soar",
+        "オレンジ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1453330641274097667:1",
+      "source_id": "official:x",
+      "upstream_key": "1453330641274097667:1",
+      "page_url": "https://x.com/c4c4cat/status/1453330641274097667",
+      "file_url": "https://pbs.twimg.com/media/FCs0G4jVIAIN2d0?format=jpg&name=orig",
+      "title": "@c4c4cat post 1453330641274097667 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1453330641274097667",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCs0G4jVIAIN2d0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-27T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:43e9667e90a041f6",
+      "song_titles": [
+        "哀しい竜とカイツール",
+        "Laivisca"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1454780199988457480:1",
+      "source_id": "official:x",
+      "upstream_key": "1454780199988457480:1",
+      "page_url": "https://x.com/c4c4cat/status/1454780199988457480",
+      "file_url": "https://pbs.twimg.com/media/FCs4YN1VgAEW4Z3?format=jpg&name=orig",
+      "title": "@c4c4cat post 1454780199988457480 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1454780199988457480",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCs4YN1VgAEW4Z3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-31T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6cfb382422cfce6e",
+      "song_titles": [
+        "Dement ~After Legend~",
+        "紅"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1463477504123932673:1",
+      "source_id": "official:x",
+      "upstream_key": "1463477504123932673:1",
+      "page_url": "https://x.com/c4c4cat/status/1463477504123932673",
+      "file_url": "https://pbs.twimg.com/media/FE9LQMnVEAMY-Ie?format=jpg&name=orig",
+      "title": "@c4c4cat post 1463477504123932673 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1463477504123932673",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FE9LQMnVEAMY-Ie.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-11-24T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9f092faf4047c8fc",
+      "song_titles": [
+        "Daydream",
+        "Cervelle Connexion"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1464927056723156998:1",
+      "source_id": "official:x",
+      "upstream_key": "1464927056723156998:1",
+      "page_url": "https://x.com/c4c4cat/status/1464927056723156998",
+      "file_url": "https://pbs.twimg.com/media/FE9LJ54VIAQWSRR?format=jpg&name=orig",
+      "title": "@c4c4cat post 1464927056723156998 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1464927056723156998",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FE9LJ54VIAQWSRR.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-11-28T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:513b4049cb28f65e",
+      "song_titles": [
+        "Nives Marinae",
+        "ROAD to 773H"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1472900045280190465:1",
+      "source_id": "official:x",
+      "upstream_key": "1472900045280190465:1",
+      "page_url": "https://x.com/c4c4cat/status/1472900045280190465",
+      "file_url": "https://pbs.twimg.com/media/FHDI1nHUcAAkBpK?format=jpg&name=orig",
+      "title": "@c4c4cat post 1472900045280190465 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1472900045280190465",
+        "text: Dynamix 2021 Christmas X New Year's Eve Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHDI1nHUcAAkBpK.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 821,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2021-12-20T12:01:50.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d5df9eb7965bbd72",
+      "collections": [
+        "Dynamix 2021 Christmas X New Year's Eve Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Christmas X New Year's Eve Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1473624368869748740:1",
+      "source_id": "official:x",
+      "upstream_key": "1473624368869748740:1",
+      "page_url": "https://x.com/c4c4cat/status/1473624368869748740",
+      "file_url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq?format=jpg&name=orig",
+      "title": "@c4c4cat post 1473624368869748740 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1473624368869748740",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-12-22T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:44f2c56eae77adb4",
+      "song_titles": [
+        "Own The Night",
+        "Arty Party"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1475073909376618498:1",
+      "source_id": "official:x",
+      "upstream_key": "1475073909376618498:1",
+      "page_url": "https://x.com/c4c4cat/status/1475073909376618498",
+      "file_url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk?format=jpg&name=orig",
+      "title": "@c4c4cat post 1475073909376618498 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1475073909376618498",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-12-26T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1473624368869748740:1",
+      "asset_id": "official:x:44f2c56eae77adb4",
+      "song_titles": [
+        "Unshakable",
+        "Ice Chandelier"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1476161072998453249:1",
+      "source_id": "official:x",
+      "upstream_key": "1476161072998453249:1",
+      "page_url": "https://x.com/c4c4cat/status/1476161072998453249",
+      "file_url": "https://pbs.twimg.com/media/FHNFf4TakAogkvB?format=jpg&name=orig",
+      "title": "@c4c4cat post 1476161072998453249 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1476161072998453249",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNFf4TakAogkvB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-12-29T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:394cb3bd62f2128d",
+      "song_titles": [
+        "Link To Dungeons",
+        "Prismatic Flipper"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1477610628621561858:1",
+      "source_id": "official:x",
+      "upstream_key": "1477610628621561858:1",
+      "page_url": "https://x.com/c4c4cat/status/1477610628621561858",
+      "file_url": "https://pbs.twimg.com/media/FHNL1phVkAMfs7K?format=jpg&name=orig",
+      "title": "@c4c4cat post 1477610628621561858 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1477610628621561858",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNL1phVkAMfs7K.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-01-02T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:7d00e404e045591f",
+      "song_titles": [
+        "Sultan Madness",
+        "Sky land"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1480156399204061186:1",
+      "source_id": "official:x",
+      "upstream_key": "1480156399204061186:1",
+      "page_url": "https://x.com/c4c4cat/status/1480156399204061186",
+      "file_url": "https://pbs.twimg.com/media/FIf6dFoXsAMh_3T?format=jpg&name=orig",
+      "title": "@c4c4cat post 1480156399204061186 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1480156399204061186",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FIf6dFoXsAMh_3T.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2022-01-09T12:36:00.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1325407725623283712:1",
+      "asset_id": "official:x:58d5475d92d245db",
+      "song_titles": [
+        "Black：Magnam"
+      ],
+      "composers": [
+        "adaptor"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Black：Magnam."
+    },
+    {
+      "id": "official:x:1485583166953779206:1",
+      "source_id": "official:x",
+      "upstream_key": "1485583166953779206:1",
+      "page_url": "https://x.com/c4c4cat/status/1485583166953779206",
+      "file_url": "https://pbs.twimg.com/media/FJ3O2gTWUAYRq08?format=jpg&name=orig",
+      "title": "@c4c4cat post 1485583166953779206 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1485583166953779206",
+        "text: Dynamix 2022 Lunar New Year Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FJ3O2gTWUAYRq08.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 821,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2022-01-24T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a9817d545656e1d7",
+      "collections": [
+        "Dynamix 2022 Lunar New Year Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2022 Lunar New Year Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1486307941267431426:1",
+      "source_id": "official:x",
+      "upstream_key": "1486307941267431426:1",
+      "page_url": "https://x.com/c4c4cat/status/1486307941267431426",
+      "file_url": "https://pbs.twimg.com/media/FKBghLwXMAE0Lty?format=jpg&name=orig",
+      "title": "@c4c4cat post 1486307941267431426 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1486307941267431426",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FKBghLwXMAE0Lty.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-01-26T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:cef9daae491b0ea9",
+      "song_titles": [
+        "strawberry*passion",
+        "Hall of Fame"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1487757487981748224:1",
+      "source_id": "official:x",
+      "upstream_key": "1487757487981748224:1",
+      "page_url": "https://x.com/c4c4cat/status/1487757487981748224",
+      "file_url": "https://pbs.twimg.com/media/FKBi2y8XEAEYk0t?format=jpg&name=orig",
+      "title": "@c4c4cat post 1487757487981748224 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1487757487981748224",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FKBi2y8XEAEYk0t.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-01-30T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:07c3385bc6631c2d",
+      "song_titles": [
+        "Rain",
+        "Glory of the Sacred Kingdom"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1496454806998814725:1",
+      "source_id": "official:x",
+      "upstream_key": "1496454806998814725:1",
+      "page_url": "https://x.com/c4c4cat/status/1496454806998814725",
+      "file_url": "https://pbs.twimg.com/media/FKaJZW4X0AEFJIB?format=jpg&name=orig",
+      "title": "@c4c4cat post 1496454806998814725 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1496454806998814725",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FKaJZW4X0AEFJIB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-02-23T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c2d5aaa90f6beefc",
+      "song_titles": [
+        "Partenza",
+        "Skrik (DNX edit)"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1498266736608661505:1",
+      "source_id": "official:x",
+      "upstream_key": "1498266736608661505:1",
+      "page_url": "https://x.com/c4c4cat/status/1498266736608661505",
+      "file_url": "https://pbs.twimg.com/media/FMqisp-X0AEscgv?format=jpg&name=orig",
+      "title": "@c4c4cat post 1498266736608661505 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1498266736608661505",
+        "text: イベント曲を予告"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FMqisp-X0AEscgv.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1500,
+        "height": 500,
+        "sha1": null,
+        "timestamp": "2022-02-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:4760e1e88e9fe5a8",
+      "song_titles": [
+        "Φ",
+        "アリス失格",
+        "Fission"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Monthly upcoming-events lineup (list graphic)."
+    },
+    {
+      "id": "official:x:1498629128467197954:1",
+      "source_id": "official:x",
+      "upstream_key": "1498629128467197954:1",
+      "page_url": "https://x.com/c4c4cat/status/1498629128467197954",
+      "file_url": "https://pbs.twimg.com/media/FMwrI-BWQAM46-W?format=jpg&name=orig",
+      "title": "@c4c4cat post 1498629128467197954 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1498629128467197954",
+        "text: 「Φ」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FMwrI-BWQAM46-W.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2022-03-01T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:54ecb715974044ef",
+      "song_titles": [
+        "Φ"
+      ],
+      "composers": [
+        "Street"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Φ."
+    },
+    {
+      "id": "official:x:1506601655986388992:1",
+      "source_id": "official:x",
+      "upstream_key": "1506601655986388992:1",
+      "page_url": "https://x.com/c4c4cat/status/1506601655986388992",
+      "file_url": "https://pbs.twimg.com/media/FOhtI8raIAQT5UY?format=jpg&name=orig",
+      "title": "@c4c4cat post 1506601655986388992 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1506601655986388992",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FOhtI8raIAQT5UY.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-03-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1aea0bcd59063d57",
+      "song_titles": [
+        "Grenade",
+        "Future City Ⅵ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1513509675957841929:1",
+      "source_id": "official:x",
+      "upstream_key": "1513509675957841929:1",
+      "page_url": "https://x.com/c4c4cat/status/1513509675957841929",
+      "file_url": "https://pbs.twimg.com/media/FQEJleeacAAmUoV?format=jpg&name=orig",
+      "title": "@c4c4cat post 1513509675957841929 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1513509675957841929",
+        "text: Dynamix 2022 Easter Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FQEJleeacAAmUoV.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2022-04-11T13:30:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d7bf5061d7a7572d",
+      "collections": [
+        "Dynamix 2022 Easter Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2022 Easter Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1748030616950734862:1",
+      "source_id": "official:x",
+      "upstream_key": "1748030616950734862:1",
+      "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
+      "file_url": "https://pbs.twimg.com/media/GEI_OyZbAAAkJEM?format=jpg&name=orig",
+      "title": "@c4c4cat post 1748030616950734862 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748030616950734862",
+        "text: イベントバンドル"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEI_OyZbAAAkJEM.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-01-18T17:12:30.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:29c79d9189fd280d",
+      "notes": "Event Bundle 001 title card."
+    },
+    {
+      "id": "official:x:1748030616950734862:2",
+      "source_id": "official:x",
+      "upstream_key": "1748030616950734862:2",
+      "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
+      "file_url": "https://pbs.twimg.com/media/GEI_OycakAEMOPt?format=jpg&name=orig",
+      "title": "@c4c4cat post 1748030616950734862 image 2",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748030616950734862",
+        "text: イベントバンドル"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEI_OycakAEMOPt.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-01-18T17:12:30.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:83399a2aee3264c4",
+      "notes": "Event Bundle 001 'PICK UP' jacket collage."
+    },
+    {
+      "id": "official:x:1748030616950734862:3",
+      "source_id": "official:x",
+      "upstream_key": "1748030616950734862:3",
+      "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
+      "file_url": "https://pbs.twimg.com/media/GEI_OycbAAATaJB?format=jpg&name=orig",
+      "title": "@c4c4cat post 1748030616950734862 image 3",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748030616950734862",
+        "text: イベントバンドル"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEI_OycbAAATaJB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-01-18T17:12:30.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5df3b07ae75faaa0",
+      "notes": "Event Bundle 001 full track list (list graphic)."
     },
     {
       "id": "official:x:1748178472759865377:1",
@@ -239,6 +3775,168 @@
       "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
     },
     {
+      "id": "official:x:1797599111748731072:1",
+      "source_id": "official:x",
+      "upstream_key": "1797599111748731072:1",
+      "page_url": "https://x.com/c4c4cat/status/1797599111748731072",
+      "file_url": "https://pbs.twimg.com/media/GOat1kZbkAA4-yl?format=jpg&name=orig",
+      "title": "@c4c4cat post 1797599111748731072 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1797599111748731072",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GOat1kZbkAA4-yl.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-06-03T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:67e82434773a1dd7",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1797599111748731072:2",
+      "source_id": "official:x",
+      "upstream_key": "1797599111748731072:2",
+      "page_url": "https://x.com/c4c4cat/status/1797599111748731072",
+      "file_url": "https://pbs.twimg.com/media/GOat1lEbIAAPJQU?format=jpg&name=orig",
+      "title": "@c4c4cat post 1797599111748731072 image 2",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1797599111748731072",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GOat1lEbIAAPJQU.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-06-03T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0c9cf8bbdd53efd6",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1814225168224727044:1",
+      "source_id": "official:x",
+      "upstream_key": "1814225168224727044:1",
+      "page_url": "https://x.com/c4c4cat/status/1814225168224727044",
+      "file_url": "https://pbs.twimg.com/media/GS1r7O0bQAA2dA5?format=jpg&name=orig",
+      "title": "@c4c4cat post 1814225168224727044 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1814225168224727044",
+        "text: 難易度調整"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GS1r7O0bQAA2dA5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-19T09:06:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:887ef70b198f309f",
+      "notes": "Difficulty-adjustment list (list graphic)."
+    },
+    {
+      "id": "official:x:1814225168224727044:2",
+      "source_id": "official:x",
+      "upstream_key": "1814225168224727044:2",
+      "page_url": "https://x.com/c4c4cat/status/1814225168224727044",
+      "file_url": "https://pbs.twimg.com/media/GS1r7PvagAAH43x?format=jpg&name=orig",
+      "title": "@c4c4cat post 1814225168224727044 image 2",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1814225168224727044",
+        "text: 難易度調整"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GS1r7PvagAAH43x.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-19T09:06:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:65bd4399f02f499e",
+      "notes": "Difficulty-adjustment list (list graphic)."
+    },
+    {
+      "id": "official:x:1817892842204807209:1",
+      "source_id": "official:x",
+      "upstream_key": "1817892842204807209:1",
+      "page_url": "https://x.com/c4c4cat/status/1817892842204807209",
+      "file_url": "https://pbs.twimg.com/media/GTblk6pagAED15o?format=jpg&name=orig",
+      "title": "@c4c4cat post 1817892842204807209 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1817892842204807209",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GTblk6pagAED15o.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-29T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:cd6f9f85eec898b7",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1817892842204807209:2",
+      "source_id": "official:x",
+      "upstream_key": "1817892842204807209:2",
+      "page_url": "https://x.com/c4c4cat/status/1817892842204807209",
+      "file_url": "https://pbs.twimg.com/media/GTbllrjaoAAOsRh?format=jpg&name=orig",
+      "title": "@c4c4cat post 1817892842204807209 image 2",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1817892842204807209",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GTbllrjaoAAOsRh.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-29T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:691898412b824298",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
       "id": "official:x:1818255227595743610:1",
       "source_id": "official:x",
       "upstream_key": "1818255227595743610:1",
@@ -276,6 +3974,141 @@
       "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733)."
     },
     {
+      "id": "official:x:1833837896794792179:1",
+      "source_id": "official:x",
+      "upstream_key": "1833837896794792179:1",
+      "page_url": "https://x.com/c4c4cat/status/1833837896794792179",
+      "file_url": "https://pbs.twimg.com/media/GXLyPAhbkAANEF8?format=jpg&name=orig",
+      "title": "@c4c4cat post 1833837896794792179 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1833837896794792179",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GXLyPAhbkAANEF8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-11T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9ef443e233fb008e",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1833837896794792179:2",
+      "source_id": "official:x",
+      "upstream_key": "1833837896794792179:2",
+      "page_url": "https://x.com/c4c4cat/status/1833837896794792179",
+      "file_url": "https://pbs.twimg.com/media/GXLyPAVaIAE2OaV?format=jpg&name=orig",
+      "title": "@c4c4cat post 1833837896794792179 image 2",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1833837896794792179",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GXLyPAVaIAE2OaV.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-11T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0ad190bb8a37ca09",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1840723270796292551:1",
+      "source_id": "official:x",
+      "upstream_key": "1840723270796292551:1",
+      "page_url": "https://x.com/c4c4cat/status/1840723270796292551",
+      "file_url": "https://pbs.twimg.com/media/GYp0GwSbIAAxdjh?format=jpg&name=orig",
+      "title": "@c4c4cat post 1840723270796292551 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1840723270796292551",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GYp0GwSbIAAxdjh.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:62f865cea5e3f3c5",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1840723270796292551:2",
+      "source_id": "official:x",
+      "upstream_key": "1840723270796292551:2",
+      "page_url": "https://x.com/c4c4cat/status/1840723270796292551",
+      "file_url": "https://pbs.twimg.com/media/GYt9iSeb0AA7dFE?format=jpg&name=orig",
+      "title": "@c4c4cat post 1840723270796292551 image 2",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1840723270796292551",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GYt9iSeb0AA7dFE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:e928c1c6a613941e",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1870076698345287834:1",
+      "source_id": "official:x",
+      "upstream_key": "1870076698345287834:1",
+      "page_url": "https://x.com/c4c4cat/status/1870076698345287834",
+      "file_url": "https://pbs.twimg.com/media/GfPLwYUasAAVdJy?format=jpg&name=orig",
+      "title": "@c4c4cat post 1870076698345287834 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1870076698345287834",
+        "text: Dynamix Universe"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GfPLwYUasAAVdJy.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 750,
+        "height": 194,
+        "sha1": null,
+        "timestamp": "2024-12-20T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1e74560694d8cbb2",
+      "notes": "Operational notice: new Dynamix songs move to packages from February 2025."
+    },
+    {
       "id": "official:x:1889645633545613724:1",
       "source_id": "official:x",
       "upstream_key": "1889645633545613724:1",
@@ -311,6 +4144,587 @@
         "Berry Melody Collaboration"
       ],
       "notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge."
+    },
+    {
+      "id": "official:x:1901242039800299634:1",
+      "source_id": "official:x",
+      "upstream_key": "1901242039800299634:1",
+      "page_url": "https://x.com/c4c4cat/status/1901242039800299634",
+      "file_url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC?format=jpg&name=orig",
+      "title": "@c4c4cat post 1901242039800299634 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1901242039800299634",
+        "text: 流麗凛舞"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2025-03-16T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:379a6800dcbd1cce",
+      "song_titles": [
+        "流麗凛舞"
+      ],
+      "composers": [
+        "K-forest"
+      ],
+      "collections": [
+        "Shinobi Slash Collaboration"
+      ],
+      "notes": "Official event announcement image for 流麗凛舞."
+    },
+    {
+      "id": "official:x:809670504449572864:1",
+      "source_id": "official:x",
+      "upstream_key": "809670504449572864:1",
+      "page_url": "https://x.com/c4c4cat/status/809670504449572864",
+      "file_url": "https://pbs.twimg.com/media/CzyHBXQUUAAy95S?format=jpg&name=orig",
+      "title": "@c4c4cat post 809670504449572864 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/809670504449572864",
+        "text: 「紅」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/CzyHBXQUUAAy95S.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2016-12-16T08:04:25.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c5b39cad759194d5",
+      "song_titles": [
+        "紅"
+      ],
+      "composers": [
+        "モリモリあつし"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for 紅."
+    },
+    {
+      "id": "official:x:811543501733101568:1",
+      "source_id": "official:x",
+      "upstream_key": "811543501733101568:1",
+      "page_url": "https://x.com/c4c4cat/status/811543501733101568",
+      "file_url": "https://pbs.twimg.com/media/C0MubPsUsAAuF-Z?format=jpg&name=orig",
+      "title": "@c4c4cat post 811543501733101568 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/811543501733101568",
+        "text: イベントソング",
+        "text: @EBICO"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C0MubPsUsAAuF-Z.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2016-12-21T12:07:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6db2d6d1e105fd07",
+      "song_titles": [
+        "Persephone"
+      ],
+      "composers": [
+        "EBICO"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image (COMING SOON card) for Persephone."
+    },
+    {
+      "id": "official:x:819433943690670080:1",
+      "source_id": "official:x",
+      "upstream_key": "819433943690670080:1",
+      "page_url": "https://x.com/c4c4cat/status/819433943690670080",
+      "file_url": "https://pbs.twimg.com/media/C182w-fUkAAMa1B?format=jpg&name=orig",
+      "title": "@c4c4cat post 819433943690670080 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/819433943690670080",
+        "text: Vanilla Sky"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C182w-fUkAAMa1B.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-01-12T06:40:51.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a55371f01f4a5577",
+      "song_titles": [
+        "Vanilla_Sky"
+      ],
+      "composers": [
+        "stereoberry"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Vanilla_Sky."
+    },
+    {
+      "id": "official:x:831877510870601728:1",
+      "source_id": "official:x",
+      "upstream_key": "831877510870601728:1",
+      "page_url": "https://x.com/c4c4cat/status/831877510870601728",
+      "file_url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8?format=jpg&name=orig",
+      "title": "@c4c4cat post 831877510870601728 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/831877510870601728",
+        "text: Theme of @RabiRibiGame"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-15T14:47:08.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:07c8412f0bfcfbdf",
+      "song_titles": [
+        "Theme of Rabi-Ribi"
+      ],
+      "composers": [
+        "3R2"
+      ],
+      "collections": [
+        "Rabi-Ribi Collaboration"
+      ],
+      "notes": "Official event announcement image for Theme of Rabi-Ribi."
+    },
+    {
+      "id": "official:x:834312940610220032:1",
+      "source_id": "official:x",
+      "upstream_key": "834312940610220032:1",
+      "page_url": "https://x.com/c4c4cat/status/834312940610220032",
+      "file_url": "https://pbs.twimg.com/media/C5QTJnJUkAAmXV_?format=jpg&name=orig",
+      "title": "@c4c4cat post 834312940610220032 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/834312940610220032",
+        "text: αterlβus"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5QTJnJUkAAmXV_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-22T08:04:40.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a0184f795a6e5da2",
+      "song_titles": [
+        "αterlβus"
+      ],
+      "composers": [
+        "Aoi"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for αterlβus."
+    },
+    {
+      "id": "official:x:835073424917577728:1",
+      "source_id": "official:x",
+      "upstream_key": "835073424917577728:1",
+      "page_url": "https://x.com/c4c4cat/status/835073424917577728",
+      "file_url": "https://pbs.twimg.com/media/C5bGz1aUYAAXsIY?format=jpg&name=orig",
+      "title": "@c4c4cat post 835073424917577728 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835073424917577728",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bGz1aUYAAXsIY.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:26:34.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:53e071564c028260",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:835073424917577728:2",
+      "source_id": "official:x",
+      "upstream_key": "835073424917577728:2",
+      "page_url": "https://x.com/c4c4cat/status/835073424917577728",
+      "file_url": "https://pbs.twimg.com/media/C5bG08xVMAADbAx?format=jpg&name=orig",
+      "title": "@c4c4cat post 835073424917577728 image 2",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835073424917577728",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bG08xVMAADbAx.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:26:34.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b4ed17591aba2514",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:835081787436998656:1",
+      "source_id": "official:x",
+      "upstream_key": "835081787436998656:1",
+      "page_url": "https://x.com/c4c4cat/status/835081787436998656",
+      "file_url": "https://pbs.twimg.com/media/C5bOTayU8AMwYG_?format=jpg&name=orig",
+      "title": "@c4c4cat post 835081787436998656 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835081787436998656",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bOTayU8AMwYG_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:59:47.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:375b5975172d9527",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:835081787436998656:2",
+      "source_id": "official:x",
+      "upstream_key": "835081787436998656:2",
+      "page_url": "https://x.com/c4c4cat/status/835081787436998656",
+      "file_url": "https://pbs.twimg.com/media/C5bOUgkUYAA6WHW?format=jpg&name=orig",
+      "title": "@c4c4cat post 835081787436998656 image 2",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835081787436998656",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bOUgkUYAA6WHW.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:59:47.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a30057e56cf68068",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:842671176669323264:1",
+      "source_id": "official:x",
+      "upstream_key": "842671176669323264:1",
+      "page_url": "https://x.com/c4c4cat/status/842671176669323264",
+      "file_url": "https://pbs.twimg.com/media/C7HEkCSU8AIXjNf?format=jpg&name=orig",
+      "title": "@c4c4cat post 842671176669323264 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/842671176669323264",
+        "text: Crystal Ribbon"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C7HEkCSU8AIXjNf.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-03-17T09:37:19.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:e4d903cf52257716",
+      "song_titles": [
+        "Crystal Ribbon"
+      ],
+      "composers": [
+        "Cosine"
+      ],
+      "collections": [
+        "Package Lovely"
+      ],
+      "notes": "Official preview image for Crystal Ribbon of Package Lovely."
+    },
+    {
+      "id": "official:x:870277523724132352:1",
+      "source_id": "official:x",
+      "upstream_key": "870277523724132352:1",
+      "page_url": "https://x.com/c4c4cat/status/870277523724132352",
+      "file_url": "https://pbs.twimg.com/media/DBPYksUUQAEVjQ1?format=png&name=orig",
+      "title": "@c4c4cat post 870277523724132352 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/870277523724132352",
+        "text: arcaea"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DBPYksUUQAEVjQ1.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-06-01T13:55:05.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b8d50090f000b918",
+      "collections": [
+        "Arcaea Collaboration"
+      ],
+      "notes": "Dynamix x Arcaea collaboration announcement visual."
+    },
+    {
+      "id": "official:x:877170201267023872:1",
+      "source_id": "official:x",
+      "upstream_key": "877170201267023872:1",
+      "page_url": "https://x.com/c4c4cat/status/877170201267023872",
+      "file_url": "https://pbs.twimg.com/media/DCxVkdcVoAEBoiA?format=jpg&name=orig",
+      "title": "@c4c4cat post 877170201267023872 image 1",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/877170201267023872",
+        "text: Vexaria"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DCxVkdcVoAEBoiA.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-06-20T14:24:07.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8fcd0f4cb5b2200a",
+      "song_titles": [
+        "Vexaria"
+      ],
+      "composers": [
+        "ak+q"
+      ],
+      "collections": [
+        "Arcaea Collaboration"
+      ],
+      "notes": "Official event announcement image for Vexaria."
+    },
+    {
+      "id": "official:x:880003300275347458:1",
+      "source_id": "official:x",
+      "upstream_key": "880003300275347458:1",
+      "page_url": "https://x.com/c4c4cat/status/880003300275347458",
+      "file_url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl?format=jpg&name=orig",
+      "title": "@c4c4cat post 880003300275347458 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/880003300275347458",
+        "text: To soar"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-06-28T10:01:51.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8e6233feef0da525",
+      "song_titles": [
+        "to soar"
+      ],
+      "composers": [
+        "Aoi with mAoA9"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for to soar."
+    },
+    {
+      "id": "official:x:900634708517593089:1",
+      "source_id": "official:x",
+      "upstream_key": "900634708517593089:1",
+      "page_url": "https://x.com/c4c4cat/status/900634708517593089",
+      "file_url": "https://pbs.twimg.com/media/DH-yb22UMAAZhwY?format=jpg&name=orig",
+      "title": "@c4c4cat post 900634708517593089 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/900634708517593089",
+        "text: Arcana Idola"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DH-yb22UMAAZhwY.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-08-24T08:23:42.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a6578f3007402cfb",
+      "song_titles": [
+        "Arcana Idola"
+      ],
+      "composers": [
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Arcana Idola."
+    },
+    {
+      "id": "official:x:920935237567201281:1",
+      "source_id": "official:x",
+      "upstream_key": "920935237567201281:1",
+      "page_url": "https://x.com/c4c4cat/status/920935237567201281",
+      "file_url": "https://pbs.twimg.com/media/DMfRnKqVwAEheW8?format=jpg&name=orig",
+      "title": "@c4c4cat post 920935237567201281 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/920935237567201281",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DMfRnKqVwAEheW8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-10-19T08:50:45.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c2c86148b3c988f4",
+      "song_titles": [
+        "紅",
+        "Theme of Rabi-Ribi"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:957946437911941121:1",
+      "source_id": "official:x",
+      "upstream_key": "957946437911941121:1",
+      "page_url": "https://x.com/c4c4cat/status/957946437911941121",
+      "file_url": "https://pbs.twimg.com/media/DUN8og2VAAAO-is?format=jpg&name=orig",
+      "title": "@c4c4cat post 957946437911941121 image 1",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/957946437911941121",
+        "text: イベント曲を予告"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DUN8og2VAAAO-is.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2018-01-29T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:dabe5a6b33587113",
+      "song_titles": [
+        "JOACHIM : D",
+        "Emulisy",
+        "Own The Night",
+        "曇る鑑《かがみ》の霧を含みて"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Monthly upcoming-events lineup (list graphic)."
     },
     {
       "id": "official:x:981147690795900928:1",

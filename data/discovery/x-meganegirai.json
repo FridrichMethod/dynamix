@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:meganegirai",
-  "started_at": "2026-10-10T17:44:16Z",
-  "finished_at": "2026-10-10T17:44:17Z",
+  "started_at": "2026-10-10T20:47:37Z",
+  "finished_at": "2026-10-10T20:47:41Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -15,6 +15,54 @@
   },
   "discovery_complete": true,
   "candidates": [
+    {
+      "id": "artists:x:meganegirai:1399342027800649734",
+      "source_id": "artists:x:meganegirai",
+      "upstream_key": "1399342027800649734",
+      "page_url": "https://x.com/meganegirai/status/1399342027800649734",
+      "file_url": null,
+      "title": "@meganegirai post 1399342027800649734",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: '今回もジャケットイラストを描かせていただいております' for 天照, quoting the June 2021 preview."
+    },
+    {
+      "id": "artists:x:meganegirai:1402963067852390412",
+      "source_id": "artists:x:meganegirai",
+      "upstream_key": "1402963067852390412",
+      "page_url": "https://x.com/meganegirai/status/1402963067852390412",
+      "file_url": null,
+      "title": "@meganegirai post 1402963067852390412",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Comment on the Amaterasu character preview (quoted official post); no image of its own."
+    },
     {
       "id": "artists:x:meganegirai:1536401093894189056:1",
       "source_id": "artists:x:meganegirai",

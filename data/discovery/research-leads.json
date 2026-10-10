@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:research:leads",
-  "started_at": "2026-10-10T17:42:47Z",
-  "finished_at": "2026-10-10T17:42:47Z",
+  "started_at": "2026-10-10T20:47:19Z",
+  "finished_at": "2026-10-10T20:47:19Z",
   "scope": {
     "lists": [
       "registry"
@@ -150,8 +150,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire"
+      "disposition": "pending",
+      "reason": "unresolved: name-only match to the LIXION jacket's credited designer; pages not read (search snippets only)"
     },
     {
       "id": "artists:research:leads:bilibili:BV1Zp411d74c",
@@ -243,7 +243,10 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: identity matched by handle only; no Nova Highway post"
+      "reason": "out_of_scope_other: the public deviation feed (60 works, 2013-2018) holds no Nova Highway or Dynamix work",
+      "illustrators": [
+        "deronoitz"
+      ]
     },
     {
       "id": "artists:research:leads:deviantart:vnanep",
@@ -389,7 +392,7 @@
       "upstream_key": "instagram:luxan93",
       "page_url": "https://www.instagram.com/luxan93/",
       "file_url": null,
-      "title": "Instagram luxan93 (MLG artwork credit)",
+      "title": "Instagram luxan93 (Luxan)",
       "role": null,
       "game": "unknown",
       "game_evidence": [],
@@ -404,7 +407,13 @@
         "revision": null
       },
       "disposition": "blocked",
-      "reason": "blocked: redirected to the Instagram login page (research sweep); not bypassed"
+      "reason": "blocked: login wall; no posts readable",
+      "song_titles": [
+        "MLG"
+      ],
+      "illustrators": [
+        "Luxan"
+      ]
     },
     {
       "id": "artists:research:leads:instagram:maymiyuriae12",
@@ -474,6 +483,32 @@
       },
       "disposition": "blocked",
       "reason": "challenge: Korean anti-bot page with a JavaScript cookie (research sweep); not bypassed"
+    },
+    {
+      "id": "artists:research:leads:karato-p.com",
+      "source_id": "artists:research:leads",
+      "upstream_key": "karato-p.com",
+      "page_url": "https://karato-p.com/",
+      "file_url": null,
+      "title": "からとP composer site",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: album IVORY cover is text-only and does not match the jacket; composer credits only",
+      "song_titles": [
+        "声が届かないのなら"
+      ]
     },
     {
       "id": "artists:research:leads:kplecraft.com:rhythm",
@@ -592,6 +627,32 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (JavaScript app; no RE:IGNITE still found)"
+    },
+    {
+      "id": "artists:research:leads:niconico:sm26262299",
+      "source_id": "artists:research:leads",
+      "upstream_key": "niconico:sm26262299",
+      "page_url": "https://www.nicovideo.jp/watch/sm26262299",
+      "file_url": null,
+      "title": "声が届かないのなら cover video",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: the cover video's thumbnail reuses eb's Luka illustration, which does not match the Dynamix jacket",
+      "song_titles": [
+        "声が届かないのなら"
+      ]
     },
     {
       "id": "artists:research:leads:note.com:rekumczk",
@@ -827,6 +888,32 @@
       "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (155 works; none Dynamix)"
     },
     {
+      "id": "artists:research:leads:pixiv:users:1038265",
+      "source_id": "artists:research:leads",
+      "upstream_key": "pixiv:users:1038265",
+      "page_url": "https://www.pixiv.net/users/1038265",
+      "file_url": null,
+      "title": "pixiv ラコ (HenryTz)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the profile's 22 public works hold no Dynamix artwork",
+      "illustrators": [
+        "HenryTz"
+      ]
+    },
+    {
       "id": "artists:research:leads:plurk:kogptn",
       "source_id": "artists:research:leads",
       "upstream_key": "plurk:kogptn",
@@ -848,6 +935,29 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: identity unverified; nothing links it to a Dynamix jacket"
+    },
+    {
+      "id": "artists:research:leads:profile.dcwh.me",
+      "source_id": "artists:research:leads",
+      "upstream_key": "profile.dcwh.me",
+      "page_url": "https://profile.dcwh.me/",
+      "file_url": null,
+      "title": "DCWH portfolio",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: lists Dynamix as music work only; no artwork for Dynamix"
     },
     {
       "id": "artists:research:leads:sandsuna.art:works",
@@ -1219,6 +1329,32 @@
       "reason": "pending: the deleted Aegis 'sketch version' upload was not located in captures"
     },
     {
+      "id": "artists:research:leads:wayback:soundcloud:mmry",
+      "source_id": "artists:research:leads",
+      "upstream_key": "wayback:soundcloud:mmry",
+      "page_url": "https://web.archive.org/web/20190806071613/https://soundcloud.com/mmry",
+      "file_url": null,
+      "title": "mmry SoundCloud captures (Aegis sketch lead)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)",
+      "song_titles": [
+        "Aegis"
+      ]
+    },
+    {
       "id": "artists:research:leads:wix:mutamurata:works",
       "source_id": "artists:research:leads",
       "upstream_key": "wix:mutamurata:works",
@@ -1240,6 +1376,55 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (claims the 2019 Dynamix artwork; no image file located)"
+    },
+    {
+      "id": "artists:research:leads:wix:stellights",
+      "source_id": "artists:research:leads",
+      "upstream_key": "wix:stellights",
+      "page_url": "https://web.archive.org/web/20180628025749/https://www.stellights.com/",
+      "file_url": null,
+      "title": "STELLIGHTS official site (2018 captures)",
+      "role": null,
+      "game": "mixed",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner game's own UI screenshots (Dolqueen character with UI); no Dynamix collaboration page or illustrator credit"
+    },
+    {
+      "id": "artists:research:leads:x:DNX_EVENT:920786171411574784",
+      "source_id": "artists:research:leads",
+      "upstream_key": "x:DNX_EVENT:920786171411574784",
+      "page_url": "https://x.com/DNX_EVENT/status/920786171411574784",
+      "file_url": "https://pbs.twimg.com/media/DMdKIKNU8AAYeKk.jpg",
+      "title": "Unofficial fan event account repost of the Theme of Rabi-Ribi jacket",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DMdKIKNU8AAYeKk.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: repost by an unofficial fan event account (not C4Cat); downstream copy, not a provenance root",
+      "song_titles": [
+        "Theme of Rabi-Ribi"
+      ]
     },
     {
       "id": "artists:research:leads:x:Eproph_4",
@@ -1265,6 +1450,147 @@
       "reason": "blocked: X profile requires login (research sweep)"
     },
     {
+      "id": "artists:research:leads:x:KeshiksExt",
+      "source_id": "artists:research:leads",
+      "upstream_key": "x:KeshiksExt",
+      "page_url": "https://x.com/KeshiksExt",
+      "file_url": null,
+      "title": "X @KeshiksExt (ケシksくん)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+      "song_titles": [
+        "The Clockwork Doll",
+        "soar to Ø",
+        "Kokytos"
+      ],
+      "illustrators": [
+        "ケシksくん"
+      ]
+    },
+    {
+      "id": "artists:research:leads:x:LESYEF103",
+      "source_id": "artists:research:leads",
+      "upstream_key": "x:LESYEF103",
+      "page_url": "https://x.com/LESYEF103",
+      "file_url": null,
+      "title": "X @LESYEF103 (LESYEF)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
+      "song_titles": [
+        "Totally bounded",
+        "Beyond the Rainbow"
+      ],
+      "illustrators": [
+        "LESYEF"
+      ]
+    },
+    {
+      "id": "artists:research:leads:x:RabiRibiGame:cdx-2017",
+      "source_id": "artists:research:leads",
+      "upstream_key": "x:RabiRibiGame:cdx-2017",
+      "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/RabiRibiGame&from=2016&to=2017",
+      "file_url": null,
+      "title": "Rabi-Ribi official X captures (Feb 2017 collaboration)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved: no archived Rabi-Ribi post from the February 2017 collaboration window"
+    },
+    {
+      "id": "artists:research:leads:x:ZingZyon:729345677545758721",
+      "source_id": "artists:research:leads",
+      "upstream_key": "x:ZingZyon:729345677545758721",
+      "page_url": "https://x.com/ZingZyon/status/729345677545758721",
+      "file_url": null,
+      "title": "Zing (Zyon mascot) post naming DomotoLain",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: credit evidence for the Zyon mascot's illustrator only, not the Reborn/Seedy Try jackets",
+      "illustrators": [
+        "DomotoLain"
+      ]
+    },
+    {
+      "id": "artists:research:leads:x:gfcv0709",
+      "source_id": "artists:research:leads",
+      "upstream_key": "x:gfcv0709",
+      "page_url": "https://x.com/gfcv0709",
+      "file_url": null,
+      "title": "X @gfcv0709 (Irelriser)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+      "song_titles": [
+        "Daydream",
+        "Own The Night",
+        "Unshakable"
+      ],
+      "illustrators": [
+        "Irelriser"
+      ]
+    },
+    {
       "id": "artists:research:leads:x:orihi_",
       "source_id": "artists:research:leads",
       "upstream_key": "x:orihi_",
@@ -1286,6 +1612,36 @@
       },
       "disposition": "blocked",
       "reason": "blocked: X profile requires login (research sweep); REconstruction art copy recorded under artists:soundcloud:felix1213tw"
+    },
+    {
+      "id": "artists:research:leads:xfolio:hyouri:962116",
+      "source_id": "artists:research:leads",
+      "upstream_key": "xfolio:hyouri:962116",
+      "page_url": "https://xfolio.jp/portfolio/hyouri/works/962116",
+      "file_url": null,
+      "title": "中本ひょうり xfolio page for the 流麗凛舞 jacket",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: bot check (challenge) on the artist's portfolio page; not bypassed; manual access required",
+      "song_titles": [
+        "流麗凛舞"
+      ],
+      "illustrators": [
+        "中本ひょうり"
+      ],
+      "notes": "Linked by the artist: https://x.com/hyourinakamoto2/status/1902219675829981331 ('ジャケ絵はこちらで見れます！')."
     },
     {
       "id": "artists:research:leads:youtube:1KqBSl6A4f4",

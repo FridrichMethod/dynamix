@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:3315403",
+  "started_at": "2026-10-10T20:44:48Z",
+  "finished_at": "2026-10-10T20:44:54Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": "not-read:http_4xx"
+  },
+  "discovery_complete": false,
+  "candidates": [
+    {
+      "id": "artists:pixiv:3315403:43908270:p0",
+      "source_id": "artists:pixiv:3315403",
+      "upstream_key": "43908270:p0",
+      "page_url": "https://www.pixiv.net/artworks/43908270",
+      "file_url": null,
+      "title": "pixiv artwork 43908270",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "failed",
+      "reason": "http_4xx: HTTP 404",
+      "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix Cover_ Lotus'."
+    },
+    {
+      "id": "artists:pixiv:3315403:43908484:p0",
+      "source_id": "artists:pixiv:3315403",
+      "upstream_key": "43908484:p0",
+      "page_url": "https://www.pixiv.net/artworks/43908484",
+      "file_url": null,
+      "title": "pixiv artwork 43908484",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "failed",
+      "reason": "http_4xx: HTTP 404",
+      "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix Cover _ 名無しの宣教師'."
+    },
+    {
+      "id": "artists:pixiv:3315403:46835674:p0",
+      "source_id": "artists:pixiv:3315403",
+      "upstream_key": "46835674:p0",
+      "page_url": "https://www.pixiv.net/artworks/46835674",
+      "file_url": null,
+      "title": "pixiv artwork 46835674",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "failed",
+      "reason": "http_4xx: HTTP 404",
+      "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix Music Cover小合集' (multi-page, 2014-10-31); an archived 2015 page capture's og:description reads '我們團隊的音樂遊戲《Dynamix》推出了~ 這些是我畫的小cover們~'. SauceNAO page matches: p1 Actinium, p2 Stardust, p4 Lotus, p5 名無しの宣教師 (the wiki credits Actinium to AFZero and Stardust to kogptn: credit conflict for a curator). Only a 150px listing thumbnail is archived (archives:wayback)."
+    },
+    {
+      "id": "artists:pixiv:3315403:55639021:p0",
+      "source_id": "artists:pixiv:3315403",
+      "upstream_key": "55639021:p0",
+      "page_url": "https://www.pixiv.net/artworks/55639021",
+      "file_url": null,
+      "title": "pixiv artwork 55639021",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "failed",
+      "reason": "http_4xx: HTTP 404",
+      "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix-Moonlight of Sand castle'."
+    },
+    {
+      "id": "artists:pixiv:3315403:58916702:p0",
+      "source_id": "artists:pixiv:3315403",
+      "upstream_key": "58916702:p0",
+      "page_url": "https://www.pixiv.net/artworks/58916702",
+      "file_url": null,
+      "title": "pixiv artwork 58916702",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "failed",
+      "reason": "http_4xx: HTTP 404",
+      "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix X ラビリビ イベント' (Theme of Rabi-Ribi ensemble)."
+    }
+  ],
+  "errors": []
+}

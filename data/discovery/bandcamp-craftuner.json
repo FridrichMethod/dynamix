@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:bandcamp:craftuner",
+  "started_at": "2026-10-10T20:43:57Z",
+  "finished_at": "2026-10-10T20:43:58Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:bandcamp:craftuner:album/intersection",
+      "source_id": "artists:bandcamp:craftuner",
+      "upstream_key": "album/intersection",
+      "page_url": "https://craftuner.bandcamp.com/album/intersection",
+      "file_url": "https://f4.bcbits.com/img/a1270146008_0.jpg",
+      "title": "INTERSECTION, by crafTUNER",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://craftuner.bandcamp.com/album/intersection"
+      ],
+      "source_reported": {
+        "url": "https://f4.bcbits.com/img/a1270146008_5.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: album cover (two pilot-suit girls) differs from the Nova Highway jacket; the page credits 'Cover Illust.: deronoitz', corroborating the wiki's jacket credit",
+      "song_titles": [
+        "Nova Highway"
+      ],
+      "illustrators": [
+        "deronoitz"
+      ]
+    }
+  ],
+  "errors": []
+}

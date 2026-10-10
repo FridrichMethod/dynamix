@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:4gamer",
-  "started_at": "2026-10-10T17:45:03Z",
-  "finished_at": "2026-10-10T17:45:04Z",
+  "started_at": "2026-10-10T20:55:27Z",
+  "finished_at": "2026-10-10T20:55:29Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -15,6 +15,306 @@
   },
   "discovery_complete": true,
   "candidates": [
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/001.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/001.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+      "title": "001.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: banner of the column (ほぼ)日刊スマホゲーム通信"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/002.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/002.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/002.jpg",
+      "title": "002.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/002.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/003.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/003.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+      "title": "003.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/004.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/004.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+      "title": "004.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/005.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/005.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+      "title": "005.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/006.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/006.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+      "title": "006.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/007.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/007.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+      "title": "007.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/011.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/011.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+      "title": "011.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/012.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/012.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+      "title": "012.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/013.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/013.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+      "title": "013.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/014.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/014.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+      "title": "014.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/015.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/015.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+      "title": "015.jpg",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+    },
     {
       "id": "archives:4gamer:games/306/G030626/SS/001.jpg",
       "source_id": "archives:4gamer",

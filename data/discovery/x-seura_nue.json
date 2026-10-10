@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:seura_nue",
-  "started_at": "2026-10-10T17:44:19Z",
-  "finished_at": "2026-10-10T17:44:20Z",
+  "started_at": "2026-10-10T20:47:42Z",
+  "finished_at": "2026-10-10T20:47:46Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -15,6 +15,91 @@
   },
   "discovery_complete": true,
   "candidates": [
+    {
+      "id": "artists:x:seura_nue:1149949495305576448:1",
+      "source_id": "artists:x:seura_nue",
+      "upstream_key": "1149949495305576448:1",
+      "page_url": "https://x.com/SeURa_Nue/status/1149949495305576448",
+      "file_url": "https://pbs.twimg.com/media/D_Vw97uU0AA2Z0v?format=jpg&name=orig",
+      "title": "@SeURa_Nue post 1149949495305576448 image 1",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/SeURa_Nue/status/1149949495305576448"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/D_Vw97uU0AA2Z0v.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1242,
+        "height": 403,
+        "sha1": null,
+        "timestamp": "2019-07-13T07:51:39.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: two cropped notice screenshots (Open Submission 2019 result), not artwork"
+    },
+    {
+      "id": "artists:x:seura_nue:1149949495305576448:2",
+      "source_id": "artists:x:seura_nue",
+      "upstream_key": "1149949495305576448:2",
+      "page_url": "https://x.com/SeURa_Nue/status/1149949495305576448",
+      "file_url": "https://pbs.twimg.com/media/D_Vw97rVUAEc3GO?format=jpg&name=orig",
+      "title": "@SeURa_Nue post 1149949495305576448 image 2",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/SeURa_Nue/status/1149949495305576448"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/D_Vw97rVUAEc3GO.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1242,
+        "height": 371,
+        "sha1": null,
+        "timestamp": "2019-07-13T07:51:39.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: two cropped notice screenshots (Open Submission 2019 result), not artwork"
+    },
+    {
+      "id": "artists:x:seura_nue:1241295713784328193:1",
+      "source_id": "artists:x:seura_nue",
+      "upstream_key": "1241295713784328193:1",
+      "page_url": "https://x.com/SeURa_Nue/status/1241295713784328193",
+      "file_url": "https://pbs.twimg.com/media/ETn3x6CUwAEvgf5?format=jpg&name=orig",
+      "title": "@SeURa_Nue post 1241295713784328193 image 1",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/SeURa_Nue/status/1241295713784328193",
+        "text: 終の舞姫アートワーク"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ETn3x6CUwAEvgf5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-03-21T09:28:54.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:seura_nue:663ecf64a2180ed5",
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ]
+    },
     {
       "id": "artists:x:seura_nue:1535164468476317696:1",
       "source_id": "artists:x:seura_nue",

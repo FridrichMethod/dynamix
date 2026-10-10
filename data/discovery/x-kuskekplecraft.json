@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:kuskekplecraft",
-  "started_at": "2026-10-10T17:44:09Z",
-  "finished_at": "2026-10-10T17:44:10Z",
+  "started_at": "2026-10-10T20:47:31Z",
+  "finished_at": "2026-10-10T20:47:36Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -15,6 +15,85 @@
   },
   "discovery_complete": true,
   "candidates": [
+    {
+      "id": "artists:x:kuskekplecraft:1253596942510075904:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "1253596942510075904:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/1253596942510075904",
+      "file_url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5?format=jpg&name=orig",
+      "title": "@KuskeKplecraft post 1253596942510075904 image 1",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/1253596942510075904",
+        "text: Kplecraft Collection",
+        "text: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1536,
+        "sha1": null,
+        "timestamp": "2020-04-24T08:09:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:d061d2f5b5551883",
+      "collections": [
+        "Kplecraft"
+      ],
+      "notes": "In-game store screenshot of the Kplecraft Collection pack page (sale, 2020-04-24)."
+    },
+    {
+      "id": "artists:x:kuskekplecraft:1547147750847893505:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "1547147750847893505:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/1547147750847893505",
+      "file_url": "https://pbs.twimg.com/media/FXiSO_bUEAAWFaH?format=png&name=orig",
+      "title": "@KuskeKplecraft post 1547147750847893505 image 1",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/1547147750847893505"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FXiSO_bUEAAWFaH.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 3000,
+        "height": 3000,
+        "sha1": null,
+        "timestamp": "2022-07-13T09:15:43.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: streaming single cover 'Kplecraft / 16383' (square crop of the jacket's pixel-art scene with title lettering), not the game jacket"
+    },
+    {
+      "id": "artists:x:kuskekplecraft:916314186858119169:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "916314186858119169:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/916314186858119169",
+      "file_url": null,
+      "title": "@KuskeKplecraft post 916314186858119169 image 1",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "video_placeholder: X animated_gif attachment; only a poster frame is an image"
+    },
     {
       "id": "artists:x:kuskekplecraft:946599307431460867:1",
       "source_id": "artists:x:kuskekplecraft",

@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:779504",
-  "started_at": "2026-10-10T17:42:41Z",
-  "finished_at": "2026-10-10T17:42:43Z",
+  "started_at": "2026-10-10T20:47:07Z",
+  "finished_at": "2026-10-10T20:47:19Z",
   "scope": {
     "lists": [
-      "seed-artworks"
+      "seed-artworks",
+      "wayback-captures"
     ],
     "api": "https://www.pixiv.net/ajax/illust/",
-    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
   },
   "continuation": {
-    "seed-artworks": null
+    "seed-artworks": null,
+    "wayback-captures": null
   },
   "discovery_complete": true,
   "candidates": [
@@ -20,7 +22,7 @@
       "source_id": "artists:pixiv:779504",
       "upstream_key": "91845485:p0",
       "page_url": "https://www.pixiv.net/artworks/91845485",
-      "file_url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "file_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
       "title": "Party Vinyl (p0)",
       "role": "song_art",
       "game": "mixed",
@@ -34,12 +36,12 @@
         "bytes": null,
         "width": 1000,
         "height": 1000,
-        "sha1": null,
+        "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
         "timestamp": "2021-08-09T08:53:00+00:00",
         "revision": null
       },
-      "disposition": "blocked",
-      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:779504:73d278d124f29ed8",
       "song_titles": [
         "Party Vinyl"
       ],

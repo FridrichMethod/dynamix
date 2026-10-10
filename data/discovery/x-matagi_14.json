@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:matagi_14",
+  "started_at": "2026-10-10T20:47:36Z",
+  "finished_at": "2026-10-10T20:47:37Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:matagi_14:1799030214611337300",
+      "source_id": "artists:x:matagi_14",
+      "upstream_key": "1799030214611337300",
+      "page_url": "https://x.com/matagi_14/status/1799030214611337300",
+      "file_url": null,
+      "title": "@matagi_14 post 1799030214611337300",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: '私がイラスト担当させて頂いた打打だいずさんの楽曲『Abyss Breaker』…Dynamix様でイベント楽曲として実装', quoting the official event post."
+    }
+  ],
+  "errors": []
+}

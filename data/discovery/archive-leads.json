@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:archive-leads",
-  "started_at": "2026-10-10T17:45:04Z",
-  "finished_at": "2026-10-10T17:45:04Z",
+  "started_at": "2026-10-10T20:55:29Z",
+  "finished_at": "2026-10-10T20:55:29Z",
   "scope": {
     "lists": [
       "registry"
@@ -15,6 +15,75 @@
   },
   "discovery_complete": true,
   "candidates": [
+    {
+      "id": "archives:archive-leads:9game:1249193",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "9game:1249193",
+      "page_url": "https://www.9game.cn/news/1249193.html",
+      "file_url": null,
+      "title": "9game 2016-10 news (syndicated)",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: watermarked 630px syndicated copies of the GNN 138982 screenshots archived in archives:press"
+    },
+    {
+      "id": "archives:archive-leads:9game:1486863",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "9game:1486863",
+      "page_url": "https://www.9game.cn/news/1486863.html",
+      "file_url": null,
+      "title": "9game 2017-01 news (syndicated)",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: watermarked 629x354 copies of the Vocal package promo and Sakura Fubuki card archived at 1920x1080 from GNN 141991"
+    },
+    {
+      "id": "archives:archive-leads:apk-mirrors",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "apk-mirrors",
+      "page_url": "https://www.bufan.com/games/17909.html",
+      "file_url": null,
+      "title": "Third-party APK listings (炫光动感/Dynamix)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: unofficial APK mirror sites are not used by this project"
+    },
     {
       "id": "archives:archive-leads:archive.org:wiki-dynamixc4cat.fandom.com-20260807",
       "source_id": "archives:archive-leads",
@@ -62,6 +131,75 @@
       "reason": "out_of_scope_other: community wiki page owned by the wikis family (wikis:atwiki-ja)"
     },
     {
+      "id": "archives:archive-leads:bahamut-acg:73365",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "bahamut-acg:73365",
+      "page_url": "https://acg.gamer.com.tw/acgDetail.php?s=73365",
+      "file_url": null,
+      "title": "Bahamut ACG database entry",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: the entry's only image is the app icon (240x240)"
+    },
+    {
+      "id": "archives:archive-leads:cuhk-kto:c4cat",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "cuhk-kto:c4cat",
+      "page_url": "https://kto.cuhk.edu.hk/en/testing/c4cat",
+      "file_url": null,
+      "title": "CUHK KTO project entry",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: institutional identity evidence only (same company logo)"
+    },
+    {
+      "id": "archives:archive-leads:cuhk-kto:c4cat-entertainment-limited",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "cuhk-kto:c4cat-entertainment-limited",
+      "page_url": "https://kto.cuhk.edu.hk/en/testing/c4cat-entertainment-limited",
+      "file_url": null,
+      "title": "CUHK KTO company entry",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: the entry's image is the C4Cat company logo"
+    },
+    {
       "id": "archives:archive-leads:cuhk:newsletter-447",
       "source_id": "archives:archive-leads",
       "upstream_key": "cuhk:newsletter-447",
@@ -83,6 +221,32 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: interview text; no artwork"
+    },
+    {
+      "id": "archives:archive-leads:danbooru:3193031",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "danbooru:3193031",
+      "page_url": "https://danbooru.donmai.us/posts/3193031",
+      "file_url": null,
+      "title": "Danbooru repost of the Theme of Rabi-Ribi jacket",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: booru repost (community tagging, sourced from an unofficial fan account); not a provenance root",
+      "song_titles": [
+        "Theme of Rabi-Ribi"
+      ]
     },
     {
       "id": "archives:archive-leads:duitang:1008753762",
@@ -131,6 +295,52 @@
       "reason": "out_of_scope_other: partner-game wiki; Arcaea-side jackets are not the Dynamix files (credit evidence only)"
     },
     {
+      "id": "archives:archive-leads:fandom:arcaea:visual-artists",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "fandom:arcaea:visual-artists",
+      "page_url": "https://arcaea.fandom.com/wiki/Visual_Artists",
+      "file_url": null,
+      "title": "Arcaea Fandom Visual Artists",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: roster identity evidence (Nano Kun, HenryTz); no Dynamix artwork files"
+    },
+    {
+      "id": "archives:archive-leads:fandom:hachi-hachi",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "fandom:hachi-hachi",
+      "page_url": "https://hachi-hachi.fandom.com/wiki/L'AMITIE",
+      "file_url": null,
+      "title": "Hachi Hachi Fandom song pages",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner-game wiki without illustrator credits; its jackets are layered backgrounds"
+    },
+    {
       "id": "archives:archive-leads:fandom:overrapid:Riverside_Cafe",
       "source_id": "archives:archive-leads",
       "upstream_key": "fandom:overrapid:Riverside_Cafe",
@@ -175,6 +385,29 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: partner-game wiki (512x512 partner jackets); credit evidence only"
+    },
+    {
+      "id": "archives:archive-leads:gamersky:588979",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "gamersky:588979",
+      "page_url": "https://wap.gamersky.com/news/Content-588979.html",
+      "file_url": null,
+      "title": "Gamersky 2015 launch news (炫光动感)",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 550px copies of 2015 App Store screenshots"
     },
     {
       "id": "archives:archive-leads:github:dynode",
@@ -244,6 +477,29 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: game-API research notes; private game services are not used"
+    },
+    {
+      "id": "archives:archive-leads:gnn:275656:universe-images",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "gnn:275656:universe-images",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": null,
+      "title": "GNN 2024 article images of Dynamix Universe",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: seven key art, character, map and in-development gameplay images of Dynamix Universe"
     },
     {
       "id": "archives:archive-leads:miraheze:dynamix",
@@ -338,6 +594,52 @@
       "reason": "blocked: HTTP 403 to automated requests (research sweep); not retried"
     },
     {
+      "id": "archives:archive-leads:press:search-index-only",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "press:search-index-only",
+      "page_url": "https://appget.com/appli/view/66131/",
+      "file_url": null,
+      "title": "Press and reference pages seen only as search snippets",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: not fetched (appget review, CUHK Newsletter 447, CUHK Pre-incubation Centre, Giant Bomb, Baidu Baike, Gcores); search-index snippets only"
+    },
+    {
+      "id": "archives:archive-leads:qooapp:tag-c4cat",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "qooapp:tag-c4cat",
+      "page_url": "https://news.qoo-app.com/tag/c4cat",
+      "file_url": null,
+      "title": "QooApp C4Cat tag listing",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article listing page (discovery index only)"
+    },
+    {
       "id": "archives:archive-leads:seesaa:dynamix-playing",
       "source_id": "archives:archive-leads",
       "upstream_key": "seesaa:dynamix-playing",
@@ -359,6 +661,29 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: community wiki with developer account links; identity evidence only"
+    },
+    {
+      "id": "archives:archive-leads:sspai:29117",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "sspai:29117",
+      "page_url": "https://sspai.com/post/29117",
+      "file_url": null,
+      "title": "sspai review 2015",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: the image CDN answers 403 to direct requests (hotlink protection); not bypassed"
     },
     {
       "id": "archives:archive-leads:techbang:20767",
@@ -384,6 +709,29 @@
       "reason": "pending: press excerpt image not acquired or measured in this run"
     },
     {
+      "id": "archives:archive-leads:toucharcade:review-2015",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "toucharcade:review-2015",
+      "page_url": "https://toucharcade.com/2015/05/28/dynamix-review/",
+      "file_url": null,
+      "title": "TouchArcade review 2015",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: the review's images are app icons only"
+    },
+    {
       "id": "archives:archive-leads:unwire.hk:2016-08-11",
       "source_id": "archives:archive-leads",
       "upstream_key": "unwire.hk:2016-08-11",
@@ -407,6 +755,151 @@
       "reason": "pending: press screenshots and team photos not acquired in this run (photos would be person_photo exclusions)"
     },
     {
+      "id": "archives:archive-leads:wayback:fb:c4cat.dynamix-cdx",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wayback:fb:c4cat.dynamix-cdx",
+      "page_url": "https://web.archive.org/cdx/search/cdx?url=facebook.com/c4cat.dynamix/*",
+      "file_url": null,
+      "title": "Wayback captures of the Facebook pages",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: most captures are login redirects or JS shells without Open Graph data (research CDX review 2026-10-10)"
+    },
+    {
+      "id": "archives:archive-leads:wayback:fb:c4cats-photo-1717719541795476",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wayback:fb:c4cats-photo-1717719541795476",
+      "page_url": "https://web.archive.org/web/20190828202856/https://www.facebook.com/c4cats/photos/a.1380917062142394.1073741826.1377990032435097/1717719541795476/?type=3&theater",
+      "file_url": null,
+      "title": "Archived c4cats merchandise photo post",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: merchandise/event photo post (Little D goods); its image was not archived"
+    },
+    {
+      "id": "archives:archive-leads:wayback:fb:c4cats-post-1554857341415031",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wayback:fb:c4cats-post-1554857341415031",
+      "page_url": "https://web.archive.org/web/20190215232406/https://www.facebook.com/c4cats/posts/1554857341415031",
+      "file_url": null,
+      "title": "Archived c4cats launch post",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: identity evidence only (the first C4Cat game releases tomorrow); the 2014 avatar was not archived"
+    },
+    {
+      "id": "archives:archive-leads:wayback:fb:c4cats-video-1695953050638792",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wayback:fb:c4cats-video-1695953050638792",
+      "page_url": "https://web.archive.org/web/20190908022321/https://www.facebook.com/c4cats/videos/1695953050638792/",
+      "file_url": null,
+      "title": "Archived c4cats video post 'Dynamix 2.4 PV1'",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: caption text only (2.4 update notice, TwoSquare packages); its poster image was not archived"
+    },
+    {
+      "id": "archives:archive-leads:wayback:fb:dnx-post-1773722579481246",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wayback:fb:dnx-post-1773722579481246",
+      "page_url": "https://web.archive.org/web/20210908165510/https://m.facebook.com/c4cat.dynamix/posts/1773722579481246?_rdr",
+      "file_url": null,
+      "title": "Archived c4cat.dynamix feed (2021: Lily comeback, RAVON Collab Pack 2)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: feed text with composer credits only; its images were not archived",
+      "song_titles": [
+        "Lily",
+        "Rave! and Get On It!",
+        "Totally bounded",
+        "Euouae",
+        "MassacrE || 3rc4224M"
+      ]
+    },
+    {
+      "id": "archives:archive-leads:wayback:fb:dnx-post-1784733831713454",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wayback:fb:dnx-post-1784733831713454",
+      "page_url": "https://web.archive.org/web/20210924020553/https://www.facebook.com/c4cat.dynamix/posts/1784733831713454",
+      "file_url": null,
+      "title": "Archived c4cat.dynamix operational notice (2021)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: operational notice text; its image was not archived"
+    },
+    {
       "id": "archives:archive-leads:wikipedia:zh:Dynamix",
       "source_id": "archives:archive-leads",
       "upstream_key": "wikipedia:zh:Dynamix",
@@ -428,6 +921,29 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: encyclopedia infobox (art director credit); no artwork collection"
+    },
+    {
+      "id": "archives:archive-leads:wikipedia:zh:sickgame",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wikipedia:zh:sickgame",
+      "page_url": "https://zh.wikipedia.org/zh-tw/%E6%9C%89%E7%97%85%E5%88%B6%E4%BD%9C",
+      "file_url": null,
+      "title": "Chinese Wikipedia: 有病制作 (SickGame)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner identity evidence for the Regenerate Violence jacket (mascot 兔兔)"
     },
     {
       "id": "archives:archive-leads:wikiwiki:arcaea:Moonlight_of_Sand_Castle",
@@ -476,6 +992,75 @@
       "reason": "out_of_scope_other: partner-game wiki; credit evidence only"
     },
     {
+      "id": "archives:archive-leads:wikiwiki:paradigm",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wikiwiki:paradigm",
+      "page_url": "https://wikiwiki.jp/paradigm_/",
+      "file_url": null,
+      "title": "Paradigm: Reboot wiki (wikiwiki.jp)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner-game wiki pages ('Dynamic Dazzle' songs 「Dynamix」から移植); credit evidence only"
+    },
+    {
+      "id": "archives:archive-leads:wikiwiki:paradigm:albums",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wikiwiki:paradigm:albums",
+      "page_url": "https://wikiwiki.jp/paradigm_/%E3%82%A2%E3%83%AB%E3%83%90%E3%83%A0%E9%A0%86",
+      "file_url": null,
+      "title": "Paradigm: Reboot wiki album list",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner-game album list (Dynamic Dazzle / Dynamic Dimension); evidence only"
+    },
+    {
+      "id": "archives:archive-leads:wikiwiki:ravon",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wikiwiki:ravon",
+      "page_url": "https://wikiwiki.jp/ravon/",
+      "file_url": null,
+      "title": "RAVON wiki (wikiwiki.jp)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner-game wiki pages; per-song jacket credits and Dynamix/UV origin notes are credit evidence only"
+    },
+    {
       "id": "archives:archive-leads:wikiwiki:ravon:Nyarlathotep",
       "source_id": "archives:archive-leads",
       "upstream_key": "wikiwiki:ravon:Nyarlathotep",
@@ -497,6 +1082,78 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: partner-game wiki (company credit for Dynamix-origin songs)"
+    },
+    {
+      "id": "archives:archive-leads:wikiwiki:ravon:chapters",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "wikiwiki:ravon:chapters",
+      "page_url": "https://wikiwiki.jp/ravon/%E3%83%81%E3%83%A3%E3%83%97%E3%82%BF%E3%83%BC%E9%A0%86",
+      "file_url": null,
+      "title": "RAVON wiki chapter list",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner-game chapter list (Dynamix 1/2 and Dynamix UV 1/2 chapters); evidence only"
+    },
+    {
+      "id": "archives:archive-leads:yahoo-hk:singtao-20141126",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "yahoo-hk:singtao-20141126",
+      "page_url": "https://hk.news.yahoo.com/%E4%B8%AD%E5%A4%A7%E8%82%B2%E6%88%90%E4%B8%AD%E5%BF%83%E5%8A%A9%E5%AD%B8%E7%94%9F%E5%9C%93%E5%89%B5%E6%A5%AD%E5%A4%A2-222035112.html",
+      "file_url": null,
+      "title": "Sing Tao 2014 CUHK incubation article",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: the article's only image is a team photo"
+    },
+    {
+      "id": "archives:archive-leads:yande.re:349716",
+      "source_id": "archives:archive-leads",
+      "upstream_key": "yande.re:349716",
+      "page_url": "https://yande.re/post/show/349716",
+      "file_url": null,
+      "title": "yande.re mirror of pixiv 45429113",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: booru repost of deme's illustration (different bytes, mismatched artist tag); the artist's original is archived from its Internet Archive capture (artists:pixiv:548320)",
+      "song_titles": [
+        "Regenerate Violence"
+      ]
     },
     {
       "id": "archives:archive-leads:ziv:7111",

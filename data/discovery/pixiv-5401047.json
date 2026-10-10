@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:5401047",
-  "started_at": "2026-10-10T17:42:35Z",
-  "finished_at": "2026-10-10T17:42:38Z",
+  "started_at": "2026-10-10T20:45:36Z",
+  "finished_at": "2026-10-10T20:46:16Z",
   "scope": {
     "lists": [
-      "seed-artworks"
+      "seed-artworks",
+      "wayback-captures"
     ],
     "api": "https://www.pixiv.net/ajax/illust/",
-    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
   },
   "continuation": {
-    "seed-artworks": null
+    "seed-artworks": null,
+    "wayback-captures": null
   },
   "discovery_complete": true,
   "candidates": [
@@ -20,7 +22,7 @@
       "source_id": "artists:pixiv:5401047",
       "upstream_key": "92594600:p0",
       "page_url": "https://www.pixiv.net/artworks/92594600",
-      "file_url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "file_url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
       "title": "MassacrE || 3rc4224M (p0)",
       "role": "song_art",
       "game": "mixed",
@@ -35,12 +37,12 @@
         "bytes": null,
         "width": 2560,
         "height": 2560,
-        "sha1": null,
+        "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
         "timestamp": "2021-09-08T04:09:00+00:00",
         "revision": null
       },
-      "disposition": "blocked",
-      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:5401047:362aac10e49bef63",
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],
@@ -56,7 +58,7 @@
       "source_id": "artists:pixiv:5401047",
       "upstream_key": "92594600:p1",
       "page_url": "https://www.pixiv.net/artworks/92594600",
-      "file_url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "file_url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
       "title": "MassacrE || 3rc4224M (p1)",
       "role": "song_art",
       "game": "mixed",
@@ -71,12 +73,12 @@
         "bytes": null,
         "width": 1920,
         "height": 1080,
-        "sha1": null,
+        "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
         "timestamp": "2021-09-08T04:09:00+00:00",
         "revision": null
       },
-      "disposition": "blocked",
-      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:5401047:4f5486440b9711c4",
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],
@@ -92,7 +94,7 @@
       "source_id": "artists:pixiv:5401047",
       "upstream_key": "92594600:p2",
       "page_url": "https://www.pixiv.net/artworks/92594600",
-      "file_url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "file_url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
       "title": "MassacrE || 3rc4224M (p2)",
       "role": "song_art",
       "game": "mixed",
@@ -107,12 +109,12 @@
         "bytes": null,
         "width": 2240,
         "height": 1581,
-        "sha1": null,
+        "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
         "timestamp": "2021-09-08T04:09:00+00:00",
         "revision": null
       },
-      "disposition": "blocked",
-      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:5401047:12e4d8c39092a447",
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],

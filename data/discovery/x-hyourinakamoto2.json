@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:hyourinakamoto2",
+  "started_at": "2026-10-10T20:47:25Z",
+  "finished_at": "2026-10-10T20:47:28Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:hyourinakamoto2:1902218892745015384",
+      "source_id": "artists:x:hyourinakamoto2",
+      "upstream_key": "1902218892745015384",
+      "page_url": "https://x.com/hyourinakamoto2/status/1902218892745015384",
+      "file_url": null,
+      "title": "@hyourinakamoto2 post 1902218892745015384",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: '中本がジャケットを描いております' for 流麗凛舞, quoting the official preview (official:x 1901242039800299634)."
+    },
+    {
+      "id": "artists:x:hyourinakamoto2:1902219675829981331",
+      "source_id": "artists:x:hyourinakamoto2",
+      "upstream_key": "1902219675829981331",
+      "page_url": "https://x.com/hyourinakamoto2/status/1902219675829981331",
+      "file_url": null,
+      "title": "@hyourinakamoto2 post 1902219675829981331",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Links the artist's xfolio page for the jacket (bot-checked; recorded in artists:research:leads)."
+    },
+    {
+      "id": "artists:x:hyourinakamoto2:1902220775538753786",
+      "source_id": "artists:x:hyourinakamoto2",
+      "upstream_key": "1902220775538753786",
+      "page_url": "https://x.com/hyourinakamoto2/status/1902220775538753786",
+      "file_url": null,
+      "title": "@hyourinakamoto2 post 1902220775538753786",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence for the collaboration illustration (Sapphire and Suzune), quoting a Shinobi Slash partner post."
+    }
+  ],
+  "errors": []
+}

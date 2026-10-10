@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "artists",
-  "fetched_at": "2026-10-10T17:44:05Z",
+  "fetched_at": "2026-10-10T20:47:46Z",
   "sources": [
     {
       "id": "artists:artstation:sandgodoven",
@@ -21,6 +21,22 @@
       "evidence_level": "blocked"
     },
     {
+      "id": "artists:bandcamp:craftuner",
+      "name": "Bandcamp crafTUNER",
+      "family": "artists",
+      "url": "https://craftuner.bandcamp.com/",
+      "platform": "bandcamp",
+      "status": "excluded",
+      "checked_at": "2026-10-10T20:43:57Z",
+      "notes": "Explicit Bandcamp release page; credit evidence for deronoitz.",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 1,
+      "asset_count": 0,
+      "failure_count": 0,
+      "evidence_level": "page_read"
+    },
+    {
       "id": "artists:bandcamp:ha1uday0",
       "name": "Bandcamp Halv",
       "family": "artists",
@@ -33,6 +49,38 @@
       "discovery_complete": true,
       "candidate_count": 1,
       "asset_count": 1,
+      "failure_count": 0,
+      "evidence_level": "page_read"
+    },
+    {
+      "id": "artists:bandcamp:lixion",
+      "name": "Bandcamp LIXION",
+      "family": "artists",
+      "url": "https://lixion.bandcamp.com/",
+      "platform": "bandcamp",
+      "status": "excluded",
+      "checked_at": "2026-10-10T20:43:58Z",
+      "notes": "Explicit Bandcamp release page.",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 1,
+      "asset_count": 0,
+      "failure_count": 0,
+      "evidence_level": "page_read"
+    },
+    {
+      "id": "artists:bandcamp:vauboy",
+      "name": "Bandcamp Vau Boy / HPTG Music",
+      "family": "artists",
+      "url": "https://vauboy.bandcamp.com/",
+      "platform": "bandcamp",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T20:43:58Z",
+      "notes": "Explicit Bandcamp release pages (research gap-fill, Indonesian composers).",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 2,
+      "asset_count": 0,
       "failure_count": 0,
       "evidence_level": "page_read"
     },
@@ -92,15 +140,15 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/17081698",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:27Z",
-      "notes": "Explicit artworks by Xomu via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:44:01Z",
+      "notes": "Explicit artworks by Xomu via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
-      "failure_count": 1,
+      "asset_count": 1,
+      "failure_count": 0,
       "evidence_level": "live_api"
     },
     {
@@ -109,14 +157,31 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/1840049",
       "platform": "pixiv",
-      "status": "metadata_only",
-      "checked_at": "2026-10-10T17:42:29Z",
-      "notes": "Explicit artworks by くりあ via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:44:10Z",
+      "notes": "Explicit artworks by くりあ via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
+      "asset_count": 1,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:pixiv:19451821",
+      "name": "pixiv Kyokaz (19451821)",
+      "family": "artists",
+      "url": "https://www.pixiv.net/users/19451821",
+      "platform": "pixiv",
+      "status": "available",
+      "checked_at": "2026-10-10T20:44:30Z",
+      "notes": "Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
+      "api_url": "https://www.pixiv.net/ajax/illust/",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 1,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -138,19 +203,36 @@
       "evidence_level": "live_api"
     },
     {
+      "id": "artists:pixiv:3315403",
+      "name": "pixiv Nano Kun (Nano君) (3315403)",
+      "family": "artists",
+      "url": "https://www.pixiv.net/users/3315403",
+      "platform": "pixiv",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T20:44:48Z",
+      "notes": "Deleted Dynamix posts of Nano Kun (live profile 'SalmonBoi', 60 public works, none Dynamix); each artwork ID is read once to record its current state. No Internet Archive capture of their originals was found.",
+      "api_url": "https://www.pixiv.net/ajax/illust/",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": false,
+      "candidate_count": 5,
+      "asset_count": 0,
+      "failure_count": 5,
+      "evidence_level": "live_api"
+    },
+    {
       "id": "artists:pixiv:3381542",
       "name": "pixiv LESYEF (3381542)",
       "family": "artists",
       "url": "https://www.pixiv.net/users/3381542",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:31Z",
-      "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:44:54Z",
+      "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -160,14 +242,14 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/407585",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:32Z",
-      "notes": "Explicit artworks by AFZero via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:45:09Z",
+      "notes": "Explicit artworks by AFZero via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -177,14 +259,14 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/4349073",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:34Z",
-      "notes": "Explicit artworks by せゆーら via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:45:18Z",
+      "notes": "Explicit artworks by せゆーら via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -194,15 +276,32 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/5401047",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:35Z",
-      "notes": "Explicit artworks by Sand Suna via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:45:36Z",
+      "notes": "Explicit artworks by Sand Suna via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 3,
-      "asset_count": 0,
+      "asset_count": 3,
       "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:pixiv:548320",
+      "name": "pixiv deme (548320)",
+      "family": "artists",
+      "url": "https://www.pixiv.net/users/548320",
+      "platform": "pixiv",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T20:46:16Z",
+      "notes": "Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
+      "api_url": "https://www.pixiv.net/ajax/illust/",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 1,
+      "asset_count": 0,
+      "failure_count": 1,
       "evidence_level": "live_api"
     },
     {
@@ -211,14 +310,14 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/74278",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:38Z",
-      "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:46:41Z",
+      "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -228,14 +327,14 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/760598",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:39Z",
-      "notes": "Explicit artworks by キカンシャ via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:46:57Z",
+      "notes": "Explicit artworks by キカンシャ via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 2,
-      "asset_count": 0,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -245,14 +344,14 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/779504",
       "platform": "pixiv",
-      "status": "manual_access",
-      "checked_at": "2026-10-10T17:42:41Z",
-      "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON.",
+      "status": "available",
+      "checked_at": "2026-10-10T20:47:07Z",
+      "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
-      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -280,11 +379,11 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T17:42:47Z",
+      "checked_at": "2026-10-10T20:47:19Z",
       "notes": "Curated 2026-10-10 research-sweep leads (credit/identity evidence, login walls, bot checks, held items). Recorded without new requests; each keeps its own URL and decision.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 66,
+      "candidate_count": 79,
       "asset_count": 0,
       "failure_count": 0,
       "evidence_level": "search_index"
@@ -1177,19 +1276,70 @@
       "evidence_level": "live_api"
     },
     {
+      "id": "artists:x:flan_0207",
+      "name": "X @flan_0207 (Rinnn.6 / HaltquinZ)",
+      "family": "artists",
+      "url": "https://x.com/flan_0207",
+      "platform": "x",
+      "status": "available",
+      "checked_at": "2026-10-10T20:47:19Z",
+      "notes": "Explicit public posts by @flan_0207 read through X's embed endpoint.",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 4,
+      "asset_count": 1,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:x:hyou_haku",
+      "name": "X @hyou_haku (黒鉛)",
+      "family": "artists",
+      "url": "https://x.com/hyou_haku",
+      "platform": "x",
+      "status": "available",
+      "checked_at": "2026-10-10T20:47:24Z",
+      "notes": "Explicit public posts by @hyou_haku read through X's embed endpoint.",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 1,
+      "asset_count": 1,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:x:hyourinakamoto2",
+      "name": "X @hyourinakamoto2 (中本ひょうり)",
+      "family": "artists",
+      "url": "https://x.com/hyourinakamoto2",
+      "platform": "x",
+      "status": "excluded",
+      "checked_at": "2026-10-10T20:47:25Z",
+      "notes": "Explicit public posts by @hyourinakamoto2 read through X's embed endpoint.",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 3,
+      "asset_count": 0,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
       "id": "artists:x:kumeki_3",
       "name": "X @KUMEKI_3 (クメキ)",
       "family": "artists",
       "url": "https://x.com/KUMEKI_3",
       "platform": "x",
-      "status": "excluded",
-      "checked_at": "2026-10-10T17:44:08Z",
+      "status": "available",
+      "checked_at": "2026-10-10T20:47:28Z",
       "notes": "Explicit public posts by @KUMEKI_3 read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 1,
-      "asset_count": 0,
+      "candidate_count": 2,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -1200,13 +1350,13 @@
       "url": "https://x.com/KuskeKplecraft",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T17:44:09Z",
+      "checked_at": "2026-10-10T20:47:31Z",
       "notes": "Explicit public posts by @KuskeKplecraft read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 4,
-      "asset_count": 4,
+      "candidate_count": 7,
+      "asset_count": 5,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -1228,14 +1378,48 @@
       "evidence_level": "live_api"
     },
     {
+      "id": "artists:x:matagi_14",
+      "name": "X @matagi_14 (榊原またぎ)",
+      "family": "artists",
+      "url": "https://x.com/matagi_14",
+      "platform": "x",
+      "status": "excluded",
+      "checked_at": "2026-10-10T20:47:36Z",
+      "notes": "Explicit public posts by @matagi_14 read through X's embed endpoint.",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 1,
+      "asset_count": 0,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
       "id": "artists:x:meganegirai",
       "name": "X @meganegirai (ANT(蟻))",
       "family": "artists",
       "url": "https://x.com/meganegirai",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T17:44:16Z",
+      "checked_at": "2026-10-10T20:47:37Z",
       "notes": "Profile states Dynamix jacket artwork work (research read the public embed timeline).",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 3,
+      "asset_count": 1,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:x:r_solidor",
+      "name": "X @R_Solidor (R.Solidor)",
+      "family": "artists",
+      "url": "https://x.com/R_Solidor",
+      "platform": "x",
+      "status": "available",
+      "checked_at": "2026-10-10T20:47:41Z",
+      "notes": "Explicit public posts by @R_Solidor (composer) read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -1268,13 +1452,64 @@
       "url": "https://x.com/SeURa_Nue",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T17:44:19Z",
+      "checked_at": "2026-10-10T20:47:42Z",
       "notes": "Explicit public posts by @SeURa_Nue read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
+      "candidate_count": 4,
+      "asset_count": 2,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:x:sojyiqui",
+      "name": "X @sojyiqui (長井りく)",
+      "family": "artists",
+      "url": "https://x.com/sojyiqui",
+      "platform": "x",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T20:47:46Z",
+      "notes": "Explicit public posts by @sojyiqui read through X's embed endpoint.",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 3,
+      "asset_count": 0,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:x:violpasn",
+      "name": "X @Violpasn (Violpa)",
+      "family": "artists",
+      "url": "https://x.com/Violpasn",
+      "platform": "x",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T20:47:49Z",
+      "notes": "Explicit public posts by @Violpasn read through X's embed endpoint.",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 4,
+      "asset_count": 0,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "artists:x:zatsuki_ctake",
+      "name": "X @Zatsuki_Ctake (原木シィタケ)",
+      "family": "artists",
+      "url": "https://x.com/Zatsuki_Ctake",
+      "platform": "x",
+      "status": "excluded",
+      "checked_at": "2026-10-10T20:47:54Z",
+      "notes": "Explicit public posts by @Zatsuki_Ctake read through X's embed endpoint.",
+      "api_url": "https://cdn.syndication.twimg.com/tweet-result",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 1,
+      "asset_count": 0,
       "failure_count": 0,
       "evidence_level": "live_api"
     }
@@ -1384,6 +1619,1271 @@
       "variant_role": "full uncropped illustration with HALV logo overlay (Bandcamp release cover)",
       "upstream_status": "current",
       "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50550) https://dynamix.miraheze.org/wiki/Sushi_Tornado: 長井りく (illustrator)."
+    },
+    {
+      "id": "artists:pixiv:17081698:4aa44c969862bdf2",
+      "source_id": "artists:pixiv:17081698",
+      "candidate_id": "artists:pixiv:17081698:77296864:p0",
+      "title": "ルミナ (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/77296864",
+      "download_url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "path": "assets/public/artists/pixiv-17081698/77296864_p0--4aa44c969862.png",
+      "original_filename": "77296864_p0.png",
+      "bytes": 5176658,
+      "sha256": "4aa44c969862bdf2759b8c390081aea534a8b25fb72ced8bb5e9444dc80d6e45",
+      "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 2361,
+      "height": 1513,
+      "fetched_at": "2026-10-10T20:44:06Z",
+      "illustrators": [
+        "Xomu"
+      ],
+      "composers": [
+        "Wisp X & Xomu"
+      ],
+      "song_titles": [
+        "Lumina"
+      ],
+      "song_ids": [
+        "song:lumina"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/77296864",
+          "field": "caption",
+          "quote": "Lumina"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/77296864",
+          "field": "caption",
+          "quote": "私とWisp Xの曲\"Lumina\"のためにつくった!"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Xomu",
+        "url": "https://www.pixiv.net/artworks/77296864",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 2361,
+        "height": 1513,
+        "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
+        "timestamp": "2019-10-14T13:53:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 5176658,
+        "width": 2361,
+        "height": 1513,
+        "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
+        "sha256": "4aa44c969862bdf2759b8c390081aea534a8b25fb72ced8bb5e9444dc80d6e45"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Xomu",
+          "url": "https://dynamix.miraheze.org/wiki/Lumina",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Wisp X & Xomu",
+          "url": "https://dynamix.miraheze.org/wiki/Lumina",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:lumina",
+      "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop (research visual comparison)",
+      "upstream_status": "current",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49920) https://dynamix.miraheze.org/wiki/Lumina: Xomu (illustrator), Wisp X & Xomu (composer). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png made 2022-12-16T05:25:19Z (Wayback CDX: status 200, digest MHLWQK4PMPOJY4X4B73QB7WL7AR2UVYV, WARC record length 5177803); the post page is the artist's own pixiv work 77296864. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221216052519"
+    },
+    {
+      "id": "artists:pixiv:1840049:67d39fd6aec05d6c",
+      "source_id": "artists:pixiv:1840049",
+      "candidate_id": "artists:pixiv:1840049:63416349:p0",
+      "title": "ぺたるすてっぷ (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/63416349",
+      "download_url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+      "path": "assets/public/artists/pixiv-1840049/63416349_p0--67d39fd6aec0.png",
+      "original_filename": "63416349_p0.png",
+      "bytes": 991588,
+      "sha256": "67d39fd6aec05d6c369dd43a1edbf0dcc51bd282127b02a2605ee4210c2c45c2",
+      "sha1": "51cf08bb894e3308160392073ed3bd06418ea381",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 747,
+      "height": 747,
+      "fetched_at": "2026-10-10T20:44:25Z",
+      "illustrators": [
+        "clear"
+      ],
+      "composers": [
+        "dawn-system feat. 一之瀬りと"
+      ],
+      "song_titles": [
+        "ぺたるすてっぷ"
+      ],
+      "song_ids": [
+        "song:file-501df734"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/63416349",
+          "field": "title",
+          "quote": "ぺたるすてっぷ"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/63416349",
+          "field": "caption",
+          "quote": "Dynamix"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "くりあ",
+        "url": "https://www.pixiv.net/artworks/63416349",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 747,
+        "height": 747,
+        "sha1": "51cf08bb894e3308160392073ed3bd06418ea381",
+        "timestamp": "2017-06-16T14:29:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 991588,
+        "width": 747,
+        "height": 747,
+        "sha1": "51cf08bb894e3308160392073ed3bd06418ea381",
+        "sha256": "67d39fd6aec05d6c369dd43a1edbf0dcc51bd282127b02a2605ee4210c2c45c2"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "clear",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "dawn-system feat. 一之瀬りと",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:file-501df734",
+      "variant_role": "square artwork; the in-game 16:9 jacket shows this painting with extra canvas on both sides",
+      "upstream_status": "current",
+      "notes": "The caption (2017-06-16) names the song and Dynamix but says the artwork's inclusion was still pending and that it was used as the SoundCloud thumbnail; the in-game jacket contains this painting (research pixel comparison), with canvas on both sides that this square lacks. The posting pixiv account is くりあ; the wiki credits 'clear'. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50399) https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7: clear (illustrator), dawn-system feat. 一之瀬りと (composer). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png made 2022-12-15T19:40:07Z (Wayback CDX: status 200, digest KHHQRO4JJYZQQFQDSIDT5U55AZAY5I4B, WARC record length 992639); the post page is the artist's own pixiv work 63416349. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221215194007"
+    },
+    {
+      "id": "artists:pixiv:19451821:b5c7808353b3e484",
+      "source_id": "artists:pixiv:19451821",
+      "candidate_id": "artists:pixiv:19451821:62705530:p0",
+      "title": "Between Boundaries (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/62705530",
+      "download_url": "https://web.archive.org/web/20221219122635id_/https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg",
+      "resolved_url": "https://web.archive.org/web/20221219122635id_/https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg",
+      "path": "assets/public/artists/pixiv-19451821/62705530_p0--b5c7808353b3.jpg",
+      "original_filename": "62705530_p0.jpg",
+      "bytes": 2314040,
+      "sha256": "b5c7808353b3e484b19c137cea30cadc0079a3660b6176b6c21802ce1c5a217b",
+      "sha1": "e1ba6a6376bafcbdf2b327f2b4d748e50a80390d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 4092,
+      "height": 2305,
+      "fetched_at": "2026-10-10T20:44:44Z",
+      "illustrators": [
+        "Kyokaz"
+      ],
+      "composers": [
+        "DJ Counterforce"
+      ],
+      "song_titles": [
+        "Between Boundaries"
+      ],
+      "song_ids": [
+        "song:between-boundaries"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/62705530",
+          "field": "title",
+          "quote": "Between Boundaries"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/62705530",
+          "field": "caption",
+          "quote": "submission for Dynamix"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Kyokaz",
+        "url": "https://www.pixiv.net/artworks/62705530",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 4092,
+        "height": 2305,
+        "sha1": "e1ba6a6376bafcbdf2b327f2b4d748e50a80390d",
+        "timestamp": "2017-05-02T16:49:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 2314040,
+        "width": 4092,
+        "height": 2305,
+        "sha1": "e1ba6a6376bafcbdf2b327f2b4d748e50a80390d",
+        "sha256": "b5c7808353b3e484b19c137cea30cadc0079a3660b6176b6c21802ce1c5a217b"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Kyokaz",
+          "url": "https://www.pixiv.net/artworks/62705530",
+          "field": "caption",
+          "quote": "Between Boundaries, commission, and submission for Dynamix"
+        },
+        {
+          "role": "composer",
+          "name": "DJ Counterforce",
+          "url": "https://dynamix.miraheze.org/wiki/Between_Boundaries",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:between-boundaries",
+      "variant_role": "artist's pre-release post (2017-05-02): same composition as the in-game jacket in a different lighting/colour revision; not a substitute for it",
+      "upstream_status": "current",
+      "notes": "The caption is the posting account's own statement (Kyokaz, pixiv 19451821) and adds that the painting leaned heavily on a reference by miv4t. The wiki song page names no Cover Artist; this post supplies the illustrator credit. Research comparison 2026-10-10 against BetweenBoundariesDynamix.png (1024x574): full-width alignment with a structured residual (MAD 15.1): the central platform and the upper sky are lit differently. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45229) https://dynamix.miraheze.org/wiki/Between_Boundaries: DJ Counterforce (composer). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg made 2022-12-19T12:26:35Z (Wayback CDX: status 200, digest 4G5GUY3WXL6L34VTE7ZLJV2I4UFIAOIN, WARC record length 2179100); the post page is the artist's own pixiv work 62705530. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221219122635"
+    },
+    {
+      "id": "artists:pixiv:3381542:434752b49a6d8fd0",
+      "source_id": "artists:pixiv:3381542",
+      "candidate_id": "artists:pixiv:3381542:86481781:p0",
+      "title": "totally bounded (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/86481781",
+      "download_url": "https://web.archive.org/web/20221214210149id_/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221214210149id_/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "path": "assets/public/artists/pixiv-3381542/86481781_p0--434752b49a6d.png",
+      "original_filename": "86481781_p0.png",
+      "bytes": 866381,
+      "sha256": "434752b49a6d8fd06885f458f8f0243cac010ea60d14a7f18bed94114bc73556",
+      "sha1": "09d7ec4dbb2a97aedf89db2ff0bca1a94732fa16",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1024,
+      "fetched_at": "2026-10-10T20:45:04Z",
+      "illustrators": [
+        "LESYEF"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Totally bounded"
+      ],
+      "song_ids": [
+        "song:totally-bounded"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/86481781",
+          "field": "title",
+          "quote": "totally bounded"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": null,
+        "creator": "LESYEF",
+        "url": "https://www.pixiv.net/artworks/86481781",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1024,
+        "height": 1024,
+        "sha1": "09d7ec4dbb2a97aedf89db2ff0bca1a94732fa16",
+        "timestamp": "2020-12-23T13:45:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 866381,
+        "width": 1024,
+        "height": 1024,
+        "sha1": "09d7ec4dbb2a97aedf89db2ff0bca1a94732fa16",
+        "sha256": "434752b49a6d8fd06885f458f8f0243cac010ea60d14a7f18bed94114bc73556"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "LESYEF",
+          "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:totally-bounded",
+      "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715) https://dynamix.miraheze.org/wiki/Totally_bounded: LESYEF (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png made 2022-12-14T21:01:49Z (Wayback CDX: status 200, digest BHL6YTN3FKL25X4J3MX7BPFBVFDTF6QW, WARC record length 867425); the post page is the artist's own pixiv work 86481781. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221214210149"
+    },
+    {
+      "id": "artists:pixiv:407585:aee0d9e59598d818",
+      "source_id": "artists:pixiv:407585",
+      "candidate_id": "artists:pixiv:407585:42973848:p0",
+      "title": "Dynamix「Aegis」用圖 (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/42973848",
+      "download_url": "https://web.archive.org/web/20221220032003id_/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "resolved_url": "https://web.archive.org/web/20221220032003id_/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "path": "assets/public/artists/pixiv-407585/42973848_p0--aee0d9e59598.jpg",
+      "original_filename": "42973848_p0.jpg",
+      "bytes": 1751691,
+      "sha256": "aee0d9e59598d8183412c97dfbfb88786b01be8544238518a1a0ac46138e34be",
+      "sha1": "99c82efaaaf50e7a4428a99dd5f83aae6a507731",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T20:45:14Z",
+      "illustrators": [
+        "AFZero"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Aegis"
+      ],
+      "song_ids": [
+        "song:aegis"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/42973848",
+          "field": "title",
+          "quote": "Dynamix"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/42973848",
+          "field": "title",
+          "quote": "Aegis"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/42973848",
+          "field": "title",
+          "quote": "Dynamix「Aegis」用圖"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "AFZero",
+        "url": "https://www.pixiv.net/artworks/42973848",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "99c82efaaaf50e7a4428a99dd5f83aae6a507731",
+        "timestamp": "2014-04-19T05:40:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 1751691,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "99c82efaaaf50e7a4428a99dd5f83aae6a507731",
+        "sha256": "aee0d9e59598d8183412c97dfbfb88786b01be8544238518a1a0ac46138e34be"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "AFZero",
+          "url": "https://dynamix.miraheze.org/wiki/Aegis",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50155) https://dynamix.miraheze.org/wiki/Aegis: AFZero (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg made 2022-12-20T03:20:03Z (Wayback CDX: status 200, digest THEC56VK6UHHURBIVGO5L6B2VZVFA5ZR, WARC record length 1753016); the post page is the artist's own pixiv work 42973848. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221220032003"
+    },
+    {
+      "id": "artists:pixiv:4349073:fa0acc556f8b2e98",
+      "source_id": "artists:pixiv:4349073",
+      "candidate_id": "artists:pixiv:4349073:80195226:p0",
+      "title": "終の舞姫 (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/80195226",
+      "download_url": "https://web.archive.org/web/20221225234754id_/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221225234754id_/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "path": "assets/public/artists/pixiv-4349073/80195226_p0--fa0acc556f8b.png",
+      "original_filename": "80195226_p0.png",
+      "bytes": 4501981,
+      "sha256": "fa0acc556f8b2e9872b1abfbf87c9b58fa1c43ec221b09571f36c782b2c7af88",
+      "sha1": "fd9daeb6990c13aa0bcd3d62a3e7c9eb0c52eded",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T20:45:32Z",
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "song_ids": [
+        "song:file-9f975b6a"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/80195226",
+          "field": "caption",
+          "quote": "Dynamix"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/80195226",
+          "field": "title",
+          "quote": "終の舞姫"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "せゆーら",
+        "url": "https://www.pixiv.net/artworks/80195226",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "fd9daeb6990c13aa0bcd3d62a3e7c9eb0c52eded",
+        "timestamp": "2020-03-18T01:55:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 4501981,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "fd9daeb6990c13aa0bcd3d62a3e7c9eb0c52eded",
+        "sha256": "fa0acc556f8b2e9872b1abfbf87c9b58fa1c43ec221b09571f36c782b2c7af88"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Se-U-Ra",
+          "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Se-U-Ra",
+          "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:file-9f975b6a",
+      "variant_role": "artist's pixiv post (1920x1080; the wiki copy is 1024x576)",
+      "upstream_status": "current",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136) https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB: Se-U-Ra (illustrator), Se-U-Ra (composer). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png made 2022-12-25T23:47:54Z (Wayback CDX: status 200, digest 7WO25NUZBQJ2UC6NHVRKHZ6J5MGFF3PN, WARC record length 4503116); the post page is the artist's own pixiv work 80195226. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221225234754"
+    },
+    {
+      "id": "artists:pixiv:5401047:12e4d8c39092a447",
+      "source_id": "artists:pixiv:5401047",
+      "candidate_id": "artists:pixiv:5401047:92594600:p2",
+      "title": "MassacrE || 3rc4224M (p2)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/92594600",
+      "download_url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "resolved_url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "path": "assets/public/artists/pixiv-5401047/92594600_p2--12e4d8c39092.jpg",
+      "original_filename": "92594600_p2.jpg",
+      "bytes": 2215933,
+      "sha256": "12e4d8c39092a447ab1f28de8e9a57a5f3ad56aa3801e7c906d12c8080a10a3a",
+      "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2240,
+      "height": 1581,
+      "fetched_at": "2026-10-10T20:46:12Z",
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "song_ids": [
+        "song:massacre-3rc4224m"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "caption",
+          "quote": "For Dynamix x RAVON collaboration event"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "title",
+          "quote": "MassacrE"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "title",
+          "quote": "MassacrE || 3rc4224M"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": null,
+        "creator": "Sand Suna",
+        "url": "https://www.pixiv.net/artworks/92594600",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2240,
+        "height": 1581,
+        "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
+        "timestamp": "2021-09-08T04:09:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 2215933,
+        "width": 2240,
+        "height": 1581,
+        "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
+        "sha256": "12e4d8c39092a447ab1f28de8e9a57a5f3ad56aa3801e7c906d12c8080a10a3a"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Sand Suna",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Spiegel vs Yukino",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "massacre-3rc4224m-sand-suna",
+      "variant_role": "page 3 of 3 (original composition)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271) https://dynamix.miraheze.org/wiki/MassacrE: Sand Suna (illustrator), Spiegel vs Yukino (composer). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg made 2022-12-16T23:14:08Z (Wayback CDX: status 200, digest J3L5HSFMN5WTUTEPBHHCEYE7NN5MQHRV, WARC record length 2217014); the post page is the artist's own pixiv work 92594600. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221216231408"
+    },
+    {
+      "id": "artists:pixiv:5401047:362aac10e49bef63",
+      "source_id": "artists:pixiv:5401047",
+      "candidate_id": "artists:pixiv:5401047:92594600:p0",
+      "title": "MassacrE || 3rc4224M (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/92594600",
+      "download_url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "resolved_url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "path": "assets/public/artists/pixiv-5401047/92594600_p0--362aac10e49b.jpg",
+      "original_filename": "92594600_p0.jpg",
+      "bytes": 6584643,
+      "sha256": "362aac10e49bef636c340a23c4e90874093698259011a376a06cd6d5e4562d8d",
+      "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2560,
+      "height": 2560,
+      "fetched_at": "2026-10-10T20:46:03Z",
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "song_ids": [
+        "song:massacre-3rc4224m"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "caption",
+          "quote": "For Dynamix x RAVON collaboration event"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "title",
+          "quote": "MassacrE"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "title",
+          "quote": "MassacrE || 3rc4224M"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": null,
+        "creator": "Sand Suna",
+        "url": "https://www.pixiv.net/artworks/92594600",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2560,
+        "height": 2560,
+        "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
+        "timestamp": "2021-09-08T04:09:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 6584643,
+        "width": 2560,
+        "height": 2560,
+        "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
+        "sha256": "362aac10e49bef636c340a23c4e90874093698259011a376a06cd6d5e4562d8d"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Sand Suna",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Spiegel vs Yukino",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "massacre-3rc4224m-sand-suna",
+      "variant_role": "page 1 of 3 (square composition)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271) https://dynamix.miraheze.org/wiki/MassacrE: Sand Suna (illustrator), Spiegel vs Yukino (composer). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg made 2022-12-16T23:13:57Z (Wayback CDX: status 200, digest PEIT5NTEWOTDJCPQNANDPWLTWHT5AJJE, WARC record length 6586774); the post page is the artist's own pixiv work 92594600. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221216231357"
+    },
+    {
+      "id": "artists:pixiv:5401047:4f5486440b9711c4",
+      "source_id": "artists:pixiv:5401047",
+      "candidate_id": "artists:pixiv:5401047:92594600:p1",
+      "title": "MassacrE || 3rc4224M (p1)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/92594600",
+      "download_url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "resolved_url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "path": "assets/public/artists/pixiv-5401047/92594600_p1--4f5486440b97.jpg",
+      "original_filename": "92594600_p1.jpg",
+      "bytes": 2153078,
+      "sha256": "4f5486440b9711c419e2711f9649db79a301e8272bfc99bbeb408355a0c48493",
+      "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T20:46:08Z",
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "song_ids": [
+        "song:massacre-3rc4224m"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "caption",
+          "quote": "For Dynamix x RAVON collaboration event"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "title",
+          "quote": "MassacrE"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "title",
+          "quote": "MassacrE || 3rc4224M"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": null,
+        "creator": "Sand Suna",
+        "url": "https://www.pixiv.net/artworks/92594600",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
+        "timestamp": "2021-09-08T04:09:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 2153078,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
+        "sha256": "4f5486440b9711c419e2711f9649db79a301e8272bfc99bbeb408355a0c48493"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Sand Suna",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Spiegel vs Yukino",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "massacre-3rc4224m-sand-suna",
+      "variant_role": "page 2 of 3 (16:9 in-game composition)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271) https://dynamix.miraheze.org/wiki/MassacrE: Sand Suna (illustrator), Spiegel vs Yukino (composer). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg made 2022-12-16T23:14:05Z (Wayback CDX: status 200, digest 3JH2JR2YZYCHAVDLD7J6CFC3MKFAJPF7, WARC record length 2154513); the post page is the artist's own pixiv work 92594600. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221216231405"
+    },
+    {
+      "id": "artists:pixiv:74278:653c79a6460b8316",
+      "source_id": "artists:pixiv:74278",
+      "candidate_id": "artists:pixiv:74278:61859342:p0",
+      "title": "8bit_girl (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/61859342",
+      "download_url": "https://web.archive.org/web/20221221064601id_/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221221064601id_/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+      "path": "assets/public/artists/pixiv-74278/61859342_p0--653c79a6460b.png",
+      "original_filename": "61859342_p0.png",
+      "bytes": 605062,
+      "sha256": "653c79a6460b8316a4fe3cc543496b956ec9557195ca11aacfd2a8974f9b6bd9",
+      "sha1": "3f9900e2e6b786508145e6409244bb06ae6995e0",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 900,
+      "height": 506,
+      "fetched_at": "2026-10-10T20:46:50Z",
+      "illustrators": [
+        "Shionty"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Evoltex (poppi'n mix)"
+      ],
+      "song_ids": [
+        "song:evoltex-poppi-n-mix"
+      ],
+      "collections": [],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/61859342",
+          "field": "caption",
+          "quote": "Dynamix"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/61859342",
+          "field": "caption",
+          "quote": "Evoltex"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Shionty",
+        "url": "https://www.pixiv.net/artworks/61859342",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 900,
+        "height": 506,
+        "sha1": "3f9900e2e6b786508145e6409244bb06ae6995e0",
+        "timestamp": "2017-03-11T13:08:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 605062,
+        "width": 900,
+        "height": 506,
+        "sha1": "3f9900e2e6b786508145e6409244bb06ae6995e0",
+        "sha256": "653c79a6460b8316a4fe3cc543496b956ec9557195ca11aacfd2a8974f9b6bd9"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Shionty",
+          "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Evoltex (poppi'n mix)”. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214) https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix): Shionty (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png made 2022-12-21T06:46:01Z (Wayback CDX: status 200, digest H6MQBYXGW6DFBAKF4ZAJERF3A2XGTFPA, WARC record length 606100); the post page is the artist's own pixiv work 61859342. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221221064601"
+    },
+    {
+      "id": "artists:pixiv:760598:ba6a7784212b094d",
+      "source_id": "artists:pixiv:760598",
+      "candidate_id": "artists:pixiv:760598:62913946:p0",
+      "title": "【Dynamix】Bluebell (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/62913946",
+      "download_url": "https://web.archive.org/web/20221216101704id_/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221216101704id_/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "path": "assets/public/artists/pixiv-760598/62913946_p0--ba6a7784212b.png",
+      "original_filename": "62913946_p0.png",
+      "bytes": 2379537,
+      "sha256": "ba6a7784212b094df108da2f85370370087b46895db58bccd644a69687c45ceb",
+      "sha1": "eeef426f5c05ddd6e5080ee5bbce12af44ab1f77",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T20:47:03Z",
+      "illustrators": [
+        "キカンシャ"
+      ],
+      "composers": [
+        "5argon feat. imTiNEY"
+      ],
+      "song_titles": [
+        "Bluebell"
+      ],
+      "song_ids": [
+        "song:bluebell"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/62913946",
+          "field": "caption",
+          "quote": "My work for Dynamix song"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/62913946",
+          "field": "title",
+          "quote": "Bluebell"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/62913946",
+          "field": "title",
+          "quote": "【Dynamix】Bluebell"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "キカンシャ",
+        "url": "https://www.pixiv.net/artworks/62913946",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "eeef426f5c05ddd6e5080ee5bbce12af44ab1f77",
+        "timestamp": "2017-05-15T08:01:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 2379537,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "eeef426f5c05ddd6e5080ee5bbce12af44ab1f77",
+        "sha256": "ba6a7784212b094df108da2f85370370087b46895db58bccd644a69687c45ceb"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "キカンシャ",
+          "url": "https://dynamix.miraheze.org/wiki/Bluebell",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "5argon feat. imTiNEY",
+          "url": "https://www.pixiv.net/artworks/62913946",
+          "field": "caption",
+          "quote": "…or Dynamix song \"Bluebell\" (Composed by 5argon feat. imTiNEY) ©Dynamix / C4Cat Entertainment Limited…"
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49734) https://dynamix.miraheze.org/wiki/Bluebell: キカンシャ (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png made 2022-12-16T10:17:04Z (Wayback CDX: status 200, digest 53XUE324AXO5NZIIB3S3XTQSV5CKWH3X, WARC record length 2380619); the post page is the artist's own pixiv work 62913946. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221216101704"
+    },
+    {
+      "id": "artists:pixiv:779504:73d278d124f29ed8",
+      "source_id": "artists:pixiv:779504",
+      "candidate_id": "artists:pixiv:779504:91845485:p0",
+      "title": "Party Vinyl (p0)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://www.pixiv.net/artworks/91845485",
+      "download_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "resolved_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "path": "assets/public/artists/pixiv-779504/91845485_p0--73d278d124f2.jpg",
+      "original_filename": "91845485_p0.jpg",
+      "bytes": 1087386,
+      "sha256": "73d278d124f29ed843952d12c36005825cd24adcbb062b717026355c82ca2616",
+      "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1000,
+      "height": 1000,
+      "fetched_at": "2026-10-10T20:47:16Z",
+      "illustrators": [
+        "アサヤ"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Party Vinyl"
+      ],
+      "song_ids": [
+        "song:party-vinyl"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/91845485",
+          "field": "title",
+          "quote": "Party Vinyl"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
+      },
+      "rights": {
+        "holder": null,
+        "creator": "アサヤ",
+        "url": "https://www.pixiv.net/artworks/91845485",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1000,
+        "height": 1000,
+        "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+        "timestamp": "2021-08-09T08:53:00+00:00",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 1087386,
+        "width": 1000,
+        "height": 1000,
+        "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+        "sha256": "73d278d124f29ed843952d12c36005825cd24adcbb062b717026355c82ca2616"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "アサヤ",
+          "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:party-vinyl",
+      "variant_role": "square variant posted for the Arcaea release; same illustration as the Dynamix jacket (research OGP comparison)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "arcaea"
+      ],
+      "notes": "Rights holder not recorded: the art is also associated with arcaea and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303) https://dynamix.miraheze.org/wiki/Party_Vinyl: アサヤ (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg made 2022-12-20T12:18:48Z (Wayback CDX: status 200, digest VJVNBESTAE6UJDRMQ7DDPAASO6FJTYKO, WARC record length 1088443); the post page is the artist's own pixiv work 91845485. pixiv's advertised page size and post date are kept in source_reported.",
+      "upstream_revision": "20221220121848"
     },
     {
       "id": "artists:soundcloud:3t1a:e84eb40d16ef7f8e",
@@ -6824,6 +8324,316 @@
       "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42090) https://dynamix.miraheze.org/wiki/Cosmic_Pulse: ariiol (illustrator), Yunosuke (composer)."
     },
     {
+      "id": "artists:x:flan_0207:2198ac225def3cf3",
+      "source_id": "artists:x:flan_0207",
+      "candidate_id": "artists:x:flan_0207:1185170668175814661:1",
+      "title": "@flan_0207 post 1185170668175814661 image 1",
+      "kind": "process",
+      "game": "dynamix",
+      "page_url": "https://x.com/flan_0207/status/1185170668175814661",
+      "download_url": "https://pbs.twimg.com/media/EHKSa4ZUYAAGGhX?format=png&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/EHKSa4ZUYAAGGhX?format=png&name=orig",
+      "path": "assets/public/artists/x-flan_0207/EHKSa4ZUYAAGGhX--2198ac225def.png",
+      "original_filename": "EHKSa4ZUYAAGGhX.png",
+      "bytes": 920372,
+      "sha256": "2198ac225def3cf3ff44814e2910cbdf45d99ca7d295d1b17baee2d905f159bd",
+      "sha1": "66d515164f1feb459601eb778f6f6e2874e622c8",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1001,
+      "height": 2814,
+      "fetched_at": "2026-10-10T20:47:23Z",
+      "illustrators": [
+        "HaltquinZ♠♥♣♦ (Rinne.6×ましろま)"
+      ],
+      "composers": [
+        "MisoilePunch♪ 〜タケノコ添え～"
+      ],
+      "song_titles": [
+        "Jack Out KIllER"
+      ],
+      "song_ids": [
+        "song:jack-out-killer"
+      ],
+      "collections": [],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://x.com/flan_0207/status/1185170668175814661",
+          "field": "text",
+          "quote": "アートワーク"
+        },
+        {
+          "url": "https://x.com/flan_0207/status/1185170668175814661",
+          "field": "text",
+          "quote": "Dynamix"
+        },
+        {
+          "url": "https://x.com/flan_0207/status/1176105598867296257",
+          "note": "the same account names the work: 'HaltquinZ♠♥♣♦名義で Jack out kⅢerのアートワーク書かせて頂きました'"
+        },
+        {
+          "url": "https://x.com/flan_0207/status/1184099862897258497",
+          "note": "'ジャケット担当してますです' quoting the official Jack Out KIllER event post"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "HaltquinZ♠♥♣♦ (Rinne.6×ましろま)",
+        "url": "https://x.com/flan_0207/status/1185170668175814661",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EHKSa4ZUYAAGGhX.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1001,
+        "height": 2814,
+        "sha1": null,
+        "timestamp": "2019-10-18T12:28:01.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 920372,
+        "width": 1001,
+        "height": 2814,
+        "sha1": "66d515164f1feb459601eb778f6f6e2874e622c8",
+        "sha256": "2198ac225def3cf3ff44814e2910cbdf45d99ca7d295d1b17baee2d905f159bd"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "HaltquinZ♠♥♣♦ (Rinne.6×ましろま)",
+          "url": "https://dynamix.miraheze.org/wiki/Jack_Out_KIllER",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "MisoilePunch♪ 〜タケノコ添え～",
+          "url": "https://dynamix.miraheze.org/wiki/Jack_Out_KIllER",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:jack-out-killer",
+      "variant_role": "process sheet: rough sketch with notes, flat colours, the final jacket with title lettering and a crop",
+      "upstream_status": "current",
+      "notes": "The post explains the collaboration: the poster sent the composition and character design, ましろま refined the character design, then the poster painted it as HaltquinZ. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50442) https://dynamix.miraheze.org/wiki/Jack_Out_KIllER: HaltquinZ♠♥♣♦ (Rinne.6×ましろま) (illustrator), MisoilePunch♪ 〜タケノコ添え～ (composer)."
+    },
+    {
+      "id": "artists:x:hyou_haku:43c7c74ff627e451",
+      "source_id": "artists:x:hyou_haku",
+      "candidate_id": "artists:x:hyou_haku:1819855437455606133:1",
+      "title": "@hyou_haku post 1819855437455606133 image 1",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://x.com/hyou_haku/status/1819855437455606133",
+      "download_url": "https://pbs.twimg.com/media/GUFs4D5acAASeCO?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/GUFs4D5acAASeCO?format=jpg&name=orig",
+      "path": "assets/public/artists/x-hyou_haku/GUFs4D5acAASeCO--43c7c74ff627.jpg",
+      "original_filename": "GUFs4D5acAASeCO.jpg",
+      "bytes": 179380,
+      "sha256": "43c7c74ff627e4517503cef3e2dc1088e8236d275a96f129fb8fc7ce25bccf6e",
+      "sha1": "5dda495bd373874041d156938e5d4f96ab3a99ab",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2048,
+      "height": 922,
+      "fetched_at": "2026-10-10T20:47:25Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [
+        "scualee"
+      ],
+      "song_ids": [
+        "song:scualee"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://x.com/hyou_haku/status/1819855437455606133",
+          "field": "text",
+          "quote": "scualee"
+        },
+        {
+          "url": "https://x.com/hyou_haku/status/1819855437455606133",
+          "field": "text",
+          "quote": "Dynamix"
+        },
+        {
+          "url": "https://x.com/hyou_haku/status/1819855437455606133",
+          "field": "text",
+          "quote": "先日 #Dynamix に追加されたAoiさんの『scualee』のイラストを描かせていただいてます!Aoiさんと出前さんに感謝! 今回もミニ…"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "黒鉛",
+        "url": "https://x.com/hyou_haku/status/1819855437455606133",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GUFs4D5acAASeCO.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 922,
+        "sha1": null,
+        "timestamp": "2024-08-03T21:58:42.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 179380,
+        "width": 2048,
+        "height": 922,
+        "sha1": "5dda495bd373874041d156938e5d4f96ab3a99ab",
+        "sha256": "43c7c74ff627e4517503cef3e2dc1088e8236d275a96f129fb8fc7ce25bccf6e"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Posted by the jacket's illustrator (黒鉛), who states 'Aoiさんの『scualee』のイラストを描かせていただいてます'; the image itself is a screenshot. In-game song-select screen: the scualee jacket under UI (START button, difficulty diamond) with the song's mini-character; not a clean jacket."
+    },
+    {
+      "id": "artists:x:kumeki_3:09aca7a9dfbb9442",
+      "source_id": "artists:x:kumeki_3",
+      "candidate_id": "artists:x:kumeki_3:1156842676290854912:1",
+      "title": "@KUMEKI_3 post 1156842676290854912 image 1",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://x.com/KUMEKI_3/status/1156842676290854912",
+      "download_url": "https://pbs.twimg.com/media/EA3uRXyUIAIV_9r?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/EA3uRXyUIAIV_9r?format=jpg&name=orig",
+      "path": "assets/public/artists/x-kumeki_3/EA3uRXyUIAIV_9r--09aca7a9dfbb.jpg",
+      "original_filename": "EA3uRXyUIAIV_9r.jpg",
+      "bytes": 449429,
+      "sha256": "09aca7a9dfbb9442e267703cecdfbce3825566ebfaf09f8688778c89377847b4",
+      "sha1": "98a1e8ed053e45901151c11d13b45f86c4dba12c",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T20:47:31Z",
+      "illustrators": [
+        "クメキ"
+      ],
+      "composers": [
+        "Dragon_Klub & 残響P"
+      ],
+      "song_titles": [
+        "オレンジ"
+      ],
+      "song_ids": [
+        "song:file-0349fe3d"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://x.com/KUMEKI_3/status/1156842676290854912",
+          "field": "text",
+          "quote": "オレンジ"
+        },
+        {
+          "url": "https://x.com/KUMEKI_3/status/1156842676290854912",
+          "field": "text",
+          "quote": "オレンジ https://t.co/WZ9F22gJFv"
+        },
+        {
+          "url": "https://x.com/KUMEKI_3/status/1156477613222744064",
+          "note": "the artist's post of the previous day, 'オレンジ描かせて頂きました', quotes the official オレンジ event post"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "クメキ",
+        "url": "https://x.com/KUMEKI_3/status/1156842676290854912",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EA3uRXyUIAIV_9r.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-08-01T08:22:41.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 449429,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "98a1e8ed053e45901151c11d13b45f86c4dba12c",
+        "sha256": "09aca7a9dfbb9442e267703cecdfbce3825566ebfaf09f8688778c89377847b4"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "クメキ",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Dragon_Klub & 残響P",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:file-0349fe3d",
+      "variant_role": "artist's alternate version: the jacket's background and girl without the standing male figure on the right (research full-frame MAD 11.5); not the in-game composition",
+      "upstream_status": "current",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49900) https://dynamix.miraheze.org/wiki/%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8: クメキ (illustrator), Dragon_Klub & 残響P (composer)."
+    },
+    {
       "id": "artists:x:kuskekplecraft:631e6573e815e93c",
       "source_id": "artists:x:kuskekplecraft",
       "candidate_id": "artists:x:kuskekplecraft:946599307431460867:2",
@@ -7139,6 +8949,76 @@
       "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44030) https://dynamix.miraheze.org/wiki/16383: Kplecraft (illustrator), Kplecraft (composer). The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
     },
     {
+      "id": "artists:x:kuskekplecraft:d061d2f5b5551883",
+      "source_id": "artists:x:kuskekplecraft",
+      "candidate_id": "artists:x:kuskekplecraft:1253596942510075904:1",
+      "title": "@KuskeKplecraft post 1253596942510075904 image 1",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://x.com/KuskeKplecraft/status/1253596942510075904",
+      "download_url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5?format=jpg&name=orig",
+      "path": "assets/public/artists/x-kuskekplecraft/EWWroNdU8AAqJ_5--d061d2f5b555.jpg",
+      "original_filename": "EWWroNdU8AAqJ_5.jpg",
+      "bytes": 819388,
+      "sha256": "d061d2f5b5551883ce4ac66a9abe9c5db413a2c4bf20ea6feda61fc92bd429d1",
+      "sha1": "a374e9d256a416413c2779c5d1a786accdec612c",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2048,
+      "height": 1536,
+      "fetched_at": "2026-10-10T20:47:36Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [
+        "Kplecraft"
+      ],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Kplecraft",
+        "url": "https://x.com/KuskeKplecraft/status/1253596942510075904",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1536,
+        "sha1": null,
+        "timestamp": "2020-04-24T08:09:36.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 819388,
+        "width": 2048,
+        "height": 1536,
+        "sha1": "a374e9d256a416413c2779c5d1a786accdec612c",
+        "sha256": "d061d2f5b5551883ce4ac66a9abe9c5db413a2c4bf20ea6feda61fc92bd429d1"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "In-game store page of the Kplecraft Collection pack with its four small jacket thumbnails. In-game store screenshot of the Kplecraft Collection pack page (sale, 2020-04-24)."
+    },
+    {
       "id": "artists:x:kuskekplecraft:e3d38373d1a11531",
       "source_id": "artists:x:kuskekplecraft",
       "candidate_id": "artists:x:kuskekplecraft:946599307431460867:3",
@@ -7354,6 +9234,227 @@
       "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki song page https://dynamix.miraheze.org/wiki/PUPA: ANT(蟻) (illustrator), モリモリあつし (composer)."
     },
     {
+      "id": "artists:x:r_solidor:58d616cfe0c02cb5",
+      "source_id": "artists:x:r_solidor",
+      "candidate_id": "artists:x:r_solidor:1890032490053861447:1",
+      "title": "@R_Solidor post 1890032490053861447 image 1",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://x.com/R_Solidor/status/1890032490053861447",
+      "download_url": "https://pbs.twimg.com/media/Gjq-iDraEAEW-IR?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/Gjq-iDraEAEW-IR?format=jpg&name=orig",
+      "path": "assets/public/artists/x-r_solidor/Gjq-iDraEAEW-IR--58d616cfe0c0.jpg",
+      "original_filename": "Gjq-iDraEAEW-IR.jpg",
+      "bytes": 280366,
+      "sha256": "58d616cfe0c02cb52d17182095b00621766654c2b2a53819d5061247c2e5db0b",
+      "sha1": "046fca36a8000c9e50878043207ca8278e18878e",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2048,
+      "height": 1536,
+      "fetched_at": "2026-10-10T20:47:42Z",
+      "illustrators": [
+        "Zero"
+      ],
+      "composers": [
+        "R.Solidor"
+      ],
+      "song_titles": [
+        "ネーヴェの紋様"
+      ],
+      "song_ids": [
+        "song:file-7631f521"
+      ],
+      "collections": [
+        "Berry Melody Collaboration"
+      ],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://x.com/R_Solidor/status/1890032490053861447",
+          "field": "text",
+          "quote": "ネーヴェの紋様"
+        },
+        {
+          "url": "https://x.com/R_Solidor/status/1890032490053861447",
+          "field": "text",
+          "quote": "Berry Melody × Dynamix"
+        },
+        {
+          "url": "https://x.com/R_Solidor/status/1890032490053861447",
+          "field": "text",
+          "quote": "… Melody × Dynamixコラボに際しまして、SoundCloudの \"ネーヴェの紋様\" ジャケットイラストを変更いたしました!https://t.co/jcgZ2x…"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file. Posted by the composer, who commissioned the illustration."
+      },
+      "rights": {
+        "holder": null,
+        "creator": "Zero",
+        "url": "https://x.com/R_Solidor/status/1890032490053861447",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Gjq-iDraEAEW-IR.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1536,
+        "sha1": null,
+        "timestamp": "2025-02-13T13:37:15.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 280366,
+        "width": 2048,
+        "height": 1536,
+        "sha1": "046fca36a8000c9e50878043207ca8278e18878e",
+        "sha256": "58d616cfe0c02cb52d17182095b00621766654c2b2a53819d5061247c2e5db0b"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Zero",
+          "url": "https://x.com/R_Solidor/status/1890032490053861447",
+          "field": "text",
+          "quote": "…せんでした...これからも末永くよろしくお願いいたします! 素敵なイラスト: Zero さん https://t.co/ks79uTObsK"
+        },
+        {
+          "role": "composer",
+          "name": "R.Solidor",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%83%8D%E3%83%BC%E3%83%B4%E3%82%A7%E3%81%AE%E7%B4%8B%E6%A7%98",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:file-7631f521",
+      "variant_role": "uncropped 4:3 SoundCloud jacket with 'modello di neve' lettering, a 'by R.Solidor' line and dark letterbox bars; the in-game jacket is a 16:9 crop of it (research MAD 3.5)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "berry_melody"
+      ],
+      "notes": "Posted by the composer (who changed his SoundCloud jacket for the collaboration), not by the illustrator. Rights holder not recorded: the art is also associated with berry_melody and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45126) https://dynamix.miraheze.org/wiki/%E3%83%8D%E3%83%BC%E3%83%B4%E3%82%A7%E3%81%AE%E7%B4%8B%E6%A7%98: R.Solidor (composer)."
+    },
+    {
+      "id": "artists:x:seura_nue:663ecf64a2180ed5",
+      "source_id": "artists:x:seura_nue",
+      "candidate_id": "artists:x:seura_nue:1241295713784328193:1",
+      "title": "@SeURa_Nue post 1241295713784328193 image 1",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://x.com/SeURa_Nue/status/1241295713784328193",
+      "download_url": "https://pbs.twimg.com/media/ETn3x6CUwAEvgf5?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/ETn3x6CUwAEvgf5?format=jpg&name=orig",
+      "path": "assets/public/artists/x-seura_nue/ETn3x6CUwAEvgf5--663ecf64a218.jpg",
+      "original_filename": "ETn3x6CUwAEvgf5.jpg",
+      "bytes": 427369,
+      "sha256": "663ecf64a2180ed503657e17698ec08abb943603a77bd1d58f6b6a6a8db3bd74",
+      "sha1": "a6e003a40de1b5f09923f17a920f852769c313c2",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T20:47:46Z",
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "song_ids": [
+        "song:file-9f975b6a"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://x.com/SeURa_Nue/status/1241295713784328193",
+          "field": "text",
+          "quote": "終の舞姫アートワーク"
+        },
+        {
+          "url": "https://x.com/SeURa_Nue/status/1241295713784328193",
+          "field": "text",
+          "quote": "終の舞姫アートワーク単品 https://t.co/j7RJy8u2qq"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Se-U-Ra",
+        "url": "https://x.com/SeURa_Nue/status/1241295713784328193",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ETn3x6CUwAEvgf5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-03-21T09:28:54.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 427369,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "a6e003a40de1b5f09923f17a920f852769c313c2",
+        "sha256": "663ecf64a2180ed503657e17698ec08abb943603a77bd1d58f6b6a6a8db3bd74"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Se-U-Ra",
+          "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Se-U-Ra",
+          "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:file-9f975b6a",
+      "variant_role": "artist's X post of the artwork alone (JPEG 1920x1080)",
+      "upstream_status": "current",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136) https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB: Se-U-Ra (illustrator), Se-U-Ra (composer)."
+    },
+    {
       "id": "artists:x:seura_nue:9436c40423ba1e56",
       "source_id": "artists:x:seura_nue",
       "candidate_id": "artists:x:seura_nue:1535164468476317696:1",
@@ -7489,18 +9590,88 @@
       "message": "Bilibili risk control (code -352) for an anonymous client"
     },
     {
-      "id": "artists:pixiv:17081698:77296864:p0:download",
-      "source_id": "artists:pixiv:17081698",
-      "candidate_id": "artists:pixiv:17081698:77296864:p0",
-      "phase": "download",
-      "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
-      "attempted_at": "2026-10-10T17:42:28Z",
+      "id": "artists:pixiv:3315403:43908270:p0:discover",
+      "source_id": "artists:pixiv:3315403",
+      "candidate_id": "artists:pixiv:3315403:43908270:p0",
+      "phase": "discover",
+      "url": "https://www.pixiv.net/ajax/illust/43908270",
+      "attempted_at": "2026-10-10T20:44:54Z",
       "attempts": 1,
-      "error_class": "blocked",
-      "http_status": 403,
+      "error_class": "http_4xx",
+      "http_status": 404,
       "retriable": false,
-      "manual": true,
-      "message": "access refused (HTTP 403)"
+      "manual": false,
+      "message": "HTTP 404"
+    },
+    {
+      "id": "artists:pixiv:3315403:43908484:p0:discover",
+      "source_id": "artists:pixiv:3315403",
+      "candidate_id": "artists:pixiv:3315403:43908484:p0",
+      "phase": "discover",
+      "url": "https://www.pixiv.net/ajax/illust/43908484",
+      "attempted_at": "2026-10-10T20:44:54Z",
+      "attempts": 1,
+      "error_class": "http_4xx",
+      "http_status": 404,
+      "retriable": false,
+      "manual": false,
+      "message": "HTTP 404"
+    },
+    {
+      "id": "artists:pixiv:3315403:46835674:p0:discover",
+      "source_id": "artists:pixiv:3315403",
+      "candidate_id": "artists:pixiv:3315403:46835674:p0",
+      "phase": "discover",
+      "url": "https://www.pixiv.net/ajax/illust/46835674",
+      "attempted_at": "2026-10-10T20:44:54Z",
+      "attempts": 1,
+      "error_class": "http_4xx",
+      "http_status": 404,
+      "retriable": false,
+      "manual": false,
+      "message": "HTTP 404"
+    },
+    {
+      "id": "artists:pixiv:3315403:55639021:p0:discover",
+      "source_id": "artists:pixiv:3315403",
+      "candidate_id": "artists:pixiv:3315403:55639021:p0",
+      "phase": "discover",
+      "url": "https://www.pixiv.net/ajax/illust/55639021",
+      "attempted_at": "2026-10-10T20:44:54Z",
+      "attempts": 1,
+      "error_class": "http_4xx",
+      "http_status": 404,
+      "retriable": false,
+      "manual": false,
+      "message": "HTTP 404"
+    },
+    {
+      "id": "artists:pixiv:3315403:58916702:p0:discover",
+      "source_id": "artists:pixiv:3315403",
+      "candidate_id": "artists:pixiv:3315403:58916702:p0",
+      "phase": "discover",
+      "url": "https://www.pixiv.net/ajax/illust/58916702",
+      "attempted_at": "2026-10-10T20:44:54Z",
+      "attempts": 1,
+      "error_class": "http_4xx",
+      "http_status": 404,
+      "retriable": false,
+      "manual": false,
+      "message": "HTTP 404"
+    },
+    {
+      "id": "artists:pixiv:548320:45429113:p0:download",
+      "source_id": "artists:pixiv:548320",
+      "candidate_id": "artists:pixiv:548320:45429113:p0",
+      "phase": "download",
+      "url": "https://web.archive.org/web/20221222150529id_/https://i.pximg.net/img-original/img/2014/08/18/07/41/33/45429113_p0.jpg",
+      "attempted_at": "2026-10-10T20:46:31Z",
+      "attempts": 1,
+      "error_class": "http_4xx",
+      "http_status": 404,
+      "retriable": false,
+      "manual": false,
+      "message": "HTTP 404"
     }
   ]
 }

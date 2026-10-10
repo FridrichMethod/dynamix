@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:1840049",
-  "started_at": "2026-10-10T17:42:29Z",
-  "finished_at": "2026-10-10T17:42:30Z",
+  "started_at": "2026-10-10T20:44:10Z",
+  "finished_at": "2026-10-10T20:44:30Z",
   "scope": {
     "lists": [
-      "seed-artworks"
+      "seed-artworks",
+      "wayback-captures"
     ],
     "api": "https://www.pixiv.net/ajax/illust/",
-    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
   },
   "continuation": {
-    "seed-artworks": null
+    "seed-artworks": null,
+    "wayback-captures": null
   },
   "discovery_complete": true,
   "candidates": [
@@ -20,12 +22,15 @@
       "source_id": "artists:pixiv:1840049",
       "upstream_key": "63416349:p0",
       "page_url": "https://www.pixiv.net/artworks/63416349",
-      "file_url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+      "file_url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
       "title": "ぺたるすてっぷ (p0)",
       "role": "song_art",
-      "game": "unknown",
+      "game": "dynamix",
       "game_evidence": [
-        "https://www.pixiv.net/artworks/63416349"
+        "https://www.pixiv.net/artworks/63416349",
+        "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (box 254.5,0-827.9,573.4; MAD 6.7, edge-only residual)",
+        "title: ぺたるすてっぷ",
+        "caption: Dynamix"
       ],
       "source_reported": {
         "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
@@ -33,14 +38,20 @@
         "bytes": null,
         "width": 747,
         "height": 747,
-        "sha1": null,
+        "sha1": "51cf08bb894e3308160392073ed3bd06418ea381",
         "timestamp": "2017-06-16T14:29:00+00:00",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: the caption says the artwork's use in Dynamix was still undecided; not compared with the in-game jacket",
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:1840049:67d39fd6aec05d6c",
       "song_titles": [
         "ぺたるすてっぷ"
+      ],
+      "illustrators": [
+        "clear"
+      ],
+      "composers": [
+        "dawn-system feat. 一之瀬りと"
       ]
     }
   ],

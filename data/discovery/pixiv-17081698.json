@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:17081698",
-  "started_at": "2026-10-10T17:42:27Z",
-  "finished_at": "2026-10-10T17:42:29Z",
+  "started_at": "2026-10-10T20:44:01Z",
+  "finished_at": "2026-10-10T20:44:10Z",
   "scope": {
     "lists": [
-      "seed-artworks"
+      "seed-artworks",
+      "wayback-captures"
     ],
     "api": "https://www.pixiv.net/ajax/illust/",
-    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
   },
   "continuation": {
-    "seed-artworks": null
+    "seed-artworks": null,
+    "wayback-captures": null
   },
   "discovery_complete": true,
   "candidates": [
@@ -20,7 +22,7 @@
       "source_id": "artists:pixiv:17081698",
       "upstream_key": "77296864:p0",
       "page_url": "https://www.pixiv.net/artworks/77296864",
-      "file_url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "file_url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
       "title": "ルミナ (p0)",
       "role": "song_art",
       "game": "dynamix",
@@ -34,12 +36,12 @@
         "bytes": null,
         "width": 2361,
         "height": 1513,
-        "sha1": null,
+        "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
         "timestamp": "2019-10-14T13:53:00+00:00",
         "revision": null
       },
-      "disposition": "blocked",
-      "reason": "blocked: access refused (HTTP 403); manual access required, not retried",
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:17081698:4aa44c969862bdf2",
       "song_titles": [
         "Lumina"
       ],

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:hyou_haku",
+  "started_at": "2026-10-10T20:47:24Z",
+  "finished_at": "2026-10-10T20:47:25Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:hyou_haku:1819855437455606133:1",
+      "source_id": "artists:x:hyou_haku",
+      "upstream_key": "1819855437455606133:1",
+      "page_url": "https://x.com/hyou_haku/status/1819855437455606133",
+      "file_url": "https://pbs.twimg.com/media/GUFs4D5acAASeCO?format=jpg&name=orig",
+      "title": "@hyou_haku post 1819855437455606133 image 1",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/hyou_haku/status/1819855437455606133",
+        "text: scualee",
+        "text: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GUFs4D5acAASeCO.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 922,
+        "sha1": null,
+        "timestamp": "2024-08-03T21:58:42.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:hyou_haku:43c7c74ff627e451",
+      "song_titles": [
+        "scualee"
+      ],
+      "notes": "In-game song-select screen: the scualee jacket under UI (START button, difficulty diamond) with the song's mini-character; not a clean jacket."
+    }
+  ],
+  "errors": []
+}
