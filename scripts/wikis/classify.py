@@ -590,6 +590,7 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
                         reason=("universe_only: Universe-only usage; conflicting roles " + ", ".join(leaders))
                         if game == "dynamix_universe" else
                         f"unresolved_role: conflicting {_strength_name(top)} evidence for {', '.join(leaders)}"
+                        + (f"; {review.role_text()}; {review.pending}" if review is not None and review.pending else "")
                         + _stale(review_stale))
     kind = role if role in KINDS else None
     if reviewed_role and role in ("not_dynamix", "universe_only"):

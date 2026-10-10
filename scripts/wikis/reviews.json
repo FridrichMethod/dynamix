@@ -2999,8 +2999,8 @@
         "effad3105ad06fb6814dc12d4abe9d17a58fffc0"
       ],
       "role": null,
-      "evidence": "visual_inspection: not inspected",
-      "pending": "the file returns HTTP 404 from Fandom's CDN with and without format=original (2026-10-10) and was not imported to Miraheze"
+      "evidence": "download_probe: the file returns HTTP 404 from Fandom's CDN with and without format=original (2026-10-10); it was not imported to Miraheze",
+      "pending": "the content could not be inspected"
     },
     {
       "title": "File:List 5th Event in November.jpg",

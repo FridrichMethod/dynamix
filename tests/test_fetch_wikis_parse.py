@@ -204,6 +204,9 @@ class ReviewTests(unittest.TestCase):
         tie = [_evidence("character", 2, "dynamix", "A"), _evidence("part", 2, "dynamix", "B")]
         self.assertEqual(self.decide(tie, _review(role="part")).role, "part")
         self.assertIsNone(self.decide(tie, _review(role="background")).role)
+        undecided = self.decide(tie, _review(role=None, game=None, game_evidence="", pending="item not identifiable"))
+        self.assertIn("conflicting", undecided.reason)
+        self.assertIn("item not identifiable", undecided.reason)
 
     def test_review_exclusions_and_pending(self) -> None:
         photo = self.decide([], _review(role="person_photo", game=None, game_evidence=""))
