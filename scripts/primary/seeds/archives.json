@@ -574,6 +574,9 @@
           "illustrators": [
             "AFZero"
           ],
+          "composers": [
+            "mmry"
+          ],
           "quality": {
             "source_variant": "site_original",
             "origin_status": "artist_post",
@@ -600,6 +603,9 @@
           "mapping_status": "confirmed_primary",
           "illustrators": [
             "Shionty"
+          ],
+          "composers": [
+            "Arch vs n3pu"
           ],
           "quality": {
             "source_variant": "site_original",
@@ -632,6 +638,9 @@
           "mapping_status": "confirmed_primary",
           "illustrators": [
             "中本ひょうり"
+          ],
+          "composers": [
+            "K-forest"
           ],
           "game": "mixed",
           "game_associations": [
@@ -666,6 +675,9 @@
           "mapping_status": "confirmed_primary",
           "illustrators": [
             "中本ひょうり"
+          ],
+          "composers": [
+            "K-forest"
           ],
           "game": "mixed",
           "game_associations": [
@@ -729,6 +741,9 @@
           "illustrators": [
             "LESYEF"
           ],
+          "composers": [
+            "影虎。"
+          ],
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -760,7 +775,7 @@
           ],
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
-            "note": "the Dynamix wiki song page"
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715)"
           },
           "rights": {
             "holder": null,
@@ -777,6 +792,9 @@
           "mapping_status": "inferred",
           "illustrators": [
             "アサヤ"
+          ],
+          "composers": [
+            "モリモリあつし"
           ],
           "game": "mixed",
           "game_associations": [
@@ -809,7 +827,7 @@
           ],
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
-            "note": "the Dynamix wiki song page"
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303)"
           },
           "rights": {
             "holder": "lowiro and/or the credited artist (the artist's caption names lowiro's Arcaea release)",
@@ -826,6 +844,9 @@
           "mapping_status": "inferred",
           "illustrators": [
             "123456蟹"
+          ],
+          "composers": [
+            "C.R.E"
           ],
           "quality": {
             "source_variant": "site_original",

@@ -699,6 +699,13 @@ class MatchingTests(unittest.TestCase):
                     self.assertNotIn("wiki:", rule.get("variant_role", ""), where)
                     if rule.get("mapping_status", "unmapped") != "unmapped" and not rule.get("illustrators"):
                         self.assertIn("Illustrator not credited", rule.get("notes", ""), where)
+                    # The same for composers: a mapped single-song record credits the song's composer (cited) or
+                    # its notes say why it does not (e.g. a mapping conflict).
+                    if (rule.get("mapping_status", "unmapped") != "unmapped" and len(rule.get("song_titles", [])) == 1
+                            and not rule.get("composers")):
+                        self.assertIn("composer", rule.get("notes", "").lower(), where)
+                    if rule.get("composers") and not rule.get("credit_evidence"):
+                        self.assertTrue(rule.get("credit_source", {}).get("url"), where)
 
     def test_load_seeds_rejects_a_wrong_game_on_a_download_rule(self):
         seed = dict(direct_seed([{"match": "^a$", "role": "song_art", "game": "dynamix_universe"}]))

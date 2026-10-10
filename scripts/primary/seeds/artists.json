@@ -3863,6 +3863,9 @@
           "illustrators": [
             "123456蟹"
           ],
+          "composers": [
+            "C.R.E"
+          ],
           "evidence_quotes": [
             "Dynamix"
           ],
@@ -4065,6 +4068,9 @@
           "illustrators": [
             "Shionty"
           ],
+          "composers": [
+            "Arch vs n3pu"
+          ],
           "evidence_quotes": [
             "Dynamix",
             "Evoltex(poppin mix)"
@@ -4121,6 +4127,9 @@
           "illustrators": [
             "中本ひょうり"
           ],
+          "composers": [
+            "K-forest"
+          ],
           "evidence_quotes": [
             "流麗凛舞"
           ],
@@ -4145,6 +4154,9 @@
           "mapping_status": "confirmed_primary",
           "illustrators": [
             "中本ひょうり"
+          ],
+          "composers": [
+            "K-forest"
           ],
           "evidence_quotes": [
             "流麗凛舞"
@@ -4232,6 +4244,9 @@
           "illustrators": [
             "LESYEF"
           ],
+          "composers": [
+            "影虎。"
+          ],
           "evidence_quotes": [
             "totally bounded"
           ],
@@ -4303,6 +4318,9 @@
           "mapping_status": "confirmed_primary",
           "illustrators": [
             "AFZero"
+          ],
+          "composers": [
+            "mmry"
           ],
           "evidence_quotes": [
             "Dynamix",
@@ -4423,6 +4441,9 @@
           "mapping_status": "inferred",
           "illustrators": [
             "アサヤ"
+          ],
+          "composers": [
+            "モリモリあつし"
           ],
           "evidence_quotes": [
             "Party Vinyl"
@@ -5794,12 +5815,22 @@
             "scualee"
           ],
           "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "黒鉛"
+          ],
+          "composers": [
+            "Aoi"
+          ],
           "evidence_quotes": [
             "scualee",
             "Dynamix"
           ],
           "candidate_notes": "In-game song-select screen: the scualee jacket under UI (START button, difficulty diamond) with the song's mini-character; not a clean jacket.",
-          "notes": "Posted by the jacket's illustrator (黒鉛), who states 'Aoiさんの『scualee』のイラストを描かせていただいてます'; the image itself is a screenshot."
+          "notes": "Posted by the jacket's illustrator (黒鉛), who states 'Aoiさんの『scualee』のイラストを描かせていただいてます'; the image itself is a screenshot.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Scualee",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 41798)"
+          }
         }
       ]
     },
