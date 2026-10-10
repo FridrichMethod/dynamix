@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adapted from FridrichMethod/deemo browserconfig.xml (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8);
+     modified for the Dynamix archive, 2026. See NOTICE. The tile icon is project-made (assets/site/README.md). -->
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square150x150logo src="assets/site/icons/mstile-150x150.png"/>
+            <TileColor>#20242c</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>
