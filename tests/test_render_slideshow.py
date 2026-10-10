@@ -123,7 +123,8 @@ class RenderTests(unittest.TestCase):
         self.assertEqual(slide["data-page"], "https://example.org/File:A.png")
 
     def test_slide_sources_must_be_site_relative(self):
-        for url in ("https://example.org/a.png", "/assets/a.png", "assets/../../etc/passwd", "assets/%2e%2e/x.png", "javascript:x", ""):
+        for url in ("https://example.org/a.png", "/assets/a.png", "assets/../../etc/passwd", "assets/%2e%2e/x.png", "javascript:x", "",
+                    "java\tscript:alert(1)", " javascript:x", "assets/a b.png", "\\\\host\\a.png", "data:image/png;base64,AAAA"):
             with self.subTest(url=url), self.assertRaises(ValueError):
                 self.render([asset(1, url=url)])
 

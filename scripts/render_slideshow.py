@@ -51,6 +51,8 @@ def site_relative(value: object, field: str, asset_id: str) -> str:
     """A catalog URL the page loads from its own site: relative, inside the site, no scheme or host."""
     if not isinstance(value, str) or not value:
         raise ValueError(f"{asset_id}: slideshow {field} is missing")
+    if any(ord(char) <= 0x20 or ord(char) == 0x7F for char in value):
+        raise ValueError(f"{asset_id}: slideshow {field} holds a space or control character: {value!r}")
     parts = urlsplit(value)
     if parts.scheme or parts.netloc or value.startswith(("/", "\\")) or ".." in unquote(value).replace("\\", "/").split("/"):
         raise ValueError(f"{asset_id}: slideshow {field} is not a site-relative path: {value!r}")

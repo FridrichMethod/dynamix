@@ -102,6 +102,25 @@ def build_site(destination: Path, catalog: dict):
     (destination / "index.html").write_text(render_slideshow(destination, catalog), encoding="utf-8")
 
 
+def hostile(catalog: dict) -> dict:
+    """A catalog the builder would never write: script and data URLs where files and pages belong. The page must still
+    render, link nothing unsafe and run nothing. (No slideshow entries: the renderer rejects such paths outright.)"""
+    bad = json.loads(json.dumps(catalog))
+    site = next(asset for asset in bad["assets"] if asset["gallery"] and asset["site_original"] and asset["thumb"])
+    site.update({"url": "javascript:alert(7)", "thumb": "java\tscript:alert(8)"})
+    archived = next(asset for asset in bad["assets"] if asset["gallery"] and not asset["site_original"])
+    archived["archive_url"] = "javascript:alert(9)"
+    for asset in bad["assets"]:
+        asset["slideshow"] = False
+        for record in asset["provenance"]:
+            record["page_url"] = "data:text/html,<script>alert(10)</script>"
+            record["download_url"] = " javascript:alert(11)"
+            record["mapping_evidence"] = ["javascript:alert(12)", {"url": "vbscript:x", "quote": "<b>q</b>"}]
+    for source in bad["sources"]:
+        source["url"] = "javascript:alert(13)"
+    return bad
+
+
 def many(catalog: dict, copies: int = 13) -> dict:
     """More than two pages of cards: every gallery entry repeated under new ids (same files)."""
     bulk = json.loads(json.dumps(catalog))
@@ -764,6 +783,29 @@ def check_empty(smoke, base):
     smoke.finish(page)
 
 
+UNSAFE_LINKS = """() => [...document.querySelectorAll('[href], [src]')].map((node) => node.href || node.src || '')
+    .filter((url) => url && !/^(https?:|file:|#)/i.test(url))"""
+
+
+def check_hostile(smoke, base):
+    page = smoke.page(base)
+    open_archive(smoke, page, base)
+    assert count(page) > 0
+    assert page.evaluate(UNSAFE_LINKS) == [], page.evaluate(UNSAFE_LINKS)
+    catalog = page.evaluate("window.DYNAMIX_CATALOG")
+    for asset in catalog["assets"]:
+        smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
+        page.wait_for_function("document.getElementById('viewer').open")
+        page.locator(".source-inventory summary").first.evaluate("(node) => node.parentElement.open = true")
+        assert page.evaluate(UNSAFE_LINKS) == [], (asset["id"], page.evaluate(UNSAFE_LINKS))
+        if asset["url"].startswith("javascript:"):
+            assert page.locator("#download").is_hidden() and page.locator("#original").is_hidden()
+        if asset["archive_url"].startswith("javascript:"):
+            assert page.locator("#download").is_hidden() and page.locator("#archive-note").is_visible()
+    page.wait_for_timeout(300)
+    smoke.finish(page)
+
+
 def check_subpath_requests(smoke, origin, mounts):
     """Every request to the subpath server stayed under one of its mounts (pages there are watched with their mount as
     the allowed prefix, so the monitor blocks the rest; this names the result). Its root holds no site, so a
@@ -867,6 +909,7 @@ def main(argv=None):
                 build_site(work / "mounted/dynamix", catalog)
                 build_site(work / "mounted/empty", empty)
                 build_site(work / "mounted/many", many(catalog))
+                build_site(work / "mounted/hostile", hostile(catalog))
                 servers = [serve(work / "root"), serve(work / "mounted")]
                 root_base = f"http://127.0.0.1:{servers[0].server_port}/"
                 mounted = f"http://127.0.0.1:{servers[1].server_port}/"
@@ -878,8 +921,9 @@ def main(argv=None):
                 smoke.run("/dynamix/: requests stay under the mount", check_subpath_requests, mounted, ("/dynamix/",))
                 smoke.run("/empty/: empty catalog", check_empty, mounted + "empty/")
                 smoke.run("/many/: 60 per page and focus after paging", check_pagination, mounted + "many/")
+                smoke.run("/hostile/: script URLs in a catalog are never linked or loaded", check_hostile, mounted + "hostile/")
                 smoke.run("subpath server: every request under /dynamix/, /empty/ or /many/", check_subpath_requests, mounted,
-                          ("/dynamix/", "/empty/", "/many/"))
+                          ("/dynamix/", "/empty/", "/many/", "/hostile/"))
                 smoke.run("file://: archive and slideshow from disk", check_file_url, work / "root", catalog)
                 base = root_base
             else:

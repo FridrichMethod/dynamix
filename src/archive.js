@@ -26,7 +26,6 @@
   const sourceName = (id, fallback) => i18n.sourceName(id, fallback || sourceInfo.get(id)?.name || id || "");
   const assets = catalog.assets;
   const byId = new Map(assets.map((asset) => [asset.id, asset]));
-  const order = new Map(assets.map((asset, index) => [asset.id, index]));
   // The grid browses the gallery (artwork and screenshots); "References and documents" browses every other file.
   const gallery = assets.filter((asset) => asset.gallery);
   const references = assets.filter((asset) => !asset.gallery);
@@ -65,6 +64,11 @@
       return ["http:", "https:"].includes(url.protocol) ? url.href : null;
     } catch { return null; }
   }
+  // Catalog files are linked by site-relative paths (assets/..., URL-encoded); a value with a scheme (javascript:, data:,
+  // http:), a leading slash, or any space or control character (which URL parsing would drop, so "java\tscript:" would
+  // still run) is never used as a link or an image source: a bad catalog entry cannot run code or leave the site.
+  const siteUrl = (value) => typeof value === "string" && value && !/[\u0000-\u0020\u007f]/.test(value)
+    && !/^([a-z][a-z\d+.-]*:|[\\/])/i.test(value) ? value : null;
   function sourceLink(text, href) {
     const url = httpUrl(href);
     if (!url) return element("span", text);
@@ -173,12 +177,13 @@
     button.append(tile);
   }
   function cardImage(button, asset) {
-    const original = asset.site_original && isRaster(asset) ? asset.url : null;
-    const first = asset.thumb || original;
+    const original = asset.site_original && isRaster(asset) ? siteUrl(asset.url) : null;
+    const preview = siteUrl(asset.thumb);
+    const first = preview || original;
     if (!first) { placeholder(button, asset); return; }
     const image = element("img");
     image.addEventListener("error", () => {
-      if (asset.thumb && original && image.getAttribute("src") === asset.thumb) image.src = original;
+      if (preview && original && image.getAttribute("src") === preview) image.src = original;
       else placeholder(button, asset);
     });
     image.src = first;
@@ -385,7 +390,7 @@
     const download = $("download");
     download.textContent = t(download.dataset.i18n);
     const notes = [];
-    if (!asset.site_original) notes.push(t(!httpUrl(asset.archive_url) ? "viewer.archive_only_no_link" : asset.thumb ? "viewer.archive_only" : "viewer.archive_only_no_preview"));
+    if (!asset.site_original) notes.push(t(!httpUrl(asset.archive_url) ? "viewer.archive_only_no_link" : siteUrl(asset.thumb) ? "viewer.archive_only" : "viewer.archive_only_no_preview"));
     if (isSmall(asset)) notes.push(t("viewer.low_resolution", {size: longEdge(asset)}));
     $("archive-note").textContent = notes.join(" ");
     $("archive-note").hidden = !notes.length;
@@ -400,7 +405,8 @@
     current = (index + filtered.length) % filtered.length;
     const asset = filtered[current];
     const image = $("full-image");
-    const source = asset.site_original && isRaster(asset) ? asset.url : asset.thumb || null;
+    const local = siteUrl(asset.url);
+    const source = asset.site_original && isRaster(asset) ? local : siteUrl(asset.thumb);
     $("image-error").hidden = true;
     $("no-preview").hidden = Boolean(source);
     if (source) image.src = source; else image.removeAttribute("src");
@@ -411,12 +417,12 @@
     const download = $("download");
     const repository = httpUrl(asset.archive_url);
     if (asset.site_original) {
-      download.href = asset.url;
+      if (local) download.href = local; else download.removeAttribute("href");
       download.download = basename(asset.path);
       download.removeAttribute("target");
       download.removeAttribute("rel");
       download.dataset.i18n = "viewer.download";
-      download.hidden = false;
+      download.hidden = !local;
     } else {
       download.removeAttribute("download");
       download.dataset.i18n = "viewer.repository";
@@ -427,8 +433,8 @@
         download.rel = "noopener noreferrer";
       } else download.removeAttribute("href");
     }
-    $("original").hidden = !asset.site_original;
-    if (asset.site_original) $("original").href = asset.url; else $("original").removeAttribute("href");
+    $("original").hidden = !(asset.site_original && local);
+    if (asset.site_original && local) $("original").href = local; else $("original").removeAttribute("href");
     $("slideshow").hidden = !asset.slideshow;
     localizeViewer(asset);
     if (!$("viewer").open) $("viewer").showModal();

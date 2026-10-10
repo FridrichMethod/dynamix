@@ -284,6 +284,12 @@ https://github.com/FridrichMethod/dynamix
             } catch (err) { return ""; }
         }
 
+        // A slide's own file: a site-relative path, never a scheme, a leading slash, a space or a control character
+        // (scripts/render_slideshow.py writes only such paths; this is the page's own guard).
+        function localHref(value) {
+            return typeof value === "string" && value && !/[\u0000-\u0020\u007f]/.test(value) && !/^([a-z][a-z\d+.-]*:|[\\/])/i.test(value) ? value : "";
+        }
+
         function setHref(node, href) {
             if (href) node.setAttribute("href", href);
             else node.removeAttribute("href");
@@ -308,7 +314,7 @@ https://github.com/FridrichMethod/dynamix
                 original.target = "_blank";
                 original.rel = "noopener noreferrer";
             } else {
-                setHref(original, data.original || data.src);
+                setHref(original, localHref(data.original || data.src));
                 original.setAttribute("download", "");
                 original.removeAttribute("target");
                 original.removeAttribute("rel");
