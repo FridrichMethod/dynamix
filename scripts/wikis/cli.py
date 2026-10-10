@@ -3,8 +3,9 @@
 ``--metadata-only`` enumerates and classifies without downloading; the default run also downloads accepted
 candidates, one worker thread per selected English wiki (their file hosts differ, so they download concurrently while
 each host still sees one request at a time); ``--resume`` re-hashes already archived files instead of trusting their
-presence (a normal run checks presence and size); ``--verify`` is offline. ``--source`` selects which snapshots are written and which source is
-acquired: the two English wikis are always enumerated together because classification pools their evidence.
+presence (a normal run checks presence and size); ``--verify`` is offline. ``--source`` selects which snapshots are
+written and which source is acquired: the two English wikis are always enumerated together because classification
+pools their evidence.
 Exit codes: 0 done; 1 failed/blocked downloads; 2 incomplete discovery; 3 another run holds the lock; 4 an archived
 file is no longer accepted by the current evidence (nothing written; review needed); 130 interrupted (outputs written
 up to the last completed download).

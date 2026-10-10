@@ -2,8 +2,9 @@
 
 :class:`FakeMediaWiki` answers the exact Action API queries :mod:`wikis.mediawiki` sends (``list=allimages``,
 ``generator=allimages`` + ``prop=fileusage|categories``, ``generator=allimages`` + ``prop=revisions|linkshere``
-(file description pages), ``generator=allpages`` + revisions, ``prop=imageinfo`` metadata, ``action=expandtemplates``) with MediaWiki's ``continue`` protocol and a small page size, so every list
-needs several continuation round trips. :class:`FakeClient` mirrors :class:`lib.net.PoliteClient`'s public methods
+(file description pages), ``generator=allpages`` + revisions, ``prop=imageinfo`` metadata,
+``action=expandtemplates``) with MediaWiki's ``continue`` protocol and a small page size, so every list needs several
+continuation round trips. :class:`FakeClient` mirrors :class:`lib.net.PoliteClient`'s public methods
 (``get_json``, ``get_text``, ``download`` writing a hidden ``.part`` file) and raises the real ``lib.net`` errors for
 injected failures. Nothing here opens a socket.
 """

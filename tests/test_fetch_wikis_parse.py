@@ -106,8 +106,8 @@ class DecideTests(unittest.TestCase):
                      "春菊 & Perspicuus Aestus New Chart", "2.4 Version Update", "Crystal Clear Comeback",
                      "New Settings Announcement", "TERA Difficulty Announcement in LAST Re;SØRT",
                      "C4Cat Open Submission 2026 Old Results Announcement", "Dynamix Nov 2023 update log"]
-        promotional = ["Christmas Event 2021", "9th Anniversary x Halloween Event 2023", "Dynamix X Rotaeno Collaboration",
-                       "Dynamix X ???? Collaboration Decision", "New Exclusive Song \"ReLyna\"",
+        promotional = ["Christmas Event 2021", "9th Anniversary x Halloween Event 2023",
+                       "Dynamix X Rotaeno Collaboration", "Dynamix X ???? Collaboration Decision", "New Exclusive Song \"ReLyna\"",
                        "RAVON Collaboration Pack 1", "Share Unlock new song 名無しの宣教師"]
         for caption in reference:
             self.assertEqual(classify._caption_role(caption), "reference", caption)
