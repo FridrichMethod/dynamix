@@ -17,6 +17,7 @@ GENERATED_FROM = [paths.discovery_relpath(source.source_id) for source in config
 MEDIAWIKI_LISTS = {
     "allimages": "list=allimages (every file, current revision: url, size, mime, sha1, timestamp)",
     "fileusage": "generator=allimages + prop=fileusage|categories (pages embedding each file; file categories)",
+    "filepages": "generator=allimages + prop=revisions|linkshere (file description wikitext; pages linking to it)",
     "pages": "generator=allpages, namespace 0, non-redirects + current wikitext, revision IDs and categories",
     "gifmetadata": "prop=imageinfo&iiprop=metadata for GIF files (frame counts)",
     "expandtemplates": "action=expandtemplates for song Title values built from templates",
@@ -33,8 +34,11 @@ def mediawiki_snapshot(inventory: discover.Inventory, candidates: list[dict], *,
                             "(Template:Song = original game, Template:SongUV = Dynamix Universe), page usage, "
                             "gallery/link captions, reviewed list pages, file categories and, only when nothing "
                             "else applies, filename conventions; evidence is pooled by file title with "
-                            + ", ".join(pooled_with) + ". Accepted candidates that are not downloaded yet are "
-                            "'pending' with reason 'awaiting_download'."),
+                            + ", ".join(pooled_with) + ". Where no page establishes a role or game, an archivist "
+                            "review (visual inspection of the bytes, scripts/wikis/reviews.json, pinned to the "
+                            "reviewed SHA-1) may; its evidence is quoted and its song mappings are 'inferred'. "
+                            "Accepted candidates that are not downloaded yet are 'pending' with reason "
+                            "'awaiting_download'."),
                   "file_count": len(inventory.files), "article_count": len(inventory.pages),
                   "requests": inventory.requests, "cached_responses": inventory.cache_hits},
         "continuation": {name: inventory.continuation.get(name, {}) for name in discover.LISTS},

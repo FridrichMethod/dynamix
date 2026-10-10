@@ -20,6 +20,11 @@ Game: the union of the games of the contexts that embed the file (song template,
 the reviewed original-game page table). A page about both games gives no game by itself. A file whose role comes from
 a song page and whose Fandom upload predates the wiki's first Universe-named upload is original-game material
 (``pre-Universe upload``).
+
+File description pages: a description that redirects to another file with the same reported SHA-1 is an alias
+(``redirect_or_alias``); pages linking to the description page (``[[:File:X]]`` citations, talk threads) are recorded
+as context without role or game. Archivist reviews (:mod:`wikis.reviews`, visual inspection of the bytes) fill a role
+or game only where page evidence is absent; their song mappings are ``inferred``.
 """
 
 from __future__ import annotations
@@ -376,6 +381,66 @@ def usage_evidence(source: config.WikiSource, file_title: str, usage: Mapping[st
     return found
 
 
+# Miraheze's import summary on every file imported from Fandom (2026-08-09 maintenance script).
+IMPORT_BOILERPLATE = re.compile(r"^\s*(?:==\s*Summary\s*==\s*)?Importing (?:images|files) from "
+                                r"https?://dynamixc4cat\.fandom\.com\S*\s*(?:\(\[\[phorge:T\d+\|T\d+\]\]\))?\s*$", re.I)
+_REDIRECT = re.compile(r"^\s*#REDIRECT\s*\[\[\s*:?\s*(?:file|image)\s*:([^\]|#]+)", re.I)
+_DESCRIPTION_NOISE = re.compile(r"\[\[\s*Category\s*:[^\]]*\]\]|^\s*==+[^=\n]*==+\s*$|\{\{[^{}]*\}\}|/\*[^*]*\*/",
+                                re.I | re.M)
+
+
+def description_text(text: str | None) -> str:
+    """Human-written text of a file description page or upload comment: Miraheze's import boilerplate, category
+    links, headings, templates (licensing boxes) and edit-summary placeholders removed; '' when nothing remains."""
+    if not text or IMPORT_BOILERPLATE.match(text):
+        return ""
+    cleaned = _DESCRIPTION_NOISE.sub(" ", wikitext.mask_comments(text))
+    return " ".join(cleaned.split())
+
+
+def redirect_target(text: str | None) -> str | None:
+    """``File:`` title a file description page redirects to (``#REDIRECT [[File:X]]``), else None."""
+    match = _REDIRECT.match(text or "")
+    if not match:
+        return None
+    name = wikitext.canonical_file_name(match.group(1))
+    return "File:" + name if name else None
+
+
+def filepage_evidence(source: config.WikiSource, file_title: str, filepage: Mapping[str, Any],
+                      pages: Mapping[str, PageInfo]) -> list[Evidence]:
+    """Pages that link to the file's description page (``[[:File:X]]``, e.g. a citation in a song's Trivia). A link is
+    not a use of the image, so it gives neither a role nor a game; the linking page and its game are recorded for
+    reviewers. Links from talk/user/forum pages are recorded the same way."""
+    found = []
+    for entry in filepage.get("linkshere") or []:
+        title, namespace = entry.get("title"), entry.get("ns")
+        if not isinstance(title, str):
+            continue
+        if entry.get("redirect"):
+            found.append(Evidence(source.source_id, title, config.page_url(source, title), "file page alias", None, 0,
+                                  None, detail=f"{title} redirects to this file page"))
+        elif namespace == 0 and title in pages:
+            info = pages[title]
+            found.append(Evidence(source.source_id, title, info.url, "linked from article", None, 0, None,
+                                  detail=f"links to the file page; page game: {info.game or 'none'} "
+                                         f"({info.game_reason})"))
+        else:
+            found.append(Evidence(source.source_id, title, config.page_url(source, title),
+                                  f"linked from namespace {namespace}", None, 0, None,
+                                  detail="user/talk/forum/file page link"))
+    return found
+
+
+def review_evidence(source: config.WikiSource, file_title: str, review: Any) -> list[Evidence]:
+    """Evidence items of an applicable archivist review (one per named song), so the mapping machinery sees its songs
+    (as ``inferred``: strength 0)."""
+    url = config.page_url(source, file_title)
+    songs = list(review.songs) or [None]
+    return [Evidence(source.source_id, file_title, url, "archivist review", review.role, 0, None, song=song,
+                     detail=review.evidence) for song in songs]
+
+
 def filename_evidence(source: config.WikiSource, file_title: str) -> list[Evidence]:
     name = file_title.split(":", 1)[1]
     for pattern, role in config.FILENAME_ROLES:
@@ -395,11 +460,13 @@ class WikiEvidence:
     songs: list[SongRecord]
     evidence: dict[str, list[Evidence]]
     gif_frames: dict[str, int | None]
+    filepages: dict[str, dict] = field(default_factory=dict)
 
 
 def collect(source: config.WikiSource, files: Mapping[str, Mapping[str, Any]],
             usage: Mapping[str, Mapping[str, Any]], raw_pages: Mapping[str, Mapping[str, Any]],
-            gif_frames: Mapping[str, int | None] | None = None) -> WikiEvidence:
+            gif_frames: Mapping[str, int | None] | None = None,
+            filepages: Mapping[str, Mapping[str, Any]] | None = None) -> WikiEvidence:
     pages = {title: analyze_page(source, page) for title, page in raw_pages.items()}
     by_page_title: dict[str, list[SongRecord]] = {}
     songs: list[SongRecord] = []
@@ -413,12 +480,14 @@ def collect(source: config.WikiSource, files: Mapping[str, Mapping[str, Any]],
         for file_title, item in page_evidence(source, page, pages[title], files, by_page_title):
             evidence[file_title].append(item)
             direct[file_title].add(title)
+    filepages = filepages or {}
     for file_title in files:
         evidence[file_title].extend(usage_evidence(source, file_title, usage.get(file_title, {}), pages,
                                                    direct[file_title]))
+        evidence[file_title].extend(filepage_evidence(source, file_title, filepages.get(file_title, {}), pages))
         evidence[file_title].extend(filename_evidence(source, file_title))
     return WikiEvidence(source, {title: dict(info) for title, info in files.items()}, pages, songs, evidence,
-                        dict(gif_frames or {}))
+                        dict(gif_frames or {}), {title: dict(page) for title, page in filepages.items()})
 
 
 def universe_threshold(wikis: Iterable[WikiEvidence], fandom_key: str = "fandom") -> str | None:
@@ -445,19 +514,44 @@ def _short(values: list[str]) -> list[str]:
     return unique
 
 
+LINK_CONTEXTS = ("linked from article", "file page alias")
+REVIEW_CONTEXT = "archivist review"
+
+
+def _is_link(item: Evidence) -> bool:
+    return item.context in LINK_CONTEXTS or item.context.startswith("linked from namespace")
+
+
 def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, frames: int | None,
-           include_animated: bool, fandom_timestamp: str | None, threshold: str | None) -> Decision:
-    """Role, game and planned disposition for one file title from pooled evidence."""
+           include_animated: bool, fandom_timestamp: str | None, threshold: str | None, review: Any = None,
+           review_stale: bool = False, alias: tuple[str, bool] | None = None) -> Decision:
+    """Role, game and planned disposition for one file title from pooled evidence.
+
+    ``review`` is an applicable :class:`wikis.reviews.Review` (its evidence items carry the context
+    ``archivist review``); it supplies the role only when no page evidence of strength >= 1 does (or breaks a tie
+    between equally supported page roles) and the game only when no page context gives one. ``review_stale`` marks a
+    review of an earlier revision. ``alias`` is ``(target title, same reported SHA-1)`` for a file whose description
+    page redirects to another file.
+    """
     mime = (info.get("mime") or "").lower()
     if mime.startswith("video/"):
         return Decision(None, "unknown", [f"API mime {mime}"], [f"API mime {mime}"], [], [], "excluded",
                         f"video_placeholder: {mime} entry (embedded video, not a stored file)", "unmapped")
-    games = {item.game for item in items if item.game}
-    game_items = [item.text() for item in items if item.game]
-    role_items = [item for item in items if item.role]
+    if alias is not None and alias[1]:
+        note = f"file description page redirects to {alias[0]}, which reports the same SHA-1"
+        return Decision(None, "unknown", [], [note], [], [], "excluded", f"redirect_or_alias: {note}", "unmapped")
+    page_items = [item for item in items if item.context != REVIEW_CONTEXT]
+    games = {item.game for item in page_items if item.game}
+    game_items = [item.text() for item in page_items if item.game]
+    role_items = [item for item in page_items if item.role]
     top = max((item.strength for item in role_items), default=-1)
     leaders = _majority([item for item in role_items if item.strength == top])
     role_evidence = _short([f"{item.role} <- {item.text()}" for item in sorted(role_items, key=lambda i: -i.strength)])
+    reviewed_role = review is not None and review.role is not None and (
+        top < 1 or (len(leaders) > 1 and review.role in leaders))
+    if reviewed_role:
+        leaders, top = [review.role], max(top, 0)
+        role_evidence = _short([f"{review.role} <- {review.role_text()}"] + role_evidence)
     role = leaders[0] if len(leaders) == 1 else None
     songs = list(dict.fromkeys(item.song for item in items if item.song and item.role == role))
     song_pages = list(dict.fromkeys(item.song_page for item in items if item.song_page))
@@ -468,30 +562,51 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         games = {"dynamix"}
         game_items.append(f"pre-Universe upload: Fandom upload {fandom_timestamp} precedes the wiki's first "
                           f"Universe-named upload ({threshold}); role from a song page")
+    reviewed_game = not games and review is not None and review.game is not None
+    if reviewed_game:
+        games = {review.game}
+        game_items.append(review.game_text())
     if games == {"dynamix"}:
         game = "dynamix"
     elif games == {"dynamix_universe"}:
         game = "dynamix_universe"
+    elif games == {"not_dynamix"}:
+        game = "not_dynamix"
     elif games:
         game = "mixed"
     else:
         game = "unknown"
     mapping, mapping_evidence = _mapping(items, role)
-    associations = sorted({"dynamix_universe" for item in items if item.game == "dynamix_universe"} | {
-        re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_") for item in items
-        if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")})
+    associations = {"dynamix_universe" for item in page_items if item.game == "dynamix_universe"} | {
+        re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_") for item in page_items
+        if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")}
+    if reviewed_game and game == "mixed":
+        associations |= set(review.associations)
     base = dict(game=game, game_evidence=_short(game_items), role_evidence=role_evidence, songs=songs,
                 song_pages=song_pages, mapping=mapping, mapping_evidence=mapping_evidence, strength=top,
-                associations=associations)
+                associations=sorted(associations))
     if len(leaders) > 1:
         return Decision(None, **base, disposition="excluded" if game == "dynamix_universe" else "pending",
                         reason=("universe_only: Universe-only usage; conflicting roles " + ", ".join(leaders))
                         if game == "dynamix_universe" else
-                        f"unresolved_role: conflicting {_strength_name(top)} evidence for {', '.join(leaders)}")
+                        f"unresolved_role: conflicting {_strength_name(top)} evidence for {', '.join(leaders)}"
+                        + _stale(review_stale))
     kind = role if role in KINDS else None
+    if reviewed_role and role in ("not_dynamix", "universe_only"):
+        wanted = "not_dynamix" if role == "not_dynamix" else "dynamix_universe"
+        if game != wanted:  # the review contradicts page context: look again instead of overriding the pages
+            return Decision(None, **base, disposition="pending",
+                            reason=f"unresolved_game: the archivist review says {role} but page context gives "
+                                   f"{game}; review again")
+        return Decision(None, **base, disposition="excluded", reason=f"{role}: {review.role_text()}")
     if game == "dynamix_universe":
         return Decision(kind, **base, disposition="excluded",
-                        reason="universe_only: used only in Dynamix Universe contexts")
+                        reason="universe_only: " + (review.game_text() if reviewed_game else
+                                                    "used only in Dynamix Universe contexts"))
+    if game == "not_dynamix":
+        return Decision(None, **base, disposition="excluded", reason=f"not_dynamix: {review.game_text()}")
+    if reviewed_role and role not in KINDS:
+        return Decision(None, **base, disposition="excluded", reason=f"{role}: {review.role_text()}")
     if role in EXCLUSION_ROLES:
         labels = {"person_photo": "composer/artist/charter profile image", "site_ui": "wiki interface image",
                   "game_ui": "game interface element (icon, button, grade, badge)",
@@ -499,14 +614,10 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
                   "out_of_scope_other": "not game artwork"}
         return Decision(None, **base, disposition="excluded", reason=f"{role}: {labels.get(role, role)}")
     if kind is None:
-        if not items or all(item.context == "filename" for item in items):
-            reason = "unresolved_role: not embedded on any page of either wiki and no role evidence"
-        elif not any(item.page for item in items if item.context not in ("filename",)):
-            reason = "unresolved_role: no role evidence"
+        if review is not None and review.pending:
+            reason = f"unresolved_role: {review.role_text()}; {review.pending}"
         else:
-            pages = sorted({item.page for item in items if item.context != "filename"})
-            reason = "unresolved_role: no caption/template/list-page role evidence (used on " + \
-                     ", ".join(pages[:5]) + (f" and {len(pages) - 5} more" if len(pages) > 5 else "") + ")"
+            reason = _unresolved_role(page_items) + _stale(review_stale)
         return Decision(None, **base, disposition="pending", reason=reason)
     if mime == "image/gif" and (frames is None or frames > 1) and not include_animated:
         what = "animated GIF" if frames else "GIF with unknown frame count"
@@ -514,14 +625,37 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
                         reason=f"animated_capture: {what} ({frames or '?'} frames); use --include-animated to keep")
     if game == "unknown":
         # A filename convention alone never classifies a file: the hint stays in the reason only.
-        why = ("cover of an unreleased/cancelled song (Template:SongOther); in-game use not established"
-               if unreleased else "no page establishes original-game use")
-        return Decision(kind if top > 0 else None, **base, disposition="pending",
-                        reason=f"unresolved_game: {kind} role ({_strength_name(top)}) but {why}")
+        if review is not None and review.pending:
+            why = review.pending
+        elif unreleased:
+            why = "cover of an unreleased/cancelled song (Template:SongOther); in-game use not established"
+        else:
+            why = "no page establishes original-game use"
+        source = "archivist review" if reviewed_role else _strength_name(top)
+        return Decision(kind if top > 0 or reviewed_role else None, **base, disposition="pending",
+                        reason=f"unresolved_game: {kind} role ({source}) but {why}" + _stale(review_stale))
     if mime not in ("image/png", "image/jpeg", "image/gif", "image/webp"):
         return Decision(kind, **base, disposition="excluded",
                         reason=f"out_of_scope_other: unsupported media type {mime or 'unknown'}")
     return Decision(kind, **base, disposition="download", reason="")
+
+
+def _stale(stale: bool) -> str:
+    return "; an archivist review of an earlier revision no longer applies (review again)" if stale else ""
+
+
+def _unresolved_role(items: list[Evidence]) -> str:
+    embedded = sorted({item.page for item in items if item.context != "filename" and not _is_link(item)})
+    linked = sorted({item.page for item in items if _is_link(item)})
+
+    def listed(values: list[str]) -> str:
+        return ", ".join(values[:5]) + (f" and {len(values) - 5} more" if len(values) > 5 else "")
+    if not embedded and not linked:
+        return "unresolved_role: not embedded on any page of either wiki and no role evidence"
+    if not embedded:
+        return f"unresolved_role: not embedded on any page; its file page is linked from {listed(linked)}"
+    reason = f"unresolved_role: no caption/template/list-page role evidence (used on {listed(embedded)})"
+    return reason + (f"; file page linked from {listed(linked)}" if linked else "")
 
 
 def _majority(items: list[Evidence]) -> list[str]:

@@ -125,17 +125,25 @@ SITE_UI_PAGES = {"Main Page", "Dynamix Wiki"}
 SITE_UI_TEMPLATE_RE = re.compile(r"^Template:(?:Main ?Page|MainPage|Navbox|Dynamix|Tnavbar|Headercell|"
                                  r"UnderConstruction|Moving|Color|Clr)", re.I)
 
-# File description page categories (strength 2).
+# File description page categories (strength 2). Tier revision 1.1 (09-frozen-contracts.md): official chart lists are
+# informational graphics, kind ``reference`` (archive tier), not promotional key art.
 FILE_CATEGORY_ROLES = {
     "Category:Character images": "character", "Category:Background parts images": "background",
-    "Category:Parts images": "part", "Category:Chart list images": "promotional",
+    "Category:Parts images": "part", "Category:Chart list images": "reference",
     "Category:Event images": "promotional", "Category:Artist profile images": "person_photo",
     "Category:Cover Art": "song_art", "Category:Videos": "video_placeholder",
 }
 
+# Informational announcement graphics (tier revision 1.1, kind ``reference``): official chart/difficulty lists,
+# comeback and new-chart announcements, version-update/update-log notes and settings/difficulty/results
+# announcements. Key art, banners, event/anniversary/collaboration visuals and teasers stay ``promotional``.
+INFORMATIONAL_CAPTION = re.compile(
+    r"chart\s*list|difficulty\s+list|new\s+charts?\b|comeback|version\s+update|update\s+(?:log|notes?)\b|"
+    r"patch\s+notes?|(?:settings?|difficulty|results?)\s+announcement", re.I)
+
 # Gallery/link captions (strength 2), checked in order; the first match wins for one caption.
 CAPTION_ROLES = (
-    (re.compile(r"chart\s*list|new\s+charts?\b|comeback", re.I), "promotional"),
+    (INFORMATIONAL_CAPTION, "reference"),
     (re.compile(r"background\s+parts?\b", re.I), None),  # "Background Parts": part or background, undecidable
     (re.compile(r"\bgameplay\b|screen\s*shot|\bin-?game\b|result screen", re.I), "gameplay_screenshot"),
     # Background-animation (BGA) scenes, logos and assets: in-game material, kept as references (archive tier).
@@ -146,9 +154,9 @@ CAPTION_ROLES = (
     (re.compile(r"\bcharacter\b", re.I), "character"),
     (re.compile(r"\bbackground\b|\bBG\b", re.I), "background"),
     (re.compile(r"\bparts?\b", re.I), "part"),
-    (re.compile(r"\bbanner\b|\bteaser\b|\bannouncement\b|\bposter\b|key\s*visual|\bevent\b|version\s+update|"
-                r"update\s+log|\bcollaboration\b|\bdecision\b|\bpack(?:age)?s?\b|new\s+(?:exclusive\s+)?song|"
-                r"now\s+available|\breveal\b", re.I), "promotional"),
+    (re.compile(r"\bbanner\b|\bteaser\b|\bannouncement\b|\bposter\b|key\s*visual|\bevent\b|\bcollaboration\b|"
+                r"\bdecision\b|\bpack(?:age)?s?\b|new\s+(?:exclusive\s+)?song|now\s+available|\breveal\b", re.I),
+     "promotional"),
     (re.compile(r"\balbum\b", re.I), "external_release_art"),
 )
 # A caption naming artwork for another game or event ("Artwork in RAVON", "Artwork in PABAT! 2017"): the file is a
@@ -173,7 +181,8 @@ FILENAME_ROLES = (
     # Wiki theme files of the Fandom/Miraheze skins (no extension on Fandom), logos and favicons.
     (re.compile(r"^(?:Site-(?:background|logo|favicon)|Wiki-(?:background|wordmark)|Community-header-background|"
                 r"Favicon|Wiki\.png$)", re.I), "site_ui"),
-    (re.compile(r"chart[ _]*list", re.I), "promotional"),
+    (re.compile(r"chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|"
+                r"update[ _]log", re.I), "reference"),
     (re.compile(r"Dynamix\.(?:png|jpe?g)$"), "song_art"),
     (re.compile(r"[ _-]?BG(?:[ _-]?HQ)?\.(?:png|jpe?g)$", re.I), "background"),
     (re.compile(r"Parts?(?:[ _-]?HQ)?\.(?:png|jpe?g)$", re.I), "part"),

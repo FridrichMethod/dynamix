@@ -1,8 +1,9 @@
 """Command line of ``scripts/fetch_wikis.py`` (09-frozen-contracts.md, CLI contract).
 
 ``--metadata-only`` enumerates and classifies without downloading; the default run also downloads accepted
-candidates; ``--resume`` re-hashes already archived files instead of trusting their presence (a normal run checks
-presence and size); ``--verify`` is offline. ``--source`` selects which snapshots are written and which source is
+candidates, one worker thread per selected English wiki (their file hosts differ, so they download concurrently while
+each host still sees one request at a time); ``--resume`` re-hashes already archived files instead of trusting their
+presence (a normal run checks presence and size); ``--verify`` is offline. ``--source`` selects which snapshots are written and which source is
 acquired: the two English wikis are always enumerated together because classification pools their evidence.
 Exit codes: 0 done; 1 failed/blocked downloads; 2 incomplete discovery; 3 another run holds the lock; 4 an archived
 file is no longer accepted by the current evidence (nothing written; review needed); 130 interrupted (outputs written
@@ -14,6 +15,7 @@ from __future__ import annotations
 import argparse
 import signal
 import sys
+import threading
 from pathlib import Path
 from typing import Any, Callable
 
@@ -69,6 +71,7 @@ class Runner:
         self.plans: dict[str, list[discover.Plan]] = {}
         self.candidates: dict[str, list[dict]] = {}
         self.index: songindex.SongIndex | None = None
+        self.lock = threading.RLock()  # shared state, journal and output writes (see acquire.Acquirer)
 
     @property
     def mediawiki_selected(self) -> list[str]:
@@ -116,6 +119,10 @@ class Runner:
 
     def write(self) -> None:
         """Validate and atomically write snapshots, the manifest and the song index; then clear the journal."""
+        with self.lock:
+            self._write()
+
+    def _write(self) -> None:
         snapshots: dict[str, dict] = {}
         for key in self.mediawiki_selected:
             source = config.SOURCES[key]
@@ -155,35 +162,71 @@ class Runner:
         self.journal.clear()
 
     def acquire(self, client: Any) -> None:
-        acquirer = acquire.Acquirer(self.root, self.state, self.journal, client, now=self.now, log=self.log)
-        flusher = acquire.Flusher(self.write)
+        """One worker thread per selected wiki; ``--limit`` bounds the attempts of all workers together. A worker
+        error or an interrupt (SIGTERM/^C in the main thread) stops every worker after its current file; the outputs
+        are written before the error propagates."""
+        acquirer = acquire.Acquirer(self.root, self.state, self.journal, client, now=self.now, log=self.log,
+                                    lock=self.lock)
+        flusher = acquire.Flusher(self.write, lock=self.lock)
         only = set(self.args.only)
-        attempts = 0
+        counter = {"attempts": 0}
         totals: dict[str, int] = {}
-        try:
-            for key in self.mediawiki_selected:
-                # Strongest evidence first, so that among same-wiki byte duplicates the template/caption-named file
-                # becomes the record and the others point at it (duplicate_bytes); then by candidate ID.
-                order = sorted(zip(self.plans[key], self.candidates[key]),
-                               key=lambda pair: (-pair[0].decision.strength, pair[0].candidate_id))
+        stop = threading.Event()
+        errors: list[BaseException] = []
+
+        def take_attempt() -> int | None:
+            with self.lock:
+                if self.args.limit is not None and counter["attempts"] >= self.args.limit:
+                    return None
+                counter["attempts"] += 1
+                return counter["attempts"]
+
+        def work(key: str) -> None:
+            # Strongest evidence first, so that among same-wiki byte duplicates the template/caption-named file
+            # becomes the record and the others point at it (duplicate_bytes); then by candidate ID.
+            order = sorted(zip(self.plans[key], self.candidates[key]),
+                           key=lambda pair: (-pair[0].decision.strength, pair[0].candidate_id))
+            try:
                 for plan, candidate in order:
-                    if self.args.limit is not None and attempts >= self.args.limit:
-                        break
+                    if stop.is_set():
+                        return
                     if only and not ({plan.title, plan.candidate_id, discover.upstream_key(plan.title)} & only):
                         continue
                     if not acquirer.needs_download(candidate, resume=self.args.resume, retry_failed=True):
                         continue
-                    attempts += 1
+                    number = take_attempt()
+                    if number is None:
+                        return
                     outcome = acquirer.download(plan)
-                    totals[outcome.disposition] = totals.get(outcome.disposition, 0) + 1
-                    self.log(f"  [{attempts}] {outcome.disposition:15} {plan.candidate_id}"
+                    with self.lock:
+                        totals[outcome.disposition] = totals.get(outcome.disposition, 0) + 1
+                    self.log(f"  [{number}] {outcome.disposition:15} {plan.candidate_id}"
                              + (f" -> {outcome.asset_id}" if outcome.asset_id else "")
                              + (f" ({outcome.message})" if outcome.message else ""))
                     flusher.tick()
+            except BaseException as error:  # noqa: BLE001 - re-raised in the main thread
+                errors.append(error)
+                stop.set()
+
+        workers = [threading.Thread(target=work, args=(key,), name=f"fetch-{key}", daemon=True)
+                   for key in self.mediawiki_selected]
+        try:
+            for worker in workers:
+                worker.start()
+            while any(worker.is_alive() for worker in workers):
+                for worker in workers:
+                    worker.join(0.5)
+        except BaseException:
+            stop.set()
+            for worker in workers:
+                worker.join()
+            raise
         finally:
             self.write()
-            self.log(f"downloads this run: {attempts} attempts, " + ", ".join(
+            self.log(f"downloads this run: {counter['attempts']} attempts, " + ", ".join(
                 f"{name} {count}" for name, count in sorted(totals.items())))
+        if errors:
+            raise errors[0]
 
     def exit_code(self) -> int:
         if any(not self.inventories[key].complete for key in self.mediawiki_selected):

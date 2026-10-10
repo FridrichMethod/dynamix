@@ -134,10 +134,15 @@ class MediaWikiAPI:
 # --- Concrete lists ---------------------------------------------------------------------------------------------------
 
 ALLIMAGES_PARAMS = {"action": "query", "list": "allimages", "ailimit": MAX_LIMIT, "aisort": "name",
-                    "aiprop": "timestamp|url|size|mime|sha1"}
+                    "aiprop": "timestamp|user|comment|url|size|mime|sha1"}
 FILE_USAGE_PARAMS = {"action": "query", "generator": "allimages", "gailimit": MAX_LIMIT, "gaisort": "name",
                      "prop": "fileusage|categories", "fulimit": MAX_LIMIT, "fuprop": "title",
                      "cllimit": MAX_LIMIT}
+# File description pages: current wikitext (redirects, descriptions) and the pages linking to them ([[:File:X]]).
+# Revision content allows at most 50 pages per request.
+FILE_PAGES_PARAMS = {"action": "query", "generator": "allimages", "gailimit": "50", "gaisort": "name",
+                     "prop": "revisions|linkshere", "rvprop": "ids|timestamp|content", "rvslots": "main",
+                     "lhlimit": MAX_LIMIT, "lhprop": "title|redirect"}
 PAGES_PARAMS = {"action": "query", "generator": "allpages", "gapnamespace": "0", "gapfilterredir": "nonredirects",
                 "gaplimit": "50", "prop": "revisions|categories|info", "rvprop": "ids|timestamp|content",
                 "rvslots": "main", "cllimit": MAX_LIMIT, "inprop": "url"}
@@ -146,8 +151,8 @@ PAGES_PARAMS = {"action": "query", "generator": "allpages", "gapnamespace": "0",
 def _merge_allimages(items: dict[str, Any], data: dict) -> None:
     for row in data.get("query", {}).get("allimages", []):
         title = row.get("title") or ("File:" + str(row.get("name", "")).replace("_", " "))
-        items[title] = {key: row.get(key) for key in ("name", "title", "timestamp", "url", "descriptionurl", "size",
-                                                      "width", "height", "mime", "sha1")}
+        items[title] = {key: row.get(key) for key in ("name", "title", "timestamp", "user", "comment", "url",
+                                                      "descriptionurl", "size", "width", "height", "mime", "sha1")}
         items[title]["title"] = title
 
 
@@ -179,6 +184,11 @@ def allimages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> L
 def file_usage(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
     """``prop=fileusage|categories`` for every file (generator=allimages), keyed by ``File:`` title."""
     return api.enumerate("fileusage", FILE_USAGE_PARAMS, _merge_pages_lists(("fileusage", "categories")), start=start)
+
+
+def file_pages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
+    """Every file description page (generator=allimages) with its current wikitext and the pages linking to it."""
+    return api.enumerate("filepages", FILE_PAGES_PARAMS, _merge_pages_lists(("linkshere",)), start=start)
 
 
 def content_pages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:

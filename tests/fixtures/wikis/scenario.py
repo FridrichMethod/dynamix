@@ -6,15 +6,17 @@ small generated patterns. The cases mirror 05-agent-handoffs.md §A: Cosmic Puls
 with a ``<ref>``, composer Yunosuke via ``Compound Artist Link``), ``(XD) D.jpg`` as a gameplay screenshot from its
 Trivia gallery, a ``-HQ`` file that is only a background and an unused ``BG-HQ`` file that stays pending, Universe-only
 and video placeholder exclusions, an animated GIF capture, a same-wiki duplicate, Unicode and case-colliding titles,
-same-size different bytes, a Fandom API size/SHA-1 that differs from the served bytes, and a Fandom CDN WEBP behind a
-``.png`` URL.
+same-size different bytes, a Fandom API size/SHA-1 that differs from the served bytes, a Fandom CDN WEBP behind a
+``.png`` URL, a file description page that redirects to an identical file (alias), a file only cited by a
+``[[:File:]]`` link, and archivist reviews (one current, one of an earlier revision, one exclusion).
 """
 
 from __future__ import annotations
 
+import hashlib
 from typing import Any
 
-from wikis import config
+from wikis import config, reviews
 
 from fakewiki import FakeClient, FakeMediaWiki, file_row, image_bytes
 
@@ -33,6 +35,8 @@ COSMIC = """{{Song
 |Cover Artist = ariiol<ref>[https://x.com/ariiol_/status/1879155241788293570 The illustrations are posted here.]</ref>
 |Charter = TehLightningChicken
 }}
+==Trivia==
+*The chart was finished in a day.<ref>[[:File:Cited Screenshot.png]]</ref>
 ==Gallery==
 <gallery>
 Cosmic Pulse Chart List.jpg|Cosmic Pulse Chart List
@@ -171,7 +175,12 @@ class Scenario:
             "Fandom Only Chart List.jpg": image_bytes("JPEG", size, 18),
             "Cosmic Pulse Squared.png": image_bytes("PNG", (36, 36), 19),
             "LostDynamix.png": image_bytes("PNG", size, 20),
+            "Unused Event.png": image_bytes("PNG", (48, 27), 21),
+            "Cited Screenshot.png": image_bytes("PNG", (30, 20), 22),
+            "Stale Review.png": image_bytes("PNG", (30, 20), 23),
+            "Wiki Button.png": image_bytes("PNG", (26, 10), 24),
         }
+        self.data["Alias Chart List.jpg"] = self.data["Cosmic Pulse Chart List.jpg"]
         self.data["Cosmic Pulse copy.png"] = self.data["CosmicPulseDynamix.png"]
         self.webp_whirlwind = image_bytes("WEBP", (20, 20), 17)
         self.miraheze_names = [name for name in self.data if name not in ("WHIRLWINDBG.png", "WHIRLWINDDynamix.png",
@@ -193,6 +202,30 @@ class Scenario:
         for _label, url in config.ATWIKI.list_pages:
             self.texts.setdefault(url, ATWIKI_25.replace("Japanese Only Song", "Cosmic Pulse"))
         self.mime = {"png": "image/png", "jpg": "image/jpeg", "gif": "image/gif"}
+        self.file_pages = {
+            "File:Alias Chart List.jpg": "#REDIRECT [[File:Cosmic Pulse Chart List.jpg]]",
+            "File:CosmicPulseDynamix.png": "The image is taken from the link below.\nhttps://x.com/ariiol_/status/1",
+            "File:Cosmic Pulse Chart List.jpg": "== Summary ==\nImporting images from https://dynamixc4cat.fandom.com "
+                                                "([[phorge:T15787|T15787]])",
+        }
+        self.links = {"File:Cited Screenshot.png": [{"ns": 0, "title": "Cosmic Pulse"},
+                                                    {"ns": 1, "title": "Talk:Cosmic Pulse"}]}
+
+    def reviews_json(self) -> dict:
+        """Archivist reviews of the scenario: one current (pinned to the served bytes' SHA-1), one whose file has been
+        re-uploaded since (SHA-1 of other bytes), one exclusion."""
+        def sha1(name: str) -> str:
+            return hashlib.sha1(self.data[name]).hexdigest()
+        return {"format": reviews.FORMAT, "reviews": [
+            {"title": "File:Unused Event.png", "sha1": [sha1("Unused Event.png")], "role": "promotional",
+             "game": "dynamix", "evidence": "visual_inspection: event key art with the original Dynamix logo",
+             "game_evidence": "visual_inspection: original Dynamix logo; Fandom upload predates Dynamix Universe",
+             "songs": ["Cosmic Pulse"]},
+            {"title": "File:Stale Review.png", "sha1": ["f" * 40], "role": "song_art", "game": "dynamix",
+             "evidence": "visual_inspection: square jacket", "game_evidence": "visual_inspection: original logo"},
+            {"title": "File:Wiki Button.png", "sha1": [sha1("Wiki Button.png")], "role": "site_ui",
+             "evidence": "visual_inspection: wiki navigation button with text over a crop"},
+        ]}
 
     def rows(self, wiki: str) -> list[dict]:
         names = self.miraheze_names if wiki == "miraheze" else self.fandom_names
@@ -222,9 +255,11 @@ class Scenario:
         frames = {"File:Emi-Animated.gif": 3}
         return {
             config.MIRAHEZE.api_url: FakeMediaWiki("https://dynamix.miraheze.org", self.rows("miraheze"),
-                                                   self.miraheze_pages, frames=frames),
+                                                   self.miraheze_pages, frames=frames, file_pages=self.file_pages,
+                                                   links=self.links),
             config.FANDOM.api_url: FakeMediaWiki("https://dynamixc4cat.fandom.com", self.rows("fandom"),
-                                                 self.fandom_pages, frames=frames),
+                                                 self.fandom_pages, frames=frames, file_pages=self.file_pages,
+                                                 links=self.links),
         }
 
     def client(self, wikis: dict[str, FakeMediaWiki] | None = None) -> FakeClient:

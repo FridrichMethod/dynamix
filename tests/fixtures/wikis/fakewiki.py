@@ -1,8 +1,8 @@
 """Offline stand-ins for the wiki APIs, HTML pages and file CDNs used by ``tests/test_fetch_wikis*.py``.
 
 :class:`FakeMediaWiki` answers the exact Action API queries :mod:`wikis.mediawiki` sends (``list=allimages``,
-``generator=allimages`` + ``prop=fileusage|categories``, ``generator=allpages`` + revisions, ``prop=imageinfo``
-metadata, ``action=expandtemplates``) with MediaWiki's ``continue`` protocol and a small page size, so every list
+``generator=allimages`` + ``prop=fileusage|categories``, ``generator=allimages`` + ``prop=revisions|linkshere``
+(file description pages), ``generator=allpages`` + revisions, ``prop=imageinfo`` metadata, ``action=expandtemplates``) with MediaWiki's ``continue`` protocol and a small page size, so every list
 needs several continuation round trips. :class:`FakeClient` mirrors :class:`lib.net.PoliteClient`'s public methods
 (``get_json``, ``get_text``, ``download`` writing a hidden ``.part`` file) and raises the real ``lib.net`` errors for
 injected failures. Nothing here opens a socket.
@@ -45,13 +45,16 @@ class FakeMediaWiki:
 
     def __init__(self, base: str, files: list[dict], pages: Mapping[str, Mapping[str, Any]], *,
                  file_categories: Mapping[str, list[str]] | None = None, frames: Mapping[str, int] | None = None,
-                 expansions: Mapping[str, str] | None = None, page_size: int = 2):
+                 expansions: Mapping[str, str] | None = None, page_size: int = 2,
+                 file_pages: Mapping[str, str] | None = None, links: Mapping[str, list[dict]] | None = None):
         self.base = base.rstrip("/")
         self.files = sorted(files, key=lambda row: row["name"])
         self.pages = dict(pages)
         self.file_categories = dict(file_categories or {})
         self.frames = dict(frames or {})
         self.expansions = dict(expansions or {})
+        self.file_pages = dict(file_pages or {})  # File: title -> description wikitext
+        self.links = dict(links or {})  # File: title -> linkshere entries ({"ns", "title"[, "redirect"]})
         self.page_size = page_size
         self.fail: dict[tuple[str, int], Exception] = {}  # (list name, 1-based request number) -> error
         self.calls: dict[str, int] = {}
@@ -86,6 +89,18 @@ class FakeMediaWiki:
             names, cont = self._page("allimages", [row["name"] for row in self.files], "aicontinue", params)
             rows = [self._row(name) for name in names]
             return self._wrap({"allimages": rows}, cont)
+        if params.get("generator") == "allimages" and "revisions" in params.get("prop", ""):
+            names, cont = self._page("filepages", [row["name"] for row in self.files], "gaicontinue", params)
+            pages = []
+            for name in names:
+                title = "File:" + name.replace("_", " ")
+                page = {"pageid": abs(hash(title)) % 100000, "ns": 6, "title": title,
+                        "revisions": [{"revid": 7, "timestamp": "2026-01-01T00:00:00Z",
+                                       "slots": {"main": {"content": self.file_pages.get(title, "")}}}]}
+                if self.links.get(title):
+                    page["linkshere"] = list(self.links[title])
+                pages.append(page)
+            return self._wrap({"pages": pages}, cont)
         if params.get("generator") == "allimages":
             names, cont = self._page("fileusage", [row["name"] for row in self.files], "gaicontinue", params)
             pages = []

@@ -16,6 +16,7 @@ import hashlib
 import json
 import os
 import tempfile
+import threading
 import time
 from contextlib import contextmanager
 from dataclasses import dataclass, field
@@ -303,8 +304,10 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
                      + f" (Fandom upload {other.get('timestamp')}); this Miraheze copy is not byte-identical to that "
                        "upload.")
     if plan.decision.game == "mixed":
-        notes.append("Shared artwork: the wikis also associate this file with " + (", ".join(associations) or
-                                                                                    "another game") + ".")
+        notes.append("Shared artwork: this file is also associated with " + (", ".join(associations) or
+                                                                             "another game") + " (see game evidence).")
+    if plan.description:
+        notes.append(f"File description page: {plan.description!r}.")
     if notes:
         fields["notes"] = " ".join(notes)
     if transformed:
@@ -351,16 +354,23 @@ class Outcome:
 
 
 class Acquirer:
-    """Downloads accepted candidates of one source and records every outcome in the journal and ``state``."""
+    """Downloads accepted candidates and records every outcome in the journal and ``state``.
+
+    Thread-safe for one worker per source (different hosts may download concurrently): ``lock`` guards the journal and
+    every read or write of the shared ``state``; network transfers and file decoding run outside it. Each source writes
+    only its own asset directory, records and candidates, so workers never contend for the same file."""
 
     def __init__(self, root: Path, state: State, journal: Journal, client: Any, *,
-                 now: Callable[[], str] = manifest.now_utc, log: Callable[[str], None] = print):
+                 now: Callable[[], str] = manifest.now_utc, log: Callable[[str], None] = print,
+                 lock: Any = None):
         self.root, self.state, self.journal, self.client = root, state, journal, client
         self.now, self.log = now, log
+        self.lock = lock if lock is not None else threading.RLock()
 
     def record(self, event: dict) -> None:
-        self.journal.append(event)
-        self.state.apply(event)
+        with self.lock:
+            self.journal.append(event)
+            self.state.apply(event)
 
     def file_ok(self, asset: Mapping[str, Any], *, rehash: bool) -> bool:
         try:
@@ -383,10 +393,13 @@ class Acquirer:
         if disposition == "pending":
             return str(candidate.get("reason", "")).startswith(AWAITING)
         if disposition == "downloaded":
-            return not self.file_ok(self.state.assets[candidate["asset_id"]], rehash=resume)
+            with self.lock:
+                asset = self.state.assets[candidate["asset_id"]]
+            return not self.file_ok(asset, rehash=resume)
         if disposition == "failed":
-            return retry_failed and any(f["candidate_id"] == candidate["id"] and f["retriable"]
-                                        for f in self.state.failures.values())
+            with self.lock:
+                return retry_failed and any(f["candidate_id"] == candidate["id"] and f["retriable"]
+                                            for f in self.state.failures.values())
         return False
 
     def download(self, plan: discover.Plan) -> Outcome:
@@ -402,18 +415,19 @@ class Acquirer:
             return self._failed(plan, error.failure(source_id=source.source_id, candidate_id=cid, phase="download",
                                                     attempted_at=attempted, url=None if error.url else url),
                                 "blocked" if error.error_class in ("blocked", "challenge") else "failed")
-        existing = self.state.asset_with_sha(source.source_id, result.sha256)
-        if existing is not None and existing["candidate_id"] != cid:
-            # Another File: title of this wiki already archived these bytes: no second record or file.
-            Path(result.temp_path).unlink(missing_ok=True)
-            return self._finish(plan, "duplicate_bytes", existing["id"],
-                                f"identical SHA-256 to {existing['candidate_id']} (already archived)")
-        if existing is not None and self.file_ok(existing, rehash=False):
-            # Same bytes again for this title (refresh, or a revert to an archived earlier revision).
-            Path(result.temp_path).unlink(missing_ok=True)
-            if existing.get("upstream_status") != "current":
-                self.record({"event": "asset_status", "id": existing["id"], "upstream_status": "current"})
-            return self._finish(plan, "downloaded", existing["id"])
+        with self.lock:
+            existing = self.state.asset_with_sha(source.source_id, result.sha256)
+            if existing is not None and existing["candidate_id"] != cid:
+                # Another File: title of this wiki already archived these bytes: no second record or file.
+                Path(result.temp_path).unlink(missing_ok=True)
+                return self._finish(plan, "duplicate_bytes", existing["id"],
+                                    f"identical SHA-256 to {existing['candidate_id']} (already archived)")
+            if existing is not None and self.file_ok(existing, rehash=False):
+                # Same bytes again for this title (refresh, or a revert to an archived earlier revision).
+                Path(result.temp_path).unlink(missing_ok=True)
+                if existing.get("upstream_status") != "current":
+                    self.record({"event": "asset_status", "id": existing["id"], "upstream_status": "current"})
+                return self._finish(plan, "downloaded", existing["id"])
         try:
             info = media.finalize_download(result, self.root, lambda i: paths.asset_relpath(
                 FAMILY, paths.source_slug(source.source_id), name, i["sha256"], i["ext"]))
@@ -422,26 +436,29 @@ class Acquirer:
                                                     attempted_at=attempted), "failed")
         asset = build_asset(plan, info, result, url, attempted)
         schema.validate_asset(asset, FAMILY)
-        previous = [a for a in self.state.assets.values() if a["candidate_id"] == cid and a["id"] != asset["id"]
-                    and a.get("upstream_status") == "superseded" and not a.get("superseded_by")]
-        self.record({"event": "asset", "asset": asset})
-        for old in previous:
-            self.record({"event": "asset_status", "id": old["id"], "upstream_status": "superseded",
-                         "superseded_by": asset["id"]})
-        return self._finish(plan, "downloaded", asset["id"])
+        with self.lock:
+            previous = [a for a in self.state.assets.values() if a["candidate_id"] == cid and a["id"] != asset["id"]
+                        and a.get("upstream_status") == "superseded" and not a.get("superseded_by")]
+            self.record({"event": "asset", "asset": asset})
+            for old in previous:
+                self.record({"event": "asset_status", "id": old["id"], "upstream_status": "superseded",
+                             "superseded_by": asset["id"]})
+            return self._finish(plan, "downloaded", asset["id"])
 
     def _finish(self, plan: discover.Plan, disposition: str, asset_id: str, reason: str | None = None) -> Outcome:
-        self.record({"event": "clear_failures", "id": plan.candidate_id})
-        self.record({"event": "candidate", "id": plan.candidate_id, "disposition": disposition, "reason": reason,
-                     "asset_id": asset_id, "source_reported": plan.candidate["source_reported"]})
+        with self.lock:
+            self.record({"event": "clear_failures", "id": plan.candidate_id})
+            self.record({"event": "candidate", "id": plan.candidate_id, "disposition": disposition, "reason": reason,
+                         "asset_id": asset_id, "source_reported": plan.candidate["source_reported"]})
         return Outcome(plan.candidate_id, disposition, asset_id, reason or "")
 
     def _failed(self, plan: discover.Plan, failure: dict, disposition: str) -> Outcome:
-        self.record({"event": "clear_failures", "id": plan.candidate_id})
-        self.record({"event": "failure", "failure": failure})
         reason = f"{failure['phase']} {failure['error_class']}: {failure['message']}"[:300]
-        self.record({"event": "candidate", "id": plan.candidate_id, "disposition": disposition, "reason": reason,
-                     "asset_id": None, "source_reported": plan.candidate["source_reported"]})
+        with self.lock:
+            self.record({"event": "clear_failures", "id": plan.candidate_id})
+            self.record({"event": "failure", "failure": failure})
+            self.record({"event": "candidate", "id": plan.candidate_id, "disposition": disposition, "reason": reason,
+                         "asset_id": None, "source_reported": plan.candidate["source_reported"]})
         return Outcome(plan.candidate_id, disposition, None, reason)
 
 
@@ -464,15 +481,18 @@ def apply_outcomes(candidates: list[dict], state: State) -> list[dict]:
 
 
 class Flusher:
-    """Calls ``write`` every ``every`` downloads or ``seconds`` seconds (and once more at the end)."""
+    """Calls ``write`` every ``every`` downloads or ``seconds`` seconds (and once more at the end); ``lock`` (shared
+    with the :class:`Acquirer`) serializes ticks from concurrent workers with state changes."""
 
     def __init__(self, write: Callable[[], None], *, every: int = FLUSH_EVERY, seconds: float = FLUSH_SECONDS,
-                 clock: Callable[[], float] = time.monotonic):
+                 clock: Callable[[], float] = time.monotonic, lock: Any = None):
         self.write, self.every, self.seconds, self.clock = write, every, seconds, clock
+        self.lock = lock if lock is not None else threading.RLock()
         self.count, self.last = 0, clock()
 
     def tick(self) -> None:
-        self.count += 1
-        if self.count >= self.every or self.clock() - self.last >= self.seconds:
-            self.write()
-            self.count, self.last = 0, self.clock()
+        with self.lock:
+            self.count += 1
+            if self.count >= self.every or self.clock() - self.last >= self.seconds:
+                self.write()
+                self.count, self.last = 0, self.clock()

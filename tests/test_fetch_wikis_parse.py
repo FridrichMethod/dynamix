@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "tests" / "fixtures" / "wikis"))
 
 from lib import net  # noqa: E402
-from wikis import acquire, classify, config, discover, jawikis, mediawiki, songindex, wikitext  # noqa: E402
+from wikis import acquire, classify, config, discover, jawikis, mediawiki, reviews, songindex, wikitext  # noqa: E402
 
 
 class WikitextTests(unittest.TestCase):
@@ -99,10 +99,127 @@ class DecideTests(unittest.TestCase):
                          "person_photo")
         self.assertEqual(classify.filename_evidence(config.FANDOM, "File:Site-background-dark")[0].role, "site_ui")
 
+    def test_tier_revision_informational_captions(self) -> None:
+        """Tier revision 1.1: chart/difficulty lists, comeback/new-chart and update notes are references; key art,
+        event, anniversary and collaboration visuals and teasers stay promotional."""
+        reference = ["Cosmic Pulse Chart List", "Emulisy, You Spin Me Around, Go Escape Chart List (Comeback)",
+                     "春菊 & Perspicuus Aestus New Chart", "2.4 Version Update", "Crystal Clear Comeback",
+                     "New Settings Announcement", "TERA Difficulty Announcement in LAST Re;SØRT",
+                     "C4Cat Open Submission 2026 Old Results Announcement", "Dynamix Nov 2023 update log"]
+        promotional = ["Christmas Event 2021", "9th Anniversary x Halloween Event 2023", "Dynamix X Rotaeno Collaboration",
+                       "Dynamix X ???? Collaboration Decision", "New Exclusive Song \"ReLyna\"",
+                       "RAVON Collaboration Pack 1", "Share Unlock new song 名無しの宣教師"]
+        for caption in reference:
+            self.assertEqual(classify._caption_role(caption), "reference", caption)
+        for caption in promotional:
+            self.assertEqual(classify._caption_role(caption), "promotional", caption)
+        self.assertEqual(config.FILE_CATEGORY_ROLES["Category:Chart list images"], "reference")
+        for name in ("File:Helios Comeback.png", "File:1st Comeback in Nov 2019.jpg", "File:PUPA Chart List.png",
+                     "File:2.5 Version Update.jpg"):
+            [item] = classify.filename_evidence(config.MIRAHEZE, name)
+            self.assertEqual((item.role, item.strength, item.game), ("reference", 0, None), name)
+        self.assertEqual(classify.filename_evidence(config.MIRAHEZE, "File:Comebacker.png"), [])
+
+    def test_file_page_text_and_redirects(self) -> None:
+        boiler = ("== Summary ==\nImporting images from https://dynamixc4cat.fandom.com ([[phorge:T15787|T15787]])\n")
+        self.assertEqual(classify.description_text(boiler), "")
+        self.assertEqual(classify.description_text("== Licensing ==\n{{Self}}\n[[Category:Parts images]]"), "")
+        self.assertEqual(classify.description_text("== Summary ==\nThis is capture from Dynamix Facebook.\n"
+                                                   "Copyright from C4cat."),
+                         "This is capture from Dynamix Facebook. Copyright from C4cat.")
+        self.assertEqual(classify.redirect_target("#REDIRECT [[File:To soar X オレンジ Comeback Chart List.jpg]]"),
+                         "File:To soar X オレンジ Comeback Chart List.jpg")
+        self.assertIsNone(classify.redirect_target("See [[File:A.png]]"))
+        info = {"comment": "Managed to get a screenshot", "sha1": "a" * 40}
+        description, notes = discover.file_page_notes(info, {"revision": {"content": "Managed to get a screenshot"}})
+        self.assertEqual((description, notes), ("Managed to get a screenshot",
+                                                ["file page text: 'Managed to get a screenshot'"]))
+
+    def test_alias_with_same_bytes_is_excluded(self) -> None:
+        decision = classify.decide("File:A x.jpg", [_evidence("reference", 0, None, context="filename")],
+                                   {"mime": "image/jpeg"}, frames=None, include_animated=False,
+                                   fandom_timestamp=None, threshold=None, alias=("File:A X.jpg", True))
+        self.assertEqual((decision.disposition, decision.reason.split(":")[0]), ("excluded", "redirect_or_alias"))
+        decision = classify.decide("File:A x.jpg", [], {"mime": "image/jpeg"}, frames=None, include_animated=False,
+                                   fandom_timestamp=None, threshold=None, alias=("File:A X.jpg", False))
+        self.assertEqual(decision.disposition, "pending")  # different bytes: not silently an alias
+
     def test_universe_categories(self) -> None:
         for category in ("Category:Dynamix UV", "Category:DynamixUV", "Category:Songs (Dynamix Universe)"):
             self.assertTrue(classify._universe_category(category), category)
         self.assertFalse(classify._universe_category("Category:Dynamix"))
+
+
+def _review(**fields):
+    entry = {"title": "File:X.png", "sha1": ["a" * 40], "role": "promotional", "game": "dynamix",
+             "evidence": "visual_inspection: event key art", "game_evidence": "visual_inspection: original logo"}
+    entry.update(fields)
+    return reviews.parse({"format": reviews.FORMAT, "reviews": [entry]})["File:X.png"]
+
+
+class ReviewTests(unittest.TestCase):
+    def decide(self, items, review, info=None, stale=False):
+        source = config.MIRAHEZE
+        extra = classify.review_evidence(source, "File:X.png", review) if review else []
+        return classify.decide("File:X.png", items + extra, info or {"mime": "image/png"}, frames=None,
+                               include_animated=False, fandom_timestamp=None, threshold=None, review=review,
+                               review_stale=stale)
+
+    def test_parse_rejects_malformed_reviews(self) -> None:
+        bad = [dict(sha1=["xyz"]), dict(role="artwork"), dict(game="unknown"), dict(evidence="looks like art"),
+               dict(game_evidence=""), dict(role="song_art", game=None), dict(role="not_dynamix", game="dynamix"),
+               dict(game="mixed"), dict(title="X.png"), dict(colour="red")]
+        for fields in bad:
+            with self.assertRaises(ValueError, msg=fields):
+                _review(**fields)
+        with self.assertRaises(ValueError):
+            reviews.parse({"format": "other", "reviews": []})
+        self.assertEqual(_review(role=None, game=None, game_evidence="", pending="role not identifiable").role, None)
+
+    def test_committed_reviews_parse(self) -> None:
+        table = reviews.load()
+        for review in table.values():
+            self.assertTrue(review.evidence.split(":", 1)[0].isidentifier(), review.title)
+
+    def test_find_pins_the_reviewed_revision(self) -> None:
+        table = {"File:X.png": _review()}
+        self.assertEqual(reviews.find(table, "File:X.png", "A" * 40), (table["File:X.png"], False))
+        self.assertEqual(reviews.find(table, "File:X.png", "b" * 40), (None, True))
+        self.assertEqual(reviews.find(table, "File:Y.png", "a" * 40), (None, False))
+
+    def test_review_fills_role_game_and_inferred_song(self) -> None:
+        decision = self.decide(classify.filename_evidence(config.MIRAHEZE, "File:X Chart List.png"),
+                               _review(songs=["Cosmic Pulse"]))
+        self.assertEqual((decision.role, decision.game, decision.disposition), ("promotional", "dynamix", "download"))
+        self.assertEqual((decision.songs, decision.mapping), (["Cosmic Pulse"], "inferred"))
+        self.assertTrue(decision.role_evidence[0].startswith("promotional <- archivist review (File:X.png)"))
+        self.assertTrue(decision.game_evidence[-1].startswith("archivist review (File:X.png): visual_inspection"))
+
+    def test_page_evidence_wins_over_review(self) -> None:
+        decision = self.decide([_evidence("character", 2, "dynamix")], _review(role="part"))
+        self.assertEqual((decision.role, decision.game), ("character", "dynamix"))
+        universe = self.decide([_evidence("song_art", 3, "dynamix_universe")], _review(role="song_art"))
+        self.assertEqual(universe.reason.split(":")[0], "universe_only")
+        # A review may break a tie between equally supported page roles, but only by choosing one of them.
+        tie = [_evidence("character", 2, "dynamix", "A"), _evidence("part", 2, "dynamix", "B")]
+        self.assertEqual(self.decide(tie, _review(role="part")).role, "part")
+        self.assertIsNone(self.decide(tie, _review(role="background")).role)
+
+    def test_review_exclusions_and_pending(self) -> None:
+        photo = self.decide([], _review(role="person_photo", game=None, game_evidence=""))
+        self.assertEqual((photo.disposition, photo.reason), ("excluded", "person_photo: archivist review "
+                                                             "(File:X.png): visual_inspection: event key art"))
+        other = self.decide([], _review(role="not_dynamix", game="not_dynamix",
+                                        game_evidence="visual_inspection: Minecraft screenshot"))
+        self.assertEqual((other.disposition, other.game), ("excluded", "not_dynamix"))
+        conflict = self.decide([_evidence(None, 0, "dynamix", context="embedded")],
+                               _review(role="not_dynamix", game="not_dynamix", game_evidence="visual_inspection: x"))
+        self.assertEqual(conflict.disposition, "pending")
+        no_game = self.decide([], _review(game=None, game_evidence="", pending="no original-game evidence"))
+        self.assertEqual((no_game.disposition, no_game.role), ("pending", "promotional"))
+        self.assertIn("no original-game evidence", no_game.reason)
+        stale = self.decide([], None, stale=True)
+        self.assertIn("earlier revision", stale.reason)
 
 
 class MediaWikiEnumerationTests(unittest.TestCase):

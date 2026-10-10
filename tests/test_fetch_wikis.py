@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "tests" / "fixtures" / "wikis"))
 
 from lib import manifest, net, schema  # noqa: E402
-from wikis import acquire, cli, config  # noqa: E402
+from wikis import acquire, cli, config, reviews  # noqa: E402
 
 from scenario import Scenario  # noqa: E402
 
@@ -34,8 +34,14 @@ class WikiRun(unittest.TestCase):
         self.work = self.tmp / "work"
         self.scenario = Scenario()
         self.logs: list[str] = []
+        # Hermetic archivist reviews: the scenario's own table instead of scripts/wikis/reviews.json.
+        self.reviews_path = self.tmp / "reviews.json"
+        self.reviews_path.write_text(json.dumps(self.scenario.reviews_json()), encoding="utf-8")
+        self._saved_reviews_path = reviews.REVIEWS_PATH
+        reviews.REVIEWS_PATH = self.reviews_path
 
     def tearDown(self) -> None:
+        reviews.REVIEWS_PATH = self._saved_reviews_path
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def run_cli(self, *args: str, client=None) -> int:
@@ -84,7 +90,29 @@ class MetadataOnlyTests(WikiRun):
 
         cosmic = check("miraheze", "File:CosmicPulseDynamix.png", "pending", "song_art", acquire.AWAITING, "dynamix")
         self.assertEqual((cosmic["illustrators"], cosmic["composers"]), (["ariiol"], ["Yunosuke"]))
-        check("miraheze", "File:Cosmic Pulse Chart List.jpg", "pending", "promotional", acquire.AWAITING)
+        # Tier revision 1.1: an official chart list is an informational graphic (kind reference, archive tier).
+        check("miraheze", "File:Cosmic Pulse Chart List.jpg", "pending", "reference", acquire.AWAITING)
+        self.assertEqual(schema.tier_for("reference", "JPEG"), "archive")
+        # File description pages: a redirect to an identical file is an alias; a file that is only cited by a
+        # [[:File:]] link has no role; the import boilerplate is not quoted, a human description is.
+        alias = check("miraheze", "File:Alias Chart List.jpg", "excluded", None, "redirect_or_alias")
+        self.assertIn("File:Cosmic Pulse Chart List.jpg", alias["reason"])
+        cited = check("miraheze", "File:Cited Screenshot.png", "pending", None, "unresolved_role")
+        self.assertIn("linked from Cosmic Pulse, Talk:Cosmic Pulse", cited["reason"])
+        self.assertEqual(cited["game"], "unknown")  # a link is not a use: no game from the linking page
+        self.assertNotIn("Importing images", self.candidate("miraheze", "File:Cosmic Pulse Chart List.jpg")["notes"])
+        self.assertIn("file page text: 'The image is taken from the link below. https://x.com/ariiol_/status/1'",
+                      cosmic["notes"])
+        # Archivist reviews: a current review supplies role, game and an inferred song; a review of other bytes
+        # no longer applies; an exclusion review uses the frozen vocabulary and quotes its evidence.
+        event = check("miraheze", "File:Unused Event.png", "pending", "promotional", acquire.AWAITING, "dynamix")
+        self.assertIn("archivist review (File:Unused Event.png): visual_inspection: event key art",
+                      event["game_evidence"][0] + event["notes"])
+        self.assertEqual(event["song_titles"], ["Cosmic Pulse"])
+        stale = check("miraheze", "File:Stale Review.png", "pending", None, "unresolved_role")
+        self.assertIn("review of an earlier revision no longer applies", stale["reason"])
+        button = check("miraheze", "File:Wiki Button.png", "excluded", None, "site_ui")
+        self.assertIn("visual_inspection: wiki navigation button", button["reason"])
         # (XD)_D.jpg: a large JPEG in the Trivia gallery is gameplay, not the song's artwork.
         xd_d = check("miraheze", "File:(XD) D.jpg", "pending", "gameplay_screenshot", acquire.AWAITING, "dynamix")
         self.assertEqual(xd_d["song_titles"], ["(XD)"])
@@ -201,12 +229,22 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(self.asset("miraheze", "File:(XD) D.jpg")["kind"], "gameplay_screenshot")
         self.assertEqual(self.asset("miraheze", "File:(XD)BG-HQ.png")["kind"], "background")
         self.assertEqual(self.asset("miraheze", "File:(XD)BG-HQ.png")["illustrators"], [])
+        # A reviewed file's song mapping is at most inferred and quotes the review.
+        event = self.asset("miraheze", "File:Unused Event.png")
+        self.assertEqual((event["kind"], event["mapping_status"], event["song_ids"]),
+                         ("promotional", "inferred", ["song:cosmic-pulse"]))
+        self.assertEqual(event["mapping_evidence"][0]["field"], "archivist review")
+        self.assertTrue(event["mapping_evidence"][0]["quote"].startswith("visual_inspection:"))
+        self.assertEqual(self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")["kind"], "reference")
+        self.assertIn("File description page: 'The image is taken from the link below.",
+                      self.asset("miraheze", "File:CosmicPulseDynamix.png")["notes"])
         squared = self.asset("miraheze", "File:Cosmic Pulse Squared.png")
         self.assertEqual(squared["game_associations"], ["dynamix", "ravon"])
         self.assertEqual(squared["illustrators"], [])  # not the template's cover: no illustrator inferred
         # Excluded and pending candidates are never downloaded.
         downloaded = " ".join(self.client.downloads)
-        for name in ("Emi-Animated.gif", "Universe_Song_cover.png", "Composer_Photo.jpg", "Lonely_BG-HQ.png"):
+        for name in ("Emi-Animated.gif", "Universe_Song_cover.png", "Composer_Photo.jpg", "Lonely_BG-HQ.png",
+                     "Alias_Chart_List.jpg", "Cited_Screenshot.png", "Stale_Review.png", "Wiki_Button.png"):
             self.assertNotIn(name, downloaded)
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
         index = manifest.load_json(self.root / "data/discovery/song-index.wikis.json")
@@ -300,6 +338,23 @@ class ResumeTests(WikiRun):
             for cid in done)]
         self.assertEqual(fetched_again, [])
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_concurrent_workers_share_the_limit_and_stop_together(self) -> None:
+        """Both wikis download concurrently (one worker each); --limit bounds them together, and an interrupt in one
+        worker stops the other after its current file with consistent outputs."""
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--limit", "5", client=client), 0, "\n".join(self.logs))
+        self.assertEqual(len(client.downloads), 5)
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        client = self.scenario.client()
+        client.interrupt_after = 6
+        self.assertEqual(self.run_cli(client=client), 130)
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--resume", client=client), 0, "\n".join(self.logs))
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        sources = {a["source_id"] for a in self.manifest()["assets"]}
+        self.assertEqual(sources, {"wikis:miraheze", "wikis:fandom"})
 
     def test_journal_replay_after_hard_kill(self) -> None:
         """A process killed between downloads and the next manifest write loses nothing: the journal is replayed."""
