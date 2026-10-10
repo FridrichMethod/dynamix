@@ -35,7 +35,7 @@ Miraheze 从 `static.wikitide.net` 原样提供文件；对抽样文件而言，
 
 Fandom 的 CDN（`static.wikia.nocookie.net`）默认对 `/revision/latest` 地址返回转换后的 WebP，即使路径以 `.png` 结尾。因此每次从 Fandom 下载都会附加 `format=original`，以取得存储的原文件。保存的文件按其字节解码出的格式命名，从不依据 URL 后缀。
 
-对于许多 Fandom 文件，Fandom API 报告的大小和 SHA-1 与 `format=original` 返回的字节不同，而字节本身与 Miraheze 的副本一致。这一点按实际情况记录：API 的值保留在 `source_reported`，实测值保留在 `download_observed`，`comparisons` 把不一致的字段标为 `false`。这不被视为文件的第二个版本。
+对于许多 Fandom 文件，Fandom API 报告的大小和 SHA-1 与 `format=original` 返回的字节不同，而对抽样文件而言，这些字节与 Miraheze 的副本完全一致。这一点按实际情况记录：API 的值保留在 `source_reported`，实测值保留在 `download_observed`，`comparisons` 把不一致的字段标为 `false`。这不被视为文件的第二个版本。
 
 ### 日文曲目列表
 
@@ -68,7 +68,7 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 每个候选恰好有一个处置结果：`downloaded`、`duplicate_bytes`、`excluded`、`failed`、`blocked` 或 `pending`。wiki 使用的排除原因包括 `universe_only`、`animated_capture`、`person_photo`（作曲者、艺术家和谱师的个人资料图片）、`site_ui`（wiki 皮肤、标志、导航模板）、`game_ui`（图标、按钮、评级徽章、商店中的 bits）、`external_release_art`（独立音乐发行物的封面）、`video_placeholder`（`video/*` 条目，它们是嵌入的视频而不是文件）和 `out_of_scope_other`。
 
-动态 GIF 录屏默认排除；wiki 提供静态的 `-Raw.png` 版本时，会存档该静态图。`--include-animated` 也会接受动态文件，因此这一选择可以撤销。待定候选的原因为 `awaiting_download`、`unresolved_role` 或 `unresolved_game`，覆盖率报告会列出它们。
+动态 GIF 录屏默认排除；角色的 `-Raw.png` 等静态版本是独立的候选，在其自身证据被接受时存档。`--include-animated` 也会接受动态文件，因此这一选择可以撤销。待定候选的原因为 `awaiting_download`、`unresolved_role` 或 `unresolved_game`，覆盖率报告会列出它们。
 
 ## 重复文件、修订与两个英文 wiki
 

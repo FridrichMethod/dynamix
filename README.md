@@ -51,7 +51,7 @@ Archive-tier originals are stored in this repository like every other file; the 
 Candidates that are not archived are still recorded in the discovery snapshots with a reason, among them:
 
 - artwork used only by Dynamix Universe (`universe_only`) and files that are not Dynamix material (`not_dynamix`);
-- animated GIF captures (`animated_capture`); the still `-Raw.png` rendition of a character is archived when the wiki has one, and `fetch_wikis.py --include-animated` makes this choice reversible;
+- animated GIF captures (`animated_capture`); a still rendition such as a character's `-Raw.png` is a separate candidate, archived when its own evidence accepts it, and `fetch_wikis.py --include-animated` makes this choice reversible;
 - photos of people (`person_photo`), wiki interface images (`site_ui`) and game interface elements such as icons, buttons and grade badges (`game_ui`);
 - embedded video placeholders (`video_placeholder`), cover art of separate music releases (`external_release_art`), fanart (`fanart`), upscales (`upscaled`) and rejected submissions (`rejected_submission`);
 - redirects and aliases of another file (`redirect_or_alias`) and other out-of-scope files (`out_of_scope_other`).

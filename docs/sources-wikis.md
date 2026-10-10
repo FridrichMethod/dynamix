@@ -35,7 +35,7 @@ Miraheze serves files unmodified from `static.wikitide.net`; for sampled files t
 
 Fandom's CDN (`static.wikia.nocookie.net`) answers `/revision/latest` URLs with a transformed WebP by default, even when the path ends in `.png`. Every Fandom download therefore appends `format=original`, which returns the stored original. The saved file is named after the format decoded from its bytes, never after the URL suffix.
 
-For many Fandom files, the size and SHA-1 that the Fandom API reports differ from the bytes `format=original` returns, while the bytes themselves match the Miraheze copy. This is recorded as it is: the API values stay in `source_reported`, the measured values in `download_observed`, and `comparisons` marks the differing fields `false`. It is not treated as a second version of the file.
+For many Fandom files, the size and SHA-1 that the Fandom API reports differ from the bytes `format=original` returns, while for sampled files those bytes match the Miraheze copy exactly. This is recorded as it is: the API values stay in `source_reported`, the measured values in `download_observed`, and `comparisons` marks the differing fields `false`. It is not treated as a second version of the file.
 
 ### Japanese song lists
 
@@ -68,7 +68,7 @@ A file used by both games is accepted as `mixed` and keeps `dynamix_universe` in
 
 Every candidate has exactly one disposition: `downloaded`, `duplicate_bytes`, `excluded`, `failed`, `blocked` or `pending`. Exclusion reasons used for the wikis include `universe_only`, `animated_capture`, `person_photo` (composer, artist and charter profile images), `site_ui` (wiki skins, logos, navigation templates), `game_ui` (icons, buttons, grade badges, store bits), `external_release_art` (covers of separate music releases), `video_placeholder` (`video/*` entries, which are embedded videos rather than files) and `out_of_scope_other`.
 
-Animated GIF captures are excluded by default; where the wiki has the still `-Raw.png` rendition, that still is archived. `--include-animated` accepts the animated files as well, so the choice is reversible. Pending candidates carry `awaiting_download`, `unresolved_role` or `unresolved_game` as their reason, and the coverage report lists them.
+Animated GIF captures are excluded by default; a still rendition such as a character's `-Raw.png` is a separate candidate and is archived when its own evidence accepts it. `--include-animated` accepts the animated files as well, so the choice is reversible. Pending candidates carry `awaiting_download`, `unresolved_role` or `unresolved_game` as their reason, and the coverage report lists them.
 
 ## Duplicates, revisions and the two English wikis
 

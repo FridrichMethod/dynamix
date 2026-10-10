@@ -51,7 +51,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 未存档的候选仍然记录在发现快照中，并附带原因，包括：
 
 - 仅用于 Dynamix Universe 的美术（`universe_only`），以及不属于 Dynamix 的文件（`not_dynamix`）；
-- 动态 GIF 录屏（`animated_capture`）；wiki 提供静态的 `-Raw.png` 角色图时会存档该图，`fetch_wikis.py --include-animated` 可以撤销这一选择；
+- 动态 GIF 录屏（`animated_capture`）；角色的 `-Raw.png` 等静态版本是独立的候选，在其自身证据被接受时存档，`fetch_wikis.py --include-animated` 可以撤销这一选择；
 - 人物照片（`person_photo`）、wiki 界面图片（`site_ui`），以及图标、按钮、评级徽章等游戏界面元素（`game_ui`）；
 - 嵌入视频的占位条目（`video_placeholder`）、独立音乐发行物的封面（`external_release_art`）、同人图（`fanart`）、放大图（`upscaled`）和落选投稿（`rejected_submission`）；
 - 其他文件的重定向或别名（`redirect_or_alias`），以及其他超出范围的文件（`out_of_scope_other`）。
