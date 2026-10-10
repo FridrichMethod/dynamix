@@ -1,0 +1,124 @@
+/* Adapted from FridrichMethod/deemo src/archive.css (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8);
+   modified for the Dynamix archive, 2026. See NOTICE. System fonts only: nothing is downloaded for type. */
+:root { color-scheme: light; --paper: #f3f5f8; --ink: #1f2430; --muted: #5d6573; --border: #d3d8e0; --tile: #e3e7ee; --accent: #1d6f93; --focus: #2a8fb8; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.6 system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+a { color: inherit; text-underline-offset: 3px; }
+a:hover { color: var(--accent); }
+button, input, select { font: inherit; color: inherit; }
+button, select { cursor: pointer; }
+button, input, select { border: 1px solid var(--border); border-radius: 5px; background: #fffc; padding: 9px 12px; }
+button:hover { border-color: var(--ink); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+header, main, footer { max-width: 1600px; margin: auto; padding: 26px 40px; }
+header { padding-top: 46px; padding-bottom: 15px; }
+.eyebrow { font-size: 11px; letter-spacing: .16em; color: var(--muted); }
+.heading-row { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+h1 { font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Noto Sans CJK SC", sans-serif; font-size: clamp(25px, 3vw, 40px); font-weight: 300; letter-spacing: .01em; margin: 0; }
+h2 { font: 400 24px/1.3 "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Noto Sans CJK SC", sans-serif; }
+header p, .result-row p { color: var(--muted); }
+nav { display: flex; gap: 24px; align-items: baseline; white-space: nowrap; }
+/* The language switch reads like the neighboring nav links but stays a real button. */
+.lang-toggle { border: 0; border-radius: 2px; background: none; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+.lang-toggle:hover { color: var(--accent); }
+.filters { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px; }
+label { display: grid; gap: 5px; font-size: 12px; color: var(--muted); }
+input, select { font-size: 14px; color: var(--ink); height: 42px; }
+/* A drawn chevron replaces the native arrow: it sits as far in from the right border as the text does from the left,
+   and the right padding keeps long option text clear of it. */
+select { -webkit-appearance: none; appearance: none; padding-right: 34px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235d6573' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 10px 6px; }
+select:hover { border-color: var(--ink); }
+/* The per-source list can hold long names; it never pushes the row wider than the page. */
+#source { max-width: min(320px, 100%); }
+.filters button { height: 42px; padding-block: 0; font-size: 14px; }
+.search { flex: 1; min-width: 250px; }
+.result-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; margin: 14px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
+.card { min-width: 0; }
+.card-image { position: relative; display: block; padding: 0; width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: 5px; background: var(--tile); }
+.card-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+/* A file without a usable preview (a PDF, or a preview that failed and has no published original) gets a labelled tile
+   instead of a broken image. */
+.card-placeholder { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.card h2 { font: 500 15px/1.4 system-ui, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans CJK SC", sans-serif; margin: 10px 0 3px; overflow-wrap: anywhere; }
+.card p { color: var(--muted); font-size: 12px; margin: 3px 0; overflow-wrap: anywhere; }
+.card .tag { font-size: 10px; text-transform: uppercase; letter-spacing: .04em; }
+.card .flags { font-size: 11px; color: var(--accent); }
+.more { display: block; margin: 32px auto; padding: 10px 40px; }
+.noscript { margin: 0 0 20px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 5px; }
+[hidden] { display: none !important; }
+.source-inventory { border-top: 1px solid var(--border); margin-top: 32px; padding-top: 20px; }
+#references p { overflow-wrap: anywhere; }
+summary { cursor: pointer; }
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; margin: 15px 0; }
+th, td { text-align: left; vertical-align: top; padding: 10px; border-bottom: 1px solid var(--border); }
+th:first-child, td:first-child { min-width: 180px; }
+/* The record count and its header stay on one line, and long notes that name paths wrap inside their column rather
+   than widen the table past a phone. */
+th:nth-child(2), td:nth-child(2) { white-space: nowrap; }
+td:nth-child(3) { overflow-wrap: anywhere; }
+#failures li { overflow-wrap: anywhere; margin: 4px 0; }
+footer { border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); }
+dialog { width: min(1400px, 95vw); height: min(900px, 93vh); padding: 0; border: 1px solid var(--border); border-radius: 8px; background: var(--paper); color: var(--ink); }
+dialog[open] { display: grid; grid-template-columns: minmax(0, 1fr) 380px; }
+dialog::backdrop { background: #121722d9; }
+/* While the viewer is open the page behind it stays put, so wheel, touch and key scrolling cannot move the grid or
+   lazy-load more previews. The scrollbar gutter is always reserved, so the grid never reflows when a classic
+   scrollbar comes or goes. */
+html { scrollbar-gutter: stable; }
+html:has(dialog:modal) { overflow: hidden; }
+dialog, .viewer-image, .viewer-info { overscroll-behavior: contain; }
+.viewer-image { min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: var(--tile); overflow: auto; }
+.viewer-image img { max-width: 100%; max-height: 100%; object-fit: contain; min-height: 0; }
+.viewer-image img:not([src]) { display: none; }
+.viewer-image p { margin: 16px; max-width: 32em; text-align: center; color: var(--muted); }
+.viewer-info { padding: 48px 24px 24px; overflow-y: auto; overflow-wrap: anywhere; font-size: 13px; }
+/* Viewer marks are SVG centred by grid, so they sit true whatever fonts the platform has. */
+.icon { display: block; fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+.close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 35px; height: 35px; border-radius: 50%; background: var(--paper); padding: 0; z-index: 2; }
+.close .icon { stroke-width: 1.85; }
+.viewer-controls { display: flex; align-items: center; gap: 14px; }
+.viewer-controls button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; }
+/* Trim the counter's box to its digits (cap height to baseline) so it centres on the arrows in any font. */
+#position { text-box: trim-both cap alphabetic; }
+.credits { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 10px 0; }
+.credits dt { color: var(--muted); }
+.credits dd { margin: 0; }
+.unknown { color: var(--muted); font-style: italic; }
+.archive-note { padding: 10px 12px; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; background: #fff9; }
+.links { display: flex; gap: 12px; flex-wrap: wrap; }
+#variants { margin: 12px 0; }
+#variants button, .provenance-item button { padding: 6px 10px; font-size: 12px; text-align: left; }
+#variants p { margin: 5px 0; }
+.provenance-item { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
+.provenance-item p { margin: 5px 0; }
+.provenance-item ul { margin: 4px 0; padding-left: 18px; }
+.provenance-item .label { color: var(--muted); }
+.comparison-false { color: #9b3b1f; }
+#file-info { white-space: pre-wrap; font: 11px/1.6 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; }
+@media (max-width: 760px) {
+  header, main, footer { padding: 22px 16px; }
+  .heading-row, .result-row { display: block; }
+  nav { margin-top: 15px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; }
+  .search { flex-basis: 100%; }
+  /* Two fields to a row, with the basis just under half so Reset still fits beside the last pair. A field is never
+     narrower than its longest option or its label: one that cannot share a row takes a row of its own instead of
+     clipping its text. The source list is the exception: its names can be long, so it takes a row and truncates. */
+  .filters label:not(.search) { flex: 1 1 calc(50% - 48px); min-width: max-content; }
+  .filters label:has(#source) { flex-basis: 100%; min-width: 0; }
+  #source { max-width: 100%; }
+  .filters select { width: 100%; min-width: 0; }
+  dialog[open] { grid-template-columns: 1fr; grid-template-rows: minmax(180px, 48vh) 1fr; }
+  .viewer-info { padding: 20px; }
+  /* The inventory's three columns share a phone's width by fixed shares, so the wrapping notes keep a readable measure
+     instead of being squeezed beside a 180px source column. */
+  table { table-layout: fixed; }
+  th:first-child, td:first-child { min-width: 0; width: 34%; overflow-wrap: anywhere; }
+  th:nth-child(2) { width: 7.5em; }
+}
+/* High-contrast modes repaint the page; give them back the native arrow, which follows the system colours. */
+@media (forced-colors: active) {
+  select { -webkit-appearance: auto; appearance: auto; background-image: none; padding-right: 12px; }
+}
