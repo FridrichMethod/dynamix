@@ -134,6 +134,18 @@ def default_client_factory(hosts: list[str], min_interval: float) -> Any:
     return net.PoliteClient(hosts, min_interval=min_interval)
 
 
+class OfflineClient:
+    """Client for adapters that must not touch the network: every request raises ``HostNotAllowedError``."""
+
+    def _refuse(self, url: str, *args: Any, **kwargs: Any) -> Any:
+        raise net.HostNotAllowedError("this adapter is offline and makes no requests", url=url)
+
+    get_json = get_text = download = _refuse
+
+    def close(self) -> None:
+        pass
+
+
 # --- Seeds ------------------------------------------------------------------------------------------------------------
 
 def load_seeds(path: str | os.PathLike[str], family: str) -> list[dict]:
@@ -170,7 +182,7 @@ def load_seeds(path: str | os.PathLike[str], family: str) -> list[dict]:
 def adapter_hosts(seed: Mapping[str, Any]) -> list[str]:
     """Explicit allowlist: the adapter's fixed hosts plus the seed's declared extra hosts."""
     hosts = [*ADAPTERS[seed["adapter"]].HOSTS, *seed.get("hosts", [])]
-    if not hosts:
+    if not hosts and not getattr(ADAPTERS[seed["adapter"]], "OFFLINE", False):
         raise ValueError(f"source {seed['id']}: adapter declares no hosts")
     return sorted(dict.fromkeys(hosts))
 
@@ -315,7 +327,10 @@ class Runner:
         source_id = seed["id"]
         started = self.now()
         previous = manifest.load_discovery(self.root, source_id)
-        client = GuardedClient(self.client_factory(adapter_hosts(seed), float(seed.get("min_interval", 1.0))),
+        offline = getattr(ADAPTERS[seed["adapter"]], "OFFLINE", False)
+        inner = OfflineClient() if offline else self.client_factory(adapter_hosts(seed),
+                                                                    float(seed.get("min_interval", 1.0)))
+        client = GuardedClient(inner,
                                blocked_hosts=self.blocked_hosts, last_used=self.last_used,
                                min_interval=float(seed.get("min_interval", 1.0)), sleep=self.sleep, clock=self.clock)
         self.clients.append(client)
@@ -595,6 +610,34 @@ def compute_status(counts: Mapping[str, int], complete: bool, has_assets: bool, 
 
 # --- Offline verification ---------------------------------------------------------------------------------------------
 
+def primary_evidence_problems(root: Path, asset: Mapping[str, Any]) -> list[str]:
+    """Warnings for ``primary_post`` mapping evidence (curated quotes for copies of a primary post's file) that the
+    primary post's own snapshot does not corroborate: some ``artists`` discovery candidate with that page URL must
+    carry the quote in its game evidence."""
+    problems = []
+    entries = [entry for entry in asset.get("mapping_evidence", [])
+               if isinstance(entry, dict) and entry.get("field") == "primary_post"]
+    if not entries:
+        return problems
+    discovery_dir = root / paths.DISCOVERY_ROOT
+    candidates: list[dict] = []
+    for path in sorted(discovery_dir.glob("*.json")) if discovery_dir.is_dir() else []:
+        try:
+            data = manifest.load_json(path)
+        except (ValueError, OSError):
+            continue
+        if isinstance(data, dict) and str(data.get("source_id", "")).startswith("artists:"):
+            candidates.extend(c for c in data.get("candidates", []) if isinstance(c, dict))
+    for entry in entries:
+        quote = model.normalize_text(entry["quote"]).rstrip("…")
+        if not any(c.get("page_url") == entry["url"] and any(quote in model.normalize_text(str(item))
+                                                             for item in c.get("game_evidence", []))
+                   for c in candidates):
+            problems.append(f"{asset['id']}: primary-post evidence {entry['url']} is not corroborated by an artists "
+                            "discovery snapshot")
+    return problems
+
+
 def verify_family(root: str | os.PathLike[str], family: str) -> tuple[list[str], list[str], dict]:
     """Offline ``--verify``: (errors, warnings, per-source disposition counts). Never touches the network."""
     root = Path(root)
@@ -642,6 +685,7 @@ def verify_family(root: str | os.PathLike[str], family: str) -> tuple[list[str],
         for title, song_id in zip(asset["song_titles"], asset["song_ids"]):
             if not song_id.startswith(paths.song_id_base(title)):
                 warnings.append(f"{asset['id']}: song ID {song_id} does not derive from title {title!r}")
+        warnings.extend(primary_evidence_problems(root, asset))
     recorded = {asset["path"] for asset in current["assets"]}
     family_dir = root / paths.ASSET_ROOT / family
     for path in sorted(family_dir.rglob("*")) if family_dir.is_dir() else []:

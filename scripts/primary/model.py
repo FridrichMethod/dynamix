@@ -28,6 +28,7 @@ RULE_FIELDS = {
     "match", "title", "role", "game", "action", "reason", "evidence_quotes", "game_evidence", "song_titles",
     "collections", "illustrators", "composers", "mapping_status", "credit_evidence", "variant_group", "variant_role",
     "quality", "rights", "notes", "transformed", "allow_universe_mention", "game_associations", "candidate_notes",
+    "primary_evidence", "upstream_revision",
 }
 REJECTED_RE = re.compile(r"rejected\s+submission", re.IGNORECASE)
 UNIVERSE_RE = re.compile(r"dynamix\s*universe", re.IGNORECASE)
@@ -117,8 +118,14 @@ def check_rule(rule: Mapping[str, Any], where: str) -> None:
         raise ValueError(f"{where}: unknown mapping_status")
     if rule.get("mapping_status", "unmapped") != "unmapped" and not rule.get("song_titles"):
         raise ValueError(f"{where}: a mapped rule needs song_titles")
-    if rule.get("mapping_status") == "confirmed_primary" and not rule.get("evidence_quotes"):
-        raise ValueError(f"{where}: confirmed_primary needs evidence_quotes found in the primary post itself")
+    if rule.get("mapping_status") == "confirmed_primary" and not (rule.get("evidence_quotes")
+                                                                  or rule.get("primary_evidence")):
+        raise ValueError(f"{where}: confirmed_primary needs evidence_quotes found in the primary post itself (or, "
+                         "for a copy of that post's file, primary_evidence quoting it)")
+    for index, entry in enumerate(rule.get("primary_evidence", [])):
+        if not isinstance(entry, dict) or not all(isinstance(entry.get(k), str) and entry[k].strip()
+                                                  for k in ("url", "quote")):
+            raise ValueError(f"{where}: primary_evidence[{index}] needs url and quote")
 
 
 def find_rule(rules: Iterable[Mapping[str, Any]], key: str) -> Mapping[str, Any] | None:
@@ -240,9 +247,14 @@ def asset_meta(rule: Mapping[str, Any], found: list[dict], page_url: str, defaul
         "quality": quality,
         "rights": rights,
     }
+    if status != "unmapped":
+        meta["mapping_evidence"] += [{"url": entry["url"], "field": "primary_post", "quote": clip(entry["quote"]),
+                                      **({"note": entry["note"]} if entry.get("note") else {})}
+                                     for entry in rule.get("primary_evidence", [])]
     if status != "unmapped" and not meta["mapping_evidence"]:
         meta["mapping_evidence"] = [{"url": page_url, "note": "seed classification (no quote required)"}]
-    for name in ("credit_evidence", "variant_group", "variant_role", "notes", "transformed", "game_associations"):
+    for name in ("credit_evidence", "variant_group", "variant_role", "notes", "transformed", "game_associations",
+                 "upstream_revision"):
         if name in rule:
             meta[name] = copy.deepcopy(rule[name])
     return meta

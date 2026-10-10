@@ -7,6 +7,12 @@ is an ``Artwork`` with a URL ``template`` (``.../pr_source.png/{w}x{h}{c}.{f}``)
 and the first advertised variant format. Apple renders that file from the uploaded ``pr_source.png``, so the stored
 bytes are a known platform transform (``transformed: true``), never an untouched master. Trailer items are recorded as
 ``video_placeholder`` exclusions.
+
+A ``{"lookup_id": "<app id>", "countries": [...]}`` item reads the public iTunes Search ``lookup`` API per storefront,
+which still lists older, storefront-specific screenshot sets (``screenshotUrls``/``ipadScreenshotUrls``) that the web
+page no longer shows. Those URLs carry a small ``<w>x<h>bb`` size; the adapter requests the ``4000x4000bb`` bounding
+box, which Apple serves at the image's native size (it does not enlarge), and the stored size is decoded from the
+bytes. A screenshot listed by several storefronts is one candidate whose notes name every storefront.
 """
 
 from __future__ import annotations
@@ -20,13 +26,89 @@ from lib import net
 from .. import model
 from . import base
 
-HOSTS = ["apps.apple.com", ".mzstatic.com"]
+HOSTS = ["apps.apple.com", ".mzstatic.com", "itunes.apple.com"]
+LOOKUP = "https://itunes.apple.com/lookup"
+_SIZED = re.compile(r"^(https://[a-z0-9-]+\.mzstatic\.com/image/thumb/.+/)(\d+)x(\d+)(bb|sr|[a-z]{2})\.(jpg|jpeg|png|webp)$")
+LOOKUP_BOX = 4000
 _UUID = re.compile(r"/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/")
 FORMAT_EXT = {"jpeg": "jpg", "jpg": "jpg", "png": "png", "webp": "webp"}
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
-    base.require_items(seed, where, ["url"])
+    items = seed.get("items")
+    if not isinstance(items, list):
+        raise ValueError(f"{where}: items must be a list")
+    for index, item in enumerate(items):
+        if "lookup_id" in item:
+            if not str(item["lookup_id"]).isdigit() or not item.get("countries") or not all(
+                    re.fullmatch(r"[a-z]{2}", c) for c in item["countries"]):
+                raise ValueError(f"{where}: items[{index}] lookup needs a numeric lookup_id and 2-letter countries")
+        elif not isinstance(item.get("url"), str) or not item["url"].strip():
+            raise ValueError(f"{where}: items[{index}].url is required")
+
+
+def native_lookup_url(url: str) -> str | None:
+    """A lookup screenshot URL re-sized to the ``4000x4000bb`` bounding box (Apple caps it at the native size)."""
+    match = _SIZED.match(url or "")
+    if not match:
+        return None
+    return f"{match.group(1)}{LOOKUP_BOX}x{LOOKUP_BOX}bb.{match.group(5)}"
+
+
+def lookup_key(url: str) -> str:
+    """``lookup:<asset folder or file stem>`` -- the UUID folder of ``.../<uuid>/pr_source.png/..`` or the
+    ``mzl.xxxx.png`` name, which identify the uploaded image independent of the requested size."""
+    uuid = _UUID.search(url)
+    if uuid:
+        return f"lookup:{uuid.group(1)}"
+    parts = url.split("/")
+    return f"lookup:{parts[-2] if len(parts) > 2 else parts[-1]}"
+
+
+def discover_lookup(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], discovery: model.Discovery) -> None:
+    found: dict[str, dict] = {}
+    for country in item["countries"]:
+        try:
+            data, _ = ctx.client.get_json(LOOKUP, {"id": item["lookup_id"], "country": country, "entity": "software"})
+        except net.FetchError as error:
+            discovery.errors.append(model.discovery_error("discover", LOOKUP, f"lookup {country}: {error}"))
+            discovery.continuation["itunes-lookup"] = f"incomplete-{country}"
+            continue
+        results = data.get("results") if isinstance(data, dict) else None
+        app = next((r for r in results or [] if isinstance(r, dict) and str(r.get("trackId")) == str(
+            item["lookup_id"])), None)
+        if app is None:
+            discovery.errors.append(model.discovery_error("discover", LOOKUP, f"lookup {country}: no result for "
+                                                                              f"{item['lookup_id']}"))
+            continue
+        for device, field in (("phone", "screenshotUrls"), ("pad", "ipadScreenshotUrls")):
+            for index, url in enumerate(app.get(field) or [], start=1):
+                native = native_lookup_url(url) if isinstance(url, str) else None
+                if native is None:
+                    continue
+                key = lookup_key(url)
+                entry = found.setdefault(key, {"url": native, "device": device, "countries": [], "index": index,
+                                               "app": app})
+                entry["countries"].append(f"{country}:{device}{index}")
+    for key, entry in sorted(found.items()):
+        texts = {"trackName": str(entry["app"].get("trackName") or ""),
+                 "sellerName": str(entry["app"].get("sellerName") or ""),
+                 "bundleId": str(entry["app"].get("bundleId") or "")}
+        evidence, missing = base.identity(seed, texts, LOOKUP)
+        rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
+        page_url = f"https://apps.apple.com/app/id{item['lookup_id']}"
+        draft = model.apply_rule(
+            rule, key=key, page_url=page_url, texts=texts, file_url=entry["url"],
+            default_title=f"App Store {entry['device']} screenshot (storefront set {entry['countries'][0]})",
+            default_quality=ctx.quality, default_rights=ctx.rights, original_filename=base.last_segment(entry["url"]),
+            base_evidence=evidence,
+            source_reported=base.reported(url=entry["url"], mime=base.mime_for(entry["url"].rsplit(".", 1)[-1])))
+        draft.candidate_extra["notes"] = ("iTunes lookup API screenshot listed by storefront(s) "
+                                          + ", ".join(entry["countries"]) + "; requested at the 4000x4000bb bounding "
+                                          "box, stored size decoded from the bytes")
+        if draft.action == "download":
+            draft.meta["transformed"] = True
+        discovery.candidates.append(draft)
 
 
 def server_data(html: str) -> Any:
@@ -75,11 +157,17 @@ def media_items(mapping: Mapping[str, Any]) -> list[tuple[str, int, dict]]:
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=["product-media-shelves"],
+    lookups = [item for item in seed["items"] if "lookup_id" in item]
+    discovery = base.new_discovery(seed, lists=["product-media-shelves", *(["itunes-lookup"] if lookups else [])],
                                    scope_notes="One storefront product page; screenshots from its product_media_* "
-                                               "shelves at native size. App icon and other storefronts not "
-                                               "collected.")
+                                               "shelves at native size"
+                                               + ("; plus the iTunes lookup screenshot sets of the listed "
+                                                  "storefronts" if lookups else "") + ". App icon not collected.")
+    for item in lookups:
+        discover_lookup(ctx, seed, item, discovery)
     for item in seed["items"]:
+        if "lookup_id" in item:
+            continue
         page_url = item["url"]
         try:
             html, _, _ = ctx.client.get_text(page_url)

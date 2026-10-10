@@ -1,0 +1,4339 @@
+{
+  "family": "artists",
+  "sources": [
+    {
+      "id": "artists:soundcloud:kuske-kuonrecords",
+      "name": "SoundCloud Kuske / Kplecraft",
+      "url": "https://soundcloud.com/kuske-kuonrecords",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "kuske-kuonrecords"
+      },
+      "notes": "Kplecraft (composer and pixel artist) uploads; illustrator credit from the wikis and the artist's 16383 post.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
+          "key": "dynamix-kplecraft-16383"
+        },
+        {
+          "url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-nanohemu",
+          "key": "dynamix-kplecraft-nanohemu"
+        },
+        {
+          "url": "https://soundcloud.com/kuske-kuonrecords/kplecraft-okesuchi-2016",
+          "key": "kplecraft-okesuchi-2016"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^dynamix\\-kplecraft\\-16383$",
+          "role": "song_art",
+          "song_titles": [
+            "16383"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Kplecraft"
+          ],
+          "composers": [
+            "Kplecraft"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "16383"
+          ],
+          "variant_role": "square crop of the pixel-art jacket scene (self-illustrated)",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          }
+        },
+        {
+          "match": "^dynamix\\-kplecraft\\-nanohemu$",
+          "role": "song_art",
+          "song_titles": [
+            "Nanohemu"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Kplecraft"
+          ],
+          "composers": [
+            "Kplecraft"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Nanohemu"
+          ],
+          "variant_role": "square crop of the pixel-art jacket scene (self-illustrated)",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          }
+        },
+        {
+          "match": "^kplecraft\\-okesuchi\\-2016$",
+          "role": "song_art",
+          "song_titles": [
+            "Okesuchi"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Kplecraft"
+          ],
+          "composers": [
+            "Kplecraft"
+          ],
+          "evidence_quotes": [
+            "Okesuchi"
+          ],
+          "variant_role": "square crop of the pixel-art jacket scene (self-illustrated)",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          }
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:se-u-ra",
+      "name": "SoundCloud Se-U-Ra",
+      "url": "https://soundcloud.com/se-u-ra",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "se-u-ra"
+      },
+      "notes": "Explicit SoundCloud track pages by Se-U-Ra (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/se-u-ra/dynamix",
+          "key": "dynamix"
+        },
+        {
+          "url": "https://soundcloud.com/se-u-ra/dynamix-1",
+          "key": "dynamix-1"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^dynamix$",
+          "role": "song_art",
+          "song_titles": [
+            "哀しい竜とカイツール"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "yoshimo"
+          ],
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "yoshimo"
+          ],
+          "variant_role": "square release cover"
+        },
+        {
+          "match": "^dynamix\\-1$",
+          "role": "song_art",
+          "song_titles": [
+            "終の舞姫"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Se-U-Ra"
+          ],
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Se-U-Ra"
+          ],
+          "variant_role": "square crop (composer is also the illustrator)",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          }
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:arforest",
+      "name": "SoundCloud ARForest",
+      "url": "https://soundcloud.com/arforest",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "arforest"
+      },
+      "notes": "Explicit SoundCloud track pages by ARForest (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/arforest/in-arcaeaflashback",
+          "key": "in-arcaeaflashback"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^in\\-arcaeaflashback$",
+          "action": "exclude",
+          "reason": "external_release_art: Arcaea-themed character art, not the yoshimo jacket used in Dynamix (research visual comparison)",
+          "candidate_notes": "Negative control: title names Dynamix but the image is different art."
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:re94c",
+      "name": "SoundCloud Reku Mochizuki",
+      "url": "https://soundcloud.com/re94c",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "re94c"
+      },
+      "notes": "Explicit SoundCloud track pages by Reku Mochizuki (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/re94c/meteor",
+          "key": "meteor"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^meteor$",
+          "role": "song_art",
+          "song_titles": [
+            "玲瓏メテオ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Reku Mochizuki"
+          ],
+          "composers": [
+            "Reku Mochizuki"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "square crop of the processed photograph (composer is also the artwork creator per the creator's note.com post)",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          }
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:kanon092",
+      "name": "SoundCloud 奏音",
+      "url": "https://soundcloud.com/kanon092",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "kanon092"
+      },
+      "notes": "Explicit SoundCloud track pages by 奏音 (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/kanon092/hnzwcq3eek1f",
+          "key": "hnzwcq3eek1f"
+        },
+        {
+          "url": "https://soundcloud.com/kanon092/feat-dl-free",
+          "key": "feat-dl-free"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^hnzwcq3eek1f$",
+          "role": "song_art",
+          "song_titles": [
+            "ほしぞらトラベル"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "BerryVerrine"
+          ],
+          "composers": [
+            "奏音"
+          ],
+          "evidence_quotes": [
+            "BerryVerrine"
+          ],
+          "variant_role": "square release cover",
+          "notes": "The page does not mention Dynamix; same illustration as the wiki jacket per research visual comparison."
+        },
+        {
+          "match": "^feat\\-dl\\-free$",
+          "role": "song_art",
+          "song_titles": [
+            "夏色メランコリー"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "眞緒"
+          ],
+          "composers": [
+            "奏音"
+          ],
+          "evidence_quotes": [
+            "眞緒"
+          ],
+          "variant_role": "square release cover",
+          "notes": "Same illustration as the wiki jacket per research visual comparison."
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:sctl_shin",
+      "name": "SoundCloud STARSTREAK CHAOS-TL12",
+      "url": "https://soundcloud.com/sctl_shin",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "sctl_shin"
+      },
+      "notes": "Explicit SoundCloud track pages by STARSTREAK CHAOS-TL12 (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/sctl_shin/venus-invader",
+          "key": "venus-invader"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^venus\\-invader$",
+          "role": "song_art",
+          "song_titles": [
+            "VENUS INVADER"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Keiyuu"
+          ],
+          "composers": [
+            "STARSTREAK CHAOS-TL12"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Illustration by Keiyuu"
+          ],
+          "variant_role": "square composition with title/composer/KEIYUU text overlay"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:woof-owo",
+      "name": "SoundCloud Woof",
+      "url": "https://soundcloud.com/woof-owo",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "woof-owo"
+      },
+      "notes": "Explicit SoundCloud track pages by Woof (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/woof-owo/rave-and-get-on-it",
+          "key": "rave-and-get-on-it"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^rave\\-and\\-get\\-on\\-it$",
+          "role": "song_art",
+          "song_titles": [
+            "Rave! and Get on it!"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "びびすか"
+          ],
+          "composers": [
+            "Woof"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "びびすか"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "framed square layout (RAVON 'Squared' version)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:trialsuperbeats",
+      "name": "SoundCloud TRIAL",
+      "url": "https://soundcloud.com/trialsuperbeats",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "trialsuperbeats"
+      },
+      "notes": "Explicit SoundCloud track pages by TRIAL (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/trialsuperbeats/notorious-gift",
+          "key": "notorious-gift"
+        },
+        {
+          "url": "https://soundcloud.com/trialsuperbeats/notoriousnota-trial-wing",
+          "key": "notoriousnota-trial-wing"
+        },
+        {
+          "url": "https://soundcloud.com/trialsuperbeats/dynamixnova",
+          "key": "dynamixnova"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^notorious\\-gift$",
+          "role": "song_art",
+          "song_titles": [
+            "GIFT"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "inukoro"
+          ],
+          "composers": [
+            "Notorious(Nota & TRIAL)"
+          ],
+          "evidence_quotes": [
+            "#Dynamix",
+            "inukoro"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "lanota"
+          ],
+          "variant_role": "square composition (credited as BGA by inukoro); upscaling unknown"
+        },
+        {
+          "match": "^notoriousnota\\-trial\\-wing$",
+          "role": "song_art",
+          "song_titles": [
+            "WING"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Notorious(Nota & TRIAL)"
+          ],
+          "evidence_quotes": [
+            "#Dynamix",
+            "WING"
+          ],
+          "variant_role": "square layout of the jacket art; the page names no illustrator (wiki: KinCraft)"
+        },
+        {
+          "match": "^dynamixnova$",
+          "role": "song_art",
+          "song_titles": [
+            "NOVA"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Violpa"
+          ],
+          "composers": [
+            "TRIAL"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Violpa"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "musedash",
+            "lyrica"
+          ],
+          "variant_role": "square crop of the jacket"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:cordantia",
+      "name": "SoundCloud Cordantia",
+      "url": "https://soundcloud.com/cordantia",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "cordantia"
+      },
+      "notes": "Explicit SoundCloud track pages by Cordantia (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/cordantia/arcana-idola",
+          "key": "arcana-idola"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^arcana\\-idola$",
+          "action": "exclude",
+          "reason": "external_release_art: original 2015 track cover (moon, clock tower); the Dynamix jacket is a different illustration of the same character",
+          "candidate_notes": "Credit evidence: 'illustrated by sana (pixiv:id=2490522)' = 未早."
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:aboutlogic",
+      "name": "SoundCloud aboutlogic (ケシｋｓくん credit)",
+      "url": "https://soundcloud.com/aboutlogic",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "aboutlogic"
+      },
+      "notes": "Explicit SoundCloud track pages by aboutlogic (ケシｋｓくん credit) (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/aboutlogic/the-clockwork-doll",
+          "key": "the-clockwork-doll"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^the\\-clockwork\\-doll$",
+          "role": "song_art",
+          "song_titles": [
+            "The Clockwork Doll"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "ケシｋｓくん"
+          ],
+          "composers": [
+            "aboutlogic"
+          ],
+          "evidence_quotes": [
+            "dynamix"
+          ],
+          "variant_role": "letterboxed square with a wider field of view than the wiki jacket crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:aoisoundsystem",
+      "name": "SoundCloud Aoi Sound System",
+      "url": "https://soundcloud.com/aoisoundsystem",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "aoisoundsystem"
+      },
+      "notes": "Explicit SoundCloud track pages by Aoi Sound System (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/aoisoundsystem/soar-to-oremaster-ver",
+          "key": "soar-to-oremaster-ver"
+        },
+        {
+          "url": "https://soundcloud.com/aoisoundsystem/soartophi",
+          "key": "soartophi"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^soar\\-to\\-oremaster\\-ver$",
+          "role": "song_art",
+          "song_titles": [
+            "Soar to Ø"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "ケシksくん"
+          ],
+          "composers": [
+            "Aoi Sound System"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "square crop of the jacket art"
+        },
+        {
+          "match": "^soartophi$",
+          "action": "exclude",
+          "reason": "external_release_art: earlier SF2016 BMS-event illustration, not the Dynamix jacket",
+          "candidate_notes": "Credit evidence only (Illustration: ケシksくん)."
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:misomyl",
+      "name": "SoundCloud MisoilePunch",
+      "url": "https://soundcloud.com/misomyl",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "misomyl"
+      },
+      "notes": "Explicit SoundCloud track pages by MisoilePunch (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/misomyl/jack-out-killer",
+          "key": "jack-out-killer"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^jack\\-out\\-killer$",
+          "role": "song_art",
+          "song_titles": [
+            "Jack Out KIllER"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "HaltquinZ"
+          ],
+          "composers": [
+            "MisoilePunch"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "square release layout with title lettering (lower resolution than the wiki jacket)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:linne_ennil",
+      "name": "SoundCloud Linne",
+      "url": "https://soundcloud.com/linne_ennil",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "linne_ennil"
+      },
+      "notes": "Explicit SoundCloud track pages by Linne (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/linne_ennil/whirlwind",
+          "key": "whirlwind"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^whirlwind$",
+          "role": "song_art",
+          "song_titles": [
+            "WHIRLWIND"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Keiyuu",
+            "RED-FOX"
+          ],
+          "composers": [
+            "Linne",
+            "SCTL"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Keiyuu"
+          ],
+          "variant_role": "square crop with 'WIND' title text"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:jehezukiel",
+      "name": "SoundCloud Jehezukiel",
+      "url": "https://soundcloud.com/jehezukiel",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "jehezukiel"
+      },
+      "notes": "Explicit SoundCloud track pages by Jehezukiel (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/jehezukiel/angstlicher-vermeidender",
+          "key": "angstlicher-vermeidender"
+        },
+        {
+          "url": "https://soundcloud.com/jehezukiel/raving-in-halloween",
+          "key": "raving-in-halloween"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^angstlicher\\-vermeidender$",
+          "role": "song_art",
+          "song_titles": [
+            "Ängstlicher Vermeidender"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "DCWH",
+            "MimiChair"
+          ],
+          "composers": [
+            "Jehezukiel"
+          ],
+          "evidence_quotes": [
+            "DCWH"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "bms"
+          ],
+          "variant_role": "circular-vignette square with title and logo (BOF:ET upload)"
+        },
+        {
+          "match": "^raving\\-in\\-halloween$",
+          "role": "song_art",
+          "song_titles": [
+            "Raving in Halloween"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "PeerPiperWorks"
+          ],
+          "composers": [
+            "Jehezukiel"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "PeerPiperWorks"
+          ],
+          "variant_role": "square crop with the title at the bottom"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:vauboy",
+      "name": "SoundCloud Vau Boy",
+      "url": "https://soundcloud.com/vauboy",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "vauboy"
+      },
+      "notes": "Explicit SoundCloud track pages by Vau Boy (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/vauboy/you-were-with-a-boy",
+          "key": "you-were-with-a-boy"
+        },
+        {
+          "url": "https://soundcloud.com/vauboy/mlg",
+          "key": "mlg"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^you\\-were\\-with\\-a\\-boy$",
+          "action": "pending",
+          "reason": "pending: label single cover (HPTG#033) sharing the jacket's photo collage in a different composition with logos; needs review",
+          "role": "song_art",
+          "song_titles": [
+            "You Were With A Boy"
+          ]
+        },
+        {
+          "match": "^mlg$",
+          "role": "song_art",
+          "song_titles": [
+            "MLG"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "Vau Boy"
+          ],
+          "evidence_quotes": [
+            "MLG"
+          ],
+          "variant_role": "square layout with 'MLG / VAU BOY' text; the page gives no illustrator (wiki: Luxan)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:3t1a",
+      "name": "SoundCloud 三更 / 3t1a",
+      "url": "https://soundcloud.com/3t1a",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "3t1a"
+      },
+      "notes": "Explicit SoundCloud track pages by 三更 / 3t1a (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/3t1a/heavens-cage",
+          "key": "heavens-cage"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^heavens\\-cage$",
+          "role": "song_art",
+          "song_titles": [
+            "Heaven's Cage"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "三更"
+          ],
+          "evidence_quotes": [
+            "Heaven's Cage",
+            "Rotaeno"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "rotaeno"
+          ],
+          "variant_role": "uncropped source illustration from the Rotaeno release; the Dynamix jacket is a crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:halvsan",
+      "name": "SoundCloud Halv",
+      "url": "https://soundcloud.com/halvsan",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "halvsan"
+      },
+      "notes": "Explicit SoundCloud track pages by Halv (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/halvsan/halv-garyou-tensei",
+          "key": "halv-garyou-tensei"
+        },
+        {
+          "url": "https://soundcloud.com/halvsan/dynamixos2021-halv-sushi-tornado",
+          "key": "dynamixos2021-halv-sushi-tornado"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^halv\\-garyou\\-tensei$",
+          "role": "song_art",
+          "song_titles": [
+            "画竜天晴"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "原木シィタケ"
+          ],
+          "composers": [
+            "Halv"
+          ],
+          "evidence_quotes": [
+            "画竜天晴",
+            "原木シィタケ"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "Shinobi Slash square layout with title"
+        },
+        {
+          "match": "^dynamixos2021\\-halv\\-sushi\\-tornado$",
+          "role": "song_art",
+          "song_titles": [
+            "Sushi Tornado"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "長井りく"
+          ],
+          "composers": [
+            "Halv"
+          ],
+          "evidence_quotes": [
+            "Sushi Tornado"
+          ],
+          "variant_role": "full uncropped illustration with HALV logo overlay"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:calixer",
+      "name": "SoundCloud Calixer",
+      "url": "https://soundcloud.com/calixer",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "calixer"
+      },
+      "notes": "Explicit SoundCloud track pages by Calixer (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/calixer/und0-turret-calixer-raseedcollab",
+          "key": "und0-turret-calixer-raseedcollab"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^und0\\-turret\\-calixer\\-raseedcollab$",
+          "action": "exclude",
+          "reason": "external_release_art: RASeed logo cover, not the Dynamix jacket (night forest sky)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:riranofficial",
+      "name": "SoundCloud RiraN",
+      "url": "https://soundcloud.com/riranofficial",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "riranofficial"
+      },
+      "notes": "Explicit SoundCloud track pages by RiraN (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/riranofficial/dynamix-riran-daydream",
+          "key": "dynamix-riran-daydream"
+        },
+        {
+          "url": "https://soundcloud.com/riranofficial/bofu2016-unshakable",
+          "key": "bofu2016-unshakable"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^dynamix\\-riran\\-daydream$",
+          "role": "song_art",
+          "song_titles": [
+            "Daydream"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Irelriser"
+          ],
+          "composers": [
+            "RiraN"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Daydream"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ez2on",
+            "overrapid"
+          ],
+          "variant_role": "square centre crop without the title text"
+        },
+        {
+          "match": "^bofu2016\\-unshakable$",
+          "action": "exclude",
+          "reason": "external_release_art: BMS-era composition (triangle tunnel with title), not the Dynamix jacket composition"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:myukke",
+      "name": "SoundCloud MYUKKE.",
+      "url": "https://soundcloud.com/myukke",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "myukke"
+      },
+      "notes": "Explicit SoundCloud track pages by MYUKKE. (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/myukke/dynamix-myukke-occhoco-rest-less",
+          "key": "dynamix-myukke-occhoco-rest-less"
+        },
+        {
+          "url": "https://soundcloud.com/myukke/for-paradigm-reboot-myukke-sutta-monday",
+          "key": "for-paradigm-reboot-myukke-sutta-monday"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^dynamix\\-myukke\\-occhoco\\-rest\\-less$",
+          "role": "song_art",
+          "song_titles": [
+            "OCCHOCO-REST-LESS"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "MYUKKE."
+          ],
+          "composers": [
+            "MYUKKE."
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "titled square variant (composer is also the artwork creator)",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          }
+        },
+        {
+          "match": "^for\\-paradigm\\-reboot\\-myukke\\-sutta\\-monday$",
+          "role": "song_art",
+          "song_titles": [
+            "SUTTA MONDAY"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "人間蛋"
+          ],
+          "composers": [
+            "MYUKKE."
+          ],
+          "evidence_quotes": [
+            "SUTTA MONDAY"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "paradigm_reboot"
+          ],
+          "variant_role": "Paradigm: Reboot square composition with title"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:omocha1019",
+      "name": "SoundCloud Omocha",
+      "url": "https://soundcloud.com/omocha1019",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "omocha1019"
+      },
+      "notes": "Explicit SoundCloud track pages by Omocha (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/omocha1019/wish",
+          "key": "wish"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^wish$",
+          "role": "song_art",
+          "song_titles": [
+            "Wish"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "國春 樹"
+          ],
+          "composers": [
+            "Omocha"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "國春"
+          ],
+          "variant_role": "square crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:nuunu5",
+      "name": "SoundCloud aoWAVE",
+      "url": "https://soundcloud.com/nuunu5",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "nuunu5"
+      },
+      "notes": "Explicit SoundCloud track pages by aoWAVE (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/nuunu5/novahighway_gameedit",
+          "key": "novahighway_gameedit"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^novahighway_gameedit$",
+          "role": "song_art",
+          "song_titles": [
+            "Nova Highway"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "deronoitz"
+          ],
+          "composers": [
+            "aoWAVE"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "deronoitz"
+          ],
+          "variant_role": "low-resolution close crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:nordysantrophy",
+      "name": "SoundCloud Nordius Dystancius",
+      "url": "https://soundcloud.com/nordysantrophy",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "nordysantrophy"
+      },
+      "notes": "Explicit SoundCloud track pages by Nordius Dystancius (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/nordysantrophy/lxvnore",
+          "key": "lxvnore"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^lxvnore$",
+          "role": "song_art",
+          "song_titles": [
+            "Luxvinore"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "lemonade;",
+            "Rumskii"
+          ],
+          "composers": [
+            "Nordius Dystancius"
+          ],
+          "evidence_quotes": [
+            "Rumskii"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "bms"
+          ],
+          "variant_role": "square title variant of the BMS key visual"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:kforest",
+      "name": "SoundCloud K-forest",
+      "url": "https://soundcloud.com/kforest",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "kforest"
+      },
+      "notes": "Explicit SoundCloud track pages by K-forest (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/kforest/j83w0wjiytyd",
+          "key": "j83w0wjiytyd"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^j83w0wjiytyd$",
+          "role": "song_art",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "composers": [
+            "K-forest"
+          ],
+          "evidence_quotes": [
+            "中本ひょうり"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "composer-hosted JPEG of the Shinobi Slash square jacket"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:circle2",
+      "name": "SoundCloud Circle 2",
+      "url": "https://soundcloud.com/circle2",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "circle2"
+      },
+      "notes": "Explicit SoundCloud track pages by Circle 2 (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/circle2/elphs-sadnessoriginal-edition",
+          "key": "elphs-sadnessoriginal-edition"
+        },
+        {
+          "url": "https://soundcloud.com/circle2/dynamix-circle-2-gallium-nitride-blue-light",
+          "key": "dynamix-circle-2-gallium-nitride-blue-light"
+        },
+        {
+          "url": "https://soundcloud.com/circle2/circle-2-gallium-nitride-blue-light",
+          "key": "circle-2-gallium-nitride-blue-light"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^elphs\\-sadnessoriginal\\-edition$",
+          "role": "song_art",
+          "song_titles": [
+            "Elph’s Sadness -Dynamix Edition-"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "Nano"
+          ],
+          "composers": [
+            "Circle 2"
+          ],
+          "evidence_quotes": [
+            "Illustrated by Nano"
+          ],
+          "variant_role": "square crop (track is the Original Edition, not the Dynamix Edition)"
+        },
+        {
+          "match": "^dynamix\\-circle\\-2\\-gallium\\-nitride\\-blue\\-light$",
+          "role": "song_art",
+          "song_titles": [
+            "Gallium Nitride"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Circle 2"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "close-up variant; no illustrator credit on the page"
+        },
+        {
+          "match": "^circle\\-2\\-gallium\\-nitride\\-blue\\-light$",
+          "role": "song_art",
+          "song_titles": [
+            "Gallium Nitride"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "Circle 2"
+          ],
+          "variant_role": "square crop; no illustrator credit on the page"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:cashewnuts",
+      "name": "SoundCloud Cashew",
+      "url": "https://soundcloud.com/cashewnuts",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "cashewnuts"
+      },
+      "notes": "Explicit SoundCloud track pages by Cashew (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/cashewnuts/cashew-white-chocolate",
+          "key": "cashew-white-chocolate"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^cashew\\-white\\-chocolate$",
+          "role": "song_art",
+          "song_titles": [
+            "White Chocolate (dynamix edit)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Cashew"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "square crop of the jacket; no illustrator credit on the page (wiki: NanoKun); possible upscale"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:ebico",
+      "name": "SoundCloud EBICO",
+      "url": "https://soundcloud.com/ebico",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "ebico"
+      },
+      "notes": "Explicit SoundCloud track pages by EBICO (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/ebico/moonlight-of-sand-castle",
+          "key": "moonlight-of-sand-castle"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^moonlight\\-of\\-sand\\-castle$",
+          "role": "song_art",
+          "song_titles": [
+            "Moonlight of Sand Castle"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "EBICO"
+          ],
+          "variant_role": "square crop smaller than the wiki copy; no illustrator credit (wiki: NanoKun)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:cosmogrph",
+      "name": "SoundCloud Cosmograph",
+      "url": "https://soundcloud.com/cosmogrph",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "cosmogrph"
+      },
+      "notes": "Explicit SoundCloud track pages by Cosmograph (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/cosmogrph/another-world",
+          "key": "another-world"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^another\\-world$",
+          "role": "song_art",
+          "song_titles": [
+            "Another World"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Cosmograph"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "same-composition copy smaller than the wiki copy; no illustrator credit"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:missionary_music",
+      "name": "SoundCloud MIssionary",
+      "url": "https://soundcloud.com/missionary_music",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "missionary_music"
+      },
+      "notes": "Explicit SoundCloud track pages by MIssionary (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/missionary_music/yvvldpc55amz",
+          "key": "yvvldpc55amz"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^yvvldpc55amz$",
+          "role": "song_art",
+          "song_titles": [
+            "名無しの宣教師"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "MIssionary"
+          ],
+          "variant_role": "copy smaller than the wiki copy; no illustrator credit (wiki: NanoKun)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:street",
+      "name": "SoundCloud Street",
+      "url": "https://soundcloud.com/street",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "street"
+      },
+      "notes": "Explicit SoundCloud track pages by Street (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/street/9iegybsoisnp",
+          "key": "9iegybsoisnp"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^9iegybsoisnp$",
+          "role": "song_art",
+          "song_titles": [
+            "Φ"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "Street"
+          ],
+          "variant_role": "square crop; possibly upscaled; no credit text (wiki: Sin:cK)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:keshiks",
+      "name": "SoundCloud KEshiKS",
+      "url": "https://soundcloud.com/keshiks",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "keshiks"
+      },
+      "notes": "Explicit SoundCloud track pages by KEshiKS (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/keshiks/nightmare-girl",
+          "key": "nightmare-girl"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^nightmare\\-girl$",
+          "role": "song_art",
+          "song_titles": [
+            "Nightmare Girl"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "KEshiKS"
+          ],
+          "variant_role": "crop at the same scale as the wiki jacket (wiki: Sin:cK)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:jun_kuroda",
+      "name": "SoundCloud Jun Kuroda",
+      "url": "https://soundcloud.com/jun_kuroda",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "jun_kuroda"
+      },
+      "notes": "Explicit SoundCloud track pages by Jun Kuroda (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/jun_kuroda/aki-zakura",
+          "key": "aki-zakura"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^aki\\-zakura$",
+          "action": "exclude",
+          "reason": "external_release_art: a different photographic cover, not the jacket"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:espidev",
+      "name": "SoundCloud EspiDev",
+      "url": "https://soundcloud.com/espidev",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "espidev"
+      },
+      "notes": "Explicit SoundCloud track pages by EspiDev (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/espidev/acrise",
+          "key": "acrise"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^acrise$",
+          "role": "song_art",
+          "song_titles": [
+            "Acrise"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Ep_4"
+          ],
+          "composers": [
+            "EspiDev"
+          ],
+          "evidence_quotes": [
+            "dynamix",
+            "Eproph_4"
+          ],
+          "variant_role": "square composition at higher resolution than the wiki jacket (commissioned picture)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:kurorak",
+      "name": "SoundCloud KURORAK",
+      "url": "https://soundcloud.com/kurorak",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "kurorak"
+      },
+      "notes": "Explicit SoundCloud track pages by KURORAK (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/kurorak/dynamix-tunnelling",
+          "key": "dynamix-tunnelling"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^dynamix\\-tunnelling$",
+          "role": "song_art",
+          "song_titles": [
+            "Tunnelling"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "KURORAK"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "variant_role": "square crop with 'KURORAK / TUNNELLING' text; no illustrator credit (wiki: Lunchwere)"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:whos-raphiiel",
+      "name": "SoundCloud Raphiiel",
+      "url": "https://soundcloud.com/whos-raphiiel",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "whos-raphiiel"
+      },
+      "notes": "Explicit SoundCloud track pages by Raphiiel (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/whos-raphiiel/tech-nique",
+          "key": "tech-nique"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^tech\\-nique$",
+          "action": "pending",
+          "reason": "pending: illustration identity versus the in-game jacket not verified (may be the LiNKARYZE compilation art)",
+          "role": "song_art",
+          "song_titles": [
+            "Tech-Nique"
+          ],
+          "candidate_notes": "Credit: 'Illustration : MayMiyuriAe' (instagram maymiyuriae12)."
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:ryokmbk",
+      "name": "SoundCloud RYOQUCHA",
+      "url": "https://soundcloud.com/ryokmbk",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "ryokmbk"
+      },
+      "notes": "Explicit SoundCloud track pages by RYOQUCHA (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/ryokmbk/hauynite",
+          "key": "hauynite"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^hauynite$",
+          "action": "exclude",
+          "reason": "external_release_art: single-cover design (vertical typography, QR code) different from the jacket composition"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:soundperemotion",
+      "name": "SoundCloud Sound Per Emotion",
+      "url": "https://soundcloud.com/soundperemotion",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "soundperemotion"
+      },
+      "notes": "Explicit SoundCloud track pages by Sound Per Emotion (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/soundperemotion/xetta",
+          "key": "xetta"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^xetta$",
+          "role": "song_art",
+          "song_titles": [
+            "Xetta"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "TangJuan"
+          ],
+          "composers": [
+            "TangJuan",
+            "Black Box"
+          ],
+          "evidence_quotes": [
+            "Illustration by TangJuan"
+          ],
+          "variant_role": "square crop; possible upscale"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:ianmirror",
+      "name": "SoundCloud ianmirror",
+      "url": "https://soundcloud.com/ianmirror",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "ianmirror"
+      },
+      "notes": "Explicit SoundCloud track pages by ianmirror (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/ianmirror/dynamix",
+          "key": "dynamix"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^dynamix$",
+          "action": "exclude",
+          "reason": "external_release_art: a different image (moon over sea) from the Dynamix jacket of 月下桜天国"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:r_solidor",
+      "name": "SoundCloud R.Solidor",
+      "url": "https://soundcloud.com/r_solidor",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "r_solidor"
+      },
+      "notes": "Explicit SoundCloud track pages by R.Solidor (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/r_solidor/modello-di-neve",
+          "key": "modello-di-neve"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^modello\\-di\\-neve$",
+          "role": "song_art",
+          "song_titles": [
+            "ネーヴェの紋様"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Zero"
+          ],
+          "composers": [
+            "R.Solidor"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Zero"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "berry_melody"
+          ],
+          "variant_role": "letterboxed square with 'modello di neve by R.Solidor' text"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:airlemonex",
+      "name": "SoundCloud Xe/αirlemoneX",
+      "url": "https://soundcloud.com/airlemonex",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "airlemonex"
+      },
+      "notes": "Explicit SoundCloud track pages by Xe/αirlemoneX (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/airlemonex/xe-irlemonex-noisi-dynamix-submission-2017-bronze-tracks",
+          "key": "xe-irlemonex-noisi-dynamix-submission-2017-bronze-tracks"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^xe\\-irlemonex\\-noisi\\-dynamix\\-submission\\-2017\\-bronze\\-tracks$",
+          "role": "song_art",
+          "song_titles": [
+            "NOISIΛ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "しあのん"
+          ],
+          "composers": [
+            "Xe/αirlemoneX"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "しあのん"
+          ],
+          "variant_role": "square crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:panbanana0729",
+      "name": "SoundCloud pan",
+      "url": "https://soundcloud.com/panbanana0729",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "panbanana0729"
+      },
+      "notes": "Explicit SoundCloud track pages by pan (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/panbanana0729/sunset-load-1",
+          "key": "sunset-load-1"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^sunset\\-load\\-1$",
+          "role": "song_art",
+          "song_titles": [
+            "Sunset Road"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "よしもん"
+          ],
+          "composers": [
+            "pan"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "よしもん"
+          ],
+          "variant_role": "square crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:dice-dd",
+      "name": "SoundCloud 打打だいず",
+      "url": "https://soundcloud.com/dice-dd",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "dice-dd"
+      },
+      "notes": "Explicit SoundCloud track pages by 打打だいず (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/dice-dd/abyss-breaker",
+          "key": "abyss-breaker"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^abyss\\-breaker$",
+          "role": "song_art",
+          "song_titles": [
+            "Abyss Breaker"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "榊原またぎ"
+          ],
+          "composers": [
+            "打打だいず"
+          ],
+          "evidence_quotes": [
+            "榊原またぎ"
+          ],
+          "variant_role": "square composition at higher resolution than the wiki jacket"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:hino-isuka",
+      "name": "SoundCloud 翡乃イスカ",
+      "url": "https://soundcloud.com/hino-isuka",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "hino-isuka"
+      },
+      "notes": "Explicit SoundCloud track pages by 翡乃イスカ (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/hino-isuka/dynamix-mechanical-jager",
+          "key": "dynamix-mechanical-jager"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^dynamix\\-mechanical\\-jager$",
+          "role": "song_art",
+          "song_titles": [
+            "Mechanical Jäger"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "空斗"
+          ],
+          "composers": [
+            "翡乃イスカ"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "空斗"
+          ],
+          "variant_role": "square crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:soundcloud:felix1213tw",
+      "name": "SoundCloud felix1213tw",
+      "url": "https://soundcloud.com/felix1213tw",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "felix1213tw"
+      },
+      "notes": "Explicit SoundCloud track pages by felix1213tw (composer upload); the account's other tracks are not enumerated.",
+      "crawl_scope": {
+        "notes": "Explicit track pages only."
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/felix1213tw/reconstruction",
+          "key": "reconstruction"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^reconstruction$",
+          "role": "song_art",
+          "song_titles": [
+            "REconstruction"
+          ],
+          "mapping_status": "inferred",
+          "variant_role": "square copy smaller than the wiki jacket (illustrator per the official Facebook post: 織日ちひろ)"
+        }
+      ]
+    },
+    {
+      "id": "artists:bandcamp:ha1uday0",
+      "name": "Bandcamp Halv",
+      "url": "https://ha1uday0.bandcamp.com/",
+      "platform": "bandcamp",
+      "adapter": "release_page",
+      "hosts": [
+        "ha1uday0.bandcamp.com",
+        ".bcbits.com"
+      ],
+      "notes": "Explicit Bandcamp track page by Halv.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Bandcamp '_0' (largest stored) cover rendition as served by Bandcamp; a release cover, not a master."
+      },
+      "items": [
+        {
+          "url": "https://ha1uday0.bandcamp.com/track/sushi-tornado",
+          "key": "track/sushi-tornado"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^track/sushi\\-tornado$",
+          "role": "song_art",
+          "song_titles": [
+            "Sushi Tornado"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "長井りく"
+          ],
+          "composers": [
+            "Halv"
+          ],
+          "evidence_quotes": [
+            "長井りく"
+          ],
+          "variant_role": "full uncropped illustration with HALV logo overlay (Bandcamp release cover)"
+        }
+      ]
+    },
+    {
+      "id": "artists:bandcamp:veirtunes",
+      "name": "Bandcamp VEiR",
+      "url": "https://veirtunes.bandcamp.com/",
+      "platform": "bandcamp",
+      "adapter": "release_page",
+      "hosts": [
+        "veirtunes.bandcamp.com",
+        ".bcbits.com"
+      ],
+      "notes": "Negative control from 03-source-research §2: the release calls itself a rejected Dynamix submission.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Bandcamp '_0' (largest stored) cover rendition as served by Bandcamp; a release cover, not a master."
+      },
+      "items": [
+        {
+          "url": "https://veirtunes.bandcamp.com/track/beyond-ephemera",
+          "key": "track/beyond-ephemera"
+        }
+      ],
+      "rules": [
+        {
+          "match": ".*",
+          "action": "exclude",
+          "reason": "rejected_submission: the release describes itself as a rejected Dynamix submission",
+          "game": "not_dynamix"
+        }
+      ]
+    },
+    {
+      "id": "artists:x:ariiol_",
+      "name": "X @ariiol_ (ariiol)",
+      "url": "https://x.com/ariiol_",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "ariiol_"
+      },
+      "notes": "Explicit public posts by @ariiol_ read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ariiol"
+      },
+      "items": [
+        {
+          "post_id": "1879155241788293570"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1879155241788293570:1$",
+          "role": "song_art",
+          "song_titles": [
+            "Cosmic Pulse"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "ariiol"
+          ],
+          "composers": [
+            "Yunosuke"
+          ],
+          "evidence_quotes": [
+            "Made the cover for Yunosuke",
+            "Cosmic Pulse",
+            "Dynamix"
+          ],
+          "variant_role": "artist's X post (JPEG, same size as the wiki PNG)"
+        }
+      ]
+    },
+    {
+      "id": "artists:x:kuskekplecraft",
+      "name": "X @KuskeKplecraft (Kplecraft)",
+      "url": "https://x.com/KuskeKplecraft",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "KuskeKplecraft"
+      },
+      "notes": "Explicit public posts by @KuskeKplecraft read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Kplecraft"
+      },
+      "items": [
+        {
+          "post_id": "946599307431460867"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^946599307431460867:1$",
+          "role": "process",
+          "song_titles": [
+            "16383"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Kplecraft"
+          ],
+          "composers": [
+            "Kplecraft"
+          ],
+          "evidence_quotes": [
+            "16383"
+          ],
+          "variant_role": "full BGA field map with the jacket area marked",
+          "variant_group": "16383-kplecraft-bga"
+        },
+        {
+          "match": "^946599307431460867:[2-4]$",
+          "role": "process",
+          "song_titles": [
+            "16383"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Kplecraft"
+          ],
+          "composers": [
+            "Kplecraft"
+          ],
+          "evidence_quotes": [
+            "16383"
+          ],
+          "variant_role": "zoomed BGA detail",
+          "variant_group": "16383-kplecraft-bga"
+        }
+      ]
+    },
+    {
+      "id": "artists:x:seura_nue",
+      "name": "X @SeURa_Nue (Se-U-Ra)",
+      "url": "https://x.com/SeURa_Nue",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "SeURa_Nue"
+      },
+      "notes": "Explicit public posts by @SeURa_Nue read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Se-U-Ra"
+      },
+      "items": [
+        {
+          "post_id": "1535164468476317696"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1535164468476317696:1$",
+          "role": "song_art",
+          "song_titles": [
+            "Necroxus"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Se-U-Ra"
+          ],
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "evidence_quotes": [
+            "Necroxus"
+          ],
+          "variant_role": "artist's X post"
+        }
+      ]
+    },
+    {
+      "id": "artists:x:meganegirai",
+      "name": "X @meganegirai (ANT(蟻))",
+      "url": "https://x.com/meganegirai",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "meganegirai"
+      },
+      "notes": "Profile states Dynamix jacket artwork work (research read the public embed timeline).",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ANT(蟻)"
+      },
+      "items": [
+        {
+          "post_id": "1536401093894189056"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1536401093894189056:1$",
+          "role": "character",
+          "song_titles": [
+            "PUPA"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "ANT"
+          ],
+          "composers": [
+            "モリモリあつし"
+          ],
+          "evidence_quotes": [
+            "PUPA",
+            "Dynamix"
+          ],
+          "variant_role": "signed character portrait (not the jacket)"
+        }
+      ]
+    },
+    {
+      "id": "artists:x:kumeki_3",
+      "name": "X @KUMEKI_3 (クメキ)",
+      "url": "https://x.com/KUMEKI_3",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "KUMEKI_3"
+      },
+      "notes": "Explicit public posts by @KUMEKI_3 read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "クメキ"
+      },
+      "items": [
+        {
+          "post_id": "1156477613222744064",
+          "notes": "Credit evidence: 'オレンジ描かせて頂きました' quoting the official event post."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "id": "artists:x:bluenoup",
+      "name": "X @BLUEnoup (Aoi)",
+      "url": "https://x.com/BLUEnoup",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "BLUEnoup"
+      },
+      "notes": "Explicit public posts by @BLUEnoup read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Aoi"
+      },
+      "items": [
+        {
+          "post_id": "1818291230188650733",
+          "notes": "Composer credit evidence: illustrator 黒鉛 (@hyou_haku) for scualee."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "id": "artists:x:serolerr",
+      "name": "X @serolerr (lomiu)",
+      "url": "https://x.com/serolerr",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "serolerr"
+      },
+      "notes": "Explicit public posts by @serolerr read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "lomiu"
+      },
+      "items": [
+        {
+          "post_id": "1869236616776343997",
+          "notes": "Credit evidence: cover image for Curtainfall! in Dynamix."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "id": "artists:x:lalaluhat",
+      "name": "X @lalaluhat (B.H. (HAT))",
+      "url": "https://x.com/lalaluhat",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "lalaluhat"
+      },
+      "notes": "B.H. (HAT; C4Cat 2D artist intern 2017 per the artist's portfolio). Seasonal character art; song mappings are left unmapped (characters, not jackets).",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "B.H. (HAT)"
+      },
+      "items": [
+        {
+          "post_id": "1233337738671218688"
+        },
+        {
+          "post_id": "1222836461155667968"
+        },
+        {
+          "post_id": "1188774644397924352"
+        },
+        {
+          "post_id": "1056156411304935429"
+        },
+        {
+          "post_id": "1001435080936472576"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1233337738671218688:",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "evidence_quotes": [
+            "#Dynamix"
+          ],
+          "candidate_notes": "Wiki Encore trivia: cover character Moru (cites this post)."
+        },
+        {
+          "match": "^1222836461155667968:",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "evidence_quotes": [
+            "#Dynamix"
+          ],
+          "candidate_notes": "New-year group illustration of Dynamix jacket characters."
+        },
+        {
+          "match": "^1188774644397924352:",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "evidence_quotes": [
+            "#Dynamix"
+          ],
+          "candidate_notes": "Halloween illustration; LionCubs (Lionhearted) per the post text."
+        },
+        {
+          "match": "^1056156411304935429:",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "evidence_quotes": [
+            "#Dynamix"
+          ],
+          "candidate_notes": "Halloween zombie Renko (Rocket Lanterns character per wiki trivia)."
+        },
+        {
+          "match": "^1001435080936472576:",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "evidence_quotes": [
+            "#Dynamix"
+          ],
+          "candidate_notes": "Summer Alice (Frontline B-Side character per wiki trivia); a lossless PNG twin is on the artist's Wix portfolio."
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:760598",
+      "name": "pixiv キカンシャ (760598)",
+      "url": "https://www.pixiv.net/users/760598",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "760598"
+      },
+      "notes": "Explicit artworks by キカンシャ via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "キカンシャ"
+      },
+      "items": [
+        {
+          "illust_id": "62913946"
+        },
+        {
+          "illust_id": "75762797"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^62913946:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Bluebell"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "キカンシャ"
+          ],
+          "composers": [
+            "5argon"
+          ],
+          "evidence_quotes": [
+            "My work for Dynamix song",
+            "Bluebell"
+          ]
+        },
+        {
+          "match": "^75762797:",
+          "action": "exclude",
+          "reason": "rejected_submission: artist marks it as an unused image for Dynamix Submission 2019",
+          "candidate_notes": "Submission artwork that did not enter the game."
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:17081698",
+      "name": "pixiv Xomu (17081698)",
+      "url": "https://www.pixiv.net/users/17081698",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "17081698"
+      },
+      "notes": "Explicit artworks by Xomu via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Xomu"
+      },
+      "items": [
+        {
+          "illust_id": "77296864"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^77296864:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Lumina"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Xomu"
+          ],
+          "composers": [
+            "Xomu",
+            "Wisp X"
+          ],
+          "evidence_quotes": [
+            "Lumina"
+          ],
+          "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop (research visual comparison)"
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:4349073",
+      "name": "pixiv せゆーら (4349073)",
+      "url": "https://www.pixiv.net/users/4349073",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "4349073"
+      },
+      "notes": "Explicit artworks by せゆーら via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "せゆーら"
+      },
+      "items": [
+        {
+          "illust_id": "80195226"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^80195226:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "終の舞姫"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Se-U-Ra"
+          ],
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "終の舞姫"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:2624455",
+      "name": "pixiv 123456蟹 (2624455)",
+      "url": "https://www.pixiv.net/users/2624455",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "2624455"
+      },
+      "notes": "Explicit artworks by 123456蟹 via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "123456蟹"
+      },
+      "items": [
+        {
+          "illust_id": "51262301"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^51262301:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Creater S"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "123456蟹"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Untitled post tagged Dynamix; visual match with the wiki jacket (research). Posted before the song's Dynamix release."
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:5401047",
+      "name": "pixiv Sand Suna (5401047)",
+      "url": "https://www.pixiv.net/users/5401047",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "5401047"
+      },
+      "notes": "Explicit artworks by Sand Suna via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Sand Suna"
+      },
+      "items": [
+        {
+          "illust_id": "92594600"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^92594600:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "evidence_quotes": [
+            "For Dynamix x RAVON collaboration event",
+            "MassacrE"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 1 of 3 (square composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna"
+        },
+        {
+          "match": "^92594600:p1$",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "evidence_quotes": [
+            "For Dynamix x RAVON collaboration event",
+            "MassacrE"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 2 of 3 (16:9 in-game composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna"
+        },
+        {
+          "match": "^92594600:p2$",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "evidence_quotes": [
+            "For Dynamix x RAVON collaboration event",
+            "MassacrE"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 3 of 3 (original composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna"
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:74278",
+      "name": "pixiv Shionty (74278)",
+      "url": "https://www.pixiv.net/users/74278",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "74278"
+      },
+      "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Shionty"
+      },
+      "items": [
+        {
+          "illust_id": "61859342"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^61859342:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Evoltex (poppi'n mix)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Shionty"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Evoltex"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:89112381",
+      "name": "pixiv 中本ひょうり (89112381)",
+      "url": "https://www.pixiv.net/users/89112381",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "89112381"
+      },
+      "notes": "Explicit artworks by 中本ひょうり via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "中本ひょうり"
+      },
+      "items": [
+        {
+          "illust_id": "122251308"
+        },
+        {
+          "illust_id": "129309072"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^122251308:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "evidence_quotes": [
+            "流麗凛舞"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "Shinobi Slash square jacket with title",
+          "variant_group": "ryurei-rinbu-hyouri"
+        },
+        {
+          "match": "^122251308:p1$",
+          "role": "song_art",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "evidence_quotes": [
+            "流麗凛舞"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "Shinobi Slash square jacket without text",
+          "variant_group": "ryurei-rinbu-hyouri"
+        },
+        {
+          "match": "^129309072:",
+          "role": "promotional",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "candidate_notes": "Dynamix x Shinobi Slash collaboration key art (Sapphire and スズネ)."
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:3381542",
+      "name": "pixiv LESYEF (3381542)",
+      "url": "https://www.pixiv.net/users/3381542",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "3381542"
+      },
+      "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "LESYEF"
+      },
+      "items": [
+        {
+          "illust_id": "86481781"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^86481781:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Totally bounded"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "LESYEF"
+          ],
+          "evidence_quotes": [
+            "totally bounded"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop"
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:407585",
+      "name": "pixiv AFZero (407585)",
+      "url": "https://www.pixiv.net/users/407585",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "407585"
+      },
+      "notes": "Explicit artworks by AFZero via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "AFZero"
+      },
+      "items": [
+        {
+          "illust_id": "42973848"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^42973848:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Aegis"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "AFZero"
+          ],
+          "evidence_quotes": [
+            "Dynamix",
+            "Aegis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:1840049",
+      "name": "pixiv くりあ (1840049)",
+      "url": "https://www.pixiv.net/users/1840049",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "1840049"
+      },
+      "notes": "Explicit artworks by くりあ via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "くりあ"
+      },
+      "items": [
+        {
+          "illust_id": "63416349"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^63416349:",
+          "action": "pending",
+          "reason": "pending: the caption says the artwork's use in Dynamix was still undecided; not compared with the in-game jacket",
+          "role": "song_art",
+          "song_titles": [
+            "ぺたるすてっぷ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:779504",
+      "name": "pixiv アサヤ (779504)",
+      "url": "https://www.pixiv.net/users/779504",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "779504"
+      },
+      "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "アサヤ"
+      },
+      "items": [
+        {
+          "illust_id": "91845485"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^91845485:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Party Vinyl"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "アサヤ"
+          ],
+          "evidence_quotes": [
+            "Party Vinyl"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "arcaea"
+          ],
+          "variant_role": "square variant posted for the Arcaea release; same illustration as the Dynamix jacket (research OGP comparison)"
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:1652099",
+      "name": "pixiv ANT (1652099)",
+      "url": "https://www.pixiv.net/users/1652099",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "1652099"
+      },
+      "notes": "Explicit artworks by ANT via pixiv's public ajax JSON.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ANT"
+      },
+      "items": [
+        {
+          "illust_id": "73741044"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^73741044:",
+          "action": "exclude",
+          "reason": "out_of_scope_other: personal gift illustration tagged Dynamix, not game artwork"
+        }
+      ]
+    },
+    {
+      "id": "artists:bilibili:ariiol",
+      "name": "Bilibili ariiol",
+      "url": "https://www.bilibili.com/opus/1022295438715256855",
+      "platform": "bilibili",
+      "adapter": "bilibili_opus",
+      "notes": "Seed post from 03-source-research §1/§2. Handle is the display name (the numeric space ID was not established because Bilibili refused anonymous reads).",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Bilibili hdslb original upload as served."
+      },
+      "items": [
+        {
+          "opus_id": "1022295438715256855"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1022295438715256855:",
+          "role": "song_art",
+          "song_titles": [
+            "Cosmic Pulse"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "ariiol"
+          ],
+          "composers": [
+            "Yunosuke"
+          ],
+          "evidence_quotes": [
+            "Cosmic Pulse"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artists:artstation:sandgodoven",
+      "name": "ArtStation Sand Suna (sandgodoven)",
+      "url": "https://sandgodoven.artstation.com/projects/6baqbW",
+      "platform": "artstation",
+      "adapter": "artstation_project",
+      "params": {
+        "username": "sandgodoven"
+      },
+      "notes": "Seed project from 03-source-research §2 (Square / 16:9 / Original compositions of MassacrE || 3rc4224M for RAVON and Dynamix). Earlier probes received HTTP 403; a refusal is recorded, never bypassed.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "ArtStation asset rendition as served."
+      },
+      "items": [
+        {
+          "project": "6baqbW",
+          "title": "MassacrE || 3rc4224M (Sand Suna)"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^6baqbW:",
+          "action": "pending",
+          "reason": "pending: per-asset classification needed (the project mixes RAVON and Dynamix compositions)",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artists:wix:lalaluhat",
+      "name": "B.H. (HAT) Wix portfolio",
+      "url": "https://lalaluhat.wixsite.com/bhbhwork",
+      "platform": "wix",
+      "adapter": "direct_files",
+      "hosts": [
+        "static.wixstatic.com",
+        "lalaluhat.wixsite.com"
+      ],
+      "owner_evidence": "About page: 'C4Cat Entertainment Limited 2D Artist (internship) (2017/06/01 - 2017/08/31)'; contact 'HAT: lalaluhat@...'; links twitter.com/lalaluhat (research sweep).",
+      "notes": "Explicit gallery files from the artist's JavaScript-rendered Wix portfolio (original uploads without a resize suffix).",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Wix media original upload (no transform parameters)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "B.H."
+      },
+      "items": [
+        {
+          "key": "5a0163_c92d32f3e10a4a4e8ac81189d748e0a9",
+          "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+          "file_url": "https://static.wixstatic.com/media/5a0163_c92d32f3e10a4a4e8ac81189d748e0a9~mv2_d_2894_2039_s_2.png"
+        },
+        {
+          "key": "5a0163_939b56d57a8a4540a6a300d1a3d1eb03",
+          "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+          "file_url": "https://static.wixstatic.com/media/5a0163_939b56d57a8a4540a6a300d1a3d1eb03~mv2_d_2084_2160_s_2.png"
+        },
+        {
+          "key": "5a0163_81b513cc2f1644cc92c88ca2691a6745",
+          "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+          "file_url": "https://static.wixstatic.com/media/5a0163_81b513cc2f1644cc92c88ca2691a6745~mv2_d_2039_2894_s_2.png"
+        },
+        {
+          "key": "5a0163_459a3dbbd87f46d58630ec52f0d06601",
+          "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+          "file_url": "https://static.wixstatic.com/media/5a0163_459a3dbbd87f46d58630ec52f0d06601~mv2_d_2039_2894_s_2.png"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^5a0163_c92d32f3e10a4a4e8ac81189d748e0a9$",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "candidate_notes": "Image text 'DYNAMIX ALICE SUMMER VER 2018' (Alice: Frontline B-Side character per wiki trivia); lossless twin of X post 1001435080936472576."
+        },
+        {
+          "match": "^5a0163_939b56d57a8a4540a6a300d1a3d1eb03$",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "candidate_notes": "Signed 'RENKO & TSUKIYO 2018-6-1 BH!' (Rocket Lanterns / 月奏リバイバル characters per wiki trivia)."
+        },
+        {
+          "match": "^5a0163_81b513cc2f1644cc92c88ca2691a6745$",
+          "role": "character",
+          "illustrators": [
+            "B.H."
+          ],
+          "candidate_notes": "Written 'ANGLE x ANGLE BH! 2018-5-23' (Angel x Angel jacket characters)."
+        },
+        {
+          "match": "^5a0163_459a3dbbd87f46d58630ec52f0d06601$",
+          "action": "pending",
+          "reason": "pending: unidentified character; only the upload name 'Dynamix.png' links it to the game",
+          "role": "character"
+        }
+      ]
+    },
+    {
+      "id": "artists:research:leads",
+      "name": "Artist/composer research leads without an acquirable file",
+      "url": "https://dynamix.miraheze.org/wiki/Main_Page",
+      "platform": "registry",
+      "adapter": "lead_registry",
+      "notes": "Curated 2026-10-10 research-sweep leads (credit/identity evidence, login walls, bot checks, held items). Recorded without new requests; each keeps its own URL and decision.",
+      "items": [
+        {
+          "key": "kplecraft.com:rhythm",
+          "page_url": "http://www.kplecraft.com/rhythm.html",
+          "title": "Kplecraft rhythm-game works page",
+          "disposition": "excluded",
+          "reason": "game_ui: the only image is the Dynamix app icon (175x175); composer and game-identity evidence only",
+          "game": "dynamix",
+          "file_url": "http://www.kplecraft.com/img/r_dynamix.jpg"
+        },
+        {
+          "key": "youtube:vrPURAhcV7Q",
+          "page_url": "https://www.youtube.com/watch?v=vrPURAhcV7Q",
+          "title": "SEVEN's CODE videos (あやみ credit)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (another game's official credit 'ジャケット：あやみ' for shared character art)",
+          "illustrators": [
+            "あやみ"
+          ],
+          "song_titles": [
+            "CROSSING DELTA",
+            "Paved Garden",
+            "Slapstick Parfait"
+          ]
+        },
+        {
+          "key": "note.com:rekumczk",
+          "page_url": "https://note.com/rekumczk/n/nc1d667ce87cd",
+          "title": "Reku Mochizuki note on 玲瓏メテオ artwork",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (creator explains the cover is a processed photograph)",
+          "song_titles": [
+            "玲瓏メテオ"
+          ]
+        },
+        {
+          "key": "youtube:rYPrfif6KvQ",
+          "page_url": "https://www.youtube.com/watch?v=rYPrfif6KvQ",
+          "title": "Aoi - Pollux official audio",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Artwork : 黒鉛'); video thumbnail is a derivative",
+          "illustrators": [
+            "黒鉛"
+          ],
+          "song_titles": [
+            "Pollux"
+          ]
+        },
+        {
+          "key": "pixiv:user:1783202",
+          "page_url": "https://www.pixiv.net/users/1783202",
+          "title": "pixiv 黒鉛 profile",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (17 public works listed by research; none is a Dynamix/Aoi jacket)"
+        },
+        {
+          "key": "k-bms:pabat2018:1",
+          "page_url": "http://k-bms.com/party_pabat/party2018.jsp?board_num=18&num=1&order=reg&odtype=a",
+          "title": "PABAT! 2018 entry VENUS INVADER",
+          "disposition": "blocked",
+          "reason": "challenge: Korean anti-bot page with a JavaScript cookie (research sweep); not bypassed"
+        },
+        {
+          "key": "youtube:yzF1LVly7Jw",
+          "page_url": "https://www.youtube.com/watch?v=yzF1LVly7Jw",
+          "title": "テヅカ Sunset Toybox PV",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Artwork : coa'); shared with TAKUMI³/KALPA",
+          "illustrators": [
+            "coa"
+          ]
+        },
+        {
+          "key": "youtube:i2Cuf_DTkOI",
+          "page_url": "https://www.youtube.com/watch?v=i2Cuf_DTkOI",
+          "title": "Tanchiky Welcome, SSSpooky!!!",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Illustration by りゅうら'; mentions Rotaeno, not Dynamix)",
+          "illustrators": [
+            "りゅうら"
+          ]
+        },
+        {
+          "key": "youtube:L31OEFMTMho",
+          "page_url": "https://www.youtube.com/watch?v=L31OEFMTMho",
+          "title": "M-O-T-U Heart Eyes",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Illustration: 志知')",
+          "illustrators": [
+            "志知"
+          ],
+          "song_titles": [
+            "Heart Eyes"
+          ]
+        },
+        {
+          "key": "youtube:1KqBSl6A4f4",
+          "page_url": "https://www.youtube.com/watch?v=1KqBSl6A4f4",
+          "title": "大豆使徒 Beyond The Rainbow",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Artwork ： 榊原またぎ＋LESYEF'; shared with Lanota)"
+        },
+        {
+          "key": "youtube:peICQCEHwLU",
+          "page_url": "https://www.youtube.com/watch?v=peICQCEHwLU",
+          "title": "Abel & RiraN Lacrimosa BGA",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('BGA: Minho')"
+        },
+        {
+          "key": "soundcloud:godong_0717:danse-de-romani",
+          "page_url": "https://www.youtube.com/watch?v=mlo4B9ZEGJk",
+          "title": "Danse de Romani BGA video and BOFU2015 cover",
+          "disposition": "excluded",
+          "reason": "external_release_art: titled BOFU2015 cover (SoundCloud godong_0717) differs from the Dynamix jacket; the video credits 'mov : Lyrebird Ferdinant'",
+          "file_url": "https://i1.sndcdn.com/artworks-000128880330-ku42zm-original.png"
+        },
+        {
+          "key": "instagram:luxan93",
+          "page_url": "https://www.instagram.com/luxan93/",
+          "title": "Instagram luxan93 (MLG artwork credit)",
+          "disposition": "blocked",
+          "reason": "blocked: redirected to the Instagram login page (research sweep); not bypassed"
+        },
+        {
+          "key": "vocadb:Ar-41817",
+          "page_url": "https://vocadb.net/Ar/41817",
+          "title": "VocaDB luoluokk (Offshore)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire"
+        },
+        {
+          "key": "behance:tobysatria",
+          "page_url": "https://www.behance.net/tobysatria",
+          "title": "Behance Toby Satria Yudha",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire"
+        },
+        {
+          "key": "x:orihi_",
+          "page_url": "https://x.com/orihi_",
+          "title": "X @orihi_ (織日ちひろ)",
+          "disposition": "blocked",
+          "reason": "blocked: X profile requires login (research sweep); REconstruction art copy recorded under artists:soundcloud:felix1213tw"
+        },
+        {
+          "key": "pixiv:tag:Dynamix",
+          "page_url": "https://www.pixiv.net/tags/Dynamix/artworks",
+          "title": "pixiv tag search 'Dynamix'",
+          "disposition": "excluded",
+          "reason": "fanart: logged-out tag search results are mostly fan art; artist-original leads found there are recorded as their own pixiv sources"
+        },
+        {
+          "key": "pixiv:caption:Dynamix",
+          "page_url": "https://www.pixiv.net/tags/Dynamix/artworks?s_mode=s_tc",
+          "title": "pixiv caption search 'Dynamix'",
+          "disposition": "excluded",
+          "reason": "fanart: caption search results are mostly fan art or submission art not in the game; artist originals are recorded as their own pixiv sources"
+        },
+        {
+          "key": "tumblr:hkcd-0018",
+          "page_url": "https://hkcd-0018.tumblr.com/",
+          "title": "HeracleS album special site",
+          "disposition": "excluded",
+          "reason": "external_release_art: album cover is a framed full-body composition; the Dynamix jackets are face crops with different titles",
+          "file_url": "https://64.media.tumblr.com/5af99a99bf76c1c73ed42839575f6e66/a785f78d7116d8f2-6d/s2048x3072/d60c9fe8ae79d1b92c050dcfaaf76823d4f16ef4.jpg"
+        },
+        {
+          "key": "pixiv:user:2490522",
+          "page_url": "https://www.pixiv.net/users/2490522",
+          "title": "pixiv 未早 profile",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (400 works listed by research; no Dynamix jacket)"
+        },
+        {
+          "key": "misa-art:music-artworks",
+          "page_url": "https://www.misa-art.com/music-artworks",
+          "title": "未早 portfolio",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (18 gallery thumbnails inspected by research; none is Dynamix)"
+        },
+        {
+          "key": "pixiv:user:3511822",
+          "page_url": "https://www.pixiv.net/users/3511822",
+          "title": "pixiv 消しKS (name match only)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: unrelated account matched by name similarity; not the credited ケシｋｓくん"
+        },
+        {
+          "key": "toranoana:040031332673",
+          "page_url": "https://ecs.toranoana.jp/tora/ec/item/040031332673/",
+          "title": "Toranoana PUPA goods",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: merchandise listing (credit corroboration for ANT), not jacket art"
+        },
+        {
+          "key": "manbow:137-159",
+          "page_url": "https://manbow.nothing.sh/event/event.cgi?action=More_def&num=159&event=137",
+          "title": "BOFXVII Jehezukiel Legacy entry",
+          "disposition": "excluded",
+          "reason": "external_release_art: green-ribbon BOF title image differs from the Dynamix jacket (blue ribbon, crystal)",
+          "file_url": "https://manbow.nothing.sh/event/upload/1370159_20211030234033_title.jpg"
+        },
+        {
+          "key": "linkcore:pPnEBvf5",
+          "page_url": "https://linkco.re/pPnEBvf5",
+          "title": "恋スル:Rabi-Love single (TuneCore)",
+          "disposition": "pending",
+          "reason": "pending: 400px presigned store rendition of the titled cover; credit conflict (Hotta Ryo vs 48OKU) needs review",
+          "song_titles": [
+            "恋スル:Rabi-Love"
+          ]
+        },
+        {
+          "key": "tumblr:untrasen-beyondtheall",
+          "page_url": "https://untrasen-beyondtheall.tumblr.com/",
+          "title": "Beyond the All album site",
+          "disposition": "excluded",
+          "reason": "external_release_art: different illustration of the same character, not the Last farewell jacket"
+        },
+        {
+          "key": "fandom:paradigmreboot:Restricted_Access",
+          "page_url": "https://paradigmreboot.fandom.com/wiki/Restricted_Access",
+          "title": "Paradigm: Reboot wiki Restricted Access",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (cross-game credit 苦苦)"
+        },
+        {
+          "key": "fandom:berry-melody:Grayscale_Tragedy",
+          "page_url": "https://berry-melody.fandom.com/wiki/Grayscale_Tragedy",
+          "title": "Berry Melody wiki Grayscale Tragedy",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (cross-game credit 快乐鸽子厂)"
+        },
+        {
+          "key": "fandom:arcaea:Visual_Artists",
+          "page_url": "https://arcaea.fandom.com/wiki/Visual_Artists",
+          "title": "Arcaea wiki Visual Artists",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire"
+        },
+        {
+          "key": "pixiv:user:418555",
+          "page_url": "https://www.pixiv.net/users/418555",
+          "title": "pixiv deel profile",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (155 works; none Dynamix)"
+        },
+        {
+          "key": "fandom:arcaea:Stella",
+          "page_url": "https://arcaea.fandom.com/wiki/Stella",
+          "title": "Arcaea wiki Stella (Youki credit)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire"
+        },
+        {
+          "key": "plurk:kogptn",
+          "page_url": "https://www.plurk.com/s/u/kogptn",
+          "title": "Plurk kogptn",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: identity unverified; nothing links it to a Dynamix jacket"
+        },
+        {
+          "key": "moonshine.tw",
+          "page_url": "https://moonshine.tw/",
+          "title": "MoonShine Animation studio site",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (JavaScript app; no RE:IGNITE still found)"
+        },
+        {
+          "key": "youtube:Mk0OFd9du0w",
+          "page_url": "https://www.youtube.com/watch?v=Mk0OFd9du0w",
+          "title": "TunerGames 零號車輛",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Illustrated by 2Al4wU4'); thumbnail is a derived title card"
+        },
+        {
+          "key": "youtube:gUIkEH-44gQ",
+          "page_url": "https://www.youtube.com/watch?v=gUIkEH-44gQ",
+          "title": "TunerGames Turning POINT",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Illustrated by 鄂季'); thumbnail is a derived title card"
+        },
+        {
+          "key": "youtube:SB6EPE4S-5I",
+          "page_url": "https://www.youtube.com/watch?v=SB6EPE4S-5I",
+          "title": "Aoi Vs.TREAMEЯ",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Artwork : Derder'); thumbnail is a derivative with Rotaeno overlay"
+        },
+        {
+          "key": "youtube:qK-v9hAmAfU",
+          "page_url": "https://www.youtube.com/watch?v=qK-v9hAmAfU",
+          "title": "Se-U-Ra NNOYiA",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('◆Artwork 林语'; wikis write 木木林语)"
+        },
+        {
+          "key": "pixiv:user:16307326",
+          "page_url": "https://www.pixiv.net/users/16307326",
+          "title": "pixiv Violpa profile",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (identity confirmed; no NOVA/Dynamix post)"
+        },
+        {
+          "key": "deviantart:vnanep",
+          "page_url": "https://www.deviantart.com/vnanep",
+          "title": "DeviantArt VNaneP",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (RSS items compared visually by research; none is a Dynamix jacket)"
+        },
+        {
+          "key": "deviantart:deronoitz",
+          "page_url": "https://www.deviantart.com/deronoitz",
+          "title": "DeviantArt deronoitz",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: identity matched by handle only; no Nova Highway post"
+        },
+        {
+          "key": "bilibili:space:703264",
+          "page_url": "https://space.bilibili.com/703264",
+          "title": "Bilibili 2Al4wU4 space",
+          "disposition": "blocked",
+          "reason": "blocked: the dynamics feed API returned a block page (research sweep); not retried"
+        },
+        {
+          "key": "skima:296360",
+          "page_url": "https://skima.jp/profile?id=296360",
+          "title": "Skima Youki",
+          "disposition": "blocked",
+          "reason": "blocked: HTTP 503 to automated requests (research sweep)"
+        },
+        {
+          "key": "k-bms:pabat2017:44",
+          "page_url": "https://k-bms.com/party_pabat/party2017.jsp?board_num=17&num=44",
+          "title": "PABAT! 2017 Cross†Soul entry",
+          "disposition": "blocked",
+          "reason": "challenge: JavaScript cookie challenge (research sweep); not bypassed"
+        },
+        {
+          "key": "wix:mutamurata:works",
+          "page_url": "https://harape5kirin.wixsite.com/mutamurata/works",
+          "title": "むらたむうた works list",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (claims the 2019 Dynamix artwork; no image file located)"
+        },
+        {
+          "key": "sandsuna.art:works",
+          "page_url": "https://sandsuna.art/pages/Works",
+          "title": "Sand Suna works list",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (text-only works list naming MassacrE for RAVON and Dynamix)"
+        },
+        {
+          "key": "pixiv:user:3315403",
+          "page_url": "https://www.pixiv.net/users/3315403",
+          "title": "pixiv SalmonBoi (NanoKun per Arcaea wiki)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (59 works; no Dynamix jacket)"
+        },
+        {
+          "key": "twiman:2282924948",
+          "page_url": "https://twiman.net/user/2282924948/illust",
+          "title": "twiman mirror of @Nano__Kun",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: third-party mirror (repost); mirrored works are not Dynamix"
+        },
+        {
+          "key": "velecti:historica-of-faraway",
+          "page_url": "https://velecti.com/work/historica-of-faraway",
+          "title": "VelecTi 悠遠のヒストリカ",
+          "disposition": "pending",
+          "reason": "pending: 300x300 circle-site thumbnail; identity with the game jacket not verified; illustrator credit conflicts with the wiki (veilrain vs mat)",
+          "file_url": "https://velecti.com/assets/original/1805_historica-1.jpg"
+        },
+        {
+          "key": "velecti:dream-starter",
+          "page_url": "https://velecti.com/work/dream-starter",
+          "title": "VelecTi Dream Starter / Meteor Hope",
+          "disposition": "pending",
+          "reason": "pending: 300x300 circle-site thumbnails; identity with the game jackets not verified",
+          "file_url": "https://velecti.com/assets/original/1806a_dream.jpg"
+        },
+        {
+          "key": "velecti:dynamix",
+          "page_url": "https://velecti.com/work/dynamix",
+          "title": "VelecTi Dynamix entry",
+          "disposition": "excluded",
+          "reason": "game_ui: 300x300 song-select screenshot composite",
+          "file_url": "https://velecti.com/assets/original/1609_dnx.jpg",
+          "game": "dynamix"
+        },
+        {
+          "key": "bilibili:BV1Zp411d74c",
+          "page_url": "https://www.bilibili.com/video/BV1Zp411d74c",
+          "title": "VelecTi PV uploads",
+          "disposition": "blocked",
+          "reason": "challenge: Bilibili view API returned HTTP 412 with a captcha page (research sweep); not pursued"
+        },
+        {
+          "key": "strangebox:illustrion",
+          "page_url": "https://www.sinck-strangebox.com/illustrion",
+          "title": "Sin:cK Strange Box",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (no Dynamix work on the static pages)"
+        },
+        {
+          "key": "x:Eproph_4",
+          "page_url": "https://x.com/Eproph_4",
+          "title": "X @Eproph_4 (Ep_4)",
+          "disposition": "blocked",
+          "reason": "blocked: X profile requires login (research sweep)"
+        },
+        {
+          "key": "note.com:w_sia20",
+          "page_url": "https://note.com/w_sia20/n/n3e98abfbbb3c",
+          "title": "Community roundtable on B.H.",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: community article embedding reposts of official images (repost)"
+        },
+        {
+          "key": "bandcamp:ts-hkdtm:twosquare-vol1",
+          "page_url": "https://ts-hkdtm.bandcamp.com/album/twosquare-album-volume-1",
+          "title": "Two Square Vol.1 album",
+          "disposition": "excluded",
+          "reason": "external_release_art: album cover; the Two Square pack jackets differ and the page gives no art credit"
+        },
+        {
+          "key": "bandcamp:linkaryze:linked-emotions",
+          "page_url": "https://linkaryze.bandcamp.com/album/linked-emotions",
+          "title": "LiNKARYZE Linked Emotions album",
+          "disposition": "pending",
+          "reason": "pending: compilation art credited to MayMiyuriae; identity with the Tech-Nique jacket unverified"
+        },
+        {
+          "key": "wayback:soundcloud.com/mmry",
+          "page_url": "https://web.archive.org/web/20190806071613/https://soundcloud.com/mmry",
+          "title": "Wayback MMRY SoundCloud profile (Aegis sketch lead)",
+          "disposition": "pending",
+          "reason": "pending: the deleted Aegis 'sketch version' upload was not located in captures"
+        },
+        {
+          "key": "soundcloud:ingolk:xetta-piano",
+          "page_url": "https://soundcloud.com/soundperemotion/xetta",
+          "title": "Ingolk Xetta Piano Ver. cover",
+          "disposition": "pending",
+          "reason": "pending: grayscale variant cover named by research; its track URL was not recorded",
+          "file_url": "https://i1.sndcdn.com/artworks-000330727488-0bk0dp-original.jpg"
+        },
+        {
+          "key": "bandcamp:lixion:unidentified-new-entry",
+          "page_url": "https://lixion.bandcamp.com/track/unidentified-new-entry",
+          "title": "LIXION ((unidentified new entry))",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (no artwork credit)"
+        },
+        {
+          "key": "bandcamp:dorakura:deadline",
+          "page_url": "https://dorakura.bandcamp.com/album/deadline",
+          "title": "Dragon_Klub DeaDLiNE",
+          "disposition": "pending",
+          "reason": "pending: composer album cover; not shown to be the game jacket (03-source-research §2)"
+        },
+        {
+          "key": "bandcamp:drive-5:creigis",
+          "page_url": "https://drive-5.bandcamp.com/track/creigis-long-ver",
+          "title": "OVERDRIVE. Creigis",
+          "disposition": "pending",
+          "reason": "pending: composer release cover; not shown to be the game jacket (03-source-research §2)"
+        },
+        {
+          "key": "foriio:rekumczk",
+          "page_url": "https://www.foriio.com/rekumczk/wk_AWpdEXuTgqMCkdYYeW6J3TviVezQFHg8SCtVWrMP7QyhCuCCPA",
+          "title": "Reku Mochizuki foriio (ELYXiVN ELYXiUM)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (composition credit, not illustration)"
+        },
+        {
+          "key": "twpf:tq2501",
+          "page_url": "https://twpf.jp/tq2501",
+          "title": "TQ☆ creator profile",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (composer lead)"
+        },
+        {
+          "key": "dcwh:profile",
+          "page_url": "https://profile.dcwh.me/",
+          "title": "DCWH portfolio",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire (creator identity)"
+        },
+        {
+          "key": "soundcloud:synthtonix:supernova",
+          "page_url": "https://soundcloud.com/synthtonixmusic/supernova-dynamix-open-submission-2023",
+          "title": "Synthtonix Supernova",
+          "disposition": "pending",
+          "reason": "pending: successful-inclusion lead from 03-source-research §2; image not yet compared with the jacket"
+        },
+        {
+          "key": "instagram:maymiyuriae12",
+          "page_url": "https://www.instagram.com/maymiyuriae12/",
+          "title": "Instagram MayMiyuriAe",
+          "disposition": "blocked",
+          "reason": "blocked: Instagram profiles require login; not bypassed"
+        }
+      ]
+    }
+  ]
+}

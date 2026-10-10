@@ -1,0 +1,340 @@
+{
+  "family": "official",
+  "sources": [
+    {
+      "id": "official:apple-store",
+      "name": "Apple App Store — Dynamix (945955095)",
+      "url": "https://apps.apple.com/us/app/dynamix/id945955095",
+      "platform": "app-store",
+      "adapter": "apple_store",
+      "notes": "Original app ID 945955095 (Universe 6741094831 excluded). Current product-page screenshots plus the older storefront-specific sets still listed by the iTunes lookup API.",
+      "identity_quotes": [
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Store/platform rendition served at native size; the store re-renders uploads (not an untouched master)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://apps.apple.com/us/app/dynamix/id945955095"
+        },
+        {
+          "lookup_id": "945955095",
+          "countries": [
+            "us",
+            "gb",
+            "jp",
+            "hk",
+            "tw",
+            "kr",
+            "de",
+            "sg",
+            "th"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": ".*",
+          "role": "store_screenshot",
+          "game": "dynamix"
+        }
+      ]
+    },
+    {
+      "id": "official:google-play",
+      "name": "Google Play — Dynamix (com.c4cat.dynamix)",
+      "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
+      "platform": "google-play",
+      "adapter": "google_play",
+      "notes": "Package com.c4cat.dynamix (Universe com.c4cat.dynamix2 excluded). Listing pages in three locales.",
+      "identity_quotes": [
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Store/platform rendition served at native size; the store re-renders uploads (not an untouched master)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US"
+        },
+        {
+          "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP"
+        },
+        {
+          "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^screenshot:",
+          "role": "store_screenshot",
+          "game": "dynamix"
+        }
+      ]
+    },
+    {
+      "id": "official:taptap",
+      "name": "TapTap — Dynamix (7082)",
+      "url": "https://www.taptap.cn/app/7082",
+      "platform": "taptap",
+      "adapter": "taptap_app",
+      "params": {
+        "identifier": "com.c4cat.dynamix"
+      },
+      "notes": "Secondary store listing (C4Cat identified as developer). Visible update text is historical.",
+      "identity_quotes": [
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "TapTap original_url upload (name token equals the file MD5 when untouched)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://www.taptap.cn/app/7082"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^screenshot:",
+          "role": "store_screenshot",
+          "game": "dynamix"
+        },
+        {
+          "match": "^banner:[0-9a-f]{32}\\.",
+          "role": "promotional",
+          "game": "dynamix",
+          "candidate_notes": "Store banner upload (Dynamix logo graphic)."
+        }
+      ]
+    },
+    {
+      "id": "official:website",
+      "name": "Dynamix official website",
+      "url": "https://dynamix.c4-cat.com/",
+      "platform": "web",
+      "adapter": "page_probe",
+      "hosts": [
+        "dynamix.c4-cat.com"
+      ],
+      "notes": "Official site; historical captures are archived by archives:wayback.",
+      "items": [
+        {
+          "url": "https://dynamix.c4-cat.com/"
+        }
+      ]
+    },
+    {
+      "id": "official:c4cat",
+      "name": "C4Cat company site",
+      "url": "https://c4-cat.com/",
+      "platform": "web",
+      "adapter": "page_probe",
+      "hosts": [
+        "c4-cat.com"
+      ],
+      "status_on_success": "metadata_only",
+      "notes": "Company placeholder page; identity lead only, no game catalog.",
+      "items": [
+        {
+          "url": "https://c4-cat.com/",
+          "note": "Coming-soon/contact placeholder; no artwork."
+        }
+      ]
+    },
+    {
+      "id": "official:facebook",
+      "name": "Dynamix official Facebook page",
+      "url": "https://www.facebook.com/c4cat.dynamix/",
+      "platform": "facebook",
+      "adapter": "page_probe",
+      "hosts": [
+        "www.facebook.com"
+      ],
+      "status_on_success": "manual_access",
+      "unenumerated_lists": {
+        "page-timeline": "login wall: the timeline cannot be enumerated without an account"
+      },
+      "notes": "Linked by the stores. Individual photo permalinks expose only Open Graph text without login (research: REconstruction photo post 632702820249900 credits 織日ちひろ, og:image unrelated); no image recorded.",
+      "items": [
+        {
+          "url": "https://www.facebook.com/c4cat.dynamix/"
+        }
+      ]
+    },
+    {
+      "id": "official:x",
+      "name": "Dynamix official X (@c4c4cat)",
+      "url": "https://x.com/c4c4cat",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "c4c4cat"
+      },
+      "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
+      "unenumerated_lists": {
+        "wayback-status-captures": "about 2,089 archived status URL keys were not processed"
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "timeline": "c4c4cat"
+        },
+        {
+          "post_id": "1437747970875674626"
+        },
+        {
+          "post_id": "1889645633545613724"
+        },
+        {
+          "post_id": "1156172591872167937"
+        },
+        {
+          "post_id": "1239884186070265856"
+        },
+        {
+          "post_id": "981147690795900928"
+        },
+        {
+          "post_id": "1748178472759865377"
+        }
+      ],
+      "rules": [
+        {
+          "match": ".*",
+          "role": "promotional",
+          "game": "dynamix"
+        }
+      ]
+    },
+    {
+      "id": "official:soundcloud-c4cat",
+      "name": "C4Cat official SoundCloud",
+      "url": "https://soundcloud.com/c4cat",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "c4cat"
+      },
+      "notes": "Official C4Cat account (11 tracks 2016-2017); explicit track pages only.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/c4cat/le-ciel-heureux-p",
+          "key": "le-ciel-heureux-p"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^le\\-ciel\\-heureux\\-p$",
+          "role": "song_art",
+          "song_titles": [
+            "Le ciel heureux"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "P4koo"
+          ],
+          "evidence_quotes": [
+            "Le ciel heureux"
+          ],
+          "variant_role": "square crop of the jacket (official preview upload)"
+        }
+      ]
+    },
+    {
+      "id": "official:official-leads",
+      "name": "Official-side research leads without an acquirable file",
+      "url": "https://dynamix.c4-cat.com/",
+      "platform": "registry",
+      "adapter": "lead_registry",
+      "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
+      "items": [
+        {
+          "key": "youtube:C4CatEntertainment",
+          "page_url": "https://www.youtube.com/@C4CatEntertainment",
+          "title": "C4 Cat YouTube channel",
+          "disposition": "excluded",
+          "reason": "video_placeholder: video thumbnails (maxresdefault) are derivatives of trailers; channel recorded as official identity evidence",
+          "game": "dynamix",
+          "file_url": "https://i.ytimg.com/vi/ElhnpfB8Stw/maxresdefault.jpg"
+        },
+        {
+          "key": "qooapp:237",
+          "page_url": "https://apps.qoo-app.com/en/app/237",
+          "title": "QooApp listing",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: mirrors Google Play images; distributes APKs, which this project does not use",
+          "game": "dynamix"
+        },
+        {
+          "key": "amazon:appstore-search",
+          "page_url": "https://www.amazon.com/s?k=Dynamix+C4Cat&i=mobile-apps",
+          "title": "Amazon Appstore / Huawei AppGallery",
+          "disposition": "pending",
+          "reason": "pending: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
+        },
+        {
+          "key": "priroll:ct12529",
+          "page_url": "https://priroll.jp/shopbrand/ct12529/",
+          "title": "PRIROLL collaboration shop",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: merchandise shop page; the official announcement post is recorded under official:x",
+          "game": "dynamix"
+        },
+        {
+          "key": "x:c4c4cat:timeline-media",
+          "page_url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/c4c4cat",
+          "title": "Embed-timeline media listed by research",
+          "disposition": "pending",
+          "reason": "pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+        },
+        {
+          "key": "x:SHINOBI_SLASH:1902697909684179446",
+          "page_url": "https://x.com/SHINOBI_SLASH/status/1902697909684179446",
+          "title": "Shinobi Slash collaboration banner (partner account)",
+          "disposition": "pending",
+          "reason": "pending: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
+        }
+      ]
+    }
+  ]
+}

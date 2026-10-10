@@ -23,6 +23,7 @@ HOSTS = ["www.taptap.cn", ".tapimg.com"]
 SPECIAL = {-1: None, -2: None, -3: None, -4: None, -5: None, -6: 0}
 WRAPPERS = ("Reactive", "ShallowReactive", "Ref", "ShallowRef")
 _TOKEN = re.compile(r"/([0-9a-f]{32})\.(png|jpe?g|webp|gif)$")
+_RENDITION = re.compile(r"^(https://[^/]+/.+/[0-9a-f]{32})_crop_[0-9a-z]+_thumbnail_\d+x\d+\.(png|jpe?g|webp)$")
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -85,6 +86,38 @@ def _image(entry: Any) -> dict | None:
     return entry if isinstance(entry, dict) and isinstance(entry.get("original_url"), str) else None
 
 
+def banner_drafts(ctx: Any, seed: Mapping[str, Any], banner: Mapping[str, Any], thumbnails: set, page_url: str,
+                  texts: Mapping[str, str], evidence: list[str], missing: list[str]) -> list[model.Draft]:
+    """The banner: a trailer thumbnail is a ``video_placeholder``; a ``<md5>_crop_..._thumbnail_WxH`` URL is TapTap's
+    cropped and resized rendition (``upscaled`` when it is larger than the upload), so the base ``<md5>.<ext>`` upload
+    becomes the candidate that seed rules classify."""
+    url = banner["original_url"]
+    key = f"banner:{base.last_segment(url)}"
+    if url in thumbnails:
+        return [model.Draft(upstream_key=key, page_url=page_url, title="TapTap banner", action="excluded",
+                            file_url=base.stored(url), game="dynamix", game_evidence=evidence,
+                            reason="video_placeholder: banner is the trailer video thumbnail")]
+    drafts = []
+    match = _RENDITION.match(url)
+    if match:
+        drafts.append(model.Draft(
+            upstream_key=key, page_url=page_url, title="TapTap banner (platform rendition)", action="excluded",
+            file_url=base.stored(url), game="dynamix", game_evidence=evidence,
+            reason=f"upscaled: TapTap crop/resize rendition ({banner.get('width')}x{banner.get('height')}) of the "
+                   "uploaded banner; the upload itself is the separate banner candidate"))
+        url = f"{match.group(1)}.{match.group(2)}"
+        key = f"banner:{base.last_segment(url)}"
+    token = _TOKEN.search(url)
+    draft = model.apply_rule(
+        base.identity_rule(model.find_rule(base.rules(seed), key), missing), key=key, page_url=page_url, texts=texts,
+        file_url=base.stored(url), default_title="TapTap banner", default_quality=ctx.quality,
+        default_rights=ctx.rights, original_filename=base.last_segment(url), base_evidence=evidence,
+        source_reported=base.reported(url=url, mime=base.mime_for(url.rsplit(".", 1)[-1])))
+    draft.md5_token = token.group(1) if token else None
+    drafts.append(draft)
+    return drafts
+
+
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     discovery = base.new_discovery(seed, lists=["app-screenshots"],
                                    scope_notes="One app page; screenshots (original_url), banner and icon of the "
@@ -133,13 +166,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                       for video in app.get("app_videos") or [] if isinstance(video, dict)}
         banner, icon = _image(app.get("banner")), _image(app.get("icon"))
         if banner:
-            is_thumb = banner["original_url"] in thumbnails or "_thumbnail_" in banner["original_url"]
-            discovery.candidates.append(model.Draft(
-                upstream_key=f"banner:{base.last_segment(banner['original_url'])}", page_url=page_url,
-                title="TapTap banner", action="excluded" if is_thumb else "pending",
-                file_url=base.stored(banner["original_url"]), game="dynamix", game_evidence=evidence,
-                reason=("video_placeholder: banner is the trailer video thumbnail" if is_thumb else
-                        "pending: banner image not classified")))
+            discovery.candidates.extend(banner_drafts(ctx, seed, banner, thumbnails, page_url, texts, evidence,
+                                                      missing))
         if icon:
             discovery.candidates.append(model.Draft(
                 upstream_key=f"icon:{base.last_segment(icon['original_url'])}", page_url=page_url,

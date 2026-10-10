@@ -1,0 +1,924 @@
+{
+  "family": "archives",
+  "sources": [
+    {
+      "id": "archives:hkstp",
+      "name": "HKSTP press release 2016-08-09",
+      "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+      "platform": "web",
+      "adapter": "page_links",
+      "hosts": [
+        "www.hkstp.org"
+      ],
+      "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
+      "identity_quotes": [
+        "Dynamix",
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "unknown",
+        "master_status": "unverified",
+        "notes": "Press-release file as served by HKSTP."
+      },
+      "rights": {
+        "holder": "Hong Kong Science and Technology Parks Corporation"
+      },
+      "items": [
+        {
+          "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+          "link_rules": [
+            {
+              "attr": "href",
+              "pattern": "^/media/[a-z0-9]+/appendix[0-9]+\\.pdf$"
+            },
+            {
+              "attr": "src",
+              "pattern": "^/-/media/corpsite/assets/news/img/20160809_[0-9]+\\.jpg$",
+              "strip_query": true
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": "appendix3\\.pdf$",
+          "role": "reference",
+          "candidate_notes": "Appendix 3: the C4Cat / Dynamix company profile."
+        },
+        {
+          "match": "appendix[12]\\.pdf$",
+          "action": "exclude",
+          "reason": "not_dynamix: appendix about another incubatee (Marlin / btw App)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "20160809_[0-9]+\\.jpg$",
+          "action": "exclude",
+          "reason": "person_photo: launch-event group photo"
+        }
+      ]
+    },
+    {
+      "id": "archives:4gamer",
+      "name": "4Gamer.net Dynamix screenshot gallery",
+      "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "platform": "web",
+      "adapter": "page_links",
+      "hosts": [
+        "www.4gamer.net"
+      ],
+      "identity_quotes": [
+        "Dynamix"
+      ],
+      "notes": "Historical press screenshots (2015-06-18); not jacket masters.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press gallery copy of developer-supplied screenshots."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "restrictions": "Press screenshot hosted by 4Gamer.net"
+      },
+      "items": [
+        {
+          "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+          "link_rules": [
+            {
+              "attr": "href",
+              "pattern": "^/games/306/G030626/SS/[0-9]+\\.jpg$"
+            },
+            {
+              "attr": "src",
+              "pattern": "^/games/306/G030626/SS/[0-9]+\\.jpg$"
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": "/SS/[0-9]+\\.jpg$",
+          "role": "gameplay_screenshot"
+        }
+      ]
+    },
+    {
+      "id": "archives:wayback",
+      "name": "Internet Archive Wayback Machine (CDX)",
+      "url": "https://web.archive.org/",
+      "platform": "wayback",
+      "adapter": "wayback_cdx",
+      "min_interval": 3.0,
+      "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "items": [
+        {
+          "name": "official-img",
+          "url": "dynamix.c4-cat.com/img/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "official-uploads",
+          "url": "dynamix.c4-cat.com/wp-content/uploads/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "official-ip-uploads",
+          "url": "188.166.254.2/wp-content/uploads/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "mycard",
+          "url": "dynamix-server.c4-cat.com/mycard/img/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "download-host",
+          "url": "dl.dnx.c4-cat.com/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "hkstp-appendix3",
+          "url": "www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+          "match_type": "exact",
+          "filters": [
+            "statuscode:200"
+          ]
+        },
+        {
+          "name": "pixiv-62913946",
+          "url": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-77296864",
+          "url": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-80195226",
+          "url": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-92594600",
+          "url": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-42973848",
+          "url": "i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-61859342",
+          "url": "i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-122251308",
+          "url": "i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-129309072",
+          "url": "i.pximg.net/img-original/img/2025/04/14/21/02/39/129309072_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-86481781",
+          "url": "i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-91845485",
+          "url": "i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-51262301",
+          "url": "i.pximg.net/img-original/img/2015/07/05/21/10/49/51262301_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-63416349",
+          "url": "i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        }
+      ],
+      "rules": [
+        {
+          "match": "62913946_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Bluebell"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "キカンシャ"
+          ],
+          "composers": [
+            "5argon"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/62913946",
+              "quote": "My work for Dynamix song"
+            }
+          ]
+        },
+        {
+          "match": "77296864_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Lumina"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Xomu"
+          ],
+          "composers": [
+            "Xomu",
+            "Wisp X"
+          ],
+          "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/77296864",
+              "quote": "Lumina"
+            }
+          ]
+        },
+        {
+          "match": "80195226_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "終の舞姫"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Se-U-Ra"
+          ],
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/80195226",
+              "quote": "終の舞姫"
+            }
+          ]
+        },
+        {
+          "match": "92594600_p0\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 1 of 3 (square composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "For Dynamix x RAVON collaboration event"
+            }
+          ]
+        },
+        {
+          "match": "92594600_p1\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 2 of 3 (16:9 in-game composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "For Dynamix x RAVON collaboration event"
+            }
+          ]
+        },
+        {
+          "match": "92594600_p2\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 3 of 3 (original composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "For Dynamix x RAVON collaboration event"
+            }
+          ]
+        },
+        {
+          "match": "42973848_p0\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "Aegis"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "AFZero"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/42973848",
+              "quote": "Aegis"
+            }
+          ]
+        },
+        {
+          "match": "61859342_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Evoltex (poppi'n mix)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Shionty"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/61859342",
+              "quote": "Evoltex"
+            }
+          ]
+        },
+        {
+          "match": "122251308_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "Shinobi Slash square jacket with title",
+          "variant_group": "ryurei-rinbu-hyouri",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/122251308",
+              "quote": "流麗凛舞"
+            }
+          ]
+        },
+        {
+          "match": "122251308_p1\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "Shinobi Slash square jacket without text",
+          "variant_group": "ryurei-rinbu-hyouri",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/122251308",
+              "quote": "流麗凛舞"
+            }
+          ]
+        },
+        {
+          "match": "129309072_p0\\.jpg@",
+          "role": "promotional",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          }
+        },
+        {
+          "match": "86481781_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Totally bounded"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "LESYEF"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/86481781",
+              "quote": "totally bounded"
+            }
+          ]
+        },
+        {
+          "match": "91845485_p0\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "Party Vinyl"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "アサヤ"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "arcaea"
+          ],
+          "variant_role": "square variant posted for the Arcaea release",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/91845485",
+              "quote": "Party Vinyl"
+            }
+          ]
+        },
+        {
+          "match": "51262301_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Creater S"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "123456蟹"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          }
+        },
+        {
+          "match": "63416349_p0\\.png@",
+          "action": "pending",
+          "reason": "pending: the caption says the artwork's use in Dynamix was still undecided",
+          "role": "song_art",
+          "song_titles": [
+            "ぺたるすてっぷ"
+          ]
+        },
+        {
+          "match": "/img/cap[1-6]\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/T[CE][1-4]\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (Chinese/English)."
+        },
+        {
+          "match": "/wp-content/uploads/.*-700x365\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+          }
+        },
+        {
+          "match": "/wp-content/uploads/2016/07/OverRapid_Col-199x128\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 199x128 thumbnail (no larger capture)."
+          },
+          "candidate_notes": "OverRapid collaboration news thumbnail showing the in-game store."
+        },
+        {
+          "match": "/wp-content/uploads/2016/07/(Dynamix_Website3_0|3)-199x128\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 199x128 thumbnail of a news banner (no larger capture)."
+          }
+        },
+        {
+          "match": "/wp-content/uploads/.*-199x128\\.(png|jpg)@",
+          "action": "exclude",
+          "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size"
+        },
+        {
+          "match": "/wp-content/uploads/2015/10/(Zyon_ICON100)\\.png@",
+          "action": "exclude",
+          "reason": "out_of_scope_other: 100x100 character icon whose game identity is not established",
+          "game": "unknown"
+        },
+        {
+          "match": "OR_icon",
+          "action": "exclude",
+          "reason": "not_dynamix: OverRapid app icon (collaboration partner)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "(cropped-Apple_output|LOGOwhite|doujin-mark|map\\.png|/img/(a17|dynamix|title_up|title_down|fb|ios|menu|play|sprite|loading|bg_fade|bg_fade_up|favicon)\\.)",
+          "action": "exclude",
+          "reason": "site_ui: website logo, icon, sprite or decoration"
+        },
+        {
+          "match": "/img/icon_v2\\.png@",
+          "action": "exclude",
+          "reason": "game_ui: app icon"
+        },
+        {
+          "match": "appendix3\\.pdf@",
+          "role": "reference",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "unknown",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture of the HKSTP appendix PDF."
+          },
+          "candidate_notes": "HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404."
+        }
+      ]
+    },
+    {
+      "id": "archives:archive-leads",
+      "name": "Historical/secondary research leads without an acquirable file",
+      "url": "https://web.archive.org/",
+      "platform": "registry",
+      "adapter": "lead_registry",
+      "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
+      "items": [
+        {
+          "key": "atwiki:dynamix2ch",
+          "page_url": "https://w.atwiki.jp/dynamix2ch/",
+          "title": "Japanese Dynamix atwiki (pages and attachments)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: community wiki page owned by the wikis family (wikis:atwiki-ja)"
+        },
+        {
+          "key": "miraheze:dynamix",
+          "page_url": "https://dynamix.miraheze.org/wiki/Main_Page",
+          "title": "Miraheze Dynamix Wiki pages",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: community wiki page owned by the wikis family (wikis:miraheze)"
+        },
+        {
+          "key": "archive.org:wiki-dynamixc4cat.fandom.com-20260807",
+          "page_url": "https://archive.org/details/wiki-dynamixc4cat.fandom.com-20260807",
+          "title": "WikiTeam3 dump of the legacy Fandom wiki",
+          "disposition": "pending",
+          "reason": "pending: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here",
+          "file_url": "https://archive.org/download/wiki-dynamixc4cat.fandom.com-20260807/dynamixc4cat.fandom.com-20260807-images.7z"
+        },
+        {
+          "key": "fandom:arcaea:Dynamix_Collaboration",
+          "page_url": "https://arcaea.fandom.com/wiki/Dynamix_Collaboration",
+          "title": "Arcaea wiki Dynamix Collaboration",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki; Arcaea-side jackets are not the Dynamix files (credit evidence only)"
+        },
+        {
+          "key": "fandom:paradigmreboot:Category:Dynamix_Songs",
+          "page_url": "https://paradigmreboot.fandom.com/wiki/Category:Dynamix_Songs",
+          "title": "Paradigm: Reboot wiki Dynamix songs",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki (512x512 partner jackets); credit evidence only"
+        },
+        {
+          "key": "wikiwiki:berrymelody:Hemisphere",
+          "page_url": "https://wikiwiki.jp/berrymelody/Hemisphere",
+          "title": "Berry Melody wiki",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki; credit evidence only"
+        },
+        {
+          "key": "fandom:overrapid:Riverside_Cafe",
+          "page_url": "https://overrapid.fandom.com/wiki/Riverside_Cafe",
+          "title": "OverRapid wiki",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki (partner-side jackets); comparison evidence only"
+        },
+        {
+          "key": "wikiwiki:arcaea:Moonlight_of_Sand_Castle",
+          "page_url": "https://wikiwiki.jp/arcaea/Moonlight%20of%20Sand%20Castle",
+          "title": "Arcaea wikiwiki Moonlight of Sand Castle",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: Arcaea collaboration jacket page; credit evidence only"
+        },
+        {
+          "key": "wikiwiki:ravon:Nyarlathotep",
+          "page_url": "https://wikiwiki.jp/ravon/Nyarlathotep",
+          "title": "RAVON wiki credits",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki (company credit for Dynamix-origin songs)"
+        },
+        {
+          "key": "moegirl:Dynamix",
+          "page_url": "https://zh.moegirl.org.cn/Dynamix/%E6%9B%B2%E7%9B%AE%E5%88%97%E8%A1%A8",
+          "title": "Moegirl Dynamix song list",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: metadata page without illustrator credits"
+        },
+        {
+          "key": "namu:Dynamix",
+          "page_url": "https://namu.wiki/w/Dynamix",
+          "title": "Namu wiki Dynamix",
+          "disposition": "blocked",
+          "reason": "challenge: Cloudflare 'Just a moment' with HTTP 403 (research sweep); not bypassed"
+        },
+        {
+          "key": "pixiv-dic:Dynamix",
+          "page_url": "https://dic.pixiv.net/a/Dynamix",
+          "title": "pixiv dictionary / giantbomb",
+          "disposition": "blocked",
+          "reason": "blocked: HTTP 403 to automated requests (research sweep); not retried"
+        },
+        {
+          "key": "github:phi-plugin",
+          "page_url": "https://github.com/Catrong/phi-plugin/blob/main/resources/info/DLC/dynamix.json",
+          "title": "Song-title lists in bot repositories",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: title-only lists; no covers or credits"
+        },
+        {
+          "key": "ziv:7111",
+          "page_url": "https://zenius-i-vanisher.com/v5.2/thread?threadid=7111",
+          "title": "ZIv forum thread",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: forum mention (graphics credit hypothesis); no artwork file"
+        },
+        {
+          "key": "wikipedia:zh:Dynamix",
+          "page_url": "https://zh.wikipedia.org/wiki/Dynamix",
+          "title": "Chinese Wikipedia Dynamix",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: encyclopedia infobox (art director credit); no artwork collection"
+        },
+        {
+          "key": "seesaa:dynamix-playing",
+          "page_url": "https://dynamix.playing.wiki/",
+          "title": "Japanese Seesaa Dynamix wiki",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: community wiki with developer account links; identity evidence only"
+        },
+        {
+          "key": "unwire.hk:2016-08-11",
+          "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+          "title": "unwire.hk 2016 profile",
+          "disposition": "pending",
+          "reason": "pending: press screenshots and team photos not acquired in this run (photos would be person_photo exclusions)",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png"
+        },
+        {
+          "key": "techbang:20767",
+          "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+          "title": "T客邦 2014 launch article",
+          "disposition": "pending",
+          "reason": "pending: press excerpt image not acquired or measured in this run",
+          "file_url": "https://cdn1.techbang.com/system/excerpt_images/20767/original/5fb4e78491a1dcb3ffd25360fda3421f.png"
+        },
+        {
+          "key": "cuhk:newsletter-447",
+          "page_url": "https://www.iso.cuhk.edu.hk/images/publication/archive/newsletter/447/html5/8",
+          "title": "CUHK newsletter founder interview",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: interview text; no artwork"
+        },
+        {
+          "key": "duitang:1008753762",
+          "page_url": "https://api.duitang.com/blog/?id=1008753762",
+          "title": "Duitang collaboration repost",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: low-confidence repost; original source not traced (03-source-research §3)"
+        },
+        {
+          "key": "github:taskeren:dynamix-api-document",
+          "page_url": "https://github.com/Taskeren/dynamix-api-document",
+          "title": "Taskeren API notes",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: game-API research notes; private game services are not used"
+        },
+        {
+          "key": "github:dynode",
+          "page_url": "https://github.com/NordLandeW/DyNode",
+          "title": "DyNode chart tool",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: chart tool; not a validated artwork repository"
+        }
+      ]
+    }
+  ]
+}

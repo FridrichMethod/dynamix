@@ -4,7 +4,8 @@ The listing's ``<img alt="Screenshot image" data-screenshot-index=...>`` element
 URLs with a size suffix (``=w526-h296``, srcset ``=w1052-h592``). The suffix is a resize request, not the image's
 size, and may even disagree with the decoded result (e.g. 1052x591 for ``-h592``); the base URL with ``=s0`` asks for the
 stored image at its native size. Width and height always come from decoding the saved bytes; the advertised srcset
-sizes are kept in the candidate notes only. The app icon is recorded as a ``game_ui`` exclusion.
+sizes are kept in the candidate notes only. The app icon is recorded as a ``game_ui`` exclusion. Several items (one
+listing per locale) may list the same image; it stays one candidate whose notes name every listing.
 """
 
 from __future__ import annotations
@@ -58,8 +59,9 @@ def screenshots(html: str, page_url: str) -> list[dict]:
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     discovery = base.new_discovery(seed, lists=["listing-screenshots"],
-                                   scope_notes="One listing page (one locale); unique screenshot images at native "
+                                   scope_notes="Listing pages of the seed locales; unique screenshot images at native "
                                                "size (=s0). Reviews, avatars and similar-app images are ignored.")
+    by_key: dict[str, model.Draft] = {}
     for item in seed["items"]:
         page_url = item["url"]
         try:
@@ -83,6 +85,11 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             discovery.continuation["listing-screenshots"] = "structure-not-recognized"
         for index, shot in enumerate(shots, start=1):
             key = f"screenshot:{shot['token']}"
+            if key in by_key:
+                previous = by_key[key]
+                previous.candidate_extra["notes"] = (previous.candidate_extra.get("notes", "")
+                                                     + f"; also listed on {page_url}").lstrip("; ")
+                continue
             file_url = f"{shot['base']}=s0"
             sizes = sorted({f"{w}x{h}" for w, h in (advertised_size(split_size(base.absolute(page_url, s))[1])
                                                      for s in shot["srcs"]) if w and h})
@@ -92,13 +99,15 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 default_title=f"Google Play screenshot {index}", default_quality=ctx.quality,
                 default_rights=ctx.rights, original_filename=base.last_segment(file_url), base_evidence=evidence,
                 source_reported=base.reported(url=file_url))
-            if sizes:
-                draft.candidate_extra["notes"] = ("page advertised resize requests " + ", ".join(sizes)
-                                                  + "; stored size is decoded from the =s0 bytes")
+            draft.candidate_extra["notes"] = (f"listed on {page_url}" + ("; page advertised resize requests "
+                                              + ", ".join(sizes) + "; stored size is decoded from the =s0 bytes"
+                                              if sizes else ""))
+            by_key[key] = draft
             discovery.candidates.append(draft)
         icon = base.meta_content(document, "og:image")
         parsed = split_size(icon) if icon else None
-        if parsed:
+        if parsed and f"icon:{parsed[0].rsplit('/', 1)[-1]}" not in by_key:
+            by_key[f"icon:{parsed[0].rsplit('/', 1)[-1]}"] = None
             discovery.candidates.append(model.Draft(
                 upstream_key=f"icon:{parsed[0].rsplit('/', 1)[-1]}", page_url=page_url, title="Google Play app icon",
                 action="excluded", file_url=f"{parsed[0]}=s0", game="dynamix", game_evidence=evidence,
