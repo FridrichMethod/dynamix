@@ -179,10 +179,10 @@
         "004725a2c23eee82755de5bed1c609d6ebdcf105",
         "ecaf39c7aab366cc5ead63e699db59ab001592e8"
       ],
-      "role": "gameplay_screenshot",
-      "evidence": "visual_inspection: camera photo of the original-game song select 'Missionary / 罪曲'",
+      "role": "upscaled",
+      "evidence": "pixel_comparison: a 3557x2160 upscale of the frame archived as File:05.png (620x349; same song select 'Missionary / 罪曲', same score 0835966): its letterboxed content, aligned and box-downsampled to 620x349, matches 05.png at PSNR 33.0 dB (another song-select screenshot, File:02.png: 8.2 dB); UI text is soft at 1:1, the borders are pure black and there is no camera EXIF, so it is not a camera photo; 05.png keeps the native pixels",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: the original Dynamix interface (camera photo of the original-game song select 'Missionary / 罪曲'); Fandom upload 2016-07-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: the original Dynamix interface (the song select 'Missionary / 罪曲' of File:05.png); Fandom upload 2016-07-01 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:20171202 104731.png",
@@ -4642,6 +4642,14 @@
       ],
       "reason": "external_release_art",
       "evidence": "visual_inspection: 800x600 eyecatch with 'PABAT!2017 Linne x SCTL mov:RED-FOX illust:keiyuu' and 'WHIRLWIND', the artwork of the song's release in the PABAT! 2017 BMS event (the WHIRLWIND gallery captions it 'Artwork in PABAT! 2017'); the Dynamix cover is File:WHIRLWINDDynamix.png"
+    },
+    {
+      "title": "File:20160625 165406.JPG",
+      "sha256": [
+        "03bfff674a6bca80bbb5b616acddf2534cc62451b791ad331e04154722f006a9"
+      ],
+      "reason": "upscaled",
+      "evidence": "pixel_comparison: a 3557x2160 upscale of the frame archived as File:05.png (620x349; same song select 'Missionary / 罪曲', same score 0835966): its letterboxed content, aligned and box-downsampled to 620x349, matches 05.png at PSNR 33.0 dB (another song-select screenshot, File:02.png: 8.2 dB); UI text is soft at 1:1, the borders are pure black and there is no camera EXIF, so it is not a camera photo; 05.png keeps the native pixels"
     }
   ]
 }
