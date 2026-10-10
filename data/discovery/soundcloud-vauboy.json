@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:vauboy",
-  "started_at": "2026-10-10T14:05:11Z",
-  "finished_at": "2026-10-10T14:05:14Z",
+  "started_at": "2026-10-10T14:10:18Z",
+  "finished_at": "2026-10-10T14:10:20Z",
   "scope": {
     "lists": [
       "seed-pages"

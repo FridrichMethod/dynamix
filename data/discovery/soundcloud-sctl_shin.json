@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:sctl_shin",
-  "started_at": "2026-10-10T14:05:00Z",
-  "finished_at": "2026-10-10T14:05:02Z",
+  "started_at": "2026-10-10T14:10:07Z",
+  "finished_at": "2026-10-10T14:10:08Z",
   "scope": {
     "lists": [
       "seed-pages"

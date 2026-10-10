@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:meganegirai",
-  "started_at": "2026-10-10T14:05:27Z",
-  "finished_at": "2026-10-10T14:05:28Z",
+  "started_at": "2026-10-10T14:10:33Z",
+  "finished_at": "2026-10-10T14:10:34Z",
   "scope": {
     "lists": [
       "seed-posts"

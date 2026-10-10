@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-10T14:01:24Z",
+      "checked_at": "2026-10-10T14:06:58Z",
       "notes": "Historical press screenshots (2015-06-18); not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "manual_access",
-      "checked_at": "2026-10-10T14:01:24Z",
+      "checked_at": "2026-10-10T14:06:58Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T14:01:24Z",
+      "checked_at": "2026-10-10T14:06:58Z",
       "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,7 +58,7 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "partially_available",
-      "checked_at": "2026-10-10T14:01:27Z",
+      "checked_at": "2026-10-10T14:07:01Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -452,7 +452,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Sand Suna",
         "url": "https://web.archive.org/web/20221216231408/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
         "license": null,
         "restrictions": null
@@ -815,7 +815,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Sand Suna",
         "url": "https://web.archive.org/web/20221216231357/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
         "license": null,
         "restrictions": null
@@ -1109,7 +1109,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "LESYEF",
         "url": "https://web.archive.org/web/20221214210149/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
         "license": null,
         "restrictions": null
@@ -1199,7 +1199,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Xomu",
         "url": "https://web.archive.org/web/20221216052519/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
         "license": null,
         "restrictions": null
@@ -1282,7 +1282,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Sand Suna",
         "url": "https://web.archive.org/web/20221216231405/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
         "license": null,
         "restrictions": null
@@ -1438,7 +1438,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Shionty",
         "url": "https://web.archive.org/web/20221221064601/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
         "license": null,
         "restrictions": null
@@ -1575,7 +1575,7 @@
         "notes": "Internet Archive raw capture of the HKSTP appendix PDF."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": "Hong Kong Science and Technology Parks Corporation",
         "creator": null,
         "url": "https://web.archive.org/web/20240403110020/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
         "license": null,
@@ -1657,7 +1657,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "アサヤ",
         "url": "https://web.archive.org/web/20221220121848/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
         "license": null,
         "restrictions": null
@@ -2089,7 +2089,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "AFZero",
         "url": "https://web.archive.org/web/20221220032003/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
         "license": null,
         "restrictions": null
@@ -2172,7 +2172,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "キカンシャ",
         "url": "https://web.archive.org/web/20221216101704/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
         "license": null,
         "restrictions": null
@@ -2531,7 +2531,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Se-U-Ra",
         "url": "https://web.archive.org/web/20221225234754/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
         "license": null,
         "restrictions": null
@@ -2711,7 +2711,7 @@
       "candidate_id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
       "phase": "download",
       "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "attempted_at": "2026-10-10T14:01:26Z",
+      "attempted_at": "2026-10-10T14:06:59Z",
       "attempts": 1,
       "error_class": "http_4xx",
       "http_status": 404,

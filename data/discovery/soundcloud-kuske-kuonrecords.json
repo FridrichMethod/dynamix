@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:kuske-kuonrecords",
-  "started_at": "2026-10-10T14:04:37Z",
-  "finished_at": "2026-10-10T14:04:41Z",
+  "started_at": "2026-10-10T14:09:43Z",
+  "finished_at": "2026-10-10T14:09:47Z",
   "scope": {
     "lists": [
       "seed-pages"
