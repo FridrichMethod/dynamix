@@ -15,7 +15,11 @@ and a game only when no page context gives one; a ``mixed`` review's association
 the bytes) are added to the original game that page context gives. One refinement concerns exclusions only: when
 page evidence excludes a file (e.g. as a wiki interface image because the Main Page banner template shows it) and the
 review saw another exclusion in the bytes (e.g. a Dynamix Universe announcement), the review's exclusion reason is
-recorded; a review never turns a file that page evidence excludes into a download. ``animated: "official"`` marks a
+recorded; a review never turns a file that page evidence excludes into a download, with one explicit exception:
+``official_branding: true`` (a kind as role, an original-game or shared game) records that the bytes are the game's own
+branding (its wordmark) that the wiki reuses as an interface image. Page evidence whose only role is ``site_ui`` (the
+Main Page header) describes the wiki's use, not the file, so such a review decides the role (mapping ``inferred`` at
+most) and the overridden page evidence is recorded. ``animated: "official"`` marks a
 GIF the review established as an official animation (not a wiki capture with a larger still), so the default
 ``animated_capture`` exclusion does not apply.
 
@@ -74,6 +78,7 @@ class Review:
     pending: str = ""  # why the file stays pending although reviewed (role or game not established)
     official_animation: bool = False  # an official animation: animated_capture does not apply
     list_graphic: bool = False  # the bytes show a list of songs or charts (list-graphic rule; role reference)
+    official_branding: bool = False  # the game's own branding reused by the wiki as an interface image (see above)
 
     @property
     def probe(self) -> bool:
@@ -118,7 +123,7 @@ def parse(data: Any) -> dict[str, Review]:
         if not isinstance(entry, dict):
             raise ValueError(f"{label}: must be an object")
         unknown = set(entry) - {"title", "sha1", "role", "game", "evidence", "game_evidence", "songs",
-                                "associations", "pending", "animated", "list_graphic"}
+                                "associations", "pending", "animated", "list_graphic", "official_branding"}
         if unknown:
             raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
         title = _string(entry, "title", label, required=True)
@@ -164,12 +169,17 @@ def parse(data: Any) -> dict[str, Review]:
             raise ValueError(f"{label}: list_graphic must be true or false")
         if list_graphic and role != "reference":
             raise ValueError(f"{label}: list_graphic needs role 'reference' (the list-graphic rule)")
+        branding = entry.get("official_branding", False)
+        if not isinstance(branding, bool):
+            raise ValueError(f"{label}: official_branding must be true or false")
+        if branding and (role not in schema.KINDS or game not in ("dynamix", "mixed")):
+            raise ValueError(f"{label}: official_branding needs a kind as role and an original-game or shared game")
         for text in (evidence, game_evidence, pending):
             if schema.contains_credentials(text, strict=False):
                 raise ValueError(f"{label}: evidence must not contain credentials")
         result[title] = Review(title, sha1, role, game, evidence, game_evidence, _strings(entry, "songs", label),
                                associations, pending, official_animation=animated == "official",
-                               list_graphic=list_graphic)
+                               list_graphic=list_graphic, official_branding=branding)
     return result
 
 

@@ -337,6 +337,26 @@ class ReviewTests(unittest.TestCase):
         kept = self.decide(banner, _review(role="song_art"))
         self.assertEqual((kept.disposition, kept.reason.split(":")[0]), ("excluded", "site_ui"))
 
+    def test_official_branding_overrides_wiki_interface_use(self) -> None:
+        """The game's own wordmark that the wiki shows as its Main Page header: site_ui page evidence describes the
+        wiki's use, not the file, so a review that identified official branding in the bytes decides (inferred)."""
+        main_page = [_evidence("site_ui", 2, None, "Main Page", context="embedded"),
+                     _evidence("site_ui", 1, None, "Template:Main Page", context="embedded in template")]
+        logo = _review(official_branding=True, evidence="visual_inspection: the original DynAMIX wordmark")
+        decision = self.decide(main_page, logo)
+        self.assertEqual((decision.role, decision.game, decision.disposition, decision.mapping),
+                         ("promotional", "dynamix", "download", "unmapped"))
+        self.assertTrue(decision.role_evidence[0].startswith("promotional <- archivist review (File:X.png)"))
+        self.assertTrue(any("site_ui" in note and "official branding" in note for note in decision.rule_notes))
+        # Without the flag, or against any other page role, page evidence still wins.
+        self.assertEqual(self.decide(main_page, _review()).reason.split(":")[0], "site_ui")
+        listed = [_evidence("person_photo", 2, "dynamix", "Artists")]
+        self.assertEqual(self.decide(listed, logo).reason.split(":")[0], "person_photo")
+        for fields in (dict(official_branding="yes"), dict(official_branding=True, role="site_ui", game=None,
+                                                           game_evidence="")):
+            with self.assertRaises(ValueError, msg=fields):
+                _review(**fields)
+
     def test_official_animation_and_download_probe(self) -> None:
         gif = {"mime": "image/gif", "width": 480, "height": 270}
         official = classify.decide("File:X.png", [_evidence("character", 2, "dynamix")], gif, frames=2,
