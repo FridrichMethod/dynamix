@@ -155,6 +155,11 @@ class TapTapTests(OfficialTestCase):
         import hashlib
         token = hashlib.md5(shot_png).hexdigest()
         page = text("taptap_app.html").replace("0f46c7d8f23cfefc08f151e5de5f02ee", token)
+        payload = json.loads(page.split('data-ssr="true">', 1)[1].split("</script>", 1)[0])
+        app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
+        payload[app["screenshots"]].append(payload[app["screenshots"]][0])  # the same upload listed twice
+        page = page.split('data-ssr="true">', 1)[0] + 'data-ssr="true">' + json.dumps(payload) + "</script>" + \
+            page.split('data-ssr="true">', 1)[1].split("</script>", 1)[1]
         network = FakeNetwork({
             "https://www.taptap.cn/app/7082": {"text": page},
             f"{base}{token}.png": {"bytes": shot_png, "content_type": "image/png"},
@@ -178,6 +183,7 @@ class TapTapTests(OfficialTestCase):
         self.assertIn("differs from the upstream name token",
                       assets["screenshot:1111c7d8f23cfefc08f151e5de5f0222"]["quality"]["notes"])
         self.assertEqual(assets[f"screenshot:{token}"]["source_reported"]["bytes"], 589803)
+        self.assertIn("Listed again at screenshot position 3", found[f"screenshot:{token}"]["notes"])
         self.assertIs(assets[f"screenshot:{token}"]["comparisons"]["bytes_match"], False)
         self.verify()
 

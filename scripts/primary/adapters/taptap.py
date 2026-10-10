@@ -145,6 +145,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         texts = {"identifier": str(app.get("identifier") or ""), "title": str(app.get("title") or ""),
                  "developers": developers}
         evidence, missing = base.identity(seed, texts, page_url)
+        seen: dict[str, model.Draft] = {}
         for index, shot in enumerate(app.get("screenshots") or [], start=1):
             image = _image(shot)
             if image is None:
@@ -152,6 +153,11 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             url = image["original_url"]
             token = _TOKEN.search(url)
             key = f"screenshot:{token.group(1) if token else index}"
+            if key in seen:  # the app object may list the same upload twice; one candidate per upload
+                previous = seen[key]
+                previous.candidate_extra["notes"] = " ".join(filter(None, [
+                    previous.candidate_extra.get("notes"), f"Listed again at screenshot position {index}."]))
+                continue
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             draft = model.apply_rule(
                 rule, key=key, page_url=page_url, texts=texts, file_url=url,
@@ -161,6 +167,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                               bytes=image.get("original_size"), width=image.get("width"),
                                               height=image.get("height")))
             draft.md5_token = token.group(1) if token else None
+            seen[key] = draft
             discovery.candidates.append(draft)
         thumbnails = {(((video.get("video") or {}).get("thumbnail")) or {}).get("original_url")
                       for video in app.get("app_videos") or [] if isinstance(video, dict)}
