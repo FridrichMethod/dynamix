@@ -322,6 +322,21 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(self.candidate("miraheze", "File:TwinDynamix.png")["disposition"], "blocked")
 
 
+    def test_failed_files_are_retried_after_new_files(self) -> None:
+        """A --limit batch spends its attempts on new files first; an earlier failure is retried once, last."""
+        client = self.scenario.client()
+        bad = next(url for url in client.blobs if "Package_Vocal" in url and "wikitide" in url)
+        client.errors[bad] = net.HttpError("HTTP 503", url=bad, http_status=503, retriable=True)
+        self.assertEqual(self.run_cli("--source", "miraheze", "--limit", "3", client=client), 1)
+        self.assertIn(bad, client.downloads)  # strength-3 files come first; Package Vocal is among them
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 0, "\n".join(self.logs))
+        self.assertGreater(len(client.downloads), 3)
+        self.assertEqual(client.downloads[-1], bad)
+        self.assertEqual(self.candidate("miraheze", "File:Package Vocal.jpg")["disposition"], "downloaded")
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+
 class ResumeTests(WikiRun):
     def test_interrupt_writes_outputs_and_resume_continues(self) -> None:
         client = self.scenario.client()

@@ -182,10 +182,13 @@ class Runner:
                 return counter["attempts"]
 
         def work(key: str) -> None:
-            # Strongest evidence first, so that among same-wiki byte duplicates the template/caption-named file
-            # becomes the record and the others point at it (duplicate_bytes); then by candidate ID.
+            # Earlier failures last, so a --limit batch spends its attempts on new files and a failed file is retried
+            # at most once per run after them; otherwise strongest evidence first, so that among same-wiki byte
+            # duplicates the template/caption-named file becomes the record and the others point at it
+            # (duplicate_bytes); then by candidate ID.
             order = sorted(zip(self.plans[key], self.candidates[key]),
-                           key=lambda pair: (-pair[0].decision.strength, pair[0].candidate_id))
+                           key=lambda pair: (pair[1]["disposition"] == "failed", -pair[0].decision.strength,
+                                             pair[0].candidate_id))
             try:
                 for plan, candidate in order:
                     if stop.is_set():
