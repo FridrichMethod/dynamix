@@ -93,7 +93,8 @@ Enumerations:
 
 `id`, `source_id`, `upstream_key`, `page_url`, `file_url` (nullable), `title`, `role` (a `kind` value or `null` when unclassified), `game` (`dynamix`, `dynamix_universe`, `mixed`, `unknown`, `not_dynamix`), `game_evidence` (list of strings/URLs), `source_reported` (object as above), `disposition`, `reason` (string; required unless `downloaded`), `asset_id` (when `downloaded` or `duplicate_bytes`), optional `song_titles`, `illustrators`, `composers`, `collections`, `notes`.
 
-- `disposition`: `downloaded`, `duplicate_bytes` (identical SHA-256 already archived — `asset_id` names that asset), `excluded`, `failed`, `blocked`, `pending`.
+- `disposition`: `downloaded`, `duplicate_bytes`, `excluded`, `failed`, `blocked`, `pending`.
+- `duplicate_bytes` means the bytes were actually downloaded and their SHA-256 equals a file already archived (from any source or family). The candidate still gets **its own asset record** (own `id`, `source_id`, URLs, `source_reported`, `download_observed`, credits), and that record's `path` **reuses the already-archived file** — no second copy is written. `asset_id` names this source's own record. The catalog merges records by SHA-256 into one entry with every provenance record. A path may therefore be referenced by records of several sources; `path` must lie under `assets/public/<any family>/`.
 - Exclusion `reason` vocabulary (prefix before an optional `: detail`): `universe_only`, `not_dynamix`, `animated_capture`, `person_photo`, `site_ui`, `game_ui`, `video_placeholder`, `external_release_art`, `fanart`, `upscaled`, `rejected_submission`, `redirect_or_alias`, `out_of_scope_other`.
 - Every candidate of a complete discovery has exactly one disposition. Totals per source reconcile: `downloaded + duplicate_bytes + excluded + failed + blocked + pending = candidates`.
 
