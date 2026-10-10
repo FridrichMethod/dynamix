@@ -75,11 +75,14 @@ def page_text(document: BeautifulSoup) -> str:
 
 
 def headline(document: BeautifulSoup) -> str:
-    """A page's headline for record titles: ``h1``, else ``og:title``, else the document title."""
+    """A page's headline for record titles: its ``h1`` when that reads as a headline (at least 16 characters), else
+    ``og:title``, else the document title, else the short ``h1`` (a gallery page's ``h1`` is often just the game name)."""
     h1 = document.find("h1")
     text = " ".join(h1.get_text(" ").split()) if h1 else ""
-    return text or meta_content(document, "og:title") or (
-        document.title.get_text(" ", strip=True) if document.title else "")
+    if len(text) >= 16:
+        return text
+    return meta_content(document, "og:title") or (
+        " ".join(document.title.get_text(" ").split()) if document.title else "") or text
 
 
 def json_ld(document: BeautifulSoup) -> list[dict]:

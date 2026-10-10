@@ -350,6 +350,15 @@ class PressArticleTests(ArchivesTestCase):
         self.assertIn("gnn129234:og", keys)
         self.assertNotIn("gnn129234:0001345632", keys)
 
+    def test_headline_prefers_a_real_heading_over_a_bare_game_name(self):
+        from primary.adapters import base as adapter_base
+        page = ("<html><head><title>画像ギャラリー | iPhone/iPad版 Dynamix</title>"
+                "<meta property='og:title' content='画像ギャラリー | iPhone/iPad版 Dynamix'></head>"
+                "<body><h1>Dynamix</h1></body></html>")
+        self.assertEqual(adapter_base.headline(adapter_base.soup(page)), "画像ギャラリー | iPhone/iPad版 Dynamix")
+        article = "<html><head><title>X - Site</title></head><body><h1>音樂遊戲《Dynamix》近期更新內容預告</h1></body></html>"
+        self.assertEqual(adapter_base.headline(adapter_base.soup(article)), "音樂遊戲《Dynamix》近期更新內容預告")
+
     def test_seed_validation(self):
         seed = self.seed(self.RULES)
         seed["params"]["article_images"][0]["pattern"] = "("
