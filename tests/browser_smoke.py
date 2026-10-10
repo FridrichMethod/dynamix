@@ -223,6 +223,7 @@ class Smoke:
         self.browser, self.monitor = browser, monitor
         self.passed, self.failed = [], []
         self.open_pages = []
+        self.measurements = {}
         self.only = []
 
     def page(self, mount, width=1440, height=900, **options):
@@ -410,6 +411,7 @@ def check_viewer(smoke, base, catalog, fixture):
     page.keyboard.press("Escape")
     assert not viewer.evaluate("(el) => el.open")
     page.wait_for_function("document.activeElement === document.querySelector('.card-image')", timeout=3000)
+    assert page.evaluate("getComputedStyle(document.activeElement).outlineStyle") != "none", "keyboard focus is visible"
     page.wait_for_function("location.hash === ''", timeout=3000)  # the close event, which clears it, is asynchronous
     # Deep link: archive.html#<id> opens that file, for every catalog entry (gallery or not).
     for asset in catalog["assets"][: (None if fixture else 5)]:
@@ -528,6 +530,7 @@ def check_previews(smoke, base, catalog, fixture):
     assert not originals & set(requested), sorted(originals & set(requested))[:3]
     image_bytes = page.evaluate("performance.getEntriesByType('resource').filter((e) => e.initiatorType === 'img').reduce((sum, e) => sum + e.encodedBodySize, 0)")
     assert image_bytes < 2_000_000, image_bytes
+    smoke.measurements[f"first-screen grid image bytes at 1440x900, {base}"] = image_bytes
     smoke.finish(page)
     if not fixture:
         return
@@ -790,6 +793,18 @@ def check_file_url(smoke, root: Path, catalog):
     smoke.finish(page)
 
 
+def check_without_javascript(smoke, base):
+    """With JavaScript off, a phone's first screen explains it in both languages, and nothing claims to load."""
+    page = smoke.page(base, 375, 667, java_script_enabled=False)
+    smoke.goto(page, urljoin(base, "archive.html"))
+    notice = page.locator(".noscript")
+    box = notice.bounding_box()
+    assert notice.is_visible() and box["y"] + box["height"] <= 667, box
+    assert "JavaScript" in notice.inner_text() and "需要 JavaScript" in notice.inner_text()
+    assert not page.locator("#count").is_visible()
+    smoke.finish(page)
+
+
 def check_site_icons(smoke, base):
     page = smoke.page(base)
     smoke.goto(page, urljoin(base, "archive.html"))
@@ -815,6 +830,7 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: catalog strings render as text", check_injection, base, catalog)
     smoke.run(f"{label}: slideshow deep links, controls and names", check_slideshow, base, catalog, fixture)
     smoke.run(f"{label}: screenshot overlay", check_screenshot_overlay, base, catalog)
+    smoke.run(f"{label}: notice without JavaScript", check_without_javascript, base)
     for lang in ("en", "zh-CN"):
         for size in VIEWPORTS:
             smoke.run(f"{label}: layout {lang} {size}", check_layout, base, catalog, lang, size)
@@ -835,6 +851,7 @@ def main(argv=None):
     monitor = Monitor()
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(executable_path=args.browser, headless=True, args=["--no-sandbox"])
+        browser_version = browser.version
         smoke = Smoke(browser, monitor)
         smoke.only = args.only
         try:
@@ -888,7 +905,8 @@ def main(argv=None):
             if cleanup:
                 shutil.rmtree(cleanup, ignore_errors=True)
     problems = monitor.verdict()
-    report = {"mode": "fixture" if args.fixture else "base", "base": base, "passed": smoke.passed, "failed": smoke.failed,
+    report = {"mode": "fixture" if args.fixture else "base", "base": base, "browser": browser_version, "passed": smoke.passed,
+              "failed": smoke.failed, "measurements": smoke.measurements,
               "monitor_problems": problems, "requests": len(monitor.urls), "seconds": round(time.monotonic() - started, 1)}
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 1 if smoke.failed or problems else 0
