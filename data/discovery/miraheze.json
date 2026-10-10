@@ -90,8 +90,8 @@
         "timestamp": "2026-08-09T10:06:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ba79b92c4ff356fb",
       "song_titles": [
         "(XD)"
       ],
@@ -380,8 +380,8 @@
         "timestamp": "2026-08-09T10:04:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d546258b17b3d05d",
       "song_titles": [
         "(XD)"
       ],
@@ -25046,8 +25046,8 @@
         "timestamp": "2026-08-09T09:17:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:705fcc93ccf012ae",
       "song_titles": [
         "Cosmic Pulse"
       ],
@@ -25085,8 +25085,8 @@
         "timestamp": "2026-08-09T09:18:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c8f4c83a404b6097",
       "song_titles": [
         "Cosmic Pulse"
       ],
@@ -39545,7 +39545,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -39589,7 +39589,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -39827,8 +39827,8 @@
         "timestamp": "2026-08-09T10:10:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:75f7b17a567ca3c4",
       "song_titles": [
         "(XD)"
       ],
@@ -45646,7 +45646,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -45684,7 +45684,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -45722,7 +45722,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -45760,7 +45760,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -98224,8 +98224,8 @@
         "timestamp": "2026-08-09T09:13:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a833dc531cc1b818",
       "collections": [
         "Vocal"
       ],
@@ -101520,7 +101520,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -101560,7 +101560,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -101604,7 +101604,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -140393,7 +140393,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -140431,13 +140431,13 @@
         "timestamp": "2026-08-09T09:46:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d1aa7b5573dcb284",
       "song_titles": [
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -140485,7 +140485,7 @@
         "Keiyuu & RED-FOX"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -140523,7 +140523,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -140561,7 +140561,7 @@
         "WHIRLWIND"
       ],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Event",
@@ -140603,7 +140603,7 @@
       ],
       "composers": [
         "Arch vs n3pu",
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "collections": [
         "Collaboration: Arcaea",
@@ -150530,7 +150530,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -150574,7 +150574,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -150622,7 +150622,7 @@
         "Sin:cK"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -150662,7 +150662,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -150706,7 +150706,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -150744,7 +150744,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",
@@ -150782,7 +150782,7 @@
         "Φ"
       ],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "collections": [
         "Event",

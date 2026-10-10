@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "wikis",
-  "fetched_at": null,
+  "fetched_at": "2026-10-10T13:56:52Z",
   "sources": [
     {
       "id": "wikis:atwiki-ja",
@@ -10,7 +10,7 @@
       "url": "https://w.atwiki.jp/dynamix2ch/",
       "platform": "atwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T13:54:42Z",
+      "checked_at": "2026-10-10T13:59:43Z",
       "notes": "Japanese wiki of the original game (\"無印Dynamix\"); read for the original-game song list only. Attachments were not enumerated. Last read: 5/5 list pages, 616 song rows.",
       "crawl_scope": "registered song-list pages only: https://w.atwiki.jp/dynamix2ch/pages/25.html, https://w.atwiki.jp/dynamix2ch/pages/36.html, https://w.atwiki.jp/dynamix2ch/pages/37.html, https://w.atwiki.jp/dynamix2ch/pages/499.html, https://w.atwiki.jp/dynamix2ch/pages/529.html",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -28,13 +28,13 @@
       "platform": "mediawiki",
       "status": "available",
       "checked_at": "2026-10-10T13:49:49Z",
-      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (excluded 1448, pending 3476); enumeration complete. Metadata-only run: accepted files are pending download.",
+      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 4, excluded 1448, pending 3472); enumeration complete. Metadata-only run: accepted files are pending download.",
       "api_url": "https://dynamixc4cat.fandom.com/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4924,
-      "asset_count": 0,
+      "asset_count": 4,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -46,13 +46,13 @@
       "platform": "mediawiki",
       "status": "available",
       "checked_at": "2026-10-10T13:48:15Z",
-      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (excluded 923, pending 3546); enumeration complete. Metadata-only run: accepted files are pending download.",
+      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 7, excluded 923, pending 3539); enumeration complete. Metadata-only run: accepted files are pending download.",
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4469,
-      "asset_count": 0,
+      "asset_count": 7,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -63,7 +63,7 @@
       "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
       "platform": "wikiwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T13:54:42Z",
+      "checked_at": "2026-10-10T13:59:44Z",
       "notes": "Japanese multi-game rhythm-game wiki; its Dynamix page has one original-game song table (title, credited name, levels). Read for metadata only; no files. Last read: 1/1 list pages, 517 song rows.",
       "crawl_scope": "registered song-list pages only: https://wikiwiki.jp/rhythmgame/Dynamix",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -74,6 +74,1076 @@
       "evidence_level": "page_read"
     }
   ],
-  "assets": [],
+  "assets": [
+    {
+      "id": "wikis:fandom:705fcc93ccf012ae",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:CosmicPulseDynamix.png",
+      "title": "CosmicPulseDynamix",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:CosmicPulseDynamix.png",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8d/CosmicPulseDynamix.png/revision/latest?cb=20250522064031&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8d/CosmicPulseDynamix.png/revision/latest?cb=20250522064031&format=original",
+      "path": "assets/public/wikis/fandom/CosmicPulseDynamix--705fcc93ccf0.png",
+      "original_filename": "CosmicPulseDynamix.png",
+      "bytes": 3651648,
+      "sha256": "705fcc93ccf012ae1dbdda73e637983966cb97f78bc61aa2c30d629263ca9ef1",
+      "sha1": "527a92f0e225edfefbc50c0b1901b635523a44d1",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 2048,
+      "height": 1152,
+      "fetched_at": "2026-10-10T13:56:49Z",
+      "illustrators": [
+        "ariiol"
+      ],
+      "composers": [
+        "Yunosuke"
+      ],
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "song_ids": [
+        "song:cosmic-pulse"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Imgsuffix",
+          "quote": "Imgsuffix = CosmicPulseDynamix.png",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Imgsuffix",
+          "quote": "Imgsuffix = CosmicPulseDynamix.png",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ariiol",
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:CosmicPulseDynamix.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8d/CosmicPulseDynamix.png/revision/latest?cb=20250522064031",
+        "mime": "image/png",
+        "bytes": 3651648,
+        "width": 2048,
+        "height": 1152,
+        "sha1": "527a92f0e225edfefbc50c0b1901b635523a44d1",
+        "timestamp": "2025-05-22T06:40:31Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 3651648,
+        "width": 2048,
+        "height": 1152,
+        "sha1": "527a92f0e225edfefbc50c0b1901b635523a44d1",
+        "sha256": "705fcc93ccf012ae1dbdda73e637983966cb97f78bc61aa2c30d629263ca9ef1"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Yunosuke",
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#雄之助|Yunosuke]]"
+        },
+        {
+          "role": "illustrator",
+          "name": "ariiol",
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Cover Artist",
+          "quote": "ariiol<ref>[https://x.com/ariiol_/status/1879155241788293570 The illustrations are posted here.]</ref>"
+        }
+      ],
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:c8f4c83a404b6097",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Cosmic_Pulse_Chart_List.jpg",
+      "title": "Cosmic Pulse Chart List",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Cosmic_Pulse_Chart_List.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/a/ad/Cosmic_Pulse_Chart_List.jpg/revision/latest?cb=20250114133337&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/a/ad/Cosmic_Pulse_Chart_List.jpg/revision/latest?cb=20250114133337&format=original",
+      "path": "assets/public/wikis/fandom/Cosmic_Pulse_Chart_List--c8f4c83a404b.jpg",
+      "original_filename": "Cosmic_Pulse_Chart_List.jpg",
+      "bytes": 308318,
+      "sha256": "c8f4c83a404b609766b49c0fe6b961d4bab7a8438a708ac2547068a437b02870",
+      "sha1": "de28b37b596c0fe5dd97a24c7830b33c3dc28a8f",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 628,
+      "fetched_at": "2026-10-10T13:56:49Z",
+      "illustrators": [],
+      "composers": [
+        "Yunosuke"
+      ],
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "song_ids": [
+        "song:cosmic-pulse"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Cosmic Pulse Chart List'",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/Cosmic_Pulse",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Cosmic Pulse Chart List'",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Cosmic_Pulse_Chart_List.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/a/ad/Cosmic_Pulse_Chart_List.jpg/revision/latest?cb=20250114133337",
+        "mime": "image/jpeg",
+        "bytes": 308336,
+        "width": 1200,
+        "height": 628,
+        "sha1": "0d09f80bad1a0155cbc5c10c93d5b6579d8270be",
+        "timestamp": "2025-01-14T13:33:37Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 308318,
+        "width": 1200,
+        "height": 628,
+        "sha1": "de28b37b596c0fe5dd97a24c7830b33c3dc28a8f",
+        "sha256": "c8f4c83a404b609766b49c0fe6b961d4bab7a8438a708ac2547068a437b02870"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Yunosuke",
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#雄之助|Yunosuke]]"
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (API +18 bytes; a constant per-format gap like this is consistent with metadata removal by the CDN); recorded as source_reported versus download_observed, not as a second version."
+    },
+    {
+      "id": "wikis:fandom:ce55dc3e9cb3c726",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Jack_Out_KIllER_Comeback_Chart_List.jpg",
+      "title": "Jack Out KIllER Comeback Chart List",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Jack_Out_KIllER_Comeback_Chart_List.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/7c/Jack_Out_KIllER_Comeback_Chart_List.jpg/revision/latest?cb=20230413091337&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/7c/Jack_Out_KIllER_Comeback_Chart_List.jpg/revision/latest?cb=20230413091337&format=original",
+      "path": "assets/public/wikis/fandom/Jack_Out_KIllER_Comeback_Chart_List--ce55dc3e9cb3.jpg",
+      "original_filename": "Jack_Out_KIllER_Comeback_Chart_List.jpg",
+      "bytes": 257044,
+      "sha256": "ce55dc3e9cb3c7264cecfb312687f92a855e24b5e74aeac0e83355c5c154011c",
+      "sha1": "00160e36ab65678aea010d6fd5a3c7e785ea8017",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 628,
+      "fetched_at": "2026-10-10T13:56:51Z",
+      "illustrators": [],
+      "composers": [
+        "MisoilePunch♪ 〜タケノコ添え～"
+      ],
+      "song_titles": [
+        "Jack Out KIllER"
+      ],
+      "song_ids": [
+        "song:jack-out-killer"
+      ],
+      "collections": [
+        "Event",
+        "Collaboration: RAVON",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/Jack_Out_KIllER",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Jack Out KIllER Comeback Chart List'",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Jack_Out_KIllER_Comeback_Chart_List.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/7c/Jack_Out_KIllER_Comeback_Chart_List.jpg/revision/latest?cb=20230413091337",
+        "mime": "image/jpeg",
+        "bytes": 257062,
+        "width": 1200,
+        "height": 628,
+        "sha1": "82f211713644ca02f9f6db3b7ba67e049abe83c6",
+        "timestamp": "2023-04-13T09:13:37Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 257044,
+        "width": 1200,
+        "height": 628,
+        "sha1": "00160e36ab65678aea010d6fd5a3c7e785ea8017",
+        "sha256": "ce55dc3e9cb3c7264cecfb312687f92a855e24b5e74aeac0e83355c5c154011c"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "MisoilePunch♪ 〜タケノコ添え～",
+          "url": "https://dynamix.miraheze.org/wiki/Jack_Out_KIllER",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#MisoilePunch♪|MisoilePunch♪]] 〜[[Artists#タケノコ少年|タケノコ添え]]～"
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (API +18 bytes; a constant per-format gap like this is consistent with metadata removal by the CDN); recorded as source_reported versus download_observed, not as a second version."
+    },
+    {
+      "id": "wikis:fandom:d1aa7b5573dcb284",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:WHIRLWINDBG.png",
+      "title": "WHIRLWINDBG",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:WHIRLWINDBG.png",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/9/9b/WHIRLWINDBG.png/revision/latest?cb=20210409081347&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/9/9b/WHIRLWINDBG.png/revision/latest?cb=20210409081347&format=original",
+      "path": "assets/public/wikis/fandom/WHIRLWINDBG--d1aa7b5573dc.png",
+      "original_filename": "WHIRLWINDBG.png",
+      "bytes": 29877,
+      "sha256": "d1aa7b5573dcb284505becedcbd9f7d2c1b87a9a776922c05265709fffec35b7",
+      "sha1": "67205a447582b939a7085222315cb3898e3f7264",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 200,
+      "height": 200,
+      "fetched_at": "2026-10-10T13:56:52Z",
+      "illustrators": [],
+      "composers": [
+        "Linne X SCTL"
+      ],
+      "song_titles": [
+        "WHIRLWIND"
+      ],
+      "song_ids": [
+        "song:whirlwind"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/WHIRLWIND",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Background \"WHIRLWIND\"'",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Background \"WHIRLWIND\"'",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:WHIRLWINDBG.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/9/9b/WHIRLWINDBG.png/revision/latest?cb=20210409081347",
+        "mime": "image/png",
+        "bytes": 29877,
+        "width": 200,
+        "height": 200,
+        "sha1": "67205a447582b939a7085222315cb3898e3f7264",
+        "timestamp": "2021-04-09T08:13:47Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 29877,
+        "width": 200,
+        "height": 200,
+        "sha1": "67205a447582b939a7085222315cb3898e3f7264",
+        "sha256": "d1aa7b5573dcb284505becedcbd9f7d2c1b87a9a776922c05265709fffec35b7"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Linne X SCTL",
+          "url": "https://dynamix.miraheze.org/wiki/WHIRLWIND",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Linne|Linne]] X [[Artists#praw_.2F_SCTL|SCTL]](Illust.Keiyuu&RED-FOX)"
+        }
+      ],
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:705fcc93ccf012ae",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:CosmicPulseDynamix.png",
+      "title": "CosmicPulseDynamix",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:CosmicPulseDynamix.png",
+      "download_url": "https://static.wikitide.net/dynamixwiki/8/8d/CosmicPulseDynamix.png",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/8/8d/CosmicPulseDynamix.png",
+      "path": "assets/public/wikis/miraheze/CosmicPulseDynamix--705fcc93ccf0.png",
+      "original_filename": "CosmicPulseDynamix.png",
+      "bytes": 3651648,
+      "sha256": "705fcc93ccf012ae1dbdda73e637983966cb97f78bc61aa2c30d629263ca9ef1",
+      "sha1": "527a92f0e225edfefbc50c0b1901b635523a44d1",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 2048,
+      "height": 1152,
+      "fetched_at": "2026-10-10T13:56:42Z",
+      "illustrators": [
+        "ariiol"
+      ],
+      "composers": [
+        "Yunosuke"
+      ],
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "song_ids": [
+        "song:cosmic-pulse"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Imgsuffix",
+          "quote": "Imgsuffix = CosmicPulseDynamix.png",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Imgsuffix",
+          "quote": "Imgsuffix = CosmicPulseDynamix.png",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ariiol",
+        "url": "https://dynamix.miraheze.org/wiki/File:CosmicPulseDynamix.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/8/8d/CosmicPulseDynamix.png",
+        "mime": "image/png",
+        "bytes": 3651648,
+        "width": 2048,
+        "height": 1152,
+        "sha1": "527a92f0e225edfefbc50c0b1901b635523a44d1",
+        "timestamp": "2026-08-09T09:17:07Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 3651648,
+        "width": 2048,
+        "height": 1152,
+        "sha1": "527a92f0e225edfefbc50c0b1901b635523a44d1",
+        "sha256": "705fcc93ccf012ae1dbdda73e637983966cb97f78bc61aa2c30d629263ca9ef1"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Yunosuke",
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#雄之助|Yunosuke]]"
+        },
+        {
+          "role": "illustrator",
+          "name": "ariiol",
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Cover Artist",
+          "quote": "ariiol<ref>[https://x.com/ariiol_/status/1879155241788293570 The illustrations are posted here.]</ref>"
+        }
+      ],
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:75f7b17a567ca3c4",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Emi-Raw.png",
+      "title": "Emi-Raw",
+      "kind": "character",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Emi-Raw.png",
+      "download_url": "https://static.wikitide.net/dynamixwiki/2/24/Emi-Raw.png",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/2/24/Emi-Raw.png",
+      "path": "assets/public/wikis/miraheze/Emi-Raw--75f7b17a567c.png",
+      "original_filename": "Emi-Raw.png",
+      "bytes": 155316,
+      "sha256": "75f7b17a567ca3c404e96ec1248bd3ec26269b2c6ddce41833be30721e8ad3ce",
+      "sha1": "27526d6ac65384039e3f50d4f9c06e8a9b7c2339",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 442,
+      "height": 382,
+      "fetched_at": "2026-10-10T13:56:46Z",
+      "illustrators": [],
+      "composers": [
+        "Eu"
+      ],
+      "song_titles": [
+        "(XD)"
+      ],
+      "song_ids": [
+        "song:xd"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/(XD)",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Used Character \"Emi\"'",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/(XD)",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Used Character \"Emi\"'",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Emi-Raw.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/2/24/Emi-Raw.png",
+        "mime": "image/png",
+        "bytes": 155316,
+        "width": 442,
+        "height": 382,
+        "sha1": "27526d6ac65384039e3f50d4f9c06e8a9b7c2339",
+        "timestamp": "2026-08-09T10:10:45Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 155316,
+        "width": 442,
+        "height": 382,
+        "sha1": "27526d6ac65384039e3f50d4f9c06e8a9b7c2339",
+        "sha256": "75f7b17a567ca3c404e96ec1248bd3ec26269b2c6ddce41833be30721e8ad3ce"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Eu",
+          "url": "https://dynamix.miraheze.org/wiki/(XD)",
+          "field": "Template:Song|Artist",
+          "quote": "Eu"
+        }
+      ],
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:a833dc531cc1b818",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Package_Vocal.jpg",
+      "title": "Package Vocal",
+      "kind": "pack_cover",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Package_Vocal.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/a/a6/Package_Vocal.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/a/a6/Package_Vocal.jpg",
+      "path": "assets/public/wikis/miraheze/Package_Vocal--a833dc531cc1.jpg",
+      "original_filename": "Package_Vocal.jpg",
+      "bytes": 167774,
+      "sha256": "a833dc531cc1b818659547e4e0c34c75e3a24f60d53e6bab2276112bca0d6b7c",
+      "sha1": "0b7c587bdfd81a6525df709721ccd79734e5a7b4",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 960,
+      "height": 540,
+      "fetched_at": "2026-10-10T13:56:43Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [
+        "Vocal"
+      ],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Package_Vocal.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/a/a6/Package_Vocal.jpg",
+        "mime": "image/jpeg",
+        "bytes": 167774,
+        "width": 960,
+        "height": 540,
+        "sha1": "0b7c587bdfd81a6525df709721ccd79734e5a7b4",
+        "timestamp": "2026-08-09T09:13:39Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 167774,
+        "width": 960,
+        "height": 540,
+        "sha1": "0b7c587bdfd81a6525df709721ccd79734e5a7b4",
+        "sha256": "a833dc531cc1b818659547e4e0c34c75e3a24f60d53e6bab2276112bca0d6b7c"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +6 bytes (Fandom upload 2017-08-18T16:44:46Z); this Miraheze copy is not byte-identical to that upload."
+    },
+    {
+      "id": "wikis:miraheze:ba79b92c4ff356fb",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:(XD)BG-HQ.png",
+      "title": "(XD)BG-HQ",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:(XD)BG-HQ.png",
+      "download_url": "https://static.wikitide.net/dynamixwiki/b/b4/%28XD%29BG-HQ.png",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/b/b4/%28XD%29BG-HQ.png",
+      "path": "assets/public/wikis/miraheze/XD-BG-HQ--ba79b92c4ff3.png",
+      "original_filename": "(XD)BG-HQ.png",
+      "bytes": 175634,
+      "sha256": "ba79b92c4ff356fb1276e3c8af00246220ba0b6e167950a809f93f4e2137209d",
+      "sha1": "5322287c0497808b3dada46876d23bf514f8b4d6",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 494,
+      "height": 426,
+      "fetched_at": "2026-10-10T13:56:44Z",
+      "illustrators": [],
+      "composers": [
+        "Eu"
+      ],
+      "song_titles": [
+        "(XD)"
+      ],
+      "song_ids": [
+        "song:xd"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/(XD)",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Used Background \"XD\"'",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/(XD)",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Used Background \"XD\"'",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:(XD)BG-HQ.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/b/b4/%28XD%29BG-HQ.png",
+        "mime": "image/png",
+        "bytes": 175634,
+        "width": 494,
+        "height": 426,
+        "sha1": "5322287c0497808b3dada46876d23bf514f8b4d6",
+        "timestamp": "2026-08-09T10:06:37Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 175634,
+        "width": 494,
+        "height": 426,
+        "sha1": "5322287c0497808b3dada46876d23bf514f8b4d6",
+        "sha256": "ba79b92c4ff356fb1276e3c8af00246220ba0b6e167950a809f93f4e2137209d"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Eu",
+          "url": "https://dynamix.miraheze.org/wiki/(XD)",
+          "field": "Template:Song|Artist",
+          "quote": "Eu"
+        }
+      ],
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:c8f4c83a404b6097",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Cosmic_Pulse_Chart_List.jpg",
+      "title": "Cosmic Pulse Chart List",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_Chart_List.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/a/ad/Cosmic_Pulse_Chart_List.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/a/ad/Cosmic_Pulse_Chart_List.jpg",
+      "path": "assets/public/wikis/miraheze/Cosmic_Pulse_Chart_List--c8f4c83a404b.jpg",
+      "original_filename": "Cosmic_Pulse_Chart_List.jpg",
+      "bytes": 308318,
+      "sha256": "c8f4c83a404b609766b49c0fe6b961d4bab7a8438a708ac2547068a437b02870",
+      "sha1": "de28b37b596c0fe5dd97a24c7830b33c3dc28a8f",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 628,
+      "fetched_at": "2026-10-10T13:56:45Z",
+      "illustrators": [],
+      "composers": [
+        "Yunosuke"
+      ],
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "song_ids": [
+        "song:cosmic-pulse"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Cosmic Pulse Chart List'",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/Cosmic_Pulse",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Cosmic Pulse Chart List'",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_Chart_List.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/a/ad/Cosmic_Pulse_Chart_List.jpg",
+        "mime": "image/jpeg",
+        "bytes": 308318,
+        "width": 1200,
+        "height": 628,
+        "sha1": "de28b37b596c0fe5dd97a24c7830b33c3dc28a8f",
+        "timestamp": "2026-08-09T09:18:27Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 308318,
+        "width": 1200,
+        "height": 628,
+        "sha1": "de28b37b596c0fe5dd97a24c7830b33c3dc28a8f",
+        "sha256": "c8f4c83a404b609766b49c0fe6b961d4bab7a8438a708ac2547068a437b02870"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Yunosuke",
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#雄之助|Yunosuke]]"
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2025-01-14T13:33:37Z); this Miraheze copy is not byte-identical to that upload."
+    },
+    {
+      "id": "wikis:miraheze:d1aa7b5573dcb284",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:WHIRLWINDBG.png",
+      "title": "WHIRLWINDBG",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:WHIRLWINDBG.png",
+      "download_url": "https://static.wikitide.net/dynamixwiki/9/9b/WHIRLWINDBG.png",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/9/9b/WHIRLWINDBG.png",
+      "path": "assets/public/wikis/miraheze/WHIRLWINDBG--d1aa7b5573dc.png",
+      "original_filename": "WHIRLWINDBG.png",
+      "bytes": 29877,
+      "sha256": "d1aa7b5573dcb284505becedcbd9f7d2c1b87a9a776922c05265709fffec35b7",
+      "sha1": "67205a447582b939a7085222315cb3898e3f7264",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 200,
+      "height": 200,
+      "fetched_at": "2026-10-10T13:56:47Z",
+      "illustrators": [],
+      "composers": [
+        "Linne X SCTL"
+      ],
+      "song_titles": [
+        "WHIRLWIND"
+      ],
+      "song_ids": [
+        "song:whirlwind"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/WHIRLWIND",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Background \"WHIRLWIND\"'",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND",
+          "field": "gallery",
+          "quote": "section Gallery, caption 'Background \"WHIRLWIND\"'",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:WHIRLWINDBG.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/9/9b/WHIRLWINDBG.png",
+        "mime": "image/png",
+        "bytes": 29877,
+        "width": 200,
+        "height": 200,
+        "sha1": "67205a447582b939a7085222315cb3898e3f7264",
+        "timestamp": "2026-08-09T09:46:47Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 29877,
+        "width": 200,
+        "height": 200,
+        "sha1": "67205a447582b939a7085222315cb3898e3f7264",
+        "sha256": "d1aa7b5573dcb284505becedcbd9f7d2c1b87a9a776922c05265709fffec35b7"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Linne X SCTL",
+          "url": "https://dynamix.miraheze.org/wiki/WHIRLWIND",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Linne|Linne]] X [[Artists#praw_.2F_SCTL|SCTL]](Illust.Keiyuu&RED-FOX)"
+        }
+      ],
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:d546258b17b3d05d",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:(XD)_D.jpg",
+      "title": "(XD) D",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:(XD)_D.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/d/d2/%28XD%29_D.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/d/d2/%28XD%29_D.jpg",
+      "path": "assets/public/wikis/miraheze/XD-_D--d546258b17b3.jpg",
+      "original_filename": "(XD)_D.jpg",
+      "bytes": 151243,
+      "sha256": "d546258b17b3d05d02dcb0b62a39c24e59700b17e883e70fa24138936c596e05",
+      "sha1": "10af66a537d6946f7b59678333c540693cf12b93",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2048,
+      "height": 1152,
+      "fetched_at": "2026-10-10T13:56:48Z",
+      "illustrators": [],
+      "composers": [
+        "Eu"
+      ],
+      "song_titles": [
+        "(XD)"
+      ],
+      "song_ids": [
+        "song:xd"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/(XD)",
+          "field": "gallery",
+          "quote": "section Trivia, caption 'D', image in a song page's trivia/notes section",
+          "source_id": "wikis:miraheze"
+        },
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/(XD)",
+          "field": "gallery",
+          "quote": "section Trivia, caption 'D', image in a song page's trivia/notes section",
+          "source_id": "wikis:fandom"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:(XD)_D.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/d/d2/%28XD%29_D.jpg",
+        "mime": "image/jpeg",
+        "bytes": 151243,
+        "width": 2048,
+        "height": 1152,
+        "sha1": "10af66a537d6946f7b59678333c540693cf12b93",
+        "timestamp": "2026-08-09T10:04:14Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 151243,
+        "width": 2048,
+        "height": 1152,
+        "sha1": "10af66a537d6946f7b59678333c540693cf12b93",
+        "sha256": "d546258b17b3d05d02dcb0b62a39c24e59700b17e883e70fa24138936c596e05"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Eu",
+          "url": "https://dynamix.miraheze.org/wiki/(XD)",
+          "field": "Template:Song|Artist",
+          "quote": "Eu"
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-02-12T11:36:00Z); this Miraheze copy is not byte-identical to that upload."
+    }
+  ],
   "failures": []
 }

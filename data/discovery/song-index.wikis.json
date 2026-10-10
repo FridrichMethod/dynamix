@@ -3706,7 +3706,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:705fcc93ccf012ae",
+        "wikis:miraheze:705fcc93ccf012ae"
+      ]
     },
     {
       "id": "song:counter-terrorists",
@@ -7417,7 +7420,7 @@
       "title": "Φ",
       "aliases": [],
       "composers": [
-        "Street (jacket : Sin:cK)"
+        "Street"
       ],
       "illustrators": [
         "Sin:cK"
@@ -26371,7 +26374,7 @@
       "title": "WHIRLWIND",
       "aliases": [],
       "composers": [
-        "Linne X SCTL(Illust.Keiyuu&RED-FOX)"
+        "Linne X SCTL"
       ],
       "illustrators": [
         "Keiyuu & RED-FOX"
@@ -27669,6 +27672,14 @@
       }
     },
     {
+      "song_id": "song:file-13fd1c57",
+      "field": "composers",
+      "values": {
+        "wikis:miraheze": "Street",
+        "wikis:atwiki-ja": "Street (jacket : Sin:cK)"
+      }
+    },
+    {
       "song_id": "song:file-2de5b2b7",
       "field": "composers",
       "values": {
@@ -27892,6 +27903,14 @@
       "values": {
         "wikis:miraheze": "WaH!",
         "wikis:atwiki-ja": "Wah!"
+      }
+    },
+    {
+      "song_id": "song:whirlwind",
+      "field": "composers",
+      "values": {
+        "wikis:miraheze": "Linne X SCTL",
+        "wikis:atwiki-ja": "Linne X SCTL[Illust.Keiyuu&RED-FOX]"
       }
     },
     {
