@@ -10,7 +10,7 @@
       "url": "https://w.atwiki.jp/dynamix2ch/",
       "platform": "atwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T17:54:00Z",
+      "checked_at": "2026-10-10T17:57:30Z",
       "notes": "Japanese wiki of the original game (\"無印Dynamix\"); read for the original-game song list only. Attachments were not enumerated. Last read: 5/5 list pages, 616 song rows.",
       "crawl_scope": "registered song-list pages only: https://w.atwiki.jp/dynamix2ch/pages/25.html, https://w.atwiki.jp/dynamix2ch/pages/36.html, https://w.atwiki.jp/dynamix2ch/pages/37.html, https://w.atwiki.jp/dynamix2ch/pages/499.html, https://w.atwiki.jp/dynamix2ch/pages/529.html",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -63,7 +63,7 @@
       "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
       "platform": "wikiwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T17:54:01Z",
+      "checked_at": "2026-10-10T17:57:31Z",
       "notes": "Japanese multi-game rhythm-game wiki; its Dynamix page has one original-game song table (title, credited name, levels). Read for metadata only; no files. Last read: 1/1 list pages, 517 song rows.",
       "crawl_scope": "registered song-list pages only: https://wikiwiki.jp/rhythmgame/Dynamix",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -83995,17 +83995,17 @@
       "fetched_at": "2026-10-10T17:04:48Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -84064,10 +84064,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current",
@@ -135746,17 +135746,17 @@
       "fetched_at": "2026-10-10T17:04:47Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -135815,10 +135815,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"
@@ -139657,17 +139657,17 @@
       "fetched_at": "2026-10-10T17:01:35Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -139726,10 +139726,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"
@@ -154110,17 +154110,17 @@
       "fetched_at": "2026-10-10T17:04:45Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -154179,10 +154179,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"
@@ -173865,22 +173865,21 @@
       "fetched_at": "2026-10-10T17:04:51Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)",
+        "Takahiro Aoki",
         "Un vs. らせん"
       ],
       "song_titles": [
-        "HOPE",
+        "Hope!!",
         "Last farewell"
       ],
       "song_ids": [
-        "song:hope",
+        "song:hope-2",
         "song:last-farewell"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
-        "Open Submission",
-        "Open Submission (Silver)"
+        "Open Submission (Silver)",
+        "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
       "mapping_evidence": [
@@ -173950,10 +173949,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         },
         {
           "role": "composer",
@@ -193648,19 +193647,21 @@
       "width": 1024,
       "height": 576,
       "fetched_at": "2026-10-10T16:30:04Z",
-      "illustrators": [],
+      "illustrators": [
+        "HAT"
+      ],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -193686,7 +193687,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "HAT",
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Hope!!Dynamix.png",
         "license": null,
         "restrictions": null
@@ -193719,10 +193720,17 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
+        },
+        {
+          "role": "illustrator",
+          "name": "HAT",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
+          "field": "Template:Song|Cover Artist",
+          "quote": "HAT"
         }
       ],
       "upstream_status": "current"
@@ -212700,17 +212708,17 @@
       "fetched_at": "2026-10-10T17:04:50Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -212769,10 +212777,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current",
@@ -309227,17 +309235,17 @@
       "fetched_at": "2026-10-10T17:01:36Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -309296,10 +309304,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"
@@ -401128,17 +401136,17 @@
       "fetched_at": "2026-10-10T16:54:54Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -401197,10 +401205,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current",
@@ -452904,17 +452912,17 @@
       "fetched_at": "2026-10-10T16:54:53Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -452973,10 +452981,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"
@@ -456815,17 +456823,17 @@
       "fetched_at": "2026-10-10T16:52:37Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -456884,10 +456892,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"
@@ -471360,17 +471368,17 @@
       "fetched_at": "2026-10-10T16:54:52Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -471429,10 +471437,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"
@@ -491317,22 +491325,21 @@
       "fetched_at": "2026-10-10T16:54:56Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)",
+        "Takahiro Aoki",
         "Un vs. らせん"
       ],
       "song_titles": [
-        "HOPE",
+        "Hope!!",
         "Last farewell"
       ],
       "song_ids": [
-        "song:hope",
+        "song:hope-2",
         "song:last-farewell"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
-        "Open Submission",
-        "Open Submission (Silver)"
+        "Open Submission (Silver)",
+        "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
       "mapping_evidence": [
@@ -491402,10 +491409,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         },
         {
           "role": "composer",
@@ -511287,19 +511294,21 @@
       "width": 1024,
       "height": 576,
       "fetched_at": "2026-10-10T16:28:44Z",
-      "illustrators": [],
+      "illustrators": [
+        "HAT"
+      ],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -511325,7 +511334,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "HAT",
         "url": "https://dynamix.miraheze.org/wiki/File:Hope!!Dynamix.png",
         "license": null,
         "restrictions": null
@@ -511358,10 +511367,17 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
+        },
+        {
+          "role": "illustrator",
+          "name": "HAT",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
+          "field": "Template:Song|Cover Artist",
+          "quote": "HAT"
         }
       ],
       "upstream_status": "current"
@@ -530432,17 +530448,17 @@
       "fetched_at": "2026-10-10T16:54:55Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -530501,10 +530517,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current",
@@ -627959,17 +627975,17 @@
       "fetched_at": "2026-10-10T16:52:39Z",
       "illustrators": [],
       "composers": [
-        "Notorious(Nota & TRIAL)"
+        "Takahiro Aoki"
       ],
       "song_titles": [
-        "HOPE"
+        "Hope!!"
       ],
       "song_ids": [
-        "song:hope"
+        "song:hope-2"
       ],
       "collections": [
         "Event",
-        "Open Submission (Regular)",
+        "Open Submission (Silver)",
         "Open Submission"
       ],
       "mapping_status": "confirmed_wiki",
@@ -628028,10 +628044,10 @@
       "credit_evidence": [
         {
           "role": "composer",
-          "name": "Notorious(Nota & TRIAL)",
-          "url": "https://dynamix.miraheze.org/wiki/HOPE",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Hope!!",
           "field": "Template:Song|Compound Artist Link",
-          "quote": "[[Artists#Notorius|Notorious]]([[Artists#Nota|Nota]] & [[Artists#TRIAL|TRIAL]])"
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
         }
       ],
       "upstream_status": "current"

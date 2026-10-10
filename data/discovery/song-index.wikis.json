@@ -13297,9 +13297,7 @@
     {
       "id": "song:hope",
       "title": "HOPE",
-      "aliases": [
-        "Hope!!"
-      ],
+      "aliases": [],
       "composers": [
         "Notorious(Nota & TRIAL)"
       ],
@@ -13334,18 +13332,11 @@
           "source_id": "wikis:atwiki-ja",
           "url": "https://w.atwiki.jp/dynamix2ch/pages/37.html",
           "revision": null
-        },
-        {
-          "source_id": "wikis:rhythmgame-ja",
-          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
-          "revision": null
         }
       ],
       "artwork_asset_ids": [
         "wikis:fandom:33ec54cbaf651e56",
-        "wikis:fandom:9a0c4443d5bf2bba",
-        "wikis:miraheze:33ec54cbaf651e56",
-        "wikis:miraheze:9a0c4443d5bf2bba"
+        "wikis:miraheze:33ec54cbaf651e56"
       ]
     },
     {
@@ -13366,7 +13357,8 @@
       "in_original_game": true,
       "inclusion_evidence": [
         "https://dynamix.miraheze.org/wiki/Hope!! (Template:Song, Category:Event songs)",
-        "https://dynamixc4cat.fandom.com/wiki/Hope!! (Template:Song, Category:Event songs)"
+        "https://dynamixc4cat.fandom.com/wiki/Hope!! (Template:Song, Category:Event songs)",
+        "https://w.atwiki.jp/dynamix2ch/pages/37.html (Dynamix wiki (atwiki, Japanese): イベント楽曲・frag解禁曲一覧)"
       ],
       "universe_also": false,
       "removed": false,
@@ -13380,9 +13372,22 @@
           "source_id": "wikis:fandom",
           "url": "https://dynamixc4cat.fandom.com/wiki/Hope!!",
           "revision": 48064
+        },
+        {
+          "source_id": "wikis:atwiki-ja",
+          "url": "https://w.atwiki.jp/dynamix2ch/pages/37.html",
+          "revision": null
+        },
+        {
+          "source_id": "wikis:rhythmgame-ja",
+          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
+          "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9a0c4443d5bf2bba",
+        "wikis:miraheze:9a0c4443d5bf2bba"
+      ]
     },
     {
       "id": "song:hopeful-warrior",
@@ -29320,22 +29325,6 @@
       "values": {
         "wikis:miraheze": "Hatsukoi Memories",
         "wikis:atwiki-ja": "Hatsukoi memories"
-      }
-    },
-    {
-      "song_id": "song:hope",
-      "field": "composers",
-      "values": {
-        "wikis:miraheze": "Notorious(Nota & TRIAL)",
-        "wikis:atwiki-ja": "Takahiro Aoki"
-      }
-    },
-    {
-      "song_id": "song:hope",
-      "field": "title",
-      "values": {
-        "wikis:miraheze": "HOPE",
-        "wikis:atwiki-ja": "Hope!!"
       }
     },
     {
