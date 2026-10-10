@@ -84523,7 +84523,7 @@
       },
       "disposition": "failed",
       "reason": "download http_4xx: HTTP 404",
-      "notes": "no role evidence"
+      "notes": "inspection download for the archivist review (unresolved_role: archivist review (File:Limstella.png): download_probe: the file returns HTTP 404 from Fandom's CDN with and without format=original (2026-10-10); it was not imported to Miraheze; the content could not be inspected); no role evidence"
     },
     {
       "id": "wikis:fandom:File:Lin-Raw.png",
