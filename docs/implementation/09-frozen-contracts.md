@@ -156,6 +156,8 @@ scripts/prepare_pages.py  --output PATH
 ```
 
 - `--verify` and `--check` run offline and exit nonzero on any mismatch; `--check` compares regenerated output to committed files without writing.
+- Every fetch/build script also accepts `--root PATH` (default: repository root) so tests run the real CLI against `tests/fixtures/contract/` without touching committed data.
+- Import convention: scripts run as `python -I scripts/<name>.py` and import shared code as `from lib import ...` (`sys.path[0]` is `scripts/`); tests insert `ROOT / "scripts"` into `sys.path`. Tests are unittest modules runnable as `python -I tests/test_<name>.py`.
 - Network defaults (shared helper, not per-script): one request at a time per host, ≥ 1.0 s spacing, `Retry-After` honored up to 60 s, ≤ 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge (recorded as `blocked`), 64 MiB max response, explicit host allowlist re-checked on every redirect, private/loopback addresses rejected, User-Agent `DynamixArtworkArchive/1.0 (+https://github.com/FridrichMethod/dynamix)`.
 - Downloads: unique temp file in the destination directory → decode/verify → `os.replace`; a crash never leaves a successful-looking record. `--resume` re-hashes existing files instead of trusting existence.
 
@@ -163,10 +165,10 @@ scripts/prepare_pages.py  --output PATH
 
 | Branch | Owns |
 | --- | --- |
-| `impl/contracts` (bootstrap) | `scripts/lib/**`, `tests/test_lib_*.py`, `tests/fixtures/contract/**`, `tests/fixtures/ui/**`, `requirements*.txt`, `.gitattributes`, `LICENSE`, `licenses/apache-2.0-notice-reference` (if any) |
+| `impl/contracts` (bootstrap) | `scripts/lib/**`, `tests/test_lib_*.py`, `tests/test_fixtures_contract.py`, `tests/fixtures/contract/**`, `requirements*.txt`, `.gitattributes`, `LICENSE` |
 | `impl/wikis` | `scripts/fetch_wikis.py`, `scripts/wikis/**`, `tests/test_fetch_wikis*.py`, `tests/fixtures/wikis/**`, `data/sources/wikis.json`, `data/discovery/{miraheze,fandom,atwiki-ja,rhythmgame-ja}.json`, `data/discovery/song-index.wikis.json`, `assets/public/wikis/**` |
 | `impl/primary-sources` | `scripts/fetch_{artists,official,archives}.py`, `scripts/primary/**`, `tests/test_fetch_{artists,official,archives}*.py`, `tests/fixtures/{artists,official,archives}/**`, `data/sources/{artists,official,archives}.json`, their `data/discovery/*.json`, `assets/public/{artists,official,archives}/**` |
-| `impl/ui` | `archive.html`, `templates/slideshow.html`, `src/**`, `assets/site/**`, `site.webmanifest`, `browserconfig.xml`, `tests/test_{i18n,layout,slideshow,archive_labels}*.py`, `tests/browser_smoke.py`, `tests/fixtures/browser/**` |
+| `impl/ui` | `archive.html`, `templates/slideshow.html`, `src/**`, `assets/site/**`, `site.webmanifest`, `browserconfig.xml`, `tests/test_{i18n,layout,slideshow,archive_labels}*.py`, `tests/browser_smoke.py`, `tests/fixtures/ui/**`, `tests/fixtures/browser/**`, `licenses/*-MIT.txt` for reused vendor JS |
 | `impl/catalog` | `scripts/build_{catalog,thumbnails,coverage}.py`, `tests/test_{catalog,thumbnails,coverage,provenance}*.py`, `tests/fixtures/catalog/**` |
 | `impl/ci` | `.github/workflows/**`, `scripts/{prepare_pages,check_sources}.py`, `tests/test_{pages,check_sources,workflows,line_endings,licensing}*.py`, `tests/run_all.py` |
 | coordinator | root docs, `NOTICE`, `docs/implementation/**`, `data/sources/song-index.json`, `data/{catalog.json,catalog.js,thumbs.json,coverage.json}`, `assets/thumbs/**`, `index.html`, merges, remote |
