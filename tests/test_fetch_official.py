@@ -291,9 +291,9 @@ class TapTapTests(OfficialTestCase):
         app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
         posters = ["https://img-tc.tapimg.com/video-picture/1001/first.jpg",
                    "https://img-tc.tapimg.com/video-picture/1002/first.jpg"]
-        for url in posters:
+        for url, field in zip(posters, ("thumbnail", "raw_cover")):  # raw_cover: the video's first frame
             base_index = len(payload)
-            payload += [{"video": base_index + 1}, {"thumbnail": base_index + 2}, {"original_url": base_index + 3}, url]
+            payload += [{"video": base_index + 1}, {field: base_index + 2}, {"original_url": base_index + 3}, url]
             payload[app["app_videos"]].append(base_index)
         page = head + 'data-ssr="true">' + json.dumps(payload) + "</script>" + tail
         network = FakeNetwork({"https://www.taptap.cn/app/7082": {"text": page}})

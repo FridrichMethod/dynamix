@@ -6,7 +6,8 @@ it. The app object (the one with ``screenshots`` and ``identifier``) lists image
 previews. ``original_url`` is downloaded, the advertised size/bytes are kept as ``source_reported``, and the 32-hex
 name token is compared with the file's MD5 as extra evidence of an untouched upload. The banner, when it is the trailer
 thumbnail, is a ``video_placeholder`` and the icon a ``game_ui`` exclusion; every other trailer poster frame of
-``app_videos`` is a ``video_placeholder`` exclusion too, so each image of the payload is accounted for.
+``app_videos`` (``thumbnail``, and ``raw_cover``: the video's first frame, ``video-picture/<id>/first.jpg``) is a
+``video_placeholder`` exclusion too, so each image of the payload is accounted for.
 """
 
 from __future__ import annotations
@@ -219,13 +220,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             draft.md5_token = token.group(1) if token else None
             seen[key] = draft
             discovery.candidates.append(draft)
-        thumbnails = {(((video.get("video") or {}).get("thumbnail")) or {}).get("original_url")
-                      for video in app.get("app_videos") or [] if isinstance(video, dict)}
+        videos = [video.get("video") or {} for video in app.get("app_videos") or [] if isinstance(video, dict)]
+        thumbnails = {(video.get("thumbnail") or {}).get("original_url") for video in videos}
+        posters = thumbnails | {(video.get("raw_cover") or {}).get("original_url") for video in videos}
         banner, icon = _image(app.get("banner")), _image(app.get("icon"))
         if banner:
             discovery.candidates.extend(banner_drafts(ctx, seed, banner, thumbnails, page_url, texts, evidence,
                                                       missing))
-        discovery.candidates.extend(poster_drafts(thumbnails - {banner["original_url"] if banner else None}, page_url,
+        discovery.candidates.extend(poster_drafts(posters - {banner["original_url"] if banner else None}, page_url,
                                                   evidence))
         if icon:
             discovery.candidates.append(model.Draft(
