@@ -51,8 +51,8 @@ REGISTERED_SOURCE_IDS = (
 )
 KINDS = ("song_art", "pack_cover", "character", "background", "part", "promotional",
          "store_screenshot", "gameplay_screenshot", "process", "reference")  # catalog ordering
-SITE_KINDS = ("song_art", "pack_cover", "character", "background", "part", "promotional", "process", "store_screenshot")
-ARCHIVE_KINDS = ("reference", "gameplay_screenshot")
+SITE_KINDS = ("song_art", "pack_cover", "character", "background", "part", "promotional", "process")
+ARCHIVE_KINDS = ("reference", "gameplay_screenshot", "store_screenshot")  # tier revision 1.1
 SLIDESHOW_KINDS = ("song_art", "pack_cover", "promotional", "character")
 SLIDESHOW_MIN_LONG_EDGE = 1000
 TIERS = ("site", "archive")

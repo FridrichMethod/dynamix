@@ -1498,7 +1498,7 @@
       "thumb": "assets/thumbs/0cc7da89df091c4f.webp",
       "gallery": true,
       "slideshow": false,
-      "site_original": true,
+      "site_original": false,
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/official/apple-store/screenshot-1--0cc7da89df09.png",
       "provenance": [
         {
@@ -1991,7 +1991,7 @@
     },
     "failure_count": 2,
     "downloaded_bytes": 96274,
-    "site_original_bytes": 84910,
-    "archive_only_bytes": 11364
+    "site_original_bytes": 81564,
+    "archive_only_bytes": 14710
   }
 }

@@ -36,7 +36,7 @@ from lib import paths, schema  # noqa: E402 - the contract library lives in scri
 OWNER, GAME, REPOSITORY = "FridrichMethod", "Dynamix", "https://github.com/FridrichMethod/dynamix"
 KIND_ORDER = ["song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot",
               "gameplay_screenshot", "process", "reference"]
-SITE_KINDS = {"song_art", "pack_cover", "character", "background", "part", "promotional", "process", "store_screenshot"}
+SITE_KINDS = {"song_art", "pack_cover", "character", "background", "part", "promotional", "process"}
 SLIDESHOW_KINDS = {"song_art", "pack_cover", "promotional", "character"}
 FAMILY_ORDER = ["artists", "official", "wikis", "archives"]
 MIME = {"PNG": "image/png", "JPEG": "image/jpeg", "WEBP": "image/webp", "GIF": "image/gif", "PDF": "application/pdf"}
