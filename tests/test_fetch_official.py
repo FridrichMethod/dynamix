@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net  # noqa: E402
 from primary import cli, runner  # noqa: E402
-from primary.adapters import apple, probe, registry as registry_adapter, x as x_adapter  # noqa: E402
+from primary.adapters import apple, facebook, probe, registry as registry_adapter, x as x_adapter, youtube  # noqa: E402,E501
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/official"
@@ -432,6 +432,147 @@ class XTimelineTests(OfficialTestCase):
         self.assertEqual(found["1913000000000000001:1"]["disposition"], "pending")
         self.assertEqual(network.count("pbs.twimg.com"), 0)
         self.assertEqual(self.manifest()["assets"], [])
+
+
+class YouTubeTests(OfficialTestCase):
+    CHANNEL = "https://www.youtube.com/@C4CatEntertainment"
+    VIDEO = "FInFw2lVz_I"
+
+    def seed(self, items, rules=None):
+        return {"id": "official:youtube", "name": "YouTube", "url": self.CHANNEL, "platform": "youtube",
+                "adapter": "youtube_video", "params": {"channel_url": self.CHANNEL},
+                "quality": {**QUALITY, "source_variant": "preview"}, "items": items,
+                "rules": rules if rules is not None else [
+                    {"match": "^FInFw2lVz_I$", "role": "promotional", "evidence_quotes": ["Package Vocal"],
+                     "collections": ["Package Vocal"]},
+                    {"match": "^channel:banner$", "role": "promotional"},
+                    {"match": "^channel:avatar$", "action": "exclude", "reason": "site_ui: company logo"}]}
+
+    def oembed_url(self, video):
+        return full_url(youtube.OEMBED, {"url": f"https://www.youtube.com/watch?v={video}", "format": "json"})
+
+    def test_largest_generated_thumbnail_with_fallback(self):
+        routes = {self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
+                  youtube.thumbnail(self.VIDEO, "maxresdefault"): {
+                      "error": net.HttpError("HTTP 404", url="https://i.ytimg.com/", http_status=404)},
+                  youtube.thumbnail(self.VIDEO, "sddefault"): {"bytes": image_bytes("JPEG", (64, 48)),
+                                                               "content_type": "image/jpeg"}}
+        network = FakeNetwork(routes)
+        self.run_family([self.seed([{"video_id": self.VIDEO}])], network)
+        candidate = self.candidates("official:youtube")[self.VIDEO]
+        self.assertEqual(candidate["disposition"], "downloaded")
+        asset = self.manifest()["assets"][0]
+        self.assertEqual(asset["download_url"], youtube.thumbnail(self.VIDEO, "sddefault"))
+        self.assertEqual(asset["page_url"], f"https://www.youtube.com/watch?v={self.VIDEO}")
+        self.assertEqual(asset["title"], "Dynamix《Package Vocal》")
+        self.assertTrue(asset["transformed"])
+        self.assertEqual(asset["quality"]["source_variant"], "preview")
+        # oEmbed advertises another rendition: its URL is kept, sizes are not compared.
+        self.assertEqual(asset["source_reported"]["url"], "https://i.ytimg.com/vi/FInFw2lVz_I/hqdefault.jpg")
+        self.assertIsNone(asset["comparisons"]["dimensions_match"])
+        self.assertIn("advertises", asset["notes"])
+        self.verify()
+
+    def test_video_of_another_channel_is_held(self):
+        data = json.loads(text("youtube_oembed.json"))
+        data["author_url"] = "https://www.youtube.com/@someone-else"
+        network = FakeNetwork({self.oembed_url(self.VIDEO): {"json": data}})
+        self.run_family([self.seed([{"video_id": self.VIDEO}])], network)
+        candidate = self.candidates("official:youtube")[self.VIDEO]
+        self.assertEqual(candidate["disposition"], "pending")
+        self.assertIn("is not https://www.youtube.com/@C4CatEntertainment", candidate["reason"])
+        self.assertEqual(network.count("i.ytimg.com"), 0)
+        self.verify()
+
+    def test_unavailable_video_is_a_failure_and_keeps_the_list_open(self):
+        network = FakeNetwork({})  # oEmbed 404: private or removed video
+        self.run_family([self.seed([{"video_id": self.VIDEO}])], network)
+        snapshot = manifest.load_discovery(self.root, "official:youtube")
+        self.assertEqual(snapshot["candidates"][0]["disposition"], "failed")
+        self.assertEqual(snapshot["continuation"]["seed-videos"], "not-read:http_4xx")
+        self.verify()
+
+    def test_channel_art_needs_the_image_on_the_channel_page(self):
+        banner = "https://yt3.googleusercontent.com/" + "B" * 40
+        avatar = "https://yt3.googleusercontent.com/" + "A" * 40
+        network = FakeNetwork({self.CHANNEL: {"text": f"<title>C4 Cat - YouTube</title> {'B' * 40}=w1060"},
+                               f"{banner}=s0": {"bytes": image_bytes("JPEG", (80, 45)), "content_type": "image/jpeg"}})
+        self.run_family([self.seed([{"channel_art": "banner", "url": banner},
+                                    {"channel_art": "avatar", "url": avatar}])], network)
+        found = self.candidates("official:youtube")
+        self.assertEqual(found["channel:banner"]["disposition"], "downloaded")
+        self.assertEqual(found["channel:avatar"]["disposition"], "pending")  # not on the page: never admitted
+        self.assertIn("no longer shows", found["channel:avatar"]["reason"])
+        self.assertEqual(network.count("www.youtube.com"), 1)  # the channel page is read once
+        self.verify()
+
+    def test_seed_validation(self):
+        with self.assertRaises(ValueError):
+            youtube.check_seed(self.seed([{"video_id": "short"}]), "test")
+        with self.assertRaises(ValueError):
+            youtube.check_seed({**self.seed([]), "params": {"channel_url": "https://example.com/c"}}, "test")
+
+
+class FacebookTests(OfficialTestCase):
+    POST = "https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/"
+    IMAGE = ("https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/474475887_2672744962912332_8069806985176556266_n.jpg"
+             "?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=104&ccb=1-7&_nc_sid=cae128&oh=00_AfTest"
+             "&oe=68000000")
+
+    def seed(self, items, rules=None):
+        return {"id": "official:facebook", "name": "Facebook", "url": "https://www.facebook.com/c4cat.dynamix/",
+                "platform": "facebook", "adapter": "facebook_post", "params": {"page": "c4cat.dynamix"},
+                "quality": {**QUALITY, "source_variant": "preview"}, "rights": {"holder": "C4Cat Entertainment Limited"},
+                "items": items, "rules": rules if rules is not None else [
+                    {"match": "^1848526438667526$", "role": "reference", "evidence_quotes": ["Own The Night"],
+                     "song_titles": ["Own The Night", "Arty Party"], "mapping_status": "confirmed_primary"}]}
+
+    def test_open_graph_image_of_a_permalink(self):
+        network = FakeNetwork({self.POST: {"text": text("facebook_post.html")},
+                               self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
+        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
+        candidate = self.candidates("official:facebook")["1848526438667526"]
+        self.assertEqual(candidate["disposition"], "downloaded")
+        asset = self.manifest()["assets"][0]
+        self.assertEqual(asset["download_url"], self.IMAGE)  # entities decoded, the fetched URL kept
+        self.assertEqual(asset["original_filename"], "474475887_2672744962912332_8069806985176556266_n.jpg")
+        self.assertEqual(asset["mapping_status"], "confirmed_primary")
+        self.assertEqual(asset["mapping_evidence"][0]["field"], "og:description")
+        self.assertTrue(asset["transformed"])
+        self.assertIn("display size p600x600", asset["notes"])
+        self.verify()
+
+    def test_permalink_without_an_image_is_blocked_without_a_failure(self):
+        network = FakeNetwork({self.POST: {"text": text("facebook_shell.html")}})
+        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
+        candidate = self.candidates("official:facebook")["1848526438667526"]
+        self.assertEqual(candidate["disposition"], "blocked")
+        self.assertIn("logged-out reader", candidate["reason"])
+        self.assertEqual(candidate["song_titles"], ["Own The Night", "Arty Party"])  # the lead stays traceable
+        self.assertEqual(self.manifest()["failures"], [])
+        self.assertEqual(network.count("scontent-sjc6-1.xx.fbcdn.net"), 0)
+        self.verify()
+
+    def test_permalink_leaving_the_page_is_held(self):
+        page = text("facebook_post.html").replace("https://www.facebook.com/c4cat.dynamix/posts/",
+                                                  "https://www.facebook.com/someone.else/posts/")
+        network = FakeNetwork({self.POST: {"text": page}})
+        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
+        candidate = self.candidates("official:facebook")["1848526438667526"]
+        self.assertEqual(candidate["disposition"], "pending")
+        self.assertIn("not the c4cat.dynamix page", candidate["reason"])
+        self.verify()
+
+    def test_login_refusal_is_blocked(self):
+        network = FakeNetwork({self.POST: {"error": net.BlockedError("HTTP 403", url=self.POST, http_status=403)}})
+        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
+        self.assertEqual(self.candidates("official:facebook")["1848526438667526"]["disposition"], "blocked")
+        self.assertEqual(self.manifest()["sources"][0]["status"], "manual_access")
+        self.verify()
+
+    def test_seed_urls_must_be_permalinks_of_the_page(self):
+        with self.assertRaises(ValueError):
+            facebook.check_seed(self.seed([{"key": "x", "url": "https://www.facebook.com/other/posts/1/"}]), "test")
 
 
 class ProbeAndRegistryTests(OfficialTestCase):
