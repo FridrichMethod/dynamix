@@ -335,7 +335,17 @@ def prepare(root: Path, output: Path, tracked: Mapping[str, str] | Iterable[str]
 
 
 def git(root: Path, *args: str) -> bytes:
-    return subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True).stdout
+    try:
+        return subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True).stdout
+    except OSError as error:  # git is not installed or cannot be started
+        raise PagesError(f"cannot run git: {error}") from None
+
+
+def _path_name(raw: bytes) -> str:
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        raise PagesError(f"tracked path is not valid UTF-8: {raw!r}") from None
 
 
 def tracked_entries(root: Path) -> dict[str, str]:
@@ -346,7 +356,7 @@ def tracked_entries(root: Path) -> dict[str, str]:
             continue
         meta, _, name = record.partition(b"\t")
         mode, _, stage_number = meta.decode("ascii").split(" ")
-        rel = name.decode("utf-8")
+        rel = _path_name(name)
         if stage_number != "0":
             raise PagesError(f"unmerged path in the index: {rel}")
         entries[rel] = mode
@@ -363,9 +373,9 @@ def dirty_paths(root: Path) -> set[str]:
         index += 1
         if not token:
             continue
-        dirty.add(token[3:].decode("utf-8"))
+        dirty.add(_path_name(token[3:]))
         if token[:1] in (b"R", b"C"):  # a rename/copy is followed by its source path
-            dirty.add(tokens[index].decode("utf-8"))
+            dirty.add(_path_name(tokens[index]))
             index += 1
     return dirty
 
@@ -373,7 +383,7 @@ def dirty_paths(root: Path) -> set[str]:
 def head_commit(root: Path) -> str | None:
     try:
         return git(root, "rev-parse", "HEAD").decode("ascii").strip()
-    except (OSError, subprocess.CalledProcessError):
+    except (PagesError, subprocess.CalledProcessError):
         return None
 
 

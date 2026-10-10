@@ -422,6 +422,26 @@ class CommandLineTests(PagesTestCase):
         self.assertEqual(self.main(), 1)
         self.assertFalse(self.output.exists())
 
+    def test_cli_refuses_a_tracked_name_that_is_not_utf8(self):
+        name = os.fsencode(self.checkout.root / "assets/site") + b"/\xff.svg"
+        with open(name, "wb") as handle:
+            handle.write(b"<svg/>\n")
+        self.git("add", "--", "assets/site")
+        self.git("commit", "-q", "-m", "latin-1 name")
+        with mock.patch("sys.stdout"), mock.patch("sys.stderr") as stderr:
+            status = pages.main(["--root", str(self.checkout.root), "--output", str(self.output)])
+        self.assertEqual(status, 1)
+        self.assertIn("not valid UTF-8", "".join(call.args[0] for call in stderr.write.call_args_list))
+        self.assertFalse(self.output.exists())
+
+    def test_cli_reports_a_missing_git_cleanly(self):
+        with mock.patch.object(pages.subprocess, "run", side_effect=FileNotFoundError("git")), \
+                mock.patch("sys.stdout"), mock.patch("sys.stderr") as stderr:
+            status = pages.main(["--root", str(self.checkout.root), "--output", str(self.output)])
+        self.assertEqual(status, 1)
+        self.assertIn("cannot run git", "".join(call.args[0] for call in stderr.write.call_args_list))
+        self.assertFalse(self.output.exists())
+
     def test_cli_ignores_untracked_files(self):
         (self.checkout.root / "docs/draft.md").write_text("draft", encoding="utf-8")
         self.assertEqual(self.main(), 0)
