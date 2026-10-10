@@ -497,12 +497,18 @@ def _unarchived(plan: discover.Plan, candidate: dict, state: State, evidence_com
 
 # --- Downloads --------------------------------------------------------------------------------------------------------
 
-def _quality(source: config.WikiSource, transformed: bool, fmt: str, reported_mime: str | None,
-             comparisons: Mapping[str, Any]) -> dict:
-    if transformed:
+def _quality(source: config.WikiSource, transform: str | None, fmt: str, reported: Mapping[str, Any],
+             comparisons: Mapping[str, Any], nbytes: int) -> dict:
+    if transform == "format":
         return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
-                "notes": f"The CDN returned {fmt} although {reported_mime} was reported and the stored original was "
-                         "requested; these bytes are a platform transform, not the stored upload."}
+                "notes": f"The CDN returned {fmt} although {reported.get('mime')} was reported and the stored original "
+                         "was requested; these bytes are a platform transform, not the stored upload."}
+    if transform == "upload":
+        return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
+                "notes": f"Fandom's CDN response to format=original ({nbytes} bytes) differs from the upload Fandom's "
+                         f"API records (SHA-1 {reported.get('sha1')}, {reported.get('bytes')} bytes), and Miraheze's "
+                         "API reports the same SHA-1 and size for its copy of that upload: these bytes are a platform "
+                         "transform of the stored upload, not the upload itself."}
     if source.key == "fandom" and comparisons["sha1_match"] is False:
         return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
                 "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API "
@@ -514,6 +520,24 @@ def _quality(source: config.WikiSource, transformed: bool, fmt: str, reported_mi
         note = "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
     return {"source_variant": "site_original", "origin_status": "wiki_copy", "master_status": "unverified",
             "notes": note}
+
+
+def known_transform(source: config.WikiSource, reported: Mapping[str, Any], comparisons: Mapping[str, Any],
+                    counterpart: Mapping[str, Any]) -> str | None:
+    """Why the served bytes are known to be a platform transform of the stored upload (``transformed``), else None:
+    ``"format"`` -- another format than advertised and not the advertised bytes (Fandom's CDN WEBP); ``"upload"`` --
+    Fandom's response differs from the upload its API records, and Miraheze's API (the other wiki's own copy of the
+    upload) reports that same SHA-1 and size, so two wikis agree on the stored bytes that Fandom did not serve."""
+    if comparisons["sha1_match"] is not False:
+        return None
+    if comparisons["format_match"] is False:
+        return "format"
+    sha1, other_sha1 = reported.get("sha1"), counterpart.get("sha1")
+    if (source.key == "fandom" and isinstance(sha1, str) and isinstance(other_sha1, str)
+            and sha1.lower() == other_sha1.lower() and reported.get("bytes") is not None
+            and counterpart.get("size") == reported.get("bytes")):
+        return "upload"
+    return None
 
 
 DESCRIPTIVE_FIELDS = ("title", "kind", "page_url", "illustrators", "composers", "song_titles", "song_ids",
@@ -529,15 +553,16 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
     source = plan.source
     candidate = plan.candidate
     reported = candidate["source_reported"]
-    # A known platform transform: another format than advertised and not the advertised stored bytes.
-    transformed = comparisons["format_match"] is False and comparisons["sha1_match"] is False
+    other = plan.counterpart or {}
+    transform = known_transform(source, reported, comparisons, other)
+    transformed = transform is not None
     status, evidence = discover.mapping(plan)
     fields: dict[str, Any] = {
         "title": candidate["title"], "kind": plan.kind, "page_url": candidate["page_url"],
         "illustrators": list(plan.illustrators), "composers": list(plan.composers),
         "song_titles": list(plan.song_titles), "song_ids": list(plan.song_ids) if status != "unmapped" else [],
         "collections": list(plan.collections), "mapping_status": status, "mapping_evidence": evidence,
-        "quality": _quality(source, transformed, fmt, reported.get("mime"), comparisons),
+        "quality": _quality(source, transform, fmt, reported, comparisons, nbytes),
         "rights": schema.default_rights(creator=plan.illustrators[0] if len(plan.illustrators) == 1 else None,
                                         url=candidate["page_url"]),
     }
@@ -554,7 +579,6 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
                      + (f" (the API reports {abs(delta)} {'more' if delta > 0 else 'fewer'} bytes than were served; "
                         "cause not established)" if delta else "")
                      + "; recorded as source_reported versus download_observed, not as a second version.")
-    other = plan.counterpart or {}
     if (source.key == "miraheze" and comparisons["sha1_match"] and isinstance(other.get("sha1"), str)
             and other["sha1"].lower() != sha1):
         gap = other["size"] - nbytes if isinstance(other.get("size"), int) else None

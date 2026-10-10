@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT / "tests" / "fixtures" / "wikis"))
 from lib import manifest, net, schema  # noqa: E402
 from wikis import acquire, cli, config, reviews  # noqa: E402
 
+from fakewiki import image_bytes  # noqa: E402
 from scenario import Scenario  # noqa: E402
 
 NOW = "2026-10-10T12:00:00Z"
@@ -297,6 +298,26 @@ class AcquisitionTests(WikiRun):
         index = manifest.load_json(self.root / "data/discovery/song-index.wikis.json")
         cosmic = next(song for song in index["songs"] if song["title"] == "Cosmic Pulse")
         self.assertIn(mira["id"], cosmic["artwork_asset_ids"])
+
+    def test_fandom_bytes_that_miraheze_shows_are_not_the_upload(self) -> None:
+        """Both APIs record the upload with one SHA-1, Miraheze serves those bytes, Fandom's format=original response
+        differs: the Fandom bytes are known to be a platform transform of the stored upload (Dangerous Insanity)."""
+        client = self.scenario.client()
+        url = next(url for url in client.blobs if "Pair_Comeback" in url and "nocookie" in url)
+        client.blobs[url] = image_bytes("JPEG", (64, 36), 126)  # other bytes, same format and dimensions
+        self.assertNotEqual(client.blobs[url], self.scenario.data["Pair Comeback Chart List.jpg"])
+        self.assertEqual(self.run_cli(client=client), 0, "\n".join(self.logs))
+        fandom = self.asset("fandom", "File:Pair Comeback Chart List.jpg")
+        mira = self.asset("miraheze", "File:Pair Comeback Chart List.jpg")
+        self.assertNotEqual(fandom["sha256"], mira["sha256"])
+        self.assertEqual(mira["sha1"], fandom["source_reported"]["sha1"])
+        self.assertIs(fandom.get("transformed"), True)
+        self.assertEqual(fandom["quality"]["source_variant"], "unknown")
+        self.assertIn("Miraheze's API reports the same SHA-1", fandom["quality"]["notes"])
+        self.assertNotIn("cause not established", fandom.get("notes", ""))
+        self.assertNotIn("transformed", mira)
+        self.assertNotIn("transformed", self.asset("fandom", "File:CosmicPulseDynamix.png"))  # APIs disagree there
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
     def test_include_animated(self) -> None:
         self.assertEqual(self.run_cli("--include-animated", "--source", "miraheze", "--only",
