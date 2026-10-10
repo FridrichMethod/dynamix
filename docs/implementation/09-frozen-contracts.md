@@ -27,6 +27,13 @@ Measured site-tier estimate before this revision: wikis 944,412,040 B (2,971 uni
 - **`store_screenshot`** moves to the archive tier (app-store renditions are not artwork masters).
 - Re-measure after acquisition; if the site tier still exceeds the budget, it is a reported blocker resolved by an explicit, documented tier decision, not by dropping or recompressing originals.
 
+### Coordinator classification decisions (2026-10-10, wave 2 review)
+
+- **List graphics are `reference`.** A graphic whose primary content is a list of songs or charts (chart/difficulty lists, comeback and new-chart announcements, "Upcoming Events" and monthly event lineups, "Comeback Tracks" lists) is `reference`, regardless of the wiki category it was filed under. A graphic about a single song or event (key art, a single-song "COMING SOON" teaser even if it shows difficulty marks, anniversary/collaboration visuals) stays `promotional`.
+- `fetch_wikis.py` exit codes: 0 ok, 1 failed/blocked downloads, 2 incomplete discovery, 3 lock held or unsafe work directory/journal, 4 archived file no longer accepted (review), 5 internal error, 130 interrupted (outputs written). Default work directory `<root>/.cache/fetch_wikis/work` (ignored by Git).
+- App Store records: per-request URL tokens are not stored; source checks compare App Store items by decoded pixels, not bytes.
+- `mapping_status: conflict` may appear on song art; consumers must display it, not resolve it. Known case: *Another World* (wiki artist anchor `Artists#Cosmograph`), left for a curator.
+
 ## Identifiers and paths
 
 - Source IDs: `<family>:<slug>`; family ∈ `wikis`, `artists`, `official`, `archives`. Registered: `wikis:miraheze`, `wikis:fandom`, `wikis:atwiki-ja`, `wikis:rhythmgame-ja`, `official:apple-store`, `official:google-play`, `official:taptap`, `official:website`, `official:c4cat`, `official:facebook`, `official:x`, `archives:hkstp`, `archives:4gamer`, `archives:wayback`. Artists: `artists:<platform>:<handle>` (e.g. `artists:x:ariiol_`, `artists:artstation:sandgodoven`). New IDs are registered by the owning worker in its family manifest; slugs are lowercase `[a-z0-9-]`.
