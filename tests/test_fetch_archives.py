@@ -123,6 +123,23 @@ class WaybackTests(ArchivesTestCase):
         self.assertIn("WARC record length 1160031", cap["notes"])
         self.verify()
 
+    def test_a_capture_served_from_another_timestamp_or_with_other_bytes_is_held(self):
+        routes = self.routes()
+        routes["https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png"]["final_url"] = (
+            "https://web.archive.org/web/20150630034232id_/http://dynamix.c4-cat.com/img/cap1.png")
+        routes["https://web.archive.org/web/20160101000000id_/http://dynamix.c4-cat.com/img/shot.png"]["bytes"] = (
+            image_bytes("JPEG", (21, 10)))  # not the payload whose digest the CDX row lists
+        self.run_family([self.seed(self.RULES)], FakeNetwork(routes))
+        found = self.candidates("archives:wayback")
+        cap = found["dynamix.c4-cat.com/img/cap1.png@20150412124448"]
+        self.assertEqual(cap["disposition"], "pending")
+        self.assertIn("with capture 20150630034232", cap["reason"])
+        shot = found["dynamix.c4-cat.com/img/shot.png@20160101000000"]
+        self.assertEqual(shot["disposition"], "pending")
+        self.assertIn("not the payload the CDX API lists", shot["reason"])
+        self.assertEqual(self.manifest()["assets"], [])
+        self.verify()
+
     def test_suffix_does_not_decide_the_format(self):
         self.run_family([self.seed(self.RULES)], FakeNetwork(self.routes()))
         asset = next(a for a in self.manifest()["assets"] if "shot.png" in a["candidate_id"])

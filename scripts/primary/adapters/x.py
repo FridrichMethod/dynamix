@@ -147,13 +147,26 @@ def timeline_tweets(html: str) -> list[dict]:
     return tweets
 
 
-_TCO = re.compile(r"https?://t\.co/\S+")
+_TCO = re.compile(r"https?://t\.co/[A-Za-z0-9]+")
 
 
-def post_title(text: str, fallback: str, index: int, count: int) -> str:
-    """A readable record title from the post text (t.co links dropped, whitespace collapsed, at most 100 characters);
-    ``fallback`` when the post has no text. Several images of one post are numbered ``(n/N)``."""
-    words = " ".join(_TCO.sub(" ", text or "").split())
+def link_texts(data: Mapping[str, Any]) -> dict[str, str]:
+    """t.co link -> the text X displays for it (``entities.urls[].display_url``): links the post text shows as words
+    (X auto-links names such as ``Marion.net``). Media links (``pic.x.com/...``) are not included and are dropped."""
+    found: dict[str, str] = {}
+    for entry in ((data.get("entities") or {}).get("urls") or []):
+        if isinstance(entry, dict) and isinstance(entry.get("url"), str) and isinstance(entry.get("display_url"), str):
+            found[entry["url"]] = entry["display_url"]
+    return found
+
+
+def post_title(text: str, fallback: str, index: int, count: int, links: Mapping[str, str] | None = None) -> str:
+    """A readable record title from the post text (whitespace collapsed, at most 100 characters); ``fallback`` when the
+    post has no text. A t.co link is replaced by the text X displays for it (``links``) and dropped otherwise (media
+    links); only the link token itself is replaced, so text written right after it (no space in CJK) is kept. Several
+    images of one post are numbered ``(n/N)``."""
+    links = links or {}
+    words = " ".join(_TCO.sub(lambda match: links.get(match.group(0)) or " ", text or "").split())
     title = model.clip(words, 100) if words else fallback
     return f"{title} ({index}/{count})" if count > 1 and words else title
 
@@ -192,7 +205,8 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
                                     "needs review")
         if author != handle.lower():
             rule = model.hold(rule, f"pending: post author @{author or '?'} is not this source's account @{handle}")
-        title = post_title(texts["text"], f"@{handle} post {post_id} image {index}", index, len(media))
+        title = post_title(texts["text"], f"@{handle} post {post_id} image {index}", index, len(media),
+                           link_texts(data))
         if entry.get("type") != "photo":
             discovery.candidates.append(model.Draft(
                 upstream_key=key, page_url=status_url, title=title, action="excluded", game="unknown",

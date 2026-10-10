@@ -80,6 +80,12 @@ class Draft:
     md5_token: str | None = None  # upstream name that is expected to equal the file's MD5 (TapTap), evidence only
     fallback_urls: list[str] = field(default_factory=list)  # tried in order when file_url answers HTTP 404
     withdraw_archived: bool = False  # curated exclude/pending rule: remove an earlier archived record of this candidate
+    # Adapter hook: whether an archived download URL names this draft's file although it differs from ``file_url``
+    # (a rotating signature of the same CDN file, an earlier fallback rendition). ``--resume`` then reuses the archive.
+    same_file: Callable[[str], bool] | None = None
+    # Adapter hook: a ``pending: ...`` reason when a completed download is not the file the draft describes (e.g. the
+    # Internet Archive redirected a raw capture request to another capture); the bytes are then not archived.
+    check_download: Callable[[Any], str | None] | None = None
 
     def __post_init__(self) -> None:
         if self.action not in ACTIONS:

@@ -7,7 +7,12 @@ largest thumbnail rendition YouTube generates for the video: ``i.ytimg.com/vi/<i
 are YouTube's own JPEG renditions of the video's thumbnail (``transformed``; never an uploaded original); what oEmbed
 advertises (the ``hqdefault`` URL) stays ``source_reported.url`` with its size in the notes, because another rendition
 is not comparable byte for byte. No video, audio, Data API or login is used, and the channel's video list is not
-enumerated here (the seed names the videos; the list stays open with its reason).
+enumerated here (the seed names the videos; the list stays open with its reason). ``--resume`` reuses an archived
+thumbnail of the same video whichever rendition it is (no maxres/sd requests for a video whose archive fell back).
+
+oEmbed answers 401/403 for a single private or non-embeddable video (YouTube's documented behaviour): that is the
+video's own ``failed`` result (``http_4xx``, not retried) and does not block ``www.youtube.com`` for the other videos;
+only repeated refusals in a row or a bot challenge do (see ``GuardedClient``).
 
 ``{"channel_art": "banner" | "avatar", "url": "https://yt3.googleusercontent.com/<id>"}`` items read the channel page
 once: the image ID must occur in it (identity), and the ``=s0`` (full-size) rendition is downloaded.
@@ -68,7 +73,14 @@ def _video(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: 
     video_id, channel = item["video_id"], seed["params"]["channel_url"]
     watch = f"https://www.youtube.com/watch?v={video_id}"
     try:
-        data, _ = ctx.client.get_json(OEMBED, {"url": watch, "format": "json"})
+        try:
+            data, _ = ctx.client.get_json(OEMBED, {"url": watch, "format": "json"}, per_item_refusal=True)
+        except net.BlockedError as refusal:
+            if getattr(refusal, "skipped", False) or isinstance(refusal, net.ChallengeError) or \
+                    refusal.http_status not in (401, 403):
+                raise
+            raise net.HttpError(f"oEmbed refused this video (HTTP {refusal.http_status}): private or not embeddable",
+                                url=watch, http_status=refusal.http_status, retriable=False) from refusal
         if not isinstance(data, dict) or not isinstance(data.get("title"), str):
             raise net.FetchError("oEmbed response without a title", url=watch)
     except net.FetchError as error:
@@ -90,6 +102,8 @@ def _video(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: 
         original_filename=f"{video_id}.jpg", base_evidence=[watch, f"oEmbed author: {texts['author']}"],
         source_reported=base.reported(url=advertised, mime="image/jpeg"))
     draft.fallback_urls = [thumbnail(video_id, rendition) for rendition in RENDITIONS[1:]]
+    renditions = {thumbnail(video_id, rendition) for rendition in RENDITIONS}
+    draft.same_file = renditions.__contains__  # an archived fallback rendition of this video is this file
     note = (f"oEmbed names the video “{model.clip(data['title'], 120)}” on channel {data.get('author_name')} "
             f"({data.get('author_url')}) and advertises {advertised} ({data.get('thumbnail_width')}x"
             f"{data.get('thumbnail_height')}); the archive requests the largest generated rendition instead.")

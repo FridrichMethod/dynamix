@@ -50,6 +50,11 @@ REFETCH_NOTE = ("Re-fetched {date}: the same URL returned different bytes (sha25
                 "identical to the archived file, which is kept as current.")
 REFETCH_NOTE_RE = re.compile(r"Re-fetched \d{4}-\d{2}-\d{2}: the same URL returned different bytes \(sha256 [0-9a-f]{64}"
                              r"\) that decode to pixels identical to the archived file, which is kept as current\.")
+REREAD_NOTE = ("Re-fetched {date}{via}: the archived bytes again (download_url, resolved_url and fetched_at stay those of "
+               "the acquisition that archived them).")
+REREAD_NOTE_RE = re.compile(r"Re-fetched \d{4}-\d{2}-\d{2}(?: from \S+| \(same file, re-signed URL\))?: the archived bytes "
+                            r"again \(download_url, resolved_url and fetched_at stay those of the acquisition that "
+                            r"archived them\)\.")
 ADOPTED_NOTE = ("First archived for candidate {old} (upstream_status then {status}); the same bytes are listed upstream "
                 "as this record's candidate since {date}.")
 ADOPTED_NOTE_RE = re.compile(r"First archived for candidate \S+ \(upstream_status then [a-z]+\); the same bytes are listed "
@@ -76,7 +81,12 @@ class GuardedClient:
     * ``last_used`` (shared): at least ``min_interval`` seconds between the end of one request and the next to the same
       host even across the per-source client instances.
     * ``calls`` counts requests per URL (diagnostics and tests).
+    * ``per_item_refusal=True`` (an endpoint documented to answer 401/403 for one unavailable item, e.g. YouTube's oEmbed
+      for a private or non-embeddable video): a plain 401/403 is that request's result and does not block the host,
+      unless :data:`ITEM_REFUSAL_LIMIT` such refusals in a row show a host-wide refusal. A bot challenge always blocks.
     """
+
+    ITEM_REFUSAL_LIMIT = 3
 
     def __init__(self, client: Any, *, blocked_hosts: dict[str, str], last_used: dict[str, float],
                  min_interval: float, sleep: Callable[[float], None] = time.sleep,
@@ -84,6 +94,7 @@ class GuardedClient:
         self._client, self._blocked, self._last = client, blocked_hosts, last_used
         self._interval, self._sleep, self._clock = min_interval, sleep, clock
         self.calls: dict[str, int] = {}
+        self._item_refusals: dict[str, int] = {}  # host -> consecutive per-item refusals
 
     def _host(self, url: str) -> str:
         try:
@@ -91,7 +102,7 @@ class GuardedClient:
         except ValueError:
             return ""
 
-    def _call(self, method: str, url: str, *args: Any, **kwargs: Any) -> Any:
+    def _call(self, method: str, url: str, *args: Any, per_item_refusal: bool = False, **kwargs: Any) -> Any:
         host = self._host(url)
         if host in self._blocked:
             raise HostSkipped(f"host {host} refused an earlier request in this run ({self._blocked[host]}); "
@@ -101,12 +112,22 @@ class GuardedClient:
             self._sleep(wait)
         self.calls[url] = self.calls.get(url, 0) + 1
         try:
-            return getattr(self._client, method)(url, *args, **kwargs)
+            result = getattr(self._client, method)(url, *args, **kwargs)
         except net.BlockedError as error:
-            self._blocked.setdefault(host, f"{error.error_class}, HTTP {error.http_status}")
+            refusals = self._item_refusals.get(host, 0) + 1
+            if (per_item_refusal and not isinstance(error, net.ChallengeError) and error.http_status in (401, 403)
+                    and refusals < self.ITEM_REFUSAL_LIMIT):
+                self._item_refusals[host] = refusals
+            else:
+                self._blocked.setdefault(host, f"{error.error_class}, HTTP {error.http_status}")
+            raise
+        except Exception:
+            self._item_refusals.pop(host, None)
             raise
         finally:
             self._last[host] = self._clock()
+        self._item_refusals.pop(host, None)
+        return result
 
     def mark_blocked(self, url: str, reason: str) -> None:
         """Record a refusal an adapter detected in a 200 response (risk-control code, captcha page)."""
@@ -114,8 +135,9 @@ class GuardedClient:
         if host:
             self._blocked.setdefault(host, reason)
 
-    def get_json(self, url: str, params: Mapping[str, Any] | None = None, **kwargs: Any) -> Any:
-        return self._call("get_json", url, params, **kwargs)
+    def get_json(self, url: str, params: Mapping[str, Any] | None = None, *, per_item_refusal: bool = False,
+                 **kwargs: Any) -> Any:
+        return self._call("get_json", url, params, per_item_refusal=per_item_refusal, **kwargs)
 
     def get_text(self, url: str, **kwargs: Any) -> Any:
         return self._call("get_text", url, **kwargs)
@@ -227,6 +249,31 @@ def stored_url(url: str | None) -> str | None:
     if not url or checks.url_problem(url):
         return None
     return checks.redact_url(url, strict=False)
+
+
+def names_file(draft: model.Draft, url: str | None) -> bool:
+    """Whether the stored URL ``url`` (an archived ``download_url``) names the file ``draft`` describes: the same URL,
+    or one the adapter's ``same_file`` identifies with it (a re-signed CDN URL, an earlier fallback rendition)."""
+    if not url:
+        return False
+    return url == stored_url(draft.file_url) or bool(draft.same_file and draft.same_file(url))
+
+
+def archived_draft(draft: model.Draft, asset: Mapping[str, Any]) -> model.Draft:
+    """``draft`` naming the archived file of ``asset``: its ``file_url`` becomes the asset's ``download_url`` (the URL the
+    archived bytes came from), and a ``source_reported.url`` that named the drafted file URL itself names the archived
+    record's advertised URL. A refresh thus never pairs this run's (re-signed, moved or fallback) URL with the
+    redirect target and time of an earlier fetch."""
+    archived = asset.get("download_url")
+    if not archived or archived == stored_url(draft.file_url):
+        return draft
+    moved = copy.copy(draft)
+    reported = draft.source_reported.get("url")
+    if reported and stored_url(reported) == stored_url(draft.file_url):
+        moved.source_reported = {**draft.source_reported,
+                                 "url": (asset.get("source_reported") or {}).get("url") or archived}
+    moved.file_url = archived
+    return moved
 
 
 def candidate_record(source_id: str, draft: model.Draft, disposition: str, *, reason: str | None = None,
@@ -500,7 +547,8 @@ class Runner:
                                                                                          sha256=sha256))
         schema.validate_asset(refreshed, self.family)
         state.assets[refreshed["id"]] = schema.canonical(refreshed, "asset")
-        state.candidates[cid] = candidate_record(sid, draft, "downloaded", asset_id=refreshed["id"])
+        state.candidates[cid] = candidate_record(sid, archived_draft(draft, previous_asset), "downloaded",
+                                                 asset_id=refreshed["id"])
         for phase in ("download", "decode", "verify"):
             state.failures.pop(schema.failure_id(cid, phase), None)
         LOG.info("%s: re-fetched bytes %s decode to the archived pixels; %s kept", cid, sha256[:12],
@@ -632,7 +680,8 @@ class Runner:
         if self.resume and previous_asset is not None and self._reusable(previous_asset, draft):
             refreshed = self._refresh_record(previous_asset, draft)
             state.assets[refreshed["id"]] = refreshed
-            state.candidates[cid] = candidate_record(sid, draft, "downloaded", asset_id=refreshed["id"])
+            state.candidates[cid] = candidate_record(sid, archived_draft(draft, previous_asset), "downloaded",
+                                                     asset_id=refreshed["id"])
             return
         dest = paths.safe_path(self.root, f"{paths.ASSET_ROOT}/{family}/{paths.source_slug(sid)}",
                                under=paths.ASSET_ROOT)
@@ -652,10 +701,14 @@ class Runner:
                 self._download_failed(state, draft, error, "download", attempted_at, previous_asset)
                 return
         self.downloads += 1
+        held = draft.check_download(result) if draft.check_download else None
+        if held:  # not the file the draft describes: nothing is archived from this response
+            Path(result.temp_path).unlink(missing_ok=True)
+            self._hold_download(state, draft, held, previous_asset)
+            return
         new_id = schema.asset_id(sid, result.sha256)
         owner = state.assets.get(new_id)
-        if (owner is None and previous_asset is not None
-                and previous_asset.get("download_url") == stored_url(draft.file_url)):
+        if owner is None and previous_asset is not None and names_file(draft, previous_asset.get("download_url")):
             same = self._same_pixels(state.assets.get(previous_asset["id"], previous_asset), result)
             if same:  # other bytes, same picture: not a new upstream revision
                 Path(result.temp_path).unlink(missing_ok=True)
@@ -688,7 +741,16 @@ class Runner:
                 self._download_failed(state, draft, error, "decode", attempted_at, previous_asset)
                 return
         if owner is not None:  # keep the first acquisition's measurements (a reverted upstream file is current again)
-            state.assets[new_id] = self._refresh_record(owner, draft)
+            refreshed = self._refresh_record(owner, draft)
+            if stored_url(draft.file_url) != owner.get("download_url"):  # the same bytes from a re-signed/moved URL
+                via = (" (same file, re-signed URL)" if names_file(draft, owner.get("download_url"))
+                       else f" from {stored_url(draft.file_url)}")
+                notes = " ".join(REREAD_NOTE_RE.sub("", refreshed.get("notes") or "").split())
+                refreshed["notes"] = append_note(notes, REREAD_NOTE.format(date=self.now()[:10], via=via))
+                schema.validate_asset(refreshed, self.family)
+                refreshed = schema.canonical(refreshed, "asset")
+            state.assets[new_id] = refreshed
+            draft = archived_draft(draft, owner)
         else:
             draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, info["path"]))
             state.assets[new_id] = asset_record(family, sid, draft, info, content_type=result.content_type,
@@ -777,6 +839,23 @@ class Runner:
             state.failures[failure["id"]] = failure
         LOG.warning("%s: %s", cid, failed.reason)
 
+    def _hold_download(self, state: SourceState, draft: model.Draft, reason: str, previous_asset: dict | None) -> None:
+        """A completed download that the adapter's ``check_download`` rejects (``reason``): nothing is archived. A
+        candidate with an archived file keeps it (reported for review); otherwise the candidate is ``pending``."""
+        sid = state.source_id
+        cid = schema.candidate_id(sid, draft.upstream_key)
+        LOG.warning("%s: download held: %s", cid, reason)
+        if previous_asset is not None:
+            state.candidates[cid] = self._previous_candidate(state, cid) or candidate_record(
+                sid, draft, "downloaded", asset_id=previous_asset["id"])
+            state.errors.append(model.discovery_error("download", stored_url(draft.file_url), model.clip(
+                f"refresh of {cid} held, previous archive kept: {reason}", 600)))
+            return
+        held = copy.copy(draft)
+        held.action, held.reason = "pending", model.clip(reason, 400)
+        state.candidates[cid] = candidate_record(sid, held, "pending")
+        state.errors.append(model.discovery_error("download", stored_url(draft.file_url), f"{cid}: {reason}"))
+
     def _maybe_interrupt(self) -> None:
         if self.interrupt_after is not None and self.downloads >= self.interrupt_after:
             raise KeyboardInterrupt(f"test interrupt after {self.downloads} downloads")
@@ -796,7 +875,7 @@ class Runner:
         return None
 
     def _reusable(self, asset: Mapping[str, Any], draft: model.Draft) -> bool:
-        if asset.get("download_url") != stored_url(draft.file_url):
+        if not names_file(draft, asset.get("download_url")):
             return False
         try:
             media.verify_asset_file(self.root, asset)
@@ -807,21 +886,23 @@ class Runner:
 
     def _refresh_record(self, asset: Mapping[str, Any], draft: model.Draft) -> dict:
         """Descriptive fields from the current seed/draft on top of the archived measurements. The archived file name
-        (hence the contract path) is kept; a changed upstream name is noted instead."""
+        (hence the contract path) is kept; a changed upstream name is noted instead. ``download_url``,
+        ``resolved_url`` and ``fetched_at`` stay those of the acquisition that archived the bytes (see
+        :func:`archived_draft`), so the three always describe one and the same fetch."""
         info = {name: asset[name] for name in ("path", "bytes", "sha256", "sha1", "format", "mime", "width",
                                                "height")}
         renamed = []
         if draft.original_filename and draft.original_filename != asset["original_filename"]:
             renamed.append(f"The upstream file name is now {draft.original_filename}; the archived copy keeps "
                            f"{asset['original_filename']}.")
-        draft = copy.copy(draft)
+        draft = copy.copy(archived_draft(draft, asset))
         draft.original_filename = asset["original_filename"]
         draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, asset["path"]))
         record = asset_record(self.family, asset["source_id"], draft, info,
                               content_type=asset["download_observed"]["content_type"],
                               resolved_url=asset["resolved_url"], fetched_at=asset["fetched_at"],
                               extra_notes=[*notes, *renamed])
-        carried = [match.group(0) for pattern in (ADOPTED_NOTE_RE, REFETCH_NOTE_RE)
+        carried = [match.group(0) for pattern in (ADOPTED_NOTE_RE, REFETCH_NOTE_RE, REREAD_NOTE_RE)
                    for match in pattern.finditer(asset.get("notes") or "")]
         if not carried:
             return record

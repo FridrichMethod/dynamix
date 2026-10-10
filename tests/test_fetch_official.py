@@ -485,11 +485,62 @@ class YouTubeTests(OfficialTestCase):
         self.verify()
 
     def test_unavailable_video_is_a_failure_and_keeps_the_list_open(self):
-        network = FakeNetwork({})  # oEmbed 404: private or removed video
+        network = FakeNetwork({})  # oEmbed 404: removed video
         self.run_family([self.seed([{"video_id": self.VIDEO}])], network)
         snapshot = manifest.load_discovery(self.root, "official:youtube")
         self.assertEqual(snapshot["candidates"][0]["disposition"], "failed")
         self.assertEqual(snapshot["continuation"]["seed-videos"], "not-read:http_4xx")
+        self.verify()
+
+    def test_a_private_video_refused_by_oembed_does_not_block_the_other_videos(self):
+        private = "AAAAAAAAAAA"
+        rules = [{"match": "^(FInFw2lVz_I|AAAAAAAAAAA)$", "role": "promotional"}]
+        network = FakeNetwork({
+            self.oembed_url(private): {"error": net.BlockedError("access refused (HTTP 401)", url=youtube.OEMBED,
+                                                                 http_status=401)},
+            self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
+            youtube.thumbnail(self.VIDEO, "maxresdefault"): {"bytes": image_bytes("JPEG", (64, 36)),
+                                                             "content_type": "image/jpeg"}})
+        self.run_family([self.seed([{"video_id": private}, {"video_id": self.VIDEO}], rules)], network)
+        found = self.candidates("official:youtube")
+        self.assertEqual(found[private]["disposition"], "failed")
+        self.assertIn("private or not embeddable", found[private]["reason"])
+        self.assertEqual(found[self.VIDEO]["disposition"], "downloaded")
+        failure = self.manifest()["failures"][0]
+        self.assertEqual((failure["error_class"], failure["http_status"], failure["manual"]), ("http_4xx", 401, False))
+        self.assertNotEqual(self.manifest()["sources"][0]["status"], "manual_access")
+        self.verify()
+
+    def test_repeated_oembed_refusals_block_the_host(self):
+        videos = ["AAAAAAAAAAA", "BBBBBBBBBBB", "CCCCCCCCCCC", "DDDDDDDDDDD", self.VIDEO]
+        routes = {self.oembed_url(video): {"error": net.BlockedError("HTTP 403", url=youtube.OEMBED, http_status=403)}
+                  for video in videos}
+        network = FakeNetwork(routes)
+        rules = [{"match": ".*", "role": "promotional"}]
+        self.run_family([self.seed([{"video_id": video} for video in videos], rules)], network)
+        found = self.candidates("official:youtube")
+        self.assertEqual(network.count("www.youtube.com"), runner.GuardedClient.ITEM_REFUSAL_LIMIT)
+        self.assertEqual(found["AAAAAAAAAAA"]["disposition"], "failed")
+        self.assertEqual(found[self.VIDEO]["disposition"], "blocked")  # host-wide refusal: not contacted again
+        self.verify()
+
+    def test_resume_reuses_an_archived_fallback_rendition_without_requests(self):
+        def routes():
+            return {self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
+                    youtube.thumbnail(self.VIDEO, "maxresdefault"): {
+                        "error": net.HttpError("HTTP 404", url="https://i.ytimg.com/", http_status=404)},
+                    youtube.thumbnail(self.VIDEO, "sddefault"): {"bytes": image_bytes("JPEG", (64, 48)),
+                                                                 "content_type": "image/jpeg"}}
+        seed = self.seed([{"video_id": self.VIDEO}])
+        self.run_family([seed], FakeNetwork(routes()))
+        before = self.manifest()["assets"][0]
+        network = FakeNetwork(routes())
+        self.run_family([seed], network, resume=True)
+        self.assertEqual(network.count("i.ytimg.com"), 0)
+        after = self.manifest()["assets"][0]
+        self.assertEqual(after["download_url"], youtube.thumbnail(self.VIDEO, "sddefault"))
+        self.assertEqual((after["resolved_url"], after["fetched_at"]), (before["resolved_url"], before["fetched_at"]))
+        self.assertEqual(self.candidates("official:youtube")[self.VIDEO]["file_url"], after["download_url"])
         self.verify()
 
     def test_channel_art_needs_the_image_on_the_channel_page(self):
@@ -540,6 +591,80 @@ class FacebookTests(OfficialTestCase):
         self.assertEqual(asset["mapping_evidence"][0]["field"], "og:description")
         self.assertTrue(asset["transformed"])
         self.assertIn("display size p600x600", asset["notes"])
+        self.verify()
+
+    def test_the_open_graph_note_appears_once_with_item_and_rule_notes(self):
+        rules = [{"match": "^1848526438667526$", "role": "reference", "evidence_quotes": ["Own The Night"],
+                  "candidate_notes": "Comeback card."}]
+        network = FakeNetwork({self.POST: {"text": text("facebook_post.html")},
+                               self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
+        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST, "notes": "Item note."}], rules)],
+                        network)
+        notes = self.manifest()["assets"][0]["notes"]
+        self.assertEqual(notes.count("Open Graph image of"), 1, notes)
+        self.assertEqual(notes.count("Comeback card."), 1, notes)
+        self.assertIn("Item note.", notes)
+        self.verify()
+
+    def resign(self, page, oh, oe):
+        return (page.replace("oh=00_AfTest&amp;oe=68000000", f"oh={oh}&amp;oe={oe}"),
+                self.IMAGE.replace("oh=00_AfTest&oe=68000000", f"oh={oh}&oe={oe}"))
+
+    def test_resume_reuses_the_archive_when_only_the_signature_changed(self):
+        img = image_bytes("JPEG", (60, 34))
+        seed = self.seed([{"key": "1848526438667526", "url": self.POST}])
+        self.run_family([seed], FakeNetwork({self.POST: {"text": text("facebook_post.html")},
+                                             self.IMAGE: {"bytes": img, "content_type": "image/jpeg"}}))
+        before = self.manifest()["assets"][0]
+        page, signed = self.resign(text("facebook_post.html"), "00_AfOther", "69000000")
+        network = FakeNetwork({self.POST: {"text": page}, signed: {"bytes": img, "content_type": "image/jpeg"}})
+        self.run_family([seed], network, resume=True)
+        self.assertEqual(network.count("scontent-sjc6-1.xx.fbcdn.net"), 0)
+        after = self.manifest()["assets"][0]
+        for name in ("download_url", "resolved_url", "fetched_at"):
+            self.assertEqual(after[name], before[name], name)
+        self.assertEqual(after["source_reported"]["url"], before["download_url"])
+        self.assertEqual(self.candidates("official:facebook")["1848526438667526"]["file_url"], before["download_url"])
+        # A different rendition (other stp/ctp) of the same upload is another file: downloaded again.
+        page, signed = self.resign(text("facebook_post.html"), "00_AfOther", "69000000")
+        page, signed = page.replace("ctp=p600x600", "ctp=p720x720"), signed.replace("ctp=p600x600", "ctp=p720x720")
+        network = FakeNetwork({self.POST: {"text": page}, signed: {"bytes": img, "content_type": "image/jpeg"}})
+        self.run_family([seed], network, resume=True)
+        self.assertEqual(network.count("scontent-sjc6-1.xx.fbcdn.net"), 1)
+        self.verify()
+
+    def test_refetched_identical_bytes_keep_one_fetch_s_url_target_and_time(self):
+        img = image_bytes("JPEG", (60, 34))
+        seed = self.seed([{"key": "1848526438667526", "url": self.POST}])
+        self.run_family([seed], FakeNetwork({self.POST: {"text": text("facebook_post.html")},
+                                             self.IMAGE: {"bytes": img, "content_type": "image/jpeg"}}))
+        before = self.manifest()["assets"][0]
+        page, signed = self.resign(text("facebook_post.html"), "00_AfOther", "69000000")
+        network = FakeNetwork({self.POST: {"text": page}, signed: {"bytes": img, "content_type": "image/jpeg"}})
+        acquisition = runner.Runner(self.root, "official", [seed], client_factory=network.factory,
+                                    now=lambda: "2026-10-11T08:00:00Z", sleep=lambda s: None)
+        acquisition.run()  # a refresh without --resume downloads again
+        self.assertEqual(network.count("scontent-sjc6-1.xx.fbcdn.net"), 1)
+        after = self.manifest()["assets"][0]
+        self.assertEqual(after["download_url"], after["resolved_url"])
+        for name in ("download_url", "resolved_url", "fetched_at"):
+            self.assertEqual(after[name], before[name], name)
+        self.assertIn("Re-fetched 2026-10-11 (same file, re-signed URL): the archived bytes again", after["notes"])
+        self.verify()
+
+    def test_mime_follows_the_requested_rendition_not_the_upload_name(self):
+        png_named = self.IMAGE.replace("_n.jpg?", "_n.png?")
+        page = text("facebook_post.html").replace("_n.jpg?", "_n.png?")
+        network = FakeNetwork({self.POST: {"text": page},
+                               png_named: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
+        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
+        asset = self.manifest()["assets"][0]
+        self.assertEqual(asset["source_reported"]["mime"], "image/jpeg")  # stp=dst-jpg_tt6
+        self.assertIs(asset["comparisons"]["format_match"], True)
+        self.assertIn("ends in .png", asset["notes"])
+        self.assertEqual(facebook.rendition_mime("https://x.fbcdn.net/v/a_n.png?stp=c0.5.1_dst-png_s206x206"),
+                         "image/png")
+        self.assertIsNone(facebook.rendition_mime("https://x.fbcdn.net/v/a_n.jpg?_nc_cat=1"))
         self.verify()
 
     def test_permalink_without_an_image_is_blocked_without_a_failure(self):

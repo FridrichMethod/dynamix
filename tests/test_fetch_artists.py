@@ -253,6 +253,49 @@ class PixivWaybackTests(ArtistsTestCase):
         self.assertIsNone(asset["comparisons"]["sha1_match"])
         self.verify()
 
+    def test_redirect_to_another_capture_is_held_not_archived_under_the_seed_time(self):
+        # CDX check fails, and the Internet Archive answers the id_ request from its nearest other capture.
+        payload = image_bytes("JPEG", (48, 27), (7, 7, 7))
+        routes = wayback_routes(payload)
+        routes[cdx_url(P1_ORIGINAL, P1_STAMP)] = {"error": net.HttpError("HTTP 503", url=pixiv_adapter.CDX,
+                                                                         http_status=503)}
+        routes[f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}"]["final_url"] = (
+            f"https://web.archive.org/web/20240101000000id_/{P1_ORIGINAL}")
+        self.run_family([wayback_seed([self.CAPTURE])], FakeNetwork(routes))
+        p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
+        self.assertEqual(p1["disposition"], "pending")
+        self.assertIn("capture 20240101000000", p1["reason"])
+        self.assertFalse(any(a["candidate_id"].endswith(":p1") for a in self.manifest()["assets"]))
+        self.assertEqual(list((self.root / "assets/public/artists").rglob("*.part")), [])
+        self.verify()
+
+    def test_bytes_that_are_not_the_cdx_payload_are_held(self):
+        payload = image_bytes("JPEG", (48, 27), (8, 8, 8))
+        routes = wayback_routes(payload)
+        routes[f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}"]["bytes"] = image_bytes("JPEG", (48, 27))
+        self.run_family([wayback_seed([self.CAPTURE])], FakeNetwork(routes))
+        p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
+        self.assertEqual(p1["disposition"], "pending")
+        self.assertIn("not the payload the CDX API lists", p1["reason"])
+        self.assertFalse(any(a["candidate_id"].endswith(":p1") for a in self.manifest()["assets"]))
+        self.verify()
+
+    def test_held_refresh_keeps_the_archived_capture(self):
+        payload = image_bytes("JPEG", (48, 27), (6, 6, 6))
+        routes = wayback_routes(payload)
+        self.run_family([wayback_seed([self.CAPTURE])], FakeNetwork(routes))
+        before = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith(":p1"))
+        routes = wayback_routes(payload)
+        routes[f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}"]["final_url"] = (
+            f"https://web.archive.org/web/20240101000000id_/{P1_ORIGINAL}")
+        self.run_family([wayback_seed([self.CAPTURE])], FakeNetwork(routes))  # a refresh without --resume
+        after = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith(":p1"))
+        self.assertEqual(after, before)
+        self.assertEqual(self.candidates("artists:pixiv:5401047")["92594600:p1"]["disposition"], "downloaded")
+        self.assertTrue(any("held, previous archive kept" in error["message"]
+                            for error in self.snapshot("artists:pixiv:5401047")["errors"]))
+        self.verify()
+
     def test_seed_capture_must_be_the_original_of_its_own_page(self):
         for capture in ({"page": 0, "timestamp": P1_STAMP, "original": P1_ORIGINAL},
                         {"page": 1, "timestamp": "2022", "original": P1_ORIGINAL},
@@ -334,6 +377,17 @@ class XTests(ArtistsTestCase):
         self.assertEqual(x_adapter.post_title("a\nb https://t.co/x", "fallback", 2, 3), "a b (2/3)")
         self.assertEqual(x_adapter.post_title("https://t.co/aUjB5RvYuv", "@h post 1 image 1", 1, 1), "@h post 1 image 1")
         self.assertLessEqual(len(x_adapter.post_title("x" * 300, "f", 1, 1)), 100)
+
+    def test_titles_keep_text_written_right_after_a_link_and_show_auto_linked_names(self):
+        # Post 1354398754414051334: X auto-linked the song title Marion.net; the CJK text follows the link directly.
+        text = "復刻曲「声が届かないのなら」、「https://t.co/joFeVM7MOu」が帰ってくるよ！\n開催期間 https://t.co/AbC123xyZ9"
+        post = {"text": text, "entities": {"urls": [{"url": "https://t.co/joFeVM7MOu", "display_url": "Marion.net",
+                                                     "expanded_url": "http://Marion.net"}],
+                                           "media": [{"url": "https://t.co/AbC123xyZ9",
+                                                      "display_url": "pic.x.com/AbC123xyZ9"}]}}
+        self.assertEqual(x_adapter.post_title(text, "fb", 1, 1, x_adapter.link_texts(post)),
+                         "復刻曲「声が届かないのなら」、「Marion.net」が帰ってくるよ！ 開催期間")
+        self.assertEqual(x_adapter.post_title("「https://t.co/joFeVM7MOu」が帰ってくる", "fb", 1, 1), "「 」が帰ってくる")
 
     def test_syndication_token_matches_the_embed_script(self):
         # Value computed by X's embed script ((id / 1e15) * pi).toString(36) without zeros and dots.

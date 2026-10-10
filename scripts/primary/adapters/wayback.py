@@ -9,18 +9,21 @@ capture of each distinct payload is one candidate ``<host/path>@<timestamp>``.
 ``page_url``.
 
 Provenance: ``source_reported`` holds the original URL, the archived MIME type, the capture time and the CDX digest
-(base32 SHA-1 of the payload, converted to hex) so ``sha1_match`` shows whether the bytes received are the archived
-payload. CDX ``length`` is the compressed WARC record size, not the file size, so it is noted but not compared.
+(base32 SHA-1 of the payload, converted to hex). CDX ``length`` is the compressed WARC record size, not the file size,
+so it is noted but not compared. A download is archived only when it is that capture's payload
+(:func:`capture_check`): a response redirected to another timestamp, or bytes whose SHA-1 is not the CDX digest, are
+held as ``pending`` instead of being recorded under the capture's time.
 """
 
 from __future__ import annotations
 
 import base64
 import binascii
-from typing import Any, Mapping
+import re
+from typing import Any, Callable, Mapping
 from urllib.parse import urlsplit
 
-from lib import net
+from lib import checks, net
 
 from .. import model
 from . import base
@@ -50,6 +53,27 @@ def digest_hex(digest: str | None) -> str | None:
     except (binascii.Error, ValueError):
         return None
     return raw.hex() if len(raw) == 20 else None
+
+
+_RAW_CAPTURE = re.compile(r"^https?://web\.archive\.org/web/(\d{14})id_/")
+
+
+def capture_check(stamp: str, sha1_hex: str | None) -> Callable[[Any], str | None]:
+    """``Draft.check_download`` for a raw ``id_`` capture request: the response must come from that very capture (the
+    Internet Archive redirects a request for a timestamp it does not hold to the nearest other capture) and, when the
+    CDX API listed a digest, its bytes must be that payload. Otherwise the reason the download is held."""
+    def check(result: Any) -> str | None:
+        final = getattr(result, "final_url", None) or ""
+        match = _RAW_CAPTURE.match(final)
+        if not match or match.group(1) != stamp:
+            served = f"capture {match.group(1)}" if match else f"{checks.redact_url(final)!r}"
+            return (f"pending: the Internet Archive answered the raw request for capture {stamp} with {served}; "
+                    "not the seeded capture, so nothing was archived")
+        if sha1_hex and getattr(result, "sha1", None) != sha1_hex:
+            return (f"pending: the bytes received for capture {stamp} (SHA-1 {getattr(result, 'sha1', None)}) are not "
+                    f"the payload the CDX API lists for it (digest SHA-1 {sha1_hex}); held for review")
+        return None
+    return check
 
 
 def iso_timestamp(stamp: str) -> str | None:
@@ -156,6 +180,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if draft.action == "download":
                 draft.meta["upstream_revision"] = stamp
                 draft.meta["notes"] = " ".join(filter(None, [draft.meta.get("notes"), note]))
+                draft.check_download = capture_check(stamp, digest_hex(row.get("digest")))
             draft.candidate_extra.setdefault("notes", note)
             discovery.candidates.append(draft)
         if skipped and discovery.continuation.get(item["name"]) is None:

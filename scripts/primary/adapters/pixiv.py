@@ -14,8 +14,10 @@ ArchiveTeam pixiv crawl of 2022-12 holds many). For such a page the candidate ke
 ``page_url`` and downloads ``web.archive.org/web/<timestamp>id_/<original>`` (raw bytes, no replay rewriting) instead of
 contacting ``i.pximg.net``. The capture is checked first with one exact CDX query: a capture that the CDX API does not
 list with HTTP status 200 at that timestamp is held as ``pending``; the CDX digest (base32 SHA-1 of the archived
-payload) becomes ``source_reported.sha1`` so ``comparisons.sha1_match`` shows that the received bytes are the archived
-payload. The original URL must belong to the same work and page, and must equal the URL pixiv itself lists for the page
+payload) becomes ``source_reported.sha1``. The download must come from exactly that capture and, when the digest is
+known, be that payload (``wayback.capture_check``): a redirect to another capture (the Internet Archive serves the
+nearest one when a timestamp is missing, e.g. after a failed CDX check) or other bytes are held as ``pending``, never
+archived under the seeded capture time. The original URL must belong to the same work and page, and must equal the URL pixiv itself lists for the page
 when pixiv lists one (a re-upload moves the URL; the old capture is then held for review). ``source_reported`` keeps
 pixiv's original URL, advertised page size and post date; the capture time is the record's ``upstream_revision`` and is
 stated in the notes. The same captures may also be listed by ``archives:wayback``; identical bytes merge in the catalog.
@@ -34,7 +36,7 @@ from lib import net
 
 from .. import model
 from . import base
-from .wayback import digest_hex, iso_timestamp
+from .wayback import capture_check, digest_hex, iso_timestamp
 
 HOSTS = ["www.pixiv.net", "i.pximg.net", "web.archive.org"]
 API = "https://www.pixiv.net/ajax/illust/"
@@ -215,6 +217,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                 "required); not attempted")
             if capture is not None and draft.action == "download":
                 stamp = str(capture["timestamp"])
+                draft.check_download = capture_check(stamp, digest_hex((row or {}).get("digest")))
                 draft.meta["upstream_revision"] = stamp
                 draft.meta["quality"]["notes"] = WAYBACK_QUALITY
                 cdx = (f"Wayback CDX: status 200, digest {row['digest']}, WARC record length {row.get('length')}"

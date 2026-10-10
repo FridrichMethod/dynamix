@@ -6,15 +6,20 @@ evidence texts and ``og:image`` (a signed ``*.fbcdn.net`` URL, resized by Facebo
 is the file. The ``og:url`` must stay on the seed's page, otherwise the item is held as ``pending``. A permalink that
 serves no Open Graph image to a logged-out reader (login wall or an empty shell) is recorded ``blocked`` without
 further requests; a refused or challenged request is ``blocked`` as well (lib.net). Nothing is enumerated: the page
-timeline is not served to logged-out non-browser clients, so it stays an open list with its reason. Signed image URLs
-expire; the URL actually fetched is stored as the record's download URL.
+timeline is not served to logged-out non-browser clients, so it stays an open list with its reason.
+
+Signed image URLs rotate on every read (``oh``, ``oe``, ``_nc_gid``, ``_nc_ohc`` ...): the file's identity is the
+``*.fbcdn.net`` path plus the rendition parameters ``stp``/``cstp``/``ctp`` (:func:`file_identity`), so ``--resume``
+reuses an archived file whose URL differs only in its signature, and a record keeps the URL, redirect target and time
+of the fetch that archived its bytes. ``source_reported.mime`` follows the rendition the URL requests (``stp=dst-jpg``
+→ JPEG); the upload's own format (the file name's extension) is named in the notes when it differs.
 """
 
 from __future__ import annotations
 
 import re
 from typing import Any, Mapping
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 from lib import checks, net
 
@@ -26,6 +31,28 @@ OG_QUALITY = ("Facebook's Open Graph rendition of the uploaded image (re-encoded
               "stp/ctp parameters); a platform transform, not the uploaded original.")
 _CTP = re.compile(r"[?&]ctp=([a-z]?\d+x\d+)")
 _CSTP = re.compile(r"[?&]cstp=([a-z]*\d+x\d+)")
+RENDITION_PARAMS = ("stp", "cstp", "ctp")
+_DST = re.compile(r"(?:^|_)dst-(jpg|png|webp)(?:_|$)")
+_DST_MIME = {"jpg": "image/jpeg", "png": "image/png", "webp": "image/webp"}
+
+
+def file_identity(url: str | None) -> tuple | None:
+    """(path, rendition parameters) of a ``*.fbcdn.net`` URL — what stays when Facebook re-signs it — or None."""
+    try:
+        parts = urlsplit(url or "")
+    except ValueError:
+        return None
+    if not (parts.hostname or "").endswith(".fbcdn.net"):
+        return None
+    query = parse_qs(parts.query)
+    return parts.path, tuple((query.get(name) or [None])[0] for name in RENDITION_PARAMS)
+
+
+def rendition_mime(url: str) -> str | None:
+    """MIME type of the rendition the URL requests (``stp=dst-jpg_...``), or None when it requests none."""
+    stp = (parse_qs(urlsplit(url).query).get("stp") or [""])[0]
+    match = _DST.search(stp)
+    return _DST_MIME[match.group(1)] if match else None
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -142,23 +169,32 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             continue
         name = base.last_segment(image)
         ext = name.rsplit(".", 1)[-1] if "." in name else None
+        requested = rendition_mime(image)
         draft = model.apply_rule(
             rule, key=key, page_url=url, texts=texts, file_url=image,
             default_title=item.get("title") or model.clip(readable_title(document_title, og.get("og:title")) or title,
                                                           120),
             default_quality=ctx.quality, default_rights=ctx.rights, original_filename=name, base_evidence=[url],
-            source_reported=base.reported(url=image, mime=base.mime_for(ext),
+            source_reported=base.reported(url=image, mime=requested or base.mime_for(ext),
                                           width=_int(og.get("og:image:width")), height=_int(og.get("og:image:height"))))
+        identity = file_identity(image)
+        if identity is not None:
+            draft.same_file = lambda archived, identity=identity: file_identity(archived) == identity
         sizes = ", ".join(filter(None, [f"display size {m.group(1)}" for m in [_CTP.search(image)] if m]
                                  + [f"source bound {m.group(1)}" for m in [_CSTP.search(image)] if m]))
         note = (f"Open Graph image of {url} as served logged out on {ctx.now()[:10]}"
                 + (f" (Facebook rendition parameters: {sizes})" if sizes else "") + ".")
+        uploaded = base.mime_for(ext)
+        if requested and uploaded and uploaded != requested:
+            note += (f" The upload's file name ends in .{ext} (its uploaded format); the URL's stp parameter requests "
+                     f"a {requested.split('/')[1].upper()} rendition, which is what source_reported.mime records.")
         if draft.action == "download":
             draft.meta["transformed"] = True
             draft.meta["quality"]["notes"] = " ".join(filter(None, [draft.meta["quality"].get("notes"), OG_QUALITY]))
             draft.meta["notes"] = " ".join(filter(None, [draft.meta.get("notes"), note]))
-        draft.candidate_extra["notes"] = " ".join(filter(None, [item.get("notes"),
-                                                                draft.candidate_extra.get("notes"), note]))
+        # Item and rule notes; the generated note only when there are none (asset notes already carry it once).
+        notes = " ".join(filter(None, [item.get("notes"), draft.candidate_extra.get("notes")]))
+        draft.candidate_extra["notes"] = notes or note
         discovery.candidates.append(draft)
     return discovery
 
