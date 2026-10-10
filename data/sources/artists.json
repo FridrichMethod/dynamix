@@ -226,7 +226,7 @@
       "url": "https://www.pixiv.net/users/3381542",
       "platform": "pixiv",
       "status": "available",
-      "checked_at": "2026-10-10T20:44:54Z",
+      "checked_at": "2026-10-10T21:16:07Z",
       "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -311,7 +311,7 @@
       "url": "https://www.pixiv.net/users/74278",
       "platform": "pixiv",
       "status": "available",
-      "checked_at": "2026-10-10T20:46:41Z",
+      "checked_at": "2026-10-10T21:16:33Z",
       "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -345,7 +345,7 @@
       "url": "https://www.pixiv.net/users/779504",
       "platform": "pixiv",
       "status": "available",
-      "checked_at": "2026-10-10T20:47:07Z",
+      "checked_at": "2026-10-10T21:16:42Z",
       "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1969,12 +1969,20 @@
         "song:totally-bounded"
       ],
       "collections": [],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://www.pixiv.net/artworks/86481781",
           "field": "title",
           "quote": "totally bounded"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+          "note": "wiki song page: Totally bounded (影虎。, illustration LESYEF) in the Dynamix RAVON collaboration pack; the Dynamix jacket is a 16:9 crop of this artwork (2026-10-10 research)"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+          "note": "research pixel comparison 2026-10-10: TotallyBoundedDynamix.png (805x453) is the top 1024x576 band of this square downscaled (MAD 2.87, edge-only residual, same 'totally bounded / 影虎。' title text)"
         }
       ],
       "quality": {
@@ -2031,7 +2039,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715) https://dynamix.miraheze.org/wiki/Totally_bounded: LESYEF (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png made 2022-12-14T21:01:49Z (Wayback CDX: status 200, digest BHL6YTN3FKL25X4J3MX7BPFBVFDTF6QW, WARC record length 867425); the post page is the artist's own pixiv work 86481781. pixiv's advertised page size and post date are kept in source_reported.",
+      "notes": "Coordinator review: the primary post presents this as RAVON jacket art; Dynamix lists the song in its RAVON collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715) https://dynamix.miraheze.org/wiki/Totally_bounded: LESYEF (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png made 2022-12-14T21:01:49Z (Wayback CDX: status 200, digest BHL6YTN3FKL25X4J3MX7BPFBVFDTF6QW, WARC record length 867425); the post page is the artist's own pixiv work 86481781. pixiv's advertised page size and post date are kept in source_reported.",
       "upstream_revision": "20221214210149"
     },
     {
@@ -2734,7 +2742,7 @@
         "song:evoltex-poppi-n-mix"
       ],
       "collections": [],
-      "mapping_status": "inferred",
+      "mapping_status": "confirmed_primary",
       "mapping_evidence": [
         {
           "url": "https://www.pixiv.net/artworks/61859342",
@@ -2744,7 +2752,12 @@
         {
           "url": "https://www.pixiv.net/artworks/61859342",
           "field": "caption",
-          "quote": "Evoltex"
+          "quote": "Evoltex(poppin mix)"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/61859342",
+          "field": "caption",
+          "quote": "スマホ向け音楽ゲームDynamixのイベント楽曲として配信された 「Evoltex(poppin mix)」のジャケットイラストを担当させていただきました。 なんとジャケットイラストのキ…"
         }
       ],
       "quality": {
@@ -2795,7 +2808,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Evoltex (poppi'n mix)”. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214) https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix): Shionty (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png made 2022-12-21T06:46:01Z (Wayback CDX: status 200, digest H6MQBYXGW6DFBAKF4ZAJERF3A2XGTFPA, WARC record length 606100); the post page is the artist's own pixiv work 61859342. pixiv's advertised page size and post date are kept in source_reported.",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214) https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix): Shionty (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png made 2022-12-21T06:46:01Z (Wayback CDX: status 200, digest H6MQBYXGW6DFBAKF4ZAJERF3A2XGTFPA, WARC record length 606100); the post page is the artist's own pixiv work 61859342. pixiv's advertised page size and post date are kept in source_reported.",
       "upstream_revision": "20221221064601"
     },
     {
@@ -2938,12 +2951,20 @@
         "song:party-vinyl"
       ],
       "collections": [],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://www.pixiv.net/artworks/91845485",
           "field": "title",
           "quote": "Party Vinyl"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+          "note": "wiki song page: Party Vinyl (モリモリあつし, illustration アサヤ) in the Dynamix Arcaea collaboration pack; the jacket matches this artwork (2026-10-10 research)"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+          "note": "research pixel comparison 2026-10-10: PartyVinylDynamix.png (1024x568) is the 1000x555 band at y 31-586 of this square, upscaled (MAD 8.7, edge-only residual, same 'Party Vinyl' title text)"
         }
       ],
       "quality": {
@@ -2953,7 +2974,7 @@
         "notes": "pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net."
       },
       "rights": {
-        "holder": null,
+        "holder": "lowiro and/or the credited artist (the artist's caption names lowiro's Arcaea release)",
         "creator": "アサヤ",
         "url": "https://www.pixiv.net/artworks/91845485",
         "license": null,
@@ -2994,13 +3015,13 @@
         }
       ],
       "variant_group": "jacket:party-vinyl",
-      "variant_role": "square variant posted for the Arcaea release; same illustration as the Dynamix jacket (research OGP comparison)",
+      "variant_role": "square variant posted for the Arcaea release",
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "arcaea"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with arcaea and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303) https://dynamix.miraheze.org/wiki/Party_Vinyl: アサヤ (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg made 2022-12-20T12:18:48Z (Wayback CDX: status 200, digest VJVNBESTAE6UJDRMQ7DDPAASO6FJTYKO, WARC record length 1088443); the post page is the artist's own pixiv work 91845485. pixiv's advertised page size and post date are kept in source_reported.",
+      "notes": "Coordinator review: the primary post presents this as Arcaea jacket art; Dynamix lists the song in its Arcaea collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303) https://dynamix.miraheze.org/wiki/Party_Vinyl: アサヤ (illustrator). Bytes from the Internet Archive capture of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg made 2022-12-20T12:18:48Z (Wayback CDX: status 200, digest VJVNBESTAE6UJDRMQ7DDPAASO6FJTYKO, WARC record length 1088443); the post page is the artist's own pixiv work 91845485. pixiv's advertised page size and post date are kept in source_reported.",
       "upstream_revision": "20221220121848"
     },
     {

@@ -74,7 +74,7 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "available",
-      "checked_at": "2026-10-10T21:06:20Z",
+      "checked_at": "2026-10-10T21:16:48Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -3721,6 +3721,10 @@
         {
           "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
           "note": "wiki song page: Totally bounded (影虎。, illustration LESYEF) in the Dynamix RAVON collaboration pack; the Dynamix jacket is a 16:9 crop of this artwork (2026-10-10 research)"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+          "note": "research pixel comparison 2026-10-10: TotallyBoundedDynamix.png (805x453) is the top 1024x576 band of this square downscaled (MAD 2.87, edge-only residual, same 'totally bounded / 影虎。' title text)"
         }
       ],
       "quality": {
@@ -4160,12 +4164,12 @@
         "song:evoltex-poppi-n-mix"
       ],
       "collections": [],
-      "mapping_status": "inferred",
+      "mapping_status": "confirmed_primary",
       "mapping_evidence": [
         {
           "url": "https://www.pixiv.net/artworks/61859342",
           "field": "primary_post",
-          "quote": "Evoltex"
+          "quote": "Evoltex(poppin mix)"
         }
       ],
       "quality": {
@@ -4216,7 +4220,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Evoltex (poppi'n mix)”. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214) https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix): Shionty (illustrator). Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100).",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214) https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix): Shionty (illustrator). Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100).",
       "upstream_revision": "20221221064601"
     },
     {
@@ -4575,6 +4579,10 @@
         {
           "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
           "note": "wiki song page: Party Vinyl (モリモリあつし, illustration アサヤ) in the Dynamix Arcaea collaboration pack; the jacket matches this artwork (2026-10-10 research)"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+          "note": "research pixel comparison 2026-10-10: PartyVinylDynamix.png (1024x568) is the 1000x555 band at y 31-586 of this square, upscaled (MAD 8.7, edge-only residual, same 'Party Vinyl' title text)"
         }
       ],
       "quality": {
