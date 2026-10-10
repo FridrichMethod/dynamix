@@ -84,11 +84,15 @@ def tracked_files(root: Path, directories: Iterable[str]) -> list[str] | None:
     return sorted(name.decode("utf-8") for name in listed.stdout.split(b"\0") if name)
 
 
-def load_manifests(root: Path) -> dict[str, dict]:
+def load_manifests(root: Path, *, strict: bool | None = None) -> dict[str, dict]:
     """Every family manifest, validated. A family without a manifest file gets an empty manifest, unless Git tracks
-    that file (a lost manifest must not quietly shrink the catalog); an existing invalid manifest fails."""
+    that file (a lost manifest must not quietly shrink the catalog); an existing invalid manifest fails. At the
+    repository root (``strict``, the default there) a missing manifest also fails when Git cannot be queried (not on
+    PATH, "dubious ownership", no checkout): only Git can show that the family was never committed. Other roots
+    (fixtures) treat a missing manifest as an empty family when Git cannot tell."""
+    strict = is_repository_root(root) if strict is None else strict
     result: dict[str, dict] = {}
-    tracked: set[str] | None = None
+    queried, tracked = False, None
     for family in schema.FAMILIES:
         rel = paths.manifest_relpath(family)
         try:
@@ -98,9 +102,13 @@ def load_manifests(root: Path) -> dict[str, dict]:
         if target.exists() and not target.is_file():
             raise CatalogError(f"{rel}: not a regular file")
         if not target.exists():
-            if tracked is None:
-                tracked = set(tracked_files(root, ["data/sources"]) or [])
-            if rel in tracked:
+            if not queried:
+                listed = tracked_files(root, ["data/sources"])
+                queried, tracked = True, None if listed is None else set(listed)
+            if tracked is None and strict:
+                raise CatalogError(f"{rel} is missing and Git cannot be queried at the repository root to confirm "
+                                   "that it was never committed: restore it, or run where `git ls-files` works")
+            if tracked is not None and rel in tracked:
                 raise CatalogError(f"{rel} is tracked by Git but missing on disk: restore it")
             result[family] = manifest.empty_manifest(family)
             continue

@@ -10,6 +10,7 @@ import copy
 import io
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -258,6 +259,38 @@ class SafetyTests(Base):
             build.combine(self.root)
         nested = self.root / "data"  # a directory inside a checkout is not the top of a checkout
         self.assertIsNone(build.tracked_files(nested, ["sources"]))
+
+    def test_the_repository_root_fails_closed_when_git_cannot_tell(self):
+        (self.root / "data/sources/archives.json").unlink()
+        with mock.patch.object(build, "tracked_files", return_value=None):
+            catalog = build.combine(self.root)  # a fixture root: the family is empty
+            self.assertNotIn("archives:hkstp", [source["id"] for source in catalog["sources"]])
+            with mock.patch.object(build, "REPO_ROOT", self.root), \
+                    self.assertRaisesRegex(build.CatalogError, "archives.json is missing and Git cannot be queried"):
+                build.combine(self.root)
+            with mock.patch.object(build, "REPO_ROOT", self.root), \
+                    self.assertRaisesRegex(build.CatalogError, "Git cannot be queried"):
+                thumbs.build(self.root, prune=True)  # --prune must not retire the family's previews
+            self.assertFalse((self.root / thumbs.MANIFEST).exists())
+
+    def test_command_line_without_git_refuses_a_missing_manifest(self):
+        """The documented command at a checkout's root: Git on PATH names the tracked file; without Git the build
+        still refuses instead of writing a catalog without that family."""
+        checkout = self.base / "checkout"
+        shutil.copytree(self.root, checkout)
+        shutil.copytree(fx.SCRIPTS, checkout / "scripts", ignore=shutil.ignore_patterns("__pycache__"))
+        if not (fx.git(checkout, "init", "-q") and fx.git(checkout, "add", "data")):
+            self.skipTest("git is unavailable")
+        (checkout / "data/sources/archives.json").unlink()
+        script = [sys.executable, "-I", "-B", str(checkout / "scripts/build_catalog.py")]
+        for environment, message in ((fx.clean_environment(), "tracked by Git but missing"),
+                                     ({"PATH": str(self.base / "no-git"), "HOME": str(self.base)},
+                                      "Git cannot be queried")):
+            with self.subTest(message=message):
+                result = subprocess.run(script, capture_output=True, text=True, timeout=300, env=environment)
+                self.assertEqual(result.returncode, 1, result.stderr)
+                self.assertIn(message, result.stderr)
+                self.assertFalse((checkout / build.CATALOG_JSON).exists())
 
 
 class OutputTests(Base):
