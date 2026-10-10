@@ -6,7 +6,7 @@ This document describes the `artists` source family: public posts and release pa
 
 ## Scope
 
-Nothing here crawls a whole platform. What to fetch is data: `scripts/primary/seeds/artists.json` lists every source with its adapter, explicit seeds (post IDs, page URLs, track pages) and curated rules for each expected candidate. The seeds start from the illustrator and composer credits of the song index and from the research sweep of 2026-10-10. Each source ID has the form `artists:<platform>:<handle>`, for example `artists:x:ariiol_`.
+Nothing here crawls a whole platform. What to fetch is data: `scripts/primary/seeds/artists.json` lists every source with its adapter, explicit seeds (post IDs, page URLs, track pages) and curated rules for each expected candidate. The seeds come from the research sweep of 2026-10-10, whose leads are all accounted for (see the leads crosswalk below). Each source ID has the form `artists:<platform>:<handle>`, for example `artists:x:ariiol_`.
 
 A source can be an illustrator (posts of the jacket artwork) or a composer (release pages whose cover may or may not be the game's jacket). Both are recorded, but they are never confused: a composer's release cover is not the illustrator's original, and a cover whose picture differs from the game jacket is excluded as `external_release_art`.
 
