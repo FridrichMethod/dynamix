@@ -5,7 +5,9 @@
     "research_file_sha256": "65f2580d3539ac8201c18a8e0b36176530ba73492a3f5881ec60b1740e4159a2",
     "count": 214,
     "pairs_sha256": "b9617e31b58826095a5d2280357cc2cbc1459609200f55fae8dafb5abbf2808d",
-    "pairs_definition": "SHA-256 of the compact JSON list [[lead, url, dynamix_original_game], ...] of the research file's yes/unclear leads in file order (separators ',' ':', UTF-8, not ASCII-escaped); a dropped or altered lead changes it"
+    "pairs_definition": "SHA-256 of the compact JSON list [[lead, url, dynamix_original_game], ...] of the research file's yes/unclear leads in file order (separators ',' ':', UTF-8, not ASCII-escaped); a dropped or altered lead changes it",
+    "files_sha256": "54e893bb07294b5af67660e6bcee282c2a2dc034b7d30e3554bc52df0511ca24",
+    "files_definition": "SHA-256 of the compact JSON list [[lead, [file_url, ...]], ...] of the research file's yes/unclear leads in file order (each lead's file_urls deduplicated in order; separators ',' ':', UTF-8, not ASCII-escaped); each lead's 'files' maps every file URL to one recorded candidate"
   },
   "leads": [
     {
@@ -16,6 +18,32 @@
         {
           "source_id": "artists:x:kuskekplecraft",
           "key_prefix": "946599307431460867"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:2",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:3",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:4",
+          "match": "file_url"
         }
       ]
     },
@@ -36,6 +64,26 @@
           "source_id": "artists:soundcloud:kuske-kuonrecords",
           "key_prefix": "kplecraft-okesuchi-2016"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg",
+          "source_id": "artists:soundcloud:kuske-kuonrecords",
+          "key": "dynamix-kplecraft-16383",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000195302235-j0nbfi-original.jpg",
+          "source_id": "artists:soundcloud:kuske-kuonrecords",
+          "key": "dynamix-kplecraft-nanohemu",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000197520417-s421ho-original.jpg",
+          "source_id": "artists:soundcloud:kuske-kuonrecords",
+          "key": "kplecraft-okesuchi-2016",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -46,6 +94,14 @@
         {
           "source_id": "artists:research:leads",
           "key_prefix": "kplecraft.com:rhythm"
+        }
+      ],
+      "files": [
+        {
+          "url": "http://www.kplecraft.com/img/r_dynamix.jpg",
+          "source_id": "artists:research:leads",
+          "key": "kplecraft.com:rhythm",
+          "match": "file_url"
         }
       ]
     },
@@ -69,6 +125,14 @@
           "source_id": "artists:soundcloud:se-u-ra",
           "key_prefix": "dynamix"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000558766005-lm7u39-original.jpg",
+          "source_id": "artists:soundcloud:se-u-ra",
+          "key": "dynamix",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -79,6 +143,14 @@
         {
           "source_id": "artists:soundcloud:arforest",
           "key_prefix": "in-arcaeaflashback"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000222111576-g1f9w0-original.jpg",
+          "source_id": "artists:soundcloud:arforest",
+          "key": "in-arcaeaflashback",
+          "match": "file_url"
         }
       ]
     },
@@ -102,6 +174,14 @@
           "source_id": "artists:soundcloud:re94c",
           "key_prefix": "meteor"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000222056894-oszoi6-original.jpg",
+          "source_id": "artists:soundcloud:re94c",
+          "key": "meteor",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -112,6 +192,14 @@
         {
           "source_id": "official:x",
           "key_prefix": "1437747970875674626"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1437747970875674626:1",
+          "match": "file_url"
         }
       ]
     },
@@ -161,6 +249,14 @@
           "source_id": "artists:soundcloud:kanon092",
           "key_prefix": "hnzwcq3eek1f"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000227366537-3h9eyq-original.jpg",
+          "source_id": "artists:soundcloud:kanon092",
+          "key": "hnzwcq3eek1f",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -171,6 +267,14 @@
         {
           "source_id": "artists:soundcloud:sctl_shin",
           "key_prefix": "venus-invader"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-vm5dOrm1cMku1rAF-Vz3WsA-original.jpg",
+          "source_id": "artists:soundcloud:sctl_shin",
+          "key": "venus-invader",
+          "match": "file_url"
         }
       ]
     },
@@ -194,6 +298,14 @@
           "source_id": "official:x",
           "key_prefix": "1889645633545613724"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1889645633545613724:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -204,6 +316,14 @@
         {
           "source_id": "artists:pixiv:17081698",
           "key_prefix": "77296864"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+          "source_id": "artists:pixiv:17081698",
+          "key": "77296864:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -216,6 +336,14 @@
           "source_id": "artists:soundcloud:woof-owo",
           "key_prefix": "rave-and-get-on-it"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000666424468-sg4lrx-original.jpg",
+          "source_id": "artists:soundcloud:woof-owo",
+          "key": "rave-and-get-on-it",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -226,6 +354,14 @@
         {
           "source_id": "artists:soundcloud:trialsuperbeats",
           "key_prefix": "notorious-gift"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-FfmOIovTq0AhLsUM-c5kVOQ-original.jpg",
+          "source_id": "artists:soundcloud:trialsuperbeats",
+          "key": "notorious-gift",
+          "match": "file_url"
         }
       ]
     },
@@ -270,6 +406,14 @@
         {
           "source_id": "official:x",
           "key_prefix": "1156172591872167937"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1156172591872167937:1",
+          "match": "file_url"
         }
       ]
     },
@@ -352,6 +496,14 @@
           "source_id": "artists:soundcloud:calixer",
           "key_prefix": "und0-turret-calixer-raseedcollab"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000172495177-va9ozn-original.jpg",
+          "source_id": "artists:soundcloud:calixer",
+          "key": "und0-turret-calixer-raseedcollab",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -404,6 +556,14 @@
           "source_id": "artists:x:seura_nue",
           "key_prefix": "1535164468476317696"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FU3_xGbUEAAYeco?format=jpg&name=orig",
+          "source_id": "artists:x:seura_nue",
+          "key": "1535164468476317696:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -414,6 +574,14 @@
         {
           "source_id": "artists:pixiv:4349073",
           "key_prefix": "80195226"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+          "source_id": "artists:pixiv:4349073",
+          "key": "80195226:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -426,6 +594,14 @@
           "source_id": "artists:soundcloud:se-u-ra",
           "key_prefix": "dynamix-1"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-y5QUqkK5pG3QnGZc-zJUDwQ-original.jpg",
+          "source_id": "artists:soundcloud:se-u-ra",
+          "key": "dynamix-1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -437,6 +613,14 @@
           "source_id": "official:x",
           "key_prefix": "1239884186070265856"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1239884186070265856:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -447,6 +631,14 @@
         {
           "source_id": "artists:x:ariiol_",
           "key_prefix": "1879155241788293570"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig",
+          "source_id": "artists:x:ariiol_",
+          "key": "1879155241788293570:1",
+          "match": "file_url"
         }
       ]
     },
@@ -470,6 +662,14 @@
           "source_id": "artists:pixiv:2624455",
           "key_prefix": "51262301"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2015/07/05/21/10/49/51262301_p0.png",
+          "source_id": "artists:pixiv:2624455",
+          "key": "51262301:p0",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -481,6 +681,26 @@
           "source_id": "artists:pixiv:5401047",
           "key_prefix": "92594600"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p0",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p1",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p2",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -491,6 +711,21 @@
         {
           "source_id": "artists:research:leads",
           "key_prefix": "tumblr:hkcd-0018"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://64.media.tumblr.com/5af99a99bf76c1c73ed42839575f6e66/a785f78d7116d8f2-6d/s2048x3072/d60c9fe8ae79d1b92c050dcfaaf76823d4f16ef4.jpg",
+          "source_id": "artists:research:leads",
+          "key": "tumblr:hkcd-0018",
+          "match": "file_url"
+        },
+        {
+          "url": "https://64.media.tumblr.com/f7291524514df58a199da654100ef249/a785f78d7116d8f2-bc/s2048x3072/5052c47ad405cda2e7309e115ef98aa28b17ecfe.png",
+          "source_id": "artists:research:leads",
+          "key": "tumblr:hkcd-0018",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: external_release_art: album cover is a framed full-body composition; the Dynamix jackets are face crops with different titles"
         }
       ]
     },
@@ -525,6 +760,14 @@
           "source_id": "artists:soundcloud:cordantia",
           "key_prefix": "arcana-idola"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000126349271-7ia6a3-original.jpg",
+          "source_id": "artists:soundcloud:cordantia",
+          "key": "arcana-idola",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -535,6 +778,14 @@
         {
           "source_id": "artists:soundcloud:aboutlogic",
           "key_prefix": "the-clockwork-doll"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000227518171-s44v6w-original.jpg",
+          "source_id": "artists:soundcloud:aboutlogic",
+          "key": "the-clockwork-doll",
+          "match": "file_url"
         }
       ]
     },
@@ -547,6 +798,14 @@
           "source_id": "artists:soundcloud:aoisoundsystem",
           "key_prefix": "soar-to-oremaster-ver"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000592869923-wgkax4-original.jpg",
+          "source_id": "artists:soundcloud:aoisoundsystem",
+          "key": "soar-to-oremaster-ver",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -557,6 +816,14 @@
         {
           "source_id": "artists:soundcloud:aoisoundsystem",
           "key_prefix": "soartophi"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000175257359-zajlfr-original.jpg",
+          "source_id": "artists:soundcloud:aoisoundsystem",
+          "key": "soartophi",
+          "match": "file_url"
         }
       ]
     },
@@ -591,6 +858,14 @@
           "source_id": "artists:x:meganegirai",
           "key_prefix": "1536401093894189056"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym?format=jpg&name=orig",
+          "source_id": "artists:x:meganegirai",
+          "key": "1536401093894189056:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -624,6 +899,14 @@
           "source_id": "artists:pixiv:779504",
           "key_prefix": "91845485"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+          "source_id": "artists:pixiv:779504",
+          "key": "91845485:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -635,6 +918,14 @@
           "source_id": "artists:soundcloud:misomyl",
           "key_prefix": "jack-out-killer"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000225124796-nw7p7d-original.jpg",
+          "source_id": "artists:soundcloud:misomyl",
+          "key": "jack-out-killer",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -645,6 +936,14 @@
         {
           "source_id": "artists:soundcloud:linne_ennil",
           "key_prefix": "whirlwind"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000209689661-73448c-original.jpg",
+          "source_id": "artists:soundcloud:linne_ennil",
+          "key": "whirlwind",
+          "match": "file_url"
         }
       ]
     },
@@ -668,6 +967,21 @@
           "source_id": "artists:research:leads",
           "key_prefix": "manbow:137-159"
         }
+      ],
+      "files": [
+        {
+          "url": "https://manbow.nothing.sh/event/upload/1370159_20211030234033_title.jpg",
+          "source_id": "artists:research:leads",
+          "key": "manbow:137-159",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-Jzjz7WQXKwMRm3w4-kd0EbA-original.jpg",
+          "source_id": "artists:research:leads",
+          "key": "manbow:137-159",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: external_release_art: green-ribbon BOF title image differs from the Dynamix jacket (blue ribbon, crystal)"
+        }
       ]
     },
     {
@@ -678,6 +992,14 @@
         {
           "source_id": "artists:soundcloud:jehezukiel",
           "key_prefix": "angstlicher-vermeidender"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-t6iqaHmHa53ntXYy-OpDVhg-original.jpg",
+          "source_id": "artists:soundcloud:jehezukiel",
+          "key": "angstlicher-vermeidender",
+          "match": "file_url"
         }
       ]
     },
@@ -690,6 +1012,14 @@
           "source_id": "artists:soundcloud:vauboy",
           "key_prefix": "you-were-with-a-boy"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-AiTz6CRv2zUdcjBp-UhvXaA-original.jpg",
+          "source_id": "artists:soundcloud:vauboy",
+          "key": "you-were-with-a-boy",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -700,6 +1030,14 @@
         {
           "source_id": "artists:soundcloud:kanon092",
           "key_prefix": "feat-dl-free"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000227869129-5q12e9-original.jpg",
+          "source_id": "artists:soundcloud:kanon092",
+          "key": "feat-dl-free",
+          "match": "file_url"
         }
       ]
     },
@@ -712,6 +1050,14 @@
           "source_id": "artists:soundcloud:3t1a",
           "key_prefix": "heavens-cage"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-B94orgrWBVRX8fqn-oU4gfw-original.jpg",
+          "source_id": "artists:soundcloud:3t1a",
+          "key": "heavens-cage",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -722,6 +1068,14 @@
         {
           "source_id": "artists:soundcloud:halvsan",
           "key_prefix": "halv-garyou-tensei"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-1EWCTCrdvd0PQ7ef-sFyvcw-original.jpg",
+          "source_id": "artists:soundcloud:halvsan",
+          "key": "halv-garyou-tensei",
+          "match": "file_url"
         }
       ]
     },
@@ -734,6 +1088,15 @@
           "source_id": "artists:research:leads",
           "key_prefix": "linkcore:pPnEBvf5"
         }
+      ],
+      "files": [
+        {
+          "url": "https://tcj-image-production.s3.ap-northeast-1.amazonaws.com/u131755/r1031089/ite1031089.jpg",
+          "source_id": "artists:research:leads",
+          "key": "linkcore:pPnEBvf5",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: 400px presigned store rendition of the titled cover; credit conflict (Hotta Ryo vs 48OKU) needs review"
+        }
       ]
     },
     {
@@ -744,6 +1107,15 @@
         {
           "source_id": "artists:research:leads",
           "key_prefix": "tumblr:untrasen-beyondtheall"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://64.media.tumblr.com/849952caad1ebafa2c09614eed9a59e3/91e13bba830d2027-f4/s2048x3072/f80e870d532e9d91c89e5fb99e7a909a16006e16.jpg",
+          "source_id": "artists:research:leads",
+          "key": "tumblr:untrasen-beyondtheall",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: external_release_art: different illustration of the same character, not the Last farewell jacket"
         }
       ]
     },
@@ -855,6 +1227,14 @@
           "source_id": "artists:pixiv:74278",
           "key_prefix": "61859342"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+          "source_id": "artists:pixiv:74278",
+          "key": "61859342:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -865,6 +1245,20 @@
         {
           "source_id": "artists:pixiv:89112381",
           "key_prefix": "122251308"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p0.png",
+          "source_id": "artists:pixiv:89112381",
+          "key": "122251308:p0",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p1.png",
+          "source_id": "artists:pixiv:89112381",
+          "key": "122251308:p1",
+          "match": "file_url"
         }
       ]
     },
@@ -881,6 +1275,14 @@
           "source_id": "official:official-leads",
           "key_prefix": "x:SHINOBI_SLASH:1902697909684179446"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2025/04/14/21/02/39/129309072_p0.jpg",
+          "source_id": "artists:pixiv:89112381",
+          "key": "129309072:p0",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -891,6 +1293,14 @@
         {
           "source_id": "artists:pixiv:3381542",
           "key_prefix": "86481781"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+          "source_id": "artists:pixiv:3381542",
+          "key": "86481781:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -903,6 +1313,14 @@
           "source_id": "artists:soundcloud:jehezukiel",
           "key_prefix": "raving-in-halloween"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-GDhbYwTuokse1FUK-QL8tew-original.jpg",
+          "source_id": "artists:soundcloud:jehezukiel",
+          "key": "raving-in-halloween",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -914,6 +1332,14 @@
           "source_id": "artists:soundcloud:trialsuperbeats",
           "key_prefix": "notoriousnota-trial-wing"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-l9sxdxPLHW8RexnO-GgOGtg-original.jpg",
+          "source_id": "artists:soundcloud:trialsuperbeats",
+          "key": "notoriousnota-trial-wing",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -924,6 +1350,25 @@
         {
           "source_id": "artists:soundcloud:trialsuperbeats",
           "key_prefix": "dynamixnova"
+        },
+        {
+          "source_id": "artists:research:leads",
+          "key_prefix": "youtube:eELV4gTu4Vc"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000568584215-9gsllu-original.jpg",
+          "source_id": "artists:soundcloud:trialsuperbeats",
+          "key": "dynamixnova",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/eELV4gTu4Vc/maxresdefault.jpg",
+          "source_id": "artists:research:leads",
+          "key": "youtube:eELV4gTu4Vc",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: YouTube's re-encoded 1280x720 video thumbnail of the NOVA jacket, not a master; the composer's SoundCloud track (dynamixnova) records the square art"
         }
       ]
     },
@@ -936,6 +1381,14 @@
           "source_id": "artists:soundcloud:riranofficial",
           "key_prefix": "dynamix-riran-daydream"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000244696274-59jstb-original.jpg",
+          "source_id": "artists:soundcloud:riranofficial",
+          "key": "dynamix-riran-daydream",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -946,6 +1399,14 @@
         {
           "source_id": "artists:soundcloud:myukke",
           "key_prefix": "dynamix-myukke-occhoco-rest-less"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000245380455-hyq6mc-original.jpg",
+          "source_id": "artists:soundcloud:myukke",
+          "key": "dynamix-myukke-occhoco-rest-less",
+          "match": "file_url"
         }
       ]
     },
@@ -958,6 +1419,14 @@
           "source_id": "artists:soundcloud:omocha1019",
           "key_prefix": "wish"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000224961924-hxwr8m-original.jpg",
+          "source_id": "artists:soundcloud:omocha1019",
+          "key": "wish",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -968,6 +1437,14 @@
         {
           "source_id": "artists:soundcloud:nuunu5",
           "key_prefix": "novahighway_gameedit"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000234049769-xtx00k-original.jpg",
+          "source_id": "artists:soundcloud:nuunu5",
+          "key": "novahighway_gameedit",
+          "match": "file_url"
         }
       ]
     },
@@ -980,6 +1457,14 @@
           "source_id": "artists:soundcloud:nordysantrophy",
           "key_prefix": "lxvnore"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-bB13IqDxcVQgo0Sg-vPknfw-original.jpg",
+          "source_id": "artists:soundcloud:nordysantrophy",
+          "key": "lxvnore",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -991,6 +1476,14 @@
           "source_id": "artists:soundcloud:kforest",
           "key_prefix": "j83w0wjiytyd"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-6sEz3RnOU7d2yRe7-f56HOw-original.jpg",
+          "source_id": "artists:soundcloud:kforest",
+          "key": "j83w0wjiytyd",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1001,6 +1494,25 @@
         {
           "source_id": "artists:soundcloud:riranofficial",
           "key_prefix": "bofu2016-unshakable"
+        },
+        {
+          "source_id": "artists:research:leads",
+          "key_prefix": "x-media:Cr_ZdsZUIAE0LYs"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000181747126-bdh1nt-original.jpg",
+          "source_id": "artists:soundcloud:riranofficial",
+          "key": "bofu2016-unshakable",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/Cr_ZdsZUIAE0LYs.jpg:orig",
+          "source_id": "artists:research:leads",
+          "key": "x-media:Cr_ZdsZUIAE0LYs",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: BOFU2016 entry image (movie by Irelriser), a related BMS-era composition, not the Dynamix jacket (research comparison)"
         }
       ]
     },
@@ -1145,6 +1657,14 @@
           "source_id": "artists:pixiv:760598",
           "key_prefix": "62913946"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+          "source_id": "artists:pixiv:760598",
+          "key": "62913946:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -1155,6 +1675,14 @@
         {
           "source_id": "artists:pixiv:407585",
           "key_prefix": "42973848"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+          "source_id": "artists:pixiv:407585",
+          "key": "42973848:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -1167,6 +1695,14 @@
           "source_id": "artists:pixiv:4349073",
           "key_prefix": "80195226"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+          "source_id": "artists:pixiv:4349073",
+          "key": "80195226:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -1178,6 +1714,14 @@
           "source_id": "artists:pixiv:1840049",
           "key_prefix": "63416349"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+          "source_id": "artists:pixiv:1840049",
+          "key": "63416349:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -1188,6 +1732,29 @@
         {
           "source_id": "archives:archive-leads",
           "key_prefix": "atwiki:dynamix2ch"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://img.atwiki.jp/dynamix2ch/attach/50/90/Moonlight%20of%20Sand%20Castle.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "atwiki:dynamix2ch",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: community wiki page owned by the wikis family (wikis:atwiki-ja)"
+        },
+        {
+          "url": "https://img.atwiki.jp/dynamix2ch/attach/98/139/Crank%20Up.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "atwiki:dynamix2ch",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: community wiki page owned by the wikis family (wikis:atwiki-ja)"
+        },
+        {
+          "url": "https://img.atwiki.jp/dynamix2ch/attach/187/231/Contour.png",
+          "source_id": "archives:archive-leads",
+          "key": "atwiki:dynamix2ch",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: community wiki page owned by the wikis family (wikis:atwiki-ja)"
         }
       ]
     },
@@ -1211,6 +1778,28 @@
           "source_id": "archives:archive-leads",
           "key_prefix": "archive.org:wiki-dynamixc4cat.fandom.com-20260807"
         }
+      ],
+      "files": [
+        {
+          "url": "https://archive.org/download/wiki-dynamixc4cat.fandom.com-20260807/dynamixc4cat.fandom.com-20260807-images.7z",
+          "source_id": "archives:archive-leads",
+          "key": "archive.org:wiki-dynamixc4cat.fandom.com-20260807",
+          "match": "file_url"
+        },
+        {
+          "url": "https://archive.org/download/wiki-dynamixc4cat.fandom.com-20260807/dynamixc4cat.fandom.com-20260807-images_mismatch.7z",
+          "source_id": "archives:archive-leads",
+          "key": "archive.org:wiki-dynamixc4cat.fandom.com-20260807",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here"
+        },
+        {
+          "url": "https://archive.org/download/wiki-dynamixc4cat.fandom.com-20260807/dynamixc4cat.fandom.com-20260807-history.xml.zst",
+          "source_id": "archives:archive-leads",
+          "key": "archive.org:wiki-dynamixc4cat.fandom.com-20260807",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here"
+        }
       ]
     },
     {
@@ -1221,6 +1810,26 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "dynamix.c4-cat.com/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap1.png@20150412124448",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20190925101806id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
+          "match": "file_url"
         }
       ]
     },
@@ -1236,6 +1845,60 @@
         {
           "source_id": "official:x",
           "key_prefix": ""
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/E5RlMB7VkAAqCzB?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1410901066380623872:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1427842694999527428:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9EPwbSVoAQy4ZX?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1428839259532836867:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E-cEBF4UUAI96Tk?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1435452837211803651:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GAuNhFXbIAAyjwK?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:c4c4cat:timeline-media",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GjFmDQXbMAANOWM?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:c4c4cat:timeline-media",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/Gl_dgUYWQAAQRWw?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:c4c4cat:timeline-media",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GoqoEkJW4AA5saO?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:c4c4cat:timeline-media",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
         }
       ]
     },
@@ -1258,6 +1921,26 @@
         {
           "source_id": "artists:pixiv:5401047",
           "key_prefix": "92594600"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p0",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p1",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p2",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -1417,6 +2100,14 @@
           "source_id": "artists:x:ariiol_",
           "key_prefix": "1879155241788293570"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig",
+          "source_id": "artists:x:ariiol_",
+          "key": "1879155241788293570:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1527,6 +2218,14 @@
           "source_id": "artists:soundcloud:circle2",
           "key_prefix": "elphs-sadnessoriginal-edition"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000183157725-7v3h0v-original.jpg",
+          "source_id": "artists:soundcloud:circle2",
+          "key": "elphs-sadnessoriginal-edition",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1537,6 +2236,14 @@
         {
           "source_id": "artists:soundcloud:cashewnuts",
           "key_prefix": "cashew-white-chocolate"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000212691845-ruevex-original.jpg",
+          "source_id": "artists:soundcloud:cashewnuts",
+          "key": "cashew-white-chocolate",
+          "match": "file_url"
         }
       ]
     },
@@ -1565,6 +2272,38 @@
           "source_id": "artists:soundcloud:missionary_music",
           "key_prefix": "yvvldpc55amz"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000150098114-5zzlbg-original.jpg",
+          "source_id": "artists:soundcloud:ebico",
+          "key": "moonlight-of-sand-castle",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000156991561-w678kd-original.jpg",
+          "source_id": "artists:soundcloud:cosmogrph",
+          "key": "another-world",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000178576363-dwmlcy-original.jpg",
+          "source_id": "artists:soundcloud:circle2",
+          "key": "dynamix-circle-2-gallium-nitride-blue-light",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000162005967-f7sqr8-original.jpg",
+          "source_id": "artists:soundcloud:circle2",
+          "key": "circle-2-gallium-nitride-blue-light",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000111054218-908n17-original.jpg",
+          "source_id": "artists:soundcloud:missionary_music",
+          "key": "yvvldpc55amz",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1587,6 +2326,14 @@
           "source_id": "artists:research:leads",
           "key_prefix": "velecti:historica-of-faraway"
         }
+      ],
+      "files": [
+        {
+          "url": "https://velecti.com/assets/original/1805_historica-1.jpg",
+          "source_id": "artists:research:leads",
+          "key": "velecti:historica-of-faraway",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1598,6 +2345,21 @@
           "source_id": "artists:research:leads",
           "key_prefix": "velecti:dream-starter"
         }
+      ],
+      "files": [
+        {
+          "url": "https://velecti.com/assets/original/1806a_dream.jpg",
+          "source_id": "artists:research:leads",
+          "key": "velecti:dream-starter",
+          "match": "file_url"
+        },
+        {
+          "url": "https://velecti.com/assets/original/1806b_meteor.jpg",
+          "source_id": "artists:research:leads",
+          "key": "velecti:dream-starter",
+          "match": "registry",
+          "note": "recorded with the lead as pending: pending: 300x300 circle-site thumbnails; identity with the game jackets not verified"
+        }
       ]
     },
     {
@@ -1608,6 +2370,14 @@
         {
           "source_id": "artists:research:leads",
           "key_prefix": "velecti:dynamix"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://velecti.com/assets/original/1609_dnx.jpg",
+          "source_id": "artists:research:leads",
+          "key": "velecti:dynamix",
+          "match": "file_url"
         }
       ]
     },
@@ -1661,6 +2431,26 @@
           "source_id": "artists:soundcloud:street",
           "key_prefix": "9iegybsoisnp"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-IqiXooFztBQyIDpD-Xvtq8w-original.jpg",
+          "source_id": "artists:soundcloud:street",
+          "key": "9iegybsoisnp",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000229728959-mg62ph-original.jpg",
+          "source_id": "artists:soundcloud:keshiks",
+          "key": "nightmare-girl",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000134737246-mlhny5-original.jpg",
+          "source_id": "artists:soundcloud:jun_kuroda",
+          "key": "aki-zakura",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1671,6 +2461,14 @@
         {
           "source_id": "artists:pixiv:407585",
           "key_prefix": "42973848"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+          "source_id": "artists:pixiv:407585",
+          "key": "42973848:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -1694,6 +2492,14 @@
           "source_id": "artists:soundcloud:myukke",
           "key_prefix": "for-paradigm-reboot-myukke-sutta-monday"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-IcCygcJJY4oW0r4i-fbWBSg-original.jpg",
+          "source_id": "artists:soundcloud:myukke",
+          "key": "for-paradigm-reboot-myukke-sutta-monday",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1704,6 +2510,14 @@
         {
           "source_id": "artists:soundcloud:espidev",
           "key_prefix": "acrise"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-PicLJ0oS6GQH4DpI-8Mw8yQ-original.jpg",
+          "source_id": "artists:soundcloud:espidev",
+          "key": "acrise",
+          "match": "file_url"
         }
       ]
     },
@@ -1727,6 +2541,14 @@
           "source_id": "artists:soundcloud:kurorak",
           "key_prefix": "dynamix-tunnelling"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000246939799-gq4bse-original.jpg",
+          "source_id": "artists:soundcloud:kurorak",
+          "key": "dynamix-tunnelling",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1742,6 +2564,14 @@
           "source_id": "artists:soundcloud:whos-raphiiel",
           "key_prefix": "tech-nique"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+          "source_id": "artists:soundcloud:whos-raphiiel",
+          "key": "tech-nique",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1752,6 +2582,14 @@
         {
           "source_id": "artists:soundcloud:ryokmbk",
           "key_prefix": "hauynite"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-bIRtaqZWdKt18inR-afD61Q-original.jpg",
+          "source_id": "artists:soundcloud:ryokmbk",
+          "key": "hauynite",
+          "match": "file_url"
         }
       ]
     },
@@ -1767,6 +2605,20 @@
         {
           "source_id": "artists:soundcloud:soundperemotion",
           "key_prefix": "xetta"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000310232751-3plpdo-original.jpg",
+          "source_id": "artists:soundcloud:soundperemotion",
+          "key": "xetta",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-000330727488-0bk0dp-original.jpg",
+          "source_id": "artists:research:leads",
+          "key": "soundcloud:ingolk:xetta-piano",
+          "match": "file_url"
         }
       ]
     },
@@ -1790,6 +2642,14 @@
           "source_id": "artists:soundcloud:ianmirror",
           "key_prefix": "dynamix"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-hqh6oXYC8mbw7iIR-6eb7rw-original.jpg",
+          "source_id": "artists:soundcloud:ianmirror",
+          "key": "dynamix",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1801,6 +2661,14 @@
           "source_id": "artists:soundcloud:r_solidor",
           "key_prefix": "modello-di-neve"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-t1A8DqMREqZOoXsA-chIMKw-original.jpg",
+          "source_id": "artists:soundcloud:r_solidor",
+          "key": "modello-di-neve",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1811,6 +2679,14 @@
         {
           "source_id": "artists:pixiv:1840049",
           "key_prefix": "63416349"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+          "source_id": "artists:pixiv:1840049",
+          "key": "63416349:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -1834,6 +2710,14 @@
           "source_id": "artists:soundcloud:airlemonex",
           "key_prefix": "xe-irlemonex-noisi-dynamix-submission-2017-bronze-tracks"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000335865822-pp7xh0-original.jpg",
+          "source_id": "artists:soundcloud:airlemonex",
+          "key": "xe-irlemonex-noisi-dynamix-submission-2017-bronze-tracks",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1844,6 +2728,14 @@
         {
           "source_id": "artists:soundcloud:panbanana0729",
           "key_prefix": "sunset-load-1"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000232095644-i6efz5-original.jpg",
+          "source_id": "artists:soundcloud:panbanana0729",
+          "key": "sunset-load-1",
+          "match": "file_url"
         }
       ]
     },
@@ -1856,6 +2748,14 @@
           "source_id": "artists:pixiv:760598",
           "key_prefix": "62913946"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+          "source_id": "artists:pixiv:760598",
+          "key": "62913946:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -1867,6 +2767,14 @@
           "source_id": "artists:soundcloud:dice-dd",
           "key_prefix": "abyss-breaker"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-I25aaV3g3bIRnsV2-jJchQg-original.jpg",
+          "source_id": "artists:soundcloud:dice-dd",
+          "key": "abyss-breaker",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1877,6 +2785,14 @@
         {
           "source_id": "artists:soundcloud:hino-isuka",
           "key_prefix": "dynamix-mechanical-jager"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000421265517-mo0eet-original.jpg",
+          "source_id": "artists:soundcloud:hino-isuka",
+          "key": "dynamix-mechanical-jager",
+          "match": "file_url"
         }
       ]
     },
@@ -1892,6 +2808,20 @@
         {
           "source_id": "artists:soundcloud:halvsan",
           "key_prefix": "dynamixos2021-halv-sushi-tornado"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://f4.bcbits.com/img/a3136449385_0.jpg",
+          "source_id": "artists:bandcamp:ha1uday0",
+          "key": "track/sushi-tornado",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i1.sndcdn.com/artworks-7Yyke49SUs9f4SpL-wrzRzQ-original.jpg",
+          "source_id": "artists:soundcloud:halvsan",
+          "key": "dynamixos2021-halv-sushi-tornado",
+          "match": "file_url"
         }
       ]
     },
@@ -1937,6 +2867,14 @@
           "source_id": "artists:wix:lalaluhat",
           "key_prefix": "5a0163_c92d32f3e10a4a4e8ac81189d748e0a9"
         }
+      ],
+      "files": [
+        {
+          "url": "https://static.wixstatic.com/media/5a0163_c92d32f3e10a4a4e8ac81189d748e0a9~mv2_d_2894_2039_s_2.png",
+          "source_id": "artists:wix:lalaluhat",
+          "key": "5a0163_c92d32f3e10a4a4e8ac81189d748e0a9",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1947,6 +2885,14 @@
         {
           "source_id": "artists:wix:lalaluhat",
           "key_prefix": "5a0163_939b56d57a8a4540a6a300d1a3d1eb03"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://static.wixstatic.com/media/5a0163_939b56d57a8a4540a6a300d1a3d1eb03~mv2_d_2084_2160_s_2.png",
+          "source_id": "artists:wix:lalaluhat",
+          "key": "5a0163_939b56d57a8a4540a6a300d1a3d1eb03",
+          "match": "file_url"
         }
       ]
     },
@@ -1959,6 +2905,14 @@
           "source_id": "artists:wix:lalaluhat",
           "key_prefix": "5a0163_81b513cc2f1644cc92c88ca2691a6745"
         }
+      ],
+      "files": [
+        {
+          "url": "https://static.wixstatic.com/media/5a0163_81b513cc2f1644cc92c88ca2691a6745~mv2_d_2039_2894_s_2.png",
+          "source_id": "artists:wix:lalaluhat",
+          "key": "5a0163_81b513cc2f1644cc92c88ca2691a6745",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1969,6 +2923,14 @@
         {
           "source_id": "artists:wix:lalaluhat",
           "key_prefix": "5a0163_459a3dbbd87f46d58630ec52f0d06601"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://static.wixstatic.com/media/5a0163_459a3dbbd87f46d58630ec52f0d06601~mv2_d_2039_2894_s_2.png",
+          "source_id": "artists:wix:lalaluhat",
+          "key": "5a0163_459a3dbbd87f46d58630ec52f0d06601",
+          "match": "file_url"
         }
       ]
     },
@@ -1981,6 +2943,21 @@
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1233337738671218688"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/ER2ubZXUEAAWf4v?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1233337738671218688:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20200228103213id_/https://pbs.twimg.com/media/ER2ubZXUEAAWf4v.jpg:large",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1233337738671218688:1",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
+        }
       ]
     },
     {
@@ -1991,6 +2968,14 @@
         {
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1222836461155667968"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EPhjRjhU8AADzC-?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1222836461155667968:1",
+          "match": "file_url"
         }
       ]
     },
@@ -2003,6 +2988,14 @@
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1188774644397924352"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EH9gOo0U0AECEzc?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1188774644397924352:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2014,6 +3007,14 @@
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1056156411304935429"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/Dqg2zqqU4AYWD4H?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1056156411304935429:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2024,6 +3025,14 @@
         {
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1001435080936472576"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DeXPxAbU8AAphCA?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1001435080936472576:1",
+          "match": "file_url"
         }
       ]
     },
@@ -2091,6 +3100,44 @@
           "source_id": "archives:wayback",
           "key_prefix": "dynamix.c4-cat.com/img/"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap1.png@20150412124448",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20150412125452id_/http://dynamix.c4-cat.com/img/cap2.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap2.png@20150412125452",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20150412125233id_/http://dynamix.c4-cat.com/img/cap3.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap3.png@20150412125233",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20150412125308id_/http://dynamix.c4-cat.com/img/cap4.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap4.png@20150412125308",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20150630034232id_/http://dynamix.c4-cat.com/img/cap5.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap5.png@20150630034232",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20150412124335id_/http://dynamix.c4-cat.com/img/cap6.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap6.png@20150412124335",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2101,6 +3148,38 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "dynamix.c4-cat.com/wp-content/uploads/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20190925101806id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160517032816id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160517082309id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg@20160517082309",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160516183525id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
+          "match": "file_url"
         }
       ]
     },
@@ -2113,6 +3192,38 @@
           "source_id": "archives:wayback",
           "key_prefix": "188.166.254.2/"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20170720024322id_/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+          "source_id": "archives:wayback",
+          "key": "188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160314012750id_/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+          "source_id": "archives:wayback",
+          "key": "188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20170719230328id_/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+          "source_id": "archives:wayback",
+          "key": "188.166.254.2/wp-content/uploads/2015/10/new1.jpg@20170719230328",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20170720023802id_/http://188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg",
+          "source_id": "archives:wayback",
+          "key": "188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg@20170720023802",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20170719230311id_/http://188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png",
+          "source_id": "archives:wayback",
+          "key": "188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png@20170719230311",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2123,6 +3234,24 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "dynamix-server.c4-cat.com/"
+        },
+        {
+          "source_id": "archives:wayback",
+          "key_prefix": "dl.dnx.c4-cat.com/512512.png"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20200622223326id_/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+          "source_id": "archives:wayback",
+          "key": "dynamix-server.c4-cat.com/mycard/img/header.jpg@20200622223326",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20190330125323id_/http://dl.dnx.c4-cat.com/512512.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/512512.png@20190330125323",
+          "match": "file_url"
         }
       ]
     },
@@ -2134,6 +3263,26 @@
         {
           "source_id": "official:x",
           "key_prefix": ""
+        },
+        {
+          "source_id": "official:official-leads",
+          "key_prefix": "x:c4c4cat:wayback-media"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FAXSiIcUcAAx9eE?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:c4c4cat:wayback-media",
+          "match": "registry",
+          "note": "recorded with the lead as pending: awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GhKr4G3bgAAL8t0?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:c4c4cat:wayback-media",
+          "match": "registry",
+          "note": "recorded with the lead as pending: awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
         }
       ]
     },
@@ -2157,6 +3306,32 @@
           "source_id": "official:apple-store",
           "key_prefix": "lookup:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/4b/59/21/4b59219a-06f6-3e05-317d-595eca968375/pr_source.png/4000x4000bb.png",
+          "source_id": "official:apple-store",
+          "key": "lookup:4b59219a-06f6-3e05-317d-595eca968375",
+          "match": "file_url"
+        },
+        {
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/92/09/26/92092603-00f8-d690-9f01-b4437bda3e80/mzl.fdjugjbd.png/4000x4000bb.png",
+          "source_id": "official:apple-store",
+          "key": "lookup:92092603-00f8-d690-9f01-b4437bda3e80",
+          "match": "file_url"
+        },
+        {
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/24/c4/a8/24c4a8a4-d3e2-2eb1-4b98-9b31fccf0a3e/mzl.hnxwkfnn.png/4000x4000bb.png",
+          "source_id": "official:apple-store",
+          "key": "lookup:24c4a8a4-d3e2-2eb1-4b98-9b31fccf0a3e",
+          "match": "file_url"
+        },
+        {
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/0f/cb/18/0fcb183d-e391-18ff-9032-2aa62a453bb3/mzl.ekaqpraf.png/4000x4000bb.png",
+          "source_id": "official:apple-store",
+          "key": "lookup:0fcb183d-e391-18ff-9032-2aa62a453bb3",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2167,6 +3342,36 @@
         {
           "source_id": "official:google-play",
           "key_prefix": "screenshot:"
+        },
+        {
+          "source_id": "official:google-play",
+          "key_prefix": "icon:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://play-lh.googleusercontent.com/P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4=s0",
+          "source_id": "official:google-play",
+          "key": "screenshot:P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4",
+          "match": "file_url"
+        },
+        {
+          "url": "https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM=s0",
+          "source_id": "official:google-play",
+          "key": "screenshot:QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM",
+          "match": "file_url"
+        },
+        {
+          "url": "https://play-lh.googleusercontent.com/k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu=s0",
+          "source_id": "official:google-play",
+          "key": "screenshot:k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu",
+          "match": "file_url"
+        },
+        {
+          "url": "https://play-lh.googleusercontent.com/9fo8XNHTV8Xy-8ht10QfoaFs4dXKx0olW8UyiOvo-_oVa0q_SVmg0p2yl5pO-i5FC_3loplwthZbfZ6fLphrgw=s0",
+          "source_id": "official:google-play",
+          "key": "icon:9fo8XNHTV8Xy-8ht10QfoaFs4dXKx0olW8UyiOvo-_oVa0q_SVmg0p2yl5pO-i5FC_3loplwthZbfZ6fLphrgw",
+          "match": "file_url"
         }
       ]
     },
@@ -2178,6 +3383,30 @@
         {
           "source_id": "official:taptap",
           "key_prefix": "screenshot:"
+        },
+        {
+          "source_id": "official:taptap",
+          "key_prefix": "banner:"
+        },
+        {
+          "source_id": "official:taptap",
+          "key_prefix": "icon:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://img.tapimg.net/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg",
+          "source_id": "official:taptap",
+          "key": "banner:4395ff13f01cca52f28efb2a1694bce9.jpg",
+          "match": "noted",
+          "note": "the same upload path on TapTap's other image host: the candidate fetched https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg"
+        },
+        {
+          "url": "https://img.tapimg.net/market/images/23c51666ae309b07d5f4fe5d888157e5.png",
+          "source_id": "official:taptap",
+          "key": "icon:23c51666ae309b07d5f4fe5d888157e5.png",
+          "match": "noted",
+          "note": "the same upload path on TapTap's other image host: the candidate lists https://img-tc.tapimg.com/market/images/23c51666ae309b07d5f4fe5d888157e5.png"
         }
       ]
     },
@@ -2216,6 +3445,15 @@
           "source_id": "archives:wayback",
           "key_prefix": "www.hkstp.org/media/blqg5pwq/appendix3.pdf"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20240406184233id_/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+          "source_id": "archives:hkstp",
+          "key": "media/blqg5pwq/appendix3.pdf",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
+        }
       ]
     },
     {
@@ -2226,6 +3464,24 @@
         {
           "source_id": "archives:press",
           "key_prefix": "unwire2016:"
+        },
+        {
+          "source_id": "archives:press",
+          "key_prefix": "unwire2014:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
+          "source_id": "archives:press",
+          "key": "unwire2016:IMG_7688",
+          "match": "file_url"
+        },
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm005.png",
+          "source_id": "archives:press",
+          "key": "unwire2014:wm005",
+          "match": "file_url"
         }
       ]
     },
@@ -2238,6 +3494,14 @@
           "source_id": "archives:press",
           "key_prefix": "techbang"
         }
+      ],
+      "files": [
+        {
+          "url": "https://cdn1.techbang.com/system/excerpt_images/20767/original/5fb4e78491a1dcb3ffd25360fda3421f.png",
+          "source_id": "archives:press",
+          "key": "techbang:20767",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2248,6 +3512,14 @@
         {
           "source_id": "official:soundcloud-c4cat",
           "key_prefix": "le-ciel-heureux-p"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000190864912-knm6ov-original.jpg",
+          "source_id": "official:soundcloud-c4cat",
+          "key": "le-ciel-heureux-p",
+          "match": "file_url"
         }
       ]
     },
@@ -2307,6 +3579,31 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0"
+        },
+        {
+          "source_id": "artists:pixiv:760598",
+          "key_prefix": "62913946:p"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20221216101704id_/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png@20221216101704",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png@20221216101704",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/62913946",
+          "source_id": "artists:pixiv:760598",
+          "key": "62913946:p0",
+          "match": "page_url",
+          "note": "the file URL is the post/page itself; this candidate records the page's file"
         }
       ]
     },
@@ -2318,6 +3615,31 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0"
+        },
+        {
+          "source_id": "artists:pixiv:17081698",
+          "key_prefix": "77296864:p"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png@20221216052519",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png@20221216052519",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/77296864",
+          "source_id": "artists:pixiv:17081698",
+          "key": "77296864:p0",
+          "match": "page_url",
+          "note": "the file URL is the post/page itself; this candidate records the page's file"
         }
       ]
     },
@@ -2329,6 +3651,31 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0"
+        },
+        {
+          "source_id": "artists:pixiv:4349073",
+          "key_prefix": "80195226:p"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20221225234754id_/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png@20221225234754",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png@20221225234754",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/80195226",
+          "source_id": "artists:pixiv:4349073",
+          "key": "80195226:p0",
+          "match": "page_url",
+          "note": "the file URL is the post/page itself; this candidate records the page's file"
         }
       ]
     },
@@ -2340,6 +3687,37 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p"
+        },
+        {
+          "source_id": "artists:pixiv:5401047",
+          "key_prefix": "92594600:p"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg@20221216231357",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg@20221216231405",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg@20221216231408",
+          "match": "file_url"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p0",
+          "match": "page_url",
+          "note": "the file URL is the post/page itself; this candidate records the page's file"
         }
       ]
     },
@@ -2351,6 +3729,25 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0"
+        },
+        {
+          "source_id": "artists:pixiv:407585",
+          "key_prefix": "42973848:p"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20221220032003id_/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg@20221220032003",
+          "match": "file_url"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/42973848",
+          "source_id": "artists:pixiv:407585",
+          "key": "42973848:p0",
+          "match": "page_url",
+          "note": "the file URL is the post/page itself; this candidate records the page's file"
         }
       ]
     },
@@ -2362,6 +3759,25 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0"
+        },
+        {
+          "source_id": "artists:pixiv:1840049",
+          "key_prefix": "63416349:p"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png@20221215194007",
+          "match": "file_url"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/63416349",
+          "source_id": "artists:pixiv:1840049",
+          "key": "63416349:p0",
+          "match": "page_url",
+          "note": "the file URL is the post/page itself; this candidate records the page's file"
         }
       ]
     },
@@ -2378,6 +3794,20 @@
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png@20221214210149",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+          "source_id": "archives:wayback",
+          "key": "i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg@20221220121848",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -2388,6 +3818,18 @@
         {
           "source_id": "artists:x:serolerr",
           "key_prefix": "1869236616776343997"
+        },
+        {
+          "source_id": "official:x",
+          "key_prefix": "1868989522002018708:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/GeichmVbIAA9x34.jpg",
+          "source_id": "official:x",
+          "key": "1868989522002018708:1",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -2400,6 +3842,14 @@
           "source_id": "official:x",
           "key_prefix": "981147690795900928"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8.jpg",
+          "source_id": "official:x",
+          "key": "981147690795900928:1",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -2410,6 +3860,21 @@
         {
           "source_id": "official:youtube",
           "key_prefix": ""
+        }
+      ],
+      "files": [
+        {
+          "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCWGypDMEwUTCkwmUR0pq0lA",
+          "source_id": "official:youtube",
+          "key": "",
+          "match": "noted",
+          "note": "the channel's RSS feed is an index, not a file; the Dynamix videos it lists are seeded one by one in official:youtube"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/ElhnpfB8Stw/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "ElhnpfB8Stw",
+          "match": "file_url"
         }
       ]
     },
@@ -2422,6 +3887,20 @@
           "source_id": "archives:wayback",
           "key_prefix": "dl.dnx.c4-cat.com/"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20160516195255id_/http://dl.dnx.c4-cat.com/title.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/title.png@20160516195255",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20190330125323id_/http://dl.dnx.c4-cat.com/512512.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/512512.png@20190330125323",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2432,6 +3911,22 @@
         {
           "source_id": "archives:archive-leads",
           "key_prefix": "wikiwiki:ravon:Nyarlathotep"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://wikiwiki.jp/ravon/Glassage",
+          "source_id": "archives:archive-leads",
+          "key": "wikiwiki:ravon:Nyarlathotep",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner-game wiki (company credit for Dynamix-origin songs)"
+        },
+        {
+          "url": "https://wikiwiki.jp/paradigm_/Glassage",
+          "source_id": "archives:archive-leads",
+          "key": "wikiwiki:ravon:Nyarlathotep",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner-game wiki (company credit for Dynamix-origin songs)"
         }
       ]
     },

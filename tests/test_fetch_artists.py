@@ -948,6 +948,46 @@ class SeedTests(unittest.TestCase):
                 keys = [c["upstream_key"] for c in snapshot["candidates"]]
                 self.assertTrue(not prefix or any(key.startswith(prefix) for key in keys),
                                 f"lead {lead['lead']}: {target['source_id']} has no candidate {prefix!r}")
+        self.check_crosswalk_files(crosswalk, seeds)
+
+    def check_crosswalk_files(self, crosswalk, seeds):
+        # Every file URL the research recorded for a lead names one exact candidate (or registry item) that accounts
+        # for it, not just a page prefix; the hash detects a dropped file URL.
+        files = [[lead["lead"], [entry["url"] for entry in lead.get("files", [])]] for lead in crosswalk["leads"]]
+        canonical = json.dumps(files, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        self.assertEqual(hashlib.sha256(canonical).hexdigest(), crosswalk["lead_list"]["files_sha256"])
+        snapshots = {}
+        for lead in crosswalk["leads"]:
+            targets = {target["source_id"] for target in lead["dispositions"]}
+            for entry in lead.get("files", []):
+                where = f"lead {lead['lead']} file {entry['url']}"
+                self.assertIn(entry["source_id"], targets, where)
+                seed = seeds[entry["source_id"]]
+                if seed["adapter"] == "lead_registry":  # the registry item that records the lead (and its reason)
+                    item = next((item for item in seed["items"] if item["key"] == entry["key"]), None)
+                    self.assertIsNotNone(item, where)
+                    self.assertIn(entry["match"], ("registry", "file_url"), where)
+                    if entry["match"] == "file_url":
+                        self.assertEqual(item.get("file_url"), entry["url"], where)
+                    continue
+                if entry["source_id"] not in snapshots:
+                    snapshots[entry["source_id"]] = {c["upstream_key"]: c for c in manifest.load_discovery(
+                        ROOT, entry["source_id"])["candidates"]}
+                if entry["key"] == "":  # not a file (a feed, an HTML page): the source record, with the reason
+                    self.assertEqual(entry["match"], "noted", where)
+                    self.assertTrue(entry.get("note"), where)
+                    continue
+                candidate = snapshots[entry["source_id"]].get(entry["key"])
+                self.assertIsNotNone(candidate, where)
+                if entry["match"] == "file_url":
+                    self.assertEqual(candidate["file_url"], entry["url"], where)
+                elif entry["match"] == "source_reported.url":
+                    self.assertEqual(candidate["source_reported"]["url"], entry["url"], where)
+                elif entry["match"] == "page_url":
+                    self.assertEqual(candidate["page_url"], entry["url"], where)
+                else:
+                    self.assertIn(entry["match"], ("normalized", "noted"), where)
+                    self.assertTrue(entry.get("note"), where)
 
 
 if __name__ == "__main__":

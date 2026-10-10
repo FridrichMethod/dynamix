@@ -91,7 +91,10 @@ that a rule now excludes stays archived and fails `--verify`.
 originals, official YouTube/Facebook/X, press, partner collaborations) map every 2026-10-10 lead (`dynamix_original_game`
 yes/unclear) to the
 source and candidate-key prefix that records its disposition; `lead_list` holds the research file's SHA-256 and a hash
-of the lead list, so the seed test detects a dropped lead. `testing.py` holds the offline test doubles used by
+of the lead list, so the seed test detects a dropped lead. Each lead's `files` maps every file URL the research
+recorded for it to one exact candidate (matched by `file_url`, `source_reported.url` or `page_url`, or `normalized`/
+`noted` with the reason) or registry item, and `files_sha256` hashes the per-lead file lists, so a file that no
+candidate accounts for, or a dropped file URL, fails the seed test (a page prefix alone is not enough). `testing.py` holds the offline test doubles used by
 `tests/test_fetch_{artists,official,archives}.py`.
 
 ### App Store renditions (observed 2026-10-10)

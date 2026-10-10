@@ -5,7 +5,9 @@
     "research_file_sha256": "e50fc89ca7d7372536648e33e4dc93424d0183847701a64c19ce58863cabb484",
     "count": 179,
     "pairs_sha256": "a0c8b4d3e7e2b10c54907462bc724bf5cb30a084c058fb22bb5944c61bd7e471",
-    "pairs_definition": "SHA-256 of the compact JSON list [[lead, url, dynamix_original_game], ...] of the research file's yes/unclear leads in file order (separators ',' ':', UTF-8, not ASCII-escaped); a dropped or altered lead changes it"
+    "pairs_definition": "SHA-256 of the compact JSON list [[lead, url, dynamix_original_game], ...] of the research file's yes/unclear leads in file order (separators ',' ':', UTF-8, not ASCII-escaped); a dropped or altered lead changes it",
+    "files_sha256": "442f2323a4af0fc4341aae3100f89e823d01268ec506aca7191cf880d3537247",
+    "files_definition": "SHA-256 of the compact JSON list [[lead, [file_url, ...]], ...] of the research file's yes/unclear leads in file order (each lead's file_urls deduplicated in order; separators ',' ':', UTF-8, not ASCII-escaped); each lead's 'files' maps every file URL to one recorded candidate"
   },
   "leads": [
     {
@@ -21,6 +23,14 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+          "source_id": "artists:pixiv:407585",
+          "key": "42973848:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -38,6 +48,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+          "source_id": "artists:pixiv:74278",
+          "key": "61859342:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -49,6 +67,14 @@
         {
           "source_id": "artists:pixiv:19451821",
           "key_prefix": "62705530:p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg",
+          "source_id": "artists:pixiv:19451821",
+          "key": "62705530:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -66,6 +92,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+          "source_id": "artists:pixiv:760598",
+          "key": "62913946:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -81,6 +115,14 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+          "source_id": "artists:pixiv:1840049",
+          "key": "63416349:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -98,6 +140,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+          "source_id": "artists:pixiv:17081698",
+          "key": "77296864:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -113,6 +163,14 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+          "source_id": "artists:pixiv:4349073",
+          "key": "80195226:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -130,6 +188,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p1",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -145,6 +211,14 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p2",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -162,6 +236,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+          "source_id": "artists:pixiv:5401047",
+          "key": "92594600:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -177,6 +259,14 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+          "source_id": "artists:pixiv:3381542",
+          "key": "86481781:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -194,6 +284,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+          "source_id": "artists:pixiv:779504",
+          "key": "91845485:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -205,6 +303,14 @@
         {
           "source_id": "artists:pixiv:2624455",
           "key_prefix": "51262301:p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2015/07/05/21/10/49/51262301_p0.png",
+          "source_id": "artists:pixiv:2624455",
+          "key": "51262301:p0",
+          "match": "file_url"
         }
       ]
     },
@@ -222,6 +328,20 @@
           "source_id": "artists:pixiv:89112381",
           "key_prefix": "122251308:p1"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p0.png",
+          "source_id": "artists:pixiv:89112381",
+          "key": "122251308:p0",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p1.png",
+          "source_id": "artists:pixiv:89112381",
+          "key": "122251308:p1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -233,6 +353,14 @@
         {
           "source_id": "artists:pixiv:89112381",
           "key_prefix": "129309072:p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2025/04/14/21/02/39/129309072_p0.jpg",
+          "source_id": "artists:pixiv:89112381",
+          "key": "129309072:p0",
+          "match": "file_url"
         }
       ]
     },
@@ -246,6 +374,14 @@
           "source_id": "artists:x:seura_nue",
           "key_prefix": "1241295713784328193:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/ETn3x6CUwAEvgf5?format=jpg&name=orig",
+          "source_id": "artists:x:seura_nue",
+          "key": "1241295713784328193:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -257,6 +393,14 @@
         {
           "source_id": "artists:x:seura_nue",
           "key_prefix": "1535164468476317696:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FU3_xGbUEAAYeco?format=jpg&name=orig",
+          "source_id": "artists:x:seura_nue",
+          "key": "1535164468476317696:1",
+          "match": "file_url"
         }
       ]
     },
@@ -270,6 +414,14 @@
           "source_id": "artists:x:ariiol_",
           "key_prefix": "1879155241788293570:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig",
+          "source_id": "artists:x:ariiol_",
+          "key": "1879155241788293570:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -281,6 +433,14 @@
         {
           "source_id": "artists:x:kumeki_3",
           "key_prefix": "1156842676290854912:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EA3uRXyUIAIV_9r?format=jpg&name=orig",
+          "source_id": "artists:x:kumeki_3",
+          "key": "1156842676290854912:1",
+          "match": "file_url"
         }
       ]
     },
@@ -294,6 +454,14 @@
           "source_id": "artists:x:flan_0207",
           "key_prefix": "1185170668175814661:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EHKSa4ZUYAAGGhX?format=png&name=orig",
+          "source_id": "artists:x:flan_0207",
+          "key": "1185170668175814661:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -305,6 +473,14 @@
         {
           "source_id": "artists:x:violpasn",
           "key_prefix": "1483451866457714690:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FJZHma3acAAZHNc?format=jpg&name=orig",
+          "source_id": "artists:x:violpasn",
+          "key": "1483451866457714690:1",
+          "match": "file_url"
         }
       ]
     },
@@ -318,6 +494,14 @@
           "source_id": "artists:x:r_solidor",
           "key_prefix": "1890032490053861447:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/Gjq-iDraEAEW-IR?format=jpg&name=orig",
+          "source_id": "artists:x:r_solidor",
+          "key": "1890032490053861447:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -329,6 +513,32 @@
         {
           "source_id": "artists:x:kuskekplecraft",
           "key_prefix": "946599307431460867:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:2",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:3",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "946599307431460867:4",
+          "match": "file_url"
         }
       ]
     },
@@ -342,6 +552,14 @@
           "source_id": "artists:x:kuskekplecraft",
           "key_prefix": "1547147750847893505:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FXiSO_bUEAAWFaH?format=png&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "1547147750847893505:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -353,6 +571,14 @@
         {
           "source_id": "artists:x:kuskekplecraft",
           "key_prefix": "1253596942510075904:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5?format=jpg&name=orig",
+          "source_id": "artists:x:kuskekplecraft",
+          "key": "1253596942510075904:1",
+          "match": "file_url"
         }
       ]
     },
@@ -378,6 +604,14 @@
           "source_id": "artists:x:sojyiqui",
           "key_prefix": "1524965569342377984:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FSnEGNPUUAEG5Ub?format=jpg&name=orig",
+          "source_id": "artists:x:sojyiqui",
+          "key": "1524965569342377984:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -389,6 +623,14 @@
         {
           "source_id": "artists:x:sojyiqui",
           "key_prefix": "1525410932750716928:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FStZJ-racAA9z9n?format=jpg&name=orig",
+          "source_id": "artists:x:sojyiqui",
+          "key": "1525410932750716928:1",
+          "match": "file_url"
         }
       ]
     },
@@ -402,6 +644,14 @@
           "source_id": "artists:x:hyou_haku",
           "key_prefix": "1819855437455606133:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/GUFs4D5acAASeCO?format=jpg&name=orig",
+          "source_id": "artists:x:hyou_haku",
+          "key": "1819855437455606133:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -413,6 +663,14 @@
         {
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1001435080936472576:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DeXPxAbU8AAphCA?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1001435080936472576:1",
+          "match": "file_url"
         }
       ]
     },
@@ -426,6 +684,14 @@
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1056156411304935429:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/Dqg2zqqU4AYWD4H?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1056156411304935429:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -437,6 +703,14 @@
         {
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1188774644397924352:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EH9gOo0U0AECEzc?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1188774644397924352:1",
+          "match": "file_url"
         }
       ]
     },
@@ -450,6 +724,14 @@
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1222836461155667968:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EPhjRjhU8AADzC-?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1222836461155667968:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -462,6 +744,14 @@
           "source_id": "artists:x:lalaluhat",
           "key_prefix": "1233337738671218688:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/ER2ubZXUEAAWf4v?format=jpg&name=orig",
+          "source_id": "artists:x:lalaluhat",
+          "key": "1233337738671218688:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -473,6 +763,20 @@
         {
           "source_id": "artists:x:seura_nue",
           "key_prefix": "1149949495305576448:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/D_Vw97uU0AA2Z0v?format=jpg&name=orig",
+          "source_id": "artists:x:seura_nue",
+          "key": "1149949495305576448:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/D_Vw97rVUAEc3GO?format=jpg&name=orig",
+          "source_id": "artists:x:seura_nue",
+          "key": "1149949495305576448:2",
+          "match": "file_url"
         }
       ]
     },
@@ -489,6 +793,14 @@
         {
           "source_id": "official:x",
           "key_prefix": "1901242039800299634:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1901242039800299634:1",
+          "match": "file_url"
         }
       ]
     },
@@ -517,6 +829,15 @@
         {
           "source_id": "official:official-leads",
           "key_prefix": "x:SHINOBI_SLASH:1900879824065097867"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/GmFIH8IacAAfAXH?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:SHINOBI_SLASH:1900879824065097867",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game Shinobi Slash's announcement of five Dynamix songs coming into Shinobi Slash (collaboration key art with the partner's song list); the key art itself is tracked as artists:pixiv:89112381 129309072"
         }
       ]
     },
@@ -646,6 +967,14 @@
           "source_id": "official:x",
           "key_prefix": "1410901066380623872:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/E5RlMB7VkAAqCzB?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1410901066380623872:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -694,6 +1023,68 @@
           "source_id": "official:x",
           "key_prefix": "1435483036779483139:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1427842694999527428:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1428205081292251137:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1428567468444950530:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9EPwbSVoAQy4ZX?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1428839259532836867:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9END1JVIAk8djf?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1428960055492321284:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1434365675686879233:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1434728063649079298:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1435090451833315331:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E-cEBF4UUAI96Tk?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1435452837211803651:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1435483036779483139:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -705,6 +1096,43 @@
         {
           "source_id": "official:official-leads",
           "key_prefix": "x:synthnova:ravon-dynamix-collab"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/E5ROpN4VkAArGqY?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:synthnova:ravon-dynamix-collab",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game RAVON's announcement images (posts 1410901060084924416, 1427842942803214338, 1428960056024915979, 1431889356327776258, 1435483036368338946; 3840x2160) of Dynamix songs ported into RAVON; partner-game promotion, not original-Dynamix"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9CmVF1VkAc6Kln?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:synthnova:ravon-dynamix-collab",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game RAVON's announcement images (posts 1410901060084924416, 1427842942803214338, 1428960056024915979, 1431889356327776258, 1435483036368338946; 3840x2160) of Dynamix songs ported into RAVON; partner-game promotion, not original-Dynamix"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E9RDYbfUcAMTZHO?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:synthnova:ravon-dynamix-collab",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game RAVON's announcement images (posts 1410901060084924416, 1427842942803214338, 1428960056024915979, 1431889356327776258, 1435483036368338946; 3840x2160) of Dynamix songs ported into RAVON; partner-game promotion, not original-Dynamix"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E98U8GXUUAUFGTC?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:synthnova:ravon-dynamix-collab",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game RAVON's announcement images (posts 1410901060084924416, 1427842942803214338, 1428960056024915979, 1431889356327776258, 1435483036368338946; 3840x2160) of Dynamix songs ported into RAVON; partner-game promotion, not original-Dynamix"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/E-fh91AUcAMXU-y?format=jpg&name=orig",
+          "source_id": "official:official-leads",
+          "key": "x:synthnova:ravon-dynamix-collab",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game RAVON's announcement images (posts 1410901060084924416, 1427842942803214338, 1428960056024915979, 1431889356327776258, 1435483036368338946; 3840x2160) of Dynamix songs ported into RAVON; partner-game promotion, not original-Dynamix"
         }
       ]
     },
@@ -721,6 +1149,20 @@
         {
           "source_id": "official:x",
           "key_prefix": "831877510870601728:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DBPYksUUQAEVjQ1?format=png&name=orig",
+          "source_id": "official:x",
+          "key": "870277523724132352:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "831877510870601728:1",
+          "match": "file_url"
         }
       ]
     },
@@ -762,6 +1204,98 @@
           "source_id": "official:x",
           "key_prefix": "1840723270796292551:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EOZA6mlVAAEvSJj?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1217763427189309440:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1310910948119425025:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GEI_OyZbAAAkJEM?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1748030616950734862:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GEI_OycakAEMOPt?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1748030616950734862:2",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GEI_OycbAAATaJB?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1748030616950734862:3",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GOat1kZbkAA4-yl?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1797599111748731072:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GOat1lEbIAAPJQU?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1797599111748731072:2",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GTblk6pagAED15o?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1817892842204807209:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GTbllrjaoAAOsRh?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1817892842204807209:2",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GXLyPAhbkAANEF8?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1833837896794792179:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GXLyPAVaIAE2OaV?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1833837896794792179:2",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GYp0GwSbIAAxdjh?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1840723270796292551:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GYt9iSeb0AA7dFE?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1840723270796292551:2",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GS1r7O0bQAA2dA5?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1814225168224727044:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/GS1r7PvagAAH43x?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1814225168224727044:2",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -773,6 +1307,14 @@
         {
           "source_id": "official:x",
           "key_prefix": "1475073909376618498:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1475073909376618498:1",
+          "match": "file_url"
         }
       ]
     },
@@ -798,6 +1340,32 @@
           "source_id": "official:x",
           "key_prefix": "981147690795900928:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1305114005191757824:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1305838780729917441:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "1306201168503332870:1",
+          "match": "file_url"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "981147690795900928:1",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -813,6 +1381,14 @@
         {
           "source_id": "official:official-leads",
           "key_prefix": "x:liq_mmry:880267173574262784"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "880003300275347458:1",
+          "match": "file_url"
         }
       ]
     },
@@ -849,6 +1425,14 @@
         {
           "source_id": "official:x",
           "key_prefix": "981147690795900928:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
+          "source_id": "official:x",
+          "key": "981147690795900928:1",
+          "match": "file_url"
         }
       ]
     },
@@ -946,6 +1530,20 @@
           "source_id": "official:youtube",
           "key_prefix": "channel:avatar"
         }
+      ],
+      "files": [
+        {
+          "url": "https://yt3.googleusercontent.com/zY0EA2BKMRzJ9VjCCEsJtIA_e_qaRwO5ld_-CrzyWRQbX1Br_c4XQLZNPBxViKKmWqR4xiwi=s0",
+          "source_id": "official:youtube",
+          "key": "channel:banner",
+          "match": "file_url"
+        },
+        {
+          "url": "https://yt3.googleusercontent.com/nH67SMoTva9-Qzaw9nSxI7wVXoL0OlWoZFSfdjqNA6YCvPVj_itCLYm5L2tDIouzHVUjsx5-=s0",
+          "source_id": "official:youtube",
+          "key": "channel:avatar",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1010,6 +1608,92 @@
           "source_id": "official:youtube",
           "key_prefix": "Dr6Ox38bgTc"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/dE-ywtFYswU/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "dE-ywtFYswU",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/D09PQg7mTpw/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "D09PQg7mTpw",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/IOt4k5RBtcw/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "IOt4k5RBtcw",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/ooGWwVICuIE/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "ooGWwVICuIE",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/HV1ZP3jsdh0/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "HV1ZP3jsdh0",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/shbCnvJovcE/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "shbCnvJovcE",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/2yp09foNv10/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "2yp09foNv10",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/OddLD4cKYvE/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "OddLD4cKYvE",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/Dph6gHJB7SI/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "Dph6gHJB7SI",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/ohZma5VGdmo/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "ohZma5VGdmo",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/HaSzSxTdWUs/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "HaSzSxTdWUs",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/qjv2dFKaUkg/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "qjv2dFKaUkg",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/dhgR1g--SkM/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "dhgR1g--SkM",
+          "match": "file_url"
+        },
+        {
+          "url": "https://i.ytimg.com/vi/Dr6Ox38bgTc/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "Dr6Ox38bgTc",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1021,6 +1705,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "FInFw2lVz_I"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/FInFw2lVz_I/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "FInFw2lVz_I",
+          "match": "file_url"
         }
       ]
     },
@@ -1034,6 +1726,14 @@
           "source_id": "official:youtube",
           "key_prefix": "QT1XYRD8T4k"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/QT1XYRD8T4k/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "QT1XYRD8T4k",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1045,6 +1745,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "Ss-l68rOuno"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/Ss-l68rOuno/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "Ss-l68rOuno",
+          "match": "file_url"
         }
       ]
     },
@@ -1058,6 +1766,14 @@
           "source_id": "official:youtube",
           "key_prefix": "Q4A5Wg5CViM"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/Q4A5Wg5CViM/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "Q4A5Wg5CViM",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1069,6 +1785,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "zCzjrrbmFy8"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/zCzjrrbmFy8/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "zCzjrrbmFy8",
+          "match": "file_url"
         }
       ]
     },
@@ -1082,6 +1806,14 @@
           "source_id": "official:youtube",
           "key_prefix": "J0nQeDQGYxk"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/J0nQeDQGYxk/hqdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "J0nQeDQGYxk",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1093,6 +1825,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "XXCJb_eFVGA"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/XXCJb_eFVGA/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "XXCJb_eFVGA",
+          "match": "file_url"
         }
       ]
     },
@@ -1106,6 +1846,14 @@
           "source_id": "official:youtube",
           "key_prefix": "V9b2am5u4wM"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/V9b2am5u4wM/hqdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "V9b2am5u4wM",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1117,6 +1865,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "FIAt9YBEh1E"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/FIAt9YBEh1E/hqdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "FIAt9YBEh1E",
+          "match": "file_url"
         }
       ]
     },
@@ -1130,6 +1886,14 @@
           "source_id": "official:youtube",
           "key_prefix": "rvwP4eY-owg"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/rvwP4eY-owg/hqdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "rvwP4eY-owg",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1141,6 +1905,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "ElhnpfB8Stw"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/ElhnpfB8Stw/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "ElhnpfB8Stw",
+          "match": "file_url"
         }
       ]
     },
@@ -1154,6 +1926,14 @@
           "source_id": "official:youtube",
           "key_prefix": "WeFoz6KSouM"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/WeFoz6KSouM/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "WeFoz6KSouM",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1165,6 +1945,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "VgQ9Hf4MEA4"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/VgQ9Hf4MEA4/hqdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "VgQ9Hf4MEA4",
+          "match": "file_url"
         }
       ]
     },
@@ -1422,6 +2210,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20250517214330id_/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
+          "source_id": "archives:wayback",
+          "key": "scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847@20250517214330",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1518,6 +2314,15 @@
           "source_id": "archives:wayback",
           "key_prefix": "dl.dnx.c4-cat.com/"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20160204095347id_/http://dl.dnx.c4-cat.com/",
+          "source_id": "archives:wayback",
+          "key": "",
+          "match": "noted",
+          "note": "an HTML capture of the download landing page, not a file; the images under dl.dnx.c4-cat.com/ are the download-host item's captures (e.g. dl.dnx.c4-cat.com/512512.png, excluded as the app icon)"
+        }
       ]
     },
     {
@@ -1529,6 +2334,20 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "dl.dnx.c4-cat.com/title.png@"
+        }
+      ],
+      "files": [
+        {
+          "url": "http://dl.dnx.c4-cat.com/title.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/title.png@20160516195255",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160516195255id_/http://dl.dnx.c4-cat.com/title.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/title.png@20160516195255",
+          "match": "file_url"
         }
       ]
     },
@@ -1542,6 +2361,20 @@
           "source_id": "archives:wayback",
           "key_prefix": "dl.dnx.c4-cat.com/as.png@"
         }
+      ],
+      "files": [
+        {
+          "url": "http://dl.dnx.c4-cat.com/as.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/as.png@20160516205106",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160516205106id_/http://dl.dnx.c4-cat.com/as.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/as.png@20160516205106",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1554,6 +2387,20 @@
           "source_id": "archives:wayback",
           "key_prefix": "dl.dnx.c4-cat.com/gpg.png@"
         }
+      ],
+      "files": [
+        {
+          "url": "http://dl.dnx.c4-cat.com/gpg.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/gpg.png@20160516194740",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://web.archive.org/web/20160516194740id_/http://dl.dnx.c4-cat.com/gpg.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/gpg.png@20160516194740",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1565,6 +2412,20 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "dl.dnx.c4-cat.com/512512.png@"
+        }
+      ],
+      "files": [
+        {
+          "url": "http://dl.dnx.c4-cat.com/512512.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/512512.png@20190330125323",
+          "match": "source_reported.url"
+        },
+        {
+          "url": "https://web.archive.org/web/20190330125323id_/http://dl.dnx.c4-cat.com/512512.png",
+          "source_id": "archives:wayback",
+          "key": "dl.dnx.c4-cat.com/512512.png@20190330125323",
+          "match": "file_url"
         }
       ]
     },
@@ -1602,6 +2463,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "dynamix.c4-cat.com/img/cap2.png@"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20150412125452id_/http://dynamix.c4-cat.com/img/cap2.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap2.png@20150412125452",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1614,6 +2483,14 @@
           "source_id": "archives:wayback",
           "key_prefix": "dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@"
         }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20160517032816id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1625,6 +2502,14 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg@"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20170720023802id_/http://188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg",
+          "source_id": "archives:wayback",
+          "key": "188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg@20170720023802",
+          "match": "file_url"
         }
       ]
     },
@@ -1645,6 +2530,26 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "dynamix.c4-cat.com/img/cap4.png@"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap1.png@20150412124448",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20150412125233id_/http://dynamix.c4-cat.com/img/cap3.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap3.png@20150412125233",
+          "match": "file_url"
+        },
+        {
+          "url": "https://web.archive.org/web/20150412125308id_/http://dynamix.c4-cat.com/img/cap4.png",
+          "source_id": "archives:wayback",
+          "key": "dynamix.c4-cat.com/img/cap4.png@20150412125308",
+          "match": "file_url"
         }
       ]
     },
@@ -1730,6 +2635,14 @@
           "source_id": "archives:press",
           "key_prefix": "gnn275656:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/13/9c5b7911570626cff6690355b41rup55.PNG",
+          "source_id": "archives:press",
+          "key": "gnn275656:9c5b7911570626cff6690355b41rup55",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1741,6 +2654,20 @@
         {
           "source_id": "archives:press",
           "key_prefix": "gnn115106:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/00/0001186000.JPG",
+          "source_id": "archives:press",
+          "key": "gnn115106:0001186000",
+          "match": "file_url"
+        },
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/87/0001185987.PNG",
+          "source_id": "archives:press",
+          "key": "gnn115106:0001185987",
+          "match": "file_url"
         }
       ]
     },
@@ -1754,6 +2681,14 @@
           "source_id": "archives:press",
           "key_prefix": "gnn129234:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/96/0001345596.JPG",
+          "source_id": "archives:press",
+          "key": "gnn129234:0001345596",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1765,6 +2700,20 @@
         {
           "source_id": "archives:press",
           "key_prefix": "gnn132827:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/76/0001386276.JPG",
+          "source_id": "archives:press",
+          "key": "gnn132827:0001386276",
+          "match": "file_url"
+        },
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
+          "source_id": "archives:press",
+          "key": "gnn132827:0001386275",
+          "match": "file_url"
         }
       ]
     },
@@ -1778,6 +2727,20 @@
           "source_id": "archives:press",
           "key_prefix": "gnn138982:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/52/0001457652.JPG",
+          "source_id": "archives:press",
+          "key": "gnn138982:0001457652",
+          "match": "file_url"
+        },
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/51/0001457651.JPG",
+          "source_id": "archives:press",
+          "key": "gnn138982:0001457651",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1789,6 +2752,20 @@
         {
           "source_id": "archives:press",
           "key_prefix": "gnn141991:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/20/0001490820.JPG",
+          "source_id": "archives:press",
+          "key": "gnn141991:0001490820",
+          "match": "file_url"
+        },
+        {
+          "url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
+          "source_id": "archives:press",
+          "key": "gnn141991:0001490819",
+          "match": "file_url"
         }
       ]
     },
@@ -1802,6 +2779,15 @@
           "source_id": "archives:archive-leads",
           "key_prefix": "bahamut-acg:73365"
         }
+      ],
+      "files": [
+        {
+          "url": "https://p2.bahamut.com.tw/B/ACG/c/65/0000073365.JPG",
+          "source_id": "archives:archive-leads",
+          "key": "bahamut-acg:73365",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: game_ui: the entry's only image is the app icon (240x240)"
+        }
       ]
     },
     {
@@ -1813,6 +2799,22 @@
         {
           "source_id": "archives:archive-leads",
           "key_prefix": "9game:1249193"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://image.9game.cn/2016/10/24/14590550.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "9game:1249193",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: watermarked 630px syndicated copies of the GNN 138982 screenshots archived in archives:press"
+        },
+        {
+          "url": "https://image.9game.cn/2016/10/24/14590551.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "9game:1249193",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: watermarked 630px syndicated copies of the GNN 138982 screenshots archived in archives:press"
         }
       ]
     },
@@ -1826,6 +2828,22 @@
           "source_id": "archives:archive-leads",
           "key_prefix": "9game:1486863"
         }
+      ],
+      "files": [
+        {
+          "url": "https://image.9game.cn/2017/1/5/15540643.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "9game:1486863",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: watermarked 629x354 copies of the Vocal package promo and Sakura Fubuki card archived at 1920x1080 from GNN 141991"
+        },
+        {
+          "url": "https://image.9game.cn/2017/1/5/15540646.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "9game:1486863",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: watermarked 629x354 copies of the Vocal package promo and Sakura Fubuki card archived at 1920x1080 from GNN 141991"
+        }
       ]
     },
     {
@@ -1837,6 +2855,29 @@
         {
           "source_id": "archives:archive-leads",
           "key_prefix": "gamersky:588979"
+        }
+      ],
+      "files": [
+        {
+          "url": "http://img1.gamersky.com/image2015/05/20150521fw_23/gamersky_01origin_01_201552118313FE.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "gamersky:588979",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: 550px copies of 2015 App Store screenshots"
+        },
+        {
+          "url": "http://img1.gamersky.com/image2015/05/20150521fw_23/gamersky_02origin_03_20155211831A6F.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "gamersky:588979",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: 550px copies of 2015 App Store screenshots"
+        },
+        {
+          "url": "http://img1.gamersky.com/image2015/05/20150521fw_23/gamersky_03origin_05_2015521183119B.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "gamersky:588979",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: 550px copies of 2015 App Store screenshots"
         }
       ]
     },
@@ -1850,6 +2891,20 @@
           "source_id": "archives:press",
           "key_prefix": "qoo52753:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706432894.jpg",
+          "source_id": "archives:press",
+          "key": "qoo52753:16031706432894",
+          "match": "file_url"
+        },
+        {
+          "url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013016364422.jpg",
+          "source_id": "archives:press",
+          "key": "qoo52753:16013016364422",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1861,6 +2916,20 @@
         {
           "source_id": "archives:press",
           "key_prefix": "qoo77295:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://d27fq2mgp64qlg.cloudfront.net/wp-content/uploads/2015/12/17072106445586.jpg",
+          "source_id": "archives:press",
+          "key": "qoo77295:17072106445586",
+          "match": "file_url"
+        },
+        {
+          "url": "https://d27fq2mgp64qlg.cloudfront.net/wp-content/uploads/2015/12/17072106450727.jpg",
+          "source_id": "archives:press",
+          "key": "qoo77295:17072106450727",
+          "match": "file_url"
         }
       ]
     },
@@ -1922,6 +2991,22 @@
           "source_id": "official:apple-store",
           "key_prefix": "lookup:ffbd1b67-1bdf-2ef4-e45d-b786d152fb85"
         }
+      ],
+      "files": [
+        {
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/4b/59/21/4b59219a-06f6-3e05-317d-595eca968375/pr_source.png/9999x9999bb.png",
+          "source_id": "official:apple-store",
+          "key": "lookup:4b59219a-06f6-3e05-317d-595eca968375",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
+        },
+        {
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/7c/46/42/7c464232-13ce-cba8-001b-6059be439a68/pr_source.png/9999x9999bb.png",
+          "source_id": "official:apple-store",
+          "key": "lookup:7c464232-13ce-cba8-001b-6059be439a68",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
+        }
       ]
     },
     {
@@ -1946,6 +3031,20 @@
           "source_id": "archives:press",
           "key_prefix": "unwire2014:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm005.png",
+          "source_id": "archives:press",
+          "key": "unwire2014:wm005",
+          "match": "file_url"
+        },
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm018.png",
+          "source_id": "archives:press",
+          "key": "unwire2014:wm018",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1957,6 +3056,26 @@
         {
           "source_id": "archives:press",
           "key_prefix": "unwire2016:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03701.jpg",
+          "source_id": "archives:press",
+          "key": "unwire2016:DSC03701",
+          "match": "file_url"
+        },
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
+          "source_id": "archives:press",
+          "key": "unwire2016:IMG_7688",
+          "match": "file_url"
+        },
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7693.png",
+          "source_id": "archives:press",
+          "key": "unwire2016:IMG_7693",
+          "match": "file_url"
         }
       ]
     },
@@ -1970,6 +3089,14 @@
           "source_id": "archives:press",
           "key_prefix": "techbang"
         }
+      ],
+      "files": [
+        {
+          "url": "https://cdn1.techbang.com/system/excerpt_images/20767/original/5fb4e78491a1dcb3ffd25360fda3421f.png",
+          "source_id": "archives:press",
+          "key": "techbang:20767",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -1981,6 +3108,36 @@
         {
           "source_id": "archives:4gamer",
           "key_prefix": "games/306/G030626/20150617094/"
+        },
+        {
+          "source_id": "archives:press",
+          "key_prefix": "4gamer862:SS/"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/002.jpg",
+          "source_id": "archives:4gamer",
+          "key": "games/306/G030626/20150617094/TN/002.jpg",
+          "match": "file_url"
+        },
+        {
+          "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+          "source_id": "archives:press",
+          "key": "4gamer862:SS/003",
+          "match": "file_url"
+        },
+        {
+          "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+          "source_id": "archives:press",
+          "key": "4gamer862:SS/011",
+          "match": "file_url"
+        },
+        {
+          "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+          "source_id": "archives:4gamer",
+          "key": "games/306/G030626/20150617094/TN/001.jpg",
+          "match": "file_url"
         }
       ]
     },
@@ -1994,6 +3151,14 @@
           "source_id": "archives:press",
           "key_prefix": "ifanr:543028"
         }
+      ],
+      "files": [
+        {
+          "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Dynamix.jpg",
+          "source_id": "archives:press",
+          "key": "ifanr:543028",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2005,6 +3170,22 @@
         {
           "source_id": "archives:archive-leads",
           "key_prefix": "sspai:29117"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://cdnfile.sspai.com/attachment/origin/2015/06/16/261271.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "sspai:29117",
+          "match": "registry",
+          "note": "recorded with the lead as blocked: blocked: the image CDN answers 403 to direct requests (hotlink protection); not bypassed"
+        },
+        {
+          "url": "https://cdnfile.sspai.com/attachment/origin/2015/06/01/257904.PNG",
+          "source_id": "archives:archive-leads",
+          "key": "sspai:29117",
+          "match": "registry",
+          "note": "recorded with the lead as blocked: blocked: the image CDN answers 403 to direct requests (hotlink protection); not bypassed"
         }
       ]
     },
@@ -2018,6 +3199,14 @@
           "source_id": "archives:press",
           "key_prefix": "hk01:175169"
         }
+      ],
+      "files": [
+        {
+          "url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg",
+          "source_id": "archives:press",
+          "key": "hk01:175169",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2030,6 +3219,15 @@
           "source_id": "archives:archive-leads",
           "key_prefix": "yahoo-hk:singtao-20141126"
         }
+      ],
+      "files": [
+        {
+          "url": "http://media.zenfs.com/en_us/News/singtao/20141126gp04y.jpg",
+          "source_id": "archives:archive-leads",
+          "key": "yahoo-hk:singtao-20141126",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: person_photo: the article's only image is a team photo"
+        }
       ]
     },
     {
@@ -2041,6 +3239,15 @@
         {
           "source_id": "archives:archive-leads",
           "key_prefix": "cuhk-kto:c4cat-entertainment-limited"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://kto.cuhk.edu.hk/images/content/knowledge-transfer/cuhk-supported-teams/economic-impact-driven/logo/c4cat-logo.png",
+          "source_id": "archives:archive-leads",
+          "key": "cuhk-kto:c4cat-entertainment-limited",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: site_ui: the entry's image is the C4Cat company logo"
         }
       ]
     },
@@ -2138,6 +3345,14 @@
           "source_id": "artists:pixiv:407585",
           "key_prefix": "42973848:p0"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+          "source_id": "artists:pixiv:407585",
+          "key": "42973848:p0",
+          "match": "source_reported.url"
+        }
       ]
     },
     {
@@ -2161,6 +3376,14 @@
         {
           "source_id": "artists:pixiv:548320",
           "key_prefix": "45429113:p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.pximg.net/img-original/img/2014/08/18/07/41/33/45429113_p0.jpg",
+          "source_id": "artists:pixiv:548320",
+          "key": "45429113:p0",
+          "match": "source_reported.url"
         }
       ]
     },
@@ -2189,6 +3412,15 @@
         {
           "source_id": "archives:wayback",
           "key_prefix": "i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://web.archive.org/web/20141103014629/http://i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
+          "source_id": "archives:wayback",
+          "key": "i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg@20141103014629",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
         }
       ]
     },
@@ -2286,6 +3518,14 @@
           "source_id": "artists:research:leads",
           "key_prefix": "x:DNX_EVENT:920786171411574784"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/DMdKIKNU8AAYeKk.jpg",
+          "source_id": "artists:research:leads",
+          "key": "x:DNX_EVENT:920786171411574784",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2302,6 +3542,22 @@
           "source_id": "official:x",
           "key_prefix": "920935237567201281:"
         }
+      ],
+      "files": [
+        {
+          "url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8.jpg?name=orig",
+          "source_id": "official:x",
+          "key": "831877510870601728:1",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
+        },
+        {
+          "url": "https://pbs.twimg.com/media/DMfRnKqVwAEheW8.jpg?name=orig",
+          "source_id": "official:x",
+          "key": "920935237567201281:1",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
+        }
       ]
     },
     {
@@ -2313,6 +3569,14 @@
         {
           "source_id": "official:youtube",
           "key_prefix": "QT1XYRD8T4k"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i.ytimg.com/vi/QT1XYRD8T4k/maxresdefault.jpg",
+          "source_id": "official:youtube",
+          "key": "QT1XYRD8T4k",
+          "match": "file_url"
         }
       ]
     },
@@ -2338,6 +3602,29 @@
           "source_id": "artists:research:leads",
           "key_prefix": "wix:stellights"
         }
+      ],
+      "files": [
+        {
+          "url": "https://static.wixstatic.com/media/466ce5_e09f64d034404bb88ba5ee0155734ce1~mv2.png",
+          "source_id": "artists:research:leads",
+          "key": "wix:stellights",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game's own UI screenshots (Dolqueen character with UI); no Dynamix collaboration page or illustrator credit"
+        },
+        {
+          "url": "https://static.wixstatic.com/sites/ff910e_be0dd6e732fb3743348cb5b967e792fa_421.json.z?v=2",
+          "source_id": "artists:research:leads",
+          "key": "wix:stellights",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game's own UI screenshots (Dolqueen character with UI); no Dynamix collaboration page or illustrator credit"
+        },
+        {
+          "url": "https://static.wixstatic.com/sites/ff910e_2beafcd7339fa88f21ddf6c97eef0b9d_430.json.z?v=2",
+          "source_id": "artists:research:leads",
+          "key": "wix:stellights",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: out_of_scope_other: partner game's own UI screenshots (Dolqueen character with UI); no Dynamix collaboration page or illustrator credit"
+        }
       ]
     },
     {
@@ -2349,6 +3636,14 @@
         {
           "source_id": "artists:soundcloud:vauboy",
           "key_prefix": "mlg"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000402006720-1ubsms-original.jpg",
+          "source_id": "artists:soundcloud:vauboy",
+          "key": "mlg",
+          "match": "file_url"
         }
       ]
     },
@@ -2378,6 +3673,14 @@
           "source_id": "artists:soundcloud:vauboy",
           "key_prefix": "you-were-with-a-boy"
         }
+      ],
+      "files": [
+        {
+          "url": "https://f4.bcbits.com/img/a1774661917_0.jpg",
+          "source_id": "artists:bandcamp:vauboy",
+          "key": "track/you-were-with-a-boy",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2390,6 +3693,14 @@
           "source_id": "artists:bandcamp:vauboy",
           "key_prefix": "album/pettifog-ep"
         }
+      ],
+      "files": [
+        {
+          "url": "https://f4.bcbits.com/img/a2037085705_0.jpg",
+          "source_id": "artists:bandcamp:vauboy",
+          "key": "album/pettifog-ep",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2401,6 +3712,14 @@
         {
           "source_id": "artists:bandcamp:craftuner",
           "key_prefix": "album/intersection"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://f4.bcbits.com/img/a1270146008_0.jpg",
+          "source_id": "artists:bandcamp:craftuner",
+          "key": "album/intersection",
+          "match": "file_url"
         }
       ]
     },
@@ -2426,6 +3745,14 @@
           "source_id": "artists:bandcamp:lixion",
           "key_prefix": "track/unidentified-new-entry"
         }
+      ],
+      "files": [
+        {
+          "url": "https://f4.bcbits.com/img/a1199318498_0.jpg",
+          "source_id": "artists:bandcamp:lixion",
+          "key": "track/unidentified-new-entry",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2450,6 +3777,14 @@
           "source_id": "artists:soundcloud:calixer",
           "key_prefix": "und0-turret-calixer-raseedcollab"
         }
+      ],
+      "files": [
+        {
+          "url": "https://i1.sndcdn.com/artworks-000172495177-va9ozn-original.jpg",
+          "source_id": "artists:soundcloud:calixer",
+          "key": "und0-turret-calixer-raseedcollab",
+          "match": "file_url"
+        }
       ]
     },
     {
@@ -2462,6 +3797,15 @@
           "source_id": "artists:research:leads",
           "key_prefix": "niconico:sm26262299"
         }
+      ],
+      "files": [
+        {
+          "url": "https://nicovideo.cdn.nimg.jp/thumbnails/26262299/26262299.L",
+          "source_id": "artists:research:leads",
+          "key": "niconico:sm26262299",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: external_release_art: the cover video's thumbnail reuses eb's Luka illustration, which does not match the Dynamix jacket"
+        }
       ]
     },
     {
@@ -2473,6 +3817,15 @@
         {
           "source_id": "artists:research:leads",
           "key_prefix": "karato-p.com"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://karato-p.com/images/disc_01.jpg",
+          "source_id": "artists:research:leads",
+          "key": "karato-p.com",
+          "match": "registry",
+          "note": "recorded with the lead as excluded: external_release_art: album IVORY cover is text-only and does not match the jacket; composer credits only"
         }
       ]
     },
@@ -2533,6 +3886,22 @@
         {
           "source_id": "archives:press",
           "key_prefix": "unwire2016:"
+        }
+      ],
+      "files": [
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03701-694x391.jpg",
+          "source_id": "archives:press",
+          "key": "unwire2016:DSC03701",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
+        },
+        {
+          "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7694-694x390.png",
+          "source_id": "archives:press",
+          "key": "unwire2016:IMG_7694",
+          "match": "normalized",
+          "note": "same upload: query, Wayback raw-capture prefix, http/https and WordPress -WxH size suffix ignored"
         }
       ]
     },
