@@ -414,31 +414,11 @@
       "artwork_asset_ids": []
     },
     {
-      "id": "song:ace-sniper",
-      "title": "Ace Sniper",
-      "aliases": [],
-      "composers": [
-        "Lactic Acid Bacteria"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": false,
-      "inclusion_evidence": [],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
-        {
-          "source_id": "wikis:rhythmgame-ja",
-          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
-          "revision": null
-        }
-      ],
-      "artwork_asset_ids": []
-    },
-    {
       "id": "song:ace-sniper-dnx-edit",
       "title": "Ace Sniper (DNX edit)",
-      "aliases": [],
+      "aliases": [
+        "Ace Sniper"
+      ],
       "composers": [
         "Lactic Acid Bacteria"
       ],
@@ -471,6 +451,11 @@
         {
           "source_id": "wikis:atwiki-ja",
           "url": "https://w.atwiki.jp/dynamix2ch/pages/36.html",
+          "revision": null
+        },
+        {
+          "source_id": "wikis:rhythmgame-ja",
+          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
           "revision": null
         }
       ],
@@ -5790,55 +5775,12 @@
       "artwork_asset_ids": []
     },
     {
-      "id": "song:elph-s-sadness",
-      "title": "Elph’s Sadness",
-      "aliases": [],
-      "composers": [
-        "Circle 2"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": false,
-      "inclusion_evidence": [],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
-        {
-          "source_id": "wikis:rhythmgame-ja",
-          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
-          "revision": null
-        }
-      ],
-      "artwork_asset_ids": []
-    },
-    {
-      "id": "song:elph-s-sadness-dnx-edit",
-      "title": "Elph's Sadness -DNX Edit-",
-      "aliases": [],
-      "composers": [
-        "Circle 2"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": true,
-      "inclusion_evidence": [
-        "https://w.atwiki.jp/dynamix2ch/pages/25.html (Dynamix wiki (atwiki, Japanese): Rank・Share解禁楽曲一覧)"
-      ],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
-        {
-          "source_id": "wikis:atwiki-ja",
-          "url": "https://w.atwiki.jp/dynamix2ch/pages/25.html",
-          "revision": null
-        }
-      ],
-      "artwork_asset_ids": []
-    },
-    {
       "id": "song:elph-s-sadness-dynamix-edition",
       "title": "Elph’s Sadness -Dynamix Edition-",
-      "aliases": [],
+      "aliases": [
+        "Elph's Sadness -DNX Edit-",
+        "Elph’s Sadness"
+      ],
       "composers": [
         "Circle 2"
       ],
@@ -5851,7 +5793,8 @@
       "in_original_game": true,
       "inclusion_evidence": [
         "https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song, Category:Premium Songs)",
-        "https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song, Category:Premium Songs)"
+        "https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song, Category:Premium Songs)",
+        "https://w.atwiki.jp/dynamix2ch/pages/25.html (Dynamix wiki (atwiki, Japanese): Rank・Share解禁楽曲一覧)"
       ],
       "universe_also": false,
       "removed": false,
@@ -5865,6 +5808,16 @@
           "source_id": "wikis:fandom",
           "url": "https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition-",
           "revision": 43582
+        },
+        {
+          "source_id": "wikis:atwiki-ja",
+          "url": "https://w.atwiki.jp/dynamix2ch/pages/25.html",
+          "revision": null
+        },
+        {
+          "source_id": "wikis:rhythmgame-ja",
+          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
+          "revision": null
         }
       ],
       "artwork_asset_ids": []
@@ -15815,7 +15768,9 @@
     {
       "id": "song:magic-of-love-dynamix-edit",
       "title": "Magic of love (Dynamix Edit)",
-      "aliases": [],
+      "aliases": [
+        "Magic of love (Dynamix Ver)"
+      ],
       "composers": [
         "HazeCat"
       ],
@@ -15830,7 +15785,8 @@
       "in_original_game": true,
       "inclusion_evidence": [
         "https://dynamix.miraheze.org/wiki/Magic_of_love_(Dynamix_Edit) (Template:Song, Category:Event songs)",
-        "https://dynamixc4cat.fandom.com/wiki/Magic_of_love_(Dynamix_Edit) (Template:Song, Category:Event songs)"
+        "https://dynamixc4cat.fandom.com/wiki/Magic_of_love_(Dynamix_Edit) (Template:Song, Category:Event songs)",
+        "https://w.atwiki.jp/dynamix2ch/pages/37.html (Dynamix wiki (atwiki, Japanese): イベント楽曲・frag解禁曲一覧)"
       ],
       "universe_also": false,
       "removed": false,
@@ -15844,26 +15800,7 @@
           "source_id": "wikis:fandom",
           "url": "https://dynamixc4cat.fandom.com/wiki/Magic_of_love_(Dynamix_Edit)",
           "revision": 48677
-        }
-      ],
-      "artwork_asset_ids": []
-    },
-    {
-      "id": "song:magic-of-love-dynamix-ver",
-      "title": "Magic of love (Dynamix Ver)",
-      "aliases": [],
-      "composers": [
-        "HazeCat"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": true,
-      "inclusion_evidence": [
-        "https://w.atwiki.jp/dynamix2ch/pages/37.html (Dynamix wiki (atwiki, Japanese): イベント楽曲・frag解禁曲一覧)"
-      ],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
+        },
         {
           "source_id": "wikis:atwiki-ja",
           "url": "https://w.atwiki.jp/dynamix2ch/pages/37.html",
@@ -26417,31 +26354,11 @@
       "artwork_asset_ids": []
     },
     {
-      "id": "song:white-chocolate",
-      "title": "White Chocolate",
-      "aliases": [],
-      "composers": [
-        "Cashew"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": false,
-      "inclusion_evidence": [],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
-        {
-          "source_id": "wikis:rhythmgame-ja",
-          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
-          "revision": null
-        }
-      ],
-      "artwork_asset_ids": []
-    },
-    {
       "id": "song:white-chocolate-dynamix-edit",
       "title": "White Chocolate (dynamix edit)",
-      "aliases": [],
+      "aliases": [
+        "White Chocolate"
+      ],
       "composers": [
         "Cashew"
       ],
@@ -26476,6 +26393,11 @@
         {
           "source_id": "wikis:atwiki-ja",
           "url": "https://w.atwiki.jp/dynamix2ch/pages/36.html",
+          "revision": null
+        },
+        {
+          "source_id": "wikis:rhythmgame-ja",
+          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
           "revision": null
         }
       ],
@@ -27564,12 +27486,11 @@
       }
     },
     {
-      "song_id": "song:ace-sniper",
-      "field": "presence",
+      "song_id": "song:ace-sniper-dnx-edit",
+      "field": "title",
       "values": {
-        "wikis:rhythmgame-ja": "listed in 楽曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
+        "wikis:miraheze": "Ace Sniper (DNX edit)",
+        "wikis:rhythmgame-ja": "Ace Sniper (matched ignoring the edit/version label)"
       }
     },
     {
@@ -27630,21 +27551,19 @@
       }
     },
     {
-      "song_id": "song:elph-s-sadness",
-      "field": "presence",
+      "song_id": "song:elph-s-sadness-dynamix-edition",
+      "field": "title",
       "values": {
-        "wikis:rhythmgame-ja": "listed in 楽曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
+        "wikis:miraheze": "Elph’s Sadness -Dynamix Edition-",
+        "wikis:atwiki-ja": "Elph's Sadness -DNX Edit- (matched ignoring the edit/version label)"
       }
     },
     {
-      "song_id": "song:elph-s-sadness-dnx-edit",
-      "field": "presence",
+      "song_id": "song:elph-s-sadness-dynamix-edition",
+      "field": "title",
       "values": {
-        "wikis:atwiki-ja": "listed in Rank・Share解禁楽曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
+        "wikis:miraheze": "Elph’s Sadness -Dynamix Edition-",
+        "wikis:rhythmgame-ja": "Elph’s Sadness (matched ignoring the edit/version label)"
       }
     },
     {
@@ -27792,12 +27711,19 @@
       }
     },
     {
-      "song_id": "song:magic-of-love-dynamix-ver",
-      "field": "presence",
+      "song_id": "song:magic-of-love-dynamix-edit",
+      "field": "title",
       "values": {
-        "wikis:atwiki-ja": "listed in イベント楽曲・frag解禁曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
+        "wikis:miraheze": "Magic of love (Dynamix Edit)",
+        "wikis:atwiki-ja": "Magic of love (Dynamix Ver) (matched ignoring the edit/version label)"
+      }
+    },
+    {
+      "song_id": "song:magic-of-love-dynamix-edit",
+      "field": "title",
+      "values": {
+        "wikis:miraheze": "Magic of love (Dynamix Edit)",
+        "wikis:rhythmgame-ja": "Magic of love (Dynamix Ver) (matched ignoring the edit/version label)"
       }
     },
     {
@@ -27914,12 +27840,11 @@
       }
     },
     {
-      "song_id": "song:white-chocolate",
-      "field": "presence",
+      "song_id": "song:white-chocolate-dynamix-edit",
+      "field": "title",
       "values": {
-        "wikis:rhythmgame-ja": "listed in 楽曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
+        "wikis:miraheze": "White Chocolate (dynamix edit)",
+        "wikis:rhythmgame-ja": "White Chocolate (matched ignoring the edit/version label)"
       }
     },
     {
