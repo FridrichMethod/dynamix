@@ -184,7 +184,8 @@ class LayoutTests(unittest.TestCase):
     def test_derived_files_name_their_origin(self):
         """Adapted files keep a derivation notice naming the Apache-2.0 reference and its commit."""
         for relative in ("archive.html", "templates/slideshow.html", "src/i18n.js", "src/archive.js", "src/archive.css",
-                         "src/slideshow.css", "browserconfig.xml", "scripts/render_slideshow.py"):
+                         "src/slideshow.css", "browserconfig.xml", "scripts/render_slideshow.py", "src/i18n/common.js",
+                         "src/i18n/archive.js", "src/i18n/slideshow.js"):
             with self.subTest(file=relative):
                 head = "\n".join((ROOT / relative).read_text(encoding="utf-8-sig").splitlines()[:20])
                 self.assertRegex(head, r"Apache-2\.0")

@@ -1,4 +1,6 @@
-/* Strings for archive.html and src/archive.js. The register() argument is strict JSON so tests/test_i18n.py can parse it. */
+/* Strings for archive.html and src/archive.js. The register() argument is strict JSON so tests/test_i18n.py can parse it.
+   Adapted from FridrichMethod/deemo src/i18n/archive.js (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8);
+   modified for the Dynamix archive, 2026. See NOTICE. */
 DYNAMIX_I18N.register({
   "en": {
     "meta.title": "Dynamix Artwork Archive",
