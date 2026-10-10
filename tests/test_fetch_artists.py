@@ -315,6 +315,22 @@ class ResumeTests(ArtistsTestCase):
         self.assertEqual(first, second)
         self.assertEqual(network.count("pbs.twimg.com"), 0)  # files re-hashed instead of downloaded
 
+    def test_metadata_only_never_downloads_and_keeps_archived_records(self):
+        network = FakeNetwork(x_routes())
+        self.run_family([x_seed(self.rules())], network, metadata_only=True)
+        self.assertEqual(network.count("pbs.twimg.com"), 0)
+        found = self.candidates("artists:x:ariiol_")
+        self.assertIn("--metadata-only", found["1879155241788293570:1"]["reason"])
+        self.assertEqual(self.manifest()["assets"], [])
+        self.run_family([x_seed(self.rules())], FakeNetwork(x_routes()))
+        archived = self.manifest()["assets"]
+        network = FakeNetwork(x_routes())
+        self.run_family([x_seed(self.rules())], network, metadata_only=True)
+        self.assertEqual(network.count("pbs.twimg.com"), 0)
+        self.assertEqual(self.manifest()["assets"], archived)
+        self.assertEqual(self.candidates("artists:x:ariiol_")["1879155241788293570:1"]["disposition"], "downloaded")
+        self.verify()
+
     def test_resume_redownloads_a_corrupted_file(self):
         self.run_family([x_seed(self.rules())], FakeNetwork(x_routes()))
         asset = self.manifest()["assets"][0]
