@@ -29,6 +29,23 @@ class WikitextTests(unittest.TestCase):
         self.assertEqual(wikitext.credit_names("N/A"), [])
         self.assertEqual(wikitext.credit_names("A & B<br>C"), ["A & B", "C"])  # never split on '&'
 
+    def test_nowiki_is_literal_text(self) -> None:
+        text = ('<gallery>\nMassacrE RAVON.jpg|New Exclusive Song "MassacrE <nowiki>||</nowiki> 3rc4224M"\n'
+                'Nyarlathotep Chart List.jpg|^/7(L<nowiki>|</nowiki>?[_(L+#<>+&<nowiki>|</nowiki>^(o) Chart List\n'
+                "</gallery>\n[[File:Z.png|thumb|<nowiki>[[not a link]] ''x''</nowiki> &amp; more]]")
+        refs = wikitext.file_refs(text)
+        self.assertEqual([ref.caption for ref in refs], [
+            'New Exclusive Song "MassacrE || 3rc4224M"', "^/7(L|?[_(L+#<>+&|^(o) Chart List",
+            "[[not a link]] ''x'' & more"])
+        self.assertEqual(wikitext.split_top_level("a|<nowiki>b|c</nowiki>|d"), ["a", "<nowiki>b|c</nowiki>", "d"])
+        self.assertEqual(wikitext.clean_markup("a<nowiki/>b <nowiki>unclosed | x"), "ab unclosed | x")
+
+    def test_exact_titles_keep_non_ascii_spaces(self) -> None:
+        self.assertEqual(wikitext.clean_markup("MEGA　POP"), "MEGA　POP")
+        self.assertEqual(wikitext.clean_markup("  A \t  B<br/>\n C  "), "A B\nC")
+        [song] = wikitext.find_templates("{{Song|Title = MEGA　POP }}", {"Song"})
+        self.assertEqual(wikitext.clean_markup(song.params["Title"]), "MEGA　POP")
+
     def test_canonical_file_names(self) -> None:
         self.assertEqual(wikitext.canonical_file_name("File:%28XD%29_Dynamix.png"), "(XD) Dynamix.png")
         self.assertEqual(wikitext.canonical_file_name("cosmicPulse.PNG"), "CosmicPulse.PNG")

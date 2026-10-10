@@ -27,6 +27,13 @@ _DIV_TOKEN = re.compile(r"<div\b[^>]*>|</div\s*>", re.IGNORECASE)
 _TABBER = re.compile(r"<tabber\b[^>]*>(.*?)</tabber\s*>", re.IGNORECASE | re.DOTALL)
 _REF = re.compile(r"<ref\b[^>/]*/>|<ref\b[^>]*>.*?</ref\s*>", re.IGNORECASE | re.DOTALL)
 _TAG = re.compile(r"<[^<>]+>")
+_NOWIKI_OPEN = re.compile(r"<nowiki\s*>", re.IGNORECASE)
+_NOWIKI_CLOSE = re.compile(r"</nowiki\s*>", re.IGNORECASE)
+_NOWIKI = re.compile(r"<nowiki\s*>(.*?)(?:</nowiki\s*>|\Z)|<nowiki\s*/>", re.IGNORECASE | re.DOTALL)
+_LITERAL = re.compile("\ue000(\\d+)\ue001")
+# Whitespace runs that collapse to one space inside a line: ASCII only. Other spaces are part of the text (the
+# ideographic space U+3000 in the exact title "MEGA\u3000POP").
+_ASCII_SPACES = re.compile(r"[ \t\f\v\r]+")
 _BR = re.compile(r"<br\s*/?>", re.IGNORECASE)
 # Display text may hold single-bracketed text: [[Artists#.5Bsound_shinobi.5D|[sound shinobi]]] shows "[sound shinobi]".
 _WIKILINK = re.compile(r"\[\[([^\[\]|]*)(?:\|((?:[^\[\]]|\[[^\[\]]*\])*))?\]\]")
@@ -114,9 +121,17 @@ def _matching(text: str, start: int, opener: str, closer: str) -> int:
 
 
 def split_top_level(text: str, separator: str = "|") -> list[str]:
-    """Split on ``separator`` outside ``{{...}}`` and ``[[...]]``."""
+    """Split on ``separator`` outside ``{{...}}``, ``[[...]]`` and ``<nowiki>...</nowiki>`` (literal text: a caption
+    ``"MassacrE <nowiki>||</nowiki> 3rc4224M"`` is one part)."""
     parts, depth_t, depth_l, current, index = [], 0, 0, [], 0
     while index < len(text):
+        literal = _NOWIKI_OPEN.match(text, index)
+        if literal:
+            closing = _NOWIKI_CLOSE.search(text, literal.end())
+            end = closing.end() if closing else len(text)
+            current.append(text[index:end])
+            index = end
+            continue
         two = text[index:index + 2]
         if two == "{{":
             depth_t += 1
@@ -253,10 +268,17 @@ def section_path(found: list[tuple[int, int, str]], offset: int, *, since: int =
 
 def clean_markup(value: str | None) -> str:
     """Plain text of a short wikitext value (captions, credits): references, comments, tags and templates removed,
-    links reduced to their label, ``<br>`` as newlines, entities decoded."""
+    links reduced to their label, ``<br>`` as newlines, entities decoded. ``<nowiki>`` content is kept literally, and
+    only ASCII whitespace runs collapse (exact titles keep characters such as the ideographic space)."""
     if not value:
         return ""
     text = _COMMENT.sub("", value)
+    literals: list[str] = []
+
+    def hold(match: re.Match) -> str:
+        literals.append(match.group(1) or "")
+        return f"\ue000{len(literals) - 1}\ue001"
+    text = _NOWIKI.sub(hold, text)
     text = _REF.sub("", text)
     text = _BR.sub("\n", text)
     for _ in range(5):  # innermost templates first; {{color|#hex|Text}} keeps its text
@@ -269,8 +291,9 @@ def clean_markup(value: str | None) -> str:
     text = _EXTLINK.sub(lambda match: match.group(1) or "", text)
     text = _TAG.sub("", text)
     text = _QUOTES.sub("", text)
+    text = _LITERAL.sub(lambda match: literals[int(match.group(1))], text)
     text = html.unescape(text)
-    lines = [" ".join(line.split()) for line in text.splitlines()]
+    lines = [_ASCII_SPACES.sub(" ", line).strip(" \t\f\v\r") for line in re.split(r"\r?\n", text)]
     return "\n".join(line for line in lines if line)
 
 
