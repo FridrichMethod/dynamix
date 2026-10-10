@@ -90,6 +90,15 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         if not on_page(og.get("og:url") or final_url, page):
             rule = model.hold(rule, f"pending: the permalink resolves to {og.get('og:url') or final_url}, not the "
                                     f"{page} page")
+        curated = rule is not None and rule.get("action", "download") in ("exclude", "pending")
+        if (not image or checks.url_problem(image)) and curated:  # e.g. a text-only post recorded as excluded
+            draft = model.apply_rule(rule, key=key, page_url=url, texts=texts, file_url=None,
+                                     default_title=item.get("title") or title, default_quality=ctx.quality,
+                                     default_rights=ctx.rights, base_evidence=[url])
+            if item.get("notes"):
+                draft.candidate_extra["notes"] = item["notes"]
+            discovery.candidates.append(draft)
+            continue
         if not image or checks.url_problem(image):
             draft = model.Draft(upstream_key=key, page_url=url, title=title, action="blocked", game="unknown",
                                 game_evidence=[url], reason=(

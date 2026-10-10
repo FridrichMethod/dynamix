@@ -3196,6 +3196,15 @@
       "items": [
         {
           "post_id": "946599307431460867"
+        },
+        {
+          "post_id": "1547147750847893505"
+        },
+        {
+          "post_id": "1253596942510075904"
+        },
+        {
+          "post_id": "916314186858119169"
         }
       ],
       "rules": [
@@ -3246,6 +3255,24 @@
             "url": "https://dynamix.miraheze.org/wiki/16383",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44030)"
           }
+        },
+        {
+          "match": "^1547147750847893505:",
+          "action": "exclude",
+          "reason": "external_release_art: streaming single cover 'Kplecraft / 16383' (square crop of the jacket's pixel-art scene with title lettering), not the game jacket"
+        },
+        {
+          "match": "^1253596942510075904:1$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Kplecraft Collection",
+            "Dynamix"
+          ],
+          "collections": [
+            "Kplecraft"
+          ],
+          "candidate_notes": "In-game store screenshot of the Kplecraft Collection pack page (sale, 2020-04-24).",
+          "notes": "In-game store page of the Kplecraft Collection pack with its four small jacket thumbnails."
         }
       ]
     },
@@ -3272,6 +3299,12 @@
       "items": [
         {
           "post_id": "1535164468476317696"
+        },
+        {
+          "post_id": "1241295713784328193"
+        },
+        {
+          "post_id": "1149949495305576448"
         }
       ],
       "rules": [
@@ -3297,6 +3330,34 @@
             "url": "https://dynamix.miraheze.org/wiki/Necroxus",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50288)"
           }
+        },
+        {
+          "match": "^1241295713784328193:1$",
+          "role": "song_art",
+          "song_titles": [
+            "終の舞姫"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Se-U-Ra"
+          ],
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "evidence_quotes": [
+            "終の舞姫アートワーク"
+          ],
+          "variant_group": "jacket:file-9f975b6a",
+          "variant_role": "artist's X post of the artwork alone (JPEG 1920x1080)",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136)"
+          }
+        },
+        {
+          "match": "^1149949495305576448:",
+          "action": "exclude",
+          "reason": "out_of_scope_other: two cropped notice screenshots (Open Submission 2019 result), not artwork"
         }
       ]
     },
@@ -3323,6 +3384,14 @@
       "items": [
         {
           "post_id": "1536401093894189056"
+        },
+        {
+          "post_id": "1399342027800649734",
+          "notes": "Credit evidence: '今回もジャケットイラストを描かせていただいております' for 天照, quoting the June 2021 preview."
+        },
+        {
+          "post_id": "1402963067852390412",
+          "notes": "Comment on the Amaterasu character preview (quoted official post); no image of its own."
         }
       ],
       "rules": [
@@ -3376,9 +3445,42 @@
         {
           "post_id": "1156477613222744064",
           "notes": "Credit evidence: 'オレンジ描かせて頂きました' quoting the official event post."
+        },
+        {
+          "post_id": "1156842676290854912"
         }
       ],
-      "rules": []
+      "rules": [
+        {
+          "match": "^1156842676290854912:1$",
+          "role": "song_art",
+          "song_titles": [
+            "オレンジ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "クメキ"
+          ],
+          "composers": [
+            "Dragon_Klub & 残響P"
+          ],
+          "evidence_quotes": [
+            "オレンジ"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/KUMEKI_3/status/1156477613222744064",
+              "note": "the artist's post of the previous day, 'オレンジ描かせて頂きました', quotes the official オレンジ event post"
+            }
+          ],
+          "variant_group": "jacket:file-0349fe3d",
+          "variant_role": "artist's alternate version: the jacket's background and girl without the standing male figure on the right (research full-frame MAD 11.5); not the in-game composition",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49900)"
+          }
+        }
+      ]
     },
     {
       "id": "artists:x:bluenoup",
@@ -3545,7 +3647,7 @@
       "params": {
         "user_id": "760598"
       },
-      "notes": "Explicit artworks by キカンシャ via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by キカンシャ via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -3558,7 +3660,14 @@
       },
       "items": [
         {
-          "illust_id": "62913946"
+          "illust_id": "62913946",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221216101704",
+              "original": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png"
+            }
+          ]
         },
         {
           "illust_id": "75762797"
@@ -3596,7 +3705,8 @@
           ],
           "candidate_notes": "Submission artwork that did not enter the game."
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:17081698",
@@ -3607,7 +3717,7 @@
       "params": {
         "user_id": "17081698"
       },
-      "notes": "Explicit artworks by Xomu via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by Xomu via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -3620,7 +3730,14 @@
       },
       "items": [
         {
-          "illust_id": "77296864"
+          "illust_id": "77296864",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221216052519",
+              "original": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png"
+            }
+          ]
         }
       ],
       "rules": [
@@ -3647,7 +3764,8 @@
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49920)"
           }
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:4349073",
@@ -3658,7 +3776,7 @@
       "params": {
         "user_id": "4349073"
       },
-      "notes": "Explicit artworks by せゆーら via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by せゆーら via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -3671,7 +3789,14 @@
       },
       "items": [
         {
-          "illust_id": "80195226"
+          "illust_id": "80195226",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221225234754",
+              "original": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png"
+            }
+          ]
         }
       ],
       "rules": [
@@ -3695,9 +3820,12 @@
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136)"
-          }
+          },
+          "variant_group": "jacket:file-9f975b6a",
+          "variant_role": "artist's pixiv post (1920x1080; the wiki copy is 1024x576)"
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:2624455",
@@ -3755,7 +3883,7 @@
       "params": {
         "user_id": "5401047"
       },
-      "notes": "Explicit artworks by Sand Suna via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by Sand Suna via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -3768,7 +3896,24 @@
       },
       "items": [
         {
-          "illust_id": "92594600"
+          "illust_id": "92594600",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221216231357",
+              "original": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg"
+            },
+            {
+              "page": 1,
+              "timestamp": "20221216231405",
+              "original": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg"
+            },
+            {
+              "page": 2,
+              "timestamp": "20221216231408",
+              "original": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg"
+            }
+          ]
         }
       ],
       "rules": [
@@ -3874,7 +4019,8 @@
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
           }
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:74278",
@@ -3885,7 +4031,7 @@
       "params": {
         "user_id": "74278"
       },
-      "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -3898,7 +4044,14 @@
       },
       "items": [
         {
-          "illust_id": "61859342"
+          "illust_id": "61859342",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221221064601",
+              "original": "https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png"
+            }
+          ]
         }
       ],
       "rules": [
@@ -3921,7 +4074,8 @@
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214)"
           }
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:89112381",
@@ -4039,7 +4193,7 @@
       "params": {
         "user_id": "3381542"
       },
-      "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -4052,7 +4206,14 @@
       },
       "items": [
         {
-          "illust_id": "86481781"
+          "illust_id": "86481781",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221214210149",
+              "original": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png"
+            }
+          ]
         }
       ],
       "rules": [
@@ -4081,7 +4242,8 @@
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715)"
           }
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:407585",
@@ -4092,7 +4254,7 @@
       "params": {
         "user_id": "407585"
       },
-      "notes": "Explicit artworks by AFZero via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by AFZero via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -4105,7 +4267,14 @@
       },
       "items": [
         {
-          "illust_id": "42973848"
+          "illust_id": "42973848",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221220032003",
+              "original": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg"
+            }
+          ]
         }
       ],
       "rules": [
@@ -4128,7 +4297,8 @@
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50155)"
           }
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:1840049",
@@ -4139,7 +4309,7 @@
       "params": {
         "user_id": "1840049"
       },
-      "notes": "Explicit artworks by くりあ via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by くりあ via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -4152,20 +4322,47 @@
       },
       "items": [
         {
-          "illust_id": "63416349"
+          "illust_id": "63416349",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221215194007",
+              "original": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png"
+            }
+          ]
         }
       ],
       "rules": [
         {
-          "match": "^63416349:",
-          "action": "pending",
-          "reason": "pending: the caption says the artwork's use in Dynamix was still undecided; not compared with the in-game jacket",
+          "match": "^63416349:p0$",
           "role": "song_art",
           "song_titles": [
             "ぺたるすてっぷ"
-          ]
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "clear"
+          ],
+          "composers": [
+            "dawn-system feat. 一之瀬りと"
+          ],
+          "evidence_quotes": [
+            "ぺたるすてっぷ",
+            "Dynamix"
+          ],
+          "game_evidence": [
+            "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (box 254.5,0-827.9,573.4; MAD 6.7, edge-only residual)"
+          ],
+          "variant_group": "jacket:file-501df734",
+          "variant_role": "square artwork; the in-game 16:9 jacket shows this painting with extra canvas on both sides",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50399)"
+          },
+          "notes": "The caption (2017-06-16) names the song and Dynamix but says the artwork's inclusion was still pending and that it was used as the SoundCloud thumbnail; the in-game jacket contains this painting (research pixel comparison), with canvas on both sides that this square lacks. The posting pixiv account is くりあ; the wiki credits 'clear'."
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:779504",
@@ -4176,7 +4373,7 @@
       "params": {
         "user_id": "779504"
       },
-      "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON.",
+      "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON. Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "artist_post",
@@ -4189,7 +4386,14 @@
       },
       "items": [
         {
-          "illust_id": "91845485"
+          "illust_id": "91845485",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221220121848",
+              "original": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg"
+            }
+          ]
         }
       ],
       "rules": [
@@ -4218,7 +4422,8 @@
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303)"
           }
         }
-      ]
+      ],
+      "min_interval": 3.0
     },
     {
       "id": "artists:pixiv:1652099",
@@ -4938,6 +5143,687 @@
           "title": "Instagram MayMiyuriAe",
           "disposition": "blocked",
           "reason": "blocked: Instagram profiles require login; not bypassed"
+        }
+      ]
+    },
+    {
+      "id": "artists:pixiv:19451821",
+      "name": "pixiv Kyokaz (19451821)",
+      "url": "https://www.pixiv.net/users/19451821",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "19451821"
+      },
+      "notes": "Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Kyokaz"
+      },
+      "items": [
+        {
+          "illust_id": "62705530",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221219122635",
+              "original": "https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg"
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": "^62705530:p0$",
+          "role": "song_art",
+          "song_titles": [
+            "Between Boundaries"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Kyokaz"
+          ],
+          "composers": [
+            "DJ Counterforce"
+          ],
+          "evidence_quotes": [
+            "Between Boundaries",
+            "submission for Dynamix"
+          ],
+          "credit_evidence": [
+            {
+              "role": "illustrator",
+              "name": "Kyokaz",
+              "url": "https://www.pixiv.net/artworks/62705530",
+              "field": "caption",
+              "quote": "Between Boundaries, commission, and submission for Dynamix"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Between_Boundaries",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45229)"
+          },
+          "variant_group": "jacket:between-boundaries",
+          "variant_role": "artist's pre-release post (2017-05-02): same composition as the in-game jacket in a different lighting/colour revision; not a substitute for it",
+          "notes": "The caption is the posting account's own statement (Kyokaz, pixiv 19451821) and adds that the painting leaned heavily on a reference by miv4t. The wiki song page names no Cover Artist; this post supplies the illustrator credit. Research comparison 2026-10-10 against BetweenBoundariesDynamix.png (1024x574): full-width alignment with a structured residual (MAD 15.1): the central platform and the upper sky are lit differently."
+        }
+      ],
+      "min_interval": 3.0
+    },
+    {
+      "id": "artists:pixiv:548320",
+      "name": "pixiv deme (548320)",
+      "url": "https://www.pixiv.net/users/548320",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "548320"
+      },
+      "notes": "Explicit artworks via pixiv's public ajax JSON; originals of the archived pages come from their Internet Archive raw captures (ArchiveTeam pixiv crawl, 2022-12), never from i.pximg.net with a pixiv Referer.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "SickGame (有病制作) and/or the credited artist",
+        "creator": "deme"
+      },
+      "items": [
+        {
+          "illust_id": "45429113",
+          "wayback": [
+            {
+              "page": 0,
+              "timestamp": "20221222150529",
+              "original": "https://i.pximg.net/img-original/img/2014/08/18/07/41/33/45429113_p0.jpg"
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": "^45429113:p0$",
+          "role": "song_art",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "sickgame"
+          ],
+          "song_titles": [
+            "Regenerate Violence"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "deme"
+          ],
+          "composers": [
+            "V!C"
+          ],
+          "evidence_quotes": [
+            "病気な世界へようこそ",
+            "sick-game.com"
+          ],
+          "credit_evidence": [
+            {
+              "role": "illustrator",
+              "name": "deme",
+              "url": "https://www.pixiv.net/artworks/45429113",
+              "field": "user",
+              "quote": "deme 548320"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Regenerate_Violence",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50322)"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:RegenerateViolenceDynamix.png",
+              "note": "research visual comparison 2026-10-10: the in-game jacket (1914x1076) is a darker crop of this illustration (source crop near x 160, y 20, 2670x1501, about 0.717 scale; mean absolute difference 20.4/255 against 88.9 for a mirrored control); the post itself names neither Dynamix nor the song"
+            }
+          ],
+          "rights": {
+            "holder": "SickGame (有病制作) and/or the credited artist"
+          },
+          "variant_group": "jacket:regenerate-violence",
+          "variant_role": "uncropped commission illustration for SickGame's 2014 quiz game 我滿懷青春的有病測驗; the Dynamix x SickGame jacket is a darker crop of it",
+          "notes": "Partner-origin art: the post (2014-08-17) is tagged 仕事絵 (commissioned work) and links SickGame's official site and app, so the rights holder follows that commission, not C4Cat. The posting account is deme (pixiv 548320). The jacket shows SickGame's mascot 兔兔 (pink rabbit head, sailor uniform)."
+        }
+      ],
+      "min_interval": 3.0
+    },
+    {
+      "id": "artists:pixiv:3315403",
+      "name": "pixiv Nano Kun (Nano君) (3315403)",
+      "url": "https://www.pixiv.net/users/3315403",
+      "platform": "pixiv",
+      "adapter": "pixiv_artwork",
+      "params": {
+        "user_id": "3315403"
+      },
+      "notes": "Deleted Dynamix posts of Nano Kun (live profile 'SalmonBoi', 60 public works, none Dynamix); each artwork ID is read once to record its current state. No Internet Archive capture of their originals was found.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "pixiv original upload (i.pximg.net img-original); pixiv refuses requests without a pixiv Referer, which this project does not send."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Nano Kun"
+      },
+      "items": [
+        {
+          "illust_id": "46835674",
+          "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix Music Cover小合集' (multi-page, 2014-10-31); an archived 2015 page capture's og:description reads '我們團隊的音樂遊戲《Dynamix》推出了~ 這些是我畫的小cover們~'. SauceNAO page matches: p1 Actinium, p2 Stardust, p4 Lotus, p5 名無しの宣教師 (the wiki credits Actinium to AFZero and Stardust to kogptn: credit conflict for a curator). Only a 150px listing thumbnail is archived (archives:wayback)."
+        },
+        {
+          "illust_id": "58916702",
+          "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix X ラビリビ イベント' (Theme of Rabi-Ribi ensemble)."
+        },
+        {
+          "illust_id": "55639021",
+          "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix-Moonlight of Sand castle'."
+        },
+        {
+          "illust_id": "43908270",
+          "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix Cover_ Lotus'."
+        },
+        {
+          "illust_id": "43908484",
+          "notes": "Research 2026-10-10 (SauceNAO index, live pixiv ajax 404): 'Dynamix Cover _ 名無しの宣教師'."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "id": "artists:x:flan_0207",
+      "name": "X @flan_0207 (Rinnn.6 / HaltquinZ)",
+      "url": "https://x.com/flan_0207",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "flan_0207"
+      },
+      "notes": "Explicit public posts by @flan_0207 read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "HaltquinZ♠♥♣♦ (Rinne.6×ましろま)"
+      },
+      "items": [
+        {
+          "post_id": "1185170668175814661"
+        },
+        {
+          "post_id": "1184099862897258497",
+          "notes": "Credit evidence: 'ジャケット担当してますです' quoting the official Jack Out KIllER event post."
+        },
+        {
+          "post_id": "1176105598867296257",
+          "notes": "Credit evidence: 'HaltquinZ♠♥♣♦名義で Jack out kⅢerのアートワーク書かせて頂きました'."
+        },
+        {
+          "post_id": "1184819096027746309",
+          "notes": "Comment on the official character preview 'Jack' (quoted); no image of its own."
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1185170668175814661:1$",
+          "role": "process",
+          "song_titles": [
+            "Jack Out KIllER"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "HaltquinZ♠♥♣♦ (Rinne.6×ましろま)"
+          ],
+          "composers": [
+            "MisoilePunch♪ 〜タケノコ添え～"
+          ],
+          "evidence_quotes": [
+            "アートワーク",
+            "Dynamix"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/flan_0207/status/1176105598867296257",
+              "note": "the same account names the work: 'HaltquinZ♠♥♣♦名義で Jack out kⅢerのアートワーク書かせて頂きました'"
+            },
+            {
+              "url": "https://x.com/flan_0207/status/1184099862897258497",
+              "note": "'ジャケット担当してますです' quoting the official Jack Out KIllER event post"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Jack_Out_KIllER",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50442)"
+          },
+          "variant_group": "jacket:jack-out-killer",
+          "variant_role": "process sheet: rough sketch with notes, flat colours, the final jacket with title lettering and a crop",
+          "notes": "The post explains the collaboration: the poster sent the composition and character design, ましろま refined the character design, then the poster painted it as HaltquinZ."
+        }
+      ]
+    },
+    {
+      "id": "artists:x:violpasn",
+      "name": "X @Violpasn (Violpa)",
+      "url": "https://x.com/Violpasn",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "Violpasn"
+      },
+      "notes": "Explicit public posts by @Violpasn read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "Violpa"
+      },
+      "items": [
+        {
+          "post_id": "1483451866457714690"
+        },
+        {
+          "post_id": "1483409021378121731",
+          "notes": "Credit evidence: 'ジャケ絵描いてます！' quoting the official NOVA event post."
+        },
+        {
+          "post_id": "1483455865696960521",
+          "notes": "Credit evidence: 'NOVAのジャケットイラスト…テクスチャは海の写真使ってる'."
+        },
+        {
+          "post_id": "1492833474193272833",
+          "notes": "Comment that fans use the NOVA jacket as a PC wallpaper."
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1483451866457714690:",
+          "action": "pending",
+          "song_titles": [
+            "NOVA"
+          ],
+          "reason": "unresolved_role: image posted as a bare link on the day the artist announced the NOVA jacket; same character and palette as the jacket but a different close-up composition (research MAD 69), so its relation to the jacket rests on timing only"
+        }
+      ]
+    },
+    {
+      "id": "artists:x:r_solidor",
+      "name": "X @R_Solidor (R.Solidor)",
+      "url": "https://x.com/R_Solidor",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "R_Solidor"
+      },
+      "notes": "Explicit public posts by @R_Solidor (composer) read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file. Posted by the composer, who commissioned the illustration."
+      },
+      "rights": {
+        "holder": null
+      },
+      "items": [
+        {
+          "post_id": "1890032490053861447"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1890032490053861447:1$",
+          "role": "song_art",
+          "song_titles": [
+            "ネーヴェの紋様"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Zero"
+          ],
+          "composers": [
+            "R.Solidor"
+          ],
+          "evidence_quotes": [
+            "ネーヴェの紋様",
+            "Berry Melody × Dynamix"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "berry_melody"
+          ],
+          "collections": [
+            "Berry Melody Collaboration"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%83%8D%E3%83%BC%E3%83%B4%E3%82%A7%E3%81%AE%E7%B4%8B%E6%A7%98",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45126)"
+          },
+          "variant_group": "jacket:file-7631f521",
+          "variant_role": "uncropped 4:3 SoundCloud jacket with 'modello di neve' lettering, a 'by R.Solidor' line and dark letterbox bars; the in-game jacket is a 16:9 crop of it (research MAD 3.5)",
+          "notes": "Posted by the composer (who changed his SoundCloud jacket for the collaboration), not by the illustrator."
+        }
+      ]
+    },
+    {
+      "id": "artists:x:sojyiqui",
+      "name": "X @sojyiqui (長井りく)",
+      "url": "https://x.com/sojyiqui",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "sojyiqui"
+      },
+      "notes": "Explicit public posts by @sojyiqui read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "長井りく"
+      },
+      "items": [
+        {
+          "post_id": "1524965569342377984"
+        },
+        {
+          "post_id": "1525410932750716928"
+        },
+        {
+          "post_id": "1521477142470860803",
+          "notes": "Credit evidence: 'Halv(@Ha1uday0)さんの『Sushi Tornado』 ジャケットを担当いたしました！ #Dynamix'."
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1524965569342377984:",
+          "action": "pending",
+          "song_titles": [
+            "Sushi Tornado"
+          ],
+          "reason": "unresolved_role: the illustrator's release-day celebration illustration of the song's character Maki with handwritten text, not the jacket (research MAD 75); not established as game artwork"
+        },
+        {
+          "match": "^1525410932750716928:",
+          "action": "exclude",
+          "reason": "game_ui: the poster's own score-result screenshot (Sushi Tornado HARD S rank)"
+        }
+      ]
+    },
+    {
+      "id": "artists:x:hyou_haku",
+      "name": "X @hyou_haku (黒鉛)",
+      "url": "https://x.com/hyou_haku",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "hyou_haku"
+      },
+      "notes": "Explicit public posts by @hyou_haku read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "黒鉛"
+      },
+      "items": [
+        {
+          "post_id": "1819855437455606133"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^1819855437455606133:1$",
+          "role": "gameplay_screenshot",
+          "song_titles": [
+            "scualee"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "scualee",
+            "Dynamix"
+          ],
+          "candidate_notes": "In-game song-select screen: the scualee jacket under UI (START button, difficulty diamond) with the song's mini-character; not a clean jacket.",
+          "notes": "Posted by the jacket's illustrator (黒鉛), who states 'Aoiさんの『scualee』のイラストを描かせていただいてます'; the image itself is a screenshot."
+        }
+      ]
+    },
+    {
+      "id": "artists:x:hyourinakamoto2",
+      "name": "X @hyourinakamoto2 (中本ひょうり)",
+      "url": "https://x.com/hyourinakamoto2",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "hyourinakamoto2"
+      },
+      "notes": "Explicit public posts by @hyourinakamoto2 read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "中本ひょうり"
+      },
+      "items": [
+        {
+          "post_id": "1902218892745015384",
+          "notes": "Credit evidence: '中本がジャケットを描いております' for 流麗凛舞, quoting the official preview (official:x 1901242039800299634)."
+        },
+        {
+          "post_id": "1902220775538753786",
+          "notes": "Credit evidence for the collaboration illustration (Sapphire and Suzune), quoting a Shinobi Slash partner post."
+        },
+        {
+          "post_id": "1902219675829981331",
+          "notes": "Links the artist's xfolio page for the jacket (bot-checked; recorded in artists:research:leads)."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "id": "artists:x:matagi_14",
+      "name": "X @matagi_14 (榊原またぎ)",
+      "url": "https://x.com/matagi_14",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "matagi_14"
+      },
+      "notes": "Explicit public posts by @matagi_14 read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "榊原またぎ"
+      },
+      "items": [
+        {
+          "post_id": "1799030214611337300",
+          "notes": "Credit evidence: '私がイラスト担当させて頂いた打打だいずさんの楽曲『Abyss Breaker』…Dynamix様でイベント楽曲として実装', quoting the official event post."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "id": "artists:x:zatsuki_ctake",
+      "name": "X @Zatsuki_Ctake (原木シィタケ)",
+      "url": "https://x.com/Zatsuki_Ctake",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "Zatsuki_Ctake"
+      },
+      "notes": "Explicit public posts by @Zatsuki_Ctake read through X's embed endpoint.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "原木シィタケ"
+      },
+      "items": [
+        {
+          "post_id": "1901632666660688232",
+          "notes": "Credit evidence: 'ジャケイラスト担当している…Dynamixの「画竜天晴」をよろしくお願いします'."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "id": "artists:bandcamp:vauboy",
+      "name": "Bandcamp Vau Boy / HPTG Music",
+      "url": "https://vauboy.bandcamp.com/",
+      "platform": "bandcamp",
+      "adapter": "release_page",
+      "hosts": [
+        "vauboy.bandcamp.com",
+        ".bcbits.com"
+      ],
+      "notes": "Explicit Bandcamp release pages (research gap-fill, Indonesian composers).",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Bandcamp '_0' (largest stored) cover rendition as served by Bandcamp; a release cover, not a master."
+      },
+      "items": [
+        {
+          "url": "https://vauboy.bandcamp.com/track/you-were-with-a-boy",
+          "key": "track/you-were-with-a-boy"
+        },
+        {
+          "url": "https://vauboy.bandcamp.com/album/pettifog-ep",
+          "key": "album/pettifog-ep"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^track/you-were-with-a-boy$",
+          "action": "pending",
+          "role": "song_art",
+          "song_titles": [
+            "You Were With A Boy"
+          ],
+          "reason": "pending: label single cover (HPTG#033) sharing the jacket's photo collage in a different square composition with logo and title; the jacket is a textless 16:9 recomposition; needs review"
+        },
+        {
+          "match": "^album/pettifog-ep$",
+          "action": "exclude",
+          "song_titles": [
+            "Reef Hideout"
+          ],
+          "reason": "external_release_art: EP cover (pianist character) does not match the Reef Hideout jacket (night city)"
+        }
+      ]
+    },
+    {
+      "id": "artists:bandcamp:craftuner",
+      "name": "Bandcamp crafTUNER",
+      "url": "https://craftuner.bandcamp.com/",
+      "platform": "bandcamp",
+      "adapter": "release_page",
+      "hosts": [
+        "craftuner.bandcamp.com",
+        ".bcbits.com"
+      ],
+      "notes": "Explicit Bandcamp release page; credit evidence for deronoitz.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Bandcamp '_0' (largest stored) cover rendition as served by Bandcamp; a release cover, not a master."
+      },
+      "items": [
+        {
+          "url": "https://craftuner.bandcamp.com/album/intersection",
+          "key": "album/intersection"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^album/intersection$",
+          "action": "exclude",
+          "song_titles": [
+            "Nova Highway"
+          ],
+          "illustrators": [
+            "deronoitz"
+          ],
+          "reason": "external_release_art: album cover (two pilot-suit girls) differs from the Nova Highway jacket; the page credits 'Cover Illust.: deronoitz', corroborating the wiki's jacket credit"
+        }
+      ]
+    },
+    {
+      "id": "artists:bandcamp:lixion",
+      "name": "Bandcamp LIXION",
+      "url": "https://lixion.bandcamp.com/",
+      "platform": "bandcamp",
+      "adapter": "release_page",
+      "hosts": [
+        "lixion.bandcamp.com",
+        ".bcbits.com"
+      ],
+      "notes": "Explicit Bandcamp release page.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Bandcamp '_0' (largest stored) cover rendition as served by Bandcamp; a release cover, not a master."
+      },
+      "items": [
+        {
+          "url": "https://lixion.bandcamp.com/track/unidentified-new-entry",
+          "key": "track/unidentified-new-entry"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^track/unidentified-new-entry$",
+          "action": "exclude",
+          "song_titles": [
+            "((unidentified new entry))"
+          ],
+          "reason": "external_release_art: 2025 single cover (blue noise) does not match the in-game jacket (the LIXION wordmark)"
         }
       ]
     }

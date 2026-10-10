@@ -553,6 +553,16 @@ class FacebookTests(OfficialTestCase):
         self.assertEqual(network.count("scontent-sjc6-1.xx.fbcdn.net"), 0)
         self.verify()
 
+    def test_curated_exclusion_applies_to_a_post_without_an_image(self):
+        rules = [{"match": "^1848526438667526$", "action": "exclude",
+                  "reason": "out_of_scope_other: text-only post (submission rules); no image"}]
+        network = FakeNetwork({self.POST: {"text": text("facebook_shell.html")}})
+        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}], rules)], network)
+        candidate = self.candidates("official:facebook")["1848526438667526"]
+        self.assertEqual(candidate["disposition"], "excluded")
+        self.assertTrue(candidate["reason"].startswith("out_of_scope_other: text-only post"))
+        self.verify()
+
     def test_permalink_leaving_the_page_is_held(self):
         page = text("facebook_post.html").replace("https://www.facebook.com/c4cat.dynamix/posts/",
                                                   "https://www.facebook.com/someone.else/posts/")
