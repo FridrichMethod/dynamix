@@ -215,11 +215,14 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
     """Match Japanese rows to songs. Only the atwiki original-game lists are positive inclusion evidence; the
     wikiwiki rhythm-game summary is a corroborating lead (its rows add evidence and disagreements, never
     ``in_original_game``)."""
-    keys: dict[str, SongEntry] = {}
+    exact: dict[str, SongEntry] = {}
+    keys: dict[str, list[SongEntry]] = {}
     bases: dict[str, list[SongEntry]] = {}
     for entry in entries.values():
         for title in entry.titles:
-            keys.setdefault(wikitext.normalize_key(title), entry)
+            exact.setdefault(title, entry)
+            if entry not in keys.setdefault(wikitext.normalize_key(title), []):
+                keys[wikitext.normalize_key(title)].append(entry)
             if base_key(title) and entry not in bases.setdefault(base_key(title), []):
                 bases[base_key(title)].append(entry)
     for source_key in ("atwiki-ja", "rhythmgame-ja"):
@@ -230,8 +233,25 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                 loose = wikitext.normalize_key(row.title)
                 if not loose:
                     continue
-                entry = keys.get(loose)
                 label = f"{page.url} ({source.name}: {page.label})"
+                # An exact title wins; the loose key ("HOPE" and "Hope!!" are both "hope") only when it names one
+                # song. An ambiguous row is recorded as a disagreement and matched to no song (never merged).
+                entry = exact.get(row.title)
+                candidates = keys.get(loose, [])
+                if entry is None and len(candidates) == 1:
+                    entry = candidates[0]
+                elif entry is None and len(candidates) > 1:
+                    folded = [item for item in candidates if any(t.casefold() == row.title.casefold()
+                                                                  for t in item.titles)]
+                    if len(folded) == 1:
+                        entry = folded[0]
+                    else:
+                        for item in candidates:
+                            disagreements.append((item.key, "title", {
+                                source.source_id: f"{row.title} (ambiguous: also matches "
+                                                  + ", ".join(sorted(other.title for other in candidates
+                                                                     if other is not item)) + "; not matched)"}))
+                        continue
                 if entry is None and len(bases.get(base_key(row.title), [])) == 1:
                     entry = bases[base_key(row.title)][0]
                     disagreements.append((entry.key, "title", {
@@ -242,7 +262,8 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                     entry = entries[f"ja:{loose}"] = SongEntry(key=f"ja:{loose}", title=row.title)
                     entry.titles.append(row.title)
                     entry.composers = wikitext.credit_names(row.credit)
-                    keys[loose] = entry
+                    keys[loose] = [entry]
+                    exact.setdefault(row.title, entry)
                     disagreements.append((entry.key, "presence", {
                         source.source_id: f"listed in {page.label}",
                         "wikis:miraheze": "no song page with Template:Song/SongUV found",

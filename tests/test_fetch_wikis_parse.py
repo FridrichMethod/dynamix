@@ -298,6 +298,19 @@ class SmallHelperTests(unittest.TestCase):
         self.assertEqual(songindex.base_key("Impulse (Neutral Moon VIP Edit)"), "impulse")
         self.assertEqual(songindex.base_key("A (Remix)"), "aremix")  # not an edit/version label
 
+    def test_japanese_rows_prefer_exact_titles(self) -> None:
+        """'HOPE' and 'Hope!!' share the loose key 'hope': an exact title decides, nothing is merged."""
+        url = config.ATWIKI.list_pages[0][1]
+        entries = {title: songindex.SongEntry(key=title, title=title, titles=[title]) for title in ("HOPE", "Hope!!")}
+        rows = [jawikis.SongRow("Hope!!", "Somebody", "list", url), jawikis.SongRow("HOPE!", "Other", "list", url)]
+        disagreements = []
+        songindex._match_japanese(entries, {"atwiki-ja": [jawikis.ListPage("list", url, rows)]}, disagreements)
+        self.assertEqual(entries["HOPE"].aliases, [])
+        self.assertTrue(entries["Hope!!"].in_original_game)
+        self.assertFalse(entries["HOPE"].in_original_game)  # "HOPE!" is ambiguous: matched to neither song
+        self.assertNotIn("ja:hope", entries)
+        self.assertTrue(any("ambiguous" in str(values) for _key, _field, values in disagreements))
+
     def test_category_collections_skip_universe(self) -> None:
         self.assertEqual(songindex.category_collections([
             "Category:Event songs", "Category:Gold Submission Track", "Category:RAVON Songs",
