@@ -1,0 +1,173 @@
+name: Tests
+
+# Every push and pull request (any branch, stacked pull requests included), and pages.yml before it builds a release
+# artifact. Read-only: nothing here deploys Pages, pushes, tags or publishes a release. The site job only uploads an
+# ordinary CI artifact of the staged website for inspection.
+on:
+  push:
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  checks:
+    name: Offline checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.14"
+      - name: Install dependencies
+        id: install
+        run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet -r requirements.txt
+          "$RUNNER_TEMP/venv/bin/python" -I -c 'import PIL.features; print("Pillow", PIL.__version__, "libwebp", PIL.features.version("webp"))'
+      # The remaining checks run even when an earlier one fails, so one run reports every failure.
+      - name: Unit tests (every tests/test_*.py; fails on any failure or when none is found)
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -I tests/run_all.py'
+      - name: Catalog matches its manifests and files
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -I scripts/build_catalog.py --verify --check'
+      - name: Previews match the originals
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -I scripts/build_thumbnails.py --check'
+      - name: Coverage report is current
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -I scripts/build_coverage.py --check'
+      - name: Every family manifest matches its archived bytes
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: |
+          failed=()
+          verified=0
+          for family in wikis artists official archives; do
+            [ -f "data/sources/$family.json" ] || { echo "data/sources/$family.json is absent; nothing to verify"; continue; }
+            echo "::group::fetch_$family.py --verify"
+            if "$RUNNER_TEMP/venv/bin/python" -I "scripts/fetch_$family.py" --verify; then
+              verified=$((verified + 1))
+            else
+              failed+=("$family")
+            fi
+            echo "::endgroup::"
+          done
+          for family in "${failed[@]}"; do
+            echo "::error file=data/sources/$family.json::fetch_$family.py --verify failed"
+          done
+          echo "verified $verified family manifests"
+          [ "${#failed[@]}" -eq 0 ]
+      - name: No whitespace errors in committed text (byte-pinned -text files excepted)
+        if: ${{ !cancelled() }}
+        run: |
+          git diff --check
+          git diff --check "$(git hash-object -t tree /dev/null)" HEAD -- . ':(exclude,attr:-text)'
+      - name: Checks left the checkout unchanged
+        if: ${{ !cancelled() }}
+        run: |
+          changes="$(git status --porcelain --untracked-files=all)"
+          [ -z "$changes" ] || { echo "::error::a check modified the checkout"; printf '%s\n' "$changes"; exit 1; }
+
+  browser:
+    name: Browser smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.14"
+      - name: Install dependencies
+        # Playwright drives the runner's preinstalled Google Chrome; no browser is downloaded.
+        run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet -r requirements-dev.txt
+          command -v google-chrome || { echo "::error::google-chrome is not installed on this runner"; exit 1; }
+          google-chrome --version
+      - name: Fixture sites (HTTP root, /dynamix/ subpath, file://, empty and hostile catalogs)
+        run: '"$RUNNER_TEMP/venv/bin/python" -I tests/browser_smoke.py --fixture --browser "$(command -v google-chrome)"'
+      - name: The checkout served on loopback
+        if: ${{ !cancelled() }}
+        run: |
+          "$RUNNER_TEMP/venv/bin/python" -I -m http.server 8765 --bind 127.0.0.1 --directory "$GITHUB_WORKSPACE" \
+            > "$RUNNER_TEMP/http-server.log" 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          for _ in $(seq 50); do
+            curl --silent --fail --output /dev/null http://127.0.0.1:8765/archive.html && break
+            sleep 0.2
+          done
+          "$RUNNER_TEMP/venv/bin/python" -I tests/browser_smoke.py --base http://127.0.0.1:8765/ \
+            --root "$GITHUB_WORKSPACE" --browser "$(command -v google-chrome)"
+
+  site:
+    name: Site artifact
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.14"
+      - name: Install dependencies
+        run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet -r requirements-dev.txt
+      - name: Stage the allowlisted website outside the checkout
+        run: |
+          mkdir "$RUNNER_TEMP/site-build"
+          "$RUNNER_TEMP/venv/bin/python" -I scripts/prepare_pages.py --output "$RUNNER_TEMP/site-build/dynamix" \
+            --summary "$RUNNER_TEMP/site-build/summary.json" --manifest "$RUNNER_TEMP/site-build/manifest.sha256"
+          (cd "$RUNNER_TEMP/site-build/dynamix" && sha256sum --check --quiet --strict ../manifest.sha256)
+          {
+            echo "### Staged website"
+            echo '```json'
+            cat "$RUNNER_TEMP/site-build/summary.json"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Smoke-test the staged website under /dynamix/
+        run: |
+          "$RUNNER_TEMP/venv/bin/python" -I -m http.server 8766 --bind 127.0.0.1 --directory "$RUNNER_TEMP/site-build" \
+            > "$RUNNER_TEMP/http-server.log" 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          for _ in $(seq 50); do
+            curl --silent --fail --output /dev/null http://127.0.0.1:8766/dynamix/archive.html && break
+            sleep 0.2
+          done
+          "$RUNNER_TEMP/venv/bin/python" -I tests/browser_smoke.py --base http://127.0.0.1:8766/dynamix/ \
+            --root "$RUNNER_TEMP/site-build/dynamix" --browser "$(command -v google-chrome)"
+      - name: Upload the staged website as a CI artifact (not a Pages deployment)
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: site
+          path: ${{ runner.temp }}/site-build
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7

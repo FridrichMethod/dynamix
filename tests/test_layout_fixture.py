@@ -43,7 +43,7 @@ REPORTED = {"url", "mime", "bytes", "width", "height", "sha1", "timestamp", "rev
 OBSERVED = {"content_type", "sniffed_format", "bytes", "width", "height", "sha1", "sha256"}
 COMPARISONS = {"sha1_match", "bytes_match", "dimensions_match", "format_match"}
 KINDS = ["song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot", "gameplay_screenshot", "process", "reference"]
-SITE_KINDS = {"song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot", "process"}
+SITE_KINDS = {"song_art", "pack_cover", "character", "background", "part", "promotional", "process"}
 FAMILY_PRIORITY = ["artists", "official", "wikis", "archives"]
 PATH = re.compile(r"assets/public/(artists|official|wikis|archives)/[a-z0-9-]+/[A-Za-z0-9._-]+--[0-9a-f]{12}\.(png|jpg|webp|gif|pdf)")
 
