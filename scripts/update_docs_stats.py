@@ -30,7 +30,7 @@ import stat
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 COVERAGE_JSON = "data/coverage.json"
@@ -77,7 +77,7 @@ TEXT = {
         "intro": "Song index of {as_of}. Latest acquisition per family (manifest `fetched_at`): {dates}.",
         "row_sources": "Sources", "val_sources": "{total} registered: {parts}",
         "row_enumeration": "Discovery snapshots",
-        "val_enumeration": "{complete} complete, {incomplete} incomplete, {missing} sources without a snapshot",
+        "val_enumeration": "{complete} complete, {incomplete} incomplete, {missing} without a snapshot",
         "row_candidates": "Candidates", "val_candidates": "{total}: {parts}",
         "row_reasons": "Most frequent exclusion reasons", "row_pending": "Pending candidates (not decided yet)",
         "row_records": "Asset records (one per source and file)", "row_unique": "Unique files (distinct SHA-256)",
@@ -129,7 +129,7 @@ TEXT = {
         "intro": "曲目索引日期：{as_of}。各类别最近一次获取（清单的 `fetched_at`）：{dates}。",
         "row_sources": "来源", "val_sources": "已登记 {total}：{parts}",
         "row_enumeration": "发现快照",
-        "val_enumeration": "完整 {complete}，不完整 {incomplete}，没有快照的来源 {missing}",
+        "val_enumeration": "完整 {complete}，不完整 {incomplete}，无快照 {missing}",
         "row_candidates": "候选", "val_candidates": "{total}：{parts}",
         "row_reasons": "最常见的排除原因", "row_pending": "待定候选（尚未决定）",
         "row_records": "资产记录（每个来源的每个文件一条）", "row_unique": "唯一文件（不同的 SHA-256）",
@@ -712,9 +712,9 @@ def write_atomic(path: Path, text: str) -> None:
         raise
 
 
-def plan(root: Path, loader: Callable[[Path, str], dict] = load_json) -> dict[str, tuple[Path, str, str, str]]:
+def plan(root: Path) -> dict[str, tuple[Path, str, str, str]]:
     """relative path -> (path, current text, new text, line end) for every document; nothing is written."""
-    coverage, catalog = loader(root, COVERAGE_JSON), loader(root, CATALOG_JSON)
+    coverage, catalog = load_json(root, COVERAGE_JSON), load_json(root, CATALOG_JSON)
     check_inputs(coverage, catalog)
     rendered = {}
     for relative, (block, lang) in DOCUMENTS.items():
