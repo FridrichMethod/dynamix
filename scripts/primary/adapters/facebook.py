@@ -57,12 +57,32 @@ def open_graph(html: str) -> tuple[dict[str, str], str]:
     return values, title
 
 
-def on_page(url: str | None, page: str) -> bool:
+_REACTIONS = re.compile(r"^[\d.,KM]+\s+reactions?(?:\s*·\s*[\d.,KM]+\s+(?:shares?|comments?))*\s*\|\s*", re.I)
+
+
+def on_page(url: str | None, page: str, item_url: str) -> bool:
+    """Whether the resolved page is the seed page's own content: a URL under ``/<page>/``, or the ``/reel/<id>/`` that
+    the page's own ``/videos/<id>`` permalink redirects to (same numeric ID)."""
     if not url:
         return False
     parts = urlsplit(url)
-    return parts.hostname in ("www.facebook.com", "m.facebook.com", "facebook.com") and (
-        parts.path.rstrip("/") == f"/{page}" or parts.path.startswith(f"/{page}/"))
+    if parts.hostname not in ("www.facebook.com", "m.facebook.com", "facebook.com"):
+        return False
+    if parts.path.rstrip("/") == f"/{page}" or parts.path.startswith(f"/{page}/"):
+        return True
+    reel = re.fullmatch(r"/reel/(\d+)/?", parts.path)
+    video = re.search(r"/videos/(?:[^/]+/)?(\d+)/?$", urlsplit(item_url).path)
+    return bool(reel and video and reel.group(1) == video.group(1))
+
+
+def login_wall(url: str | None) -> bool:
+    return bool(url) and urlsplit(url).path.rstrip("/") in ("/login", "/login.php")
+
+
+def readable_title(document_title: str, og_title: str | None) -> str:
+    """The page's own title text without Facebook's reaction counters ('33 reactions | ...')."""
+    title = _REACTIONS.sub("", " ".join((document_title or "").split()))
+    return title if title and title != "Facebook" else (og_title or "")
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
@@ -87,7 +107,17 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                  "title": document_title}
         image = og.get("og:image")
         rule = model.find_rule(base.rules(seed), key)
-        if not on_page(og.get("og:url") or final_url, page):
+        if login_wall(final_url) or login_wall(og.get("og:url")):
+            draft = model.Draft(upstream_key=key, page_url=url, title=title, action="blocked", game="unknown",
+                                game_evidence=[url], reason=("blocked: the permalink redirects a logged-out reader to "
+                                                             "the login page; manual access required, not retried"))
+            draft.candidate_extra = {name: list(rule[name]) for name in ("song_titles", "illustrators", "composers",
+                                                                         "collections") if rule and rule.get(name)}
+            if item.get("notes"):
+                draft.candidate_extra["notes"] = item["notes"]
+            discovery.candidates.append(draft)
+            continue
+        if not on_page(og.get("og:url") or final_url, page, url):
             rule = model.hold(rule, f"pending: the permalink resolves to {og.get('og:url') or final_url}, not the "
                                     f"{page} page")
         curated = rule is not None and rule.get("action", "download") in ("exclude", "pending")
@@ -114,7 +144,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         ext = name.rsplit(".", 1)[-1] if "." in name else None
         draft = model.apply_rule(
             rule, key=key, page_url=url, texts=texts, file_url=image,
-            default_title=item.get("title") or model.clip(og.get("og:title") or document_title or title, 120),
+            default_title=item.get("title") or model.clip(readable_title(document_title, og.get("og:title")) or title,
+                                                          120),
             default_quality=ctx.quality, default_rights=ctx.rights, original_filename=name, base_evidence=[url],
             source_reported=base.reported(url=image, mime=base.mime_for(ext),
                                           width=_int(og.get("og:image:width")), height=_int(og.get("og:image:height"))))

@@ -77,7 +77,8 @@ class FakeClient:
 
     def get_text(self, url: str, **_: Any) -> tuple[str, str, dict]:
         self._check(url)
-        return self.network.respond("get_text", url)["text"], url, {}
+        response = self.network.respond("get_text", url)
+        return response["text"], response.get("final_url", url), {}
 
     def download(self, url: str, dest_dir: Any, stem: str, **_: Any) -> net.DownloadResult:
         self._check(url)

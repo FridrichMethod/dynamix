@@ -147,6 +147,17 @@ def timeline_tweets(html: str) -> list[dict]:
     return tweets
 
 
+_TCO = re.compile(r"https?://t\.co/\S+")
+
+
+def post_title(text: str, fallback: str, index: int, count: int) -> str:
+    """A readable record title from the post text (t.co links dropped, whitespace collapsed, at most 100 characters);
+    ``fallback`` when the post has no text. Several images of one post are numbered ``(n/N)``."""
+    words = " ".join(_TCO.sub(" ", text or "").split())
+    title = model.clip(words, 100) if words else fallback
+    return f"{title} ({index}/{count})" if count > 1 and words else title
+
+
 def per_post_rule(rule: Mapping[str, Any] | None, post_id: str) -> bool:
     """True when ``rule`` was written for this post: its ``match`` names the post ID or it needs evidence quotes."""
     return rule is not None and (post_id in str(rule.get("match", "")) or bool(rule.get("evidence_quotes")))
@@ -181,7 +192,7 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
                                     "needs review")
         if author != handle.lower():
             rule = model.hold(rule, f"pending: post author @{author or '?'} is not this source's account @{handle}")
-        title = f"@{handle} post {post_id} image {index}"
+        title = post_title(texts["text"], f"@{handle} post {post_id} image {index}", index, len(media))
         if entry.get("type") != "photo":
             discovery.candidates.append(model.Draft(
                 upstream_key=key, page_url=status_url, title=title, action="excluded", game="unknown",

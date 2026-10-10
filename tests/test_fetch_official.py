@@ -563,6 +563,29 @@ class FacebookTests(OfficialTestCase):
         self.assertTrue(candidate["reason"].startswith("out_of_scope_other: text-only post"))
         self.verify()
 
+    def test_login_redirect_is_blocked_and_reel_redirect_is_the_same_video(self):
+        login = "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fc4cat.dynamix%2Fphotos%2F1%2F"
+        photo = "https://www.facebook.com/c4cat.dynamix/photos/a.1/1/"
+        video = "https://www.facebook.com/c4cat.dynamix/videos/258082247123314"
+        reel = text("facebook_post.html").replace(
+            "https://www.facebook.com/c4cat.dynamix/posts/comeback-track-event/1848526438667526/",
+            "https://www.facebook.com/reel/258082247123314/").replace(
+            "<title>Dynamix - [Comeback", "<title>47 reactions | [Comeback")
+        network = FakeNetwork({photo: {"text": text("facebook_shell.html"), "final_url": login},
+                               video: {"text": reel, "final_url": "https://www.facebook.com/reel/258082247123314/"},
+                               self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
+        rules = [{"match": "^(1|258082247123314)$", "role": "gameplay_screenshot", "evidence_quotes": ["Own The Night"]}]
+        self.run_family([self.seed([{"key": "1", "url": photo}, {"key": "258082247123314", "url": video}], rules)],
+                        network)
+        found = self.candidates("official:facebook")
+        self.assertEqual(found["1"]["disposition"], "blocked")
+        self.assertIn("login page", found["1"]["reason"])
+        self.assertEqual(found["258082247123314"]["disposition"], "downloaded")
+        asset = self.manifest()["assets"][0]
+        self.assertTrue(asset["title"].startswith("[Comeback Track Event"))  # reaction counter dropped
+        self.assertEqual(self.manifest()["failures"], [])
+        self.verify()
+
     def test_permalink_leaving_the_page_is_held(self):
         page = text("facebook_post.html").replace("https://www.facebook.com/c4cat.dynamix/posts/",
                                                   "https://www.facebook.com/someone.else/posts/")
