@@ -2833,10 +2833,10 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:53098726_1061863704000474_3866193555424804864_o.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/7/7a/53098726_1061863704000474_3866193555424804864_o.jpg",
       "title": "53098726 1061863704000474 3866193555424804864 o",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
-        "archivist review (File:53098726 1061863704000474 3866193555424804864 o.jpg): visual_inspection: original-game teaser design (level diamonds, Dynamix icon) for the original-game song Snowy Light; Fandom upload 2019-03-12 precedes the wiki's first Universe-named upload (2023-08-18)"
+        "archivist review (File:53098726 1061863704000474 3866193555424804864 o.jpg): visual_inspection: original-game chart-list design (level diamonds, Dynamix icon) for the original-game song Snowy Light; Fandom upload 2019-03-12 precedes the wiki's first Universe-named upload (2023-08-18)"
       ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/7/7a/53098726_1061863704000474_3866193555424804864_o.jpg",
@@ -2860,7 +2860,7 @@
         "Event",
         "Open Submission"
       ],
-      "notes": "role evidence: promotional <- archivist review (File:53098726 1061863704000474 3866193555424804864 o.jpg): visual_inspection: new-song teaser: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon"
+      "notes": "role evidence: reference <- archivist review (File:53098726 1061863704000474 3866193555424804864 o.jpg): visual_inspection: new-song chart list: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg)"
     },
     {
       "id": "wikis:miraheze:File:5argon.png",
@@ -63331,9 +63331,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_20170111_220238_568.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/3/37/IMG_20170111_220238_568.jpg",
       "title": "IMG 20170111 220238 568",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:IMG 20170111 220238 568.jpg): visual_inspection: a character of the original game's Characters/Store pages; Fandom upload 2017-01-11 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/3/37/IMG_20170111_220238_568.jpg",
         "mime": "image/jpeg",
@@ -63344,9 +63346,9 @@
         "timestamp": "2026-08-09T09:59:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "unresolved_role: archivist review (File:IMG 20170111 220238 568.jpg): visual_inspection: 136px framed chibi character icon; the character is not identified with certainty",
-      "notes": "no role evidence"
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b9847075dc90a4ee",
+      "notes": "role evidence: character <- archivist review (File:IMG 20170111 220238 568.jpg): visual_inspection: 136px framed icon of the character Aki: the same character and frame as File:Aki-Still.png and File:Aki.jpg (dHash distance 15 to Aki.jpg, confirmed side by side)"
     },
     {
       "id": "wikis:miraheze:File:IMG_20190708_173023.jpg",
@@ -117316,10 +117318,10 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Screenshot_20170602-190952.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/4/4f/Screenshot_20170602-190952.png",
       "title": "Screenshot 20170602-190952",
-      "role": "gameplay_screenshot",
+      "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
-        "archivist review (File:Screenshot 20170602-190952.png): file_page: the uploader names the original-game song Mouse Runs For Cheese; Fandom upload 2017-06-02 precedes the wiki's first Universe-named upload (2023-08-18)"
+        "archivist review (File:Screenshot 20170602-190952.png): file_page: the uploader names the original-game song Mouse Runs For Cheese; identical bytes to that song's cover; Fandom upload 2017-06-02 precedes the wiki's first Universe-named upload (2023-08-18)"
       ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/4/4f/Screenshot_20170602-190952.png",
@@ -117345,7 +117347,7 @@
         "Open Submission (Gold)",
         "Open Submission"
       ],
-      "notes": "file page text: 'Screenshot i took for \"Mouse runs for cheese\", as the background art hasn\\'t been uploaded yet. Edit - I\\'m new to this editing thing so just ignore this (*_ _)人'; role evidence: gameplay_screenshot <- archivist review (File:Screenshot 20170602-190952.png): visual_inspection: screen capture of a pink background with mice; file page text: \"Screenshot i took for 'Mouse runs for cheese', as the background art hasn't been uploaded yet.\""
+      "notes": "file page text: 'Screenshot i took for \"Mouse runs for cheese\", as the background art hasn\\'t been uploaded yet. Edit - I\\'m new to this editing thing so just ignore this (*_ _)人'; role evidence: song_art <- archivist review (File:Screenshot 20170602-190952.png): visual_inspection: pink background with mice, byte-identical (same SHA-256) to File:MouseRunsForCheeseDynamix.png, the Template:Song cover of Mouse Runs For Cheese(Short Edit); file page text: \"Screenshot i took for 'Mouse runs for cheese', as the background art hasn't been uploaded yet.\""
     },
     {
       "id": "wikis:miraheze:File:Screenshot_2018-01-05-14-20-30.jpeg",
@@ -151417,7 +151419,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:%CE%91terl%CE%B2us.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/5/5e/%CE%91terl%CE%B2us.jpg",
       "title": "Αterlβus",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "archivist review (File:Αterlβus.jpg): file_page: \"This is capture from Dynamix Facebook\"; original-game teaser design (level diamonds, Dynamix icon); Fandom upload 2017-02-24 precedes the wiki's first Universe-named upload (2023-08-18)"
@@ -151447,7 +151449,7 @@
         "Open Submission (Silver)",
         "Open Submission"
       ],
-      "notes": "file page text: 'This is capture from Dynamix Facebook. Copyright from C4cat.'; role evidence: promotional <- archivist review (File:Αterlβus.jpg): visual_inspection: new-song teaser: 'αterlβus / Aoi', 'COMING SOON', level diamonds; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\""
+      "notes": "file page text: 'This is capture from Dynamix Facebook. Copyright from C4cat.'; role evidence: reference <- archivist review (File:Αterlβus.jpg): visual_inspection: new-song chart list 'αterlβus / Aoi', 'COMING SOON', level diamonds; byte-identical to File:Αterlβus Chart List.jpg, which the αterlβus page captions as its chart list; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\""
     },
     {
       "id": "wikis:miraheze:File:ΑterlβusDynamix.jpg",

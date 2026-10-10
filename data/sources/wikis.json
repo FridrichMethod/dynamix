@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "wikis",
-  "fetched_at": "2026-10-10T17:52:01Z",
+  "fetched_at": "2026-10-10T17:54:08Z",
   "sources": [
     {
       "id": "wikis:atwiki-ja",
@@ -10,7 +10,7 @@
       "url": "https://w.atwiki.jp/dynamix2ch/",
       "platform": "atwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T17:52:13Z",
+      "checked_at": "2026-10-10T17:54:00Z",
       "notes": "Japanese wiki of the original game (\"無印Dynamix\"); read for the original-game song list only. Attachments were not enumerated. Last read: 5/5 list pages, 616 song rows.",
       "crawl_scope": "registered song-list pages only: https://w.atwiki.jp/dynamix2ch/pages/25.html, https://w.atwiki.jp/dynamix2ch/pages/36.html, https://w.atwiki.jp/dynamix2ch/pages/37.html, https://w.atwiki.jp/dynamix2ch/pages/499.html, https://w.atwiki.jp/dynamix2ch/pages/529.html",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -28,13 +28,13 @@
       "platform": "mediawiki",
       "status": "available",
       "checked_at": "2026-10-10T16:17:51Z",
-      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3330, duplicate_bytes 13, excluded 1548, pending 33); enumeration complete.",
+      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3331, duplicate_bytes 13, excluded 1548, pending 32); enumeration complete.",
       "api_url": "https://dynamixc4cat.fandom.com/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4924,
-      "asset_count": 3330,
+      "asset_count": 3331,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -46,13 +46,13 @@
       "platform": "mediawiki",
       "status": "available",
       "checked_at": "2026-10-10T16:14:10Z",
-      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3353, duplicate_bytes 13, excluded 1069, pending 34); enumeration complete.",
+      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3354, duplicate_bytes 13, excluded 1069, pending 33); enumeration complete.",
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4469,
-      "asset_count": 3353,
+      "asset_count": 3354,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -63,7 +63,7 @@
       "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
       "platform": "wikiwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T17:52:13Z",
+      "checked_at": "2026-10-10T17:54:01Z",
       "notes": "Japanese multi-game rhythm-game wiki; its Dynamix page has one original-game song table (title, credited name, levels). Read for metadata only; no files. Last read: 1/1 list pages, 517 song rows.",
       "crawl_scope": "registered song-list pages only: https://wikiwiki.jp/rhythmgame/Dynamix",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -204275,7 +204275,7 @@
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:53098726_1061863704000474_3866193555424804864_o.jpg",
       "title": "53098726 1061863704000474 3866193555424804864 o",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:53098726_1061863704000474_3866193555424804864_o.jpg",
       "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/7a/53098726_1061863704000474_3866193555424804864_o.jpg/revision/latest?cb=20190312220505&format=original",
@@ -204309,7 +204309,7 @@
         {
           "url": "https://dynamixc4cat.fandom.com/wiki/File:53098726_1061863704000474_3866193555424804864_o.jpg",
           "field": "archivist review",
-          "quote": "visual_inspection: new-song teaser: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon",
+          "quote": "visual_inspection: new-song chart list: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg)",
           "source_id": "wikis:fandom"
         }
       ],
@@ -231635,6 +231635,74 @@
         }
       ],
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:b9847075dc90a4ee",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:IMG_20170111_220238_568.jpg",
+      "title": "IMG 20170111 220238 568",
+      "kind": "character",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_20170111_220238_568.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/3/37/IMG_20170111_220238_568.jpg/revision/latest?cb=20170111140849&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/3/37/IMG_20170111_220238_568.jpg/revision/latest?cb=20170111140849&format=original",
+      "path": "assets/public/wikis/fandom/IMG_20170111_220238_568--b9847075dc90.jpg",
+      "original_filename": "IMG_20170111_220238_568.jpg",
+      "bytes": 8784,
+      "sha256": "b9847075dc90a4eeeb6416bae4940034639c942df4b87b9bda011255be66db9c",
+      "sha1": "fa1a6a263e23a9b5e59d02d642a7ff4bb9b3f70d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 136,
+      "height": 137,
+      "fetched_at": "2026-10-10T17:54:08Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_20170111_220238_568.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/3/37/IMG_20170111_220238_568.jpg/revision/latest?cb=20170111140849",
+        "mime": "image/jpeg",
+        "bytes": 8808,
+        "width": 136,
+        "height": 137,
+        "sha1": "c9a8db60ce9d198ce1eca3d42e7c8c43773e6d1e",
+        "timestamp": "2017-01-11T14:08:49Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 8784,
+        "width": 136,
+        "height": 137,
+        "sha1": "fa1a6a263e23a9b5e59d02d642a7ff4bb9b3f70d",
+        "sha256": "b9847075dc90a4eeeb6416bae4940034639c942df4b87b9bda011255be66db9c"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (API +24 bytes; a constant per-format gap like this is consistent with metadata removal by the CDN); recorded as source_reported versus download_observed, not as a second version."
     },
     {
       "id": "wikis:fandom:b9857ebbc23dee8a",
@@ -521846,7 +521914,7 @@
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:53098726_1061863704000474_3866193555424804864_o.jpg",
       "title": "53098726 1061863704000474 3866193555424804864 o",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://dynamix.miraheze.org/wiki/File:53098726_1061863704000474_3866193555424804864_o.jpg",
       "download_url": "https://static.wikitide.net/dynamixwiki/7/7a/53098726_1061863704000474_3866193555424804864_o.jpg",
@@ -521880,7 +521948,7 @@
         {
           "url": "https://dynamix.miraheze.org/wiki/File:53098726_1061863704000474_3866193555424804864_o.jpg",
           "field": "archivist review",
-          "quote": "visual_inspection: new-song teaser: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon",
+          "quote": "visual_inspection: new-song chart list: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg)",
           "source_id": "wikis:miraheze"
         }
       ],
@@ -549555,6 +549623,74 @@
         }
       ],
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:b9847075dc90a4ee",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:IMG_20170111_220238_568.jpg",
+      "title": "IMG 20170111 220238 568",
+      "kind": "character",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_20170111_220238_568.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/3/37/IMG_20170111_220238_568.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/3/37/IMG_20170111_220238_568.jpg",
+      "path": "assets/public/wikis/miraheze/IMG_20170111_220238_568--b9847075dc90.jpg",
+      "original_filename": "IMG_20170111_220238_568.jpg",
+      "bytes": 8784,
+      "sha256": "b9847075dc90a4eeeb6416bae4940034639c942df4b87b9bda011255be66db9c",
+      "sha1": "fa1a6a263e23a9b5e59d02d642a7ff4bb9b3f70d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 136,
+      "height": 137,
+      "fetched_at": "2026-10-10T17:54:08Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:IMG_20170111_220238_568.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/3/37/IMG_20170111_220238_568.jpg",
+        "mime": "image/jpeg",
+        "bytes": 8784,
+        "width": 136,
+        "height": 137,
+        "sha1": "fa1a6a263e23a9b5e59d02d642a7ff4bb9b3f70d",
+        "timestamp": "2026-08-09T09:59:50Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 8784,
+        "width": 136,
+        "height": 137,
+        "sha1": "fa1a6a263e23a9b5e59d02d642a7ff4bb9b3f70d",
+        "sha256": "b9847075dc90a4eeeb6416bae4940034639c942df4b87b9bda011255be66db9c"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +24 bytes (Fandom upload 2017-01-11T14:08:49Z); this Miraheze copy is not byte-identical to that upload."
     },
     {
       "id": "wikis:miraheze:b9857ebbc23dee8a",
