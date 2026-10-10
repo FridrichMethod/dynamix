@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:apple-store",
-  "started_at": "2026-10-10T17:49:13Z",
-  "finished_at": "2026-10-10T17:49:24Z",
+  "started_at": "2026-10-10T22:28:06Z",
+  "finished_at": "2026-10-10T22:28:18Z",
   "scope": {
     "lists": [
       "product-media-shelves",

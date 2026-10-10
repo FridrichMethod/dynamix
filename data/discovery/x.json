@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T21:02:42Z",
-  "finished_at": "2026-10-10T21:05:33Z",
+  "started_at": "2026-10-10T22:29:32Z",
+  "finished_at": "2026-10-10T22:32:23Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -25,7 +25,7 @@
       "upstream_key": "1060502195374714881:1",
       "page_url": "https://x.com/c4c4cat/status/1060502195374714881",
       "file_url": "https://pbs.twimg.com/media/DreYHaTV4AAfwm1?format=jpg&name=orig",
-      "title": "[Event] 今週は復刻曲「Soul Army」, 「 「銀梅花」が帰ってくるよ！ 開催期間は11月9日12時（UTC+8）から11月13日20時（UTC+8）まで！ @MonamiTech @k…",
+      "title": "[Event] 今週は復刻曲「Soul Army」, 「Marion.net」, 「銀梅花」が帰ってくるよ！ 開催期間は11月9日12時（UTC+8）から11月13日20時（UTC+8）まで！ @M…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -60,7 +60,7 @@
       "upstream_key": "1156165289907838977:1",
       "page_url": "https://x.com/c4c4cat/status/1156165289907838977",
       "file_url": "https://pbs.twimg.com/media/EAt84UoVAAAN2oQ?format=jpg&name=orig",
-      "title": "[Dynamix 2019夏祭] 詳細は、次のサイトを参照してください： #Dynamix #Dynamix_Event",
+      "title": "[Dynamix 2019夏祭] 詳細は、次のサイトを参照してください： facebook.com/29847671700584… #Dynamix #Dynamix_Event",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -127,7 +127,7 @@
       "upstream_key": "1178640887355719681:1",
       "page_url": "https://x.com/c4c4cat/status/1178640887355719681",
       "file_url": "https://pbs.twimg.com/media/EFtc1NUUUAEagmM?format=jpg&name=orig",
-      "title": "[5周年記念xハロウィーンイベント] 詳細は、次のサイトを参照してください：",
+      "title": "[5周年記念xハロウィーンイベント] 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -262,7 +262,7 @@
       "upstream_key": "1204007768987881472:1",
       "page_url": "https://x.com/c4c4cat/status/1204007768987881472",
       "file_url": "https://pbs.twimg.com/media/ELV-lIPUwAE0kdx?format=jpg&name=orig",
-      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください：",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -292,7 +292,7 @@
       "upstream_key": "1216690549182230528:1",
       "page_url": "https://x.com/c4c4cat/status/1216690549182230528",
       "file_url": "https://pbs.twimg.com/media/EOKNFnnUYAEOm_R?format=jpg&name=orig",
-      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください：",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -389,7 +389,7 @@
       "upstream_key": "1247131946095972353:1",
       "page_url": "https://x.com/c4c4cat/status/1247131946095972353",
       "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
-      "title": "《Dynamix Easter Event 2020》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix Easter Event 2020》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -521,7 +521,7 @@
       "upstream_key": "1253292191897681920:1",
       "page_url": "https://x.com/c4c4cat/status/1253292191897681920",
       "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
-      "title": "パッケージセールが来ています!! 準備はできたか？ 詳細は、次のサイトを参照してください：",
+      "title": "パッケージセールが来ています!! 準備はできたか？ 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -583,7 +583,7 @@
       "upstream_key": "1272499095123267585:1",
       "page_url": "https://x.com/c4c4cat/status/1272499095123267585",
       "file_url": "https://pbs.twimg.com/media/EajQRVgUcAA4ukS?format=jpg&name=orig",
-      "title": "《Dynamix Dragon Boat Festival Event 2020》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix Dragon Boat Festival Event 2020》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1091,7 +1091,7 @@
       "upstream_key": "1315623248558686209:1",
       "page_url": "https://x.com/c4c4cat/status/1315623248558686209",
       "file_url": "https://pbs.twimg.com/media/EkHxQefU0AA7NAF?format=jpg&name=orig",
-      "title": "《Dynamix Halloween Event 2020 x 6th Anniversary》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix Halloween Event 2020 x 6th Anniversary》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1389,7 +1389,7 @@
       "upstream_key": "1338453689703555072:1",
       "page_url": "https://x.com/c4c4cat/status/1338453689703555072",
       "file_url": "https://pbs.twimg.com/media/EpMXSZrUwAAWUI8?format=jpg&name=orig",
-      "title": "《Dynamix 2020 Christmas Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2020 Christmas Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1555,7 +1555,7 @@
       "upstream_key": "1354398754414051334:1",
       "page_url": "https://x.com/c4c4cat/status/1354398754414051334",
       "file_url": "https://pbs.twimg.com/media/Eqe13YHVQAAeBiu?format=jpg&name=orig",
-      "title": "[Event] 今週の金曜日は復刻曲「声が届かないのなら」、「 開催期間は1月29日13時から2月2日21時（UTC+9）まで！ @karato_P @kukkugoo @MonamiTech #D…",
+      "title": "[Event] 今週の金曜日は復刻曲「声が届かないのなら」、「Marion.net」が帰ってくるよ！ 開催期間は1月29日13時から2月2日21時（UTC+9）まで！ @karato_P @kukk…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1658,7 +1658,7 @@
       "upstream_key": "1358747410151870464:1",
       "page_url": "https://x.com/c4c4cat/status/1358747410151870464",
       "file_url": "https://pbs.twimg.com/media/EtsoXDrVoAAVULZ?format=jpg&name=orig",
-      "title": "《Dynamix 2021 Lunar New Year Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Lunar New Year Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1860,7 +1860,7 @@
       "upstream_key": "1376504413452439553:1",
       "page_url": "https://x.com/c4c4cat/status/1376504413452439553",
       "file_url": "https://pbs.twimg.com/media/ExpKp94UYAAkb4e?format=jpg&name=orig",
-      "title": "《Dynamix 2021 Easter Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Easter Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -2785,7 +2785,7 @@
       "upstream_key": "1437430883837956097:1",
       "page_url": "https://x.com/c4c4cat/status/1437430883837956097",
       "file_url": "https://pbs.twimg.com/media/E_LApDjVgAcCD2o?format=jpg&name=orig",
-      "title": "《Dynamix 2021 Mid-Autumn Festival Event》 詳細は、次のサイトを参照してください： #Dynamix #Dynamix_Event",
+      "title": "《Dynamix 2021 Mid-Autumn Festival Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/… #Dynamix …",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -2920,7 +2920,7 @@
       "upstream_key": "1452606530516230145:1",
       "page_url": "https://x.com/c4c4cat/status/1452606530516230145",
       "file_url": "https://pbs.twimg.com/media/FCix0aVVcAIoDEh?format=jpg&name=orig",
-      "title": "《Dynamix 2021 Halloween Event X 7th Anniversiry》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Halloween Event X 7th Anniversiry》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3120,7 +3120,7 @@
       "upstream_key": "1472900045280190465:1",
       "page_url": "https://x.com/c4c4cat/status/1472900045280190465",
       "file_url": "https://pbs.twimg.com/media/FHDI1nHUcAAkBpK?format=jpg&name=orig",
-      "title": "《Dynamix 2021 Christmas X New Year's Eve Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Christmas X New Year's Eve Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3324,7 +3324,7 @@
       "upstream_key": "1485583166953779206:1",
       "page_url": "https://x.com/c4c4cat/status/1485583166953779206",
       "file_url": "https://pbs.twimg.com/media/FJ3O2gTWUAYRq08?format=jpg&name=orig",
-      "title": "《Dynamix 2022 Lunar New Year Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2022 Lunar New Year Event》 詳細は、次のサイトを参照してください： bit.ly/3fPkJE2",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3561,7 +3561,7 @@
       "upstream_key": "1513509675957841929:1",
       "page_url": "https://x.com/c4c4cat/status/1513509675957841929",
       "file_url": "https://pbs.twimg.com/media/FQEJleeacAAmUoV?format=jpg&name=orig",
-      "title": "《Dynamix 2022 Easter Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2022 Easter Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3672,7 +3672,7 @@
       "upstream_key": "1748178472759865377:1",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-?format=jpg&name=orig",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (1/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (1/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3699,7 +3699,7 @@
       "upstream_key": "1748178472759865377:2",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh?format=jpg&name=orig",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (2/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (2/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3726,7 +3726,7 @@
       "upstream_key": "1748178472759865377:3",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL?format=jpg&name=orig",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (3/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (3/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3753,7 +3753,7 @@
       "upstream_key": "1748178472759865377:4",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ?format=jpg&name=orig",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (4/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (4/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [

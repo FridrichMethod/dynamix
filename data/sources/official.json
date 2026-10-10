@@ -10,7 +10,7 @@
       "url": "https://apps.apple.com/us/app/dynamix/id945955095",
       "platform": "app-store",
       "status": "available",
-      "checked_at": "2026-10-10T17:49:13Z",
+      "checked_at": "2026-10-10T22:28:06Z",
       "notes": "Original app ID 945955095 (Universe 6741094831 excluded). Current product-page screenshots plus the older storefront-specific sets still listed by the iTunes lookup API.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://c4-cat.com/",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T17:49:24Z",
+      "checked_at": "2026-10-10T22:28:18Z",
       "notes": "Company placeholder page; identity lead only, no game catalog. Coming-soon/contact placeholder; no artwork.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.facebook.com/c4cat.dynamix/",
       "platform": "facebook",
       "status": "partially_available",
-      "checked_at": "2026-10-10T21:12:18Z",
+      "checked_at": "2026-10-10T22:28:18Z",
       "notes": "Original-game page (linked by the stores; 24,053 followers in research). Explicit permalinks cited by the Dynamix wiki or found by research, read logged out; the Open Graph image of each is archived as Facebook's rendition.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -57,8 +57,8 @@
       "family": "official",
       "url": "https://www.facebook.com/c4cats/",
       "platform": "facebook",
-      "status": "excluded",
-      "checked_at": "2026-10-10T20:49:07Z",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T22:29:12Z",
       "notes": "C4Cat's corporate page (Dynamix and Zold:out); only its profile picture is served logged out.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -74,7 +74,7 @@
       "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
       "platform": "google-play",
       "status": "available",
-      "checked_at": "2026-10-10T17:49:24Z",
+      "checked_at": "2026-10-10T22:29:13Z",
       "notes": "Package com.c4cat.dynamix (Universe com.c4cat.dynamix2 excluded). Listing pages in three locales.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -90,7 +90,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T20:49:07Z",
+      "checked_at": "2026-10-10T22:29:16Z",
       "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -106,7 +106,7 @@
       "url": "https://soundcloud.com/c4cat",
       "platform": "soundcloud",
       "status": "partially_available",
-      "checked_at": "2026-10-10T17:49:27Z",
+      "checked_at": "2026-10-10T22:29:16Z",
       "notes": "Official C4Cat account (11 tracks 2016-2017); every track its /tracks page renders is recorded (SoundCloud server-renders only part of the list). https://soundcloud.com/c4cat/tracks rendered 7 of 11 tracks on 2026-10-10; the others are not enumerated.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -122,7 +122,7 @@
       "url": "https://www.taptap.cn/app/7082",
       "platform": "taptap",
       "status": "available",
-      "checked_at": "2026-10-10T17:49:37Z",
+      "checked_at": "2026-10-10T22:29:26Z",
       "notes": "Secondary store listing (C4Cat identified as developer). Visible update text is historical.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -138,7 +138,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "web",
       "status": "temporarily_unavailable",
-      "checked_at": "2026-10-10T17:49:39Z",
+      "checked_at": "2026-10-10T22:29:29Z",
       "notes": "Official site; historical captures are archived by archives:wayback. Probe of https://dynamix.c4-cat.com/ on 2026-10-10 failed: other: cannot resolve dynamix.c4-cat.com: [Errno -5] No address associated with hostname.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -154,7 +154,7 @@
       "url": "https://x.com/c4c4cat",
       "platform": "x",
       "status": "partially_available",
-      "checked_at": "2026-10-10T21:02:42Z",
+      "checked_at": "2026-10-10T22:29:32Z",
       "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -171,7 +171,7 @@
       "url": "https://www.youtube.com/@C4CatEntertainment",
       "platform": "youtube",
       "status": "partially_available",
-      "checked_at": "2026-10-10T20:54:09Z",
+      "checked_at": "2026-10-10T22:32:26Z",
       "notes": "Official channel: 61 uploads, 3 streams and 1 playlist-only video (research enumeration 2026-10-10); the 28 Dynamix-related videos are seeded explicitly (Project W / Zold:out videos are another game).",
       "api_url": "https://www.youtube.com/oembed",
       "owner_evidence": "channel 'C 4 Cat' (UCWGypDMEwUTCkwmUR0pq0lA), keywords 'Game Mobile C4Cat Dynamix zoldout'; video descriptions link dl.dnx.c4-cat.com and facebook.com/c4cat.dynamix",
@@ -2610,7 +2610,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1302443343275841 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official new character/parts poster (3.14.00 update post) (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1302443343275841 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1302443343275841 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official new character/parts poster (3.14.00 update post) (research og:image description).",
       "transformed": true
     },
     {
@@ -2685,7 +2685,7 @@
         "dynamix",
         "paradigm_reboot"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/258082247123314 as served logged out on 2026-10-10. Video poster: in-game UI with the Paradigm character Para (song Restricted Access). Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/258082247123314 as served logged out on 2026-10-10.",
+      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/258082247123314 as served logged out on 2026-10-10. Video poster: in-game UI with the Paradigm character Para (song Restricted Access).",
       "transformed": true
     },
     {
@@ -2730,7 +2730,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/50863637_1038599652993546_2030592823094411264_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=OAMeMGiEYhsQ7kNvwHbXcBU&_nc_oc=AdoYPCOwtD7CEzFtFkMduiTl1KlXZ_0F4T7mjctDqb7OmfQv5JZWaOLGrk3M7m_NiZk&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=yK_hRq5r9wJNaRnwaf3WcQ&_nc_ss=7b20f&oh=00_AQMHgDjnNOyRNA8drG877jFAH3-Q-DHyEHyVC_MYZxUYmg&oe=6AF1F961",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -2751,10 +2751,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1038600566326788 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719). Official 2019 Lunar New Year event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1038600566326788 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1038600566326788 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Lunar New Year event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -2799,7 +2799,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/48414047_1013709942149184_3114281834301620224_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=5EMAAHMbGv8Q7kNvwGSXCZz&_nc_oc=AdotnoG9ycUC85QuvUpLi4JpjirlmhRcPwmYHF94DWXEQqMe11uemap8nFENrdlraEk&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=EqxTptN81OIMeo29r4uSJQ&_nc_ss=7b20f&oh=00_AQPTix1OBvFA8fbGXMVsiEisuxL9zM9IySCoqEhX2OU2uQ&oe=6AF1FDBB",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -2820,10 +2820,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1013660312154147 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000). Official 2018 Christmas event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1013660312154147 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1013660312154147 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2018 Christmas event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -2892,7 +2892,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1528176000702573 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Halloween 2020 x 6th anniversary poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1528176000702573 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1528176000702573 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Halloween 2020 x 6th anniversary poster (research og:image description).",
       "transformed": true
     },
     {
@@ -2961,7 +2961,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1582732028580303 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Christmas 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1582732028580303 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1582732028580303 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Christmas 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3030,7 +3030,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1467743186745855 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Summer 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1467743186745855 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1467743186745855 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Summer 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3075,7 +3075,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/248002271_1809408429245994_6793900498879028912_n.png?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=nlxdtsX9jhIQ7kNvwHw_iRk&_nc_oc=AdpvtKwzQ5nR6Ukw4ASR_oJTduHKhxhKZpHHEVrP30xHldZsya6ktidqF1wv9yiCnZE&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=_FC8eh3ddUftcZOO1onT7g&_nc_ss=7b20f&oh=00_AQMSlaB4jyfFKqg07HqMMbiWbygH3VCQTQsx3nMMO1BbTA&oe=6AD0868F",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -3096,10 +3096,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1809409469245890 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800). Operation notice card (mascot). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1809409469245890 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1809409469245890 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Operation notice card (mascot).",
       "transformed": true
     },
     {
@@ -3144,7 +3144,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/91500225_1369359909917517_6655241808735371264_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=mtC1Q-95CEYQ7kNvwEL8fne&_nc_oc=AdpN1Jyclpq8AdF2oVjfsTOSH-9KGQhSjkCrIb7UBF2APGOG32CQ7BAE9BiwNb_wV9M&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=X_2F7xEezNF3g1lASFyAlw&_nc_ss=7b20f&oh=00_AQMKN3vKA8HEFNrHbaUd2EWeGVnrNZcVv5YfxYwefX68yw&oe=6AF22FDE",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -3165,10 +3165,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1369360063250835 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Easter 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1369360063250835 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1369360063250835 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Easter 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3213,7 +3213,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/44719573_979167205603458_4144043884680314880_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=MEXNwySn-vQQ7kNvwGVng_K&_nc_oc=AdrEHlNkFM_1U1QIsdiv9GUSA_Gff9zmE_KDAfG5_CUa9zMpnaY2ql2fdq1qEQUJJZ0&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=tl1QjR8BkeT_EgIqQv1PvQ&_nc_ss=7b20f&oh=00_AQOV02DNZnMzLmNkT4u6dLt8s59iqNWKTvbFVJxz-GTuhw&oe=6AF2103E",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -3234,10 +3234,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/979167482270097 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000). Official 4th anniversary x Halloween 2018 poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/979167482270097 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/979167482270097 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 4th anniversary x Halloween 2018 poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3282,7 +3282,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/79649875_1268312006688975_4465527843257843712_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=bc8DRjNPMhAQ7kNvwFiPAnm&_nc_oc=Adqmb7g7xhdZ5VwuYbVb6oeI3utTvLZzUMh7syWrN2TxWWhvr-N8GA-SYb9WyK5TAiI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=_8r5_SixOUb6aBLnIlSA_w&_nc_ss=7b20f&oh=00_AQOaYT7CIq1S3CFl_VmOMtitQmARH2hDyxAz0zgyuTuvJA&oe=6AF22071",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -3303,10 +3303,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1268316040021905 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Christmas event poster (3.13.07 update post) (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1268316040021905 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1268316040021905 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Christmas event poster (3.13.07 update post) (research og:image description).",
       "transformed": true
     },
     {
@@ -3403,7 +3403,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1200x628). Upcoming event card for Shinobi (Original Short Mix). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1200x628).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1200x628). Upcoming event card for Shinobi (Original Short Mix).",
       "transformed": true
     },
     {
@@ -3472,7 +3472,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1427080310812143 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Dragon Boat Festival 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1427080310812143 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1427080310812143 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Dragon Boat Festival 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3541,7 +3541,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/693933942734314 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800). Open Submission 2023 poster: informational graphic stating the submission rules and cover-art format. Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/693933942734314 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/693933942734314 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800). Open Submission 2023 poster: informational graphic stating the submission rules and cover-art format.",
       "transformed": true
     },
     {
@@ -3627,7 +3627,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/768368460016668 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx2048x1152). Event 'coming soon' card (Hyphen). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/768368460016668 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx2048x1152).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/768368460016668 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx2048x1152). Event 'coming soon' card (Hyphen).",
       "transformed": true
     },
     {
@@ -3702,7 +3702,7 @@
         "dynamix",
         "paradigm_reboot"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/1286313065321666 as served logged out on 2026-10-10. Video poster: in-game UI with the Paradigm character Alkaid (song Marsh Winds). Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/1286313065321666 as served logged out on 2026-10-10.",
+      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/1286313065321666 as served logged out on 2026-10-10. Video poster: in-game UI with the Paradigm character Alkaid (song Marsh Winds).",
       "transformed": true
     },
     {
@@ -3747,7 +3747,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/37287431_901693836684129_1467928450638544896_n.png?stp=dst-jpg_tt6&cstp=mx1000x200&ctp=s1000x200&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZNdOvtTMxFoQ7kNvwFgKZAT&_nc_oc=AdpgJrWWx6Q8TJbpmX_RRJfKKyFXmMz5caUl1yPU_-ldBZS00QDVPqVMRXiS-1lA79I&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ujERUkp71nYUJ0WtnI14xw&_nc_ss=7b20f&oh=00_AQMfIQqM6yOhcfrTDJms5fljM9EJT2yp7egAb3QeKMAz_w&oe=6AF202DB",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -3768,10 +3768,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/901693993350780 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s1000x200, source bound mx1000x200). Official Summer 2018 event banner (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/901693993350780 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s1000x200, source bound mx1000x200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/901693993350780 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s1000x200, source bound mx1000x200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Summer 2018 event banner (research og:image description).",
       "transformed": true
     },
     {
@@ -3816,7 +3816,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/71596135_1205047213015455_3628398997409890304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=U0sqEn-UesEQ7kNvwHF87lK&_nc_oc=AdoQS_TEa4I2m5GOkvVGZLHJzvlgMqYzX2t7ocE_qusAPQfTZ9wXhcfAtbedJLS5EgE&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=gc1_g_dJ4Pv8qHqs2NyW3g&_nc_ss=7b20f&oh=00_AQPt-JPD5Z1T8FainrcCpBkun9xhqlZ4qgfBdJQmzyPL6w&oe=6AF20DF7",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -3837,10 +3837,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1205047386348771 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official 5th anniversary x Halloween 2019 poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1205047386348771 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1205047386348771 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 5th anniversary x Halloween 2019 poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3909,7 +3909,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/787584971428350 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Player ID instruction card. Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/787584971428350 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/787584971428350 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Player ID instruction card.",
       "transformed": true
     },
     {
@@ -3954,7 +3954,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/67307841_1160647634122080_3282526891675746304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=fkKU1VpXmu0Q7kNvwG8pWBK&_nc_oc=AdqQeqAF9VoAVyHadP9hm-QOKda1pc0zivd9O5CT5jE9FQYH3RX_MHIhhMo5djqhIog&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=gEpIzd6ghpg-iHeoLccJ6A&_nc_ss=7b20f&oh=00_AQMstF4aZntX66JplT3S63bj_sPvMiVmtzPpqWzwMRtb6w&oe=6AF216E3",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -3975,10 +3975,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1160648210788689 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official 2019 Summer event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1160648210788689 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1160648210788689 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Summer event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -4023,7 +4023,7 @@
       },
       "source_reported": {
         "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/57595614_1087145604805617_1483012083724320768_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=CM-AVPDEabEQ7kNvwGyAAG_&_nc_oc=AdqKxIsFeRPoGtukyP5Vt6jZ9xdCR6PZfqq1LCCcqtEAdk5JNz-aVL4oCGWoyw2RuaY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=TSfg0RJV1FuBe3UTAmLMJQ&_nc_ss=7b20f&oh=00_AQNLHEtW9w6OXklgdCd59gjhACj2ylWUL5KkPxvnip9i-w&oe=6AF20E47",
-        "mime": "image/png",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -4044,10 +4044,10 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": false
+        "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1087145688138942 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719). Official 2019 Easter event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1087145688138942 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1087145688138942 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Easter event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -4145,7 +4145,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Comeback announcement card listing two songs (list graphic). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Comeback announcement card listing two songs (list graphic).",
       "transformed": true
     },
     {
@@ -7476,7 +7476,7 @@
       "id": "official:x:1d2b4f1a806ad032",
       "source_id": "official:x",
       "candidate_id": "official:x:1354398754414051334:1",
-      "title": "[Event] 今週の金曜日は復刻曲「声が届かないのなら」、「 開催期間は1月29日13時から2月2日21時（UTC+9）まで！ @karato_P @kukkugoo @MonamiTech #D…",
+      "title": "[Event] 今週の金曜日は復刻曲「声が届かないのなら」、「Marion.net」が帰ってくるよ！ 開催期間は1月29日13時から2月2日21時（UTC+9）まで！ @karato_P @kukk…",
       "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1354398754414051334",
@@ -7659,7 +7659,7 @@
       "id": "official:x:256c9272a0c39014",
       "source_id": "official:x",
       "candidate_id": "official:x:1748178472759865377:4",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (4/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (4/4)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
@@ -8342,7 +8342,7 @@
       "id": "official:x:382e1f759f67406b",
       "source_id": "official:x",
       "candidate_id": "official:x:1156165289907838977:1",
-      "title": "[Dynamix 2019夏祭] 詳細は、次のサイトを参照してください： #Dynamix #Dynamix_Event",
+      "title": "[Dynamix 2019夏祭] 詳細は、次のサイトを参照してください： facebook.com/29847671700584… #Dynamix #Dynamix_Event",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1156165289907838977",
@@ -8666,7 +8666,7 @@
       "id": "official:x:3f69eb697c1a213e",
       "source_id": "official:x",
       "candidate_id": "official:x:1247131946095972353:1",
-      "title": "《Dynamix Easter Event 2020》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix Easter Event 2020》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1247131946095972353",
@@ -10099,7 +10099,7 @@
       "id": "official:x:60a05fa769ac12ad",
       "source_id": "official:x",
       "candidate_id": "official:x:1452606530516230145:1",
-      "title": "《Dynamix 2021 Halloween Event X 7th Anniversiry》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Halloween Event X 7th Anniversiry》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1452606530516230145",
@@ -10489,7 +10489,7 @@
       "id": "official:x:65e72f2d8e013e28",
       "source_id": "official:x",
       "candidate_id": "official:x:1748178472759865377:2",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (2/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (2/4)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
@@ -10557,7 +10557,7 @@
       "id": "official:x:66f8c60a43a23cd9",
       "source_id": "official:x",
       "candidate_id": "official:x:1358747410151870464:1",
-      "title": "《Dynamix 2021 Lunar New Year Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Lunar New Year Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1358747410151870464",
@@ -11327,7 +11327,7 @@
       "id": "official:x:6df76a69cf796cdc",
       "source_id": "official:x",
       "candidate_id": "official:x:1178640887355719681:1",
-      "title": "[5周年記念xハロウィーンイベント] 詳細は、次のサイトを参照してください：",
+      "title": "[5周年記念xハロウィーンイベント] 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1178640887355719681",
@@ -11397,7 +11397,7 @@
       "id": "official:x:6edc80f1d3abe83f",
       "source_id": "official:x",
       "candidate_id": "official:x:1748178472759865377:3",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (3/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (3/4)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
@@ -11465,7 +11465,7 @@
       "id": "official:x:6f87043564abaf40",
       "source_id": "official:x",
       "candidate_id": "official:x:1216690549182230528:1",
-      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください：",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1216690549182230528",
@@ -12712,7 +12712,7 @@
       "id": "official:x:8d5a64128d00238a",
       "source_id": "official:x",
       "candidate_id": "official:x:1204007768987881472:1",
-      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください：",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1204007768987881472",
@@ -14337,7 +14337,7 @@
       "id": "official:x:a923f203fc14f9e1",
       "source_id": "official:x",
       "candidate_id": "official:x:1437430883837956097:1",
-      "title": "《Dynamix 2021 Mid-Autumn Festival Event》 詳細は、次のサイトを参照してください： #Dynamix #Dynamix_Event",
+      "title": "《Dynamix 2021 Mid-Autumn Festival Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/… #Dynamix …",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1437430883837956097",
@@ -14407,7 +14407,7 @@
       "id": "official:x:a9817d545656e1d7",
       "source_id": "official:x",
       "candidate_id": "official:x:1485583166953779206:1",
-      "title": "《Dynamix 2022 Lunar New Year Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2022 Lunar New Year Event》 詳細は、次のサイトを参照してください： bit.ly/3fPkJE2",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1485583166953779206",
@@ -15044,7 +15044,7 @@
       "id": "official:x:b0c9d1930e06d84b",
       "source_id": "official:x",
       "candidate_id": "official:x:1315623248558686209:1",
-      "title": "《Dynamix Halloween Event 2020 x 6th Anniversary》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix Halloween Event 2020 x 6th Anniversary》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1315623248558686209",
@@ -16466,7 +16466,7 @@
       "id": "official:x:ced9f5b49ad20718",
       "source_id": "official:x",
       "candidate_id": "official:x:1060502195374714881:1",
-      "title": "[Event] 今週は復刻曲「Soul Army」, 「 「銀梅花」が帰ってくるよ！ 開催期間は11月9日12時（UTC+8）から11月13日20時（UTC+8）まで！ @MonamiTech @k…",
+      "title": "[Event] 今週は復刻曲「Soul Army」, 「Marion.net」, 「銀梅花」が帰ってくるよ！ 開催期間は11月9日12時（UTC+8）から11月13日20時（UTC+8）まで！ @M…",
       "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1060502195374714881",
@@ -16656,7 +16656,7 @@
       "id": "official:x:d5df9eb7965bbd72",
       "source_id": "official:x",
       "candidate_id": "official:x:1472900045280190465:1",
-      "title": "《Dynamix 2021 Christmas X New Year's Eve Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Christmas X New Year's Eve Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1472900045280190465",
@@ -16825,7 +16825,7 @@
       "id": "official:x:d752be74553686c2",
       "source_id": "official:x",
       "candidate_id": "official:x:1748178472759865377:1",
-      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (1/4)",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (1/4)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
@@ -16893,7 +16893,7 @@
       "id": "official:x:d7bf5061d7a7572d",
       "source_id": "official:x",
       "candidate_id": "official:x:1513509675957841929:1",
-      "title": "《Dynamix 2022 Easter Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2022 Easter Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1513509675957841929",
@@ -17161,7 +17161,7 @@
       "id": "official:x:de364ac7ddd80ad7",
       "source_id": "official:x",
       "candidate_id": "official:x:1272499095123267585:1",
-      "title": "《Dynamix Dragon Boat Festival Event 2020》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix Dragon Boat Festival Event 2020》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1272499095123267585",
@@ -17689,7 +17689,7 @@
       "id": "official:x:f75528d1fbf516ad",
       "source_id": "official:x",
       "candidate_id": "official:x:1338453689703555072:1",
-      "title": "《Dynamix 2020 Christmas Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2020 Christmas Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1338453689703555072",
@@ -17759,7 +17759,7 @@
       "id": "official:x:fb25bfb3cf57354a",
       "source_id": "official:x",
       "candidate_id": "official:x:1376504413452439553:1",
-      "title": "《Dynamix 2021 Easter Event》 詳細は、次のサイトを参照してください：",
+      "title": "《Dynamix 2021 Easter Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1376504413452439553",

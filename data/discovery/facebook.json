@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:facebook",
-  "started_at": "2026-10-10T21:12:18Z",
-  "finished_at": "2026-10-10T21:13:30Z",
+  "started_at": "2026-10-10T22:28:18Z",
+  "finished_at": "2026-10-10T22:29:12Z",
   "scope": {
     "lists": [
       "seed-permalinks",
@@ -22,7 +22,7 @@
       "source_id": "official:facebook",
       "upstream_key": "1013660312154147",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1013660312154147",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/48414047_1013709942149184_3114281834301620224_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=5EMAAHMbGv8Q7kNvwGSXCZz&_nc_oc=AdotnoG9ycUC85QuvUpLi4JpjirlmhRcPwmYHF94DWXEQqMe11uemap8nFENrdlraEk&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=sksIHjhXjxCPb-yw0kVvSg&_nc_ss=7b20f&oh=00_AQOzY3NZdCQ52DJJajdua9-1UOGnj-dp36eHIqW5JryeAg&oe=6AF235FB",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/48414047_1013709942149184_3114281834301620224_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=5EMAAHMbGv8Q7kNvwGSXCZz&_nc_oc=AdotnoG9ycUC85QuvUpLi4JpjirlmhRcPwmYHF94DWXEQqMe11uemap8nFENrdlraEk&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=EqxTptN81OIMeo29r4uSJQ&_nc_ss=7b20f&oh=00_AQPTix1OBvFA8fbGXMVsiEisuxL9zM9IySCoqEhX2OU2uQ&oe=6AF1FDBB",
       "title": "Dynamix - [聖誕節活動]...",
       "role": "promotional",
       "game": "dynamix",
@@ -31,8 +31,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/48414047_1013709942149184_3114281834301620224_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=5EMAAHMbGv8Q7kNvwGSXCZz&_nc_oc=AdotnoG9ycUC85QuvUpLi4JpjirlmhRcPwmYHF94DWXEQqMe11uemap8nFENrdlraEk&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=sksIHjhXjxCPb-yw0kVvSg&_nc_ss=7b20f&oh=00_AQOzY3NZdCQ52DJJajdua9-1UOGnj-dp36eHIqW5JryeAg&oe=6AF235FB",
-        "mime": "image/png",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/48414047_1013709942149184_3114281834301620224_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=5EMAAHMbGv8Q7kNvwGSXCZz&_nc_oc=AdotnoG9ycUC85QuvUpLi4JpjirlmhRcPwmYHF94DWXEQqMe11uemap8nFENrdlraEk&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=EqxTptN81OIMeo29r4uSJQ&_nc_ss=7b20f&oh=00_AQPTix1OBvFA8fbGXMVsiEisuxL9zM9IySCoqEhX2OU2uQ&oe=6AF1FDBB",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -42,7 +42,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:1a5b625ea1316c91",
-      "notes": "Official 2018 Christmas event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1013660312154147 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000)."
+      "notes": "Official 2018 Christmas event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1023954971124681",
@@ -74,7 +74,7 @@
       "source_id": "official:facebook",
       "upstream_key": "1038600566326788",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1038600566326788",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/50863637_1038599652993546_2030592823094411264_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=OAMeMGiEYhsQ7kNvwHbXcBU&_nc_oc=AdoYPCOwtD7CEzFtFkMduiTl1KlXZ_0F4T7mjctDqb7OmfQv5JZWaOLGrk3M7m_NiZk&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=BrpNYjsCR1Y94hotWGnxlQ&_nc_ss=7b20f&oh=00_AQMU5He8G3kEc92TjwF2IfxXWlc60u0AOWBrgM41qbFLfA&oe=6AF231A1",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/50863637_1038599652993546_2030592823094411264_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=OAMeMGiEYhsQ7kNvwHbXcBU&_nc_oc=AdoYPCOwtD7CEzFtFkMduiTl1KlXZ_0F4T7mjctDqb7OmfQv5JZWaOLGrk3M7m_NiZk&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=yK_hRq5r9wJNaRnwaf3WcQ&_nc_ss=7b20f&oh=00_AQMHgDjnNOyRNA8drG877jFAH3-Q-DHyEHyVC_MYZxUYmg&oe=6AF1F961",
       "title": "Dynamix - [2019農曆新年活動] 2019農曆新年快到了~所以小D來為各位送上新年活動資訊啦~~!!...",
       "role": "promotional",
       "game": "dynamix",
@@ -83,8 +83,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/50863637_1038599652993546_2030592823094411264_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=OAMeMGiEYhsQ7kNvwHbXcBU&_nc_oc=AdoYPCOwtD7CEzFtFkMduiTl1KlXZ_0F4T7mjctDqb7OmfQv5JZWaOLGrk3M7m_NiZk&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=BrpNYjsCR1Y94hotWGnxlQ&_nc_ss=7b20f&oh=00_AQMU5He8G3kEc92TjwF2IfxXWlc60u0AOWBrgM41qbFLfA&oe=6AF231A1",
-        "mime": "image/png",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/50863637_1038599652993546_2030592823094411264_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=OAMeMGiEYhsQ7kNvwHbXcBU&_nc_oc=AdoYPCOwtD7CEzFtFkMduiTl1KlXZ_0F4T7mjctDqb7OmfQv5JZWaOLGrk3M7m_NiZk&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=yK_hRq5r9wJNaRnwaf3WcQ&_nc_ss=7b20f&oh=00_AQMHgDjnNOyRNA8drG877jFAH3-Q-DHyEHyVC_MYZxUYmg&oe=6AF1F961",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -94,14 +94,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:15358b0e295a9d71",
-      "notes": "Official 2019 Lunar New Year event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1038600566326788 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719)."
+      "notes": "Official 2019 Lunar New Year event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1087145688138942",
       "source_id": "official:facebook",
       "upstream_key": "1087145688138942",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1087145688138942",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/57595614_1087145604805617_1483012083724320768_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=CM-AVPDEabEQ7kNvwGyAAG_&_nc_oc=AdqKxIsFeRPoGtukyP5Vt6jZ9xdCR6PZfqq1LCCcqtEAdk5JNz-aVL4oCGWoyw2RuaY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=O0MEIIkJcBVN9oc-JGB15w&_nc_ss=7b20f&oh=00_AQPtRrnN5_pgKIbRIzNW3CSO-uQbMTff4jKnIr-vtEIL2w&oe=6AF20E47",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/57595614_1087145604805617_1483012083724320768_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=CM-AVPDEabEQ7kNvwGyAAG_&_nc_oc=AdqKxIsFeRPoGtukyP5Vt6jZ9xdCR6PZfqq1LCCcqtEAdk5JNz-aVL4oCGWoyw2RuaY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=TSfg0RJV1FuBe3UTAmLMJQ&_nc_ss=7b20f&oh=00_AQNLHEtW9w6OXklgdCd59gjhACj2ylWUL5KkPxvnip9i-w&oe=6AF20E47",
       "title": "Dynamix - [2019復活節活動] 復活節快到了~所以小D來為各位送上復活節活動資訊啦~~!!...",
       "role": "promotional",
       "game": "dynamix",
@@ -110,8 +110,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/57595614_1087145604805617_1483012083724320768_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=CM-AVPDEabEQ7kNvwGyAAG_&_nc_oc=AdqKxIsFeRPoGtukyP5Vt6jZ9xdCR6PZfqq1LCCcqtEAdk5JNz-aVL4oCGWoyw2RuaY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=O0MEIIkJcBVN9oc-JGB15w&_nc_ss=7b20f&oh=00_AQPtRrnN5_pgKIbRIzNW3CSO-uQbMTff4jKnIr-vtEIL2w&oe=6AF20E47",
-        "mime": "image/png",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/57595614_1087145604805617_1483012083724320768_n.png?stp=dst-jpg_tt6&cstp=mx820x719&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=CM-AVPDEabEQ7kNvwGyAAG_&_nc_oc=AdqKxIsFeRPoGtukyP5Vt6jZ9xdCR6PZfqq1LCCcqtEAdk5JNz-aVL4oCGWoyw2RuaY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=TSfg0RJV1FuBe3UTAmLMJQ&_nc_ss=7b20f&oh=00_AQNLHEtW9w6OXklgdCd59gjhACj2ylWUL5KkPxvnip9i-w&oe=6AF20E47",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -121,14 +121,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:f4c08873933ea38e",
-      "notes": "Official 2019 Easter event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1087145688138942 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719)."
+      "notes": "Official 2019 Easter event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1160648210788689",
       "source_id": "official:facebook",
       "upstream_key": "1160648210788689",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1160648210788689",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/67307841_1160647634122080_3282526891675746304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=fkKU1VpXmu0Q7kNvwG8pWBK&_nc_oc=AdqQeqAF9VoAVyHadP9hm-QOKda1pc0zivd9O5CT5jE9FQYH3RX_MHIhhMo5djqhIog&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=Sc0S6Dggo43W6G4DQfRPRw&_nc_ss=7b20f&oh=00_AQNn_H2WtrsvAsnTqYgiw2NaDk7lNvqa89J6LP0RLZsdsA&oe=6AF216E3",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/67307841_1160647634122080_3282526891675746304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=fkKU1VpXmu0Q7kNvwG8pWBK&_nc_oc=AdqQeqAF9VoAVyHadP9hm-QOKda1pc0zivd9O5CT5jE9FQYH3RX_MHIhhMo5djqhIog&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=gEpIzd6ghpg-iHeoLccJ6A&_nc_ss=7b20f&oh=00_AQMstF4aZntX66JplT3S63bj_sPvMiVmtzPpqWzwMRtb6w&oe=6AF216E3",
       "title": "Dynamix - [Dynamix 2019 Summer Event] Litte D is getting...",
       "role": "promotional",
       "game": "dynamix",
@@ -137,8 +137,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/67307841_1160647634122080_3282526891675746304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=fkKU1VpXmu0Q7kNvwG8pWBK&_nc_oc=AdqQeqAF9VoAVyHadP9hm-QOKda1pc0zivd9O5CT5jE9FQYH3RX_MHIhhMo5djqhIog&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=Sc0S6Dggo43W6G4DQfRPRw&_nc_ss=7b20f&oh=00_AQNn_H2WtrsvAsnTqYgiw2NaDk7lNvqa89J6LP0RLZsdsA&oe=6AF216E3",
-        "mime": "image/png",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/67307841_1160647634122080_3282526891675746304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=fkKU1VpXmu0Q7kNvwG8pWBK&_nc_oc=AdqQeqAF9VoAVyHadP9hm-QOKda1pc0zivd9O5CT5jE9FQYH3RX_MHIhhMo5djqhIog&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=gEpIzd6ghpg-iHeoLccJ6A&_nc_ss=7b20f&oh=00_AQMstF4aZntX66JplT3S63bj_sPvMiVmtzPpqWzwMRtb6w&oe=6AF216E3",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -148,14 +148,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:e84e48660f763cdf",
-      "notes": "Official 2019 Summer event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1160648210788689 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official 2019 Summer event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1205047386348771",
       "source_id": "official:facebook",
       "upstream_key": "1205047386348771",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1205047386348771",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/71596135_1205047213015455_3628398997409890304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=U0sqEn-UesEQ7kNvwHF87lK&_nc_oc=AdoQS_TEa4I2m5GOkvVGZLHJzvlgMqYzX2t7ocE_qusAPQfTZ9wXhcfAtbedJLS5EgE&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=lWjl75CScK9uTrRLedc93w&_nc_ss=7b20f&oh=00_AQMeesJkJJbZvUFKD82MxJx_-ckz-YYNb3Djiko5G8oNcw&oe=6AF20DF7",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/71596135_1205047213015455_3628398997409890304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=U0sqEn-UesEQ7kNvwHF87lK&_nc_oc=AdoQS_TEa4I2m5GOkvVGZLHJzvlgMqYzX2t7ocE_qusAPQfTZ9wXhcfAtbedJLS5EgE&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=gc1_g_dJ4Pv8qHqs2NyW3g&_nc_ss=7b20f&oh=00_AQPt-JPD5Z1T8FainrcCpBkun9xhqlZ4qgfBdJQmzyPL6w&oe=6AF20DF7",
       "title": "Dynamix - [5週年x萬聖節活動]...",
       "role": "promotional",
       "game": "dynamix",
@@ -164,8 +164,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/71596135_1205047213015455_3628398997409890304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=U0sqEn-UesEQ7kNvwHF87lK&_nc_oc=AdoQS_TEa4I2m5GOkvVGZLHJzvlgMqYzX2t7ocE_qusAPQfTZ9wXhcfAtbedJLS5EgE&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=lWjl75CScK9uTrRLedc93w&_nc_ss=7b20f&oh=00_AQMeesJkJJbZvUFKD82MxJx_-ckz-YYNb3Djiko5G8oNcw&oe=6AF20DF7",
-        "mime": "image/png",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/71596135_1205047213015455_3628398997409890304_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=U0sqEn-UesEQ7kNvwHF87lK&_nc_oc=AdoQS_TEa4I2m5GOkvVGZLHJzvlgMqYzX2t7ocE_qusAPQfTZ9wXhcfAtbedJLS5EgE&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=gc1_g_dJ4Pv8qHqs2NyW3g&_nc_ss=7b20f&oh=00_AQPt-JPD5Z1T8FainrcCpBkun9xhqlZ4qgfBdJQmzyPL6w&oe=6AF20DF7",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -175,14 +175,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:c9e82b8c9d63a7e9",
-      "notes": "Official 5th anniversary x Halloween 2019 poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1205047386348771 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official 5th anniversary x Halloween 2019 poster (research og:image description)."
     },
     {
       "id": "official:facebook:1268316040021905",
       "source_id": "official:facebook",
       "upstream_key": "1268316040021905",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1268316040021905",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/79649875_1268312006688975_4465527843257843712_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=bc8DRjNPMhAQ7kNvwFiPAnm&_nc_oc=Adqmb7g7xhdZ5VwuYbVb6oeI3utTvLZzUMh7syWrN2TxWWhvr-N8GA-SYb9WyK5TAiI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=w-tnNQrnLpPKgayxWql_eQ&_nc_ss=7b20f&oh=00_AQMrO1GEDM9thu8ndzszzAQJAaldf8BuRhnFt__YCUsGBA&oe=6AF22071",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/79649875_1268312006688975_4465527843257843712_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=bc8DRjNPMhAQ7kNvwFiPAnm&_nc_oc=Adqmb7g7xhdZ5VwuYbVb6oeI3utTvLZzUMh7syWrN2TxWWhvr-N8GA-SYb9WyK5TAiI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=_8r5_SixOUb6aBLnIlSA_w&_nc_ss=7b20f&oh=00_AQOaYT7CIq1S3CFl_VmOMtitQmARH2hDyxAz0zgyuTuvJA&oe=6AF22071",
       "title": "Dynamix - 《3.13.07 Update Announcement》 -) FB/ Twitter...",
       "role": "promotional",
       "game": "dynamix",
@@ -191,8 +191,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/79649875_1268312006688975_4465527843257843712_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=bc8DRjNPMhAQ7kNvwFiPAnm&_nc_oc=Adqmb7g7xhdZ5VwuYbVb6oeI3utTvLZzUMh7syWrN2TxWWhvr-N8GA-SYb9WyK5TAiI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=w-tnNQrnLpPKgayxWql_eQ&_nc_ss=7b20f&oh=00_AQMrO1GEDM9thu8ndzszzAQJAaldf8BuRhnFt__YCUsGBA&oe=6AF22071",
-        "mime": "image/png",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/79649875_1268312006688975_4465527843257843712_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=bc8DRjNPMhAQ7kNvwFiPAnm&_nc_oc=Adqmb7g7xhdZ5VwuYbVb6oeI3utTvLZzUMh7syWrN2TxWWhvr-N8GA-SYb9WyK5TAiI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=_8r5_SixOUb6aBLnIlSA_w&_nc_ss=7b20f&oh=00_AQOaYT7CIq1S3CFl_VmOMtitQmARH2hDyxAz0zgyuTuvJA&oe=6AF22071",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -202,14 +202,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:933c80bcd6af9bd7",
-      "notes": "Official Christmas event poster (3.13.07 update post) (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1268316040021905 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official Christmas event poster (3.13.07 update post) (research og:image description)."
     },
     {
       "id": "official:facebook:1286313065321666",
       "source_id": "official:facebook",
       "upstream_key": "1286313065321666",
       "page_url": "https://www.facebook.com/c4cat.dynamix/videos/1286313065321666",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t15.5256-10/371091067_2359227714256709_2670478629292651697_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=596eb7&_nc_ohc=51JQs_drAdgQ7kNvwE8s-T1&_nc_oc=Adrpc58gelAXU5tz6VmGOd7RAiTjLVDM5uHPiT9qDH8Cqv3IVVBUsLHyJm0U1SPgWvY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=T92YD3y2Aq04bP8J525gdQ&_nc_ss=7b20f&oh=00_AQN04pO4g3zlXA5RxZ-NCUfHoI0rHkF9izsfwapiPxgyKg&oe=6AD07D27",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t15.5256-10/371091067_2359227714256709_2670478629292651697_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=596eb7&_nc_ohc=51JQs_drAdgQ7kNvwE8s-T1&_nc_oc=Adrpc58gelAXU5tz6VmGOd7RAiTjLVDM5uHPiT9qDH8Cqv3IVVBUsLHyJm0U1SPgWvY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=mkKovMxOjsA1To8gpNkJ5Q&_nc_ss=7b20f&oh=00_AQNZFAlLWaKbGJCx6SZiXPok3rIXRXzxC51RMTbY3uuLGw&oe=6AD07D27",
       "title": "[Character Preview] The Character of upcoming Dynamix X Paradigm: Reboot Collaboration Event is Alkaid. He has the foll…",
       "role": "gameplay_screenshot",
       "game": "mixed",
@@ -218,7 +218,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t15.5256-10/371091067_2359227714256709_2670478629292651697_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=596eb7&_nc_ohc=51JQs_drAdgQ7kNvwE8s-T1&_nc_oc=Adrpc58gelAXU5tz6VmGOd7RAiTjLVDM5uHPiT9qDH8Cqv3IVVBUsLHyJm0U1SPgWvY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=T92YD3y2Aq04bP8J525gdQ&_nc_ss=7b20f&oh=00_AQN04pO4g3zlXA5RxZ-NCUfHoI0rHkF9izsfwapiPxgyKg&oe=6AD07D27",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t15.5256-10/371091067_2359227714256709_2670478629292651697_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=596eb7&_nc_ohc=51JQs_drAdgQ7kNvwE8s-T1&_nc_oc=Adrpc58gelAXU5tz6VmGOd7RAiTjLVDM5uHPiT9qDH8Cqv3IVVBUsLHyJm0U1SPgWvY&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=mkKovMxOjsA1To8gpNkJ5Q&_nc_ss=7b20f&oh=00_AQNZFAlLWaKbGJCx6SZiXPok3rIXRXzxC51RMTbY3uuLGw&oe=6AD07D27",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -232,14 +232,14 @@
       "collections": [
         "Paradigm: Reboot Collaboration"
       ],
-      "notes": "Video poster: in-game UI with the Paradigm character Alkaid (song Marsh Winds). Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/1286313065321666 as served logged out on 2026-10-10."
+      "notes": "Video poster: in-game UI with the Paradigm character Alkaid (song Marsh Winds)."
     },
     {
       "id": "official:facebook:1302443343275841",
       "source_id": "official:facebook",
       "upstream_key": "1302443343275841",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1302443343275841",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/82837724_1302441829942659_1477205781861367808_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=cWxXsFe5rcoQ7kNvwFGygE9&_nc_oc=AdrSH9Wdma01oTY4vbNQsbGRlB8C2fQTu9gugCde28UEmEaVslNPtOJjwlEw7xNv31g&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=ycon3pLHUouXRxPqPX8bvg&_nc_ss=7b20f&oh=00_AQOebyyqs2AiYUQc30hiUgChHYqxnQTimE993hWlxWdxTw&oe=6AF216E6",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/82837724_1302441829942659_1477205781861367808_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=cWxXsFe5rcoQ7kNvwFGygE9&_nc_oc=AdrSH9Wdma01oTY4vbNQsbGRlB8C2fQTu9gugCde28UEmEaVslNPtOJjwlEw7xNv31g&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=BBMwmXkLh0RvKlEGgcHV8g&_nc_ss=7b20f&oh=00_AQPhCieqGCR9xBEqFu2Z15OmAbjEpfZbZeCk1VcYOs7nXQ&oe=6AF216E6",
       "title": "Dynamix - 《3.14.00 Update Announcement》 Dynamix 3.14.00...",
       "role": "promotional",
       "game": "dynamix",
@@ -248,7 +248,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/82837724_1302441829942659_1477205781861367808_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=cWxXsFe5rcoQ7kNvwFGygE9&_nc_oc=AdrSH9Wdma01oTY4vbNQsbGRlB8C2fQTu9gugCde28UEmEaVslNPtOJjwlEw7xNv31g&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=ycon3pLHUouXRxPqPX8bvg&_nc_ss=7b20f&oh=00_AQOebyyqs2AiYUQc30hiUgChHYqxnQTimE993hWlxWdxTw&oe=6AF216E6",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/82837724_1302441829942659_1477205781861367808_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=106&ccb=1-7&_nc_sid=cae128&_nc_ohc=cWxXsFe5rcoQ7kNvwFGygE9&_nc_oc=AdrSH9Wdma01oTY4vbNQsbGRlB8C2fQTu9gugCde28UEmEaVslNPtOJjwlEw7xNv31g&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=BBMwmXkLh0RvKlEGgcHV8g&_nc_ss=7b20f&oh=00_AQPhCieqGCR9xBEqFu2Z15OmAbjEpfZbZeCk1VcYOs7nXQ&oe=6AF216E6",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -259,14 +259,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:06559f3e1f845e40",
-      "notes": "Official new character/parts poster (3.14.00 update post) (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1302443343275841 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official new character/parts poster (3.14.00 update post) (research og:image description)."
     },
     {
       "id": "official:facebook:1369360063250835",
       "source_id": "official:facebook",
       "upstream_key": "1369360063250835",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1369360063250835",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/91500225_1369359909917517_6655241808735371264_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=mtC1Q-95CEYQ7kNvwEL8fne&_nc_oc=AdpN1Jyclpq8AdF2oVjfsTOSH-9KGQhSjkCrIb7UBF2APGOG32CQ7BAE9BiwNb_wV9M&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=zNkNmi2_89kj0uROvsm-kg&_nc_ss=7b20f&oh=00_AQMZSdlxvvpXtxBVHCzeaScDc4T5XS5Nr1MElCDaX81qKA&oe=6AF22FDE",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/91500225_1369359909917517_6655241808735371264_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=mtC1Q-95CEYQ7kNvwEL8fne&_nc_oc=AdpN1Jyclpq8AdF2oVjfsTOSH-9KGQhSjkCrIb7UBF2APGOG32CQ7BAE9BiwNb_wV9M&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=X_2F7xEezNF3g1lASFyAlw&_nc_ss=7b20f&oh=00_AQMKN3vKA8HEFNrHbaUd2EWeGVnrNZcVv5YfxYwefX68yw&oe=6AF22FDE",
       "title": "Dynamix - 《Dynamix Easter Event 2020》 Easter is coming...",
       "role": "promotional",
       "game": "dynamix",
@@ -275,8 +275,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/91500225_1369359909917517_6655241808735371264_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=mtC1Q-95CEYQ7kNvwEL8fne&_nc_oc=AdpN1Jyclpq8AdF2oVjfsTOSH-9KGQhSjkCrIb7UBF2APGOG32CQ7BAE9BiwNb_wV9M&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=zNkNmi2_89kj0uROvsm-kg&_nc_ss=7b20f&oh=00_AQMZSdlxvvpXtxBVHCzeaScDc4T5XS5Nr1MElCDaX81qKA&oe=6AF22FDE",
-        "mime": "image/png",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/91500225_1369359909917517_6655241808735371264_n.png?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=mtC1Q-95CEYQ7kNvwEL8fne&_nc_oc=AdpN1Jyclpq8AdF2oVjfsTOSH-9KGQhSjkCrIb7UBF2APGOG32CQ7BAE9BiwNb_wV9M&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=X_2F7xEezNF3g1lASFyAlw&_nc_ss=7b20f&oh=00_AQMKN3vKA8HEFNrHbaUd2EWeGVnrNZcVv5YfxYwefX68yw&oe=6AF22FDE",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -286,14 +286,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:83c67dcd305edfb2",
-      "notes": "Official Easter 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1369360063250835 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official Easter 2020 event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1427080310812143",
       "source_id": "official:facebook",
       "upstream_key": "1427080310812143",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1427080310812143",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/103633663_1427079530812221_8329031881384680657_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=L8i2jId3zk8Q7kNvwH1J6Fq&_nc_oc=AdozjUTcupABNnctl_ALzDyON8eaCCRcllrCSvy7P2ThgfLlhSVh4ZoFA47X64zTPAQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=QYLxl1UhZ93TNjAdIZrkYw&_nc_ss=7b20f&oh=00_AQMBqZ_RubNjv9Qxn7MBNqrElFhSApLdSCwxELevlqc3vA&oe=6AF222C8",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/103633663_1427079530812221_8329031881384680657_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=L8i2jId3zk8Q7kNvwH1J6Fq&_nc_oc=AdozjUTcupABNnctl_ALzDyON8eaCCRcllrCSvy7P2ThgfLlhSVh4ZoFA47X64zTPAQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=RELlKLDRnrcKkUYTAym-Tw&_nc_ss=7b20f&oh=00_AQNb_cq_NM2j72o5upnKunE2ZD2IFesz9Y0OKIDltiE5dQ&oe=6AF222C8",
       "title": "Dynamix - 《Dynamix Dragon Boat Festival Event 2020》...",
       "role": "promotional",
       "game": "dynamix",
@@ -302,7 +302,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/103633663_1427079530812221_8329031881384680657_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=L8i2jId3zk8Q7kNvwH1J6Fq&_nc_oc=AdozjUTcupABNnctl_ALzDyON8eaCCRcllrCSvy7P2ThgfLlhSVh4ZoFA47X64zTPAQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=QYLxl1UhZ93TNjAdIZrkYw&_nc_ss=7b20f&oh=00_AQMBqZ_RubNjv9Qxn7MBNqrElFhSApLdSCwxELevlqc3vA&oe=6AF222C8",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/103633663_1427079530812221_8329031881384680657_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=L8i2jId3zk8Q7kNvwH1J6Fq&_nc_oc=AdozjUTcupABNnctl_ALzDyON8eaCCRcllrCSvy7P2ThgfLlhSVh4ZoFA47X64zTPAQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=RELlKLDRnrcKkUYTAym-Tw&_nc_ss=7b20f&oh=00_AQNb_cq_NM2j72o5upnKunE2ZD2IFesz9Y0OKIDltiE5dQ&oe=6AF222C8",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -313,14 +313,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:a22002a87ebf4155",
-      "notes": "Official Dragon Boat Festival 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1427080310812143 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official Dragon Boat Festival 2020 event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1467743186745855",
       "source_id": "official:facebook",
       "upstream_key": "1467743186745855",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1467743186745855",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/117444945_1479982252188615_3894987508164753738_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=KXlAm4_4QMUQ7kNvwHTh_Ky&_nc_oc=AdpC1RA7mP1CdSyrf8o5upCxlJFFa6b4SFnVcGDyo9kF4jWe8gWAGEw2z7emFSJOofQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=HTv8jHpP0INVd01tXm2gsQ&_nc_ss=7b20f&oh=00_AQNzXIO1Hr74rIwkAcCtTpS24v73JE0MAs1BUkmyu9zJzA&oe=6AF214F7",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/117444945_1479982252188615_3894987508164753738_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=KXlAm4_4QMUQ7kNvwHTh_Ky&_nc_oc=AdpC1RA7mP1CdSyrf8o5upCxlJFFa6b4SFnVcGDyo9kF4jWe8gWAGEw2z7emFSJOofQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=biS7d2tFce_a1OrPXrW27Q&_nc_ss=7b20f&oh=00_AQMXNKnYiFLSUfije4i5bHPDKnsMY9Y99OxV3lcyDcafHg&oe=6AF214F7",
       "title": "Dynamix - 《Dynamix Summer Event 2020》 Here come the...",
       "role": "promotional",
       "game": "dynamix",
@@ -329,7 +329,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/117444945_1479982252188615_3894987508164753738_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=KXlAm4_4QMUQ7kNvwHTh_Ky&_nc_oc=AdpC1RA7mP1CdSyrf8o5upCxlJFFa6b4SFnVcGDyo9kF4jWe8gWAGEw2z7emFSJOofQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=HTv8jHpP0INVd01tXm2gsQ&_nc_ss=7b20f&oh=00_AQNzXIO1Hr74rIwkAcCtTpS24v73JE0MAs1BUkmyu9zJzA&oe=6AF214F7",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/117444945_1479982252188615_3894987508164753738_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=109&ccb=1-7&_nc_sid=cae128&_nc_ohc=KXlAm4_4QMUQ7kNvwHTh_Ky&_nc_oc=AdpC1RA7mP1CdSyrf8o5upCxlJFFa6b4SFnVcGDyo9kF4jWe8gWAGEw2z7emFSJOofQ&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=biS7d2tFce_a1OrPXrW27Q&_nc_ss=7b20f&oh=00_AQMXNKnYiFLSUfije4i5bHPDKnsMY9Y99OxV3lcyDcafHg&oe=6AF214F7",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -340,14 +340,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:3cba00da00c9f459",
-      "notes": "Official Summer 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1467743186745855 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official Summer 2020 event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1528176000702573",
       "source_id": "official:facebook",
       "upstream_key": "1528176000702573",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1528176000702573",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/120970641_1528172254036281_6279335487939740914_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZXDrSE0Xq4UQ7kNvwF7hq3y&_nc_oc=AdpLLGlgOFRQ9UEl3_9xf8bsuRJq0qYJuepJEexWha6yM_GyDDcDTndwSfP8auJZYoo&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=1hLQhmsK-ZGE1-iRe0tRvg&_nc_ss=7b20f&oh=00_AQMkJ85P2rgIDzzmi9b6qiwupny2ZZPbIsdA_X5PqKnVOQ&oe=6AF23512",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/120970641_1528172254036281_6279335487939740914_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZXDrSE0Xq4UQ7kNvwF7hq3y&_nc_oc=AdpLLGlgOFRQ9UEl3_9xf8bsuRJq0qYJuepJEexWha6yM_GyDDcDTndwSfP8auJZYoo&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=kAjSsbSfOJKdSYXxFslO7Q&_nc_ss=7b20f&oh=00_AQPoQIw7uuSZPb2DOOKI3L7xXkRgmTzWUDsobS3PFXK4ng&oe=6AF1FCD2",
       "title": "Dynamix - 《Dynamix Halloween Event 2020 x 6th Anniversary》...",
       "role": "promotional",
       "game": "dynamix",
@@ -356,7 +356,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/120970641_1528172254036281_6279335487939740914_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZXDrSE0Xq4UQ7kNvwF7hq3y&_nc_oc=AdpLLGlgOFRQ9UEl3_9xf8bsuRJq0qYJuepJEexWha6yM_GyDDcDTndwSfP8auJZYoo&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=1hLQhmsK-ZGE1-iRe0tRvg&_nc_ss=7b20f&oh=00_AQMkJ85P2rgIDzzmi9b6qiwupny2ZZPbIsdA_X5PqKnVOQ&oe=6AF23512",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/120970641_1528172254036281_6279335487939740914_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZXDrSE0Xq4UQ7kNvwF7hq3y&_nc_oc=AdpLLGlgOFRQ9UEl3_9xf8bsuRJq0qYJuepJEexWha6yM_GyDDcDTndwSfP8auJZYoo&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=kAjSsbSfOJKdSYXxFslO7Q&_nc_ss=7b20f&oh=00_AQPoQIw7uuSZPb2DOOKI3L7xXkRgmTzWUDsobS3PFXK4ng&oe=6AF1FCD2",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -367,14 +367,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:32b1f89083536877",
-      "notes": "Official Halloween 2020 x 6th anniversary poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1528176000702573 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official Halloween 2020 x 6th anniversary poster (research og:image description)."
     },
     {
       "id": "official:facebook:1582732028580303",
       "source_id": "official:facebook",
       "upstream_key": "1582732028580303",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1582732028580303",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/131260043_1582731501913689_2902257966049438749_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=101&ccb=1-7&_nc_sid=cae128&_nc_ohc=2fSjcTl-XdgQ7kNvwFxnu5g&_nc_oc=Adq2Mcim-KydOQ54YA0mDJ3OGquodcZRCikEHVUDmmeheAs4pn75LSjWK6nWg976nYI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=39m9VsDMnxDLagAqkphtuA&_nc_ss=7b20f&oh=00_AQOan3S-CvSRfXrw_cbEvI1MOL4AhgzFnPefqb2fByQX-g&oe=6AF23143",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/131260043_1582731501913689_2902257966049438749_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=101&ccb=1-7&_nc_sid=cae128&_nc_ohc=2fSjcTl-XdgQ7kNvwFxnu5g&_nc_oc=Adq2Mcim-KydOQ54YA0mDJ3OGquodcZRCikEHVUDmmeheAs4pn75LSjWK6nWg976nYI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=oPdLUaNPNFe0VJMYF5LaJg&_nc_ss=7b20f&oh=00_AQPmIP5RLq9Ccp1WTNWpabChmIWvNeLGITsbQVcmJUke3A&oe=6AF23143",
       "title": "Dynamix - 《Dynamix 2020 Christmas Event》 Here come the...",
       "role": "promotional",
       "game": "dynamix",
@@ -383,7 +383,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/131260043_1582731501913689_2902257966049438749_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=101&ccb=1-7&_nc_sid=cae128&_nc_ohc=2fSjcTl-XdgQ7kNvwFxnu5g&_nc_oc=Adq2Mcim-KydOQ54YA0mDJ3OGquodcZRCikEHVUDmmeheAs4pn75LSjWK6nWg976nYI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=39m9VsDMnxDLagAqkphtuA&_nc_ss=7b20f&oh=00_AQOan3S-CvSRfXrw_cbEvI1MOL4AhgzFnPefqb2fByQX-g&oe=6AF23143",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/131260043_1582731501913689_2902257966049438749_n.jpg?stp=dst-jpg_tt6&cstp=mx820x1200&ctp=p600x600&_nc_cat=101&ccb=1-7&_nc_sid=cae128&_nc_ohc=2fSjcTl-XdgQ7kNvwFxnu5g&_nc_oc=Adq2Mcim-KydOQ54YA0mDJ3OGquodcZRCikEHVUDmmeheAs4pn75LSjWK6nWg976nYI&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=oPdLUaNPNFe0VJMYF5LaJg&_nc_ss=7b20f&oh=00_AQPmIP5RLq9Ccp1WTNWpabChmIWvNeLGITsbQVcmJUke3A&oe=6AF23143",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -394,7 +394,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:380e806ea0c1b57e",
-      "notes": "Official Christmas 2020 event poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1582732028580303 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200)."
+      "notes": "Official Christmas 2020 event poster (research og:image description)."
     },
     {
       "id": "official:facebook:1622507284602777",
@@ -532,7 +532,7 @@
       "source_id": "official:facebook",
       "upstream_key": "1788302508023253",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/469446976_2636232839896878_8110049444913293675_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x628&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=caqkchYl0jIQ7kNvwGfzWQi&_nc_oc=AdrCLak-ccc8vudS7MalawtIKkpF6bK3ua77gDGHsSzqV_CZ7u5tXXgKIp_eAej4jsM&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=3XTlDLhqPP3Va6Imx0BeFw&_nc_ss=7b20f&oh=00_AQPH5NG4ateb5SnPvmDFlSr68zTfSAX1C68_JPyz8XFH-w&oe=6AD06C2D",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/469446976_2636232839896878_8110049444913293675_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x628&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=caqkchYl0jIQ7kNvwGfzWQi&_nc_oc=AdrCLak-ccc8vudS7MalawtIKkpF6bK3ua77gDGHsSzqV_CZ7u5tXXgKIp_eAej4jsM&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=GqcaUJdo5hlZITjXbvRJAQ&_nc_ss=7b20f&oh=00_AQMx6tRGi72hUag_mRuLXOBr6gtN18B-R31tTDVvb3tDGg&oe=6AD06C2D",
       "title": "Dynamix - [Upcoming Event 活動預告] The Event track of this...",
       "role": "promotional",
       "game": "dynamix",
@@ -541,7 +541,7 @@
         "og:description: Shinobi (Original Short Mix)"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/469446976_2636232839896878_8110049444913293675_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x628&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=caqkchYl0jIQ7kNvwGfzWQi&_nc_oc=AdrCLak-ccc8vudS7MalawtIKkpF6bK3ua77gDGHsSzqV_CZ7u5tXXgKIp_eAej4jsM&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=3XTlDLhqPP3Va6Imx0BeFw&_nc_ss=7b20f&oh=00_AQPH5NG4ateb5SnPvmDFlSr68zTfSAX1C68_JPyz8XFH-w&oe=6AD06C2D",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/469446976_2636232839896878_8110049444913293675_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x628&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=caqkchYl0jIQ7kNvwGfzWQi&_nc_oc=AdrCLak-ccc8vudS7MalawtIKkpF6bK3ua77gDGHsSzqV_CZ7u5tXXgKIp_eAej4jsM&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=GqcaUJdo5hlZITjXbvRJAQ&_nc_ss=7b20f&oh=00_AQMx6tRGi72hUag_mRuLXOBr6gtN18B-R31tTDVvb3tDGg&oe=6AD06C2D",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -561,7 +561,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Upcoming event card for Shinobi (Original Short Mix). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1200x628)."
+      "notes": "Upcoming event card for Shinobi (Original Short Mix)."
     },
     {
       "id": "official:facebook:1807859599400877",
@@ -594,7 +594,7 @@
       "source_id": "official:facebook",
       "upstream_key": "1809409469245890",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1809409469245890",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/248002271_1809408429245994_6793900498879028912_n.png?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=nlxdtsX9jhIQ7kNvwHw_iRk&_nc_oc=AdpvtKwzQ5nR6Ukw4ASR_oJTduHKhxhKZpHHEVrP30xHldZsya6ktidqF1wv9yiCnZE&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=vgjrCiJhvacujiSdZndmog&_nc_ss=7b20f&oh=00_AQM4c_HHGtJfL6fIgIhktnZVdlm3mee256nV91eG-pBMQg&oe=6AD0868F",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/248002271_1809408429245994_6793900498879028912_n.png?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=nlxdtsX9jhIQ7kNvwHw_iRk&_nc_oc=AdpvtKwzQ5nR6Ukw4ASR_oJTduHKhxhKZpHHEVrP30xHldZsya6ktidqF1wv9yiCnZE&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=_FC8eh3ddUftcZOO1onT7g&_nc_ss=7b20f&oh=00_AQMSlaB4jyfFKqg07HqMMbiWbygH3VCQTQsx3nMMO1BbTA&oe=6AD0868F",
       "title": "Dynamix - 【營運公告】Knight of Tripletz (for DNX Edit) 復刻期延長...",
       "role": "reference",
       "game": "dynamix",
@@ -603,8 +603,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/248002271_1809408429245994_6793900498879028912_n.png?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=nlxdtsX9jhIQ7kNvwHw_iRk&_nc_oc=AdpvtKwzQ5nR6Ukw4ASR_oJTduHKhxhKZpHHEVrP30xHldZsya6ktidqF1wv9yiCnZE&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=vgjrCiJhvacujiSdZndmog&_nc_ss=7b20f&oh=00_AQM4c_HHGtJfL6fIgIhktnZVdlm3mee256nV91eG-pBMQg&oe=6AD0868F",
-        "mime": "image/png",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/248002271_1809408429245994_6793900498879028912_n.png?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=102&ccb=1-7&_nc_sid=cae128&_nc_ohc=nlxdtsX9jhIQ7kNvwHw_iRk&_nc_oc=AdpvtKwzQ5nR6Ukw4ASR_oJTduHKhxhKZpHHEVrP30xHldZsya6ktidqF1wv9yiCnZE&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=_FC8eh3ddUftcZOO1onT7g&_nc_ss=7b20f&oh=00_AQMSlaB4jyfFKqg07HqMMbiWbygH3VCQTQsx3nMMO1BbTA&oe=6AD0868F",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -614,7 +614,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:813876a7de028155",
-      "notes": "Operation notice card (mascot). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1809409469245890 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800)."
+      "notes": "Operation notice card (mascot)."
     },
     {
       "id": "official:facebook:1847194385467398",
@@ -647,7 +647,7 @@
       "source_id": "official:facebook",
       "upstream_key": "1848526438667526",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/474475887_2672744962912332_8069806985176556266_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=104&ccb=1-7&_nc_sid=cae128&_nc_ohc=iUNyv-y1n3QQ7kNvwGo4EeK&_nc_oc=AdqtpLLDet7ExfXu5QTZD5MdsJDHqzyAn_XANmTi5b8LoMqd_K-VTeALWWYdRLIeL54&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=wk4pd-9srt_jmhqUdi6RTw&_nc_ss=7b20f&oh=00_AQPL0duhsC5bdajrvbQkyq_ge0JrMTqgZVJplhWo4_dE9w&oe=6AD065B5",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/474475887_2672744962912332_8069806985176556266_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=104&ccb=1-7&_nc_sid=cae128&_nc_ohc=iUNyv-y1n3QQ7kNvwGo4EeK&_nc_oc=AdqtpLLDet7ExfXu5QTZD5MdsJDHqzyAn_XANmTi5b8LoMqd_K-VTeALWWYdRLIeL54&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=aB4CbJahs4LzlueSnAWISA&_nc_ss=7b20f&oh=00_AQO-xV2tt3ODofAiv6V4iXI4CbVxOoagoJaYTXos7lcb6Q&oe=6AD065B5",
       "title": "Dynamix - [Comeback Track Event 復刻曲活動] The comeback track...",
       "role": "reference",
       "game": "dynamix",
@@ -657,7 +657,7 @@
         "og:description: Arty Party"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/474475887_2672744962912332_8069806985176556266_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=104&ccb=1-7&_nc_sid=cae128&_nc_ohc=iUNyv-y1n3QQ7kNvwGo4EeK&_nc_oc=AdqtpLLDet7ExfXu5QTZD5MdsJDHqzyAn_XANmTi5b8LoMqd_K-VTeALWWYdRLIeL54&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=wk4pd-9srt_jmhqUdi6RTw&_nc_ss=7b20f&oh=00_AQPL0duhsC5bdajrvbQkyq_ge0JrMTqgZVJplhWo4_dE9w&oe=6AD065B5",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/474475887_2672744962912332_8069806985176556266_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=104&ccb=1-7&_nc_sid=cae128&_nc_ohc=iUNyv-y1n3QQ7kNvwGo4EeK&_nc_oc=AdqtpLLDet7ExfXu5QTZD5MdsJDHqzyAn_XANmTi5b8LoMqd_K-VTeALWWYdRLIeL54&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=aB4CbJahs4LzlueSnAWISA&_nc_ss=7b20f&oh=00_AQO-xV2tt3ODofAiv6V4iXI4CbVxOoagoJaYTXos7lcb6Q&oe=6AD065B5",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -675,7 +675,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Comeback announcement card listing two songs (list graphic). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080)."
+      "notes": "Comeback announcement card listing two songs (list graphic)."
     },
     {
       "id": "official:facebook:1871794933007343",
@@ -734,7 +734,7 @@
       "source_id": "official:facebook",
       "upstream_key": "258082247123314",
       "page_url": "https://www.facebook.com/c4cat.dynamix/videos/258082247123314",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/371806412_331742849288913_8670752802526704494_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=596eb7&_nc_ohc=uMBJwPxyaWsQ7kNvwEhEDYo&_nc_oc=Adpg7OQ37Z9f-eTcZdaZbN664NtJ0QMoJih5mx-yTxkfBIy0mzugYqvxSGm73-FqyU8&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=eAWTMqDHC5VP6W4fNc0OyQ&_nc_ss=7b20f&oh=00_AQOOJZfLCDIPYWaor4uvzWPDHVbre4SXD1wcZAq-lGzWEQ&oe=6AD090A9",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/371806412_331742849288913_8670752802526704494_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=596eb7&_nc_ohc=uMBJwPxyaWsQ7kNvwEhEDYo&_nc_oc=Adpg7OQ37Z9f-eTcZdaZbN664NtJ0QMoJih5mx-yTxkfBIy0mzugYqvxSGm73-FqyU8&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=Ld6OQ5xvFoKCcqkaJ-0iEg&_nc_ss=7b20f&oh=00_AQM2xeknqXheLs0poekqHmJHcj888CwNza5GfZ4_BjN7Ag&oe=6AD090A9",
       "title": "[Character Preview] The Character of upcoming Dynamix X Paradigm: Reboot Collaboration Event is Para. She has the follo…",
       "role": "gameplay_screenshot",
       "game": "mixed",
@@ -743,7 +743,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/371806412_331742849288913_8670752802526704494_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=596eb7&_nc_ohc=uMBJwPxyaWsQ7kNvwEhEDYo&_nc_oc=Adpg7OQ37Z9f-eTcZdaZbN664NtJ0QMoJih5mx-yTxkfBIy0mzugYqvxSGm73-FqyU8&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=eAWTMqDHC5VP6W4fNc0OyQ&_nc_ss=7b20f&oh=00_AQOOJZfLCDIPYWaor4uvzWPDHVbre4SXD1wcZAq-lGzWEQ&oe=6AD090A9",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/371806412_331742849288913_8670752802526704494_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=596eb7&_nc_ohc=uMBJwPxyaWsQ7kNvwEhEDYo&_nc_oc=Adpg7OQ37Z9f-eTcZdaZbN664NtJ0QMoJih5mx-yTxkfBIy0mzugYqvxSGm73-FqyU8&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=Ld6OQ5xvFoKCcqkaJ-0iEg&_nc_ss=7b20f&oh=00_AQM2xeknqXheLs0poekqHmJHcj888CwNza5GfZ4_BjN7Ag&oe=6AD090A9",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -757,7 +757,7 @@
       "collections": [
         "Paradigm: Reboot Collaboration"
       ],
-      "notes": "Video poster: in-game UI with the Paradigm character Para (song Restricted Access). Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/258082247123314 as served logged out on 2026-10-10."
+      "notes": "Video poster: in-game UI with the Paradigm character Para (song Restricted Access)."
     },
     {
       "id": "official:facebook:429940337192817",
@@ -782,7 +782,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: text-only post (music submission rules); no image",
+      "reason": "out_of_scope_other: Facebook link-preview rendition (815x792, darkened) of the official website's song-art collage new32.png, which is archived from its own capture as archives:wayback:77957c0d9f1b5ff4",
       "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/we-are-calling-for-music-submissionhttpdynamixc4-catcommusic_submissionrulesarti/429940337192817/ as served logged out on 2026-10-10."
     },
     {
@@ -790,7 +790,7 @@
       "source_id": "official:facebook",
       "upstream_key": "452110388309145",
       "page_url": "https://www.facebook.com/c4cat.dynamix/videos/452110388309145/",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=64bBuq_ksZufP9-h4OQYGQ&_nc_ss=7b20f&oh=00_AQMw4tX2hEdEwhL-_Wp2hMFGB7fmkR0tgrlsxxXvbIajXQ&oe=6AD062B1",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ZUJs8GtUQnNCh3jUZwC6YA&_nc_ss=7b20f&oh=00_AQP4WHRT2PAxH6oh9lJbdNoPtN5GbPvsOgCyeDjrFJNtCQ&oe=6AD09AF1",
       "title": "[更新預告] 音樂遊戲「Dynamix」預定於1月(Android)/2月(iOS)推出版本2.6的更新 - 下載: http://dl.dnx.c4-cat.com/ (･∀･)曲包增加 - 鋼琴電音為主題的曲包－<<Piano>> D…",
       "role": null,
       "game": "unknown",
@@ -798,7 +798,7 @@
         "https://www.facebook.com/c4cat.dynamix/videos/452110388309145/"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=64bBuq_ksZufP9-h4OQYGQ&_nc_ss=7b20f&oh=00_AQMw4tX2hEdEwhL-_Wp2hMFGB7fmkR0tgrlsxxXvbIajXQ&oe=6AD062B1",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ZUJs8GtUQnNCh3jUZwC6YA&_nc_ss=7b20f&oh=00_AQP4WHRT2PAxH6oh9lJbdNoPtN5GbPvsOgCyeDjrFJNtCQ&oe=6AD09AF1",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -841,7 +841,7 @@
       "source_id": "official:facebook",
       "upstream_key": "693933942734314",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/693933942734314",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=vjn4S0wQWex74GJJyLFXnQ&_nc_ss=7b20f&oh=00_AQMpiawv9i0Fe8Yb6jybL38o40tCvYdvhxZCtBzhSajvZw&oe=6AD06CD4",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5hRMx7hNlw2lSc8VcrkkCg&_nc_ss=7b20f&oh=00_AQO9qApiYt6Y8ysMzQ6KfgfTCJ1xofvMLhUIbsb8KUQe4g&oe=6AD06CD4",
       "title": "Dynamix - 睽違2年, Dynamix 公開徵曲活動在2023年的今天!!又双叒再次與大家見面了!...",
       "role": "reference",
       "game": "dynamix",
@@ -850,7 +850,7 @@
         "og:description: ubmission"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=vjn4S0wQWex74GJJyLFXnQ&_nc_ss=7b20f&oh=00_AQMpiawv9i0Fe8Yb6jybL38o40tCvYdvhxZCtBzhSajvZw&oe=6AD06CD4",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5hRMx7hNlw2lSc8VcrkkCg&_nc_ss=7b20f&oh=00_AQO9qApiYt6Y8ysMzQ6KfgfTCJ1xofvMLhUIbsb8KUQe4g&oe=6AD06CD4",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -861,14 +861,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:a3a73b6a2c3268df",
-      "notes": "Open Submission 2023 poster: informational graphic stating the submission rules and cover-art format. Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/693933942734314 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800)."
+      "notes": "Open Submission 2023 poster: informational graphic stating the submission rules and cover-art format."
     },
     {
       "id": "official:facebook:768368460016668",
       "source_id": "official:facebook",
       "upstream_key": "768368460016668",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/768368460016668",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/500761749_2791910740995753_5619784954166562840_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1152&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=7BR3msp11qYQ7kNvwGGmPh7&_nc_oc=AdqG5qOavPH7BQ4PeDHj14b4dPd5G0m6NJcbX1Z79c9Ovaa3bP3jl-b_4cTswoZ4KMc&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=SRKLOs_Ryy-mm88SbK6Mdw&_nc_ss=7b20f&oh=00_AQNp94UvPYbX3VAY-7NV1vJIK7UA9blvuIaxFpiYipR9PQ&oe=6AD0769D",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/500761749_2791910740995753_5619784954166562840_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1152&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=7BR3msp11qYQ7kNvwGGmPh7&_nc_oc=AdqG5qOavPH7BQ4PeDHj14b4dPd5G0m6NJcbX1Z79c9Ovaa3bP3jl-b_4cTswoZ4KMc&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=XUUFsQiHBCDYQ7sh432pdw&_nc_ss=7b20f&oh=00_AQPOKBw1kqAWSsOVcj_IKJ7CzR3oui43CHUkfvS5UfHf3A&oe=6AD0769D",
       "title": "Dynamix - [Event] The Event track of the week is...",
       "role": "promotional",
       "game": "dynamix",
@@ -877,7 +877,7 @@
         "og:description: Hyphen"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/500761749_2791910740995753_5619784954166562840_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1152&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=7BR3msp11qYQ7kNvwGGmPh7&_nc_oc=AdqG5qOavPH7BQ4PeDHj14b4dPd5G0m6NJcbX1Z79c9Ovaa3bP3jl-b_4cTswoZ4KMc&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=SRKLOs_Ryy-mm88SbK6Mdw&_nc_ss=7b20f&oh=00_AQNp94UvPYbX3VAY-7NV1vJIK7UA9blvuIaxFpiYipR9PQ&oe=6AD0769D",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/500761749_2791910740995753_5619784954166562840_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1152&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=7BR3msp11qYQ7kNvwGGmPh7&_nc_oc=AdqG5qOavPH7BQ4PeDHj14b4dPd5G0m6NJcbX1Z79c9Ovaa3bP3jl-b_4cTswoZ4KMc&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=XUUFsQiHBCDYQ7sh432pdw&_nc_ss=7b20f&oh=00_AQPOKBw1kqAWSsOVcj_IKJ7CzR3oui43CHUkfvS5UfHf3A&oe=6AD0769D",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -894,14 +894,14 @@
       "collections": [
         "Event"
       ],
-      "notes": "Event 'coming soon' card (Hyphen). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/768368460016668 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx2048x1152)."
+      "notes": "Event 'coming soon' card (Hyphen)."
     },
     {
       "id": "official:facebook:787584971428350",
       "source_id": "official:facebook",
       "upstream_key": "787584971428350",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/787584971428350",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/502430022_2794123937441100_2450763365063669419_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=N4VuOeiYt4EQ7kNvwGbvEeP&_nc_oc=Adoj9xy04B7EobANxOKfYj4J8F55sGVN2bq01jajF2X7llYW1cgu-rW7zfCN1pki75Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=p8Nn_yzcsTpWNbLDyaraJQ&_nc_ss=7b20f&oh=00_AQM0Fbw9u1hyFur0Ilm3OS3OrEsseWStP4UVvK1hjTtF8w&oe=6AD071CA",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/502430022_2794123937441100_2450763365063669419_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=N4VuOeiYt4EQ7kNvwGbvEeP&_nc_oc=Adoj9xy04B7EobANxOKfYj4J8F55sGVN2bq01jajF2X7llYW1cgu-rW7zfCN1pki75Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=gX2XY4HVhRLqJOc1ox0ixA&_nc_ss=7b20f&oh=00_AQO3xd8GHsAzaifoYwCYODboV5U32QHzysXjd_OHj1oGXA&oe=6AD071CA",
       "title": "Dynamix - [Player ID] Sometimes the game info may lose...",
       "role": "reference",
       "game": "dynamix",
@@ -910,7 +910,7 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/502430022_2794123937441100_2450763365063669419_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=N4VuOeiYt4EQ7kNvwGbvEeP&_nc_oc=Adoj9xy04B7EobANxOKfYj4J8F55sGVN2bq01jajF2X7llYW1cgu-rW7zfCN1pki75Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=p8Nn_yzcsTpWNbLDyaraJQ&_nc_ss=7b20f&oh=00_AQM0Fbw9u1hyFur0Ilm3OS3OrEsseWStP4UVvK1hjTtF8w&oe=6AD071CA",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/502430022_2794123937441100_2450763365063669419_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=N4VuOeiYt4EQ7kNvwGbvEeP&_nc_oc=Adoj9xy04B7EobANxOKfYj4J8F55sGVN2bq01jajF2X7llYW1cgu-rW7zfCN1pki75Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=gX2XY4HVhRLqJOc1ox0ixA&_nc_ss=7b20f&oh=00_AQO3xd8GHsAzaifoYwCYODboV5U32QHzysXjd_OHj1oGXA&oe=6AD071CA",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -921,14 +921,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:d5087d9679bfdb67",
-      "notes": "Player ID instruction card. Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/787584971428350 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080)."
+      "notes": "Player ID instruction card."
     },
     {
       "id": "official:facebook:901693993350780",
       "source_id": "official:facebook",
       "upstream_key": "901693993350780",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/901693993350780",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/37287431_901693836684129_1467928450638544896_n.png?stp=dst-jpg_tt6&cstp=mx1000x200&ctp=s1000x200&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZNdOvtTMxFoQ7kNvwFgKZAT&_nc_oc=AdpgJrWWx6Q8TJbpmX_RRJfKKyFXmMz5caUl1yPU_-ldBZS00QDVPqVMRXiS-1lA79I&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=fNx_k8hTQrxxDOcwbrC6Fw&_nc_ss=7b20f&oh=00_AQNJY3fhKhfted_i7FRMH87XKs52rQPNSvvBJ8g5UfPfoQ&oe=6AF202DB",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/37287431_901693836684129_1467928450638544896_n.png?stp=dst-jpg_tt6&cstp=mx1000x200&ctp=s1000x200&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZNdOvtTMxFoQ7kNvwFgKZAT&_nc_oc=AdpgJrWWx6Q8TJbpmX_RRJfKKyFXmMz5caUl1yPU_-ldBZS00QDVPqVMRXiS-1lA79I&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ujERUkp71nYUJ0WtnI14xw&_nc_ss=7b20f&oh=00_AQMfIQqM6yOhcfrTDJms5fljM9EJT2yp7egAb3QeKMAz_w&oe=6AF202DB",
       "title": "Dynamix - [Summer Event] Summer has come, how can we hold...",
       "role": "promotional",
       "game": "dynamix",
@@ -937,8 +937,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/37287431_901693836684129_1467928450638544896_n.png?stp=dst-jpg_tt6&cstp=mx1000x200&ctp=s1000x200&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZNdOvtTMxFoQ7kNvwFgKZAT&_nc_oc=AdpgJrWWx6Q8TJbpmX_RRJfKKyFXmMz5caUl1yPU_-ldBZS00QDVPqVMRXiS-1lA79I&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=fNx_k8hTQrxxDOcwbrC6Fw&_nc_ss=7b20f&oh=00_AQNJY3fhKhfted_i7FRMH87XKs52rQPNSvvBJ8g5UfPfoQ&oe=6AF202DB",
-        "mime": "image/png",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t1.6435-9/37287431_901693836684129_1467928450638544896_n.png?stp=dst-jpg_tt6&cstp=mx1000x200&ctp=s1000x200&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=ZNdOvtTMxFoQ7kNvwFgKZAT&_nc_oc=AdpgJrWWx6Q8TJbpmX_RRJfKKyFXmMz5caUl1yPU_-ldBZS00QDVPqVMRXiS-1lA79I&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ujERUkp71nYUJ0WtnI14xw&_nc_ss=7b20f&oh=00_AQMfIQqM6yOhcfrTDJms5fljM9EJT2yp7egAb3QeKMAz_w&oe=6AF202DB",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -948,14 +948,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:c9220ae397f32c8a",
-      "notes": "Official Summer 2018 event banner (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/901693993350780 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s1000x200, source bound mx1000x200)."
+      "notes": "Official Summer 2018 event banner (research og:image description)."
     },
     {
       "id": "official:facebook:979167482270097",
       "source_id": "official:facebook",
       "upstream_key": "979167482270097",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/979167482270097",
-      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/44719573_979167205603458_4144043884680314880_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=MEXNwySn-vQQ7kNvwGVng_K&_nc_oc=AdrEHlNkFM_1U1QIsdiv9GUSA_Gff9zmE_KDAfG5_CUa9zMpnaY2ql2fdq1qEQUJJZ0&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=xgwwyIkPzyVJr6yV_jhm4w&_nc_ss=7b20f&oh=00_AQMYjVVVEnaI2wapgJgMgqZbIkzJw6kdKjBJYyP56oqHhQ&oe=6AF2103E",
+      "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/44719573_979167205603458_4144043884680314880_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=MEXNwySn-vQQ7kNvwGVng_K&_nc_oc=AdrEHlNkFM_1U1QIsdiv9GUSA_Gff9zmE_KDAfG5_CUa9zMpnaY2ql2fdq1qEQUJJZ0&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=tl1QjR8BkeT_EgIqQv1PvQ&_nc_ss=7b20f&oh=00_AQOV02DNZnMzLmNkT4u6dLt8s59iqNWKTvbFVJxz-GTuhw&oe=6AF2103E",
       "title": "Dynamix - [4週年x萬聖節活動]...",
       "role": "promotional",
       "game": "dynamix",
@@ -964,8 +964,8 @@
         "og:title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/44719573_979167205603458_4144043884680314880_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=MEXNwySn-vQQ7kNvwGVng_K&_nc_oc=AdrEHlNkFM_1U1QIsdiv9GUSA_Gff9zmE_KDAfG5_CUa9zMpnaY2ql2fdq1qEQUJJZ0&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=xgwwyIkPzyVJr6yV_jhm4w&_nc_ss=7b20f&oh=00_AQMYjVVVEnaI2wapgJgMgqZbIkzJw6kdKjBJYyP56oqHhQ&oe=6AF2103E",
-        "mime": "image/png",
+        "url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.6435-9/44719573_979167205603458_4144043884680314880_n.png?stp=dst-jpg_tt6&cstp=mx820x1000&ctp=p600x600&_nc_cat=105&ccb=1-7&_nc_sid=cae128&_nc_ohc=MEXNwySn-vQQ7kNvwGVng_K&_nc_oc=AdrEHlNkFM_1U1QIsdiv9GUSA_Gff9zmE_KDAfG5_CUa9zMpnaY2ql2fdq1qEQUJJZ0&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=tl1QjR8BkeT_EgIqQv1PvQ&_nc_ss=7b20f&oh=00_AQOV02DNZnMzLmNkT4u6dLt8s59iqNWKTvbFVJxz-GTuhw&oe=6AF2103E",
+        "mime": "image/jpeg",
         "bytes": null,
         "width": null,
         "height": null,
@@ -975,14 +975,14 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:88fcda740d0f1b2f",
-      "notes": "Official 4th anniversary x Halloween 2018 poster (research og:image description). Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/979167482270097 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000)."
+      "notes": "Official 4th anniversary x Halloween 2018 poster (research og:image description)."
     },
     {
       "id": "official:facebook:page",
       "source_id": "official:facebook",
       "upstream_key": "page",
       "page_url": "https://www.facebook.com/c4cat.dynamix/",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=lZ3Tg4sTySfm660x0TeH4w&_nc_ss=7b20f&oh=00_AQOTDC68joKPEEsiqFS9PZfsAK6_cbW_pHVRF1p8odpZow&oe=6AD08B4B",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5TVW1aH0dK0vHV4UXp8F8A&_nc_ss=7b20f&oh=00_AQPPJGriuwgHv18sMC4ba5FG_F1ePcDaNmxfTdCGOwdLIA&oe=6AD08B4B",
       "title": "Dynamix",
       "role": null,
       "game": "unknown",
@@ -990,7 +990,7 @@
         "https://www.facebook.com/c4cat.dynamix/"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=lZ3Tg4sTySfm660x0TeH4w&_nc_ss=7b20f&oh=00_AQOTDC68joKPEEsiqFS9PZfsAK6_cbW_pHVRF1p8odpZow&oe=6AD08B4B",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5TVW1aH0dK0vHV4UXp8F8A&_nc_ss=7b20f&oh=00_AQPPJGriuwgHv18sMC4ba5FG_F1ePcDaNmxfTdCGOwdLIA&oe=6AD08B4B",
         "mime": "image/png",
         "bytes": null,
         "width": null,
@@ -1008,7 +1008,7 @@
       "source_id": "official:facebook",
       "upstream_key": "pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=-w81s2jE-trlOrsRhqDIKg&_nc_ss=7b20f&oh=00_AQP6h-Wa9FmikRiTrJiT870NRaD5P_fvCQK8QkHm6rlYCA&oe=6AD06CD4",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=4-CONCVjvjd2jGxX12pXAQ&_nc_ss=7b20f&oh=00_AQNtJad-MlxnhYeiYPnHaEWYWa9bp4r4Ya3__NvYvSKKqw&oe=6AD0A514",
       "title": "Dynamix - 睽違2年, Dynamix 公開徵曲活動在2023年的今天!!又双叒再次與大家見面了!...",
       "role": "reference",
       "game": "dynamix",
@@ -1017,7 +1017,7 @@
         "og:description: ubmission"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=-w81s2jE-trlOrsRhqDIKg&_nc_ss=7b20f&oh=00_AQP6h-Wa9FmikRiTrJiT870NRaD5P_fvCQK8QkHm6rlYCA&oe=6AD06CD4",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=4-CONCVjvjd2jGxX12pXAQ&_nc_ss=7b20f&oh=00_AQNtJad-MlxnhYeiYPnHaEWYWa9bp4r4Ya3__NvYvSKKqw&oe=6AD0A514",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -1029,7 +1029,7 @@
       "disposition": "duplicate_bytes",
       "reason": "duplicate_bytes: identical bytes already archived for official:facebook:693933942734314",
       "asset_id": "official:facebook:a3a73b6a2c3268df",
-      "notes": "Open Submission 2023 poster (second post): informational graphic stating the submission rules and cover-art format. Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800)."
+      "notes": "Open Submission 2023 poster (second post): informational graphic stating the submission rules and cover-art format."
     }
   ],
   "errors": []
