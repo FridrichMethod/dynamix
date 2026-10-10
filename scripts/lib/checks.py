@@ -6,6 +6,7 @@ problem description; :mod:`lib.schema` combines them into the contract's record 
 
 from __future__ import annotations
 
+import ipaddress
 import re
 import unicodedata
 from datetime import datetime
@@ -17,39 +18,57 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 # --- Credential hygiene -----------------------------------------------------------------------------------------------
 
-SENSITIVE_QUERY_KEYS = frozenset({
-    "access_token", "api_key", "apikey", "auth", "authorization", "client_secret", "code", "cookie", "credential",
-    "key", "password", "passwd", "pwd", "refresh_token", "secret", "session", "sessionid", "sid", "sig", "signature",
-    "token", "x-amz-credential", "x-amz-security-token", "x-amz-signature",
+# Query/fragment keys whose values are credentials wherever they appear. Stored provenance URLs must not carry them
+# (checks.http_url rejects them; redact_url(url, strict=False) replaces their values).
+CREDENTIAL_QUERY_KEYS = frozenset({
+    "access_token", "api_key", "apikey", "auth_token", "client_secret", "id_token", "passwd", "password", "pwd",
+    "refresh_token", "secret", "signature", "token", "x-amz-credential", "x-amz-security-token", "x-amz-signature",
+    "x-goog-credential", "x-goog-signature",
+})
+# Strict set for logs and error/Failure messages: also generic names that often, but not always, carry secrets.
+# Stored URLs keep these, because public URLs use them legitimately (e.g. an archived ``image.php?key=12``).
+SENSITIVE_QUERY_KEYS = CREDENTIAL_QUERY_KEYS | frozenset({
+    "auth", "authorization", "code", "cookie", "credential", "key", "phpsessid", "session", "sessionid", "sid", "sig",
 })
 REDACTED = "REDACTED"
 _URL_IN_TEXT = re.compile(r"https?://[^\s\"'<>]+")
 _HEADER_SECRET = re.compile(r"(?im)\b(authorization|proxy-authorization|cookie|set-cookie)(\s*[:=]\s*)[^\r\n]+")
 _BEARER = re.compile(r"(?i)\b(bearer)\s+[A-Za-z0-9._~+/=-]{20,}")
+# A ``name=value`` pair anywhere in free text: relative paths, bare query strings, ``url: /x?token=...`` fragments.
+_PAIR_IN_TEXT = re.compile(r"(?<![\w.%~-])([\w.%~-]+)=([^\s&;#\"'<>]+)")
 
 
-def _redact_pairs(text: str, separator: str) -> str:
+def _keys(strict: bool) -> frozenset[str]:
+    return SENSITIVE_QUERY_KEYS if strict else CREDENTIAL_QUERY_KEYS
+
+
+def _redact_pairs(text: str, separator: str, keys: frozenset[str]) -> str:
     pieces = []
     for piece in text.split(separator):
-        name, equals, _value = piece.partition("=")
-        if equals and unquote(name).strip().lower() in SENSITIVE_QUERY_KEYS:
+        name, equals, value = piece.partition("=")
+        if equals and value and unquote(name).strip().lower() in keys:
             pieces.append(f"{name}={REDACTED}")
         else:
             pieces.append(piece)
     return separator.join(pieces)
 
 
-def redact_url(url: str) -> str:
-    """``url`` without userinfo and with sensitive query/fragment values replaced; unchanged when already clean."""
+def redact_url(url: str, *, strict: bool = True) -> str:
+    """``url`` without userinfo and with credential query/fragment values replaced; unchanged when already clean.
+
+    ``strict=True`` (logs, messages) uses :data:`SENSITIVE_QUERY_KEYS`; ``strict=False`` (stored provenance URLs,
+    Failure ``url``) uses the narrower :data:`CREDENTIAL_QUERY_KEYS`.
+    """
     if not isinstance(url, str):
         return "<non-string url>"
     try:
         parts = urlsplit(url)
     except ValueError:
         return "<unparseable url>"
+    keys = _keys(strict)
     netloc = parts.netloc.rpartition("@")[2]
-    query = _redact_pairs(parts.query, "&")
-    fragment = _redact_pairs(parts.fragment, "&")
+    query = _redact_pairs(parts.query, "&", keys)
+    fragment = _redact_pairs(parts.fragment, "&", keys)
     if (netloc, query, fragment) == (parts.netloc, parts.query, parts.fragment):
         return url
     rebuilt = f"{parts.scheme}://{netloc}{parts.path}" if parts.scheme else f"{netloc}{parts.path}"
@@ -60,15 +79,75 @@ def redact_url(url: str) -> str:
     return rebuilt
 
 
-def redact_text(text: str) -> str:
-    """``text`` with every URL redacted and Authorization/Cookie/Set-Cookie header values and bearer tokens removed."""
-    text = _URL_IN_TEXT.sub(lambda match: redact_url(match.group(0)), str(text))
+def redact_text(text: str, *, strict: bool = True) -> str:
+    """``text`` with every URL redacted, credential ``name=value`` pairs anywhere (relative paths, bare queries)
+    replaced, and Authorization/Cookie/Set-Cookie header values and bearer tokens removed."""
+    keys = _keys(strict)
+    text = _URL_IN_TEXT.sub(lambda match: redact_url(match.group(0), strict=strict), str(text))
+    text = _PAIR_IN_TEXT.sub(lambda match: f"{match.group(1)}={REDACTED}"
+                             if unquote(match.group(1)).lower() in keys else match.group(0), text)
     text = _HEADER_SECRET.sub(lambda match: f"{match.group(1)}{match.group(2)}{REDACTED}", text)
     return _BEARER.sub(lambda match: f"{match.group(1)} {REDACTED}", text)
 
 
-def contains_credentials(text: str) -> bool:
-    return redact_text(text) != text
+def contains_credentials(text: str, *, strict: bool = True) -> bool:
+    return redact_text(text, strict=strict) != text
+
+
+# --- URL syntax -------------------------------------------------------------------------------------------------------
+
+# ASCII characters RFC 3986 never allows in a URI. A backslash is the dangerous one: Python's urlsplit keeps it in the
+# host while urllib3/requests (and browsers) end the authority there, so the allowlisted host and the contacted host
+# would differ. Non-ASCII characters are allowed (IRIs; requests percent-encodes them, hosts go through IDNA).
+URL_FORBIDDEN_ASCII = frozenset(' "<>\\^`{|}')
+_HOST_LABELS = re.compile(r"^[a-z0-9_-]+(?:\.[a-z0-9_-]+)*$")
+
+
+def normalize_host(host: str) -> str:
+    """Lowercase, trailing dot removed, IDNA (punycode) for non-ASCII names; ValueError when empty or not encodable."""
+    value = host.strip().lower().rstrip(".")
+    if not value:
+        raise ValueError("empty host")
+    if not value.isascii():
+        value = value.encode("idna").decode("ascii")  # UnicodeError (a ValueError) when not encodable
+    return value
+
+
+def host_problem(host: str) -> str | None:
+    """None for an IP literal or a host made of ``[a-z0-9_-]`` labels after :func:`normalize_host`."""
+    try:
+        ipaddress.ip_address(host)
+        return None
+    except ValueError:
+        pass
+    try:
+        value = normalize_host(host)
+    except ValueError as error:
+        return f"host is not a valid name ({error})"
+    return None if _HOST_LABELS.fullmatch(value) else f"host {value!r} has characters outside [a-z0-9_-] labels"
+
+
+def url_problem(value: Any) -> str | None:
+    """Syntax check shared by stored URLs (:func:`http_url`) and the network client: an absolute http(s) URL with a
+    host, no userinfo, no whitespace/control characters, no ASCII characters RFC 3986 forbids (notably ``\\``) and
+    an unambiguous host. Returns None when valid, else a short problem description."""
+    if not isinstance(value, str) or not value:
+        return "must be an http(s) URL"
+    if any(char.isspace() or unicodedata.category(char) == "Cc" for char in value):
+        return "must not contain whitespace or control characters"
+    forbidden = sorted({char for char in value if char in URL_FORBIDDEN_ASCII})
+    if forbidden:
+        return f"must not contain characters RFC 3986 forbids ({''.join(forbidden)!r})"
+    try:
+        parts = urlsplit(value)
+        parts.port  # noqa: B018 - raises ValueError for an invalid port
+    except ValueError as error:
+        return f"must be a parseable URL ({error})"
+    if parts.scheme not in ("http", "https") or not parts.hostname:
+        return "must be an http(s) URL with a host"
+    if "@" in parts.netloc:
+        return "must not contain credentials (userinfo)"
+    return host_problem(parts.hostname)
 
 
 # --- Checker combinators ----------------------------------------------------------------------------------------------
@@ -145,24 +224,24 @@ def date(value: Any) -> str | None:
 
 
 def http_url(value: Any) -> str | None:
-    if not isinstance(value, str) or not value:
-        return "must be an http(s) URL"
-    if any(char.isspace() or unicodedata.category(char) == "Cc" for char in value):
-        return "must not contain whitespace or control characters"
-    try:
-        parts = urlsplit(value)
-    except ValueError:
-        return "must be a parseable URL"
-    if parts.scheme not in ("http", "https") or not parts.hostname:
-        return "must be an http(s) URL with a host"
-    if "@" in parts.netloc:
-        return "must not contain credentials (userinfo)"
-    if redact_url(value) != value:
-        return "must not contain credential-like query parameters (use redact_url)"
+    """A stored URL: :func:`url_problem` plus no credential query parameters (:data:`CREDENTIAL_QUERY_KEYS`)."""
+    problem = url_problem(value)
+    if problem:
+        return problem
+    if redact_url(value, strict=False) != value:
+        return "must not contain credential query parameters (use redact_url(url, strict=False))"
     return None
 
 
 def clean_text(value: Any) -> str | None:
+    """Stored evidence text (quotes, URLs, notes): non-empty and free of credentials (stored-URL rule)."""
+    if not isinstance(value, str) or not value.strip():
+        return "must be a non-empty string"
+    return "must not contain credentials (use redact_text)" if contains_credentials(value, strict=False) else None
+
+
+def message_text(value: Any) -> str | None:
+    """A generated error message (Failure ``message``, discovery ``errors[].message``): strict redaction rule."""
     if not isinstance(value, str) or not value.strip():
         return "must be a non-empty string"
     return "must not contain credentials (use redact_text)" if contains_credentials(value) else None

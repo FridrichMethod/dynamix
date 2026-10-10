@@ -64,7 +64,15 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(response.get("status", 200))
             for name, value in response.get("headers", {}).items():
                 self.send_header(name, value)
-            if response.get("chunked"):
+            if response.get("drip"):  # (piece size, pause): a trickling server
+                size, pause = response["drip"]
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                for start in range(0, len(body), size):
+                    self.wfile.write(body[start:start + size])
+                    self.wfile.flush()
+                    time.sleep(pause)
+            elif response.get("chunked"):
                 self.send_header("Transfer-Encoding", "chunked")
                 self.end_headers()
                 for start in range(0, len(body), 1024):
@@ -94,6 +102,22 @@ class QuietServer(ThreadingHTTPServer):
 
 def json_body(data):
     return {"status": 200, "headers": {"Content-Type": "application/json"}, "body": json.dumps(data).encode()}
+
+
+# Cloudflare JavaScript Detections, injected into ordinary pages (not a challenge).
+JSD_SNIPPET = (b"<script>(function(){var d=document.createElement('script');d.innerHTML=\"window.__CF$cv$params="
+               b"{r:'8a1b2c3d4e5f6a7b',t:'MTcyODU2MDAwMC4wMDAwMDA='};var a=document.createElement('script');"
+               b"a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';"
+               b"document.getElementsByTagName('head')[0].appendChild(a);\";})();</script>")
+JSD_PAGE = b"<!doctype html><html><head><title>Cosmic Pulse - Dynamix Wiki</title></head><body>ok" + JSD_SNIPPET + \
+    b"</body></html>"
+# A real interstitial: Cloudflare challenge options object and orchestrate script.
+CHALLENGE_PAGE = (b"<!DOCTYPE html><html><head><title>Just a moment...</title></head><body><script>"
+                  b"window._cf_chl_opt={cvId: '3',cType: 'managed'};var a=document.createElement('script');"
+                  b"a.src='/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=8a1b2c3d4e5f6a7b';"
+                  b"</script></body></html>")
+SECRETS = ("deadbeefsecret", "topsecret")
+SECRET_QUERY = "?X-Amz-Signature=deadbeefsecret&token=topsecret&format=original"
 
 
 class NetTestCase(unittest.TestCase):
@@ -387,6 +411,165 @@ class BoundaryTests(NetTestCase):
             self.client().get_json(self.url("/api") + "?token=topsecret&format=original")
         self.assertNotIn("topsecret", str(caught.exception))
         self.assertIn("format=original", caught.exception.url)
+
+
+class UrlBoundaryTests(NetTestCase):
+    """urlsplit keeps a backslash in the host, urllib3 ends the authority there: the checked host must be the one
+    contacted."""
+
+    def resolver_spy(self, answer="127.0.0.1"):
+        asked = []
+
+        def resolve(host):
+            asked.append(host)
+            return [answer]
+        return asked, resolve
+
+    def test_backslash_authority_is_refused_before_dns_or_contact(self):
+        asked, resolve = self.resolver_spy()
+        client = self.client(hosts=[".miraheze.org"], max_attempts=1, resolver=resolve)
+        for url in (f"http://localhost\\.miraheze.org:{self.port}/x", "http://evil.example\\.miraheze.org/x"):
+            with self.subTest(url=url), self.assertRaises(net.HostNotAllowedError):
+                client.get_json(url)
+            with self.subTest(url=url, params=True), self.assertRaises(net.HostNotAllowedError):
+                client.get_json(url, {"action": "query"})
+        self.assertEqual((asked, self.script.hits), ([], {}))
+
+    def test_redirect_to_backslash_url_is_refused_before_any_request(self):
+        asked, resolve = self.resolver_spy()
+        self.script.add("/a", {"status": 302, "headers": {"Location": f"http://localhost\\.miraheze.org:{self.port}/x"}})
+        client = self.client(hosts=["127.0.0.1", ".miraheze.org"], resolver=resolve)
+        with self.assertRaises(net.HostNotAllowedError) as caught:
+            client.get_json(self.url("/a"))
+        self.assertEqual(self.script.hits, {"/a": 1})
+        self.assertEqual(asked, [])
+        self.assertIn("redirect refused", caught.exception.message)
+        record = caught.exception.failure(source_id="wikis:miraheze", candidate_id="wikis:miraheze:File:X.png")
+        self.assertEqual((record["error_class"], record["url"]), ("host_not_allowed", self.url("/a")))
+
+    def test_checked_host_must_equal_the_contacted_host(self):
+        """IDNA 2003 (Python's codec) and UTS 46 (requests) map ``straße`` differently: refuse instead of guessing."""
+        asked, resolve = self.resolver_spy("93.184.216.34")
+        client = self.client(hosts=["strasse.example"], allow_loopback=False, resolver=resolve)
+        with self.assertRaises(net.HostNotAllowedError) as caught:
+            client.get_json("http://straße.example/x")
+        self.assertIn("ambiguous authority", caught.exception.message)
+        self.assertEqual(asked, [])
+
+    def test_failure_needs_a_storable_url(self):
+        client = self.client(hosts=[".miraheze.org"])
+        with self.assertRaises(net.HostNotAllowedError) as caught:
+            client.get_json("http://evil.example\\.miraheze.org/x")
+        with self.assertRaises(ValueError):
+            caught.exception.failure(source_id="wikis:miraheze", candidate_id="wikis:miraheze:File:X.png")
+        record = caught.exception.failure(source_id="wikis:miraheze", candidate_id="wikis:miraheze:File:X.png",
+                                          url="https://dynamix.miraheze.org/wiki/File:X.png")
+        self.assertEqual(record["error_class"], "host_not_allowed")
+
+    def test_nat64_and_ipv4_compatible_addresses(self):
+        client = self.client(hosts=["a.example"], allow_loopback=True)
+        for address in ("64:ff9b::a00:1", "64:ff9b::7f00:1", "64:ff9b::c0a8:105", "::10.0.0.1", "::7f00:1",
+                        "64:ff9b:1::a00:1", "2002:a00:1::1", "::ffff:10.0.0.1"):
+            with self.subTest(address=address):
+                self.assertFalse(client._address_allowed(address))
+        for address in ("64:ff9b::5db8:d822", "93.184.216.34", "2606:2800:220:1:248:1893:25c8:1946"):
+            with self.subTest(address=address):
+                self.assertTrue(client._address_allowed(address))
+        self.assertTrue(client._address_allowed("::ffff:127.0.0.1"))  # real loopback, allowed only in tests
+        self.assertFalse(self.client(hosts=["a.example"], allow_loopback=False)._address_allowed("::ffff:127.0.0.1"))
+
+
+class ChallengeDetectionTests(NetTestCase):
+    def test_javascript_detections_page_is_not_a_challenge(self):
+        self.script.add("/ok", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": JSD_PAGE})
+        text, _, _ = self.client().get_text(self.url("/ok"))
+        self.assertIn("Cosmic Pulse", text)
+        self.script.add("/x.png", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": JSD_PAGE})
+        result = self.client().download(self.url("/x.png"), self.dest, "x")
+        self.assertEqual(result.bytes, len(JSD_PAGE))  # media decoding, not the client, rejects HTML as an image
+
+    def test_javascript_detections_keep_the_real_status(self):
+        cases = {503: (net.HttpError, "http_5xx", 3), 404: (net.HttpError, "http_4xx", 1),
+                 403: (net.BlockedError, "blocked", 1)}
+        for status, (kind, error_class, attempts) in cases.items():
+            with self.subTest(status=status):
+                self.script.add(f"/{status}", {"status": status, "body": JSD_PAGE})
+                with self.assertRaises(kind) as caught:
+                    self.client().get_text(self.url(f"/{status}"))
+                self.assertNotIsInstance(caught.exception, net.ChallengeError)
+                self.assertEqual((caught.exception.error_class, caught.exception.attempts), (error_class, attempts))
+                self.assertEqual(self.script.hits[f"/{status}"], attempts)
+
+    def test_real_interstitials_are_challenges(self):
+        self.script.add("/page", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": CHALLENGE_PAGE})
+        self.script.add("/x.png", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": CHALLENGE_PAGE})
+        self.script.add("/api", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": CHALLENGE_PAGE})
+        self.script.add("/403", {"status": 403, "body": b"<html><script src='/cdn-cgi/challenge-platform/h/g/"
+                                                        b"orchestrate/chl_page/v1'></script></html>"})
+        self.script.add("/429", {"status": 429, "body": b"<html><script>window._cf_chl_opt={}</script></html>"})
+        calls = {"/page": lambda c: c.get_text(self.url("/page")),
+                 "/x.png": lambda c: c.download(self.url("/x.png"), self.dest, "x"),
+                 "/api": lambda c: c.get_json(self.url("/api")), "/403": lambda c: c.get_text(self.url("/403")),
+                 "/429": lambda c: c.get_text(self.url("/429"))}
+        for path, call in calls.items():
+            with self.subTest(path=path), self.assertRaises(net.ChallengeError) as caught:
+                call(self.client())
+            self.assertEqual((caught.exception.error_class, caught.exception.retriable, self.script.hits[path]),
+                             ("challenge", False, 1))
+        self.assertEqual(self.dest_files(), [])
+        self.assertEqual(self.sleeps, [])
+
+
+class CredentialFreeMessageTests(NetTestCase):
+    def assertNoSecrets(self, error):
+        record = error.failure(source_id="wikis:fandom", candidate_id="wikis:fandom:File:X.png")
+        texts = [str(error), error.message, error.url, json.dumps(record)]
+        for text in texts:
+            for secret in SECRETS:
+                self.assertNotIn(secret, text)
+        schema.validate_failure(record)
+        return record
+
+    def test_connection_error_message_has_no_query(self):
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            closed_port = probe.getsockname()[1]
+        with self.assertRaises(net.ConnectionFetchError) as caught:
+            self.client(max_attempts=1).get_json(f"http://127.0.0.1:{closed_port}/x.png{SECRET_QUERY}")
+        record = self.assertNoSecrets(caught.exception)
+        self.assertIn("ConnectionRefusedError", record["message"])
+        self.assertNotIn("/x.png", record["message"])
+        self.assertIn("format=original", record["url"])
+
+    def test_every_error_kind_is_credential_free(self):
+        self.script.add("/404", {"status": 404})
+        self.script.add("/big", {"status": 200, "body": b"x" * 4096})
+        self.script.add("/json", {"status": 200, "body": b"<html>"})
+        self.script.add("/slow", {"status": 200, "body": b"{}", "delay": 1.0})
+        self.script.add("/redirect", {"status": 302, "headers": {"Location": "http://evil.invalid/x" + SECRET_QUERY}})
+        client = self.client(max_attempts=1, max_bytes=2048, timeout=0.2)
+        for path in ("/404", "/big", "/json", "/slow", "/redirect"):
+            with self.subTest(path=path), self.assertRaises(net.FetchError) as caught:
+                client.get_json(self.url(path) + SECRET_QUERY)
+            self.assertNoSecrets(caught.exception)
+
+
+class DeadlineTests(NetTestCase):
+    def test_trickling_body_hits_the_overall_deadline(self):
+        """Each read returns within the read timeout, but the attempt as a whole must not run forever."""
+        self.script.add("/x.png", {"status": 200, "body": b"x" * 8, "drip": (1, 0.05)})
+        ticks = iter(range(0, 10_000, 10))
+        client = self.client(max_duration=25, max_attempts=1, clock=lambda: float(next(ticks)))
+        with self.assertRaises(net.TimeoutFetchError) as caught:
+            client.download(self.url("/x.png"), self.dest, "x")
+        self.assertIn("not complete within 25 s", caught.exception.message)
+        self.assertEqual((caught.exception.error_class, caught.exception.retriable), ("timeout", True))
+        self.assertEqual(self.dest_files(), [])
+
+    def test_trickling_body_within_the_deadline_succeeds(self):
+        self.script.add("/x.png", {"status": 200, "body": b"x" * 8, "drip": (1, 0.01)})
+        result = self.client(max_duration=60).download(self.url("/x.png"), self.dest, "x")
+        self.assertEqual(result.bytes, 8)
 
 
 class PolitenessTests(NetTestCase):
