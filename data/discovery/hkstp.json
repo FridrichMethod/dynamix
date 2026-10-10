@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:hkstp",
-  "started_at": "2026-10-10T16:45:27Z",
-  "finished_at": "2026-10-10T16:45:30Z",
+  "started_at": "2026-10-10T17:45:04Z",
+  "finished_at": "2026-10-10T17:45:07Z",
   "scope": {
     "lists": [
       "seed-pages"

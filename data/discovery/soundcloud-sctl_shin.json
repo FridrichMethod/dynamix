@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:sctl_shin",
-  "started_at": "2026-10-10T16:49:31Z",
-  "finished_at": "2026-10-10T16:49:32Z",
+  "started_at": "2026-10-10T17:43:50Z",
+  "finished_at": "2026-10-10T17:43:51Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -27,7 +27,8 @@
       "game_evidence": [
         "https://soundcloud.com/sctl_shin/venus-invader",
         "sc.title: Dynamix",
-        "sc.description: Illustration by Keiyuu"
+        "sc.description: Illustration by Keiyuu",
+        "sc.title: PABAT! 2018"
       ],
       "source_reported": {
         "url": "https://i1.sndcdn.com/artworks-vm5dOrm1cMku1rAF-Vz3WsA-large.jpg",

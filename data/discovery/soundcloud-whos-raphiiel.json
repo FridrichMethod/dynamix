@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:whos-raphiiel",
-  "started_at": "2026-10-10T16:49:45Z",
-  "finished_at": "2026-10-10T16:49:46Z",
+  "started_at": "2026-10-10T17:44:03Z",
+  "finished_at": "2026-10-10T17:44:05Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -23,9 +23,10 @@
       "file_url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
       "title": "Tech-Nique 【F/C LiNKED EMOTiONS】",
       "role": "song_art",
-      "game": "unknown",
+      "game": "dynamix",
       "game_evidence": [
-        "https://soundcloud.com/whos-raphiiel/tech-nique"
+        "https://soundcloud.com/whos-raphiiel/tech-nique",
+        "visual_inspection 2026-10-10: the cover's illustration is the in-game jacket File:TechNiqueDynamix.png"
       ],
       "source_reported": {
         "url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-large.jpg",
@@ -37,12 +38,17 @@
         "timestamp": "2021-06-12T14:50:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: illustration identity versus the in-game jacket not verified (may be the LiNKARYZE compilation art)",
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:whos-raphiiel:2145579cfb6383d8",
       "song_titles": [
         "Tech-Nique"
       ],
-      "notes": "Credit: 'Illustration : MayMiyuriAe' (instagram maymiyuriae12)."
+      "illustrators": [
+        "MayMiyuriAe"
+      ],
+      "composers": [
+        "Raphiiel"
+      ]
     }
   ],
   "errors": []

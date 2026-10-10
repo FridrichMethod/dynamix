@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:trialsuperbeats",
-  "started_at": "2026-10-10T16:49:38Z",
-  "finished_at": "2026-10-10T16:49:42Z",
+  "started_at": "2026-10-10T17:43:56Z",
+  "finished_at": "2026-10-10T17:44:01Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -115,6 +115,9 @@
       "asset_id": "artists:soundcloud:trialsuperbeats:c6f4cdd8e8824ac1",
       "song_titles": [
         "WING"
+      ],
+      "illustrators": [
+        "KinCraft"
       ],
       "composers": [
         "Notorious(Nota & TRIAL)"

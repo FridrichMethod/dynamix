@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "official",
-  "fetched_at": "2026-10-10T15:05:25Z",
+  "fetched_at": "2026-10-10T17:45:01Z",
   "sources": [
     {
       "id": "official:apple-store",
@@ -10,7 +10,7 @@
       "url": "https://apps.apple.com/us/app/dynamix/id945955095",
       "platform": "app-store",
       "status": "available",
-      "checked_at": "2026-10-10T16:44:46Z",
+      "checked_at": "2026-10-10T17:49:13Z",
       "notes": "Original app ID 945955095 (Universe 6741094831 excluded). Current product-page screenshots plus the older storefront-specific sets still listed by the iTunes lookup API.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://c4-cat.com/",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:44:57Z",
+      "checked_at": "2026-10-10T17:49:24Z",
       "notes": "Company placeholder page; identity lead only, no game catalog. Coming-soon/contact placeholder; no artwork.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.facebook.com/c4cat.dynamix/",
       "platform": "facebook",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:44:58Z",
+      "checked_at": "2026-10-10T17:49:24Z",
       "notes": "Linked by the stores. Individual photo permalinks expose only Open Graph text without login (research: REconstruction photo post 632702820249900 credits 織日ちひろ, og:image unrelated); no image recorded.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -58,7 +58,7 @@
       "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
       "platform": "google-play",
       "status": "available",
-      "checked_at": "2026-10-10T16:44:58Z",
+      "checked_at": "2026-10-10T17:49:24Z",
       "notes": "Package com.c4cat.dynamix (Universe com.c4cat.dynamix2 excluded). Listing pages in three locales.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -74,7 +74,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:45:01Z",
+      "checked_at": "2026-10-10T17:49:27Z",
       "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -90,7 +90,7 @@
       "url": "https://soundcloud.com/c4cat",
       "platform": "soundcloud",
       "status": "partially_available",
-      "checked_at": "2026-10-10T16:45:01Z",
+      "checked_at": "2026-10-10T17:49:27Z",
       "notes": "Official C4Cat account (11 tracks 2016-2017); every track its /tracks page renders is recorded (SoundCloud server-renders only part of the list). https://soundcloud.com/c4cat/tracks rendered 7 of 11 tracks on 2026-10-10; the others are not enumerated.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -106,11 +106,11 @@
       "url": "https://www.taptap.cn/app/7082",
       "platform": "taptap",
       "status": "available",
-      "checked_at": "2026-10-10T16:45:11Z",
+      "checked_at": "2026-10-10T17:49:37Z",
       "notes": "Secondary store listing (C4Cat identified as developer). Visible update text is historical.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 12,
+      "candidate_count": 13,
       "asset_count": 10,
       "failure_count": 0,
       "evidence_level": "page_read"
@@ -122,7 +122,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "web",
       "status": "temporarily_unavailable",
-      "checked_at": "2026-10-10T16:45:13Z",
+      "checked_at": "2026-10-10T17:49:39Z",
       "notes": "Official site; historical captures are archived by archives:wayback. Probe of https://dynamix.c4-cat.com/ on 2026-10-10 failed: other: cannot resolve dynamix.c4-cat.com: [Errno -5] No address associated with hostname.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -138,13 +138,13 @@
       "url": "https://x.com/c4c4cat",
       "platform": "x",
       "status": "partially_available",
-      "checked_at": "2026-10-10T16:45:16Z",
+      "checked_at": "2026-10-10T17:49:42Z",
       "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
-      "candidate_count": 9,
-      "asset_count": 9,
+      "candidate_count": 10,
+      "asset_count": 10,
       "failure_count": 0,
       "evidence_level": "live_api"
     }
@@ -181,7 +181,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -250,7 +250,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -261,7 +261,7 @@
       },
       "source_reported": {
         "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/f0/9c/ad/f09cad41-0b41-d96d-5c48-be8c76b110f4/pr_source.png/2688x1242bb.jpeg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": 2688,
         "height": 1242,
@@ -282,7 +282,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": true,
-        "format_match": false
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app. The page loads a JPEG rendition (2688x1242bb.jpeg); requested 2688x1242bb.png, Apple's lossless rendition of the pr_source.png upload at the same native size.",
@@ -319,7 +319,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's JPEG rendition of the JPEG upload at native size (lossy, as the upload itself is a JPEG; a PNG re-encoding would add no information). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's JPEG rendition of the JPEG upload at native size (lossy, as the upload itself is a JPEG; a PNG re-encoding would add no information). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -388,7 +388,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -457,7 +457,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -527,7 +527,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -596,7 +596,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -607,7 +607,7 @@
       },
       "source_reported": {
         "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/f1/c3/8c/f1c38cf8-2903-4ed4-d7b1-49ad0de44ed3/pr_source.png/2688x1242bb.jpeg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": 2688,
         "height": 1242,
@@ -628,7 +628,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": true,
-        "format_match": false
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app. The page loads a JPEG rendition (2688x1242bb.jpeg); requested 2688x1242bb.png, Apple's lossless rendition of the pr_source.png upload at the same native size.",
@@ -665,7 +665,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -735,7 +735,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -804,7 +804,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -873,7 +873,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -943,7 +943,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1013,7 +1013,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1082,7 +1082,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1152,7 +1152,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1222,7 +1222,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1233,7 +1233,7 @@
       },
       "source_reported": {
         "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/a8/9c/0c/a89c0c45-e49f-72ab-0a80-754c422d057f/pr_source.png/2732x2048bb.jpeg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": 2732,
         "height": 2048,
@@ -1254,7 +1254,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": true,
-        "format_match": false
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app. The page loads a JPEG rendition (2732x2048bb.jpeg); requested 2732x2048bb.png, Apple's lossless rendition of the pr_source.png upload at the same native size.",
@@ -1291,7 +1291,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1360,7 +1360,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1430,7 +1430,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1499,7 +1499,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1569,7 +1569,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1638,7 +1638,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1708,7 +1708,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1778,7 +1778,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1848,7 +1848,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1917,7 +1917,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1928,7 +1928,7 @@
       },
       "source_reported": {
         "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/c9/be/7c/c9be7c48-f89d-774a-d0e3-8e5d59db7d74/pr_source.png/2688x1242bb.jpeg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": 2688,
         "height": 1242,
@@ -1949,7 +1949,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": true,
-        "format_match": false
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app. The page loads a JPEG rendition (2688x1242bb.jpeg); requested 2688x1242bb.png, Apple's lossless rendition of the pr_source.png upload at the same native size.",
@@ -1986,7 +1986,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2055,7 +2055,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2124,7 +2124,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2193,7 +2193,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2263,7 +2263,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2333,7 +2333,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2344,7 +2344,7 @@
       },
       "source_reported": {
         "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/43/58/f9/4358f92e-22ee-b6d4-0c53-38eebad474c2/pr_source.png/2732x2048bb.jpeg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": 2732,
         "height": 2048,
@@ -2365,7 +2365,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": true,
-        "format_match": false
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app. The page loads a JPEG rendition (2732x2048bb.jpeg); requested 2732x2048bb.png, Apple's lossless rendition of the pr_source.png upload at the same native size.",
@@ -2402,7 +2402,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2472,7 +2472,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes an identifier into each render of a rendition (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it by decoded pixels."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3414,7 +3414,9 @@
       "width": 1080,
       "height": 1080,
       "fetched_at": "2026-10-10T13:57:45Z",
-      "illustrators": [],
+      "illustrators": [
+        "NanoKun"
+      ],
       "composers": [
         "P4koo"
       ],
@@ -3436,6 +3438,10 @@
           "url": "https://soundcloud.com/c4cat/le-ciel-heureux-p",
           "field": "sc.title",
           "quote": "P4koo - Le ciel heureux (Preview)"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:LeCeilHeureuxDynamix.jpg",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -3446,7 +3452,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
-        "creator": null,
+        "creator": "NanoKun",
         "url": "https://soundcloud.com/c4cat/le-ciel-heureux-p",
         "license": null,
         "restrictions": null
@@ -3478,6 +3484,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "NanoKun",
+          "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "P4koo",
           "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
@@ -3488,7 +3501,7 @@
       "variant_group": "jacket:le-ciel-heureux",
       "variant_role": "square crop of the jacket (official preview upload)",
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45216) https://dynamix.miraheze.org/wiki/Le_ciel_heureux: P4koo (composer)."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45216) https://dynamix.miraheze.org/wiki/Le_ciel_heureux: NanoKun (illustrator), P4koo (composer)."
     },
     {
       "id": "official:taptap:2d9ab8e4d3d71ced",
@@ -3601,10 +3614,10 @@
       },
       "source_reported": {
         "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
-        "width": 1920,
-        "height": 1080,
+        "width": null,
+        "height": null,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -3621,11 +3634,11 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": false,
-        "format_match": true
+        "dimensions_match": null,
+        "format_match": null
       },
       "upstream_status": "current",
-      "notes": "Store banner upload (Dynamix logo graphic). The page lists only the rendition 4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg; 4395ff13f01cca52f28efb2a1694bce9.jpg is the upload its name derives from.",
+      "notes": "Store banner upload (Dynamix logo graphic). The page lists only the rendition 4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg (1920x1080 advertised); 4395ff13f01cca52f28efb2a1694bce9.jpg is the upload its name derives from.",
       "transformed": true
     },
     {
@@ -4582,6 +4595,107 @@
       "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
     },
     {
+      "id": "official:x:802ede5c76c2a296",
+      "source_id": "official:x",
+      "candidate_id": "official:x:1818255227595743610:1",
+      "title": "@c4c4cat post 1818255227595743610 image 1",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://x.com/c4c4cat/status/1818255227595743610",
+      "download_url": "https://pbs.twimg.com/media/GTbltElaMAAOT25?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/GTbltElaMAAOT25?format=jpg&name=orig",
+      "path": "assets/public/official/x/GTbltElaMAAOT25--802ede5c76c2.jpg",
+      "original_filename": "GTbltElaMAAOT25.jpg",
+      "bytes": 114050,
+      "sha256": "802ede5c76c2a2967585b3f260640167dd4ab034f989fdf94d39fb506cacd4e0",
+      "sha1": "5faf5d3aded013eca409cc97965e88715f5f5287",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 628,
+      "fetched_at": "2026-10-10T17:45:01Z",
+      "illustrators": [],
+      "composers": [
+        "Aoi"
+      ],
+      "song_titles": [
+        "scualee"
+      ],
+      "song_ids": [
+        "song:scualee"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://x.com/c4c4cat/status/1818255227595743610",
+          "field": "text",
+          "quote": "[Event]"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1818255227595743610",
+          "field": "text",
+          "quote": "scualee"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1818255227595743610",
+          "field": "text",
+          "quote": "[Event] 次のイベント曲はAoiさんが作った「scualee」。 開催期間は8月2日13時から8月6日21時(UTC+9)まで! @BL…"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://x.com/c4c4cat/status/1818255227595743610",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GTbltElaMAAOT25.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2024-07-30T12:00:02.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 114050,
+        "width": 1200,
+        "height": 628,
+        "sha1": "5faf5d3aded013eca409cc97965e88715f5f5287",
+        "sha256": "802ede5c76c2a2967585b3f260640167dd4ab034f989fdf94d39fb506cacd4e0"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Aoi",
+          "url": "https://x.com/c4c4cat/status/1818255227595743610",
+          "field": "text",
+          "quote": "[Event] 次のイベント曲はAoiさんが作った「scualee」。 開催期間は8月2日13時から8月6日21時(…"
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733)."
+    },
+    {
       "id": "official:x:c18773b8b5555b0a",
       "source_id": "official:x",
       "candidate_id": "official:x:1889645633545613724:1",
@@ -4630,6 +4744,10 @@
           "url": "https://x.com/c4c4cat/status/1889645633545613724",
           "field": "text",
           "quote": "…elody のコラボレーションパッケージの内容予告。 第三曲はxLさんが作った「horloge」! #Dynamix https://t.co/UajnJzpRpE"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1889645633545613724",
+          "note": "visual_inspection 2026-10-10: the image shows the jackets of Grayscale Tragedy (Polysha), ネーヴェの紋様 (R.Solidor) and horloge (xL) of the Berry Melody collaboration package plus a hidden fourth song; the post text announces only horloge"
         }
       ],
       "quality": {
@@ -4639,7 +4757,7 @@
         "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited",
+        "holder": "Sky Way Studio and C4Cat Entertainment Limited",
         "creator": null,
         "url": "https://x.com/c4c4cat/status/1889645633545613724",
         "license": null,
@@ -4680,7 +4798,11 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge."
+      "game_associations": [
+        "dynamix",
+        "berry_melody"
+      ],
+      "notes": "Collaboration preview, not a single-song visual: it also shows the Grayscale Tragedy and ネーヴェの紋様 jackets. Rights holders as printed on the image itself (visual_inspection: '©Sky Way Studio ©C4Cat Entertainment Limited', bottom centre). Official Dynamix x Berry Melody collaboration preview image for Horloge."
     },
     {
       "id": "official:x:d752be74553686c2",

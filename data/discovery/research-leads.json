@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:research:leads",
-  "started_at": "2026-10-10T16:48:30Z",
-  "finished_at": "2026-10-10T16:48:30Z",
+  "started_at": "2026-10-10T17:42:47Z",
+  "finished_at": "2026-10-10T17:42:47Z",
   "scope": {
     "lists": [
       "registry"
@@ -82,7 +82,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: compilation art credited to MayMiyuriae; identity with the Tech-Nique jacket unverified"
+      "reason": "pending: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
     },
     {
       "id": "artists:research:leads:bandcamp:lixion:unidentified-new-entry",

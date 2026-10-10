@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:street",
-  "started_at": "2026-10-10T16:49:37Z",
-  "finished_at": "2026-10-10T16:49:38Z",
+  "started_at": "2026-10-10T17:43:55Z",
+  "finished_at": "2026-10-10T17:43:56Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -41,6 +41,9 @@
       "asset_id": "artists:soundcloud:street:e4712ce5aab5ec1a",
       "song_titles": [
         "Φ"
+      ],
+      "illustrators": [
+        "Sin:cK"
       ],
       "composers": [
         "Street"

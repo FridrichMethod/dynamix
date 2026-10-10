@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:ebico",
-  "started_at": "2026-10-10T16:48:48Z",
-  "finished_at": "2026-10-10T16:48:49Z",
+  "started_at": "2026-10-10T17:43:05Z",
+  "finished_at": "2026-10-10T17:43:06Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -41,6 +41,9 @@
       "asset_id": "artists:soundcloud:ebico:479b7216a438330a",
       "song_titles": [
         "Moonlight of Sand Castle"
+      ],
+      "illustrators": [
+        "NanoKun"
       ],
       "composers": [
         "旅人E"

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:cashewnuts",
-  "started_at": "2026-10-10T16:48:38Z",
-  "finished_at": "2026-10-10T16:48:39Z",
+  "started_at": "2026-10-10T17:42:55Z",
+  "finished_at": "2026-10-10T17:42:56Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -42,6 +42,9 @@
       "asset_id": "artists:soundcloud:cashewnuts:9a4ce06a385ff740",
       "song_titles": [
         "White Chocolate (dynamix edit)"
+      ],
+      "illustrators": [
+        "NanoKun"
       ],
       "composers": [
         "Cashew"

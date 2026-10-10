@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-10T16:45:27Z",
+      "checked_at": "2026-10-10T17:45:03Z",
       "notes": "Historical press screenshots (2015-06-18); not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:45:27Z",
+      "checked_at": "2026-10-10T17:45:04Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:45:27Z",
+      "checked_at": "2026-10-10T17:45:04Z",
       "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,7 +58,7 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "partially_available",
-      "checked_at": "2026-10-10T16:45:30Z",
+      "checked_at": "2026-10-10T17:45:07Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -727,7 +727,7 @@
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png@20170720125056",
       "title": "3-199x128.png (archived 20170720)",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
       "download_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
@@ -788,7 +788,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206).",
+      "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206). Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1).",
       "upstream_revision": "20170720125056"
     },
     {
@@ -1692,7 +1692,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760).",
+      "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760). Thumbnail of the Dynamix website 3.0 news banner.",
       "upstream_revision": "20170720125050"
     },
     {
@@ -2227,7 +2227,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20190925101806 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png (CDX mimetype image/png, status 200, WARC record length 392022).",
+      "notes": "Wayback capture 20190925101806 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png (CDX mimetype image/png, status 200, WARC record length 392022). Official news banner: C4Cat character key art with the Dynamix logo.",
       "upstream_revision": "20190925101806"
     },
     {
@@ -2434,7 +2434,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517032816 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png (CDX mimetype image/png, status 200, WARC record length 248915).",
+      "notes": "Wayback capture 20160517032816 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png (CDX mimetype image/png, status 200, WARC record length 248915). Official news banner with the Dynamix logo.",
       "upstream_revision": "20160517032816"
     },
     {
@@ -2774,7 +2774,7 @@
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
       "title": "Untitled-1-700x365.png (archived 20160729)",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
       "download_url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
@@ -2835,7 +2835,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160729214342 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png (CDX mimetype image/png, status 200, WARC record length 382839).",
+      "notes": "Wayback capture 20160729214342 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png (CDX mimetype image/png, status 200, WARC record length 382839). Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1).",
       "upstream_revision": "20160729214342"
     },
     {
@@ -3152,7 +3152,7 @@
       "candidate_id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
       "phase": "download",
       "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "attempted_at": "2026-10-10T16:45:29Z",
+      "attempted_at": "2026-10-10T17:45:05Z",
       "attempts": 1,
       "error_class": "http_4xx",
       "http_status": 404,

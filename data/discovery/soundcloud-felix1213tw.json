@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:felix1213tw",
-  "started_at": "2026-10-10T16:48:50Z",
-  "finished_at": "2026-10-10T16:48:51Z",
+  "started_at": "2026-10-10T17:43:08Z",
+  "finished_at": "2026-10-10T17:43:09Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -41,6 +41,12 @@
       "asset_id": "artists:soundcloud:felix1213tw:06fed71f56e6db7e",
       "song_titles": [
         "REconstruction"
+      ],
+      "illustrators": [
+        "織日ちひろ"
+      ],
+      "composers": [
+        "Ryazan"
       ]
     }
   ],

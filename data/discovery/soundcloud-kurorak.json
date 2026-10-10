@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:kurorak",
-  "started_at": "2026-10-10T16:49:07Z",
-  "finished_at": "2026-10-10T16:49:08Z",
+  "started_at": "2026-10-10T17:43:24Z",
+  "finished_at": "2026-10-10T17:43:26Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -42,6 +42,9 @@
       "asset_id": "artists:soundcloud:kurorak:0fb5b8e4b821cd7f",
       "song_titles": [
         "Tunnelling"
+      ],
+      "illustrators": [
+        "Lunchwere"
       ],
       "composers": [
         "Kurorak"

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:taptap",
-  "started_at": "2026-10-10T16:45:11Z",
-  "finished_at": "2026-10-10T16:45:13Z",
+  "started_at": "2026-10-10T17:49:37Z",
+  "finished_at": "2026-10-10T17:49:38Z",
   "scope": {
     "lists": [
       "app-screenshots"
@@ -29,17 +29,17 @@
       ],
       "source_reported": {
         "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
-        "width": 1920,
-        "height": 1080,
+        "width": null,
+        "height": null,
         "sha1": null,
         "timestamp": null,
         "revision": null
       },
       "disposition": "downloaded",
       "asset_id": "official:taptap:47d0961643bea294",
-      "notes": "Store banner upload (Dynamix logo graphic). The page lists only the rendition 4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg; 4395ff13f01cca52f28efb2a1694bce9.jpg is the upload its name derives from."
+      "notes": "Store banner upload (Dynamix logo graphic). The page lists only the rendition 4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg (1920x1080 advertised); 4395ff13f01cca52f28efb2a1694bce9.jpg is the upload its name derives from."
     },
     {
       "id": "official:taptap:banner:4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
@@ -319,6 +319,31 @@
       "disposition": "downloaded",
       "asset_id": "official:taptap:60bc0b49aad2e19e",
       "notes": "Listed again at screenshot position 12."
+    },
+    {
+      "id": "official:taptap:video-poster:video-picture/lrz-6xEYnEtJnKvBentDprAMa8PX/first.jpg",
+      "source_id": "official:taptap",
+      "upstream_key": "video-poster:video-picture/lrz-6xEYnEtJnKvBentDprAMa8PX/first.jpg",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/video-picture/lrz-6xEYnEtJnKvBentDprAMa8PX/first.jpg",
+      "title": "TapTap trailer poster",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "video_placeholder: trailer poster frame listed with the app's videos"
     }
   ],
   "errors": []

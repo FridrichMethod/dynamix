@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:keshiks",
-  "started_at": "2026-10-10T16:49:04Z",
-  "finished_at": "2026-10-10T16:49:05Z",
+  "started_at": "2026-10-10T17:43:22Z",
+  "finished_at": "2026-10-10T17:43:23Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -41,6 +41,9 @@
       "asset_id": "artists:soundcloud:keshiks:a5737a1122ca80b4",
       "song_titles": [
         "Nightmare Girl"
+      ],
+      "illustrators": [
+        "Sin:cK"
       ],
       "composers": [
         "ケシｋｓくん"

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:linne_ennil",
-  "started_at": "2026-10-10T16:49:12Z",
-  "finished_at": "2026-10-10T16:49:13Z",
+  "started_at": "2026-10-10T17:43:30Z",
+  "finished_at": "2026-10-10T17:43:31Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -23,11 +23,12 @@
       "file_url": "https://i1.sndcdn.com/artworks-000209689661-73448c-original.jpg",
       "title": "[PABAT! 2017/Dynamix] Linne X SCTL - WHIRLWIND",
       "role": "song_art",
-      "game": "dynamix",
+      "game": "mixed",
       "game_evidence": [
         "https://soundcloud.com/linne_ennil/whirlwind",
         "sc.title: Dynamix",
-        "sc.description: Keiyuu"
+        "sc.description: Keiyuu",
+        "sc.title: PABAT! 2017"
       ],
       "source_reported": {
         "url": "https://i1.sndcdn.com/artworks-000209689661-73448c-large.jpg",

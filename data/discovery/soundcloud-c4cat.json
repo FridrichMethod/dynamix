@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:soundcloud-c4cat",
-  "started_at": "2026-10-10T16:45:01Z",
-  "finished_at": "2026-10-10T16:45:11Z",
+  "started_at": "2026-10-10T17:49:27Z",
+  "finished_at": "2026-10-10T17:49:37Z",
   "scope": {
     "lists": [
       "seed-pages",
@@ -45,6 +45,9 @@
       "song_titles": [
         "Le ciel heureux"
       ],
+      "illustrators": [
+        "NanoKun"
+      ],
       "composers": [
         "P4koo"
       ]
@@ -57,7 +60,7 @@
       "file_url": "https://i1.sndcdn.com/artworks-000231947184-v4i27m-original.jpg",
       "title": "mmry - Memento Mori",
       "role": null,
-      "game": "unknown",
+      "game": "not_dynamix",
       "game_evidence": [
         "https://soundcloud.com/c4cat/mmry-memento-mori"
       ],
@@ -71,8 +74,8 @@
         "timestamp": "2017-07-04T16:15:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: official C4Cat upload of 2017-07-04 (no description) whose title is not in the 2026-10-10 original-game song index; its use in Dynamix is unconfirmed"
+      "disposition": "excluded",
+      "reason": "not_dynamix: visual_inspection: the cover art shows the Zold:out logo (another C4Cat title); official C4Cat upload of 2017-07-04 without description, title not in the 2026-10-10 original-game song index"
     },
     {
       "id": "official:soundcloud-c4cat:package-kplecraft-collection",
@@ -128,7 +131,7 @@
       "file_url": "https://i1.sndcdn.com/artworks-000231947182-38k8d5-original.jpg",
       "title": "Packer Woo - Meeting In Sky Island",
       "role": null,
-      "game": "unknown",
+      "game": "not_dynamix",
       "game_evidence": [
         "https://soundcloud.com/c4cat/packer-woo-meeting-in-sky"
       ],
@@ -142,8 +145,8 @@
         "timestamp": "2017-07-04T16:15:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: official C4Cat upload of 2017-07-04 (no description) whose title is not in the 2026-10-10 original-game song index; its use in Dynamix is unconfirmed"
+      "disposition": "excluded",
+      "reason": "not_dynamix: visual_inspection: the cover art shows the Zold:out logo (another C4Cat title); official C4Cat upload of 2017-07-04 without description, title not in the 2026-10-10 original-game song index"
     },
     {
       "id": "official:soundcloud-c4cat:packer-woo-origo-harbour",
@@ -153,7 +156,7 @@
       "file_url": "https://i1.sndcdn.com/artworks-000231947187-vl966l-original.jpg",
       "title": "Packer Woo - Origo Harbour",
       "role": null,
-      "game": "unknown",
+      "game": "not_dynamix",
       "game_evidence": [
         "https://soundcloud.com/c4cat/packer-woo-origo-harbour"
       ],
@@ -167,8 +170,8 @@
         "timestamp": "2017-07-04T16:15:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: official C4Cat upload of 2017-07-04 (no description) whose title is not in the 2026-10-10 original-game song index; its use in Dynamix is unconfirmed"
+      "disposition": "excluded",
+      "reason": "not_dynamix: visual_inspection: the cover art shows the Zold:out logo (another C4Cat title); official C4Cat upload of 2017-07-04 without description, title not in the 2026-10-10 original-game song index"
     },
     {
       "id": "official:soundcloud-c4cat:teardrops",

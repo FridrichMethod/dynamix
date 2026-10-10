@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:seura_nue",
-  "started_at": "2026-10-10T16:50:00Z",
-  "finished_at": "2026-10-10T16:50:01Z",
+  "started_at": "2026-10-10T17:44:19Z",
+  "finished_at": "2026-10-10T17:44:20Z",
   "scope": {
     "lists": [
       "seed-posts"

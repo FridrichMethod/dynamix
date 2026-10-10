@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:missionary_music",
-  "started_at": "2026-10-10T16:49:15Z",
-  "finished_at": "2026-10-10T16:49:16Z",
+  "started_at": "2026-10-10T17:43:32Z",
+  "finished_at": "2026-10-10T17:43:34Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -41,6 +41,9 @@
       "asset_id": "artists:soundcloud:missionary_music:8f4bda1d43730cb1",
       "song_titles": [
         "名無しの宣教師"
+      ],
+      "illustrators": [
+        "NanoKun"
       ],
       "composers": [
         "MIssionary"

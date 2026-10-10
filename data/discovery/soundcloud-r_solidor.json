@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:r_solidor",
-  "started_at": "2026-10-10T16:49:24Z",
-  "finished_at": "2026-10-10T16:49:25Z",
+  "started_at": "2026-10-10T17:43:43Z",
+  "finished_at": "2026-10-10T17:43:44Z",
   "scope": {
     "lists": [
       "seed-pages"

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:vauboy",
-  "started_at": "2026-10-10T16:49:42Z",
-  "finished_at": "2026-10-10T16:49:45Z",
+  "started_at": "2026-10-10T17:44:01Z",
+  "finished_at": "2026-10-10T17:44:03Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -42,6 +42,9 @@
       "asset_id": "artists:soundcloud:vauboy:59a575d428f5d124",
       "song_titles": [
         "MLG"
+      ],
+      "illustrators": [
+        "Luxan"
       ],
       "composers": [
         "Vau Boy"

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T16:45:16Z",
-  "finished_at": "2026-10-10T16:45:25Z",
+  "started_at": "2026-10-10T17:49:42Z",
+  "finished_at": "2026-10-10T17:49:52Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -239,6 +239,43 @@
       "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
     },
     {
+      "id": "official:x:1818255227595743610:1",
+      "source_id": "official:x",
+      "upstream_key": "1818255227595743610:1",
+      "page_url": "https://x.com/c4c4cat/status/1818255227595743610",
+      "file_url": "https://pbs.twimg.com/media/GTbltElaMAAOT25?format=jpg&name=orig",
+      "title": "@c4c4cat post 1818255227595743610 image 1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1818255227595743610",
+        "text: [Event]",
+        "text: scualee"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GTbltElaMAAOT25.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2024-07-30T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:802ede5c76c2a296",
+      "song_titles": [
+        "scualee"
+      ],
+      "composers": [
+        "Aoi"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733)."
+    },
+    {
       "id": "official:x:1889645633545613724:1",
       "source_id": "official:x",
       "upstream_key": "1889645633545613724:1",
@@ -246,7 +283,7 @@
       "file_url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
       "title": "@c4c4cat post 1889645633545613724 image 1",
       "role": "promotional",
-      "game": "dynamix",
+      "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1889645633545613724",
         "text: Berry Melody",

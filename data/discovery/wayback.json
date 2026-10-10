@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-10T16:45:30Z",
-  "finished_at": "2026-10-10T16:47:30Z",
+  "started_at": "2026-10-10T17:45:07Z",
+  "finished_at": "2026-10-10T17:48:15Z",
   "scope": {
     "lists": [
       "official-img",
@@ -1165,7 +1165,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:a05e966293b8f4f7",
-      "notes": "Wayback capture 20160517032816 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png (CDX mimetype image/png, status 200, WARC record length 248915)."
+      "notes": "Official news banner with the Dynamix logo."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg@20160119043806",
@@ -1460,7 +1460,7 @@
       "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
       "file_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
       "title": "3-199x128.png (archived 20170720)",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png"
@@ -1477,7 +1477,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:2715479009f201a3",
-      "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206)."
+      "notes": "Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
@@ -1486,7 +1486,7 @@
       "page_url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
       "file_url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
       "title": "Untitled-1-700x365.png (archived 20160729)",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png"
@@ -1503,7 +1503,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:f145b4af336c3feb",
-      "notes": "Wayback capture 20160729214342 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png (CDX mimetype image/png, status 200, WARC record length 382839)."
+      "notes": "Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png@20170720134107",
@@ -1555,7 +1555,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:5a334091a7a67952",
-      "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760)."
+      "notes": "Thumbnail of the Dynamix website 3.0 news banner."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
@@ -1633,7 +1633,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:9040ed5440e36fce",
-      "notes": "Wayback capture 20190925101806 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png (CDX mimetype image/png, status 200, WARC record length 392022)."
+      "notes": "Official news banner: C4Cat character key art with the Dynamix logo."
     },
     {
       "id": "archives:wayback:i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg@20221220032003",

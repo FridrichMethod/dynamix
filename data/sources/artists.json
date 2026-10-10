@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "artists",
-  "fetched_at": "2026-10-10T13:59:56Z",
+  "fetched_at": "2026-10-10T17:44:05Z",
   "sources": [
     {
       "id": "artists:artstation:sandgodoven",
@@ -10,7 +10,7 @@
       "url": "https://sandgodoven.artstation.com/projects/6baqbW",
       "platform": "artstation",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:08Z",
+      "checked_at": "2026-10-10T17:42:24Z",
       "notes": "Seed project from 03-source-research §2 (Square / 16:9 / Original compositions of MassacrE || 3rc4224M for RAVON and Dynamix). Earlier probes received HTTP 403; a refusal is recorded, never bypassed.",
       "api_url": "https://www.artstation.com/projects/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -27,7 +27,7 @@
       "url": "https://ha1uday0.bandcamp.com/",
       "platform": "bandcamp",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:08Z",
+      "checked_at": "2026-10-10T17:42:24Z",
       "notes": "Explicit Bandcamp track page by Halv.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -43,7 +43,7 @@
       "url": "https://veirtunes.bandcamp.com/",
       "platform": "bandcamp",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:48:09Z",
+      "checked_at": "2026-10-10T17:42:26Z",
       "notes": "Negative control from 03-source-research §2: the release calls itself a rejected Dynamix submission.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -59,7 +59,7 @@
       "url": "https://www.bilibili.com/opus/1022295438715256855",
       "platform": "bilibili",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:10Z",
+      "checked_at": "2026-10-10T17:42:27Z",
       "notes": "Seed post from 03-source-research §1/§2. Handle is the display name (the numeric space ID was not established because Bilibili refused anonymous reads).",
       "api_url": "https://api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -76,7 +76,7 @@
       "url": "https://www.pixiv.net/users/1652099",
       "platform": "pixiv",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:48:10Z",
+      "checked_at": "2026-10-10T17:42:27Z",
       "notes": "Explicit artworks by ANT via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -93,7 +93,7 @@
       "url": "https://www.pixiv.net/users/17081698",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:10Z",
+      "checked_at": "2026-10-10T17:42:27Z",
       "notes": "Explicit artworks by Xomu via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -110,7 +110,7 @@
       "url": "https://www.pixiv.net/users/1840049",
       "platform": "pixiv",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:48:12Z",
+      "checked_at": "2026-10-10T17:42:29Z",
       "notes": "Explicit artworks by くりあ via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -127,7 +127,7 @@
       "url": "https://www.pixiv.net/users/2624455",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:13Z",
+      "checked_at": "2026-10-10T17:42:30Z",
       "notes": "Explicit artworks by 123456蟹 via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -144,7 +144,7 @@
       "url": "https://www.pixiv.net/users/3381542",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:14Z",
+      "checked_at": "2026-10-10T17:42:31Z",
       "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -161,7 +161,7 @@
       "url": "https://www.pixiv.net/users/407585",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:15Z",
+      "checked_at": "2026-10-10T17:42:32Z",
       "notes": "Explicit artworks by AFZero via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -178,7 +178,7 @@
       "url": "https://www.pixiv.net/users/4349073",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:17Z",
+      "checked_at": "2026-10-10T17:42:34Z",
       "notes": "Explicit artworks by せゆーら via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -195,7 +195,7 @@
       "url": "https://www.pixiv.net/users/5401047",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:18Z",
+      "checked_at": "2026-10-10T17:42:35Z",
       "notes": "Explicit artworks by Sand Suna via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -212,7 +212,7 @@
       "url": "https://www.pixiv.net/users/74278",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:21Z",
+      "checked_at": "2026-10-10T17:42:38Z",
       "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -229,7 +229,7 @@
       "url": "https://www.pixiv.net/users/760598",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:22Z",
+      "checked_at": "2026-10-10T17:42:39Z",
       "notes": "Explicit artworks by キカンシャ via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -246,7 +246,7 @@
       "url": "https://www.pixiv.net/users/779504",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:24Z",
+      "checked_at": "2026-10-10T17:42:41Z",
       "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -263,7 +263,7 @@
       "url": "https://www.pixiv.net/users/89112381",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T16:48:26Z",
+      "checked_at": "2026-10-10T17:42:43Z",
       "notes": "Explicit artworks by 中本ひょうり via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -280,7 +280,7 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:48:30Z",
+      "checked_at": "2026-10-10T17:42:47Z",
       "notes": "Curated 2026-10-10 research-sweep leads (credit/identity evidence, login walls, bot checks, held items). Recorded without new requests; each keeps its own URL and decision.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -296,7 +296,7 @@
       "url": "https://soundcloud.com/3t1a",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:30Z",
+      "checked_at": "2026-10-10T17:42:47Z",
       "notes": "Explicit SoundCloud track pages by ETIA. (permalink 3t1a; Rotaeno collaboration composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -315,7 +315,7 @@
       "url": "https://soundcloud.com/aboutlogic",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:30Z",
+      "checked_at": "2026-10-10T17:42:47Z",
       "notes": "Explicit SoundCloud track pages by Tezuka (permalink aboutlogic; composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -334,7 +334,7 @@
       "url": "https://soundcloud.com/airlemonex",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:31Z",
+      "checked_at": "2026-10-10T17:42:48Z",
       "notes": "Explicit SoundCloud track pages by Xe/αirlemoneX (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -353,7 +353,7 @@
       "url": "https://soundcloud.com/aoisoundsystem",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:33Z",
+      "checked_at": "2026-10-10T17:42:50Z",
       "notes": "Explicit SoundCloud track pages by Aoi (permalink aoisoundsystem; composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -372,7 +372,7 @@
       "url": "https://soundcloud.com/arforest",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:48:35Z",
+      "checked_at": "2026-10-10T17:42:52Z",
       "notes": "Explicit SoundCloud track pages by ARForest (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -391,7 +391,7 @@
       "url": "https://soundcloud.com/calixer",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:48:37Z",
+      "checked_at": "2026-10-10T17:42:54Z",
       "notes": "Explicit SoundCloud track pages by Calixer (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -410,7 +410,7 @@
       "url": "https://soundcloud.com/cashewnuts",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:38Z",
+      "checked_at": "2026-10-10T17:42:55Z",
       "notes": "Explicit SoundCloud track pages by Cashew (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -429,7 +429,7 @@
       "url": "https://soundcloud.com/circle2",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:39Z",
+      "checked_at": "2026-10-10T17:42:57Z",
       "notes": "Explicit SoundCloud track pages by Circle 2 (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -448,7 +448,7 @@
       "url": "https://soundcloud.com/cordantia",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:48:44Z",
+      "checked_at": "2026-10-10T17:43:01Z",
       "notes": "Explicit SoundCloud track pages by Cordantia (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -467,7 +467,7 @@
       "url": "https://soundcloud.com/cosmogrph",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:45Z",
+      "checked_at": "2026-10-10T17:43:02Z",
       "notes": "Explicit SoundCloud track pages by Cosmograph (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -486,7 +486,7 @@
       "url": "https://soundcloud.com/dice-dd",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:46Z",
+      "checked_at": "2026-10-10T17:43:03Z",
       "notes": "Explicit SoundCloud track pages by 打打だいず (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -505,7 +505,7 @@
       "url": "https://soundcloud.com/ebico",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:48Z",
+      "checked_at": "2026-10-10T17:43:05Z",
       "notes": "Explicit SoundCloud track pages by EBICO (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -524,7 +524,7 @@
       "url": "https://soundcloud.com/espidev",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:49Z",
+      "checked_at": "2026-10-10T17:43:06Z",
       "notes": "Explicit SoundCloud track pages by EspiDev (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -543,7 +543,7 @@
       "url": "https://soundcloud.com/felix1213tw",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:50Z",
+      "checked_at": "2026-10-10T17:43:08Z",
       "notes": "Explicit SoundCloud track pages by felix1213tw (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -562,7 +562,7 @@
       "url": "https://soundcloud.com/halvsan",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:52Z",
+      "checked_at": "2026-10-10T17:43:09Z",
       "notes": "Explicit SoundCloud track pages by Halv (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -581,7 +581,7 @@
       "url": "https://soundcloud.com/hino-isuka",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:54Z",
+      "checked_at": "2026-10-10T17:43:12Z",
       "notes": "Explicit SoundCloud track pages by 翡乃イスカ (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -600,7 +600,7 @@
       "url": "https://soundcloud.com/ianmirror",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:48:55Z",
+      "checked_at": "2026-10-10T17:43:13Z",
       "notes": "Explicit SoundCloud track pages by ianmirror (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -619,7 +619,7 @@
       "url": "https://soundcloud.com/jehezukiel",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:48:57Z",
+      "checked_at": "2026-10-10T17:43:14Z",
       "notes": "Explicit SoundCloud track pages by Jehezukiel (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -638,7 +638,7 @@
       "url": "https://soundcloud.com/jun_kuroda",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:49:00Z",
+      "checked_at": "2026-10-10T17:43:17Z",
       "notes": "Explicit SoundCloud track pages by Jun Kuroda (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -657,7 +657,7 @@
       "url": "https://soundcloud.com/kanon092",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:01Z",
+      "checked_at": "2026-10-10T17:43:19Z",
       "notes": "Explicit SoundCloud track pages by 奏音 (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -676,7 +676,7 @@
       "url": "https://soundcloud.com/keshiks",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:04Z",
+      "checked_at": "2026-10-10T17:43:22Z",
       "notes": "Explicit SoundCloud track pages by KEshiKS (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -695,7 +695,7 @@
       "url": "https://soundcloud.com/kforest",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:05Z",
+      "checked_at": "2026-10-10T17:43:23Z",
       "notes": "Explicit SoundCloud track pages by K-forest (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -714,7 +714,7 @@
       "url": "https://soundcloud.com/kurorak",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:07Z",
+      "checked_at": "2026-10-10T17:43:24Z",
       "notes": "Explicit SoundCloud track pages by KURORAK (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -733,7 +733,7 @@
       "url": "https://soundcloud.com/kuske-kuonrecords",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:08Z",
+      "checked_at": "2026-10-10T17:43:26Z",
       "notes": "Kplecraft (composer and pixel artist) uploads; illustrator credit from the wikis and the artist's 16383 post.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -752,7 +752,7 @@
       "url": "https://soundcloud.com/linne_ennil",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:12Z",
+      "checked_at": "2026-10-10T17:43:30Z",
       "notes": "Explicit SoundCloud track pages by Linne (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -771,7 +771,7 @@
       "url": "https://soundcloud.com/misomyl",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:13Z",
+      "checked_at": "2026-10-10T17:43:31Z",
       "notes": "Explicit SoundCloud track pages by MisoilePunch (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -790,7 +790,7 @@
       "url": "https://soundcloud.com/missionary_music",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:15Z",
+      "checked_at": "2026-10-10T17:43:32Z",
       "notes": "Explicit SoundCloud track pages by MIssionary (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -809,7 +809,7 @@
       "url": "https://soundcloud.com/myukke",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:16Z",
+      "checked_at": "2026-10-10T17:43:34Z",
       "notes": "Explicit SoundCloud track pages by MYUKKE. (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -828,7 +828,7 @@
       "url": "https://soundcloud.com/nordysantrophy",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:18Z",
+      "checked_at": "2026-10-10T17:43:36Z",
       "notes": "Explicit SoundCloud track pages by Nordius Dystancius (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -847,7 +847,7 @@
       "url": "https://soundcloud.com/nuunu5",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:20Z",
+      "checked_at": "2026-10-10T17:43:38Z",
       "notes": "Explicit SoundCloud track pages by aoWAVE (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -866,7 +866,7 @@
       "url": "https://soundcloud.com/omocha1019",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:21Z",
+      "checked_at": "2026-10-10T17:43:40Z",
       "notes": "Explicit SoundCloud track pages by Omocha (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -885,7 +885,7 @@
       "url": "https://soundcloud.com/panbanana0729",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:22Z",
+      "checked_at": "2026-10-10T17:43:41Z",
       "notes": "Explicit SoundCloud track pages by pan (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -904,7 +904,7 @@
       "url": "https://soundcloud.com/r_solidor",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:24Z",
+      "checked_at": "2026-10-10T17:43:43Z",
       "notes": "Explicit SoundCloud track pages by R.Solidor (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -923,7 +923,7 @@
       "url": "https://soundcloud.com/re94c",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:25Z",
+      "checked_at": "2026-10-10T17:43:44Z",
       "notes": "Explicit SoundCloud track pages by Reku Mochizuki (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -942,7 +942,7 @@
       "url": "https://soundcloud.com/riranofficial",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:27Z",
+      "checked_at": "2026-10-10T17:43:45Z",
       "notes": "Explicit SoundCloud track pages by RiraN (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -961,7 +961,7 @@
       "url": "https://soundcloud.com/ryokmbk",
       "platform": "soundcloud",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:49:30Z",
+      "checked_at": "2026-10-10T17:43:48Z",
       "notes": "Explicit SoundCloud track pages by RYOQUCHA (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -980,7 +980,7 @@
       "url": "https://soundcloud.com/sctl_shin",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:31Z",
+      "checked_at": "2026-10-10T17:43:50Z",
       "notes": "Explicit SoundCloud track pages by STARSTREAK CHAOS-TL12 (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -999,7 +999,7 @@
       "url": "https://soundcloud.com/se-u-ra",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:33Z",
+      "checked_at": "2026-10-10T17:43:51Z",
       "notes": "Explicit SoundCloud track pages by Se-U-Ra (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1018,7 +1018,7 @@
       "url": "https://soundcloud.com/soundperemotion",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:35Z",
+      "checked_at": "2026-10-10T17:43:54Z",
       "notes": "Explicit SoundCloud track pages by Sound Per Emotion (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1037,7 +1037,7 @@
       "url": "https://soundcloud.com/street",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:37Z",
+      "checked_at": "2026-10-10T17:43:55Z",
       "notes": "Explicit SoundCloud track pages by Street (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1056,7 +1056,7 @@
       "url": "https://soundcloud.com/trialsuperbeats",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:38Z",
+      "checked_at": "2026-10-10T17:43:56Z",
       "notes": "Explicit SoundCloud track pages by TRIAL (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1075,7 +1075,7 @@
       "url": "https://soundcloud.com/vauboy",
       "platform": "soundcloud",
       "status": "partially_available",
-      "checked_at": "2026-10-10T16:49:42Z",
+      "checked_at": "2026-10-10T17:44:01Z",
       "notes": "Explicit SoundCloud track pages by Vau Boy (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1093,8 +1093,8 @@
       "family": "artists",
       "url": "https://soundcloud.com/whos-raphiiel",
       "platform": "soundcloud",
-      "status": "metadata_only",
-      "checked_at": "2026-10-10T16:49:45Z",
+      "status": "available",
+      "checked_at": "2026-10-10T17:44:03Z",
       "notes": "Explicit SoundCloud track pages by Raphiiel (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1102,7 +1102,7 @@
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 1,
-      "asset_count": 0,
+      "asset_count": 1,
       "failure_count": 0,
       "evidence_level": "page_read"
     },
@@ -1113,7 +1113,7 @@
       "url": "https://soundcloud.com/woof-owo",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:46Z",
+      "checked_at": "2026-10-10T17:44:05Z",
       "notes": "Explicit SoundCloud track pages by Woof (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1132,7 +1132,7 @@
       "url": "https://lalaluhat.wixsite.com/bhbhwork",
       "platform": "wix",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:49:47Z",
+      "checked_at": "2026-10-10T17:44:06Z",
       "notes": "Explicit gallery files from the artist's JavaScript-rendered Wix portfolio (original uploads without a resize suffix).",
       "owner_evidence": "About page: 'C4Cat Entertainment Limited 2D Artist (internship) (2017/06/01 - 2017/08/31)'; contact 'HAT: lalaluhat@...'; links twitter.com/lalaluhat (research sweep).",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1149,7 +1149,7 @@
       "url": "https://x.com/ariiol_",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:47Z",
+      "checked_at": "2026-10-10T17:44:06Z",
       "notes": "Explicit public posts by @ariiol_ read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1166,7 +1166,7 @@
       "url": "https://x.com/BLUEnoup",
       "platform": "x",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:49:48Z",
+      "checked_at": "2026-10-10T17:44:06Z",
       "notes": "Explicit public posts by @BLUEnoup read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1183,7 +1183,7 @@
       "url": "https://x.com/KUMEKI_3",
       "platform": "x",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:49:49Z",
+      "checked_at": "2026-10-10T17:44:08Z",
       "notes": "Explicit public posts by @KUMEKI_3 read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1200,7 +1200,7 @@
       "url": "https://x.com/KuskeKplecraft",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:50Z",
+      "checked_at": "2026-10-10T17:44:09Z",
       "notes": "Explicit public posts by @KuskeKplecraft read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1217,7 +1217,7 @@
       "url": "https://x.com/lalaluhat",
       "platform": "x",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T16:49:51Z",
+      "checked_at": "2026-10-10T17:44:10Z",
       "notes": "B.H. (HAT; C4Cat 2D artist intern 2017 per the artist's portfolio). Seasonal character art; song mappings are left unmapped (characters, not jackets).",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1234,7 +1234,7 @@
       "url": "https://x.com/meganegirai",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T16:49:57Z",
+      "checked_at": "2026-10-10T17:44:16Z",
       "notes": "Profile states Dynamix jacket artwork work (research read the public embed timeline).",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1251,7 +1251,7 @@
       "url": "https://x.com/serolerr",
       "platform": "x",
       "status": "excluded",
-      "checked_at": "2026-10-10T16:49:59Z",
+      "checked_at": "2026-10-10T17:44:18Z",
       "notes": "Explicit public posts by @serolerr read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1268,7 +1268,7 @@
       "url": "https://x.com/SeURa_Nue",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T16:50:00Z",
+      "checked_at": "2026-10-10T17:44:19Z",
       "notes": "Explicit public posts by @SeURa_Nue read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1842,7 +1842,9 @@
       "width": 1080,
       "height": 1080,
       "fetched_at": "2026-10-10T13:58:19Z",
-      "illustrators": [],
+      "illustrators": [
+        "NanoKun"
+      ],
       "composers": [
         "Cashew"
       ],
@@ -1859,6 +1861,10 @@
           "url": "https://soundcloud.com/cashewnuts/cashew-white-chocolate",
           "field": "sc.title",
           "quote": "Dynamix"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:WhiteChocolateDynamix.png",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -1869,7 +1875,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "NanoKun",
         "url": "https://soundcloud.com/cashewnuts/cashew-white-chocolate",
         "license": null,
         "restrictions": null
@@ -1901,6 +1907,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "NanoKun",
+          "url": "https://dynamix.miraheze.org/wiki/White_Chocolate_(dynamix_edit)",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "Cashew",
           "url": "https://dynamix.miraheze.org/wiki/White_Chocolate_(dynamix_edit)",
@@ -1909,9 +1922,9 @@
         }
       ],
       "variant_group": "jacket:white-chocolate-dynamix-edit",
-      "variant_role": "square crop of the jacket; no illustrator credit on the page (wiki: NanoKun); possible upscale",
+      "variant_role": "square crop of the jacket; possible upscale",
       "upstream_status": "current",
-      "notes": "Coordinator review: suspected upscale (see quality notes). Mapping recorded as inferred, not confirmed_primary: the primary text does not name “White Chocolate (dynamix edit)”. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50383) https://dynamix.miraheze.org/wiki/White_Chocolate_(dynamix_edit): Cashew (composer)."
+      "notes": "Coordinator review: suspected upscale (see quality notes). Mapping recorded as inferred, not confirmed_primary: the primary text does not name “White Chocolate (dynamix edit)”. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50383) https://dynamix.miraheze.org/wiki/White_Chocolate_(dynamix_edit): NanoKun (illustrator), Cashew (composer)."
     },
     {
       "id": "artists:soundcloud:circle2:4b41a6c5bed8835b",
@@ -2004,10 +2017,8 @@
           "quote": null
         }
       ],
-      "variant_group": "jacket:gallium-nitride",
-      "variant_role": "close-up variant; no illustrator credit on the page",
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225) https://dynamix.miraheze.org/wiki/Gallium_Nitride: Circle 2 (composer)."
+      "notes": "Illustrator not credited: visual inspection (2026-10-10) shows a different drawing from the in-game jacket File:GalliumNitride.jpeg (close-up of the character in another pose and background), so the wiki Cover Artist (NanoKun) is not transferred, and the page names no illustrator. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225) https://dynamix.miraheze.org/wiki/Gallium_Nitride: Circle 2 (composer)."
     },
     {
       "id": "artists:soundcloud:circle2:7c48de81addb2146",
@@ -2194,10 +2205,8 @@
           "quote": null
         }
       ],
-      "variant_group": "jacket:gallium-nitride",
-      "variant_role": "square crop; no illustrator credit on the page",
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225) https://dynamix.miraheze.org/wiki/Gallium_Nitride: Circle 2 (composer)."
+      "notes": "Illustrator not credited: visual inspection (2026-10-10) shows a different drawing from the in-game jacket File:GalliumNitride.jpeg (the character with a second, green-haired figure), so the wiki Cover Artist (NanoKun) is not transferred, and the page names no illustrator. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225) https://dynamix.miraheze.org/wiki/Gallium_Nitride: Circle 2 (composer)."
     },
     {
       "id": "artists:soundcloud:cosmogrph:b0ba67592124f9d4",
@@ -2219,7 +2228,9 @@
       "width": 540,
       "height": 540,
       "fetched_at": "2026-10-10T13:58:27Z",
-      "illustrators": [],
+      "illustrators": [
+        "NanoKun"
+      ],
       "composers": [],
       "song_titles": [
         "Another World"
@@ -2243,6 +2254,10 @@
         {
           "url": "https://dynamix.miraheze.org/wiki/Another_World",
           "note": "conflict: the uploader is Cosmograph and the page text is only 'Dynamix 3.0', while the wiki song page credits Another World to Lunatic Sounds (illustration NanoKun)"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Lunatic_Sounds_-_Another_World.jpg",
+          "note": "visual_inspection 2026-10-10: same composition as the in-game jacket; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -2253,7 +2268,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "NanoKun",
         "url": "https://soundcloud.com/cosmogrph/another-world",
         "license": null,
         "restrictions": null
@@ -2283,10 +2298,19 @@
         "dimensions_match": null,
         "format_match": null
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "NanoKun",
+          "url": "https://dynamix.miraheze.org/wiki/Another_World",
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "jacket:another-world",
-      "variant_role": "same-composition copy smaller than the wiki copy; no illustrator credit",
+      "variant_role": "same-composition copy smaller than the wiki copy",
       "upstream_status": "current",
-      "notes": "Uploaded by Cosmograph; the page states no composer, and the wiki credits Lunatic Sounds, so the song mapping is recorded as a conflict."
+      "notes": "Uploaded by Cosmograph; the page states no composer, and the wiki credits Lunatic Sounds, so the song mapping is recorded as a conflict. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45197) https://dynamix.miraheze.org/wiki/Another_World: NanoKun (illustrator)."
     },
     {
       "id": "artists:soundcloud:dice-dd:c87c4810f6ac4df1",
@@ -2412,7 +2436,9 @@
       "width": 707,
       "height": 707,
       "fetched_at": "2026-10-10T13:58:29Z",
-      "illustrators": [],
+      "illustrators": [
+        "NanoKun"
+      ],
       "composers": [
         "旅人E"
       ],
@@ -2429,6 +2455,10 @@
           "url": "https://soundcloud.com/ebico/moonlight-of-sand-castle",
           "field": "sc.title",
           "quote": "Moonlight Of Sand Castle"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Ad6637f81a4c510fa47513a66759252dd52aa5f8.jpg",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -2439,7 +2469,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "NanoKun",
         "url": "https://soundcloud.com/ebico/moonlight-of-sand-castle",
         "license": null,
         "restrictions": null
@@ -2471,6 +2501,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "NanoKun",
+          "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "旅人E",
           "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
@@ -2479,9 +2516,9 @@
         }
       ],
       "variant_group": "jacket:moonlight-of-sand-castle",
-      "variant_role": "square crop smaller than the wiki copy; no illustrator credit (wiki: NanoKun)",
+      "variant_role": "square crop smaller than the wiki copy",
       "upstream_status": "current",
-      "notes": "Uploaded by the SoundCloud account EBICO (ebico); the page states no composer credit, so the credit follows the wiki (旅人E). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50282) https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle: 旅人E (composer)."
+      "notes": "Uploaded by the SoundCloud account EBICO (ebico); the page states no composer credit, so the credit follows the wiki (旅人E). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50282) https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle: NanoKun (illustrator), 旅人E (composer)."
     },
     {
       "id": "artists:soundcloud:espidev:c13b7cb230fd3967",
@@ -2613,8 +2650,12 @@
       "width": 563,
       "height": 563,
       "fetched_at": "2026-10-10T13:58:32Z",
-      "illustrators": [],
-      "composers": [],
+      "illustrators": [
+        "織日ちひろ"
+      ],
+      "composers": [
+        "Ryazan"
+      ],
       "song_titles": [
         "REconstruction"
       ],
@@ -2628,6 +2669,10 @@
           "url": "https://soundcloud.com/felix1213tw/reconstruction",
           "field": "sc.title",
           "quote": "REconstruction"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:REconstructionDynamix.png",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -2638,7 +2683,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "織日ちひろ",
         "url": "https://soundcloud.com/felix1213tw/reconstruction",
         "license": null,
         "restrictions": null
@@ -2668,9 +2713,26 @@
         "dimensions_match": null,
         "format_match": null
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "織日ちひろ",
+          "url": "https://dynamix.miraheze.org/wiki/REconstruction",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Ryazan",
+          "url": "https://dynamix.miraheze.org/wiki/REconstruction",
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "jacket:reconstruction",
-      "variant_role": "square copy smaller than the wiki jacket (illustrator per the official Facebook post: 織日ちひろ)",
-      "upstream_status": "current"
+      "variant_role": "square copy smaller than the wiki jacket",
+      "upstream_status": "current",
+      "notes": "The page states no credits; composer and illustrator follow the wiki song page (the illustrator also per the official Facebook photo post 632702820249900, research sweep). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44995) https://dynamix.miraheze.org/wiki/REconstruction: 織日ちひろ (illustrator), Ryazan (composer)."
     },
     {
       "id": "artists:soundcloud:halvsan:16a88495811c04c6",
@@ -3461,7 +3523,9 @@
       "width": 576,
       "height": 575,
       "fetched_at": "2026-10-10T13:58:47Z",
-      "illustrators": [],
+      "illustrators": [
+        "Sin:cK"
+      ],
       "composers": [
         "ケシｋｓくん"
       ],
@@ -3478,6 +3542,10 @@
           "url": "https://soundcloud.com/keshiks/nightmare-girl",
           "field": "sc.title",
           "quote": "[dynamix]Nightmare Girl[Submission 2017]"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:NightmareGirlDynamix.png",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, crop at the same scale; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -3488,7 +3556,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Sin:cK",
         "url": "https://soundcloud.com/keshiks/nightmare-girl",
         "license": null,
         "restrictions": null
@@ -3520,6 +3588,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "Sin:cK",
+          "url": "https://dynamix.miraheze.org/wiki/Nightmare_Girl",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "ケシｋｓくん",
           "url": "https://dynamix.miraheze.org/wiki/Nightmare_Girl",
@@ -3528,9 +3603,9 @@
         }
       ],
       "variant_group": "jacket:nightmare-girl",
-      "variant_role": "crop at the same scale as the wiki jacket (wiki: Sin:cK)",
+      "variant_role": "crop at the same scale as the wiki jacket",
       "upstream_status": "current",
-      "notes": "Uploaded by the SoundCloud account KEshiKS; the page states no composer credit, so the credit follows the wiki (ケシｋｓくん). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50524) https://dynamix.miraheze.org/wiki/Nightmare_Girl: ケシｋｓくん (composer)."
+      "notes": "Uploaded by the SoundCloud account KEshiKS; the page states no composer credit, so the credit follows the wiki (ケシｋｓくん). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50524) https://dynamix.miraheze.org/wiki/Nightmare_Girl: Sin:cK (illustrator), ケシｋｓくん (composer)."
     },
     {
       "id": "artists:soundcloud:kforest:4d54c1be7ab850ae",
@@ -3665,7 +3740,9 @@
       "width": 1080,
       "height": 1080,
       "fetched_at": "2026-10-10T13:58:50Z",
-      "illustrators": [],
+      "illustrators": [
+        "Lunchwere"
+      ],
       "composers": [
         "Kurorak"
       ],
@@ -3687,6 +3764,10 @@
           "url": "https://soundcloud.com/kurorak/dynamix-tunnelling",
           "field": "sc.title",
           "quote": "[Dynamix] Tunnelling"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:TunnellingDynamix.png",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop with 'KURORAK / TUNNELLING' text; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -3697,7 +3778,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Lunchwere",
         "url": "https://soundcloud.com/kurorak/dynamix-tunnelling",
         "license": null,
         "restrictions": null
@@ -3729,6 +3810,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "Lunchwere",
+          "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "Kurorak",
           "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
@@ -3737,9 +3825,9 @@
         }
       ],
       "variant_group": "jacket:tunnelling",
-      "variant_role": "square crop with 'KURORAK / TUNNELLING' text; no illustrator credit (wiki: Lunchwere)",
+      "variant_role": "square crop with 'KURORAK / TUNNELLING' text",
       "upstream_status": "current",
-      "notes": "Uploaded by the SoundCloud account KURORAK; the composer credit follows the wiki's spelling (Kurorak). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50364) https://dynamix.miraheze.org/wiki/Tunnelling: Kurorak (composer)."
+      "notes": "Uploaded by the SoundCloud account KURORAK; the composer credit follows the wiki's spelling (Kurorak). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50364) https://dynamix.miraheze.org/wiki/Tunnelling: Lunchwere (illustrator), Kurorak (composer)."
     },
     {
       "id": "artists:soundcloud:kuske-kuonrecords:17cf3b2c92061376",
@@ -4116,6 +4204,11 @@
         {
           "url": "https://soundcloud.com/linne_ennil/whirlwind",
           "field": "sc.title",
+          "quote": "PABAT! 2017"
+        },
+        {
+          "url": "https://soundcloud.com/linne_ennil/whirlwind",
+          "field": "sc.title",
           "quote": "[PABAT! 2017/Dynamix] Linne X SCTL - WHIRLWIND"
         }
       ],
@@ -4126,7 +4219,7 @@
         "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": "Keiyuu, RED-FOX",
         "url": "https://soundcloud.com/linne_ennil/whirlwind",
         "license": null,
@@ -4189,7 +4282,12 @@
       ],
       "variant_group": "jacket:whirlwind",
       "variant_role": "square crop with 'WIND' title text",
-      "upstream_status": "current"
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "bms"
+      ],
+      "notes": "The page title '[PABAT! 2017/Dynamix] Linne X SCTL - WHIRLWIND' names the BMS event PABAT! 2017 as well as Dynamix. Rights holder not recorded: the art is also associated with bms and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "artists:soundcloud:misomyl:93b2757d2ea61c53",
@@ -4316,7 +4414,9 @@
       "width": 690,
       "height": 388,
       "fetched_at": "2026-10-10T13:59:00Z",
-      "illustrators": [],
+      "illustrators": [
+        "NanoKun"
+      ],
       "composers": [
         "MIssionary"
       ],
@@ -4333,6 +4433,10 @@
           "url": "https://soundcloud.com/missionary_music/yvvldpc55amz",
           "field": "sc.title",
           "quote": "名無しの宣教師 / Nameless Missionary"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:ThatAwesomeDynamixSong.jpg",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, crop; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -4343,7 +4447,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "NanoKun",
         "url": "https://soundcloud.com/missionary_music/yvvldpc55amz",
         "license": null,
         "restrictions": null
@@ -4375,6 +4479,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "NanoKun",
+          "url": "https://soundcloud.com/missionary_music/yvvldpc55amz",
+          "field": "og:description",
+          "quote": "…oque / Classical music. Profile pic by NanoKun"
+        },
+        {
           "role": "composer",
           "name": "MIssionary",
           "url": "https://dynamix.miraheze.org/wiki/%E5%90%8D%E7%84%A1%E3%81%97%E3%81%AE%E5%AE%A3%E6%95%99%E5%B8%AB",
@@ -4383,7 +4494,7 @@
         }
       ],
       "variant_group": "jacket:file-dddd0fc3",
-      "variant_role": "copy smaller than the wiki copy; no illustrator credit (wiki: NanoKun)",
+      "variant_role": "copy smaller than the wiki copy",
       "upstream_status": "current",
       "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50407) https://dynamix.miraheze.org/wiki/%E5%90%8D%E7%84%A1%E3%81%97%E3%81%AE%E5%AE%A3%E6%95%99%E5%B8%AB: MIssionary (composer)."
     },
@@ -5425,6 +5536,11 @@
         {
           "url": "https://soundcloud.com/sctl_shin/venus-invader",
           "field": "sc.title",
+          "quote": "PABAT! 2018"
+        },
+        {
+          "url": "https://soundcloud.com/sctl_shin/venus-invader",
+          "field": "sc.title",
           "quote": "[PABAT! 2018/Dynamix] VENUS INVADER"
         }
       ],
@@ -5843,7 +5959,9 @@
       "width": 1068,
       "height": 1068,
       "fetched_at": "2026-10-10T13:59:23Z",
-      "illustrators": [],
+      "illustrators": [
+        "Sin:cK"
+      ],
       "composers": [
         "Street"
       ],
@@ -5860,6 +5978,10 @@
           "url": "https://soundcloud.com/street/9iegybsoisnp",
           "field": "sc.title",
           "quote": "Φ"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:%CE%A6Dynamix.png",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -5870,7 +5992,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Sin:cK",
         "url": "https://soundcloud.com/street/9iegybsoisnp",
         "license": null,
         "restrictions": null
@@ -5902,6 +6024,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "Sin:cK",
+          "url": "https://dynamix.miraheze.org/wiki/%CE%A6",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "Street",
           "url": "https://dynamix.miraheze.org/wiki/%CE%A6",
@@ -5910,9 +6039,9 @@
         }
       ],
       "variant_group": "jacket:file-13fd1c57",
-      "variant_role": "square crop; possibly upscaled; no credit text (wiki: Sin:cK)",
+      "variant_role": "square crop; possibly upscaled",
       "upstream_status": "current",
-      "notes": "Coordinator review: suspected upscale (see quality notes). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44863) https://dynamix.miraheze.org/wiki/%CE%A6: Street (composer)."
+      "notes": "Coordinator review: suspected upscale (see quality notes). Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44863) https://dynamix.miraheze.org/wiki/%CE%A6: Sin:cK (illustrator), Street (composer)."
     },
     {
       "id": "artists:soundcloud:trialsuperbeats:5fe5204b5f7ee9ed",
@@ -6163,7 +6292,9 @@
       "width": 2560,
       "height": 2560,
       "fetched_at": "2026-10-10T13:59:28Z",
-      "illustrators": [],
+      "illustrators": [
+        "KinCraft"
+      ],
       "composers": [
         "Notorious(Nota & TRIAL)"
       ],
@@ -6190,6 +6321,10 @@
           "url": "https://soundcloud.com/trialsuperbeats/notoriousnota-trial-wing",
           "field": "sc.title",
           "quote": "Notorious(Nota & TRIAL) - WING [#Dynamix]"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:WINGDynamix.png",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket (moon with 'Wing' lettering), square layout; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -6200,7 +6335,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "KinCraft",
         "url": "https://soundcloud.com/trialsuperbeats/notoriousnota-trial-wing",
         "license": null,
         "restrictions": null
@@ -6232,6 +6367,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "KinCraft",
+          "url": "https://dynamix.miraheze.org/wiki/WING",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "Notorious(Nota & TRIAL)",
           "url": "https://dynamix.miraheze.org/wiki/WING",
@@ -6240,9 +6382,9 @@
         }
       ],
       "variant_group": "jacket:wing",
-      "variant_role": "square layout of the jacket art; the page names no illustrator (wiki: KinCraft)",
+      "variant_role": "square layout of the jacket art",
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 41855) https://dynamix.miraheze.org/wiki/WING: Notorious(Nota & TRIAL) (composer)."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 41855) https://dynamix.miraheze.org/wiki/WING: KinCraft (illustrator), Notorious(Nota & TRIAL) (composer)."
     },
     {
       "id": "artists:soundcloud:vauboy:59a575d428f5d124",
@@ -6264,7 +6406,9 @@
       "width": 1425,
       "height": 1425,
       "fetched_at": "2026-10-10T13:59:32Z",
-      "illustrators": [],
+      "illustrators": [
+        "Luxan"
+      ],
       "composers": [
         "Vau Boy"
       ],
@@ -6281,6 +6425,10 @@
           "url": "https://soundcloud.com/vauboy/mlg",
           "field": "sc.title",
           "quote": "MLG"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:MLGDynamix.png",
+          "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square layout with 'MLG / VAU BOY' text; the in-game jacket's Cover Artist credit applies to this file"
         }
       ],
       "quality": {
@@ -6291,7 +6439,7 @@
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
-        "creator": null,
+        "creator": "Luxan",
         "url": "https://soundcloud.com/vauboy/mlg",
         "license": null,
         "restrictions": null
@@ -6323,6 +6471,13 @@
       },
       "credit_evidence": [
         {
+          "role": "illustrator",
+          "name": "Luxan",
+          "url": "https://dynamix.miraheze.org/wiki/MLG",
+          "field": null,
+          "quote": null
+        },
+        {
           "role": "composer",
           "name": "Vau Boy",
           "url": "https://dynamix.miraheze.org/wiki/MLG",
@@ -6331,9 +6486,113 @@
         }
       ],
       "variant_group": "jacket:mlg",
-      "variant_role": "square layout with 'MLG / VAU BOY' text; the page gives no illustrator (wiki: Luxan)",
+      "variant_role": "square layout with 'MLG / VAU BOY' text",
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49948) https://dynamix.miraheze.org/wiki/MLG: Vau Boy (composer)."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49948) https://dynamix.miraheze.org/wiki/MLG: Luxan (illustrator), Vau Boy (composer)."
+    },
+    {
+      "id": "artists:soundcloud:whos-raphiiel:2145579cfb6383d8",
+      "source_id": "artists:soundcloud:whos-raphiiel",
+      "candidate_id": "artists:soundcloud:whos-raphiiel:tech-nique",
+      "title": "Tech-Nique 【F/C LiNKED EMOTiONS】",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://soundcloud.com/whos-raphiiel/tech-nique",
+      "download_url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+      "resolved_url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+      "path": "assets/public/artists/soundcloud-whos-raphiiel/artworks-nGKK4GmOUFJihFLl-CQbJbg-original--2145579cfb63.jpg",
+      "original_filename": "artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+      "bytes": 585983,
+      "sha256": "2145579cfb6383d82615f7a2009fecca90c1a9dbbe89ef16a45d094da310a43a",
+      "sha1": "6ed09cf3fef8bda7dc8963f4dc306d52087c2f37",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 3000,
+      "height": 3000,
+      "fetched_at": "2026-10-10T17:44:05Z",
+      "illustrators": [
+        "MayMiyuriAe"
+      ],
+      "composers": [
+        "Raphiiel"
+      ],
+      "song_titles": [
+        "Tech-Nique"
+      ],
+      "song_ids": [
+        "song:tech-nique"
+      ],
+      "collections": [],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://soundcloud.com/whos-raphiiel/tech-nique",
+          "field": "sc.title",
+          "quote": "Tech-Nique 【F/C LiNKED EMOTiONS】"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:TechNiqueDynamix.png",
+          "note": "visual_inspection 2026-10-10: the cover shows the same drawing as the in-game jacket (girl holding a phone among music notes), framed by the LiNKED EMOTiONS / LiNKARYZE compilation design; the in-game jacket's Cover Artist credit applies to this file"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": null,
+        "creator": "MayMiyuriAe",
+        "url": "https://soundcloud.com/whos-raphiiel/tech-nique",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2021-06-12T14:50:26Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 585983,
+        "width": 3000,
+        "height": 3000,
+        "sha1": "6ed09cf3fef8bda7dc8963f4dc306d52087c2f37",
+        "sha256": "2145579cfb6383d82615f7a2009fecca90c1a9dbbe89ef16a45d094da310a43a"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": null
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "MayMiyuriAe",
+          "url": "https://soundcloud.com/whos-raphiiel/tech-nique",
+          "field": "sc.description",
+          "quote": "…facebook.com/linkaryze/ Illustration : MayMiyuriAe ✧www.instagram.com/maymiyuriae12/"
+        },
+        {
+          "role": "composer",
+          "name": "Raphiiel",
+          "url": "https://dynamix.miraheze.org/wiki/Tech-Nique",
+          "field": null,
+          "quote": null
+        }
+      ],
+      "variant_group": "jacket:tech-nique",
+      "variant_role": "LiNKED EMOTiONS compilation cover framing the jacket illustration",
+      "upstream_status": "current",
+      "notes": "The file is the cover of the LiNKARYZE compilation LiNKED EMOTiONS (track title 'Tech-Nique 【F/C LiNKED EMOTiONS】'); no cited source names the holder of that cover design, so the C4Cat default holder is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50351) https://dynamix.miraheze.org/wiki/Tech-Nique: Raphiiel (composer)."
     },
     {
       "id": "artists:soundcloud:woof-owo:35da92efcf3baffa",
@@ -7207,7 +7466,7 @@
       "candidate_id": "artists:artstation:sandgodoven:6baqbW",
       "phase": "discover",
       "url": "https://www.artstation.com/projects/6baqbW.json",
-      "attempted_at": "2026-10-10T16:48:08Z",
+      "attempted_at": "2026-10-10T17:42:24Z",
       "attempts": 1,
       "error_class": "challenge",
       "http_status": 403,
@@ -7221,7 +7480,7 @@
       "candidate_id": "artists:bilibili:ariiol:1022295438715256855",
       "phase": "discover",
       "url": "https://www.bilibili.com/opus/1022295438715256855",
-      "attempted_at": "2026-10-10T16:48:10Z",
+      "attempted_at": "2026-10-10T17:42:27Z",
       "attempts": 1,
       "error_class": "challenge",
       "http_status": 200,
@@ -7235,7 +7494,7 @@
       "candidate_id": "artists:pixiv:17081698:77296864:p0",
       "phase": "download",
       "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
-      "attempted_at": "2026-10-10T16:48:12Z",
+      "attempted_at": "2026-10-10T17:42:28Z",
       "attempts": 1,
       "error_class": "blocked",
       "http_status": 403,
