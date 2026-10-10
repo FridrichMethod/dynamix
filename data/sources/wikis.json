@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "wikis",
-  "fetched_at": "2026-10-10T17:54:08Z",
+  "fetched_at": "2026-10-10T19:10:18Z",
   "sources": [
     {
       "id": "wikis:atwiki-ja",
@@ -10,7 +10,7 @@
       "url": "https://w.atwiki.jp/dynamix2ch/",
       "platform": "atwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T19:05:51Z",
+      "checked_at": "2026-10-10T19:10:00Z",
       "notes": "Japanese wiki of the original game (\"無印Dynamix\"); read for the original-game song list only. Attachments were not enumerated. Last read: 5/5 list pages, 616 song rows.",
       "crawl_scope": "registered song-list pages only: https://w.atwiki.jp/dynamix2ch/pages/25.html, https://w.atwiki.jp/dynamix2ch/pages/36.html, https://w.atwiki.jp/dynamix2ch/pages/37.html, https://w.atwiki.jp/dynamix2ch/pages/499.html, https://w.atwiki.jp/dynamix2ch/pages/529.html",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -27,15 +27,15 @@
       "url": "https://dynamixc4cat.fandom.com/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T19:05:45Z",
-      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3327, duplicate_bytes 13, excluded 1551, pending 33); enumeration complete. Metadata-only run: accepted files are pending download.",
+      "checked_at": "2026-10-10T19:10:18Z",
+      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3334, duplicate_bytes 13, excluded 1551, failed 1, pending 25); enumeration complete.",
       "api_url": "https://dynamixc4cat.fandom.com/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4924,
-      "asset_count": 3327,
-      "failure_count": 0,
+      "asset_count": 3334,
+      "failure_count": 1,
       "evidence_level": "live_api"
     },
     {
@@ -45,14 +45,14 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T19:02:13Z",
-      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3350, duplicate_bytes 13, excluded 1072, pending 34); enumeration complete. Metadata-only run: accepted files are pending download.",
+      "checked_at": "2026-10-10T19:10:18Z",
+      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3357, duplicate_bytes 13, excluded 1072, pending 27); enumeration complete.",
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4469,
-      "asset_count": 3350,
+      "asset_count": 3357,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -63,7 +63,7 @@
       "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
       "platform": "wikiwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T19:05:52Z",
+      "checked_at": "2026-10-10T19:10:00Z",
       "notes": "Japanese multi-game rhythm-game wiki; its Dynamix page has one original-game song table (title, credited name, levels). Read for metadata only; no files. Last read: 1/1 list pages, 517 song rows.",
       "crawl_scope": "registered song-list pages only: https://wikiwiki.jp/rhythmgame/Dynamix",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -5991,6 +5991,74 @@
         "format_match": true
       },
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:0556195aff76e060",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:IMG_4689.jpg",
+      "title": "IMG 4689",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4689.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/6b/IMG_4689.jpg/revision/latest?cb=20170919064437&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/6b/IMG_4689.jpg/revision/latest?cb=20170919064437&format=original",
+      "path": "assets/public/wikis/fandom/IMG_4689--0556195aff76.jpg",
+      "original_filename": "IMG_4689.jpg",
+      "bytes": 16427,
+      "sha256": "0556195aff76e0607a7fc7a18a1b47de394f38a94e4b29180bd216faac9d9b0f",
+      "sha1": "e179d78af71767a75033c686b48113788a7abbdf",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 209,
+      "height": 210,
+      "fetched_at": "2026-10-10T19:10:09Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4689.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/6b/IMG_4689.jpg/revision/latest?cb=20170919064437",
+        "mime": "image/jpeg",
+        "bytes": 19415,
+        "width": 209,
+        "height": 210,
+        "sha1": "932a73ea94ee2de23e6df9f116503c102f456d62",
+        "timestamp": "2017-09-19T06:44:37Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 16427,
+        "width": 209,
+        "height": 210,
+        "sha1": "e179d78af71767a75033c686b48113788a7abbdf",
+        "sha256": "0556195aff76e0607a7fc7a18a1b47de394f38a94e4b29180bd216faac9d9b0f"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 2988 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
     },
     {
       "id": "wikis:fandom:05678cc0beb6e0de",
@@ -31944,6 +32012,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:fandom:1b20798c33a613ce",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:IMG_4703.jpg",
+      "title": "IMG 4703",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4703.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/c/c0/IMG_4703.jpg/revision/latest?cb=20170919064718&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/c/c0/IMG_4703.jpg/revision/latest?cb=20170919064718&format=original",
+      "path": "assets/public/wikis/fandom/IMG_4703--1b20798c33a6.jpg",
+      "original_filename": "IMG_4703.jpg",
+      "bytes": 12650,
+      "sha256": "1b20798c33a613ce44335eaf90d5b24555f22470c3e3a6f25c5f3695f704dd3c",
+      "sha1": "d266d5baeaea699232570d6baec2a51f86364886",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 208,
+      "height": 208,
+      "fetched_at": "2026-10-10T19:10:16Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4703.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/c/c0/IMG_4703.jpg/revision/latest?cb=20170919064718",
+        "mime": "image/jpeg",
+        "bytes": 15638,
+        "width": 208,
+        "height": 208,
+        "sha1": "c45bee26f9e3e54998f7846e544ec8b5d3e3a9e6",
+        "timestamp": "2017-09-19T06:47:18Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 12650,
+        "width": 208,
+        "height": 208,
+        "sha1": "d266d5baeaea699232570d6baec2a51f86364886",
+        "sha256": "1b20798c33a613ce44335eaf90d5b24555f22470c3e3a6f25c5f3695f704dd3c"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 2988 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
+    },
+    {
       "id": "wikis:fandom:1b3ff35926020757",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:Ember-Raw.png",
@@ -50000,6 +50136,74 @@
         }
       ],
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:2a0a13f527310eba",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:IMG_4686.jpg",
+      "title": "IMG 4686",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4686.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/5/51/IMG_4686.jpg/revision/latest?cb=20170919064332&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/5/51/IMG_4686.jpg/revision/latest?cb=20170919064332&format=original",
+      "path": "assets/public/wikis/fandom/IMG_4686--2a0a13f52731.jpg",
+      "original_filename": "IMG_4686.jpg",
+      "bytes": 16008,
+      "sha256": "2a0a13f527310ebacbb01bcbc3229d555ed584fa273304071be26be7b8a87352",
+      "sha1": "6d974ff8efa632d9b1a806b4e7915704193837b8",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 210,
+      "height": 210,
+      "fetched_at": "2026-10-10T19:10:08Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4686.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/5/51/IMG_4686.jpg/revision/latest?cb=20170919064332",
+        "mime": "image/jpeg",
+        "bytes": 18996,
+        "width": 210,
+        "height": 210,
+        "sha1": "953f7d8c6321d828f2c8bc9a4fa40a59a38a34da",
+        "timestamp": "2017-09-19T06:43:32Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 16008,
+        "width": 210,
+        "height": 210,
+        "sha1": "6d974ff8efa632d9b1a806b4e7915704193837b8",
+        "sha256": "2a0a13f527310ebacbb01bcbc3229d555ed584fa273304071be26be7b8a87352"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 2988 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
     },
     {
       "id": "wikis:fandom:2a311c1d673f6d7e",
@@ -77802,6 +78006,74 @@
         "format_match": true
       },
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:42025f205e163a9e",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:IMG_4693.jpg",
+      "title": "IMG 4693",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4693.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/86/IMG_4693.jpg/revision/latest?cb=20170919064823&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/86/IMG_4693.jpg/revision/latest?cb=20170919064823&format=original",
+      "path": "assets/public/wikis/fandom/IMG_4693--42025f205e16.jpg",
+      "original_filename": "IMG_4693.jpg",
+      "bytes": 13790,
+      "sha256": "42025f205e163a9e2c67c2aece1b4a6a0bdaa64964ec3beb519e25f09de0ef16",
+      "sha1": "175edab337c84ee3710edb0d1669056eea7574de",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 210,
+      "height": 210,
+      "fetched_at": "2026-10-10T19:10:14Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4693.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/86/IMG_4693.jpg/revision/latest?cb=20170919064823",
+        "mime": "image/jpeg",
+        "bytes": 16778,
+        "width": 210,
+        "height": 210,
+        "sha1": "4aaaaf7614360d6e35966595340ddddae604cc4b",
+        "timestamp": "2017-09-19T06:48:23Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 13790,
+        "width": 210,
+        "height": 210,
+        "sha1": "175edab337c84ee3710edb0d1669056eea7574de",
+        "sha256": "42025f205e163a9e2c67c2aece1b4a6a0bdaa64964ec3beb519e25f09de0ef16"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 2988 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
     },
     {
       "id": "wikis:fandom:4213911a369dcd69",
@@ -135750,6 +136022,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:fandom:6ca12a0cd969acd3",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:IMG_4691.jpg",
+      "title": "IMG 4691",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4691.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/2/23/IMG_4691.jpg/revision/latest?cb=20170919064531&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/2/23/IMG_4691.jpg/revision/latest?cb=20170919064531&format=original",
+      "path": "assets/public/wikis/fandom/IMG_4691--6ca12a0cd969.jpg",
+      "original_filename": "IMG_4691.jpg",
+      "bytes": 50519,
+      "sha256": "6ca12a0cd969acd3208635b6c2f1a0927490e776d255a0f7886ab6d206bec1ef",
+      "sha1": "4cc918a6be46f0d6e6f74ea21e533c3d89bf592e",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 209,
+      "height": 212,
+      "fetched_at": "2026-10-10T19:10:11Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4691.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/2/23/IMG_4691.jpg/revision/latest?cb=20170919064531",
+        "mime": "image/jpeg",
+        "bytes": 53507,
+        "width": 209,
+        "height": 212,
+        "sha1": "fe10e184c9fc8febe3a2bc3320e6ef53d9113a24",
+        "timestamp": "2017-09-19T06:45:31Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 50519,
+        "width": 209,
+        "height": 212,
+        "sha1": "4cc918a6be46f0d6e6f74ea21e533c3d89bf592e",
+        "sha256": "6ca12a0cd969acd3208635b6c2f1a0927490e776d255a0f7886ab6d206bec1ef"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 2988 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
+    },
+    {
       "id": "wikis:fandom:6cb6cb643048df0d",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:DangerousInsanityDynamix.png",
@@ -152795,6 +153135,74 @@
         "format_match": true
       },
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:7a290a65cf38b50f",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:IMG_4692.jpg",
+      "title": "IMG 4692",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4692.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/65/IMG_4692.jpg/revision/latest?cb=20170919064758&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/65/IMG_4692.jpg/revision/latest?cb=20170919064758&format=original",
+      "path": "assets/public/wikis/fandom/IMG_4692--7a290a65cf38.jpg",
+      "original_filename": "IMG_4692.jpg",
+      "bytes": 14702,
+      "sha256": "7a290a65cf38b50f316eedfaecd919ab2847395c2674176a7f3461591e68410e",
+      "sha1": "5c0bd2e95062cc456380cc1f7e84f2db0e1a74a3",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 209,
+      "height": 211,
+      "fetched_at": "2026-10-10T19:10:13Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_4692.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/65/IMG_4692.jpg/revision/latest?cb=20170919064758",
+        "mime": "image/jpeg",
+        "bytes": 17690,
+        "width": 209,
+        "height": 211,
+        "sha1": "924a671bea78661c191f2e284b0b6b7134d55689",
+        "timestamp": "2017-09-19T06:47:58Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 14702,
+        "width": 209,
+        "height": 211,
+        "sha1": "5c0bd2e95062cc456380cc1f7e84f2db0e1a74a3",
+        "sha256": "7a290a65cf38b50f316eedfaecd919ab2847395c2674176a7f3461591e68410e"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 2988 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
     },
     {
       "id": "wikis:fandom:7a2d5b775d4d1c45",
@@ -304198,6 +304606,73 @@
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 357 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
     },
     {
+      "id": "wikis:fandom:f6d948ad9237ebae",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Carrot_(Official_Make_gif).gif",
+      "title": "Carrot (Official Make gif)",
+      "kind": "character",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Carrot_(Official_Make_gif).gif",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/d/d9/Carrot_%28Official_Make_gif%29.gif/revision/latest?cb=20170818184445&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/d/d9/Carrot_%28Official_Make_gif%29.gif/revision/latest?cb=20170818184445&format=original",
+      "path": "assets/public/wikis/fandom/Carrot_-Official_Make_gif--f6d948ad9237.gif",
+      "original_filename": "Carrot_(Official_Make_gif).gif",
+      "bytes": 84441,
+      "sha256": "f6d948ad9237ebae202e72b01923599f5a964b7528cd39341a28371c400ae1cd",
+      "sha1": "642049f86a8a9dc7dccea197e94567bd3323b629",
+      "format": "GIF",
+      "mime": "image/gif",
+      "width": 480,
+      "height": 270,
+      "fetched_at": "2026-10-10T19:10:07Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Carrot_(Official_Make_gif).gif",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/d/d9/Carrot_%28Official_Make_gif%29.gif/revision/latest?cb=20170818184445",
+        "mime": "image/gif",
+        "bytes": 84441,
+        "width": 480,
+        "height": 270,
+        "sha1": "642049f86a8a9dc7dccea197e94567bd3323b629",
+        "timestamp": "2017-08-18T18:44:45Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/gif",
+        "sniffed_format": "GIF",
+        "bytes": 84441,
+        "width": 480,
+        "height": 270,
+        "sha1": "642049f86a8a9dc7dccea197e94567bd3323b629",
+        "sha256": "f6d948ad9237ebae202e72b01923599f5a964b7528cd39341a28371c400ae1cd"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
       "id": "wikis:fandom:f6dcb1e1114099c6",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:TuTu-Still.png",
@@ -321855,6 +322330,74 @@
         "format_match": true
       },
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:0556195aff76e060",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:IMG_4689.jpg",
+      "title": "IMG 4689",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4689.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/6/6b/IMG_4689.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/6/6b/IMG_4689.jpg",
+      "path": "assets/public/wikis/miraheze/IMG_4689--0556195aff76.jpg",
+      "original_filename": "IMG_4689.jpg",
+      "bytes": 16427,
+      "sha256": "0556195aff76e0607a7fc7a18a1b47de394f38a94e4b29180bd216faac9d9b0f",
+      "sha1": "e179d78af71767a75033c686b48113788a7abbdf",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 209,
+      "height": 210,
+      "fetched_at": "2026-10-10T19:10:13Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:IMG_4689.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/6/6b/IMG_4689.jpg",
+        "mime": "image/jpeg",
+        "bytes": 16427,
+        "width": 209,
+        "height": 210,
+        "sha1": "e179d78af71767a75033c686b48113788a7abbdf",
+        "timestamp": "2026-08-09T09:00:33Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 16427,
+        "width": 209,
+        "height": 210,
+        "sha1": "e179d78af71767a75033c686b48113788a7abbdf",
+        "sha256": "0556195aff76e0607a7fc7a18a1b47de394f38a94e4b29180bd216faac9d9b0f"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +2988 bytes (Fandom upload 2017-09-19T06:44:37Z); this Miraheze copy is not byte-identical to that upload."
     },
     {
       "id": "wikis:miraheze:05678cc0beb6e0de",
@@ -347993,6 +348536,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:miraheze:1b20798c33a613ce",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:IMG_4703.jpg",
+      "title": "IMG 4703",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4703.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/c/c0/IMG_4703.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/c/c0/IMG_4703.jpg",
+      "path": "assets/public/wikis/miraheze/IMG_4703--1b20798c33a6.jpg",
+      "original_filename": "IMG_4703.jpg",
+      "bytes": 12650,
+      "sha256": "1b20798c33a613ce44335eaf90d5b24555f22470c3e3a6f25c5f3695f704dd3c",
+      "sha1": "d266d5baeaea699232570d6baec2a51f86364886",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 208,
+      "height": 208,
+      "fetched_at": "2026-10-10T19:10:18Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:IMG_4703.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/c/c0/IMG_4703.jpg",
+        "mime": "image/jpeg",
+        "bytes": 12650,
+        "width": 208,
+        "height": 208,
+        "sha1": "d266d5baeaea699232570d6baec2a51f86364886",
+        "timestamp": "2026-08-09T08:43:54Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 12650,
+        "width": 208,
+        "height": 208,
+        "sha1": "d266d5baeaea699232570d6baec2a51f86364886",
+        "sha256": "1b20798c33a613ce44335eaf90d5b24555f22470c3e3a6f25c5f3695f704dd3c"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +2988 bytes (Fandom upload 2017-09-19T06:47:18Z); this Miraheze copy is not byte-identical to that upload."
+    },
+    {
       "id": "wikis:miraheze:1b3ff35926020757",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:Ember-Raw.png",
@@ -366241,6 +366852,74 @@
         }
       ],
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:2a0a13f527310eba",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:IMG_4686.jpg",
+      "title": "IMG 4686",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4686.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/5/51/IMG_4686.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/5/51/IMG_4686.jpg",
+      "path": "assets/public/wikis/miraheze/IMG_4686--2a0a13f52731.jpg",
+      "original_filename": "IMG_4686.jpg",
+      "bytes": 16008,
+      "sha256": "2a0a13f527310ebacbb01bcbc3229d555ed584fa273304071be26be7b8a87352",
+      "sha1": "6d974ff8efa632d9b1a806b4e7915704193837b8",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 210,
+      "height": 210,
+      "fetched_at": "2026-10-10T19:10:12Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:IMG_4686.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/5/51/IMG_4686.jpg",
+        "mime": "image/jpeg",
+        "bytes": 16008,
+        "width": 210,
+        "height": 210,
+        "sha1": "6d974ff8efa632d9b1a806b4e7915704193837b8",
+        "timestamp": "2026-08-09T09:50:28Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 16008,
+        "width": 210,
+        "height": 210,
+        "sha1": "6d974ff8efa632d9b1a806b4e7915704193837b8",
+        "sha256": "2a0a13f527310ebacbb01bcbc3229d555ed584fa273304071be26be7b8a87352"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +2988 bytes (Fandom upload 2017-09-19T06:43:32Z); this Miraheze copy is not byte-identical to that upload."
     },
     {
       "id": "wikis:miraheze:2a311c1d673f6d7e",
@@ -394323,6 +395002,74 @@
         "format_match": true
       },
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:42025f205e163a9e",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:IMG_4693.jpg",
+      "title": "IMG 4693",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4693.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/8/86/IMG_4693.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/8/86/IMG_4693.jpg",
+      "path": "assets/public/wikis/miraheze/IMG_4693--42025f205e16.jpg",
+      "original_filename": "IMG_4693.jpg",
+      "bytes": 13790,
+      "sha256": "42025f205e163a9e2c67c2aece1b4a6a0bdaa64964ec3beb519e25f09de0ef16",
+      "sha1": "175edab337c84ee3710edb0d1669056eea7574de",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 210,
+      "height": 210,
+      "fetched_at": "2026-10-10T19:10:17Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:IMG_4693.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/8/86/IMG_4693.jpg",
+        "mime": "image/jpeg",
+        "bytes": 13790,
+        "width": 210,
+        "height": 210,
+        "sha1": "175edab337c84ee3710edb0d1669056eea7574de",
+        "timestamp": "2026-08-09T09:47:06Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 13790,
+        "width": 210,
+        "height": 210,
+        "sha1": "175edab337c84ee3710edb0d1669056eea7574de",
+        "sha256": "42025f205e163a9e2c67c2aece1b4a6a0bdaa64964ec3beb519e25f09de0ef16"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +2988 bytes (Fandom upload 2017-09-19T06:48:23Z); this Miraheze copy is not byte-identical to that upload."
     },
     {
       "id": "wikis:miraheze:4213911a369dcd69",
@@ -452524,6 +453271,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:miraheze:6ca12a0cd969acd3",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:IMG_4691.jpg",
+      "title": "IMG 4691",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4691.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/2/23/IMG_4691.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/2/23/IMG_4691.jpg",
+      "path": "assets/public/wikis/miraheze/IMG_4691--6ca12a0cd969.jpg",
+      "original_filename": "IMG_4691.jpg",
+      "bytes": 50519,
+      "sha256": "6ca12a0cd969acd3208635b6c2f1a0927490e776d255a0f7886ab6d206bec1ef",
+      "sha1": "4cc918a6be46f0d6e6f74ea21e533c3d89bf592e",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 209,
+      "height": 212,
+      "fetched_at": "2026-10-10T19:10:14Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:IMG_4691.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/2/23/IMG_4691.jpg",
+        "mime": "image/jpeg",
+        "bytes": 50519,
+        "width": 209,
+        "height": 212,
+        "sha1": "4cc918a6be46f0d6e6f74ea21e533c3d89bf592e",
+        "timestamp": "2026-08-09T08:48:35Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 50519,
+        "width": 209,
+        "height": 212,
+        "sha1": "4cc918a6be46f0d6e6f74ea21e533c3d89bf592e",
+        "sha256": "6ca12a0cd969acd3208635b6c2f1a0927490e776d255a0f7886ab6d206bec1ef"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +2988 bytes (Fandom upload 2017-09-19T06:45:31Z); this Miraheze copy is not byte-identical to that upload."
+    },
+    {
       "id": "wikis:miraheze:6cb6cb643048df0d",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:DangerousInsanityDynamix.png",
@@ -469661,6 +470476,74 @@
         "format_match": true
       },
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:7a290a65cf38b50f",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:IMG_4692.jpg",
+      "title": "IMG 4692",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4692.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/6/65/IMG_4692.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/6/65/IMG_4692.jpg",
+      "path": "assets/public/wikis/miraheze/IMG_4692--7a290a65cf38.jpg",
+      "original_filename": "IMG_4692.jpg",
+      "bytes": 14702,
+      "sha256": "7a290a65cf38b50f316eedfaecd919ab2847395c2674176a7f3461591e68410e",
+      "sha1": "5c0bd2e95062cc456380cc1f7e84f2db0e1a74a3",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 209,
+      "height": 211,
+      "fetched_at": "2026-10-10T19:10:16Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:IMG_4692.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/6/65/IMG_4692.jpg",
+        "mime": "image/jpeg",
+        "bytes": 14702,
+        "width": 209,
+        "height": 211,
+        "sha1": "5c0bd2e95062cc456380cc1f7e84f2db0e1a74a3",
+        "timestamp": "2026-08-09T09:15:17Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 14702,
+        "width": 209,
+        "height": 211,
+        "sha1": "5c0bd2e95062cc456380cc1f7e84f2db0e1a74a3",
+        "sha256": "7a290a65cf38b50f316eedfaecd919ab2847395c2674176a7f3461591e68410e"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +2988 bytes (Fandom upload 2017-09-19T06:47:58Z); this Miraheze copy is not byte-identical to that upload."
     },
     {
       "id": "wikis:miraheze:7a2d5b775d4d1c45",
@@ -622436,6 +623319,73 @@
       "notes": "Fandom's API records this title's upload with another SHA-1 and +357 bytes (Fandom upload 2018-02-22T19:03:32Z); this Miraheze copy is not byte-identical to that upload."
     },
     {
+      "id": "wikis:miraheze:f6d948ad9237ebae",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Carrot_(Official_Make_gif).gif",
+      "title": "Carrot (Official Make gif)",
+      "kind": "character",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Carrot_(Official_Make_gif).gif",
+      "download_url": "https://static.wikitide.net/dynamixwiki/d/d9/Carrot_%28Official_Make_gif%29.gif",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/d/d9/Carrot_%28Official_Make_gif%29.gif",
+      "path": "assets/public/wikis/miraheze/Carrot_-Official_Make_gif--f6d948ad9237.gif",
+      "original_filename": "Carrot_(Official_Make_gif).gif",
+      "bytes": 84441,
+      "sha256": "f6d948ad9237ebae202e72b01923599f5a964b7528cd39341a28371c400ae1cd",
+      "sha1": "642049f86a8a9dc7dccea197e94567bd3323b629",
+      "format": "GIF",
+      "mime": "image/gif",
+      "width": 480,
+      "height": 270,
+      "fetched_at": "2026-10-10T19:10:07Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Carrot_(Official_Make_gif).gif",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/d/d9/Carrot_%28Official_Make_gif%29.gif",
+        "mime": "image/gif",
+        "bytes": 84441,
+        "width": 480,
+        "height": 270,
+        "sha1": "642049f86a8a9dc7dccea197e94567bd3323b629",
+        "timestamp": "2026-08-09T09:33:12Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/gif",
+        "sniffed_format": "GIF",
+        "bytes": 84441,
+        "width": 480,
+        "height": 270,
+        "sha1": "642049f86a8a9dc7dccea197e94567bd3323b629",
+        "sha256": "f6d948ad9237ebae202e72b01923599f5a964b7528cd39341a28371c400ae1cd"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
       "id": "wikis:miraheze:f6dcb1e1114099c6",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:TuTu-Still.png",
@@ -634388,5 +635338,20 @@
       "upstream_status": "current"
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "id": "wikis:fandom:File:Limstella.png:download",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Limstella.png",
+      "phase": "download",
+      "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/85/Limstella.png/revision/latest?cb=20190204132054&format=original",
+      "attempted_at": "2026-10-10T19:10:18Z",
+      "attempts": 1,
+      "error_class": "http_4xx",
+      "http_status": 404,
+      "retriable": false,
+      "manual": false,
+      "message": "HTTP 404"
+    }
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_id": "wikis:miraheze",
-  "started_at": "2026-10-10T18:58:15Z",
+  "started_at": "2026-10-10T18:58:17Z",
   "finished_at": "2026-10-10T19:02:13Z",
   "scope": {
     "api": "https://dynamix.miraheze.org/w/api.php",
@@ -16,8 +16,8 @@
     "notes": "One candidate per file of list=allimages. Roles and games come from song templates (Template:Song = original game, Template:SongUV = Dynamix Universe), page usage, gallery/link captions, reviewed list pages, file categories and, only when nothing else applies, filename conventions; evidence is pooled by file title with wikis:fandom. Where no page establishes a role or game, or page roles are tied, an archivist review (visual inspection of the bytes, scripts/wikis/reviews.json, pinned to the reviewed SHA-1) may; its evidence is quoted and its song mappings are 'inferred'. A review may also replace the reason of an exclusion that page evidence gives with the exclusion seen in the bytes. Accepted candidates that are not downloaded yet are 'pending' with reason 'awaiting_download'. When this discovery is incomplete, archived candidates keep the classification of the discovery that archived them.",
     "file_count": 4469,
     "article_count": 894,
-    "requests": 171,
-    "cached_responses": 0
+    "requests": 0,
+    "cached_responses": 171
   },
   "continuation": {
     "allimages": null,
@@ -19202,8 +19202,8 @@
         "timestamp": "2026-08-09T09:33:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f6d948ad9237ebae",
       "notes": "role evidence: character <- archivist review (File:Carrot (Official Make gif).gif): visual_inspection: 480x270 2-frame 'Carrot' title card with the character Carrot, an official animation (GIF) used on the Oracle page; not a wiki capture of a character animation"
     },
     {
@@ -63802,8 +63802,8 @@
         "timestamp": "2026-08-09T09:50:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2a0a13f527310eba",
       "notes": "role evidence: background <- archivist review (File:IMG 4686.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:BeforeSunriseBG.jpg (a skull with long claws on magenta), an archived background item of the original game; compared side by side"
     },
     {
@@ -63876,8 +63876,8 @@
         "timestamp": "2026-08-09T09:00:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0556195aff76e060",
       "notes": "role evidence: background <- archivist review (File:IMG 4689.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:DefendedBG.jpg (towers with UFOs on blue), an archived background item of the original game; compared side by side"
     },
     {
@@ -63902,8 +63902,8 @@
         "timestamp": "2026-08-09T08:48:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6ca12a0cd969acd3",
       "notes": "role evidence: background <- archivist review (File:IMG 4691.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:BlueBG.png (a spiral of glowing triangles with orange dots on blue), an archived background item of the original game; compared side by side"
     },
     {
@@ -63928,8 +63928,8 @@
         "timestamp": "2026-08-09T09:15:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7a290a65cf38b50f",
       "notes": "role evidence: background <- archivist review (File:IMG 4692.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:ArcanaIdolaBG.png (a dark tower before a full moon on purple), an archived background item of the original game; compared side by side"
     },
     {
@@ -63954,8 +63954,8 @@
         "timestamp": "2026-08-09T09:47:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:42025f205e163a9e",
       "notes": "role evidence: background <- archivist review (File:IMG 4693.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:JusticeJusticeBG.png (a grey/white diamond lattice on dark red), an archived background item of the original game; compared side by side"
     },
     {
@@ -64004,8 +64004,8 @@
         "timestamp": "2026-08-09T08:43:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1b20798c33a613ce",
       "notes": "role evidence: background <- archivist review (File:IMG 4703.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:ToSoarBG.png (a broken pale ring on teal), an archived background item of the original game; compared side by side"
     },
     {
