@@ -17200,8 +17200,10 @@
     },
     {
       "id": "song:mega-pop",
-      "title": "MEGA POP",
-      "aliases": [],
+      "title": "MEGA　POP",
+      "aliases": [
+        "MEGA POP"
+      ],
       "composers": [
         "Urtica_Ferox_"
       ],
@@ -29311,6 +29313,14 @@
       "values": {
         "wikis:miraheze": "Magic of love (Dynamix Edit)",
         "wikis:rhythmgame-ja": "Magic of love (Dynamix Ver) (matched ignoring the edit/version label)"
+      }
+    },
+    {
+      "song_id": "song:mega-pop",
+      "field": "title",
+      "values": {
+        "wikis:miraheze": "MEGA　POP",
+        "wikis:atwiki-ja": "MEGA POP"
       }
     },
     {
