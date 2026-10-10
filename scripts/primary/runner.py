@@ -1046,14 +1046,19 @@ def artist_candidates(root: Path) -> list[dict]:
     return candidates
 
 
+WAYBACK_RAW_RE = re.compile(r"^https://web\.archive\.org/web/\d{14}id_/(https?://\S+)$")
+
+
 def _same_file(candidate: Mapping[str, Any], original: str | None) -> bool:
     """Whether an artists candidate stands for the primary file a copy reports as its original URL: the candidate's
-    file URL equals it, or (pixiv withholds file URLs from logged-out readers) the candidate key ``<work>:p<n>`` names
-    the original's ``<work>_p<n>`` file. Without an original URL nothing contradicts the candidate."""
+    file URL equals it or is an Internet Archive raw capture of it, or (pixiv withholds file URLs from logged-out
+    readers) the candidate key ``<work>:p<n>`` names the original's ``<work>_p<n>`` file. Without an original URL
+    nothing contradicts the candidate."""
     if not original:
         return True
     if candidate.get("file_url"):
-        return candidate["file_url"] == original
+        archived = WAYBACK_RAW_RE.match(candidate["file_url"])
+        return candidate["file_url"] == original or bool(archived and archived.group(1) == original)
     stem = original.rsplit("/", 1)[-1].split("?", 1)[0].rsplit(".", 1)[0]
     return str(candidate.get("upstream_key", "")).replace(":p", "_p", 1) == stem
 

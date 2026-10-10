@@ -5,6 +5,7 @@ unrelated portfolio entries, uploader identity checks, misleading advertised dim
 idempotent ``--resume``. Run: ``python -I tests/test_fetch_artists.py``.
 """
 
+import base64
 import hashlib
 import json
 import sys
@@ -18,7 +19,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import model, runner  # noqa: E402
-from primary.adapters import x as x_adapter  # noqa: E402
+from primary.adapters import pixiv as pixiv_adapter, x as x_adapter  # noqa: E402
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/artists"
@@ -141,6 +142,128 @@ class PixivTests(ArtistsTestCase):
         self.assertEqual(current["sources"][0]["status"], "manual_access")
         self.assertEqual(current["assets"], [])
         self.verify()
+
+
+# --- pixiv originals from Internet Archive raw captures ---------------------------------------------------------------
+
+P1_ORIGINAL = "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg"
+P1_STAMP = "20221216231405"
+
+
+def wayback_seed(captures, rules=None):
+    seed = pixiv_seed()
+    seed["items"] = [{"illust_id": "92594600", "wayback": captures}]
+    if rules is not None:
+        seed["rules"] = rules
+    return seed
+
+
+def cdx_url(original, stamp):
+    return full_url(pixiv_adapter.CDX, {"url": original, "matchType": "exact", "output": "json",
+                                        "fl": pixiv_adapter.CDX_FIELDS, "from": stamp, "to": stamp})
+
+
+def wayback_routes(payload, *, cdx_rows=None, stamp=P1_STAMP, original=P1_ORIGINAL):
+    routes = pixiv_routes(lambda url: net.BlockedError("HTTP 403", url=url, http_status=403))
+    digest = base64.b32encode(hashlib.sha1(payload).digest()).decode()
+    rows = cdx_rows if cdx_rows is not None else [
+        ["timestamp", "original", "mimetype", "statuscode", "digest", "length"],
+        [stamp, original, "image/jpeg", "200", digest, "2215933"]]
+    routes[cdx_url(original, stamp)] = {"json": rows}
+    routes[f"https://web.archive.org/web/{stamp}id_/{original}"] = {"bytes": payload, "content_type": "image/jpeg"}
+    return routes
+
+
+class PixivWaybackTests(ArtistsTestCase):
+    CAPTURE = {"page": 1, "timestamp": P1_STAMP, "original": P1_ORIGINAL}
+
+    def test_archived_original_is_downloaded_from_the_capture_with_the_post_as_page(self):
+        payload = image_bytes("JPEG", (48, 27), (1, 2, 3))
+        network = FakeNetwork(wayback_routes(payload))
+        self.run_family([wayback_seed([self.CAPTURE])], network)
+        found = self.candidates("artists:pixiv:5401047")
+        p1 = found["92594600:p1"]
+        self.assertEqual(p1["disposition"], "downloaded")
+        self.assertEqual(p1["page_url"], "https://www.pixiv.net/artworks/92594600")
+        self.assertEqual(p1["file_url"], f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}")
+        # Pages without a capture still go to i.pximg.net once (blocked); the archived page never does.
+        self.assertEqual(found["92594600:p0"]["disposition"], "blocked")
+        self.assertNotIn(("download", P1_ORIGINAL), network.calls)
+        asset = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith(":p1"))
+        self.assertEqual(asset["download_url"], f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}")
+        self.assertEqual(asset["source_reported"]["url"], P1_ORIGINAL)
+        self.assertEqual(asset["source_reported"]["sha1"], hashlib.sha1(payload).hexdigest())
+        self.assertIs(asset["comparisons"]["sha1_match"], True)  # the received bytes are the archived payload
+        self.assertEqual(asset["upstream_revision"], P1_STAMP)
+        self.assertEqual(asset["quality"]["origin_status"], "artist_post")
+        self.assertEqual(asset["quality"]["notes"], pixiv_adapter.WAYBACK_QUALITY)
+        self.assertIn("2022-12-16T23:14:05Z", asset["notes"])
+        self.assertEqual(self.snapshot("artists:pixiv:5401047")["continuation"]["wayback-captures"], None)
+        self.verify()
+
+    def test_capture_missing_from_cdx_is_held_without_a_download(self):
+        payload = image_bytes("JPEG", (48, 27))
+        routes = wayback_routes(payload, cdx_rows=[["timestamp", "original", "mimetype", "statuscode", "digest",
+                                                    "length"], [P1_STAMP, P1_ORIGINAL, "text/html", "302", "X", "1"]])
+        network = FakeNetwork(routes)
+        self.run_family([wayback_seed([self.CAPTURE])], network)
+        p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
+        self.assertEqual(p1["disposition"], "pending")
+        self.assertIn("lists no HTTP 200 capture", p1["reason"])
+        self.assertEqual(p1["game"], "unknown")
+        self.assertEqual(network.count("web.archive.org"), 1)  # the CDX check only
+        self.verify()
+
+    def test_capture_of_a_url_pixiv_no_longer_lists_is_held(self):
+        other = P1_ORIGINAL.replace("2021/09/08/13/09/32", "2020/01/01/00/00/00")
+        network = FakeNetwork(wayback_routes(image_bytes("JPEG", (48, 27)), original=other))
+        self.run_family([wayback_seed([{"page": 1, "timestamp": P1_STAMP, "original": other}])], network)
+        p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
+        self.assertEqual(p1["disposition"], "pending")
+        self.assertIn("re-upload", p1["reason"])
+        self.assertEqual(network.count("web.archive.org"), 0)
+        self.verify()
+
+    def test_withheld_work_is_downloaded_from_its_capture(self):
+        payload = image_bytes("JPEG", (48, 27), (9, 9, 9))
+        routes = wayback_routes(payload)
+        detail = fixture_json("pixiv_illust_92594600.json")
+        detail["body"]["pageCount"] = 1
+        detail["body"]["urls"] = {"original": None, "regular": None}
+        routes["https://www.pixiv.net/ajax/illust/92594600"] = {"json": detail}
+        network = FakeNetwork(routes)
+        self.run_family([wayback_seed([self.CAPTURE])], network)
+        found = self.candidates("artists:pixiv:5401047")
+        self.assertEqual(found["92594600:p0"]["disposition"], "blocked")  # withheld, no capture: no request
+        self.assertEqual(found["92594600:p1"]["disposition"], "downloaded")
+        self.assertEqual(network.count("i.pximg.net"), 0)
+        self.verify()
+
+    def test_cdx_failure_keeps_the_list_open_but_fetches_the_capture(self):
+        payload = image_bytes("JPEG", (48, 27), (5, 5, 5))
+        routes = wayback_routes(payload)
+        routes[cdx_url(P1_ORIGINAL, P1_STAMP)] = {"error": net.HttpError("HTTP 503", url=pixiv_adapter.CDX,
+                                                                         http_status=503)}
+        network = FakeNetwork(routes)
+        self.run_family([wayback_seed([self.CAPTURE])], network)
+        snapshot = self.snapshot("artists:pixiv:5401047")
+        self.assertEqual(snapshot["continuation"]["wayback-captures"], "not-read:http_5xx")
+        self.assertFalse(snapshot["discovery_complete"])
+        asset = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith(":p1"))
+        self.assertIsNone(asset["comparisons"]["sha1_match"])
+        self.verify()
+
+    def test_seed_capture_must_be_the_original_of_its_own_page(self):
+        for capture in ({"page": 0, "timestamp": P1_STAMP, "original": P1_ORIGINAL},
+                        {"page": 1, "timestamp": "2022", "original": P1_ORIGINAL},
+                        {"page": 1, "timestamp": P1_STAMP, "original": P1_ORIGINAL.replace("92594600", "1")}):
+            with self.assertRaises(ValueError):
+                pixiv_adapter.check_seed(wayback_seed([capture]), "test")
+
+    def test_a_capture_url_stands_for_its_original_in_primary_post_checks(self):
+        capture = f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}"
+        self.assertTrue(runner._same_file({"file_url": capture}, P1_ORIGINAL))
+        self.assertFalse(runner._same_file({"file_url": capture}, P1_ORIGINAL.replace("_p1", "_p2")))
 
 
 # --- X: multi-image posts mapped per image ----------------------------------------------------------------------------
