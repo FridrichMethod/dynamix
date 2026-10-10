@@ -43,7 +43,9 @@
         {
           "match": ".*",
           "role": "store_screenshot",
-          "game": "dynamix"
+          "game": "dynamix",
+          "allow_universe_mention": true,
+          "candidate_notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app."
         }
       ]
     },
