@@ -15,7 +15,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Store/platform rendition served at native size; the store re-renders uploads (not an untouched master)."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited"
@@ -63,7 +63,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Store/platform rendition served at native size; the store re-renders uploads (not an untouched master)."
+        "notes": "Google Play '=s0' file at native size: the stored upload as served (TapTap's MD5-named uploads of the same screenshots match these files byte for byte)."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited"
@@ -104,7 +104,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "TapTap original_url upload (name token equals the file MD5 when untouched)."
+        "notes": "TapTap original_url copy; the file's MD5 is compared with the upload's name token, and a mismatch is recorded as a TapTap re-encode."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited"
@@ -229,9 +229,144 @@
       ],
       "rules": [
         {
-          "match": ".*",
+          "match": "^981147690795900928:1$",
           "role": "promotional",
-          "game": "dynamix"
+          "song_titles": [
+            "Xetta"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "TangJuan vs Black Box"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "Xetta"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Xetta",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for Xetta.",
+          "credit_evidence": [
+            {
+              "role": "composer",
+              "name": "TangJuan vs Black Box",
+              "field": "text",
+              "quote": "次のイベントソングは @Tang0Juanさんvs Black Boxさん作った Xetta",
+              "url": "https://x.com/c4c4cat/status/981147690795900928"
+            }
+          ],
+          "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box."
+        },
+        {
+          "match": "^1156172591872167937:1$",
+          "role": "promotional",
+          "song_titles": [
+            "オレンジ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "kRM & 残響P"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "オレンジ"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for オレンジ.",
+          "notes": "Composer credit as the official post writes it; the wiki credits Dragon_Klub & 残響P."
+        },
+        {
+          "match": "^1239884186070265856:1$",
+          "role": "promotional",
+          "song_titles": [
+            "終の舞姫"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "終の舞姫"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for 終の舞姫."
+        },
+        {
+          "match": "^1437747970875674626:1$",
+          "role": "promotional",
+          "song_titles": [
+            "玲瓏メテオ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Reku Mochizuki"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "玲瓏メテオ"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%8E%B2%E7%93%8F%E3%83%A1%E3%83%86%E3%82%AA",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for 玲瓏メテオ."
+        },
+        {
+          "match": "^1889645633545613724:1$",
+          "role": "promotional",
+          "song_titles": [
+            "Horloge"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "xL"
+          ],
+          "collections": [
+            "Berry Melody Collaboration"
+          ],
+          "evidence_quotes": [
+            "Berry Melody",
+            "horloge"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Horloge",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge."
+        },
+        {
+          "match": "^1748178472759865377:[1-4]$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "プリロール"
+          ],
+          "candidate_notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
+        },
+        {
+          "match": "^(1437747970875674626|1889645633545613724|1156172591872167937|1239884186070265856|981147690795900928|1748178472759865377):",
+          "role": "promotional",
+          "game": "dynamix",
+          "candidate_notes": "Explicit official post; the embed-timeline sample needs a per-post rule before any of its posts is admitted."
         }
       ]
     },
@@ -248,7 +383,7 @@
       "params": {
         "handle": "c4cat"
       },
-      "notes": "Official C4Cat account (11 tracks 2016-2017); explicit track pages only.",
+      "notes": "Official C4Cat account (11 tracks 2016-2017); every track its /tracks page renders is recorded (SoundCloud server-renders only part of the list).",
       "quality": {
         "source_variant": "site_original",
         "origin_status": "official",
@@ -262,6 +397,9 @@
         {
           "url": "https://soundcloud.com/c4cat/le-ciel-heureux-p",
           "key": "le-ciel-heureux-p"
+        },
+        {
+          "tracks_of": "c4cat"
         }
       ],
       "rules": [
@@ -280,6 +418,11 @@
           ],
           "variant_role": "square crop of the jacket (official preview upload)",
           "variant_group": "jacket:le-ciel-heureux"
+        },
+        {
+          "match": "^(mmry-memento-mori|packer-woo-meeting-in-sky|packer-woo-origo-harbour)$",
+          "action": "pending",
+          "reason": "pending: official C4Cat upload of 2017-07-04 (no description) whose title is not in the 2026-10-10 original-game song index; its use in Dynamix is unconfirmed"
         }
       ]
     },

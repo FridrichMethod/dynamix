@@ -1,6 +1,12 @@
 {
   "source": "research sweep 2026-10-10 (scratchpad research/leads.json, leads with dynamix_original_game yes/unclear in file order)",
   "rule": "every lead names at least one source and a candidate upstream-key prefix (empty = the source's own record or any of its candidates) that records its disposition",
+  "lead_list": {
+    "research_file_sha256": "65f2580d3539ac8201c18a8e0b36176530ba73492a3f5881ec60b1740e4159a2",
+    "count": 214,
+    "pairs_sha256": "b9617e31b58826095a5d2280357cc2cbc1459609200f55fae8dafb5abbf2808d",
+    "pairs_definition": "SHA-256 of the compact JSON list [[lead, url, dynamix_original_game], ...] of the research file's yes/unclear leads in file order (separators ',' ':', UTF-8, not ASCII-escaped); a dropped or altered lead changes it"
+  },
   "leads": [
     {
       "lead": 0,

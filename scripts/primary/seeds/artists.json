@@ -478,7 +478,7 @@
           "match": "^rave\\-and\\-get\\-on\\-it$",
           "role": "song_art",
           "song_titles": [
-            "Rave! and Get on it!"
+            "Rave! and Get On It!"
           ],
           "mapping_status": "confirmed_primary",
           "illustrators": [
@@ -565,7 +565,11 @@
             "lanota"
           ],
           "variant_role": "square composition (credited as BGA by inukoro); upscaling unknown",
-          "variant_group": "jacket:gift"
+          "variant_group": "jacket:gift",
+          "quality": {
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (3000x3000 square of a composition credited as BGA; upscaling unknown); not verified, so it is not a confirmed high-resolution original."
+          },
+          "notes": "Coordinator review: suspected upscale (see quality notes) before counting it as a >=1920 px original."
         },
         {
           "match": "^notoriousnota\\-trial\\-wing$",
@@ -595,7 +599,7 @@
             "Violpa"
           ],
           "composers": [
-            "TRIAL"
+            "Notorious(Nota & TRIAL)"
           ],
           "evidence_quotes": [
             "Dynamix",
@@ -655,7 +659,7 @@
     },
     {
       "id": "artists:soundcloud:aboutlogic",
-      "name": "SoundCloud aboutlogic (ケシｋｓくん credit)",
+      "name": "SoundCloud Tezuka (aboutlogic)",
       "url": "https://soundcloud.com/aboutlogic",
       "platform": "soundcloud",
       "adapter": "release_page",
@@ -666,7 +670,7 @@
       "params": {
         "handle": "aboutlogic"
       },
-      "notes": "Explicit SoundCloud track pages by aboutlogic (ケシｋｓくん credit) (composer upload); the account's other tracks are not enumerated.",
+      "notes": "Explicit SoundCloud track pages by Tezuka (permalink aboutlogic; composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
       },
@@ -697,19 +701,33 @@
             "ケシｋｓくん"
           ],
           "composers": [
-            "aboutlogic"
+            "Tezuka"
           ],
           "evidence_quotes": [
             "dynamix"
           ],
           "variant_role": "letterboxed square with a wider field of view than the wiki jacket crop",
-          "variant_group": "jacket:the-clockwork-doll"
+          "variant_group": "jacket:the-clockwork-doll",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/The_Clockwork_Doll",
+            "note": "the Dynamix wiki song page"
+          },
+          "credit_evidence": [
+            {
+              "role": "illustrator",
+              "name": "ケシｋｓくん",
+              "url": "https://soundcloud.com/aboutlogic/the-clockwork-doll",
+              "field": "sc.description",
+              "quote": "アートワーク：https://twitter.com/KeshiksExt"
+            }
+          ],
+          "notes": "The page credits the artwork to the X account KeshiksExt (ケシｋｓくん on the wiki); the uploader Tezuka is テヅカ on the wiki."
         }
       ]
     },
     {
       "id": "artists:soundcloud:aoisoundsystem",
-      "name": "SoundCloud Aoi Sound System",
+      "name": "SoundCloud Aoi (aoisoundsystem)",
       "url": "https://soundcloud.com/aoisoundsystem",
       "platform": "soundcloud",
       "adapter": "release_page",
@@ -720,7 +738,7 @@
       "params": {
         "handle": "aoisoundsystem"
       },
-      "notes": "Explicit SoundCloud track pages by Aoi Sound System (composer upload); the account's other tracks are not enumerated.",
+      "notes": "Explicit SoundCloud track pages by Aoi (permalink aoisoundsystem; composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
       },
@@ -748,20 +766,24 @@
           "match": "^soar\\-to\\-oremaster\\-ver$",
           "role": "song_art",
           "song_titles": [
-            "Soar to Ø"
+            "soar to Ø"
           ],
           "mapping_status": "confirmed_primary",
           "illustrators": [
             "ケシksくん"
           ],
           "composers": [
-            "Aoi Sound System"
+            "Aoi"
           ],
           "evidence_quotes": [
             "Dynamix"
           ],
           "variant_role": "square crop of the jacket art",
-          "variant_group": "jacket:soar-to-9e0846fd"
+          "variant_group": "jacket:soar-to-0e0a17a0",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Soar_to_%C3%98",
+            "note": "the Dynamix wiki song page"
+          }
         },
         {
           "match": "^soartophi$",
@@ -812,16 +834,17 @@
           ],
           "mapping_status": "confirmed_primary",
           "illustrators": [
-            "HaltquinZ"
+            "Haltquinz"
           ],
           "composers": [
-            "MisoilePunch"
+            "MisoilePunch~タケノコ添え~"
           ],
           "evidence_quotes": [
             "Dynamix"
           ],
           "variant_role": "square release layout with title lettering (lower resolution than the wiki jacket)",
-          "variant_group": "jacket:jack-out-killer"
+          "variant_group": "jacket:jack-out-killer",
+          "notes": "Credits as written on the page; the wiki writes MisoilePunch♪ 〜タケノコ添え～ and HaltquinZ♠♥♣♦ (Rinne.6×ましろま)."
         }
       ]
     },
@@ -1032,7 +1055,7 @@
     },
     {
       "id": "artists:soundcloud:3t1a",
-      "name": "SoundCloud 三更 / 3t1a",
+      "name": "SoundCloud ETIA. (3t1a)",
       "url": "https://soundcloud.com/3t1a",
       "platform": "soundcloud",
       "adapter": "release_page",
@@ -1043,7 +1066,7 @@
       "params": {
         "handle": "3t1a"
       },
-      "notes": "Explicit SoundCloud track pages by 三更 / 3t1a (composer upload); the account's other tracks are not enumerated.",
+      "notes": "Explicit SoundCloud track pages by ETIA. (permalink 3t1a; Rotaeno collaboration composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
       },
@@ -1069,7 +1092,7 @@
           "song_titles": [
             "Heaven's Cage"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "illustrators": [
             "三更"
           ],
@@ -1083,7 +1106,25 @@
             "rotaeno"
           ],
           "variant_role": "uncropped source illustration from the Rotaeno release; the Dynamix jacket is a crop",
-          "variant_group": "jacket:heaven-s-cage"
+          "variant_group": "jacket:heaven-s-cage",
+          "composers": [
+            "ETIA."
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Heaven%27s_Cage",
+            "note": "the Dynamix wiki song page"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Heaven%27s_Cage",
+              "note": "wiki song page: Heaven's Cage (ETIA., illustration 三更) in the Dynamix Rotaeno collaboration pack; the Dynamix jacket is a crop of this artwork (2026-10-10 research)"
+            }
+          ],
+          "rights": {
+            "holder": "Dream Engine Games Limited and/or the credited artist",
+            "restrictions": "© Dream Engine Games Limited (as stated on the source page)"
+          },
+          "notes": "Coordinator review: the primary page presents this as Rotaeno artwork; Dynamix lists the song in its Rotaeno collaboration pack (wiki), so the Dynamix use is inferred, not shown by the page."
         }
       ]
     },
@@ -1130,7 +1171,7 @@
           "song_titles": [
             "画竜天晴"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "illustrators": [
             "原木シィタケ"
           ],
@@ -1147,7 +1188,22 @@
             "shinobi_slash"
           ],
           "variant_role": "Shinobi Slash square layout with title",
-          "variant_group": "jacket:file-1bb8aa3b"
+          "variant_group": "jacket:file-1bb8aa3b",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%94%BB%E7%AB%9C%E5%A4%A9%E6%99%B4",
+            "note": "the Dynamix wiki song page"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/%E7%94%BB%E7%AB%9C%E5%A4%A9%E6%99%B4",
+              "note": "wiki song page: 画竜天晴 (Halv, illustration 原木シィタケ) in the Dynamix Shinobi Slash collaboration pack (2026-10-10 research)"
+            }
+          ],
+          "rights": {
+            "holder": null,
+            "restrictions": null
+          },
+          "notes": "Coordinator review: the primary page presents this as Shinobi Slash artwork; Dynamix lists the song in its Shinobi Slash collaboration pack (wiki), so the Dynamix use is inferred, not shown by the page. The page names it a Shinobi Slash music-contest winner."
         },
         {
           "match": "^dynamixos2021\\-halv\\-sushi\\-tornado$",
@@ -1348,7 +1404,7 @@
           "song_titles": [
             "SUTTA MONDAY"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "illustrators": [
             "人間蛋"
           ],
@@ -1364,7 +1420,22 @@
             "paradigm_reboot"
           ],
           "variant_role": "Paradigm: Reboot square composition with title",
-          "variant_group": "jacket:sutta-monday"
+          "variant_group": "jacket:sutta-monday",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/SUTTA_MONDAY",
+            "note": "the Dynamix wiki song page"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/SUTTA_MONDAY",
+              "note": "wiki song page: SUTTA MONDAY (MYUKKE., illustration 人間蛋) in the Dynamix Paradigm: Reboot collaboration pack (2026-10-10 research)"
+            }
+          ],
+          "rights": {
+            "holder": null,
+            "restrictions": null
+          },
+          "notes": "Coordinator review: the primary page presents this as Paradigm: Reboot artwork; Dynamix lists the song in its Paradigm: Reboot collaboration pack (wiki), so the Dynamix use is inferred, not shown by the page. The page says the song and artwork are published with the Paradigm: Reboot developer's permission."
         }
       ]
     },
@@ -1593,7 +1664,22 @@
             "shinobi_slash"
           ],
           "variant_role": "composer-hosted JPEG of the Shinobi Slash square jacket",
-          "variant_group": "jacket:file-08c857c6"
+          "variant_group": "jacket:file-08c857c6",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+            "note": "the Dynamix wiki song page"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+              "note": "wiki song page: 流麗凛舞 (K-forest, illustration 中本ひょうり) in the Dynamix Shinobi Slash collaboration pack (2026-10-10 research)"
+            }
+          ],
+          "rights": {
+            "holder": null,
+            "restrictions": null
+          },
+          "notes": "Coordinator review: the primary page presents this as Shinobi Slash artwork; Dynamix lists the song in its Shinobi Slash collaboration pack (wiki), so the Dynamix use is inferred, not shown by the page."
         }
       ]
     },
@@ -1735,7 +1821,11 @@
             "Dynamix"
           ],
           "variant_role": "square crop of the jacket; no illustrator credit on the page (wiki: NanoKun); possible upscale",
-          "variant_group": "jacket:white-chocolate-dynamix-edit"
+          "variant_group": "jacket:white-chocolate-dynamix-edit",
+          "quality": {
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1080x1080 square crop with soft detail); not verified, so it is not a confirmed high-resolution original."
+          },
+          "notes": "Coordinator review: suspected upscale (see quality notes)."
         }
       ]
     },
@@ -1826,15 +1916,20 @@
           "song_titles": [
             "Another World"
           ],
-          "mapping_status": "confirmed_primary",
-          "composers": [
-            "Cosmograph"
-          ],
+          "mapping_status": "conflict",
+          "composers": [],
           "evidence_quotes": [
             "Dynamix"
           ],
           "variant_role": "same-composition copy smaller than the wiki copy; no illustrator credit",
-          "variant_group": "jacket:another-world"
+          "variant_group": "jacket:another-world",
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Another_World",
+              "note": "conflict: the uploader is Cosmograph and the page text is only 'Dynamix 3.0', while the wiki song page credits Another World to Lunatic Sounds (illustration NanoKun)"
+            }
+          ],
+          "notes": "Uploaded by Cosmograph; the page states no composer, and the wiki credits Lunatic Sounds, so the song mapping is recorded as a conflict."
         }
       ]
     },
@@ -1930,7 +2025,11 @@
             "Street"
           ],
           "variant_role": "square crop; possibly upscaled; no credit text (wiki: Sin:cK)",
-          "variant_group": "jacket:file-13fd1c57"
+          "variant_group": "jacket:file-13fd1c57",
+          "quality": {
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1068x1068 square crop); not verified, so it is not a confirmed high-resolution original."
+          },
+          "notes": "Coordinator review: suspected upscale (see quality notes)."
         }
       ]
     },
@@ -2264,7 +2363,11 @@
             "Illustration by TangJuan"
           ],
           "variant_role": "square crop; possible upscale",
-          "variant_group": "jacket:xetta"
+          "variant_group": "jacket:xetta",
+          "quality": {
+            "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1080x1080 square crop); not verified, so it is not a confirmed high-resolution original."
+          },
+          "notes": "Coordinator review: suspected upscale (see quality notes)."
         }
       ]
     },
@@ -2786,7 +2889,7 @@
       "rules": [
         {
           "match": "^946599307431460867:1$",
-          "role": "process",
+          "role": "background",
           "song_titles": [
             "16383"
           ],
@@ -2801,11 +2904,12 @@
             "16383"
           ],
           "variant_role": "full BGA field map with the jacket area marked",
-          "variant_group": "16383-kplecraft-bga"
+          "variant_group": "16383-kplecraft-bga",
+          "candidate_notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
         },
         {
           "match": "^946599307431460867:[2-4]$",
-          "role": "process",
+          "role": "background",
           "song_titles": [
             "16383"
           ],
@@ -2820,7 +2924,8 @@
             "16383"
           ],
           "variant_role": "zoomed BGA detail",
-          "variant_group": "16383-kplecraft-bga"
+          "variant_group": "16383-kplecraft-bga",
+          "candidate_notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
         }
       ]
     },
@@ -2905,7 +3010,7 @@
           ],
           "mapping_status": "confirmed_primary",
           "illustrators": [
-            "ANT"
+            "ANT(蟻)"
           ],
           "composers": [
             "モリモリあつし"
@@ -2915,7 +3020,11 @@
             "Dynamix"
           ],
           "variant_role": "signed character portrait (not the jacket)",
-          "variant_group": "jacket:pupa"
+          "variant_group": "jacket:pupa",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/PUPA",
+            "note": "the Dynamix wiki song page"
+          }
         }
       ]
     },
@@ -3047,10 +3156,11 @@
           "illustrators": [
             "B.H."
           ],
-          "evidence_quotes": [
-            "#Dynamix"
-          ],
-          "candidate_notes": "Wiki Encore trivia: cover character Moru (cites this post)."
+          "candidate_notes": "Wiki Encore trivia: cover character Moru (cites this post).",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         },
         {
           "match": "^1222836461155667968:",
@@ -3058,10 +3168,11 @@
           "illustrators": [
             "B.H."
           ],
-          "evidence_quotes": [
-            "#Dynamix"
-          ],
-          "candidate_notes": "New-year group illustration of Dynamix jacket characters."
+          "candidate_notes": "New-year group illustration of Dynamix jacket characters.",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         },
         {
           "match": "^1188774644397924352:",
@@ -3069,10 +3180,11 @@
           "illustrators": [
             "B.H."
           ],
-          "evidence_quotes": [
-            "#Dynamix"
-          ],
-          "candidate_notes": "Halloween illustration; LionCubs (Lionhearted) per the post text."
+          "candidate_notes": "Halloween illustration; LionCubs (Lionhearted) per the post text.",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         },
         {
           "match": "^1056156411304935429:",
@@ -3080,10 +3192,11 @@
           "illustrators": [
             "B.H."
           ],
-          "evidence_quotes": [
-            "#Dynamix"
-          ],
-          "candidate_notes": "Halloween zombie Renko (Rocket Lanterns character per wiki trivia)."
+          "candidate_notes": "Halloween zombie Renko (Rocket Lanterns character per wiki trivia).",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         },
         {
           "match": "^1001435080936472576:",
@@ -3091,10 +3204,11 @@
           "illustrators": [
             "B.H."
           ],
-          "evidence_quotes": [
-            "#Dynamix"
-          ],
-          "candidate_notes": "Summer Alice (Frontline B-Side character per wiki trivia); a lossless PNG twin is on the artist's Wix portfolio."
+          "candidate_notes": "Summer Alice (Frontline B-Side character per wiki trivia); a lossless PNG twin is on the artist's Wix portfolio.",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         }
       ]
     },
@@ -3339,7 +3453,12 @@
             "ravon"
           ],
           "variant_role": "page 1 of 3 (square composition)",
-          "variant_group": "massacre-3rc4224m-sand-suna"
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          }
         },
         {
           "match": "^92594600:p1$",
@@ -3361,7 +3480,12 @@
             "ravon"
           ],
           "variant_role": "page 2 of 3 (16:9 in-game composition)",
-          "variant_group": "massacre-3rc4224m-sand-suna"
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          }
         },
         {
           "match": "^92594600:p2$",
@@ -3383,7 +3507,12 @@
             "ravon"
           ],
           "variant_role": "page 3 of 3 (original composition)",
-          "variant_group": "massacre-3rc4224m-sand-suna"
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          }
         }
       ]
     },
@@ -3801,7 +3930,12 @@
           "role": "song_art",
           "song_titles": [
             "MassacrE || 3rc4224M"
-          ]
+          ],
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          }
         }
       ]
     },
@@ -3856,7 +3990,11 @@
           "illustrators": [
             "B.H."
           ],
-          "candidate_notes": "Image text 'DYNAMIX ALICE SUMMER VER 2018' (Alice: Frontline B-Side character per wiki trivia); lossless twin of X post 1001435080936472576."
+          "candidate_notes": "Image text 'DYNAMIX ALICE SUMMER VER 2018' (Alice: Frontline B-Side character per wiki trivia); lossless twin of X post 1001435080936472576.",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         },
         {
           "match": "^5a0163_939b56d57a8a4540a6a300d1a3d1eb03$",
@@ -3864,7 +4002,11 @@
           "illustrators": [
             "B.H."
           ],
-          "candidate_notes": "Signed 'RENKO & TSUKIYO 2018-6-1 BH!' (Rocket Lanterns / 月奏リバイバル characters per wiki trivia)."
+          "candidate_notes": "Signed 'RENKO & TSUKIYO 2018-6-1 BH!' (Rocket Lanterns / 月奏リバイバル characters per wiki trivia).",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         },
         {
           "match": "^5a0163_81b513cc2f1644cc92c88ca2691a6745$",
@@ -3872,7 +4014,11 @@
           "illustrators": [
             "B.H."
           ],
-          "candidate_notes": "Written 'ANGLE x ANGLE BH! 2018-5-23' (Angel x Angel jacket characters)."
+          "candidate_notes": "Written 'ANGLE x ANGLE BH! 2018-5-23' (Angel x Angel jacket characters).",
+          "action": "pending",
+          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "withdraw_archived": true,
+          "game": "dynamix"
         },
         {
           "match": "^5a0163_459a3dbbd87f46d58630ec52f0d06601$",

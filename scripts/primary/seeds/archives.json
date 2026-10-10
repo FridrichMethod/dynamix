@@ -305,6 +305,10 @@
             {
               "url": "https://www.pixiv.net/artworks/62913946",
               "quote": "My work for Dynamix song"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/62913946",
+              "quote": "Bluebell"
             }
           ]
         },
@@ -390,8 +394,17 @@
             {
               "url": "https://www.pixiv.net/artworks/92594600",
               "quote": "For Dynamix x RAVON collaboration event"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "MassacrE"
             }
-          ]
+          ],
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          }
         },
         {
           "match": "92594600_p1\\.jpg@",
@@ -420,8 +433,17 @@
             {
               "url": "https://www.pixiv.net/artworks/92594600",
               "quote": "For Dynamix x RAVON collaboration event"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "MassacrE"
             }
-          ]
+          ],
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          }
         },
         {
           "match": "92594600_p2\\.jpg@",
@@ -450,8 +472,17 @@
             {
               "url": "https://www.pixiv.net/artworks/92594600",
               "quote": "For Dynamix x RAVON collaboration event"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "MassacrE"
             }
-          ]
+          ],
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          }
         },
         {
           "match": "42973848_p0\\.jpg@",
@@ -583,7 +614,7 @@
           "song_titles": [
             "Totally bounded"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "illustrators": [
             "LESYEF"
           ],
@@ -605,7 +636,22 @@
               "url": "https://www.pixiv.net/artworks/86481781",
               "quote": "totally bounded"
             }
-          ]
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+              "note": "wiki song page: Totally bounded (影虎。, illustration LESYEF) in the Dynamix RAVON collaboration pack; the Dynamix jacket is a 16:9 crop of this artwork (2026-10-10 research)"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+            "note": "the Dynamix wiki song page"
+          },
+          "rights": {
+            "holder": null,
+            "restrictions": null
+          },
+          "notes": "Coordinator review: the primary post presents this as RAVON jacket art; Dynamix lists the song in its RAVON collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post."
         },
         {
           "match": "91845485_p0\\.jpg@",
@@ -613,7 +659,7 @@
           "song_titles": [
             "Party Vinyl"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "illustrators": [
             "アサヤ"
           ],
@@ -635,7 +681,22 @@
               "url": "https://www.pixiv.net/artworks/91845485",
               "quote": "Party Vinyl"
             }
-          ]
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+              "note": "wiki song page: Party Vinyl (モリモリあつし, illustration アサヤ) in the Dynamix Arcaea collaboration pack; the jacket matches this artwork (2026-10-10 research)"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+            "note": "the Dynamix wiki song page"
+          },
+          "rights": {
+            "holder": "lowiro and/or the credited artist (the artist's caption names lowiro's Arcaea release)",
+            "restrictions": null
+          },
+          "notes": "Coordinator review: the primary post presents this as Arcaea jacket art; Dynamix lists the song in its Arcaea collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post."
         },
         {
           "match": "51262301_p0\\.png@",
@@ -696,7 +757,7 @@
           }
         },
         {
-          "match": "/wp-content/uploads/2016/07/OverRapid_Col-199x128\\.png@",
+          "match": "/wp-content/uploads/2016/05/OverRapid_Col-199x128\\.png@",
           "role": "gameplay_screenshot",
           "quality": {
             "source_variant": "preview",
@@ -707,7 +768,7 @@
           "candidate_notes": "OverRapid collaboration news thumbnail showing the in-game store."
         },
         {
-          "match": "/wp-content/uploads/2016/07/(Dynamix_Website3_0|3)-199x128\\.png@",
+          "match": "/wp-content/uploads/2016/0[35]/(Dynamix_Website3_0|3)-199x128\\.png@",
           "role": "promotional",
           "quality": {
             "source_variant": "preview",
@@ -719,7 +780,7 @@
         {
           "match": "/wp-content/uploads/.*-199x128\\.(png|jpg)@",
           "action": "exclude",
-          "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size"
+          "reason": "out_of_scope_other: WordPress 199x128 thumbnail of an image whose larger version is also archived (its 700x365 resize, or the full-size tutorial panels TC1-4/TE1-4)"
         },
         {
           "match": "/wp-content/uploads/2015/10/(Zyon_ICON100)\\.png@",
@@ -755,7 +816,18 @@
           "game": "not_dynamix"
         },
         {
-          "match": "(/LOGO3\\.png@|/new1\\.jpg@|dl\\.dnx\\.c4-cat\\.com/(as|gpg|title)\\.png@|/mycard/img/(DNXtypo|bg)\\.png@)",
+          "match": "/new1\\.jpg@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365)."
+        },
+        {
+          "match": "(/LOGO3\\.png@|dl\\.dnx\\.c4-cat\\.com/(as|gpg|title)\\.png@|/mycard/img/(DNXtypo|bg)\\.png@)",
           "action": "exclude",
           "reason": "site_ui: logo, store badge or spacer image of an official web page"
         },
