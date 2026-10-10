@@ -6262,10 +6262,10 @@
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:20160625_165406.JPG",
       "file_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/6e/20160625_165406.JPG/revision/latest?cb=20160701153337",
       "title": "20160625 165406",
-      "role": "gameplay_screenshot",
+      "role": null,
       "game": "dynamix",
       "game_evidence": [
-        "archivist review (File:20160625 165406.JPG): visual_inspection: the original Dynamix interface (camera photo of the original-game song select 'Missionary / 罪曲'); Fandom upload 2016-07-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+        "archivist review (File:20160625 165406.JPG): visual_inspection: the original Dynamix interface (the song select 'Missionary / 罪曲' of File:05.png); Fandom upload 2016-07-01 precedes the wiki's first Universe-named upload (2023-08-18)"
       ],
       "source_reported": {
         "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/6e/20160625_165406.JPG/revision/latest?cb=20160701153337",
@@ -6277,9 +6277,9 @@
         "timestamp": "2016-07-01T15:33:37Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "wikis:fandom:03bfff674a6bca80",
-      "notes": "role evidence: gameplay_screenshot <- archivist review (File:20160625 165406.JPG): visual_inspection: camera photo of the original-game song select 'Missionary / 罪曲'"
+      "disposition": "excluded",
+      "reason": "upscaled: archivist review (File:20160625 165406.JPG): pixel_comparison: a 3557x2160 upscale of the frame archived as File:05.png (620x349; same song select 'Missionary / 罪曲', same score 0835966): its letterboxed content, aligned and box-downsampled to 620x349, matches 05.png at PSNR 33.0 dB (another song-select screenshot, File:02.png: 8.2 dB); UI text is soft at 1:1, the borders are pure black and there is no camera EXIF, so it is not a camera photo; 05.png keeps the native pixels",
+      "notes": "role evidence: upscaled <- archivist review (File:20160625 165406.JPG): pixel_comparison: a 3557x2160 upscale of the frame archived as File:05.png (620x349; same song select 'Missionary / 罪曲', same score 0835966): its letterboxed content, aligned and box-downsampled to 620x349, matches 05.png at PSNR 33.0 dB (another song-select screenshot, File:02.png: 8.2 dB); UI text is soft at 1:1, the borders are pure black and there is no camera EXIF, so it is not a camera photo; 05.png keeps the native pixels"
     },
     {
       "id": "wikis:fandom:File:20171202_104731.png",
@@ -11919,6 +11919,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:d3c734d01f0e639e",
+      "song_titles": [
+        "Angel x Angel"
+      ],
+      "composers": [
+        "Takahiro Aoki"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:AngelxAngelBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:AngelxAngelBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -11952,6 +11963,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:31cd8e744cd44c73",
+      "song_titles": [
+        "Angel x Angel"
+      ],
+      "composers": [
+        "Takahiro Aoki"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:AngelxAngelBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:AngelxAngelBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -12290,6 +12312,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:2b6e3c27debfc38a",
+      "song_titles": [
+        "Mechanismós ton Antikythíron"
+      ],
+      "composers": [
+        "hurirai"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2019); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2019); background <- https://dynamix.miraheze.org/wiki/File:AntikytheraFragmentsBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:AntikytheraFragmentsBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -12321,6 +12354,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:fd756887b135fa8a",
+      "song_titles": [
+        "Mechanismós ton Antikythíron"
+      ],
+      "composers": [
+        "hurirai"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2019); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2019); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #5'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2019); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #5); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2019); background <- https://dynamix.miraheze.org/wiki/File:AntikytheraFragmentsBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:AntikytheraFragmentsBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -13238,6 +13282,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:24842215044caca5",
+      "song_titles": [
+        "Arcana Idola"
+      ],
+      "composers": [
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > 2017); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > 2017)"
     },
     {
@@ -13311,6 +13366,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:fcaed710704b5c00",
+      "song_titles": [
+        "Arcana Idola"
+      ],
+      "composers": [
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:ArcanaIdolaBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:ArcanaIdolaBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -13344,6 +13410,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:8fc31ca4ceefef27",
+      "song_titles": [
+        "Arcana Idola"
+      ],
+      "composers": [
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:ArcanaIdolaBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:ArcanaIdolaBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -14196,6 +14273,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:1c172f9acea9a5a8",
+      "song_titles": [
+        "Arty Party"
+      ],
+      "composers": [
+        "yaseta"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:ArtyPartyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:ArtyPartyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -14229,6 +14317,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:d7f572f94e333d53",
+      "song_titles": [
+        "Arty Party"
+      ],
+      "composers": [
+        "yaseta"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:ArtyPartyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:ArtyPartyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -17050,6 +17149,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:cc27923d9d6f5c39",
+      "song_titles": [
+        "BOUNCE THE TECH"
+      ],
+      "composers": [
+        "Sound piercer vs. Iriss"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:BOUNCE_THE_TECH_BG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BOUNCE_THE_TECH_BG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -17083,6 +17193,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:67d8341e063c1822",
+      "song_titles": [
+        "BOUNCE THE TECH"
+      ],
+      "composers": [
+        "Sound piercer vs. Iriss"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #3'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #3); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:BOUNCE_THE_TECH_BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BOUNCE_THE_TECH_BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -17928,6 +18049,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:e27097c35bed8059",
+      "song_titles": [
+        "Before Sunrise"
+      ],
+      "composers": [
+        "m1dy vs M-Project"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:BeforeSunriseBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BeforeSunriseBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -17957,6 +18087,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:6bc5e4731aea333b",
+      "song_titles": [
+        "Before Sunrise"
+      ],
+      "composers": [
+        "m1dy vs M-Project"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:BeforeSunriseBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BeforeSunriseBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -18527,6 +18666,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:83d1d00ff0a30235",
+      "song_titles": [
+        "Between Boundaries"
+      ],
+      "composers": [
+        "DJ Counterforce"
+      ],
+      "collections": [
+        "Event",
+        "Collaboration: RAVON"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:BetweenBoundariesBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BetweenBoundariesBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -18560,6 +18709,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:bbc3b8fceb914bee",
+      "song_titles": [
+        "Between Boundaries"
+      ],
+      "composers": [
+        "DJ Counterforce"
+      ],
+      "collections": [
+        "Event",
+        "Collaboration: RAVON"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:BetweenBoundariesBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BetweenBoundariesBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -19982,6 +20141,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:17fb7c37d9f8d700",
+      "song_titles": [
+        "Blue"
+      ],
+      "composers": [
+        "RiraN"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:BlueBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BlueBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -20015,6 +20185,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:7ae0f324258c20a4",
+      "song_titles": [
+        "Blue"
+      ],
+      "composers": [
+        "RiraN"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:BlueBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BlueBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -20048,6 +20229,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:6290c490b95ef78f",
+      "song_titles": [
+        "Bluebell"
+      ],
+      "composers": [
+        "5argon feat. imTiNEY"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:BlueBellBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BlueBellBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -20077,6 +20269,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:b7811f3fae17d4e2",
+      "song_titles": [
+        "Bluebell"
+      ],
+      "composers": [
+        "5argon feat. imTiNEY"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:BlueBellBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:BlueBellBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -23765,6 +23968,18 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:f6d948ad9237ebae",
+      "song_titles": [
+        "Oracle"
+      ],
+      "composers": [
+        "TQ☆"
+      ],
+      "collections": [
+        "Collaboration: Arcaea",
+        "Collaboration: OverRapid",
+        "Premium",
+        "Collaboration: RAVON"
+      ],
       "notes": "role evidence: character <- archivist review (File:Carrot (Official Make gif).gif): visual_inspection: 480x270 2-frame 'Carrot' title card with the character Carrot, an official animation (GIF) used on the Oracle page; not a wiki capture of a character animation"
     },
     {
@@ -24552,6 +24767,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:becf0eda15914913",
+      "song_titles": [
+        "CHAKA"
+      ],
+      "composers": [
+        "Ruvver"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission"
+      ],
       "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/Characters (link; section Event Characters > 2020); character <- https://dynamixc4cat.fandom.com/wiki/Characters (link; section Event Characters > 2020); character <- https://dynamix.miraheze.org/wiki/File:Chaka-Raw.png (filename; filename convention /-(?:Raw|Still|Animated|Effect)\\.(?:png|gif|jpe?g)$/); character <- https://dynamixc4cat.fandom.com/wiki/File:Chaka-Raw.png (filename; filename convention /-(?:Raw|Still|Animated|Effect)\\.(?:png|gif|jpe?g)$/)"
     },
     {
@@ -32199,6 +32425,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:9c58c99191b735c5",
+      "song_titles": [
+        "Crystal Clear Sky"
+      ],
+      "composers": [
+        "Takahiro Aoki"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:CrystalClearSkyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:CrystalClearSkyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -32232,6 +32469,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:61b3b8261595cbe2",
+      "song_titles": [
+        "Crystal Clear Sky"
+      ],
+      "composers": [
+        "Takahiro Aoki"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:CrystalClearSkyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:CrystalClearSkyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -36664,6 +36912,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:58522c454195cc77",
+      "song_titles": [
+        "Defended"
+      ],
+      "composers": [
+        "BlueWind x UN1C0DE"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:DefendedBG.jpg (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:DefendedBG.jpg (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -36693,6 +36950,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:593bf752eefb617a",
+      "song_titles": [
+        "Defended"
+      ],
+      "composers": [
+        "BlueWind x UN1C0DE"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:DefendedBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:DefendedBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -41909,6 +42175,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:48c40dbbb7c29903",
+      "song_titles": [
+        "Wonderful Days"
+      ],
+      "composers": [
+        "DJ Mashiro"
+      ],
+      "collections": [
+        "Free",
+        "Collaboration: OverRapid"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:Dynamix 1st Anniversary.jpg): visual_inspection: 'DYNAMIX 1st Anniversary' key art with the cube mascot"
     },
     {
@@ -46803,10 +47079,10 @@
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song|Imgsuffix; Imgsuffix = ElphsSadness.jpeg)",
-        "https://dynamix.miraheze.org/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"')",
+        "https://dynamix.miraheze.org/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"', the caption names the cover of another song (Elph’s Sadness -Dynamix Edition-))",
         "https://dynamix.miraheze.org/wiki/Premium (link; link=Elph’s Sadness -Dynamix Edition-, image linked to an original-game song page)",
         "https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song|Imgsuffix; Imgsuffix = ElphsSadness.jpeg)",
-        "https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"')",
+        "https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"', the caption names the cover of another song (Elph’s Sadness -Dynamix Edition-))",
         "https://dynamixc4cat.fandom.com/wiki/Premium (link; link=Elph’s Sadness -Dynamix Edition-, image linked to an original-game song page)"
       ],
       "source_reported": {
@@ -46822,8 +47098,7 @@
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:51f0df11916ee53c",
       "song_titles": [
-        "Elph’s Sadness -Dynamix Edition-",
-        "Gallium Phosphide"
+        "Elph’s Sadness -Dynamix Edition-"
       ],
       "illustrators": [
         "NanoKun"
@@ -46834,7 +47109,7 @@
       "collections": [
         "Premium"
       ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song|Imgsuffix; Imgsuffix = ElphsSadness.jpeg); song_art <- https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song|Imgsuffix; Imgsuffix = ElphsSadness.jpeg); song_art <- https://dynamix.miraheze.org/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"'); song_art <- https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"'); song_art <- https://dynamix.miraheze.org/wiki/Premium (link; link=Elph’s Sadness -Dynamix Edition-, image linked to an original-game song page); song_art <- https://dynamixc4cat.fandom.com/wiki/Premium (link; link=Elph’s Sadness -Dynamix Edition-, image linked to an original-game song page)"
+      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song|Imgsuffix; Imgsuffix = ElphsSadness.jpeg); song_art <- https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (Template:Song|Imgsuffix; Imgsuffix = ElphsSadness.jpeg); song_art <- https://dynamix.miraheze.org/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"', the caption names the cover of another song (Elph’s Sadness -Dynamix Edition-)); song_art <- https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Cover Art of \"Elph’s Sadness -Dynamix Edition-\"', the caption names the cover of another song (Elph’s Sadness -Dynamix Edition-)); song_art <- https://dynamix.miraheze.org/wiki/Premium (link; link=Elph’s Sadness -Dynamix Edition-, image linked to an original-game song page); song_art <- https://dynamixc4cat.fandom.com/wiki/Premium (link; link=Elph’s Sadness -Dynamix Edition-, image linked to an original-game song page)"
     },
     {
       "id": "wikis:fandom:File:Eluva-Animated.gif",
@@ -47923,6 +48198,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:73ac1b693e5ea787",
+      "song_titles": [
+        "Emulisy"
+      ],
+      "composers": [
+        "Hidra-Xjeil"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:EmulisyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:EmulisyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -47956,6 +48242,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:3e1bd83162d97c2e",
+      "song_titles": [
+        "Emulisy"
+      ],
+      "composers": [
+        "Hidra-Xjeil"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #3'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #3); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:EmulisyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:EmulisyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -48665,6 +48962,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:46d11e3858d49a9a",
+      "song_titles": [
+        "Nightmare Girl"
+      ],
+      "composers": [
+        "ケシｋｓくん"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:EndlessNightmareBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:EndlessNightmareBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -48698,6 +49006,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:dd16d6ea773cbea6",
+      "song_titles": [
+        "Nightmare Girl"
+      ],
+      "composers": [
+        "ケシｋｓくん"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:EndlessNightmareBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:EndlessNightmareBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -49806,6 +50125,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:714d92f77cf6af0b",
+      "song_titles": [
+        "Eschatology"
+      ],
+      "composers": [
+        "Trerey-U"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2019); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2019); background <- https://dynamix.miraheze.org/wiki/File:EschatologyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:EschatologyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -49839,6 +50168,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:651d12aa9fdc809d",
+      "song_titles": [
+        "Eschatology"
+      ],
+      "composers": [
+        "Trerey-U"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2019); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2019); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #5'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2019); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #5); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2019); background <- https://dynamix.miraheze.org/wiki/File:EschatologyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:EschatologyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -53944,12 +54283,10 @@
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:a1981b9f4b87d016",
       "song_titles": [
-        "FUNK TIME!!!",
-        "ISERA (DNX Edit)"
+        "FUNK TIME!!!"
       ],
       "composers": [
-        "RAYの丼/VQMD",
-        "Jehezukiel & Ice"
+        "RAYの丼/VQMD"
       ],
       "collections": [
         "Open Submission (Detour)",
@@ -54948,6 +55285,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:f6b5317358e324a1",
+      "song_titles": [
+        "Far Eastern Flavor"
+      ],
+      "composers": [
+        "Night Yard"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Regular)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2024); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2024); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2024); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2024); background <- https://dynamix.miraheze.org/wiki/File:FarEasternFlavorBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:FarEasternFlavorBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -55026,6 +55374,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:d03e42bfc29e01ec",
+      "song_titles": [
+        "Far Eastern Flavor"
+      ],
+      "composers": [
+        "Night Yard"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Regular)",
+        "Open Submission"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > 2024); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > 2024); part <- https://dynamix.miraheze.org/wiki/File:FarEasternFlavorParts-HQ.png (filename; filename convention /Parts?(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); part <- https://dynamixc4cat.fandom.com/wiki/File:FarEasternFlavorParts-HQ.png (filename; filename convention /Parts?(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -60328,10 +60687,10 @@
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
-        "https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"')",
+        "https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"', the caption names the cover of another song (Gallium Phosphide))",
         "https://dynamix.miraheze.org/wiki/Gallium_Phosphide (Template:Song|Imgsuffix; Imgsuffix = Gallium_Phosphide.png)",
         "https://dynamix.miraheze.org/wiki/Premium (link; link=Gallium Phosphide, image linked to an original-game song page)",
-        "https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"')",
+        "https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"', the caption names the cover of another song (Gallium Phosphide))",
         "https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (Template:Song|Imgsuffix; Imgsuffix = Gallium_Phosphide.png)",
         "https://dynamixc4cat.fandom.com/wiki/Premium (link; link=Gallium Phosphide, image linked to an original-game song page)"
       ],
@@ -60348,7 +60707,6 @@
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:1295927ffc7c899c",
       "song_titles": [
-        "Elph’s Sadness -Dynamix Edition-",
         "Gallium Phosphide"
       ],
       "illustrators": [
@@ -60360,7 +60718,7 @@
       "collections": [
         "Premium"
       ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/Gallium_Phosphide (Template:Song|Imgsuffix; Imgsuffix = Gallium_Phosphide.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (Template:Song|Imgsuffix; Imgsuffix = Gallium_Phosphide.png); song_art <- https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"'); song_art <- https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"'); song_art <- https://dynamix.miraheze.org/wiki/Premium (link; link=Gallium Phosphide, image linked to an original-game song page); song_art <- https://dynamixc4cat.fandom.com/wiki/Premium (link; link=Gallium Phosphide, image linked to an original-game song page)"
+      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/Gallium_Phosphide (Template:Song|Imgsuffix; Imgsuffix = Gallium_Phosphide.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (Template:Song|Imgsuffix; Imgsuffix = Gallium_Phosphide.png); song_art <- https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"', the caption names the cover of another song (Gallium Phosphide)); song_art <- https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Cover Art of \"Gallium Phosphide\"', the caption names the cover of another song (Gallium Phosphide)); song_art <- https://dynamix.miraheze.org/wiki/Premium (link; link=Gallium Phosphide, image linked to an original-game song page); song_art <- https://dynamixc4cat.fandom.com/wiki/Premium (link; link=Gallium Phosphide, image linked to an original-game song page)"
     },
     {
       "id": "wikis:fandom:File:Gallium_arsenide.png",
@@ -60696,6 +61054,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:47f85e18e95e2ad4",
+      "song_titles": [
+        "Actinium"
+      ],
+      "composers": [
+        "Mimi"
+      ],
+      "collections": [
+        "Free"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:Get Actinum by 200 times share the post.jpg): visual_inspection: campaign graphic 'DynAMIX Get Actinium by 200 share.'"
     },
     {
@@ -61080,6 +61447,19 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:16a71509f4f06865",
+      "song_titles": [
+        "OCCHOCO-REST-LESS"
+      ],
+      "composers": [
+        "MYUKKE."
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
       "notes": "role evidence: reference <- archivist review (File:Giga Chart OCCHOCO-REST-LESS.jpg): visual_inspection: Giga chart announcement 'OCCHOCO-REST-LESS / MYUKKE.', level diamond 14, 'unlock by followers'"
     },
     {
@@ -62092,6 +62472,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:ad4f238a75d53d7e",
+      "song_titles": [
+        "Go Escape"
+      ],
+      "composers": [
+        "mmry"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: reference <- archivist review (File:Go Escape 41.jpg): visual_inspection: special chart announcement 'Go Escape / mmry' with the level diamond '41'"
     },
     {
@@ -64311,6 +64700,18 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:65c57fdad7405cf1",
+      "song_titles": [
+        "Cross†Soul"
+      ],
+      "composers": [
+        "HyuN feat. Syepias"
+      ],
+      "collections": [
+        "Collaboration: Arcaea",
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > 2017); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > 2017)"
     },
     {
@@ -72338,6 +72739,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:aca4ba4a28d28826",
+      "song_titles": [
+        "Ice Chandelier"
+      ],
+      "composers": [
+        "pan"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:IceChandelierBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:IceChandelierBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -72371,6 +72783,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:eb3800233a124faa",
+      "song_titles": [
+        "Ice Chandelier"
+      ],
+      "composers": [
+        "pan"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:IceChandelierBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:IceChandelierBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -75937,6 +76360,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:daec9bc65e6acad0",
+      "song_titles": [
+        "Justice Justice"
+      ],
+      "composers": [
+        "stereoberry feat. Sanca"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:JusticeJusticeBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:JusticeJusticeBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -75970,6 +76404,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:0cb844fa6592d862",
+      "song_titles": [
+        "Justice Justice"
+      ],
+      "composers": [
+        "stereoberry feat. Sanca"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:JusticeJusticeBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:JusticeJusticeBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -79510,6 +79955,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:64c1b6908d9aeb10",
+      "song_titles": [
+        "曇る鑑《かがみ》の霧を含みて"
+      ],
+      "composers": [
+        "Ino(chronoize)"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:KumoBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:KumoBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -79543,6 +79999,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:d988b1423432d71b",
+      "song_titles": [
+        "曇る鑑《かがみ》の霧を含みて"
+      ],
+      "composers": [
+        "Ino(chronoize)"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #3'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #3); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:KumoBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:KumoBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -81787,6 +82254,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:f1308a796bdae954",
+      "song_titles": [
+        "Last farewell"
+      ],
+      "composers": [
+        "Un vs. らせん"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:LastFarewellBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:LastFarewellBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -81816,6 +82294,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:3ff45f3281a4c1b3",
+      "song_titles": [
+        "Last farewell"
+      ],
+      "composers": [
+        "Un vs. らせん"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:LastFarewellBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:LastFarewellBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -81897,6 +82386,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:5025afc9bdacfa0f",
+      "song_titles": [
+        "Last Fate"
+      ],
+      "composers": [
+        "玖玲"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #3'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #3); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:LastFate-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:LastFate-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -81926,6 +82426,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:a2a8b30d7a5baaef",
+      "song_titles": [
+        "Last Fate"
+      ],
+      "composers": [
+        "玖玲"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:LastFate-BGHQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:LastFate-BGHQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -84267,6 +84778,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:d6f953e1c83bde9d",
+      "song_titles": [
+        "Lily"
+      ],
+      "composers": [
+        "Jun Kuroda"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:LilyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:LilyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -84300,6 +84822,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:91d57a2823e0e5da",
+      "song_titles": [
+        "Lily"
+      ],
+      "composers": [
+        "Jun Kuroda"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:LilyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:LilyBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -88036,6 +88569,18 @@
       "disposition": "duplicate_bytes",
       "reason": "identical SHA-256 to wikis:fandom:File:Lunar_New_Year_Event_2018.jpg (already archived)",
       "asset_id": "wikis:fandom:5d1b7319fc3e8bdc",
+      "song_titles": [
+        "HEADROOM WITH PLEASANT RHYTHM"
+      ],
+      "composers": [
+        "Ruvver"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Song packs (IAP)",
+        "Open Submission",
+        "Pianomatic"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:Lunar New Year special.jpg): visual_inspection: 'DynAMIX Lunar New Year Special': Lion Dance D, New Giga Chart"
     },
     {
@@ -89807,6 +90352,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:87ba10b23db039ec",
+      "song_titles": [
+        "Wonderful Days"
+      ],
+      "composers": [
+        "DJ Mashiro"
+      ],
+      "collections": [
+        "Free",
+        "Collaboration: OverRapid"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > Store); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > Store)"
     },
     {
@@ -91964,6 +92519,18 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:95d2a1af9035b981",
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
+      "collections": [
+        "Collaboration",
+        "Song packs (IAP)",
+        "Collaboration: RAVON",
+        "RAVON Collaboration"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:MassacrE RAVON.jpg): visual_inspection: RAVON-side collaboration announcement 'DynAMIX x RAVON' announcement of 'MassacrE || 3rc4224M (Spiegel vs Yukino)' 書き下ろし新曲/同時収録"
     },
     {
@@ -95641,6 +96208,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:7362559393735f1b",
+      "song_titles": [
+        "Mouse Runs For Cheese(Short Edit)"
+      ],
+      "composers": [
+        "sky_delta"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:MouseBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:MouseBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -95734,6 +96312,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:878de9e5b416ed2f",
+      "song_titles": [
+        "Mouse Runs For Cheese(Short Edit)"
+      ],
+      "composers": [
+        "sky_delta"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:MouseRunsForCheeseBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:MouseRunsForCheeseBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -96764,6 +97353,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:f48ec46b9b9e68ba",
+      "song_titles": [
+        "Mystic Night"
+      ],
+      "composers": [
+        "U咲"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:MysticNightBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:MysticNightBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -96793,6 +97393,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:a467b93c4e268c06",
+      "song_titles": [
+        "Mystic Night"
+      ],
+      "composers": [
+        "U咲"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:MysticNightBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:MysticNightBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -98234,6 +98845,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:2ec1629d31c15579",
+      "song_titles": [
+        "名無しの宣教師"
+      ],
+      "composers": [
+        "MIssionary"
+      ],
+      "collections": [
+        "Free",
+        "Collaboration: OverRapid"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > Store); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > Store); background <- https://dynamix.miraheze.org/wiki/File:NamelessBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:NamelessBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -98265,6 +98886,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:02ddd644680bc429",
+      "song_titles": [
+        "名無しの宣教師"
+      ],
+      "composers": [
+        "MIssionary"
+      ],
+      "collections": [
+        "Free",
+        "Collaboration: OverRapid"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > Store); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > Store); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Items > In Store); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Items > In Store); background <- https://dynamix.miraheze.org/wiki/File:NamelessMissionaryBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:NamelessMissionaryBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -98294,6 +98925,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:6b01b05e3ad16b01",
+      "song_titles": [
+        "名無しの宣教師"
+      ],
+      "composers": [
+        "MIssionary"
+      ],
+      "collections": [
+        "Free",
+        "Collaboration: OverRapid"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > Store); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > Store)"
     },
     {
@@ -103021,6 +103662,19 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:6b74e7c7ef52b36e",
+      "song_titles": [
+        "OCCHOCO-REST-LESS"
+      ],
+      "composers": [
+        "MYUKKE."
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:OCCHOCO-REST-LESS-BG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:OCCHOCO-REST-LESS-BG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -103054,6 +103708,19 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:d8495471998b5db4",
+      "song_titles": [
+        "OCCHOCO-REST-LESS"
+      ],
+      "composers": [
+        "MYUKKE."
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:OCCHOCO-REST-LESS-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:OCCHOCO-REST-LESS-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -105036,6 +105703,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:ff8fa680b8bdc7ad",
+      "song_titles": [
+        "Own The Night"
+      ],
+      "composers": [
+        "RiraN"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:OwnTheNightBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:OwnTheNightBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -105069,6 +105747,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:163e3b43b386b5b0",
+      "song_titles": [
+        "Own The Night"
+      ],
+      "composers": [
+        "RiraN"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #3'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #3); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:OwnTheNightBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:OwnTheNightBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -107899,6 +108588,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:496a5419c1f59c7b",
+      "song_titles": [
+        "Peony"
+      ],
+      "composers": [
+        "一ノ瀬樹 (Feat. Akane)"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #3'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #3); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:Peony-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:Peony-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -108012,6 +108712,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:f63d114b35ab8561",
+      "song_titles": [
+        "Peony"
+      ],
+      "composers": [
+        "一ノ瀬樹 (Feat. Akane)"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:PeonyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:PeonyBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -111744,6 +112455,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:80cb8f28cc44a4af",
+      "song_titles": [
+        "Actinium"
+      ],
+      "composers": [
+        "Mimi"
+      ],
+      "collections": [
+        "Free"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:Pre-Registration over 1300！.jpg): visual_inspection: banner 'DynAMIX 事前登録 PRE-REGISTRATION 1300'"
     },
     {
@@ -112664,6 +113384,19 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:6a86e903e048460f",
+      "song_titles": [
+        "PUPA"
+      ],
+      "composers": [
+        "モリモリあつし"
+      ],
+      "collections": [
+        "Collaboration: Arcaea",
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:PupaBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:PupaBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -112697,6 +113430,19 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:6a13fa0a83b5a06b",
+      "song_titles": [
+        "PUPA"
+      ],
+      "composers": [
+        "モリモリあつし"
+      ],
+      "collections": [
+        "Collaboration: Arcaea",
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:PupaBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:PupaBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -113682,6 +114428,18 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:39638516599fe657",
+      "song_titles": [
+        "ReLyna"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "collections": [
+        "Collaboration",
+        "Song packs (IAP)",
+        "Collaboration: RAVON",
+        "RAVON Collaboration"
+      ],
       "notes": "role evidence: promotional <- https://dynamix.miraheze.org/wiki/RAVON_Collaboration/Dynamix (gallery; section Gallery, caption 'RAVON Collaboration Pack 1'); promotional <- https://dynamixc4cat.fandom.com/wiki/RAVON_Collaboration/Dynamix (gallery; section Gallery, caption 'RAVON Collaboration Pack 1')"
     },
     {
@@ -117514,6 +118272,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:749c58bb74fd84ef",
+      "song_titles": [
+        "Red Liquid"
+      ],
+      "composers": [
+        "M-O-T-U"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:RedLiquidBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:RedLiquidBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -117543,6 +118312,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:9ea5aab062cae635",
+      "song_titles": [
+        "Red Liquid"
+      ],
+      "composers": [
+        "M-O-T-U"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:RedLiquidBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:RedLiquidBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -126000,6 +126780,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:309d0fb16952c768",
+      "song_titles": [
+        "銀梅花"
+      ],
+      "composers": [
+        "影翔鼓舞"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > 2017); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > 2017)"
     },
     {
@@ -127674,6 +128465,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:39f9e5de818c2a3d",
+      "song_titles": [
+        "罪曲"
+      ],
+      "composers": [
+        "MIssionary"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:SinBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:SinBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -130427,6 +131227,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:b4f57c03efcf1bd0",
+      "song_titles": [
+        "罪曲"
+      ],
+      "composers": [
+        "MIssionary"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #1'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #1); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:SongofSinBG.jpeg (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:SongofSinBG.jpeg (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -131965,6 +132774,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:7b8d11f1a9cb1db0",
+      "song_titles": [
+        "Speedster, Trickster"
+      ],
+      "composers": [
+        "Ms.+駄々子"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > 2018); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > 2018)"
     },
     {
@@ -133782,6 +134602,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:93a80b9b5701f55e",
+      "song_titles": [
+        "Startail"
+      ],
+      "composers": [
+        "Arch"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); background <- https://dynamix.miraheze.org/wiki/File:StartailBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:StartailBG-HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -133815,6 +134646,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:d0f64807244a28f3",
+      "song_titles": [
+        "Startail"
+      ],
+      "composers": [
+        "Arch"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2018); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2018); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #4'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #4); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017 > 2018); background <- https://dynamix.miraheze.org/wiki/File:StartailBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:StartailBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -135679,6 +136521,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:ef5ac06453dad8fc",
+      "song_titles": [
+        "Emulisy"
+      ],
+      "composers": [
+        "Hidra-Xjeil"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > 2018); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > 2018)"
     },
     {
@@ -140712,6 +141565,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:0853175091e9f3ba",
+      "song_titles": [
+        "Regenerate Violence"
+      ],
+      "composers": [
+        "V!C"
+      ],
+      "collections": [
+        "Collaboration",
+        "Event"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:The Special Guest.jpg): visual_inspection: collaboration teaser: the Dynamix announcer, '喔喔喔 又是兔耳生物 ... 看來有特別的來賓呢' and a rabbit silhouette"
     },
     {
@@ -141627,6 +142490,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:f774ff54653d30be",
+      "song_titles": [
+        "to soar"
+      ],
+      "composers": [
+        "Aoi with mAoA9"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); game_ui <- https://dynamix.miraheze.org/wiki/Event_Bundles (link; tab 'Event Bundle #2'); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); game_ui <- https://dynamixc4cat.fandom.com/wiki/Event_Bundles (link; section Event Bundle #2); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Tracks > Event songs > Event songs & collectibles > 2016 & 2017); background <- https://dynamix.miraheze.org/wiki/File:ToSoarBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:ToSoarBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -141656,6 +142530,17 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:781be235674d27b6",
+      "song_titles": [
+        "to soar"
+      ],
+      "composers": [
+        "Aoi with mAoA9"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > 2017); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > 2017); background <- https://dynamix.miraheze.org/wiki/File:ToSoarBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:ToSoarBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
@@ -154044,6 +154929,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:91268a79d81a4159",
+      "song_titles": [
+        "罪曲"
+      ],
+      "composers": [
+        "MIssionary"
+      ],
+      "collections": [
+        "Event"
+      ],
       "notes": "role evidence: part <- https://dynamix.miraheze.org/wiki/Parts (link; section Parts > 2017); part <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Parts > 2017)"
     },
     {
@@ -154686,6 +155580,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:1f5d61cd1381d327",
+      "song_titles": [
+        "Wonderful Days"
+      ],
+      "composers": [
+        "DJ Mashiro"
+      ],
+      "collections": [
+        "Free",
+        "Collaboration: OverRapid"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > Store); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > Store); game_ui <- https://dynamix.miraheze.org/wiki/Store/Dynamix (link; section Items > In Store); game_ui <- https://dynamixc4cat.fandom.com/wiki/Store/Dynamix (link; section Items > In Store)"
     },
     {
@@ -154715,6 +155619,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:bc855dbf1779cacf",
+      "song_titles": [
+        "Wonderful Days"
+      ],
+      "composers": [
+        "DJ Mashiro"
+      ],
+      "collections": [
+        "Free",
+        "Collaboration: OverRapid"
+      ],
       "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Parts (link; section Background > Store); background <- https://dynamixc4cat.fandom.com/wiki/Parts (link; section Background > Store); background <- https://dynamix.miraheze.org/wiki/File:WonderfulDaysBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:WonderfulDaysBG_HQ.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
