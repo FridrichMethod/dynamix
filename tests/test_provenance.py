@@ -44,20 +44,87 @@ class ProvenanceTests(unittest.TestCase):
                 for field in schema.PROVENANCE_FIELDS[3:]:
                     self.assertEqual(entry[field], record.get(field), field)
 
-    def test_primary_record_follows_family_then_source_then_asset_id(self):
+    def test_primary_record_follows_family_then_preferred_source_then_variant_then_ids(self):
         cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
         archive = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "archives:fixture-scan"))
         official = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "official:website"))
         catalog = build.combine(self.root, verify=True)
         entry = self.entry(catalog, cosmic["sha256"])
         self.assertEqual([p["source_id"] for p in entry["provenance"]],
-                         ["official:website", "wikis:fandom", "wikis:miraheze", "archives:fixture-scan"])
+                         ["official:website", "wikis:miraheze", "wikis:fandom", "archives:fixture-scan"])
         self.assertEqual((entry["id"], entry["source_id"], entry["family"]),
                          (official["id"], "official:website", "official"))
         self.assertEqual(entry["provenance"][-1]["asset_id"], archive["id"])
         self.assertEqual(entry["url"], schema.catalog_url(official["path"]))
-        keys = [schema.provenance_sort_key(p) for p in entry["provenance"]]
+        keys = [build.primary_sort_key(p) for p in entry["provenance"]]
         self.assertEqual(keys, sorted(keys))
+        build.validate_catalog(catalog)
+
+    def test_miraheze_is_primary_when_both_english_wikis_hold_the_bytes(self):
+        """The frozen rule ranks Miraheze (current wiki) before Fandom (legacy) although 'wikis:fandom' sorts first by
+        ID, and before an unlisted wiki whatever its ID or rendition; the catalog shows the Miraheze title and path."""
+        cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        fx.update_record(self.root, fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")["id"],
+                         title="Cosmic Pulse (Fandom caption)")
+        atwiki = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "wikis:atwiki-ja", title="コズミックパルス"))
+        catalog = build.combine(self.root, verify=True)
+        build.validate_catalog(catalog)
+        entry = self.entry(catalog, cosmic["sha256"])
+        self.assertEqual([p["source_id"] for p in entry["provenance"]],
+                         ["wikis:miraheze", "wikis:fandom", "wikis:atwiki-ja"])
+        self.assertEqual((entry["id"], entry["title"], entry["path"], entry["url"]),
+                         (cosmic["id"], "Cosmic Pulse", cosmic["path"], schema.catalog_url(cosmic["path"])))
+        self.assertEqual(entry["provenance"][-1]["asset_id"], atwiki["id"])
+        # The shared library still checks the earlier order (family, source ID, asset ID) and therefore rejects the
+        # frozen one; build_catalog validates with primary_sort_key until the library adopts the rule.
+        with self.assertRaisesRegex(ValueError, "provenance.*ordered"):
+            schema.validate_catalog(catalog)
+
+    def test_an_artist_record_is_primary_over_every_wiki_copy(self):
+        cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        artist = fx.add_record(self.root, fx.copy_record(
+            self.root, cosmic, "artists:x:fixture_painter", title="Cosmic Pulse key visual (artist post)",
+            quality={"source_variant": "preview", "origin_status": "artist_post", "master_status": "unverified",
+                     "notes": "platform rendition"}))
+        catalog = build.combine(self.root, verify=True)
+        build.validate_catalog(catalog)
+        entry = self.entry(catalog, cosmic["sha256"])
+        self.assertEqual([p["source_id"] for p in entry["provenance"]],
+                         ["artists:x:fixture_painter", "wikis:miraheze", "wikis:fandom"])
+        self.assertEqual((entry["id"], entry["family"], entry["title"], entry["url"]),
+                         (artist["id"], "artists", "Cosmic Pulse key visual (artist post)",
+                          schema.catalog_url(artist["path"])))
+        self.assertEqual(entry["quality"]["source_variant"], "preview", "family priority comes before the rendition")
+
+    def test_within_a_family_the_rendition_comes_before_the_source_id(self):
+        cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        quality = {"origin_status": "official", "master_status": "unverified", "notes": ""}
+        preview = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "official:facebook",
+                                                          quality={"source_variant": "preview", **quality}))
+        unknown = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "official:c4cat",
+                                                          quality={"source_variant": "unknown", **quality}))
+        original = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "official:x",
+                                                           quality={"source_variant": "site_original", **quality}))
+        entry = self.entry(build.combine(self.root), cosmic["sha256"])
+        self.assertEqual([p["asset_id"] for p in entry["provenance"][:3]], [original["id"], preview["id"],
+                                                                            unknown["id"]])
+        self.assertEqual(entry["id"], original["id"])
+
+    def test_the_primary_choice_does_not_depend_on_manifest_order(self):
+        cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        for source_id in ("official:x", "official:facebook", "archives:fixture-scan", "wikis:atwiki-ja"):
+            fx.add_record(self.root, fx.copy_record(self.root, cosmic, source_id))
+        manifests = build.load_manifests(self.root)
+        expected = build.combine(self.root, manifests=manifests)
+        reversed_manifests = {family: {**value, "sources": value["sources"][::-1], "assets": value["assets"][::-1]}
+                              for family, value in manifests.items()}
+        self.assertEqual(build.combine(self.root, manifests=reversed_manifests), expected)
+        entry = self.entry(expected, cosmic["sha256"])
+        self.assertEqual([p["source_id"] for p in entry["provenance"]],
+                         ["official:facebook", "official:x", "wikis:miraheze", "wikis:fandom", "wikis:atwiki-ja",
+                          "archives:fixture-scan"])
+        group = [record for record in self.records() if record["sha256"] == cosmic["sha256"]]
+        self.assertEqual(min(group, key=build.primary_sort_key)["id"], entry["id"])
 
     def test_illustrators_and_composers_stay_separate_and_merge_in_provenance_order(self):
         cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")

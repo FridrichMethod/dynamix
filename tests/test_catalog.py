@@ -71,7 +71,7 @@ class Base(unittest.TestCase):
 class ContractFixtureTests(Base):
     def test_contract_fixture_builds_a_valid_deduplicated_catalog(self):
         catalog = build.combine(self.root, verify=True)
-        schema.validate_catalog(catalog)
+        build.validate_catalog(catalog)
         summary = catalog["summary"]
         self.assertEqual((summary["source_asset_records"], summary["unique_files"], summary["exact_duplicate_records"]),
                          (11, 10, 1))
@@ -81,11 +81,12 @@ class ContractFixtureTests(Base):
         self.assertEqual([source["id"] for source in catalog["sources"]], sorted(s["id"] for s in catalog["sources"]))
         counts = {source["id"]: source["asset_count"] for source in catalog["sources"]}
         self.assertEqual((counts["wikis:miraheze"], counts["official:apple-store"]), (5, 0))
-        # Miraheze and Fandom hold identical Cosmic Pulse bytes: one entry, Fandom primary by source ID.
+        # Miraheze and Fandom hold identical Cosmic Pulse bytes: one entry, Miraheze (the current wiki) primary.
         cosmic = self.entries(catalog, title="Cosmic Pulse")
         self.assertEqual(len(cosmic), 1)
-        self.assertEqual([p["source_id"] for p in cosmic[0]["provenance"]], ["wikis:fandom", "wikis:miraheze"])
-        self.assertEqual(cosmic[0]["source_id"], "wikis:fandom")
+        self.assertEqual([p["source_id"] for p in cosmic[0]["provenance"]], ["wikis:miraheze", "wikis:fandom"])
+        self.assertEqual(cosmic[0]["source_id"], "wikis:miraheze")
+        self.assertTrue(cosmic[0]["url"].startswith("assets/public/wikis/miraheze/"))
         self.assertEqual(len(cosmic[0]["variants"]), 2)
         self.assertEqual([failure["id"] for failure in catalog["failures"]],
                          sorted(failure["id"] for failure in catalog["failures"]))
@@ -113,7 +114,7 @@ class DedupTests(Base):
         official = fx.add_record(self.root, fx.copy_record(self.root, background, "official:website",
                                                            composers=["Not A Painter"]))
         catalog = build.combine(self.root, verify=True)
-        schema.validate_catalog(catalog)
+        build.validate_catalog(catalog)
         entry = self.entries(catalog, sha256=background["sha256"])
         self.assertEqual(len(entry), 1)
         entry = entry[0]
@@ -303,7 +304,7 @@ class OutputTests(Base):
         self.assertEqual(self.run_main("--verify")[0], 0)
         self.assertEqual(sorted(self.outputs()), sorted(OUTPUTS))
         catalog = manifest.load_json(self.root / build.CATALOG_JSON)
-        schema.validate_catalog(catalog)
+        build.validate_catalog(catalog)
         self.assertEqual([a["id"] for a in catalog["assets"] if a["thumb"]],
                          [a["id"] for a in catalog["assets"] if build.needs_preview(a)])
         self.assertEqual(self.run_main("--verify", "--check")[0], 0)

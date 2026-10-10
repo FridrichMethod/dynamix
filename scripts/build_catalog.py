@@ -5,12 +5,16 @@
 
 Inputs: data/sources/{artists,official,wikis,archives}.json (schema v1, validated with lib.schema), the media they
 name under assets/public/, data/thumbs.json (scripts/build_thumbnails.py) and templates/slideshow.html rendered by
-scripts/render_slideshow.py (UI-owned). Records with equal SHA-256 become one catalog entry whose primary record is
-chosen by family priority (artists < official < wikis < archives), then source ID, then asset ID; every record is kept
-in `provenance`. Distinct bytes always stay distinct entries; superseded and removed records stay archived.
+scripts/render_slideshow.py (UI-owned). Records with equal SHA-256 become one catalog entry whose primary record (its
+fields, title, path and URL) is the first by the frozen primary-record rule (09 "Catalog presentation rules"; see
+primary_sort_key): family priority (artists < official < wikis < archives); preferred source within the family
+(wikis:miraheze, then wikis:fandom, then every other source); quality.source_variant (site_original < preview <
+unknown); source ID; asset ID. Every record is kept in `provenance`, primary first, in that order. Distinct bytes
+always stay distinct entries; superseded and removed records stay archived.
 
---verify  re-hash and fully decode every archived file, check previews by SHA-256 and reject files under
-          assets/public/ that no manifest record names (dot-files such as interrupted `.part` downloads excepted).
+--verify  re-hash and fully decode every archived file, check previews by SHA-256, reject files under assets/public/
+          that no manifest record names (dot-files such as interrupted `.part` downloads excepted) and reject records
+          titled with their bare upstream file name (see title_problem).
 --check   regenerate the outputs in memory and compare them byte-for-byte (a CRLF checkout is accepted) without
           writing anything; exit 1 when one is missing or stale.
 --root    build another repository-shaped tree (tests, fixtures). Outside the repository root data/thumbs.json and
@@ -24,6 +28,7 @@ family or song-mapping inputs, contract dedup/provenance/tier rules, slideshow m
 from __future__ import annotations
 
 import argparse
+import contextlib
 import hashlib
 import json
 import os
@@ -54,6 +59,11 @@ MERGED_FIELDS = ("illustrators", "composers", "song_titles", "song_ids", "collec
 THUMB_ENTRY_FIELDS = ("path", "width", "height", "bytes", "sha256")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
 MAX_REPORTED = 20
+# Frozen primary-record rule (09 "Catalog presentation rules"). Within a family the listed sources come first in this
+# order: Miraheze is the current wiki and its stored bytes are the bytes both English wikis serve; Fandom is the legacy
+# copy. Every other source ranks after them and, after the rendition, by ID.
+PREFERRED_SOURCES = ("wikis:miraheze", "wikis:fandom")
+VARIANT_PRIORITY = ("site_original", "preview", "unknown")  # quality.source_variant, best first
 
 
 class CatalogError(ValueError):
@@ -220,6 +230,41 @@ def needs_preview(asset: Mapping[str, Any]) -> bool:
     return schema.is_gallery(asset) and max(asset["width"], asset["height"]) > PREVIEW_LONG_EDGE
 
 
+def primary_sort_key(record: Mapping[str, Any]) -> tuple:
+    """Order of the records sharing one SHA-256; the minimum is the primary record (09 "Catalog presentation
+    rules"): family priority (artists < official < wikis < archives); PREFERRED_SOURCES within the family (Miraheze
+    before Fandom, every other source after them); quality.source_variant (site_original < preview < unknown); source
+    ID; asset ID. Takes a manifest record (``id``) or a catalog provenance entry (``asset_id``); total and
+    deterministic, since an asset ID is unique."""
+    family = record.get("family") or schema.source_family(record["source_id"])
+    source_id = record["source_id"]
+    preferred = PREFERRED_SOURCES.index(source_id) if source_id in PREFERRED_SOURCES else len(PREFERRED_SOURCES)
+    return (schema.FAMILY_PRIORITY.index(family), preferred,
+            VARIANT_PRIORITY.index(record["quality"]["source_variant"]), source_id,
+            record.get("id") or record.get("asset_id") or "")
+
+
+@contextlib.contextmanager
+def _contract_primary_order():
+    """lib.catalog_contract (shared library, coordinator-owned) still checks provenance against the earlier order
+    (family, source ID, asset ID), which puts Fandom before Miraheze. Until it adopts the frozen rule, the catalog is
+    validated with primary_sort_key in its place; every other contract check is unchanged."""
+    from lib import catalog_contract
+
+    previous = catalog_contract.provenance_sort_key
+    catalog_contract.provenance_sort_key = primary_sort_key
+    try:
+        yield
+    finally:
+        catalog_contract.provenance_sort_key = previous
+
+
+def validate_catalog(catalog: Mapping[str, Any]) -> None:
+    """schema.validate_catalog under the frozen primary-record order (see _contract_primary_order)."""
+    with _contract_primary_order():
+        schema.validate_catalog(catalog)
+
+
 def provenance_entry(record: Mapping[str, Any], names: Mapping[str, str]) -> dict:
     """One source record as a catalog provenance entry (contract fields; absent optional fields are null)."""
     entry = {"asset_id": record["id"], "source_id": record["source_id"], "source_name": names[record["source_id"]],
@@ -243,8 +288,9 @@ def _group_by_sha(records: list[dict]) -> dict[str, list[dict]]:
 
 
 def catalog_entry(group: list[dict], names: Mapping[str, str]) -> dict:
-    """One deduplicated catalog asset from the records sharing a SHA-256."""
-    ordered = sorted(group, key=schema.provenance_sort_key)
+    """One deduplicated catalog asset from the records sharing a SHA-256: the primary record's fields (title, path,
+    URL included) plus every record as provenance, primary first (primary_sort_key)."""
+    ordered = sorted(group, key=primary_sort_key)
     primary = ordered[0]
     entry = {key: value for key, value in primary.items() if key != "family"}
     for field in MERGED_FIELDS:
@@ -485,7 +531,7 @@ def build(root: Path, *, verify: bool = False, check: bool = False, workers: int
     catalog = combine(root, verify=verify, workers=workers)
     catalog = attach_thumbnails(root, catalog, verify=verify, required=strict)
     try:
-        schema.validate_catalog(catalog)
+        validate_catalog(catalog)
     except ValueError as error:
         raise CatalogError(f"generated catalog violates the contract: {error}") from None
     outputs = render_outputs(root, catalog, index_required=strict)
