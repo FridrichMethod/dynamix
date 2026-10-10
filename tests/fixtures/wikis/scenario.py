@@ -179,6 +179,7 @@ class Scenario:
             "Cited Screenshot.png": image_bytes("PNG", (30, 20), 22),
             "Stale Review.png": image_bytes("PNG", (30, 20), 23),
             "Wiki Button.png": image_bytes("PNG", (26, 10), 24),
+            "Events Lineup.png": image_bytes("PNG", (48, 27), 25),
         }
         self.data["Alias Chart List.jpg"] = self.data["Cosmic Pulse Chart List.jpg"]
         self.data["Cosmic Pulse copy.png"] = self.data["CosmicPulseDynamix.png"]
@@ -210,10 +211,12 @@ class Scenario:
         }
         self.links = {"File:Cited Screenshot.png": [{"ns": 0, "title": "Cosmic Pulse"},
                                                     {"ns": 1, "title": "Talk:Cosmic Pulse"}]}
+        # A monthly event lineup the wiki files as an event image (promotional by category; list-graphic rule).
+        self.file_categories = {"File:Events Lineup.png": ["Category:Event images"]}
 
     def reviews_json(self) -> dict:
         """Archivist reviews of the scenario: one current (pinned to the served bytes' SHA-1), one whose file has been
-        re-uploaded since (SHA-1 of other bytes), one exclusion."""
+        re-uploaded since (SHA-1 of other bytes), one exclusion, one list graphic (list-graphic rule)."""
         def sha1(name: str) -> str:
             return hashlib.sha1(self.data[name]).hexdigest()
         return {"format": reviews.FORMAT, "reviews": [
@@ -225,6 +228,10 @@ class Scenario:
              "evidence": "visual_inspection: square jacket", "game_evidence": "visual_inspection: original logo"},
             {"title": "File:Wiki Button.png", "sha1": [sha1("Wiki Button.png")], "role": "site_ui",
              "evidence": "visual_inspection: wiki navigation button with text over a crop"},
+            {"title": "File:Events Lineup.png", "sha1": [sha1("Events Lineup.png")], "role": "reference",
+             "list_graphic": True, "game": "dynamix",
+             "evidence": "visual_inspection: monthly event lineup listing three event-song jackets",
+             "game_evidence": "visual_inspection: original Dynamix logo"},
         ]}
 
     def rows(self, wiki: str) -> list[dict]:
@@ -256,10 +263,10 @@ class Scenario:
         return {
             config.MIRAHEZE.api_url: FakeMediaWiki("https://dynamix.miraheze.org", self.rows("miraheze"),
                                                    self.miraheze_pages, frames=frames, file_pages=self.file_pages,
-                                                   links=self.links),
+                                                   links=self.links, file_categories=self.file_categories),
             config.FANDOM.api_url: FakeMediaWiki("https://dynamixc4cat.fandom.com", self.rows("fandom"),
                                                  self.fandom_pages, frames=frames, file_pages=self.file_pages,
-                                                 links=self.links),
+                                                 links=self.links, file_categories=self.file_categories),
         }
 
     def client(self, wikis: dict[str, FakeMediaWiki] | None = None) -> FakeClient:

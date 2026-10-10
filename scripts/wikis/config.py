@@ -134,12 +134,28 @@ FILE_CATEGORY_ROLES = {
     "Category:Cover Art": "song_art", "Category:Videos": "video_placeholder",
 }
 
-# Informational announcement graphics (tier revision 1.1, kind ``reference``): official chart/difficulty lists,
-# comeback and new-chart announcements, version-update/update-log notes and settings/difficulty/results
-# announcements. Key art, banners, event/anniversary/collaboration visuals and teasers stay ``promotional``.
+# List-graphic rule (coordinator decision 2026-10-10, 09-frozen-contracts.md "Coordinator classification decisions"):
+# a graphic whose primary content is a list of songs or charts (chart/difficulty lists, comeback and new-chart
+# announcements, "Upcoming Events" and monthly event lineups, "Comeback Tracks" lists) is kind ``reference``
+# regardless of the wiki category or caption that files it as promotional; a graphic about a single song or event
+# (key art, anniversary/collaboration visuals, teasers) stays ``promotional``. List evidence is a caption naming such
+# a list (LIST_CAPTION; "<song> Chart List" captions follow tier revision 1.1, which names the wiki *_Chart_List*
+# graphics chart/difficulty lists), a file category of chart lists, or an archivist review that saw a list in the
+# bytes (``list_graphic``); a filename alone never is. The rule replaces only a ``promotional`` role (see
+# classify._list_rule) and is recorded in the role evidence and the asset notes.
+LIST_GRAPHIC_RULE = ("list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list "
+                     "of songs or charts is kind reference regardless of the wiki category or caption that files it "
+                     "as promotional")
+LIST_CAPTION = re.compile(
+    r"chart\s*list|difficulty\s+list|new\s+charts?\b|comeback|(?:up)?coming\s+events?\b|event\s+line-?up", re.I)
+LIST_CATEGORIES = {"Category:Chart list images"}
+
+# Informational announcement graphics (tier revision 1.1, kind ``reference``): the list graphics above plus
+# version-update/update-log notes and settings/difficulty/results announcements. Key art, banners,
+# event/anniversary/collaboration visuals and teasers stay ``promotional``.
 INFORMATIONAL_CAPTION = re.compile(
-    r"chart\s*list|difficulty\s+list|new\s+charts?\b|comeback|version\s+update|update\s+(?:log|notes?)\b|"
-    r"patch\s+notes?|(?:settings?|difficulty|results?)\s+announcement", re.I)
+    LIST_CAPTION.pattern + r"|version\s+update|update\s+(?:log|notes?)\b|patch\s+notes?|"
+    r"(?:settings?|difficulty|results?)\s+announcement", re.I)
 
 # Gallery/link captions (strength 2), checked in order; the first match wins for one caption.
 CAPTION_ROLES = (

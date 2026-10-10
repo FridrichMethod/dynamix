@@ -16,6 +16,10 @@ interface image because the Main Page banner template shows it) and the review s
 (e.g. a Dynamix Universe announcement), the review's exclusion reason is recorded; a review never turns a file that
 page evidence excludes into a download. ``animated: "official"`` marks a GIF the review established as an official
 animation (not a wiki capture with a larger still), so the default ``animated_capture`` exclusion does not apply.
+``list_graphic: true`` (role ``reference`` only) records that the bytes show a list of songs or charts (an event
+lineup, a "Comeback Tracks" list, a multi-song comeback announcement): under the coordinator's list-graphic rule
+(:data:`wikis.config.LIST_GRAPHIC_RULE`) such a review makes the file ``reference`` even where a page files it as
+promotional (a category or caption), and that page evidence and the rule are recorded with the decision.
 A review whose role is null and whose evidence is a ``download_probe:`` (the host refused the bytes, so they could
 not be inspected) makes the acquisition retry the download as an inspection probe: a refusal is recorded as a
 download Failure, a success is reported for review.
@@ -62,6 +66,7 @@ class Review:
     associations: tuple[str, ...] = ()  # other games/events of shared artwork (game "mixed")
     pending: str = ""  # why the file stays pending although reviewed (role or game not established)
     official_animation: bool = False  # an official animation: animated_capture does not apply
+    list_graphic: bool = False  # the bytes show a list of songs or charts (list-graphic rule; role reference)
 
     @property
     def probe(self) -> bool:
@@ -106,7 +111,7 @@ def parse(data: Any) -> dict[str, Review]:
         if not isinstance(entry, dict):
             raise ValueError(f"{label}: must be an object")
         unknown = set(entry) - {"title", "sha1", "role", "game", "evidence", "game_evidence", "songs",
-                                "associations", "pending", "animated"}
+                                "associations", "pending", "animated", "list_graphic"}
         if unknown:
             raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
         title = _string(entry, "title", label, required=True)
@@ -147,11 +152,17 @@ def parse(data: Any) -> dict[str, Review]:
             raise ValueError(f"{label}: animated must be 'official' when present")
         if animated and role not in schema.KINDS:
             raise ValueError(f"{label}: animated 'official' needs a kind as role")
+        list_graphic = entry.get("list_graphic", False)
+        if not isinstance(list_graphic, bool):
+            raise ValueError(f"{label}: list_graphic must be true or false")
+        if list_graphic and role != "reference":
+            raise ValueError(f"{label}: list_graphic needs role 'reference' (the list-graphic rule)")
         for text in (evidence, game_evidence, pending):
             if schema.contains_credentials(text, strict=False):
                 raise ValueError(f"{label}: evidence must not contain credentials")
         result[title] = Review(title, sha1, role, game, evidence, game_evidence, _strings(entry, "songs", label),
-                               associations, pending, official_animation=animated == "official")
+                               associations, pending, official_animation=animated == "official",
+                               list_graphic=list_graphic)
     return result
 
 

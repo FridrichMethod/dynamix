@@ -114,6 +114,12 @@ class MetadataOnlyTests(WikiRun):
         self.assertIn("review of an earlier revision no longer applies", stale["reason"])
         button = check("miraheze", "File:Wiki Button.png", "excluded", None, "site_ui")
         self.assertIn("visual_inspection: wiki navigation button", button["reason"])
+        # List-graphic rule: a reviewed event lineup filed in Category:Event images is a reference; the candidate
+        # notes keep the overridden category evidence and name the rule.
+        for key in ("miraheze", "fandom"):
+            lineup = check(key, "File:Events Lineup.png", "pending", "reference", acquire.AWAITING, "dynamix")
+            self.assertIn("reference <- list-graphic rule (coordinator decision 2026-10-10)", lineup["notes"])
+            self.assertIn("(file category; Category:Event images)", lineup["notes"])
         # (XD)_D.jpg: a large JPEG in the Trivia gallery is gameplay, not the song's artwork.
         xd_d = check("miraheze", "File:(XD) D.jpg", "pending", "gameplay_screenshot", acquire.AWAITING, "dynamix")
         self.assertEqual(xd_d["song_titles"], ["(XD)"])
@@ -237,7 +243,17 @@ class AcquisitionTests(WikiRun):
                          ("promotional", "inferred", ["song:cosmic-pulse"]))
         self.assertEqual(event["mapping_evidence"][0]["field"], "archivist review")
         self.assertTrue(event["mapping_evidence"][0]["quote"].startswith("visual_inspection:"))
-        self.assertEqual(self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")["kind"], "reference")
+        chart_list = self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")
+        self.assertEqual(chart_list["kind"], "reference")
+        self.assertNotIn("list-graphic rule", chart_list.get("notes", ""))  # the caption decides, no rule needed
+        # List-graphic rule: the asset notes name the rule, the list evidence and the overridden page evidence.
+        lineup = self.asset("fandom", "File:Events Lineup.png")
+        self.assertEqual((lineup["kind"], lineup["mapping_status"]), ("reference", "unmapped"))
+        self.assertIn("Kind reference by the list-graphic rule (coordinator decision 2026-10-10)", lineup["notes"])
+        self.assertIn("List evidence: archivist review (File:Events Lineup.png): visual_inspection: monthly event "
+                      "lineup", lineup["notes"])
+        self.assertIn("Promotional page evidence it overrides: https://dynamix.miraheze.org/wiki/"
+                      "File:Events_Lineup.png (file category; Category:Event images)", lineup["notes"])
         self.assertIn("File description page: 'The image is taken from the link below.",
                       self.asset("miraheze", "File:CosmicPulseDynamix.png")["notes"])
         squared = self.asset("miraheze", "File:Cosmic Pulse Squared.png")

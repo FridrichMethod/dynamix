@@ -540,6 +540,7 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
     if plan.decision.game == "mixed":
         notes.append("Shared artwork: this file is also associated with " + (", ".join(associations) or
                                                                              "another game") + " (see game evidence).")
+    notes.extend(plan.decision.rule_notes)
     if plan.description:
         description = plan.description.replace(HISTORY_MARK.strip(), "Upstream history -")
         notes.append(f"File description page: {description!r}.")

@@ -34,6 +34,13 @@ Songs: the strongest page evidence naming a song for the decided role, and among
 distinct pages (see :func:`_song_mapping`); a cover-art caption that quotes another original-game song's title names
 that song, not the host page's; a file whose role evidence names no song is mapped (``inferred``) to the one
 original-game song whose page gallery shows it (:func:`_gallery_song`).
+
+List graphics (coordinator decision 2026-10-10, :data:`config.LIST_GRAPHIC_RULE`): a graphic whose primary content is
+a list of songs or charts is ``reference`` even where a category or caption files it as promotional. List evidence is
+a list caption, a chart-list file category or an archivist review that saw a list (``list_graphic``); a review that
+calls the graphic promotional (one song or event) keeps it promotional. The rule replaces only a ``promotional`` role
+(alone or tied with ``reference``) and is recorded, with the page evidence it overrides, in the role evidence and the
+asset notes (:func:`_list_rule`).
 """
 
 from __future__ import annotations
@@ -70,6 +77,7 @@ class Evidence:
     song_page: str | None = None
     detail: str = ""
     other_game: str | None = None  # "RAVON" for a caption "<song> Artwork in RAVON" (shared artwork)
+    list_graphic: bool = False  # the context says the graphic is a list of songs/charts (list-graphic rule)
 
     def text(self) -> str:
         bits = [self.context]
@@ -129,6 +137,7 @@ class Decision:
     mapping_evidence: list[Any] = field(default_factory=list)
     strength: int = -1  # strength of the evidence behind ``role`` (3 template ... 0 filename, -1 none)
     associations: list[str] = field(default_factory=list)  # other games/events using the file (game_associations)
+    rule_notes: list[str] = field(default_factory=list)  # asset notes of classification rules that decided the kind
 
 
 # --- Pages ------------------------------------------------------------------------------------------------------------
@@ -269,6 +278,7 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
             where.append(f"link={ref.link[:120]}")
         detail = ", ".join(where)
         role, strength, song, song_page, context, other_game = None, 0, None, None, ref.context, None
+        listed = False
         if ref.context == "template" and ref.template in SONG_TEMPLATES and ref.param == "Imgsuffix":
             record = imgsuffix.get((ref.template, ref.name))
             role, strength, game = "song_art", 3, SONG_TEMPLATES[ref.template]
@@ -289,6 +299,7 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
             caption_role = _caption_role(ref.caption) if ref.caption else None
             if caption_role is not None:
                 role, strength = caption_role, 2
+                listed = caption_role == "reference" and bool(config.LIST_CAPTION.search(ref.caption))
                 if info.songs:
                     song_page = info.title
                     song = _region_song(info, region_game) if caption_role != "external_release_art" else None
@@ -335,7 +346,7 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
                 if originals:
                     song, song_page = originals[0].title, info.title
         result.append((file_title, Evidence(source.source_id, info.title, info.url, context, role, strength, game,
-                                            song, song_page, detail, other_game)))
+                                            song, song_page, detail, other_game, listed and role == "reference")))
     return result
 
 
@@ -437,7 +448,8 @@ def usage_evidence(source: config.WikiSource, file_title: str, usage: Mapping[st
         role = config.FILE_CATEGORY_ROLES.get(category)
         if role is not None:
             found.append(Evidence(source.source_id, file_title, config.page_url(source, file_title), "file category",
-                                  role, 2, None, detail=category))
+                                  role, 2, None, detail=category,
+                                  list_graphic=category in config.LIST_CATEGORIES and role == "reference"))
     return found
 
 
@@ -498,7 +510,7 @@ def review_evidence(source: config.WikiSource, file_title: str, review: Any) -> 
     url = config.page_url(source, file_title)
     songs = list(review.songs) or [None]
     return [Evidence(source.source_id, file_title, url, "archivist review", review.role, 0, None, song=song,
-                     detail=review.evidence) for song in songs]
+                     detail=review.evidence, list_graphic=review.list_graphic) for song in songs]
 
 
 def filename_evidence(source: config.WikiSource, file_title: str) -> list[Evidence]:
@@ -617,6 +629,14 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     if reviewed_role:
         leaders, top = [review.role], max(top, 0)
         role_evidence = _short([f"{review.role} <- {review.role_text()}"] + role_evidence)
+    listed = _list_rule(page_items, leaders, review, reviewed_role)
+    rule_notes: list[str] = []
+    if listed is not None:
+        entry, note, by_review = listed
+        leaders, top = ["reference"], max(top, 0)
+        reviewed_role = reviewed_role or by_review  # a mapping that rests on the review is inferred at most
+        role_evidence = _short([f"reference <- {entry}"] + role_evidence)
+        rule_notes.append(note)
     role = leaders[0] if len(leaders) == 1 else None
     songs, mapping, mapping_evidence = _song_mapping(items, role, reviewed_role=reviewed_role)
     song_pages = list(dict.fromkeys(item.song_page for item in items if item.song_page))
@@ -652,7 +672,7 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         associations |= set(review.associations)
     base = dict(game=game, game_evidence=_short(game_items), role_evidence=role_evidence, songs=songs,
                 song_pages=song_pages, mapping=mapping, mapping_evidence=mapping_evidence, strength=top,
-                associations=sorted(associations))
+                associations=sorted(associations), rule_notes=rule_notes)
     if len(leaders) > 1:
         return Decision(None, **base, disposition="excluded" if game == "dynamix_universe" else "pending",
                         reason=("universe_only: Universe-only usage; conflicting roles " + ", ".join(leaders))
@@ -709,6 +729,47 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         return Decision(kind, **base, disposition="excluded",
                         reason=f"out_of_scope_other: unsupported media type {mime or 'unknown'}")
     return Decision(kind, **base, disposition="download", reason="")
+
+
+RULE_TEXT_LIMIT = 400
+
+
+def _clip_text(text: str) -> str:
+    return text if len(text) <= RULE_TEXT_LIMIT else text[:RULE_TEXT_LIMIT - 3] + "..."
+
+
+def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, reviewed_role: bool
+               ) -> tuple[str, str, bool] | None:
+    """``(role evidence entry, asset note, rests on the review)`` when the list-graphic rule decides that the file is
+    ``reference``, else None.
+
+    It applies when list evidence exists (a page item flagged ``list_graphic`` -- a list caption or chart-list
+    category -- or an applicable review with ``list_graphic``) and the roles otherwise decided are ``promotional``
+    alone or tied with ``reference``; the asset note quotes the overridden promotional page evidence (the role
+    evidence lists it after the rule's entry). A review that calls the graphic promotional (one song or event, seen
+    in the bytes) blocks the rule. A file whose ``reference`` role a list review decided (no page role evidence)
+    records the rule too, without an override."""
+    reviewed_list = review is not None and review.list_graphic
+    if review is not None and review.role == "promotional":
+        return None
+    page_lists = [item for item in page_items if item.list_graphic and item.role == "reference"]
+    if reviewed_list and reviewed_role and leaders == ["reference"]:
+        # The review's own role evidence entry follows in the role evidence; the entry only names it.
+        basis, overridden, named = [review.role_text()], [], f"the archivist review ({review.title})"
+    elif (page_lists or reviewed_list) and "promotional" in leaders and set(leaders) <= {"promotional", "reference"}:
+        basis = [item.text() for item in page_lists] or [review.role_text()]
+        overridden, named = [item.text() for item in page_items if item.role == "promotional"], None
+    else:
+        return None
+    basis_text = "; ".join(_clip_text(text) for text in list(dict.fromkeys(basis))[:2])
+    overridden_text = "; ".join(_clip_text(text) for text in list(dict.fromkeys(overridden))[:3])
+    entry = f"{config.LIST_GRAPHIC_RULE}; list evidence: {named or basis_text}"
+    note = (f"Kind reference by the {config.LIST_GRAPHIC_RULE} (09-frozen-contracts.md, coordinator classification "
+            f"decisions). List evidence: {basis_text}.")
+    if overridden:  # the overridden items follow in the role evidence; the asset note quotes them
+        entry += "; it overrides the promotional page evidence listed here"
+        note += f" Promotional page evidence it overrides: {overridden_text}."
+    return entry, note, not page_lists
 
 
 def _gallery_song(items: list[Evidence], role: str, songs: list[str], mapping: str, evidence: list[Any]
