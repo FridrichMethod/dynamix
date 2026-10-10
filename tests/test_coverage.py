@@ -4,6 +4,7 @@ size/originality buckets, explicit gap lists, byte totals, reconciliation failur
 import contextlib
 import io
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -16,6 +17,7 @@ import catalog_fixture as fx  # noqa: E402
 import build_catalog  # noqa: E402
 import build_coverage as coverage  # noqa: E402
 import build_thumbnails as thumbs  # noqa: E402
+import prepare_pages as pages  # noqa: E402  (CI-owned; imported read-only to check the staged-site estimate)
 from lib import manifest, paths, schema  # noqa: E402
 
 MISSING = "song:fixture-song-without-artwork"
@@ -175,6 +177,67 @@ class FixtureCoverageTests(Base):
         self.assertTrue(100_000 < over - 2 and over < 1_000_000, over)
         self.assertEqual(staged(over), (over - 1, True))  # "true" is one byte shorter than "false"
         self.assertEqual(staged(over - 2), (over, False))
+
+
+class PagesConsistencyTests(Base):
+    """The staged-site estimate counts what scripts/prepare_pages.py (CI-owned) really stages: one original per
+    SHA-256 at the primary record's url, each preview once and the generated page files. Only the static page files
+    (not part of the estimate by definition) separate the two totals."""
+
+    STATIC = {".nojekyll": b"", "LICENSE": b"Fixture license text\n", "NOTICE": b"Fixture notice\n",
+              "README.md": b"# Fixture\n", "README.zh-CN.md": "# 样例\n".encode("utf-8"),
+              "archive.html": b"<!doctype html>\n<title>Archive</title>\n", "src/app.js": b"\"use strict\";\n",
+              "assets/site/site.css": b"body { margin: 0; }\n"}
+
+    def stage_site(self):
+        fx.write_template(self.root)
+        thumbs.build(self.root)
+        build_catalog.build(self.root)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(coverage.main(["--root", str(self.root)]), 0)
+        for rel, data in self.STATIC.items():
+            (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (self.root / rel).write_bytes(data)
+        if not (fx.git(self.root, "init", "-q") and fx.git(self.root, "add", "-A")
+                and fx.git(self.root, "-c", "user.name=Fixture", "-c", "user.email=fixture@example.org", "commit",
+                           "-q", "--no-gpg-sign", "-m", "fixture")):
+            self.skipTest("git is not available")
+        output = Path(self.temp.name) / "site"
+        with mock.patch.dict(os.environ, fx.clean_environment(), clear=True):
+            summary, _ = pages.prepare(self.root, output, pages.tracked_entries(self.root),
+                                       commit=pages.head_commit(self.root))
+        report = json.loads((self.root / coverage.COVERAGE_JSON).read_text(encoding="utf-8"))
+        return summary, report, output
+
+    def test_the_estimate_matches_what_prepare_pages_stages(self):
+        summary, report, output = self.stage_site()
+        catalog = manifest.load_json(self.root / build_catalog.CATALOG_JSON)
+        data = report["bytes"]
+        self.assertTrue(summary["matches_commit"])
+        originals = coverage.staged_originals(catalog)
+        self.assertEqual(summary["tiers"]["site_original"], {"files": len(originals), "bytes": data["by_tier"]["site"]})
+        previews = coverage.staged_previews(catalog, thumbs.read_manifest(self.root))
+        self.assertEqual(summary["tiers"]["preview"], {"files": len(previews), "bytes": data["previews"]})
+        generated = sum(data[key] for key in ("catalog_json", "catalog_script", "index_html", "coverage_json"))
+        static = sum(map(len, self.STATIC.values()))
+        self.assertEqual(summary["tiers"]["page"], {"files": len(self.STATIC) + 4, "bytes": generated + static})
+        self.assertEqual(summary["bytes"], data["staged_site_estimate"] + static)
+        staged = [path.relative_to(output).as_posix() for path in output.rglob("*") if path.is_file()]
+        self.assertEqual(sorted(rel for rel in staged if rel.startswith("assets/public/")), sorted(originals))
+
+    def test_identical_bytes_from_both_wikis_are_staged_and_counted_once(self):
+        summary, report, output = self.stage_site()
+        miraheze = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        fandom = fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")
+        self.assertEqual(miraheze["sha256"], fandom["sha256"])
+        self.assertTrue((output / miraheze["path"]).is_file(), "the primary (Miraheze) copy is the one published")
+        self.assertFalse((output / fandom["path"]).exists())
+        archive_only = summary["excluded"]["archive_only_originals"]
+        self.assertEqual(summary["excluded"]["unstaged_public_files"],
+                         {"files": archive_only["files"] + 1, "bytes": archive_only["bytes"] + fandom["bytes"]})
+        records = [r for family in schema.FAMILIES for r in fx.load_manifest(self.root, family)["assets"]]
+        site_records = sum(r["bytes"] for r in records if schema.tier_for(r["kind"], r["format"]) == "site")
+        self.assertEqual(report["bytes"]["by_tier"]["site"], site_records - fandom["bytes"])
 
 
 class SongCoverageTests(Base):

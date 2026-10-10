@@ -96,11 +96,14 @@ DEFINITIONS = {
                             "a conflict record is listed in conflict_assets too).",
     "source_reported_mismatches": "Records where an advertised SHA-1, byte count, size or MIME differs from the "
                                   "saved bytes (comparison false); null comparisons are not mismatches.",
-    "staged_site_estimate": "Site-tier originals + previews + the generated data/catalog.json, data/catalog.js, "
-                            "index.html (null when it is not rendered: no template outside the repository root) and "
-                            "data/coverage.json (this file, LF line ends). It excludes the static files "
-                            "scripts/prepare_pages.py also stages (archive.html, README*, LICENSE, NOTICE, "
-                            ".nojekyll, assets/site/, docs/, licenses/, src/, ...); prepare_pages enforces the exact "
+    "staged_site_estimate": "What scripts/prepare_pages.py stages, counted the same way: one original per SHA-256 (the "
+                            "file named by the url of each catalog entry with site_original true; identical copies "
+                            "under other sources' paths and archive-tier originals stay out), each distinct preview "
+                            "named by a thumb, and the generated data/catalog.json, data/catalog.js, index.html (null "
+                            "when it is not rendered: no template outside the repository root) and data/coverage.json "
+                            "(this file, LF line ends). It excludes the static page files prepare_pages also stages "
+                            "(archive.html, README*, LICENSE, NOTICE, .nojekyll, assets/site/, docs/, licenses/, src/, "
+                            "...), so editing them never makes this report stale; prepare_pages enforces the exact "
                             "budget.",
     "successor_not_primary": "Records whose superseded_by names a record that is not the primary (catalog ID) of "
                              "its catalog entry; catalog_entry is the entry holding the successor's bytes.",
@@ -429,15 +432,25 @@ def generated_sizes(root: Path, catalog: Mapping[str, Any]) -> dict[str, int | N
             "index_html": None if index is None else len(index.encode("utf-8"))}
 
 
+def staged_originals(catalog: Mapping[str, Any]) -> dict[str, int]:
+    """``{url path: bytes}`` of the originals prepare_pages stages: the file each site-tier catalog entry names. The
+    catalog holds one entry per SHA-256, so identical copies kept under other sources' paths are never counted."""
+    return {asset["path"]: asset["bytes"] for asset in catalog["assets"] if asset["site_original"]}
+
+
+def staged_previews(catalog: Mapping[str, Any], thumbs: Mapping[str, Any]) -> dict[str, int]:
+    """``{preview path: bytes}`` of every distinct preview a catalog entry names (prepare_pages stages each once)."""
+    return {asset["thumb"]: thumbs["thumbnails"][asset["sha256"]]["bytes"] for asset in catalog["assets"]
+            if asset["thumb"]}
+
+
 def byte_metrics(catalog: Mapping[str, Any], records: list[dict], thumbs: Mapping[str, Any] | None,
                  generated: Mapping[str, int | None], coverage_bytes: int) -> dict:
     """Byte totals; ``generated`` from generated_sizes, ``coverage_bytes`` the size of data/coverage.json itself."""
     assets = catalog["assets"]
-    site = sum(asset["bytes"] for asset in assets if asset["site_original"])
+    site = sum(staged_originals(catalog).values())
     total = sum(asset["bytes"] for asset in assets)
-    previews = None
-    if thumbs is not None:
-        previews = sum(thumbs["thumbnails"][asset["sha256"]]["bytes"] for asset in assets if asset["thumb"])
+    previews = None if thumbs is None else sum(staged_previews(catalog, thumbs).values())
     files = {**generated, "coverage_json": coverage_bytes}
     staged = site + (previews or 0) + sum(size for size in files.values() if size is not None)
     return {
