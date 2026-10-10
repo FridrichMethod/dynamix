@@ -17,7 +17,7 @@ C4Cat Entertainment Limited 出品的节奏游戏 **Dynamix**（原版）的个�
 共有两个静态页面，都读取本地目录 `data/catalog.js`，它由 `scripts/build_catalog.py` 根据来源清单生成。
 
 - `index.html` 是幻灯片，由 [templates/slideshow.html](templates/slideshow.html) 渲染而成。它展示长边至少 1000 px 的单曲曲绘、曲包封面、宣传图和角色立绘，支持上一张/下一张、随机自动播放、截图按钮，并链接到每个文件和档案页。
-- [archive.html](archive.html) 是可搜索的档案页。可搜索曲名、画师、作曲者和曲包；按来源类型、来源、类型和最小长边筛选；按曲名、来源或像素面积排序。网格每次显示 60 个文件。点击文件会打开查看器，显示文件本身、文件信息、每一条来源记录以及它的其他版本。
+- [archive.html](archive.html) 是可搜索的档案页。可搜索曲名、画师、作曲者和曲包；按来源类型、来源、类型和最小长边筛选；按曲名、来源或像素面积排序。网格每次加载 60 个结果，可继续加载更多。点击文件会打开查看器，显示文件本身、文件信息、每一条来源记录以及它的其他版本。
 
 深度链接使用目录中的资产 ID：`archive.html#<asset id>` 在档案查看器中打开该文件，`index.html#<asset id>` 打开对应的幻灯片。
 

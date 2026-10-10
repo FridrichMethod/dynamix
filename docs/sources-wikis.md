@@ -54,7 +54,7 @@ The kind of a file comes from where and how the wikis use it. Evidence is pooled
 3. an image linked from an original-game list, an image in a song page's Trivia or Notes section, or the documented size heuristic on interface pages;
 4. a filename convention (`…Dynamix.png`, `…BG-HQ.png`, `…-Raw.png` and similar), used only to fill a role that page usage leaves open. Suffixes such as `-HQ` or `-Raw` say nothing about whether the image is a full illustration.
 
-A file named only by its filename, or with a tie between roles named by equally many pages, stays `pending` with a concrete reason instead of being guessed. A large image is not artwork just because it is large: `(XD)_D.jpg` is a 2048×1152 file, but its page places it among gameplay notes, so it is a gameplay screenshot.
+A file named only by its filename, or with a tie between roles named by equally many pages, stays `pending` with a concrete reason instead of being guessed. A large image is not artwork just because it is large: `(XD)_D.jpg` measures 2048×1152 px, but its page places it among gameplay notes, so it is a gameplay screenshot.
 
 Chart-list, comeback, new-chart and update-note announcement graphics are informational and belong to kind `reference`; gameplay captures are `gameplay_screenshot`. Both are archived but only previewed on the website (archive tier). Key art, banners, event visuals and teasers are `promotional`.
 

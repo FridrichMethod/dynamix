@@ -17,7 +17,7 @@ The interface and build tooling are adapted from the DEEMO artwork archive ([Fri
 There are two static pages. Both read the local catalog `data/catalog.js`, which `scripts/build_catalog.py` generates from the source manifests.
 
 - `index.html` is the slideshow, rendered from [templates/slideshow.html](templates/slideshow.html). It shows song artwork, pack covers, promotional art and character art whose long edge is at least 1000 px, with previous/next navigation, shuffle autoplay, a screenshot button, and links to each file and to the archive.
-- [archive.html](archive.html) is the searchable archive. Search song titles, illustrators, composers and packs; filter by source type, source, kind and minimum long edge; sort by title, source or pixel area. The grid shows 60 files at a time. Clicking a file opens a viewer with the file, its file information, every provenance record and its other versions.
+- [archive.html](archive.html) is the searchable archive. Search song titles, illustrators, composers and packs; filter by source type, source, kind and minimum long edge; sort by title, source or pixel area. The grid loads results in pages of 60, with a button to load more. Clicking a file opens a viewer with the file, its file information, every provenance record and its other versions.
 
 Deep links use the catalog asset ID: `archive.html#<asset id>` opens a file in the archive viewer and `index.html#<asset id>` opens that slide.
 
