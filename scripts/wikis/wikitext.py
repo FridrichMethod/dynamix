@@ -273,11 +273,20 @@ def clean_markup(value: str | None) -> str:
     return "\n".join(line for line in lines if line)
 
 
-def credit_names(value: str | None) -> list[str]:
+# An illustrator note inside a composer credit: "Linne X SCTL(Illust.Keiyuu&RED-FOX)", "Street (jacket : Sin:cK)".
+ILLUSTRATOR_NOTE = re.compile(r"\s*[(（]\s*(?:illust(?:ration|rated)?\.?(?:\s*by)?|jacket|cover(?:\s*art)?)\s*[.:：]?\s*"
+                              r"[^()（）]*[)）]", re.IGNORECASE)
+
+
+def credit_names(value: str | None, *, strip_illustrator_notes: bool = False) -> list[str]:
     """Credited names of a template field, verbatim after markup removal: one entry per ``<br>``/line, unknown
-    placeholders (``N/A``, ``-``, ``?``...) dropped. Names are never split on ``&``/``,``/``x`` (that would guess)."""
+    placeholders (``N/A``, ``-``, ``?``...) dropped. Names are never split on ``&``/``,``/``x`` (that would guess).
+    ``strip_illustrator_notes`` (composer fields) removes an explicitly labeled illustrator note such as
+    ``(Illust.Keiyuu&RED-FOX)``: that is the illustrator's credit, which the template states separately."""
     names = []
     for line in clean_markup(value).splitlines():
+        if strip_illustrator_notes:
+            line = ILLUSTRATOR_NOTE.sub("", line)
         name = line.strip().strip(",;").strip()
         if name.casefold() in UNKNOWN_CREDITS:
             continue

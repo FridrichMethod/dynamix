@@ -201,6 +201,9 @@ def resolve(plans: list[discover.Plan], state: State, *, complete: bool) -> tupl
             candidates.append(candidate)
             continue
         if current is not None:
+            refreshed = refresh(current, plan)
+            if refreshed != current:
+                state.assets[current["id"]] = refreshed
             candidate.update(disposition="downloaded", asset_id=current["id"])
             candidate.pop("reason", None)
         elif previous and previous.get("disposition") in ("duplicate_bytes", "failed", "blocked") and same_revision(
@@ -225,11 +228,16 @@ def resolve(plans: list[discover.Plan], state: State, *, complete: bool) -> tupl
 
 # --- Downloads --------------------------------------------------------------------------------------------------------
 
-def _quality(source: config.WikiSource, transformed: bool, fmt: str, reported_mime: str | None) -> dict:
+def _quality(source: config.WikiSource, transformed: bool, fmt: str, reported_mime: str | None,
+             comparisons: Mapping[str, Any]) -> dict:
     if transformed:
         return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
                 "notes": f"The CDN returned {fmt} although {reported_mime} was reported and the stored original was "
                          "requested; these bytes are a platform transform, not the stored upload."}
+    if source.key == "fandom" and comparisons["sha1_match"] is False:
+        return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
+                "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API "
+                         "(SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."}
     if source.key == "fandom":
         note = ("Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist "
                 "master.")
@@ -239,50 +247,88 @@ def _quality(source: config.WikiSource, transformed: bool, fmt: str, reported_mi
             "notes": note}
 
 
+DESCRIPTIVE_FIELDS = ("title", "kind", "page_url", "illustrators", "composers", "song_titles", "song_ids",
+                      "collections", "mapping_status", "mapping_evidence", "quality", "rights", "credit_evidence",
+                      "game_associations", "notes", "transformed")
+
+
+def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, comparisons: Mapping[str, Any]) -> dict:
+    """The fields of an asset record that come from classification (not from the bytes): recomputed on every run,
+    so better evidence reaches already archived records without downloading them again."""
+    source = plan.source
+    candidate = plan.candidate
+    reported = candidate["source_reported"]
+    # A known platform transform: another format than advertised and not the advertised stored bytes.
+    transformed = comparisons["format_match"] is False and comparisons["sha1_match"] is False
+    status, evidence = discover.mapping(plan)
+    fields: dict[str, Any] = {
+        "title": candidate["title"], "kind": plan.kind, "page_url": candidate["page_url"],
+        "illustrators": list(plan.illustrators), "composers": list(plan.composers),
+        "song_titles": list(plan.song_titles), "song_ids": list(plan.song_ids) if status != "unmapped" else [],
+        "collections": list(plan.collections), "mapping_status": status, "mapping_evidence": evidence,
+        "quality": _quality(source, transformed, fmt, reported.get("mime"), comparisons),
+        "rights": schema.default_rights(creator=plan.illustrators[0] if len(plan.illustrators) == 1 else None,
+                                        url=candidate["page_url"]),
+    }
+    if plan.credit_evidence:
+        fields["credit_evidence"] = [dict(item) for item in plan.credit_evidence]
+    associations = [name for name in plan.decision.associations if name != schema.GAME]
+    if plan.decision.game == "mixed":
+        fields["game_associations"] = [schema.GAME] + (associations or ["unknown_other"])
+    notes = []
+    mismatched = [name for name in ("sha1", "bytes") if comparisons[f"{name}_match"] is False]
+    if mismatched and not transformed:
+        delta = reported["bytes"] - nbytes if reported.get("bytes") is not None else None
+        notes.append(f"The wiki API reports different {' and '.join(mismatched)} than the served bytes"
+                     + (f" (API {delta:+d} bytes; a constant per-format gap like this is consistent with metadata "
+                        "removal by the CDN)" if delta else "")
+                     + "; recorded as source_reported versus download_observed, not as a second version.")
+    other = plan.counterpart or {}
+    if (source.key == "miraheze" and comparisons["sha1_match"] and isinstance(other.get("sha1"), str)
+            and other["sha1"].lower() != sha1):
+        gap = other["size"] - nbytes if isinstance(other.get("size"), int) else None
+        notes.append("Fandom's API records this title's upload with another SHA-1"
+                     + (f" and {gap:+d} bytes" if gap else "")
+                     + f" (Fandom upload {other.get('timestamp')}); this Miraheze copy is not byte-identical to that "
+                       "upload.")
+    if plan.decision.game == "mixed":
+        notes.append("Shared artwork: the wikis also associate this file with " + (", ".join(associations) or
+                                                                                    "another game") + ".")
+    if notes:
+        fields["notes"] = " ".join(notes)
+    if transformed:
+        fields["transformed"] = True
+    return fields
+
+
 def build_asset(plan: discover.Plan, info: Mapping[str, Any], result: Any, url: str, fetched_at: str) -> dict:
     source = plan.source
     candidate = plan.candidate
     reported = candidate["source_reported"]
     observed = schema.make_download_observed(info, result.content_type)
     comparisons = schema.compute_comparisons(reported, observed)
-    # A known platform transform: another format than advertised and not the advertised stored bytes.
-    transformed = comparisons["format_match"] is False and comparisons["sha1_match"] is False
-    status, evidence = discover.mapping(plan)
     asset = {
         "id": schema.asset_id(source.source_id, info["sha256"]), "source_id": source.source_id,
-        "candidate_id": candidate["id"], "title": candidate["title"], "kind": plan.kind, "game": schema.GAME,
-        "page_url": candidate["page_url"], "download_url": url,
+        "candidate_id": candidate["id"], "game": schema.GAME, "download_url": url,
         "resolved_url": schema.redact_url(result.final_url, strict=False), "path": info["path"],
         "original_filename": str(plan.info.get("name") or discover.file_name(plan.title)),
         "bytes": info["bytes"], "sha256": info["sha256"], "sha1": info["sha1"], "format": info["format"],
         "mime": info["mime"], "width": info["width"], "height": info["height"], "fetched_at": fetched_at,
-        "illustrators": list(plan.illustrators), "composers": list(plan.composers),
-        "song_titles": list(plan.song_titles), "song_ids": list(plan.song_ids) if status != "unmapped" else [],
-        "collections": list(plan.collections), "mapping_status": status, "mapping_evidence": evidence,
-        "quality": _quality(source, transformed, info["format"], reported.get("mime")),
-        "rights": schema.default_rights(creator=plan.illustrators[0] if len(plan.illustrators) == 1 else None,
-                                        url=candidate["page_url"]),
         "source_reported": reported, "download_observed": observed, "comparisons": comparisons,
         "upstream_status": "current",
+        **describe(plan, fmt=info["format"], sha1=info["sha1"], nbytes=info["bytes"], comparisons=comparisons),
     }
-    if plan.credit_evidence:
-        asset["credit_evidence"] = [dict(item) for item in plan.credit_evidence]
-    associations = [name for name in plan.decision.associations if name != schema.GAME]
-    if plan.decision.game == "mixed":
-        asset["game_associations"] = [schema.GAME] + (associations or ["unknown_other"])
-    notes = []
-    mismatched = [name for name in ("sha1", "bytes") if comparisons[f"{name}_match"] is False]
-    if mismatched and not transformed:
-        notes.append(f"The wiki API reports different {' and '.join(mismatched)} than the served bytes; recorded as "
-                     "source_reported versus download_observed, not as a second version.")
-    if plan.decision.game == "mixed":
-        notes.append("Shared artwork: the wikis also associate this file with " + (", ".join(associations) or
-                                                                                    "another game") + ".")
-    if notes:
-        asset["notes"] = " ".join(notes)
-    if transformed:
-        asset["transformed"] = True
     return schema.canonical(asset, "asset")
+
+
+def refresh(asset: Mapping[str, Any], plan: discover.Plan) -> dict:
+    """``asset`` (same upstream revision) with its descriptive fields recomputed from the current plan."""
+    kept = {key: value for key, value in asset.items() if key not in DESCRIPTIVE_FIELDS}
+    fields = describe(plan, fmt=asset["format"], sha1=asset["sha1"], nbytes=asset["bytes"],
+                      comparisons=asset["comparisons"])
+    result = schema.canonical({**kept, **fields}, "asset")
+    schema.validate_asset(result, FAMILY)
+    return result
 
 
 @dataclass

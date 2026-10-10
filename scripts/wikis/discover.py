@@ -129,6 +129,7 @@ class Plan:
     song_ids: list[str] = field(default_factory=list)
     collections: list[str] = field(default_factory=list)
     credit_evidence: list[dict] = field(default_factory=list)
+    counterpart: dict | None = None  # the other English wiki's allimages row for the same title, if any
 
     @property
     def candidate_id(self) -> str:
@@ -248,6 +249,8 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
                                        threshold=threshold)
             plan = Plan(inv.source, title, info, decision, base_candidate(inv.source, title, info, decision),
                         accepted=decision.disposition == "download")
+            plan.counterpart = next((other.files[title] for other_key, other in inventories.items()
+                                     if other_key != key and title in other.files), None)
             _attach_songs(plan, pooled.get(title, []), song_index)
             result.append(plan)
         plans[key] = result

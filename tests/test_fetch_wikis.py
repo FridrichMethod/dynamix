@@ -176,6 +176,9 @@ class AcquisitionTests(WikiRun):
         self.assertEqual((fandom["comparisons"]["sha1_match"], fandom["comparisons"]["bytes_match"]),
                          (False, False))
         self.assertIn("not as a second version", fandom["notes"])
+        self.assertEqual(fandom["quality"]["source_variant"], "unknown")  # not the upload byte for byte
+        self.assertEqual(mira["quality"]["source_variant"], "site_original")
+        self.assertIn("Fandom's API records this title's upload with another SHA-1", mira["notes"])
         self.assertNotIn("transformed", fandom)
         # Same-wiki duplicate: a second File: title with identical bytes points at the first record.
         copy = self.candidate("miraheze", "File:Cosmic Pulse copy.png")
@@ -214,6 +217,21 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(self.run_cli("--include-animated", "--only", "File:Emi-Animated.gif"), 0)
         gif = self.asset("miraheze", "File:Emi-Animated.gif")
         self.assertEqual((gif["format"], gif["kind"]), ("GIF", "character"))
+
+    def test_metadata_refresh_without_download(self) -> None:
+        """Better evidence on a later run updates an archived record's descriptive fields, never its bytes."""
+        self.assertEqual(self.run_cli("--source", "miraheze", "--only", "File:CosmicPulseDynamix.png"), 0)
+        before = self.asset("miraheze", "File:CosmicPulseDynamix.png")
+        self.scenario.miraheze_pages["Cosmic Pulse"] = dict(self.scenario.miraheze_pages["Cosmic Pulse"],
+                                                            categories=["Category:Songs", "Category:IAPs"])
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only", client=client), 0)
+        after = self.asset("miraheze", "File:CosmicPulseDynamix.png")
+        self.assertEqual(client.downloads, [])
+        self.assertEqual((before["collections"], after["collections"]), (["Event", "Vocal"], ["Song packs (IAP)", "Vocal"]))
+        self.assertEqual({k: v for k, v in after.items() if k != "collections"},
+                         {k: v for k, v in before.items() if k != "collections"})
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
     def test_reupload_and_removal_keep_archived_bytes(self) -> None:
         self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))

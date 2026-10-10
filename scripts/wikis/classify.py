@@ -180,7 +180,7 @@ def song_records(source_id: str, page: Mapping[str, Any], url: str) -> list[Song
             source_id=source_id, page=page["title"], url=url, revision=(page.get("revision") or {}).get("revid"),
             template=template.name, title=title, imgsuffix=wikitext.canonical_file_name(raw_image),
             imgsuffix_raw=raw_image, illustrators=wikitext.credit_names(illustrator_raw),
-            composers=wikitext.credit_names(composer_raw), illustrator_raw=illustrator_raw.strip(),
+            composers=wikitext.credit_names(composer_raw, strip_illustrator_notes=True), illustrator_raw=illustrator_raw.strip(),
             composer_raw=composer_raw.strip(), composer_field=composer_field, illustrator_field=illustrator_field,
             categories=categories, number=wikitext.clean_markup(params.get("No.", "")),
             update=wikitext.clean_markup(params.get("Update", ""))))
