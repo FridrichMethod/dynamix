@@ -233,8 +233,8 @@
         "timestamp": "2021-02-11T14:41:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:cf2d108a143532be",
       "song_titles": [
         "(XD)"
       ],
@@ -5223,8 +5223,8 @@
         "timestamp": "2016-07-05T06:10:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:77630c11d99b357e",
       "song_titles": [
         "Play A Day"
       ],
@@ -5392,8 +5392,8 @@
         "timestamp": "2016-07-05T06:41:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f7ae62be892de886",
       "song_titles": [
         "Outer Space"
       ],
@@ -5437,8 +5437,8 @@
         "timestamp": "2018-05-11T07:52:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5c1cf145b058340f",
       "song_titles": [
         "万吨匿名信"
       ],
@@ -5553,8 +5553,8 @@
         "timestamp": "2016-09-21T16:45:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:786552abc53de676",
       "song_titles": [
         "Hatsukoi Memories"
       ],
@@ -5621,8 +5621,8 @@
         "timestamp": "2017-12-26T09:41:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0c99303ab85730bc",
       "song_titles": [
         "16383"
       ],
@@ -6001,8 +6001,8 @@
         "timestamp": "2022-12-16T08:56:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3dfd9f8da0f8fcb4",
       "song_titles": [
         "2000VOLT"
       ],
@@ -6930,8 +6930,8 @@
         "timestamp": "2021-08-06T02:38:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7db33cc39e291688",
       "song_titles": [
         "428 Dance Showcase"
       ],
@@ -7500,8 +7500,8 @@
         "timestamp": "2014-11-26T08:26:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c6433fbe5248dfa5",
       "song_titles": [
         "80"
       ],
@@ -7565,8 +7565,8 @@
         "timestamp": "2016-12-06T13:06:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:fc2d0d8a8b6af465",
       "song_titles": [
         "8-Bit Goa 4"
       ],
@@ -8080,8 +8080,8 @@
         "timestamp": "2022-04-16T04:46:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:51e495e3632587da",
       "song_titles": [
         "ASTRAEA"
       ],
@@ -8295,8 +8295,8 @@
         "timestamp": "2017-10-25T11:47:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:415a34cf2921fee1",
       "song_titles": [
         "Absolute Zero"
       ],
@@ -8702,8 +8702,8 @@
         "timestamp": "2024-07-05T11:54:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:11c68c6187a1d24b",
       "song_titles": [
         "Abyss Breaker"
       ],
@@ -8785,8 +8785,8 @@
         "timestamp": "2017-04-20T11:17:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d88a97fbdd20251a",
       "song_titles": [
         "Ace Sniper (DNX edit)"
       ],
@@ -8915,8 +8915,8 @@
         "timestamp": "2022-08-13T14:21:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:426724c9ac431090",
       "song_titles": [
         "Acrise"
       ],
@@ -9036,8 +9036,8 @@
         "timestamp": "2015-09-06T13:04:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:bb308b145b6e2f86",
       "song_titles": [
         "Actinium"
       ],
@@ -9282,8 +9282,8 @@
         "timestamp": "2014-10-31T13:27:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0e2171a3ebb47aad",
       "song_titles": [
         "Aegis"
       ],
@@ -9465,8 +9465,8 @@
         "timestamp": "2020-08-13T16:52:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:abd1fd82e51c0409",
       "song_titles": [
         "Aeronautica"
       ],
@@ -9612,8 +9612,8 @@
         "timestamp": "2015-01-05T03:33:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:907a9571e30d21dc",
       "song_titles": [
         "After The Ending"
       ],
@@ -9656,8 +9656,8 @@
         "timestamp": "2017-12-10T18:21:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a64f6ce9a0f4da88",
       "song_titles": [
         "Against The Pseudo"
       ],
@@ -9960,8 +9960,8 @@
         "timestamp": "2016-12-23T02:26:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a33efb2b2d7f00bc",
       "song_titles": [
         "愛藍傘"
       ],
@@ -10625,8 +10625,8 @@
         "timestamp": "2017-01-06T13:16:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:abc9a1e525426d37",
       "song_titles": [
         "AKI-ZAKURA"
       ],
@@ -11060,8 +11060,8 @@
         "timestamp": "2024-01-12T15:46:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:93b2957af84cd501",
       "song_titles": [
         "Alone"
       ],
@@ -11143,8 +11143,8 @@
         "timestamp": "2017-06-16T08:46:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9c90dd4fd45c9060",
       "song_titles": [
         "Alter Ego"
       ],
@@ -11512,8 +11512,8 @@
         "timestamp": "2024-02-04T14:54:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:84e8349af8d60e84",
       "song_titles": [
         "Amphisbaena"
       ],
@@ -11676,8 +11676,8 @@
         "timestamp": "2024-09-20T11:36:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3a9d47f8581a7f47",
       "song_titles": [
         "AndLadix"
       ],
@@ -11984,8 +11984,8 @@
         "timestamp": "2018-05-18T07:49:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6ef105037150a3fa",
       "song_titles": [
         "Angel x Angel"
       ],
@@ -12140,8 +12140,8 @@
         "timestamp": "2023-01-06T17:47:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7caa2db395b0fbe2",
       "song_titles": [
         "Ängstlicher Vermeidender"
       ],
@@ -12187,8 +12187,8 @@
         "timestamp": "2018-12-13T13:05:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6ee013a148cc49c1",
       "song_titles": [
         "Anökumene"
       ],
@@ -12545,8 +12545,8 @@
         "timestamp": "2021-04-15T14:53:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3dbb55d4759d9b88",
       "song_titles": [
         "Antithesis"
       ],
@@ -13376,8 +13376,8 @@
         "timestamp": "2017-08-25T03:40:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a7109e5e97b4c73d",
       "song_titles": [
         "Arcana Idola"
       ],
@@ -14261,8 +14261,8 @@
         "timestamp": "2018-08-17T04:08:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:bc2d950937d31df7",
       "song_titles": [
         "Arty Party"
       ],
@@ -14408,8 +14408,8 @@
         "timestamp": "2015-07-25T01:01:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:40ab3bbb5b225e5c",
       "song_titles": [
         "Ashes"
       ],
@@ -14573,8 +14573,8 @@
         "timestamp": "2023-12-08T14:15:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:41919329131ef1b3",
       "song_titles": [
         "Assassin"
       ],
@@ -14845,8 +14845,8 @@
         "timestamp": "2021-08-20T22:55:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b08d099762bfa0ec",
       "song_titles": [
         "Astral"
       ],
@@ -15432,8 +15432,8 @@
         "timestamp": "2019-11-24T19:00:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6ec2b31a69144e1b",
       "song_titles": [
         "Atomic Dropper"
       ],
@@ -15698,8 +15698,8 @@
         "timestamp": "2019-11-04T19:25:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6420082830432bee",
       "song_titles": [
         "At the peak"
       ],
@@ -15849,8 +15849,8 @@
         "timestamp": "2020-02-18T19:27:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5cbe14dc652053ed",
       "song_titles": [
         "Aujourd'hui"
       ],
@@ -16315,8 +16315,8 @@
         "timestamp": "2018-05-13T08:42:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:061297be17a81b65",
       "song_titles": [
         "Axis"
       ],
@@ -16499,8 +16499,8 @@
         "timestamp": "2017-02-16T12:28:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8e884277de7c3ca3",
       "song_titles": [
         "Azure Snow Land"
       ],
@@ -16644,8 +16644,8 @@
         "timestamp": "2024-02-06T13:14:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5eaefb2306f84b19",
       "song_titles": [
         "BIT TECH COMPUTER"
       ],
@@ -17344,8 +17344,8 @@
         "timestamp": "2022-12-02T11:50:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:842a598703498685",
       "song_titles": [
         "Back Out"
       ],
@@ -17989,8 +17989,8 @@
         "timestamp": "2017-04-21T06:42:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7971f4b1dd09e783",
       "song_titles": [
         "Before Sunrise"
       ],
@@ -18592,8 +18592,8 @@
         "timestamp": "2017-09-15T06:46:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:59ea2cfc9cfb7591",
       "song_titles": [
         "Between Boundaries"
       ],
@@ -18890,8 +18890,8 @@
         "timestamp": "2024-10-18T14:26:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4489ce5a78235cb4",
       "song_titles": [
         "Beyond the Rainbow"
       ],
@@ -19022,8 +19022,8 @@
         "timestamp": "2021-10-08T04:24:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:47fe419bf3d8acfd",
       "song_titles": [
         "Big Beats Blow"
       ],
@@ -19324,8 +19324,8 @@
         "timestamp": "2018-09-13T18:07:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:bbee20239220b215",
       "song_titles": [
         "Black：Magnam"
       ],
@@ -19398,8 +19398,8 @@
         "timestamp": "2015-05-21T18:16:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ea946f837bbf4a66",
       "song_titles": [
         "Black Horse Famine"
       ],
@@ -19770,8 +19770,8 @@
         "timestamp": "2018-10-19T22:40:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7256ad16470ef10c",
       "song_titles": [
         "Black sour Ruby"
       ],
@@ -19893,8 +19893,8 @@
         "timestamp": "2017-04-20T11:18:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e33b3ef9ab425094",
       "song_titles": [
         "Blood Chivalry"
       ],
@@ -19936,8 +19936,8 @@
         "timestamp": "2025-03-21T15:27:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:37a897e5bbaf450d",
       "song_titles": [
         "Bloom Blade"
       ],
@@ -20109,8 +20109,8 @@
         "timestamp": "2017-08-03T14:38:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4697dd7ca291cc58",
       "song_titles": [
         "Blue"
       ],
@@ -20323,8 +20323,8 @@
         "timestamp": "2017-05-05T07:21:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:af8b2ffc50aab86d",
       "song_titles": [
         "Bluebell"
       ],
@@ -20569,8 +20569,8 @@
         "timestamp": "2022-04-02T02:47:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4aa390ae8dc10e54",
       "song_titles": [
         "blueberry cheesecake"
       ],
@@ -20823,8 +20823,8 @@
         "timestamp": "2019-02-07T16:16:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ce71aeb88d5a2829",
       "song_titles": [
         "BLUFF"
       ],
@@ -21033,8 +21033,8 @@
         "timestamp": "2024-07-05T12:16:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5a9355fb9bb82b98",
       "song_titles": [
         "Bonus Time"
       ],
@@ -21225,8 +21225,8 @@
         "timestamp": "2018-01-26T08:41:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4fc5ba3e27065d6e",
       "song_titles": [
         "BOUNCE THE TECH"
       ],
@@ -21728,8 +21728,8 @@
         "timestamp": "2020-07-17T09:41:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f752c0dbb3638ef1",
       "song_titles": [
         "CHAKA"
       ],
@@ -22489,8 +22489,8 @@
         "timestamp": "2015-12-19T13:43:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c3794192cbaf411b",
       "song_titles": [
         "Caelus"
       ],
@@ -22919,8 +22919,8 @@
         "timestamp": "2021-07-08T18:10:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:29c8c586801ad6ad",
       "song_titles": [
         "Calling"
       ],
@@ -23169,8 +23169,8 @@
         "timestamp": "2018-10-25T17:14:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:95dd613c4925663d",
       "song_titles": [
         "Canon in Blue"
       ],
@@ -23821,8 +23821,8 @@
         "timestamp": "2018-05-08T14:17:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:fd0cd1087a59e0f7",
       "song_titles": [
         "Catastrophe"
       ],
@@ -24353,8 +24353,8 @@
         "timestamp": "2017-02-02T17:26:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a59adbd324de16f5",
       "song_titles": [
         "Cervelle Connexion"
       ],
@@ -24966,8 +24966,8 @@
         "timestamp": "2020-03-31T11:54:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7c7f63ba4a5d5946",
       "song_titles": [
         "Chemical Infusion"
       ],
@@ -26349,8 +26349,8 @@
         "timestamp": "2020-02-10T18:40:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5f865772c9028665",
       "song_titles": [
         "Chromosphere"
       ],
@@ -26758,8 +26758,8 @@
         "timestamp": "2016-11-04T13:00:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e77dff4a4a6dc7c0",
       "song_titles": [
         "Chrysoberyl"
       ],
@@ -27251,8 +27251,8 @@
         "timestamp": "2024-11-01T14:30:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e7da3cdb567e38f5",
       "song_titles": [
         "Circumscription"
       ],
@@ -27474,8 +27474,8 @@
         "timestamp": "2023-08-18T05:55:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8099d729b914cfe9",
       "song_titles": [
         "City Girl in the Love"
       ],
@@ -28012,8 +28012,8 @@
         "timestamp": "2019-04-11T21:07:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1c26a7f625ead4c0",
       "song_titles": [
         "Class memories"
       ],
@@ -28403,8 +28403,8 @@
         "timestamp": "2015-01-05T13:41:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6cffa9c8c63e08ca",
       "song_titles": [
         "雲の国の王子"
       ],
@@ -29267,8 +29267,8 @@
         "timestamp": "2020-05-04T16:04:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6964d04b94ec0232",
       "song_titles": [
         "Contour"
       ],
@@ -29310,8 +29310,8 @@
         "timestamp": "2018-05-08T14:18:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e1ebb6e8232765b5",
       "song_titles": [
         "Convictor"
       ],
@@ -29718,8 +29718,8 @@
         "timestamp": "2019-04-18T23:13:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e7b49d5c03d0e171",
       "song_titles": [
         "CORONA"
       ],
@@ -30142,8 +30142,8 @@
         "timestamp": "2020-12-31T21:45:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d6e1308b4a0e8b22",
       "song_titles": [
         "Counter Terrorists"
       ],
@@ -30376,8 +30376,8 @@
         "timestamp": "2020-05-04T16:12:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a7c87ca4e2cbc5c3",
       "song_titles": [
         "Crank up"
       ],
@@ -30648,8 +30648,8 @@
         "timestamp": "2016-05-30T18:55:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6542720cb98d9bad",
       "song_titles": [
         "Creater S"
       ],
@@ -31078,8 +31078,8 @@
         "timestamp": "2021-09-02T15:55:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a96a4eb9706d590b",
       "song_titles": [
         "Creigis"
       ],
@@ -31439,8 +31439,8 @@
         "timestamp": "2018-01-11T22:57:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:36439ac8e0013128",
       "song_titles": [
         "Cross†Soul"
       ],
@@ -31572,8 +31572,8 @@
         "timestamp": "2021-04-01T15:29:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:620954699f28fca4",
       "song_titles": [
         "Cross Time"
       ],
@@ -31766,8 +31766,8 @@
         "timestamp": "2020-10-30T09:45:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1f7f68f2a440a919",
       "song_titles": [
         "CROSSING DELTA"
       ],
@@ -31914,8 +31914,8 @@
         "timestamp": "2015-11-27T11:15:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:afb36307ce86ea68",
       "song_titles": [
         "CruX"
       ],
@@ -31999,8 +31999,8 @@
         "timestamp": "2016-11-13T02:45:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:80f9e3a5df729df0",
       "song_titles": [
         "Cryonix"
       ],
@@ -32264,8 +32264,8 @@
         "timestamp": "2018-07-06T06:21:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2849d92f3ba809af",
       "song_titles": [
         "Crystal Clear Sky"
       ],
@@ -32309,8 +32309,8 @@
         "timestamp": "2018-11-03T02:37:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5bb1b44116c33fae",
       "song_titles": [
         "Crystal Ribbon"
       ],
@@ -32822,8 +32822,8 @@
         "timestamp": "2021-09-09T23:19:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:90c6ac7c1db35c53",
       "song_titles": [
         "Cumulus"
       ],
@@ -33089,8 +33089,8 @@
         "timestamp": "2024-12-24T17:43:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0e1fc4ad298c1a22",
       "song_titles": [
         "Curtainfall!"
       ],
@@ -34085,8 +34085,8 @@
         "timestamp": "2021-12-10T08:01:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:248b7e1bf69696f8",
       "song_titles": [
         "Dahlia"
       ],
@@ -34480,8 +34480,8 @@
         "timestamp": "2020-11-06T07:46:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6cb6cb643048df0d",
       "song_titles": [
         "Dangerous Insanity (2019 Rework)"
       ],
@@ -34601,8 +34601,8 @@
         "timestamp": "2020-05-04T16:04:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7d9d0ee358b99d65",
       "song_titles": [
         "Danse de Romani"
       ],
@@ -34784,8 +34784,8 @@
         "timestamp": "2017-09-23T19:04:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2b27f8d7c31ecc89",
       "song_titles": [
         "Daydream"
       ],
@@ -35410,8 +35410,8 @@
         "timestamp": "2020-01-16T17:24:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4fc03e9e92cecb8f",
       "song_titles": [
         "Dead Master"
       ],
@@ -35455,8 +35455,8 @@
         "timestamp": "2019-03-14T21:30:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3ac25778184e9839",
       "song_titles": [
         "Dead Soul"
       ],
@@ -35822,8 +35822,8 @@
         "timestamp": "2017-03-17T21:44:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:12f7e95cc8d42ad2",
       "song_titles": [
         "DeaDLiNE"
       ],
@@ -35864,8 +35864,8 @@
         "timestamp": "2015-05-21T18:04:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:45781d4cf0f1a815",
       "song_titles": [
         "Deadly Poppy Field"
       ],
@@ -36100,8 +36100,8 @@
         "timestamp": "2023-03-17T09:19:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b05311bb6f27501f",
       "song_titles": [
         "Decoherence"
       ],
@@ -36218,8 +36218,8 @@
         "timestamp": "2018-05-13T08:28:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:91e2926775b22911",
       "song_titles": [
         "Decomposition"
       ],
@@ -36455,8 +36455,8 @@
         "timestamp": "2022-04-08T04:20:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:77390c2560e57df0",
       "song_titles": [
         "Deda Dash"
       ],
@@ -36725,8 +36725,8 @@
         "timestamp": "2017-07-14T03:50:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6a6d78627bd6cecc",
       "song_titles": [
         "Defended"
       ],
@@ -36937,8 +36937,8 @@
         "timestamp": "2017-11-24T08:33:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4ea9eb988401ef04",
       "song_titles": [
         "Dement ~After Legend~"
       ],
@@ -37233,8 +37233,8 @@
         "timestamp": "2019-07-30T16:19:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:aee805d077ab1dbe",
       "song_titles": [
         "demonic juggernauts"
       ],
@@ -37626,8 +37626,8 @@
         "timestamp": "2021-03-19T04:26:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b18304455f9941b4",
       "song_titles": [
         "depTh of mem0ry"
       ],
@@ -37753,8 +37753,8 @@
         "timestamp": "2018-05-13T08:31:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b52ce48158ed39e6",
       "song_titles": [
         "Desert Rose"
       ],
@@ -37906,8 +37906,8 @@
         "timestamp": "2020-04-02T17:33:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9c065db575632212",
       "song_titles": [
         "DestroY StresS"
       ],
@@ -38156,8 +38156,8 @@
         "timestamp": "2019-08-08T16:16:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d52cb5c590d56afa",
       "song_titles": [
         "Destruction"
       ],
@@ -38356,8 +38356,8 @@
         "timestamp": "2017-10-20T03:46:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4f6cec2fe1783a5b",
       "song_titles": [
         "diSTractiOn PoInT"
       ],
@@ -38894,8 +38894,8 @@
         "timestamp": "2023-12-02T04:17:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:05d31031587118bc",
       "song_titles": [
         "Distance"
       ],
@@ -39203,8 +39203,8 @@
         "timestamp": "2020-01-15T22:28:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f4d1c9c1401571ed",
       "song_titles": [
         "Dogu"
       ],
@@ -39271,8 +39271,8 @@
         "timestamp": "2018-05-08T14:18:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a904a6fa7c7bc6a1",
       "song_titles": [
         "Dolqueen"
       ],
@@ -40078,8 +40078,8 @@
         "timestamp": "2016-09-03T05:31:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3d17929ad268f2f6",
       "song_titles": [
         "Dream Starter"
       ],
@@ -40148,8 +40148,8 @@
         "timestamp": "2016-10-19T18:50:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:fc963842e711cd1d",
       "song_titles": [
         "Duet"
       ],
@@ -40303,8 +40303,8 @@
         "timestamp": "2022-02-18T11:31:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c1a7466224c24584",
       "song_titles": [
         "Dusky Disslove"
       ],
@@ -44880,8 +44880,8 @@
         "timestamp": "2015-11-27T11:49:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1926d5f36f9ea92e",
       "song_titles": [
         "Dyspnea"
       ],
@@ -45115,8 +45115,8 @@
         "timestamp": "2023-03-10T04:13:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:81d7d5e7cc65476f",
       "song_titles": [
         "ELYXiVN ELYXiUM"
       ],
@@ -45821,8 +45821,8 @@
         "timestamp": "2014-11-01T13:45:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9d08c3c7494af783",
       "song_titles": [
         "Eclipses"
       ],
@@ -46290,8 +46290,8 @@
         "timestamp": "2023-04-14T04:42:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d86ca1e95071e0b8",
       "song_titles": [
         "Eldredth"
       ],
@@ -46819,8 +46819,8 @@
         "timestamp": "2016-08-05T00:42:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:51f0df11916ee53c",
       "song_titles": [
         "Elph’s Sadness -Dynamix Edition-",
         "Gallium Phosphide"
@@ -47746,8 +47746,8 @@
         "timestamp": "2019-12-25T08:30:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:aa7e0ef573446016",
       "song_titles": [
         "Empty Stars"
       ],
@@ -47988,8 +47988,8 @@
         "timestamp": "2018-02-08T23:23:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2ed3c81774a05974",
       "song_titles": [
         "Emulisy"
       ],
@@ -48385,8 +48385,8 @@
         "timestamp": "2020-02-27T17:01:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:deee216ea4cc4ae6",
       "song_titles": [
         "Encore"
       ],
@@ -48841,8 +48841,8 @@
         "timestamp": "2020-07-03T10:53:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7732ed5118fe5419",
       "song_titles": [
         "Enhanced Lights"
       ],
@@ -49072,8 +49072,8 @@
         "timestamp": "2023-06-17T15:32:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8fd9093825e1fb5e",
       "song_titles": [
         "Ennor"
       ],
@@ -49295,8 +49295,8 @@
         "timestamp": "2018-07-06T04:54:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9515f2645335bcaa",
       "song_titles": [
         "Envy Luvs Melancholy"
       ],
@@ -49497,8 +49497,8 @@
         "timestamp": "2024-03-03T11:36:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5be4df7042e44006",
       "song_titles": [
         "Ephemeral Echo"
       ],
@@ -49871,8 +49871,8 @@
         "timestamp": "2019-01-31T23:31:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:cc228c03a17c63d3",
       "song_titles": [
         "Eschatology"
       ],
@@ -50010,8 +50010,8 @@
         "timestamp": "2017-06-30T17:34:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8776dac7295a4954",
       "song_titles": [
         "Essence of Twilight"
       ],
@@ -50135,8 +50135,8 @@
         "timestamp": "2021-09-08T04:59:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b4bd3ec34fe7ce7d",
       "song_titles": [
         "Euouae"
       ],
@@ -53228,8 +53228,8 @@
         "timestamp": "2018-06-10T13:16:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:653c79a6460b8316",
       "song_titles": [
         "Evoltex (poppi'n mix)"
       ],
@@ -53821,8 +53821,8 @@
         "timestamp": "2022-06-17T16:07:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8516cb96c86cd135",
       "song_titles": [
         "FORTALiCE"
       ],
@@ -53903,8 +53903,8 @@
         "timestamp": "2024-01-07T11:11:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9399ee984057b315",
       "song_titles": [
         "FREEZE"
       ],
@@ -54149,8 +54149,8 @@
         "timestamp": "2017-10-25T11:47:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b7d608279405c6d0",
       "song_titles": [
         "Fabula Proelium Magna"
       ],
@@ -54457,8 +54457,8 @@
         "timestamp": "2019-09-15T15:47:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8e41e20937f9d327",
       "song_titles": [
         "Fading Sky"
       ],
@@ -54662,8 +54662,8 @@
         "timestamp": "2019-12-10T18:56:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e03cf418f088b8d9",
       "song_titles": [
         "Faithtival"
       ],
@@ -54948,8 +54948,8 @@
         "timestamp": "2024-02-12T09:46:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5eb4256c4d8bec83",
       "song_titles": [
         "Far East Frontline"
       ],
@@ -55023,8 +55023,8 @@
         "timestamp": "2024-10-11T04:36:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e6501bb290380e40",
       "song_titles": [
         "Far Eastern Flavor"
       ],
@@ -55347,8 +55347,8 @@
         "timestamp": "2020-04-30T16:42:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4b38d94f12f35814",
       "song_titles": [
         "Fatality Saga"
       ],
@@ -55794,8 +55794,8 @@
         "timestamp": "2019-01-03T16:02:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1afeff595190ba17",
       "song_titles": [
         "Fernand System Operating!!"
       ],
@@ -56025,8 +56025,8 @@
         "timestamp": "2015-01-05T03:22:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:799e3ba63cc6c2f4",
       "song_titles": [
         "Fierce Heart"
       ],
@@ -56066,8 +56066,8 @@
         "timestamp": "2020-05-04T16:00:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:03df7c98bdfbfa02",
       "song_titles": [
         "Final Dash"
       ],
@@ -56235,8 +56235,8 @@
         "timestamp": "2015-01-05T13:35:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:509af9fd1a455dfd",
       "song_titles": [
         "萤火虫の怨"
       ],
@@ -56361,8 +56361,8 @@
         "timestamp": "2020-03-13T01:56:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e704b004f6f06090",
       "song_titles": [
         "Fireworks"
       ],
@@ -56564,8 +56564,8 @@
         "timestamp": "2022-03-18T07:14:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:38b5d409c628d257",
       "song_titles": [
         "Fission"
       ],
@@ -56776,8 +56776,8 @@
         "timestamp": "2021-01-14T16:26:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:cc06df4f60dfe1cc",
       "song_titles": [
         "Fl0at on Air"
       ],
@@ -57022,8 +57022,8 @@
         "timestamp": "2017-01-27T22:51:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f6e6674cd3ef2f20",
       "song_titles": [
         "Flarebirds of Scarlet Prism"
       ],
@@ -57253,8 +57253,8 @@
         "timestamp": "2017-06-30T17:34:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:55af6862a3ffa197",
       "song_titles": [
         "Flashback"
       ],
@@ -57697,8 +57697,8 @@
         "timestamp": "2017-06-30T17:34:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e8ca46807b83d7c0",
       "song_titles": [
         "フライブルクとエンドロウル"
       ],
@@ -57743,8 +57743,8 @@
         "timestamp": "2018-03-08T19:47:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ef4197ce3d16a32e",
       "song_titles": [
         "Flying colours"
       ],
@@ -58141,8 +58141,8 @@
         "timestamp": "2020-05-15T07:12:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:78f46ea5bef0dc3e",
       "song_titles": [
         "Forbidden Area"
       ],
@@ -58383,8 +58383,8 @@
         "timestamp": "2014-11-26T08:37:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:fac234815f0267db",
       "song_titles": [
         "Forget Me Not"
       ],
@@ -58421,8 +58421,8 @@
         "timestamp": "2018-05-13T08:19:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:82f9592728c66c3d",
       "song_titles": [
         "Forsaken"
       ],
@@ -58768,8 +58768,8 @@
         "timestamp": "2022-11-04T04:40:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a52d658e54383768",
       "song_titles": [
         "freewheeling"
       ],
@@ -59092,8 +59092,8 @@
         "timestamp": "2024-07-21T11:43:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:63ec9267322c4f96",
       "song_titles": [
         "frerejacques"
       ],
@@ -59262,8 +59262,8 @@
         "timestamp": "2017-10-26T14:54:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7d9bf8e75b74b42d",
       "song_titles": [
         "Frontline B-Side"
       ],
@@ -59674,8 +59674,8 @@
         "timestamp": "2019-01-24T20:25:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:824a1c28fa7348c3",
       "song_titles": [
         "Future City Ⅵ"
       ],
@@ -59910,8 +59910,8 @@
         "timestamp": "2024-03-17T13:56:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d46b5647493d7046",
       "song_titles": [
         "GIFT"
       ],
@@ -60078,8 +60078,8 @@
         "timestamp": "2016-11-13T02:06:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:38b0045125c0fc07",
       "song_titles": [
         "GOEMON"
       ],
@@ -60207,8 +60207,8 @@
         "timestamp": "2016-10-24T10:34:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0b2bed2743a8737d",
       "song_titles": [
         "Galaxia"
       ],
@@ -60320,8 +60320,8 @@
         "timestamp": "2020-09-01T17:45:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c0e9044611c8b636",
       "song_titles": [
         "Gallium Nitride"
       ],
@@ -60389,8 +60389,8 @@
         "timestamp": "2015-07-25T01:03:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1295927ffc7c899c",
       "song_titles": [
         "Elph’s Sadness -Dynamix Edition-",
         "Gallium Phosphide"
@@ -60431,8 +60431,8 @@
         "timestamp": "2015-01-05T03:13:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:cbcb088486ed5910",
       "song_titles": [
         "Gallium Arsenide"
       ],
@@ -60697,8 +60697,8 @@
         "timestamp": "2018-03-08T19:00:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5c23c7a01fb1ae6d",
       "song_titles": [
         "月奏リバイバル"
       ],
@@ -61550,8 +61550,8 @@
         "timestamp": "2021-07-16T01:37:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0b1f58d341a5871a",
       "song_titles": [
         "Give It To Me"
       ],
@@ -61668,8 +61668,8 @@
         "timestamp": "2019-05-16T14:35:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1020e707faeeafde",
       "song_titles": [
         "Glacial (Liquart Remix)"
       ],
@@ -61947,8 +61947,8 @@
         "timestamp": "2019-11-17T16:16:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:905fa6af522fd0d2",
       "song_titles": [
         "Glory of the Sacred Kingdom"
       ],
@@ -62319,8 +62319,8 @@
         "timestamp": "2016-10-19T19:23:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:382093df7acef918",
       "song_titles": [
         "Go Escape"
       ],
@@ -62386,8 +62386,8 @@
         "timestamp": "2015-12-19T13:39:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9bd68a7657bcfb90",
       "song_titles": [
         "Goldelius"
       ],
@@ -63128,8 +63128,8 @@
         "timestamp": "2015-07-25T01:05:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9111fb02ec64aeec",
       "song_titles": [
         "Grape Jelly"
       ],
@@ -63195,8 +63195,8 @@
         "timestamp": "2025-02-22T16:42:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1d91085ae2848139",
       "song_titles": [
         "Grayscale Tragedy"
       ],
@@ -63326,8 +63326,8 @@
         "timestamp": "2018-10-25T17:13:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c907a8fb9b42b411",
       "song_titles": [
         "Grenade"
       ],
@@ -63483,8 +63483,8 @@
         "timestamp": "2015-05-21T18:20:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2044fd6f53323abc",
       "song_titles": [
         "Grey Horse Underworld"
       ],
@@ -63526,8 +63526,8 @@
         "timestamp": "2024-10-05T06:43:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9fab4c73c8dc3583",
       "song_titles": [
         "Grimoire Heart"
       ],
@@ -63770,8 +63770,8 @@
         "timestamp": "2023-06-09T14:58:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8cd0e37f5ef6a193",
       "song_titles": [
         "Guilty Hostage"
       ],
@@ -63996,8 +63996,8 @@
         "timestamp": "2019-05-16T14:38:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f757c9174ffc51d3",
       "song_titles": [
         "HDHR"
       ],
@@ -64227,8 +64227,8 @@
         "timestamp": "2024-07-14T08:18:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:33ec54cbaf651e56",
       "song_titles": [
         "HOPE"
       ],
@@ -64387,8 +64387,8 @@
         "timestamp": "2019-03-24T14:37:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:cb4e84dcfe435fbe",
       "song_titles": [
         "HYPER-NOVA"
       ],
@@ -64633,8 +64633,8 @@
         "timestamp": "2018-11-15T23:15:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a2cefecd712f5e99",
       "song_titles": [
         "白色の夢で。"
       ],
@@ -64763,8 +64763,8 @@
         "timestamp": "2019-11-13T21:27:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b14deb029c2269ea",
       "song_titles": [
         "Hall of Fame"
       ],
@@ -65475,8 +65475,8 @@
         "timestamp": "2021-06-18T02:31:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:40bf93931cf5aa16",
       "song_titles": [
         "Happiness Bread"
       ],
@@ -66404,8 +66404,8 @@
         "timestamp": "2023-10-15T13:11:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:962a4c493220797c",
       "song_titles": [
         "haptime"
       ],
@@ -66799,8 +66799,8 @@
         "timestamp": "2023-12-15T13:20:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8f2b7ff63a521e59",
       "song_titles": [
         "Hauynite"
       ],
@@ -67044,8 +67044,8 @@
         "timestamp": "2017-10-25T11:47:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ea4397b822047107",
       "song_titles": [
         "HEADROOM WITH PLEASANT RHYTHM"
       ],
@@ -67087,8 +67087,8 @@
         "timestamp": "2017-03-14T13:19:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:932d6a165434808f",
       "song_titles": [
         "Heart Eyes"
       ],
@@ -67221,8 +67221,8 @@
         "timestamp": "2021-01-08T07:01:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e1a5adb82a1a6eaf",
       "song_titles": [
         "Heart Of Glass"
       ],
@@ -67404,8 +67404,8 @@
         "timestamp": "2025-04-24T15:10:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0a21bc906d86e01c",
       "song_titles": [
         "Heaven's Cage"
       ],
@@ -67561,8 +67561,8 @@
         "timestamp": "2017-11-26T19:15:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:11a6c41fbaf7041c",
       "song_titles": [
         "Helios"
       ],
@@ -67936,8 +67936,8 @@
         "timestamp": "2017-08-31T05:25:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e12fcae5b1f0d900",
       "song_titles": [
         "Hemisphere"
       ],
@@ -68005,8 +68005,8 @@
         "timestamp": "2024-06-03T14:20:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e9ea8737e900434b",
       "song_titles": [
         "HeracleS"
       ],
@@ -68142,8 +68142,8 @@
         "timestamp": "2017-01-13T22:33:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:45e6be4337f3494a",
       "song_titles": [
         "Hiccup Drunk"
       ],
@@ -68521,8 +68521,8 @@
         "timestamp": "2020-10-09T07:15:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:657f5c76897cedbc",
       "song_titles": [
         "High-School QUEEN!!!"
       ],
@@ -68650,8 +68650,8 @@
         "timestamp": "2017-07-07T04:25:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:78527c8269680756",
       "song_titles": [
         "High Speed Riders"
       ],
@@ -68986,8 +68986,8 @@
         "timestamp": "2024-01-02T08:35:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:fe67ccc69c8f93b7",
       "song_titles": [
         "Hiyaiya!"
       ],
@@ -69069,8 +69069,8 @@
         "timestamp": "2019-02-24T15:11:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0ae1e4abf247a28c",
       "song_titles": [
         "Holy Lightbringer"
       ],
@@ -69527,8 +69527,8 @@
         "timestamp": "2015-01-05T13:38:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b127fa5ad2757ac4",
       "song_titles": [
         "香港ノ奇術師"
       ],
@@ -69654,8 +69654,8 @@
         "timestamp": "2020-04-23T17:13:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9a0c4443d5bf2bba",
       "song_titles": [
         "HOPE"
       ],
@@ -69818,8 +69818,8 @@
         "timestamp": "2018-01-04T16:27:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:236db8a05f46f927",
       "song_titles": [
         "Hopeful Warrior"
       ],
@@ -69936,8 +69936,8 @@
         "timestamp": "2025-02-22T16:49:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:56678df1aa211e9f",
       "song_titles": [
         "Horloge"
       ],
@@ -69985,8 +69985,8 @@
         "timestamp": "2021-12-17T04:26:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8acc2e234de1ac7a",
       "song_titles": [
         "ほしのおとしもの"
       ],
@@ -70102,8 +70102,8 @@
         "timestamp": "2019-06-06T17:04:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0d16767d8bdfbc0a",
       "song_titles": [
         "HumaN"
       ],
@@ -70495,8 +70495,8 @@
         "timestamp": "2021-08-13T03:58:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d18e8fb2a08cd0c5",
       "song_titles": [
         "Hyperspace Jump"
       ],
@@ -70667,8 +70667,8 @@
         "timestamp": "2015-07-25T01:06:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f1731d682a2ef9b7",
       "song_titles": [
         "パントマイム feat. IA"
       ],
@@ -71560,8 +71560,8 @@
         "timestamp": "2022-01-07T04:56:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5e1a60d0b49cb216",
       "song_titles": [
         "INFiNiTE ENERZY -Overdoze-"
       ],
@@ -71794,8 +71794,8 @@
         "timestamp": "2021-11-19T13:29:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4bbddbc7b8fdf556",
       "song_titles": [
         "INNOceNsION"
       ],
@@ -72084,8 +72084,8 @@
         "timestamp": "2023-04-07T05:12:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c102835a9a5e3ba9",
       "song_titles": [
         "ISERA (DNX Edit)"
       ],
@@ -72431,8 +72431,8 @@
         "timestamp": "2018-08-24T05:10:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ac56289dd44d01e1",
       "song_titles": [
         "Ice Chandelier"
       ],
@@ -72822,8 +72822,8 @@
         "timestamp": "2014-10-31T02:00:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b58fbf951ccd548f",
       "song_titles": [
         "Impromptu D899#3-Y"
       ],
@@ -72865,8 +72865,8 @@
         "timestamp": "2020-01-15T22:28:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a068872cd0e241f7",
       "song_titles": [
         "Impulse (Neutral Moon VIP Edit)"
       ],
@@ -72909,8 +72909,8 @@
         "timestamp": "2020-01-15T22:29:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c7f66b5f4b237c92",
       "song_titles": [
         "In Search Of..."
       ],
@@ -73116,8 +73116,8 @@
         "timestamp": "2022-10-07T13:17:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:680989975d976633",
       "song_titles": [
         "In a vat"
       ],
@@ -73248,8 +73248,8 @@
         "timestamp": "2021-05-06T15:37:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c67cd3015629a798",
       "song_titles": [
         "Infinity Bullet"
       ],
@@ -73625,8 +73625,8 @@
         "timestamp": "2016-02-19T07:52:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9d43da7eac13fd2a",
       "song_titles": [
         "Infinite Loop VIP"
       ],
@@ -73770,8 +73770,8 @@
         "timestamp": "2016-05-31T13:23:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:aecb82181e0e0abd",
       "song_titles": [
         "Invaded"
       ],
@@ -74021,8 +74021,8 @@
         "timestamp": "2022-08-05T12:12:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8232da4bf782ac23",
       "song_titles": [
         "ionosphere"
       ],
@@ -74903,8 +74903,8 @@
         "timestamp": "2018-02-02T08:37:42Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:cdcca093e7552f00",
       "song_titles": [
         "JOACHIM : D"
       ],
@@ -75294,8 +75294,8 @@
         "timestamp": "2019-10-22T20:01:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:65aad25dbf6947eb",
       "song_titles": [
         "Jack Out KIllER"
       ],
@@ -76028,8 +76028,8 @@
         "timestamp": "2017-09-01T02:16:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:13daafb021a3afaf",
       "song_titles": [
         "Justice Justice"
       ],
@@ -76814,8 +76814,8 @@
         "timestamp": "2021-10-15T05:42:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5274b21c1d643aca",
       "song_titles": [
         "Kalis Mind"
       ],
@@ -77043,8 +77043,8 @@
         "timestamp": "2018-05-08T14:38:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a8f113273e06bbfd",
       "song_titles": [
         "奏 -KANADE-"
       ],
@@ -77091,8 +77091,8 @@
         "timestamp": "2019-06-30T16:18:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d5de5cfadd926973",
       "song_titles": [
         "哀しい竜とカイツール"
       ],
@@ -77162,8 +77162,8 @@
         "timestamp": "2018-03-08T19:47:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:071a755ddf09e01e",
       "song_titles": [
         "Kant"
       ],
@@ -77313,8 +77313,8 @@
         "timestamp": "2015-01-05T03:26:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e3f07a63ea6073aa",
       "song_titles": [
         "Keep Out"
       ],
@@ -77575,8 +77575,8 @@
         "timestamp": "2018-12-21T07:17:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9e4c5a1a5b297833",
       "song_titles": [
         "炯眼の絶対零度"
       ],
@@ -78058,8 +78058,8 @@
         "timestamp": "2019-07-04T15:27:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:506c6aaeeedda38c",
       "song_titles": [
         "Knight of Tripletz (for DNX Edit)"
       ],
@@ -78563,8 +78563,8 @@
         "timestamp": "2016-12-06T13:06:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:874337f9e36a521d",
       "song_titles": [
         "Kog"
       ],
@@ -79109,8 +79109,8 @@
         "timestamp": "2019-06-21T17:21:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f18adb7f2aa2bcb6",
       "song_titles": [
         "Kokytos"
       ],
@@ -79257,8 +79257,8 @@
         "timestamp": "2018-05-08T14:38:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f7bc567a781c0897",
       "song_titles": [
         "交差して歪む過去と未来"
       ],
@@ -79355,8 +79355,8 @@
         "timestamp": "2018-12-27T15:05:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8b502cca7f8dc27c",
       "song_titles": [
         "Kreuz"
       ],
@@ -79601,8 +79601,8 @@
         "timestamp": "2018-02-22T19:03:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:f6c64808bd08a6f5",
       "song_titles": [
         "曇る鑑《かがみ》の霧を含みて"
       ],
@@ -79972,8 +79972,8 @@
         "timestamp": "2023-04-21T04:23:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:537c6f46a768816f",
       "song_titles": [
         "Kyubi"
       ],
@@ -80525,8 +80525,8 @@
         "timestamp": "2024-08-17T16:28:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6aa45899f3489e85",
       "song_titles": [
         "LOVE"
       ],
@@ -80718,8 +80718,8 @@
         "timestamp": "2023-11-26T11:30:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:884877f3cb106822",
       "song_titles": [
         "Lacrimosa"
       ],
@@ -81155,8 +81155,8 @@
         "timestamp": "2020-09-04T16:34:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3842d61b7a0249b1",
       "song_titles": [
         "Laivisca"
       ],
@@ -81445,8 +81445,8 @@
         "timestamp": "2016-10-19T18:55:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ef63d4da0e4d3338",
       "song_titles": [
         "L'AMITIE"
       ],
@@ -81874,8 +81874,8 @@
         "timestamp": "2017-07-27T12:51:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:08c069645e398a98",
       "song_titles": [
         "Last farewell"
       ],
@@ -81984,8 +81984,8 @@
         "timestamp": "2018-03-23T16:15:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:b078bcc73cf89c3d",
       "song_titles": [
         "Last Fate"
       ],
@@ -82430,8 +82430,8 @@
         "timestamp": "2021-06-03T23:09:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a793c6e47ee28b4f",
       "song_titles": [
         "Lava Control"
       ],
@@ -82634,8 +82634,8 @@
         "timestamp": "2016-10-27T10:45:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7e37a50f3ff5278f",
       "song_titles": [
         "Le ciel heureux"
       ],
@@ -82705,8 +82705,8 @@
         "timestamp": "2016-02-19T07:51:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:05678cc0beb6e0de",
       "song_titles": [
         "Leave Me"
       ],
@@ -82749,8 +82749,8 @@
         "timestamp": "2022-11-11T09:53:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1732b7c53ced68ab",
       "song_titles": [
         "Legacy"
       ],
@@ -83068,8 +83068,8 @@
         "timestamp": "2023-07-21T17:28:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e4c0b25f66f51713",
       "song_titles": [
         "lehigh"
       ],
@@ -83563,8 +83563,8 @@
         "timestamp": "2022-02-11T04:21:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:232bc83c6e81392e",
       "song_titles": [
         "Let the bass kick"
       ],
@@ -83606,8 +83606,8 @@
         "timestamp": "2014-11-26T08:05:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:69445dd0b2b1e93f",
       "song_titles": [
         "Leviticus"
       ],
@@ -83682,8 +83682,8 @@
         "timestamp": "2015-11-27T11:47:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a99ac615aadb3e5c",
       "song_titles": [
         "Libra"
       ],
@@ -83723,8 +83723,8 @@
         "timestamp": "2019-05-16T14:43:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:bcd8c7596fc5971d",
       "song_titles": [
         "life flashes before weeb eyes"
       ],
@@ -83770,8 +83770,8 @@
         "timestamp": "2019-02-16T00:34:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:77dabfc5a9736f7c",
       "song_titles": [
         "Life Style"
       ],
@@ -84358,8 +84358,8 @@
         "timestamp": "2018-06-21T16:54:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:699acfef10e26d42",
       "song_titles": [
         "Lily"
       ],
@@ -84745,8 +84745,8 @@
         "timestamp": "2019-09-22T21:22:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:595a5c4879b19833",
       "song_titles": [
         "Link To Dungeons"
       ],
@@ -85124,8 +85124,8 @@
         "timestamp": "2018-11-07T19:58:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:0658f15579ac5470",
       "song_titles": [
         "Lionhearted"
       ],
@@ -85590,8 +85590,8 @@
         "timestamp": "2018-05-13T08:46:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e77abc0d5d14a897",
       "song_titles": [
         "Little Boy"
       ],
@@ -85768,8 +85768,8 @@
         "timestamp": "2018-12-06T11:28:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5c9baadc49a77428",
       "song_titles": [
         "Little Flower"
       ],
@@ -86113,8 +86113,8 @@
         "timestamp": "2023-05-12T15:28:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3fcf6ba985bba217",
       "song_titles": [
         "lodeinfo"
       ],
@@ -86736,8 +86736,8 @@
         "timestamp": "2019-10-27T00:43:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ac1c53b67602716d",
       "song_titles": [
         "Lonely Cat"
       ],
@@ -86886,8 +86886,8 @@
         "timestamp": "2014-10-31T13:24:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:82e2e8d385ed5b7f",
       "song_titles": [
         "Lotus"
       ],
@@ -87140,8 +87140,8 @@
         "timestamp": "2020-12-11T11:23:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c1b7e69a23c370a8",
       "song_titles": [
         "Love like we're dying"
       ],
@@ -87293,8 +87293,8 @@
         "timestamp": "2018-05-08T14:17:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:9a12a330ebe5c788",
       "song_titles": [
         "Lucentear"
       ],
@@ -87338,8 +87338,8 @@
         "timestamp": "2024-01-02T08:35:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1a36f6586bdd4fc6",
       "song_titles": [
         "Lucid Trigger"
       ],
@@ -87577,8 +87577,8 @@
         "timestamp": "2020-01-28T17:22:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:281e3f4640ad3ee3",
       "song_titles": [
         "Lumina"
       ],
@@ -87842,8 +87842,8 @@
         "timestamp": "2025-03-21T15:27:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:121ed488fde5ade9",
       "song_titles": [
         "Luna Rossa"
       ],
@@ -87996,8 +87996,8 @@
         "timestamp": "2016-11-02T06:06:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:75aeb7d38f6d5a22",
       "song_titles": [
         "Lunar Arrow"
       ],
@@ -88150,8 +88150,8 @@
         "timestamp": "2016-05-28T16:26:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:64220fe379a50586",
       "song_titles": [
         "Another World"
       ],
@@ -88416,8 +88416,8 @@
         "timestamp": "2023-01-06T17:46:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:bfcceea5439fe6a0",
       "song_titles": [
         "Luxvinore"
       ],
@@ -88679,8 +88679,8 @@
         "timestamp": "2023-08-04T13:31:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e4f1473c89c4d935",
       "song_titles": [
         "MEGA POP"
       ],
@@ -88989,8 +88989,8 @@
         "timestamp": "2020-08-06T15:05:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:ca0ea0d01f28184a",
       "song_titles": [
         "MLG"
       ],
@@ -89323,8 +89323,8 @@
         "timestamp": "2020-02-04T17:16:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:eca98bf02411fd5c",
       "song_titles": [
         "MOONLIT PARTY (Game Edit.)"
       ],
@@ -89670,8 +89670,8 @@
         "timestamp": "2019-04-25T21:41:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3e911f1e329fe1d0",
       "song_titles": [
         "Magic of love (Dynamix Edit)"
       ],
@@ -90176,8 +90176,8 @@
         "timestamp": "2020-05-04T16:08:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:50301d43157a383b",
       "song_titles": [
         "Makes Me Wonder"
       ],
@@ -90555,8 +90555,8 @@
         "timestamp": "2024-08-09T06:23:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3c6870a9128c6790",
       "song_titles": [
         "Mamba"
       ],
@@ -91168,8 +91168,8 @@
         "timestamp": "2017-04-01T13:36:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c7355675fe67163d",
       "song_titles": [
         "Marion.net"
       ],
@@ -91234,8 +91234,8 @@
         "timestamp": "2023-09-01T09:28:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4d76fd49e959022b",
       "song_titles": [
         "Marsh Winds"
       ],
@@ -91691,8 +91691,8 @@
         "timestamp": "2020-04-17T07:16:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4be7c11ed95bdf88",
       "song_titles": [
         "Mass Control"
       ],
@@ -91919,8 +91919,8 @@
         "timestamp": "2021-09-08T04:59:42Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c0ff98b2f05a8a27",
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],
@@ -92168,8 +92168,8 @@
         "timestamp": "2018-10-11T21:16:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5e9d8316c8a63812",
       "song_titles": [
         "Mechanical Jäger"
       ],
@@ -92431,8 +92431,8 @@
         "timestamp": "2019-01-10T23:41:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3e2cfe66f0b1f400",
       "song_titles": [
         "Mechanismós ton Antikythíron"
       ],
@@ -92557,8 +92557,8 @@
         "timestamp": "2017-10-25T11:47:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:fc11a99f7f2453af",
       "song_titles": [
         "Melancholy"
       ],
@@ -92941,8 +92941,8 @@
         "timestamp": "2016-09-03T05:32:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4b7cb01594bc6622",
       "song_titles": [
         "Meteor Hope"
       ],
@@ -92985,8 +92985,8 @@
         "timestamp": "2020-05-04T16:08:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2fa2ec73859f4bfc",
       "song_titles": [
         "Metheus"
       ],
@@ -93028,8 +93028,8 @@
         "timestamp": "2017-04-20T11:17:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a0e0e9498bc1302d",
       "song_titles": [
         "Metropolitan Chaser"
       ],
@@ -93268,8 +93268,8 @@
         "timestamp": "2021-11-12T05:43:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:db31ca60f8fca3bc",
       "song_titles": [
         "Mid Night Metropolitan Highway"
       ],
@@ -93421,8 +93421,8 @@
         "timestamp": "2015-12-19T13:44:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a42cb8f4c0751599",
       "song_titles": [
         "Midnight Party"
       ],
@@ -93756,8 +93756,8 @@
         "timestamp": "2020-11-13T05:53:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:56144cf7675eabda",
       "song_titles": [
         "Mind Blast (Dynamix Edit)"
       ],
@@ -94284,8 +94284,8 @@
         "timestamp": "2024-12-14T07:22:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:e4c7b325312976fa",
       "song_titles": [
         "Mithridates"
       ],
@@ -94489,8 +94489,8 @@
         "timestamp": "2021-03-12T06:22:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:431db23fc7267f14",
       "song_titles": [
         "Mithril"
       ],
@@ -94607,8 +94607,8 @@
         "timestamp": "2021-08-20T22:56:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:daed131dc7afeb8a",
       "song_titles": [
         "Mitochondria"
       ],
@@ -95282,8 +95282,8 @@
         "timestamp": "2023-06-02T12:49:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2d5cc45008a41925",
       "song_titles": [
         "ムーンリット・ワンダラー"
       ],
@@ -95621,8 +95621,8 @@
         "timestamp": "2020-06-18T18:50:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:6abcbcf47a12dfac",
       "song_titles": [
         "モシモシビット (Moshi Moshi Bit)"
       ],
@@ -95791,8 +95791,8 @@
         "timestamp": "2017-06-02T11:17:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:4213911a369dcd69",
       "song_titles": [
         "Mouse Runs For Cheese(Short Edit)"
       ],
@@ -95996,8 +95996,8 @@
         "timestamp": "2020-09-18T16:48:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1bbd2ad920746250",
       "song_titles": [
         "Moving On"
       ],
@@ -96619,8 +96619,8 @@
         "timestamp": "2021-02-05T10:57:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:44b6f50de6f96157",
       "song_titles": [
         "My life is mine"
       ],
@@ -96850,8 +96850,8 @@
         "timestamp": "2017-05-12T06:53:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:8dccd1fd1f47cf6d",
       "song_titles": [
         "Mystic Night"
       ],
@@ -97119,8 +97119,8 @@
         "timestamp": "2025-02-22T16:57:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:a72b17ec3310eba5",
       "song_titles": [
         "NNOYiA"
       ],
@@ -97395,8 +97395,8 @@
         "timestamp": "2022-01-21T07:47:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2ce8c8eeee476dea",
       "song_titles": [
         "NOVA"
       ],
@@ -97612,8 +97612,8 @@
         "timestamp": "2020-03-06T18:19:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1615196abd18e8bc",
       "song_titles": [
         "NaCl"
       ],
@@ -97921,8 +97921,8 @@
         "timestamp": "2018-10-25T17:14:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1c079a2adacd6d79",
       "song_titles": [
         "Nachtmusik"
       ],
@@ -98605,8 +98605,8 @@
         "timestamp": "2016-12-06T13:06:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:5dbdc8470f8e4f58",
       "song_titles": [
         "Nanohemu"
       ],
@@ -98985,8 +98985,8 @@
         "timestamp": "2022-06-10T13:59:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c7d9615b9489eba0",
       "song_titles": [
         "Necroxus"
       ],
@@ -99193,8 +99193,8 @@
         "timestamp": "2019-04-04T20:20:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:51fd133e5acc3e7a",
       "song_titles": [
         "涅槃を灯すシャーデンフロイデ"
       ],
@@ -99396,8 +99396,8 @@
         "timestamp": "2025-01-11T17:43:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7b26441c9125e591",
       "song_titles": [
         "Neptune"
       ],
@@ -99573,8 +99573,8 @@
         "timestamp": "2019-03-01T00:48:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:c4b0eb5161e4a3a5",
       "song_titles": [
         "New Story"
       ],
@@ -99766,8 +99766,8 @@
         "timestamp": "2018-05-24T20:12:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:3d411d32c56c0e26",
       "song_titles": [
         "Next Time (Feat.初音ミク)"
       ],
@@ -100021,8 +100021,8 @@
         "timestamp": "2016-10-24T10:16:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:1b08f73f98cf4bd6",
       "song_titles": [
         "Nible"
       ],

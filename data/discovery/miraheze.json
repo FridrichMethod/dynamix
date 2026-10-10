@@ -181,8 +181,8 @@
         "timestamp": "2026-08-09T09:18:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cf2d108a143532be",
       "song_titles": [
         "(XD)"
       ],
@@ -673,8 +673,8 @@
         "timestamp": "2026-08-09T09:12:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:77630c11d99b357e",
       "song_titles": [
         "Play A Day"
       ],
@@ -842,8 +842,8 @@
         "timestamp": "2026-08-09T09:50:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f7ae62be892de886",
       "song_titles": [
         "Outer Space"
       ],
@@ -887,8 +887,8 @@
         "timestamp": "2026-08-09T09:53:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5c1cf145b058340f",
       "song_titles": [
         "万吨匿名信"
       ],
@@ -1003,8 +1003,8 @@
         "timestamp": "2026-08-09T09:45:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:786552abc53de676",
       "song_titles": [
         "Hatsukoi Memories"
       ],
@@ -1071,8 +1071,8 @@
         "timestamp": "2026-08-09T09:00:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0c99303ab85730bc",
       "song_titles": [
         "16383"
       ],
@@ -1451,8 +1451,8 @@
         "timestamp": "2026-08-09T08:43:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3dfd9f8da0f8fcb4",
       "song_titles": [
         "2000VOLT"
       ],
@@ -2596,8 +2596,8 @@
         "timestamp": "2026-08-09T10:15:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7db33cc39e291688",
       "song_titles": [
         "428 Dance Showcase"
       ],
@@ -3166,8 +3166,8 @@
         "timestamp": "2026-08-09T10:16:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c6433fbe5248dfa5",
       "song_titles": [
         "80"
       ],
@@ -3231,8 +3231,8 @@
         "timestamp": "2026-08-09T10:03:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fc2d0d8a8b6af465",
       "song_titles": [
         "8-Bit Goa 4"
       ],
@@ -3720,8 +3720,8 @@
         "timestamp": "2026-08-09T10:00:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:51e495e3632587da",
       "song_titles": [
         "ASTRAEA"
       ],
@@ -3935,8 +3935,8 @@
         "timestamp": "2026-08-09T09:31:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:415a34cf2921fee1",
       "song_titles": [
         "Absolute Zero"
       ],
@@ -4342,8 +4342,8 @@
         "timestamp": "2026-08-09T10:11:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:11c68c6187a1d24b",
       "song_titles": [
         "Abyss Breaker"
       ],
@@ -4425,8 +4425,8 @@
         "timestamp": "2026-08-09T09:17:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d88a97fbdd20251a",
       "song_titles": [
         "Ace Sniper (DNX edit)"
       ],
@@ -4555,8 +4555,8 @@
         "timestamp": "2026-08-09T09:26:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:426724c9ac431090",
       "song_titles": [
         "Acrise"
       ],
@@ -4676,8 +4676,8 @@
         "timestamp": "2026-08-09T10:04:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:bb308b145b6e2f86",
       "song_titles": [
         "Actinium"
       ],
@@ -4926,8 +4926,8 @@
         "timestamp": "2026-08-09T09:06:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0e2171a3ebb47aad",
       "song_titles": [
         "Aegis"
       ],
@@ -5083,8 +5083,8 @@
         "timestamp": "2026-08-09T09:35:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:abd1fd82e51c0409",
       "song_titles": [
         "Aeronautica"
       ],
@@ -5204,8 +5204,8 @@
         "timestamp": "2026-08-09T09:01:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:907a9571e30d21dc",
       "song_titles": [
         "After The Ending"
       ],
@@ -5248,8 +5248,8 @@
         "timestamp": "2026-08-09T08:53:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a64f6ce9a0f4da88",
       "song_titles": [
         "Against The Pseudo"
       ],
@@ -5552,8 +5552,8 @@
         "timestamp": "2026-08-09T09:10:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a33efb2b2d7f00bc",
       "song_titles": [
         "愛藍傘"
       ],
@@ -6191,8 +6191,8 @@
         "timestamp": "2026-08-09T10:08:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:abc9a1e525426d37",
       "song_titles": [
         "AKI-ZAKURA"
       ],
@@ -6626,8 +6626,8 @@
         "timestamp": "2026-08-09T09:03:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:93b2957af84cd501",
       "song_titles": [
         "Alone"
       ],
@@ -6709,8 +6709,8 @@
         "timestamp": "2026-08-09T09:37:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9c90dd4fd45c9060",
       "song_titles": [
         "Alter Ego"
       ],
@@ -7052,8 +7052,8 @@
         "timestamp": "2026-08-09T10:00:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:84e8349af8d60e84",
       "song_titles": [
         "Amphisbaena"
       ],
@@ -7216,8 +7216,8 @@
         "timestamp": "2026-08-09T09:35:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3a9d47f8581a7f47",
       "song_titles": [
         "AndLadix"
       ],
@@ -7524,8 +7524,8 @@
         "timestamp": "2026-08-09T09:13:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6ef105037150a3fa",
       "song_titles": [
         "Angel x Angel"
       ],
@@ -7680,8 +7680,8 @@
         "timestamp": "2026-08-09T10:08:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7caa2db395b0fbe2",
       "song_titles": [
         "Ängstlicher Vermeidender"
       ],
@@ -7727,8 +7727,8 @@
         "timestamp": "2026-08-09T10:09:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6ee013a148cc49c1",
       "song_titles": [
         "Anökumene"
       ],
@@ -8085,8 +8085,8 @@
         "timestamp": "2026-08-09T09:10:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3dbb55d4759d9b88",
       "song_titles": [
         "Antithesis"
       ],
@@ -8786,8 +8786,8 @@
         "timestamp": "2026-08-09T09:43:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a7109e5e97b4c73d",
       "song_titles": [
         "Arcana Idola"
       ],
@@ -9741,8 +9741,8 @@
         "timestamp": "2026-08-09T10:14:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:bc2d950937d31df7",
       "song_titles": [
         "Arty Party"
       ],
@@ -9939,8 +9939,8 @@
         "timestamp": "2026-08-09T09:37:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:40ab3bbb5b225e5c",
       "song_titles": [
         "Ashes"
       ],
@@ -10104,8 +10104,8 @@
         "timestamp": "2026-08-09T10:04:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:41919329131ef1b3",
       "song_titles": [
         "Assassin"
       ],
@@ -10376,8 +10376,8 @@
         "timestamp": "2026-08-09T09:25:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b08d099762bfa0ec",
       "song_titles": [
         "Astral"
       ],
@@ -10963,8 +10963,8 @@
         "timestamp": "2026-08-09T10:04:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6ec2b31a69144e1b",
       "song_titles": [
         "Atomic Dropper"
       ],
@@ -11229,8 +11229,8 @@
         "timestamp": "2026-08-09T08:53:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6420082830432bee",
       "song_titles": [
         "At the peak"
       ],
@@ -11380,8 +11380,8 @@
         "timestamp": "2026-08-09T09:29:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5cbe14dc652053ed",
       "song_titles": [
         "Aujourd'hui"
       ],
@@ -11846,8 +11846,8 @@
         "timestamp": "2026-08-09T08:42:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:061297be17a81b65",
       "song_titles": [
         "Axis"
       ],
@@ -12030,8 +12030,8 @@
         "timestamp": "2026-08-09T08:51:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8e884277de7c3ca3",
       "song_titles": [
         "Azure Snow Land"
       ],
@@ -12149,8 +12149,8 @@
         "timestamp": "2026-08-09T08:45:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5eaefb2306f84b19",
       "song_titles": [
         "BIT TECH COMPUTER"
       ],
@@ -12667,8 +12667,8 @@
         "timestamp": "2026-08-09T10:15:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:842a598703498685",
       "song_titles": [
         "Back Out"
       ],
@@ -13342,8 +13342,8 @@
         "timestamp": "2026-08-09T09:13:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7971f4b1dd09e783",
       "song_titles": [
         "Before Sunrise"
       ],
@@ -13919,8 +13919,8 @@
         "timestamp": "2026-08-09T09:32:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:59ea2cfc9cfb7591",
       "song_titles": [
         "Between Boundaries"
       ],
@@ -14217,8 +14217,8 @@
         "timestamp": "2026-08-09T08:49:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4489ce5a78235cb4",
       "song_titles": [
         "Beyond the Rainbow"
       ],
@@ -14349,8 +14349,8 @@
         "timestamp": "2026-08-09T10:08:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:47fe419bf3d8acfd",
       "song_titles": [
         "Big Beats Blow"
       ],
@@ -14677,8 +14677,8 @@
         "timestamp": "2026-08-09T08:41:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:bbee20239220b215",
       "song_titles": [
         "Black：Magnam"
       ],
@@ -14751,8 +14751,8 @@
         "timestamp": "2026-08-09T09:06:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ea946f837bbf4a66",
       "song_titles": [
         "Black Horse Famine"
       ],
@@ -15123,8 +15123,8 @@
         "timestamp": "2026-08-09T09:31:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7256ad16470ef10c",
       "song_titles": [
         "Black sour Ruby"
       ],
@@ -15276,8 +15276,8 @@
         "timestamp": "2026-08-09T08:54:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e33b3ef9ab425094",
       "song_titles": [
         "Blood Chivalry"
       ],
@@ -15319,8 +15319,8 @@
         "timestamp": "2026-08-09T09:08:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:37a897e5bbaf450d",
       "song_titles": [
         "Bloom Blade"
       ],
@@ -15492,8 +15492,8 @@
         "timestamp": "2026-08-09T10:12:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4697dd7ca291cc58",
       "song_titles": [
         "Blue"
       ],
@@ -15706,8 +15706,8 @@
         "timestamp": "2026-08-09T08:53:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:af8b2ffc50aab86d",
       "song_titles": [
         "Bluebell"
       ],
@@ -15952,8 +15952,8 @@
         "timestamp": "2026-08-09T08:54:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4aa390ae8dc10e54",
       "song_titles": [
         "blueberry cheesecake"
       ],
@@ -16206,8 +16206,8 @@
         "timestamp": "2026-08-09T10:07:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ce71aeb88d5a2829",
       "song_titles": [
         "BLUFF"
       ],
@@ -16416,8 +16416,8 @@
         "timestamp": "2026-08-09T09:54:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5a9355fb9bb82b98",
       "song_titles": [
         "Bonus Time"
       ],
@@ -16608,8 +16608,8 @@
         "timestamp": "2026-08-09T09:55:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4fc5ba3e27065d6e",
       "song_titles": [
         "BOUNCE THE TECH"
       ],
@@ -17215,8 +17215,8 @@
         "timestamp": "2026-08-09T09:33:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f752c0dbb3638ef1",
       "song_titles": [
         "CHAKA"
       ],
@@ -17922,8 +17922,8 @@
         "timestamp": "2026-08-09T09:06:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c3794192cbaf411b",
       "song_titles": [
         "Caelus"
       ],
@@ -18352,8 +18352,8 @@
         "timestamp": "2026-08-09T10:06:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:29c8c586801ad6ad",
       "song_titles": [
         "Calling"
       ],
@@ -18602,8 +18602,8 @@
         "timestamp": "2026-08-09T09:40:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:95dd613c4925663d",
       "song_titles": [
         "Canon in Blue"
       ],
@@ -19254,8 +19254,8 @@
         "timestamp": "2026-08-09T09:31:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fd0cd1087a59e0f7",
       "song_titles": [
         "Catastrophe"
       ],
@@ -19786,8 +19786,8 @@
         "timestamp": "2026-08-09T09:14:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a59adbd324de16f5",
       "song_titles": [
         "Cervelle Connexion"
       ],
@@ -20373,8 +20373,8 @@
         "timestamp": "2026-08-09T09:18:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7c7f63ba4a5d5946",
       "song_titles": [
         "Chemical Infusion"
       ],
@@ -21756,8 +21756,8 @@
         "timestamp": "2026-08-09T10:00:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5f865772c9028665",
       "song_titles": [
         "Chromosphere"
       ],
@@ -22163,8 +22163,8 @@
         "timestamp": "2026-08-09T08:43:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e77dff4a4a6dc7c0",
       "song_titles": [
         "Chrysoberyl"
       ],
@@ -22656,8 +22656,8 @@
         "timestamp": "2026-08-09T09:35:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e7da3cdb567e38f5",
       "song_titles": [
         "Circumscription"
       ],
@@ -23009,8 +23009,8 @@
         "timestamp": "2026-08-09T08:46:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8099d729b914cfe9",
       "song_titles": [
         "City Girl in the Love"
       ],
@@ -23547,8 +23547,8 @@
         "timestamp": "2026-08-09T10:06:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1c26a7f625ead4c0",
       "song_titles": [
         "Class memories"
       ],
@@ -23938,8 +23938,8 @@
         "timestamp": "2026-08-09T09:25:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6cffa9c8c63e08ca",
       "song_titles": [
         "雲の国の王子"
       ],
@@ -24778,8 +24778,8 @@
         "timestamp": "2026-08-09T09:54:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6964d04b94ec0232",
       "song_titles": [
         "Contour"
       ],
@@ -24821,8 +24821,8 @@
         "timestamp": "2026-08-09T09:18:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e1ebb6e8232765b5",
       "song_titles": [
         "Convictor"
       ],
@@ -25229,8 +25229,8 @@
         "timestamp": "2026-08-09T09:10:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e7b49d5c03d0e171",
       "song_titles": [
         "CORONA"
       ],
@@ -25627,8 +25627,8 @@
         "timestamp": "2026-08-09T09:54:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d6e1308b4a0e8b22",
       "song_titles": [
         "Counter Terrorists"
       ],
@@ -25861,8 +25861,8 @@
         "timestamp": "2026-08-09T09:47:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a7c87ca4e2cbc5c3",
       "song_titles": [
         "Crank up"
       ],
@@ -26133,8 +26133,8 @@
         "timestamp": "2026-08-09T09:38:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6542720cb98d9bad",
       "song_titles": [
         "Creater S"
       ],
@@ -26563,8 +26563,8 @@
         "timestamp": "2026-08-09T09:00:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a96a4eb9706d590b",
       "song_titles": [
         "Creigis"
       ],
@@ -26924,8 +26924,8 @@
         "timestamp": "2026-08-09T09:59:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:36439ac8e0013128",
       "song_titles": [
         "Cross†Soul"
       ],
@@ -27057,8 +27057,8 @@
         "timestamp": "2026-08-09T09:46:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:620954699f28fca4",
       "song_titles": [
         "Cross Time"
       ],
@@ -27251,8 +27251,8 @@
         "timestamp": "2026-08-09T08:48:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1f7f68f2a440a919",
       "song_titles": [
         "CROSSING DELTA"
       ],
@@ -27373,8 +27373,8 @@
         "timestamp": "2026-08-09T09:30:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:afb36307ce86ea68",
       "song_titles": [
         "CruX"
       ],
@@ -27458,8 +27458,8 @@
         "timestamp": "2026-08-09T10:07:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:80f9e3a5df729df0",
       "song_titles": [
         "Cryonix"
       ],
@@ -27723,8 +27723,8 @@
         "timestamp": "2026-08-09T09:35:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2849d92f3ba809af",
       "song_titles": [
         "Crystal Clear Sky"
       ],
@@ -27768,8 +27768,8 @@
         "timestamp": "2026-08-09T09:07:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5bb1b44116c33fae",
       "song_titles": [
         "Crystal Ribbon"
       ],
@@ -28255,8 +28255,8 @@
         "timestamp": "2026-08-09T09:49:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:90c6ac7c1db35c53",
       "song_titles": [
         "Cumulus"
       ],
@@ -28522,8 +28522,8 @@
         "timestamp": "2026-08-09T09:12:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0e1fc4ad298c1a22",
       "song_titles": [
         "Curtainfall!"
       ],
@@ -29466,8 +29466,8 @@
         "timestamp": "2026-08-09T09:54:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:248b7e1bf69696f8",
       "song_titles": [
         "Dahlia"
       ],
@@ -29861,8 +29861,8 @@
         "timestamp": "2026-08-09T10:10:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6cb6cb643048df0d",
       "song_titles": [
         "Dangerous Insanity (2019 Rework)"
       ],
@@ -29982,8 +29982,8 @@
         "timestamp": "2026-08-09T09:35:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7d9d0ee358b99d65",
       "song_titles": [
         "Danse de Romani"
       ],
@@ -30165,8 +30165,8 @@
         "timestamp": "2026-08-09T08:49:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2b27f8d7c31ecc89",
       "song_titles": [
         "Daydream"
       ],
@@ -30791,8 +30791,8 @@
         "timestamp": "2026-08-09T10:09:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4fc03e9e92cecb8f",
       "song_titles": [
         "Dead Master"
       ],
@@ -30836,8 +30836,8 @@
         "timestamp": "2026-08-09T09:15:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3ac25778184e9839",
       "song_titles": [
         "Dead Soul"
       ],
@@ -31203,8 +31203,8 @@
         "timestamp": "2026-08-09T09:40:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:12f7e95cc8d42ad2",
       "song_titles": [
         "DeaDLiNE"
       ],
@@ -31245,8 +31245,8 @@
         "timestamp": "2026-08-09T09:08:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:45781d4cf0f1a815",
       "song_titles": [
         "Deadly Poppy Field"
       ],
@@ -31481,8 +31481,8 @@
         "timestamp": "2026-08-09T09:04:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b05311bb6f27501f",
       "song_titles": [
         "Decoherence"
       ],
@@ -31599,8 +31599,8 @@
         "timestamp": "2026-08-09T09:12:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:91e2926775b22911",
       "song_titles": [
         "Decomposition"
       ],
@@ -31810,8 +31810,8 @@
         "timestamp": "2026-08-09T08:48:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:77390c2560e57df0",
       "song_titles": [
         "Deda Dash"
       ],
@@ -32080,8 +32080,8 @@
         "timestamp": "2026-08-09T08:48:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6a6d78627bd6cecc",
       "song_titles": [
         "Defended"
       ],
@@ -32266,8 +32266,8 @@
         "timestamp": "2026-08-09T08:45:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4ea9eb988401ef04",
       "song_titles": [
         "Dement ~After Legend~"
       ],
@@ -32562,8 +32562,8 @@
         "timestamp": "2026-08-09T09:36:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:aee805d077ab1dbe",
       "song_titles": [
         "demonic juggernauts"
       ],
@@ -32955,8 +32955,8 @@
         "timestamp": "2026-08-09T09:01:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b18304455f9941b4",
       "song_titles": [
         "depTh of mem0ry"
       ],
@@ -33082,8 +33082,8 @@
         "timestamp": "2026-08-09T09:08:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b52ce48158ed39e6",
       "song_titles": [
         "Desert Rose"
       ],
@@ -33209,8 +33209,8 @@
         "timestamp": "2026-08-09T09:39:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9c065db575632212",
       "song_titles": [
         "DestroY StresS"
       ],
@@ -33459,8 +33459,8 @@
         "timestamp": "2026-08-09T10:15:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d52cb5c590d56afa",
       "song_titles": [
         "Destruction"
       ],
@@ -33659,8 +33659,8 @@
         "timestamp": "2026-08-09T09:41:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4f6cec2fe1783a5b",
       "song_titles": [
         "diSTractiOn PoInT"
       ],
@@ -34195,8 +34195,8 @@
         "timestamp": "2026-08-09T09:41:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:05d31031587118bc",
       "song_titles": [
         "Distance"
       ],
@@ -34504,8 +34504,8 @@
         "timestamp": "2026-08-09T09:25:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f4d1c9c1401571ed",
       "song_titles": [
         "Dogu"
       ],
@@ -34572,8 +34572,8 @@
         "timestamp": "2026-08-09T09:32:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a904a6fa7c7bc6a1",
       "song_titles": [
         "Dolqueen"
       ],
@@ -35379,8 +35379,8 @@
         "timestamp": "2026-08-09T09:24:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3d17929ad268f2f6",
       "song_titles": [
         "Dream Starter"
       ],
@@ -35423,8 +35423,8 @@
         "timestamp": "2026-08-09T09:16:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fc963842e711cd1d",
       "song_titles": [
         "Duet"
       ],
@@ -35552,8 +35552,8 @@
         "timestamp": "2026-08-09T08:59:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c1a7466224c24584",
       "song_titles": [
         "Dusky Disslove"
       ],
@@ -37641,8 +37641,8 @@
         "timestamp": "2026-08-09T09:03:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1926d5f36f9ea92e",
       "song_titles": [
         "Dyspnea"
       ],
@@ -37876,8 +37876,8 @@
         "timestamp": "2026-08-09T09:50:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:81d7d5e7cc65476f",
       "song_titles": [
         "ELYXiVN ELYXiUM"
       ],
@@ -38582,8 +38582,8 @@
         "timestamp": "2026-08-09T09:36:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9d08c3c7494af783",
       "song_titles": [
         "Eclipses"
       ],
@@ -39051,8 +39051,8 @@
         "timestamp": "2026-08-09T09:36:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d86ca1e95071e0b8",
       "song_titles": [
         "Eldredth"
       ],
@@ -39590,8 +39590,8 @@
         "timestamp": "2026-08-09T10:09:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:51f0df11916ee53c",
       "song_titles": [
         "Elph’s Sadness -Dynamix Edition-",
         "Gallium Phosphide"
@@ -40517,8 +40517,8 @@
         "timestamp": "2026-08-09T08:50:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:aa7e0ef573446016",
       "song_titles": [
         "Empty Stars"
       ],
@@ -40733,8 +40733,8 @@
         "timestamp": "2026-08-09T10:12:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2ed3c81774a05974",
       "song_titles": [
         "Emulisy"
       ],
@@ -41130,8 +41130,8 @@
         "timestamp": "2026-08-09T08:44:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:deee216ea4cc4ae6",
       "song_titles": [
         "Encore"
       ],
@@ -41586,8 +41586,8 @@
         "timestamp": "2026-08-09T08:58:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7732ed5118fe5419",
       "song_titles": [
         "Enhanced Lights"
       ],
@@ -41791,8 +41791,8 @@
         "timestamp": "2026-08-09T09:32:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8fd9093825e1fb5e",
       "song_titles": [
         "Ennor"
       ],
@@ -42051,8 +42051,8 @@
         "timestamp": "2026-08-09T08:55:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9515f2645335bcaa",
       "song_titles": [
         "Envy Luvs Melancholy"
       ],
@@ -42253,8 +42253,8 @@
         "timestamp": "2026-08-09T08:43:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5be4df7042e44006",
       "song_titles": [
         "Ephemeral Echo"
       ],
@@ -42627,8 +42627,8 @@
         "timestamp": "2026-08-09T10:15:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cc228c03a17c63d3",
       "song_titles": [
         "Eschatology"
       ],
@@ -42766,8 +42766,8 @@
         "timestamp": "2026-08-09T09:44:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8776dac7295a4954",
       "song_titles": [
         "Essence of Twilight"
       ],
@@ -42839,8 +42839,8 @@
         "timestamp": "2026-08-09T09:02:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b4bd3ec34fe7ce7d",
       "song_titles": [
         "Euouae"
       ],
@@ -45930,8 +45930,8 @@
         "timestamp": "2026-08-09T09:48:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:653c79a6460b8316",
       "song_titles": [
         "Evoltex (poppi'n mix)"
       ],
@@ -46549,8 +46549,8 @@
         "timestamp": "2026-08-09T10:02:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8516cb96c86cd135",
       "song_titles": [
         "FORTALiCE"
       ],
@@ -46668,8 +46668,8 @@
         "timestamp": "2026-08-09T08:52:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9399ee984057b315",
       "song_titles": [
         "FREEZE"
       ],
@@ -46914,8 +46914,8 @@
         "timestamp": "2026-08-09T09:13:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b7d608279405c6d0",
       "song_titles": [
         "Fabula Proelium Magna"
       ],
@@ -47196,8 +47196,8 @@
         "timestamp": "2026-08-09T09:20:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8e41e20937f9d327",
       "song_titles": [
         "Fading Sky"
       ],
@@ -47401,8 +47401,8 @@
         "timestamp": "2026-08-09T09:02:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e03cf418f088b8d9",
       "song_titles": [
         "Faithtival"
       ],
@@ -47661,8 +47661,8 @@
         "timestamp": "2026-08-09T09:21:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5eb4256c4d8bec83",
       "song_titles": [
         "Far East Frontline"
       ],
@@ -47736,8 +47736,8 @@
         "timestamp": "2026-08-09T09:31:42Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e6501bb290380e40",
       "song_titles": [
         "Far Eastern Flavor"
       ],
@@ -48060,8 +48060,8 @@
         "timestamp": "2026-08-09T09:15:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4b38d94f12f35814",
       "song_titles": [
         "Fatality Saga"
       ],
@@ -48529,8 +48529,8 @@
         "timestamp": "2026-08-09T09:23:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1afeff595190ba17",
       "song_titles": [
         "Fernand System Operating!!"
       ],
@@ -48734,8 +48734,8 @@
         "timestamp": "2026-08-09T09:54:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:799e3ba63cc6c2f4",
       "song_titles": [
         "Fierce Heart"
       ],
@@ -48775,8 +48775,8 @@
         "timestamp": "2026-08-09T10:16:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:03df7c98bdfbfa02",
       "song_titles": [
         "Final Dash"
       ],
@@ -48944,8 +48944,8 @@
         "timestamp": "2026-08-09T08:41:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:509af9fd1a455dfd",
       "song_titles": [
         "萤火虫の怨"
       ],
@@ -49070,8 +49070,8 @@
         "timestamp": "2026-08-09T09:02:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e704b004f6f06090",
       "song_titles": [
         "Fireworks"
       ],
@@ -49273,8 +49273,8 @@
         "timestamp": "2026-08-09T09:33:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:38b5d409c628d257",
       "song_titles": [
         "Fission"
       ],
@@ -49485,8 +49485,8 @@
         "timestamp": "2026-08-09T09:29:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cc06df4f60dfe1cc",
       "song_titles": [
         "Fl0at on Air"
       ],
@@ -49731,8 +49731,8 @@
         "timestamp": "2026-08-09T10:04:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f6e6674cd3ef2f20",
       "song_titles": [
         "Flarebirds of Scarlet Prism"
       ],
@@ -49936,8 +49936,8 @@
         "timestamp": "2026-08-09T08:57:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:55af6862a3ffa197",
       "song_titles": [
         "Flashback"
       ],
@@ -50380,8 +50380,8 @@
         "timestamp": "2026-08-09T08:49:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e8ca46807b83d7c0",
       "song_titles": [
         "フライブルクとエンドロウル"
       ],
@@ -50426,8 +50426,8 @@
         "timestamp": "2026-08-09T10:03:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ef4197ce3d16a32e",
       "song_titles": [
         "Flying colours"
       ],
@@ -50824,8 +50824,8 @@
         "timestamp": "2026-08-09T08:51:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:78f46ea5bef0dc3e",
       "song_titles": [
         "Forbidden Area"
       ],
@@ -51066,8 +51066,8 @@
         "timestamp": "2026-08-09T09:48:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fac234815f0267db",
       "song_titles": [
         "Forget Me Not"
       ],
@@ -51104,8 +51104,8 @@
         "timestamp": "2026-08-09T09:15:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:82f9592728c66c3d",
       "song_titles": [
         "Forsaken"
       ],
@@ -51475,8 +51475,8 @@
         "timestamp": "2026-08-09T09:53:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a52d658e54383768",
       "song_titles": [
         "freewheeling"
       ],
@@ -51799,8 +51799,8 @@
         "timestamp": "2026-08-09T09:00:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:63ec9267322c4f96",
       "song_titles": [
         "frerejacques"
       ],
@@ -51969,8 +51969,8 @@
         "timestamp": "2026-08-09T09:16:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7d9bf8e75b74b42d",
       "song_titles": [
         "Frontline B-Side"
       ],
@@ -52329,8 +52329,8 @@
         "timestamp": "2026-08-09T09:14:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:824a1c28fa7348c3",
       "song_titles": [
         "Future City Ⅵ"
       ],
@@ -52565,8 +52565,8 @@
         "timestamp": "2026-08-09T10:13:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d46b5647493d7046",
       "song_titles": [
         "GIFT"
       ],
@@ -52733,8 +52733,8 @@
         "timestamp": "2026-08-09T10:10:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:38b0045125c0fc07",
       "song_titles": [
         "GOEMON"
       ],
@@ -52862,8 +52862,8 @@
         "timestamp": "2026-08-09T09:19:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0b2bed2743a8737d",
       "song_titles": [
         "Galaxia"
       ],
@@ -52975,8 +52975,8 @@
         "timestamp": "2026-08-09T09:49:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c0e9044611c8b636",
       "song_titles": [
         "Gallium Nitride"
       ],
@@ -53018,8 +53018,8 @@
         "timestamp": "2026-08-09T08:47:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1295927ffc7c899c",
       "song_titles": [
         "Elph’s Sadness -Dynamix Edition-",
         "Gallium Phosphide"
@@ -53060,8 +53060,8 @@
         "timestamp": "2026-08-09T08:51:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cbcb088486ed5910",
       "song_titles": [
         "Gallium Arsenide"
       ],
@@ -53326,8 +53326,8 @@
         "timestamp": "2026-08-09T09:20:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5c23c7a01fb1ae6d",
       "song_titles": [
         "月奏リバイバル"
       ],
@@ -54179,8 +54179,8 @@
         "timestamp": "2026-08-09T08:49:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0b1f58d341a5871a",
       "song_titles": [
         "Give It To Me"
       ],
@@ -54297,8 +54297,8 @@
         "timestamp": "2026-08-09T09:40:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1020e707faeeafde",
       "song_titles": [
         "Glacial (Liquart Remix)"
       ],
@@ -54576,8 +54576,8 @@
         "timestamp": "2026-08-09T08:45:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:905fa6af522fd0d2",
       "song_titles": [
         "Glory of the Sacred Kingdom"
       ],
@@ -54948,8 +54948,8 @@
         "timestamp": "2026-08-09T09:26:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:382093df7acef918",
       "song_titles": [
         "Go Escape"
       ],
@@ -55015,8 +55015,8 @@
         "timestamp": "2026-08-09T09:33:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9bd68a7657bcfb90",
       "song_titles": [
         "Goldelius"
       ],
@@ -55757,8 +55757,8 @@
         "timestamp": "2026-08-09T09:31:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9111fb02ec64aeec",
       "song_titles": [
         "Grape Jelly"
       ],
@@ -55824,8 +55824,8 @@
         "timestamp": "2026-08-09T10:12:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1d91085ae2848139",
       "song_titles": [
         "Grayscale Tragedy"
       ],
@@ -55955,8 +55955,8 @@
         "timestamp": "2026-08-09T09:23:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c907a8fb9b42b411",
       "song_titles": [
         "Grenade"
       ],
@@ -56112,8 +56112,8 @@
         "timestamp": "2026-08-09T09:17:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2044fd6f53323abc",
       "song_titles": [
         "Grey Horse Underworld"
       ],
@@ -56155,8 +56155,8 @@
         "timestamp": "2026-08-09T09:05:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9fab4c73c8dc3583",
       "song_titles": [
         "Grimoire Heart"
       ],
@@ -56399,8 +56399,8 @@
         "timestamp": "2026-08-09T10:08:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8cd0e37f5ef6a193",
       "song_titles": [
         "Guilty Hostage"
       ],
@@ -56662,8 +56662,8 @@
         "timestamp": "2026-08-09T08:58:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f757c9174ffc51d3",
       "song_titles": [
         "HDHR"
       ],
@@ -56893,8 +56893,8 @@
         "timestamp": "2026-08-09T09:16:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:33ec54cbaf651e56",
       "song_titles": [
         "HOPE"
       ],
@@ -57053,8 +57053,8 @@
         "timestamp": "2026-08-09T10:13:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cb4e84dcfe435fbe",
       "song_titles": [
         "HYPER-NOVA"
       ],
@@ -57273,8 +57273,8 @@
         "timestamp": "2026-08-09T09:55:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a2cefecd712f5e99",
       "song_titles": [
         "白色の夢で。"
       ],
@@ -57403,8 +57403,8 @@
         "timestamp": "2026-08-09T08:45:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b14deb029c2269ea",
       "song_titles": [
         "Hall of Fame"
       ],
@@ -58115,8 +58115,8 @@
         "timestamp": "2026-08-09T09:04:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:40bf93931cf5aa16",
       "song_titles": [
         "Happiness Bread"
       ],
@@ -59044,8 +59044,8 @@
         "timestamp": "2026-08-09T09:04:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:962a4c493220797c",
       "song_titles": [
         "haptime"
       ],
@@ -59439,8 +59439,8 @@
         "timestamp": "2026-08-09T08:46:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8f2b7ff63a521e59",
       "song_titles": [
         "Hauynite"
       ],
@@ -59684,8 +59684,8 @@
         "timestamp": "2026-08-09T09:34:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ea4397b822047107",
       "song_titles": [
         "HEADROOM WITH PLEASANT RHYTHM"
       ],
@@ -59727,8 +59727,8 @@
         "timestamp": "2026-08-09T10:08:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:932d6a165434808f",
       "song_titles": [
         "Heart Eyes"
       ],
@@ -59861,8 +59861,8 @@
         "timestamp": "2026-08-09T09:52:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e1a5adb82a1a6eaf",
       "song_titles": [
         "Heart Of Glass"
       ],
@@ -60044,8 +60044,8 @@
         "timestamp": "2026-08-09T09:24:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0a21bc906d86e01c",
       "song_titles": [
         "Heaven's Cage"
       ],
@@ -60201,8 +60201,8 @@
         "timestamp": "2026-08-09T10:01:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:11a6c41fbaf7041c",
       "song_titles": [
         "Helios"
       ],
@@ -60576,8 +60576,8 @@
         "timestamp": "2026-08-09T09:44:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e12fcae5b1f0d900",
       "song_titles": [
         "Hemisphere"
       ],
@@ -60645,8 +60645,8 @@
         "timestamp": "2026-08-09T09:01:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e9ea8737e900434b",
       "song_titles": [
         "HeracleS"
       ],
@@ -60782,8 +60782,8 @@
         "timestamp": "2026-08-09T08:47:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:45e6be4337f3494a",
       "song_titles": [
         "Hiccup Drunk"
       ],
@@ -61161,8 +61161,8 @@
         "timestamp": "2026-08-09T08:57:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:657f5c76897cedbc",
       "song_titles": [
         "High-School QUEEN!!!"
       ],
@@ -61290,8 +61290,8 @@
         "timestamp": "2026-08-09T09:36:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:78527c8269680756",
       "song_titles": [
         "High Speed Riders"
       ],
@@ -61600,8 +61600,8 @@
         "timestamp": "2026-08-09T09:35:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fe67ccc69c8f93b7",
       "song_titles": [
         "Hiyaiya!"
       ],
@@ -61683,8 +61683,8 @@
         "timestamp": "2026-08-09T09:50:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0ae1e4abf247a28c",
       "song_titles": [
         "Holy Lightbringer"
       ],
@@ -62141,8 +62141,8 @@
         "timestamp": "2026-08-09T10:11:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b127fa5ad2757ac4",
       "song_titles": [
         "香港ノ奇術師"
       ],
@@ -62268,8 +62268,8 @@
         "timestamp": "2026-08-09T09:17:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9a0c4443d5bf2bba",
       "song_titles": [
         "HOPE"
       ],
@@ -62432,8 +62432,8 @@
         "timestamp": "2026-08-09T10:13:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:236db8a05f46f927",
       "song_titles": [
         "Hopeful Warrior"
       ],
@@ -62550,8 +62550,8 @@
         "timestamp": "2026-08-09T08:47:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:56678df1aa211e9f",
       "song_titles": [
         "Horloge"
       ],
@@ -62599,8 +62599,8 @@
         "timestamp": "2026-08-09T10:06:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8acc2e234de1ac7a",
       "song_titles": [
         "ほしのおとしもの"
       ],
@@ -62716,8 +62716,8 @@
         "timestamp": "2026-08-09T08:49:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0d16767d8bdfbc0a",
       "song_titles": [
         "HumaN"
       ],
@@ -63109,8 +63109,8 @@
         "timestamp": "2026-08-09T09:49:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d18e8fb2a08cd0c5",
       "song_titles": [
         "Hyperspace Jump"
       ],
@@ -63281,8 +63281,8 @@
         "timestamp": "2026-08-09T08:53:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f1731d682a2ef9b7",
       "song_titles": [
         "パントマイム feat. IA"
       ],
@@ -64174,8 +64174,8 @@
         "timestamp": "2026-08-09T10:08:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5e1a60d0b49cb216",
       "song_titles": [
         "INFiNiTE ENERZY -Overdoze-"
       ],
@@ -64382,8 +64382,8 @@
         "timestamp": "2026-08-09T09:13:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4bbddbc7b8fdf556",
       "song_titles": [
         "INNOceNsION"
       ],
@@ -64672,8 +64672,8 @@
         "timestamp": "2026-08-09T08:41:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c102835a9a5e3ba9",
       "song_titles": [
         "ISERA (DNX Edit)"
       ],
@@ -64993,8 +64993,8 @@
         "timestamp": "2026-08-09T09:28:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ac56289dd44d01e1",
       "song_titles": [
         "Ice Chandelier"
       ],
@@ -65395,8 +65395,8 @@
         "timestamp": "2026-08-09T08:54:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b58fbf951ccd548f",
       "song_titles": [
         "Impromptu D899#3-Y"
       ],
@@ -65438,8 +65438,8 @@
         "timestamp": "2026-08-09T08:44:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a068872cd0e241f7",
       "song_titles": [
         "Impulse (Neutral Moon VIP Edit)"
       ],
@@ -65482,8 +65482,8 @@
         "timestamp": "2026-08-09T09:09:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c7f66b5f4b237c92",
       "song_titles": [
         "In Search Of..."
       ],
@@ -65689,8 +65689,8 @@
         "timestamp": "2026-08-09T10:02:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:680989975d976633",
       "song_titles": [
         "In a vat"
       ],
@@ -65821,8 +65821,8 @@
         "timestamp": "2026-08-09T08:42:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c67cd3015629a798",
       "song_titles": [
         "Infinity Bullet"
       ],
@@ -66198,8 +66198,8 @@
         "timestamp": "2026-08-09T10:08:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9d43da7eac13fd2a",
       "song_titles": [
         "Infinite Loop VIP"
       ],
@@ -66343,8 +66343,8 @@
         "timestamp": "2026-08-09T08:55:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:aecb82181e0e0abd",
       "song_titles": [
         "Invaded"
       ],
@@ -66594,8 +66594,8 @@
         "timestamp": "2026-08-09T09:10:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8232da4bf782ac23",
       "song_titles": [
         "ionosphere"
       ],
@@ -67476,8 +67476,8 @@
         "timestamp": "2026-08-09T09:42:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cdcca093e7552f00",
       "song_titles": [
         "JOACHIM : D"
       ],
@@ -67867,8 +67867,8 @@
         "timestamp": "2026-08-09T09:47:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:65aad25dbf6947eb",
       "song_titles": [
         "Jack Out KIllER"
       ],
@@ -68613,8 +68613,8 @@
         "timestamp": "2026-08-09T10:12:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:13daafb021a3afaf",
       "song_titles": [
         "Justice Justice"
       ],
@@ -69373,8 +69373,8 @@
         "timestamp": "2026-08-09T09:52:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5274b21c1d643aca",
       "song_titles": [
         "Kalis Mind"
       ],
@@ -69602,8 +69602,8 @@
         "timestamp": "2026-08-09T09:18:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a8f113273e06bbfd",
       "song_titles": [
         "奏 -KANADE-"
       ],
@@ -69650,8 +69650,8 @@
         "timestamp": "2026-08-09T08:50:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d5de5cfadd926973",
       "song_titles": [
         "哀しい竜とカイツール"
       ],
@@ -69721,8 +69721,8 @@
         "timestamp": "2026-08-09T09:33:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:071a755ddf09e01e",
       "song_titles": [
         "Kant"
       ],
@@ -69846,8 +69846,8 @@
         "timestamp": "2026-08-09T09:41:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e3f07a63ea6073aa",
       "song_titles": [
         "Keep Out"
       ],
@@ -70108,8 +70108,8 @@
         "timestamp": "2026-08-09T09:05:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9e4c5a1a5b297833",
       "song_titles": [
         "炯眼の絶対零度"
       ],
@@ -70591,8 +70591,8 @@
         "timestamp": "2026-08-09T09:08:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:506c6aaeeedda38c",
       "song_titles": [
         "Knight of Tripletz (for DNX Edit)"
       ],
@@ -71096,8 +71096,8 @@
         "timestamp": "2026-08-09T08:56:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:874337f9e36a521d",
       "song_titles": [
         "Kog"
       ],
@@ -71642,8 +71642,8 @@
         "timestamp": "2026-08-09T10:06:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f18adb7f2aa2bcb6",
       "song_titles": [
         "Kokytos"
       ],
@@ -71790,8 +71790,8 @@
         "timestamp": "2026-08-09T10:13:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f7bc567a781c0897",
       "song_titles": [
         "交差して歪む過去と未来"
       ],
@@ -71862,8 +71862,8 @@
         "timestamp": "2026-08-09T09:02:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8b502cca7f8dc27c",
       "song_titles": [
         "Kreuz"
       ],
@@ -72108,8 +72108,8 @@
         "timestamp": "2026-08-09T09:23:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f6c64808bd08a6f5",
       "song_titles": [
         "曇る鑑《かがみ》の霧を含みて"
       ],
@@ -72479,8 +72479,8 @@
         "timestamp": "2026-08-09T10:02:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:537c6f46a768816f",
       "song_titles": [
         "Kyubi"
       ],
@@ -73032,8 +73032,8 @@
         "timestamp": "2026-08-09T08:53:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6aa45899f3489e85",
       "song_titles": [
         "LOVE"
       ],
@@ -73199,8 +73199,8 @@
         "timestamp": "2026-08-09T09:03:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:884877f3cb106822",
       "song_titles": [
         "Lacrimosa"
       ],
@@ -73636,8 +73636,8 @@
         "timestamp": "2026-08-09T09:50:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3842d61b7a0249b1",
       "song_titles": [
         "Laivisca"
       ],
@@ -73952,8 +73952,8 @@
         "timestamp": "2026-08-09T10:05:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ef63d4da0e4d3338",
       "song_titles": [
         "L'AMITIE"
       ],
@@ -74381,8 +74381,8 @@
         "timestamp": "2026-08-09T09:37:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:08c069645e398a98",
       "song_titles": [
         "Last farewell"
       ],
@@ -74491,8 +74491,8 @@
         "timestamp": "2026-08-09T09:03:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b078bcc73cf89c3d",
       "song_titles": [
         "Last Fate"
       ],
@@ -74937,8 +74937,8 @@
         "timestamp": "2026-08-09T09:17:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a793c6e47ee28b4f",
       "song_titles": [
         "Lava Control"
       ],
@@ -75141,8 +75141,8 @@
         "timestamp": "2026-08-09T09:38:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7e37a50f3ff5278f",
       "song_titles": [
         "Le ciel heureux"
       ],
@@ -75186,8 +75186,8 @@
         "timestamp": "2026-08-09T09:03:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:05678cc0beb6e0de",
       "song_titles": [
         "Leave Me"
       ],
@@ -75230,8 +75230,8 @@
         "timestamp": "2026-08-09T10:00:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1732b7c53ced68ab",
       "song_titles": [
         "Legacy"
       ],
@@ -75549,8 +75549,8 @@
         "timestamp": "2026-08-09T09:42:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e4c0b25f66f51713",
       "song_titles": [
         "lehigh"
       ],
@@ -76044,8 +76044,8 @@
         "timestamp": "2026-08-09T09:31:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:232bc83c6e81392e",
       "song_titles": [
         "Let the bass kick"
       ],
@@ -76087,8 +76087,8 @@
         "timestamp": "2026-08-09T08:51:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:69445dd0b2b1e93f",
       "song_titles": [
         "Leviticus"
       ],
@@ -76163,8 +76163,8 @@
         "timestamp": "2026-08-09T09:50:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a99ac615aadb3e5c",
       "song_titles": [
         "Libra"
       ],
@@ -76204,8 +76204,8 @@
         "timestamp": "2026-08-09T09:13:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:bcd8c7596fc5971d",
       "song_titles": [
         "life flashes before weeb eyes"
       ],
@@ -76251,8 +76251,8 @@
         "timestamp": "2026-08-09T09:39:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:77dabfc5a9736f7c",
       "song_titles": [
         "Life Style"
       ],
@@ -76839,8 +76839,8 @@
         "timestamp": "2026-08-09T09:19:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:699acfef10e26d42",
       "song_titles": [
         "Lily"
       ],
@@ -77202,8 +77202,8 @@
         "timestamp": "2026-08-09T10:01:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:595a5c4879b19833",
       "song_titles": [
         "Link To Dungeons"
       ],
@@ -77621,8 +77621,8 @@
         "timestamp": "2026-08-09T09:46:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0658f15579ac5470",
       "song_titles": [
         "Lionhearted"
       ],
@@ -78087,8 +78087,8 @@
         "timestamp": "2026-08-09T09:08:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e77abc0d5d14a897",
       "song_titles": [
         "Little Boy"
       ],
@@ -78265,8 +78265,8 @@
         "timestamp": "2026-08-09T09:17:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5c9baadc49a77428",
       "song_titles": [
         "Little Flower"
       ],
@@ -78610,8 +78610,8 @@
         "timestamp": "2026-08-09T09:52:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3fcf6ba985bba217",
       "song_titles": [
         "lodeinfo"
       ],
@@ -79233,8 +79233,8 @@
         "timestamp": "2026-08-09T10:10:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ac1c53b67602716d",
       "song_titles": [
         "Lonely Cat"
       ],
@@ -79383,8 +79383,8 @@
         "timestamp": "2026-08-09T09:42:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:82e2e8d385ed5b7f",
       "song_titles": [
         "Lotus"
       ],
@@ -79637,8 +79637,8 @@
         "timestamp": "2026-08-09T10:13:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c1b7e69a23c370a8",
       "song_titles": [
         "Love like we're dying"
       ],
@@ -79790,8 +79790,8 @@
         "timestamp": "2026-08-09T09:02:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9a12a330ebe5c788",
       "song_titles": [
         "Lucentear"
       ],
@@ -79835,8 +79835,8 @@
         "timestamp": "2026-08-09T09:30:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1a36f6586bdd4fc6",
       "song_titles": [
         "Lucid Trigger"
       ],
@@ -80074,8 +80074,8 @@
         "timestamp": "2026-08-09T10:11:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:281e3f4640ad3ee3",
       "song_titles": [
         "Lumina"
       ],
@@ -80339,8 +80339,8 @@
         "timestamp": "2026-08-09T09:38:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:121ed488fde5ade9",
       "song_titles": [
         "Luna Rossa"
       ],
@@ -80467,8 +80467,8 @@
         "timestamp": "2026-08-09T10:04:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:75aeb7d38f6d5a22",
       "song_titles": [
         "Lunar Arrow"
       ],
@@ -80595,8 +80595,8 @@
         "timestamp": "2026-08-09T09:28:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:64220fe379a50586",
       "song_titles": [
         "Another World"
       ],
@@ -80861,8 +80861,8 @@
         "timestamp": "2026-08-09T09:25:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:bfcceea5439fe6a0",
       "song_titles": [
         "Luxvinore"
       ],
@@ -81124,8 +81124,8 @@
         "timestamp": "2026-08-09T09:02:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e4f1473c89c4d935",
       "song_titles": [
         "MEGA POP"
       ],
@@ -81434,8 +81434,8 @@
         "timestamp": "2026-08-09T09:16:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ca0ea0d01f28184a",
       "song_titles": [
         "MLG"
       ],
@@ -81768,8 +81768,8 @@
         "timestamp": "2026-08-09T10:03:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:eca98bf02411fd5c",
       "song_titles": [
         "MOONLIT PARTY (Game Edit.)"
       ],
@@ -82011,8 +82011,8 @@
         "timestamp": "2026-08-09T08:44:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3e911f1e329fe1d0",
       "song_titles": [
         "Magic of love (Dynamix Edit)"
       ],
@@ -82517,8 +82517,8 @@
         "timestamp": "2026-08-09T09:30:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:50301d43157a383b",
       "song_titles": [
         "Makes Me Wonder"
       ],
@@ -82920,8 +82920,8 @@
         "timestamp": "2026-08-09T08:57:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3c6870a9128c6790",
       "song_titles": [
         "Mamba"
       ],
@@ -83533,8 +83533,8 @@
         "timestamp": "2026-08-09T08:55:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c7355675fe67163d",
       "song_titles": [
         "Marion.net"
       ],
@@ -83599,8 +83599,8 @@
         "timestamp": "2026-08-09T10:16:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4d76fd49e959022b",
       "song_titles": [
         "Marsh Winds"
       ],
@@ -84056,8 +84056,8 @@
         "timestamp": "2026-08-09T09:24:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4be7c11ed95bdf88",
       "song_titles": [
         "Mass Control"
       ],
@@ -84258,8 +84258,8 @@
         "timestamp": "2026-08-09T09:26:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c0ff98b2f05a8a27",
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],
@@ -84507,8 +84507,8 @@
         "timestamp": "2026-08-09T09:15:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5e9d8316c8a63812",
       "song_titles": [
         "Mechanical Jäger"
       ],
@@ -84744,8 +84744,8 @@
         "timestamp": "2026-08-09T10:14:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3e2cfe66f0b1f400",
       "song_titles": [
         "Mechanismós ton Antikythíron"
       ],
@@ -84870,8 +84870,8 @@
         "timestamp": "2026-08-09T09:07:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fc11a99f7f2453af",
       "song_titles": [
         "Melancholy"
       ],
@@ -85306,8 +85306,8 @@
         "timestamp": "2026-08-09T10:11:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4b7cb01594bc6622",
       "song_titles": [
         "Meteor Hope"
       ],
@@ -85350,8 +85350,8 @@
         "timestamp": "2026-08-09T09:04:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2fa2ec73859f4bfc",
       "song_titles": [
         "Metheus"
       ],
@@ -85393,8 +85393,8 @@
         "timestamp": "2026-08-09T09:36:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a0e0e9498bc1302d",
       "song_titles": [
         "Metropolitan Chaser"
       ],
@@ -85633,8 +85633,8 @@
         "timestamp": "2026-08-09T08:50:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:db31ca60f8fca3bc",
       "song_titles": [
         "Mid Night Metropolitan Highway"
       ],
@@ -85786,8 +85786,8 @@
         "timestamp": "2026-08-09T09:45:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a42cb8f4c0751599",
       "song_titles": [
         "Midnight Party"
       ],
@@ -86121,8 +86121,8 @@
         "timestamp": "2026-08-09T08:59:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:56144cf7675eabda",
       "song_titles": [
         "Mind Blast (Dynamix Edit)"
       ],
@@ -86649,8 +86649,8 @@
         "timestamp": "2026-08-09T09:45:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e4c7b325312976fa",
       "song_titles": [
         "Mithridates"
       ],
@@ -86854,8 +86854,8 @@
         "timestamp": "2026-08-09T10:08:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:431db23fc7267f14",
       "song_titles": [
         "Mithril"
       ],
@@ -86972,8 +86972,8 @@
         "timestamp": "2026-08-09T09:06:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:daed131dc7afeb8a",
       "song_titles": [
         "Mitochondria"
       ],
@@ -87647,8 +87647,8 @@
         "timestamp": "2026-08-09T09:29:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2d5cc45008a41925",
       "song_titles": [
         "ムーンリット・ワンダラー"
       ],
@@ -87986,8 +87986,8 @@
         "timestamp": "2026-08-09T09:00:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6abcbcf47a12dfac",
       "song_titles": [
         "モシモシビット (Moshi Moshi Bit)"
       ],
@@ -88156,8 +88156,8 @@
         "timestamp": "2026-08-09T10:07:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4213911a369dcd69",
       "song_titles": [
         "Mouse Runs For Cheese(Short Edit)"
       ],
@@ -88361,8 +88361,8 @@
         "timestamp": "2026-08-09T09:23:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1bbd2ad920746250",
       "song_titles": [
         "Moving On"
       ],
@@ -88958,8 +88958,8 @@
         "timestamp": "2026-08-09T10:13:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:44b6f50de6f96157",
       "song_titles": [
         "My life is mine"
       ],
@@ -89189,8 +89189,8 @@
         "timestamp": "2026-08-09T08:41:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8dccd1fd1f47cf6d",
       "song_titles": [
         "Mystic Night"
       ],
@@ -89458,8 +89458,8 @@
         "timestamp": "2026-08-09T09:48:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a72b17ec3310eba5",
       "song_titles": [
         "NNOYiA"
       ],
@@ -89734,8 +89734,8 @@
         "timestamp": "2026-08-09T10:06:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2ce8c8eeee476dea",
       "song_titles": [
         "NOVA"
       ],
@@ -89951,8 +89951,8 @@
         "timestamp": "2026-08-09T09:05:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1615196abd18e8bc",
       "song_titles": [
         "NaCl"
       ],
@@ -90260,8 +90260,8 @@
         "timestamp": "2026-08-09T09:55:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1c079a2adacd6d79",
       "song_titles": [
         "Nachtmusik"
       ],
@@ -90918,8 +90918,8 @@
         "timestamp": "2026-08-09T10:01:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5dbdc8470f8e4f58",
       "song_titles": [
         "Nanohemu"
       ],
@@ -91298,8 +91298,8 @@
         "timestamp": "2026-08-09T09:19:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c7d9615b9489eba0",
       "song_titles": [
         "Necroxus"
       ],
@@ -91506,8 +91506,8 @@
         "timestamp": "2026-08-09T08:51:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:51fd133e5acc3e7a",
       "song_titles": [
         "涅槃を灯すシャーデンフロイデ"
       ],
@@ -91709,8 +91709,8 @@
         "timestamp": "2026-08-09T09:40:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7b26441c9125e591",
       "song_titles": [
         "Neptune"
       ],
@@ -91910,8 +91910,8 @@
         "timestamp": "2026-08-09T09:40:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c4b0eb5161e4a3a5",
       "song_titles": [
         "New Story"
       ],
@@ -92103,8 +92103,8 @@
         "timestamp": "2026-08-09T10:11:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3d411d32c56c0e26",
       "song_titles": [
         "Next Time (Feat.初音ミク)"
       ],
@@ -92332,8 +92332,8 @@
         "timestamp": "2026-08-09T09:35:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1b08f73f98cf4bd6",
       "song_titles": [
         "Nible"
       ],
@@ -92374,8 +92374,8 @@
         "timestamp": "2026-08-09T08:57:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:524b2143f1107602",
       "song_titles": [
         "Nick of Time"
       ],
@@ -92588,8 +92588,8 @@
         "timestamp": "2026-08-09T09:12:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f1488d997b1700a9",
       "song_titles": [
         "NightTheater"
       ],
@@ -92887,8 +92887,8 @@
         "timestamp": "2026-08-09T09:42:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:812cb68e6615a0bb",
       "song_titles": [
         "Nightmare Girl"
       ],
@@ -93140,8 +93140,8 @@
         "timestamp": "2026-08-09T09:35:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8ef26399f7dae76b",
       "song_titles": [
         "Nightseeker"
       ],
@@ -93812,8 +93812,8 @@
         "timestamp": "2026-08-09T09:58:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:07acf60f50dc49d6",
       "song_titles": [
         "Nives Marinae"
       ],
@@ -94015,8 +94015,8 @@
         "timestamp": "2026-08-09T08:59:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2d5fb51b73727aba",
       "song_titles": [
         "No Remorse"
       ],
@@ -94060,8 +94060,8 @@
         "timestamp": "2026-08-09T09:34:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7329b0f3de13b94a",
       "song_titles": [
         "NOISIΛ"
       ],
@@ -94444,8 +94444,8 @@
         "timestamp": "2026-08-09T08:52:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:61eda8745404e95e",
       "song_titles": [
         "Nova Highway"
       ],
@@ -94735,8 +94735,8 @@
         "timestamp": "2026-08-09T09:15:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2a72de2d11ea3f3d",
       "song_titles": [
         "Now Is The Time, Do It"
       ],
@@ -95440,8 +95440,8 @@
         "timestamp": "2026-08-09T08:45:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4d2fb658f247a7d3",
       "song_titles": [
         "OCCHOCO-REST-LESS"
       ],
@@ -96122,8 +96122,8 @@
         "timestamp": "2026-08-09T08:50:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fa77657ba8f9ee35",
       "song_titles": [
         "Ocean"
       ],
@@ -96249,8 +96249,8 @@
         "timestamp": "2026-08-09T09:51:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6e6e0e94f11b4fb7",
       "song_titles": [
         "Offshore"
       ],
@@ -96367,8 +96367,8 @@
         "timestamp": "2026-08-09T09:53:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7f7c1223ac54a3b9",
       "song_titles": [
         "Okesuchi"
       ],
@@ -96554,8 +96554,8 @@
         "timestamp": "2026-08-09T09:17:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7361873343f40a58",
       "song_titles": [
         "おもひでファンタジア"
       ],
@@ -96601,8 +96601,8 @@
         "timestamp": "2026-08-09T09:48:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ebceef996fbae734",
       "song_titles": [
         "Once again (DNX Edit.)"
       ],
@@ -96881,8 +96881,8 @@
         "timestamp": "2026-08-09T08:42:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3ce6627b6e200aa8",
       "song_titles": [
         "Oracle"
       ],
@@ -97154,8 +97154,8 @@
         "timestamp": "2026-08-09T10:00:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1052e3b2b18bee05",
       "song_titles": [
         "オレンジ"
       ],
@@ -97285,8 +97285,8 @@
         "timestamp": "2026-08-09T09:31:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4ec6645713d2f890",
       "song_titles": [
         "Oriental Landscape"
       ],
@@ -97701,8 +97701,8 @@
         "timestamp": "2026-08-09T08:43:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cbd6b77a46efa301",
       "song_titles": [
         "Own The Night"
       ],
@@ -98054,8 +98054,8 @@
         "timestamp": "2026-08-09T09:42:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4aeee6644ee2ee0d",
       "song_titles": [
         "PIXEVLAZZ"
       ],
@@ -98594,8 +98594,8 @@
         "timestamp": "2026-08-09T08:53:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1f2c51eedda23ac5",
       "collections": [
         "Ace"
       ],
@@ -98650,8 +98650,8 @@
         "timestamp": "2026-08-09T08:48:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:efb9ee2e98521785",
       "collections": [
         "BilliumMoto"
       ],
@@ -98680,8 +98680,8 @@
         "timestamp": "2026-08-09T08:49:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2d59fc7db3cb23a2",
       "collections": [
         "Crossing Delta"
       ],
@@ -98710,8 +98710,8 @@
         "timestamp": "2026-08-09T09:02:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b7494721f10d0543",
       "collections": [
         "Electroclassica"
       ],
@@ -98740,8 +98740,8 @@
         "timestamp": "2026-08-09T09:59:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:607a804650fdfbda",
       "collections": [
         "Hidden Gems"
       ],
@@ -98770,8 +98770,8 @@
         "timestamp": "2026-08-09T08:45:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:dd855c6d8a24f774",
       "collections": [
         "Intruders"
       ],
@@ -98800,8 +98800,8 @@
         "timestamp": "2026-08-09T09:53:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c08d0cfdf4353b1b",
       "collections": [
         "Kplecraft"
       ],
@@ -98830,8 +98830,8 @@
         "timestamp": "2026-08-09T09:18:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1485c549310dbdb4",
       "collections": [
         "Lovely"
       ],
@@ -98860,8 +98860,8 @@
         "timestamp": "2026-08-09T08:58:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:892d43ee38c5bd61",
       "collections": [
         "Pianomatic"
       ],
@@ -98890,8 +98890,8 @@
         "timestamp": "2026-08-09T09:26:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e90d7a564d728175",
       "collections": [
         "Rabi-Ribi"
       ],
@@ -98920,8 +98920,8 @@
         "timestamp": "2026-08-09T10:15:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c9eff2eac4fe9de2",
       "collections": [
         "Stellights"
       ],
@@ -98950,8 +98950,8 @@
         "timestamp": "2026-08-09T09:47:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted pack_cover (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:548131b7c8bfc532",
       "collections": [
         "Two Square: The Old Year 1"
       ],
@@ -99044,8 +99044,8 @@
         "timestamp": "2026-08-09T10:04:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f41e10e2365add8a",
       "song_titles": [
         "Pandemik"
       ],
@@ -99684,8 +99684,8 @@
         "timestamp": "2026-08-09T08:45:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:631f9a1e37a2d00c",
       "song_titles": [
         "PARALLEL ADDRESS"
       ],
@@ -99812,8 +99812,8 @@
         "timestamp": "2026-08-09T08:49:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:080f4dfa8fc6dbe2",
       "song_titles": [
         "Partenza"
       ],
@@ -99976,8 +99976,8 @@
         "timestamp": "2026-08-09T09:21:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4066c1f0ba912ee6",
       "song_titles": [
         "Party Vinyl"
       ],
@@ -100106,8 +100106,8 @@
         "timestamp": "2026-08-09T10:10:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b5c68ef8fbb4c353",
       "song_titles": [
         "Paved Garden"
       ],
@@ -100727,8 +100727,8 @@
         "timestamp": "2026-08-09T10:14:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:55761782bec2d711",
       "song_titles": [
         "Peony"
       ],
@@ -101058,8 +101058,8 @@
         "timestamp": "2026-08-09T09:47:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3ff0c41736f06faa",
       "song_titles": [
         "Perpetual"
       ],
@@ -101297,8 +101297,8 @@
         "timestamp": "2026-08-09T09:51:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:330ceccef9eda62f",
       "song_titles": [
         "Persephone"
       ],
@@ -101876,8 +101876,8 @@
         "timestamp": "2026-08-09T09:03:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:aea6e7899dd7bc7f",
       "song_titles": [
         "Perspicuus_Aestus"
       ],
@@ -102108,8 +102108,8 @@
         "timestamp": "2026-08-09T10:02:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:53de80ea363a4930",
       "song_titles": [
         "petal"
       ],
@@ -102231,8 +102231,8 @@
         "timestamp": "2026-08-09T08:58:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ce8e8510187a22e3",
       "song_titles": [
         "ぺたるすてっぷ"
       ],
@@ -102423,8 +102423,8 @@
         "timestamp": "2026-08-09T08:42:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:aad7aea09e53b905",
       "song_titles": [
         "Phoebe"
       ],
@@ -102547,8 +102547,8 @@
         "timestamp": "2026-08-09T09:42:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6a8aa9e5e700fb21",
       "song_titles": [
         "Phoenixismia"
       ],
@@ -102755,8 +102755,8 @@
         "timestamp": "2026-08-09T09:26:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ca7057c3f327c712",
       "song_titles": [
         "Physical Cosmology"
       ],
@@ -103177,8 +103177,8 @@
         "timestamp": "2026-08-09T09:14:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c85ea4fa8c31ed29",
       "song_titles": [
         "プラズマ・プラス・プラチナ！"
       ],
@@ -103503,8 +103503,8 @@
         "timestamp": "2026-08-09T09:40:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4c600ebbca6521ab",
       "song_titles": [
         "Polaris Australis"
       ],
@@ -103784,8 +103784,8 @@
         "timestamp": "2026-08-09T09:07:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f5241c597e042337",
       "song_titles": [
         "Pollux"
       ],
@@ -104119,8 +104119,8 @@
         "timestamp": "2026-08-09T10:10:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:30655e908376bb64",
       "song_titles": [
         "POP SEQUENCE"
       ],
@@ -104433,8 +104433,8 @@
         "timestamp": "2026-08-09T09:29:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:df78df4cb35095de",
       "song_titles": [
         "Prismatic Flipper"
       ],
@@ -104866,8 +104866,8 @@
         "timestamp": "2026-08-09T09:28:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f78d3384a7d447ba",
       "song_titles": [
         "Pumpkin Lollipop"
       ],
@@ -105306,8 +105306,8 @@
         "timestamp": "2026-08-09T09:12:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6bac062bc386ecbd",
       "song_titles": [
         "PUPA"
       ],
@@ -105356,8 +105356,8 @@
         "timestamp": "2026-08-09T10:01:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7e8e48d5fddfe02b",
       "song_titles": [
         "Purgatório"
       ],
@@ -105939,8 +105939,8 @@
         "timestamp": "2026-08-09T09:55:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a7b4f17ed397a16c",
       "song_titles": [
         "RASeed"
       ],
@@ -106515,8 +106515,8 @@
         "timestamp": "2026-08-09T10:04:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:180c413f538b45fd",
       "song_titles": [
         "REconstruction"
       ],
@@ -106893,8 +106893,8 @@
         "timestamp": "2026-08-09T09:48:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:00b62d4aa9d5c160",
       "song_titles": [
         "ROAD to 773H"
       ],
@@ -106996,8 +106996,8 @@
         "timestamp": "2026-08-09T09:17:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:47fbb05df438e6c2",
       "song_titles": [
         "Ragnarøk"
       ],
@@ -107294,8 +107294,8 @@
         "timestamp": "2026-08-09T09:18:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:60fbc5ba9f528e50",
       "song_titles": [
         "Rain"
       ],
@@ -107596,8 +107596,8 @@
         "timestamp": "2026-08-09T09:04:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6c6020ce9b9180f4",
       "song_titles": [
         "Rainbow Reaper"
       ],
@@ -107854,8 +107854,8 @@
         "timestamp": "2026-08-09T09:51:22Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:35339f08e4220992",
       "song_titles": [
         "Random20"
       ],
@@ -108161,8 +108161,8 @@
         "timestamp": "2026-08-09T09:13:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:11930e151506f4e5",
       "song_titles": [
         "Rave! and Get On It!"
       ],
@@ -108205,8 +108205,8 @@
         "timestamp": "2026-08-09T09:31:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:95b8fa27ff41c126",
       "song_titles": [
         "Rave-olution"
       ],
@@ -108408,8 +108408,8 @@
         "timestamp": "2026-08-09T09:27:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ddf391f22cb604c4",
       "song_titles": [
         "Raving in Halloween"
       ],
@@ -108972,8 +108972,8 @@
         "timestamp": "2026-08-09T10:05:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3ea886c54642ff70",
       "song_titles": [
         "Re_Construct"
       ],
@@ -109020,8 +109020,8 @@
         "timestamp": "2026-08-09T08:50:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:44b82eb64ba7c5c0",
       "song_titles": [
         "RE:IGNITE-Republic of Gamers"
       ],
@@ -109101,8 +109101,8 @@
         "timestamp": "2026-08-09T09:19:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:22a38a2f24ba5dc0",
       "song_titles": [
         "ReLyna"
       ],
@@ -109453,8 +109453,8 @@
         "timestamp": "2026-08-09T08:58:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ee7a38e8766c6812",
       "song_titles": [
         "Reason Of Fallen"
       ],
@@ -109645,8 +109645,8 @@
         "timestamp": "2026-08-09T08:58:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:54fed06ef5bfca68",
       "song_titles": [
         "Reborn"
       ],
@@ -109726,8 +109726,8 @@
         "timestamp": "2026-08-09T09:31:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:82f5cc661afba138",
       "song_titles": [
         "Re=correct"
       ],
@@ -109944,8 +109944,8 @@
         "timestamp": "2026-08-09T10:10:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c04402e041cbbe35",
       "song_titles": [
         "Red Liquid"
       ],
@@ -110149,8 +110149,8 @@
         "timestamp": "2026-08-09T10:06:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6f8a1cbc0f372311",
       "song_titles": [
         "Red Horse Massacre"
       ],
@@ -110313,8 +110313,8 @@
         "timestamp": "2026-08-09T09:09:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2886c15f1b28cef2",
       "song_titles": [
         "Reef Hideout"
       ],
@@ -110591,8 +110591,8 @@
         "timestamp": "2026-08-09T10:10:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d107def62345ec5a",
       "song_titles": [
         "Regenerate Violence"
       ],
@@ -110709,8 +110709,8 @@
         "timestamp": "2026-08-09T08:44:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:03d3c0af3747d76c",
       "song_titles": [
         "玲瓏メテオ"
       ],
@@ -110868,8 +110868,8 @@
         "timestamp": "2026-08-09T09:20:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:11226b0eb7173de7",
       "song_titles": [
         "Reminds Me Of You (feat. Asuna Vanilla)"
       ],
@@ -111311,8 +111311,8 @@
         "timestamp": "2026-08-09T08:56:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c125eb1b51427ac1",
       "song_titles": [
         "Resonance of Soul"
       ],
@@ -111438,8 +111438,8 @@
         "timestamp": "2026-08-09T09:21:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4989f5dc656aef7e",
       "song_titles": [
         "Restricted Access"
       ],
@@ -111918,8 +111918,8 @@
         "timestamp": "2026-08-09T09:14:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d76a8c20d17bbe86",
       "song_titles": [
         "Riot Flavor"
       ],
@@ -112131,8 +112131,8 @@
         "timestamp": "2026-08-09T09:23:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:14208d7e4f16f06a",
       "song_titles": [
         "Rising Soul"
       ],
@@ -112202,8 +112202,8 @@
         "timestamp": "2026-08-09T09:37:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8c11efa75fc6df51",
       "song_titles": [
         "Riverside Cafe"
       ],
@@ -112302,8 +112302,8 @@
         "timestamp": "2026-08-09T09:36:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fb19a9e7acd345b8",
       "song_titles": [
         "Rocket Lanterns"
       ],
@@ -112567,8 +112567,8 @@
         "timestamp": "2026-08-09T09:18:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9b48a8c9ed26b229",
       "song_titles": [
         "Rocky Buinne"
       ],
@@ -112608,8 +112608,8 @@
         "timestamp": "2026-08-09T09:46:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4c7d0df21e837f29",
       "song_titles": [
         "Rom Corruption"
       ],
@@ -112758,8 +112758,8 @@
         "timestamp": "2026-08-09T09:37:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9bd5079b0e3c8d00",
       "song_titles": [
         "Rondo of the 3ND"
       ],
@@ -113255,8 +113255,8 @@
         "timestamp": "2026-08-09T09:50:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c759b4632977e749",
       "song_titles": [
         "Rudy"
       ],
@@ -113503,8 +113503,8 @@
         "timestamp": "2026-08-09T08:42:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2bc2b369522cf5a5",
       "song_titles": [
         "Rule The World"
       ],
@@ -114361,8 +114361,8 @@
         "timestamp": "2026-08-09T09:21:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ebdd704f94c39453",
       "song_titles": [
         "SUTTA MONDAY"
       ],
@@ -114465,8 +114465,8 @@
         "timestamp": "2026-08-09T09:05:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e426736e551d1bb3",
       "song_titles": [
         "SYSTEM_ON"
       ],
@@ -115022,8 +115022,8 @@
         "timestamp": "2026-08-09T09:15:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cdeeaac99cd941fd",
       "song_titles": [
         "Sakura Fubuki"
       ],
@@ -115475,8 +115475,8 @@
         "timestamp": "2026-08-09T09:55:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f93631e03bba389c",
       "song_titles": [
         "Sandwich"
       ],
@@ -117397,8 +117397,8 @@
         "timestamp": "2026-08-09T09:59:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:47cc810a8b2b278b",
       "song_titles": [
         "scualee"
       ],
@@ -117765,8 +117765,8 @@
         "timestamp": "2026-08-09T08:49:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:dfe53353ff33dedd",
       "song_titles": [
         "SECONDED WORLD"
       ],
@@ -117807,8 +117807,8 @@
         "timestamp": "2026-08-09T09:53:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5ce6bc0420c8001c",
       "song_titles": [
         "Secret Illumination"
       ],
@@ -117853,8 +117853,8 @@
         "timestamp": "2026-08-09T09:21:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:393cd78e4f65ab6b",
       "song_titles": [
         "Seedy Try"
       ],
@@ -117979,8 +117979,8 @@
         "timestamp": "2026-08-09T09:04:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:240f6f3453a88c14",
       "song_titles": [
         "セカイセイフク"
       ],
@@ -119044,8 +119044,8 @@
         "timestamp": "2026-08-09T09:23:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:81de3dc02193034b",
       "song_titles": [
         "Shinobi (Original Short Mix)"
       ],
@@ -119382,8 +119382,8 @@
         "timestamp": "2026-08-09T08:58:18Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:70fb1a44ae5ceeb1",
       "song_titles": [
         "流れ星に願うよいま..."
       ],
@@ -120151,8 +120151,8 @@
         "timestamp": "2026-08-09T09:08:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4d5417030f00ddb6",
       "song_titles": [
         "Sin of Souls"
       ],
@@ -120535,8 +120535,8 @@
         "timestamp": "2026-08-09T09:42:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c960fedd1db3c3e0",
       "song_titles": [
         "Skrik (DNX edit)"
       ],
@@ -120740,8 +120740,8 @@
         "timestamp": "2026-08-09T08:52:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f79afc603a3fc5e3",
       "song_titles": [
         "Sky Adventure!"
       ],
@@ -121291,8 +121291,8 @@
         "timestamp": "2026-08-09T09:59:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:af0f994ec117eb6e",
       "song_titles": [
         "Sky land"
       ],
@@ -121336,8 +121336,8 @@
         "timestamp": "2026-08-09T09:17:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7d9f658ca207802e",
       "song_titles": [
         "Slapstick Parfait"
       ],
@@ -121501,8 +121501,8 @@
         "timestamp": "2026-08-09T08:54:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5e19569a04277837",
       "song_titles": [
         "Sleepless"
       ],

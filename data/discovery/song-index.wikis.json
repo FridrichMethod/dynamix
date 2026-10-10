@@ -53,7 +53,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0c99303ab85730bc",
+        "wikis:miraheze:0c99303ab85730bc"
+      ]
     },
     {
       "id": "song:2000volt",
@@ -100,7 +103,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3dfd9f8da0f8fcb4",
+        "wikis:miraheze:3dfd9f8da0f8fcb4"
+      ]
     },
     {
       "id": "song:428-dance-showcase",
@@ -144,7 +150,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7db33cc39e291688",
+        "wikis:miraheze:7db33cc39e291688"
+      ]
     },
     {
       "id": "song:4th-hyper-pressure",
@@ -281,7 +290,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:fc2d0d8a8b6af465",
+        "wikis:miraheze:fc2d0d8a8b6af465"
+      ]
     },
     {
       "id": "song:80",
@@ -325,7 +337,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c6433fbe5248dfa5",
+        "wikis:miraheze:c6433fbe5248dfa5"
+      ]
     },
     {
       "id": "song:absolute-zero",
@@ -369,7 +384,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:415a34cf2921fee1",
+        "wikis:miraheze:415a34cf2921fee1"
+      ]
     },
     {
       "id": "song:abyss-breaker",
@@ -411,7 +429,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:11c68c6187a1d24b",
+        "wikis:miraheze:11c68c6187a1d24b"
+      ]
     },
     {
       "id": "song:ace-sniper-dnx-edit",
@@ -459,7 +480,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:d88a97fbdd20251a",
+        "wikis:miraheze:d88a97fbdd20251a"
+      ]
     },
     {
       "id": "song:acrise",
@@ -506,7 +530,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:426724c9ac431090",
+        "wikis:miraheze:426724c9ac431090"
+      ]
     },
     {
       "id": "song:actinium",
@@ -557,7 +584,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:bb308b145b6e2f86",
+        "wikis:miraheze:bb308b145b6e2f86"
+      ]
     },
     {
       "id": "song:adrenaline-rush",
@@ -622,7 +652,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0e2171a3ebb47aad",
+        "wikis:miraheze:0e2171a3ebb47aad"
+      ]
     },
     {
       "id": "song:aeronautica",
@@ -669,7 +702,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:abd1fd82e51c0409",
+        "wikis:miraheze:abd1fd82e51c0409"
+      ]
     },
     {
       "id": "song:after-the-ending",
@@ -713,7 +749,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:907a9571e30d21dc",
+        "wikis:miraheze:907a9571e30d21dc"
+      ]
     },
     {
       "id": "song:against-the-pseudo",
@@ -760,7 +799,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a64f6ce9a0f4da88",
+        "wikis:miraheze:a64f6ce9a0f4da88"
+      ]
     },
     {
       "id": "song:aki-zakura",
@@ -807,7 +849,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:abc9a1e525426d37",
+        "wikis:miraheze:abc9a1e525426d37"
+      ]
     },
     {
       "id": "song:aletheia",
@@ -877,7 +922,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:93b2957af84cd501",
+        "wikis:miraheze:93b2957af84cd501"
+      ]
     },
     {
       "id": "song:alter-ego",
@@ -924,7 +972,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9c90dd4fd45c9060",
+        "wikis:miraheze:9c90dd4fd45c9060"
+      ]
     },
     {
       "id": "song:altered-reality",
@@ -996,7 +1047,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:84e8349af8d60e84",
+        "wikis:miraheze:84e8349af8d60e84"
+      ]
     },
     {
       "id": "song:an-kumene-18f99bfa",
@@ -1045,7 +1099,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6ee013a148cc49c1",
+        "wikis:miraheze:6ee013a148cc49c1"
+      ]
     },
     {
       "id": "song:anamn-sis-de421f3b",
@@ -1134,7 +1191,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3a9d47f8581a7f47",
+        "wikis:miraheze:3a9d47f8581a7f47"
+      ]
     },
     {
       "id": "song:angel-x-angel",
@@ -1181,7 +1241,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6ef105037150a3fa",
+        "wikis:miraheze:6ef105037150a3fa"
+      ]
     },
     {
       "id": "song:another-world",
@@ -1226,7 +1289,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:64220fe379a50586",
+        "wikis:miraheze:64220fe379a50586"
+      ]
     },
     {
       "id": "song:anticreation",
@@ -1296,7 +1362,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3dbb55d4759d9b88",
+        "wikis:miraheze:3dbb55d4759d9b88"
+      ]
     },
     {
       "id": "song:arcana-idola",
@@ -1343,7 +1412,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a7109e5e97b4c73d",
+        "wikis:miraheze:a7109e5e97b4c73d"
+      ]
     },
     {
       "id": "song:arty-party",
@@ -1390,7 +1462,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:bc2d950937d31df7",
+        "wikis:miraheze:bc2d950937d31df7"
+      ]
     },
     {
       "id": "song:ashes",
@@ -1435,7 +1510,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:40ab3bbb5b225e5c",
+        "wikis:miraheze:40ab3bbb5b225e5c"
+      ]
     },
     {
       "id": "song:assassin",
@@ -1480,7 +1558,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:41919329131ef1b3",
+        "wikis:miraheze:41919329131ef1b3"
+      ]
     },
     {
       "id": "song:astraea",
@@ -1527,7 +1608,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:51e495e3632587da",
+        "wikis:miraheze:51e495e3632587da"
+      ]
     },
     {
       "id": "song:astral",
@@ -1581,7 +1665,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b08d099762bfa0ec",
+        "wikis:miraheze:b08d099762bfa0ec"
+      ]
     },
     {
       "id": "song:astral-injection",
@@ -1676,7 +1763,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6420082830432bee",
+        "wikis:miraheze:6420082830432bee"
+      ]
     },
     {
       "id": "song:atomic-dropper",
@@ -1720,7 +1810,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6ec2b31a69144e1b",
+        "wikis:miraheze:6ec2b31a69144e1b"
+      ]
     },
     {
       "id": "song:aujourd-hui",
@@ -1764,7 +1857,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5cbe14dc652053ed",
+        "wikis:miraheze:5cbe14dc652053ed"
+      ]
     },
     {
       "id": "song:awakening-of-civilization",
@@ -1863,7 +1959,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:061297be17a81b65",
+        "wikis:miraheze:061297be17a81b65"
+      ]
     },
     {
       "id": "song:azure-snow-land",
@@ -1914,7 +2013,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8e884277de7c3ca3",
+        "wikis:miraheze:8e884277de7c3ca3"
+      ]
     },
     {
       "id": "song:back-out",
@@ -1961,7 +2063,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:842a598703498685",
+        "wikis:miraheze:842a598703498685"
+      ]
     },
     {
       "id": "song:bassline-blitz",
@@ -2049,7 +2154,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7971f4b1dd09e783",
+        "wikis:miraheze:7971f4b1dd09e783"
+      ]
     },
     {
       "id": "song:between-boundaries",
@@ -2093,7 +2201,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:59ea2cfc9cfb7591",
+        "wikis:miraheze:59ea2cfc9cfb7591"
+      ]
     },
     {
       "id": "song:bewitched",
@@ -2205,7 +2316,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4489ce5a78235cb4",
+        "wikis:miraheze:4489ce5a78235cb4"
+      ]
     },
     {
       "id": "song:big-beats-blow",
@@ -2250,7 +2364,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:47fe419bf3d8acfd",
+        "wikis:miraheze:47fe419bf3d8acfd"
+      ]
     },
     {
       "id": "song:bit-tech-computer",
@@ -2295,7 +2412,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5eaefb2306f84b19",
+        "wikis:miraheze:5eaefb2306f84b19"
+      ]
     },
     {
       "id": "song:black-horse-famine",
@@ -2339,7 +2459,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ea946f837bbf4a66",
+        "wikis:miraheze:ea946f837bbf4a66"
+      ]
     },
     {
       "id": "song:black-magnam",
@@ -2390,7 +2513,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:bbee20239220b215",
+        "wikis:miraheze:bbee20239220b215"
+      ]
     },
     {
       "id": "song:black-sour-ruby",
@@ -2434,7 +2560,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7256ad16470ef10c",
+        "wikis:miraheze:7256ad16470ef10c"
+      ]
     },
     {
       "id": "song:blazing-through-infinity",
@@ -2500,7 +2629,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e33b3ef9ab425094",
+        "wikis:miraheze:e33b3ef9ab425094"
+      ]
     },
     {
       "id": "song:bloom-blade",
@@ -2554,7 +2686,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:37a897e5bbaf450d",
+        "wikis:miraheze:37a897e5bbaf450d"
+      ]
     },
     {
       "id": "song:blue",
@@ -2599,7 +2734,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4697dd7ca291cc58",
+        "wikis:miraheze:4697dd7ca291cc58"
+      ]
     },
     {
       "id": "song:blue-ray",
@@ -2696,7 +2834,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:af8b2ffc50aab86d",
+        "wikis:miraheze:af8b2ffc50aab86d"
+      ]
     },
     {
       "id": "song:blueberry-cheesecake",
@@ -2745,7 +2886,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4aa390ae8dc10e54",
+        "wikis:miraheze:4aa390ae8dc10e54"
+      ]
     },
     {
       "id": "song:bluff",
@@ -2790,7 +2934,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ce71aeb88d5a2829",
+        "wikis:miraheze:ce71aeb88d5a2829"
+      ]
     },
     {
       "id": "song:bonus-time",
@@ -2832,7 +2979,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5a9355fb9bb82b98",
+        "wikis:miraheze:5a9355fb9bb82b98"
+      ]
     },
     {
       "id": "song:bounce-the-tech",
@@ -2877,7 +3027,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4fc5ba3e27065d6e",
+        "wikis:miraheze:4fc5ba3e27065d6e"
+      ]
     },
     {
       "id": "song:caelus",
@@ -2921,7 +3074,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c3794192cbaf411b",
+        "wikis:miraheze:c3794192cbaf411b"
+      ]
     },
     {
       "id": "song:calling",
@@ -2966,7 +3122,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:29c8c586801ad6ad",
+        "wikis:miraheze:29c8c586801ad6ad"
+      ]
     },
     {
       "id": "song:canon-in-blue",
@@ -3010,7 +3169,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:95dd613c4925663d",
+        "wikis:miraheze:95dd613c4925663d"
+      ]
     },
     {
       "id": "song:carmeltaxite",
@@ -3088,7 +3250,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:fd0cd1087a59e0f7",
+        "wikis:miraheze:fd0cd1087a59e0f7"
+      ]
     },
     {
       "id": "song:cervelle-connexion",
@@ -3133,7 +3298,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a59adbd324de16f5",
+        "wikis:miraheze:a59adbd324de16f5"
+      ]
     },
     {
       "id": "song:chaka",
@@ -3178,7 +3346,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f752c0dbb3638ef1",
+        "wikis:miraheze:f752c0dbb3638ef1"
+      ]
     },
     {
       "id": "song:chaos-ignition",
@@ -3275,7 +3446,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7c7f63ba4a5d5946",
+        "wikis:miraheze:7c7f63ba4a5d5946"
+      ]
     },
     {
       "id": "song:chromosphere",
@@ -3319,7 +3493,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5f865772c9028665",
+        "wikis:miraheze:5f865772c9028665"
+      ]
     },
     {
       "id": "song:chrysoberyl",
@@ -3362,7 +3539,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e77dff4a4a6dc7c0",
+        "wikis:miraheze:e77dff4a4a6dc7c0"
+      ]
     },
     {
       "id": "song:circumscription",
@@ -3404,7 +3584,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e7da3cdb567e38f5",
+        "wikis:miraheze:e7da3cdb567e38f5"
+      ]
     },
     {
       "id": "song:city-girl-in-the-love",
@@ -3451,7 +3634,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8099d729b914cfe9",
+        "wikis:miraheze:8099d729b914cfe9"
+      ]
     },
     {
       "id": "song:class-memories",
@@ -3499,7 +3685,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1c26a7f625ead4c0",
+        "wikis:miraheze:1c26a7f625ead4c0"
+      ]
     },
     {
       "id": "song:contour",
@@ -3551,7 +3740,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6964d04b94ec0232",
+        "wikis:miraheze:6964d04b94ec0232"
+      ]
     },
     {
       "id": "song:convictor",
@@ -3604,7 +3796,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e1ebb6e8232765b5",
+        "wikis:miraheze:e1ebb6e8232765b5"
+      ]
     },
     {
       "id": "song:corona",
@@ -3651,7 +3846,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e7b49d5c03d0e171",
+        "wikis:miraheze:e7b49d5c03d0e171"
+      ]
     },
     {
       "id": "song:cosmic-pulse",
@@ -3739,7 +3937,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:d6e1308b4a0e8b22",
+        "wikis:miraheze:d6e1308b4a0e8b22"
+      ]
     },
     {
       "id": "song:crank-up",
@@ -3792,7 +3993,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a7c87ca4e2cbc5c3",
+        "wikis:miraheze:a7c87ca4e2cbc5c3"
+      ]
     },
     {
       "id": "song:creater-s",
@@ -3837,7 +4041,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6542720cb98d9bad",
+        "wikis:miraheze:6542720cb98d9bad"
+      ]
     },
     {
       "id": "song:creigis",
@@ -3884,7 +4091,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a96a4eb9706d590b",
+        "wikis:miraheze:a96a4eb9706d590b"
+      ]
     },
     {
       "id": "song:crocus",
@@ -3975,7 +4185,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:36439ac8e0013128",
+        "wikis:miraheze:36439ac8e0013128"
+      ]
     },
     {
       "id": "song:cross-time",
@@ -4020,7 +4233,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:620954699f28fca4",
+        "wikis:miraheze:620954699f28fca4"
+      ]
     },
     {
       "id": "song:crossing-delta",
@@ -4066,7 +4282,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1f7f68f2a440a919",
+        "wikis:miraheze:1f7f68f2a440a919"
+      ]
     },
     {
       "id": "song:crux",
@@ -4111,7 +4330,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:afb36307ce86ea68",
+        "wikis:miraheze:afb36307ce86ea68"
+      ]
     },
     {
       "id": "song:cryonix",
@@ -4156,7 +4378,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:80f9e3a5df729df0",
+        "wikis:miraheze:80f9e3a5df729df0"
+      ]
     },
     {
       "id": "song:crystal-clear-sky",
@@ -4203,7 +4428,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:2849d92f3ba809af",
+        "wikis:miraheze:2849d92f3ba809af"
+      ]
     },
     {
       "id": "song:crystal-ribbon",
@@ -4251,7 +4479,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5bb1b44116c33fae",
+        "wikis:miraheze:5bb1b44116c33fae"
+      ]
     },
     {
       "id": "song:cumulus",
@@ -4298,7 +4529,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:90c6ac7c1db35c53",
+        "wikis:miraheze:90c6ac7c1db35c53"
+      ]
     },
     {
       "id": "song:curtainfall",
@@ -4340,7 +4574,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0e1fc4ad298c1a22",
+        "wikis:miraheze:0e1fc4ad298c1a22"
+      ]
     },
     {
       "id": "song:cyber-diver",
@@ -4412,7 +4649,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:248b7e1bf69696f8",
+        "wikis:miraheze:248b7e1bf69696f8"
+      ]
     },
     {
       "id": "song:dangerous-insanity-2019-rework",
@@ -4459,7 +4699,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6cb6cb643048df0d",
+        "wikis:miraheze:6cb6cb643048df0d"
+      ]
     },
     {
       "id": "song:danse-de-romani",
@@ -4514,7 +4757,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7d9d0ee358b99d65",
+        "wikis:miraheze:7d9d0ee358b99d65"
+      ]
     },
     {
       "id": "song:daydream",
@@ -4561,7 +4807,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:2b27f8d7c31ecc89",
+        "wikis:miraheze:2b27f8d7c31ecc89"
+      ]
     },
     {
       "id": "song:dead-master",
@@ -4606,7 +4855,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4fc03e9e92cecb8f",
+        "wikis:miraheze:4fc03e9e92cecb8f"
+      ]
     },
     {
       "id": "song:dead-soul",
@@ -4654,7 +4906,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3ac25778184e9839",
+        "wikis:miraheze:3ac25778184e9839"
+      ]
     },
     {
       "id": "song:deadline",
@@ -4699,7 +4954,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:12f7e95cc8d42ad2",
+        "wikis:miraheze:12f7e95cc8d42ad2"
+      ]
     },
     {
       "id": "song:deadly-poppy-field",
@@ -4743,7 +5001,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:45781d4cf0f1a815",
+        "wikis:miraheze:45781d4cf0f1a815"
+      ]
     },
     {
       "id": "song:decoherence",
@@ -4788,7 +5049,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b05311bb6f27501f",
+        "wikis:miraheze:b05311bb6f27501f"
+      ]
     },
     {
       "id": "song:decomposition",
@@ -4837,7 +5101,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:91e2926775b22911",
+        "wikis:miraheze:91e2926775b22911"
+      ]
     },
     {
       "id": "song:deda-dash",
@@ -4884,7 +5151,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:77390c2560e57df0",
+        "wikis:miraheze:77390c2560e57df0"
+      ]
     },
     {
       "id": "song:defended",
@@ -4927,7 +5197,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6a6d78627bd6cecc",
+        "wikis:miraheze:6a6d78627bd6cecc"
+      ]
     },
     {
       "id": "song:dement-after-legend",
@@ -4975,7 +5248,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4ea9eb988401ef04",
+        "wikis:miraheze:4ea9eb988401ef04"
+      ]
     },
     {
       "id": "song:demonic-juggernauts",
@@ -5022,7 +5298,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:aee805d077ab1dbe",
+        "wikis:miraheze:aee805d077ab1dbe"
+      ]
     },
     {
       "id": "song:depth-of-mem0ry",
@@ -5071,7 +5350,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b18304455f9941b4",
+        "wikis:miraheze:b18304455f9941b4"
+      ]
     },
     {
       "id": "song:desert-rose",
@@ -5114,7 +5396,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b52ce48158ed39e6",
+        "wikis:miraheze:b52ce48158ed39e6"
+      ]
     },
     {
       "id": "song:destroy-stress",
@@ -5161,7 +5446,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9c065db575632212",
+        "wikis:miraheze:9c065db575632212"
+      ]
     },
     {
       "id": "song:destruction",
@@ -5205,7 +5493,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:d52cb5c590d56afa",
+        "wikis:miraheze:d52cb5c590d56afa"
+      ]
     },
     {
       "id": "song:determination-a5e39fd9",
@@ -5275,7 +5566,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:05d31031587118bc",
+        "wikis:miraheze:05d31031587118bc"
+      ]
     },
     {
       "id": "song:distraction-point",
@@ -5324,7 +5618,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4f6cec2fe1783a5b",
+        "wikis:miraheze:4f6cec2fe1783a5b"
+      ]
     },
     {
       "id": "song:do-better",
@@ -5393,7 +5690,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f4d1c9c1401571ed",
+        "wikis:miraheze:f4d1c9c1401571ed"
+      ]
     },
     {
       "id": "song:dolqueen",
@@ -5445,7 +5745,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a904a6fa7c7bc6a1",
+        "wikis:miraheze:a904a6fa7c7bc6a1"
+      ]
     },
     {
       "id": "song:dream-starter",
@@ -5491,7 +5794,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3d17929ad268f2f6",
+        "wikis:miraheze:3d17929ad268f2f6"
+      ]
     },
     {
       "id": "song:ds-h-782cb8cf",
@@ -5568,7 +5874,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:fc963842e711cd1d",
+        "wikis:miraheze:fc963842e711cd1d"
+      ]
     },
     {
       "id": "song:dusky-disslove",
@@ -5615,7 +5924,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c1a7466224c24584",
+        "wikis:miraheze:c1a7466224c24584"
+      ]
     },
     {
       "id": "song:dyspnea",
@@ -5659,7 +5971,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1926d5f36f9ea92e",
+        "wikis:miraheze:1926d5f36f9ea92e"
+      ]
     },
     {
       "id": "song:echoes-of-the-forest",
@@ -5728,7 +6043,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9d08c3c7494af783",
+        "wikis:miraheze:9d08c3c7494af783"
+      ]
     },
     {
       "id": "song:eldredth",
@@ -5772,7 +6090,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:d86ca1e95071e0b8",
+        "wikis:miraheze:d86ca1e95071e0b8"
+      ]
     },
     {
       "id": "song:elph-s-sadness-dynamix-edition",
@@ -5820,7 +6141,12 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1295927ffc7c899c",
+        "wikis:fandom:51f0df11916ee53c",
+        "wikis:miraheze:1295927ffc7c899c",
+        "wikis:miraheze:51f0df11916ee53c"
+      ]
     },
     {
       "id": "song:elyxivn-elyxium",
@@ -5865,7 +6191,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:81d7d5e7cc65476f",
+        "wikis:miraheze:81d7d5e7cc65476f"
+      ]
     },
     {
       "id": "song:empty-stars",
@@ -5911,7 +6240,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:aa7e0ef573446016",
+        "wikis:miraheze:aa7e0ef573446016"
+      ]
     },
     {
       "id": "song:empyrean-code-paradiso-bms-edit",
@@ -5988,7 +6320,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:2ed3c81774a05974",
+        "wikis:miraheze:2ed3c81774a05974"
+      ]
     },
     {
       "id": "song:encore",
@@ -6036,7 +6371,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:deee216ea4cc4ae6",
+        "wikis:miraheze:deee216ea4cc4ae6"
+      ]
     },
     {
       "id": "song:energy",
@@ -6126,7 +6464,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7732ed5118fe5419",
+        "wikis:miraheze:7732ed5118fe5419"
+      ]
     },
     {
       "id": "song:ennor",
@@ -6171,7 +6512,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8fd9093825e1fb5e",
+        "wikis:miraheze:8fd9093825e1fb5e"
+      ]
     },
     {
       "id": "song:enter-magical-code",
@@ -6243,7 +6587,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9515f2645335bcaa",
+        "wikis:miraheze:9515f2645335bcaa"
+      ]
     },
     {
       "id": "song:ephemeral-echo",
@@ -6290,7 +6637,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5be4df7042e44006",
+        "wikis:miraheze:5be4df7042e44006"
+      ]
     },
     {
       "id": "song:epitaxy",
@@ -6361,7 +6711,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:cc228c03a17c63d3",
+        "wikis:miraheze:cc228c03a17c63d3"
+      ]
     },
     {
       "id": "song:essence-of-twilight",
@@ -6415,7 +6768,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8776dac7295a4954",
+        "wikis:miraheze:8776dac7295a4954"
+      ]
     },
     {
       "id": "song:euouae",
@@ -6467,7 +6823,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b4bd3ec34fe7ce7d",
+        "wikis:miraheze:b4bd3ec34fe7ce7d"
+      ]
     },
     {
       "id": "song:evils-was-coming",
@@ -6560,7 +6919,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:653c79a6460b8316",
+        "wikis:miraheze:653c79a6460b8316"
+      ]
     },
     {
       "id": "song:fabula-proelium-magna",
@@ -6604,7 +6966,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b7d608279405c6d0",
+        "wikis:miraheze:b7d608279405c6d0"
+      ]
     },
     {
       "id": "song:fading-sky",
@@ -6650,7 +7015,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8e41e20937f9d327",
+        "wikis:miraheze:8e41e20937f9d327"
+      ]
     },
     {
       "id": "song:faithtival",
@@ -6695,7 +7063,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e03cf418f088b8d9",
+        "wikis:miraheze:e03cf418f088b8d9"
+      ]
     },
     {
       "id": "song:fantasia-sonata-stars",
@@ -6765,7 +7136,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5eb4256c4d8bec83",
+        "wikis:miraheze:5eb4256c4d8bec83"
+      ]
     },
     {
       "id": "song:far-eastern-flavor",
@@ -6807,7 +7181,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e6501bb290380e40",
+        "wikis:miraheze:e6501bb290380e40"
+      ]
     },
     {
       "id": "song:fatality-saga",
@@ -6853,7 +7230,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4b38d94f12f35814",
+        "wikis:miraheze:4b38d94f12f35814"
+      ]
     },
     {
       "id": "song:feat.-ia-6bf472e1",
@@ -6902,7 +7282,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f1731d682a2ef9b7",
+        "wikis:miraheze:f1731d682a2ef9b7"
+      ]
     },
     {
       "id": "song:fernand-system-operating",
@@ -6949,7 +7332,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1afeff595190ba17",
+        "wikis:miraheze:1afeff595190ba17"
+      ]
     },
     {
       "id": "song:fierce-heart",
@@ -6993,7 +7379,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:799e3ba63cc6c2f4",
+        "wikis:miraheze:799e3ba63cc6c2f4"
+      ]
     },
     {
       "id": "song:file-01361b2c",
@@ -7128,7 +7517,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:1052e3b2b18bee05"
+      ]
     },
     {
       "id": "song:file-0501b506",
@@ -7272,7 +7663,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6cffa9c8c63e08ca",
+        "wikis:miraheze:6cffa9c8c63e08ca"
+      ]
     },
     {
       "id": "song:file-0fc64263",
@@ -7322,7 +7716,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:509af9fd1a455dfd",
+        "wikis:miraheze:509af9fd1a455dfd"
+      ]
     },
     {
       "id": "song:file-11d2a1f0",
@@ -7366,7 +7763,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a33efb2b2d7f00bc",
+        "wikis:miraheze:a33efb2b2d7f00bc"
+      ]
     },
     {
       "id": "song:file-13fd1c57",
@@ -7607,7 +8007,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:2d5cc45008a41925",
+        "wikis:miraheze:2d5cc45008a41925"
+      ]
     },
     {
       "id": "song:file-2de5b2b7",
@@ -7654,7 +8057,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8acc2e234de1ac7a",
+        "wikis:miraheze:8acc2e234de1ac7a"
+      ]
     },
     {
       "id": "song:file-2f08e112",
@@ -7795,7 +8201,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:240f6f3453a88c14"
+      ]
     },
     {
       "id": "song:file-40b978dd",
@@ -7891,7 +8299,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:7361873343f40a58"
+      ]
     },
     {
       "id": "song:file-4ac834ae",
@@ -8008,7 +8418,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:ce8e8510187a22e3"
+      ]
     },
     {
       "id": "song:file-568a196c",
@@ -8053,7 +8465,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f7bc567a781c0897",
+        "wikis:miraheze:f7bc567a781c0897"
+      ]
     },
     {
       "id": "song:file-5d2258fb",
@@ -8107,7 +8522,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e8ca46807b83d7c0",
+        "wikis:miraheze:e8ca46807b83d7c0"
+      ]
     },
     {
       "id": "song:file-5d7184db",
@@ -8227,7 +8645,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b127fa5ad2757ac4",
+        "wikis:miraheze:b127fa5ad2757ac4"
+      ]
     },
     {
       "id": "song:file-60c58e39",
@@ -8558,7 +8979,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:51fd133e5acc3e7a",
+        "wikis:miraheze:51fd133e5acc3e7a"
+      ]
     },
     {
       "id": "song:file-7fc93a31",
@@ -8842,7 +9266,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:c85ea4fa8c31ed29"
+      ]
     },
     {
       "id": "song:file-926aa86f",
@@ -8885,7 +9311,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5c1cf145b058340f",
+        "wikis:miraheze:5c1cf145b058340f"
+      ]
     },
     {
       "id": "song:file-92e57041",
@@ -9337,7 +9766,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:70fb1a44ae5ceeb1"
+      ]
     },
     {
       "id": "song:file-ceb410a8",
@@ -9383,7 +9814,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:d5de5cfadd926973",
+        "wikis:miraheze:d5de5cfadd926973"
+      ]
     },
     {
       "id": "song:file-cf7f06b4",
@@ -9430,7 +9864,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9e4c5a1a5b297833",
+        "wikis:miraheze:9e4c5a1a5b297833"
+      ]
     },
     {
       "id": "song:file-d7b5f1d5",
@@ -9596,7 +10033,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f6c64808bd08a6f5",
+        "wikis:miraheze:f6c64808bd08a6f5"
+      ]
     },
     {
       "id": "song:file-e372a24d",
@@ -9643,7 +10083,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:03d3c0af3747d76c"
+      ]
     },
     {
       "id": "song:file-e78d4102",
@@ -9690,7 +10132,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a2cefecd712f5e99",
+        "wikis:miraheze:a2cefecd712f5e99"
+      ]
     },
     {
       "id": "song:file-e8cea631",
@@ -9809,7 +10254,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5c23c7a01fb1ae6d",
+        "wikis:miraheze:5c23c7a01fb1ae6d"
+      ]
     },
     {
       "id": "song:final-dash",
@@ -9861,7 +10309,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:03df7c98bdfbfa02",
+        "wikis:miraheze:03df7c98bdfbfa02"
+      ]
     },
     {
       "id": "song:final-farewell",
@@ -9957,7 +10408,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e704b004f6f06090",
+        "wikis:miraheze:e704b004f6f06090"
+      ]
     },
     {
       "id": "song:fission",
@@ -10004,7 +10458,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:38b5d409c628d257",
+        "wikis:miraheze:38b5d409c628d257"
+      ]
     },
     {
       "id": "song:fl0at-on-air",
@@ -10049,7 +10506,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:cc06df4f60dfe1cc",
+        "wikis:miraheze:cc06df4f60dfe1cc"
+      ]
     },
     {
       "id": "song:flarebirds-of-scarlet-prism",
@@ -10094,7 +10554,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f6e6674cd3ef2f20",
+        "wikis:miraheze:f6e6674cd3ef2f20"
+      ]
     },
     {
       "id": "song:flashback",
@@ -10148,7 +10611,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:55af6862a3ffa197",
+        "wikis:miraheze:55af6862a3ffa197"
+      ]
     },
     {
       "id": "song:flying-colours",
@@ -10192,7 +10658,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ef4197ce3d16a32e",
+        "wikis:miraheze:ef4197ce3d16a32e"
+      ]
     },
     {
       "id": "song:for-my-longing",
@@ -10264,7 +10733,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:78f46ea5bef0dc3e",
+        "wikis:miraheze:78f46ea5bef0dc3e"
+      ]
     },
     {
       "id": "song:forget-me-not",
@@ -10307,7 +10779,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:fac234815f0267db",
+        "wikis:miraheze:fac234815f0267db"
+      ]
     },
     {
       "id": "song:forsaken",
@@ -10350,7 +10825,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:82f9592728c66c3d",
+        "wikis:miraheze:82f9592728c66c3d"
+      ]
     },
     {
       "id": "song:fortalice",
@@ -10395,7 +10873,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8516cb96c86cd135",
+        "wikis:miraheze:8516cb96c86cd135"
+      ]
     },
     {
       "id": "song:four-leaf-clover",
@@ -10512,7 +10993,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a52d658e54383768",
+        "wikis:miraheze:a52d658e54383768"
+      ]
     },
     {
       "id": "song:freeze",
@@ -10557,7 +11041,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9399ee984057b315",
+        "wikis:miraheze:9399ee984057b315"
+      ]
     },
     {
       "id": "song:frerejacques",
@@ -10601,7 +11088,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:63ec9267322c4f96",
+        "wikis:miraheze:63ec9267322c4f96"
+      ]
     },
     {
       "id": "song:frontline-b-side",
@@ -10648,7 +11138,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7d9bf8e75b74b42d",
+        "wikis:miraheze:7d9bf8e75b74b42d"
+      ]
     },
     {
       "id": "song:funk-time",
@@ -10742,7 +11235,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:824a1c28fa7348c3",
+        "wikis:miraheze:824a1c28fa7348c3"
+      ]
     },
     {
       "id": "song:galaxia",
@@ -10787,7 +11283,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0b2bed2743a8737d",
+        "wikis:miraheze:0b2bed2743a8737d"
+      ]
     },
     {
       "id": "song:gallium-arsenide",
@@ -10833,7 +11332,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:cbcb088486ed5910",
+        "wikis:miraheze:cbcb088486ed5910"
+      ]
     },
     {
       "id": "song:gallium-nitride",
@@ -10878,7 +11380,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c0e9044611c8b636",
+        "wikis:miraheze:c0e9044611c8b636"
+      ]
     },
     {
       "id": "song:gallium-phosphide",
@@ -10923,7 +11428,12 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1295927ffc7c899c",
+        "wikis:fandom:51f0df11916ee53c",
+        "wikis:miraheze:1295927ffc7c899c",
+        "wikis:miraheze:51f0df11916ee53c"
+      ]
     },
     {
       "id": "song:ghost-and-ghost",
@@ -10995,7 +11505,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:d46b5647493d7046",
+        "wikis:miraheze:d46b5647493d7046"
+      ]
     },
     {
       "id": "song:give-it-to-me",
@@ -11040,7 +11553,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0b1f58d341a5871a",
+        "wikis:miraheze:0b1f58d341a5871a"
+      ]
     },
     {
       "id": "song:glacial-liquart-remix",
@@ -11084,7 +11600,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1020e707faeeafde",
+        "wikis:miraheze:1020e707faeeafde"
+      ]
     },
     {
       "id": "song:glassage",
@@ -11200,7 +11719,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:905fa6af522fd0d2",
+        "wikis:miraheze:905fa6af522fd0d2"
+      ]
     },
     {
       "id": "song:go-escape",
@@ -11243,7 +11765,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:382093df7acef918",
+        "wikis:miraheze:382093df7acef918"
+      ]
     },
     {
       "id": "song:goemon",
@@ -11293,7 +11818,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:38b0045125c0fc07",
+        "wikis:miraheze:38b0045125c0fc07"
+      ]
     },
     {
       "id": "song:goldelius",
@@ -11342,7 +11870,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9bd68a7657bcfb90",
+        "wikis:miraheze:9bd68a7657bcfb90"
+      ]
     },
     {
       "id": "song:grape-jelly",
@@ -11385,7 +11916,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9111fb02ec64aeec",
+        "wikis:miraheze:9111fb02ec64aeec"
+      ]
     },
     {
       "id": "song:grayscale-tragedy",
@@ -11439,7 +11973,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1d91085ae2848139",
+        "wikis:miraheze:1d91085ae2848139"
+      ]
     },
     {
       "id": "song:grenade",
@@ -11483,7 +12020,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c907a8fb9b42b411",
+        "wikis:miraheze:c907a8fb9b42b411"
+      ]
     },
     {
       "id": "song:grey-horse-underworld",
@@ -11527,7 +12067,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:2044fd6f53323abc",
+        "wikis:miraheze:2044fd6f53323abc"
+      ]
     },
     {
       "id": "song:grimoire-heart",
@@ -11569,7 +12112,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9fab4c73c8dc3583",
+        "wikis:miraheze:9fab4c73c8dc3583"
+      ]
     },
     {
       "id": "song:guardian",
@@ -11641,7 +12187,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8cd0e37f5ef6a193",
+        "wikis:miraheze:8cd0e37f5ef6a193"
+      ]
     },
     {
       "id": "song:hall-of-fame",
@@ -11685,7 +12234,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b14deb029c2269ea",
+        "wikis:miraheze:b14deb029c2269ea"
+      ]
     },
     {
       "id": "song:happiness-bread",
@@ -11730,7 +12282,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:40bf93931cf5aa16",
+        "wikis:miraheze:40bf93931cf5aa16"
+      ]
     },
     {
       "id": "song:haptime",
@@ -11777,7 +12332,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:962a4c493220797c",
+        "wikis:miraheze:962a4c493220797c"
+      ]
     },
     {
       "id": "song:haten-code-583",
@@ -11848,7 +12406,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:786552abc53de676",
+        "wikis:miraheze:786552abc53de676"
+      ]
     },
     {
       "id": "song:hauynite",
@@ -11895,7 +12456,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8f2b7ff63a521e59",
+        "wikis:miraheze:8f2b7ff63a521e59"
+      ]
     },
     {
       "id": "song:hdhr",
@@ -11939,7 +12503,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f757c9174ffc51d3",
+        "wikis:miraheze:f757c9174ffc51d3"
+      ]
     },
     {
       "id": "song:headroom-with-pleasant-rhythm",
@@ -11985,7 +12552,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ea4397b822047107",
+        "wikis:miraheze:ea4397b822047107"
+      ]
     },
     {
       "id": "song:heart-eyes",
@@ -12034,7 +12604,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:932d6a165434808f",
+        "wikis:miraheze:932d6a165434808f"
+      ]
     },
     {
       "id": "song:heart-of-glass",
@@ -12079,7 +12652,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e1a5adb82a1a6eaf",
+        "wikis:miraheze:e1a5adb82a1a6eaf"
+      ]
     },
     {
       "id": "song:heaven-s-cage",
@@ -12133,7 +12709,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0a21bc906d86e01c",
+        "wikis:miraheze:0a21bc906d86e01c"
+      ]
     },
     {
       "id": "song:helios",
@@ -12180,7 +12759,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:11a6c41fbaf7041c",
+        "wikis:miraheze:11a6c41fbaf7041c"
+      ]
     },
     {
       "id": "song:hemisphere",
@@ -12224,7 +12806,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e12fcae5b1f0d900",
+        "wikis:miraheze:e12fcae5b1f0d900"
+      ]
     },
     {
       "id": "song:heracles",
@@ -12271,7 +12856,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e9ea8737e900434b",
+        "wikis:miraheze:e9ea8737e900434b"
+      ]
     },
     {
       "id": "song:hiccup-drunk",
@@ -12316,7 +12904,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:45e6be4337f3494a",
+        "wikis:miraheze:45e6be4337f3494a"
+      ]
     },
     {
       "id": "song:high-school-queen",
@@ -12361,7 +12952,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:657f5c76897cedbc",
+        "wikis:miraheze:657f5c76897cedbc"
+      ]
     },
     {
       "id": "song:high-speed-riders",
@@ -12408,7 +13002,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:78527c8269680756",
+        "wikis:miraheze:78527c8269680756"
+      ]
     },
     {
       "id": "song:hiyaiya",
@@ -12462,7 +13059,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:fe67ccc69c8f93b7",
+        "wikis:miraheze:fe67ccc69c8f93b7"
+      ]
     },
     {
       "id": "song:holist-lithos",
@@ -12533,7 +13133,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0ae1e4abf247a28c",
+        "wikis:miraheze:0ae1e4abf247a28c"
+      ]
     },
     {
       "id": "song:hope",
@@ -12582,7 +13185,12 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:33ec54cbaf651e56",
+        "wikis:fandom:9a0c4443d5bf2bba",
+        "wikis:miraheze:33ec54cbaf651e56",
+        "wikis:miraheze:9a0c4443d5bf2bba"
+      ]
     },
     {
       "id": "song:hope-2",
@@ -12663,7 +13271,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:236db8a05f46f927",
+        "wikis:miraheze:236db8a05f46f927"
+      ]
     },
     {
       "id": "song:horloge",
@@ -12717,7 +13328,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:56678df1aa211e9f",
+        "wikis:miraheze:56678df1aa211e9f"
+      ]
     },
     {
       "id": "song:human",
@@ -12762,7 +13376,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0d16767d8bdfbc0a",
+        "wikis:miraheze:0d16767d8bdfbc0a"
+      ]
     },
     {
       "id": "song:hyper-nova",
@@ -12809,7 +13426,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:cb4e84dcfe435fbe",
+        "wikis:miraheze:cb4e84dcfe435fbe"
+      ]
     },
     {
       "id": "song:hyperspace-jump",
@@ -12854,7 +13474,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:d18e8fb2a08cd0c5",
+        "wikis:miraheze:d18e8fb2a08cd0c5"
+      ]
     },
     {
       "id": "song:i-keep-for-one-thing",
@@ -13030,7 +13653,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ac56289dd44d01e1",
+        "wikis:miraheze:ac56289dd44d01e1"
+      ]
     },
     {
       "id": "song:ignited-heart",
@@ -13098,7 +13724,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b58fbf951ccd548f",
+        "wikis:miraheze:b58fbf951ccd548f"
+      ]
     },
     {
       "id": "song:impulse-neutral-moon-vip-edit",
@@ -13144,7 +13773,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a068872cd0e241f7",
+        "wikis:miraheze:a068872cd0e241f7"
+      ]
     },
     {
       "id": "song:in-a-vat",
@@ -13191,7 +13823,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:680989975d976633",
+        "wikis:miraheze:680989975d976633"
+      ]
     },
     {
       "id": "song:in-search-of",
@@ -13237,7 +13872,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c7f66b5f4b237c92",
+        "wikis:miraheze:c7f66b5f4b237c92"
+      ]
     },
     {
       "id": "song:infinite-enerzy-overdoze",
@@ -13284,7 +13922,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5e1a60d0b49cb216",
+        "wikis:miraheze:5e1a60d0b49cb216"
+      ]
     },
     {
       "id": "song:infinite-loop-vip",
@@ -13328,7 +13969,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9d43da7eac13fd2a",
+        "wikis:miraheze:9d43da7eac13fd2a"
+      ]
     },
     {
       "id": "song:infinity-bullet",
@@ -13373,7 +14017,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c67cd3015629a798",
+        "wikis:miraheze:c67cd3015629a798"
+      ]
     },
     {
       "id": "song:innocence-keeper",
@@ -13445,7 +14092,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4bbddbc7b8fdf556",
+        "wikis:miraheze:4bbddbc7b8fdf556"
+      ]
     },
     {
       "id": "song:interstellar",
@@ -13513,7 +14163,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:aecb82181e0e0abd",
+        "wikis:miraheze:aecb82181e0e0abd"
+      ]
     },
     {
       "id": "song:ionosphere",
@@ -13560,7 +14213,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8232da4bf782ac23",
+        "wikis:miraheze:8232da4bf782ac23"
+      ]
     },
     {
       "id": "song:isera-dnx-edit",
@@ -13604,7 +14260,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c102835a9a5e3ba9",
+        "wikis:miraheze:c102835a9a5e3ba9"
+      ]
     },
     {
       "id": "song:jack-out-killer",
@@ -13652,7 +14311,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:65aad25dbf6947eb",
+        "wikis:miraheze:65aad25dbf6947eb"
+      ]
     },
     {
       "id": "song:joachim-d",
@@ -13697,7 +14359,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:cdcca093e7552f00",
+        "wikis:miraheze:cdcca093e7552f00"
+      ]
     },
     {
       "id": "song:justice-justice",
@@ -13742,7 +14407,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:13daafb021a3afaf",
+        "wikis:miraheze:13daafb021a3afaf"
+      ]
     },
     {
       "id": "song:kalis-mind",
@@ -13787,7 +14455,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5274b21c1d643aca",
+        "wikis:miraheze:5274b21c1d643aca"
+      ]
     },
     {
       "id": "song:kanade-21456ea1",
@@ -13840,7 +14511,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a8f113273e06bbfd",
+        "wikis:miraheze:a8f113273e06bbfd"
+      ]
     },
     {
       "id": "song:kant",
@@ -13884,7 +14558,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:071a755ddf09e01e",
+        "wikis:miraheze:071a755ddf09e01e"
+      ]
     },
     {
       "id": "song:karashidane",
@@ -13952,7 +14629,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e3f07a63ea6073aa",
+        "wikis:miraheze:e3f07a63ea6073aa"
+      ]
     },
     {
       "id": "song:knight-of-tripletz-for-dnx-edit",
@@ -13999,7 +14679,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:506c6aaeeedda38c",
+        "wikis:miraheze:506c6aaeeedda38c"
+      ]
     },
     {
       "id": "song:kog",
@@ -14045,7 +14728,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:874337f9e36a521d",
+        "wikis:miraheze:874337f9e36a521d"
+      ]
     },
     {
       "id": "song:kokytos",
@@ -14091,7 +14777,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f18adb7f2aa2bcb6",
+        "wikis:miraheze:f18adb7f2aa2bcb6"
+      ]
     },
     {
       "id": "song:kreuz",
@@ -14135,7 +14824,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8b502cca7f8dc27c",
+        "wikis:miraheze:8b502cca7f8dc27c"
+      ]
     },
     {
       "id": "song:kyubi",
@@ -14179,7 +14871,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:537c6f46a768816f",
+        "wikis:miraheze:537c6f46a768816f"
+      ]
     },
     {
       "id": "song:l-amitie",
@@ -14230,7 +14925,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ef63d4da0e4d3338",
+        "wikis:miraheze:ef63d4da0e4d3338"
+      ]
     },
     {
       "id": "song:lacrimosa",
@@ -14277,7 +14975,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:884877f3cb106822",
+        "wikis:miraheze:884877f3cb106822"
+      ]
     },
     {
       "id": "song:laivisca",
@@ -14322,7 +15023,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3842d61b7a0249b1",
+        "wikis:miraheze:3842d61b7a0249b1"
+      ]
     },
     {
       "id": "song:last-farewell",
@@ -14369,7 +15073,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:08c069645e398a98",
+        "wikis:miraheze:08c069645e398a98"
+      ]
     },
     {
       "id": "song:last-fate",
@@ -14414,7 +15121,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b078bcc73cf89c3d",
+        "wikis:miraheze:b078bcc73cf89c3d"
+      ]
     },
     {
       "id": "song:last-re-s-rt-6bea6c84",
@@ -14484,7 +15194,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a793c6e47ee28b4f",
+        "wikis:miraheze:a793c6e47ee28b4f"
+      ]
     },
     {
       "id": "song:le-ciel-heureux",
@@ -14531,7 +15244,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7e37a50f3ff5278f",
+        "wikis:miraheze:7e37a50f3ff5278f"
+      ]
     },
     {
       "id": "song:leave-me",
@@ -14575,7 +15291,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:05678cc0beb6e0de",
+        "wikis:miraheze:05678cc0beb6e0de"
+      ]
     },
     {
       "id": "song:legacy",
@@ -14622,7 +15341,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1732b7c53ced68ab",
+        "wikis:miraheze:1732b7c53ced68ab"
+      ]
     },
     {
       "id": "song:lehigh",
@@ -14669,7 +15391,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e4c0b25f66f51713",
+        "wikis:miraheze:e4c0b25f66f51713"
+      ]
     },
     {
       "id": "song:let-the-bass-kick",
@@ -14716,7 +15441,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:232bc83c6e81392e",
+        "wikis:miraheze:232bc83c6e81392e"
+      ]
     },
     {
       "id": "song:leviticus",
@@ -14759,7 +15487,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:69445dd0b2b1e93f",
+        "wikis:miraheze:69445dd0b2b1e93f"
+      ]
     },
     {
       "id": "song:libra",
@@ -14803,7 +15534,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a99ac615aadb3e5c",
+        "wikis:miraheze:a99ac615aadb3e5c"
+      ]
     },
     {
       "id": "song:life-flashes-before-weeb-eyes",
@@ -14851,7 +15585,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:bcd8c7596fc5971d",
+        "wikis:miraheze:bcd8c7596fc5971d"
+      ]
     },
     {
       "id": "song:life-style",
@@ -14898,7 +15635,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:77dabfc5a9736f7c",
+        "wikis:miraheze:77dabfc5a9736f7c"
+      ]
     },
     {
       "id": "song:lily",
@@ -14943,7 +15683,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:699acfef10e26d42",
+        "wikis:miraheze:699acfef10e26d42"
+      ]
     },
     {
       "id": "song:link-to-dungeons",
@@ -14987,7 +15730,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:595a5c4879b19833",
+        "wikis:miraheze:595a5c4879b19833"
+      ]
     },
     {
       "id": "song:lionhearted",
@@ -15034,7 +15780,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0658f15579ac5470",
+        "wikis:miraheze:0658f15579ac5470"
+      ]
     },
     {
       "id": "song:little-boy",
@@ -15084,7 +15833,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e77abc0d5d14a897",
+        "wikis:miraheze:e77abc0d5d14a897"
+      ]
     },
     {
       "id": "song:little-flower",
@@ -15130,7 +15882,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5c9baadc49a77428",
+        "wikis:miraheze:5c9baadc49a77428"
+      ]
     },
     {
       "id": "song:lodeinfo",
@@ -15179,7 +15934,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3fcf6ba985bba217",
+        "wikis:miraheze:3fcf6ba985bba217"
+      ]
     },
     {
       "id": "song:lonely-cat",
@@ -15223,7 +15981,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ac1c53b67602716d",
+        "wikis:miraheze:ac1c53b67602716d"
+      ]
     },
     {
       "id": "song:lotus",
@@ -15268,7 +16029,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:82e2e8d385ed5b7f",
+        "wikis:miraheze:82e2e8d385ed5b7f"
+      ]
     },
     {
       "id": "song:love",
@@ -15310,7 +16074,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6aa45899f3489e85",
+        "wikis:miraheze:6aa45899f3489e85"
+      ]
     },
     {
       "id": "song:love-like-we-re-dying",
@@ -15357,7 +16124,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c1b7e69a23c370a8",
+        "wikis:miraheze:c1b7e69a23c370a8"
+      ]
     },
     {
       "id": "song:lucentear",
@@ -15410,7 +16180,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:9a12a330ebe5c788",
+        "wikis:miraheze:9a12a330ebe5c788"
+      ]
     },
     {
       "id": "song:lucid-trigger",
@@ -15464,7 +16237,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1a36f6586bdd4fc6",
+        "wikis:miraheze:1a36f6586bdd4fc6"
+      ]
     },
     {
       "id": "song:lumina",
@@ -15511,7 +16287,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:281e3f4640ad3ee3",
+        "wikis:miraheze:281e3f4640ad3ee3"
+      ]
     },
     {
       "id": "song:luminosity-don-t-you-worry",
@@ -15590,7 +16369,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:121ed488fde5ade9",
+        "wikis:miraheze:121ed488fde5ade9"
+      ]
     },
     {
       "id": "song:lunar-arrow",
@@ -15633,7 +16415,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:75aeb7d38f6d5a22",
+        "wikis:miraheze:75aeb7d38f6d5a22"
+      ]
     },
     {
       "id": "song:lunavion",
@@ -15763,7 +16548,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:bfcceea5439fe6a0",
+        "wikis:miraheze:bfcceea5439fe6a0"
+      ]
     },
     {
       "id": "song:magic-of-love-dynamix-edit",
@@ -15812,7 +16600,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3e911f1e329fe1d0",
+        "wikis:miraheze:3e911f1e329fe1d0"
+      ]
     },
     {
       "id": "song:maholova",
@@ -15889,7 +16680,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:50301d43157a383b",
+        "wikis:miraheze:50301d43157a383b"
+      ]
     },
     {
       "id": "song:mamba",
@@ -15931,7 +16725,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3c6870a9128c6790",
+        "wikis:miraheze:3c6870a9128c6790"
+      ]
     },
     {
       "id": "song:marion.net",
@@ -15976,7 +16773,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c7355675fe67163d",
+        "wikis:miraheze:c7355675fe67163d"
+      ]
     },
     {
       "id": "song:marsh-winds",
@@ -16030,7 +16830,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4d76fd49e959022b",
+        "wikis:miraheze:4d76fd49e959022b"
+      ]
     },
     {
       "id": "song:mass-control",
@@ -16075,7 +16878,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4be7c11ed95bdf88",
+        "wikis:miraheze:4be7c11ed95bdf88"
+      ]
     },
     {
       "id": "song:massacre-3rc4224m",
@@ -16131,7 +16937,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c0ff98b2f05a8a27",
+        "wikis:miraheze:c0ff98b2f05a8a27"
+      ]
     },
     {
       "id": "song:mechanical-j-ger-95b606da",
@@ -16177,7 +16986,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5e9d8316c8a63812",
+        "wikis:miraheze:5e9d8316c8a63812"
+      ]
     },
     {
       "id": "song:mechanism-s-ton-antikyth-ron-712cef93",
@@ -16222,7 +17034,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3e2cfe66f0b1f400",
+        "wikis:miraheze:3e2cfe66f0b1f400"
+      ]
     },
     {
       "id": "song:mega-mixed-fruit-juice",
@@ -16294,7 +17109,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e4f1473c89c4d935",
+        "wikis:miraheze:e4f1473c89c4d935"
+      ]
     },
     {
       "id": "song:melancholy",
@@ -16338,7 +17156,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:fc11a99f7f2453af",
+        "wikis:miraheze:fc11a99f7f2453af"
+      ]
     },
     {
       "id": "song:memory-of-light-dynamix-edit",
@@ -16409,7 +17230,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4b7cb01594bc6622",
+        "wikis:miraheze:4b7cb01594bc6622"
+      ]
     },
     {
       "id": "song:metheus",
@@ -16461,7 +17285,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:2fa2ec73859f4bfc",
+        "wikis:miraheze:2fa2ec73859f4bfc"
+      ]
     },
     {
       "id": "song:metropolitan-chaser",
@@ -16507,7 +17334,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a0e0e9498bc1302d",
+        "wikis:miraheze:a0e0e9498bc1302d"
+      ]
     },
     {
       "id": "song:mid-night-metropolitan-highway",
@@ -16554,7 +17384,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:db31ca60f8fca3bc",
+        "wikis:miraheze:db31ca60f8fca3bc"
+      ]
     },
     {
       "id": "song:midnight-fm-indigo",
@@ -16622,7 +17455,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a42cb8f4c0751599",
+        "wikis:miraheze:a42cb8f4c0751599"
+      ]
     },
     {
       "id": "song:mind-blast-dynamix-edit",
@@ -16669,7 +17505,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:56144cf7675eabda",
+        "wikis:miraheze:56144cf7675eabda"
+      ]
     },
     {
       "id": "song:mithridates",
@@ -16709,7 +17548,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:e4c7b325312976fa",
+        "wikis:miraheze:e4c7b325312976fa"
+      ]
     },
     {
       "id": "song:mithril",
@@ -16754,7 +17596,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:431db23fc7267f14",
+        "wikis:miraheze:431db23fc7267f14"
+      ]
     },
     {
       "id": "song:mitochondria",
@@ -16808,7 +17653,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:daed131dc7afeb8a",
+        "wikis:miraheze:daed131dc7afeb8a"
+      ]
     },
     {
       "id": "song:mlg",
@@ -16855,7 +17703,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:ca0ea0d01f28184a",
+        "wikis:miraheze:ca0ea0d01f28184a"
+      ]
     },
     {
       "id": "song:momiji-illumination",
@@ -16979,7 +17830,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:eca98bf02411fd5c",
+        "wikis:miraheze:eca98bf02411fd5c"
+      ]
     },
     {
       "id": "song:moonset",
@@ -17073,7 +17927,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:6abcbcf47a12dfac",
+        "wikis:miraheze:6abcbcf47a12dfac"
+      ]
     },
     {
       "id": "song:mouse-runs-for-cheese-short-edit",
@@ -17120,7 +17977,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:4213911a369dcd69",
+        "wikis:miraheze:4213911a369dcd69"
+      ]
     },
     {
       "id": "song:moving-on",
@@ -17167,7 +18027,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1bbd2ad920746250",
+        "wikis:miraheze:1bbd2ad920746250"
+      ]
     },
     {
       "id": "song:mvurbd",
@@ -17239,7 +18102,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:44b6f50de6f96157",
+        "wikis:miraheze:44b6f50de6f96157"
+      ]
     },
     {
       "id": "song:mystic-night",
@@ -17284,7 +18150,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:8dccd1fd1f47cf6d",
+        "wikis:miraheze:8dccd1fd1f47cf6d"
+      ]
     },
     {
       "id": "song:nachtmusik",
@@ -17328,7 +18197,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1c079a2adacd6d79",
+        "wikis:miraheze:1c079a2adacd6d79"
+      ]
     },
     {
       "id": "song:nacl",
@@ -17373,7 +18245,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1615196abd18e8bc",
+        "wikis:miraheze:1615196abd18e8bc"
+      ]
     },
     {
       "id": "song:nagareboshi-rinth-remix",
@@ -17444,7 +18319,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:5dbdc8470f8e4f58",
+        "wikis:miraheze:5dbdc8470f8e4f58"
+      ]
     },
     {
       "id": "song:necroxus",
@@ -17491,7 +18369,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c7d9615b9489eba0",
+        "wikis:miraheze:c7d9615b9489eba0"
+      ]
     },
     {
       "id": "song:neptune",
@@ -17531,7 +18412,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7b26441c9125e591",
+        "wikis:miraheze:7b26441c9125e591"
+      ]
     },
     {
       "id": "song:new-story",
@@ -17577,7 +18461,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:c4b0eb5161e4a3a5",
+        "wikis:miraheze:c4b0eb5161e4a3a5"
+      ]
     },
     {
       "id": "song:next-time-feat-38b23f96",
@@ -17624,7 +18511,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:3d411d32c56c0e26",
+        "wikis:miraheze:3d411d32c56c0e26"
+      ]
     },
     {
       "id": "song:ngstlicher-vermeidender-813ad468",
@@ -17670,7 +18560,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:7caa2db395b0fbe2",
+        "wikis:miraheze:7caa2db395b0fbe2"
+      ]
     },
     {
       "id": "song:nible",
@@ -17715,7 +18608,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:1b08f73f98cf4bd6",
+        "wikis:miraheze:1b08f73f98cf4bd6"
+      ]
     },
     {
       "id": "song:nick-of-time",
@@ -17769,7 +18665,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:524b2143f1107602"
+      ]
     },
     {
       "id": "song:nightmare-girl",
@@ -17816,7 +18714,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:812cb68e6615a0bb"
+      ]
     },
     {
       "id": "song:nightseeker",
@@ -17863,7 +18763,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:8ef26399f7dae76b"
+      ]
     },
     {
       "id": "song:nighttheater",
@@ -17908,7 +18810,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:f1488d997b1700a9"
+      ]
     },
     {
       "id": "song:nives-marinae",
@@ -17953,7 +18857,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:07acf60f50dc49d6"
+      ]
     },
     {
       "id": "song:nnoyia",
@@ -18007,7 +18913,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:a72b17ec3310eba5",
+        "wikis:miraheze:a72b17ec3310eba5"
+      ]
     },
     {
       "id": "song:no-remorse",
@@ -18058,7 +18967,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:2d5fb51b73727aba"
+      ]
     },
     {
       "id": "song:noisi-d27aec35",
@@ -18105,7 +19016,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:7329b0f3de13b94a"
+      ]
     },
     {
       "id": "song:nova",
@@ -18152,7 +19065,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:2ce8c8eeee476dea",
+        "wikis:miraheze:2ce8c8eeee476dea"
+      ]
     },
     {
       "id": "song:nova-highway",
@@ -18199,7 +19115,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:61eda8745404e95e"
+      ]
     },
     {
       "id": "song:now-is-the-time-do-it",
@@ -18244,7 +19162,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:2a72de2d11ea3f3d"
+      ]
     },
     {
       "id": "song:occhoco-rest-less",
@@ -18293,7 +19213,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4d2fb658f247a7d3"
+      ]
     },
     {
       "id": "song:ocean",
@@ -18337,7 +19259,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:fa77657ba8f9ee35"
+      ]
     },
     {
       "id": "song:offshore",
@@ -18389,7 +19313,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:6e6e0e94f11b4fb7"
+      ]
     },
     {
       "id": "song:okesuchi",
@@ -18437,7 +19363,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:7f7c1223ac54a3b9"
+      ]
     },
     {
       "id": "song:once-again-dnx-edit",
@@ -18482,7 +19410,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:ebceef996fbae734"
+      ]
     },
     {
       "id": "song:oracle",
@@ -18530,7 +19460,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:3ce6627b6e200aa8"
+      ]
     },
     {
       "id": "song:oriental-landscape",
@@ -18577,7 +19509,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4ec6645713d2f890"
+      ]
     },
     {
       "id": "song:ornament",
@@ -18698,7 +19632,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:f7ae62be892de886",
+        "wikis:miraheze:f7ae62be892de886"
+      ]
     },
     {
       "id": "song:own-the-night",
@@ -18745,7 +19682,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:cbd6b77a46efa301"
+      ]
     },
     {
       "id": "song:pandemik",
@@ -18790,7 +19729,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:f41e10e2365add8a"
+      ]
     },
     {
       "id": "song:parallel-address",
@@ -18834,7 +19775,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:631f9a1e37a2d00c"
+      ]
     },
     {
       "id": "song:partenza",
@@ -18879,7 +19822,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:080f4dfa8fc6dbe2"
+      ]
     },
     {
       "id": "song:party-vinyl",
@@ -18933,7 +19878,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4066c1f0ba912ee6"
+      ]
     },
     {
       "id": "song:paved-garden",
@@ -18979,7 +19926,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:b5c68ef8fbb4c353"
+      ]
     },
     {
       "id": "song:peony",
@@ -19024,7 +19973,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:55761782bec2d711"
+      ]
     },
     {
       "id": "song:perpetual",
@@ -19071,7 +20022,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:3ff0c41736f06faa"
+      ]
     },
     {
       "id": "song:persephone",
@@ -19114,7 +20067,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:330ceccef9eda62f"
+      ]
     },
     {
       "id": "song:perspicuus_aestus",
@@ -19168,7 +20123,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:aea6e7899dd7bc7f"
+      ]
     },
     {
       "id": "song:petal",
@@ -19217,7 +20174,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:53de80ea363a4930"
+      ]
     },
     {
       "id": "song:phoebe",
@@ -19260,7 +20219,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:aad7aea09e53b905"
+      ]
     },
     {
       "id": "song:phoenixismia",
@@ -19307,7 +20268,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:6a8aa9e5e700fb21"
+      ]
     },
     {
       "id": "song:physical-cosmology",
@@ -19352,7 +20315,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:ca7057c3f327c712"
+      ]
     },
     {
       "id": "song:pillars-of-ash",
@@ -19424,7 +20389,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4aeee6644ee2ee0d"
+      ]
     },
     {
       "id": "song:play-a-day",
@@ -19467,7 +20434,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:77630c11d99b357e",
+        "wikis:miraheze:77630c11d99b357e"
+      ]
     },
     {
       "id": "song:polaris-australis",
@@ -19512,7 +20482,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4c600ebbca6521ab"
+      ]
     },
     {
       "id": "song:pollux",
@@ -19559,7 +20531,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:f5241c597e042337"
+      ]
     },
     {
       "id": "song:pop-sequence",
@@ -19605,7 +20579,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:30655e908376bb64"
+      ]
     },
     {
       "id": "song:prime",
@@ -19697,7 +20673,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:df78df4cb35095de"
+      ]
     },
     {
       "id": "song:protector",
@@ -19794,7 +20772,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:f78d3384a7d447ba"
+      ]
     },
     {
       "id": "song:pupa",
@@ -19843,7 +20823,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:6bac062bc386ecbd"
+      ]
     },
     {
       "id": "song:purgat-rio-6f21f39a",
@@ -19890,7 +20872,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:7e8e48d5fddfe02b"
+      ]
     },
     {
       "id": "song:rabi-love-8d9f0169",
@@ -20009,7 +20993,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:47fbb05df438e6c2"
+      ]
     },
     {
       "id": "song:rain",
@@ -20055,7 +21041,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:60fbc5ba9f528e50"
+      ]
     },
     {
       "id": "song:rainbow-reaper",
@@ -20095,7 +21083,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:6c6020ce9b9180f4"
+      ]
     },
     {
       "id": "song:rampage-frail",
@@ -20164,7 +21154,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:35339f08e4220992"
+      ]
     },
     {
       "id": "song:raptor",
@@ -20236,7 +21228,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:a7b4f17ed397a16c"
+      ]
     },
     {
       "id": "song:rave-and-get-on-it",
@@ -20293,7 +21287,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:11930e151506f4e5"
+      ]
     },
     {
       "id": "song:rave-olution",
@@ -20336,7 +21332,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:95b8fa27ff41c126"
+      ]
     },
     {
       "id": "song:raving-in-halloween",
@@ -20383,7 +21381,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:ddf391f22cb604c4"
+      ]
     },
     {
       "id": "song:re-correct",
@@ -20430,7 +21430,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:82f5cc661afba138"
+      ]
     },
     {
       "id": "song:re-ignite-republic-of-gamers",
@@ -20478,7 +21480,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:44b82eb64ba7c5c0"
+      ]
     },
     {
       "id": "song:re_construct",
@@ -20528,7 +21532,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:3ea886c54642ff70"
+      ]
     },
     {
       "id": "song:reason-of-fallen",
@@ -20568,7 +21574,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:ee7a38e8766c6812"
+      ]
     },
     {
       "id": "song:reborn",
@@ -20618,7 +21626,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:54fed06ef5bfca68"
+      ]
     },
     {
       "id": "song:reconstruction",
@@ -20667,7 +21677,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:180c413f538b45fd"
+      ]
     },
     {
       "id": "song:red-horse-massacre",
@@ -20711,7 +21723,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:6f8a1cbc0f372311"
+      ]
     },
     {
       "id": "song:red-liquid",
@@ -20758,7 +21772,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:c04402e041cbbe35"
+      ]
     },
     {
       "id": "song:reef-hideout",
@@ -20805,7 +21821,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:2886c15f1b28cef2"
+      ]
     },
     {
       "id": "song:regenerate-violence",
@@ -20855,7 +21873,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:d107def62345ec5a"
+      ]
     },
     {
       "id": "song:relyna",
@@ -20909,7 +21929,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:22a38a2f24ba5dc0"
+      ]
     },
     {
       "id": "song:reminds-me-of-you-feat.-asuna-vanilla",
@@ -20956,7 +21978,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:11226b0eb7173de7"
+      ]
     },
     {
       "id": "song:renf0rcer",
@@ -21025,7 +22049,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:c125eb1b51427ac1"
+      ]
     },
     {
       "id": "song:restricted-access",
@@ -21079,7 +22105,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4989f5dc656aef7e"
+      ]
     },
     {
       "id": "song:reversive-dynamix-ver",
@@ -21171,7 +22199,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:d76a8c20d17bbe86"
+      ]
     },
     {
       "id": "song:riot-savor",
@@ -21255,7 +22285,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:14208d7e4f16f06a"
+      ]
     },
     {
       "id": "song:riverside-cafe",
@@ -21307,7 +22339,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:8c11efa75fc6df51"
+      ]
     },
     {
       "id": "song:road-to-773h",
@@ -21354,7 +22388,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:00b62d4aa9d5c160"
+      ]
     },
     {
       "id": "song:rocket-lanterns",
@@ -21401,7 +22437,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:fb19a9e7acd345b8"
+      ]
     },
     {
       "id": "song:rocky-buinne",
@@ -21445,7 +22483,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:9b48a8c9ed26b229"
+      ]
     },
     {
       "id": "song:rom-corruption",
@@ -21490,7 +22530,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4c7d0df21e837f29"
+      ]
     },
     {
       "id": "song:rondo-of-the-3nd",
@@ -21544,7 +22586,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:9bd5079b0e3c8d00"
+      ]
     },
     {
       "id": "song:rudy",
@@ -21591,7 +22635,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:c759b4632977e749"
+      ]
     },
     {
       "id": "song:rule-the-world",
@@ -21636,7 +22682,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:2bc2b369522cf5a5"
+      ]
     },
     {
       "id": "song:sakura-fubuki",
@@ -21684,7 +22732,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:cdeeaac99cd941fd"
+      ]
     },
     {
       "id": "song:sandwich",
@@ -21727,7 +22777,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:f93631e03bba389c"
+      ]
     },
     {
       "id": "song:save-and-continue",
@@ -21821,7 +22873,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:47cc810a8b2b278b"
+      ]
     },
     {
       "id": "song:seconded-world",
@@ -21866,7 +22920,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:dfe53353ff33dedd"
+      ]
     },
     {
       "id": "song:secret-illumination",
@@ -21920,7 +22976,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:5ce6bc0420c8001c"
+      ]
     },
     {
       "id": "song:seedy-try",
@@ -21971,7 +23029,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:393cd78e4f65ab6b"
+      ]
     },
     {
       "id": "song:set-free-kiv-edition-6cec5627",
@@ -22061,7 +23121,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:81de3dc02193034b"
+      ]
     },
     {
       "id": "song:shooting-stars",
@@ -22131,7 +23193,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:4d5417030f00ddb6"
+      ]
     },
     {
       "id": "song:skrik-dnx-edit",
@@ -22177,7 +23241,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:c960fedd1db3c3e0"
+      ]
     },
     {
       "id": "song:sky-adventure",
@@ -22224,7 +23290,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:f79afc603a3fc5e3"
+      ]
     },
     {
       "id": "song:sky-fragment",
@@ -22296,7 +23364,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:af0f994ec117eb6e"
+      ]
     },
     {
       "id": "song:slapstick-parfait",
@@ -22342,7 +23412,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:7d9f658ca207802e"
+      ]
     },
     {
       "id": "song:sleepless",
@@ -22387,7 +23459,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:5e19569a04277837"
+      ]
     },
     {
       "id": "song:slide-into-light",
@@ -23688,7 +24762,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:ebdd704f94c39453"
+      ]
     },
     {
       "id": "song:system-interior",
@@ -23783,7 +24859,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:e426736e551d1bb3"
+      ]
     },
     {
       "id": "song:tablear",
@@ -27025,7 +28103,10 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:cf2d108a143532be",
+        "wikis:miraheze:cf2d108a143532be"
+      ]
     },
     {
       "id": "song:xenolith",
