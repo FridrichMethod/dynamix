@@ -3,8 +3,10 @@
 State = the committed family manifest + the previous discovery snapshots + a replayed journal. Every successful or
 failed download is appended to the journal (``<work dir>/journal.jsonl``, fsynced) before the next request, and the
 manifest/snapshots are rewritten atomically every few minutes and at exit; the journal is cleared after each such
-write. A killed run therefore loses at most the file in flight, and the next run replays the journal first. Files are
-placed only by :func:`lib.media.finalize_download` (temp file -> decode/verify -> ``os.replace``) or, to repair a
+write. A killed run therefore loses at most the file in flight, and the next English-wiki run replays the journal
+first; :func:`resolve` weighs the replayed outcomes against the current evidence (a candidate the evidence no longer
+accepts is not written back as failed), and only outcomes recorded after it are applied over it. Files are placed only
+by :func:`lib.media.finalize_download` (temp file -> decode/verify -> ``os.replace``) or, to repair a
 damaged archived file, by :meth:`Acquirer.repair` (identical verified bytes -> ``os.replace``), so a crash never leaves
 a successful-looking record without verified bytes.
 
@@ -89,7 +91,9 @@ class State:
     failures: dict[str, dict]
     fetched_at: str | None
     previous: dict[str, dict[str, dict]]  # source_id -> candidate ID -> candidate of the last snapshot
-    candidate_events: dict[str, dict] = field(default_factory=dict)  # candidate ID -> replayed disposition
+    # candidate ID -> outcome of the latest download attempt: replayed from the journal (consumed by resolve(), which
+    # weighs it against the current evidence) or recorded by this run's acquisition (applied by apply_outcomes())
+    candidate_events: dict[str, dict] = field(default_factory=dict)
     attempts: dict[str, str] = field(default_factory=dict)  # source_id -> latest download attempt (this run/journal)
 
     @classmethod
@@ -360,6 +364,8 @@ def resolve(plans: list[discover.Plan], state: State, *, complete: bool, evidenc
             continue
         result.candidates.append(_unarchived(plan, candidate, state, evidence_complete))
     _drop_stale_failures(state, source_id, result.candidates, complete=complete)
+    for cid in seen:  # replayed outcomes are part of this resolution now; the current evidence decided over them
+        state.candidate_events.pop(cid, None)
     return result
 
 
@@ -839,7 +845,11 @@ class Acquirer:
 
 
 def apply_outcomes(candidates: list[dict], state: State) -> list[dict]:
-    """Candidates with the dispositions recorded during this run (journal events) applied."""
+    """Candidates with the outcomes this run's downloads recorded (after :func:`resolve`) applied.
+
+    Outcomes replayed from an interrupted run's journal are not re-applied here: :func:`resolve` already weighed them
+    against the current evidence and consumed them, so a candidate that the evidence no longer accepts (and whose
+    Failure record :func:`_drop_stale_failures` removed) is never written back as failed or blocked."""
     result = []
     for candidate in candidates:
         event = state.candidate_events.get(candidate["id"])

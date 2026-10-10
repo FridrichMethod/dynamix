@@ -68,6 +68,69 @@ class FailureLifecycleTests(WikiRun):
                          "unresolved_role")
         self.assert_no_failures()
 
+    def crash_after_failed_download(self) -> None:
+        """An acquiring run journals a failed download of Package Vocal and dies before its final write (disk full,
+        OOM, kill -9): the journal keeps [clear_failures, failure, candidate failed]."""
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
+        client = self.scenario.client()
+        del client.blobs[next(url for url in client.blobs if "Package_Vocal" in url and "wikitide" in url)]  # 404
+        original, calls = cli.Runner.write, {"count": 0}
+
+        def write(runner: cli.Runner) -> None:
+            calls["count"] += 1
+            if calls["count"] >= 2:  # the final write after the downloads
+                raise OSError("simulated crash before the final write")
+            original(runner)
+        cli.Runner.write = write
+        try:
+            code = self.run_cli("--source", "miraheze", "--only", "File:Package Vocal.jpg", client=client)
+        finally:
+            cli.Runner.write = original
+        self.assertEqual(code, 5)
+        events = acquire.Journal(self.work / "journal.jsonl", self.root).read()
+        self.assertEqual([event["event"] for event in events], ["clear_failures", "failure", "candidate"])
+        self.assertEqual(self.manifest()["failures"], [])  # nothing reached the manifest
+
+    def test_crash_then_reclassification(self) -> None:
+        """The journaled outcome of a crashed run never overrides what the current complete evidence decides: the
+        reclassified candidate keeps no Failure record and the journal is cleared (no run is stuck on reconcile)."""
+        self.crash_after_failed_download()
+        vocal = dict(self.scenario.miraheze_pages["Vocal"])
+        vocal["wikitext"] = vocal["wikitext"].replace("File:Package Vocal.jpg|Package Vocal", "File:Package Vocal.jpg|")
+        for pages in (self.scenario.miraheze_pages, self.scenario.fandom_pages):
+            pages["Vocal"] = vocal
+        for _ in range(2):
+            self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
+            candidate = self.candidate("miraheze", "File:Package Vocal.jpg")
+            self.assertEqual(candidate["reason"].split(":")[0], "unresolved_role")
+            self.assertFalse((self.work / "journal.jsonl").exists())
+            self.assert_no_failures()
+
+    def test_crash_then_same_classification(self) -> None:
+        """Unchanged evidence: the replayed failure is kept (Failure record and failed candidate), exit 1."""
+        self.crash_after_failed_download()
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 1, "\n".join(self.logs))
+        candidate = self.candidate("miraheze", "File:Package Vocal.jpg")
+        self.assertEqual((candidate["disposition"], candidate["reason"]), ("failed", "download http_4xx: HTTP 404"))
+        self.assertEqual(len(self.manifest()["failures"]), 1)
+        self.assertFalse((self.work / "journal.jsonl").exists())
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_japanese_list_run_keeps_an_interrupted_journal(self) -> None:
+        """A run of a Japanese list alone neither replays nor clears an English-wiki journal (it cannot weigh it
+        against the evidence and would leave the manifest out of step with the wiki snapshots); the next English-wiki
+        run replays it."""
+        self.crash_after_failed_download()
+        journal = (self.work / "journal.jsonl").read_bytes()
+        self.assertEqual(self.run_cli("--source", "atwiki-ja"), 0, "\n".join(self.logs))
+        self.assertEqual((self.work / "journal.jsonl").read_bytes(), journal)
+        self.assertEqual(self.manifest()["failures"], [])
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 1, "\n".join(self.logs))
+        self.assertEqual(self.candidate("miraheze", "File:Package Vocal.jpg")["disposition"], "failed")
+        self.assertFalse((self.work / "journal.jsonl").exists())
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
     def test_failure_survives_a_partial_allimages_run(self) -> None:
         """An incomplete snapshot leaves the failed candidate out; the next complete run rebuilds the failed
         disposition from the Failure record itself (the upload predates the attempt) instead of crashing."""

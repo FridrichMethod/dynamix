@@ -100,10 +100,18 @@ class Runner:
         return bool(self.inventories) and all(inventory.complete for inventory in self.inventories.values())
 
     def run(self) -> int:
-        self.state = acquire.State.load(self.root, self.journal)
-        replayed = len(self.journal.read())
-        if replayed:
-            self.log(f"replayed {replayed} journal events from an interrupted run")
+        if self.mediawiki_selected:
+            self.state = acquire.State.load(self.root, self.journal)
+            replayed = len(self.journal.read())
+            if replayed:
+                self.log(f"replayed {replayed} journal events from an interrupted run")
+        else:
+            # Only English-wiki runs journal anything, and only they can weigh a journaled outcome against the
+            # current evidence (acquire.resolve): a Japanese-list run leaves an interrupted run's journal in place.
+            self.state = acquire.State.load(self.root)
+            if self.journal.has_events():
+                self.log("an interrupted English-wiki run left its journal; it is replayed by the next English-wiki "
+                         "run (not by this one)")
         with self.client_factory() as client:
             self.discover(client)
             self.write()
@@ -216,7 +224,8 @@ class Runner:
         outputs.write_json(self.root, paths.manifest_relpath("wikis"), data)
         if index is not None:
             outputs.write_json(self.root, outputs.SONG_INDEX_PATH, index)
-        self.journal.clear()
+        if self.mediawiki_selected:  # the journal's events are in the outputs now (see run())
+            self.journal.clear()
 
     def acquire(self, client: Any) -> None:
         """One worker thread per selected wiki; ``--limit`` bounds the attempts of all workers together. A worker
