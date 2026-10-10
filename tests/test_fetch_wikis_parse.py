@@ -169,6 +169,15 @@ class SmallHelperTests(unittest.TestCase):
         rows = jawikis.parse_tables(html, "list", "https://w.atwiki.jp/dynamix2ch/pages/37.html")
         self.assertEqual([(r.title, r.credit) for r in rows], [("Xetta", "Somebody"), ("春菊", "SUWAKI")])
 
+    def test_edit_suffix_base_key(self) -> None:
+        self.assertEqual(songindex.base_key("Elph's Sadness -DNX Edit-"), songindex.base_key(
+            "Elph’s Sadness -Dynamix Edition-"))
+        self.assertEqual(songindex.base_key("Magic of love (Dynamix Ver)"), songindex.base_key(
+            "Magic of love (Dynamix Edit)"))
+        self.assertEqual(songindex.base_key("Ace Sniper (DNX edit)"), "acesniper")
+        self.assertEqual(songindex.base_key("Impulse (Neutral Moon VIP Edit)"), "impulse")
+        self.assertEqual(songindex.base_key("A (Remix)"), "aremix")  # not an edit/version label
+
     def test_category_collections_skip_universe(self) -> None:
         self.assertEqual(songindex.category_collections([
             "Category:Event songs", "Category:Gold Submission Track", "Category:RAVON Songs",

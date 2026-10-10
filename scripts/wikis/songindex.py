@@ -27,6 +27,16 @@ COLLAB_SONGS = re.compile(r"^Category:(.+?) Songs$")
 NOT_COLLAB = {"Submission", "Event", "Free", "Premium", "Collaboration", "Wave Test", "Special", "Vocaloid",
               "Paid"}
 REMOVED_LIST_LABEL = "削除曲"
+# A trailing edit/version label ("(DNX edit)", "-Dynamix Edition-", "(Dynamix Ver)"): the lists abbreviate it
+# differently, so a Japanese row without an exact match is matched to a unique English song ignoring it.
+EDIT_SUFFIX = re.compile(r"\s*(?:[(（\[][^)）\]]*\b(?:dnx|dynamix|edit|ver|version|edition)\b[^)）\]]*[)）\]]|"
+                         r"[-–~～]\s*[^-–~～]*\b(?:dnx|dynamix|edit|ver|version|edition)\b[^-–~～]*[-–~～])\s*$",
+                         re.IGNORECASE)
+
+
+def base_key(title: str) -> str:
+    """Loose title key without a trailing edit/version label ("" when nothing else remains)."""
+    return wikitext.normalize_key(EDIT_SUFFIX.sub("", title))
 ENGLISH_KEYS = ("miraheze", "fandom")
 
 
@@ -206,9 +216,12 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
     wikiwiki rhythm-game summary is a corroborating lead (its rows add evidence and disagreements, never
     ``in_original_game``)."""
     keys: dict[str, SongEntry] = {}
+    bases: dict[str, list[SongEntry]] = {}
     for entry in entries.values():
         for title in entry.titles:
             keys.setdefault(wikitext.normalize_key(title), entry)
+            if base_key(title) and entry not in bases.setdefault(base_key(title), []):
+                bases[base_key(title)].append(entry)
     for source_key in ("atwiki-ja", "rhythmgame-ja"):
         source = config.SOURCES[source_key]
         grants = source_key == "atwiki-ja"
@@ -219,6 +232,11 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                     continue
                 entry = keys.get(loose)
                 label = f"{page.url} ({source.name}: {page.label})"
+                if entry is None and len(bases.get(base_key(row.title), [])) == 1:
+                    entry = bases[base_key(row.title)][0]
+                    disagreements.append((entry.key, "title", {
+                        "wikis:miraheze": entry.title,
+                        source.source_id: f"{row.title} (matched ignoring the edit/version label)"}))
                 created = entry is None
                 if created:
                     entry = entries[f"ja:{loose}"] = SongEntry(key=f"ja:{loose}", title=row.title)
