@@ -122,7 +122,7 @@ class EnumerationTests(unittest.TestCase):
 
     def test_tiers_gallery_and_slideshow(self):
         self.assertEqual(schema.tier_for("song_art", "PNG"), "site")
-        self.assertEqual(schema.tier_for("store_screenshot", "JPEG"), "site")
+        self.assertEqual(schema.tier_for("store_screenshot", "JPEG"), "archive")
         self.assertEqual(schema.tier_for("gameplay_screenshot", "PNG"), "archive")
         self.assertEqual(schema.tier_for("song_art", "PDF"), "archive")
         with self.assertRaises(ValueError):

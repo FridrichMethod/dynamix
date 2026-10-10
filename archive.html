@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- Layout and interactions adapted from FridrichMethod/deemo archive.html (Apache-2.0, commit
+     b14bf0d5f5a05e5382c319f3fd5019a4936820b8); modified for the Dynamix archive, 2026. See NOTICE. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="FridrichMethod's archive of original Dynamix artwork: publicly downloadable files kept as published, with per-image provenance." data-i18n-attr="content:meta.description">
+  <title data-i18n="meta.title">Dynamix Artwork Archive</title>
+  <link rel="icon" href="assets/site/icons/favicon.ico" sizes="32x32">
+  <link rel="icon" href="assets/site/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/site/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="src/archive.css">
+  <!-- Without JavaScript nothing loads, so the status line does not claim it; the notice at the top of <main> explains. -->
+  <noscript><style>#count { display: none; }</style></noscript>
+  <script src="src/i18n.js" defer></script>
+  <script src="src/i18n/common.js" defer></script>
+  <script src="src/i18n/archive.js" defer></script>
+  <script src="data/catalog.js" defer></script>
+  <script src="src/archive.js" defer></script>
+</head>
+<body>
+  <header>
+    <p class="eyebrow" lang="en" translate="no">FRIDRICHMETHOD / PERSONAL COLLECTION</p>
+    <div class="heading-row">
+      <div><h1 data-i18n="header.title">Dynamix Artwork Archive</h1><p data-i18n="header.tagline">Song jackets, pack covers, characters and other artwork from the original Dynamix. Files are kept as published, and every image is traced back to its source.</p></div>
+      <nav aria-label="Navigation" data-i18n-attr="aria-label:nav.label"><a href="index.html" data-lang-link data-i18n="nav.slideshow">Slideshow</a><a href="https://github.com/FridrichMethod/dynamix" target="_blank" rel="noopener noreferrer">GitHub ↗</a><button type="button" class="lang-toggle" data-lang-toggle title="Switch to Simplified Chinese"><span lang="zh-CN">中文</span></button></nav>
+    </div>
+  </header>
+  <main>
+    <noscript><p class="noscript">Browsing the Artwork Archive requires JavaScript. Every file, with its path and source, is listed in <a href="data/catalog.json">data/catalog.json</a>, and the files themselves can be browsed in the <a href="https://github.com/FridrichMethod/dynamix/tree/main/assets">GitHub repository</a>. <span lang="zh-CN">浏览曲绘档案需要 JavaScript。所有文件及其路径和来源都列在 <a href="data/catalog.json">data/catalog.json</a> 中，文件本身可在 <a href="https://github.com/FridrichMethod/dynamix/tree/main/assets">GitHub 仓库</a>中浏览。</span></p></noscript>
+    <form id="filters" class="filters" role="search">
+      <label class="search"><span data-i18n="filters.query">Search titles, illustrators, composers, packs</span><input id="query" type="search" placeholder="Title / illustrator / composer …" data-i18n-attr="placeholder:filters.query.placeholder" autocomplete="off"></label>
+      <label><span data-i18n="filters.family">Source type</span><select id="family">
+        <option value="" data-i18n="filters.family.all">All source types</option>
+        <option value="artists" data-i18n="family.artists">Artists (original posts)</option>
+        <option value="official" data-i18n="family.official">Official channels</option>
+        <option value="wikis" data-i18n="family.wikis">Wikis</option>
+        <option value="archives" data-i18n="family.archives">Public archives / press</option>
+      </select></label>
+      <label><span data-i18n="filters.source">Source</span><select id="source"><option value="" data-i18n="filters.source.all">All sources</option></select></label>
+      <label><span data-i18n="filters.kind">Type</span><select id="kind">
+        <option value="" data-i18n="filters.kind.all">All artwork</option>
+        <option value="song_art" data-i18n="kind.song_art">Song artwork</option>
+        <option value="pack_cover" data-i18n="kind.pack_cover">Pack cover</option>
+        <option value="character" data-i18n="kind.character">Character art</option>
+        <option value="background" data-i18n="kind.background">Background</option>
+        <option value="part" data-i18n="kind.part">Artwork part</option>
+        <option value="promotional" data-i18n="kind.promotional">Promotional art</option>
+        <option value="store_screenshot" data-i18n="kind.store_screenshot">Store screenshot</option>
+        <option value="gameplay_screenshot" data-i18n="kind.gameplay_screenshot">Gameplay screenshot</option>
+        <option value="process" data-i18n="kind.process">Process / sketch</option>
+        <option value="reference" data-i18n="filters.kind.reference">References and documents</option>
+      </select></label>
+      <label><span data-i18n="filters.minimum">Minimum long edge</span><select id="minimum"><option value="0" data-i18n="filters.minimum.any">Any size</option><option value="1000">1000 px</option><option value="1500">1500 px</option><option value="1920">1920 px</option><option value="2048">2048 px</option><option value="3000">3000 px</option></select></label>
+      <label><span data-i18n="filters.sort">Sort</span><select id="sort"><option value="source" data-i18n="filters.sort.source">Source first</option><option value="title" data-i18n="filters.sort.title">Title</option><option value="resolution" data-i18n="filters.sort.resolution">Pixel area ↓</option></select></label>
+      <button id="reset-filters" type="button" data-i18n="filters.reset">Reset</button>
+    </form>
+    <div class="result-row"><p id="count" role="status" aria-live="polite"><span data-i18n="results.loading">Loading local catalog…</span></p><p data-i18n="results.note">Size does not equal quality; different crops and versions are all kept.</p></div>
+    <div id="grid" class="grid"></div>
+    <p id="empty" hidden data-i18n="results.empty">No matching images. Try a shorter search term or looser filters.</p>
+    <button id="more" class="more" type="button" hidden data-i18n="results.more">Load more</button>
+    <details class="source-inventory"><summary data-i18n="inventory.title">Source inventory, reference files and retrieval status</summary><p id="inventory-summary"></p><div id="references"></div><div class="table-scroll"><table><thead><tr><th data-i18n="inventory.source">Source</th><th data-i18n="inventory.records">File records</th><th data-i18n="inventory.status">Status / notes</th></tr></thead><tbody id="sources"></tbody></table></div><div id="failures"></div></details>
+  </main>
+  <footer><span data-i18n="footer.maintained">Maintained by </span><a href="https://github.com/FridrichMethod">FridrichMethod</a> · <span data-i18n="footer.original">Interface adapted from the DEEMO gallery by Mashiro and FridrichMethod</span> · <span data-i18n="footer.rights">Artwork © C4Cat Entertainment Limited and/or the credited artists</span> · <a href="https://github.com/FridrichMethod/dynamix/blob/main/NOTICE" data-i18n="footer.attribution">Attribution</a> · <a href="data/catalog.json" data-i18n="footer.catalog">Full source manifest JSON</a></footer>
+  <dialog id="viewer" aria-labelledby="viewer-title">
+    <button id="close" class="close" type="button" aria-label="Close preview" data-i18n-attr="aria-label:viewer.close"><svg class="icon" viewBox="0 0 15 15" width="15" height="15" aria-hidden="true" focusable="false"><path d="M3 3l9 9M12 3l-9 9"/></svg></button>
+    <div class="viewer-image"><img id="full-image" alt=""><p id="no-preview" hidden></p><p id="image-error" hidden></p></div>
+    <div class="viewer-info"><div class="viewer-controls"><button id="previous" type="button" aria-label="Previous image" data-i18n-attr="aria-label:viewer.previous"><svg class="icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M12.5 8h-9M7 4.5 3.5 8 7 11.5"/></svg></button><span id="position"></span><button id="next" type="button" aria-label="Next image" data-i18n-attr="aria-label:viewer.next"><svg class="icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3.5 8h9M9 4.5 12.5 8 9 11.5"/></svg></button></div><h2 id="viewer-title"></h2><p id="viewer-meta"></p><dl id="viewer-credits" class="credits"></dl><p id="archive-note" class="archive-note" hidden></p><p class="links"><a id="download" data-i18n="viewer.download">Download original file</a><a id="slideshow" data-i18n="viewer.slideshow">View in slideshow</a><a id="original" target="_blank" rel="noopener noreferrer" data-i18n="viewer.original">Open original file in browser ↗</a></p><div id="variants"></div><div id="provenance"></div><details><summary data-i18n="viewer.file_info">File info</summary><p id="file-info"></p></details></div>
+  </dialog>
+</body>
+</html>

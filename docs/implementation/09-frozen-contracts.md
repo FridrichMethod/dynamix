@@ -12,12 +12,34 @@ Frozen by the coordinator on **2026-10-10** before parallel implementation. This
 
 | Tier | Kinds | Stored in Git | Original served by Pages |
 | --- | --- | --- | --- |
-| `site` | `song_art`, `pack_cover`, `character`, `background`, `part`, `promotional`, `process`, `store_screenshot` | yes | yes |
-| `archive` | `reference`, `gameplay_screenshot`, any PDF | yes | **no** — site shows the preview; the viewer links the original at `archive_url` (GitHub raw URL on `main`) |
+| `site` | `song_art`, `pack_cover`, `character`, `background`, `part`, `promotional`, `process` | yes | yes |
+| `archive` | `reference`, `gameplay_screenshot`, `store_screenshot`, any PDF | yes | **no** — site shows the preview; the viewer links the original at `archive_url` (GitHub raw URL on `main`) |
 
 - `build_catalog.py` sets `site_original` from this table. `prepare_pages.py` omits originals whose catalog record has `site_original: false` and fails if the remaining payload exceeds **950,000,000 bytes**. If the `site` tier alone exceeds the budget, that is a reported blocker, never fixed by recompression or dropping records.
 - Excluded (recorded candidates, never downloaded by default): animated GIF captures (`animated_capture`; the larger `-Raw.png` still is archived), Universe-only (`universe_only`), person photos, site/game UI, video placeholders, fanart, upscales, rejected submissions. `fetch_wikis.py --include-animated` exists so the decision is reversible.
 - No Git LFS, no release attachments, no paid storage. No single file may exceed 100 MiB; a push must stay under 2 GB.
+
+### Tier revision 1.1 (2026-10-10, after metadata-only wiki discovery)
+
+Measured site-tier estimate before this revision: wikis 944,412,040 B (2,971 unique files) plus artists/official/archives 132 MB, before previews and catalog — over the 950,000,000 B budget. Two non-artwork blocks moved to the archive tier; nothing is dropped or recompressed:
+
+- **Kind `reference`** now explicitly covers informational graphics and documents: official chart/difficulty-list, comeback/new-chart and update-note announcement graphics (wiki `*_Chart_List*`, `*_Comeback*`, `*_New_Charts*` and equivalents, ~789 files / ~256.5 MB), press PDFs and similar documents. **Kind `promotional`** keeps key art, banners, event/anniversary/collaboration visuals and teasers that are not chart-level listings.
+- **`store_screenshot`** moves to the archive tier (app-store renditions are not artwork masters).
+- Re-measure after acquisition; if the site tier still exceeds the budget, it is a reported blocker resolved by an explicit, documented tier decision, not by dropping or recompressing originals.
+
+### Coordinator classification decisions (2026-10-10, wave 2 review)
+
+- **List and chart-announcement graphics are `reference`** (amended 2026-10-10 after wave 3; supersedes the earlier single-song exception). `reference` covers (a) any announcement graphic that displays chart difficulty levels, whether for one song or several — single-song "<song> Chart List" / "COMING SOON" / "i'm back!" teasers with level marks included, on the wikis and on official X/Facebook posts alike — and (b) any graphic whose primary content is a list of songs or charts (event and comeback lineups, "Upcoming Events", "Comeback Tracks", pack/collaboration lineup cards that print several titled jackets). The jacket artwork shown inside these graphics is archived separately as `song_art`. `promotional` keeps graphics without chart-level information that concern a single song, pack or event: key art, event and anniversary posters, single collaboration key visuals, banners, logos/wordmarks.
+- Reason recorded for the amendment: the wiki's single-song Chart List graphics and the official single-song teasers are the same design (verified side by side by the wiki worker), so one rule must cover both; the earlier wording contradicted itself and, applied literally, moved ~650 unique files (~186 MB) into the site tier.
+- `fetch_wikis.py` exit codes: 0 ok, 1 failed/blocked downloads, 2 incomplete discovery, 3 lock held or unsafe work directory/journal, 4 archived file no longer accepted (review), 5 internal error, 130 interrupted (outputs written). Default work directory `<root>/.cache/fetch_wikis/work` (ignored by Git).
+- App Store records: per-request URL tokens are not stored; source checks compare App Store items by decoded pixels, not bytes.
+- `mapping_status: conflict` may appear on song art; consumers must display it, not resolve it. Known case: *Another World* (wiki artist anchor `Artists#Cosmograph`), left for a curator.
+
+### Catalog presentation rules (2026-10-10, from the trial integration build)
+
+- **Primary record.** Among records sharing a SHA-256 the primary is the minimum of (family priority `artists` < `official` < `wikis` < `archives`; source preference within the family, where `wikis:miraheze` (current wiki; its stored bytes are the bytes both English wikis serve) ranks before `wikis:fandom` (legacy) and other sources rank by ID; `quality.source_variant` `site_original` < `preview` < `unknown`; source ID; asset ID). The rule is deterministic and recorded in `build_catalog.py`.
+- **Titles.** `title` is a human-readable name, not a file stem. Wiki song art whose candidate maps to exactly one song with `confirmed_wiki` (or stronger) evidence is titled with that song's exact title; other wiki files use the wiki's own caption when one exists, else the `File:` title without extension and with `_` as spaces. The upstream file name always stays in `original_filename`. Other families title records from the post/page text they cite.
+- **Pages payload.** `data/catalog.json` and `data/catalog.js` are both published as long as the staged site stays within budget; if it does not, `catalog.json` (which the pages never load) is the first thing removed from the payload, by an explicit `prepare_pages.py` rule.
 
 ## Identifiers and paths
 
@@ -118,7 +140,7 @@ The wiki worker proposes `data/discovery/song-index.wikis.json`; the coordinator
 
 ## Catalog `data/catalog.json` and `data/catalog.js` (coordinator-generated)
 
-`catalog.js` is exactly `window.DYNAMIX_CATALOG = <catalog.json content>;\n` with `</` escaped as `<\/` and U+2028/U+2029 escaped.
+`catalog.js` is exactly `window.DYNAMIX_CATALOG = ` + the catalog as compact JSON (`separators=(",", ":")`, `ensure_ascii=False`) with every `<` written as `\u003c` and U+2028/U+2029 escaped + `;\n` (the DEEMO reference encoding).
 
 Top level: `schema_version`, `owner` (`"FridrichMethod"`), `game` (`"Dynamix"`), `repository` (`"https://github.com/FridrichMethod/dynamix"`), `snapshots` ({family: fetched_at}), `sources[]` (with `family`, `asset_count`), `assets[]`, `failures[]`, `summary`.
 
@@ -164,7 +186,9 @@ scripts/prepare_pages.py  --output PATH
 
 - `--verify` and `--check` run offline and exit nonzero on any mismatch; `--check` compares regenerated output to committed files without writing.
 - Every fetch/build script also accepts `--root PATH` (default: repository root) so tests run the real CLI against `tests/fixtures/contract/` without touching committed data.
-- Import convention: scripts run as `python -I scripts/<name>.py` and import shared code as `from lib import ...` (`sys.path[0]` is `scripts/`); tests insert `ROOT / "scripts"` into `sys.path`. Tests are unittest modules runnable as `python -I tests/test_<name>.py`.
+- Import convention: scripts run as `python -I scripts/<name>.py`. On Python ≥ 3.11 `-I` implies `-P`, so the script directory is **not** on `sys.path`: every entry script inserts `str(Path(__file__).resolve().parent)` itself before `from lib import ...`; tests insert `ROOT / "scripts"`. Tests are unittest modules runnable as `python -I tests/test_<name>.py`.
+- Registered extra flags: `fetch_wikis.py --only TITLE|CANDIDATE_ID` (repeatable), `--work-dir`, `--lock-file`, `--cache-dir`. Fetchers that run longer than a few minutes take an exclusive `fcntl.flock` lock, write manifests atomically and periodically, and are resumable.
+- `pending` reasons may use the prefixes `awaiting_download`, `unresolved_role`, `unresolved_game` (plus `: detail`); only `excluded` uses the frozen exclusion vocabulary. Role may be established by archivist visual inspection of the file when page evidence is absent; that evidence is recorded verbatim (e.g. `visual_inspection: square jacket with song title text`) and the mapping is at most `inferred`.
 - Network defaults (shared helper, not per-script): one request at a time per host, ≥ 1.0 s spacing, `Retry-After` honored up to 60 s, ≤ 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge (recorded as `blocked`), 64 MiB max response, explicit host allowlist re-checked on every redirect, private/loopback addresses rejected, User-Agent `DynamixArtworkArchive/1.0 (+https://github.com/FridrichMethod/dynamix)`.
 - Downloads: unique temp file in the destination directory → decode/verify → `os.replace`; a crash never leaves a successful-looking record. `--resume` re-hashes existing files instead of trusting existence.
 

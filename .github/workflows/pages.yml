@@ -1,0 +1,136 @@
+name: Deploy GitHub Pages (approved release only)
+
+# Release hold. This workflow never runs on push, pull request or a schedule. A manual dispatch deploys only when it
+# targets main, its release_sha input is the dispatched commit, and the repository variable RELEASE_APPROVED_SHA names
+# that same commit. The variable stays unset during the hold, so every dispatch fails closed at the approval check:
+# no tests, no artifact, no deployment. Approving a release is a later, explicit owner action (set the variable).
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: "Full 40-character SHA of the main commit to release; must equal vars.RELEASE_APPROVED_SHA"
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  approval:
+    name: Release approval
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Refuse unless main, release_sha and RELEASE_APPROVED_SHA all name this commit
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          SHA: ${{ github.sha }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+          APPROVED_SHA: ${{ vars.RELEASE_APPROVED_SHA }}
+        run: |
+          fail() { echo "::error::$1"; exit 1; }
+          [ "$EVENT_NAME" = "workflow_dispatch" ] || fail "Pages deploys only from a manual dispatch, not $EVENT_NAME."
+          [ "$REF" = "refs/heads/main" ] || fail "Dispatch this workflow on main, not $REF."
+          [[ "$RELEASE_SHA" =~ ^[0-9a-f]{40}$ ]] || fail "release_sha must be a full 40-character lowercase commit SHA."
+          [ "$RELEASE_SHA" = "$SHA" ] || fail "release_sha $RELEASE_SHA is not the dispatched main commit $SHA."
+          [ -n "$APPROVED_SHA" ] || fail "Release hold: repository variable RELEASE_APPROVED_SHA is unset."
+          [ "$APPROVED_SHA" = "$SHA" ] || fail "RELEASE_APPROVED_SHA does not name the dispatched commit $SHA."
+          echo "Release of $SHA approved."
+
+  tests:
+    name: Tests
+    needs: approval
+    uses: ./.github/workflows/tests.yml
+    permissions:
+      contents: read
+
+  build:
+    name: Build Pages artifact
+    needs: [approval, tests]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Refuse unless main, release_sha and RELEASE_APPROVED_SHA all name this commit
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          SHA: ${{ github.sha }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+          APPROVED_SHA: ${{ vars.RELEASE_APPROVED_SHA }}
+        run: |
+          fail() { echo "::error::$1"; exit 1; }
+          [ "$EVENT_NAME" = "workflow_dispatch" ] || fail "Pages deploys only from a manual dispatch, not $EVENT_NAME."
+          [ "$REF" = "refs/heads/main" ] || fail "Dispatch this workflow on main, not $REF."
+          [[ "$RELEASE_SHA" =~ ^[0-9a-f]{40}$ ]] || fail "release_sha must be a full 40-character lowercase commit SHA."
+          [ "$RELEASE_SHA" = "$SHA" ] || fail "release_sha $RELEASE_SHA is not the dispatched main commit $SHA."
+          [ -n "$APPROVED_SHA" ] || fail "Release hold: repository variable RELEASE_APPROVED_SHA is unset."
+          [ "$APPROVED_SHA" = "$SHA" ] || fail "RELEASE_APPROVED_SHA does not name the dispatched commit $SHA."
+          echo "Release of $SHA approved."
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: The checkout is the approved commit
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          head="$(git rev-parse HEAD)"
+          [ "$head" = "$RELEASE_SHA" ] || { echo "::error::checked out $head, not $RELEASE_SHA"; exit 1; }
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.14"
+      - name: Install dependencies
+        run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet -r requirements.txt
+      - name: Stage the allowlisted website outside the checkout
+        run: |
+          mkdir "$RUNNER_TEMP/pages"
+          "$RUNNER_TEMP/venv/bin/python" -I scripts/prepare_pages.py --output "$RUNNER_TEMP/pages/site" \
+            --summary "$RUNNER_TEMP/pages/summary.json" --manifest "$RUNNER_TEMP/pages/manifest.sha256"
+          (cd "$RUNNER_TEMP/pages/site" && sha256sum --check --quiet --strict ../manifest.sha256)
+          {
+            echo "### Pages payload"
+            echo '```json'
+            cat "$RUNNER_TEMP/pages/summary.json"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload the Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/pages/site
+          include-hidden-files: true
+          retention-days: 1
+
+  deploy:
+    name: Deploy
+    needs: build
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.release_sha == github.sha &&
+      vars.RELEASE_APPROVED_SHA == github.sha
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -1,0 +1,55 @@
+/* Slideshow (templates/slideshow.html -> index.html) strings. The register() argument is strict JSON so tests/test_i18n.py can parse it.
+   Adapted from FridrichMethod/deemo src/i18n/slideshow.js (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8);
+   modified for the Dynamix archive, 2026. See NOTICE. */
+DYNAMIX_I18N.register({
+  "en": {
+    "slideshow.title": "Dynamix Artwork Archive · Slideshow",
+    "slideshow.title.short": "Dynamix Artwork Archive",
+    "slideshow.meta.description": "FridrichMethod's slideshow of original Dynamix artwork: public original files with per-image provenance records.",
+    "slideshow.intro.line": "Artwork Archive",
+    "slideshow.intro.note": "Song jackets, pack covers and characters from the original game, kept as published and traced to their sources.",
+    "slideshow.empty": "No artwork is in the slideshow yet.",
+    "slideshow.caption.source": "Source",
+    "slideshow.caption.original": "Original file",
+    "slideshow.caption.browse": "Artwork Archive",
+    "slideshow.nav.prev": "Previous artwork",
+    "slideshow.nav.next": "Next artwork",
+    "slideshow.github.label": "GitHub repository",
+    "slideshow.archive.text": "Archive",
+    "slideshow.archive.label": "Browse the Artwork Archive",
+    "slideshow.attribution": "Attribution",
+    "slideshow.screenshot.take": "Take a screenshot",
+    "slideshow.screenshot.dialog": "Screenshot preview",
+    "slideshow.screenshot.save": "Save screenshot",
+    "slideshow.screenshot.close": "Close screenshot",
+    "slideshow.autoplay.label": "Shuffle autoplay",
+    "slideshow.notes.label": "About this artwork",
+    "slideshow.notes.collection": "Pack",
+    "slideshow.notes.collections": "Packs"
+  },
+  "zh-CN": {
+    "slideshow.title": "Dynamix 曲绘档案 · 幻灯片",
+    "slideshow.title.short": "Dynamix 曲绘档案",
+    "slideshow.meta.description": "FridrichMethod 的原版 Dynamix 曲绘幻灯片：公开原文件与逐图来源记录。",
+    "slideshow.intro.line": "曲绘档案",
+    "slideshow.intro.note": "原版游戏的单曲曲绘、曲包封面与角色立绘，保留发布时的原貌并逐张追溯来源。",
+    "slideshow.empty": "幻灯片中还没有曲绘。",
+    "slideshow.caption.source": "来源",
+    "slideshow.caption.original": "原文件",
+    "slideshow.caption.browse": "曲绘档案",
+    "slideshow.nav.prev": "上一张",
+    "slideshow.nav.next": "下一张",
+    "slideshow.github.label": "GitHub 仓库",
+    "slideshow.archive.text": "档案",
+    "slideshow.archive.label": "浏览曲绘档案",
+    "slideshow.attribution": "署名",
+    "slideshow.screenshot.take": "截图",
+    "slideshow.screenshot.dialog": "截图预览",
+    "slideshow.screenshot.save": "保存截图",
+    "slideshow.screenshot.close": "关闭截图",
+    "slideshow.autoplay.label": "随机自动播放",
+    "slideshow.notes.label": "曲绘信息",
+    "slideshow.notes.collection": "曲包",
+    "slideshow.notes.collections": "曲包"
+  }
+});
