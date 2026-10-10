@@ -518,6 +518,105 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(self.manifest(), first)  # idempotent
         self.verify()
 
+    @staticmethod
+    def tagged_png(token):
+        """The same pixels with a different embedded token (an App Store re-render)."""
+        from PIL import Image, PngImagePlugin
+        import io
+
+        info = PngImagePlugin.PngInfo()
+        info.add_text("Comment", token)
+        buffer = io.BytesIO()
+        Image.new("RGB", (16, 9), (9, 8, 7)).save(buffer, "PNG", pnginfo=info)
+        return {"bytes": buffer.getvalue(), "content_type": "image/png"}
+
+    def test_a_plain_rerun_with_the_same_pixels_keeps_the_archived_record(self):
+        url = "https://press.example.org/img/a.png"
+        routes = {self.PAGE: self.page("a.png"), url: self.tagged_png("TOKENAAAA")}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        first = self.manifest()["assets"][0]
+        for token in ("TOKENBBBB", "TOKENCCCC"):  # plain runs (no --resume) re-download every candidate
+            routes[url] = self.tagged_png(token)
+            self.run_family([self.seed()], FakeNetwork(routes))
+        assets = self.manifest()["assets"]
+        self.assertEqual([(a["id"], a["upstream_status"]) for a in assets], [(first["id"], "current")])
+        files = sorted(p.name for p in (self.root / "assets/public/archives/press").iterdir())
+        self.assertEqual(files, [Path(first["path"]).name])  # no second copy, no leftover .part file
+        latest = hashlib.sha256(self.tagged_png("TOKENCCCC")["bytes"]).hexdigest()
+        self.assertEqual(len(runner.REFETCH_NOTE_RE.findall(assets[0]["notes"])), 1)  # only the latest re-fetch
+        self.assertIn(f"sha256 {latest}", assets[0]["notes"])
+        self.assertEqual((assets[0]["sha256"], assets[0]["fetched_at"]), (first["sha256"], first["fetched_at"]))
+        self.run_family([self.seed()], FakeNetwork(routes), resume=True)  # a refresh keeps the provenance note
+        self.assertIn(f"sha256 {latest}", self.manifest()["assets"][0]["notes"])
+        self.verify()
+        routes[url] = self.file((1, 2, 3))  # other pixels are a new upstream revision
+        self.run_family([self.seed()], FakeNetwork(routes))
+        statuses = {a["id"]: a["upstream_status"] for a in self.manifest()["assets"]}
+        self.assertEqual(statuses[first["id"]], "superseded")
+        self.verify()
+
+    def test_a_file_moved_to_a_new_key_is_adopted_not_left_removed(self):
+        data = self.file((1, 2, 3))
+        routes = {self.PAGE: self.page("a.png"), "https://press.example.org/img/a.png": data}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        record = self.manifest()["assets"][0]
+        routes = {self.PAGE: self.page("b.png"), "https://press.example.org/img/b.png": data}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        found = self.candidates("archives:press")
+        self.assertEqual(list(found), ["img/b.png"])
+        self.assertEqual((found["img/b.png"]["disposition"], found["img/b.png"]["asset_id"]), ("downloaded",
+                                                                                               record["id"]))
+        [asset] = self.manifest()["assets"]
+        self.assertEqual((asset["id"], asset["path"], asset["upstream_status"]), (record["id"], record["path"],
+                                                                                  "current"))
+        self.assertEqual(asset["candidate_id"], "archives:press:img/b.png")
+        self.assertIn("First archived for candidate archives:press:img/a.png (upstream_status then removed)",
+                      asset["notes"])
+        self.assertNotIn("removed upstream", asset["notes"])
+        self.verify()
+        self.run_family([self.seed()], FakeNetwork(routes), resume=True)  # stable, history kept
+        self.assertIn("First archived for candidate archives:press:img/a.png", self.manifest()["assets"][0]["notes"])
+        self.verify()
+
+    def test_bytes_of_another_candidates_earlier_revision_are_adopted(self):
+        a, b = "https://press.example.org/img/a.png", "https://press.example.org/img/b.png"
+        routes = {self.PAGE: self.page("a.png"), a: self.file((1, 2, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        old = self.manifest()["assets"][0]["id"]
+        routes = {self.PAGE: self.page("a.png", "b.png"), a: self.file((7, 7, 7)), b: self.file((1, 2, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        found = self.candidates("archives:press")
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual(found["img/b.png"]["disposition"], "downloaded")
+        self.assertEqual(found["img/b.png"]["asset_id"], old)
+        self.assertEqual((assets[old]["upstream_status"], assets[old].get("superseded_by")), ("current", None))
+        self.assertIn("upstream_status then superseded", assets[old]["notes"])
+        newer = found["img/a.png"]["asset_id"]
+        self.assertEqual((assets[newer]["candidate_id"], assets[newer]["upstream_status"]),
+                         ("archives:press:img/a.png", "current"))
+        self.verify()
+
+    def test_an_unknown_record_listed_under_another_key_is_current_again(self):
+        other = "https://press.example.org/other"
+        seed = self.seed()
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        data = self.file((4, 5, 6))
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page(), other: self.page("c.png"),
+                                             "https://press.example.org/img/c.png": data}))
+        record = self.manifest()["assets"][0]
+        # The second page is no longer a seed item (c.png becomes unknown); the first page now lists the same bytes.
+        self.run_family([self.seed()], FakeNetwork({self.PAGE: self.page("b.png"),
+                                                    "https://press.example.org/img/b.png": data}))
+        found = self.candidates("archives:press")
+        self.assertEqual((found["img/b.png"]["disposition"], found["img/b.png"]["asset_id"]),
+                         ("duplicate_bytes", record["id"]))
+        [asset] = self.manifest()["assets"]
+        self.assertEqual((asset["candidate_id"], asset["upstream_status"]), (record["candidate_id"], "current"))
+        self.assertIn("also listed upstream as archives:press:img/b.png", asset["notes"])
+        self.assertNotIn(runner.UNKNOWN_NOTE, asset["notes"])
+        errors, warnings, _ = runner.verify_family(self.root, "archives")
+        self.assertEqual((errors, warnings), ([], []))
+
 
 class VerifySnapshotTests(ArchivesTestCase):
     PAGE = RunnerStateTests.PAGE

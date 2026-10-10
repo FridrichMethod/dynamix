@@ -6,18 +6,19 @@ is an ``Artwork`` with a URL ``template`` (``.../pr_source.png/{w}x{h}{c}.{f}``)
 ``crop`` code and ``variants`` (the formats the page itself loads, e.g. JPEG quality 70). The adapter requests the
 native size with the advertised crop in the *uploaded source's* format when that is PNG (``pr_source.png`` ->
 ``.png``): Apple renders a lossless PNG of the PNG upload at the same size, whereas the advertised JPEG variant is a
-lossy re-encode. ``source_reported`` keeps what the page advertises (its own rendition URL, format and native size), so
-``format_match`` compares the advertised variant with the requested PNG. The bytes are still Apple's rendering of the
-upload (``transformed: true``), never an untouched master. Trailer items are recorded as ``video_placeholder``
-exclusions.
+lossy re-encode. ``source_reported`` keeps what the page advertises for the image (its own rendition URL and the native
+size, which the requested rendition shares); the advertised variant's MIME type is kept only when the stored rendition
+has that format, since a different rendition by construction is not comparable (``format_match`` null). The bytes are
+still Apple's rendering of the upload (``transformed: true``), never an untouched master. Trailer items are recorded as
+``video_placeholder`` exclusions.
 
 A ``{"lookup_id": "<app id>", "countries": [...]}`` item reads the public iTunes Search ``lookup`` API per storefront,
 which still lists older, storefront-specific screenshot sets (``screenshotUrls``/``ipadScreenshotUrls``) that the web
 page no longer shows. Those URLs (``.../mzl.xxxx.png/406x228bb.png``) are small renditions; the adapter requests the
 ``4000x4000bb`` bounding box in the upload's format (PNG for a ``.png`` upload), which Apple serves at the image's
 native size (it does not enlarge); the stored size is decoded from the bytes and ``source_reported`` keeps the
-advertised URL and format. A screenshot listed by several storefronts is one candidate whose notes name every
-storefront.
+advertised URL (and its format only when the requested rendition has the same one). A screenshot listed by several
+storefronts is one candidate whose notes name every storefront.
 """
 
 from __future__ import annotations
@@ -36,9 +37,13 @@ LOOKUP = "https://itunes.apple.com/lookup"
 _SIZED = re.compile(r"^(https://[a-z0-9-]+\.mzstatic\.com/image/thumb/.+/)(\d+)x(\d+)(bb|sr|[a-z]{2})\.(jpg|jpeg|png|webp)$")
 LOOKUP_BOX = 4000
 LOSSLESS_SOURCE = {"png": "png"}  # upload format -> rendition requested instead of the advertised lossy variant
-IDENTIFIER_NOTE = ("Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF "
-                   "UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different "
-                   "bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash.")
+# Observed 2026-10-10 (scripts/primary/README.md, "App Store renditions"): every render of a rendition URL embeds a new
+# 26-character token; CDN caches serve one render's bytes repeatedly, while a cache miss serves a fresh render.
+IDENTIFIER_NOTE = ("Apple writes an identifier into each render of a rendition (a 26-character token in EXIF "
+                   "UserComment, and in XMP dc:creator for PNG). Requests served from one CDN cache entry return the "
+                   "same bytes, but a fresh render of the same URL (a cache miss) carries a new token: different bytes "
+                   "and SHA-256 with identical pixels. SHA-256 verifies the archived file; compare a re-fetch with it "
+                   "by decoded pixels.")
 _UUID = re.compile(r"/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/")
 FORMAT_EXT = {"jpeg": "jpg", "jpg": "jpg", "png": "png", "webp": "webp"}
 
@@ -88,6 +93,14 @@ def apple_quality(draft: model.Draft, requested: str, upload: str | None) -> Non
     quality = draft.meta["quality"]
     quality["notes"] = " ".join(filter(None, [rendition_note(requested, upload), quality.get("notes"),
                                               IDENTIFIER_NOTE]))
+
+
+def same_format_mime(advertised: str, requested: str) -> str | None:
+    """The advertised rendition's MIME type when the requested rendition has the same format, else None: the stored
+    file is then another rendition by construction, so the advertised format is not comparable with it."""
+    def ext(url: str) -> str:
+        return FORMAT_EXT.get(url.split("?", 1)[0].rsplit(".", 1)[-1].lower(), "")
+    return base.mime_for(ext(advertised)) if ext(advertised) and ext(advertised) == ext(requested) else None
 
 
 def native_lookup_url(url: str) -> str | None:
@@ -148,8 +161,8 @@ def discover_lookup(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], 
             default_title=f"App Store {entry['device']} screenshot (storefront set {entry['countries'][0]})",
             default_quality=ctx.quality, default_rights=ctx.rights, original_filename=base.last_segment(entry["url"]),
             base_evidence=evidence,
-            source_reported=base.reported(url=entry["advertised"], mime=base.mime_for(
-                entry["advertised"].rsplit(".", 1)[-1])))
+            source_reported=base.reported(url=entry["advertised"], mime=same_format_mime(entry["advertised"],
+                                                                         entry["url"])))
         upload = entry["advertised"].split("/")[-2]
         draft.candidate_extra["notes"] = ("iTunes lookup API screenshot listed by storefront(s) "
                                           + ", ".join(entry["countries"]) + f"; the API advertises a "
@@ -277,8 +290,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 rule, key=key, page_url=page_url, texts=texts, file_url=url,
                 default_title=f"App Store {device} screenshot {index}", default_quality=ctx.quality,
                 default_rights=ctx.rights, original_filename=base.last_segment(url), base_evidence=evidence,
-                source_reported=base.reported(url=rendition["advertised"], mime=base.mime_for(
-                    FORMAT_EXT[rendition["advertised_format"]]), width=rendition["width"], height=rendition["height"]))
+                source_reported=base.reported(url=rendition["advertised"], mime=same_format_mime(
+                    rendition["advertised"], url), width=rendition["width"], height=rendition["height"]))
             if rendition["format"] != rendition["advertised_format"]:
                 upload = url.split("/")[-2]
                 note = (f"The page loads a {rendition['advertised_format'].upper()} rendition "

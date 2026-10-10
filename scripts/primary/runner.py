@@ -45,6 +45,16 @@ UNKNOWN_NOTE = ("No longer reached by the seeds of a later run whose listings we
                 "unknown; the archived bytes are kept.")
 KEPT_FOR_REVIEW = "is kept for review"  # discovery-error marker of an archived candidate a refresh no longer admits
 WITHDRAWN_RE = re.compile(r"Withdrawn \d{4}-\d{2}-\d{2} by a curated seed rule .*?the bytes remain in the Git history\.")
+# Provenance notes a refresh keeps (descriptive notes are otherwise rebuilt from the seed on every refresh).
+REFETCH_NOTE = ("Re-fetched {date}: the same URL returned different bytes (sha256 {sha256}) that decode to pixels "
+                "identical to the archived file, which is kept as current.")
+REFETCH_NOTE_RE = re.compile(r"Re-fetched \d{4}-\d{2}-\d{2}: the same URL returned different bytes \(sha256 [0-9a-f]{64}"
+                             r"\) that decode to pixels identical to the archived file, which is kept as current\.")
+ADOPTED_NOTE = ("First archived for candidate {old} (upstream_status then {status}); the same bytes are listed upstream "
+                "as this record's candidate since {date}.")
+ADOPTED_NOTE_RE = re.compile(r"First archived for candidate \S+ \(upstream_status then [a-z]+\); the same bytes are listed "
+                             r"upstream as this record's candidate since \d{4}-\d{2}-\d{2}\.")
+ALSO_LISTED_NOTE = "The same bytes are also listed upstream as {cid} (duplicate_bytes)."
 SOURCE_SEED_FIELDS = {
     "id", "name", "url", "platform", "adapter", "notes", "api_url", "owner_evidence", "crawl_scope", "items",
     "hosts", "min_interval", "quality", "rights", "rules", "identity_quotes", "lists", "status_on_success",
@@ -446,7 +456,12 @@ class Runner:
                 state.pending_ids.discard(schema.candidate_id(state.source_id, draft.upstream_key))
                 self._persist(state)
                 self._maybe_interrupt()
-        if not self.metadata_only and self._link_pixel_twins(state):
+        if self.metadata_only:
+            return
+        drafts_by_id = {schema.candidate_id(state.source_id, draft.upstream_key): draft for draft in drafts
+                        if draft.action == "download"}
+        changed = self._settle_duplicates(state, drafts_by_id)
+        if self._link_pixel_twins(state) or changed:
             self._persist(state)
 
     def _pixel_digest(self, asset: Mapping[str, Any]) -> str | None:
@@ -454,21 +469,96 @@ class Runner:
         if asset["format"] not in schema.RASTER_FORMATS:
             return None
         if asset["sha256"] not in self._pixels:
-            try:
-                with Image.open(paths.safe_path(self.root, asset["path"])) as image:
-                    image.seek(0)
-                    frame = image.convert("RGBA")
-                    self._pixels[asset["sha256"]] = hashlib.sha256(
-                        f"{frame.width}x{frame.height}:".encode() + frame.tobytes()).hexdigest()
-            except (OSError, ValueError, Image.DecompressionBombError):
-                self._pixels[asset["sha256"]] = None
+            self._pixels[asset["sha256"]] = pixel_digest(paths.safe_path(self.root, asset["path"]), asset["format"])
         return self._pixels[asset["sha256"]]
 
+    def _same_pixels(self, asset: Mapping[str, Any], result: Any) -> str | None:
+        """SHA-256 of a fresh download (``result``) that decodes to exactly the pixels of the archived ``asset`` (whose
+        file verifies), else None. The download is decoded with the same checks as an acquisition (:func:`lib.media.
+        inspect`); an undecodable download is left to the normal path, which records the decode failure."""
+        if asset["format"] not in schema.RASTER_FORMATS or self._file_problem(asset) is not None:
+            return None
+        try:
+            info = media.inspect(result.temp_path)
+        except (media.MediaError, OSError):
+            return None
+        if info["format"] not in schema.RASTER_FORMATS or (info["width"], info["height"]) != (asset["width"],
+                                                                                                asset["height"]):
+            return None
+        archived = self._pixel_digest(asset)
+        return info["sha256"] if archived and pixel_digest(Path(result.temp_path), info["format"]) == archived else None
+
+    def _keep_same_pixels(self, state: SourceState, draft: model.Draft, previous_asset: dict, sha256: str) -> None:
+        """A re-fetch of the candidate's URL returned other bytes with identical pixels (an App Store re-render writes a
+        new embedded identifier): the archived record stays current (no second copy, no supersession) and notes the
+        re-fetched SHA-256 (only the latest such note is kept)."""
+        sid = state.source_id
+        cid = schema.candidate_id(sid, draft.upstream_key)
+        refreshed = self._refresh_record(state.assets.get(previous_asset["id"], previous_asset), draft)
+        notes = REFETCH_NOTE_RE.sub("", refreshed.get("notes") or "")
+        refreshed["notes"] = append_note(" ".join(notes.split()), REFETCH_NOTE.format(date=self.now()[:10],
+                                                                                         sha256=sha256))
+        schema.validate_asset(refreshed, self.family)
+        state.assets[refreshed["id"]] = schema.canonical(refreshed, "asset")
+        state.candidates[cid] = candidate_record(sid, draft, "downloaded", asset_id=refreshed["id"])
+        for phase in ("download", "decode", "verify"):
+            state.failures.pop(schema.failure_id(cid, phase), None)
+        LOG.info("%s: re-fetched bytes %s decode to the archived pixels; %s kept", cid, sha256[:12],
+                 refreshed["id"])
+
+    def _settle_duplicates(self, state: SourceState, drafts: Mapping[str, model.Draft]) -> bool:
+        """No file that upstream currently lists may be represented only by a removed, superseded or unknown record.
+
+        A candidate of this run that is ``duplicate_bytes`` of such a record of this source (the file moved to a new
+        key, e.g. a renamed page link, or a candidate now serves another candidate's earlier revision) either restores
+        the record (still named by its own candidate: ``current`` again, noting the other listing) or adopts it: the
+        record becomes the candidate's current asset (same asset ID and file, ``upstream_status: current``) with a note
+        naming the candidate it was first archived for, and the candidate is ``downloaded``. Returns whether a record
+        changed."""
+        changed = False
+        for cid in sorted(state.candidates):
+            candidate, draft = state.candidates[cid], drafts.get(cid)
+            owner = state.assets.get(candidate.get("asset_id") or "")
+            if (candidate["disposition"] != "duplicate_bytes" or draft is None or owner is None
+                    or owner.get("upstream_status") in (None, "current")):
+                continue
+            holder = state.candidates.get(owner["candidate_id"])
+            if holder is not None and holder["disposition"] == "downloaded" and holder.get("asset_id") == owner["id"]:
+                self._mark_listed(state, owner)
+                restored = dict(state.assets[owner["id"]])
+                restored["notes"] = append_note(restored.get("notes"), ALSO_LISTED_NOTE.format(cid=cid))
+                schema.validate_asset(restored, self.family)
+                state.assets[owner["id"]] = schema.canonical(restored, "asset")
+                changed = True
+                continue
+            pointing = [asset for asset in state.assets.values()
+                        if asset.get("superseded_by") == owner["id"] and asset["candidate_id"] != cid]
+            if pointing and not owner.get("superseded_by"):
+                state.errors.append(model.discovery_error(
+                    "discover", stored_url(draft.page_url), f"{cid} lists the bytes of {owner['id']} "
+                    f"({owner.get('upstream_status')}), which ends the supersession chain of "
+                    + ", ".join(asset["id"] for asset in pointing) + "; kept as duplicate_bytes for review"))
+                continue
+            for asset in pointing:  # the adopted record leaves its former candidate's revision chain
+                relinked = dict(asset)
+                relinked["superseded_by"] = owner["superseded_by"]
+                state.assets[asset["id"]] = schema.canonical(relinked, "asset")
+            adopted = self._refresh_record(owner, draft)
+            adopted["notes"] = append_note(adopted.get("notes"), ADOPTED_NOTE.format(
+                old=owner["candidate_id"], status=owner.get("upstream_status"), date=self.now()[:10]))
+            schema.validate_asset(adopted, self.family)
+            state.assets[owner["id"]] = schema.canonical(adopted, "asset")
+            state.candidates[cid] = candidate_record(state.source_id, draft, "downloaded", asset_id=owner["id"])
+            LOG.warning("%s: adopted %s (first archived for %s, %s)", cid, owner["id"], owner["candidate_id"],
+                        owner.get("upstream_status"))
+            changed = True
+        return changed
+
     def _link_pixel_twins(self, state: SourceState) -> bool:
-        """Link current assets of one source whose files differ but decode to identical pixels (e.g. an App Store
-        rendition that embeds a per-response identifier): each names its twins in ``notes`` and the group shares a
-        ``variant_group`` (the members' one existing group, else ``pixels:<digest>``), so coverage does not count them
-        as distinct artworks. Returns whether a record changed."""
+        """Link current assets of one source whose files differ but decode to identical pixels (e.g. App Store
+        renditions of two uploads of one image, each carrying its own embedded identifier): each names its twins in
+        ``notes`` and the group shares a ``variant_group`` (the members' one existing group, else ``pixels:<digest>``),
+        so coverage does not count them as distinct artworks. Returns whether a record changed."""
         groups: dict[str, list[dict]] = {}
         for asset in sorted(state.assets.values(), key=lambda a: a["id"]):
             if asset.get("upstream_status") in (None, "current", "unknown"):
@@ -564,6 +654,13 @@ class Runner:
         self.downloads += 1
         new_id = schema.asset_id(sid, result.sha256)
         owner = state.assets.get(new_id)
+        if (owner is None and previous_asset is not None
+                and previous_asset.get("download_url") == stored_url(draft.file_url)):
+            same = self._same_pixels(state.assets.get(previous_asset["id"], previous_asset), result)
+            if same:  # other bytes, same picture: not a new upstream revision
+                Path(result.temp_path).unlink(missing_ok=True)
+                self._keep_same_pixels(state, draft, previous_asset, same)
+                return
         repaired = False
         if owner is not None:
             try:
@@ -720,10 +817,18 @@ class Runner:
         draft = copy.copy(draft)
         draft.original_filename = asset["original_filename"]
         draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, asset["path"]))
-        return asset_record(self.family, asset["source_id"], draft, info,
-                            content_type=asset["download_observed"]["content_type"],
-                            resolved_url=asset["resolved_url"], fetched_at=asset["fetched_at"],
-                            extra_notes=[*notes, *renamed])
+        record = asset_record(self.family, asset["source_id"], draft, info,
+                              content_type=asset["download_observed"]["content_type"],
+                              resolved_url=asset["resolved_url"], fetched_at=asset["fetched_at"],
+                              extra_notes=[*notes, *renamed])
+        carried = [match.group(0) for pattern in (ADOPTED_NOTE_RE, REFETCH_NOTE_RE)
+                   for match in pattern.finditer(asset.get("notes") or "")]
+        if not carried:
+            return record
+        for note in carried:  # provenance of these bytes, not seed description: kept across refreshes
+            record["notes"] = append_note(record.get("notes"), note)
+        schema.validate_asset(record, self.family)
+        return schema.canonical(record, "asset")
 
     def _md5_evidence(self, draft: model.Draft, file: Path) -> tuple[model.Draft, list[str]]:
         """Compare the file's MD5 with the upstream name token (TapTap names uploads by their MD5). A mismatch means
@@ -894,6 +999,17 @@ class Runner:
         manifest.write_json_atomic(paths.safe_path(self.root, paths.discovery_relpath(sid)), snapshot)
         manifest.write_json_atomic(paths.safe_path(self.root, paths.manifest_relpath(self.family)), updated)
         self.manifest = updated
+
+
+def pixel_digest(path: Path, fmt: str) -> str | None:
+    """SHA-256 of the decoded first frame of a raster file as RGBA (with its size), None when it cannot be decoded."""
+    try:
+        with Image.open(path, formats=["JPEG", "MPO"] if fmt == "JPEG" else [fmt]) as image:
+            image.seek(0)
+            frame = image.convert("RGBA")
+            return hashlib.sha256(f"{frame.width}x{frame.height}:".encode() + frame.tobytes()).hexdigest()
+    except (OSError, ValueError, SyntaxError, EOFError, Image.DecompressionBombError):
+        return None
 
 
 def compute_status(counts: Mapping[str, int], complete: bool, has_assets: bool, failures: list[dict]) -> str:
@@ -1095,6 +1211,14 @@ def verify_family(root: str | os.PathLike[str], family: str,
         counts = schema.reconcile(current, snapshots, other_assets=others)
     except ValueError as error:
         errors.append(f"reconcile: {error}")
+    own = {asset["id"]: asset for asset in current["assets"]}
+    for snapshot in snapshots.values():
+        for candidate in snapshot["candidates"]:
+            target = own.get(candidate.get("asset_id") or "")
+            if (candidate["disposition"] == "duplicate_bytes" and target is not None
+                    and target.get("upstream_status") not in (None, "current")):
+                warnings.append(f"{candidate['id']}: duplicate_bytes of {target['id']}, whose upstream_status is "
+                                f"{target['upstream_status']!r}: a listed file is represented only by that record")
     artists = artist_candidates(root)
     for asset in current["assets"]:
         try:

@@ -85,7 +85,8 @@ class AppleTests(OfficialTestCase):
             self.assertEqual(found[key]["file_url"], url)
             self.assertEqual(found[key]["disposition"], "downloaded")
             self.assertEqual(found[key]["source_reported"]["url"], url[: -len("png")] + "jpeg")
-            self.assertEqual(found[key]["source_reported"]["mime"], "image/jpeg")
+            # The stored PNG is another rendition by construction: the advertised JPEG format is not comparable.
+            self.assertIsNone(found[key]["source_reported"]["mime"])
             self.assertIn("lossless rendition", found[key]["notes"])
         self.assertEqual(found["phone:video-2"]["disposition"], "excluded")  # trailer item
         self.assertTrue(found["phone:video-2"]["reason"].startswith("video_placeholder"))
@@ -95,7 +96,7 @@ class AppleTests(OfficialTestCase):
         phone = next(a for a in assets if a["candidate_id"].endswith("f09cad41-0b41-d96d-5c48-be8c76b110f4"))
         self.assertEqual((phone["source_reported"]["width"], phone["width"]), (2688, 80))
         self.assertIs(phone["comparisons"]["dimensions_match"], False)
-        self.assertIs(phone["comparisons"]["format_match"], False)  # advertised JPEG variant, requested PNG
+        self.assertIsNone(phone["comparisons"]["format_match"])  # advertised JPEG variant, requested PNG
         self.assertEqual(phone["format"], "PNG")
         self.assertIn("lossless rendition", phone["notes"])  # candidate notes reach the asset record
         self.assertTrue(phone["quality"]["notes"].startswith("Apple's PNG rendition of the PNG upload at native size"))
@@ -125,7 +126,9 @@ class AppleTests(OfficialTestCase):
         shared = found["lookup:4b59219a-06f6-3e05-317d-595eca968375"]
         self.assertTrue(shared["file_url"].endswith("/pr_source.png/4000x4000bb.png"))  # the upload's format
         self.assertTrue(shared["source_reported"]["url"].endswith("/pr_source.png/392x696bb.jpg"))  # as advertised
-        self.assertEqual(shared["source_reported"]["mime"], "image/jpeg")
+        self.assertIsNone(shared["source_reported"]["mime"])  # a JPEG rendition was advertised, a PNG one stored
+        self.assertEqual(apple.same_format_mime("https://e.test/a.png/1x1bb.jpg", "https://e.test/a.png/9x9bb.jpg"),
+                         "image/jpeg")
         self.assertIn("us:phone1", shared["notes"])
         self.assertIn("jp:phone2", shared["notes"])
         self.assertIn("lookup:92092603-00f8-d690-9f01-b4437bda3e80", found)
@@ -259,9 +262,12 @@ class TapTapTests(OfficialTestCase):
         self.assertIn("enlarged from a 888x500 crop to 1920x1080", rendition["reason"])
         self.assertEqual(found["banner:4395ff13f01cca52f28efb2a1694bce9.jpg"]["disposition"], "downloaded")
         banner = next(a for a in self.manifest()["assets"] if "banner" in a["candidate_id"])
-        # The page lists only the rendition: it stays source_reported; the derived upload URL is only downloaded.
+        # The page lists only the rendition: its URL stays source_reported.url, the derived upload URL is only
+        # downloaded, and the rendition's size and format (another rendition by construction) are not compared.
         self.assertEqual(banner["source_reported"]["url"], rendition["file_url"])
-        self.assertEqual((banner["source_reported"]["width"], banner["source_reported"]["height"]), (1920, 1080))
+        self.assertEqual([banner["source_reported"][k] for k in ("width", "height", "mime", "bytes")], [None] * 4)
+        self.assertEqual(set(banner["comparisons"].values()), {None})
+        self.assertIn("thumbnail_1920x1080.jpg (1920x1080 advertised)", banner["notes"])
         self.assertEqual(banner["download_url"], f"{base}4395ff13f01cca52f28efb2a1694bce9.jpg")
         self.assertTrue(found["icon:23c51666ae309b07d5f4fe5d888157e5.png"]["reason"].startswith("game_ui"))
         assets = {a["candidate_id"].split(":", 2)[2]: a for a in self.manifest()["assets"]}
@@ -276,6 +282,33 @@ class TapTapTests(OfficialTestCase):
         self.assertIs(assets[f"screenshot:{token}"]["comparisons"]["bytes_match"], False)
         self.verify()
 
+
+    def test_every_trailer_poster_frame_is_accounted_for(self):
+        page = text("taptap_app.html")
+        head, rest = page.split('data-ssr="true">', 1)
+        body, tail = rest.split("</script>", 1)
+        payload = json.loads(body)
+        app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
+        posters = ["https://img-tc.tapimg.com/video-picture/1001/first.jpg",
+                   "https://img-tc.tapimg.com/video-picture/1002/first.jpg"]
+        for url in posters:
+            base_index = len(payload)
+            payload += [{"video": base_index + 1}, {"thumbnail": base_index + 2}, {"original_url": base_index + 3}, url]
+            payload[app["app_videos"]].append(base_index)
+        page = head + 'data-ssr="true">' + json.dumps(payload) + "</script>" + tail
+        network = FakeNetwork({"https://www.taptap.cn/app/7082": {"text": page}})
+        seed = {"id": "official:taptap", "name": "TapTap", "url": "https://www.taptap.cn/app/7082",
+                "platform": "taptap", "adapter": "taptap_app", "params": {"identifier": "com.c4cat.dynamix"},
+                "quality": QUALITY, "items": [{"url": "https://www.taptap.cn/app/7082"}], "rules": []}
+        self.run_family([seed], network)
+        found = self.candidates("official:taptap")
+        for url in posters:
+            key = "video-poster:" + url.split("tapimg.com/", 1)[1]
+            self.assertEqual(found[key]["disposition"], "excluded")
+            self.assertTrue(found[key]["reason"].startswith("video_placeholder"))
+            self.assertEqual(found[key]["file_url"], url)
+        self.assertFalse(any(m == "download" and "video-picture" in u for m, u in network.calls))  # never fetched
+        self.verify()
 
     def test_reencoded_copy_names_the_byte_exact_upload_archived_elsewhere(self):
         upload = image_bytes("PNG", (128, 72), (1, 2, 3))  # what Google Play =s0 serves
@@ -541,15 +574,21 @@ class IsolationTests(OfficialTestCase):
 
 class CliTests(OfficialTestCase):
     def test_verify_on_the_contract_fixture(self):
-        # The shared contract fixture records official:apple-store without its discovery snapshot; every manifest
-        # source needs one, so that is the only error. With a snapshot added, the fixture verifies.
+        # Every manifest source needs its discovery snapshot. Until the contracts owner adds the shared fixture's
+        # official:apple-store snapshot (requested), its absence must be the only error; once added, the fixture as
+        # committed must verify. A copy with a snapshot added verifies either way.
+        fixture = ROOT / "tests/fixtures/contract"
         out = io.StringIO()
         with redirect_stdout(out):
-            code = cli.main("official", ["--verify", "--root", str(ROOT / "tests/fixtures/contract")])
-        self.assertEqual(code, 1, out.getvalue())
-        self.assertEqual([line.strip() for line in out.getvalue().splitlines() if "ERROR" in line],
-                         ["ERROR: official:apple-store: no valid discovery snapshot at data/discovery/apple-store.json"])
-        shutil.copytree(ROOT / "tests/fixtures/contract", self.root / "contract")
+            code = cli.main("official", ["--verify", "--root", str(fixture)])
+        if (fixture / "data/discovery/apple-store.json").exists():
+            self.assertEqual(code, 0, out.getvalue())
+        else:
+            self.assertEqual(code, 1, out.getvalue())
+            self.assertEqual([line.strip() for line in out.getvalue().splitlines() if "ERROR" in line],
+                             ["ERROR: official:apple-store: no valid discovery snapshot at "
+                              "data/discovery/apple-store.json"])
+        shutil.copytree(fixture, self.root / "contract")
         manifest.write_json_atomic(self.root / "contract/data/discovery/apple-store.json", {
             "schema_version": 1, "source_id": "official:apple-store", "started_at": FIXED_NOW, "finished_at": FIXED_NOW,
             "scope": {"lists": ["product-media-shelves"], "api": None, "notes": "test"},

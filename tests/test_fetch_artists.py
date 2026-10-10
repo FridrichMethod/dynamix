@@ -368,6 +368,18 @@ class MatchingTests(unittest.TestCase):
         self.assertIsNotNone(locate("kRM & 残響P", {"d": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」"},
                                     "composer"))
         self.assertIsNone(locate("Yunosuke", {"d": "Made the cover for Yunosuke!"}, "composer"))
+        # 曲絵 / 楽曲絵 / 楽曲イラスト ("the song's artwork") label an illustrator only, never a composer; a bare 曲 label
+        # (曲：X, 曲・絵：X) still credits the composer.
+        for text in ("曲絵：さとう", "楽曲絵: さとう", "楽曲イラスト：さとう", "曲ジャケ：さとう"):
+            self.assertIsNone(locate("さとう", {"d": text}, "composer"), text)
+            self.assertIsNotNone(locate("さとう", {"d": text}, "illustrator"), text)
+        self.assertIsNotNone(locate("さとう", {"d": "曲：さとう"}, "composer"))
+        self.assertIsNotNone(locate("さとう", {"d": "曲・絵：さとう"}, "composer"))
+        self.assertIsNotNone(locate("さとう", {"d": "曲・絵：さとう"}, "illustrator"))
+        # "Cover by X" is a vocal/remix cover; only a cover-art label credits the illustrator.
+        self.assertIsNone(locate("Alice", {"d": "Cover by Alice (vocal cover of the original)"}, "illustrator"))
+        for text in ("Cover: Alice", "Cover art by Alice", "Cover illustration: Alice", "Cover image by Alice"):
+            self.assertIsNotNone(locate("Alice", {"d": text}, "illustrator"), text)
         # The label must lead to the name (directly, or through a list of names), not merely precede it.
         self.assertIsNone(locate("Kplecraft", {"d": 'Included in the music package "Kplecraft Collection" of'},
                                  "composer"))
@@ -464,6 +476,45 @@ class MatchingTests(unittest.TestCase):
         self.assertNotIn("notes", named)
         plain = model.asset_meta({"role": "song_art"}, [], "https://e.test/p", quality, default)
         self.assertEqual(plain["rights"]["holder"], default["holder"])
+
+    def test_a_collaboration_collection_needs_partner_associations(self):
+        rule = {"match": "^a$", "role": "promotional", "collections": ["Berry Melody Collaboration"]}
+        with self.assertRaisesRegex(ValueError, "collaboration collection needs game_associations"):
+            model.check_rule(rule, "rule")
+        model.check_rule({**rule, "game_associations": ["dynamix", "berry_melody"]}, "rule")
+        model.check_rule({**rule, "action": "pending", "reason": "pending: review"}, "rule")  # nothing admitted
+        model.check_rule({"match": "^a$", "role": "promotional", "collections": ["Event"]}, "rule")
+
+    def test_committed_partner_art_names_its_partners(self):
+        seeds = {seed["id"]: seed for family in ("artists", "official")
+                 for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json", family)}
+
+        def rule(source_id, match):
+            return next(r for r in seeds[source_id]["rules"] if r.get("match") == match)
+
+        berry = rule("official:x", "^1889645633545613724:1$")
+        self.assertEqual(berry["game_associations"], ["dynamix", "berry_melody"])
+        # The image itself prints both notices; the record names both holders, never C4Cat alone.
+        self.assertEqual(berry["rights"]["holder"], "Sky Way Studio and C4Cat Entertainment Limited")
+        for source_id, match, event in (("artists:soundcloud:linne_ennil", "^whirlwind$", "PABAT! 2017"),
+                                        ("artists:soundcloud:sctl_shin", "^venus\\-invader$", "PABAT! 2018")):
+            entry = rule(source_id, match)
+            self.assertEqual(entry["game_associations"], ["dynamix", "bms"], source_id)
+            self.assertIn(event, entry["evidence_quotes"])
+            self.assertNotIn("holder", entry.get("rights", {}))  # so the partner rule leaves the holder null
+
+    def test_committed_song_art_credits_follow_one_rule(self):
+        # Mapped song art either credits its illustrator (with a cited source) or says why not; a credit never lives
+        # only in free-text variant_role.
+        for family in ("artists", "official", "archives"):
+            for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json", family):
+                for rule in seed.get("rules", []):
+                    if rule.get("action", "download") != "download" or rule.get("role") != "song_art":
+                        continue
+                    where = f"{seed['id']} {rule.get('match')}"
+                    self.assertNotIn("wiki:", rule.get("variant_role", ""), where)
+                    if rule.get("mapping_status", "unmapped") != "unmapped" and not rule.get("illustrators"):
+                        self.assertIn("Illustrator not credited", rule.get("notes", ""), where)
 
     def test_load_seeds_rejects_a_wrong_game_on_a_download_rule(self):
         seed = dict(direct_seed([{"match": "^a$", "role": "song_art", "game": "dynamix_universe"}]))

@@ -41,6 +41,7 @@ RULE_FIELDS = {
 ADMITTED_GAMES = ("dynamix", "mixed")  # the only games a download rule may assert (schema: accepted candidates)
 REJECTED_RE = re.compile(r"rejected\s+submission", re.IGNORECASE)
 UNIVERSE_RE = re.compile(r"dynamix\s*universe", re.IGNORECASE)
+COLLABORATION_RE = re.compile(r"collab|コラボ|联动|聯動", re.IGNORECASE)
 QUOTE_MAX = 300
 EXCERPT_CONTEXT = 40
 
@@ -195,6 +196,10 @@ def check_rule(rule: Mapping[str, Any], where: str) -> None:
         raise ValueError(f"{where}: variant_role requires variant_group")
     if rule.get("game_associations") and schema.GAME not in rule["game_associations"]:
         raise ValueError(f"{where}: game_associations must include {schema.GAME!r}")
+    if action == "download" and not rule.get("game_associations") and any(
+            COLLABORATION_RE.search(name) for name in rule.get("collections", [])):
+        raise ValueError(f"{where}: a collaboration collection needs game_associations naming the partner (so the "
+                         "C4Cat default rights holder is not applied to partner art)")
     for index, entry in enumerate(rule.get("primary_evidence", [])):
         if not isinstance(entry, dict) or not all(isinstance(entry.get(k), str) and entry[k].strip()
                                                   for k in ("url", "quote")):
@@ -238,15 +243,21 @@ def _term_pattern(term: str) -> re.Pattern[str] | None:
 
 
 _ASCII_WORD = r"(?<![0-9A-Za-z]){}(?![0-9A-Za-z])"
+# ``曲`` / ``楽曲`` directly followed by a picture word is an illustration label (``曲絵``, ``楽曲イラスト``: the song's
+# artwork), never a joint composer+illustrator label.
+_SONG_PICTURE = r"(?!絵|イラスト|ジャケ|画)"
 ROLE_TERMS = {  # labels that state a credit's role, in the languages the sources use (BGA/movie credits are videos)
     "illustrator": re.compile("|".join([
-        _ASCII_WORD.format(r"(?:illust\w*|art\s*works?|art|jackets?|covers?|visual\w*|drawn|drawing|"
-                           r"painted|pic(?:ture)?\s*by)"),
+        # ``cover`` alone is also a vocal/remix cover ("Cover by X"): only ``Cover:`` or ``Cover art/illustration/
+        # image/design/picture`` labels the artwork.
+        _ASCII_WORD.format(r"(?:illust\w*|art\s*works?|art|jackets?|cover\s*(?:image|design)s?|"
+                           r"covers?(?=\s*(?:[:：=]|art|illust|pic))|visual\w*|drawn|drawing|painted|pic(?:ture)?\s*by)"),
         "イラストレーター", "イラストレーション", "イラスト", "ジャケット", "ジャケ写", "ジャケ", "アートワーク", "絵師", "絵",
         "插画", "插圖", "画师", "美术", "封面"]), re.IGNORECASE),
     "composer": re.compile("|".join([
         _ASCII_WORD.format(r"(?:music\w*|compos\w*|arrang\w*|track\s*by|sound)"),
-        "作編曲", "作曲", "編曲", "编曲", "楽曲提供", "楽曲", "音楽", "音乐", "曲"]), re.IGNORECASE),
+        "作編曲", "作曲", "編曲", "编曲", "楽曲提供", f"楽曲{_SONG_PICTURE}", "音楽", "音乐", f"曲{_SONG_PICTURE}"]),
+        re.IGNORECASE),
 }
 # What may stand between a credit label and the credited name: separators (``: ``, `` by ``, ``は``, ``@``), a joined
 # label word (``Composition/Vocal:``) and earlier names of the same list (``Composed by A and B``, ``A & B``, ``A X B``).

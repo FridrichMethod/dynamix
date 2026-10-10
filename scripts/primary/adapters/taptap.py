@@ -5,7 +5,8 @@ it. The app object (the one with ``screenshots`` and ``identifier``) lists image
 ``original_format``, ``width``, ``height`` and ``original_size``; the transform suffixes (``/_tap_screenshot.jpg``) are
 previews. ``original_url`` is downloaded, the advertised size/bytes are kept as ``source_reported``, and the 32-hex
 name token is compared with the file's MD5 as extra evidence of an untouched upload. The banner, when it is the trailer
-thumbnail, is a ``video_placeholder`` and the icon a ``game_ui`` exclusion.
+thumbnail, is a ``video_placeholder`` and the icon a ``game_ui`` exclusion; every other trailer poster frame of
+``app_videos`` is a ``video_placeholder`` exclusion too, so each image of the payload is accounted for.
 """
 
 from __future__ import annotations
@@ -109,8 +110,10 @@ def banner_drafts(ctx: Any, seed: Mapping[str, Any], banner: Mapping[str, Any], 
                   texts: Mapping[str, str], evidence: list[str], missing: list[str]) -> list[model.Draft]:
     """The banner: a trailer thumbnail is a ``video_placeholder``; a ``<md5>_crop_..._thumbnail_WxH`` URL is TapTap's
     cropped and resized rendition (see :func:`rendition_reason`), so the base ``<md5>.<ext>`` upload becomes the
-    candidate that seed rules classify. The page advertises only the rendition: its URL and size stay the upload
-    candidate's ``source_reported``; the derived upload URL is only the download URL."""
+    candidate that seed rules classify. The page advertises only the rendition: its URL stays the upload candidate's
+    ``source_reported.url`` (its size goes to the candidate notes, not ``source_reported``: the upload is another
+    rendition by construction, so the advertised size and format are not comparable with it); the derived upload URL
+    is only the download URL."""
     url = banner["original_url"]
     key = f"banner:{base.last_segment(url)}"
     match = _RENDITION.match(url)
@@ -122,7 +125,9 @@ def banner_drafts(ctx: Any, seed: Mapping[str, Any], banner: Mapping[str, Any], 
                             source_reported=advertised,
                             reason="video_placeholder: banner is the trailer video thumbnail")]
     drafts = []
+    upload_reported = advertised
     if match:
+        upload_reported = base.reported(url=url)
         drafts.append(model.Draft(
             upstream_key=key, page_url=page_url, title="TapTap banner (platform rendition)", action="excluded",
             file_url=base.stored(url), game="dynamix", game_evidence=evidence, source_reported=advertised,
@@ -134,13 +139,28 @@ def banner_drafts(ctx: Any, seed: Mapping[str, Any], banner: Mapping[str, Any], 
         base.identity_rule(model.find_rule(base.rules(seed), key), missing), key=key, page_url=page_url, texts=texts,
         file_url=base.stored(url), default_title="TapTap banner", default_quality=ctx.quality,
         default_rights=ctx.rights, original_filename=base.last_segment(url), base_evidence=evidence,
-        source_reported=advertised)
+        source_reported=upload_reported)
     draft.md5_token = token.group(1) if token else None
     if match:
-        note = (f"The page lists only the rendition {base.last_segment(banner['original_url'])}; "
+        size = (f" ({banner['width']}x{banner['height']} advertised)" if banner.get("width") and banner.get("height")
+                else "")
+        note = (f"The page lists only the rendition {base.last_segment(banner['original_url'])}{size}; "
                 f"{base.last_segment(url)} is the upload its name derives from.")
         draft.candidate_extra["notes"] = " ".join(filter(None, [draft.candidate_extra.get("notes"), note]))
     drafts.append(draft)
+    return drafts
+
+
+def poster_drafts(urls: set, page_url: str, evidence: list[str]) -> list[model.Draft]:
+    """``video_placeholder`` exclusions for trailer poster frames (``.../video-picture/<id>/first.jpg``), keyed by the
+    URL path below the host so that two videos' ``first.jpg`` frames stay distinct."""
+    drafts = []
+    for url in sorted(u for u in urls if isinstance(u, str) and u):
+        path = url.split("://", 1)[-1].split("/", 1)[-1].split("?", 1)[0]
+        drafts.append(model.Draft(upstream_key=f"video-poster:{path}", page_url=page_url, title="TapTap trailer poster",
+                                  action="excluded", file_url=base.stored(url), game="dynamix",
+                                  game_evidence=evidence,
+                                  reason="video_placeholder: trailer poster frame listed with the app's videos"))
     return drafts
 
 
@@ -205,6 +225,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         if banner:
             discovery.candidates.extend(banner_drafts(ctx, seed, banner, thumbnails, page_url, texts, evidence,
                                                       missing))
+        discovery.candidates.extend(poster_drafts(thumbnails - {banner["original_url"] if banner else None}, page_url,
+                                                  evidence))
         if icon:
             discovery.candidates.append(model.Draft(
                 upstream_key=f"icon:{base.last_segment(icon['original_url'])}", page_url=page_url,
