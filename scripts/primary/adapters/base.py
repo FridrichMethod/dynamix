@@ -47,6 +47,14 @@ def mark_unread(discovery: model.Discovery, list_name: str, error: Any) -> None:
         discovery.continuation[list_name] = f"not-read:{getattr(error, 'error_class', None) or type(error).__name__}"
 
 
+def listed_on(pages: set[str]) -> Any:
+    """Coverage predicate (``Discovery.coverage``): a previous candidate is covered by a list when its page is one of
+    the ``pages`` this run read completely (a page-read failure candidate ``page:<url>`` never is)."""
+    def covers(candidate: Mapping[str, Any]) -> bool:
+        return candidate.get("page_url") in pages and not str(candidate.get("upstream_key", "")).startswith("page:")
+    return covers
+
+
 def page_key(url: str) -> str:
     """Candidate key of a seed page whose read failed (one per page, so several failed pages never collide)."""
     return f"page:{url}"

@@ -3,7 +3,8 @@
 Evidence is the page's own metadata: SoundCloud's server-rendered ``window.__sc_hydration`` sound object (title,
 description, uploader, ``artwork_url``), otherwise JSON-LD (``name``, ``description``, ``creditText``) and Open Graph
 tags. The cover is upgraded to the platform's largest stored rendition (Bandcamp ``_0``, SoundCloud ``-original``);
-those are platform-served files, so a cover is never called the illustrator's master. A release cover is **external
+those are platform-served files, so a cover is never called the illustrator's master. ``source_reported.url`` keeps the
+rendition the page advertises (``artwork_url``, ``og:image``); the upgraded URL is only the download URL. A release cover is **external
 release art** until a seed rule ties it to the in-game jacket, and a page that announces a *rejected submission* is
 excluded by the model guard regardless of any Dynamix keyword on it. With ``params.handle`` the uploader's SoundCloud
 permalink must match, otherwise the candidate is held as ``pending``.
@@ -95,6 +96,15 @@ def soundcloud_tracks(html: str, handle: str) -> tuple[list[str], int | None]:
     return found, count
 
 
+def account_tracks(handle: str) -> Any:
+    """Coverage predicate of a ``tracks:<handle>`` list: a previous candidate on one of the account's track pages."""
+    prefix = f"https://soundcloud.com/{handle}/"
+
+    def covers(candidate: Mapping[str, Any]) -> bool:
+        return str(candidate.get("page_url") or "").startswith(prefix)
+    return covers
+
+
 def listed_items(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery) -> list[dict]:
     """The seed's explicit items plus every track its ``tracks_of`` lists name (explicit items win)."""
     items = [item for item in seed["items"] if "tracks_of" not in item]
@@ -104,6 +114,7 @@ def listed_items(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery) 
             continue
         handle, name = item["tracks_of"], f"tracks:{item['tracks_of']}"
         url = f"https://soundcloud.com/{handle}/tracks"
+        discovery.coverage[name] = account_tracks(handle)
         try:
             html, _, _ = ctx.client.get_text(url)
         except net.FetchError as error:
@@ -171,7 +182,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if base.meta_content(document, name):
                 texts[name] = base.meta_content(document, name)
         og_image = base.meta_content(document, "og:image")
-        cover = original_cover(image if sound is not None else (og_image or image))
+        advertised = image if sound is not None else (og_image or image)  # what the page itself serves
+        cover = original_cover(advertised)
         rule = model.find_rule(base.rules(seed), key)
         if "sc.uploader_mismatch" in texts:
             rule = model.hold(rule, f"pending: uploader {texts['sc.uploader_mismatch']} is not this source's "
@@ -180,7 +192,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             rule, key=key, page_url=page_url, texts=texts, file_url=base.stored(cover),
             default_title=texts.get("sc.title") or texts.get("og:title") or title, default_quality=ctx.quality,
             default_rights=ctx.rights, original_filename=base.last_segment(cover) if cover else None,
-            base_evidence=[page_url], source_reported=base.reported(url=cover, timestamp=reported_time))
+            base_evidence=[page_url], source_reported=base.reported(url=advertised, timestamp=reported_time))
         if item.get("notes") and "notes" not in draft.candidate_extra:
             draft.candidate_extra["notes"] = item["notes"]
         discovery.candidates.append(draft)

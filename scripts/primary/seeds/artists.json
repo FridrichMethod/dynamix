@@ -66,6 +66,10 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/16383",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44030)"
           }
         },
         {
@@ -92,6 +96,10 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Nanohemu",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50287)"
           }
         },
         {
@@ -117,6 +125,10 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Okesuchi",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49664)"
           }
         }
       ]
@@ -176,7 +188,11 @@
             "yoshimo"
           ],
           "variant_role": "square release cover",
-          "variant_group": "jacket:file-ceb410a8"
+          "variant_group": "jacket:file-ceb410a8",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E5%93%80%E3%81%97%E3%81%84%E7%AB%9C%E3%81%A8%E3%82%AB%E3%82%A4%E3%83%84%E3%83%BC%E3%83%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50642)"
+          }
         },
         {
           "match": "^dynamix\\-1$",
@@ -202,6 +218,10 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136)"
           }
         }
       ]
@@ -303,6 +323,10 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%8E%B2%E7%93%8F%E3%83%A1%E3%83%86%E3%82%AA",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44882)"
           }
         }
       ]
@@ -362,7 +386,11 @@
           ],
           "variant_role": "square release cover",
           "variant_group": "jacket:file-30604f03",
-          "notes": "The page does not mention Dynamix; same illustration as the wiki jacket per research visual comparison."
+          "notes": "The page does not mention Dynamix; same illustration as the wiki jacket per research visual comparison.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%81%BB%E3%81%97%E3%81%9E%E3%82%89%E3%83%88%E3%83%A9%E3%83%99%E3%83%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49786)"
+          }
         },
         {
           "match": "^feat\\-dl\\-free$",
@@ -375,14 +403,18 @@
             "眞緒"
           ],
           "composers": [
-            "奏音"
+            "奏音 feat. 駄々子"
           ],
           "evidence_quotes": [
             "眞緒"
           ],
           "variant_role": "square release cover",
           "variant_group": "jacket:file-b6063973",
-          "notes": "Same illustration as the wiki jacket per research visual comparison."
+          "notes": "Same illustration as the wiki jacket per research visual comparison.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E5%A4%8F%E8%89%B2%E3%83%A1%E3%83%A9%E3%83%B3%E3%82%B3%E3%83%AA%E3%83%BC",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50409)"
+          }
         }
       ]
     },
@@ -437,7 +469,11 @@
             "Illustration by Keiyuu"
           ],
           "variant_role": "square composition with title/composer/KEIYUU text overlay",
-          "variant_group": "jacket:venus-invader"
+          "variant_group": "jacket:venus-invader",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/VENUS_INVADER",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50374)"
+          }
         }
       ]
     },
@@ -497,7 +533,11 @@
             "ravon"
           ],
           "variant_role": "framed square layout (RAVON 'Squared' version)",
-          "variant_group": "jacket:rave-and-get-on-it"
+          "variant_group": "jacket:rave-and-get-on-it",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Rave!_and_Get_on_it!",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49713)"
+          }
         }
       ]
     },
@@ -569,7 +609,11 @@
           "quality": {
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (3000x3000 square of a composition credited as BGA; upscaling unknown); not verified, so it is not a confirmed high-resolution original."
           },
-          "notes": "Coordinator review: suspected upscale (see quality notes) before counting it as a >=1920 px original."
+          "notes": "Coordinator review: suspected upscale (see quality notes) before counting it as a >=1920 px original.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/GIFT",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50228)"
+          }
         },
         {
           "match": "^notoriousnota\\-trial\\-wing$",
@@ -586,7 +630,11 @@
             "WING"
           ],
           "variant_role": "square layout of the jacket art; the page names no illustrator (wiki: KinCraft)",
-          "variant_group": "jacket:wing"
+          "variant_group": "jacket:wing",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/WING",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 41855)"
+          }
         },
         {
           "match": "^dynamixnova$",
@@ -612,7 +660,11 @@
             "lyrica"
           ],
           "variant_role": "square crop of the jacket",
-          "variant_group": "jacket:nova"
+          "variant_group": "jacket:nova",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/NOVA",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50453)"
+          }
         }
       ]
     },
@@ -701,7 +753,7 @@
             "ケシｋｓくん"
           ],
           "composers": [
-            "Tezuka"
+            "テヅカ"
           ],
           "evidence_quotes": [
             "dynamix"
@@ -721,7 +773,7 @@
               "quote": "アートワーク：https://twitter.com/KeshiksExt"
             }
           ],
-          "notes": "The page credits the artwork to the X account KeshiksExt (ケシｋｓくん on the wiki); the uploader Tezuka is テヅカ on the wiki."
+          "notes": "The page credits the artwork to the X account KeshiksExt (ケシｋｓくん on the wiki); the composer credit follows the wiki (テヅカ), the uploader account is Tezuka."
         }
       ]
     },
@@ -844,7 +896,20 @@
           ],
           "variant_role": "square release layout with title lettering (lower resolution than the wiki jacket)",
           "variant_group": "jacket:jack-out-killer",
-          "notes": "Credits as written on the page; the wiki writes MisoilePunch♪ 〜タケノコ添え～ and HaltquinZ♠♥♣♦ (Rinne.6×ましろま)."
+          "notes": "Credits as written on the page; the wiki writes MisoilePunch♪ 〜タケノコ添え～ and HaltquinZ♠♥♣♦ (Rinne.6×ましろま).",
+          "credit_evidence": [
+            {
+              "role": "composer",
+              "name": "MisoilePunch~タケノコ添え~",
+              "url": "https://soundcloud.com/misomyl/jack-out-killer",
+              "field": "sc.description",
+              "quote": "MisoilePunch~タケノコ添え~名義曲となります Dynamixに収録予定です"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Jack_Out_KIllER",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50442)"
+          }
         }
       ]
     },
@@ -901,7 +966,11 @@
             "Keiyuu"
           ],
           "variant_role": "square crop with 'WIND' title text",
-          "variant_group": "jacket:whirlwind"
+          "variant_group": "jacket:whirlwind",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/WHIRLWIND",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50382)"
+          }
         }
       ]
     },
@@ -965,7 +1034,11 @@
             "bms"
           ],
           "variant_role": "circular-vignette square with title and logo (BOF:ET upload)",
-          "variant_group": "jacket:ngstlicher-vermeidender-813ad468"
+          "variant_group": "jacket:ngstlicher-vermeidender-813ad468",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%C3%84ngstlicher_Vermeidender",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50396)"
+          }
         },
         {
           "match": "^raving\\-in\\-halloween$",
@@ -985,7 +1058,11 @@
             "PeerPiperWorks"
           ],
           "variant_role": "square crop with the title at the bottom",
-          "variant_group": "jacket:raving-in-halloween"
+          "variant_group": "jacket:raving-in-halloween",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Raving_in_Halloween",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50319)"
+          }
         }
       ]
     },
@@ -1049,7 +1126,11 @@
             "MLG"
           ],
           "variant_role": "square layout with 'MLG / VAU BOY' text; the page gives no illustrator (wiki: Luxan)",
-          "variant_group": "jacket:mlg"
+          "variant_group": "jacket:mlg",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MLG",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49948)"
+          }
         }
       ]
     },
@@ -1222,7 +1303,11 @@
             "Sushi Tornado"
           ],
           "variant_role": "full uncropped illustration with HALV logo overlay",
-          "variant_group": "jacket:sushi-tornado"
+          "variant_group": "jacket:sushi-tornado",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Sushi_Tornado",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50550)"
+          }
         }
       ]
     },
@@ -1327,7 +1412,11 @@
             "overrapid"
           ],
           "variant_role": "square centre crop without the title text",
-          "variant_group": "jacket:daydream"
+          "variant_group": "jacket:daydream",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Daydream",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44921)"
+          }
         },
         {
           "match": "^bofu2016\\-unshakable$",
@@ -1396,6 +1485,10 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/OCCHOCO-REST-LESS",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49751)"
           }
         },
         {
@@ -1490,7 +1583,11 @@
             "國春"
           ],
           "variant_role": "square crop",
-          "variant_group": "jacket:wish"
+          "variant_group": "jacket:wish",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Wish",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50387)"
+          }
         }
       ]
     },
@@ -1545,7 +1642,11 @@
             "deronoitz"
           ],
           "variant_role": "low-resolution close crop",
-          "variant_group": "jacket:nova-highway"
+          "variant_group": "jacket:nova-highway",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Nova_Highway",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49807)"
+          }
         }
       ]
     },
@@ -1590,8 +1691,7 @@
           ],
           "mapping_status": "inferred",
           "illustrators": [
-            "lemonade;",
-            "Rumskii"
+            "lemonade; & Rumskii"
           ],
           "composers": [
             "Nordius Dystancius"
@@ -1605,7 +1705,12 @@
             "bms"
           ],
           "variant_role": "square title variant of the BMS key visual",
-          "variant_group": "jacket:luxvinore"
+          "variant_group": "jacket:luxvinore",
+          "notes": "The page credits lemonade; & Rumskii for the movie only; the cover credit follows the wiki (lemonade; & Rumskii).",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Luxvinore",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50266)"
+          }
         }
       ]
     },
@@ -1741,7 +1846,11 @@
             "Illustrated by Nano"
           ],
           "variant_role": "square crop (track is the Original Edition, not the Dynamix Edition)",
-          "variant_group": "jacket:elph-s-sadness-dynamix-edition"
+          "variant_group": "jacket:elph-s-sadness-dynamix-edition",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition-",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50206)"
+          }
         },
         {
           "match": "^dynamix\\-circle\\-2\\-gallium\\-nitride\\-blue\\-light$",
@@ -1757,7 +1866,11 @@
             "Dynamix"
           ],
           "variant_role": "close-up variant; no illustrator credit on the page",
-          "variant_group": "jacket:gallium-nitride"
+          "variant_group": "jacket:gallium-nitride",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Gallium_Nitride",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225)"
+          }
         },
         {
           "match": "^circle\\-2\\-gallium\\-nitride\\-blue\\-light$",
@@ -1770,7 +1883,11 @@
             "Circle 2"
           ],
           "variant_role": "square crop; no illustrator credit on the page",
-          "variant_group": "jacket:gallium-nitride"
+          "variant_group": "jacket:gallium-nitride",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Gallium_Nitride",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225)"
+          }
         }
       ]
     },
@@ -1825,7 +1942,11 @@
           "quality": {
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1080x1080 square crop with soft detail); not verified, so it is not a confirmed high-resolution original."
           },
-          "notes": "Coordinator review: suspected upscale (see quality notes)."
+          "notes": "Coordinator review: suspected upscale (see quality notes).",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/White_Chocolate_(dynamix_edit)",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50383)"
+          }
         }
       ]
     },
@@ -1870,10 +1991,15 @@
           ],
           "mapping_status": "inferred",
           "composers": [
-            "EBICO"
+            "旅人E"
           ],
           "variant_role": "square crop smaller than the wiki copy; no illustrator credit (wiki: NanoKun)",
-          "variant_group": "jacket:moonlight-of-sand-castle"
+          "variant_group": "jacket:moonlight-of-sand-castle",
+          "notes": "Uploaded by the SoundCloud account EBICO (ebico); the page states no composer credit, so the credit follows the wiki (旅人E).",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50282)"
+          }
         }
       ]
     },
@@ -1977,7 +2103,11 @@
             "MIssionary"
           ],
           "variant_role": "copy smaller than the wiki copy; no illustrator credit (wiki: NanoKun)",
-          "variant_group": "jacket:file-dddd0fc3"
+          "variant_group": "jacket:file-dddd0fc3",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E5%90%8D%E7%84%A1%E3%81%97%E3%81%AE%E5%AE%A3%E6%95%99%E5%B8%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50407)"
+          }
         }
       ]
     },
@@ -2029,7 +2159,11 @@
           "quality": {
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1068x1068 square crop); not verified, so it is not a confirmed high-resolution original."
           },
-          "notes": "Coordinator review: suspected upscale (see quality notes)."
+          "notes": "Coordinator review: suspected upscale (see quality notes).",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%CE%A6",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44863)"
+          }
         }
       ]
     },
@@ -2074,10 +2208,15 @@
           ],
           "mapping_status": "inferred",
           "composers": [
-            "KEshiKS"
+            "ケシｋｓくん"
           ],
           "variant_role": "crop at the same scale as the wiki jacket (wiki: Sin:cK)",
-          "variant_group": "jacket:nightmare-girl"
+          "variant_group": "jacket:nightmare-girl",
+          "notes": "Uploaded by the SoundCloud account KEshiKS; the page states no composer credit, so the credit follows the wiki (ケシｋｓくん).",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Nightmare_Girl",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50524)"
+          }
         }
       ]
     },
@@ -2165,14 +2304,19 @@
             "Ep_4"
           ],
           "composers": [
-            "EspiDev"
+            "L.Mity & EspiDev"
           ],
           "evidence_quotes": [
             "dynamix",
             "Eproph_4"
           ],
           "variant_role": "square composition at higher resolution than the wiki jacket (commissioned picture)",
-          "variant_group": "jacket:acrise"
+          "variant_group": "jacket:acrise",
+          "notes": "Uploaded by EspiDev; the wiki credits the music to L.Mity & EspiDev and the artwork to Ep_4.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Acrise",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50153)"
+          }
         }
       ]
     },
@@ -2217,13 +2361,18 @@
           ],
           "mapping_status": "confirmed_primary",
           "composers": [
-            "KURORAK"
+            "Kurorak"
           ],
           "evidence_quotes": [
             "Dynamix"
           ],
           "variant_role": "square crop with 'KURORAK / TUNNELLING' text; no illustrator credit (wiki: Lunchwere)",
-          "variant_group": "jacket:tunnelling"
+          "variant_group": "jacket:tunnelling",
+          "notes": "Uploaded by the SoundCloud account KURORAK; the composer credit follows the wiki's spelling (Kurorak).",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50364)"
+          }
         }
       ]
     },
@@ -2307,8 +2456,12 @@
       "rules": [
         {
           "match": "^hauynite$",
-          "action": "exclude",
-          "reason": "external_release_art: single-cover design (vertical typography, QR code) different from the jacket composition"
+          "action": "pending",
+          "reason": "pending: single cover that shows the in-game jacket's shattered-glass artwork cropped to a vertical layout and framed with typography and a QR code; a different composition of shared imagery, needs review",
+          "role": "song_art",
+          "song_titles": [
+            "Hauynite"
+          ]
         }
       ]
     },
@@ -2367,7 +2520,11 @@
           "quality": {
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1080x1080 square crop); not verified, so it is not a confirmed high-resolution original."
           },
-          "notes": "Coordinator review: suspected upscale (see quality notes)."
+          "notes": "Coordinator review: suspected upscale (see quality notes).",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Xetta",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50389)"
+          }
         }
       ]
     },
@@ -2467,7 +2624,11 @@
             "berry_melody"
           ],
           "variant_role": "letterboxed square with 'modello di neve by R.Solidor' text",
-          "variant_group": "jacket:file-7631f521"
+          "variant_group": "jacket:file-7631f521",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%83%8D%E3%83%BC%E3%83%B4%E3%82%A7%E3%81%AE%E7%B4%8B%E6%A7%98",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45126)"
+          }
         }
       ]
     },
@@ -2515,14 +2676,18 @@
             "しあのん"
           ],
           "composers": [
-            "Xe/αirlemoneX"
+            "Xe (αirlemoneX)"
           ],
           "evidence_quotes": [
             "Dynamix",
             "しあのん"
           ],
           "variant_role": "square crop",
-          "variant_group": "jacket:noisi-d27aec35"
+          "variant_group": "jacket:noisi-d27aec35",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/NOISI%CE%9B",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49878)"
+          }
         }
       ]
     },
@@ -2577,7 +2742,11 @@
             "よしもん"
           ],
           "variant_role": "square crop",
-          "variant_group": "jacket:sunset-road"
+          "variant_group": "jacket:sunset-road",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Sunset_Road",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50640)"
+          }
         }
       ]
     },
@@ -2631,7 +2800,11 @@
             "榊原またぎ"
           ],
           "variant_role": "square composition at higher resolution than the wiki jacket",
-          "variant_group": "jacket:abyss-breaker"
+          "variant_group": "jacket:abyss-breaker",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Abyss_Breaker",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50044)"
+          }
         }
       ]
     },
@@ -2686,7 +2859,11 @@
             "空斗"
           ],
           "variant_role": "square crop",
-          "variant_group": "jacket:mechanical-j-ger-95b606da"
+          "variant_group": "jacket:mechanical-j-ger-95b606da",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Mechanical_J%C3%A4ger",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49828)"
+          }
         }
       ]
     },
@@ -2776,7 +2953,11 @@
             "長井りく"
           ],
           "variant_role": "full uncropped illustration with HALV logo overlay (Bandcamp release cover)",
-          "variant_group": "jacket:sushi-tornado"
+          "variant_group": "jacket:sushi-tornado",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Sushi_Tornado",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50550)"
+          }
         }
       ]
     },
@@ -2857,7 +3038,11 @@
             "Dynamix"
           ],
           "variant_role": "artist's X post (JPEG, same size as the wiki PNG)",
-          "variant_group": "jacket:cosmic-pulse"
+          "variant_group": "jacket:cosmic-pulse",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42090)"
+          }
         }
       ]
     },
@@ -2905,7 +3090,11 @@
           ],
           "variant_role": "full BGA field map with the jacket area marked",
           "variant_group": "16383-kplecraft-bga",
-          "candidate_notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
+          "candidate_notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/16383",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44030)"
+          }
         },
         {
           "match": "^946599307431460867:[2-4]$",
@@ -2925,7 +3114,11 @@
           ],
           "variant_role": "zoomed BGA detail",
           "variant_group": "16383-kplecraft-bga",
-          "candidate_notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
+          "candidate_notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/16383",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44030)"
+          }
         }
       ]
     },
@@ -2972,7 +3165,11 @@
             "Necroxus"
           ],
           "variant_role": "artist's X post",
-          "variant_group": "jacket:necroxus"
+          "variant_group": "jacket:necroxus",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Necroxus",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50288)"
+          }
         }
       ]
     },
@@ -3252,12 +3449,16 @@
             "キカンシャ"
           ],
           "composers": [
-            "5argon"
+            "5argon feat. imTiNEY"
           ],
           "evidence_quotes": [
             "My work for Dynamix song",
             "Bluebell"
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Bluebell",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49734)"
+          }
         },
         {
           "match": "^75762797:",
@@ -3307,14 +3508,17 @@
             "Xomu"
           ],
           "composers": [
-            "Xomu",
-            "Wisp X"
+            "Wisp X & Xomu"
           ],
           "evidence_quotes": [
             "Lumina"
           ],
           "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop (research visual comparison)",
-          "variant_group": "jacket:lumina"
+          "variant_group": "jacket:lumina",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Lumina",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49920)"
+          }
         }
       ]
     },
@@ -3360,7 +3564,11 @@
           "evidence_quotes": [
             "Dynamix",
             "終の舞姫"
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136)"
+          }
         }
       ]
     },
@@ -3403,7 +3611,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "Untitled post tagged Dynamix; visual match with the wiki jacket (research). Posted before the song's Dynamix release."
+          "candidate_notes": "Untitled post tagged Dynamix; visual match with the wiki jacket (research). Posted before the song's Dynamix release.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Creater_S",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50185)"
+          }
         }
       ]
     },
@@ -3458,6 +3670,13 @@
             "MassacrE || 3rc4224M": [
               "MassacrE"
             ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
           }
         },
         {
@@ -3485,6 +3704,13 @@
             "MassacrE || 3rc4224M": [
               "MassacrE"
             ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
           }
         },
         {
@@ -3512,6 +3738,13 @@
             "MassacrE || 3rc4224M": [
               "MassacrE"
             ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
           }
         }
       ]
@@ -3555,7 +3788,11 @@
           "evidence_quotes": [
             "Dynamix",
             "Evoltex"
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214)"
+          }
         }
       ]
     },
@@ -3607,7 +3844,11 @@
             "shinobi_slash"
           ],
           "variant_role": "Shinobi Slash square jacket with title",
-          "variant_group": "ryurei-rinbu-hyouri"
+          "variant_group": "ryurei-rinbu-hyouri",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42188)"
+          }
         },
         {
           "match": "^122251308:p1$",
@@ -3628,7 +3869,11 @@
             "shinobi_slash"
           ],
           "variant_role": "Shinobi Slash square jacket without text",
-          "variant_group": "ryurei-rinbu-hyouri"
+          "variant_group": "ryurei-rinbu-hyouri",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42188)"
+          }
         },
         {
           "match": "^129309072:",
@@ -3644,7 +3889,17 @@
             "dynamix",
             "shinobi_slash"
           ],
-          "candidate_notes": "Dynamix x Shinobi Slash collaboration key art (Sapphire and スズネ)."
+          "candidate_notes": "Dynamix x Shinobi Slash collaboration key art (Sapphire and スズネ).",
+          "credit_evidence": [
+            {
+              "role": "illustrator",
+              "name": "中本ひょうり",
+              "url": "https://www.pixiv.net/artworks/129309072",
+              "field": "caption",
+              "quote": "新感覚和風スマホ音ゲー / シノビスラッシュの【Dynamix ✕ シノビスラッシュ】コラボイラストを描かせていただきました"
+            }
+          ],
+          "notes": "The caption is a first-person statement by the posting account 中本ひょうり (pixiv user 89112381)."
         }
       ]
     },
@@ -3693,7 +3948,11 @@
             "ravon"
           ],
           "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop",
-          "variant_group": "jacket:totally-bounded"
+          "variant_group": "jacket:totally-bounded",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715)"
+          }
         }
       ]
     },
@@ -3736,7 +3995,11 @@
           "evidence_quotes": [
             "Dynamix",
             "Aegis"
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Aegis",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50155)"
+          }
         }
       ]
     },
@@ -3822,7 +4085,11 @@
             "arcaea"
           ],
           "variant_role": "square variant posted for the Arcaea release; same illustration as the Dynamix jacket (research OGP comparison)",
-          "variant_group": "jacket:party-vinyl"
+          "variant_group": "jacket:party-vinyl",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303)"
+          }
         }
       ]
     },
@@ -3896,7 +4163,11 @@
           ],
           "evidence_quotes": [
             "Cosmic Pulse"
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42090)"
+          }
         }
       ]
     },
@@ -4364,8 +4635,9 @@
           "key": "skima:296360",
           "page_url": "https://skima.jp/profile?id=296360",
           "title": "Skima Youki",
-          "disposition": "blocked",
-          "reason": "blocked: HTTP 503 to automated requests (research sweep)"
+          "disposition": "pending",
+          "reason": "pending: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
+          "observed": "2026-10-10: HTTP 503 with the page 'SKIMAは現在メンテナンス中です' (an infrastructure outage), so the profile was not read"
         },
         {
           "key": "k-bms:pabat2017:44",

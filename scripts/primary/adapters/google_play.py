@@ -3,8 +3,9 @@
 The listing's ``<img data-screenshot-index=...>`` elements (alt text is localized) carry ``play-lh.googleusercontent.com``
 URLs with a size suffix (``=w526-h296``, srcset ``=w1052-h592``). The suffix is a resize request, not the image's
 size, and may even disagree with the decoded result (e.g. 1052x591 for ``-h592``); the base URL with ``=s0`` asks for the
-stored image at its native size. Width and height always come from decoding the saved bytes; the advertised srcset
-sizes are kept in the candidate notes only. The app icon is recorded as a ``game_ui`` exclusion. Several items (one
+stored image at its native size. Width and height always come from decoding the saved bytes; ``source_reported``
+keeps the URL the page advertises (the ``src`` rendition, not the derived ``=s0``), and the advertised srcset sizes
+(resize requests, not image sizes) are kept in the candidate notes only. The app icon is recorded as a ``game_ui`` exclusion. Several items (one
 listing per locale) may list the same image; it stays one candidate whose notes name every listing.
 """
 
@@ -65,6 +66,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                    scope_notes="Listing pages of the seed locales; unique screenshot images at native "
                                                "size (=s0). Reviews, avatars and similar-app images are ignored.")
     by_key: dict[str, model.Draft] = {}
+    pages_read: set[str] = set()
+    discovery.coverage["listing-screenshots"] = base.listed_on(pages_read)
     for item in seed["items"]:
         page_url = item["url"]
         try:
@@ -87,6 +90,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         if not shots:
             discovery.errors.append(model.discovery_error("discover", page_url, "no screenshot images found"))
             discovery.continuation["listing-screenshots"] = "structure-not-recognized"
+        else:
+            pages_read.add(page_url)
         for index, shot in enumerate(shots, start=1):
             key = f"screenshot:{shot['token']}"
             if key in by_key:
@@ -102,7 +107,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 rule, key=key, page_url=page_url, texts=texts, file_url=file_url,
                 default_title=f"Google Play screenshot {index}", default_quality=ctx.quality,
                 default_rights=ctx.rights, original_filename=base.last_segment(file_url), base_evidence=evidence,
-                source_reported=base.reported(url=file_url))
+                source_reported=base.reported(url=base.absolute(page_url, shot["srcs"][0])))
             draft.candidate_extra["notes"] = (f"listed on {page_url}" + ("; page advertised resize requests "
                                               + ", ".join(sizes) + "; stored size is decoded from the =s0 bytes"
                                               if sizes else ""))

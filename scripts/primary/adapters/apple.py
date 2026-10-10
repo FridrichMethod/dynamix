@@ -36,6 +36,9 @@ LOOKUP = "https://itunes.apple.com/lookup"
 _SIZED = re.compile(r"^(https://[a-z0-9-]+\.mzstatic\.com/image/thumb/.+/)(\d+)x(\d+)(bb|sr|[a-z]{2})\.(jpg|jpeg|png|webp)$")
 LOOKUP_BOX = 4000
 LOSSLESS_SOURCE = {"png": "png"}  # upload format -> rendition requested instead of the advertised lossy variant
+IDENTIFIER_NOTE = ("Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF "
+                   "UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different "
+                   "bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash.")
 _UUID = re.compile(r"/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/")
 FORMAT_EXT = {"jpeg": "jpg", "jpg": "jpg", "png": "png", "webp": "webp"}
 
@@ -61,6 +64,29 @@ def source_format(url: str) -> str | None:
         return None
     ext = parts[-2].rsplit(".", 1)[-1].lower()
     return FORMAT_EXT.get(ext)
+
+
+def rendition_note(requested: str, upload: str | None) -> str:
+    """Quality note for the rendition actually requested (``requested``: png/jpg/webp) of an upload of format
+    ``upload`` (from the URL; None when not stated)."""
+    names = {"png": "PNG", "jpg": "JPEG", "jpeg": "JPEG", "webp": "WEBP"}
+    fmt = names.get(requested, requested.upper())
+    if upload is None:
+        return f"Apple's {fmt} rendition at native size (the upload's own format is not stated)."
+    if requested == "png" and upload == "png":
+        return (f"Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy "
+                "variant the page or API advertises).")
+    lossy = " (lossy; Apple serves no lossless rendition of a JPEG upload)" if upload == "jpg" else ""
+    return f"Apple's {fmt} rendition of the {names.get(upload, upload.upper())} upload at native size{lossy}."
+
+
+def apple_quality(draft: model.Draft, requested: str, upload: str | None) -> None:
+    """Per-record quality note: the rendition actually stored, then the source's note and the identifier note."""
+    if draft.action != "download":
+        return
+    quality = draft.meta["quality"]
+    quality["notes"] = " ".join(filter(None, [rendition_note(requested, upload), quality.get("notes"),
+                                              IDENTIFIER_NOTE]))
 
 
 def native_lookup_url(url: str) -> str | None:
@@ -95,9 +121,10 @@ def discover_lookup(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], 
         results = data.get("results") if isinstance(data, dict) else None
         app = next((r for r in results or [] if isinstance(r, dict) and str(r.get("trackId")) == str(
             item["lookup_id"])), None)
-        if app is None:
+        if app is None:  # an empty answer is no evidence that the storefront's set is gone (07 §Integrity)
             discovery.errors.append(model.discovery_error("discover", LOOKUP, f"lookup {country}: no result for "
                                                                               f"{item['lookup_id']}"))
+            discovery.continuation["itunes-lookup"] = f"no-result-{country}"
             continue
         for device, field in (("phone", "screenshotUrls"), ("pad", "ipadScreenshotUrls")):
             for index, url in enumerate(app.get(field) or [], start=1):
@@ -131,6 +158,7 @@ def discover_lookup(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], 
                                           "size decoded from the bytes")
         if draft.action == "download":
             draft.meta["transformed"] = True
+        apple_quality(draft, entry["url"].rsplit(".", 1)[-1], source_format(entry["advertised"]))
         discovery.candidates.append(draft)
 
 
@@ -196,6 +224,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                                "shelves at native size"
                                                + ("; plus the iTunes lookup screenshot sets of the listed "
                                                   "storefronts" if lookups else "") + ". App icon not collected.")
+    pages_read: set[str] = set()
+    lookup_pages = {f"https://apps.apple.com/app/id{item['lookup_id']}" for item in lookups}
+    shelves_cover = base.listed_on(pages_read)
+    discovery.coverage["product-media-shelves"] = lambda c: (not str(c.get("upstream_key", "")).startswith(
+        "lookup:") and shelves_cover(c))
+    if lookups:
+        discovery.coverage["itunes-lookup"] = lambda c: (str(c.get("upstream_key", "")).startswith("lookup:")
+                                                         and c.get("page_url") in lookup_pages)
     for item in lookups:
         discover_lookup(ctx, seed, item, discovery)
     for item in seed["items"]:
@@ -216,6 +252,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             continue
         texts = {"page": base.page_text(base.soup(html))}
         evidence, missing = base.identity(seed, texts, page_url)
+        pages_read.add(page_url)
         for device, index, media in media_items(mapping):
             artwork = media.get("screenshot")
             if not isinstance(artwork, dict):
@@ -249,5 +286,6 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 draft.candidate_extra["notes"] = " ".join(filter(None, [draft.candidate_extra.get("notes"), note]))
             if draft.action == "download":
                 draft.meta["transformed"] = True
+            apple_quality(draft, FORMAT_EXT[rendition["format"]], source_format(artwork.get("template") or ""))
             discovery.candidates.append(draft)
     return discovery

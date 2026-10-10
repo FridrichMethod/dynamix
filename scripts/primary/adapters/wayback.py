@@ -131,11 +131,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             discovery.continuation[item["name"]] = resume or "not-started"
             if isinstance(error, net.BlockedError):
                 discovery.evidence_level = "blocked"
+        skipped = 0
         for row in unique_captures(rows):
             original, stamp = row.get("original", ""), row.get("timestamp", "")
             if not base.stored(original) or iso_timestamp(stamp) is None:
-                discovery.errors.append(model.discovery_error("discover", None,
-                                                              f"{item['name']}: unusable CDX row skipped"))
+                skipped += 1
+                discovery.errors.append(model.discovery_error(
+                    "discover", None, f"{item['name']}: unusable CDX row skipped (original "
+                                      f"{model.clip(repr(original), 80)}, timestamp {model.clip(repr(stamp), 20)})"))
                 continue
             key = capture_key(original, stamp)
             rule = model.find_rule(base.rules(seed), key)
@@ -155,4 +158,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 draft.meta["notes"] = " ".join(filter(None, [draft.meta.get("notes"), note]))
             draft.candidate_extra.setdefault("notes", note)
             discovery.candidates.append(draft)
+        if skipped and discovery.continuation.get(item["name"]) is None:
+            # A listed capture without a candidate: the enumeration is not fully accounted for.
+            discovery.continuation[item["name"]] = f"rows-skipped-{skipped}"
     return discovery

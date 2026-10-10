@@ -57,6 +57,8 @@ def links(html: str, page_url: str, link_rules: list[Mapping[str, Any]]) -> list
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     discovery = base.new_discovery(seed, lists=["seed-pages"],
                                    scope_notes="Links matching explicit patterns on explicit pages only.")
+    pages_read: set[str] = set()
+    discovery.coverage["seed-pages"] = base.listed_on(pages_read)
     for item in seed["items"]:
         page_url = item["url"]
         try:
@@ -74,6 +76,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         if not found:
             discovery.errors.append(model.discovery_error("discover", page_url, "no links matched the seed rules"))
             discovery.continuation["seed-pages"] = "no-matching-links"
+        else:  # every link of the page was read: a link it no longer has is gone from the page
+            pages_read.add(page_url)
         for key, url in found:
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             name = base.last_segment(url)

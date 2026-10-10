@@ -15,7 +15,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "A store re-render, not the untouched upload file."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited"
@@ -417,7 +417,11 @@
             "Le ciel heureux"
           ],
           "variant_role": "square crop of the jacket (official preview upload)",
-          "variant_group": "jacket:le-ciel-heureux"
+          "variant_group": "jacket:le-ciel-heureux",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45216)"
+          }
         },
         {
           "match": "^(mmry-memento-mori|packer-woo-meeting-in-sky|packer-woo-origo-harbour)$",

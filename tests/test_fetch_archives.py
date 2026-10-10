@@ -173,6 +173,21 @@ class WaybackTests(ArchivesTestCase):
         self.assertIn("max_pages", snapshot["errors"][0]["message"])
         self.assertEqual(sum(1 for method, _ in network.calls if method == "get_json"), 1)
 
+    def test_an_unusable_row_keeps_the_listing_open(self):
+        routes = self.routes()
+        page1 = list(routes[cdx_url(self.ITEM)]["json"])
+        page1.insert(1, ["com,c4-cat,dynamix)/img/bad", "20150101000000", "http://dynamix.c4-cat.com/img/a b\x01.png",
+                         "image/png", "200", "X" * 32, "1"])
+        page1.insert(2, ["com,c4-cat,dynamix)/img/late", "2015-bad", "http://dynamix.c4-cat.com/img/late.png",
+                         "image/png", "200", "Y" * 32, "1"])
+        routes[cdx_url(self.ITEM)] = {"json": page1}
+        self.run_family([self.seed(self.RULES)], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")
+        self.assertEqual(snapshot["continuation"], {"official-img": "rows-skipped-2"})
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(sum("unusable CDX row skipped" in e["message"] for e in snapshot["errors"]), 2)
+        self.verify()
+
     def test_digest_conversion(self):
         data = b"payload"
         self.assertEqual(wayback.digest_hex(cdx_digest(data)), hashlib.sha1(data).hexdigest())
@@ -316,6 +331,230 @@ class PrimaryEvidenceTests(ArchivesTestCase):
         asset = self.run_capture("My work for a Dynamix song")
         self.assertEqual(asset["mapping_status"], "inferred")
         self.assertIn("does not name “Bluebell”", asset["notes"])
+
+    def test_an_excluded_or_held_candidate_corroborates_nothing(self):
+        self.run_capture(self.QUOTE)
+        self.artist_snapshot("62913946:p0", self.ORIGINAL)
+        path = self.root / paths.discovery_relpath("artists:pixiv:760598")
+        snapshot = manifest.load_json(path)
+        for change in ({"disposition": "excluded", "game": "not_dynamix",
+                        "reason": "rejected_submission: unused image for Dynamix Submission 2019"},
+                       {"disposition": "pending", "game": "unknown", "reason": "pending: artwork owner 1 is not ..."}):
+            snapshot["candidates"][0].update(change)
+            manifest.write_json_atomic(path, snapshot)
+            problems = self.problems()
+            self.assertEqual(len(problems), 1, problems)
+            self.assertIn("does not admit for Dynamix", problems[0])
+            self.assertIn(change["disposition"], problems[0])
+
+
+class RunnerStateTests(ArchivesTestCase):
+    """Refresh bookkeeping of the shared runner: upstream removals, reverted and corrupted files, failed refreshes."""
+
+    PAGE = "https://press.example.org/gallery"
+
+    def seed(self, role="promotional", rules=None):
+        return {"id": "archives:press", "name": "Press", "url": self.PAGE, "platform": "web", "adapter": "page_links",
+                "hosts": ["press.example.org"], "quality": QUALITY,
+                "items": [{"url": self.PAGE, "link_rules": [{"attr": "src", "pattern": "^/img/"}]}],
+                "rules": rules or [{"match": "^img/", "role": role, "game": "dynamix"}]}
+
+    @classmethod
+    def page(cls, *names):
+        return {"text": "<html><title>Dynamix gallery</title><body>" + "".join(
+            f'<img src="https://press.example.org/img/{name}">' for name in names) + "</body></html>"}
+
+    @staticmethod
+    def file(color):
+        return {"bytes": image_bytes("PNG", (20, 20), color), "content_type": "image/png"}
+
+    def assets(self):
+        return {asset["candidate_id"].rsplit(":", 1)[-1]: asset for asset in self.manifest()["assets"]}
+
+    def test_a_file_gone_from_a_complete_listing_is_marked_removed(self):
+        routes = {self.PAGE: self.page("a.png", "b.png"), "https://press.example.org/img/a.png": self.file((1, 2, 3)),
+                  "https://press.example.org/img/b.png": self.file((9, 9, 9))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        routes[self.PAGE] = self.page("a.png")
+        self.run_family([self.seed()], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertTrue(snapshot["discovery_complete"])
+        self.assertEqual([c["upstream_key"] for c in snapshot["candidates"]], ["img/a.png"])
+        removed = [a for a in self.manifest()["assets"] if a["candidate_id"].endswith("img/b.png")][0]
+        self.assertEqual(removed["upstream_status"], "removed")
+        self.assertIn("Not listed by the complete seed-pages enumeration", removed["notes"])
+        self.assertTrue(paths.safe_path(self.root, removed["path"]).is_file())  # bytes kept
+        self.verify()
+        # An unreadable listing proves nothing: nothing more is marked.
+        routes[self.PAGE] = {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        self.assertEqual({a["upstream_status"] for a in self.manifest()["assets"]}, {"current", "removed"})
+        self.verify()
+
+    def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
+        other = "https://press.example.org/other"
+        seed = self.seed()
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        routes = {self.PAGE: self.page("a.png"), other: self.page("c.png"),
+                  "https://press.example.org/img/a.png": self.file((1, 2, 3)),
+                  "https://press.example.org/img/c.png": self.file((4, 5, 6))}
+        self.run_family([seed], FakeNetwork(routes))
+        self.run_family([self.seed()], FakeNetwork(routes))  # the second page is no longer a seed item
+        asset = self.assets()["img/c.png"]
+        self.assertEqual(asset["upstream_status"], "unknown")
+        self.assertIn(runner.UNKNOWN_NOTE, asset["notes"])
+        self.assertEqual(self.candidates("archives:press")["img/c.png"]["disposition"], "downloaded")
+        self.verify()
+        self.run_family([seed], FakeNetwork(routes), resume=True)
+        asset = self.assets()["img/c.png"]
+        self.assertEqual(asset["upstream_status"], "current")
+        self.assertNotIn(runner.UNKNOWN_NOTE, asset.get("notes") or "")
+        self.verify()
+
+    def test_bytes_that_revert_supersede_the_newer_record(self):
+        url = "https://press.example.org/img/a.png"
+        routes = {self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        first = self.manifest()["assets"][0]["id"]
+        routes[url] = self.file((9, 9, 9))
+        self.run_family([self.seed()], FakeNetwork(routes))
+        second = next(a["id"] for a in self.manifest()["assets"] if a["id"] != first)
+        routes[url] = self.file((1, 2, 3))
+        acquisition = runner.Runner(self.root, "archives", [self.seed()], client_factory=FakeNetwork(routes).factory,
+                                    now=lambda: FIXED_NOW, sleep=lambda s: None)
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        assets = {a["id"]: a for a in self.manifest()["assets"]}
+        self.assertEqual((assets[first]["upstream_status"], assets[first].get("superseded_by")), ("current", None))
+        self.assertEqual((assets[second]["upstream_status"], assets[second]["superseded_by"]), ("superseded", first))
+        self.assertEqual(self.candidates("archives:press")["img/a.png"]["asset_id"], first)
+        self.verify()
+
+    def test_a_failed_refresh_keeps_the_previous_candidate_record(self):
+        url = "https://press.example.org/img/a.png"
+        routes = {self.PAGE: self.page("a.png", "c.png"), url: self.file((1, 2, 3)),
+                  "https://press.example.org/img/c.png": self.file((5, 5, 5))}
+        self.run_family([self.seed("promotional")], FakeNetwork(routes))
+        before = self.candidates("archives:press")["img/a.png"]
+        routes[url] = {"error": net.HttpError("HTTP 503", url=url, http_status=503)}
+        acquisition = runner.Runner(self.root, "archives", [self.seed("reference")],
+                                    client_factory=FakeNetwork(routes).factory, now=lambda: FIXED_NOW,
+                                    sleep=lambda s: None)
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        found = self.candidates("archives:press")
+        self.assertEqual(found["img/a.png"], before)  # role change applies with the next successful refresh
+        self.assertEqual(found["img/c.png"]["role"], "reference")  # later candidates were still refreshed
+        self.assertEqual(self.assets()["img/a.png"]["kind"], "promotional")
+        messages = [e["message"] for e in manifest.load_discovery(self.root, "archives:press")["errors"]]
+        self.assertTrue(any("refresh of archives:press:img/a.png failed" in m for m in messages), messages)
+        self.verify()
+
+    def test_a_corrupted_file_is_repaired_when_the_bytes_match_the_record(self):
+        url = "https://press.example.org/img/a.png"
+        routes = {self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        asset = self.manifest()["assets"][0]
+        target = paths.safe_path(self.root, asset["path"])
+        good = target.read_bytes()
+        for resume in (True, False):
+            target.write_bytes(b"corrupt")  # damaged in place, not deleted
+            network = FakeNetwork(routes)
+            self.run_family([self.seed()], network, resume=resume)
+            self.assertEqual(sum(1 for _, called in network.calls if called == url), 1)
+            self.assertEqual(target.read_bytes(), good)
+            self.assertEqual(self.manifest()["assets"], [asset])
+            messages = [e["message"] for e in manifest.load_discovery(self.root, "archives:press")["errors"]]
+            self.assertTrue(any("replaced by a fresh download with the recorded SHA-256" in m for m in messages))
+            self.assertEqual(self.manifest()["failures"], [])
+            self.verify()
+            self.assertEqual(list(target.parent.glob(".*")), [])
+
+    def test_a_corrupted_file_that_cannot_be_repaired_is_reported(self):
+        url = "https://press.example.org/img/a.png"
+        routes = {self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        target = paths.safe_path(self.root, self.manifest()["assets"][0]["path"])
+        target.write_bytes(b"corrupt")
+        routes[url] = {"error": net.HttpError("HTTP 503", url=url, http_status=503)}
+        self.run_family([self.seed()], FakeNetwork(routes), resume=True)
+        errors = manifest.load_discovery(self.root, "archives:press")["errors"]
+        self.assertEqual([e["phase"] for e in errors], ["verify"])
+        self.assertIn("does not verify", errors[0]["message"])
+        self.assertIn("could not be repaired", errors[0]["message"])
+        verify_errors, _, _ = runner.verify_family(self.root, "archives")
+        self.assertTrue(any("asset file" in error for error in verify_errors))  # the --verify gate fails
+        # New upstream bytes: the damaged record is superseded and its damage named.
+        routes[url] = self.file((7, 7, 7))
+        self.run_family([self.seed()], FakeNetwork(routes))
+        messages = [e["message"] for e in manifest.load_discovery(self.root, "archives:press")["errors"]]
+        self.assertTrue(any("cannot be repaired from upstream" in m for m in messages), messages)
+
+    def test_pixel_identical_files_are_linked(self):
+        from PIL import Image
+        import io
+
+        def png(text):
+            image = Image.new("RGB", (8, 8), (10, 20, 30))
+            info = __import__("PIL.PngImagePlugin", fromlist=["PngInfo"]).PngInfo()
+            info.add_text("Comment", text)
+            buffer = io.BytesIO()
+            image.save(buffer, "PNG", pnginfo=info)
+            return {"bytes": buffer.getvalue(), "content_type": "image/png"}
+
+        routes = {self.PAGE: self.page("a.png", "b.png", "c.png"), "https://press.example.org/img/a.png": png("one"),
+                  "https://press.example.org/img/b.png": png("two"),
+                  "https://press.example.org/img/c.png": self.file((1, 1, 1))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = self.assets()
+        a, b = assets["img/a.png"], assets["img/b.png"]
+        self.assertNotEqual(a["sha256"], b["sha256"])
+        self.assertEqual(a["variant_group"], b["variant_group"])
+        self.assertTrue(a["variant_group"].startswith("pixels:"))
+        self.assertIn(f"pixels identical to {b['id']}", a["notes"])
+        self.assertNotIn("variant_group", assets["img/c.png"])
+        first = self.manifest()
+        self.run_family([self.seed()], FakeNetwork(routes), resume=True)
+        self.assertEqual(self.manifest(), first)  # idempotent
+        self.verify()
+
+
+class VerifySnapshotTests(ArchivesTestCase):
+    PAGE = RunnerStateTests.PAGE
+
+    def setUp(self):
+        super().setUp()
+        routes = {self.PAGE: RunnerStateTests.page("a.png"),
+                  "https://press.example.org/img/a.png": RunnerStateTests.file((1, 2, 3))}
+        self.run_family([RunnerStateTests.seed(self)], FakeNetwork(routes))
+        self.path = self.root / paths.discovery_relpath("archives:press")
+
+    def errors(self):
+        return runner.verify_family(self.root, "archives")
+
+    def test_a_source_without_its_snapshot_fails(self):
+        self.path.unlink()
+        errors, _, _ = self.errors()
+        self.assertIn("archives:press: no valid discovery snapshot at data/discovery/press.json", errors)
+
+    def test_a_snapshot_without_a_valid_source_id_fails(self):
+        manifest.write_json_atomic(self.path, {"schema_version": 1, "source_id": "archives/press"})
+        errors, _, _ = self.errors()
+        self.assertTrue(any(e.startswith("data/discovery/press.json: not a discovery snapshot of a valid source ID")
+                            for e in errors), errors)
+        self.assertIn("archives:press: no valid discovery snapshot at data/discovery/press.json", errors)
+        self.path.write_text("{not json", encoding="utf-8")
+        errors, _, _ = self.errors()
+        self.assertTrue(any("press.json: not a discovery snapshot" in e and "unreadable" in e for e in errors))
+
+    def test_a_registered_name_of_this_family_is_checked_and_unknown_names_warn(self):
+        manifest.write_json_atomic(self.root / "data/discovery/wayback.json", {"source_id": None})
+        manifest.write_json_atomic(self.root / "data/discovery/stray.json", {"source_id": "nope"})
+        manifest.write_json_atomic(self.root / "data/discovery/song-index.wikis.json", {"songs": []})
+        errors, warnings, _ = self.errors()
+        self.assertTrue(any(e.startswith("data/discovery/wayback.json: not a discovery snapshot") for e in errors))
+        self.assertTrue(any(w.startswith("data/discovery/stray.json: not a discovery snapshot") for w in warnings))
+        self.assertFalse(any("song-index" in line for line in errors + warnings))
 
 
 if __name__ == "__main__":

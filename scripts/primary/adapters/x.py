@@ -4,7 +4,9 @@
 public function of the post ID (``((id / 1e15) * pi).toString(36)`` without zeros and dots), not a credential, but it is
 left out of every stored URL anyway. Photos are fetched from ``pbs.twimg.com/media/<key>?format=<ext>&name=orig``, the
 largest rendition X serves. X may re-encode uploads, so ``name=orig`` is recorded as the site's original, never as the
-artist's master file. No timeline, search or login-only endpoint is used.
+artist's master file. ``source_reported`` keeps what the endpoint advertises (``media_url_https`` and
+``original_info`` size); the derived ``name=orig`` URL is only the download URL. No search or login-only endpoint is
+used.
 
 Each photo of a multi-image post is its own candidate ``<post id>:<page index>`` classified by its own seed rule, so a
 post title never maps every page to the same song.
@@ -197,7 +199,8 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
         draft = model.apply_rule(
             rule, key=key, page_url=status_url, texts=texts, file_url=file_url, default_title=title,
             default_quality=ctx.quality, default_rights=ctx.rights, original_filename=f"{media_key}.{ext}",
-            source_reported=base.reported(url=file_url, mime=base.mime_for(ext), width=info.get("width"),
+            source_reported=base.reported(url=entry.get("media_url_https"), mime=base.mime_for(ext),
+                                          width=info.get("width"),
                                           height=info.get("height"), timestamp=data.get("created_at")),
             base_evidence=base_evidence)
         if notes and "notes" not in draft.candidate_extra:

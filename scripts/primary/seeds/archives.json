@@ -293,7 +293,7 @@
             "キカンシャ"
           ],
           "composers": [
-            "5argon"
+            "5argon feat. imTiNEY"
           ],
           "quality": {
             "source_variant": "site_original",
@@ -310,7 +310,11 @@
               "url": "https://www.pixiv.net/artworks/62913946",
               "quote": "Bluebell"
             }
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Bluebell",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49734)"
+          }
         },
         {
           "match": "77296864_p0\\.png@",
@@ -323,8 +327,7 @@
             "Xomu"
           ],
           "composers": [
-            "Xomu",
-            "Wisp X"
+            "Wisp X & Xomu"
           ],
           "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop",
           "variant_group": "jacket:lumina",
@@ -339,7 +342,11 @@
               "url": "https://www.pixiv.net/artworks/77296864",
               "quote": "Lumina"
             }
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Lumina",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49920)"
+          }
         },
         {
           "match": "80195226_p0\\.png@",
@@ -365,7 +372,11 @@
               "url": "https://www.pixiv.net/artworks/80195226",
               "quote": "終の舞姫"
             }
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136)"
+          }
         },
         {
           "match": "92594600_p0\\.jpg@",
@@ -404,6 +415,13 @@
             "MassacrE || 3rc4224M": [
               "MassacrE"
             ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
           }
         },
         {
@@ -443,6 +461,13 @@
             "MassacrE || 3rc4224M": [
               "MassacrE"
             ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
           }
         },
         {
@@ -482,6 +507,13 @@
             "MassacrE || 3rc4224M": [
               "MassacrE"
             ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
           }
         },
         {
@@ -505,7 +537,11 @@
               "url": "https://www.pixiv.net/artworks/42973848",
               "quote": "Aegis"
             }
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Aegis",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50155)"
+          }
         },
         {
           "match": "61859342_p0\\.png@",
@@ -528,7 +564,11 @@
               "url": "https://www.pixiv.net/artworks/61859342",
               "quote": "Evoltex"
             }
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214)"
+          }
         },
         {
           "match": "122251308_p0\\.png@",
@@ -558,7 +598,11 @@
               "url": "https://www.pixiv.net/artworks/122251308",
               "quote": "流麗凛舞"
             }
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42188)"
+          }
         },
         {
           "match": "122251308_p1\\.png@",
@@ -588,7 +632,11 @@
               "url": "https://www.pixiv.net/artworks/122251308",
               "quote": "流麗凛舞"
             }
-          ]
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42188)"
+          }
         },
         {
           "match": "129309072_p0\\.jpg@",
@@ -606,7 +654,17 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
-          }
+          },
+          "credit_evidence": [
+            {
+              "role": "illustrator",
+              "name": "中本ひょうり",
+              "url": "https://www.pixiv.net/artworks/129309072",
+              "field": "caption",
+              "quote": "新感覚和風スマホ音ゲー / シノビスラッシュの【Dynamix ✕ シノビスラッシュ】コラボイラストを描かせていただきました"
+            }
+          ],
+          "notes": "Credit from the primary post's caption, a first-person statement by the posting account 中本ひょうり (pixiv user 89112381)."
         },
         {
           "match": "86481781_p0\\.png@",
@@ -713,6 +771,10 @@
             "origin_status": "artist_post",
             "master_status": "unverified",
             "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Creater_S",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50185)"
           }
         },
         {

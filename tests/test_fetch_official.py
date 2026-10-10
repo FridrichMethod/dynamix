@@ -8,6 +8,7 @@ import io
 import json
 import os
 import re
+import shutil
 import sys
 import tempfile
 import unittest
@@ -97,6 +98,8 @@ class AppleTests(OfficialTestCase):
         self.assertIs(phone["comparisons"]["format_match"], False)  # advertised JPEG variant, requested PNG
         self.assertEqual(phone["format"], "PNG")
         self.assertIn("lossless rendition", phone["notes"])  # candidate notes reach the asset record
+        self.assertTrue(phone["quality"]["notes"].startswith("Apple's PNG rendition of the PNG upload at native size"))
+        self.assertIn(apple.IDENTIFIER_NOTE, phone["quality"]["notes"])
         self.assertEqual(self.manifest()["sources"][0]["status"], "partially_available")
         self.verify()
 
@@ -128,6 +131,36 @@ class AppleTests(OfficialTestCase):
         self.assertIn("lookup:92092603-00f8-d690-9f01-b4437bda3e80", found)
         self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
         self.verify()
+
+    def test_quality_note_describes_the_rendition_actually_stored(self):
+        sized = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
+        lookup = {"resultCount": 1, "results": [{"trackId": 945955095, "trackName": "Dynamix", "sellerName": "C4Cat",
+                                                 "bundleId": "com.c4cat.dynamix", "ipadScreenshotUrls": [],
+                                                 "screenshotUrls": [sized + "mzl.sklhwvmk.jpg/406x228bb.jpg",
+                                                                    sized + "mzl.eumuhmxw.png/406x228bb.png"]}]}
+        routes = {full_url(apple.LOOKUP, {"id": "945955095", "country": "hk", "entity": "software"}): {"json": lookup},
+                  sized + "mzl.sklhwvmk.jpg/4000x4000bb.jpg": {"bytes": image_bytes("JPEG", (40, 30)),
+                                                               "content_type": "image/jpeg"},
+                  sized + "mzl.eumuhmxw.png/4000x4000bb.png": {"bytes": image_bytes("PNG", (40, 31)),
+                                                               "content_type": "image/png"}}
+        seed = self.seed([{"lookup_id": "945955095", "countries": ["hk"]}])
+        seed["quality"] = {**QUALITY, "notes": "A store re-render of the upload."}
+        self.run_family([seed], FakeNetwork(routes))
+        notes = {a["format"]: a["quality"]["notes"] for a in self.manifest()["assets"]}
+        self.assertTrue(notes["JPEG"].startswith("Apple's JPEG rendition of the JPEG upload at native size (lossy"))
+        self.assertNotIn("(lossless", notes["JPEG"])
+        self.assertTrue(notes["PNG"].startswith("Apple's PNG rendition of the PNG upload at native size (lossless"))
+        self.assertTrue(all("A store re-render of the upload." in n and apple.IDENTIFIER_NOTE in n
+                            for n in notes.values()))
+        self.verify()
+
+    def test_an_empty_lookup_answer_keeps_the_list_open(self):
+        url = full_url(apple.LOOKUP, {"id": "945955095", "country": "hk", "entity": "software"})
+        self.run_family([self.seed([{"lookup_id": "945955095", "countries": ["hk"]}])],
+                        FakeNetwork({url: {"json": {"resultCount": 0, "results": []}}}))
+        snapshot = manifest.load_discovery(self.root, "official:apple-store")
+        self.assertEqual(snapshot["continuation"]["itunes-lookup"], "no-result-hk")
+        self.assertFalse(snapshot["discovery_complete"])
 
     def test_lossless_rendition_follows_the_upload_format(self):
         sized = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
@@ -167,6 +200,8 @@ class GooglePlayTests(OfficialTestCase):
         asset = next(a for a in self.manifest()["assets"] if a["download_url"] == f"{self.P}=s0")
         self.assertEqual((asset["width"], asset["height"]), (1052, 591))
         self.assertIsNone(asset["source_reported"]["height"])
+        # The page advertises a resize rendition; the derived =s0 URL is only the download URL.
+        self.assertTrue(asset["source_reported"]["url"].startswith(f"{self.P}=w"), asset["source_reported"]["url"])
         self.assertEqual(network.count("play-lh.googleusercontent.com"), 2)
         self.verify()
 
@@ -220,8 +255,14 @@ class TapTapTests(OfficialTestCase):
         self.run_family([seed], network)
         found = self.candidates("official:taptap")
         rendition = found["banner:4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg"]
-        self.assertTrue(rendition["reason"].startswith("upscaled"))
+        self.assertTrue(rendition["reason"].startswith("upscaled"))  # an 888x500 crop shown at 1920x1080
+        self.assertIn("enlarged from a 888x500 crop to 1920x1080", rendition["reason"])
         self.assertEqual(found["banner:4395ff13f01cca52f28efb2a1694bce9.jpg"]["disposition"], "downloaded")
+        banner = next(a for a in self.manifest()["assets"] if "banner" in a["candidate_id"])
+        # The page lists only the rendition: it stays source_reported; the derived upload URL is only downloaded.
+        self.assertEqual(banner["source_reported"]["url"], rendition["file_url"])
+        self.assertEqual((banner["source_reported"]["width"], banner["source_reported"]["height"]), (1920, 1080))
+        self.assertEqual(banner["download_url"], f"{base}4395ff13f01cca52f28efb2a1694bce9.jpg")
         self.assertTrue(found["icon:23c51666ae309b07d5f4fe5d888157e5.png"]["reason"].startswith("game_ui"))
         assets = {a["candidate_id"].split(":", 2)[2]: a for a in self.manifest()["assets"]}
         self.assertIn("equals the upstream name token", assets[f"screenshot:{token}"]["quality"]["notes"])
@@ -279,6 +320,19 @@ class TapTapTests(OfficialTestCase):
         self.assertIn("trailer's poster frame", drafts[0].reason)
         self.assertEqual(drafts[1].file_url,
                          "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg")
+
+    def test_a_downscaled_rendition_is_not_called_upscaled(self):
+        from primary import runner as runner_module
+        from primary.adapters import taptap
+
+        url = ("https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_"
+               "thumbnail_480x270.jpg")
+        context = runner_module.AdapterContext(client=None, seed={}, source_id="official:taptap")
+        drafts = taptap.banner_drafts(context, {"rules": [{"match": "^banner:", "role": "promotional"}]},
+                                      {"original_url": url, "width": 480, "height": 270}, set(),
+                                      "https://www.taptap.cn/app/7082", {}, [], [])
+        self.assertTrue(drafts[0].reason.startswith("out_of_scope_other: TapTap crop/resize rendition"))
+        self.assertIn("888x500 crop shown at 480x270", drafts[0].reason)
 
 
 class XTimelineTests(OfficialTestCase):
@@ -487,9 +541,23 @@ class IsolationTests(OfficialTestCase):
 
 class CliTests(OfficialTestCase):
     def test_verify_on_the_contract_fixture(self):
+        # The shared contract fixture records official:apple-store without its discovery snapshot; every manifest
+        # source needs one, so that is the only error. With a snapshot added, the fixture verifies.
         out = io.StringIO()
         with redirect_stdout(out):
             code = cli.main("official", ["--verify", "--root", str(ROOT / "tests/fixtures/contract")])
+        self.assertEqual(code, 1, out.getvalue())
+        self.assertEqual([line.strip() for line in out.getvalue().splitlines() if "ERROR" in line],
+                         ["ERROR: official:apple-store: no valid discovery snapshot at data/discovery/apple-store.json"])
+        shutil.copytree(ROOT / "tests/fixtures/contract", self.root / "contract")
+        manifest.write_json_atomic(self.root / "contract/data/discovery/apple-store.json", {
+            "schema_version": 1, "source_id": "official:apple-store", "started_at": FIXED_NOW, "finished_at": FIXED_NOW,
+            "scope": {"lists": ["product-media-shelves"], "api": None, "notes": "test"},
+            "continuation": {"product-media-shelves": "not-read:test"}, "discovery_complete": False,
+            "candidates": [], "errors": []})
+        out = io.StringIO()
+        with redirect_stdout(out):
+            code = cli.main("official", ["--verify", "--root", str(self.root / "contract")])
         self.assertEqual(code, 0, out.getvalue())
         self.assertIn("OK", out.getvalue())
 
