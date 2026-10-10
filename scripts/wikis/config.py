@@ -164,7 +164,9 @@ LIST_CATEGORIES = {"Category:Chart list images"}
 # songs is a list (``reference``). The subject is the text of the list caption (or, without one, of the file title)
 # before the list words (SUBJECT_END), read against the original-game song titles: the whole text as one title, else
 # split at SUBJECT_SEPARATOR into the fewest known titles (classify.list_subject). Song pages that show the graphic
-# add their song. A subject the titles do not resolve stays a list (the tier revision 1.1 default) and is recorded.
+# add their song only to a subject that a caption or the file title gives (a lineup caption without one, such as
+# "Upcoming Events", stays a list however few song pages show it). A subject the titles do not resolve stays a list
+# (the tier revision 1.1 default) and is recorded.
 SINGLE_SONG_RULE = ("single-song rule (coordinator decision 2026-10-10): a graphic about a single song stays "
                     "promotional, including a single-song chart-list, comeback or new-chart teaser that shows "
                     "difficulty marks")
