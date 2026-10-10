@@ -185,7 +185,8 @@
       "title": "^/7(L⎥?[_(L+#<>+&⎥^(o)",
       "aliases": [
         "Nyarlathotep",
-        "^/7(L|?[_(L+＃<>+&|^(o)"
+        "^/7(L|?[_(L+＃<>+&|^(o)",
+        "^/7(L∣?［ˍ(L+⌗‹›+&⎥^(o)"
       ],
       "composers": [
         "Hyphen"
@@ -219,34 +220,17 @@
           "source_id": "wikis:atwiki-ja",
           "url": "https://w.atwiki.jp/dynamix2ch/pages/37.html",
           "revision": null
-        }
-      ],
-      "artwork_asset_ids": [
-        "wikis:fandom:b9857ebbc23dee8a",
-        "wikis:miraheze:b9857ebbc23dee8a"
-      ]
-    },
-    {
-      "id": "song:7-l-l-o-2a776faa",
-      "title": "^/7(L∣?［ˍ(L+⌗‹›+&⎥^(o)",
-      "aliases": [],
-      "composers": [
-        "Hyphen"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": false,
-      "inclusion_evidence": [],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
+        },
         {
           "source_id": "wikis:rhythmgame-ja",
           "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:b9857ebbc23dee8a",
+        "wikis:miraheze:b9857ebbc23dee8a"
+      ]
     },
     {
       "id": "song:8-bit-goa-4",
@@ -5816,30 +5800,6 @@
         "wikis:fandom:3d17929ad268f2f6",
         "wikis:miraheze:3d17929ad268f2f6"
       ]
-    },
-    {
-      "id": "song:ds-h-782cb8cf",
-      "title": "ǝɹǝɥdsᴉɯǝH",
-      "aliases": [],
-      "composers": [
-        "ARForest"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": true,
-      "inclusion_evidence": [
-        "https://w.atwiki.jp/dynamix2ch/pages/37.html (Dynamix wiki (atwiki, Japanese): イベント楽曲・frag解禁曲一覧)"
-      ],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
-        {
-          "source_id": "wikis:atwiki-ja",
-          "url": "https://w.atwiki.jp/dynamix2ch/pages/37.html",
-          "revision": null
-        }
-      ],
-      "artwork_asset_ids": []
     },
     {
       "id": "song:duet",
@@ -12919,7 +12879,9 @@
     {
       "id": "song:hemisphere",
       "title": "Hemisphere",
-      "aliases": [],
+      "aliases": [
+        "ǝɹǝɥdsᴉɯǝH"
+      ],
       "composers": [
         "ARForest"
       ],
@@ -12932,7 +12894,8 @@
       "inclusion_evidence": [
         "https://dynamix.miraheze.org/wiki/Hemisphere (Template:Song, Category:Premium Songs)",
         "https://dynamixc4cat.fandom.com/wiki/Hemisphere (Template:Song, Category:Premium Songs)",
-        "https://w.atwiki.jp/dynamix2ch/pages/25.html (Dynamix wiki (atwiki, Japanese): Rank・Share解禁楽曲一覧)"
+        "https://w.atwiki.jp/dynamix2ch/pages/25.html (Dynamix wiki (atwiki, Japanese): Rank・Share解禁楽曲一覧)",
+        "https://w.atwiki.jp/dynamix2ch/pages/37.html (Dynamix wiki (atwiki, Japanese): イベント楽曲・frag解禁曲一覧)"
       ],
       "universe_also": false,
       "removed": false,
@@ -12950,6 +12913,11 @@
         {
           "source_id": "wikis:atwiki-ja",
           "url": "https://w.atwiki.jp/dynamix2ch/pages/25.html",
+          "revision": null
+        },
+        {
+          "source_id": "wikis:atwiki-ja",
+          "url": "https://w.atwiki.jp/dynamix2ch/pages/37.html",
           "revision": null
         },
         {
@@ -18011,28 +17979,6 @@
         "wikis:fandom:eca98bf02411fd5c",
         "wikis:miraheze:eca98bf02411fd5c"
       ]
-    },
-    {
-      "id": "song:moonset",
-      "title": "Moonset",
-      "aliases": [],
-      "composers": [
-        "The Dystopia's Tomorrow"
-      ],
-      "illustrators": [],
-      "collections": [],
-      "in_original_game": false,
-      "inclusion_evidence": [],
-      "universe_also": false,
-      "removed": false,
-      "evidence": [
-        {
-          "source_id": "wikis:rhythmgame-ja",
-          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
-          "revision": null
-        }
-      ],
-      "artwork_asset_ids": []
     },
     {
       "id": "song:morphevz",
@@ -23355,14 +23301,17 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:fandom:0de3e5c90dd33ec3",
+        "wikis:miraheze:0de3e5c90dd33ec3"
+      ]
     },
     {
       "id": "song:shinobi-original-short-mix",
       "title": "Shinobi (Original Short Mix)",
       "aliases": [],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "illustrators": [
         "HAT"
@@ -25730,6 +25679,11 @@
           "source_id": "wikis:atwiki-ja",
           "url": "https://w.atwiki.jp/dynamix2ch/pages/37.html",
           "revision": null
+        },
+        {
+          "source_id": "wikis:rhythmgame-ja",
+          "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
+          "revision": null
         }
       ],
       "artwork_asset_ids": [
@@ -27949,15 +27903,7 @@
         }
       ],
       "artwork_asset_ids": [
-        "wikis:fandom:2a60fe8805d1ede0",
-        "wikis:fandom:7331f542a48ae436",
-        "wikis:fandom:7e3ad047eabf9b43",
-        "wikis:fandom:da64170fd4ea521d",
         "wikis:fandom:f319495827a3fae3",
-        "wikis:miraheze:2a60fe8805d1ede0",
-        "wikis:miraheze:7331f542a48ae436",
-        "wikis:miraheze:7e3ad047eabf9b43",
-        "wikis:miraheze:da64170fd4ea521d",
         "wikis:miraheze:f319495827a3fae3"
       ]
     },
@@ -29142,15 +29088,6 @@
       }
     },
     {
-      "song_id": "song:7-l-l-o-2a776faa",
-      "field": "presence",
-      "values": {
-        "wikis:rhythmgame-ja": "listed in 楽曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
-      }
-    },
-    {
       "song_id": "song:8-bit-goa-4",
       "field": "title",
       "values": {
@@ -29204,15 +29141,6 @@
       "values": {
         "wikis:miraheze": "Dragon_Klub",
         "wikis:atwiki-ja": "kRM"
-      }
-    },
-    {
-      "song_id": "song:ds-h-782cb8cf",
-      "field": "presence",
-      "values": {
-        "wikis:atwiki-ja": "listed in イベント楽曲・frag解禁曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
       }
     },
     {
@@ -29328,6 +29256,14 @@
       }
     },
     {
+      "song_id": "song:hemisphere",
+      "field": "title",
+      "values": {
+        "wikis:miraheze": "Hemisphere",
+        "wikis:atwiki-ja": "ǝɹǝɥdsᴉɯǝH (upside-down spelling of Hemisphere; matched to that song)"
+      }
+    },
+    {
       "song_id": "song:i-must-say-no",
       "field": "release_status",
       "values": {
@@ -29392,15 +29328,6 @@
       }
     },
     {
-      "song_id": "song:moonset",
-      "field": "presence",
-      "values": {
-        "wikis:rhythmgame-ja": "listed in 楽曲一覧",
-        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-        "wikis:fandom": "no song page with Template:Song/SongUV found"
-      }
-    },
-    {
       "song_id": "song:nachtmusik",
       "field": "composers",
       "values": {
@@ -29449,14 +29376,6 @@
       }
     },
     {
-      "song_id": "song:shinobi-original-short-mix",
-      "field": "composers",
-      "values": {
-        "wikis:miraheze": "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]",
-        "wikis:atwiki-ja": "[sound shinobi]"
-      }
-    },
-    {
       "song_id": "song:skrik-dnx-edit",
       "field": "composers",
       "values": {
@@ -29470,6 +29389,14 @@
       "values": {
         "wikis:miraheze": "Stage 5",
         "wikis:atwiki-ja": "Stage5"
+      }
+    },
+    {
+      "song_id": "song:the-dystopia-s-tomorrow",
+      "field": "title",
+      "values": {
+        "wikis:miraheze": "The Dystopia's Tomorrow",
+        "wikis:rhythmgame-ja": "row with title 'Moonset' and credit \"The Dystopia's Tomorrow\" (columns swapped; matched to that song)"
       }
     },
     {

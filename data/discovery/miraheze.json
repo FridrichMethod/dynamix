@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "wikis:miraheze",
-  "started_at": "2026-10-10T16:10:20Z",
-  "finished_at": "2026-10-10T16:14:10Z",
+  "started_at": "2026-10-10T18:58:15Z",
+  "finished_at": "2026-10-10T19:02:13Z",
   "scope": {
     "api": "https://dynamix.miraheze.org/w/api.php",
     "lists": [
@@ -13,11 +13,11 @@
       "prop=imageinfo&iiprop=metadata for GIF files (frame counts)",
       "action=expandtemplates for song Title values built from templates"
     ],
-    "notes": "One candidate per file of list=allimages. Roles and games come from song templates (Template:Song = original game, Template:SongUV = Dynamix Universe), page usage, gallery/link captions, reviewed list pages, file categories and, only when nothing else applies, filename conventions; evidence is pooled by file title with wikis:fandom. Where no page establishes a role or game, an archivist review (visual inspection of the bytes, scripts/wikis/reviews.json, pinned to the reviewed SHA-1) may; its evidence is quoted and its song mappings are 'inferred'. Accepted candidates that are not downloaded yet are 'pending' with reason 'awaiting_download'.",
+    "notes": "One candidate per file of list=allimages. Roles and games come from song templates (Template:Song = original game, Template:SongUV = Dynamix Universe), page usage, gallery/link captions, reviewed list pages, file categories and, only when nothing else applies, filename conventions; evidence is pooled by file title with wikis:fandom. Where no page establishes a role or game, or page roles are tied, an archivist review (visual inspection of the bytes, scripts/wikis/reviews.json, pinned to the reviewed SHA-1) may; its evidence is quoted and its song mappings are 'inferred'. A review may also replace the reason of an exclusion that page evidence gives with the exclusion seen in the bytes. Accepted candidates that are not downloaded yet are 'pending' with reason 'awaiting_download'. When this discovery is incomplete, archived candidates keep the classification of the discovery that archived them.",
     "file_count": 4469,
     "article_count": 894,
-    "requests": 0,
-    "cached_responses": 171
+    "requests": 171,
+    "cached_responses": 0
   },
   "continuation": {
     "allimages": null,
@@ -9207,8 +9207,10 @@
       "file_url": "https://static.wikitide.net/dynamixwiki/d/df/AreaTAComebackSongs.jpg",
       "title": "AreaTAComebackSongs",
       "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "archivist review (File:AreaTAComebackSongs.jpg): visual_inspection: 'AREA TA' comeback announcement 'I'M BACK' (Volcano, Riot Flavor; Takahiro Aoki) with the DYNAMIX UNIVERSE logo"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/d/df/AreaTAComebackSongs.jpg",
         "mime": "image/jpeg",
@@ -9220,8 +9222,8 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "site_ui: wiki interface image",
-      "notes": "role evidence: site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
+      "reason": "universe_only: archivist review (File:AreaTAComebackSongs.jpg): visual_inspection: 'AREA TA' comeback announcement 'I'M BACK' (Volcano, Riot Flavor; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "notes": "role evidence: universe_only <- archivist review (File:AreaTAComebackSongs.jpg): visual_inspection: 'AREA TA' comeback announcement 'I'M BACK' (Volcano, Riot Flavor; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template; site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
     },
     {
       "id": "wikis:miraheze:File:AreaTANewSongs1.jpg",
@@ -9231,8 +9233,10 @@
       "file_url": "https://static.wikitide.net/dynamixwiki/f/f3/AreaTANewSongs1.jpg",
       "title": "AreaTANewSongs1",
       "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "archivist review (File:AreaTANewSongs1.jpg): visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Riot Savor, STARLIT NIGHT, Adrenaline Rush, We Ride on Groove Digital Reverie; Takahiro Aoki) with the DYNAMIX UNIVERSE logo"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/f/f3/AreaTANewSongs1.jpg",
         "mime": "image/jpeg",
@@ -9244,8 +9248,8 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "site_ui: wiki interface image",
-      "notes": "role evidence: site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
+      "reason": "universe_only: archivist review (File:AreaTANewSongs1.jpg): visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Riot Savor, STARLIT NIGHT, Adrenaline Rush, We Ride on Groove Digital Reverie; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "notes": "role evidence: universe_only <- archivist review (File:AreaTANewSongs1.jpg): visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Riot Savor, STARLIT NIGHT, Adrenaline Rush, We Ride on Groove Digital Reverie; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template; site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
     },
     {
       "id": "wikis:miraheze:File:AreaTANewSongs2.jpg",
@@ -9255,8 +9259,10 @@
       "file_url": "https://static.wikitide.net/dynamixwiki/f/fa/AreaTANewSongs2.jpg",
       "title": "AreaTANewSongs2",
       "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "archivist review (File:AreaTANewSongs2.jpg): visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Zestful Edge, Rising GENERATION, Bassline Blitz, Blazing Through Infinity; Takahiro Aoki) with the DYNAMIX UNIVERSE logo"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/f/fa/AreaTANewSongs2.jpg",
         "mime": "image/jpeg",
@@ -9268,8 +9274,8 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "site_ui: wiki interface image",
-      "notes": "role evidence: site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
+      "reason": "universe_only: archivist review (File:AreaTANewSongs2.jpg): visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Zestful Edge, Rising GENERATION, Bassline Blitz, Blazing Through Infinity; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "notes": "role evidence: universe_only <- archivist review (File:AreaTANewSongs2.jpg): visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Zestful Edge, Rising GENERATION, Bassline Blitz, Blazing Through Infinity; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template; site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
     },
     {
       "id": "wikis:miraheze:File:AreaTATeaser.jpg",
@@ -10463,7 +10469,7 @@
         "Collaboration: RAVON",
         "RAVON Collaboration"
       ],
-      "notes": "role evidence: song_art <- archivist review (File:Astral Squared.png): visual_inspection: 'Astral / Titan Chaos' square jacket, the jacket shown for Astral in Dynamix's RAVON Pack announcement (File:RAVON Collab Pack 1 2 of 4.jpg); the Astral page's commented-out gallery captions it 'Astral Artwork in RAVON'"
+      "notes": "archivist note (File:Astral Squared.png): visual_inspection: the same picture as File:Astral_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 24/256; role evidence: song_art <- archivist review (File:Astral Squared.png): visual_inspection: 'Astral / Titan Chaos' square jacket, the jacket shown for Astral in Dynamix's RAVON Pack announcement (File:RAVON Collab Pack 1 2 of 4.jpg); the Astral page's commented-out gallery captions it 'Astral Artwork in RAVON'"
     },
     {
       "id": "wikis:miraheze:File:Astral_cover.png",
@@ -10504,7 +10510,7 @@
         "Collaboration: RAVON",
         "RAVON Collaboration"
       ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/Astral (Template:SongUV|Imgsuffix; Imgsuffix = Astral_cover.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Astral (Template:SongUV|Imgsuffix; Imgsuffix = Astral_cover.png); song_art <- https://dynamix.miraheze.org/wiki/File:Astral_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Astral_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/)"
+      "notes": "archivist note (File:Astral cover.png): visual_inspection: the same picture as File:Astral_Squared.png (the RAVON rendition archived as original-game song art for Astral); compared side by side, dHash 16x16 distance 24/256; role evidence: song_art <- https://dynamix.miraheze.org/wiki/Astral (Template:SongUV|Imgsuffix; Imgsuffix = Astral_cover.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Astral (Template:SongUV|Imgsuffix; Imgsuffix = Astral_cover.png); song_art <- https://dynamix.miraheze.org/wiki/File:Astral_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Astral_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:Asuka-Animated.gif",
@@ -11972,7 +11978,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:AzureSnowLandBGABG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/5/58/AzureSnowLandBGABG.png",
       "title": "AzureSnowLandBGABG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Azure_Snow_Land (gallery; section Gallery, caption 'Background from the BGA')",
@@ -12001,7 +12007,7 @@
         "Song packs (IAP)",
         "Rabi-Ribi"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Azure_Snow_Land (gallery; section Gallery, caption 'Background from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Azure_Snow_Land (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamix.miraheze.org/wiki/File:AzureSnowLandBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:AzureSnowLandBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Azure_Snow_Land (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamixc4cat.fandom.com/wiki/Azure_Snow_Land (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamix.miraheze.org/wiki/File:AzureSnowLandBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:AzureSnowLandBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:AzureSnowLandDynamix.png",
@@ -18981,7 +18987,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Carrot-Base.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/6/60/Carrot-Base.png",
       "title": "Carrot-Base",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Oracle (gallery; section Gallery, caption 'Background from the BGA', page-level gallery of a two-game song page (original-game event items))",
@@ -19011,7 +19017,7 @@
         "Premium",
         "Collaboration: RAVON"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Oracle (gallery; section Gallery, caption 'Background from the BGA', page-level gallery of a two-game song page (original-game event items)); reference <- https://dynamixc4cat.fandom.com/wiki/Oracle (gallery; section Gallery, caption 'Background from the BGA', page-level gallery of a two-game song page (original-game event items))"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Oracle (gallery; section Gallery, caption 'Background from the BGA', page-level gallery of a two-game song page (original-game event items)); background <- https://dynamixc4cat.fandom.com/wiki/Oracle (gallery; section Gallery, caption 'Background from the BGA', page-level gallery of a two-game song page (original-game event items))"
     },
     {
       "id": "wikis:miraheze:File:Carrot-Character.png",
@@ -19020,7 +19026,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Carrot-Character.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/1/18/Carrot-Character.png",
       "title": "Carrot-Character",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Oracle (gallery; section Gallery, caption 'Character \"Carrot\" from the BGA', page-level gallery of a two-game song page (original-game event items))",
@@ -19050,7 +19056,7 @@
         "Premium",
         "Collaboration: RAVON"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Oracle (gallery; section Gallery, caption 'Character \"Carrot\" from the BGA', page-level gallery of a two-game song page (original-game event items)); reference <- https://dynamixc4cat.fandom.com/wiki/Oracle (gallery; section Gallery, caption 'Character \"Carrot\" from the BGA', page-level gallery of a two-game song page (original-game event items))"
+      "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/Oracle (gallery; section Gallery, caption 'Character \"Carrot\" from the BGA', page-level gallery of a two-game song page (original-game event items)); character <- https://dynamixc4cat.fandom.com/wiki/Oracle (gallery; section Gallery, caption 'Character \"Carrot\" from the BGA', page-level gallery of a two-game song page (original-game event items))"
     },
     {
       "id": "wikis:miraheze:File:Carrot-Raw.png",
@@ -19196,9 +19202,9 @@
         "timestamp": "2026-08-09T09:33:12Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "animated_capture: animated GIF (2 frames); use --include-animated to keep",
-      "notes": "role evidence: character <- archivist review (File:Carrot (Official Make gif).gif): visual_inspection: 'Carrot' title with the character Carrot, an official animation (GIF) used on the Oracle page"
+      "disposition": "pending",
+      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: character <- archivist review (File:Carrot (Official Make gif).gif): visual_inspection: 480x270 2-frame 'Carrot' title card with the character Carrot, an official animation (GIF) used on the Oracle page; not a wiki capture of a character animation"
     },
     {
       "id": "wikis:miraheze:File:CashewArtist.png",
@@ -27155,7 +27161,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:CrossingDeltaBGA-BG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/a/a6/CrossingDeltaBGA-BG.png",
       "title": "CrossingDeltaBGA-BG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption 'Background used in BGA of \"CROSSING DELTA\"')",
@@ -27183,7 +27189,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption 'Background used in BGA of \"CROSSING DELTA\"'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption 'Background used in BGA of \"CROSSING DELTA\"'); background <- https://dynamix.miraheze.org/wiki/File:CrossingDeltaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:CrossingDeltaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption 'Background used in BGA of \"CROSSING DELTA\"'); background <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption 'Background used in BGA of \"CROSSING DELTA\"'); background <- https://dynamix.miraheze.org/wiki/File:CrossingDeltaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:CrossingDeltaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:CrossingDeltaBGA-Logo.png",
@@ -27192,7 +27198,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:CrossingDeltaBGA-Logo.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/a/af/CrossingDeltaBGA-Logo.png",
       "title": "CrossingDeltaBGA-Logo",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in \"CROSSING DELTA\"\\'s BGA')",
@@ -27222,7 +27228,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in \"CROSSING DELTA\"\\'s BGA'); reference <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in CROSSING DELTA\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in \"CROSSING DELTA\"\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in CROSSING DELTA\\'s BGA')"
+      "notes": "role evidence: promotional <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in \"CROSSING DELTA\"\\'s BGA'); promotional <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in CROSSING DELTA\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in \"CROSSING DELTA\"\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in CROSSING DELTA\\'s BGA')"
     },
     {
       "id": "wikis:miraheze:File:CrossingDeltaDynamix.png",
@@ -36213,7 +36219,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:DynamixLogo.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/e/e2/DynamixLogo.jpg",
       "title": "DynamixLogo",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "archivist review (File:DynamixLogo.jpg): visual_inspection: original-game DynAMIX wordmark on an original-game announcement; Fandom upload 2014-10-30 precedes the wiki's first Universe-named upload (2023-08-18)"
@@ -36230,7 +36236,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:bc2b87ec75eee3ce",
-      "notes": "role evidence: reference <- archivist review (File:DynamixLogo.jpg): visual_inspection: the original DynAMIX wordmark logo"
+      "notes": "role evidence: promotional <- archivist review (File:DynamixLogo.jpg): visual_inspection: the original DynAMIX wordmark logo"
     },
     {
       "id": "wikis:miraheze:File:DynamixNewMainPageBanner.png",
@@ -36867,7 +36873,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix_Title.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/4/46/Dynamix_Title.jpg",
       "title": "Dynamix Title",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "archivist review (File:Dynamix Title.jpg): visual_inspection: original-game DynAMIX wordmark on an original-game announcement; Fandom upload 2020-10-06 precedes the wiki's first Universe-named upload (2023-08-18)"
@@ -36884,7 +36890,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:85a138c35267ccaa",
-      "notes": "role evidence: reference <- archivist review (File:Dynamix Title.jpg): visual_inspection: title-screen graphic: the original DynAMIX wordmark on white"
+      "notes": "role evidence: promotional <- archivist review (File:Dynamix Title.jpg): visual_inspection: title-screen graphic: the original DynAMIX wordmark on white"
     },
     {
       "id": "wikis:miraheze:File:Dynamix_Twitter.png",
@@ -39408,7 +39414,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Elph-Character.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/8/89/Elph-Character.png",
       "title": "Elph-Character",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Character \"Elph\" from the BGA')",
@@ -39438,7 +39444,7 @@
       "collections": [
         "Premium"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Character \"Elph\" from the BGA'); reference <- https://dynamix.miraheze.org/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Character \"Elph\" from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Character \"Elph\" from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Character \"Elph\" from the BGA')"
+      "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Character \"Elph\" from the BGA'); character <- https://dynamix.miraheze.org/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Character \"Elph\" from the BGA'); character <- https://dynamixc4cat.fandom.com/wiki/Elph%E2%80%99s_Sadness_-Dynamix_Edition- (gallery; section Gallery, caption 'Character \"Elph\" from the BGA'); character <- https://dynamixc4cat.fandom.com/wiki/Gallium_Phosphide (gallery; section Gallery, caption 'Character \"Elph\" from the BGA')"
     },
     {
       "id": "wikis:miraheze:File:Elph-Effect.png",
@@ -42891,7 +42897,7 @@
         "Collaboration: RAVON",
         "RAVON Collaboration"
       ],
-      "notes": "role evidence: song_art <- archivist review (File:Euouae Squared.png): visual_inspection: 'Euouae' square jacket, the jacket shown for Euouae in Dynamix's RAVON Pack 2 announcement (File:RAVON Collab Pack 2 3 of 4.jpg)"
+      "notes": "archivist note (File:Euouae Squared.png): visual_inspection: the same picture as File:Euouae_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 3/256; role evidence: song_art <- archivist review (File:Euouae Squared.png): visual_inspection: 'Euouae' square jacket, the jacket shown for Euouae in Dynamix's RAVON Pack 2 announcement (File:RAVON Collab Pack 2 3 of 4.jpg)"
     },
     {
       "id": "wikis:miraheze:File:Euouae_cover.png",
@@ -42932,7 +42938,7 @@
         "Collaboration: RAVON",
         "RAVON Collaboration"
       ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/Euouae (Template:SongUV|Imgsuffix; Imgsuffix = Euouae_cover.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Euouae (Template:SongUV|Imgsuffix; Imgsuffix = Euouae_cover.png); song_art <- https://dynamix.miraheze.org/wiki/File:Euouae_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Euouae_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/)"
+      "notes": "archivist note (File:Euouae cover.png): visual_inspection: the same picture as File:Euouae_Squared.png (the RAVON rendition archived as original-game song art for Euouae); compared side by side, dHash 16x16 distance 3/256; role evidence: song_art <- https://dynamix.miraheze.org/wiki/Euouae (Template:SongUV|Imgsuffix; Imgsuffix = Euouae_cover.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Euouae (Template:SongUV|Imgsuffix; Imgsuffix = Euouae_cover.png); song_art <- https://dynamix.miraheze.org/wiki/File:Euouae_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Euouae_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:Eve-Raw.png",
@@ -46131,11 +46137,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Eyecatch_extra.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/1/13/Eyecatch_extra.jpg",
       "title": "Eyecatch extra",
-      "role": "song_art",
-      "game": "mixed",
+      "role": null,
+      "game": "dynamix",
       "game_evidence": [
-        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))",
-        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))",
+        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
       ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/1/13/Eyecatch_extra.jpg",
@@ -46147,20 +46153,9 @@
         "timestamp": "2026-08-09T09:38:21Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "wikis:miraheze:2a60fe8805d1ede0",
-      "song_titles": [
-        "WHIRLWIND"
-      ],
-      "composers": [
-        "Linne X SCTL"
-      ],
-      "collections": [
-        "Event",
-        "Open Submission (Gold)",
-        "Open Submission"
-      ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event)); song_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+      "disposition": "excluded",
+      "reason": "external_release_art: cover art of an external music release",
+      "notes": "role evidence: external_release_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event)); external_release_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Extra\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
     },
     {
       "id": "wikis:miraheze:File:Eyecatch_hard.jpg",
@@ -46169,11 +46164,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Eyecatch_hard.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/8/89/Eyecatch_hard.jpg",
       "title": "Eyecatch hard",
-      "role": "song_art",
-      "game": "mixed",
+      "role": null,
+      "game": "dynamix",
       "game_evidence": [
-        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))",
-        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))",
+        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
       ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/8/89/Eyecatch_hard.jpg",
@@ -46185,20 +46180,9 @@
         "timestamp": "2026-08-09T09:04:06Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "wikis:miraheze:da64170fd4ea521d",
-      "song_titles": [
-        "WHIRLWIND"
-      ],
-      "composers": [
-        "Linne X SCTL"
-      ],
-      "collections": [
-        "Event",
-        "Open Submission (Gold)",
-        "Open Submission"
-      ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event)); song_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+      "disposition": "excluded",
+      "reason": "external_release_art: cover art of an external music release",
+      "notes": "role evidence: external_release_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event)); external_release_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Hard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
     },
     {
       "id": "wikis:miraheze:File:Eyecatch_nomal.jpg",
@@ -46207,11 +46191,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Eyecatch_nomal.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/e/e3/Eyecatch_nomal.jpg",
       "title": "Eyecatch nomal",
-      "role": "song_art",
-      "game": "mixed",
+      "role": null,
+      "game": "dynamix",
       "game_evidence": [
-        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))",
-        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))",
+        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
       ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/e/e3/Eyecatch_nomal.jpg",
@@ -46223,20 +46207,9 @@
         "timestamp": "2026-08-09T09:00:07Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "wikis:miraheze:7331f542a48ae436",
-      "song_titles": [
-        "WHIRLWIND"
-      ],
-      "composers": [
-        "Linne X SCTL"
-      ],
-      "collections": [
-        "Event",
-        "Open Submission (Gold)",
-        "Open Submission"
-      ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event)); song_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+      "disposition": "excluded",
+      "reason": "external_release_art: cover art of an external music release",
+      "notes": "role evidence: external_release_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event)); external_release_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Normal\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
     },
     {
       "id": "wikis:miraheze:File:Eyecatch_superhard.jpg",
@@ -46245,11 +46218,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Eyecatch_superhard.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/6/69/Eyecatch_superhard.jpg",
       "title": "Eyecatch superhard",
-      "role": "song_art",
-      "game": "mixed",
+      "role": null,
+      "game": "dynamix",
       "game_evidence": [
-        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))",
-        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+        "https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))",
+        "https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
       ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/6/69/Eyecatch_superhard.jpg",
@@ -46261,20 +46234,9 @@
         "timestamp": "2026-08-09T10:03:33Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "wikis:miraheze:7e3ad047eabf9b43",
-      "song_titles": [
-        "WHIRLWIND"
-      ],
-      "composers": [
-        "Linne X SCTL"
-      ],
-      "collections": [
-        "Event",
-        "Open Submission (Gold)",
-        "Open Submission"
-      ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event)); song_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song for PABAT! 2017 (another game/event))"
+      "disposition": "excluded",
+      "reason": "external_release_art: cover art of an external music release",
+      "notes": "role evidence: external_release_art <- https://dynamix.miraheze.org/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event)); external_release_art <- https://dynamixc4cat.fandom.com/wiki/WHIRLWIND (gallery; section Gallery, caption 'WHIRLWIND \"Superhard\" Artwork in PABAT! 2017', artwork of the song's release for PABAT! 2017 (an external release event))"
     },
     {
       "id": "wikis:miraheze:File:F.png",
@@ -49879,11 +49841,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Flash_effects_by_omega.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/5/5d/Flash_effects_by_omega.jpg",
       "title": "Flash effects by omega",
-      "role": "reference",
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
-        "https://dynamix.miraheze.org/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects')",
-        "https://dynamixc4cat.fandom.com/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects')"
+        "https://dynamix.miraheze.org/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects', image in a song page's trivia/notes section)",
+        "https://dynamixc4cat.fandom.com/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects', image in a song page's trivia/notes section)"
       ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/5/5d/Flash_effects_by_omega.jpg",
@@ -49907,7 +49869,7 @@
         "Song packs (IAP)",
         "Piano"
       ],
-      "notes": "file page text: 'Infinite Loop VIP omega after the BGA flash effects'; role evidence: reference <- https://dynamix.miraheze.org/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects'); reference <- https://dynamixc4cat.fandom.com/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects')"
+      "notes": "file page text: 'Infinite Loop VIP omega after the BGA flash effects'; role evidence: gameplay_screenshot <- https://dynamix.miraheze.org/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects', image in a song page's trivia/notes section); gameplay_screenshot <- https://dynamixc4cat.fandom.com/wiki/Infinite_Loop_VIP (link; section Trivia, caption 'Omega after BGA flash special effects', image in a song page's trivia/notes section)"
     },
     {
       "id": "wikis:miraheze:File:FlashbackDynamix.png",
@@ -53581,7 +53543,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Gia-Character.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/0/0e/Gia-Character.png",
       "title": "Gia-Character",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Gallium_Arsenide (gallery; section Gallery, caption 'Character \"Gia\" from the BGA')",
@@ -53609,7 +53571,7 @@
         "Collaboration: OverRapid",
         "Premium"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Gallium_Arsenide (gallery; section Gallery, caption 'Character \"Gia\" from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Gallium_Arsenide (gallery; section Gallery, caption 'Character \"Gia\" from the BGA')"
+      "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/Gallium_Arsenide (gallery; section Gallery, caption 'Character \"Gia\" from the BGA'); character <- https://dynamixc4cat.fandom.com/wiki/Gallium_Arsenide (gallery; section Gallery, caption 'Character \"Gia\" from the BGA')"
     },
     {
       "id": "wikis:miraheze:File:Gia-Effect.png",
@@ -53953,7 +53915,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:GinkihaBGA-BG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/0/0b/GinkihaBGA-BG.png",
       "title": "GinkihaBGA-BG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Paved_Garden (gallery; section Gallery, caption 'Background used in BGA')",
@@ -53981,7 +53943,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Paved_Garden (gallery; section Gallery, caption 'Background used in BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Paved_Garden (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamix.miraheze.org/wiki/File:GinkihaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:GinkihaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Paved_Garden (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamixc4cat.fandom.com/wiki/Paved_Garden (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamix.miraheze.org/wiki/File:GinkihaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:GinkihaBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:GinkihaBGA-Char.png",
@@ -53990,7 +53952,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:GinkihaBGA-Char.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/f/fc/GinkihaBGA-Char.png",
       "title": "GinkihaBGA-Char",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Paved Garden's BGA\")",
@@ -54021,7 +53983,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Paved Garden's BGA\"); reference <- https://dynamix.miraheze.org/wiki/Paved_Garden (gallery; section Gallery, caption 'Character used in BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Paved Garden's BGA\"); reference <- https://dynamixc4cat.fandom.com/wiki/Paved_Garden (gallery; section Gallery, caption 'Character used in BGA')"
+      "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Paved Garden's BGA\"); character <- https://dynamix.miraheze.org/wiki/Paved_Garden (gallery; section Gallery, caption 'Character used in BGA'); character <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Paved Garden's BGA\"); character <- https://dynamixc4cat.fandom.com/wiki/Paved_Garden (gallery; section Gallery, caption 'Character used in BGA')"
     },
     {
       "id": "wikis:miraheze:File:GinkihaBGA-Logo.png",
@@ -54030,7 +53992,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:GinkihaBGA-Logo.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/8/89/GinkihaBGA-Logo.png",
       "title": "GinkihaBGA-Logo",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA')",
@@ -54063,7 +54025,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); reference <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); reference <- https://dynamix.miraheze.org/wiki/Paved_Garden (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Paved_Garden (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA')"
+      "notes": "role evidence: promotional <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); promotional <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); promotional <- https://dynamix.miraheze.org/wiki/Paved_Garden (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/Paved_Garden (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Paved Garden\\'s BGA')"
     },
     {
       "id": "wikis:miraheze:File:GiveItToMeBG-HQ.png",
@@ -61953,7 +61915,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Hommarju-BG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/2/2f/Hommarju-BG.png",
       "title": "Hommarju-BG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Background used in BGA')",
@@ -61981,7 +61943,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Background used in BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamix.miraheze.org/wiki/File:Hommarju-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:Hommarju-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamixc4cat.fandom.com/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamix.miraheze.org/wiki/File:Hommarju-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:Hommarju-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:Hommarju.jpg",
@@ -62017,7 +61979,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:HommarjuBGA-Char.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/b/b6/HommarjuBGA-Char.png",
       "title": "HommarjuBGA-Char",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in POP SEQUENCE's BGA\")",
@@ -62048,7 +62010,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in POP SEQUENCE's BGA\"); reference <- https://dynamix.miraheze.org/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Character used in BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in POP SEQUENCE's BGA\"); reference <- https://dynamixc4cat.fandom.com/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Character used in BGA')"
+      "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in POP SEQUENCE's BGA\"); character <- https://dynamix.miraheze.org/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Character used in BGA'); character <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in POP SEQUENCE's BGA\"); character <- https://dynamixc4cat.fandom.com/wiki/POP_SEQUENCE (gallery; section Gallery, caption 'Character used in BGA')"
     },
     {
       "id": "wikis:miraheze:File:HommarjuBGA-Logo.png",
@@ -62057,7 +62019,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:HommarjuBGA-Logo.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/2/22/HommarjuBGA-Logo.png",
       "title": "HommarjuBGA-Logo",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA')",
@@ -62090,7 +62052,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); reference <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); reference <- https://dynamix.miraheze.org/wiki/POP_SEQUENCE (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/POP_SEQUENCE (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA')"
+      "notes": "role evidence: promotional <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); promotional <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); promotional <- https://dynamix.miraheze.org/wiki/POP_SEQUENCE (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/POP_SEQUENCE (gallery; section Gallery, caption '\"Crossing Delta\" logo used in POP SEQUENCE\\'s BGA')"
     },
     {
       "id": "wikis:miraheze:File:Honenasy.jpg",
@@ -63825,9 +63787,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4686.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/5/51/IMG_4686.jpg",
       "title": "IMG 4686",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:IMG 4686.jpg): visual_inspection: the background item File:BeforeSunriseBG.jpg of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/5/51/IMG_4686.jpg",
         "mime": "image/jpeg",
@@ -63839,8 +63803,8 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved_role: archivist review (File:IMG 4686.jpg): visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError; whether it shows a background or a parts item, and of which song, is not established from the image",
-      "notes": "no role evidence"
+      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: background <- archivist review (File:IMG 4686.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:BeforeSunriseBG.jpg (a skull with long claws on magenta), an archived background item of the original game; compared side by side"
     },
     {
       "id": "wikis:miraheze:File:IMG_4687.jpg",
@@ -63897,9 +63861,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4689.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/6/6b/IMG_4689.jpg",
       "title": "IMG 4689",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:IMG 4689.jpg): visual_inspection: the background item File:DefendedBG.jpg of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/6/6b/IMG_4689.jpg",
         "mime": "image/jpeg",
@@ -63911,8 +63877,8 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved_role: archivist review (File:IMG 4689.jpg): visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError; whether it shows a background or a parts item, and of which song, is not established from the image",
-      "notes": "no role evidence"
+      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: background <- archivist review (File:IMG 4689.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:DefendedBG.jpg (towers with UFOs on blue), an archived background item of the original game; compared side by side"
     },
     {
       "id": "wikis:miraheze:File:IMG_4691.jpg",
@@ -63921,9 +63887,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4691.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/2/23/IMG_4691.jpg",
       "title": "IMG 4691",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:IMG 4691.jpg): visual_inspection: the background item File:BlueBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/2/23/IMG_4691.jpg",
         "mime": "image/jpeg",
@@ -63935,8 +63903,8 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved_role: archivist review (File:IMG 4691.jpg): visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError; whether it shows a background or a parts item, and of which song, is not established from the image",
-      "notes": "no role evidence"
+      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: background <- archivist review (File:IMG 4691.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:BlueBG.png (a spiral of glowing triangles with orange dots on blue), an archived background item of the original game; compared side by side"
     },
     {
       "id": "wikis:miraheze:File:IMG_4692.jpg",
@@ -63945,9 +63913,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4692.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/6/65/IMG_4692.jpg",
       "title": "IMG 4692",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:IMG 4692.jpg): visual_inspection: the background item File:ArcanaIdolaBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/6/65/IMG_4692.jpg",
         "mime": "image/jpeg",
@@ -63959,8 +63929,8 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved_role: archivist review (File:IMG 4692.jpg): visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError; whether it shows a background or a parts item, and of which song, is not established from the image",
-      "notes": "no role evidence"
+      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: background <- archivist review (File:IMG 4692.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:ArcanaIdolaBG.png (a dark tower before a full moon on purple), an archived background item of the original game; compared side by side"
     },
     {
       "id": "wikis:miraheze:File:IMG_4693.jpg",
@@ -63969,9 +63939,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4693.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/8/86/IMG_4693.jpg",
       "title": "IMG 4693",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:IMG 4693.jpg): visual_inspection: the background item File:JusticeJusticeBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/8/86/IMG_4693.jpg",
         "mime": "image/jpeg",
@@ -63983,8 +63955,8 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved_role: archivist review (File:IMG 4693.jpg): visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError; whether it shows a background or a parts item, and of which song, is not established from the image",
-      "notes": "no role evidence"
+      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: background <- archivist review (File:IMG 4693.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:JusticeJusticeBG.png (a grey/white diamond lattice on dark red), an archived background item of the original game; compared side by side"
     },
     {
       "id": "wikis:miraheze:File:IMG_4695.jpg",
@@ -64017,9 +63989,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:IMG_4703.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/c/c0/IMG_4703.jpg",
       "title": "IMG 4703",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:IMG 4703.jpg): visual_inspection: the background item File:ToSoarBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/c/c0/IMG_4703.jpg",
         "mime": "image/jpeg",
@@ -64031,8 +64005,8 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved_role: archivist review (File:IMG 4703.jpg): visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError; whether it shows a background or a parts item, and of which song, is not established from the image",
-      "notes": "no role evidence"
+      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: background <- archivist review (File:IMG 4703.jpg): visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:ToSoarBG.png (a broken pale ring on teal), an archived background item of the original game; compared side by side"
     },
     {
       "id": "wikis:miraheze:File:IMustSayNoDynamix.png",
@@ -87034,7 +87008,7 @@
         "Collaboration: RAVON",
         "RAVON Collaboration"
       ],
-      "notes": "role evidence: song_art <- archivist review (File:Mitochondria Squared.png): visual_inspection: 'Mitochondria / Sargon' square jacket, the jacket shown for Mitochondria in Dynamix's RAVON Pack 1 announcement (File:RAVON Collab Pack 1 3 of 4.jpg)"
+      "notes": "archivist note (File:Mitochondria Squared.png): visual_inspection: the same picture as File:Mitochondria_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 4/256; role evidence: song_art <- archivist review (File:Mitochondria Squared.png): visual_inspection: 'Mitochondria / Sargon' square jacket, the jacket shown for Mitochondria in Dynamix's RAVON Pack 1 announcement (File:RAVON Collab Pack 1 3 of 4.jpg)"
     },
     {
       "id": "wikis:miraheze:File:Mitochondria_cover.png",
@@ -87075,7 +87049,7 @@
         "Collaboration: RAVON",
         "RAVON Collaboration"
       ],
-      "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/Mitochondria (Template:SongUV|Imgsuffix; Imgsuffix = Mitochondria_cover.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Mitochondria (Template:SongUV|Imgsuffix; Imgsuffix = Mitochondria_cover.png); song_art <- https://dynamix.miraheze.org/wiki/File:Mitochondria_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Mitochondria_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/)"
+      "notes": "archivist note (File:Mitochondria cover.png): visual_inspection: the same picture as File:Mitochondria_Squared.png (the RAVON rendition archived as original-game song art for Mitochondria); compared side by side, dHash 16x16 distance 4/256; role evidence: song_art <- https://dynamix.miraheze.org/wiki/Mitochondria (Template:SongUV|Imgsuffix; Imgsuffix = Mitochondria_cover.png); song_art <- https://dynamixc4cat.fandom.com/wiki/Mitochondria (Template:SongUV|Imgsuffix; Imgsuffix = Mitochondria_cover.png); song_art <- https://dynamix.miraheze.org/wiki/File:Mitochondria_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Mitochondria_cover.png (filename; filename convention /(?:^|[ _])cover\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:Mmry.jpg",
@@ -89899,8 +89873,8 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "person_photo: composer/artist/charter profile image",
-      "notes": "file page text: 'For squared icons only'; role evidence: person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section ZAT); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section ノゾム); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section 黒猫); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section 影翔鼓舞); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section DJ KemoNOiZE); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section Glúteos); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section 一ノ瀬樹); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section Akane); ... and 38 more"
+      "reason": "game_ui: archivist review (File:NPS.png): visual_inspection: 513x513 black placeholder with the text 'Now Printing...' (the in-game placeholder jacket), listed on the Artists/Charters/Store pages for entries without a picture; not a person photo",
+      "notes": "file page text: 'For squared icons only'; role evidence: game_ui <- archivist review (File:NPS.png): visual_inspection: 513x513 black placeholder with the text 'Now Printing...' (the in-game placeholder jacket), listed on the Artists/Charters/Store pages for entries without a picture; not a person photo; person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section ZAT); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section ノゾム); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section 黒猫); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section 影翔鼓舞); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section DJ KemoNOiZE); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section Glúteos); person_photo <- https://dynamix.miraheze.org/wiki/Artists (link; section 一ノ瀬樹); ... and 2 more"
     },
     {
       "id": "wikis:miraheze:File:NPUV.png",
@@ -91871,8 +91845,10 @@
       "file_url": "https://static.wikitide.net/dynamixwiki/d/de/NewNoteSkin1.jpg",
       "title": "NewNoteSkin1",
       "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "archivist review (File:NewNoteSkin1.jpg): visual_inspection: new note skin announcement (Regular, Dense, Touch, Bomb, Hold, Mixer notes) with the DYNAMIX UNIVERSE logo"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/d/de/NewNoteSkin1.jpg",
         "mime": "image/jpeg",
@@ -91884,8 +91860,8 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "site_ui: wiki interface image",
-      "notes": "role evidence: site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
+      "reason": "universe_only: archivist review (File:NewNoteSkin1.jpg): visual_inspection: new note skin announcement (Regular, Dense, Touch, Bomb, Hold, Mixer notes) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "notes": "role evidence: universe_only <- archivist review (File:NewNoteSkin1.jpg): visual_inspection: new note skin announcement (Regular, Dense, Touch, Bomb, Hold, Mixer notes) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template; site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
     },
     {
       "id": "wikis:miraheze:File:NewStoryDynamix.png",
@@ -98319,7 +98295,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:PUPABGA.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/9/9f/PUPABGA.png",
       "title": "PUPABGA",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/PUPA (gallery; section Gallery, caption 'Background from the BGA')",
@@ -98350,7 +98326,7 @@
         "Collaboration: RAVON",
         "Open Submission"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/PUPA (gallery; section Gallery, caption 'Background from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/PUPA (gallery; section Gallery, caption 'Background from the BGA')"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/PUPA (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamixc4cat.fandom.com/wiki/PUPA (gallery; section Gallery, caption 'Background from the BGA')"
     },
     {
       "id": "wikis:miraheze:File:PUPA_CH.png",
@@ -98359,7 +98335,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:PUPA_CH.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/9/90/PUPA_CH.png",
       "title": "PUPA CH",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/PUPA (gallery; section Gallery, caption 'Character \"PUPA\" from the BGA')",
@@ -98390,7 +98366,7 @@
         "Collaboration: RAVON",
         "Open Submission"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/PUPA (gallery; section Gallery, caption 'Character \"PUPA\" from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/PUPA (gallery; section Gallery, caption 'Character \"PUPA\" from the BGA')"
+      "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/PUPA (gallery; section Gallery, caption 'Character \"PUPA\" from the BGA'); character <- https://dynamixc4cat.fandom.com/wiki/PUPA (gallery; section Gallery, caption 'Character \"PUPA\" from the BGA')"
     },
     {
       "id": "wikis:miraheze:File:PUPA_Chart_List.png",
@@ -101210,7 +101186,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Persephone-Scene.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/2/2c/Persephone-Scene.png",
       "title": "Persephone-Scene",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene Assets')",
@@ -101237,7 +101213,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene Assets'); reference <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene Assets')"
+      "notes": "role evidence: character <- archivist review (File:Persephone-Scene.png): visual_inspection: 1817x1277 sheet of the Persephone BGA's character sprites (white-haired girls in yellow and blue dresses in several poses) and a pendant on black; the Persephone page captions it 'Scene Assets'"
     },
     {
       "id": "wikis:miraheze:File:Persephone-SceneBG.png",
@@ -101246,7 +101222,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Persephone-SceneBG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/9/91/Persephone-SceneBG.png",
       "title": "Persephone-SceneBG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Background in BGA')",
@@ -101273,7 +101249,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Background in BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Background in BGA'); background <- https://dynamix.miraheze.org/wiki/File:Persephone-SceneBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:Persephone-SceneBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Background in BGA'); background <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Background in BGA'); background <- https://dynamix.miraheze.org/wiki/File:Persephone-SceneBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:Persephone-SceneBG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:PersephoneDynamix.png",
@@ -101364,7 +101340,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Persephone_BGA_Scene_1.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/e/eb/Persephone_BGA_Scene_1.png",
       "title": "Persephone BGA Scene 1",
-      "role": "reference",
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 1')",
@@ -101391,7 +101367,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 1'); reference <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 1')"
+      "notes": "role evidence: gameplay_screenshot <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 1'); gameplay_screenshot <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 1')"
     },
     {
       "id": "wikis:miraheze:File:Persephone_BGA_Scene_2.png",
@@ -101400,7 +101376,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Persephone_BGA_Scene_2.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/0/09/Persephone_BGA_Scene_2.png",
       "title": "Persephone BGA Scene 2",
-      "role": "reference",
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 2')",
@@ -101427,7 +101403,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 2'); reference <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 2')"
+      "notes": "role evidence: gameplay_screenshot <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 2'); gameplay_screenshot <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 2')"
     },
     {
       "id": "wikis:miraheze:File:Persephone_BGA_Scene_3.png",
@@ -101436,7 +101412,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Persephone_BGA_Scene_3.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/8/83/Persephone_BGA_Scene_3.png",
       "title": "Persephone BGA Scene 3",
-      "role": "reference",
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 3')",
@@ -101463,7 +101439,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 3'); reference <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 3')"
+      "notes": "role evidence: gameplay_screenshot <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 3'); gameplay_screenshot <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 3')"
     },
     {
       "id": "wikis:miraheze:File:Persephone_BGA_Scene_4.png",
@@ -101472,7 +101448,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Persephone_BGA_Scene_4.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/2/27/Persephone_BGA_Scene_4.png",
       "title": "Persephone BGA Scene 4",
-      "role": "reference",
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 4')",
@@ -101499,7 +101475,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 4'); reference <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 4')"
+      "notes": "role evidence: gameplay_screenshot <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 4'); gameplay_screenshot <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 4')"
     },
     {
       "id": "wikis:miraheze:File:Persephone_BGA_Scene_5.png",
@@ -101508,7 +101484,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Persephone_BGA_Scene_5.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/1/1a/Persephone_BGA_Scene_5.png",
       "title": "Persephone BGA Scene 5",
-      "role": "reference",
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 5')",
@@ -101535,7 +101511,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 5'); reference <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 5')"
+      "notes": "role evidence: gameplay_screenshot <- https://dynamix.miraheze.org/wiki/Persephone (gallery; section Gallery, caption 'Scene 5'); gameplay_screenshot <- https://dynamixc4cat.fandom.com/wiki/Persephone (gallery; section Gallery, caption 'Scene 5')"
     },
     {
       "id": "wikis:miraheze:File:Persephone_Chart_List.jpg",
@@ -118285,6 +118261,15 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:0de3e5c90dd33ec3",
+      "song_titles": [
+        "Set Free -KIVΛ Edition-"
+      ],
+      "composers": [
+        "KIVΛ"
+      ],
+      "collections": [
+        "Premium"
+      ],
       "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/File:SetFreeDynamix.jpg (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:SetFreeDynamix.jpg (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/)"
     },
     {
@@ -118822,7 +118807,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -118862,7 +118847,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -118906,7 +118891,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -118970,7 +118955,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -119014,7 +118999,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -119062,7 +119047,7 @@
         "HAT"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -119102,7 +119087,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -119146,7 +119131,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -119184,7 +119169,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -119222,7 +119207,7 @@
         "Shinobi (Original Short Mix)"
       ],
       "composers": [
-        "[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"
+        "[sound shinobi]"
       ],
       "collections": [
         "Event",
@@ -123790,8 +123775,10 @@
       "file_url": "https://static.wikitide.net/dynamixwiki/f/fe/SoundscapeRuinsSecretArea.jpg",
       "title": "SoundscapeRuinsSecretArea",
       "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "archivist review (File:SoundscapeRuinsSecretArea.jpg): visual_inspection: 'SECRET AREA AWAITS' announcement for Soundscape Ruins with the DYNAMIX UNIVERSE logo"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/f/fe/SoundscapeRuinsSecretArea.jpg",
         "mime": "image/jpeg",
@@ -123803,8 +123790,8 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "site_ui: wiki interface image",
-      "notes": "role evidence: site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
+      "reason": "universe_only: archivist review (File:SoundscapeRuinsSecretArea.jpg): visual_inspection: 'SECRET AREA AWAITS' announcement for Soundscape Ruins with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "notes": "role evidence: universe_only <- archivist review (File:SoundscapeRuinsSecretArea.jpg): visual_inspection: 'SECRET AREA AWAITS' announcement for Soundscape Ruins with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template; site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:MainPageBanner (embedded in template); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)"
     },
     {
       "id": "wikis:miraheze:File:Soundscape_Ruins_v00.10.00.jpeg",
@@ -129565,7 +129552,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:SystemInteriorBGABG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/3/3b/SystemInteriorBGABG.png",
       "title": "SystemInteriorBGABG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/System_Interior (gallery; section Gallery, caption 'Background from the BGA')",
@@ -129594,7 +129581,7 @@
         "Song packs (IAP)",
         "Rabi-Ribi"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/System_Interior (gallery; section Gallery, caption 'Background from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/System_Interior (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamix.miraheze.org/wiki/File:SystemInteriorBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:SystemInteriorBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/System_Interior (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamixc4cat.fandom.com/wiki/System_Interior (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamix.miraheze.org/wiki/File:SystemInteriorBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:SystemInteriorBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:SystemInteriorDynamix.png",
@@ -132302,7 +132289,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:TheTruthNeverSpokenBGABG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/1/16/TheTruthNeverSpokenBGABG.png",
       "title": "TheTruthNeverSpokenBGABG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/The_Truth_Never_Spoken (gallery; section Gallery, caption 'Background from the BGA')",
@@ -132331,7 +132318,7 @@
         "Song packs (IAP)",
         "Rabi-Ribi"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/The_Truth_Never_Spoken (gallery; section Gallery, caption 'Background from the BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/The_Truth_Never_Spoken (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamix.miraheze.org/wiki/File:TheTruthNeverSpokenBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:TheTruthNeverSpokenBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/The_Truth_Never_Spoken (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamixc4cat.fandom.com/wiki/The_Truth_Never_Spoken (gallery; section Gallery, caption 'Background from the BGA'); background <- https://dynamix.miraheze.org/wiki/File:TheTruthNeverSpokenBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:TheTruthNeverSpokenBGABG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:TheTruthNeverSpokenDynamix.png",
@@ -134509,7 +134496,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:TopazoBGA-BG.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/9/9b/TopazoBGA-BG.png",
       "title": "TopazoBGA-BG",
-      "role": "reference",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Background used in BGA')",
@@ -134537,7 +134524,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Background used in BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamix.miraheze.org/wiki/File:TopazoBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:TopazoBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
+      "notes": "role evidence: background <- https://dynamix.miraheze.org/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamixc4cat.fandom.com/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Background used in BGA'); background <- https://dynamix.miraheze.org/wiki/File:TopazoBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/); background <- https://dynamixc4cat.fandom.com/wiki/File:TopazoBGA-BG.png (filename; filename convention /[ _-]?BG(?:[ _-]?HQ)?\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:miraheze:File:TopazoBGA-Char.png",
@@ -134546,7 +134533,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:TopazoBGA-Char.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/e/e4/TopazoBGA-Char.png",
       "title": "TopazoBGA-Char",
-      "role": "reference",
+      "role": "character",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Slapstick Parfait's BGA\")",
@@ -134577,7 +134564,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Slapstick Parfait's BGA\"); reference <- https://dynamix.miraheze.org/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Character used in BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Slapstick Parfait's BGA\"); reference <- https://dynamixc4cat.fandom.com/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Character used in BGA')"
+      "notes": "role evidence: character <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Slapstick Parfait's BGA\"); character <- https://dynamix.miraheze.org/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Character used in BGA'); character <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption \"Character used in Slapstick Parfait's BGA\"); character <- https://dynamixc4cat.fandom.com/wiki/Slapstick_Parfait (gallery; section Gallery, caption 'Character used in BGA')"
     },
     {
       "id": "wikis:miraheze:File:TopazoBGA-Logo.png",
@@ -134586,7 +134573,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:TopazoBGA-Logo.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/b/b9/TopazoBGA-Logo.png",
       "title": "TopazoBGA-Logo",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA')",
@@ -134619,7 +134606,7 @@
         "Song packs (IAP)",
         "Crossing Delta"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); reference <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); reference <- https://dynamix.miraheze.org/wiki/Slapstick_Parfait (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); reference <- https://dynamixc4cat.fandom.com/wiki/Slapstick_Parfait (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA')"
+      "notes": "role evidence: promotional <- https://dynamix.miraheze.org/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); promotional <- https://dynamix.miraheze.org/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); promotional <- https://dynamix.miraheze.org/wiki/Slapstick_Parfait (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/CROSSING_DELTA (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/Crossing_Delta (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA'); promotional <- https://dynamixc4cat.fandom.com/wiki/Slapstick_Parfait (gallery; section Gallery, caption '\"Crossing Delta\" logo used in Slapstick Parfait\\'s BGA')"
     },
     {
       "id": "wikis:miraheze:File:TotallyBoundedDynamix.png",
@@ -154869,8 +154856,10 @@
       "file_url": "https://static.wikitide.net/dynamixwiki/c/c8/%E5%85%AD%E5%84%84%E5%85%89%E5%B9%B4%E5%85%88%E3%81%AE%E9%B3%A5_%26_%E5%A3%B0%E6%86%B6_Free_Update.jpg",
       "title": "六億光年先の鳥 & 声憶 Free Update",
       "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "archivist review (File:六億光年先の鳥 & 声憶 Free Update.jpg): visual_inspection: 'FREE UPDATE Soundscape Ruins' announcement (六億光年先の鳥, 声憶) with the DYNAMIX UNIVERSE logo"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/c/c8/%E5%85%AD%E5%84%84%E5%85%89%E5%B9%B4%E5%85%88%E3%81%AE%E9%B3%A5_%26_%E5%A3%B0%E6%86%B6_Free_Update.jpg",
         "mime": "image/jpeg",
@@ -154882,8 +154871,8 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "site_ui: wiki interface image",
-      "notes": "role evidence: site_ui <- https://dynamixc4cat.fandom.com/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamixc4cat.fandom.com/wiki/Template:MainPageBanner (embedded in template)"
+      "reason": "universe_only: archivist review (File:六億光年先の鳥 & 声憶 Free Update.jpg): visual_inspection: 'FREE UPDATE Soundscape Ruins' announcement (六億光年先の鳥, 声憶) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "notes": "role evidence: universe_only <- archivist review (File:六億光年先の鳥 & 声憶 Free Update.jpg): visual_inspection: 'FREE UPDATE Soundscape Ruins' announcement (六億光年先の鳥, 声憶) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template; site_ui <- https://dynamixc4cat.fandom.com/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamixc4cat.fandom.com/wiki/Template:MainPageBanner (embedded in template)"
     },
     {
       "id": "wikis:miraheze:File:六億光年先の鳥_cover.png",
