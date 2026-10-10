@@ -36,7 +36,7 @@ def mediawiki_snapshot(inventory: discover.Inventory, candidates: list[dict], *,
                             + ", ".join(pooled_with) + ". Accepted candidates that are not downloaded yet are "
                             "'pending' with reason 'awaiting_download'."),
                   "file_count": len(inventory.files), "article_count": len(inventory.pages),
-                  "requests": inventory.requests},
+                  "requests": inventory.requests, "cached_responses": inventory.cache_hits},
         "continuation": {name: inventory.continuation.get(name, {}) for name in discover.LISTS},
         "discovery_complete": inventory.complete,
         "candidates": candidates,

@@ -33,6 +33,7 @@ class Inventory:
     continuation: dict[str, dict | None] = field(default_factory=dict)
     errors: list[dict] = field(default_factory=list)
     requests: int = 0
+    cache_hits: int = 0  # responses reused from --cache-dir (their fetch times bound started_at/finished_at)
 
     @property
     def complete(self) -> bool:
@@ -64,8 +65,19 @@ def fetch_inventory(client: Any, source: config.WikiSource, *, cache_dir: str | 
         inventory.continuation[name] = None if result.complete else dict(result.continuation or {})
         inventory.errors.extend(result.errors)
     inventory.requests = api.requests
+    inventory.cache_hits = api.cache_hits
     inventory.finished_at = now()
+    if api.cached_times:  # the snapshot describes when the responses were fetched, not when they were re-read
+        first = _utc(min(api.cached_times))
+        inventory.started_at = min(inventory.started_at, first)
+        if not api.requests:
+            inventory.finished_at = _utc(max(api.cached_times))
     return inventory
+
+
+def _utc(seconds: float) -> str:
+    from datetime import datetime, timezone
+    return datetime.fromtimestamp(seconds, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def templated_titles(pages: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:

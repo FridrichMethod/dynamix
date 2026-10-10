@@ -2,9 +2,10 @@
 
 Songs are grouped by English wiki page title (Miraheze and Fandom share titles); the exact title is the original
 ``Template:Song`` ``Title`` (Miraheze first), and other spellings become aliases. ``in_original_game`` needs positive
-evidence: an original ``Template:Song`` on a page that is not ``Category:Unreleased``, or a row of a Japanese
-original-game list. A page with only ``Template:SongUV`` is a Universe song (``in_original_game`` false) unless a
-Japanese original-game list names it, which is then also recorded as a disagreement. Composer and illustrator credits
+evidence: an original ``Template:Song`` on a page that is not ``Category:Unreleased``, or a row of the Japanese
+original-game wiki's lists (atwiki ``dynamix2ch``). The wikiwiki rhythm-game summary is only a corroborating lead: its
+rows add evidence and disagreements but never inclusion. ``Template:SongOther`` pages (unreleased/cancelled songs) and
+pages with only ``Template:SongUV`` (Universe songs) are kept with ``in_original_game`` false. Composer and illustrator credits
 are kept separately and verbatim (``N/A`` and similar mean unknown). Japanese rows are matched to English songs by a
 loose title key (NFKC, casefold, alphanumerics); unmatched rows become their own entries and disagreements.
 """
@@ -201,12 +202,16 @@ def _reconcile_english(entry: SongEntry, wikis: Mapping[str, dict], disagreement
 
 def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[jawikis.ListPage]],
                     disagreements: list) -> None:
+    """Match Japanese rows to songs. Only the atwiki original-game lists are positive inclusion evidence; the
+    wikiwiki rhythm-game summary is a corroborating lead (its rows add evidence and disagreements, never
+    ``in_original_game``)."""
     keys: dict[str, SongEntry] = {}
     for entry in entries.values():
         for title in entry.titles:
             keys.setdefault(wikitext.normalize_key(title), entry)
     for source_key in ("atwiki-ja", "rhythmgame-ja"):
         source = config.SOURCES[source_key]
+        grants = source_key == "atwiki-ja"
         for page in ja_lists.get(source_key, []):
             for row in page.rows:
                 loose = wikitext.normalize_key(row.title)
@@ -236,17 +241,17 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                     if not created:
                         disagreements.append((entry.key, "release_status", {
                             source.source_id: f"listed in {page.label} (removed or never implemented)",
-                            "wikis:miraheze": "Category:Unreleased" if not entry.in_original_game
-                            else "original-game song page"}))
+                            "wikis:miraheze": "Category:Unreleased / Template:SongOther"
+                            if not entry.in_original_game else "original-game song page"}))
                     continue
-                if not entry.in_original_game:
-                    if not created and entry.universe_also:
-                        disagreements.append((entry.key, "in_original_game", {
-                            source.source_id: f"listed in {page.label}",
-                            "wikis:miraheze": "Template:SongUV only (Dynamix Universe)"}))
+                if not entry.in_original_game and not created and entry.universe_also:
+                    disagreements.append((entry.key, "in_original_game", {
+                        source.source_id: f"listed in {page.label}" + ("" if grants else " (lead only)"),
+                        "wikis:miraheze": "Template:SongUV only (Dynamix Universe)"}))
+                if grants:
                     entry.in_original_game = True
-                _add(entry.inclusion_evidence, [label])
-                if not created and source_key == "atwiki-ja":
+                    _add(entry.inclusion_evidence, [label])
+                if not created and grants:
                     names = wikitext.credit_names(row.credit)
                     if names and entry.composers and {wikitext.normalize_key(n) for n in names} != {
                             wikitext.normalize_key(n) for n in entry.composers}:

@@ -56,6 +56,8 @@ class MediaWikiAPI:
         self.cache_dir = Path(cache_dir) if cache_dir else None
         self.max_requests = max_requests
         self.requests = 0
+        self.cache_hits = 0
+        self.cached_times: list[float] = []  # modification times of reused cached responses
 
     def _cache_path(self, params: Mapping[str, Any]) -> Path | None:
         if self.cache_dir is None:
@@ -74,6 +76,8 @@ class MediaWikiAPI:
         full = {key: str(value) for key, value in full.items()}
         cached = self._cache_path(full)
         if cached is not None and cached.is_file():
+            self.cache_hits += 1
+            self.cached_times.append(cached.stat().st_mtime)
             return manifest.load_json(cached)
         if self.max_requests is not None and self.requests >= self.max_requests:
             raise ApiError(f"request budget of {self.max_requests} exhausted", url=self.request_url(full))

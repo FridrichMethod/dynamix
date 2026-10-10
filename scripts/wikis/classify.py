@@ -104,6 +104,7 @@ class Decision:
     reason: str
     mapping: str  # "confirmed_wiki", "inferred" or "unmapped"
     mapping_evidence: list[Any] = field(default_factory=list)
+    strength: int = -1  # strength of the evidence behind ``role`` (3 template ... 0 filename, -1 none)
 
 
 # --- Pages ------------------------------------------------------------------------------------------------------------
@@ -464,7 +465,7 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         game = "unknown"
     mapping, mapping_evidence = _mapping(items, role)
     base = dict(game=game, game_evidence=_short(game_items), role_evidence=role_evidence, songs=songs,
-                song_pages=song_pages, mapping=mapping, mapping_evidence=mapping_evidence)
+                song_pages=song_pages, mapping=mapping, mapping_evidence=mapping_evidence, strength=top)
     if len(leaders) > 1:
         return Decision(None, **base, disposition="excluded" if game == "dynamix_universe" else "pending",
                         reason=("universe_only: Universe-only usage; conflicting roles " + ", ".join(leaders))
@@ -495,7 +496,8 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         return Decision(kind, **base, disposition="excluded",
                         reason=f"animated_capture: {what} ({frames or '?'} frames); use --include-animated to keep")
     if game == "unknown":
-        return Decision(kind, **base, disposition="pending",
+        # A filename convention alone never classifies a file: the hint stays in the reason only.
+        return Decision(kind if top > 0 else None, **base, disposition="pending",
                         reason=f"unresolved_game: {kind} role ({_strength_name(top)}) but no page establishes "
                                "original-game use")
     if mime not in ("image/png", "image/jpeg", "image/gif", "image/webp"):

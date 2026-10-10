@@ -162,7 +162,11 @@ class Runner:
         totals: dict[str, int] = {}
         try:
             for key in self.mediawiki_selected:
-                for plan, candidate in zip(self.plans[key], self.candidates[key]):
+                # Strongest evidence first, so that among same-wiki byte duplicates the template/caption-named file
+                # becomes the record and the others point at it (duplicate_bytes); then by candidate ID.
+                order = sorted(zip(self.plans[key], self.candidates[key]),
+                               key=lambda pair: (-pair[0].decision.strength, pair[0].candidate_id))
+                for plan, candidate in order:
                     if self.args.limit is not None and attempts >= self.args.limit:
                         break
                     if only and not ({plan.title, plan.candidate_id, discover.upstream_key(plan.title)} & only):
