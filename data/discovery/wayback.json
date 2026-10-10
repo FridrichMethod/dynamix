@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-10T21:16:48Z",
-  "finished_at": "2026-10-10T21:20:38Z",
+  "started_at": "2026-10-10T22:37:52Z",
+  "finished_at": "2026-10-10T22:40:48Z",
   "scope": {
     "lists": [
       "official-img",
@@ -189,7 +189,7 @@
       "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new1.jpg@20170719230328",
       "page_url": "https://web.archive.org/web/20170719230328/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
       "file_url": "https://web.archive.org/web/20170719230328id_/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
-      "title": "new1.jpg (archived 20170719)",
+      "title": "Official website news image: the Dynamix logo on white",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -215,7 +215,7 @@
       "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
       "page_url": "https://web.archive.org/web/20160314012750/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
       "file_url": "https://web.archive.org/web/20160314012750id_/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
-      "title": "new21.png (archived 20160314)",
+      "title": "Official home page photo of the game played on a phone",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -241,7 +241,7 @@
       "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
       "page_url": "https://web.archive.org/web/20170720024322/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
       "file_url": "https://web.archive.org/web/20170720024322id_/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
-      "title": "new32.png (archived 20170720)",
+      "title": "Official home page features collage of song jackets",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -423,7 +423,7 @@
       "upstream_key": "dynamix-server.c4-cat.com/mycard/img/header.jpg@20200622223326",
       "page_url": "https://web.archive.org/web/20200622223326/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
       "file_url": "https://web.archive.org/web/20200622223326id_/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
-      "title": "header.jpg (archived 20200622)",
+      "title": "MyCard top-up page header banner",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -527,7 +527,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap1.png@20150412124448",
       "page_url": "https://web.archive.org/web/20150412124448/http://dynamix.c4-cat.com/img/cap1.png",
       "file_url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
-      "title": "cap1.png (archived 20150412)",
+      "title": "Official website screenshot (cap1.png, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -553,7 +553,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap2.png@20150412125452",
       "page_url": "https://web.archive.org/web/20150412125452/http://dynamix.c4-cat.com/img/cap2.png",
       "file_url": "https://web.archive.org/web/20150412125452id_/http://dynamix.c4-cat.com/img/cap2.png",
-      "title": "cap2.png (archived 20150412)",
+      "title": "Official website screenshot (cap2.png, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -579,7 +579,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap3.png@20150412125233",
       "page_url": "https://web.archive.org/web/20150412125233/http://dynamix.c4-cat.com/img/cap3.png",
       "file_url": "https://web.archive.org/web/20150412125233id_/http://dynamix.c4-cat.com/img/cap3.png",
-      "title": "cap3.png (archived 20150412)",
+      "title": "Official website screenshot (cap3.png, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -605,7 +605,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap4.png@20150412125308",
       "page_url": "https://web.archive.org/web/20150412125308/http://dynamix.c4-cat.com/img/cap4.png",
       "file_url": "https://web.archive.org/web/20150412125308id_/http://dynamix.c4-cat.com/img/cap4.png",
-      "title": "cap4.png (archived 20150412)",
+      "title": "Official website screenshot (cap4.png, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -631,7 +631,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap5.png@20150630034232",
       "page_url": "https://web.archive.org/web/20150630034232/http://dynamix.c4-cat.com/img/cap5.png",
       "file_url": "https://web.archive.org/web/20150630034232id_/http://dynamix.c4-cat.com/img/cap5.png",
-      "title": "cap5.png (archived 20150630)",
+      "title": "Official website screenshot (cap5.png, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -657,7 +657,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap6.png@20150412124335",
       "page_url": "https://web.archive.org/web/20150412124335/http://dynamix.c4-cat.com/img/cap6.png",
       "file_url": "https://web.archive.org/web/20150412124335id_/http://dynamix.c4-cat.com/img/cap6.png",
-      "title": "cap6.png (archived 20150412)",
+      "title": "Official website screenshot (cap6.png, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1151,7 +1151,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
       "page_url": "https://web.archive.org/web/20160517032816/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
       "file_url": "https://web.archive.org/web/20160517032816id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
-      "title": "new5-700x365.png (archived 20160517)",
+      "title": "Official website news banner with the Dynamix logo",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1229,7 +1229,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg@20160517082309",
       "page_url": "https://web.archive.org/web/20160517082309/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
       "file_url": "https://web.archive.org/web/20160517082309id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
-      "title": "TC1.jpg (archived 20160517)",
+      "title": "Official code-entry tutorial (TC1.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1255,7 +1255,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg@20160517010305",
       "page_url": "https://web.archive.org/web/20160517010305/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
       "file_url": "https://web.archive.org/web/20160517010305id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
-      "title": "TC2.jpg (archived 20160517)",
+      "title": "Official code-entry tutorial (TC2.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1281,7 +1281,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg@20160517065421",
       "page_url": "https://web.archive.org/web/20160517065421/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
       "file_url": "https://web.archive.org/web/20160517065421id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
-      "title": "TC3.jpg (archived 20160517)",
+      "title": "Official code-entry tutorial (TC3.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1307,7 +1307,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg@20160517032810",
       "page_url": "https://web.archive.org/web/20160517032810/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
       "file_url": "https://web.archive.org/web/20160517032810id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
-      "title": "TC4.jpg (archived 20160517)",
+      "title": "Official code-entry tutorial (TC4.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1333,7 +1333,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
       "page_url": "https://web.archive.org/web/20160516183525/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
       "file_url": "https://web.archive.org/web/20160516183525id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
-      "title": "TE1.jpg (archived 20160516)",
+      "title": "Official code-entry tutorial (TE1.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1359,7 +1359,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg@20160516153751",
       "page_url": "https://web.archive.org/web/20160516153751/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
       "file_url": "https://web.archive.org/web/20160516153751id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
-      "title": "TE2.jpg (archived 20160516)",
+      "title": "Official code-entry tutorial (TE2.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1385,7 +1385,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg@20160926180754",
       "page_url": "https://web.archive.org/web/20160926180754/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
       "file_url": "https://web.archive.org/web/20160926180754id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
-      "title": "TE3.jpg (archived 20160926)",
+      "title": "Official code-entry tutorial (TE3.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1411,7 +1411,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg@20160516163207",
       "page_url": "https://web.archive.org/web/20160516163207/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
       "file_url": "https://web.archive.org/web/20160516163207id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
-      "title": "TE4.jpg (archived 20160516)",
+      "title": "Official code-entry tutorial (TE4.jpg, 2015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1463,7 +1463,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png@20170720125056",
       "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
       "file_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
-      "title": "3-199x128.png (archived 20170720)",
+      "title": "Release-history timeline thumbnail",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1489,7 +1489,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
       "page_url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
       "file_url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
-      "title": "Untitled-1-700x365.png (archived 20160729)",
+      "title": "Version 2.7 update-note announcement banner",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1541,7 +1541,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png@20170720125050",
       "page_url": "https://web.archive.org/web/20170720125050/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
       "file_url": "https://web.archive.org/web/20170720125050id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
-      "title": "Dynamix_Website3_0-199x128.png (archived 20170720)",
+      "title": "Dynamix website 3.0 news thumbnail",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1567,7 +1567,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
       "page_url": "https://web.archive.org/web/20170720132226/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
       "file_url": "https://web.archive.org/web/20170720132226id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
-      "title": "OverRapid_Col-199x128.png (archived 20170720)",
+      "title": "OverRapid collaboration news thumbnail",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1619,7 +1619,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
       "page_url": "https://web.archive.org/web/20190925101806/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
       "file_url": "https://web.archive.org/web/20190925101806id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
-      "title": "CP03-700x365.png (archived 20190925)",
+      "title": "Official website news banner: C4Cat character key art",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1645,7 +1645,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg@20221220032003",
       "page_url": "https://web.archive.org/web/20221220032003/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
       "file_url": "https://web.archive.org/web/20221220032003id_/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
-      "title": "42973848_p0.jpg (archived 20221220)",
+      "title": "Dynamix「Aegis」用圖 (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
@@ -1669,6 +1669,9 @@
       "illustrators": [
         "AFZero"
       ],
+      "composers": [
+        "mmry"
+      ],
       "notes": "Wayback capture 20221220032003 of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1753016)."
     },
     {
@@ -1677,7 +1680,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png@20221221064601",
       "page_url": "https://web.archive.org/web/20221221064601/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
       "file_url": "https://web.archive.org/web/20221221064601id_/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
-      "title": "61859342_p0.png (archived 20221221)",
+      "title": "8bit_girl (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
@@ -1701,6 +1704,9 @@
       "illustrators": [
         "Shionty"
       ],
+      "composers": [
+        "Arch vs n3pu"
+      ],
       "notes": "Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100)."
     },
     {
@@ -1709,7 +1715,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png@20221216101704",
       "page_url": "https://web.archive.org/web/20221216101704/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
       "file_url": "https://web.archive.org/web/20221216101704id_/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
-      "title": "62913946_p0.png (archived 20221216)",
+      "title": "【Dynamix】Bluebell (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
@@ -1744,7 +1750,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png@20221215194007",
       "page_url": "https://web.archive.org/web/20221215194007/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
       "file_url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
-      "title": "63416349_p0.png (archived 20221215)",
+      "title": "ぺたるすてっぷ (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
@@ -1781,7 +1787,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png@20221216052519",
       "page_url": "https://web.archive.org/web/20221216052519/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
       "file_url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
-      "title": "77296864_p0.png (archived 20221216)",
+      "title": "ルミナ (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
@@ -1816,7 +1822,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png@20221225234754",
       "page_url": "https://web.archive.org/web/20221225234754/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
       "file_url": "https://web.archive.org/web/20221225234754id_/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
-      "title": "80195226_p0.png (archived 20221225)",
+      "title": "終の舞姫 (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
@@ -1851,7 +1857,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png@20221214210149",
       "page_url": "https://web.archive.org/web/20221214210149/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
       "file_url": "https://web.archive.org/web/20221214210149id_/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
-      "title": "86481781_p0.png (archived 20221214)",
+      "title": "totally bounded (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "mixed",
       "game_evidence": [
@@ -1875,6 +1881,9 @@
       "illustrators": [
         "LESYEF"
       ],
+      "composers": [
+        "影虎。"
+      ],
       "notes": "Wayback capture 20221214210149 of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png (CDX mimetype image/png, status 200, WARC record length 867425)."
     },
     {
@@ -1883,7 +1892,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg@20221220121848",
       "page_url": "https://web.archive.org/web/20221220121848/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
       "file_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
-      "title": "91845485_p0.jpg (archived 20221220)",
+      "title": "Party Vinyl (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "mixed",
       "game_evidence": [
@@ -1907,6 +1916,9 @@
       "illustrators": [
         "アサヤ"
       ],
+      "composers": [
+        "モリモリあつし"
+      ],
       "notes": "Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443)."
     },
     {
@@ -1915,7 +1927,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg@20221216231357",
       "page_url": "https://web.archive.org/web/20221216231357/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
       "file_url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
-      "title": "92594600_p0.jpg (archived 20221216)",
+      "title": "MassacrE || 3rc4224M (p0), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "mixed",
       "game_evidence": [
@@ -1950,7 +1962,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg@20221216231405",
       "page_url": "https://web.archive.org/web/20221216231405/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
       "file_url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
-      "title": "92594600_p1.jpg (archived 20221216)",
+      "title": "MassacrE || 3rc4224M (p1), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "mixed",
       "game_evidence": [
@@ -1985,7 +1997,7 @@
       "upstream_key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg@20221216231408",
       "page_url": "https://web.archive.org/web/20221216231408/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
       "file_url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
-      "title": "92594600_p2.jpg (archived 20221216)",
+      "title": "MassacrE || 3rc4224M (p2), pixiv original via the Internet Archive",
       "role": "song_art",
       "game": "mixed",
       "game_evidence": [
@@ -2020,7 +2032,7 @@
       "upstream_key": "i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg@20141103014629",
       "page_url": "https://web.archive.org/web/20141103014629/http://i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
       "file_url": "https://web.archive.org/web/20141103014629id_/http://i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
-      "title": "46835674_p0_master1200.jpg (archived 20141103)",
+      "title": "Dynamix Music Cover小合集 (pixiv 46835674) listing thumbnail",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2047,7 +2059,7 @@
       "upstream_key": "scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847@20250517214330",
       "page_url": "https://web.archive.org/web/20250517214330/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
       "file_url": "https://web.archive.org/web/20250517214330id_/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
-      "title": "490801394_1381747516345539_1180893236473663295_n.jpg (archived 20250517)",
+      "title": "Dynamix X Rotaeno collaboration key visual",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2077,7 +2089,7 @@
       "upstream_key": "www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
       "page_url": "https://web.archive.org/web/20240403110020/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
       "file_url": "https://web.archive.org/web/20240403110020id_/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "title": "appendix3.pdf (archived 20240403)",
+      "title": "HKSTP press release appendix 3: C4Cat / Dynamix profile",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [

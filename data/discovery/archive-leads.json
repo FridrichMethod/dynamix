@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:archive-leads",
-  "started_at": "2026-10-10T20:55:29Z",
-  "finished_at": "2026-10-10T20:55:29Z",
+  "started_at": "2026-10-10T22:37:08Z",
+  "finished_at": "2026-10-10T22:37:08Z",
   "scope": {
     "lists": [
       "registry"
@@ -479,29 +479,6 @@
       "reason": "out_of_scope_other: game-API research notes; private game services are not used"
     },
     {
-      "id": "archives:archive-leads:gnn:275656:universe-images",
-      "source_id": "archives:archive-leads",
-      "upstream_key": "gnn:275656:universe-images",
-      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
-      "file_url": null,
-      "title": "GNN 2024 article images of Dynamix Universe",
-      "role": null,
-      "game": "dynamix_universe",
-      "game_evidence": [],
-      "source_reported": {
-        "url": null,
-        "mime": null,
-        "bytes": null,
-        "width": null,
-        "height": null,
-        "sha1": null,
-        "timestamp": null,
-        "revision": null
-      },
-      "disposition": "excluded",
-      "reason": "universe_only: seven key art, character, map and in-development gameplay images of Dynamix Universe"
-    },
-    {
       "id": "archives:archive-leads:miraheze:dynamix",
       "source_id": "archives:archive-leads",
       "upstream_key": "miraheze:dynamix",
@@ -686,29 +663,6 @@
       "reason": "blocked: the image CDN answers 403 to direct requests (hotlink protection); not bypassed"
     },
     {
-      "id": "archives:archive-leads:techbang:20767",
-      "source_id": "archives:archive-leads",
-      "upstream_key": "techbang:20767",
-      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
-      "file_url": "https://cdn1.techbang.com/system/excerpt_images/20767/original/5fb4e78491a1dcb3ffd25360fda3421f.png",
-      "title": "T客邦 2014 launch article",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
-      "source_reported": {
-        "url": "https://cdn1.techbang.com/system/excerpt_images/20767/original/5fb4e78491a1dcb3ffd25360fda3421f.png",
-        "mime": null,
-        "bytes": null,
-        "width": null,
-        "height": null,
-        "sha1": null,
-        "timestamp": null,
-        "revision": null
-      },
-      "disposition": "pending",
-      "reason": "pending: press excerpt image not acquired or measured in this run"
-    },
-    {
       "id": "archives:archive-leads:toucharcade:review-2015",
       "source_id": "archives:archive-leads",
       "upstream_key": "toucharcade:review-2015",
@@ -730,29 +684,6 @@
       },
       "disposition": "excluded",
       "reason": "game_ui: the review's images are app icons only"
-    },
-    {
-      "id": "archives:archive-leads:unwire.hk:2016-08-11",
-      "source_id": "archives:archive-leads",
-      "upstream_key": "unwire.hk:2016-08-11",
-      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
-      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
-      "title": "unwire.hk 2016 profile",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
-      "source_reported": {
-        "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
-        "mime": null,
-        "bytes": null,
-        "width": null,
-        "height": null,
-        "sha1": null,
-        "timestamp": null,
-        "revision": null
-      },
-      "disposition": "pending",
-      "reason": "pending: press screenshots and team photos not acquired in this run (photos would be person_photo exclusions)"
     },
     {
       "id": "archives:archive-leads:wayback:fb:c4cat.dynamix-cdx",

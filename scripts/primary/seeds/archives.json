@@ -1839,11 +1839,31 @@
         },
         {
           "match": "^gnn132827:0001386276$",
-          "role": "promotional",
+          "role": "song_art",
+          "song_titles": [
+            "Hemisphere"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "ARForest"
+          ],
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "Planet key visual of the 3.0 update (2016).",
+          "candidate_notes": "Hemisphere jacket artwork (1920x1080) as GNN published it for the 3.0 update (2016-06), with a cooler colour grading than the in-game jacket.",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+              "note": "the page's img title for this image is 'Hemisphere'; visual_inspection 2026-10-10: same planet-and-butterflies composition as the wiki jacket HemisphereDynamix.png (1024x572) with a different colour grading (mean absolute pixel difference 29/255)"
+            }
+          ],
+          "variant_group": "jacket:hemisphere",
+          "variant_role": "1920x1080 press copy with a different colour grading than the in-game jacket",
+          "notes": "Illustrator not credited: the wiki song page names no cover artist.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Hemisphere",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51825)"
+          },
           "allow_universe_mention": true,
           "game_evidence": [
             "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"

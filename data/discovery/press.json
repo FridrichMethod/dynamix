@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
   "source_id": "archives:press",
-  "started_at": "2026-10-10T21:05:42Z",
-  "finished_at": "2026-10-10T21:06:20Z",
+  "started_at": "2026-10-10T22:42:50Z",
+  "finished_at": "2026-10-10T22:43:04Z",
   "scope": {
     "lists": [
-      "seed-files"
+      "seed-files",
+      "article-images"
     ],
     "api": null,
-    "notes": "Explicitly named files only; the page's gallery is not crawled."
+    "notes": "Explicitly named files, and every article-body image of the configured article pages; nothing else is followed."
   },
   "continuation": {
-    "seed-files": null
+    "seed-files": null,
+    "article-images": null
   },
   "discovery_complete": true,
   "candidates": [
@@ -21,7 +23,7 @@
       "upstream_key": "4gamer862:SS/003",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
-      "title": "003.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (003)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -48,7 +50,7 @@
       "upstream_key": "4gamer862:SS/004",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
-      "title": "004.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (004)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -75,7 +77,7 @@
       "upstream_key": "4gamer862:SS/005",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
-      "title": "005.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (005)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -102,7 +104,7 @@
       "upstream_key": "4gamer862:SS/006",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
-      "title": "006.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (006)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -129,7 +131,7 @@
       "upstream_key": "4gamer862:SS/007",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
-      "title": "007.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (007)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -156,7 +158,7 @@
       "upstream_key": "4gamer862:SS/011",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
-      "title": "011.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (011)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -183,7 +185,7 @@
       "upstream_key": "4gamer862:SS/012",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
-      "title": "012.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (012)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -210,7 +212,7 @@
       "upstream_key": "4gamer862:SS/013",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
-      "title": "013.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (013)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -237,7 +239,7 @@
       "upstream_key": "4gamer862:SS/014",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
-      "title": "014.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (014)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -264,7 +266,7 @@
       "upstream_key": "4gamer862:SS/015",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
       "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
-      "title": "015.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (015)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -291,7 +293,7 @@
       "upstream_key": "gnn115106:0001185987",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/87/0001185987.PNG",
-      "title": "0001185987.PNG",
+      "title": "音樂節奏遊戲《Dynamix》iOS 版正式上架 Android 版同步實裝系統更新 (2/7)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -314,12 +316,155 @@
       "notes": "In-game song-pack store screenshot (2015)."
     },
     {
+      "id": "archives:press:gnn115106:0001185988",
+      "source_id": "archives:press",
+      "upstream_key": "gnn115106:0001185988",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/88/0001185988.PNG",
+      "title": "音樂節奏遊戲《Dynamix》iOS 版正式上架 Android 版同步實裝系統更新 (3/7)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/88/0001185988.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:68d8c15086d399cd",
+      "notes": "In-game store screen of the Four Horsemen pack (2015)."
+    },
+    {
+      "id": "archives:press:gnn115106:0001185989",
+      "source_id": "archives:press",
+      "upstream_key": "gnn115106:0001185989",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/89/0001185989.JPG",
+      "title": "音樂節奏遊戲《Dynamix》iOS 版正式上架 Android 版同步實裝系統更新 (4/7)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/89/0001185989.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:a20c19ee5d0fcf4f",
+      "song_titles": [
+        "Actinium"
+      ],
+      "notes": "Official 'Get Actinium by 200 share.' event promo (1920x1080, 2015)."
+    },
+    {
+      "id": "archives:press:gnn115106:0001185990",
+      "source_id": "archives:press",
+      "upstream_key": "gnn115106:0001185990",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/90/0001185990.PNG",
+      "title": "音樂節奏遊戲《Dynamix》iOS 版正式上架 Android 版同步實裝系統更新 (5/7)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/90/0001185990.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:38143ce32498b9e5",
+      "song_titles": [
+        "Actinium"
+      ],
+      "notes": "Song-select screen over the Actinium jacket (2015)."
+    },
+    {
+      "id": "archives:press:gnn115106:0001185992",
+      "source_id": "archives:press",
+      "upstream_key": "gnn115106:0001185992",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/92/0001185992.PNG",
+      "title": "音樂節奏遊戲《Dynamix》iOS 版正式上架 Android 版同步實裝系統更新 — iOS 版下載連結（免費） (7/7)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=115106"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/92/0001185992.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: QR code of the iOS download link (caption 'iOS 版下載連結（免費）')"
+    },
+    {
+      "id": "archives:press:gnn115106:0001185999",
+      "source_id": "archives:press",
+      "upstream_key": "gnn115106:0001185999",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/99/0001185999.JPG",
+      "title": "音樂節奏遊戲《Dynamix》iOS 版正式上架 Android 版同步實裝系統更新 (6/7)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/99/0001185999.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:46e93bb19b242e7e",
+      "notes": "Larger copy (1024x574) of the launch banner shown in the article body."
+    },
+    {
       "id": "archives:press:gnn115106:0001186000",
       "source_id": "archives:press",
       "upstream_key": "gnn115106:0001186000",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/00/0001186000.JPG",
-      "title": "0001186000.JPG",
+      "title": "音樂節奏遊戲《Dynamix》iOS 版正式上架 Android 版同步實裝系統更新 (1/7)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -342,12 +487,49 @@
       "notes": "Official launch banner '香港制作 音樂遊戲 / 超本格音樂遊戲 三面落下' (2015-05 iOS launch)."
     },
     {
+      "id": "archives:press:gnn129234:0001345595",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345595",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/95/0001345595.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (5/16)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/95/0001345595.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:146dd98c90a32da1",
+      "song_titles": [
+        "Moonlight of Sand Castle"
+      ],
+      "illustrators": [
+        "NanoKun"
+      ],
+      "composers": [
+        "旅人E"
+      ],
+      "notes": "Moonlight of Sand Castle jacket (1920x1080) shown with the article's note on new 2.7 songs."
+    },
+    {
       "id": "archives:press:gnn129234:0001345596",
       "source_id": "archives:press",
       "upstream_key": "gnn129234:0001345596",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/96/0001345596.JPG",
-      "title": "0001345596.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (2/16)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -370,12 +552,400 @@
       "notes": "Official milestone timeline graphic (releases and download counts, 2016)."
     },
     {
+      "id": "archives:press:gnn129234:0001345597",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345597",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/97/0001345597.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (6/16)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/97/0001345597.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:045efbb6845a41ea",
+      "song_titles": [
+        "Hemisphere"
+      ],
+      "notes": "3.0 interface preview: song-select over the Hemisphere jacket (2016-03)."
+    },
+    {
+      "id": "archives:press:gnn129234:0001345598",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345598",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/98/0001345598.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (7/16)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/98/0001345598.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:43831143b0ac5bf6",
+      "song_titles": [
+        "Invaded"
+      ],
+      "notes": "3.0 interface preview: song-select over the Invaded jacket (2016-03)."
+    },
+    {
+      "id": "archives:press:gnn129234:0001345599",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345599",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/99/0001345599.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (8/16)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/99/0001345599.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:fa4fecb640530719",
+      "song_titles": [
+        "Set Free -KIVΛ Edition-"
+      ],
+      "notes": "3.0 interface preview: song-select over the Set Free -KIVΛ Edition- jacket (2016-03)."
+    },
+    {
+      "id": "archives:press:gnn129234:0001345600",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345600",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/00/0001345600.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (9/16)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/00/0001345600.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:84acb9ab11cac054",
+      "song_titles": [
+        "Creater S"
+      ],
+      "notes": "3.0 interface preview: song-select over the Creater S jacket (2016-03)."
+    },
+    {
+      "id": "archives:press:gnn129234:0001345601",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345601",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/01/0001345601.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (10/16)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/01/0001345601.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:3dd3d4e3ebff0ca3",
+      "song_titles": [
+        "WILL",
+        "Decomposition",
+        "流れ星に願うよいま..."
+      ],
+      "notes": "3.0 interface preview with the WILL, Decomposition and 流れ星に願うよいま... jackets (2016-03)."
+    },
+    {
+      "id": "archives:press:gnn129234:0001345602",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345602",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/02/0001345602.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (11/16)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/02/0001345602.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: Rabi-Ribi (reSpirit) title and gameplay screens shown for the announced collaboration; the partner game's material"
+    },
+    {
+      "id": "archives:press:gnn129234:0001345603",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345603",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/03/0001345603.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (12/16)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/03/0001345603.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: Rabi-Ribi logo art with its characters (the partner game's key art)"
+    },
+    {
+      "id": "archives:press:gnn129234:0001345604",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345604",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/04/0001345604.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (13/16)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/04/0001345604.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: teaser of C4Cat's next project (Project W), letter frame 'To whom it may concern'"
+    },
+    {
+      "id": "archives:press:gnn129234:0001345605",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345605",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/05/0001345605.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (14/16)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/05/0001345605.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: teaser of C4Cat's next project (Project W), character sketches"
+    },
+    {
+      "id": "archives:press:gnn129234:0001345606",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345606",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/06/0001345606.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (15/16)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/06/0001345606.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: teaser of C4Cat's next project (Project W), character sketches"
+    },
+    {
+      "id": "archives:press:gnn129234:0001345607",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345607",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/07/0001345607.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (16/16)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/07/0001345607.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: teaser of C4Cat's next project (Project W), frame 'Project W / Under development'"
+    },
+    {
+      "id": "archives:press:gnn129234:0001345608",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345608",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/08/0001345608.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 — GameParty2016 活動的來場特典曲，Play A Day，這次取得條件僅需到場試玩即可取得 (3/16)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/08/0001345608.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:aa354d15b9514fd2",
+      "song_titles": [
+        "Play A Day"
+      ],
+      "notes": "Song-select screen of the GameParty 2016 event song Play A Day (caption)."
+    },
+    {
+      "id": "archives:press:gnn129234:0001345609",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345609",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/09/0001345609.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (4/16)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/09/0001345609.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: v2.7.0 in-game download-progress screen (logo and progress bar, no artwork)"
+    },
+    {
+      "id": "archives:press:gnn129234:0001345632",
+      "source_id": "archives:press",
+      "upstream_key": "gnn129234:0001345632",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/32/0001345632.JPG",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (1/16)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=129234"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/32/0001345632.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: GNN's 599x337 header rendition (og:image) of the article's 1920x1080 Moonlight of Sand Castle jacket gnn129234:0001345595 (mean absolute pixel difference 2.5/255 after resizing)"
+    },
+    {
       "id": "archives:press:gnn132827:0001386275",
       "source_id": "archives:press",
       "upstream_key": "gnn132827:0001386275",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
-      "title": "0001386275.JPG",
+      "title": "音樂遊戲《Dynamix》3.0 版本即將登陸 iOS 平台 (2/2)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -403,8 +973,8 @@
       "upstream_key": "gnn132827:0001386276",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/76/0001386276.JPG",
-      "title": "0001386276.JPG",
-      "role": "promotional",
+      "title": "音樂遊戲《Dynamix》3.0 版本即將登陸 iOS 平台 — Hemisphere (1/2)",
+      "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=132827",
@@ -423,7 +993,13 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:press:a81504f802d2dd7a",
-      "notes": "Planet key visual of the 3.0 update (2016)."
+      "song_titles": [
+        "Hemisphere"
+      ],
+      "composers": [
+        "ARForest"
+      ],
+      "notes": "Hemisphere jacket artwork (1920x1080) as GNN published it for the 3.0 update (2016-06), with a cooler colour grading than the in-game jacket."
     },
     {
       "id": "archives:press:gnn138982:0001457651",
@@ -431,7 +1007,7 @@
       "upstream_key": "gnn138982:0001457651",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/51/0001457651.JPG",
-      "title": "0001457651.JPG",
+      "title": "《Dynamix》v3.2 正式登場！開放 Z.H.D 計劃及 Event 新曲 (3/3)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -459,7 +1035,7 @@
       "upstream_key": "gnn138982:0001457652",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/52/0001457652.JPG",
-      "title": "0001457652.JPG",
+      "title": "《Dynamix》v3.2 正式登場！開放 Z.H.D 計劃及 Event 新曲 (2/3)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -485,12 +1061,37 @@
       "notes": "Song-select screen over the Oracle jacket (v3.2, 2016)."
     },
     {
+      "id": "archives:press:gnn138982:0001457683",
+      "source_id": "archives:press",
+      "upstream_key": "gnn138982:0001457683",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/83/0001457683.JPG",
+      "title": "《Dynamix》v3.2 正式登場！開放 Z.H.D 計劃及 Event 新曲 (1/3)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=138982"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/83/0001457683.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: GNN's 600x315 header crop (og:image) of the article's 1600x1200 Oracle song-select screenshot gnn138982:0001457652 (same screen and score 0942946)"
+    },
+    {
       "id": "archives:press:gnn141991:0001490819",
       "source_id": "archives:press",
       "upstream_key": "gnn141991:0001490819",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
-      "title": "0001490819.JPG",
+      "title": "手機音樂遊戲《Dynamix》推出新年三重賞 新曲新角舊復刻 (3/3)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -524,7 +1125,7 @@
       "upstream_key": "gnn141991:0001490820",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/20/0001490820.JPG",
-      "title": "0001490820.JPG",
+      "title": "手機音樂遊戲《Dynamix》推出新年三重賞 新曲新角舊復刻 (2/3)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -550,12 +1151,112 @@
       "notes": "Official Vocal Collection package promo (1920x1080, 2017-01)."
     },
     {
+      "id": "archives:press:gnn141991:0001490823",
+      "source_id": "archives:press",
+      "upstream_key": "gnn141991:0001490823",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/23/0001490823.JPG",
+      "title": "手機音樂遊戲《Dynamix》推出新年三重賞 新曲新角舊復刻 (1/3)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=141991"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/23/0001490823.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: GNN's 599x337 header rendition (og:image) of the article's 1920x1080 Vocal Collection Package promo gnn141991:0001490820 (mean absolute pixel difference 3.3/255 after resizing)"
+    },
+    {
+      "id": "archives:press:gnn275656:3715b65feae567f754d4af95781rupa5",
+      "source_id": "archives:press",
+      "upstream_key": "gnn275656:3715b65feae567f754d4af95781rupa5",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/18/3715b65feae567f754d4af95781rupa5.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 — 玩家將探索星球中的數據遺跡，尋找節奏碎片 (6/8)",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=275656"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/18/3715b65feae567f754d4af95781rupa5.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: Dynamix Universe exploration screen (caption on data ruins and rhythm fragments; marked 開發中畫面)"
+    },
+    {
+      "id": "archives:press:gnn275656:43c7d6d8b874dfad1f2ab42fdd1rupc5",
+      "source_id": "archives:press",
+      "upstream_key": "gnn275656:43c7d6d8b874dfad1f2ab42fdd1rupc5",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/20/43c7d6d8b874dfad1f2ab42fdd1rupc5.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 — 其他新音符 (8/8)",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=275656"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/20/43c7d6d8b874dfad1f2ab42fdd1rupc5.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: Dynamix Universe in-development gameplay with new notes (caption '其他新音符'; marked 開發中畫面)"
+    },
+    {
+      "id": "archives:press:gnn275656:537955894d70bc7ad02e36db1a1rup95",
+      "source_id": "archives:press",
+      "upstream_key": "gnn275656:537955894d70bc7ad02e36db1a1rup95",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/17/537955894d70bc7ad02e36db1a1rup95.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 — 與隊員探索銀河系 (5/8)",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=275656"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/17/537955894d70bc7ad02e36db1a1rup95.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: Dynamix Universe characters (caption '與隊員探索銀河系'; marked 開發中畫面)"
+    },
+    {
       "id": "archives:press:gnn275656:9c5b7911570626cff6690355b41rup55",
       "source_id": "archives:press",
       "upstream_key": "gnn275656:9c5b7911570626cff6690355b41rup55",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/13/9c5b7911570626cff6690355b41rup55.PNG",
-      "title": "9c5b7911570626cff6690355b41rup55.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 — Dynamix 10 週年活動內容 (3/8)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -578,12 +1279,112 @@
       "notes": "Dynamix 10th anniversary event poster (new character, special title, comeback event)."
     },
     {
+      "id": "archives:press:gnn275656:a3896962b806b37baed3993f501rup75",
+      "source_id": "archives:press",
+      "upstream_key": "gnn275656:a3896962b806b37baed3993f501rup75",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/15/a3896962b806b37baed3993f501rup75.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 (2/8)",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=275656"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/15/a3896962b806b37baed3993f501rup75.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: Dynamix Universe key art with the 'DYNAMIX UNIVERSE' logo"
+    },
+    {
+      "id": "archives:press:gnn275656:a68a7a7b0a10f82fe6f6fa5ae01rup85",
+      "source_id": "archives:press",
+      "upstream_key": "gnn275656:a68a7a7b0a10f82fe6f6fa5ae01rup85",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/16/a68a7a7b0a10f82fe6f6fa5ae01rup85.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 — 探索銀河系 (4/8)",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=275656"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/16/a68a7a7b0a10f82fe6f6fa5ae01rup85.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: Dynamix Universe galaxy-map screen (caption '探索銀河系'; marked 開發中畫面)"
+    },
+    {
+      "id": "archives:press:gnn275656:b932c710f7a1e7073e1bcc22031rv5f5",
+      "source_id": "archives:press",
+      "upstream_key": "gnn275656:b932c710f7a1e7073e1bcc22031rv5f5",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/99/b932c710f7a1e7073e1bcc22031rv5f5.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 (1/8)",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=275656"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/99/b932c710f7a1e7073e1bcc22031rv5f5.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: Dynamix Universe key art with the 'DYNAMIX UNIVERSE' logo (the article's header image)"
+    },
+    {
+      "id": "archives:press:gnn275656:ea86b16f47048d3ead7c1e86891rupb5",
+      "source_id": "archives:press",
+      "upstream_key": "gnn275656:ea86b16f47048d3ead7c1e86891rupb5",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+      "file_url": "https://p2.bahamut.com.tw/B/2KU/19/ea86b16f47048d3ead7c1e86891rupb5.PNG",
+      "title": "音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 — 在複雜的譜面中可以看到音符的同時標記，讓玩家更輕鬆的拆解打法 (7/8)",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://gnn.gamer.com.tw/detail.php?sn=275656"
+      ],
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/19/ea86b16f47048d3ead7c1e86891rupb5.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: Dynamix Universe in-development gameplay (marked 開發中畫面)"
+    },
+    {
       "id": "archives:press:hk01:175169",
       "source_id": "archives:press",
       "upstream_key": "hk01:175169",
       "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
       "file_url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg",
-      "title": "35b572cff41474f8a14c0b1d26a9cd87.jpg",
+      "title": "本地獨立手機遊戲系列：《Dynamix》",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -605,12 +1406,237 @@
       "notes": "Article image of the 2018 HK01 feature on Dynamix (research: the org URL answered 404)."
     },
     {
+      "id": "archives:press:ifanr543028:MUG-Cytus",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:MUG-Cytus",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Cytus.jpg",
+      "title": "没有音游的夏天，是不完整的！ (2/10)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Cytus.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: Cytus capture in the roundup"
+    },
+    {
+      "id": "archives:press:ifanr543028:MUG-Deemo",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:MUG-Deemo",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Deemo.jpg",
+      "title": "没有音游的夏天，是不完整的！ (3/10)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Deemo.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: Deemo capture in the roundup"
+    },
+    {
+      "id": "archives:press:ifanr543028:MUG-Feature",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:MUG-Feature",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Feature.jpg",
+      "title": "没有音游的夏天，是不完整的！ (5/10)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Feature.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+    },
+    {
+      "id": "archives:press:ifanr543028:MUG-Feature1",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:MUG-Feature1",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Feature1.jpg",
+      "title": "没有音游的夏天，是不完整的！ (9/10)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Feature1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+    },
+    {
+      "id": "archives:press:ifanr543028:MUG-Jukebeat",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:MUG-Jukebeat",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Jukebeat.jpg",
+      "title": "没有音游的夏天，是不完整的！ (6/10)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Jukebeat.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: jubeat capture in the roundup"
+    },
+    {
+      "id": "archives:press:ifanr543028:MUG-LoveLive",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:MUG-LoveLive",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-LoveLive.jpg",
+      "title": "没有音游的夏天，是不完整的！ (7/10)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-LoveLive.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: Love Live! School idol festival capture in the roundup"
+    },
+    {
+      "id": "archives:press:ifanr543028:MUG-tgdr",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:MUG-tgdr",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-tgdr.jpg",
+      "title": "没有音游的夏天，是不完整的！ (8/10)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-tgdr.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: Taiko no Tatsujin capture in the roundup"
+    },
+    {
+      "id": "archives:press:ifanr543028:shutterstock_130039298",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:shutterstock_130039298",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/shutterstock_130039298.jpg",
+      "title": "没有音游的夏天，是不完整的！ (1/10)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/shutterstock_130039298.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+    },
+    {
+      "id": "archives:press:ifanr543028:shutterstock_262575536",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:shutterstock_262575536",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/shutterstock_262575536.jpg",
+      "title": "没有音游的夏天，是不完整的！ (10/10)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/shutterstock_262575536.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+    },
+    {
       "id": "archives:press:ifanr:543028",
       "source_id": "archives:press",
       "upstream_key": "ifanr:543028",
       "page_url": "https://www.ifanr.com/app/543028",
       "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Dynamix.jpg",
-      "title": "MUG-Dynamix.jpg",
+      "title": "没有音游的夏天，是不完整的！ (4/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -632,12 +1658,39 @@
       "notes": "Gameplay capture (Stardust) in a 2015 rhythm-game roundup."
     },
     {
+      "id": "archives:press:qoo52753:16013015554246",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16013015554246",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013015554246.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (5/11)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753",
+        "body: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013015554246.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:c312370e3d4f7198",
+      "notes": "Official poster 'Dynamix / Music Game on Mobile' with the characters, store badges and a QR code (720x960)."
+    },
+    {
       "id": "archives:press:qoo52753:16013016364422",
       "source_id": "archives:press",
       "upstream_key": "qoo52753:16013016364422",
       "page_url": "https://news.qoo-app.com/post/52753",
       "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013016364422.jpg",
-      "title": "16013016364422.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (4/11)",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -657,12 +1710,87 @@
       "reason": "person_photo: booth photo with the two founders"
     },
     {
+      "id": "archives:press:qoo52753:16031608485927",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16031608485927",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031608485927.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (9/11)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031608485927.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: character sketches of C4Cat's next project (Project W)"
+    },
+    {
+      "id": "archives:press:qoo52753:16031608485930",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16031608485930",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031608485930.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (10/11)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031608485930.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: teaser frame of C4Cat's next project ('Project W / Under development'; same file as qoo52753:16031706572675)"
+    },
+    {
+      "id": "archives:press:qoo52753:16031706195396",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16031706195396",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706195396.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (3/11)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706195396.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: the team at work in the office"
+    },
+    {
       "id": "archives:press:qoo52753:16031706432894",
       "source_id": "archives:press",
       "upstream_key": "qoo52753:16031706432894",
       "page_url": "https://news.qoo-app.com/post/52753",
       "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706432894.jpg",
-      "title": "16031706432894.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (6/11)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -684,12 +1812,142 @@
       "notes": "Song-select screen over the Play A Day jacket (2016)."
     },
     {
+      "id": "archives:press:qoo52753:16031706514913",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16031706514913",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706514913.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (8/11)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753",
+        "body: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706514913.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:ca7adcf440ed238d",
+      "song_titles": [
+        "パントマイム feat. IA"
+      ],
+      "notes": "Song-select screen over the パントマイム feat. IA jacket (2016)."
+    },
+    {
+      "id": "archives:press:qoo52753:16031706572675",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16031706572675",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706572675.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (1/11)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706572675.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: teaser frame of C4Cat's next project ('Project W / Under development')"
+    },
+    {
+      "id": "archives:press:qoo52753:1603170701198",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:1603170701198",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/1603170701198.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (7/11)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/1603170701198.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: QooApp-watermarked copy (815x792) of the official website song-art collage new32.png, archived from its own capture as archives:wayback:77957c0d9f1b5ff4 (mean absolute pixel difference 3.2/255)"
+    },
+    {
+      "id": "archives:press:qoo52753:16031707051357",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16031707051357",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707051357.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (2/11)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707051357.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: the game's title-screen wordmark band, watermarked by QooApp (no artwork)"
+    },
+    {
+      "id": "archives:press:qoo52753:16031707070483",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:16031707070483",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707070483.jpg",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (11/11)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707070483.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: exhibition booth with visitors"
+    },
+    {
       "id": "archives:press:qoo77295:17072106445586",
       "source_id": "archives:press",
       "upstream_key": "qoo77295:17072106445586",
       "page_url": "https://news.qoo-app.com/post/77295",
       "file_url": "https://d27fq2mgp64qlg.cloudfront.net/wp-content/uploads/2015/12/17072106445586.jpg",
-      "title": "17072106445586.jpg",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (3/5)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -716,7 +1974,7 @@
       "upstream_key": "qoo77295:17072106450727",
       "page_url": "https://news.qoo-app.com/post/77295",
       "file_url": "https://d27fq2mgp64qlg.cloudfront.net/wp-content/uploads/2015/12/17072106450727.jpg",
-      "title": "17072106450727.jpg",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (4/5)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -738,12 +1996,316 @@
       "notes": "In-game character screen with the QooApp collaboration character Gilbert (2017-07)."
     },
     {
+      "id": "archives:press:qoo77295:17072409525150",
+      "source_id": "archives:press",
+      "upstream_key": "qoo77295:17072409525150",
+      "page_url": "https://news.qoo-app.com/post/77295",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072409525150.jpg",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (5/5)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/77295"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072409525150.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: player-profile screen marking where the collaboration code is entered (UI only)"
+    },
+    {
+      "id": "archives:press:qoo77295:17072410221141",
+      "source_id": "archives:press",
+      "upstream_key": "qoo77295:17072410221141",
+      "page_url": "https://news.qoo-app.com/post/77295",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072410221141.jpg",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (2/5)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/77295",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072410221141.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:09250559b663e3d4",
+      "notes": "'QOOAPP x DYNAMIX コラボレーション' banner, tighter 1024x461 crop."
+    },
+    {
+      "id": "archives:press:qoo77295:17072410251929",
+      "source_id": "archives:press",
+      "upstream_key": "qoo77295:17072410251929",
+      "page_url": "https://news.qoo-app.com/post/77295",
+      "file_url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072410251929.jpg",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (1/5)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/77295",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072410251929.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:faa4b6732811dca4",
+      "notes": "'QOOAPP x DYNAMIX コラボレーション' banner with the collaboration characters (1022x570; the article's og:image)."
+    },
+    {
+      "id": "archives:press:techbang20767:185818",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185818",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185818/original/80d65ec0aefa9d0c6505395b3924500c.jpg",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (2/9)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185818/original/80d65ec0aefa9d0c6505395b3924500c.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: title screen of v0.08.00 (logo and menu, no artwork)"
+    },
+    {
+      "id": "archives:press:techbang20767:185819",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185819",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185819/original/6f5af20cc9f149340f1d6526bf82e82d.jpg",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (4/9)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185819/original/6f5af20cc9f149340f1d6526bf82e82d.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:15964e530493580b",
+      "song_titles": [
+        "春菊"
+      ],
+      "notes": "Song-select screen over the 春菊 jacket (2014)."
+    },
+    {
+      "id": "archives:press:techbang20767:185820",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185820",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185820/original/5330073ee9585cd7c4d1ea3078c56acf.jpg",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (5/9)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185820/original/5330073ee9585cd7c4d1ea3078c56acf.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:cb98c581681c5b81",
+      "song_titles": [
+        "春菊"
+      ],
+      "notes": "Play-settings screen over the 春菊 jacket (2014)."
+    },
+    {
+      "id": "archives:press:techbang20767:185821",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185821",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185821/original/2337d695a54d46942424cb99a5cddbe7.jpg",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (6/9)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185821/original/2337d695a54d46942424cb99a5cddbe7.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:bee368ad07a94bcc",
+      "song_titles": [
+        "Impromptu D899#3-Y"
+      ],
+      "notes": "Gameplay of Impromptu D899#3-Y over its character art (2014)."
+    },
+    {
+      "id": "archives:press:techbang20767:185822",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185822",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185822/original/06e2e32bfdddd32cfd02c03c3cc00a15.jpg",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (7/9)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185822/original/06e2e32bfdddd32cfd02c03c3cc00a15.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:7369700e49dd28ff",
+      "song_titles": [
+        "Impromptu D899#3-Y"
+      ],
+      "notes": "Gameplay of Impromptu D899#3-Y over its character art (2014)."
+    },
+    {
+      "id": "archives:press:techbang20767:185823",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185823",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185823/original/cb1785d066c7ce5eb5117dbd92889ae3.jpg",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (8/9)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185823/original/cb1785d066c7ce5eb5117dbd92889ae3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:480f1e84f375654b",
+      "song_titles": [
+        "Impromptu D899#3-Y"
+      ],
+      "notes": "Gameplay of Impromptu D899#3-Y over its character art (2014)."
+    },
+    {
+      "id": "archives:press:techbang20767:185824",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185824",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185824/original/d874daddc3860491501e9a117fcfffb3.png",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (9/9)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185824/original/d874daddc3860491501e9a117fcfffb3.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: app icon (150x150)"
+    },
+    {
+      "id": "archives:press:techbang20767:185825",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:185825",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/system/images/185825/original/1c03818afe33f925607ed72e2e3a49d0.jpg",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (3/9)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185825/original/1c03818afe33f925607ed72e2e3a49d0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: song-list screen of the Missionary pack (titles over a dark background, no artwork)"
+    },
+    {
       "id": "archives:press:techbang:20767",
       "source_id": "archives:press",
       "upstream_key": "techbang:20767",
       "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
       "file_url": "https://cdn1.techbang.com/system/excerpt_images/20767/original/5fb4e78491a1dcb3ffd25360fda3421f.png",
-      "title": "5fb4e78491a1dcb3ffd25360fda3421f.png",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (1/9)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -765,12 +2327,62 @@
       "notes": "Dynamix logo key visual (article excerpt image)."
     },
     {
+      "id": "archives:press:unwire2014:chart3",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2014:chart3",
+      "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/chart3.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (10/10)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://unwire.hk/2014/10/30/dynamix/game-channel/"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/chart3.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: QR code (150x150)"
+    },
+    {
+      "id": "archives:press:unwire2014:googleplay2",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2014:googleplay2",
+      "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/googleplay2.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (9/10)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://unwire.hk/2014/10/30/dynamix/game-channel/"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/googleplay2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: 'Get it on Google play' store badge"
+    },
+    {
       "id": "archives:press:unwire2014:wm005",
       "source_id": "archives:press",
       "upstream_key": "unwire2014:wm005",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm005.png",
-      "title": "wm005.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (1/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -797,7 +2409,7 @@
       "upstream_key": "unwire2014:wm018",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm018.png",
-      "title": "wm018.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (2/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -824,7 +2436,7 @@
       "upstream_key": "unwire2014:wm028",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm028.png",
-      "title": "wm028.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (3/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -851,7 +2463,7 @@
       "upstream_key": "unwire2014:wm038",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm038.png",
-      "title": "wm038.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (6/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -878,7 +2490,7 @@
       "upstream_key": "unwire2014:wm049",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm049.png",
-      "title": "wm049.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (4/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -905,7 +2517,7 @@
       "upstream_key": "unwire2014:wm058",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm058.png",
-      "title": "wm058.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (5/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -932,7 +2544,7 @@
       "upstream_key": "unwire2014:wm087",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm087.png",
-      "title": "wm087.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (7/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -959,7 +2571,7 @@
       "upstream_key": "unwire2014:wm096",
       "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm096.png",
-      "title": "wm096.png",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 (8/10)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -981,12 +2593,62 @@
       "notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
     },
     {
+      "id": "archives:press:unwire2016:DSC03639",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2016:DSC03639",
+      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03639.jpg",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — 創辦人即場 demo 遊戲玩法。 (8/8)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://unwire.hk/2016/08/11/dynamix-2/game-channel/"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03639.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: the founders demonstrating the game (caption '創辦人即場 demo 遊戲玩法。')"
+    },
+    {
+      "id": "archives:press:unwire2016:DSC03652a",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2016:DSC03652a",
+      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03652a.jpg",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 (7/8)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://unwire.hk/2016/08/11/dynamix-2/game-channel/"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03652a.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: a founder presenting at the HKSTP event"
+    },
+    {
       "id": "archives:press:unwire2016:DSC03701",
       "source_id": "archives:press",
       "upstream_key": "unwire2016:DSC03701",
       "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03701.jpg",
-      "title": "DSC03701.jpg",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — C4Cat 藝術總監江國機（左）及 CEO 曾家俊（右）。 (1/8)",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -1011,7 +2673,7 @@
       "upstream_key": "unwire2016:IMG_7688",
       "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
-      "title": "IMG_7688.png",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — 語言有「正體中文」選擇。（遊戲畫面截圖） (2/8)",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -1036,7 +2698,7 @@
       "upstream_key": "unwire2016:IMG_7693",
       "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
       "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7693.png",
-      "title": "IMG_7693.png",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — 曲目中亦有香港元素在內。（遊戲畫面截圖） (3/8)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1056,6 +2718,96 @@
       "disposition": "downloaded",
       "asset_id": "archives:press:caa045841fe97cd7",
       "notes": "Song-select screen over the 香港ノ奇術師 jacket (2016)."
+    },
+    {
+      "id": "archives:press:unwire2016:IMG_7694",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2016:IMG_7694",
+      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7694.png",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — 畫風偏日系，迎合玩家偏好。（遊戲畫面截圖） (6/8)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7694.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:242b018964ab28ff",
+      "song_titles": [
+        "Variance"
+      ],
+      "notes": "Song-select screen over the Variance jacket (EVAS pack; caption '畫風偏日系，迎合玩家偏好。')."
+    },
+    {
+      "id": "archives:press:unwire2016:IMG_7703",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2016:IMG_7703",
+      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7703.png",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 (4/8)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7703.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:4f0f814a2996ef9d",
+      "song_titles": [
+        "Stardust"
+      ],
+      "notes": "Gameplay of Stardust (Hard)."
+    },
+    {
+      "id": "archives:press:unwire2016:IMG_7707",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2016:IMG_7707",
+      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7707.png",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — 玩法與一般音樂節拍遊戲無異，最特別的地方是畫面的三面都會出現 Note。 (5/8)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7707.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:f233c572012b9f87",
+      "song_titles": [
+        "Stardust"
+      ],
+      "notes": "Gameplay of Stardust (Hard) with side notes (caption on notes from three sides)."
     }
   ],
   "errors": []

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:hkstp",
-  "started_at": "2026-10-10T17:45:04Z",
-  "finished_at": "2026-10-10T17:45:07Z",
+  "started_at": "2026-10-10T22:37:08Z",
+  "finished_at": "2026-10-10T22:37:11Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -21,7 +21,7 @@
       "upstream_key": "-/media/corpsite/assets/news/img/20160809_1.jpg",
       "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "file_url": "https://www.hkstp.org/-/media/corpsite/assets/news/img/20160809_1.jpg",
-      "title": "20160809_1.jpg",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (4/4)",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -47,7 +47,7 @@
       "upstream_key": "media/blqg5pwq/appendix3.pdf",
       "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "file_url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "title": "appendix3.pdf",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (3/4)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -74,7 +74,7 @@
       "upstream_key": "media/hmzhrcry/appendix2.pdf",
       "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "file_url": "https://www.hkstp.org/media/hmzhrcry/appendix2.pdf",
-      "title": "appendix2.pdf",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (2/4)",
       "role": null,
       "game": "not_dynamix",
       "game_evidence": [
@@ -100,7 +100,7 @@
       "upstream_key": "media/rgscafs0/appendix1.pdf",
       "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "file_url": "https://www.hkstp.org/media/rgscafs0/appendix1.pdf",
-      "title": "appendix1.pdf",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (1/4)",
       "role": null,
       "game": "not_dynamix",
       "game_evidence": [
