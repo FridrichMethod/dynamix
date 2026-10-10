@@ -45,7 +45,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             discovery.evidence_level = "blocked" if error.error_class in FAILURE_STATUS else "not_established"
             status = FAILURE_STATUS.get(error.error_class, "temporarily_unavailable")
             discovery.notes.append(f"Probe of {url} on {ctx.now()[:10]} failed: {error.error_class}"
-                                   f"{'' if error.http_status is None else f' (HTTP {error.http_status})'}.")
+                                   f"{'' if error.http_status is None else f' (HTTP {error.http_status})'}: "
+                                   f"{model.clip(error.message, 120)}.")
             continue
         document = base.soup(html)
         texts = {"title": document.title.get_text(" ", strip=True) if document.title else "",
