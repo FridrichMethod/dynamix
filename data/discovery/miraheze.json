@@ -38541,8 +38541,8 @@
         "timestamp": "2026-08-09T08:45:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e8eb4753cad9daf8",
       "song_titles": [
         "Eclipses"
       ],
@@ -42877,8 +42877,8 @@
         "timestamp": "2026-08-09T09:53:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c79a757daecd0160",
       "song_titles": [
         "Euouae"
       ],
@@ -43100,8 +43100,8 @@
         "timestamp": "2026-08-09T09:30:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:941da1d25558d677",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Event.jpg): visual_inspection: phone photo of the original-game song select '月下桜天国 / Zuxin with Utsuro'"
     },
     {
@@ -43440,8 +43440,8 @@
         "timestamp": "2026-08-09T09:44:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4ecf3ec27cb001d1",
       "notes": "role evidence: promotional <- archivist review (File:Event Bundle 10 Homepage.png): visual_inspection: 'EVENT BUNDLE 010' title banner (the original game's Event Bundles system, version 3.18)"
     },
     {
@@ -43466,8 +43466,8 @@
         "timestamp": "2026-08-09T09:40:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4e88ea6885244dc6",
       "notes": "role evidence: promotional <- archivist review (File:Event Bundle 9 Homepage.png): visual_inspection: 'EVENT BUNDLE 009' title banner (the original game's Event Bundles system, version 3.18)"
     },
     {
@@ -43732,8 +43732,8 @@
         "timestamp": "2026-08-09T09:57:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4c5aa1c5492a284c",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Apr.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43758,8 +43758,8 @@
         "timestamp": "2026-08-09T10:15:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2867a4de4797ba45",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Aug.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43784,8 +43784,8 @@
         "timestamp": "2026-08-09T09:39:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:811a129c2a85009f",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Dec.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43810,8 +43810,8 @@
         "timestamp": "2026-08-09T09:51:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:bdfaf7d9cb01e3f4",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Feb.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43836,8 +43836,8 @@
         "timestamp": "2026-08-09T10:05:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7cca3038a5f40797",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Jan.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43862,8 +43862,8 @@
         "timestamp": "2026-08-09T10:15:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:72cdce54f667be6a",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 July.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43888,8 +43888,8 @@
         "timestamp": "2026-08-09T09:26:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1dee09e544924365",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 June.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43914,8 +43914,8 @@
         "timestamp": "2026-08-09T09:43:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e7663f272df03803",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Mar.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43940,8 +43940,8 @@
         "timestamp": "2026-08-09T09:41:42Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:1d27751fdd47a4ea",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 May.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43966,8 +43966,8 @@
         "timestamp": "2026-08-09T09:01:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6acb41d488b17c0a",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Nov.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -43992,8 +43992,8 @@
         "timestamp": "2026-08-09T08:45:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7d59d4d9172d0373",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Oct.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44018,8 +44018,8 @@
         "timestamp": "2026-08-09T08:54:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:52424d105bbfd196",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2019 Sep.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44044,8 +44044,8 @@
         "timestamp": "2026-08-09T09:05:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:df81ef8e4dadc0c0",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2020 August.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44096,8 +44096,8 @@
         "timestamp": "2026-08-09T09:31:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:101a8f1e8d5db7ce",
       "notes": "role evidence: promotional <- archivist review (File:Event in 2020 Sep.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44122,8 +44122,8 @@
         "timestamp": "2026-08-09T09:07:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:83598d0bc638d36d",
       "notes": "role evidence: promotional <- archivist review (File:Event in Feb 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44148,8 +44148,8 @@
         "timestamp": "2026-08-09T09:51:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:eb99a3e6ae25e7be",
       "notes": "role evidence: promotional <- archivist review (File:Event in Jan 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44174,8 +44174,8 @@
         "timestamp": "2026-08-09T09:31:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fc584556f4e1cc4e",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 April.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44200,8 +44200,8 @@
         "timestamp": "2026-08-09T09:44:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:99372e403c15707b",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 Aug.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44226,8 +44226,8 @@
         "timestamp": "2026-08-09T09:05:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:22c809261f4468cd",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 Dec.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44252,8 +44252,8 @@
         "timestamp": "2026-08-09T09:13:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5e4148c69e226671",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 Jul.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44278,8 +44278,8 @@
         "timestamp": "2026-08-09T09:34:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:892a168931d9dd75",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 Jun.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44304,8 +44304,8 @@
         "timestamp": "2026-08-09T09:45:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e362ca8a795bef3f",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 March.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44330,8 +44330,8 @@
         "timestamp": "2026-08-09T08:54:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e1b05a86f5ca0368",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 May.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44356,8 +44356,8 @@
         "timestamp": "2026-08-09T09:35:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:738b16a21863d4f2",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 Nov.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44382,8 +44382,8 @@
         "timestamp": "2026-08-09T09:27:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:bf1ab202dd8cd343",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 Oct.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44408,8 +44408,8 @@
         "timestamp": "2026-08-09T09:24:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:a959d4dc51934e1e",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2018 Sep.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44434,8 +44434,8 @@
         "timestamp": "2026-08-09T09:52:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5a52d8a0b9268964",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 Apr.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44460,8 +44460,8 @@
         "timestamp": "2026-08-09T10:12:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9a2aa2dcfaf49d84",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 Dec.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44486,8 +44486,8 @@
         "timestamp": "2026-08-09T09:45:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cebfb7dbf5e805a7",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 Feb.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44512,8 +44512,8 @@
         "timestamp": "2026-08-09T08:57:42Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e168d65937178473",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 Jan.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44564,8 +44564,8 @@
         "timestamp": "2026-08-09T08:45:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:69e48b74de85970c",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 Mar.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44590,8 +44590,8 @@
         "timestamp": "2026-08-09T09:59:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:75bc493cd07fa48c",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 May.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44616,8 +44616,8 @@
         "timestamp": "2026-08-09T10:14:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2954c36a23bc5d88",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 Nov.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44642,8 +44642,8 @@
         "timestamp": "2026-08-09T08:53:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9c56ea57c20a1d6f",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2020 Oct.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44668,8 +44668,8 @@
         "timestamp": "2026-08-09T09:09:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:79d3e15c4f72cc7e",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2021 April.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44694,8 +44694,8 @@
         "timestamp": "2026-08-09T10:09:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:312bfaf84476338e",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2021 Feb.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44720,8 +44720,8 @@
         "timestamp": "2026-08-09T10:03:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d7483f3e5e0cbd63",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2021 Jan.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44746,8 +44746,8 @@
         "timestamp": "2026-08-09T08:54:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:34a4385605601b9d",
       "notes": "role evidence: promotional <- archivist review (File:Events in 2021 May.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44772,8 +44772,8 @@
         "timestamp": "2026-08-09T10:14:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:730c4770b8abeaaf",
       "notes": "role evidence: promotional <- archivist review (File:Events in Apr 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44798,8 +44798,8 @@
         "timestamp": "2026-08-09T10:16:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c787313d7a34fb0b",
       "notes": "role evidence: promotional <- archivist review (File:Events in April 2018 Twitter.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44824,8 +44824,8 @@
         "timestamp": "2026-08-09T08:51:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2c28cb3a94fd06a7",
       "notes": "role evidence: promotional <- archivist review (File:Events in April 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44850,8 +44850,8 @@
         "timestamp": "2026-08-09T09:28:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:30ed7e4354ae6a04",
       "notes": "role evidence: promotional <- archivist review (File:Events in Aug 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44876,8 +44876,8 @@
         "timestamp": "2026-08-09T10:15:42Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:edc3ef2c58bff6ce",
       "notes": "role evidence: promotional <- archivist review (File:Events in Aug 2022.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44902,8 +44902,8 @@
         "timestamp": "2026-08-09T08:42:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:43af50977be55382",
       "notes": "role evidence: promotional <- archivist review (File:Events in Aug 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44928,8 +44928,8 @@
         "timestamp": "2026-08-09T09:04:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:efb2b5c437fbb02b",
       "notes": "role evidence: promotional <- archivist review (File:Events in Aug 2024.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44954,8 +44954,8 @@
         "timestamp": "2026-08-09T09:18:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b9c2154a62de86c7",
       "notes": "role evidence: promotional <- archivist review (File:Events in Dec 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -44980,8 +44980,8 @@
         "timestamp": "2026-08-09T09:29:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:42cf245cd12d8608",
       "notes": "role evidence: promotional <- archivist review (File:Events in Dec 2022.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45006,8 +45006,8 @@
         "timestamp": "2026-08-09T09:50:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c8b94e64e69afcf0",
       "notes": "role evidence: promotional <- archivist review (File:Events in Dec 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45032,8 +45032,8 @@
         "timestamp": "2026-08-09T09:16:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:eaa24b3f6e52c6f3",
       "notes": "role evidence: promotional <- archivist review (File:Events in Dec 2024.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45058,8 +45058,8 @@
         "timestamp": "2026-08-09T09:44:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e77fcea48a585d06",
       "notes": "role evidence: promotional <- archivist review (File:Events in Feb 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45084,8 +45084,8 @@
         "timestamp": "2026-08-09T09:41:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d62c700b795b0ddb",
       "notes": "role evidence: promotional <- archivist review (File:Events in Feb 2024.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45110,8 +45110,8 @@
         "timestamp": "2026-08-09T08:42:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6d1af69f78bb0cde",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jan 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45136,8 +45136,8 @@
         "timestamp": "2026-08-09T09:52:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:293a30906469526e",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jan 2024.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45162,8 +45162,8 @@
         "timestamp": "2026-08-09T09:48:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7c54f3e21741eccb",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jan 2025.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45188,8 +45188,8 @@
         "timestamp": "2026-08-09T09:44:41Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b2feeee34f2c23de",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jul 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45214,8 +45214,8 @@
         "timestamp": "2026-08-09T09:00:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:09e523f897e1036e",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jul 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45240,8 +45240,8 @@
         "timestamp": "2026-08-09T09:50:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8dcd795fa88aa1aa",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jul 2024.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45266,8 +45266,8 @@
         "timestamp": "2026-08-09T09:27:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c3cd8883bb9c222a",
       "notes": "role evidence: promotional <- archivist review (File:Events in July 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45292,8 +45292,8 @@
         "timestamp": "2026-08-09T09:57:57Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4330e53ad374d4c9",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jun 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45318,8 +45318,8 @@
         "timestamp": "2026-08-09T08:48:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c9efd88e6c5314ef",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jun 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45344,8 +45344,8 @@
         "timestamp": "2026-08-09T09:44:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3f5ff2624ee6f6d9",
       "notes": "role evidence: promotional <- archivist review (File:Events in Jun 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45370,8 +45370,8 @@
         "timestamp": "2026-08-09T10:01:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b11517ec06309b2f",
       "notes": "role evidence: promotional <- archivist review (File:Events in Mar 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45396,8 +45396,8 @@
         "timestamp": "2026-08-09T08:44:23Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fecf6d520421562e",
       "notes": "role evidence: promotional <- archivist review (File:Events in Mar 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45422,8 +45422,8 @@
         "timestamp": "2026-08-09T09:40:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:78f0ae29e3610caf",
       "notes": "role evidence: promotional <- archivist review (File:Events in Mar 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45448,8 +45448,8 @@
         "timestamp": "2026-08-09T09:51:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:94fafd2afe1a58ef",
       "notes": "role evidence: promotional <- archivist review (File:Events in Mar 2024.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45474,8 +45474,8 @@
         "timestamp": "2026-08-09T08:58:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9506e47ad71179ee",
       "notes": "role evidence: promotional <- archivist review (File:Events in May 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45500,8 +45500,8 @@
         "timestamp": "2026-08-09T09:57:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6435ad9e566cd1c4",
       "notes": "role evidence: promotional <- archivist review (File:Events in May 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45526,8 +45526,8 @@
         "timestamp": "2026-08-09T08:57:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2ab6728eeae80f42",
       "notes": "role evidence: promotional <- archivist review (File:Events in Nov 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45552,8 +45552,8 @@
         "timestamp": "2026-08-09T09:27:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4fe10e3ace297973",
       "notes": "role evidence: promotional <- archivist review (File:Events in Nov 2022.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45578,8 +45578,8 @@
         "timestamp": "2026-08-09T10:14:47Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ebadda58e708c808",
       "notes": "role evidence: promotional <- archivist review (File:Events in Nov 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45604,8 +45604,8 @@
         "timestamp": "2026-08-09T10:09:43Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7cdcefcdffa69e71",
       "notes": "role evidence: promotional <- archivist review (File:Events in Nov 2024.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45630,8 +45630,8 @@
         "timestamp": "2026-08-09T09:11:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6bf92dfac0efa0c4",
       "notes": "role evidence: promotional <- archivist review (File:Events in Oct 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45656,8 +45656,8 @@
         "timestamp": "2026-08-09T09:22:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2781dfc55280bd2a",
       "notes": "role evidence: promotional <- archivist review (File:Events in Oct 2022.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45682,8 +45682,8 @@
         "timestamp": "2026-08-09T09:39:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9ab128624309516b",
       "notes": "role evidence: promotional <- archivist review (File:Events in Oct 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45708,8 +45708,8 @@
         "timestamp": "2026-08-09T09:12:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d4833e3b3c7610f0",
       "notes": "role evidence: promotional <- archivist review (File:Events in Oct 2024.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45734,8 +45734,8 @@
         "timestamp": "2026-08-09T09:27:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4af6b1846c41d716",
       "notes": "role evidence: promotional <- archivist review (File:Events in Sep 2021.png): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45760,8 +45760,8 @@
         "timestamp": "2026-08-09T09:05:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0c0ae1cb9681a370",
       "notes": "role evidence: promotional <- archivist review (File:Events in Sep 2022.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45786,8 +45786,8 @@
         "timestamp": "2026-08-09T10:03:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:220791d30e54b0a8",
       "notes": "role evidence: promotional <- archivist review (File:Events in Sep 2023.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -45812,8 +45812,8 @@
         "timestamp": "2026-08-09T10:11:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:55286d78c7a53b97",
       "notes": "role evidence: promotional <- archivist review (File:Events in Sep 2024.jpg): visual_inspection: monthly event lineup \"DynAMIX <月>活動預告 / <Month> Events\" with event-song jackets, \"復刻曲目 Comeback Tracks\" and store badges; the wiki files two of this series (Event in 2020 July.png, Events in 2020 June.png) in Category:Event images"
     },
     {
@@ -52048,8 +52048,8 @@
         "timestamp": "2026-08-09T10:04:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3723d1b1ac7a3766",
       "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/File:Frontline_B-Side_Comeback_Chart_List_(An_Yuki).jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Frontline_B-Side_Comeback_Chart_List_(An_Yuki).jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -53367,8 +53367,8 @@
         "timestamp": "2026-08-09T09:22:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:47f85e18e95e2ad4",
       "notes": "role evidence: promotional <- archivist review (File:Get Actinum by 200 times share the post.jpg): visual_inspection: campaign graphic 'DynAMIX Get Actinium by 200 share.'"
     },
     {
@@ -53751,8 +53751,8 @@
         "timestamp": "2026-08-09T09:31:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:16a71509f4f06865",
       "notes": "role evidence: reference <- archivist review (File:Giga Chart OCCHOCO-REST-LESS.jpg): visual_inspection: Giga chart announcement 'OCCHOCO-REST-LESS / MYUKKE.', level diamond 14, 'unlock by followers'"
     },
     {
@@ -54449,8 +54449,8 @@
         "timestamp": "2026-08-09T09:32:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:87a42a6426ae95d5",
       "song_titles": [
         "Gleam stone"
       ],
@@ -54727,8 +54727,8 @@
         "timestamp": "2026-08-09T09:26:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7ace5e5ebdd173d4",
       "song_titles": [
         "Go Escape"
       ],
@@ -54763,8 +54763,8 @@
         "timestamp": "2026-08-09T09:53:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ad4f238a75d53d7e",
       "notes": "role evidence: reference <- archivist review (File:Go Escape 41.jpg): visual_inspection: special chart announcement 'Go Escape / mmry' with the level diamond '41'"
     },
     {
@@ -54904,8 +54904,8 @@
         "timestamp": "2026-08-09T09:36:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2696e0bfca5e6f73",
       "song_titles": [
         "GOEMON"
       ],
@@ -60279,8 +60279,8 @@
         "timestamp": "2026-08-09T10:16:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8e40f048e5d6addf",
       "song_titles": [
         "Helios"
       ],
@@ -60537,8 +60537,8 @@
         "timestamp": "2026-08-09T09:03:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:17a96ce99e050dcf",
       "song_titles": [
         "Hemisphere"
       ],
@@ -60612,8 +60612,8 @@
         "timestamp": "2026-08-09T08:55:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:346a6ae73bc4960f",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Hemisphereimage.jpg): visual_inspection: original-game song select 'Hemisphere / ARForest' Mega 14"
     },
     {
@@ -63370,8 +63370,8 @@
         "timestamp": "2026-08-09T10:05:10Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:323b3fedd58cbd36",
       "notes": "role evidence: promotional <- archivist review (File:IMG 20190708 173023.jpg): visual_inspection: STELLIGHTS x DynAMIX banner 'Dynamixコラボ イベント報酬' (collaboration event rewards with Dynamix characters)"
     },
     {
@@ -63422,8 +63422,8 @@
         "timestamp": "2026-08-09T08:50:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4ec2b42429ce1e07",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:IMG 4514.jpg): visual_inspection: original-game song select 'Prime / Pokkun' 14 with chibi characters"
     },
     {
@@ -63712,8 +63712,8 @@
         "timestamp": "2026-08-09T09:14:55Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e23c2646143ad514",
       "notes": "role evidence: character <- archivist review (File:IMG 4652.jpg): visual_inspection: framed icon of the default character Little D (the cube mascot), User:ItemError"
     },
     {
@@ -63738,8 +63738,8 @@
         "timestamp": "2026-08-09T09:27:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:65b8f8b3ef4f223f",
       "notes": "role evidence: character <- archivist review (File:IMG 4660.jpg): visual_inspection: framed icon of Little D wearing a Santa hat (the Christmas Little D of the 2017 Christmas Special), User:ItemError"
     },
     {
@@ -65313,8 +65313,8 @@
         "timestamp": "2026-08-09T09:43:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6f9845299497e063",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Imageihb.jpg): visual_inspection: phone photo of the original-game song select 'Hemisphere / ARForest' (blog about version 2.7.2 crashing)"
     },
     {
@@ -65366,8 +65366,8 @@
         "timestamp": "2026-08-09T09:48:42Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:443337c59e6fd0f4",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Impossible.png): visual_inspection: original-game gameplay 'Hemisphere' Mega"
     },
     {
@@ -66414,8 +66414,9 @@
         "timestamp": "2026-08-09T09:52:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Invadedegg1.PNG (already archived)",
+      "asset_id": "wikis:miraheze:1c76927251fae1e4",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Invadedegg1.png): visual_inspection: original-game gameplay screen (Invaded easter egg capture 1)"
     },
     {
@@ -66476,8 +66477,9 @@
         "timestamp": "2026-08-09T09:08:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Invadedegg2.PNG (already archived)",
+      "asset_id": "wikis:miraheze:ad19f698b6dbfb78",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Invadedegg2.png): visual_inspection: original-game gameplay screen (Invaded easter egg capture 2)"
     },
     {
@@ -67553,8 +67555,8 @@
         "timestamp": "2026-08-09T09:09:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted part (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f75f003942ebda2d",
       "song_titles": [
         "JOACHIM : D"
       ],
@@ -68023,8 +68025,8 @@
         "timestamp": "2026-08-09T09:18:48Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4dda1a341181ae17",
       "notes": "role evidence: promotional <- archivist review (File:Jack Out KIllER RAVON.jpg): visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 1 8月21日より配信!' (Black：Magnam, Perspicuus Aestus, Jack Out KIllER)"
     },
     {
@@ -73426,8 +73428,8 @@
         "timestamp": "2026-08-09T10:03:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7e187de856a6cc5e",
       "song_titles": [
         "Laivisca"
       ],
@@ -73547,8 +73549,8 @@
         "timestamp": "2026-08-09T10:14:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6ce42d135b7451f2",
       "song_titles": [
         "Laivisca"
       ],
@@ -73910,8 +73912,8 @@
         "timestamp": "2026-08-09T09:36:46Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9f54d7b133f6730f",
       "song_titles": [
         "L'AMITIE"
       ],
@@ -76990,8 +76992,8 @@
         "timestamp": "2026-08-09T09:45:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:81cd9448cfd9f8af",
       "song_titles": [
         "Sunset Road",
         "Lily"
@@ -78029,8 +78031,8 @@
         "timestamp": "2026-08-09T09:51:54Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5acc5ad4a80857d5",
       "notes": "role evidence: reference <- archivist review (File:List 5th Event in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): High Speed Riders, BlueBell, Regenerate Violence"
     },
     {
@@ -80530,8 +80532,9 @@
         "timestamp": "2026-08-09T09:49:59Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Lunar_New_Year_Event_2018.jpg (already archived)",
+      "asset_id": "wikis:miraheze:5d1b7319fc3e8bdc",
       "notes": "role evidence: promotional <- archivist review (File:Lunar New Year special.jpg): visual_inspection: 'DynAMIX Lunar New Year Special': Lion Dance D, New Giga Chart"
     },
     {
@@ -84299,8 +84302,8 @@
         "timestamp": "2026-08-09T09:00:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d1a2e19ff5b78970",
       "notes": "role evidence: promotional <- archivist review (File:MassacrE 3rc4224M RAVON.jpg): visual_inspection: RAVON-side collaboration announcement 'DynAMIX x RAVON' announcement of 'MassacrE || 3rc4224M (Spiegel vs Yukino)' 書き下ろし新曲/同時収録"
     },
     {
@@ -84326,8 +84329,8 @@
         "timestamp": "2026-08-09T09:44:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:95d2a1af9035b981",
       "notes": "role evidence: promotional <- archivist review (File:MassacrE RAVON.jpg): visual_inspection: RAVON-side collaboration announcement 'DynAMIX x RAVON' announcement of 'MassacrE || 3rc4224M (Spiegel vs Yukino)' 書き下ろし新曲/同時収録"
     },
     {
@@ -85821,8 +85824,8 @@
         "timestamp": "2026-08-09T08:42:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:666596bce584beaf",
       "song_titles": [
         "Play A Day"
       ],
@@ -87013,8 +87016,8 @@
         "timestamp": "2026-08-09T10:09:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3aab77cc20c486c2",
       "song_titles": [
         "Mitochondria"
       ],
@@ -88869,8 +88872,8 @@
         "timestamp": "2026-08-09T09:36:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:31fdb132f145b4a3",
       "song_titles": [
         "My life is mine"
       ],
@@ -89038,8 +89041,8 @@
         "timestamp": "2026-08-09T09:12:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted part (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e1e45a7777acbbfd",
       "song_titles": [
         "My life is mine"
       ],
@@ -94560,8 +94563,9 @@
         "timestamp": "2026-08-09T10:04:15Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Nova_Highway_X_soar_to_Ø_Comeback_Chart_List.png (already archived)",
+      "asset_id": "wikis:miraheze:63d4c79dde31fb46",
       "song_titles": [
         "Nova Highway",
         "soar to Ø"
@@ -95522,8 +95526,8 @@
         "timestamp": "2026-08-09T08:49:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b7e0338495e5e13c",
       "notes": "role evidence: promotional <- archivist review (File:OCCHOCO-REST-LESS RAVON.jpg): visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 2 9月8日より配信!' (Caelus, OCCHOCO-REST-LESS)"
     },
     {
@@ -96798,8 +96802,8 @@
         "timestamp": "2026-08-09T09:07:08Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:01471922f75efa00",
       "notes": "role evidence: reference <- archivist review (File:One Extra Day Event.jpg): visual_inspection: 'DynAMIX Comeback Tracks' (One Extra Day event) listing five comeback jackets"
     },
     {
@@ -98406,8 +98410,8 @@
         "timestamp": "2026-08-09T08:48:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:90304d367f2c4ab3",
       "song_titles": [
         "PUPA"
       ],
@@ -98623,8 +98627,8 @@
         "timestamp": "2026-08-09T09:40:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:28140d2fef89dc7a",
       "notes": "role evidence: promotional <- archivist review (File:Package BilliumMoto.jpg): visual_inspection: 'BilliumMoto Collection Package OUT NOW!' announcement collage of four jackets (cf. the BilliumMoto package page)"
     },
     {
@@ -101332,8 +101336,8 @@
         "timestamp": "2026-08-09T10:15:50Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:33328aadab2986f0",
       "song_titles": [
         "Persephone",
         "Cryonix"
@@ -101770,8 +101774,8 @@
         "timestamp": "2026-08-09T09:31:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e5e23737e4a5bb83",
       "notes": "role evidence: promotional <- archivist review (File:Perspicuus Aestus RAVON.jpg): visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 1 8月21日より配信!' (Black：Magnam, Perspicuus Aestus)"
     },
     {
@@ -101796,8 +101800,8 @@
         "timestamp": "2026-08-09T08:46:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:40b64d95628e5ab8",
       "song_titles": [
         "Perspicuus_Aestus"
       ],
@@ -104295,8 +104299,8 @@
         "timestamp": "2026-08-09T09:50:02Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:80cb8f28cc44a4af",
       "notes": "role evidence: promotional <- archivist review (File:Pre-Registration over 1300！.jpg): visual_inspection: banner 'DynAMIX 事前登録 PRE-REGISTRATION 1300'"
     },
     {
@@ -105496,8 +105500,8 @@
         "timestamp": "2026-08-09T09:02:24Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c2f4cce29e852e33",
       "notes": "role evidence: promotional <- archivist review (File:QooApp Collaboration.jpg): visual_inspection: 'QooApp x DynAMIX collaboration' with chibi Elly & Gilbert"
     },
     {
@@ -106098,8 +106102,8 @@
         "timestamp": "2026-08-09T09:24:34Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c21b3894260c5543",
       "notes": "role evidence: promotional <- archivist review (File:RAVON Collab Pack 1 1 of 4.jpg): visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix"
     },
     {
@@ -106124,8 +106128,8 @@
         "timestamp": "2026-08-09T09:29:26Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:8dc441e01f41ff4d",
       "notes": "role evidence: promotional <- archivist review (File:RAVON Collab Pack 1 2 of 4.jpg): visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix"
     },
     {
@@ -106150,8 +106154,8 @@
         "timestamp": "2026-08-09T09:49:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2fe96efe2efccee5",
       "notes": "role evidence: promotional <- archivist review (File:RAVON Collab Pack 1 3 of 4.jpg): visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix"
     },
     {
@@ -106176,8 +106180,8 @@
         "timestamp": "2026-08-09T09:37:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:48d0bf147607088f",
       "notes": "role evidence: promotional <- archivist review (File:RAVON Collab Pack 2 1 of 4.jpg): visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix"
     },
     {
@@ -106202,8 +106206,8 @@
         "timestamp": "2026-08-09T09:28:32Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:49f7e21f31346dbd",
       "notes": "role evidence: promotional <- archivist review (File:RAVON Collab Pack 2 2 of 4.jpg): visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix"
     },
     {
@@ -106228,8 +106232,8 @@
         "timestamp": "2026-08-09T09:33:30Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:47b8885e48c368e3",
       "notes": "role evidence: promotional <- archivist review (File:RAVON Collab Pack 2 3 of 4.jpg): visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix"
     },
     {
@@ -110185,8 +110189,8 @@
         "timestamp": "2026-08-09T10:00:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e4694dbf1d511654",
       "song_titles": [
         "Red Horse Massacre"
       ],
@@ -111479,8 +111483,8 @@
         "timestamp": "2026-08-09T08:48:27Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5ee6a5490b3ad2d1",
       "song_titles": [
         ".reversive (Dynamix Ver.)"
       ],
@@ -116623,8 +116627,8 @@
         "timestamp": "2026-08-09T09:22:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6fc6c848111d0ed6",
       "notes": "role evidence: promotional <- archivist review (File:Screen Shot 2016-08-01 at 11.36.59 AM.png): visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Dream Starter COMING SOON teaser"
     },
     {
@@ -116649,8 +116653,8 @@
         "timestamp": "2026-08-09T09:02:44Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:030832ff7c19f2c7",
       "notes": "role evidence: promotional <- archivist review (File:Screen Shot 2016-08-10 at 6.41.30 PM.png): visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Meteor Hope COMING SOON teaser"
     },
     {
@@ -116675,8 +116679,8 @@
         "timestamp": "2026-08-09T09:42:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d175e068b8aa76b8",
       "notes": "role evidence: promotional <- archivist review (File:Screen Shot 2016-08-10 at 6.41.36 PM.png): visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: 3.1 is going to update soon.' with the 刻み付け、散華の名を COMING SOON teaser"
     },
     {
@@ -116701,8 +116705,8 @@
         "timestamp": "2026-08-09T09:27:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e6ae69109c725e44",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2015-02-09-17-48-58.png): visual_inspection: original-game result screen 'Wonderful Days' Hard, rank A"
     },
     {
@@ -116727,8 +116731,8 @@
         "timestamp": "2026-08-09T09:29:29Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:35735f97862a8c76",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2015-02-09-19-19-21-1-.png): visual_inspection: original-game result screen 'Wonderful Days' Normal, rank S"
     },
     {
@@ -116753,8 +116757,8 @@
         "timestamp": "2026-08-09T09:26:13Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7acec24797c2b3b0",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2015-02-09-19-31-23-1-.png): visual_inspection: original-game result screen 'Wonderful Days' Hard, rank S"
     },
     {
@@ -116779,8 +116783,8 @@
         "timestamp": "2026-08-09T09:28:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e5c959ff8fd554b2",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2016-01-07-15-15-02.png): visual_inspection: original-game song list sorted by score (白い騎士, White Horse Disease ...)"
     },
     {
@@ -116805,8 +116809,8 @@
         "timestamp": "2026-08-09T09:37:39Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:325122f86e38bf1e",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2016-01-07-15-15-23.png): visual_inspection: original-game song list sorted by score (名無しの宣教師 ...)"
     },
     {
@@ -116831,8 +116835,8 @@
         "timestamp": "2026-08-09T09:24:05Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:88f759f87de1cf0c",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2016-01-07-15-16-20.png): visual_inspection: original-game song list sorted by score (Yotta ...)"
     },
     {
@@ -116857,8 +116861,8 @@
         "timestamp": "2026-08-09T08:54:01Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:054907cb62c5819c",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2016-01-07-15-16-39.png): visual_inspection: original-game song list sorted by score (Win n Bow ...)"
     },
     {
@@ -116883,8 +116887,8 @@
         "timestamp": "2026-08-09T10:10:25Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:245e56ccfa0ed3fa",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2017-05-31-23-09-45.jpg): visual_inspection: original-game Wave Test song select 'CLASS 1 - RW'"
     },
     {
@@ -116909,8 +116913,8 @@
         "timestamp": "2026-08-09T09:10:28Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:258631993c59deb2",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2017-06-22-19-17-24.jpg): visual_inspection: original-game Wave Test result 'CLASS 7 - UV1', score 2714865, rank S"
     },
     {
@@ -116959,8 +116963,8 @@
         "timestamp": "2026-08-09T10:12:16Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9d6cd9b42e5e761b",
       "song_titles": [
         "High Speed Riders"
       ],
@@ -117164,8 +117168,8 @@
         "timestamp": "2026-08-09T10:10:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ed50f8c298afbe62",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2017-11-05-14-30-19.jpg): visual_inspection: original-game 'Reward' screen with an item icon"
     },
     {
@@ -117190,8 +117194,8 @@
         "timestamp": "2026-08-09T09:08:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:6928803f4ec8d141",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2017-11-17-21-01-46 1.jpg): visual_inspection: crop of the original-game store screen showing a character ('STORE'/'MENU', 'DynAMIX player')"
     },
     {
@@ -117288,8 +117292,8 @@
         "timestamp": "2026-08-09T08:42:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:dad4d50cd18d6c0b",
       "song_titles": [
         "REconstruction"
       ],
@@ -117327,8 +117331,9 @@
         "timestamp": "2026-08-09T09:25:14Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:MouseRunsForCheeseDynamix.png (already archived)",
+      "asset_id": "wikis:miraheze:4213911a369dcd69",
       "song_titles": [
         "Mouse Runs For Cheese(Short Edit)"
       ],
@@ -117364,8 +117369,8 @@
         "timestamp": "2026-08-09T08:57:20Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:810bad39f7e7bd6c",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:Screenshot 2018-01-05-14-20-30.jpeg): visual_inspection: original-game result screen 'Hopeful Warrior' Mega, rank S"
     },
     {
@@ -118274,8 +118279,8 @@
         "timestamp": "2026-08-09T09:39:35Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0de3e5c90dd33ec3",
       "notes": "role evidence: song_art <- https://dynamix.miraheze.org/wiki/File:SetFreeDynamix.jpg (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:SetFreeDynamix.jpg (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/)"
     },
     {
@@ -119714,8 +119719,9 @@
         "timestamp": "2026-08-09T09:11:49Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Screenshot_2017-07-07-14-26-24_1_1.jpg (already archived)",
+      "asset_id": "wikis:miraheze:9d6cd9b42e5e761b",
       "song_titles": [
         "High Speed Riders"
       ],
@@ -119995,8 +120001,8 @@
         "timestamp": "2026-08-09T10:16:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b2c52c408a4d6d47",
       "song_titles": [
         "罪曲"
       ],
@@ -121375,8 +121381,9 @@
         "timestamp": "2026-08-09T09:24:37Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Insomnia-Raw.png (already archived)",
+      "asset_id": "wikis:miraheze:cce709571439b1de",
       "song_titles": [
         "Sleepless"
       ],
@@ -123073,8 +123080,8 @@
         "timestamp": "2026-08-09T08:42:17Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c5e32ec0100717c7",
       "song_titles": [
         "My life is mine"
       ],
@@ -125492,8 +125499,9 @@
         "timestamp": "2026-08-09T10:05:07Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Starbirds_of_Zenith_Blue_X_涅槃を灯すシャーデンフロイデ_Comeback_Chart_List.jpg (already archived)",
+      "asset_id": "wikis:miraheze:6bfa8cdf36ebc1c6",
       "song_titles": [
         "Starbirds of Zenith Blue",
         "涅槃を灯すシャーデンフロイデ"
@@ -129675,8 +129683,8 @@
         "timestamp": "2026-08-09T09:47:33Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:134d12a83e9558e7",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:T.jpg): visual_inspection: original-game gameplay screen, score 0436440, buttons 重試/下一首"
     },
     {
@@ -132737,8 +132745,8 @@
         "timestamp": "2026-08-09T09:26:21Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:72cc27042e0475cc",
       "song_titles": [
         "The Endless for Traveler",
         "NOISIΛ"
@@ -133049,8 +133057,8 @@
         "timestamp": "2026-08-09T09:27:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:0853175091e9f3ba",
       "notes": "role evidence: promotional <- archivist review (File:The Special Guest.jpg): visual_inspection: collaboration teaser: the Dynamix announcer, '喔喔喔 又是兔耳生物 ... 看來有特別的來賓呢' and a rabbit silhouette"
     },
     {
@@ -133316,8 +133324,8 @@
         "timestamp": "2026-08-09T09:06:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:3e0bc5038278d527",
       "song_titles": [
         "Theme of Rabi-Ribi"
       ],
@@ -134181,8 +134189,8 @@
         "timestamp": "2026-08-09T10:06:53Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ac056b7cab4450d9",
       "song_titles": [
         "to soar"
       ],
@@ -135074,8 +135082,8 @@
         "timestamp": "2026-08-09T09:37:52Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:5d09065e6352c542",
       "song_titles": [
         "Triumph & Regret",
         "夏色メランコリー"
@@ -138739,8 +138747,8 @@
         "timestamp": "2026-08-09T09:05:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b12b61d4ba450c30",
       "song_titles": [
         "Variance"
       ],
@@ -141275,8 +141283,8 @@
         "timestamp": "2026-08-09T08:57:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d70e6c26fe279c0e",
       "notes": "role evidence: reference <- archivist review (File:Vote Comeback Tracks via FB.jpg): visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with candidate jackets and Facebook reactions; reference <- https://dynamix.miraheze.org/wiki/File:Vote_Comeback_Tracks_via_FB.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Vote_Comeback_Tracks_via_FB.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -141301,8 +141309,8 @@
         "timestamp": "2026-08-09T09:56:45Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fac3569a5652abae",
       "notes": "role evidence: reference <- archivist review (File:Vote Comeback Tracks via Twitter.jpg): visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with candidate jackets (Twitter); reference <- https://dynamix.miraheze.org/wiki/File:Vote_Comeback_Tracks_via_Twitter.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Vote_Comeback_Tracks_via_Twitter.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -141368,8 +141376,8 @@
         "timestamp": "2026-08-09T08:51:11Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:7daffc2009e8fe2e",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:WDY.jpg): visual_inspection: original-game gameplay with notes spelling 'WDY', score 0401482"
     },
     {
@@ -143700,8 +143708,8 @@
         "timestamp": "2026-08-09T09:32:56Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4ca1333d0f451c7c",
       "song_titles": [
         "Prime"
       ],
@@ -146202,8 +146210,8 @@
         "timestamp": "2026-08-09T09:17:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (mixed) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:fb578c41bbc7598f",
       "song_titles": [
         "White：Revolve"
       ],
@@ -146682,8 +146690,8 @@
         "timestamp": "2026-08-09T10:06:31Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted part (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:9c846463f8239e18",
       "song_titles": [
         "罪曲"
       ],
@@ -148032,8 +148040,9 @@
         "timestamp": "2026-08-09T09:37:40Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:(XD)_X.jpg (already archived)",
+      "asset_id": "wikis:miraheze:8dd3c3aa003cf942",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:X.jpg): visual_inspection: original-game gameplay screen (X.jpg), score 0807559"
     },
     {
@@ -149063,8 +149072,9 @@
         "timestamp": "2026-08-09T09:03:12Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:YouPsyBG-HQ.png (already archived)",
+      "asset_id": "wikis:miraheze:cded747074aad5b5",
       "song_titles": [
         "You Psy"
       ],
@@ -149100,8 +149110,9 @@
         "timestamp": "2026-08-09T09:11:09Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted background (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:YouPsyBG.png (already archived)",
+      "asset_id": "wikis:miraheze:0616d220633f7b7c",
       "song_titles": [
         "You Psy"
       ],
@@ -150660,8 +150671,8 @@
         "timestamp": "2026-08-09T09:44:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted character (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e20dea858dde0a7f",
       "notes": "role evidence: character <- archivist review (File:Zakuro.jpg): visual_inspection: framed icon of the character Zakuro (Characters page: Zakuro-Still.png), User:ItemError"
     },
     {
@@ -151421,8 +151432,9 @@
         "timestamp": "2026-08-09T10:02:19Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:Αterlβus_Chart_List.jpg (already archived)",
+      "asset_id": "wikis:miraheze:9fcbf855bf46c53b",
       "song_titles": [
         "αterlβus"
       ],
@@ -152105,8 +152117,8 @@
         "timestamp": "2026-08-09T08:48:51Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted gameplay_screenshot (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:ad8381ec0a1ef12d",
       "notes": "role evidence: gameplay_screenshot <- archivist review (File:「Future House」Genre mismatch.jpg): visual_inspection: original-game song list with genre labels 'Future House' (Grayscale Tragedy, Horloge, NNOYiA, ネーヴェの紋様)"
     },
     {
@@ -152222,8 +152234,8 @@
         "timestamp": "2026-08-09T10:06:03Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d5c1de68a7d90f56",
       "song_titles": [
         "おもひでファンタジア"
       ],
@@ -152516,8 +152528,9 @@
         "timestamp": "2026-08-09T09:12:38Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted song_art (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to wikis:miraheze:File:つゆだま.png (already archived)",
+      "asset_id": "wikis:miraheze:d829240f7d5f2d66",
       "song_titles": [
         "つゆだま"
       ],
@@ -156587,8 +156600,8 @@
         "timestamp": "2026-08-09T09:46:58Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:cd2b30b11694f899",
       "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/File:%E6%9B%87%E3%82%8B%E9%91%91%E3%80%8A%E3%81%8B%E3%81%8C%E3%81%BF%E3%80%8B%E3%81%AE%E9%9C%A7%E3%82%92%E5%90%AB%E3%81%BF%E3%81%A6_X_Marion.net_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:%E6%9B%87%E3%82%8B%E9%91%91%E3%80%8A%E3%81%8B%E3%81%8C%E3%81%BF%E3%80%8B%E3%81%AE%E9%9C%A7%E3%82%92%E5%90%AB%E3%81%BF%E3%81%A6_X_Marion.net_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -157517,8 +157530,8 @@
         "timestamp": "2026-08-09T08:47:04Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:4d6527b56818d1d7",
       "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/File:%E7%99%BD%E8%89%B2%E3%81%AE%E5%A4%A2%E3%81%A7%E3%80%82_X_Marion.net_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:%E7%99%BD%E8%89%B2%E3%81%AE%E5%A4%A2%E3%81%A7%E3%80%82_X_Marion.net_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -157546,8 +157559,8 @@
         "timestamp": "2026-08-09T09:57:36Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:b1c613b31fab7c13",
       "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/File:%E7%99%BD%E8%89%B2%E3%81%AE%E5%A4%A2%E3%81%A7%E3%80%82_X_%E5%A3%B0%E3%81%8C%E5%B1%8A%E3%81%8B%E3%81%AA%E3%81%84%E3%81%AE%E3%81%AA%E3%82%89_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:%E7%99%BD%E8%89%B2%E3%81%AE%E5%A4%A2%E3%81%A7%E3%80%82_X_%E5%A3%B0%E3%81%8C%E5%B1%8A%E3%81%8B%E3%81%AA%E3%81%84%E3%81%AE%E3%81%AA%E3%82%89_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -157620,8 +157633,8 @@
         "timestamp": "2026-08-09T10:03:00Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted reference (dynamix) candidate; not downloaded yet (metadata-only discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:019f9bec17bfb2b0",
       "song_titles": [
         "紅",
         "Sakura Fubuki"
