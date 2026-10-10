@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T22:29:32Z",
-  "finished_at": "2026-10-10T22:32:23Z",
+  "started_at": "2026-10-10T22:45:28Z",
+  "finished_at": "2026-10-10T22:48:20Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -4080,6 +4080,43 @@
       "disposition": "downloaded",
       "asset_id": "official:x:e928c1c6a613941e",
       "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1868989522002018708:1",
+      "source_id": "official:x",
+      "upstream_key": "1868989522002018708:1",
+      "page_url": "https://x.com/c4c4cat/status/1868989522002018708",
+      "file_url": "https://pbs.twimg.com/media/GeichmVbIAA9x34?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はYukikurageさんが作った「Curtainfall!」。 開催期間は12月20日13時から12月24日21時（UTC+9）まで！ @yukikurage_201…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1868989522002018708",
+        "text: [Event]",
+        "text: Curtainfall!"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GeichmVbIAA9x34.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2024-12-17T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:206c77eb4f923b43",
+      "song_titles": [
+        "Curtainfall!"
+      ],
+      "composers": [
+        "Yukikurage"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Curtainfall!."
     },
     {
       "id": "official:x:1870076698345287834:1",

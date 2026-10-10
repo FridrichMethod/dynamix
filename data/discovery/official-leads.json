@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:official-leads",
-  "started_at": "2026-10-10T22:29:16Z",
-  "finished_at": "2026-10-10T22:29:16Z",
+  "started_at": "2026-10-10T22:45:28Z",
+  "finished_at": "2026-10-10T22:45:28Z",
   "scope": {
     "lists": [
       "registry"
@@ -328,6 +328,29 @@
       },
       "disposition": "pending",
       "reason": "pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+    },
+    {
+      "id": "official:official-leads:x:c4c4cat:wayback-media",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:c4c4cat:wayback-media",
+      "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/c4c4cat/status/*",
+      "file_url": null,
+      "title": "Official X post images found through Wayback captures of the account's status pages",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
     },
     {
       "id": "official:official-leads:x:liq_mmry:880267173574262784",

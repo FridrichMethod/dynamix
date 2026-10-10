@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "official",
-  "fetched_at": "2026-10-10T21:02:35Z",
+  "fetched_at": "2026-10-10T22:48:19Z",
   "sources": [
     {
       "id": "official:apple-store",
@@ -90,11 +90,11 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T22:29:16Z",
+      "checked_at": "2026-10-10T22:45:28Z",
       "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 15,
+      "candidate_count": 16,
       "asset_count": 0,
       "failure_count": 0,
       "evidence_level": "search_index"
@@ -154,13 +154,13 @@
       "url": "https://x.com/c4c4cat",
       "platform": "x",
       "status": "partially_available",
-      "checked_at": "2026-10-10T22:29:32Z",
+      "checked_at": "2026-10-10T22:45:28Z",
       "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
-      "candidate_count": 144,
-      "asset_count": 138,
+      "candidate_count": 145,
+      "asset_count": 139,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -7654,6 +7654,107 @@
       },
       "upstream_status": "current",
       "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:206c77eb4f923b43",
+      "source_id": "official:x",
+      "candidate_id": "official:x:1868989522002018708:1",
+      "title": "[Event] 次のイベント曲はYukikurageさんが作った「Curtainfall!」。 開催期間は12月20日13時から12月24日21時（UTC+9）まで！ @yukikurage_201…",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://x.com/c4c4cat/status/1868989522002018708",
+      "download_url": "https://pbs.twimg.com/media/GeichmVbIAA9x34?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/GeichmVbIAA9x34?format=jpg&name=orig",
+      "path": "assets/public/official/x/GeichmVbIAA9x34--206c77eb4f92.jpg",
+      "original_filename": "GeichmVbIAA9x34.jpg",
+      "bytes": 146470,
+      "sha256": "206c77eb4f923b435f429a52963703c49b63426d3c24fffe26cb637beedd5df0",
+      "sha1": "efab4deadac01b83f89a87e4a22323599cba883a",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 628,
+      "fetched_at": "2026-10-10T22:48:19Z",
+      "illustrators": [],
+      "composers": [
+        "Yukikurage"
+      ],
+      "song_titles": [
+        "Curtainfall!"
+      ],
+      "song_ids": [
+        "song:curtainfall"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://x.com/c4c4cat/status/1868989522002018708",
+          "field": "text",
+          "quote": "[Event]"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1868989522002018708",
+          "field": "text",
+          "quote": "Curtainfall!"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1868989522002018708",
+          "field": "text",
+          "quote": "[Event] 次のイベント曲はYukikurageさんが作った「Curtainfall!」。 開催期間は12月20日13時から12月24日21時(UTC+9)まで! …"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://x.com/c4c4cat/status/1868989522002018708",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GeichmVbIAA9x34.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2024-12-17T12:00:00.000Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 146470,
+        "width": 1200,
+        "height": 628,
+        "sha1": "efab4deadac01b83f89a87e4a22323599cba883a",
+        "sha256": "206c77eb4f923b435f429a52963703c49b63426d3c24fffe26cb637beedd5df0"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Yukikurage",
+          "url": "https://x.com/c4c4cat/status/1868989522002018708",
+          "field": "text",
+          "quote": "[Event] 次のイベント曲はYukikurageさんが作った「Curtainfall!」。 開催期間は12月20日13時から1…"
+        }
+      ],
+      "upstream_status": "current",
+      "notes": "Official event announcement image for Curtainfall!."
     },
     {
       "id": "official:x:256c9272a0c39014",

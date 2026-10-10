@@ -1078,6 +1078,10 @@
         },
         {
           "post_id": "1901242039800299634"
+        },
+        {
+          "post_id": "1868989522002018708",
+          "notes": "Official event announcement quoted by the illustrator lomiu (@Serolerr) in https://x.com/serolerr/status/1869236616776343997 (research lead)."
         }
       ],
       "rules": [
@@ -3375,6 +3379,29 @@
             "イベントバンドル"
           ],
           "candidate_notes": "Event Bundle 001 full track list (list graphic)."
+        },
+        {
+          "match": "^1868989522002018708:1$",
+          "role": "promotional",
+          "song_titles": [
+            "Curtainfall!"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Yukikurage"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "Curtainfall!"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Curtainfall!",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50573)"
+          },
+          "candidate_notes": "Official event announcement image for Curtainfall!."
         }
       ]
     },
@@ -3597,6 +3624,13 @@
           "disposition": "excluded",
           "reason": "not_dynamix: linktr.ee/c4cat and /c4cats do not exist; linktr.ee/dynamix belongs to an unrelated group",
           "game": "not_dynamix"
+        },
+        {
+          "key": "x:c4c4cat:wayback-media",
+          "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/c4c4cat/status/*",
+          "title": "Official X post images found through Wayback captures of the account's status pages",
+          "disposition": "pending",
+          "reason": "awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
         }
       ]
     },

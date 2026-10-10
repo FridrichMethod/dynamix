@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:research:leads",
-  "started_at": "2026-10-10T22:35:02Z",
-  "finished_at": "2026-10-10T22:35:02Z",
+  "started_at": "2026-10-10T22:48:27Z",
+  "finished_at": "2026-10-10T22:48:27Z",
   "scope": {
     "lists": [
       "registry"
@@ -1401,6 +1401,29 @@
       "reason": "out_of_scope_other: partner game's own UI screenshots (Dolqueen character with UI); no Dynamix collaboration page or illustrator credit"
     },
     {
+      "id": "artists:research:leads:x-media:Cr_ZdsZUIAE0LYs",
+      "source_id": "artists:research:leads",
+      "upstream_key": "x-media:Cr_ZdsZUIAE0LYs",
+      "page_url": "https://soundcloud.com/riranofficial/bofu2016-unshakable",
+      "file_url": null,
+      "title": "BOFU2016 Unshakable entry image",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: BOFU2016 entry image (movie by Irelriser), a related BMS-era composition, not the Dynamix jacket (research comparison)"
+    },
+    {
       "id": "artists:research:leads:x:DNX_EVENT:920786171411574784",
       "source_id": "artists:research:leads",
       "upstream_key": "x:DNX_EVENT:920786171411574784",
@@ -1740,6 +1763,29 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire ('Artwork : Derder'); thumbnail is a derivative with Rotaeno overlay"
+    },
+    {
+      "id": "artists:research:leads:youtube:eELV4gTu4Vc",
+      "source_id": "artists:research:leads",
+      "upstream_key": "youtube:eELV4gTu4Vc",
+      "page_url": "https://www.youtube.com/watch?v=eELV4gTu4Vc",
+      "file_url": null,
+      "title": "TRIAL's YouTube video of NOVA (thumbnail)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: YouTube's re-encoded 1280x720 video thumbnail of the NOVA jacket, not a master; the composer's SoundCloud track (dynamixnova) records the square art"
     },
     {
       "id": "artists:research:leads:youtube:gUIkEH-44gQ",

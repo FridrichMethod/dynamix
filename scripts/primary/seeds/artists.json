@@ -5346,6 +5346,20 @@
           "title": "DCWH portfolio",
           "disposition": "excluded",
           "reason": "out_of_scope_other: lists Dynamix as music work only; no artwork for Dynamix"
+        },
+        {
+          "key": "youtube:eELV4gTu4Vc",
+          "page_url": "https://www.youtube.com/watch?v=eELV4gTu4Vc",
+          "title": "TRIAL's YouTube video of NOVA (thumbnail)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: YouTube's re-encoded 1280x720 video thumbnail of the NOVA jacket, not a master; the composer's SoundCloud track (dynamixnova) records the square art"
+        },
+        {
+          "key": "x-media:Cr_ZdsZUIAE0LYs",
+          "page_url": "https://soundcloud.com/riranofficial/bofu2016-unshakable",
+          "title": "BOFU2016 Unshakable entry image",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: BOFU2016 entry image (movie by Irelriser), a related BMS-era composition, not the Dynamix jacket (research comparison)"
         }
       ]
     },
