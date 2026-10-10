@@ -24,6 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "fixtures/catalog"))
 
 import catalog_fixture as fx  # noqa: E402
 import build_catalog  # noqa: E402
+import build_coverage  # noqa: E402
 import build_thumbnails as thumbs  # noqa: E402
 from lib import manifest  # noqa: E402
 
@@ -48,6 +49,24 @@ def grey_profile(gamma):
     header = (struct.pack(">I", offset + len(body)) + bytes(4) + bytes([2, 0x10, 0, 0]) + b"mntrGRAYXYZ " + bytes(12)
               + b"acsp" + bytes(28) + xyz(0.9642, 1.0, 0.8249)[8:] + bytes(48))
     return header + struct.pack(">I", len(tags)) + table + body
+
+
+def cmyk_profile(lightness):
+    """A minimal ICC v2 CMYK output profile: an 8-bit lookup table (2 grid points per ink) to neutral Lab, L* =
+    ``lightness`` without black ink and 0 with full black. Its black point is L* 0, so no black-point scaling."""
+    def xyz(x, y, z):
+        return b"XYZ " + bytes(4) + struct.pack(">3i", *(round(value * 65536) for value in (x, y, z)))
+    identity, matrix = bytes(range(256)), struct.pack(">9i", 65536, 0, 0, 0, 65536, 0, 0, 0, 65536)
+    nodes = b"".join(bytes([0 if index & 1 else round(lightness * 255 / 100), 128, 128]) for index in range(16))
+    table = b"mft1" + bytes(4) + bytes([4, 3, 2, 0]) + matrix + identity * 4 + nodes + identity * 3
+    tags = [(b"A2B0", table), (b"wtpt", xyz(0.9642, 1.0, 0.8249))]
+    offset, directory, body = 128 + 4 + 12 * len(tags), b"", b""
+    for signature, data in tags:
+        directory += signature + struct.pack(">II", offset + len(body), len(data))
+        body += data + bytes(-len(data) % 4)
+    header = (struct.pack(">I", offset + len(body)) + bytes(4) + bytes([2, 0x10, 0, 0]) + b"prtrCMYKLab "
+              + bytes(12) + b"acsp" + bytes(28) + xyz(0.9642, 1.0, 0.8249)[8:] + bytes(48))
+    return header + struct.pack(">I", len(tags)) + directory + body
 
 
 def digest(path):
@@ -265,27 +284,68 @@ class ColourModeTests(Fixture):
                     self.assertEqual(pixel[3], 255)
                     self.assertEqual(preview.getpixel((5, 180))[3], 0)
 
+    def test_sixteen_bit_greyscale_transparency_becomes_alpha(self):
+        deep = Image.new("I;16", (800, 600), 40000)
+        deep.paste(0, (0, 0, 200, 600))  # the tRNS value: transparent
+        deep.paste(1, (200, 0, 400, 600))  # one step away: opaque
+        preview = self.render("deep-cutout.png", deep, transparency=0)
+        self.assertEqual((preview.mode, preview.size), ("RGBA", (480, 360)))
+        self.assertEqual(preview.getpixel((50, 180))[3], 0)
+        self.assertEqual(preview.getpixel((180, 180))[3], 255)
+        red, green, blue, alpha = preview.getpixel((400, 180))
+        self.assertEqual(alpha, 255)
+        for channel in (red, green, blue):
+            self.assertAlmostEqual(channel, round(40000 / 257), delta=3)
+
+    def test_cmyk_is_previewed_as_browsers_show_it(self):
+        ink = (0, 128, 255, 0)
+        print_image = Image.new("CMYK", (800, 600), ink)
+        naive = print_image.convert("RGB").getpixel((0, 0))
+        self.assertEqual(naive, (255, 127, 0))
+        profile = cmyk_profile(90)
+        managed = ImageCms.profileToProfile(Image.new("CMYK", (1, 1), ink), ImageCms.ImageCmsProfile(
+            io.BytesIO(profile)), ImageCms.createProfile("sRGB"), outputMode="RGB").getpixel((0, 0))
+        self.assertTrue(all(200 < channel < 250 for channel in managed), managed)  # neutral light grey
+        for name, options, expected in (("press-scan.jpg", {}, naive),
+                                        ("press-scan-tagged.jpg", {"icc_profile": profile}, managed)):
+            with self.subTest(name=name):
+                preview = self.render(name, print_image, "JPEG", quality=95, **options)
+                self.assertEqual((preview.mode, preview.size), ("RGB", (480, 360)))
+                self.assertNotIn("icc_profile", preview.info, "the preview is untagged sRGB")
+                for channel, wanted in zip(preview.getpixel((240, 180)), expected, strict=True):
+                    self.assertAlmostEqual(channel, wanted, delta=6)
+
     def test_previews_that_would_change_the_colours_are_refused(self):
         flat = Image.new("L", (800, 600), 128)
         lab = ImageCms.ImageCmsProfile(ImageCms.createProfile("LAB")).tobytes()
-        deep = flat.convert("I").point(lambda value: value * 257).convert("I;16")
+        ink = Image.new("CMYK", (800, 600), (0, 255, 255, 0))
         cases = [
             ("lab.png", flat, "PNG", {"icc_profile": lab}, "Lab ICC profile on a L image"),
             ("rgb-on-grey.png", flat, "PNG", {"icc_profile": SRGB}, "RGB ICC profile on a L image"),
             ("grey-on-rgb.png", flat.convert("RGB"), "PNG", {"icc_profile": grey_profile(2.2)},
              "GRAY ICC profile on a RGB image"),
+            ("cmyk-on-rgb.png", flat.convert("RGB"), "PNG", {"icc_profile": cmyk_profile(90)},
+             "CMYK ICC profile on a RGB image"),
+            ("rgb-on-cmyk.jpg", ink, "JPEG", {"icc_profile": SRGB}, "RGB ICC profile on a CMYK image"),
+            ("grey-on-cmyk.jpg", ink, "JPEG", {"icc_profile": grey_profile(1.0)}, "GRAY ICC profile on a CMYK image"),
             ("broken-profile.png", flat, "PNG", {"icc_profile": b"not a profile" * 10}, "unreadable ICC profile"),
-            ("print.jpg", Image.new("CMYK", (800, 600), (0, 255, 255, 0)), "JPEG", {}, "unsupported image mode CMYK"),
-            ("deep-cutout.png", deep, "PNG", {"transparency": 0}, "unsupported image mode I;16"),
         ]
         for name, image, format_name, options, message in cases:
             with self.subTest(name=name), self.assertRaisesRegex(ValueError, re.escape(message)):
                 self.render(name, image, format_name, **options)
-        # The build stops too, before writing any preview or manifest.
-        self.add("print-record.jpg", fx.encode(Image.new("CMYK", (800, 600), (0, 255, 255, 0)), "JPEG"))
-        with self.assertRaisesRegex(ValueError, "Cannot preview"):
+        for mode in ("F", "I", "YCbCr", "LAB"):  # no supported format decodes to these; refused if one ever did
+            with self.subTest(mode=mode), self.assertRaisesRegex(ValueError, f"unsupported image mode {mode}$"):
+                thumbs.eight_bit(Image.new(mode, (4, 4)), "x.png")
+        # The build stops too, before writing any preview or manifest, and names every refused original.
+        refused = [self.add("rgb-on-cmyk-record.jpg", fx.encode(ink, "JPEG", icc_profile=SRGB)),
+                   self.add("grey-on-rgb-record.png", fx.encode(flat.convert("RGB"), "PNG",
+                                                                icc_profile=grey_profile(2.2)))]
+        with self.assertRaisesRegex(ValueError, "2 original\\(s\\) cannot be previewed") as caught:
             thumbs.build(self.root)
+        for record in refused:
+            self.assertIn(f"Cannot preview {record['path']}: ", str(caught.exception))
         self.assertFalse((self.root / thumbs.MANIFEST).exists())
+        self.assertFalse((self.root / thumbs.THUMB_DIR).exists())
 
 
 class CheckTests(Fixture):
@@ -494,6 +554,21 @@ class CatalogHookTests(Fixture):
         shot = by_sha[self.sha("press-kit-2014-screenshot.png")]
         self.assertEqual((shot["site_original"], shot["thumb"] is not None), (False, True))
         manifest.loads(manifest.dumps(catalog))  # serializable as the catalog writer needs
+
+    def test_a_cmyk_press_scan_does_not_block_the_pipeline(self):
+        """An archive-tier CMYK scan needs a preview like every archive raster; catalog and coverage then build."""
+        scan = fx.add_record(self.root, fx.make_record(
+            self.root, "archives:fixture-press", fx.encode(Image.new("CMYK", (300, 200), (0, 128, 255, 0)), "JPEG"),
+            "press-scan.jpg", kind="gameplay_screenshot"))
+        thumbs.build(self.root)
+        self.assertEqual(thumbs.problems(self.root, reencode=True), [])
+        with contextlib.redirect_stderr(io.StringIO()):  # notes about the absent template
+            catalog, stale = build_catalog.build(self.root)
+        self.assertEqual(stale, [])
+        entry = next(asset for asset in catalog["assets"] if asset["id"] == scan["id"])
+        self.assertEqual((entry["site_original"], entry["thumb"]), (False, thumbs.thumb_path(scan["sha256"])))
+        report = build_coverage.build(self.root)
+        self.assertEqual(report["assets"]["entries_with_preview"], len(self.manifest()["thumbnails"]))
 
 
 if __name__ == "__main__":

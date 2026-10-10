@@ -6,9 +6,11 @@
 A preview is made for every archive-tier raster (Pages serves only its preview; the viewer links the original at
 `archive_url`) and for every gallery image whose long edge exceeds 480 px; smaller site-tier images and PDFs get none.
 Previews are WebP, long edge 480 (never enlarged), quality 75, method 6, upright (EXIF orientation applied), without
-EXIF/XMP, colour-managed as in the reference, first frame of an animation, named `assets/thumbs/<sha256[:16]>.webp`
-after the original's SHA-256 and recorded in data/thumbs.json with the encoder and library versions. With the pinned
-Pillow/libwebp a rebuild is byte-identical.
+EXIF/XMP, colour-managed as in the reference (plus CMYK: an embedded CMYK profile is applied, untagged CMYK gets the
+naive device conversion browsers use), first frame of an animation, named `assets/thumbs/<sha256[:16]>.webp` after the
+original's SHA-256 and recorded in data/thumbs.json with the encoder and library versions. With the pinned
+Pillow/libwebp a rebuild is byte-identical. Originals whose colours a preview cannot keep (another mode, or a profile
+that does not match the image) are refused; a run lists every such original and writes nothing.
 
 Safety: a name shared by two originals fails; an existing file that data/thumbs.json does not record for that
 original is never overwritten unless its bytes are already identical; --prune deletes only previews data/thumbs.json
@@ -43,7 +45,7 @@ if str(SCRIPTS) not in sys.path:  # `python -I` does not put the script's direct
     sys.path.insert(0, str(SCRIPTS))
 
 import PIL  # noqa: E402
-from PIL import Image, ImageCms, ImageOps, features  # noqa: E402
+from PIL import Image, ImageCms, ImageMath, ImageOps, features  # noqa: E402
 
 import build_catalog  # noqa: E402
 from lib import manifest, paths, schema  # noqa: E402
@@ -56,11 +58,13 @@ QUALITY = 75
 METHOD = 6  # libwebp's slowest, smallest setting; deterministic like the others
 NAME_DIGITS = 16
 VERSION_KEYS = ("pillow", "libwebp")
-# Modes whose plain conversion to 8-bit RGB(A) keeps their meaning. 16-bit greyscale is scaled down first; anything
-# else (CMYK, 32-bit integer or float, YCbCr, ...) is refused rather than previewed with wrong colours.
+# Modes whose plain conversion to 8-bit RGB(A) keeps their meaning. 16-bit greyscale is scaled down first and CMYK is
+# converted as browsers show it (see colour_managed); anything else (32-bit integer or float, YCbCr, Lab, ...) is
+# refused rather than previewed with wrong colours.
 EIGHT_BIT_MODES = {"1", "L", "LA", "P", "PA", "RGB", "RGBA"}
 GREY_MODES = {"1", "L", "LA"}
 SIXTEEN_BIT_GREY = {"I;16", "I;16L", "I;16B", "I;16N"}
+CMYK = "CMYK"
 ALPHA_MODES = {"RGBA", "LA", "PA", "RGBa", "La"}
 PREVIEW_NAME = re.compile(r"^[0-9a-f]{16}\.webp$")
 DESCRIPTION = ("Derived WebP previews for the archive grid and for archive-tier originals that Pages does not serve; "
@@ -116,29 +120,48 @@ def originals(root: Path, catalog: Mapping[str, Any] | None = None) -> dict[str,
 
 
 def eight_bit(image: Image.Image, path: str) -> Image.Image:
-    """The image in a mode that converts to RGB(A) exactly. 16-bit greyscale is scaled to 8 bits as browsers show
-    it; a plain conversion would clip it to near white."""
-    if image.mode in SIXTEEN_BIT_GREY and "transparency" not in image.info:
-        return image.convert("I").point(lambda value: value / 257 + 0.5).convert("L")
-    if image.mode not in EIGHT_BIT_MODES:
+    """The image in a mode that converts to RGB(A) exactly, or CMYK (converted by colour_managed). 16-bit greyscale
+    is scaled to 8 bits as browsers show it (a plain conversion would clip it to near white); its tRNS grey value
+    becomes an alpha channel, transparent exactly where a pixel has that value."""
+    if image.mode in SIXTEEN_BIT_GREY:
+        wide = image.convert("I")
+        grey = wide.point(lambda value: value / 257 + 0.5).convert("L")
+        if "transparency" not in image.info:
+            return grey
+        key = image.info["transparency"]
+        if not isinstance(key, int) or isinstance(key, bool):
+            raise ThumbnailError(f"Cannot preview {path}: unsupported transparency {key!r} on a {image.mode} image")
+        alpha = ImageMath.lambda_eval(lambda args: args["notequal"](args["a"], key) * 255, a=wide).convert("L")
+        grey.putalpha(alpha)  # L -> LA
+        return grey
+    if image.mode not in EIGHT_BIT_MODES and image.mode != CMYK:
         raise ThumbnailError(f"Cannot preview {path}: unsupported image mode {image.mode}")
     return image
 
 
 def colour_managed(image: Image.Image, path: str) -> tuple[Image.Image, bytes | None]:
-    """The image and the ICC profile to embed in its preview. An RGB profile on a colour image is kept, so the
-    preview's colours match the original's. A greyscale profile on a greyscale image is applied instead, giving
-    untagged sRGB pixels. Any other profile is refused: an RGB preview cannot carry it."""
+    """The image and the ICC profile to embed in its preview. An RGB profile on an RGB/palette image is kept, so the
+    preview's colours match the original's. A greyscale profile on a greyscale image and a CMYK profile on a CMYK
+    image are applied instead (LittleCMS, default intent, as for greyscale), giving untagged sRGB pixels. Untagged
+    CMYK gets Pillow's device conversion, the naive formula browsers also use for untagged CMYK JPEGs (approximate
+    colours, like the original in a browser). Any other profile is refused: an RGB preview cannot carry it."""
     icc = image.info.get("icc_profile")
     if not icc:
-        return image, None
+        return (image.convert("RGB") if image.mode == CMYK else image), None
     try:
         profile = ImageCms.ImageCmsProfile(io.BytesIO(icc))
     except (OSError, ImageCms.PyCMSError) as error:
         raise ThumbnailError(f"Cannot preview {path}: unreadable ICC profile ({error})") from error
     space = profile.profile.xcolor_space.strip()  # type: ignore[attr-defined]  # Pillow's CmsProfile
-    if space == "RGB" and image.mode not in GREY_MODES:
+    if space == "RGB" and image.mode not in GREY_MODES and image.mode != CMYK:
         return image, icc
+    if space == "CMYK" and image.mode == CMYK:
+        try:
+            # A fresh sRGB profile on every call, so worker threads never share a LittleCMS profile handle.
+            return ImageCms.profileToProfile(image, profile, ImageCms.createProfile("sRGB"), outputMode="RGB"), None
+        except ImageCms.PyCMSError as error:
+            raise ThumbnailError(f"Cannot preview {path}: its CMYK ICC profile cannot be applied ({error})") \
+                from error
     if space != "GRAY" or image.mode not in GREY_MODES:
         raise ThumbnailError(f"Cannot preview {path}: {space} ICC profile on a {image.mode} image")
     alpha = image.mode == "LA" or "transparency" in image.info
@@ -257,6 +280,27 @@ def _store(root: Path, rel: str, data: bytes, owned: bool) -> None:
     write_atomic(root, rel, data)
 
 
+def render_all(root: Path, pending: list[Mapping[str, Any]], workers: int | None) -> list[tuple[bytes, tuple]]:
+    """Render every original (in parallel). When some cannot be previewed, nothing is returned and one error lists
+    every such original, so a single run shows all of them."""
+    def attempt(original: Mapping[str, Any]) -> tuple[tuple[bytes, tuple] | None, str | None]:
+        try:
+            return render(root, original), None
+        except (ValueError, OSError) as error:  # ThumbnailError, or a decoder error of a damaged original
+            message = str(error)
+            return None, message if original["path"] in message else f"Cannot preview {original['path']}: {message}"
+
+    with ThreadPoolExecutor(workers_for(workers)) as pool:
+        results = list(pool.map(attempt, pending))
+    refused = [message for _, message in results if message]
+    if refused:
+        shown = refused[:build_catalog.MAX_REPORTED]
+        more = f"\n... and {len(refused) - len(shown)} more" if len(refused) > len(shown) else ""
+        raise ThumbnailError(f"{len(refused)} original(s) cannot be previewed; nothing was written:\n"
+                             + "\n".join(shown) + more)
+    return [result for result, _ in results]
+
+
 def build(root: Path, prune: bool = False, rebuild: bool = False, workers: int | None = None,
           catalog: Mapping[str, Any] | None = None) -> dict:
     """Write missing or stale previews and data/thumbs.json; reuse previews whose bytes match the manifest.
@@ -281,8 +325,7 @@ def build(root: Path, prune: bool = False, rebuild: bool = False, workers: int |
             entries[sha256] = listed[sha256]
         else:
             pending.append((sha256, original))
-    with ThreadPoolExecutor(workers_for(workers)) as pool:
-        rendered = list(pool.map(lambda item: render(root, item[1]), pending))
+    rendered = render_all(root, [original for _, original in pending], workers)
     for (sha256, _), (data, (width, height)) in zip(pending, rendered, strict=True):
         _store(root, thumb_path(sha256), data, owned=sha256 in listed)
         entries[sha256] = {"path": thumb_path(sha256), "width": width, "height": height, "bytes": len(data),
