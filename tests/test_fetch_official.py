@@ -3,20 +3,24 @@ TapTap uploads, the X embed timeline sample, availability probes, offline regist
 ``--verify``. Run: ``python -I tests/test_fetch_official.py``.
 """
 
+import hashlib
 import io
 import json
+import os
+import re
 import sys
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net  # noqa: E402
 from primary import cli, runner  # noqa: E402
-from primary.adapters import apple, x as x_adapter  # noqa: E402
+from primary.adapters import apple, probe, registry as registry_adapter, x as x_adapter  # noqa: E402
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/official"
@@ -66,18 +70,22 @@ class AppleTests(OfficialTestCase):
         routes = {self.PAGE: {"text": text("apple_page.html")}}
         expected = {
             "phone:f09cad41-0b41-d96d-5c48-be8c76b110f4": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/f0/9c/"
-            "ad/f09cad41-0b41-d96d-5c48-be8c76b110f4/pr_source.png/2688x1242bb.jpeg",
+            "ad/f09cad41-0b41-d96d-5c48-be8c76b110f4/pr_source.png/2688x1242bb.png",
             "pad:a89c0c45-e49f-72ab-0a80-754c422d057f": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/f0/9c/"
-            "ad/a89c0c45-e49f-72ab-0a80-754c422d057f/pr_source.png/2732x2048bb.jpeg",
+            "ad/a89c0c45-e49f-72ab-0a80-754c422d057f/pr_source.png/2732x2048bb.png",
         }
         for index, url in enumerate(expected.values()):
-            routes[url] = {"bytes": image_bytes("JPEG", (80, 37 + index)), "content_type": "image/jpeg"}
+            routes[url] = {"bytes": image_bytes("PNG", (80, 37 + index)), "content_type": "image/png"}
         network = FakeNetwork(routes)
         self.run_family([self.seed([{"url": self.PAGE}])], network)
         found = self.candidates("official:apple-store")
         for key, url in expected.items():
+            # The PNG upload is requested in Apple's lossless PNG rendition, not the page's JPEG (quality 70) one.
             self.assertEqual(found[key]["file_url"], url)
             self.assertEqual(found[key]["disposition"], "downloaded")
+            self.assertEqual(found[key]["source_reported"]["url"], url[: -len("png")] + "jpeg")
+            self.assertEqual(found[key]["source_reported"]["mime"], "image/jpeg")
+            self.assertIn("lossless rendition", found[key]["notes"])
         self.assertEqual(found["phone:video-2"]["disposition"], "excluded")  # trailer item
         self.assertTrue(found["phone:video-2"]["reason"].startswith("video_placeholder"))
         self.assertEqual(found["phone:1a2b3c4d-0000-1111-2222-333344445555"]["disposition"], "failed")  # no route
@@ -86,6 +94,9 @@ class AppleTests(OfficialTestCase):
         phone = next(a for a in assets if a["candidate_id"].endswith("f09cad41-0b41-d96d-5c48-be8c76b110f4"))
         self.assertEqual((phone["source_reported"]["width"], phone["width"]), (2688, 80))
         self.assertIs(phone["comparisons"]["dimensions_match"], False)
+        self.assertIs(phone["comparisons"]["format_match"], False)  # advertised JPEG variant, requested PNG
+        self.assertEqual(phone["format"], "PNG")
+        self.assertIn("lossless rendition", phone["notes"])  # candidate notes reach the asset record
         self.assertEqual(self.manifest()["sources"][0]["status"], "partially_available")
         self.verify()
 
@@ -102,19 +113,31 @@ class AppleTests(OfficialTestCase):
         data = [json.loads(text(f"itunes_lookup_{c}.json"))["results"][0] for c in ("us", "jp")]
         urls = sorted({u for app in data for u in app["screenshotUrls"] + app["ipadScreenshotUrls"]})
         for index, url in enumerate(urls):
-            routes[apple.native_lookup_url(url)] = {"bytes": image_bytes("JPEG", (60 + index, 34)),
-                                                    "content_type": "image/jpeg"}
+            routes[apple.native_lookup_url(url)] = {"bytes": image_bytes("PNG", (60 + index, 34)),
+                                                    "content_type": "image/png"}
         network = FakeNetwork(routes)
         self.run_family([self.seed([{"lookup_id": "945955095", "countries": ["us", "jp"]}])], network)
         found = self.candidates("official:apple-store")
         self.assertEqual(len(found), 3)  # the US/JP shared screenshot is one candidate
         shared = found["lookup:4b59219a-06f6-3e05-317d-595eca968375"]
-        self.assertTrue(shared["file_url"].endswith("/pr_source.png/4000x4000bb.jpg"))
+        self.assertTrue(shared["file_url"].endswith("/pr_source.png/4000x4000bb.png"))  # the upload's format
+        self.assertTrue(shared["source_reported"]["url"].endswith("/pr_source.png/392x696bb.jpg"))  # as advertised
+        self.assertEqual(shared["source_reported"]["mime"], "image/jpeg")
         self.assertIn("us:phone1", shared["notes"])
         self.assertIn("jp:phone2", shared["notes"])
         self.assertIn("lookup:92092603-00f8-d690-9f01-b4437bda3e80", found)
         self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
         self.verify()
+
+    def test_lossless_rendition_follows_the_upload_format(self):
+        sized = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
+        self.assertEqual(apple.native_lookup_url(sized + "mzl.eumuhmxw.png/406x228bb.png"),
+                         sized + "mzl.eumuhmxw.png/4000x4000bb.png")
+        self.assertEqual(apple.native_lookup_url(sized + "mzl.abc.jpg/406x228bb.jpg"),
+                         sized + "mzl.abc.jpg/4000x4000bb.jpg")  # a JPEG upload gains nothing from PNG
+        rendition = apple.native_rendition({"template": sized + "x/pr_source.jpg/{w}x{h}{c}.{f}", "width": 10,
+                                            "height": 5, "crop": "bb", "variants": [{"format": "jpeg"}]})
+        self.assertEqual((rendition["format"], rendition["advertised_format"]), ("jpeg", "jpeg"))
 
 
 class GooglePlayTests(OfficialTestCase):
@@ -145,6 +168,28 @@ class GooglePlayTests(OfficialTestCase):
         self.assertEqual((asset["width"], asset["height"]), (1052, 591))
         self.assertIsNone(asset["source_reported"]["height"])
         self.assertEqual(network.count("play-lh.googleusercontent.com"), 2)
+        self.verify()
+
+    def test_refused_listing_pages_are_one_candidate_each_and_later_sources_still_run(self):
+        # A 403 on the first locale makes the host skipped for the others: both refusals must be distinct candidates
+        # (they once collided as "page" and aborted the family run before official:website).
+        network = FakeNetwork({self.EN: {"error": net.BlockedError("HTTP 403", url=self.EN, http_status=403)},
+                               "https://dynamix.c4-cat.com/": {"text": "<title>Dynamix</title>"}})
+        seed = {"id": "official:google-play", "name": "Google Play", "platform": "google-play", "url": self.EN,
+                "adapter": "google_play", "quality": QUALITY, "items": [{"url": self.EN}, {"url": self.JA}],
+                "rules": [{"match": "^screenshot:", "role": "store_screenshot"}]}
+        website = {"id": "official:website", "name": "Website", "url": "https://dynamix.c4-cat.com/",
+                   "platform": "web", "adapter": "page_probe", "hosts": ["dynamix.c4-cat.com"],
+                   "items": [{"url": "https://dynamix.c4-cat.com/"}]}
+        self.run_family([seed, website], network)
+        found = self.candidates("official:google-play")
+        self.assertEqual(sorted(found), [f"page:{self.EN}", f"page:{self.JA}"])
+        self.assertEqual({c["disposition"] for c in found.values()}, {"blocked"})
+        self.assertEqual(network.count("play.google.com"), 1)  # the second listing is skipped, not requested
+        snapshot = manifest.load_discovery(self.root, "official:google-play")
+        self.assertFalse(snapshot["discovery_complete"])  # the screenshots were never enumerated
+        self.assertTrue(snapshot["continuation"]["listing-screenshots"].startswith("not-read:"))
+        self.assertIsNotNone(manifest.load_discovery(self.root, "official:website"))
         self.verify()
 
 
@@ -180,13 +225,45 @@ class TapTapTests(OfficialTestCase):
         self.assertTrue(found["icon:23c51666ae309b07d5f4fe5d888157e5.png"]["reason"].startswith("game_ui"))
         assets = {a["candidate_id"].split(":", 2)[2]: a for a in self.manifest()["assets"]}
         self.assertIn("equals the upstream name token", assets[f"screenshot:{token}"]["quality"]["notes"])
-        self.assertIn("differs from the upstream name token",
-                      assets["screenshot:1111c7d8f23cfefc08f151e5de5f0222"]["quality"]["notes"])
+        self.assertNotIn("transformed", assets[f"screenshot:{token}"])
+        reencoded = assets["screenshot:1111c7d8f23cfefc08f151e5de5f0222"]
+        self.assertIn("differs from the upstream name token", reencoded["quality"]["notes"])
+        self.assertIs(reencoded["transformed"], True)  # a known platform transform, not the site's original
+        self.assertEqual(reencoded["quality"]["source_variant"], "unknown")
         self.assertEqual(assets[f"screenshot:{token}"]["source_reported"]["bytes"], 589803)
         self.assertIn("Listed again at screenshot position 3", found[f"screenshot:{token}"]["notes"])
         self.assertIs(assets[f"screenshot:{token}"]["comparisons"]["bytes_match"], False)
         self.verify()
 
+
+    def test_reencoded_copy_names_the_byte_exact_upload_archived_elsewhere(self):
+        upload = image_bytes("PNG", (128, 72), (1, 2, 3))  # what Google Play =s0 serves
+        token = hashlib.md5(upload).hexdigest()
+        base = "https://img-tc.tapimg.com/market/images/"
+        page = text("taptap_app.html").replace("1111c7d8f23cfefc08f151e5de5f0222", token)
+        play = "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US"
+        shot = ("https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCT"
+                "rsFZTTN7W8hdkJh5yqAkM")
+        network = FakeNetwork({
+            play: {"text": text("google_play_en.html")},
+            f"{GooglePlayTests.P}=s0": {"bytes": image_bytes("PNG", (20, 10)), "content_type": "image/png"},
+            f"{shot}=s0": {"bytes": upload, "content_type": "image/png"},
+            "https://www.taptap.cn/app/7082": {"text": page},
+            f"{base}{token}.jpg": {"bytes": image_bytes("JPEG", (128, 72), (1, 2, 3)), "content_type": "image/jpeg"}})
+        google = {"id": "official:google-play", "name": "Google Play", "platform": "google-play", "url": play,
+                  "adapter": "google_play", "quality": QUALITY, "items": [{"url": play}],
+                  "rules": [{"match": "^screenshot:", "role": "store_screenshot"}]}
+        taptap = {"id": "official:taptap", "name": "TapTap", "url": "https://www.taptap.cn/app/7082",
+                  "platform": "taptap", "adapter": "taptap_app", "params": {"identifier": "com.c4cat.dynamix"},
+                  "quality": QUALITY, "items": [{"url": "https://www.taptap.cn/app/7082"}],
+                  "rules": [{"match": f"^screenshot:{token}$", "role": "store_screenshot"}]}
+        self.run_family([google, taptap], network)
+        assets = self.manifest()["assets"]
+        exact = next(a for a in assets if a["download_url"] == f"{shot}=s0")
+        copy = next(a for a in assets if a["candidate_id"] == f"official:taptap:screenshot:{token}")
+        self.assertIs(copy["transformed"], True)
+        self.assertIn(f"archived as {exact['id']}", copy["quality"]["notes"])
+        self.verify()
 
     def test_banner_rendition_used_as_trailer_poster_still_yields_the_upload(self):
         from primary import runner as runner_module
@@ -205,29 +282,69 @@ class TapTapTests(OfficialTestCase):
 
 
 class XTimelineTests(OfficialTestCase):
-    def test_embed_timeline_is_a_sample_and_guards_apply(self):
+    MEDIA = "https://pbs.twimg.com/media/GoqoEkJW4AA5saO?format=jpg&name=orig"
+
+    def network(self, timeline=None):
         post_url = full_url(x_adapter.API, {"id": "981147690795900928", "lang": "en",
                                             "token": x_adapter.syndication_token("981147690795900928")})
-        network = FakeNetwork({
-            x_adapter.TIMELINE + "c4c4cat": {"text": text("x_timeline.html")},
+        return FakeNetwork({
+            x_adapter.TIMELINE + "c4c4cat": {"text": timeline or text("x_timeline.html")},
             post_url: {"json": {"__typename": "TweetTombstone"}},
-            "https://pbs.twimg.com/media/GoqoEkJW4AA5saO?format=jpg&name=orig": {
-                "bytes": image_bytes("JPEG", (120, 63)), "content_type": "image/jpeg"}})
-        seed = {"id": "official:x", "name": "X", "url": "https://x.com/c4c4cat", "platform": "x", "adapter": "x_post",
+            self.MEDIA: {"bytes": image_bytes("JPEG", (120, 63)), "content_type": "image/jpeg"}})
+
+    def seed(self, rules, items=None):
+        return {"id": "official:x", "name": "X", "url": "https://x.com/c4c4cat", "platform": "x", "adapter": "x_post",
                 "params": {"handle": "c4c4cat"}, "quality": QUALITY,
-                "items": [{"timeline": "c4c4cat"}, {"post_id": "981147690795900928"}],
-                "rules": [{"match": ".*", "role": "promotional", "game": "dynamix"}]}
-        self.run_family([seed], network)
+                "items": items or [{"timeline": "c4c4cat"}, {"post_id": "981147690795900928"}], "rules": rules}
+
+    def test_embed_timeline_is_a_sample_and_a_catch_all_rule_admits_nothing_from_it(self):
+        network = self.network()
+        self.run_family([self.seed([{"match": ".*", "role": "promotional", "game": "dynamix"}])], network)
         snapshot = manifest.load_discovery(self.root, "official:x")
         self.assertFalse(snapshot["discovery_complete"])
         self.assertEqual(snapshot["continuation"]["timeline:c4c4cat"], "sample-of-3-recent-posts")
+        self.assertTrue(snapshot["continuation"]["seed-posts"].startswith("not-read:"))  # the tombstoned seed post
         found = {c["upstream_key"]: c for c in snapshot["candidates"]}
-        self.assertEqual(found["1913000000000000001:1"]["disposition"], "downloaded")
+        # Recent posts are sequel news, other titles and greetings as often as Dynamix: never admitted by a catch-all.
+        self.assertEqual(found["1913000000000000001:1"]["disposition"], "pending")
+        self.assertIn("per-post seed rule", found["1913000000000000001:1"]["reason"])
+        self.assertEqual(found["1913000000000000001:1"]["game"], "unknown")
         self.assertIn("not this source's account", found["1913000000000000002:1"]["reason"])
-        self.assertIn("Dynamix Universe", found["1913000000000000003:1"]["reason"])
+        self.assertEqual(found["1913000000000000002:1"]["game"], "unknown")
         self.assertEqual(found["981147690795900928"]["disposition"], "failed")
+        self.assertEqual(network.count("pbs.twimg.com"), 0)
+        self.assertEqual(self.manifest()["assets"], [])
+        self.verify()
+
+    def test_timeline_post_is_admitted_only_by_its_own_rule_and_guards_still_apply(self):
+        rules = [{"match": "^(1913000000000000001|1913000000000000003):", "role": "promotional"}]
+        network = self.network()
+        self.run_family([self.seed(rules)], network)
+        found = self.candidates("official:x")
+        self.assertEqual(found["1913000000000000001:1"]["disposition"], "downloaded")
+        held = found["1913000000000000003:1"]
+        self.assertIn("Dynamix Universe", held["reason"])  # the guard holds even a per-post rule
+        self.assertEqual(held["game"], "dynamix_universe")  # not recorded as an original-game candidate
         self.assertEqual(network.count("pbs.twimg.com"), 1)
         self.verify()
+
+    def test_committed_official_x_rules_hold_a_sequel_post_from_the_timeline(self):
+        page = text("x_timeline.html")
+        match = re.search(r'(<script id="__NEXT_DATA__"[^>]*>)(.*?)(</script>)', page, re.S)
+        data = json.loads(match.group(2))
+        tweet = data["props"]["pageProps"]["timeline"]["entries"][0]["content"]["tweet"]
+        for key in ("full_text", "text"):
+            if key in tweet:
+                tweet[key] = "DNXU 2.0 update out now on iOS/Android! New songs for the sequel."
+        page = page[:match.start(2)] + json.dumps(data) + page[match.end(2):]
+        seeds = runner.load_seeds(runner.SEEDS_DIR / "official.json", "official")
+        seed = {**next(s for s in seeds if s["id"] == "official:x"), "items": [{"timeline": "c4c4cat"}]}
+        network = self.network(page)
+        self.run_family([seed], network)
+        found = self.candidates("official:x")
+        self.assertEqual(found["1913000000000000001:1"]["disposition"], "pending")
+        self.assertEqual(network.count("pbs.twimg.com"), 0)
+        self.assertEqual(self.manifest()["assets"], [])
 
 
 class ProbeAndRegistryTests(OfficialTestCase):
@@ -240,7 +357,11 @@ class ProbeAndRegistryTests(OfficialTestCase):
         self.run_family([seed], network)
         source = self.manifest()["sources"][0]
         self.assertEqual(source["status"], "temporarily_unavailable")
-        self.assertIn("cannot resolve", manifest.load_discovery(self.root, "official:website")["errors"][0]["message"])
+        snapshot = manifest.load_discovery(self.root, "official:website")
+        self.assertIn("cannot resolve", snapshot["errors"][0]["message"])
+        # Nothing was read, so nothing is known to be complete.
+        self.assertEqual(snapshot["continuation"], {"probe": "not-read:other"})
+        self.assertEqual((snapshot["discovery_complete"], source["discovery_complete"]), (False, False))
         self.verify()
 
     def test_login_wall_probe_keeps_the_feed_open(self):
@@ -274,6 +395,96 @@ class ProbeAndRegistryTests(OfficialTestCase):
         self.verify()
 
 
+class SoundCloudListTests(OfficialTestCase):
+    def sound_page(self, title, artwork):
+        sound = {"title": title, "description": "", "artwork_url": artwork, "created_at": "2017-07-04T16:15:35Z",
+                 "user": {"username": "C4Cat", "permalink": "c4cat"}}
+        return {"text": "<html><head><title>x</title></head><body><script>window.__sc_hydration = "
+                        + json.dumps([{"hydratable": "sound", "data": sound}]) + ";</script></body></html>"}
+
+    def test_every_listed_track_is_accounted_for_and_a_partial_list_stays_open(self):
+        art = "https://i1.sndcdn.com/artworks-000000000001-aaaaaa-large.jpg"
+        network = FakeNetwork({
+            "https://soundcloud.com/c4cat/tracks": {"text": text("soundcloud_tracks.html")},
+            "https://soundcloud.com/c4cat/le-ciel-heureux-p": self.sound_page("P4koo - Le ciel heureux (Preview)", art),
+            "https://soundcloud.com/c4cat/packer-woo-meeting-in-sky": self.sound_page("Packer Woo - Meeting", art),
+            "https://soundcloud.com/c4cat/package-zhd": self.sound_page("Package ZHD", None),
+            art.replace("-large", "-original"): {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"}})
+        seed = {"id": "official:soundcloud-c4cat", "name": "C4Cat SoundCloud", "url": "https://soundcloud.com/c4cat",
+                "platform": "soundcloud", "adapter": "release_page", "hosts": ["soundcloud.com", ".sndcdn.com"],
+                "params": {"handle": "c4cat"}, "quality": QUALITY,
+                "items": [{"url": "https://soundcloud.com/c4cat/le-ciel-heureux-p", "key": "le-ciel-heureux-p"},
+                          {"tracks_of": "c4cat"}],
+                "rules": [{"match": "^le-ciel-heureux-p$", "role": "song_art", "song_titles": ["Le ciel heureux"],
+                           "mapping_status": "confirmed_primary", "evidence_quotes": ["Le ciel heureux"]}]}
+        self.run_family([seed], network)
+        snapshot = manifest.load_discovery(self.root, "official:soundcloud-c4cat")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(sorted(found), ["le-ciel-heureux-p", "package-zhd", "packer-woo-meeting-in-sky"])
+        self.assertEqual(found["le-ciel-heureux-p"]["disposition"], "downloaded")
+        self.assertEqual(found["package-zhd"]["disposition"], "excluded")  # no artwork of its own
+        self.assertEqual(found["packer-woo-meeting-in-sky"]["disposition"], "pending")  # no rule: never admitted
+        self.assertEqual(snapshot["continuation"]["tracks:c4cat"], "listed-3-of-5")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(network.count("soundcloud.com"), 4)  # the explicit item is not requested twice
+        self.verify()
+
+
+class IsolationTests(OfficialTestCase):
+    REGISTRY = {"id": "official:official-leads", "name": "Leads", "url": "https://dynamix.c4-cat.com/",
+                "platform": "registry", "adapter": "lead_registry",
+                "items": [{"key": "qooapp:237", "page_url": "https://apps.qoo-app.com/en/app/237", "title": "QooApp",
+                           "disposition": "excluded", "reason": "out_of_scope_other: mirror"}]}
+    WEBSITE = {"id": "official:website", "name": "Website", "url": "https://dynamix.c4-cat.com/", "platform": "web",
+               "adapter": "page_probe", "hosts": ["dynamix.c4-cat.com"],
+               "items": [{"url": "https://dynamix.c4-cat.com/"}]}
+
+    def test_an_adapter_error_is_recorded_and_the_next_source_still_runs(self):
+        network = FakeNetwork({"https://dynamix.c4-cat.com/": {"text": "<title>Dynamix</title>"}})
+        self.run_family([self.REGISTRY, self.WEBSITE], network)
+        with mock.patch.object(registry_adapter, "discover", side_effect=RuntimeError("unexpected payload")), \
+                mock.patch.object(probe, "discover", wraps=probe.discover) as later:
+            acquisition = runner.Runner(self.root, "official", [self.REGISTRY, self.WEBSITE],
+                                        client_factory=network.factory, now=lambda: FIXED_NOW, sleep=lambda s: None)
+            acquisition.run()
+        self.assertEqual(later.call_count, 1)  # the source after the failing one was still processed
+        self.assertIn("RuntimeError", acquisition.source_errors["official:official-leads"])
+        snapshot = manifest.load_discovery(self.root, "official:official-leads")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"]["adapter"], "error:RuntimeError")
+        self.assertIn("unexpected payload", snapshot["errors"][0]["message"])
+        kept = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(kept["qooapp:237"]["disposition"], "excluded")  # the previous snapshot is carried over
+        self.assertIn("discovery failed", kept["qooapp:237"]["notes"])
+        source = next(s for s in self.manifest()["sources"] if s["id"] == "official:official-leads")
+        self.assertEqual((source["status"], source["discovery_complete"]), ("temporarily_unavailable", False))
+        self.verify()
+
+    def test_an_unexpected_download_error_fails_only_that_candidate(self):
+        page = "https://dynamix.c4-cat.com/press"
+        seed = {"id": "official:website", "name": "Website", "url": page, "platform": "web",
+                "adapter": "direct_files", "hosts": ["dynamix.c4-cat.com"], "quality": QUALITY,
+                "items": [{"key": "a", "page_url": page, "file_url": "https://dynamix.c4-cat.com/a.png"},
+                          {"key": "b", "page_url": page, "file_url": "https://dynamix.c4-cat.com/b.png"}],
+                "rules": [{"match": "^[ab]$", "role": "promotional"}]}
+        network = FakeNetwork({
+            "https://dynamix.c4-cat.com/a.png": {"bytes": image_bytes(), "content_type": "image/png"},
+            "https://dynamix.c4-cat.com/b.png": {"bytes": image_bytes("PNG", (9, 9)), "content_type": "image/png"}})
+        original = runner.Runner._resolve_download
+
+        def flaky(self, state, client, draft):
+            if draft.upstream_key == "a":
+                raise KeyError("broken record")
+            return original(self, state, client, draft)
+
+        with mock.patch.object(runner.Runner, "_resolve_download", flaky):
+            self.run_family([seed], network)
+        found = self.candidates("official:website")
+        self.assertEqual((found["a"]["disposition"], found["b"]["disposition"]), ("failed", "downloaded"))
+        self.assertIn("KeyError", self.manifest()["failures"][0]["message"])
+        self.verify()
+
+
 class CliTests(OfficialTestCase):
     def test_verify_on_the_contract_fixture(self):
         out = io.StringIO()
@@ -304,7 +515,46 @@ class CliTests(OfficialTestCase):
             self.assertFalse((self.root / "data").exists())
         finally:
             held.close()
-        self.assertIsNotNone(cli.acquire_lock(lock_path))
+        again = cli.acquire_lock(lock_path)
+        self.assertIsNotNone(again)
+        again.close()
+
+    def test_default_lock_is_anchored_at_the_root_not_the_temp_directory(self):
+        paths_seen = []
+        for temp in ("tmpA", "tmpB"):
+            with mock.patch.dict(os.environ, {"TMPDIR": str(self.root / temp)}):
+                paths_seen.append(cli.default_lock_path(self.root, "official"))
+        self.assertEqual(paths_seen[0], paths_seen[1])
+        self.assertEqual(paths_seen[0], self.root / "assets/public/official")
+        held = cli.acquire_lock(paths_seen[0])
+        try:
+            self.assertIsNotNone(held)
+            self.assertIsNone(cli.acquire_lock(paths_seen[1]))  # a second writer of the same root is refused
+            err = io.StringIO()
+            with redirect_stderr(err), redirect_stdout(io.StringIO()):
+                code = cli.main("official", ["--root", str(self.root)])
+            self.assertEqual(code, 3)
+        finally:
+            held.close()
+        self.assertEqual(sorted(p.name for p in self.root.iterdir()), ["assets"])  # no lock file left behind
+
+    def test_verify_reports_seed_sources_without_a_record(self):
+        seeds_path = self.root / "official-seeds.json"
+        seeds_path.write_text(json.dumps({"family": "official", "sources": [
+            {"id": "official:website", "name": "Website", "url": "https://dynamix.c4-cat.com/", "platform": "web",
+             "adapter": "page_probe", "hosts": ["dynamix.c4-cat.com"],
+             "items": [{"url": "https://dynamix.c4-cat.com/"}]},
+            {"id": "official:c4cat", "name": "C4Cat", "url": "https://c4-cat.com/", "platform": "web",
+             "adapter": "page_probe", "hosts": ["c4-cat.com"], "items": [{"url": "https://c4-cat.com/"}]}]}),
+            encoding="utf-8")
+        network = FakeNetwork({"https://dynamix.c4-cat.com/": {"text": "<title>Dynamix</title>"}})
+        self.run_family([s for s in runner.load_seeds(seeds_path, "official") if s["id"] == "official:website"],
+                        network)
+        out = io.StringIO()
+        with redirect_stdout(out):
+            code = cli.main("official", ["--verify", "--root", str(self.root), "--seeds", str(seeds_path)])
+        self.assertEqual(code, 1)
+        self.assertIn("official:c4cat: seed source has no source record", out.getvalue())
 
     def test_verify_refuses_acquisition_options(self):
         with redirect_stderr(io.StringIO()):

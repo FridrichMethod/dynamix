@@ -130,8 +130,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             html, _, _ = ctx.client.get_text(page_url)
             app = find_app(nuxt_payload(html), identifier)
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft("page", page_url, "TapTap app page", error,
+            discovery.candidates.append(model.error_draft(base.page_key(page_url), page_url, "TapTap app page", error,
                                                           phase="discover"))
+            base.mark_unread(discovery, "app-screenshots", error)
             continue
         except (ValueError, IndexError) as error:
             discovery.errors.append(model.discovery_error("discover", page_url, f"page structure changed: {error}"))

@@ -39,6 +39,19 @@ def new_discovery(seed: Mapping[str, Any], *, lists: list[str], api: str | None 
                            evidence_level=evidence_level, scope_notes=notes)
 
 
+def mark_unread(discovery: model.Discovery, list_name: str, error: Any) -> None:
+    """Keep ``list_name`` open after a failed read (07: never infer completeness from an error or empty response).
+
+    The token names the failure class; an earlier open token of the list (a resume key, a sample size) is kept."""
+    if discovery.continuation.get(list_name) is None:
+        discovery.continuation[list_name] = f"not-read:{getattr(error, 'error_class', None) or type(error).__name__}"
+
+
+def page_key(url: str) -> str:
+    """Candidate key of a seed page whose read failed (one per page, so several failed pages never collide)."""
+    return f"page:{url}"
+
+
 def rules(seed: Mapping[str, Any]) -> list[dict]:
     return list(seed.get("rules", []))
 
@@ -118,5 +131,5 @@ def identity_rule(rule: Mapping[str, Any] | None, missing: list[str]) -> Mapping
     """Downgrade a download rule to ``pending`` when the page's identity quotes were not found."""
     if rule is None or not missing or rule.get("action", "download") != "download":
         return rule
-    return {**rule, "action": "pending", "reason": "pending: page identity not established (missing "
-            + "; ".join(model.clip(quote, 60) for quote in missing) + ")"}
+    return model.hold(rule, "pending: page identity not established (missing "
+                      + "; ".join(model.clip(quote, 60) for quote in missing) + ")")

@@ -12,11 +12,14 @@ post title never maps every page to the same song.
 A ``{"timeline": "<screen name>"}`` item reads the account's public embed timeline
 (``syndication.twitter.com/srv/timeline-profile/screen-name/<name>``, the data behind X's own profile widget): one
 request, a bounded recent sample of the account's posts (never complete history; the list stays open with its reason),
-whose image posts become candidates like explicit ones. Retweets and other authors are held as ``pending``.
+whose image posts become candidates like explicit ones. Retweets and other authors are held as ``pending``, and so is
+every timeline post that no per-post rule (one whose ``match`` names the post ID, or that needs ``evidence_quotes``)
+classifies: a catch-all rule never admits a timeline post.
 """
 
 from __future__ import annotations
 
+import html
 import json
 import math
 import re
@@ -99,10 +102,11 @@ def syndication_token(post_id: str) -> str:
 
 
 def _texts(data: Mapping[str, Any]) -> dict[str, str]:
-    texts = {"text": data.get("text") or ""}
+    """Post texts as plain text: X returns ``text`` HTML-escaped (``&amp;``, ``&lt;``), which is decoded here."""
+    texts = {"text": html.unescape(str(data.get("text") or ""))}
     quoted = data.get("quoted_tweet") or {}
     if isinstance(quoted, dict):
-        texts["quoted_tweet.text"] = quoted.get("text") or ""
+        texts["quoted_tweet.text"] = html.unescape(str(quoted.get("text") or ""))
         user = quoted.get("user") or {}
         texts["quoted_tweet.user"] = f"{user.get('name', '')} @{user.get('screen_name', '')}".strip()
     user = data.get("user") or {}
@@ -141,13 +145,18 @@ def timeline_tweets(html: str) -> list[dict]:
     return tweets
 
 
+def per_post_rule(rule: Mapping[str, Any] | None, post_id: str) -> bool:
+    """True when ``rule`` was written for this post: its ``match`` names the post ID or it needs evidence quotes."""
+    return rule is not None and (post_id in str(rule.get("match", "")) or bool(rule.get("evidence_quotes")))
+
+
 def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, handle: str, post_id: str,
-                     data: Mapping[str, Any], item: Mapping[str, Any]) -> None:
+                     data: Mapping[str, Any], item: Mapping[str, Any], *, from_timeline: bool = False) -> None:
     status_url = f"https://x.com/{handle}/status/{post_id}"
     author = ((data.get("user") or {}).get("screen_name") or "").lower()
     texts = _texts(data)
     if not texts["text"] and data.get("full_text"):
-        texts["text"] = data["full_text"]
+        texts["text"] = html.unescape(str(data["full_text"]))
     media = _media(data)
     base_evidence = [status_url]
     notes = item.get("notes")
@@ -162,9 +171,14 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
     for index, entry in enumerate(media, start=1):
         key = f"{post_id}:{index}"
         rule = model.find_rule(base.rules(seed), key)
+        if from_timeline and rule is not None and rule.get("action", "download") == "download" and not per_post_rule(
+                rule, post_id):
+            # A timeline sample holds whatever the account posted lately (sequel news, other titles, greetings): a
+            # catch-all rule never admits it; only a rule written for the post or one with quotes found in its text.
+            rule = model.hold(rule, "pending: embed-timeline post without a per-post seed rule or evidence quote; "
+                                    "needs review")
         if author != handle.lower():
-            rule = {**(rule or {}), "action": "pending",
-                    "reason": f"pending: post author @{author or '?'} is not this source's account @{handle}"}
+            rule = model.hold(rule, f"pending: post author @{author or '?'} is not this source's account @{handle}")
         title = f"@{handle} post {post_id} image {index}"
         if entry.get("type") != "photo":
             discovery.candidates.append(model.Draft(
@@ -218,7 +232,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if post_id in seen:
                 continue
             seen.add(post_id)
-            _post_candidates(ctx, seed, discovery, handle, post_id, tweet, item)
+            _post_candidates(ctx, seed, discovery, handle, post_id, tweet, item, from_timeline=True)
     for item in seed["items"]:
         if "timeline" in item:
             continue
@@ -232,6 +246,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         except net.FetchError as error:
             discovery.candidates.append(model.error_draft(post_id, status_url, f"@{handle} post {post_id}", error,
                                                           phase="discover"))
+            base.mark_unread(discovery, "seed-posts", error)
             continue
         if not isinstance(data, dict) or data.get("__typename") != "Tweet":
             kind = data.get("__typename") if isinstance(data, dict) else type(data).__name__
@@ -239,6 +254,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                    url=status_url)
             discovery.candidates.append(model.error_draft(post_id, status_url, f"@{handle} post {post_id}", error,
                                                           phase="discover"))
+            base.mark_unread(discovery, "seed-posts", error)
             continue
         _post_candidates(ctx, seed, discovery, handle, post_id, data, item)
     return discovery

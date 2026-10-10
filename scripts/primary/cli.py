@@ -4,11 +4,9 @@ from __future__ import annotations
 
 import argparse
 import fcntl
-import hashlib
 import logging
 import os
 import sys
-import tempfile
 from pathlib import Path
 from typing import IO, Sequence
 
@@ -35,22 +33,48 @@ def build_parser(family: str) -> argparse.ArgumentParser:
     parser.add_argument("--source", action="append", default=[], metavar="ID",
                         help="only this source ID (repeatable); other sources' records are left as they are")
     parser.add_argument("--lock", type=Path, default=None,
-                        help="exclusive lock file (default: per root and family in the system temp directory); a "
-                             "second acquisition of the same family exits instead of writing the same manifest")
+                        help="exclusive lock file or directory (default: the family's asset directory under the "
+                             "root, independent of TMPDIR); a second acquisition of the same family exits instead of "
+                             "writing the same manifest")
     parser.add_argument("-v", "--verbose", action="store_true", help="log every request decision")
     return parser
 
 
 def default_lock_path(root: Path, family: str) -> Path:
-    digest = hashlib.sha256(str(root).encode("utf-8")).hexdigest()[:12]
-    return Path(tempfile.gettempdir()) / f"dynamix-fetch-{family}-{digest}.lock"
+    """``<root>/assets/public/<family>``: the directory every writer of this family's manifest writes into. It is
+    anchored at the checkout (environment variables such as ``TMPDIR`` cannot give two writers different locks) and a
+    ``flock`` on a directory creates no file in the working tree."""
+    directory = paths.safe_path(root, f"{paths.ASSET_ROOT}/{family}", under=paths.ASSET_ROOT)
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory
 
 
-def acquire_lock(path: Path) -> IO[str] | None:
-    """Hold an exclusive ``fcntl.flock`` on ``path`` for the life of the process; None when another process holds it.
+class DirectoryLock:
+    """An exclusive ``flock`` held on a directory descriptor (released by :meth:`close` or process exit)."""
+
+    def __init__(self, descriptor: int):
+        self._descriptor: int | None = descriptor
+
+    def close(self) -> None:
+        if self._descriptor is not None:
+            os.close(self._descriptor)
+            self._descriptor = None
+
+
+def acquire_lock(path: Path) -> IO[str] | DirectoryLock | None:
+    """Hold an exclusive ``fcntl.flock`` on ``path`` (a lock file, or a directory such as the default) for the life of
+    the process; None when another process holds it.
 
     The kernel releases the lock when the holder exits or is killed, so a crashed run never leaves a stale lock.
     """
+    if path.is_dir():
+        descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            os.close(descriptor)
+            return None
+        return DirectoryLock(descriptor)
     path.parent.mkdir(parents=True, exist_ok=True)
     handle = open(path, "a+", encoding="utf-8")
     try:
@@ -66,6 +90,8 @@ def acquire_lock(path: Path) -> IO[str] | None:
 
 
 def lock_holder(path: Path) -> str:
+    if path.is_dir():
+        return "?"
     try:
         return path.read_text(encoding="utf-8").strip() or "?"
     except OSError:
@@ -78,9 +104,19 @@ def print_counts(counts: dict) -> None:
         print(f"  {source_id}: {summary}")
 
 
-def verify(root: Path, family: str) -> int:
-    errors, warnings, counts = runner.verify_family(root, family)
+def registry_ids(seeds_path: Path | None, root: Path, family: str) -> list[str] | None:
+    """Seed IDs to check the manifest against: the given seed file, or this checkout's registry when ``root`` is this
+    checkout; None (not checked) for another root without ``--seeds`` (e.g. a test fixture)."""
+    if seeds_path is None and root != REPOSITORY_ROOT.resolve():
+        return None
+    return [seed["id"] for seed in runner.load_seeds(seeds_path or runner.SEEDS_DIR / f"{family}.json", family)]
+
+
+def verify(root: Path, family: str, seed_ids: list[str] | None = None) -> int:
+    errors, warnings, counts = runner.verify_family(root, family, seed_ids)
     print(f"verify {family} ({paths.manifest_relpath(family)} under {root}):")
+    if seed_ids is None:
+        print("  note: seed registry not compared (another --root without --seeds)")
     print_counts(counts)
     for warning in warnings:
         print(f"  warning: {warning}")
@@ -99,13 +135,13 @@ def main(family: str, argv: Sequence[str] | None = None) -> int:
         if args.metadata_only or args.resume or args.source:
             print("--verify runs offline and cannot be combined with acquisition options", file=sys.stderr)
             return 2
-        return verify(root, family)
+        return verify(root, family, registry_ids(args.seeds, root, family))
     seeds_path = args.seeds or runner.SEEDS_DIR / f"{family}.json"
     seeds = runner.load_seeds(seeds_path, family)
     lock_path = (args.lock or default_lock_path(root, family)).resolve()
     lock = acquire_lock(lock_path)
     if lock is None:
-        print(f"fetch_{family}.py: another acquisition holds {lock_path} (pid {lock_holder(lock_path)}); "
+        print(f"fetch_{family}.py: another acquisition holds the lock on {lock_path} (pid {lock_holder(lock_path)}); "
               "not starting a second writer of the same manifest", file=sys.stderr)
         return 3
     try:
@@ -119,4 +155,8 @@ def main(family: str, argv: Sequence[str] | None = None) -> int:
         lock.close()
     print(f"fetch {family}: {acquisition.downloads} download(s)")
     print_counts(counts)
-    return verify(root, family)
+    code = verify(root, family, [seed["id"] for seed in seeds])
+    for source_id, problem in sorted(acquisition.source_errors.items()):
+        print(f"fetch_{family}.py: {source_id} stopped early ({problem}); recorded in its snapshot",
+              file=sys.stderr)
+    return code or (1 if acquisition.source_errors else 0)

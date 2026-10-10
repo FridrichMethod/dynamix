@@ -51,18 +51,23 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         title = item.get("title") or f"ArtStation project {project}"
         try:
             data, _ = ctx.client.get_json(json_url)
+            if not isinstance(data, dict):
+                raise net.FetchError(f"project JSON is a {type(data).__name__}, not an object", url=json_url)
         except net.FetchError as error:
             draft = model.error_draft(project, page_url, title, error, phase="discover")
             if item.get("notes"):
                 draft.candidate_extra = {"notes": item["notes"]}
             discovery.candidates.append(draft)
             discovery.evidence_level = "blocked" if draft.action == "blocked" else discovery.evidence_level
+            base.mark_unread(discovery, "seed-projects", error)
             continue
-        owner = ((data.get("user") or {}).get("username") or "").lower() if isinstance(data, dict) else ""
-        texts = {"title": data.get("title") or "", "description": data.get("description") or "",
+        user = data.get("user") if isinstance(data.get("user"), dict) else {}
+        owner = str(user.get("username") or "").lower()
+        texts = {"title": str(data.get("title") or ""), "description": str(data.get("description") or ""),
                  "user": owner}
-        assets = [asset for asset in data.get("assets") or [] if isinstance(asset, dict)]
-        images = [asset for asset in assets if asset.get("has_image") and asset.get("image_url")]
+        listed = data.get("assets") if isinstance(data.get("assets"), list) else []
+        assets = [asset for asset in listed if isinstance(asset, dict)]
+        images = [asset for asset in assets if asset.get("has_image") and isinstance(asset.get("image_url"), str)]
         if not images:
             discovery.candidates.append(model.Draft(upstream_key=project, page_url=page_url, title=title,
                                                     action="excluded", reason="out_of_scope_other: no image assets"))
@@ -71,8 +76,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             key = f"{project}:{asset.get('id', position)}"
             rule = model.find_rule(base.rules(seed), key)
             if username and owner != username:
-                rule = {**(rule or {}), "action": "pending",
-                        "reason": f"pending: project owner {owner or '?'} is not this source's account {username}"}
+                rule = model.hold(rule, f"pending: project owner {owner or '?'} is not this source's account "
+                                        f"{username}")
             asset_texts = {**texts, "asset.title": asset.get("title") or ""}
             urls = rendition_urls(asset["image_url"])
             draft = model.apply_rule(

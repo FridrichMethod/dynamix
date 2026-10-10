@@ -62,8 +62,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         try:
             html, _, _ = ctx.client.get_text(page_url)
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft(item.get("key", "page"), page_url,
+            discovery.candidates.append(model.error_draft(item.get("key") or base.page_key(page_url), page_url,
                                                           item.get("title", "seed page"), error, phase="discover"))
+            base.mark_unread(discovery, "seed-pages", error)
             continue
         document = base.soup(html)
         texts = {"title": document.title.get_text(" ", strip=True) if document.title else "",

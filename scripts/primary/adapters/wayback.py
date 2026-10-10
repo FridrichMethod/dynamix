@@ -2,9 +2,11 @@
 
 Each seed item is one CDX query (``url`` + ``match_type`` + filters). Pages of ``limit`` rows are followed with
 ``showResumeKey`` until the API returns no resume key; an interrupted listing keeps its key in ``continuation`` and the
-discovery stays incomplete. Captures are grouped by (URL key, content digest): the earliest capture of each distinct
-payload is one candidate ``<host/path>@<timestamp>``. ``web.archive.org/web/<ts>id_/<original>`` returns the archived
-bytes without replay rewriting; the replay page is the ``page_url``.
+discovery stays incomplete. Paging is bounded: a resume key returned twice or more than ``max_pages`` pages (default
+200) stop the listing with the pending key kept open. Captures are grouped by (URL key, content digest): the earliest
+capture of each distinct payload is one candidate ``<host/path>@<timestamp>``.
+``web.archive.org/web/<ts>id_/<original>`` returns the archived bytes without replay rewriting; the replay page is the
+``page_url``.
 
 Provenance: ``source_reported`` holds the original URL, the archived MIME type, the capture time and the CDX digest
 (base32 SHA-1 of the payload, converted to hex) so ``sha1_match`` shows whether the bytes received are the archived
@@ -27,12 +29,16 @@ HOSTS = ["web.archive.org"]
 CDX = "https://web.archive.org/cdx/search/cdx"
 FIELDS = "urlkey,timestamp,original,mimetype,statuscode,digest,length"
 MATCH_TYPES = ("exact", "prefix", "host", "domain")
+MAX_PAGES = 200  # per CDX query; a seed item may lower or raise it with ``max_pages``
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
     for index, item in enumerate(base.require_items(seed, where, ["name", "url"])):
         if item.get("match_type", "exact") not in MATCH_TYPES:
             raise ValueError(f"{where}: items[{index}].match_type must be one of {MATCH_TYPES}")
+        pages = item.get("max_pages", MAX_PAGES)
+        if not isinstance(pages, int) or isinstance(pages, bool) or pages < 1:
+            raise ValueError(f"{where}: items[{index}].max_pages must be a positive integer")
 
 
 def digest_hex(digest: str | None) -> str | None:
@@ -102,13 +108,23 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                                "(earliest capture). Pages linking elsewhere are not followed.")
     for item in items:
         rows: list[dict] = []
-        resume: str | None = None
+        resume: str | None = None  # the key of the page being requested; kept open when paging stops early
+        seen: set[str] = set()
+        limit = item.get("max_pages", MAX_PAGES)
         try:
-            while True:
-                page, resume = cdx_rows(ctx, item, resume)
+            for _ in range(limit):
+                page, next_key = cdx_rows(ctx, item, resume)
                 rows.extend(page)
-                if not resume:
+                if not next_key:
+                    resume = None
                     break
+                if next_key in seen:
+                    resume = next_key
+                    raise ValueError(f"CDX returned resume key {model.clip(next_key, 40)!r} again; paging stopped")
+                seen.add(next_key)
+                resume = next_key
+            else:
+                raise ValueError(f"paging stopped after {limit} pages (max_pages); the listing continues")
         except (net.FetchError, ValueError) as error:
             discovery.errors.append(model.discovery_error("discover", CDX, f"{item['name']}: CDX listing "
                                                                            f"interrupted: {error}"))

@@ -11,23 +11,37 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
 ```
 
 - `--verify` is offline: manifest and snapshot validation, reconciliation, every file re-hashed and decoded,
-  unreferenced files and symlinks under `assets/public/<family>/` reported, `primary_post` evidence cross-checked
-  against the artists snapshots (warning).
+  unreferenced files and symlinks under `assets/public/<family>/` reported, and errors for: a seed source without a
+  source record (when checking this checkout or with `--seeds`), `primary_post` evidence that no artists snapshot
+  corroborates for the same file, and an archived candidate that a later run now *excludes* (kept for review; a
+  now pending/failed one is a warning).
 - `--resume` re-hashes archived files instead of downloading them again; `--metadata-only` never downloads and
   never changes archived records.
-- Each acquisition holds an exclusive `fcntl.flock` (`--lock`, default per root and family in the system temp
-  directory); a second writer of the same family exits with status 3. Manifests and snapshots are validated and
-  rewritten atomically after every resolved candidate, so a killed run loses at most the file in flight.
+- Each acquisition holds an exclusive `fcntl.flock` (`--lock`; default: the family's `assets/public/<family>`
+  directory under the root, so `TMPDIR` cannot give two writers different locks and no lock file is created); a second
+  writer of the same family exits with status 3. Manifests and snapshots are validated and rewritten atomically after
+  every resolved candidate, so a killed run loses at most the file in flight.
+- One source's unexpected adapter error does not stop the run: its snapshot keeps the previous candidates, an open
+  `adapter` continuation and the error, the remaining sources run, and the CLI exits 1. A page or API read that fails
+  keeps its list open (`not-read:<error class>`), so `discovery_complete` is never inferred from an error.
 
 ## Seed rules (`model.py`)
 
-A rule (`match` regex on the candidate key) may admit a candidate only with a `role`; `game`, song mapping and credits
-come from the rule. `evidence_quotes` must occur in the text the adapter fetched (pixiv caption, post text, track
-description), otherwise the candidate stays `pending`; `confirmed_primary` needs such quotes, or, for a copy of a
-primary post's file (Wayback), `primary_evidence` quoting that post, which `--verify` cross-checks. Two guards
-override seeds: a *rejected submission* announcement excludes the candidate, and a *Dynamix Universe* mention holds it
-as `pending` unless the rule sets `allow_universe_mention`. Unclassified items are `pending`, never admitted on
-keywords. `variant_role` requires `variant_group` (`jacket:<song slug>` groups crops of one song's artwork).
+A rule (`match` regex on the candidate key) may admit a candidate only with a `role`; `game` (only `dynamix` or
+`mixed` on a download rule; any contract value on exclude/pending rules), song mapping and credits come from the rule.
+`evidence_quotes` must occur in the text the adapter fetched (pixiv caption, post text, track description), otherwise
+the candidate stays `pending` with game `unknown`; `confirmed_primary` needs such quotes, or, for a copy of a primary
+post's file (Wayback), `primary_evidence` quoting that post, which `--verify` cross-checks, and every mapped song title
+must be named by the fetched text or a `primary_evidence` quote (else the record says `inferred`). Each credited name
+gets `credit_evidence` quoting the fetched field that states it, or an entry without a quote pointing at the rule's
+`credit_source` (research/wiki page) when the page does not state it; curated `credit_evidence` and `mapping_evidence`
+entries are kept as given. Two guards override seeds: a *rejected submission* announcement excludes the candidate,
+and a *Dynamix Universe* mention holds it as `pending` unless the rule sets `allow_universe_mention`. Unclassified
+items are `pending`, never admitted on keywords; X embed-timeline posts need a rule whose `match` names the post ID
+(or that requires evidence quotes). `variant_role` requires `variant_group` (`jacket:<song slug>` groups crops of one
+song's artwork). An exclude/pending rule with `"withdraw_archived": true` is a curator's decision to remove an earlier
+archived record of that candidate (file and record; the bytes stay in Git history); without it an archived candidate
+that a rule now excludes stays archived and fails `--verify`.
 
 ## Adapters
 
@@ -37,13 +51,15 @@ keywords. `variant_role` requires `variant_group` (`jacket:<song slug>` groups c
 | `pixiv_artwork` | `www.pixiv.net/ajax/illust/<id>` (+ `/pages`) | `i.pximg.net` refuses requests without a pixiv Referer, which is never forged: one attempt, `blocked`, host skipped for the run; withheld URLs → `blocked` without a request |
 | `release_page` | SoundCloud `__sc_hydration` / Bandcamp JSON-LD | cover upgraded to `-original` / `_0`; uploader permalink checked |
 | `bilibili_opus`, `artstation_project` | public JSON | risk-control codes / 403 / challenges → `blocked` (manual access) |
-| `apple_store` | product page `serialized-server-data` shelves; iTunes `lookup` per storefront | native size, Apple JPEG rendition, `transformed: true` |
+| `apple_store` | product page `serialized-server-data` shelves; iTunes `lookup` per storefront | native size, Apple's lossless PNG rendition of PNG uploads (the advertised JPEG variant stays in `source_reported`), `transformed: true` |
 | `google_play` | listing pages per locale | `=s0` native size; advertised `=wW-hH` kept as notes, size decoded from bytes |
-| `taptap_app` | `__NUXT_DATA__` devalue payload | `original_url`; MD5 of the file compared with the name token; crop/upscale banner rendition excluded |
-| `wayback_cdx` | CDX API with `showResumeKey` paging, `id_` raw captures | earliest capture per distinct payload; CDX digest → `source_reported.sha1` |
+| `taptap_app` | `__NUXT_DATA__` devalue payload | `original_url`; MD5 of the file compared with the name token (a mismatch is a re-encode: `transformed: true`, byte-exact twin named when archived); crop/upscale banner rendition excluded |
+| `wayback_cdx` | CDX API with `showResumeKey` paging (bounded: repeated key or `max_pages`), `id_` raw captures | earliest capture per distinct payload; CDX digest → `source_reported.sha1` |
 | `page_links`, `direct_files` | explicit pages / explicit file URLs | link patterns per page; JS galleries named file by file |
+| `release_page` (list mode) | `{"tracks_of": "<handle>"}`: one read of `soundcloud.com/<handle>/tracks` | every server-rendered track becomes an item; the list stays open when fewer than the account's `track_count` are rendered |
 | `page_probe`, `lead_registry` | one availability read / no request | dead or login-walled sources; research leads without an acquirable file |
 
 `seeds/leads-crosswalk.json` maps every 2026-10-10 research-sweep lead (`dynamix_original_game` yes/unclear) to the
-source and candidate-key prefix that records its disposition. `testing.py` holds the offline test doubles used by
+source and candidate-key prefix that records its disposition; `lead_list` holds the research file's SHA-256 and a hash
+of the lead list, so the seed test detects a dropped lead. `testing.py` holds the offline test doubles used by
 `tests/test_fetch_{artists,official,archives}.py`.

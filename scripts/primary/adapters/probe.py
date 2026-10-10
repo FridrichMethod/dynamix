@@ -42,6 +42,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             html, final_url, _ = ctx.client.get_text(url)
         except net.FetchError as error:
             discovery.errors.append(model.discovery_error("discover", url, str(error)))
+            base.mark_unread(discovery, discovery.lists[0], error)
             discovery.evidence_level = "blocked" if error.error_class in FAILURE_STATUS else "not_established"
             status = FAILURE_STATUS.get(error.error_class, "temporarily_unavailable")
             discovery.notes.append(f"Probe of {url} on {ctx.now()[:10]} failed: {error.error_class}"

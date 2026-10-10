@@ -43,6 +43,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                             else "", "body": base.page_text(base.soup(html))}
                 except net.FetchError as error:
                     discovery.errors.append(model.discovery_error("discover", page_url, str(error)))
+                    base.mark_unread(discovery, "seed-files", error)
                     page_texts[page_url] = {}
             texts = page_texts[page_url]
         name = base.last_segment(file_url)

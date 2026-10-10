@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
-from primary import runner  # noqa: E402
+from primary import model, runner  # noqa: E402
 from primary.adapters import wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
 
@@ -152,6 +152,27 @@ class WaybackTests(ArchivesTestCase):
         errors, _, _ = runner.verify_family(self.root, "archives")
         self.assertTrue(any(asset["path"] in error or "asset file" in error for error in errors), errors)
 
+    def test_a_repeated_resume_key_stops_paging(self):
+        item = {**self.ITEM, "max_pages": 50}
+        loop = [HEADER, ["com,c4-cat,dynamix)/img/cap1.png", "20150412124448", "http://dynamix.c4-cat.com/img/cap1.png",
+                         "image/png", "200", "X" * 32, "1"], [], ["SAME-KEY"]]
+        network = FakeNetwork({cdx_url(item): {"json": loop}, cdx_url(item, "SAME-KEY"): {"json": loop}})
+        self.run_family([self.seed(self.RULES, [item])], network)
+        self.assertEqual(network.count("web.archive.org"), 2 + 1)  # two CDX pages, then the one capture download
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"]["official-img"], "SAME-KEY")
+        self.assertIn("again", snapshot["errors"][0]["message"])
+
+    def test_paging_is_bounded_by_max_pages(self):
+        item = {**self.ITEM, "max_pages": 1}
+        network = FakeNetwork({cdx_url(item): self.routes()[cdx_url(self.ITEM)]})
+        self.run_family([self.seed(self.RULES, [item])], network)
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")
+        self.assertEqual(snapshot["continuation"]["official-img"], "RESUME-KEY-1")  # the unfetched page stays open
+        self.assertIn("max_pages", snapshot["errors"][0]["message"])
+        self.assertEqual(sum(1 for method, _ in network.calls if method == "get_json"), 1)
+
     def test_digest_conversion(self):
         data = b"payload"
         self.assertEqual(wayback.digest_hex(cdx_digest(data)), hashlib.sha1(data).hexdigest())
@@ -210,41 +231,91 @@ class PressReleaseTests(ArchivesTestCase):
         self.assertEqual(current["sources"][0]["status"], "metadata_only")
         self.verify()
 
+    def test_unreadable_page_is_not_a_complete_enumeration(self):
+        network = FakeNetwork({self.PAGE: {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}})
+        self.run_family([self.seed()], network)
+        snapshot = manifest.load_discovery(self.root, "archives:hkstp")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"], {"seed-pages": "not-read:http_5xx"})
+        self.assertEqual([c["upstream_key"] for c in snapshot["candidates"]], [f"page:{self.PAGE}"])
+        self.verify()
+
 
 class PrimaryEvidenceTests(ArchivesTestCase):
-    def test_copy_of_a_primary_post_is_cross_checked_against_the_artist_snapshot(self):
+    ORIGINAL = "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png"
+    QUOTE = "My work for the Dynamix song Bluebell"
+
+    def run_capture(self, quote):
         png = image_bytes("PNG", (19, 11))
         item = {"name": "pixiv-1", "url": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p",
                 "match_type": "prefix", "filters": ["statuscode:200"], "page_size": 50}
-        original = "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png"
         rows = [HEADER, ["net,pximg,i)/img-original/img/2017/05/15/17/01/36/62913946_p0.png", "20221216101704",
-                         original, "image/png", "200", cdx_digest(png), "2380000"]]
+                         self.ORIGINAL, "image/png", "200", cdx_digest(png), "2380000"]]
         network = FakeNetwork({cdx_url(item): {"json": rows},
-                               f"https://web.archive.org/web/20221216101704id_/{original}": {
+                               f"https://web.archive.org/web/20221216101704id_/{self.ORIGINAL}": {
                                    "bytes": png, "content_type": "image/png"}})
         seed = {"id": "archives:wayback", "name": "Wayback", "url": "https://web.archive.org/", "platform": "wayback",
                 "adapter": "wayback_cdx", "quality": QUALITY, "items": [item],
                 "rules": [{"match": "62913946_p0\\.png@", "role": "song_art", "song_titles": ["Bluebell"],
                            "mapping_status": "confirmed_primary",
-                           "primary_evidence": [{"url": "https://www.pixiv.net/artworks/62913946",
-                                                 "quote": "My work for Dynamix song"}]}]}
+                           "primary_evidence": [{"url": "https://www.pixiv.net/artworks/62913946", "quote": quote}]}]}
         self.run_family([seed], network)
-        asset = self.manifest()["assets"][0]
-        self.assertEqual(asset["mapping_status"], "confirmed_primary")
-        self.assertEqual(asset["mapping_evidence"][0]["field"], "primary_post")
-        warnings = self.verify()
-        self.assertTrue(any("not corroborated" in w for w in warnings), warnings)
+        return self.manifest()["assets"][0]
+
+    def artist_snapshot(self, key, file_url):
         snapshot = {"schema_version": 1, "source_id": "artists:pixiv:760598", "started_at": FIXED_NOW,
                     "finished_at": FIXED_NOW, "scope": {"lists": ["seed-artworks"]}, "continuation": {},
                     "discovery_complete": True, "errors": [], "candidates": [{
-                        "id": "artists:pixiv:760598:62913946:p0", "source_id": "artists:pixiv:760598",
-                        "upstream_key": "62913946:p0", "page_url": "https://www.pixiv.net/artworks/62913946",
-                        "file_url": original, "title": "Bluebell", "role": "song_art", "game": "dynamix",
-                        "game_evidence": ["caption: My work for Dynamix song"],
+                        "id": f"artists:pixiv:760598:{key}", "source_id": "artists:pixiv:760598",
+                        "upstream_key": key, "page_url": "https://www.pixiv.net/artworks/62913946",
+                        "file_url": file_url, "title": "Bluebell", "role": "song_art", "game": "dynamix",
+                        "game_evidence": [f"caption: {self.QUOTE}"],
                         "source_reported": schema.make_source_reported(), "disposition": "blocked",
                         "reason": "blocked: HTTP 403"}]}
         manifest.write_json_atomic(self.root / paths.discovery_relpath("artists:pixiv:760598"), snapshot)
-        self.assertFalse(any("not corroborated" in w for w in self.verify()))
+
+    def problems(self):
+        errors, _, _ = runner.verify_family(self.root, "archives")
+        return [error for error in errors if "primary-post evidence" in error]
+
+    def test_copy_of_a_primary_post_is_cross_checked_against_the_artist_snapshot(self):
+        asset = self.run_capture(self.QUOTE)
+        self.assertEqual(asset["mapping_status"], "confirmed_primary")
+        self.assertEqual(asset["mapping_evidence"][0]["field"], "primary_post")
+        self.assertTrue(any("not corroborated" in error for error in self.problems()))  # an error, not a warning
+        self.artist_snapshot("62913946:p0", self.ORIGINAL)
+        self.assertEqual(self.problems(), [])
+        self.verify()
+
+    def test_withheld_file_url_is_matched_by_work_and_page(self):
+        self.run_capture(self.QUOTE)
+        self.artist_snapshot("62913946:p0", None)  # pixiv withheld the URL: <work>:p<n> names 62913946_p0
+        self.assertEqual(self.problems(), [])
+        self.artist_snapshot("62913946:p1", None)  # the quote belongs to another page of the work
+        self.assertTrue(any("other files" in error for error in self.problems()))
+
+    def test_evidence_of_another_file_does_not_corroborate(self):
+        self.run_capture(self.QUOTE)
+        self.artist_snapshot("62913946:p0", self.ORIGINAL.replace("_p0", "_p1"))
+        self.assertTrue(any("other files" in error for error in self.problems()))
+
+    def test_a_declared_alias_names_the_song(self):
+        model.check_rule({"match": "x", "role": "song_art", "song_titles": ["Bluebell"],
+                          "title_aliases": {"Bluebell": ["Blue bell"]}}, "rule")
+        with self.assertRaises(ValueError):
+            model.check_rule({"match": "x", "role": "song_art", "song_titles": ["Bluebell"],
+                              "title_aliases": {"Other": ["x"]}}, "rule")
+        status, evidence, notes = model.mapping_fields(
+            {"song_titles": ["MassacrE || 3rc4224M"], "mapping_status": "confirmed_primary",
+             "title_aliases": {"MassacrE || 3rc4224M": ["MassacrE"]},
+             "primary_evidence": [{"url": "https://www.pixiv.net/artworks/92594600", "quote": "MassacrE"}]},
+            [], "https://web.archive.org/x", {"original": "https://i.pximg.net/92594600_p0.jpg"})
+        self.assertEqual((status, notes), ("confirmed_primary", []))
+
+    def test_a_quote_that_does_not_name_the_song_is_not_confirmed_primary(self):
+        asset = self.run_capture("My work for a Dynamix song")
+        self.assertEqual(asset["mapping_status"], "inferred")
+        self.assertIn("does not name “Bluebell”", asset["notes"])
 
 
 if __name__ == "__main__":

@@ -94,6 +94,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if item.get("notes"):
                 draft.candidate_extra = {"notes": item["notes"]}
             discovery.candidates.append(draft)
+            base.mark_unread(discovery, "seed-artworks", error)
             continue
         texts = texts_of(info)
         withheld = not any((info.get("urls") or {}).values())
@@ -103,9 +104,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             key = f"{illust}:p{page['index']}"
             rule = model.find_rule(base.rules(seed), key)
             if not owner_ok:
-                rule = {**(rule or {}), "action": "pending",
-                        "reason": f"pending: artwork owner {info.get('userId')} is not this source's account "
-                                  f"{user_id}"}
+                rule = model.hold(rule, f"pending: artwork owner {info.get('userId')} is not this source's "
+                                        f"account {user_id}")
             name = base.last_segment(page["url"]) if page["url"] else f"{illust}_p{page['index']}"
             ext = name.rsplit(".", 1)[-1] if "." in name else None
             draft = model.apply_rule(

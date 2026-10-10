@@ -3,16 +3,21 @@
 Observed structure (03 §4, not a published API): ``<script id="serialized-server-data">`` holds
 ``data[0].data.shelfMapping`` whose ``product_media_<device>_`` shelves list ``ProductMediaItem`` objects. A screenshot
 is an ``Artwork`` with a URL ``template`` (``.../pr_source.png/{w}x{h}{c}.{f}``), its native ``width``/``height``, a
-``crop`` code and ``variants`` (formats). The native rendition is requested with the native size, the advertised crop
-and the first advertised variant format. Apple renders that file from the uploaded ``pr_source.png``, so the stored
-bytes are a known platform transform (``transformed: true``), never an untouched master. Trailer items are recorded as
-``video_placeholder`` exclusions.
+``crop`` code and ``variants`` (the formats the page itself loads, e.g. JPEG quality 70). The adapter requests the
+native size with the advertised crop in the *uploaded source's* format when that is PNG (``pr_source.png`` ->
+``.png``): Apple renders a lossless PNG of the PNG upload at the same size, whereas the advertised JPEG variant is a
+lossy re-encode. ``source_reported`` keeps what the page advertises (its own rendition URL, format and native size), so
+``format_match`` compares the advertised variant with the requested PNG. The bytes are still Apple's rendering of the
+upload (``transformed: true``), never an untouched master. Trailer items are recorded as ``video_placeholder``
+exclusions.
 
 A ``{"lookup_id": "<app id>", "countries": [...]}`` item reads the public iTunes Search ``lookup`` API per storefront,
 which still lists older, storefront-specific screenshot sets (``screenshotUrls``/``ipadScreenshotUrls``) that the web
-page no longer shows. Those URLs carry a small ``<w>x<h>bb`` size; the adapter requests the ``4000x4000bb`` bounding
-box in JPEG (the format the product page requests), which Apple serves at the image's native size (it does not
-enlarge); the stored size is decoded from the bytes. A screenshot listed by several storefronts is one candidate whose notes name every storefront.
+page no longer shows. Those URLs (``.../mzl.xxxx.png/406x228bb.png``) are small renditions; the adapter requests the
+``4000x4000bb`` bounding box in the upload's format (PNG for a ``.png`` upload), which Apple serves at the image's
+native size (it does not enlarge); the stored size is decoded from the bytes and ``source_reported`` keeps the
+advertised URL and format. A screenshot listed by several storefronts is one candidate whose notes name every
+storefront.
 """
 
 from __future__ import annotations
@@ -30,7 +35,7 @@ HOSTS = ["apps.apple.com", ".mzstatic.com", "itunes.apple.com"]
 LOOKUP = "https://itunes.apple.com/lookup"
 _SIZED = re.compile(r"^(https://[a-z0-9-]+\.mzstatic\.com/image/thumb/.+/)(\d+)x(\d+)(bb|sr|[a-z]{2})\.(jpg|jpeg|png|webp)$")
 LOOKUP_BOX = 4000
-LOOKUP_FORMAT = "jpg"
+LOSSLESS_SOURCE = {"png": "png"}  # upload format -> rendition requested instead of the advertised lossy variant
 _UUID = re.compile(r"/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/")
 FORMAT_EXT = {"jpeg": "jpg", "jpg": "jpg", "png": "png", "webp": "webp"}
 
@@ -48,14 +53,24 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             raise ValueError(f"{where}: items[{index}].url is required")
 
 
+def source_format(url: str) -> str | None:
+    """Extension of the uploaded source an mzstatic URL or template names (``.../pr_source.png/<size>.<fmt>`` or
+    ``.../mzl.abcd.png/<size>.<fmt>``): the path segment before the size segment."""
+    parts = (url or "").split("?", 1)[0].rstrip("/").split("/")
+    if len(parts) < 2 or "." not in parts[-2]:
+        return None
+    ext = parts[-2].rsplit(".", 1)[-1].lower()
+    return FORMAT_EXT.get(ext)
+
+
 def native_lookup_url(url: str) -> str | None:
-    """A lookup screenshot URL re-sized to the ``4000x4000bb`` bounding box (Apple caps it at the native size), in
-    the JPEG rendition the product page itself requests (``LOOKUP_FORMAT``); Apple renders every format from the same
-    uploaded source, so the choice changes the encoding, not the pixels' origin."""
+    """A lookup screenshot URL re-sized to the ``4000x4000bb`` bounding box (Apple caps it at the native size), in the
+    upload's own format when it is lossless (PNG); otherwise in the advertised extension."""
     match = _SIZED.match(url or "")
     if not match:
         return None
-    return f"{match.group(1)}{LOOKUP_BOX}x{LOOKUP_BOX}bb.{LOOKUP_FORMAT}"
+    fmt = LOSSLESS_SOURCE.get(source_format(url) or "", FORMAT_EXT.get(match.group(5), match.group(5)))
+    return f"{match.group(1)}{LOOKUP_BOX}x{LOOKUP_BOX}bb.{fmt}"
 
 
 def lookup_key(url: str) -> str:
@@ -90,8 +105,8 @@ def discover_lookup(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], 
                 if native is None:
                     continue
                 key = lookup_key(url)
-                entry = found.setdefault(key, {"url": native, "device": device, "countries": [], "index": index,
-                                               "app": app})
+                entry = found.setdefault(key, {"url": native, "advertised": url, "device": device, "countries": [],
+                                               "index": index, "app": app})
                 entry["countries"].append(f"{country}:{device}{index}")
     for key, entry in sorted(found.items()):
         texts = {"trackName": str(entry["app"].get("trackName") or ""),
@@ -105,10 +120,15 @@ def discover_lookup(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], 
             default_title=f"App Store {entry['device']} screenshot (storefront set {entry['countries'][0]})",
             default_quality=ctx.quality, default_rights=ctx.rights, original_filename=base.last_segment(entry["url"]),
             base_evidence=evidence,
-            source_reported=base.reported(url=entry["url"], mime=base.mime_for(entry["url"].rsplit(".", 1)[-1])))
+            source_reported=base.reported(url=entry["advertised"], mime=base.mime_for(
+                entry["advertised"].rsplit(".", 1)[-1])))
+        upload = entry["advertised"].split("/")[-2]
         draft.candidate_extra["notes"] = ("iTunes lookup API screenshot listed by storefront(s) "
-                                          + ", ".join(entry["countries"]) + "; requested at the 4000x4000bb bounding "
-                                          "box, stored size decoded from the bytes")
+                                          + ", ".join(entry["countries"]) + f"; the API advertises a "
+                                          f"{entry['advertised'].rsplit('/', 1)[-1]} rendition of the upload {upload}; "
+                                          f"requested {entry['url'].rsplit('/', 1)[-1]} (Apple's rendition in the "
+                                          "upload's format, bounded by 4000x4000, served at native size); stored "
+                                          "size decoded from the bytes")
         if draft.action == "download":
             draft.meta["transformed"] = True
         discovery.candidates.append(draft)
@@ -133,16 +153,26 @@ def shelves(data: Any) -> dict[str, Any]:
     return mapping
 
 
-def native_rendition(artwork: Mapping[str, Any]) -> tuple[str, int, int, str] | None:
-    """(URL, width, height, format) of an Artwork's native-size rendition; None when the template is unusable."""
+def native_rendition(artwork: Mapping[str, Any]) -> dict | None:
+    """Native-size renditions of an Artwork: ``url``/``format`` requested (the upload's lossless format when it is PNG,
+    else the advertised variant), ``advertised``/``advertised_format`` (what the page itself loads), ``width``,
+    ``height``; None when the template is unusable."""
     template, width, height = artwork.get("template"), artwork.get("width"), artwork.get("height")
     if not isinstance(template, str) or not all(isinstance(v, int) and v > 0 for v in (width, height)):
         return None
     variants = [v.get("format") for v in artwork.get("variants") or [] if isinstance(v, dict)]
-    fmt = next((f for f in variants if f in FORMAT_EXT), "jpeg")
-    url = (template.replace("{w}", str(width)).replace("{h}", str(height))
-           .replace("{c}", artwork.get("crop") or "bb").replace("{f}", fmt))
-    return (url, width, height, fmt) if "{" not in url else None
+    advertised_format = next((f for f in variants if f in FORMAT_EXT), "jpeg")
+    fmt = LOSSLESS_SOURCE.get(source_format(template) or "", advertised_format)
+
+    def render(value: str) -> str:
+        return (template.replace("{w}", str(width)).replace("{h}", str(height))
+                .replace("{c}", artwork.get("crop") or "bb").replace("{f}", value))
+
+    url, advertised = render(fmt), render(advertised_format)
+    if "{" in url or "{" in advertised:
+        return None
+    return {"url": url, "format": fmt, "advertised": advertised, "advertised_format": advertised_format,
+            "width": width, "height": height}
 
 
 def media_items(mapping: Mapping[str, Any]) -> list[tuple[str, int, dict]]:
@@ -176,8 +206,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             html, _, _ = ctx.client.get_text(page_url)
             mapping = shelves(server_data(html))
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft("page", page_url, "App Store page", error,
+            discovery.candidates.append(model.error_draft(base.page_key(page_url), page_url, "App Store page", error,
                                                           phase="discover"))
+            base.mark_unread(discovery, "product-media-shelves", error)
             continue
         except ValueError as error:
             discovery.errors.append(model.discovery_error("discover", page_url, f"page structure changed: {error}"))
@@ -202,14 +233,20 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                     upstream_key=key, page_url=page_url, title=f"App Store {device} screenshot {index}",
                     action="pending", reason="pending: unusable artwork template"))
                 continue
-            url, width, height, fmt = rendition
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
+            url = rendition["url"]
             draft = model.apply_rule(
                 rule, key=key, page_url=page_url, texts=texts, file_url=url,
                 default_title=f"App Store {device} screenshot {index}", default_quality=ctx.quality,
                 default_rights=ctx.rights, original_filename=base.last_segment(url), base_evidence=evidence,
-                source_reported=base.reported(url=url, mime=base.mime_for(FORMAT_EXT[fmt]), width=width,
-                                              height=height))
+                source_reported=base.reported(url=rendition["advertised"], mime=base.mime_for(
+                    FORMAT_EXT[rendition["advertised_format"]]), width=rendition["width"], height=rendition["height"]))
+            if rendition["format"] != rendition["advertised_format"]:
+                upload = url.split("/")[-2]
+                note = (f"The page loads a {rendition['advertised_format'].upper()} rendition "
+                        f"({rendition['advertised'].rsplit('/', 1)[-1]}); requested {url.rsplit('/', 1)[-1]}, "
+                        f"Apple's lossless rendition of the {upload} upload at the same native size.")
+                draft.candidate_extra["notes"] = " ".join(filter(None, [draft.candidate_extra.get("notes"), note]))
             if draft.action == "download":
                 draft.meta["transformed"] = True
             discovery.candidates.append(draft)

@@ -70,8 +70,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         try:
             html, _, _ = ctx.client.get_text(page_url)
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft("page", page_url, "Google Play listing", error,
-                                                          phase="discover"))
+            discovery.candidates.append(model.error_draft(base.page_key(page_url), page_url, "Google Play listing",
+                                                          error, phase="discover"))
+            base.mark_unread(discovery, "listing-screenshots", error)
             continue
         document = base.soup(html)
         texts = {f"ld.{name}": str(block.get(name) or "") for block in base.json_ld(document)

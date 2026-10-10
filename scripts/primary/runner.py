@@ -23,6 +23,7 @@ import copy
 import hashlib
 import logging
 import os
+import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -36,6 +37,8 @@ from .adapters import ADAPTERS
 
 LOG = logging.getLogger("dynamix.primary")
 SEEDS_DIR = Path(__file__).resolve().parent / "seeds"
+KEPT_FOR_REVIEW = "is kept for review"  # discovery-error marker of an archived candidate a refresh no longer admits
+WITHDRAWN_RE = re.compile(r"Withdrawn \d{4}-\d{2}-\d{2} by a curated seed rule .*?the bytes remain in the Git history\.")
 SOURCE_SEED_FIELDS = {
     "id", "name", "url", "platform", "adapter", "notes", "api_url", "owner_evidence", "crawl_scope", "items",
     "hosts", "min_interval", "quality", "rights", "rules", "identity_quotes", "lists", "status_on_success",
@@ -225,6 +228,9 @@ def asset_record(family: str, source_id: str, draft: model.Draft, info: Mapping[
     quality = meta.pop("quality")
     notes = [quality.get("notes", ""), *extra_notes]
     quality["notes"] = " ".join(note for note in notes if note).strip()
+    candidate_notes = draft.candidate_extra.get("notes")  # storefront lists, positions, identifications ...
+    if candidate_notes and candidate_notes not in (meta.get("notes") or ""):
+        meta["notes"] = " ".join(filter(None, [meta.get("notes"), candidate_notes]))
     record = {
         "id": schema.asset_id(source_id, info["sha256"]), "source_id": source_id,
         "candidate_id": schema.candidate_id(source_id, draft.upstream_key), "title": draft.title, "kind": draft.role,
@@ -262,13 +268,14 @@ def failure_for(error: Any, source_id: str, draft: model.Draft, phase: str, atte
                                  retriable=True, manual=False, message=f"{type(error).__name__}: {error}")
 
 
-def md5_note(path: Path, token: str | None) -> str | None:
-    if not token:
-        return None
-    digest = hashlib.md5(path.read_bytes(), usedforsecurity=False).hexdigest()
-    if digest == token.lower():
-        return f"File MD5 equals the upstream name token {token}, consistent with the uploaded original."
-    return f"File MD5 {digest} differs from the upstream name token {token}."
+def failed_discovery(seed: Mapping[str, Any], error: BaseException) -> model.Discovery:
+    """The discovery of a source whose adapter raised unexpectedly: no new candidates, an open ``adapter`` list (so the
+    snapshot is never complete) and the error; the runner carries the previous snapshot's candidates over."""
+    message = f"adapter error {type(error).__name__}: {error}; previous candidates carried over"
+    return model.Discovery(lists=["adapter"], continuation={"adapter": f"error:{type(error).__name__}"},
+                           errors=[model.discovery_error("discover", stored_url(seed.get("url")), message)],
+                           evidence_level="not_established",
+                           scope_notes="Discovery failed with an unexpected error; nothing was enumerated this run.")
 
 
 # --- Per-source state -------------------------------------------------------------------------------------------------
@@ -285,6 +292,7 @@ class SourceState:
     candidates: dict[str, dict] = field(default_factory=dict)
     errors: list[dict] = field(default_factory=list)
     pending_ids: set[str] = field(default_factory=set)
+    keep_previous: bool = False  # discovery failed: every previous candidate is carried over unchanged
 
     @property
     def source_id(self) -> str:
@@ -308,10 +316,14 @@ class Runner:
         self.clients: list[GuardedClient] = []
         self.downloads = 0
         self.interrupt_after = interrupt_after  # tests: raise KeyboardInterrupt after N downloads
+        self.source_errors: dict[str, str] = {}  # source ID -> unexpected error that ended its run early
+        self._md5_index: dict[str, str] | None = None  # MD5 -> asset ID of this family's archived files (lazy)
 
     # -- public --
 
     def run(self, only: Iterable[str] | None = None) -> dict[str, dict[str, int]]:
+        """Run every (or every ``only``) seed source. One source's unexpected error never stops the others: it is
+        recorded in that source's snapshot (open continuation, discovery error) and listed in ``source_errors``."""
         wanted = set(only or [])
         unknown = wanted - {seed["id"] for seed in self.seeds}
         if unknown:
@@ -334,27 +346,59 @@ class Runner:
                                blocked_hosts=self.blocked_hosts, last_used=self.last_used,
                                min_interval=float(seed.get("min_interval", 1.0)), sleep=self.sleep, clock=self.clock)
         self.clients.append(client)
+        crashed = False
         try:
             context = AdapterContext(client=client, seed=seed, source_id=source_id, now=self.now)
             LOG.info("%s: discovering", source_id)
-            discovery = ADAPTERS[seed["adapter"]].discover(context, seed)
+            try:
+                discovery = ADAPTERS[seed["adapter"]].discover(context, seed)
+            except Exception as error:  # an adapter bug or unexpected upstream data must not abort the family run
+                LOG.exception("%s: discovery failed", source_id)
+                self.source_errors[source_id] = f"discovery: {type(error).__name__}: {error}"
+                discovery, crashed = failed_discovery(seed, error), True
             state = SourceState(self.family, seed, started, discovery, previous, {
-                asset["id"]: asset for asset in self.manifest["assets"] if asset["source_id"] == source_id})
+                asset["id"]: asset for asset in self.manifest["assets"] if asset["source_id"] == source_id},
+                keep_previous=crashed)
             state.errors = list(discovery.errors)
-            self._resolve(state, client)
+            if crashed and not state.assets:
+                discovery.status = "temporarily_unavailable"
+            try:
+                self._resolve(state, client)
+            except Exception as error:  # e.g. a record that fails validation: keep the source's last valid state
+                LOG.exception("%s: resolution failed", source_id)
+                self.source_errors[source_id] = f"resolution: {type(error).__name__}: {error}"
+                self._abort_source(state, error)
         finally:
             client.close()
         counts = schema.disposition_counts(state.candidates.values())
         LOG.info("%s: %s", source_id, ", ".join(f"{key} {value}" for key, value in counts.items() if value))
         return counts
 
+    def _abort_source(self, state: SourceState, error: Exception) -> None:
+        """Record an unexpected resolution error on the source (open continuation) and persist when still valid."""
+        state.errors.append(model.discovery_error("discover", stored_url(state.seed["url"]),
+                                                  f"source run aborted: {type(error).__name__}: {error}"))
+        state.discovery.continuation["run"] = f"error:{type(error).__name__}"
+        try:
+            self._persist(state)
+        except Exception:  # the in-memory state is not valid: the files keep the last persisted state
+            LOG.exception("%s: could not record the aborted run; the previous snapshot stays", state.source_id)
+
     # -- resolution --
 
     def _resolve(self, state: SourceState, client: GuardedClient) -> None:
-        drafts = sorted(state.discovery.candidates, key=lambda draft: draft.upstream_key)
+        drafts, duplicates = [], []
+        for draft in sorted(state.discovery.candidates, key=lambda draft: draft.upstream_key):
+            if drafts and drafts[-1].upstream_key == draft.upstream_key:
+                duplicates.append(draft.upstream_key)  # the first draft of a key wins; the adapter is at fault
+                continue
+            drafts.append(draft)
+        if duplicates:
+            state.errors.append(model.discovery_error(
+                "discover", stored_url(state.seed["url"]), f"adapter produced duplicate candidate keys "
+                f"{sorted(set(duplicates))[:5]}; only the first draft of each was recorded"))
+            state.discovery.continuation["duplicate-keys"] = f"dropped-{len(duplicates)}"
         keys = [draft.upstream_key for draft in drafts]
-        if len(set(keys)) != len(keys):
-            raise ValueError(f"{state.source_id}: adapter produced duplicate candidate keys")
         for draft in drafts:  # first pass: everything not needing a download, and placeholders
             cid = schema.candidate_id(state.source_id, draft.upstream_key)
             if draft.action == "download":
@@ -372,7 +416,12 @@ class Runner:
         self._persist(state)
         for draft in drafts:
             if draft.action == "download":
-                self._resolve_download(state, client, draft)
+                try:
+                    self._resolve_download(state, client, draft)
+                except Exception as error:  # one candidate's unexpected error becomes its own failure record
+                    LOG.exception("%s: %s failed unexpectedly", state.source_id, draft.upstream_key)
+                    self._download_failed(state, draft, error, "download", self.now(), self._previous_current_asset(
+                        state, schema.candidate_id(state.source_id, draft.upstream_key)))
                 state.pending_ids.discard(schema.candidate_id(state.source_id, draft.upstream_key))
                 self._persist(state)
                 self._maybe_interrupt()
@@ -381,15 +430,25 @@ class Runner:
         sid = state.source_id
         cid = schema.candidate_id(sid, draft.upstream_key)
         previous_asset = self._previous_current_asset(state, cid)
+        if previous_asset is not None and draft.withdraw_archived and not self.metadata_only:
+            draft = self._withdraw(state, draft)
+            previous_asset = None
+        elif draft.withdraw_archived:  # keep the record of an earlier withdrawal on the candidate
+            earlier = WITHDRAWN_RE.search((self._previous_candidate(state, cid) or {}).get("notes") or "")
+            if earlier and earlier.group(0) not in (draft.candidate_extra.get("notes") or ""):
+                draft = copy.copy(draft)
+                draft.candidate_extra = {**draft.candidate_extra, "notes": " ".join(
+                    filter(None, [draft.candidate_extra.get("notes"), earlier.group(0)]))}
         if previous_asset is not None:
             # Archived bytes are never dropped by a refresh: a transient error, a missing evidence quote or a changed
-            # classification keeps the archived record and is reported for review instead.
+            # classification keeps the archived record and is reported for review instead (``--verify`` fails on an
+            # archived candidate that is now excluded; a curated rule resolves it with ``withdraw_archived``).
             state.candidates[cid] = self._previous_candidate(state, cid) or candidate_record(
                 sid, draft, "downloaded", asset_id=previous_asset["id"])
             state.errors.append(model.discovery_error(draft.error_phase if draft.error is not None else "discover",
                                                       stored_url(draft.page_url),
                                                       f"{cid} is now {draft.action} ({draft.reason}); the archived "
-                                                      f"record {previous_asset['id']} is kept for review"))
+                                                      f"record {previous_asset['id']} {KEPT_FOR_REVIEW}"))
             return
         state.candidates[cid] = candidate_record(sid, draft, draft.action)
         if draft.action in ("blocked", "failed") and draft.error is not None:
@@ -441,16 +500,20 @@ class Runner:
                 reason=f"duplicate_bytes: identical bytes already archived for {owner['candidate_id']}")
             return
         try:
-            info = media.finalize_download(result, self.root, lambda measured: paths.asset_relpath(
-                family, paths.source_slug(sid), draft.original_filename, measured["sha256"], measured["ext"]))
+            # Same candidate, same bytes as an archived record: the file stays at that record's path even when the
+            # upstream name changed since (no second copy, no unreferenced file).
+            info = media.finalize_download(result, self.root, lambda measured: owner["path"] if owner is not None
+                                           else paths.asset_relpath(family, paths.source_slug(sid),
+                                                                    draft.original_filename, measured["sha256"],
+                                                                    measured["ext"]))
         except media.MediaError as error:
             self._download_failed(state, draft, error, "decode", attempted_at, previous_asset)
             return
-        if owner is not None:  # same candidate, same bytes as before: keep the first acquisition's measurements
+        if owner is not None:  # keep the first acquisition's measurements
             refreshed = self._refresh_record(owner, draft)
             state.assets[new_id] = refreshed
         else:
-            notes = [note for note in [md5_note(paths.safe_path(self.root, info["path"]), draft.md5_token)] if note]
+            draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, info["path"]))
             state.assets[new_id] = asset_record(family, sid, draft, info, content_type=result.content_type,
                                                 resolved_url=result.final_url, fetched_at=attempted_at,
                                                 extra_notes=notes)
@@ -512,24 +575,87 @@ class Runner:
         return True
 
     def _refresh_record(self, asset: Mapping[str, Any], draft: model.Draft) -> dict:
-        """Descriptive fields from the current seed/draft on top of the archived measurements."""
+        """Descriptive fields from the current seed/draft on top of the archived measurements. The archived file name
+        (hence the contract path) is kept; a changed upstream name is noted instead."""
         info = {name: asset[name] for name in ("path", "bytes", "sha256", "sha1", "format", "mime", "width",
                                                "height")}
-        notes = [note for note in [md5_note(paths.safe_path(self.root, asset["path"]), draft.md5_token)] if note]
+        renamed = []
+        if draft.original_filename and draft.original_filename != asset["original_filename"]:
+            renamed.append(f"The upstream file name is now {draft.original_filename}; the archived copy keeps "
+                           f"{asset['original_filename']}.")
+        draft = copy.copy(draft)
+        draft.original_filename = asset["original_filename"]
+        draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, asset["path"]))
         return asset_record(self.family, asset["source_id"], draft, info,
                             content_type=asset["download_observed"]["content_type"],
-                            resolved_url=asset["resolved_url"], fetched_at=asset["fetched_at"], extra_notes=notes)
+                            resolved_url=asset["resolved_url"], fetched_at=asset["fetched_at"],
+                            extra_notes=[*notes, *renamed])
+
+    def _md5_evidence(self, draft: model.Draft, file: Path) -> tuple[model.Draft, list[str]]:
+        """Compare the file's MD5 with the upstream name token (TapTap names uploads by their MD5). A mismatch means
+        the platform re-encoded the upload: the record is a known transform (``transformed: true``, not called the
+        site's original) and names the archived byte-exact upload when this family holds it."""
+        token = (draft.md5_token or "").lower()
+        if not token or not draft.meta:
+            return draft, []
+        digest = hashlib.md5(file.read_bytes(), usedforsecurity=False).hexdigest()
+        if digest == token:
+            return draft, [f"File MD5 equals the upstream name token {token}, consistent with the uploaded original."]
+        adjusted = copy.copy(draft)
+        adjusted.meta = copy.deepcopy(draft.meta)
+        adjusted.meta["transformed"] = True
+        adjusted.meta["quality"]["source_variant"] = "unknown"
+        notes = [f"File MD5 {digest} differs from the upstream name token {token}: the platform re-encoded the upload "
+                 "(a transform, not the uploaded original)."]
+        twin = self._md5_twin(token)
+        if twin:
+            notes.append(f"The byte-exact upload (MD5 {token}) is archived as {twin}.")
+        return adjusted, notes
+
+    def _md5_twin(self, digest: str) -> str | None:
+        """ID of a current archived asset of this family whose file has MD5 ``digest`` (index built on first use)."""
+        if self._md5_index is None:
+            self._md5_index = {}
+            for asset in sorted(self.manifest["assets"], key=lambda a: a.get("upstream_status") != "current"):
+                try:
+                    data = paths.safe_path(self.root, asset["path"]).read_bytes()
+                except (OSError, ValueError):
+                    continue
+                self._md5_index.setdefault(hashlib.md5(data, usedforsecurity=False).hexdigest(), asset["id"])
+        return self._md5_index.get(digest)
+
+    def _withdraw(self, state: SourceState, draft: model.Draft) -> model.Draft:
+        """Apply a curated ``withdraw_archived`` rule: remove the candidate's archived records and files (the bytes
+        stay in the Git history) and say so in the candidate notes."""
+        cid = schema.candidate_id(state.source_id, draft.upstream_key)
+        removed = sorted((asset for asset in state.assets.values() if asset["candidate_id"] == cid),
+                         key=lambda asset: asset["id"])
+        for asset in removed:
+            del state.assets[asset["id"]]
+            paths.safe_path(self.root, asset["path"], under=f"{paths.ASSET_ROOT}/{self.family}").unlink(
+                missing_ok=True)
+            LOG.warning("%s: withdrew archived record %s (%s) per curated rule", cid, asset["id"], asset["path"])
+        note = (f"Withdrawn {self.now()[:10]} by a curated seed rule ({draft.reason}): archived record(s) "
+                + ", ".join(f"{asset['id']} (sha256 {asset['sha256']})" for asset in removed)
+                + " removed from the manifest and asset tree; the bytes remain in the Git history.")
+        withdrawn = copy.copy(draft)
+        withdrawn.candidate_extra = {**draft.candidate_extra, "notes": " ".join(
+            filter(None, [draft.candidate_extra.get("notes"), note]))}
+        return withdrawn
 
     def _carry_over(self, state: SourceState, current_ids: set[str]) -> None:
-        """Keep previous candidates that this run did not rediscover when they still name an archived asset."""
+        """Keep previous candidates that this run did not rediscover when they still name an archived asset (all of
+        them when this run's discovery failed)."""
         if not state.previous:
             return
         asset_candidates = {asset["candidate_id"] for asset in state.assets.values()}
-        note = "Carried over from an earlier run: not rediscovered by this run's seeds/enumeration."
+        note = ("Carried over from an earlier run: this run's discovery failed." if state.keep_previous else
+                "Carried over from an earlier run: not rediscovered by this run's seeds/enumeration.")
         for candidate in state.previous["candidates"]:
             if candidate["id"] in current_ids:
                 continue
-            if candidate.get("asset_id") not in state.assets and candidate["id"] not in asset_candidates:
+            if (not state.keep_previous and candidate.get("asset_id") not in state.assets
+                    and candidate["id"] not in asset_candidates):
                 continue
             kept = dict(candidate)
             if note not in kept.get("notes", ""):
@@ -614,15 +740,8 @@ def compute_status(counts: Mapping[str, int], complete: bool, has_assets: bool, 
 
 # --- Offline verification ---------------------------------------------------------------------------------------------
 
-def primary_evidence_problems(root: Path, asset: Mapping[str, Any]) -> list[str]:
-    """Warnings for ``primary_post`` mapping evidence (curated quotes for copies of a primary post's file) that the
-    primary post's own snapshot does not corroborate: some ``artists`` discovery candidate with that page URL must
-    carry the quote in its game evidence."""
-    problems = []
-    entries = [entry for entry in asset.get("mapping_evidence", [])
-               if isinstance(entry, dict) and entry.get("field") == "primary_post"]
-    if not entries:
-        return problems
+def artist_candidates(root: Path) -> list[dict]:
+    """Every candidate of the ``artists`` discovery snapshots under ``root`` (unreadable files are skipped)."""
     discovery_dir = root / paths.DISCOVERY_ROOT
     candidates: list[dict] = []
     for path in sorted(discovery_dir.glob("*.json")) if discovery_dir.is_dir() else []:
@@ -632,18 +751,67 @@ def primary_evidence_problems(root: Path, asset: Mapping[str, Any]) -> list[str]
             continue
         if isinstance(data, dict) and str(data.get("source_id", "")).startswith("artists:"):
             candidates.extend(c for c in data.get("candidates", []) if isinstance(c, dict))
+    return candidates
+
+
+def _same_file(candidate: Mapping[str, Any], original: str | None) -> bool:
+    """Whether an artists candidate stands for the primary file a copy reports as its original URL: the candidate's
+    file URL equals it, or (pixiv withholds file URLs from logged-out readers) the candidate key ``<work>:p<n>`` names
+    the original's ``<work>_p<n>`` file. Without an original URL nothing contradicts the candidate."""
+    if not original:
+        return True
+    if candidate.get("file_url"):
+        return candidate["file_url"] == original
+    stem = original.rsplit("/", 1)[-1].split("?", 1)[0].rsplit(".", 1)[0]
+    return str(candidate.get("upstream_key", "")).replace(":p", "_p", 1) == stem
+
+
+def primary_evidence_problems(root: Path, asset: Mapping[str, Any],
+                              candidates: list[dict] | None = None) -> list[str]:
+    """Problems with ``primary_post`` mapping evidence (curated quotes for copies of a primary post's file): some
+    ``artists`` discovery candidate with that page URL must carry the quote in its game evidence **and** stand for the
+    same file (:func:`_same_file`), otherwise the copy borrows another work's evidence."""
+    problems = []
+    entries = [entry for entry in asset.get("mapping_evidence", [])
+               if isinstance(entry, dict) and entry.get("field") == "primary_post"]
+    if not entries:
+        return problems
+    if candidates is None:
+        candidates = artist_candidates(root)
+    original = (asset.get("source_reported") or {}).get("url")
     for entry in entries:
         quote = model.normalize_text(entry["quote"]).rstrip("…")
-        if not any(c.get("page_url") == entry["url"] and any(quote in model.normalize_text(str(item))
-                                                             for item in c.get("game_evidence", []))
-                   for c in candidates):
+        quoting = [c for c in candidates if c.get("page_url") == entry["url"] and any(
+            quote in model.normalize_text(str(item)) for item in c.get("game_evidence", []))]
+        if not quoting:
             problems.append(f"{asset['id']}: primary-post evidence {entry['url']} is not corroborated by an artists "
                             "discovery snapshot")
+        elif not any(_same_file(c, original) for c in quoting):
+            problems.append(f"{asset['id']}: primary-post evidence {entry['url']} is corroborated only for other "
+                            f"files ({', '.join(sorted(c['id'] for c in quoting))}), not for {original}")
     return problems
 
 
-def verify_family(root: str | os.PathLike[str], family: str) -> tuple[list[str], list[str], dict]:
-    """Offline ``--verify``: (errors, warnings, per-source disposition counts). Never touches the network."""
+def review_conflicts(snapshot: Mapping[str, Any]) -> tuple[list[str], list[str]]:
+    """(errors, warnings) for archived candidates a refresh no longer admits (``KEPT_FOR_REVIEW`` discovery errors):
+    an archived file whose candidate is now *excluded* (a scope decision such as ``universe_only``) is an error until a
+    curator restores the rule or withdraws the record; a now pending/failed/blocked one is a warning."""
+    errors, warnings = [], []
+    for entry in snapshot.get("errors", []):
+        message = str(entry.get("message", ""))
+        if KEPT_FOR_REVIEW not in message:
+            continue
+        line = f"{snapshot['source_id']}: {message}"
+        (errors if " is now excluded (" in message else warnings).append(line)
+    return errors, warnings
+
+
+def verify_family(root: str | os.PathLike[str], family: str,
+                  seed_ids: Iterable[str] | None = None) -> tuple[list[str], list[str], dict]:
+    """Offline ``--verify``: (errors, warnings, per-source disposition counts). Never touches the network.
+
+    With ``seed_ids`` (the family's seed registry) a seed source without a source record is an error (a run that
+    stopped before reaching it) and a source record without a seed a warning."""
     root = Path(root)
     errors: list[str] = []
     warnings: list[str] = []
@@ -669,6 +837,10 @@ def verify_family(root: str | os.PathLike[str], family: str) -> tuple[list[str],
             snapshots[source_id] = data
         except (ValueError, OSError) as error:
             errors.append(f"{path.relative_to(root).as_posix()}: {error}")
+    for snapshot in snapshots.values():
+        conflict_errors, conflict_warnings = review_conflicts(snapshot)
+        errors.extend(conflict_errors)
+        warnings.extend(conflict_warnings)
     others = []
     for other in schema.FAMILIES:
         if other != family:
@@ -681,6 +853,7 @@ def verify_family(root: str | os.PathLike[str], family: str) -> tuple[list[str],
         counts = schema.reconcile(current, snapshots, other_assets=others)
     except ValueError as error:
         errors.append(f"reconcile: {error}")
+    artists = artist_candidates(root)
     for asset in current["assets"]:
         try:
             media.verify_asset_file(root, asset)
@@ -689,7 +862,7 @@ def verify_family(root: str | os.PathLike[str], family: str) -> tuple[list[str],
         for title, song_id in zip(asset["song_titles"], asset["song_ids"]):
             if not song_id.startswith(paths.song_id_base(title)):
                 warnings.append(f"{asset['id']}: song ID {song_id} does not derive from title {title!r}")
-        warnings.extend(primary_evidence_problems(root, asset))
+        errors.extend(primary_evidence_problems(root, asset, artists))
     recorded = {asset["path"] for asset in current["assets"]}
     family_dir = root / paths.ASSET_ROOT / family
     for path in sorted(family_dir.rglob("*")) if family_dir.is_dir() else []:
@@ -704,4 +877,11 @@ def verify_family(root: str | os.PathLike[str], family: str) -> tuple[list[str],
     for source in current["sources"]:
         if source["id"] not in snapshots:
             warnings.append(f"{source['id']}: no discovery snapshot at {paths.discovery_relpath(source['id'])}")
+    if seed_ids is not None:
+        seeded, recorded_sources = set(seed_ids), {source["id"] for source in current["sources"]}
+        for source_id in sorted(seeded - recorded_sources):
+            errors.append(f"{source_id}: seed source has no source record in {paths.manifest_relpath(family)} "
+                          "(not processed yet, or the run stopped before it)")
+        for source_id in sorted(recorded_sources - seeded):
+            warnings.append(f"{source_id}: source record has no seed in the registry")
     return errors, warnings, counts

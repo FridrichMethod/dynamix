@@ -100,6 +100,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                                      url=page_url)
         except net.FetchError as error:
             discovery.candidates.append(model.error_draft(opus_id, page_url, title, error, phase="discover"))
+            base.mark_unread(discovery, "seed-posts", error)
             continue
         author, pictures, texts = extract(data.get("data") or {})
         if expected_mid and author.get("mid") != expected_mid:
@@ -115,7 +116,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             key = f"{opus_id}:{index}"
             rule = model.find_rule(base.rules(seed), key)
             if override:
-                rule = {**(rule or {}), **override}
+                rule = model.hold(rule, override["reason"])
             name = base.last_segment(picture["url"])
             discovery.candidates.append(model.apply_rule(
                 rule, key=key, page_url=page_url, texts=texts, file_url=picture["url"],
