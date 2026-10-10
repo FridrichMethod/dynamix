@@ -57,15 +57,18 @@ SOURCES = [
     {"id": "wikis:miraheze", "name": "Fixture Wiki (MediaWiki A)", "family": "wikis", "url": "https://example.org/wiki-a",
      "platform": "mediawiki", "status": "available", "checked_at": FETCHED, "notes": "Synthetic UI fixture wiki; allimages enumerated to the end.",
      "api_url": "https://example.org/wiki-a/api.php", "discovery_complete": True, "evidence_level": "live_api"},
-    {"id": "wikis:fandom", "name": "Fixture Wiki (MediaWiki B)", "family": "wikis", "url": "https://example.org/wiki-b",
+    {"id": "wikis:fandom", "name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)", "family": "wikis", "url": "https://example.org/wiki-b",
      "platform": "mediawiki", "status": "partially_available", "checked_at": FETCHED,
      "notes": "Synthetic: the CDN serves transformed WEBP for some PNG names; enumeration stopped at a continuation token.",
      "discovery_complete": False, "evidence_level": "live_api"},
+    {"id": "wikis:atwiki-ja", "name": "Dynamix 攻略 @wiki（フィクスチャ・旧版ミラー、読み取り専用）", "family": "wikis", "url": "https://example.org/wiki-c",
+     "platform": "mediawiki", "status": "available", "checked_at": FETCHED,
+     "notes": "Synthetic Japanese-language fixture wiki with a long source name.", "discovery_complete": True, "evidence_level": "page_read"},
     {"id": "archives:wayback", "name": "Web archive snapshots (fixture)", "family": "archives", "url": "https://example.org/archive",
      "platform": "web", "status": "available", "checked_at": FETCHED, "notes": "Synthetic archived press pages and captures."},
 ]
 SOURCE_SLUGS = {"artists:x:fixture-artist": "x-fixture-artist", "official:apple-store": "apple-store", "wikis:miraheze": "miraheze",
-                "wikis:fandom": "fandom", "archives:wayback": "wayback"}
+                "wikis:fandom": "fandom", "wikis:atwiki-ja": "atwiki-ja", "archives:wayback": "wayback"}
 
 
 def draw(size, background, shapes, mode="RGB"):
@@ -137,7 +140,9 @@ def files():
     gameplay = draw((960, 540), (10, 12, 20), [("rect", [(.05, 0), (.08, 1)], (95, 212, 255)), ("rect", [(.92, 0), (.95, 1)], (95, 212, 255)), ("rect", [(.3, .9), (.7, .93)], (95, 212, 255))])
     scan = draw((800, 1100), (236, 230, 214), [("rect", [(.1, .08), (.9, .12)], (60, 60, 60)), ("rect", [(.1, .18), (.8, .2)], (120, 120, 120)), ("rect", [(.1, .24), (.85, .26)], (120, 120, 120))])
     tiny = draw((200, 200), (255, 214, 102), [("ellipse", [(.2, .2), (.8, .8)], (32, 36, 44))])
-    mh, fd = "https://example.org/wiki-a", "https://example.org/wiki-b"
+    overture = draw((1000, 562), (120, 24, 40), [("polygon", [(0, 1), (.45, .1), (.9, 1)], (240, 120, 80)), ("ellipse", [(.62, .12), (.86, .54)], (255, 230, 170))])
+    stardust = draw((1000, 1000), (20, 24, 60), [("ellipse", [(.1, .55), (.9, 1.35)], (70, 90, 170)), ("polygon", [(.5, .08), (.58, .3), (.5, .52), (.42, .3)], (255, 240, 200))])
+    mh, fd, at = "https://example.org/wiki-a", "https://example.org/wiki-b", "https://example.org/wiki-c"
     return [
         {"key": "lattice", "title": "Aurora Lattice", "kind": "song_art", "name": "Aurora_Lattice.png", "bytes": encode(lattice, "PNG", optimize=True),
          "illustrators": ["Fixture Artist A"], "composers": ["Fixture Composer"], "songs": ["Aurora Lattice"], "collections": ["Fixture Pack Vol. 1"],
@@ -221,6 +226,28 @@ def files():
          "records": [{"source_id": "wikis:fandom", "page_url": f"{fd}/File:Tiny_Jacket.png", "download_url": f"{fd}/images/Tiny_Jacket.png/revision/latest?format=original",
                       "quality": ["site_original", "wiki_copy", "unverified", "Only this 200 px copy is known."], "mapping_status": "confirmed_wiki",
                       "mapping_evidence": [f"{fd}/Tiny_Jacket"], "reported": {"exact": True}}]},
+        # The most text a slide carries (a long song title over a file name that does not name it, two illustrators, a
+        # composer, five packs/events, a long source name), in Latin and in CJK script: short screens must keep all of it
+        # clear of the control row (tests/browser_smoke.py, check_short_screens).
+        {"key": "overture", "title": "Crimson Overture Extended Jacket Artwork v2 Final", "kind": "song_art",
+         "name": "Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png", "bytes": encode(overture, "PNG", optimize=True),
+         "illustrators": ["Fixture Illustrator with a Long Credited Name", "Second Fixture Artist & Friends (Fixture Studio)"],
+         "composers": ["Fixture Composer feat. Guest Vocalist (Fixture Records)"], "songs": ["Crimson Overture (Extended Mix)"],
+         "collections": ["Song packs (IAP)", "Collaboration: Fixture Rhythm Festival 2017", "Open Submission (Gold)",
+                         "Event: Fixture Anniversary Celebration", "Fixture Pack Vol. 1"],
+         "records": [{"source_id": "wikis:fandom", "page_url": f"{fd}/File:Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png",
+                      "download_url": f"{fd}/images/Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png/revision/latest?format=original",
+                      "quality": ["site_original", "wiki_copy", "unverified", ""], "mapping_status": "inferred",
+                      "mapping_evidence": [f"{fd}/Crimson_Overture_(Extended_Mix)"], "reported": {"exact": True}}]},
+        {"key": "stardust", "title": "星屑協奏曲ジャケット画像（高解像度版）", "kind": "song_art", "name": "星屑協奏曲ジャケット画像（高解像度版）.png",
+         "bytes": encode(stardust, "PNG", optimize=True),
+         "illustrators": ["星野ひかり（フィクスチャ・イラストレーター）", "月影ゆう & 夜桜しずく"], "composers": ["フィクスチャ作曲家 feat. 歌い手（フィクスチャレコード）"],
+         "songs": ["夜明けの彼方に降り注ぐ星屑の協奏曲"],
+         "collections": ["イベント：フィクスチャ夏祭り 2016", "コラボレーション：フィクスチャ音楽祭", "曲包：星屑シリーズ Vol. 2", "公募（金賞）", "期間限定：フィクスチャ周年記念"],
+         "records": [{"source_id": "wikis:atwiki-ja", "page_url": f"{at}/pages/" + quote("星屑協奏曲"),
+                      "download_url": f"{at}/attach/" + quote("星屑協奏曲ジャケット画像（高解像度版）.png"),
+                      "quality": ["site_original", "wiki_copy", "unverified", ""], "mapping_status": "inferred",
+                      "mapping_evidence": [f"{at}/pages/" + quote("星屑協奏曲")], "reported": {}}]},
     ]
 
 

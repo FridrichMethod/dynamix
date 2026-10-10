@@ -62,7 +62,7 @@
     },
     {
       "id": "wikis:fandom",
-      "name": "Fixture Wiki (MediaWiki B)",
+      "name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
       "family": "wikis",
       "url": "https://example.org/wiki-b",
       "platform": "mediawiki",
@@ -71,7 +71,20 @@
       "notes": "Synthetic: the CDN serves transformed WEBP for some PNG names; enumeration stopped at a continuation token.",
       "discovery_complete": false,
       "evidence_level": "live_api",
-      "asset_count": 3
+      "asset_count": 4
+    },
+    {
+      "id": "wikis:atwiki-ja",
+      "name": "Dynamix 攻略 @wiki（フィクスチャ・旧版ミラー、読み取り専用）",
+      "family": "wikis",
+      "url": "https://example.org/wiki-c",
+      "platform": "mediawiki",
+      "status": "available",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic Japanese-language fixture wiki with a long source name.",
+      "discovery_complete": true,
+      "evidence_level": "page_read",
+      "asset_count": 1
     },
     {
       "id": "archives:wayback",
@@ -272,7 +285,7 @@
         {
           "asset_id": "wikis:fandom:af96aae516e8e476",
           "source_id": "wikis:fandom",
-          "source_name": "Fixture Wiki (MediaWiki B)",
+          "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
           "family": "wikis",
           "page_url": "https://example.org/wiki-b/File:Aurora_Lattice.png",
           "download_url": "https://example.org/wiki-b/images/Aurora_Lattice.png/revision/latest?format=original",
@@ -382,6 +395,168 @@
             "width": 1600,
             "height": 1600,
             "sha1": "33d3f739dcb34a68bb1018bfbaebd1301c862c4e",
+            "timestamp": "2024-05-01T00:00:00Z",
+            "revision": null
+          },
+          "comparisons": {
+            "sha1_match": true,
+            "bytes_match": true,
+            "dimensions_match": true,
+            "format_match": true
+          },
+          "upstream_status": "current",
+          "superseded_by": null,
+          "notes": null
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "wikis:fandom:8a9410497b3865e8",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png",
+      "title": "Crimson Overture Extended Jacket Artwork v2 Final",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://example.org/wiki-b/File:Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png",
+      "download_url": "https://example.org/wiki-b/images/Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png/revision/latest?format=original",
+      "resolved_url": "https://example.org/wiki-b/images/Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png/revision/latest?format=original",
+      "path": "assets/public/wikis/fandom/Crimson_Overture_Extended_Jacket_Artwork_v2_Final--8a9410497b38.png",
+      "original_filename": "Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png",
+      "bytes": 4581,
+      "sha256": "8a9410497b3865e8fa87936d3cd0c6e6bfe56cd1d2d441b797b0ad2f0e50a164",
+      "sha1": "72f084510ea4223227038b4f38414e1742058e55",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1000,
+      "height": 562,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [
+        "Fixture Illustrator with a Long Credited Name",
+        "Second Fixture Artist & Friends (Fixture Studio)"
+      ],
+      "composers": [
+        "Fixture Composer feat. Guest Vocalist (Fixture Records)"
+      ],
+      "song_titles": [
+        "Crimson Overture (Extended Mix)"
+      ],
+      "song_ids": [
+        "song:crimson-overture-extended-mix"
+      ],
+      "collections": [
+        "Song packs (IAP)",
+        "Collaboration: Fixture Rhythm Festival 2017",
+        "Open Submission (Gold)",
+        "Event: Fixture Anniversary Celebration",
+        "Fixture Pack Vol. 1"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        "https://example.org/wiki-b/Crimson_Overture_(Extended_Mix)"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": null,
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://example.org/wiki-b/images/Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png/revision/latest?format=original",
+        "mime": "image/png",
+        "bytes": 4581,
+        "width": 1000,
+        "height": 562,
+        "sha1": "72f084510ea4223227038b4f38414e1742058e55",
+        "timestamp": "2024-05-01T00:00:00Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 4581,
+        "width": 1000,
+        "height": 562,
+        "sha1": "72f084510ea4223227038b4f38414e1742058e55",
+        "sha256": "8a9410497b3865e8fa87936d3cd0c6e6bfe56cd1d2d441b797b0ad2f0e50a164"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "credit_evidence": [],
+      "upstream_status": "current",
+      "family": "wikis",
+      "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
+      "url": "assets/public/wikis/fandom/Crimson_Overture_Extended_Jacket_Artwork_v2_Final--8a9410497b38.png",
+      "thumb": "assets/thumbs/8a9410497b3865e8.webp",
+      "gallery": true,
+      "slideshow": true,
+      "site_original": true,
+      "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/fandom/Crimson_Overture_Extended_Jacket_Artwork_v2_Final--8a9410497b38.png",
+      "provenance": [
+        {
+          "asset_id": "wikis:fandom:8a9410497b3865e8",
+          "source_id": "wikis:fandom",
+          "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
+          "family": "wikis",
+          "page_url": "https://example.org/wiki-b/File:Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png",
+          "download_url": "https://example.org/wiki-b/images/Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png/revision/latest?format=original",
+          "resolved_url": "https://example.org/wiki-b/images/Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png/revision/latest?format=original",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "wiki_copy",
+            "master_status": "unverified",
+            "notes": ""
+          },
+          "rights": {
+            "holder": "C4Cat Entertainment Limited and/or the credited artist",
+            "creator": null,
+            "url": null,
+            "license": null,
+            "restrictions": null
+          },
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            "https://example.org/wiki-b/Crimson_Overture_(Extended_Mix)"
+          ],
+          "credit_evidence": [],
+          "illustrators": [
+            "Fixture Illustrator with a Long Credited Name",
+            "Second Fixture Artist & Friends (Fixture Studio)"
+          ],
+          "composers": [
+            "Fixture Composer feat. Guest Vocalist (Fixture Records)"
+          ],
+          "song_titles": [
+            "Crimson Overture (Extended Mix)"
+          ],
+          "song_ids": [
+            "song:crimson-overture-extended-mix"
+          ],
+          "collections": [
+            "Song packs (IAP)",
+            "Collaboration: Fixture Rhythm Festival 2017",
+            "Open Submission (Gold)",
+            "Event: Fixture Anniversary Celebration",
+            "Fixture Pack Vol. 1"
+          ],
+          "source_reported": {
+            "url": "https://example.org/wiki-b/images/Crimson_Overture_Extended_Jacket_Artwork_v2_Final.png/revision/latest?format=original",
+            "mime": "image/png",
+            "bytes": 4581,
+            "width": 1000,
+            "height": 562,
+            "sha1": "72f084510ea4223227038b4f38414e1742058e55",
             "timestamp": "2024-05-01T00:00:00Z",
             "revision": null
           },
@@ -942,7 +1117,7 @@
       "credit_evidence": [],
       "upstream_status": "current",
       "family": "wikis",
-      "source_name": "Fixture Wiki (MediaWiki B)",
+      "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
       "url": "assets/public/wikis/fandom/Tiny_Jacket--5395d64a7e8a.png",
       "thumb": null,
       "gallery": true,
@@ -953,7 +1128,7 @@
         {
           "asset_id": "wikis:fandom:5395d64a7e8afa9f",
           "source_id": "wikis:fandom",
-          "source_name": "Fixture Wiki (MediaWiki B)",
+          "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
           "family": "wikis",
           "page_url": "https://example.org/wiki-b/File:Tiny_Jacket.png",
           "download_url": "https://example.org/wiki-b/images/Tiny_Jacket.png/revision/latest?format=original",
@@ -1087,7 +1262,7 @@
       "upstream_status": "current",
       "transformed": true,
       "family": "wikis",
-      "source_name": "Fixture Wiki (MediaWiki B)",
+      "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
       "url": "assets/public/wikis/fandom/file--8878452a2ded.webp",
       "thumb": "assets/thumbs/8878452a2dedbdc5.webp",
       "gallery": true,
@@ -1098,7 +1273,7 @@
         {
           "asset_id": "wikis:fandom:8878452a2dedbdc5",
           "source_id": "wikis:fandom",
-          "source_name": "Fixture Wiki (MediaWiki B)",
+          "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
           "family": "wikis",
           "page_url": "https://example.org/wiki-b/File:%E4%BA%A4%E5%B7%AE%E3%81%97%E3%81%A6%E6%AD%AA%E3%82%80%E9%81%8E%E5%8E%BB%E3%81%A8%E6%9C%AA%E6%9D%A5.png",
           "download_url": "https://example.org/wiki-b/images/%E4%BA%A4%E5%B7%AE%E3%81%97%E3%81%A6%E6%AD%AA%E3%82%80%E9%81%8E%E5%8E%BB%E3%81%A8%E6%9C%AA%E6%9D%A5.png/revision/latest",
@@ -1145,6 +1320,168 @@
             "bytes_match": null,
             "dimensions_match": null,
             "format_match": false
+          },
+          "upstream_status": "current",
+          "superseded_by": null,
+          "notes": null
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "wikis:atwiki-ja:4336d40c91196898",
+      "source_id": "wikis:atwiki-ja",
+      "candidate_id": "wikis:atwiki-ja:星屑協奏曲ジャケット画像（高解像度版）.png",
+      "title": "星屑協奏曲ジャケット画像（高解像度版）",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://example.org/wiki-c/pages/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2",
+      "download_url": "https://example.org/wiki-c/attach/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88%E7%94%BB%E5%83%8F%EF%BC%88%E9%AB%98%E8%A7%A3%E5%83%8F%E5%BA%A6%E7%89%88%EF%BC%89.png",
+      "resolved_url": "https://example.org/wiki-c/attach/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88%E7%94%BB%E5%83%8F%EF%BC%88%E9%AB%98%E8%A7%A3%E5%83%8F%E5%BA%A6%E7%89%88%EF%BC%89.png",
+      "path": "assets/public/wikis/atwiki-ja/file--4336d40c9119.png",
+      "original_filename": "星屑協奏曲ジャケット画像（高解像度版）.png",
+      "bytes": 5924,
+      "sha256": "4336d40c911968982334cdbebe5eb43b529e1aa6ed8b0ff0b2c09c37e0853288",
+      "sha1": "ebecd8af9a72d756da3116aff7cd2f0db09d0954",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1000,
+      "height": 1000,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [
+        "星野ひかり（フィクスチャ・イラストレーター）",
+        "月影ゆう & 夜桜しずく"
+      ],
+      "composers": [
+        "フィクスチャ作曲家 feat. 歌い手（フィクスチャレコード）"
+      ],
+      "song_titles": [
+        "夜明けの彼方に降り注ぐ星屑の協奏曲"
+      ],
+      "song_ids": [
+        "song:file-0917e68f"
+      ],
+      "collections": [
+        "イベント：フィクスチャ夏祭り 2016",
+        "コラボレーション：フィクスチャ音楽祭",
+        "曲包：星屑シリーズ Vol. 2",
+        "公募（金賞）",
+        "期間限定：フィクスチャ周年記念"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        "https://example.org/wiki-c/pages/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": null,
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 5924,
+        "width": 1000,
+        "height": 1000,
+        "sha1": "ebecd8af9a72d756da3116aff7cd2f0db09d0954",
+        "sha256": "4336d40c911968982334cdbebe5eb43b529e1aa6ed8b0ff0b2c09c37e0853288"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": null
+      },
+      "credit_evidence": [],
+      "upstream_status": "current",
+      "family": "wikis",
+      "source_name": "Dynamix 攻略 @wiki（フィクスチャ・旧版ミラー、読み取り専用）",
+      "url": "assets/public/wikis/atwiki-ja/file--4336d40c9119.png",
+      "thumb": "assets/thumbs/4336d40c91196898.webp",
+      "gallery": true,
+      "slideshow": true,
+      "site_original": true,
+      "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/atwiki-ja/file--4336d40c9119.png",
+      "provenance": [
+        {
+          "asset_id": "wikis:atwiki-ja:4336d40c91196898",
+          "source_id": "wikis:atwiki-ja",
+          "source_name": "Dynamix 攻略 @wiki（フィクスチャ・旧版ミラー、読み取り専用）",
+          "family": "wikis",
+          "page_url": "https://example.org/wiki-c/pages/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2",
+          "download_url": "https://example.org/wiki-c/attach/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88%E7%94%BB%E5%83%8F%EF%BC%88%E9%AB%98%E8%A7%A3%E5%83%8F%E5%BA%A6%E7%89%88%EF%BC%89.png",
+          "resolved_url": "https://example.org/wiki-c/attach/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88%E7%94%BB%E5%83%8F%EF%BC%88%E9%AB%98%E8%A7%A3%E5%83%8F%E5%BA%A6%E7%89%88%EF%BC%89.png",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "wiki_copy",
+            "master_status": "unverified",
+            "notes": ""
+          },
+          "rights": {
+            "holder": "C4Cat Entertainment Limited and/or the credited artist",
+            "creator": null,
+            "url": null,
+            "license": null,
+            "restrictions": null
+          },
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            "https://example.org/wiki-c/pages/%E6%98%9F%E5%B1%91%E5%8D%94%E5%A5%8F%E6%9B%B2"
+          ],
+          "credit_evidence": [],
+          "illustrators": [
+            "星野ひかり（フィクスチャ・イラストレーター）",
+            "月影ゆう & 夜桜しずく"
+          ],
+          "composers": [
+            "フィクスチャ作曲家 feat. 歌い手（フィクスチャレコード）"
+          ],
+          "song_titles": [
+            "夜明けの彼方に降り注ぐ星屑の協奏曲"
+          ],
+          "song_ids": [
+            "song:file-0917e68f"
+          ],
+          "collections": [
+            "イベント：フィクスチャ夏祭り 2016",
+            "コラボレーション：フィクスチャ音楽祭",
+            "曲包：星屑シリーズ Vol. 2",
+            "公募（金賞）",
+            "期間限定：フィクスチャ周年記念"
+          ],
+          "source_reported": {
+            "url": null,
+            "mime": null,
+            "bytes": null,
+            "width": null,
+            "height": null,
+            "sha1": null,
+            "timestamp": null,
+            "revision": null
+          },
+          "comparisons": {
+            "sha1_match": null,
+            "bytes_match": null,
+            "dimensions_match": null,
+            "format_match": null
           },
           "upstream_status": "current",
           "superseded_by": null,
@@ -1969,20 +2306,20 @@
     }
   ],
   "summary": {
-    "source_count": 6,
-    "source_asset_records": 14,
-    "unique_files": 12,
-    "gallery_images": 10,
-    "slideshow_images": 7,
+    "source_count": 7,
+    "source_asset_records": 16,
+    "unique_files": 14,
+    "gallery_images": 12,
+    "slideshow_images": 9,
     "exact_duplicate_records": 2,
     "by_family": {
       "artists": 1,
       "official": 1,
-      "wikis": 8,
+      "wikis": 10,
       "archives": 4
     },
     "by_kind": {
-      "song_art": 6,
+      "song_art": 8,
       "pack_cover": 1,
       "character": 1,
       "store_screenshot": 1,
@@ -1990,8 +2327,8 @@
       "reference": 2
     },
     "failure_count": 2,
-    "downloaded_bytes": 96274,
-    "site_original_bytes": 81564,
+    "downloaded_bytes": 106779,
+    "site_original_bytes": 92069,
     "archive_only_bytes": 14710
   }
 }

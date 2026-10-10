@@ -72,7 +72,7 @@ class FixtureContractTests(unittest.TestCase):
 
     def test_fixture_stays_small(self):
         total = sum(path.stat().st_size for path in FIXTURE.rglob("*") if path.is_file() and "__pycache__" not in path.parts)
-        self.assertLess(total, 300_000)
+        self.assertLess(total, 350_000)
 
     def test_catalog_js_is_the_frozen_reference_encoding(self):
         for name in ("catalog", "catalog-empty"):
@@ -205,6 +205,12 @@ class FixtureContractTests(unittest.TestCase):
                         "credit evidence with the role 'other'")
         self.assertTrue(any(len({tuple(record["collections"]) for record in asset["provenance"]}) > 1 for asset in assets),
                         "records of one file that name different packs")
+        # The most text a slide carries, in Latin and in CJK script (tests/browser_smoke.py, check_short_screens).
+        crowded = [asset for asset in assets if asset["slideshow"] and len(asset["collections"]) >= 5 and len(asset["illustrators"]) >= 2
+                   and asset["composers"] and asset["song_titles"] and asset["title"] not in asset["song_titles"]
+                   and len(asset["source_name"]) >= 45]
+        self.assertEqual(sorted(bool(re.search(r"[぀-ヿ一-鿿]", asset["title"])) for asset in crowded), [False, True],
+                         "one crowded slide in Latin and one in CJK script")
 
     def test_contract_library_accepts_the_fixture(self):
         for name in ("catalog.json", "catalog-empty.json"):
