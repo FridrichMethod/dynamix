@@ -289,6 +289,8 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
             description, file_notes = file_page_notes(info, filepage)
             note = note_table.get(title)
             archivist = [note.text()] if note is not None and note.applies_to(info.get("sha1")) else []
+            if decision.disposition == "probe":  # the review stays visible once the probe's outcome replaces reason
+                file_notes = file_notes + [f"inspection download for the archivist review ({decision.reason})"]
             plan = Plan(inv.source, title, info, decision,
                         base_candidate(inv.source, title, info, decision, file_notes + archivist),
                         accepted=decision.disposition == "download", description=description,

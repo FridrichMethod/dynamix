@@ -541,6 +541,8 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertEqual(self.run_cli("--source", "miraheze", client=client), 1)
         candidate = self.candidate("miraheze", "File:Cited Screenshot.png")
         self.assertEqual((candidate["disposition"], candidate["role"]), ("failed", None))
+        self.assertIn("inspection download for the archivist review (unresolved_role: archivist review",
+                      candidate["notes"])
         [failure] = [f for f in self.manifest()["failures"] if f["candidate_id"] == candidate["id"]]
         self.assertEqual((failure["phase"], failure["error_class"], failure["http_status"]), ("download", "http_4xx",
                                                                                               404))
