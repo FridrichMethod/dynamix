@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:1840049",
-  "started_at": "2026-10-10T21:00:31Z",
-  "finished_at": "2026-10-10T21:00:35Z",
+  "started_at": "2026-10-10T22:33:14Z",
+  "finished_at": "2026-10-10T22:33:20Z",
   "scope": {
     "lists": [
       "seed-artworks",

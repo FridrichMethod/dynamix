@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:3t1a",
-  "started_at": "2026-10-10T17:42:47Z",
-  "finished_at": "2026-10-10T17:42:47Z",
+  "started_at": "2026-10-10T22:35:02Z",
+  "finished_at": "2026-10-10T22:35:02Z",
   "scope": {
     "lists": [
       "seed-pages"

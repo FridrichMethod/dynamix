@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:hyou_haku",
-  "started_at": "2026-10-10T21:00:50Z",
-  "finished_at": "2026-10-10T21:00:51Z",
+  "started_at": "2026-10-10T22:36:26Z",
+  "finished_at": "2026-10-10T22:36:27Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -43,6 +43,12 @@
       "asset_id": "artists:x:hyou_haku:43c7c74ff627e451",
       "song_titles": [
         "scualee"
+      ],
+      "illustrators": [
+        "黒鉛"
+      ],
+      "composers": [
+        "Aoi"
       ],
       "notes": "In-game song-select screen: the scualee jacket under UI (START button, difficulty diamond) with the song's mini-character; not a clean jacket."
     }

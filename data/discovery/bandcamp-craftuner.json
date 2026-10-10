@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:bandcamp:craftuner",
-  "started_at": "2026-10-10T20:43:57Z",
-  "finished_at": "2026-10-10T20:43:58Z",
+  "started_at": "2026-10-10T22:33:02Z",
+  "finished_at": "2026-10-10T22:33:02Z",
   "scope": {
     "lists": [
       "seed-pages"

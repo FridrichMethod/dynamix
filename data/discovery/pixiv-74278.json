@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:74278",
-  "started_at": "2026-10-10T21:16:33Z",
-  "finished_at": "2026-10-10T21:16:42Z",
+  "started_at": "2026-10-10T22:34:26Z",
+  "finished_at": "2026-10-10T22:34:43Z",
   "scope": {
     "lists": [
       "seed-artworks",
@@ -48,6 +48,9 @@
       ],
       "illustrators": [
         "Shionty"
+      ],
+      "composers": [
+        "Arch vs n3pu"
       ]
     }
   ],

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:aoisoundsystem",
-  "started_at": "2026-10-10T17:42:50Z",
-  "finished_at": "2026-10-10T17:42:52Z",
+  "started_at": "2026-10-10T22:35:05Z",
+  "finished_at": "2026-10-10T22:35:08Z",
   "scope": {
     "lists": [
       "seed-pages"

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:89112381",
-  "started_at": "2026-10-10T17:42:43Z",
-  "finished_at": "2026-10-10T17:42:47Z",
+  "started_at": "2026-10-10T22:34:59Z",
+  "finished_at": "2026-10-10T22:35:02Z",
   "scope": {
     "lists": [
       "seed-artworks"
@@ -45,6 +45,9 @@
       ],
       "illustrators": [
         "中本ひょうり"
+      ],
+      "composers": [
+        "K-forest"
       ]
     },
     {
@@ -77,6 +80,9 @@
       ],
       "illustrators": [
         "中本ひょうり"
+      ],
+      "composers": [
+        "K-forest"
       ]
     },
     {

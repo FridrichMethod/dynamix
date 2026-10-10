@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:2624455",
-  "started_at": "2026-10-10T17:42:30Z",
-  "finished_at": "2026-10-10T17:42:31Z",
+  "started_at": "2026-10-10T22:33:30Z",
+  "finished_at": "2026-10-10T22:33:31Z",
   "scope": {
     "lists": [
       "seed-artworks"
@@ -39,12 +39,15 @@
         "revision": null
       },
       "disposition": "blocked",
-      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "reason": "blocked: access refused (HTTP 403); manual access required, not retried",
       "song_titles": [
         "Creater S"
       ],
       "illustrators": [
         "123456蟹"
+      ],
+      "composers": [
+        "C.R.E"
       ],
       "notes": "Untitled post tagged Dynamix; visual match with the wiki jacket (research). Posted before the song's Dynamix release."
     }

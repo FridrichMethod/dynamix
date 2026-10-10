@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:ebico",
-  "started_at": "2026-10-10T17:43:05Z",
-  "finished_at": "2026-10-10T17:43:06Z",
+  "started_at": "2026-10-10T22:35:20Z",
+  "finished_at": "2026-10-10T22:35:22Z",
   "scope": {
     "lists": [
       "seed-pages"
