@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:kuskekplecraft",
+  "started_at": "2026-10-10T13:59:40Z",
+  "finished_at": "2026-10-10T13:59:44Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
+      "title": "@KuskeKplecraft post 946599307431460867 image 1",
+      "role": "process",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1440,
+        "height": 864,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:739f1eba59e8b0e2",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ]
+    },
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:2",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:2",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
+      "title": "@KuskeKplecraft post 946599307431460867 image 2",
+      "role": "process",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1336,
+        "height": 1336,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:631e6573e815e93c",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ]
+    },
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:3",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:3",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
+      "title": "@KuskeKplecraft post 946599307431460867 image 3",
+      "role": "process",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1336,
+        "height": 1336,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:e3d38373d1a11531",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ]
+    },
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:4",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:4",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
+      "title": "@KuskeKplecraft post 946599307431460867 image 4",
+      "role": "process",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1336,
+        "height": 1336,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:831c0edbdcc84bbb",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:riranofficial",
+  "started_at": "2026-10-10T13:59:12Z",
+  "finished_at": "2026-10-10T13:59:14Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:riranofficial:bofu2016-unshakable",
+      "source_id": "artists:soundcloud:riranofficial",
+      "upstream_key": "bofu2016-unshakable",
+      "page_url": "https://soundcloud.com/riranofficial/bofu2016-unshakable",
+      "file_url": "https://i1.sndcdn.com/artworks-000181747126-bdh1nt-original.jpg",
+      "title": "[BOFU2016/Lanota/Dynamix] RiraN - Unshakable",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/riranofficial/bofu2016-unshakable"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000181747126-bdh1nt-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-09-10T11:46:06Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: BMS-era composition (triangle tunnel with title), not the Dynamix jacket composition"
+    },
+    {
+      "id": "artists:soundcloud:riranofficial:dynamix-riran-daydream",
+      "source_id": "artists:soundcloud:riranofficial",
+      "upstream_key": "dynamix-riran-daydream",
+      "page_url": "https://soundcloud.com/riranofficial/dynamix-riran-daydream",
+      "file_url": "https://i1.sndcdn.com/artworks-000244696274-59jstb-original.jpg",
+      "title": "[Dynamix/EZ2ON/OverRapid] RiraN - Daydream",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/riranofficial/dynamix-riran-daydream",
+        "sc.title: Dynamix",
+        "sc.title: Daydream"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000244696274-59jstb-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-09-28T13:55:37Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:riranofficial:fc795e4011a3d8c5",
+      "song_titles": [
+        "Daydream"
+      ],
+      "illustrators": [
+        "Irelriser"
+      ],
+      "composers": [
+        "RiraN"
+      ]
+    }
+  ],
+  "errors": []
+}

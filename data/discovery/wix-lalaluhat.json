@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:wix:lalaluhat",
+  "started_at": "2026-10-10T13:59:35Z",
+  "finished_at": "2026-10-10T13:59:37Z",
+  "scope": {
+    "lists": [
+      "seed-files"
+    ],
+    "api": null,
+    "notes": "Explicitly named files only; the page's gallery is not crawled."
+  },
+  "continuation": {
+    "seed-files": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:wix:lalaluhat:5a0163_459a3dbbd87f46d58630ec52f0d06601",
+      "source_id": "artists:wix:lalaluhat",
+      "upstream_key": "5a0163_459a3dbbd87f46d58630ec52f0d06601",
+      "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+      "file_url": "https://static.wixstatic.com/media/5a0163_459a3dbbd87f46d58630ec52f0d06601~mv2_d_2039_2894_s_2.png",
+      "title": "5a0163_459a3dbbd87f46d58630ec52f0d06601~mv2_d_2039_2894_s_2.png",
+      "role": "character",
+      "game": "unknown",
+      "game_evidence": [
+        "https://lalaluhat.wixsite.com/bhbhwork/work"
+      ],
+      "source_reported": {
+        "url": "https://static.wixstatic.com/media/5a0163_459a3dbbd87f46d58630ec52f0d06601~mv2_d_2039_2894_s_2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: unidentified character; only the upload name 'Dynamix.png' links it to the game"
+    },
+    {
+      "id": "artists:wix:lalaluhat:5a0163_81b513cc2f1644cc92c88ca2691a6745",
+      "source_id": "artists:wix:lalaluhat",
+      "upstream_key": "5a0163_81b513cc2f1644cc92c88ca2691a6745",
+      "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+      "file_url": "https://static.wixstatic.com/media/5a0163_81b513cc2f1644cc92c88ca2691a6745~mv2_d_2039_2894_s_2.png",
+      "title": "5a0163_81b513cc2f1644cc92c88ca2691a6745~mv2_d_2039_2894_s_2.png",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://lalaluhat.wixsite.com/bhbhwork/work"
+      ],
+      "source_reported": {
+        "url": "https://static.wixstatic.com/media/5a0163_81b513cc2f1644cc92c88ca2691a6745~mv2_d_2039_2894_s_2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:wix:lalaluhat:2d5139ef56f25788",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "Written 'ANGLE x ANGLE BH! 2018-5-23' (Angel x Angel jacket characters)."
+    },
+    {
+      "id": "artists:wix:lalaluhat:5a0163_939b56d57a8a4540a6a300d1a3d1eb03",
+      "source_id": "artists:wix:lalaluhat",
+      "upstream_key": "5a0163_939b56d57a8a4540a6a300d1a3d1eb03",
+      "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+      "file_url": "https://static.wixstatic.com/media/5a0163_939b56d57a8a4540a6a300d1a3d1eb03~mv2_d_2084_2160_s_2.png",
+      "title": "5a0163_939b56d57a8a4540a6a300d1a3d1eb03~mv2_d_2084_2160_s_2.png",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://lalaluhat.wixsite.com/bhbhwork/work"
+      ],
+      "source_reported": {
+        "url": "https://static.wixstatic.com/media/5a0163_939b56d57a8a4540a6a300d1a3d1eb03~mv2_d_2084_2160_s_2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:wix:lalaluhat:5f09cefac2c66bec",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "Signed 'RENKO & TSUKIYO 2018-6-1 BH!' (Rocket Lanterns / 月奏リバイバル characters per wiki trivia)."
+    },
+    {
+      "id": "artists:wix:lalaluhat:5a0163_c92d32f3e10a4a4e8ac81189d748e0a9",
+      "source_id": "artists:wix:lalaluhat",
+      "upstream_key": "5a0163_c92d32f3e10a4a4e8ac81189d748e0a9",
+      "page_url": "https://lalaluhat.wixsite.com/bhbhwork/work",
+      "file_url": "https://static.wixstatic.com/media/5a0163_c92d32f3e10a4a4e8ac81189d748e0a9~mv2_d_2894_2039_s_2.png",
+      "title": "5a0163_c92d32f3e10a4a4e8ac81189d748e0a9~mv2_d_2894_2039_s_2.png",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://lalaluhat.wixsite.com/bhbhwork/work"
+      ],
+      "source_reported": {
+        "url": "https://static.wixstatic.com/media/5a0163_c92d32f3e10a4a4e8ac81189d748e0a9~mv2_d_2894_2039_s_2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:wix:lalaluhat:eb874ea89a0d757f",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "Image text 'DYNAMIX ALICE SUMMER VER 2018' (Alice: Frontline B-Side character per wiki trivia); lossless twin of X post 1001435080936472576."
+    }
+  ],
+  "errors": []
+}

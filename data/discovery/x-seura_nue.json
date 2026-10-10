@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:seura_nue",
+  "started_at": "2026-10-10T13:59:55Z",
+  "finished_at": "2026-10-10T13:59:56Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:seura_nue:1535164468476317696:1",
+      "source_id": "artists:x:seura_nue",
+      "upstream_key": "1535164468476317696:1",
+      "page_url": "https://x.com/SeURa_Nue/status/1535164468476317696",
+      "file_url": "https://pbs.twimg.com/media/FU3_xGbUEAAYeco?format=jpg&name=orig",
+      "title": "@SeURa_Nue post 1535164468476317696 image 1",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/SeURa_Nue/status/1535164468476317696",
+        "text: Necroxus"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FU3_xGbUEAAYeco?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-06-10T07:38:25.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:seura_nue:9436c40423ba1e56",
+      "song_titles": [
+        "Necroxus"
+      ],
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ]
+    }
+  ],
+  "errors": []
+}

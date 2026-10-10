@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:misomyl",
+  "started_at": "2026-10-10T13:58:58Z",
+  "finished_at": "2026-10-10T13:58:59Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:misomyl:jack-out-killer",
+      "source_id": "artists:soundcloud:misomyl",
+      "upstream_key": "jack-out-killer",
+      "page_url": "https://soundcloud.com/misomyl/jack-out-killer",
+      "file_url": "https://i1.sndcdn.com/artworks-000225124796-nw7p7d-original.jpg",
+      "title": "【Dynamix】Jack Out KIllER",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/misomyl/jack-out-killer",
+        "sc.title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000225124796-nw7p7d-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-05-31T14:02:57Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:misomyl:93b2757d2ea61c53",
+      "song_titles": [
+        "Jack Out KIllER"
+      ],
+      "illustrators": [
+        "HaltquinZ"
+      ],
+      "composers": [
+        "MisoilePunch"
+      ]
+    }
+  ],
+  "errors": []
+}

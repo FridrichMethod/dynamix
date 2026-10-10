@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:407585",
+  "started_at": "2026-10-10T13:57:54Z",
+  "finished_at": "2026-10-10T13:57:55Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:407585:42973848:p0",
+      "source_id": "artists:pixiv:407585",
+      "upstream_key": "42973848:p0",
+      "page_url": "https://www.pixiv.net/artworks/42973848",
+      "file_url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "title": "Dynamix「Aegis」用圖 (p0)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/42973848",
+        "title: Dynamix",
+        "title: Aegis"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2014-04-19T05:40:00+00:00",
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "song_titles": [
+        "Aegis"
+      ],
+      "illustrators": [
+        "AFZero"
+      ]
+    }
+  ],
+  "errors": []
+}

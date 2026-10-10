@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:lalaluhat",
+  "started_at": "2026-10-10T13:59:44Z",
+  "finished_at": "2026-10-10T13:59:53Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:lalaluhat:1001435080936472576:1",
+      "source_id": "artists:x:lalaluhat",
+      "upstream_key": "1001435080936472576:1",
+      "page_url": "https://x.com/lalaluhat/status/1001435080936472576",
+      "file_url": "https://pbs.twimg.com/media/DeXPxAbU8AAphCA?format=jpg&name=orig",
+      "title": "@lalaluhat post 1001435080936472576 image 1",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/lalaluhat/status/1001435080936472576",
+        "text: #Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DeXPxAbU8AAphCA?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2894,
+        "height": 2039,
+        "sha1": null,
+        "timestamp": "2018-05-29T12:08:23.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:lalaluhat:e291c1c6f3df4743",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "Summer Alice (Frontline B-Side character per wiki trivia); a lossless PNG twin is on the artist's Wix portfolio."
+    },
+    {
+      "id": "artists:x:lalaluhat:1056156411304935429:1",
+      "source_id": "artists:x:lalaluhat",
+      "upstream_key": "1056156411304935429:1",
+      "page_url": "https://x.com/lalaluhat/status/1056156411304935429",
+      "file_url": "https://pbs.twimg.com/media/Dqg2zqqU4AYWD4H?format=jpg&name=orig",
+      "title": "@lalaluhat post 1056156411304935429 image 1",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/lalaluhat/status/1056156411304935429",
+        "text: #Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Dqg2zqqU4AYWD4H?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2039,
+        "height": 2894,
+        "sha1": null,
+        "timestamp": "2018-10-27T12:11:25.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:lalaluhat:4ca24927a1f944c8",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "Halloween zombie Renko (Rocket Lanterns character per wiki trivia)."
+    },
+    {
+      "id": "artists:x:lalaluhat:1188774644397924352:1",
+      "source_id": "artists:x:lalaluhat",
+      "upstream_key": "1188774644397924352:1",
+      "page_url": "https://x.com/lalaluhat/status/1188774644397924352",
+      "file_url": "https://pbs.twimg.com/media/EH9gOo0U0AECEzc?format=jpg&name=orig",
+      "title": "@lalaluhat post 1188774644397924352 image 1",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/lalaluhat/status/1188774644397924352",
+        "text: #Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EH9gOo0U0AECEzc?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2894,
+        "height": 1726,
+        "sha1": null,
+        "timestamp": "2019-10-28T11:08:56.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:lalaluhat:ac3fcbce2ce59183",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "Halloween illustration; LionCubs (Lionhearted) per the post text."
+    },
+    {
+      "id": "artists:x:lalaluhat:1222836461155667968:1",
+      "source_id": "artists:x:lalaluhat",
+      "upstream_key": "1222836461155667968:1",
+      "page_url": "https://x.com/lalaluhat/status/1222836461155667968",
+      "file_url": "https://pbs.twimg.com/media/EPhjRjhU8AADzC-?format=jpg&name=orig",
+      "title": "@lalaluhat post 1222836461155667968 image 1",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/lalaluhat/status/1222836461155667968",
+        "text: #Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EPhjRjhU8AADzC-?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2094,
+        "height": 2930,
+        "sha1": null,
+        "timestamp": "2020-01-30T10:58:26.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:lalaluhat:3f82b63a59367e19",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "New-year group illustration of Dynamix jacket characters."
+    },
+    {
+      "id": "artists:x:lalaluhat:1233337738671218688:1",
+      "source_id": "artists:x:lalaluhat",
+      "upstream_key": "1233337738671218688:1",
+      "page_url": "https://x.com/lalaluhat/status/1233337738671218688",
+      "file_url": "https://pbs.twimg.com/media/ER2ubZXUEAAWf4v?format=jpg&name=orig",
+      "title": "@lalaluhat post 1233337738671218688 image 1",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/lalaluhat/status/1233337738671218688",
+        "text: #Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ER2ubZXUEAAWf4v?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2894,
+        "height": 2039,
+        "sha1": null,
+        "timestamp": "2020-02-28T10:26:45.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:lalaluhat:7f0c5ddd6f3c7881",
+      "illustrators": [
+        "B.H."
+      ],
+      "notes": "Wiki Encore trivia: cover character Moru (cites this post)."
+    }
+  ],
+  "errors": []
+}

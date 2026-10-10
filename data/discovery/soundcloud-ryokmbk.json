@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:ryokmbk",
+  "started_at": "2026-10-10T13:59:14Z",
+  "finished_at": "2026-10-10T13:59:15Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:ryokmbk:hauynite",
+      "source_id": "artists:soundcloud:ryokmbk",
+      "upstream_key": "hauynite",
+      "page_url": "https://soundcloud.com/ryokmbk/hauynite",
+      "file_url": "https://i1.sndcdn.com/artworks-bIRtaqZWdKt18inR-afD61Q-original.jpg",
+      "title": "Hauynite w/CS4W",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/ryokmbk/hauynite"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-bIRtaqZWdKt18inR-afD61Q-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2023-07-03T12:08:14Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: single-cover design (vertical typography, QR code) different from the jacket composition"
+    }
+  ],
+  "errors": []
+}

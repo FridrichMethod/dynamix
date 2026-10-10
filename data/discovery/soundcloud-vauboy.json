@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:vauboy",
+  "started_at": "2026-10-10T13:59:30Z",
+  "finished_at": "2026-10-10T13:59:32Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:vauboy:mlg",
+      "source_id": "artists:soundcloud:vauboy",
+      "upstream_key": "mlg",
+      "page_url": "https://soundcloud.com/vauboy/mlg",
+      "file_url": "https://i1.sndcdn.com/artworks-000402006720-1ubsms-original.jpg",
+      "title": "MLG",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/vauboy/mlg",
+        "sc.title: MLG"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000402006720-1ubsms-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2018-09-08T17:12:10Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:vauboy:59a575d428f5d124",
+      "song_titles": [
+        "MLG"
+      ],
+      "composers": [
+        "Vau Boy"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:vauboy:you-were-with-a-boy",
+      "source_id": "artists:soundcloud:vauboy",
+      "upstream_key": "you-were-with-a-boy",
+      "page_url": "https://soundcloud.com/vauboy/you-were-with-a-boy",
+      "file_url": "https://i1.sndcdn.com/artworks-AiTz6CRv2zUdcjBp-UhvXaA-original.jpg",
+      "title": "You Were With A Boy",
+      "role": "song_art",
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/vauboy/you-were-with-a-boy"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-AiTz6CRv2zUdcjBp-UhvXaA-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2021-05-21T18:02:09Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: label single cover (HPTG#033) sharing the jacket's photo collage in a different composition with logos; needs review",
+      "song_titles": [
+        "You Were With A Boy"
+      ]
+    }
+  ],
+  "errors": []
+}

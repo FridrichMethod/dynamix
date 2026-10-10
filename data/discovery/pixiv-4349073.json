@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:4349073",
+  "started_at": "2026-10-10T13:57:55Z",
+  "finished_at": "2026-10-10T13:57:56Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:4349073:80195226:p0",
+      "source_id": "artists:pixiv:4349073",
+      "upstream_key": "80195226:p0",
+      "page_url": "https://www.pixiv.net/artworks/80195226",
+      "file_url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "title": "終の舞姫 (p0)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/80195226",
+        "caption: Dynamix",
+        "title: 終の舞姫"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-03-18T01:55:00+00:00",
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ]
+    }
+  ],
+  "errors": []
+}

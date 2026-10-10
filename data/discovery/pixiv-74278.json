@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:74278",
+  "started_at": "2026-10-10T13:57:59Z",
+  "finished_at": "2026-10-10T13:58:00Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:74278:61859342:p0",
+      "source_id": "artists:pixiv:74278",
+      "upstream_key": "61859342:p0",
+      "page_url": "https://www.pixiv.net/artworks/61859342",
+      "file_url": null,
+      "title": "8bit_girl (p0)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/61859342",
+        "caption: Dynamix",
+        "caption: Evoltex"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": 900,
+        "height": 506,
+        "sha1": null,
+        "timestamp": "2017-03-11T13:08:00+00:00",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: no downloadable file URL was found for this item",
+      "song_titles": [
+        "Evoltex (poppi'n mix)"
+      ],
+      "illustrators": [
+        "Shionty"
+      ]
+    }
+  ],
+  "errors": []
+}

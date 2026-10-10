@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:nuunu5",
+  "started_at": "2026-10-10T13:59:06Z",
+  "finished_at": "2026-10-10T13:59:07Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:nuunu5:novahighway_gameedit",
+      "source_id": "artists:soundcloud:nuunu5",
+      "upstream_key": "novahighway_gameedit",
+      "page_url": "https://soundcloud.com/nuunu5/novahighway_gameedit",
+      "file_url": "https://i1.sndcdn.com/artworks-000234049769-xtx00k-original.jpg",
+      "title": "【aoWAVE】Nova Highway (Game Edit - Dynamix 2017)【Original】",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/nuunu5/novahighway_gameedit",
+        "sc.title: Dynamix",
+        "sc.description: deronoitz"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000234049769-xtx00k-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-07-18T03:05:49Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:nuunu5:6e9cd95a3db81d5c",
+      "song_titles": [
+        "Nova Highway"
+      ],
+      "illustrators": [
+        "deronoitz"
+      ],
+      "composers": [
+        "aoWAVE"
+      ]
+    }
+  ],
+  "errors": []
+}

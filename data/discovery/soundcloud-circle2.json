@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:circle2",
+  "started_at": "2026-10-10T13:58:19Z",
+  "finished_at": "2026-10-10T13:58:25Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:circle2:circle-2-gallium-nitride-blue-light",
+      "source_id": "artists:soundcloud:circle2",
+      "upstream_key": "circle-2-gallium-nitride-blue-light",
+      "page_url": "https://soundcloud.com/circle2/circle-2-gallium-nitride-blue-light",
+      "file_url": "https://i1.sndcdn.com/artworks-000162005967-f7sqr8-original.jpg",
+      "title": "Gallium Nitride (blue light)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/circle2/circle-2-gallium-nitride-blue-light"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000162005967-f7sqr8-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-05-09T15:49:49Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:circle2:e91008a5ce04864c",
+      "song_titles": [
+        "Gallium Nitride"
+      ],
+      "composers": [
+        "Circle 2"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:circle2:dynamix-circle-2-gallium-nitride-blue-light",
+      "source_id": "artists:soundcloud:circle2",
+      "upstream_key": "dynamix-circle-2-gallium-nitride-blue-light",
+      "page_url": "https://soundcloud.com/circle2/dynamix-circle-2-gallium-nitride-blue-light",
+      "file_url": "https://i1.sndcdn.com/artworks-000178576363-dwmlcy-original.jpg",
+      "title": "[Dynamix] Circle 2 - Gallium Nitride (Blue Light)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/circle2/dynamix-circle-2-gallium-nitride-blue-light",
+        "sc.title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000178576363-dwmlcy-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-08-25T09:30:03Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:circle2:4b41a6c5bed8835b",
+      "song_titles": [
+        "Gallium Nitride"
+      ],
+      "composers": [
+        "Circle 2"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:circle2:elphs-sadnessoriginal-edition",
+      "source_id": "artists:soundcloud:circle2",
+      "upstream_key": "elphs-sadnessoriginal-edition",
+      "page_url": "https://soundcloud.com/circle2/elphs-sadnessoriginal-edition",
+      "file_url": "https://i1.sndcdn.com/artworks-000183157725-7v3h0v-original.jpg",
+      "title": "Elph's Sadness(Original Edition)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/circle2/elphs-sadnessoriginal-edition",
+        "sc.description: Illustrated by Nano"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000183157725-7v3h0v-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-09-18T06:09:19Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:circle2:7c48de81addb2146",
+      "song_titles": [
+        "Elph’s Sadness -Dynamix Edition-"
+      ],
+      "illustrators": [
+        "Nano"
+      ],
+      "composers": [
+        "Circle 2"
+      ]
+    }
+  ],
+  "errors": []
+}

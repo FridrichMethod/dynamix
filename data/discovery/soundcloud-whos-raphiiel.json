@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:whos-raphiiel",
+  "started_at": "2026-10-10T13:59:32Z",
+  "finished_at": "2026-10-10T13:59:33Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:whos-raphiiel:tech-nique",
+      "source_id": "artists:soundcloud:whos-raphiiel",
+      "upstream_key": "tech-nique",
+      "page_url": "https://soundcloud.com/whos-raphiiel/tech-nique",
+      "file_url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+      "title": "Tech-Nique 【F/C LiNKED EMOTiONS】",
+      "role": "song_art",
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/whos-raphiiel/tech-nique"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2021-06-12T14:50:26Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: illustration identity versus the in-game jacket not verified (may be the LiNKARYZE compilation art)",
+      "song_titles": [
+        "Tech-Nique"
+      ],
+      "notes": "Credit: 'Illustration : MayMiyuriAe' (instagram maymiyuriae12)."
+    }
+  ],
+  "errors": []
+}

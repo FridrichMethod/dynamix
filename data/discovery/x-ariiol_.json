@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:ariiol_",
+  "started_at": "2026-10-10T13:59:37Z",
+  "finished_at": "2026-10-10T13:59:37Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:ariiol_:1879155241788293570:1",
+      "source_id": "artists:x:ariiol_",
+      "upstream_key": "1879155241788293570:1",
+      "page_url": "https://x.com/ariiol_/status/1879155241788293570",
+      "file_url": "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig",
+      "title": "@ariiol_ post 1879155241788293570 image 1",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/ariiol_/status/1879155241788293570",
+        "text: Made the cover for Yunosuke",
+        "quoted_tweet.text: Cosmic Pulse",
+        "quoted_tweet.text: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1152,
+        "sha1": null,
+        "timestamp": "2025-01-14T13:14:57.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:ariiol_:699372e654a03b9c",
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "illustrators": [
+        "ariiol"
+      ],
+      "composers": [
+        "Yunosuke"
+      ]
+    }
+  ],
+  "errors": []
+}

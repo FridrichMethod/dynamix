@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:760598",
+  "started_at": "2026-10-10T13:58:00Z",
+  "finished_at": "2026-10-10T13:58:03Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:760598:62913946:p0",
+      "source_id": "artists:pixiv:760598",
+      "upstream_key": "62913946:p0",
+      "page_url": "https://www.pixiv.net/artworks/62913946",
+      "file_url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "title": "【Dynamix】Bluebell (p0)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/62913946",
+        "caption: My work for Dynamix song",
+        "title: Bluebell"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-05-15T08:01:00+00:00",
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "song_titles": [
+        "Bluebell"
+      ],
+      "illustrators": [
+        "キカンシャ"
+      ],
+      "composers": [
+        "5argon"
+      ]
+    },
+    {
+      "id": "artists:pixiv:760598:75762797:p0",
+      "source_id": "artists:pixiv:760598",
+      "upstream_key": "75762797:p0",
+      "page_url": "https://www.pixiv.net/artworks/75762797",
+      "file_url": "https://i.pximg.net/img-original/img/2019/07/17/00/03/14/75762797_p0.png",
+      "title": "Levitation ~Sky Island Festival~ (p0)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/75762797"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2019/07/17/00/03/14/75762797_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-07-16T15:03:00+00:00",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "rejected_submission: artist marks it as an unused image for Dynamix Submission 2019",
+      "notes": "Submission artwork that did not enter the game."
+    }
+  ],
+  "errors": []
+}

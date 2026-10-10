@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:bilibili:ariiol",
+  "started_at": "2026-10-10T13:57:48Z",
+  "finished_at": "2026-10-10T13:57:48Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail",
+    "notes": "Explicit seed opus IDs via Bilibili's public web API; no space listing or search is crawled."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:bilibili:ariiol:1022295438715256855",
+      "source_id": "artists:bilibili:ariiol",
+      "upstream_key": "1022295438715256855",
+      "page_url": "https://www.bilibili.com/opus/1022295438715256855",
+      "file_url": null,
+      "title": "Bilibili opus 1022295438715256855",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "challenge: Bilibili risk control (code -352) for an anonymous client (HTTP 200); manual access required, not retried"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:aboutlogic",
+  "started_at": "2026-10-10T13:58:09Z",
+  "finished_at": "2026-10-10T13:58:11Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:aboutlogic:the-clockwork-doll",
+      "source_id": "artists:soundcloud:aboutlogic",
+      "upstream_key": "the-clockwork-doll",
+      "page_url": "https://soundcloud.com/aboutlogic/the-clockwork-doll",
+      "file_url": "https://i1.sndcdn.com/artworks-000227518171-s44v6w-original.jpg",
+      "title": "[dynamix]The Clockwork Doll[Free DL]",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/aboutlogic/the-clockwork-doll",
+        "sc.title: dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000227518171-s44v6w-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-06-05T11:02:10Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:aboutlogic:f64bbf7f735485a7",
+      "song_titles": [
+        "The Clockwork Doll"
+      ],
+      "illustrators": [
+        "ケシｋｓくん"
+      ],
+      "composers": [
+        "aboutlogic"
+      ]
+    }
+  ],
+  "errors": []
+}

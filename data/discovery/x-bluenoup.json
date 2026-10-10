@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:bluenoup",
+  "started_at": "2026-10-10T13:59:37Z",
+  "finished_at": "2026-10-10T13:59:39Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:bluenoup:1818291230188650733",
+      "source_id": "artists:x:bluenoup",
+      "upstream_key": "1818291230188650733",
+      "page_url": "https://x.com/BLUEnoup/status/1818291230188650733",
+      "file_url": null,
+      "title": "@BLUEnoup post 1818291230188650733",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Composer credit evidence: illustrator 黒鉛 (@hyou_haku) for scualee."
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,2516 @@
+{
+  "schema_version": 1,
+  "family": "archives",
+  "fetched_at": "2026-10-10T13:56:30Z",
+  "sources": [
+    {
+      "id": "archives:4gamer",
+      "name": "4Gamer.net Dynamix screenshot gallery",
+      "family": "archives",
+      "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "platform": "web",
+      "status": "available",
+      "checked_at": "2026-10-10T13:53:49Z",
+      "notes": "Historical press screenshots (2015-06-18); not jacket masters.",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 5,
+      "asset_count": 5,
+      "failure_count": 0,
+      "evidence_level": "page_read"
+    },
+    {
+      "id": "archives:archive-leads",
+      "name": "Historical/secondary research leads without an acquirable file",
+      "family": "archives",
+      "url": "https://web.archive.org/",
+      "platform": "registry",
+      "status": "manual_access",
+      "checked_at": "2026-10-10T13:53:49Z",
+      "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 22,
+      "asset_count": 0,
+      "failure_count": 0,
+      "evidence_level": "search_index"
+    },
+    {
+      "id": "archives:hkstp",
+      "name": "HKSTP press release 2016-08-09",
+      "family": "archives",
+      "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+      "platform": "web",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T13:53:49Z",
+      "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
+      "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 4,
+      "asset_count": 0,
+      "failure_count": 1,
+      "evidence_level": "page_read"
+    },
+    {
+      "id": "archives:wayback",
+      "name": "Internet Archive Wayback Machine (CDX)",
+      "family": "archives",
+      "url": "https://web.archive.org/",
+      "platform": "wayback",
+      "status": "partially_available",
+      "checked_at": "2026-10-10T13:53:52Z",
+      "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
+      "api_url": "https://web.archive.org/cdx/search/cdx",
+      "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
+      "discovery_complete": true,
+      "candidate_count": 73,
+      "asset_count": 28,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    }
+  ],
+  "assets": [
+    {
+      "id": "archives:4gamer:05da0cb8631abce2",
+      "source_id": "archives:4gamer",
+      "candidate_id": "archives:4gamer:games/306/G030626/SS/004.jpg",
+      "title": "004.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "download_url": "https://www.4gamer.net/games/306/G030626/SS/004.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/SS/004.jpg",
+      "path": "assets/public/archives/4gamer/004--05da0cb8631a.jpg",
+      "original_filename": "004.jpg",
+      "bytes": 41042,
+      "sha256": "05da0cb8631abce2573cf2a474112b59c44601f01654ebf25daf4989431d9723",
+      "sha1": "2c6a58286b39198d074123fab54addf9afb61d69",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 640,
+      "height": 360,
+      "fetched_at": "2026-10-10T13:47:31Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press gallery copy of developer-supplied screenshots."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+        "license": null,
+        "restrictions": "Press screenshot hosted by 4Gamer.net"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 41042,
+        "width": 640,
+        "height": 360,
+        "sha1": "2c6a58286b39198d074123fab54addf9afb61d69",
+        "sha256": "05da0cb8631abce2573cf2a474112b59c44601f01654ebf25daf4989431d9723"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
+      "id": "archives:4gamer:0ef37b2796696701",
+      "source_id": "archives:4gamer",
+      "candidate_id": "archives:4gamer:games/306/G030626/SS/002.jpg",
+      "title": "002.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "download_url": "https://www.4gamer.net/games/306/G030626/SS/002.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/SS/002.jpg",
+      "path": "assets/public/archives/4gamer/002--0ef37b279669.jpg",
+      "original_filename": "002.jpg",
+      "bytes": 101768,
+      "sha256": "0ef37b279669670132308e7e0b8c4fd4c878355945ebfd65a27434c000e1bd41",
+      "sha1": "b5eb9a687271690dfbe2d18f946730c46af4572f",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 640,
+      "height": 360,
+      "fetched_at": "2026-10-10T13:47:28Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press gallery copy of developer-supplied screenshots."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+        "license": null,
+        "restrictions": "Press screenshot hosted by 4Gamer.net"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/002.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 101768,
+        "width": 640,
+        "height": 360,
+        "sha1": "b5eb9a687271690dfbe2d18f946730c46af4572f",
+        "sha256": "0ef37b279669670132308e7e0b8c4fd4c878355945ebfd65a27434c000e1bd41"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
+      "id": "archives:4gamer:7121886afb701466",
+      "source_id": "archives:4gamer",
+      "candidate_id": "archives:4gamer:games/306/G030626/SS/005.jpg",
+      "title": "005.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "download_url": "https://www.4gamer.net/games/306/G030626/SS/005.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/SS/005.jpg",
+      "path": "assets/public/archives/4gamer/005--7121886afb70.jpg",
+      "original_filename": "005.jpg",
+      "bytes": 81025,
+      "sha256": "7121886afb701466f60144f887856d9445e7cfd3d8875a533a33a513c11a07d1",
+      "sha1": "a7aee14f973bf6dee3f7e05ea44d2079ca976c28",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 640,
+      "height": 360,
+      "fetched_at": "2026-10-10T13:47:32Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press gallery copy of developer-supplied screenshots."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+        "license": null,
+        "restrictions": "Press screenshot hosted by 4Gamer.net"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 81025,
+        "width": 640,
+        "height": 360,
+        "sha1": "a7aee14f973bf6dee3f7e05ea44d2079ca976c28",
+        "sha256": "7121886afb701466f60144f887856d9445e7cfd3d8875a533a33a513c11a07d1"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
+      "id": "archives:4gamer:94ffd3b171e23bc6",
+      "source_id": "archives:4gamer",
+      "candidate_id": "archives:4gamer:games/306/G030626/SS/001.jpg",
+      "title": "001.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "download_url": "https://www.4gamer.net/games/306/G030626/SS/001.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/SS/001.jpg",
+      "path": "assets/public/archives/4gamer/001--94ffd3b171e2.jpg",
+      "original_filename": "001.jpg",
+      "bytes": 105315,
+      "sha256": "94ffd3b171e23bc6d9edb7f47911f6114d42eb6fe7818259b5ee56baf96d5ef8",
+      "sha1": "61cc30ee44cee9606405a65d49a0c63a25d0120f",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 640,
+      "height": 360,
+      "fetched_at": "2026-10-10T13:47:27Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press gallery copy of developer-supplied screenshots."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+        "license": null,
+        "restrictions": "Press screenshot hosted by 4Gamer.net"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/001.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 105315,
+        "width": 640,
+        "height": 360,
+        "sha1": "61cc30ee44cee9606405a65d49a0c63a25d0120f",
+        "sha256": "94ffd3b171e23bc6d9edb7f47911f6114d42eb6fe7818259b5ee56baf96d5ef8"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
+      "id": "archives:4gamer:c471bc8e18acaf6d",
+      "source_id": "archives:4gamer",
+      "candidate_id": "archives:4gamer:games/306/G030626/SS/003.jpg",
+      "title": "003.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "download_url": "https://www.4gamer.net/games/306/G030626/SS/003.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/SS/003.jpg",
+      "path": "assets/public/archives/4gamer/003--c471bc8e18ac.jpg",
+      "original_filename": "003.jpg",
+      "bytes": 108783,
+      "sha256": "c471bc8e18acaf6d2d553f1bb36e71551902f9ec0099179fd40b4a7b26fd4097",
+      "sha1": "0d9423b8baae7ac12a45c3034b2428635c5c9b17",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 640,
+      "height": 360,
+      "fetched_at": "2026-10-10T13:47:30Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press gallery copy of developer-supplied screenshots."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+        "license": null,
+        "restrictions": "Press screenshot hosted by 4Gamer.net"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 108783,
+        "width": 640,
+        "height": 360,
+        "sha1": "0d9423b8baae7ac12a45c3034b2428635c5c9b17",
+        "sha256": "c471bc8e18acaf6d2d553f1bb36e71551902f9ec0099179fd40b4a7b26fd4097"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
+      "id": "archives:wayback:12e4d8c39092a447",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg@20221216231408",
+      "title": "92594600_p2.jpg (archived 20221216)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221216231408/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "download_url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "resolved_url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "path": "assets/public/archives/wayback/92594600_p2--12e4d8c39092.jpg",
+      "original_filename": "92594600_p2.jpg",
+      "bytes": 2215933,
+      "sha256": "12e4d8c39092a447ab1f28de8e9a57a5f3ad56aa3801e7c906d12c8080a10a3a",
+      "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2240,
+      "height": 1581,
+      "fetched_at": "2026-10-10T13:56:25Z",
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "composers": [],
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "song_ids": [
+        "song:massacre-3rc4224m"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "primary_post",
+          "quote": "For Dynamix x RAVON collaboration event"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221216231408/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
+        "timestamp": "2022-12-16T23:14:08Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 2215933,
+        "width": 2240,
+        "height": 1581,
+        "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
+        "sha256": "12e4d8c39092a447ab1f28de8e9a57a5f3ad56aa3801e7c906d12c8080a10a3a"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "variant_group": "massacre-3rc4224m-sand-suna",
+      "variant_role": "page 3 of 3 (original composition)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014).",
+      "upstream_revision": "20221216231408"
+    },
+    {
+      "id": "archives:wayback:1e5222ccfcdc7d0c",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap2.png@20150412125452",
+      "title": "cap2.png (archived 20150412)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20150412125452/http://dynamix.c4-cat.com/img/cap2.png",
+      "download_url": "https://web.archive.org/web/20150412125452id_/http://dynamix.c4-cat.com/img/cap2.png",
+      "resolved_url": "https://web.archive.org/web/20150412125452id_/http://dynamix.c4-cat.com/img/cap2.png",
+      "path": "assets/public/archives/wayback/cap2--1e5222ccfcdc.png",
+      "original_filename": "cap2.png",
+      "bytes": 868228,
+      "sha256": "1e5222ccfcdc7d0c180aa4e22e37d77e7d5a3ba5cb4561cd89732775ecdfe012",
+      "sha1": "ca4db3f498a317a779902ad636a5f6cccd4ef876",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1280,
+      "height": 720,
+      "fetched_at": "2026-10-10T13:50:32Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20150412125452/http://dynamix.c4-cat.com/img/cap2.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "ca4db3f498a317a779902ad636a5f6cccd4ef876",
+        "timestamp": "2015-04-12T12:54:52Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 868228,
+        "width": 1280,
+        "height": 720,
+        "sha1": "ca4db3f498a317a779902ad636a5f6cccd4ef876",
+        "sha256": "1e5222ccfcdc7d0c180aa4e22e37d77e7d5a3ba5cb4561cd89732775ecdfe012"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20150412125452 of http://dynamix.c4-cat.com/img/cap2.png (CDX mimetype image/png, status 200, WARC record length 868707).",
+      "upstream_revision": "20150412125452"
+    },
+    {
+      "id": "archives:wayback:225baa3735776aff",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap4.png@20150412125308",
+      "title": "cap4.png (archived 20150412)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20150412125308/http://dynamix.c4-cat.com/img/cap4.png",
+      "download_url": "https://web.archive.org/web/20150412125308id_/http://dynamix.c4-cat.com/img/cap4.png",
+      "resolved_url": "https://web.archive.org/web/20150412125308id_/http://dynamix.c4-cat.com/img/cap4.png",
+      "path": "assets/public/archives/wayback/cap4--225baa373577.png",
+      "original_filename": "cap4.png",
+      "bytes": 989117,
+      "sha256": "225baa3735776aff0278318729575bd300c2c17d356364c20285fd3560c49042",
+      "sha1": "e88292a0148d5c7caa0eab2f23ab59d240546de3",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1280,
+      "height": 720,
+      "fetched_at": "2026-10-10T13:50:39Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20150412125308/http://dynamix.c4-cat.com/img/cap4.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap4.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "e88292a0148d5c7caa0eab2f23ab59d240546de3",
+        "timestamp": "2015-04-12T12:53:08Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 989117,
+        "width": 1280,
+        "height": 720,
+        "sha1": "e88292a0148d5c7caa0eab2f23ab59d240546de3",
+        "sha256": "225baa3735776aff0278318729575bd300c2c17d356364c20285fd3560c49042"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20150412125308 of http://dynamix.c4-cat.com/img/cap4.png (CDX mimetype image/png, status 200, WARC record length 990078).",
+      "upstream_revision": "20150412125308"
+    },
+    {
+      "id": "archives:wayback:2c8339f2a3f1310d",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap6.png@20150412124335",
+      "title": "cap6.png (archived 20150412)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20150412124335/http://dynamix.c4-cat.com/img/cap6.png",
+      "download_url": "https://web.archive.org/web/20150412124335id_/http://dynamix.c4-cat.com/img/cap6.png",
+      "resolved_url": "https://web.archive.org/web/20150412124335id_/http://dynamix.c4-cat.com/img/cap6.png",
+      "path": "assets/public/archives/wayback/cap6--2c8339f2a3f1.png",
+      "original_filename": "cap6.png",
+      "bytes": 515138,
+      "sha256": "2c8339f2a3f1310d501d89ec44af229e524523aeffedb30a4f8dd2c44e0ac07c",
+      "sha1": "752a5ed4327dafc067f18cbb02beaf21d1de1e23",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1280,
+      "height": 720,
+      "fetched_at": "2026-10-10T13:50:46Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20150412124335/http://dynamix.c4-cat.com/img/cap6.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap6.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "752a5ed4327dafc067f18cbb02beaf21d1de1e23",
+        "timestamp": "2015-04-12T12:43:35Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 515138,
+        "width": 1280,
+        "height": 720,
+        "sha1": "752a5ed4327dafc067f18cbb02beaf21d1de1e23",
+        "sha256": "2c8339f2a3f1310d501d89ec44af229e524523aeffedb30a4f8dd2c44e0ac07c"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20150412124335 of http://dynamix.c4-cat.com/img/cap6.png (CDX mimetype image/png, status 200, WARC record length 513310).",
+      "upstream_revision": "20150412124335"
+    },
+    {
+      "id": "archives:wayback:2e1d86734926b2fc",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
+      "title": "TE1.jpg (archived 20160516)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160516183525/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+      "download_url": "https://web.archive.org/web/20160516183525id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+      "resolved_url": "https://web.archive.org/web/20160516183525id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+      "path": "assets/public/archives/wayback/TE1--2e1d86734926.jpg",
+      "original_filename": "TE1.jpg",
+      "bytes": 171993,
+      "sha256": "2e1d86734926b2fcbfa6f432489c9b94eea92a07635e5fd1ab83d43dce34acde",
+      "sha1": "1baca8df1a07ec76dec7a1523ba04c423d17b437",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-10T13:51:12Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160516183525/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "1baca8df1a07ec76dec7a1523ba04c423d17b437",
+        "timestamp": "2016-05-16T18:35:25Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 171993,
+        "width": 600,
+        "height": 338,
+        "sha1": "1baca8df1a07ec76dec7a1523ba04c423d17b437",
+        "sha256": "2e1d86734926b2fcbfa6f432489c9b94eea92a07635e5fd1ab83d43dce34acde"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160516183525 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 162306).",
+      "upstream_revision": "20160516183525"
+    },
+    {
+      "id": "archives:wayback:362aac10e49bef63",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg@20221216231357",
+      "title": "92594600_p0.jpg (archived 20221216)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221216231357/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "download_url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "resolved_url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "path": "assets/public/archives/wayback/92594600_p0--362aac10e49b.jpg",
+      "original_filename": "92594600_p0.jpg",
+      "bytes": 6584643,
+      "sha256": "362aac10e49bef636c340a23c4e90874093698259011a376a06cd6d5e4562d8d",
+      "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 2560,
+      "height": 2560,
+      "fetched_at": "2026-10-10T13:56:13Z",
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "composers": [],
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "song_ids": [
+        "song:massacre-3rc4224m"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "primary_post",
+          "quote": "For Dynamix x RAVON collaboration event"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221216231357/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
+        "timestamp": "2022-12-16T23:13:57Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 6584643,
+        "width": 2560,
+        "height": 2560,
+        "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
+        "sha256": "362aac10e49bef636c340a23c4e90874093698259011a376a06cd6d5e4562d8d"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "variant_group": "massacre-3rc4224m-sand-suna",
+      "variant_role": "page 1 of 3 (square composition)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Wayback capture 20221216231357 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 6586774).",
+      "upstream_revision": "20221216231357"
+    },
+    {
+      "id": "archives:wayback:3ced66daba373e35",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg@20160517010305",
+      "title": "TC2.jpg (archived 20160517)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160517010305/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+      "download_url": "https://web.archive.org/web/20160517010305id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+      "resolved_url": "https://web.archive.org/web/20160517010305id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+      "path": "assets/public/archives/wayback/TC2--3ced66daba37.jpg",
+      "original_filename": "TC2.jpg",
+      "bytes": 147013,
+      "sha256": "3ced66daba373e35781236986aee7de2ed04089043125026c4a428204ebec902",
+      "sha1": "dbd7db5d2982d3c606fc00c53f7b2ee33f2dfb35",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 500,
+      "height": 281,
+      "fetched_at": "2026-10-10T13:50:59Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160517010305/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "dbd7db5d2982d3c606fc00c53f7b2ee33f2dfb35",
+        "timestamp": "2016-05-17T01:03:05Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 147013,
+        "width": 500,
+        "height": 281,
+        "sha1": "dbd7db5d2982d3c606fc00c53f7b2ee33f2dfb35",
+        "sha256": "3ced66daba373e35781236986aee7de2ed04089043125026c4a428204ebec902"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160517010305 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 130896).",
+      "upstream_revision": "20160517010305"
+    },
+    {
+      "id": "archives:wayback:3edb471466420017",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg@20160517032810",
+      "title": "TC4.jpg (archived 20160517)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160517032810/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+      "download_url": "https://web.archive.org/web/20160517032810id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+      "resolved_url": "https://web.archive.org/web/20160517032810id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+      "path": "assets/public/archives/wayback/TC4--3edb47146642.jpg",
+      "original_filename": "TC4.jpg",
+      "bytes": 113241,
+      "sha256": "3edb4714664200179c26477efb4d51c9c4accc407c40276ececf9fcdd027b650",
+      "sha1": "2aa2a1e34e9b985a6843238cdd3b7389f057c29f",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 500,
+      "height": 281,
+      "fetched_at": "2026-10-10T13:51:09Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160517032810/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "2aa2a1e34e9b985a6843238cdd3b7389f057c29f",
+        "timestamp": "2016-05-17T03:28:10Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 113241,
+        "width": 500,
+        "height": 281,
+        "sha1": "2aa2a1e34e9b985a6843238cdd3b7389f057c29f",
+        "sha256": "3edb4714664200179c26477efb4d51c9c4accc407c40276ececf9fcdd027b650"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160517032810 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 102975).",
+      "upstream_revision": "20160517032810"
+    },
+    {
+      "id": "archives:wayback:42704074a74a6ea4",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg@20160517065421",
+      "title": "TC3.jpg (archived 20160517)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160517065421/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+      "download_url": "https://web.archive.org/web/20160517065421id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+      "resolved_url": "https://web.archive.org/web/20160517065421id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+      "path": "assets/public/archives/wayback/TC3--42704074a74a.jpg",
+      "original_filename": "TC3.jpg",
+      "bytes": 123690,
+      "sha256": "42704074a74a6ea427098b7d61613bb2e40575305ab98bb4128d4e5305dfd4a8",
+      "sha1": "9f112428a470e0c0902df21fbfe70aa847c76199",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 500,
+      "height": 281,
+      "fetched_at": "2026-10-10T13:51:02Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160517065421/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "9f112428a470e0c0902df21fbfe70aa847c76199",
+        "timestamp": "2016-05-17T06:54:21Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 123690,
+        "width": 500,
+        "height": 281,
+        "sha1": "9f112428a470e0c0902df21fbfe70aa847c76199",
+        "sha256": "42704074a74a6ea427098b7d61613bb2e40575305ab98bb4128d4e5305dfd4a8"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160517065421 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113877).",
+      "upstream_revision": "20160517065421"
+    },
+    {
+      "id": "archives:wayback:434752b49a6d8fd0",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png@20221214210149",
+      "title": "86481781_p0.png (archived 20221214)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221214210149/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "download_url": "https://web.archive.org/web/20221214210149id_/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221214210149id_/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "path": "assets/public/archives/wayback/86481781_p0--434752b49a6d.png",
+      "original_filename": "86481781_p0.png",
+      "bytes": 866381,
+      "sha256": "434752b49a6d8fd06885f458f8f0243cac010ea60d14a7f18bed94114bc73556",
+      "sha1": "09d7ec4dbb2a97aedf89db2ff0bca1a94732fa16",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1024,
+      "fetched_at": "2026-10-10T13:56:04Z",
+      "illustrators": [
+        "LESYEF"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Totally bounded"
+      ],
+      "song_ids": [
+        "song:totally-bounded"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/86481781",
+          "field": "primary_post",
+          "quote": "totally bounded"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221214210149/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "09d7ec4dbb2a97aedf89db2ff0bca1a94732fa16",
+        "timestamp": "2022-12-14T21:01:49Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 866381,
+        "width": 1024,
+        "height": 1024,
+        "sha1": "09d7ec4dbb2a97aedf89db2ff0bca1a94732fa16",
+        "sha256": "434752b49a6d8fd06885f458f8f0243cac010ea60d14a7f18bed94114bc73556"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "variant_group": "jacket:totally-bounded",
+      "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Wayback capture 20221214210149 of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png (CDX mimetype image/png, status 200, WARC record length 867425).",
+      "upstream_revision": "20221214210149"
+    },
+    {
+      "id": "archives:wayback:4aa44c969862bdf2",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png@20221216052519",
+      "title": "77296864_p0.png (archived 20221216)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221216052519/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "download_url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "path": "assets/public/archives/wayback/77296864_p0--4aa44c969862.png",
+      "original_filename": "77296864_p0.png",
+      "bytes": 5176658,
+      "sha256": "4aa44c969862bdf2759b8c390081aea534a8b25fb72ced8bb5e9444dc80d6e45",
+      "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 2361,
+      "height": 1513,
+      "fetched_at": "2026-10-10T13:55:54Z",
+      "illustrators": [
+        "Xomu"
+      ],
+      "composers": [
+        "Xomu",
+        "Wisp X"
+      ],
+      "song_titles": [
+        "Lumina"
+      ],
+      "song_ids": [
+        "song:lumina"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/77296864",
+          "field": "primary_post",
+          "quote": "Lumina"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221216052519/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
+        "timestamp": "2022-12-16T05:25:19Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 5176658,
+        "width": 2361,
+        "height": 1513,
+        "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
+        "sha256": "4aa44c969862bdf2759b8c390081aea534a8b25fb72ced8bb5e9444dc80d6e45"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "variant_group": "jacket:lumina",
+      "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop",
+      "upstream_status": "current",
+      "notes": "Wayback capture 20221216052519 of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png (CDX mimetype image/png, status 200, WARC record length 5177803).",
+      "upstream_revision": "20221216052519"
+    },
+    {
+      "id": "archives:wayback:4f5486440b9711c4",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg@20221216231405",
+      "title": "92594600_p1.jpg (archived 20221216)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221216231405/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "download_url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "resolved_url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "path": "assets/public/archives/wayback/92594600_p1--4f5486440b97.jpg",
+      "original_filename": "92594600_p1.jpg",
+      "bytes": 2153078,
+      "sha256": "4f5486440b9711c419e2711f9649db79a301e8272bfc99bbeb408355a0c48493",
+      "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T13:56:19Z",
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "composers": [],
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "song_ids": [
+        "song:massacre-3rc4224m"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "primary_post",
+          "quote": "For Dynamix x RAVON collaboration event"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221216231405/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
+        "timestamp": "2022-12-16T23:14:05Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 2153078,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
+        "sha256": "4f5486440b9711c419e2711f9649db79a301e8272bfc99bbeb408355a0c48493"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "variant_group": "massacre-3rc4224m-sand-suna",
+      "variant_role": "page 2 of 3 (16:9 in-game composition)",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "ravon"
+      ],
+      "notes": "Wayback capture 20221216231405 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2154513).",
+      "upstream_revision": "20221216231405"
+    },
+    {
+      "id": "archives:wayback:5dfc34aabbe587b5",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap1.png@20150412124448",
+      "title": "cap1.png (archived 20150412)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20150412124448/http://dynamix.c4-cat.com/img/cap1.png",
+      "download_url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
+      "resolved_url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
+      "path": "assets/public/archives/wayback/cap1--5dfc34aabbe5.png",
+      "original_filename": "cap1.png",
+      "bytes": 1159313,
+      "sha256": "5dfc34aabbe587b574fc06b7c01bdf7adb59df446a92ac65bb8294c6a78d2774",
+      "sha1": "0606eeea6aca1b51e512513175edfd10b7b19d2f",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1280,
+      "height": 720,
+      "fetched_at": "2026-10-10T13:50:28Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20150412124448/http://dynamix.c4-cat.com/img/cap1.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap1.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "0606eeea6aca1b51e512513175edfd10b7b19d2f",
+        "timestamp": "2015-04-12T12:44:48Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 1159313,
+        "width": 1280,
+        "height": 720,
+        "sha1": "0606eeea6aca1b51e512513175edfd10b7b19d2f",
+        "sha256": "5dfc34aabbe587b574fc06b7c01bdf7adb59df446a92ac65bb8294c6a78d2774"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20150412124448 of http://dynamix.c4-cat.com/img/cap1.png (CDX mimetype image/png, status 200, WARC record length 1160031).",
+      "upstream_revision": "20150412124448"
+    },
+    {
+      "id": "archives:wayback:653c79a6460b8316",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png@20221221064601",
+      "title": "61859342_p0.png (archived 20221221)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221221064601/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+      "download_url": "https://web.archive.org/web/20221221064601id_/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221221064601id_/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+      "path": "assets/public/archives/wayback/61859342_p0--653c79a6460b.png",
+      "original_filename": "61859342_p0.png",
+      "bytes": 605062,
+      "sha256": "653c79a6460b8316a4fe3cc543496b956ec9557195ca11aacfd2a8974f9b6bd9",
+      "sha1": "3f9900e2e6b786508145e6409244bb06ae6995e0",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 900,
+      "height": 506,
+      "fetched_at": "2026-10-10T13:51:39Z",
+      "illustrators": [
+        "Shionty"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Evoltex (poppi'n mix)"
+      ],
+      "song_ids": [
+        "song:evoltex-poppi-n-mix"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/61859342",
+          "field": "primary_post",
+          "quote": "Evoltex"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221221064601/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "3f9900e2e6b786508145e6409244bb06ae6995e0",
+        "timestamp": "2022-12-21T06:46:01Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 605062,
+        "width": 900,
+        "height": 506,
+        "sha1": "3f9900e2e6b786508145e6409244bb06ae6995e0",
+        "sha256": "653c79a6460b8316a4fe3cc543496b956ec9557195ca11aacfd2a8974f9b6bd9"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100).",
+      "upstream_revision": "20221221064601"
+    },
+    {
+      "id": "archives:wayback:6e922fcfc86be714",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
+      "title": "appendix3.pdf (archived 20240403)",
+      "kind": "reference",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20240403110020/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+      "download_url": "https://web.archive.org/web/20240403110020id_/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+      "resolved_url": "https://web.archive.org/web/20240403110020id_/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+      "path": "assets/public/archives/wayback/appendix3--6e922fcfc86b.pdf",
+      "original_filename": "appendix3.pdf",
+      "bytes": 356624,
+      "sha256": "6e922fcfc86be71493590db3ccbd75e92edb5491eff0b9af53eac884c20f80b5",
+      "sha1": "f2b74ace46f9ebe658e7ec09b3a26095fce01847",
+      "format": "PDF",
+      "mime": "application/pdf",
+      "width": null,
+      "height": null,
+      "fetched_at": "2026-10-10T13:56:30Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "unknown",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture of the HKSTP appendix PDF."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20240403110020/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+        "mime": "application/pdf",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "f2b74ace46f9ebe658e7ec09b3a26095fce01847",
+        "timestamp": "2024-04-03T11:00:20Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "application/pdf",
+        "sniffed_format": "PDF",
+        "bytes": 356624,
+        "width": null,
+        "height": null,
+        "sha1": "f2b74ace46f9ebe658e7ec09b3a26095fce01847",
+        "sha256": "6e922fcfc86be71493590db3ccbd75e92edb5491eff0b9af53eac884c20f80b5"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20240403110020 of https://www.hkstp.org/media/blqg5pwq/appendix3.pdf (CDX mimetype application/pdf, status 200, WARC record length 326425).",
+      "upstream_revision": "20240403110020"
+    },
+    {
+      "id": "archives:wayback:73d278d124f29ed8",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg@20221220121848",
+      "title": "91845485_p0.jpg (archived 20221220)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221220121848/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "download_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "resolved_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "path": "assets/public/archives/wayback/91845485_p0--73d278d124f2.jpg",
+      "original_filename": "91845485_p0.jpg",
+      "bytes": 1087386,
+      "sha256": "73d278d124f29ed843952d12c36005825cd24adcbb062b717026355c82ca2616",
+      "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1000,
+      "height": 1000,
+      "fetched_at": "2026-10-10T13:56:09Z",
+      "illustrators": [
+        "アサヤ"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Party Vinyl"
+      ],
+      "song_ids": [
+        "song:party-vinyl"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/91845485",
+          "field": "primary_post",
+          "quote": "Party Vinyl"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221220121848/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+        "timestamp": "2022-12-20T12:18:48Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 1087386,
+        "width": 1000,
+        "height": 1000,
+        "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+        "sha256": "73d278d124f29ed843952d12c36005825cd24adcbb062b717026355c82ca2616"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "variant_group": "jacket:party-vinyl",
+      "variant_role": "square variant posted for the Arcaea release",
+      "upstream_status": "current",
+      "game_associations": [
+        "dynamix",
+        "arcaea"
+      ],
+      "notes": "Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443).",
+      "upstream_revision": "20221220121848"
+    },
+    {
+      "id": "archives:wayback:9040ed5440e36fce",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
+      "title": "CP03-700x365.png (archived 20190925)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20190925101806/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+      "download_url": "https://web.archive.org/web/20190925101806id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+      "resolved_url": "https://web.archive.org/web/20190925101806id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+      "path": "assets/public/archives/wayback/CP03-700x365--9040ed5440e3.png",
+      "original_filename": "CP03-700x365.png",
+      "bytes": 391432,
+      "sha256": "9040ed5440e36fcea05c12819a31250d377b6b979d55f0eece56646d8f0e94ee",
+      "sha1": "4f148e32382c037c6b6cf1f4f8320f0801237349",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 700,
+      "height": 365,
+      "fetched_at": "2026-10-10T13:51:31Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20190925101806/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "4f148e32382c037c6b6cf1f4f8320f0801237349",
+        "timestamp": "2019-09-25T10:18:06Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 391432,
+        "width": 700,
+        "height": 365,
+        "sha1": "4f148e32382c037c6b6cf1f4f8320f0801237349",
+        "sha256": "9040ed5440e36fcea05c12819a31250d377b6b979d55f0eece56646d8f0e94ee"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20190925101806 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png (CDX mimetype image/png, status 200, WARC record length 392022).",
+      "upstream_revision": "20190925101806"
+    },
+    {
+      "id": "archives:wayback:919f9ba3e02695e9",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap5.png@20150630034232",
+      "title": "cap5.png (archived 20150630)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20150630034232/http://dynamix.c4-cat.com/img/cap5.png",
+      "download_url": "https://web.archive.org/web/20150630034232id_/http://dynamix.c4-cat.com/img/cap5.png",
+      "resolved_url": "https://web.archive.org/web/20150630034232id_/http://dynamix.c4-cat.com/img/cap5.png",
+      "path": "assets/public/archives/wayback/cap5--919f9ba3e026.png",
+      "original_filename": "cap5.png",
+      "bytes": 921007,
+      "sha256": "919f9ba3e02695e9dc1d5da34c625a161c877b9d2f9ee11048adfce4afce90ea",
+      "sha1": "45e340811e646600b7781e843c59d8dc3df4fe5b",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1280,
+      "height": 720,
+      "fetched_at": "2026-10-10T13:50:42Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20150630034232/http://dynamix.c4-cat.com/img/cap5.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap5.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "45e340811e646600b7781e843c59d8dc3df4fe5b",
+        "timestamp": "2015-06-30T03:42:32Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 921007,
+        "width": 1280,
+        "height": 720,
+        "sha1": "45e340811e646600b7781e843c59d8dc3df4fe5b",
+        "sha256": "919f9ba3e02695e9dc1d5da34c625a161c877b9d2f9ee11048adfce4afce90ea"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20150630034232 of http://dynamix.c4-cat.com/img/cap5.png (CDX mimetype image/png, status 200, WARC record length 921781).",
+      "upstream_revision": "20150630034232"
+    },
+    {
+      "id": "archives:wayback:9afbfe33465a99ab",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg@20160926180754",
+      "title": "TE3.jpg (archived 20160926)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160926180754/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+      "download_url": "https://web.archive.org/web/20160926180754id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+      "resolved_url": "https://web.archive.org/web/20160926180754id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+      "path": "assets/public/archives/wayback/TE3--9afbfe33465a.jpg",
+      "original_filename": "TE3.jpg",
+      "bytes": 157116,
+      "sha256": "9afbfe33465a99ab3474d46909a81f57c14be563734232779139273dd8589584",
+      "sha1": "f0c8458b5e782c4a9e2b76591b839e00b80c8bd1",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-10T13:51:20Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160926180754/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "f0c8458b5e782c4a9e2b76591b839e00b80c8bd1",
+        "timestamp": "2016-09-26T18:07:54Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 157116,
+        "width": 600,
+        "height": 338,
+        "sha1": "f0c8458b5e782c4a9e2b76591b839e00b80c8bd1",
+        "sha256": "9afbfe33465a99ab3474d46909a81f57c14be563734232779139273dd8589584"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160926180754 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 146704).",
+      "upstream_revision": "20160926180754"
+    },
+    {
+      "id": "archives:wayback:a05e966293b8f4f7",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
+      "title": "new5-700x365.png (archived 20160517)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160517032816/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+      "download_url": "https://web.archive.org/web/20160517032816id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+      "resolved_url": "https://web.archive.org/web/20160517032816id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+      "path": "assets/public/archives/wayback/new5-700x365--a05e966293b8.png",
+      "original_filename": "new5-700x365.png",
+      "bytes": 248234,
+      "sha256": "a05e966293b8f4f7bc220c687bec7701db42d78685e0885a5b15610aa2ede21e",
+      "sha1": "e467f3bc40f5f9973f80fe3c7a39d0fcbdd3ccf9",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 700,
+      "height": 365,
+      "fetched_at": "2026-10-10T13:50:52Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160517032816/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "e467f3bc40f5f9973f80fe3c7a39d0fcbdd3ccf9",
+        "timestamp": "2016-05-17T03:28:16Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 248234,
+        "width": 700,
+        "height": 365,
+        "sha1": "e467f3bc40f5f9973f80fe3c7a39d0fcbdd3ccf9",
+        "sha256": "a05e966293b8f4f7bc220c687bec7701db42d78685e0885a5b15610aa2ede21e"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160517032816 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png (CDX mimetype image/png, status 200, WARC record length 248915).",
+      "upstream_revision": "20160517032816"
+    },
+    {
+      "id": "archives:wayback:aee0d9e59598d818",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg@20221220032003",
+      "title": "42973848_p0.jpg (archived 20221220)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221220032003/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "download_url": "https://web.archive.org/web/20221220032003id_/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "resolved_url": "https://web.archive.org/web/20221220032003id_/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "path": "assets/public/archives/wayback/42973848_p0--aee0d9e59598.jpg",
+      "original_filename": "42973848_p0.jpg",
+      "bytes": 1751691,
+      "sha256": "aee0d9e59598d8183412c97dfbfb88786b01be8544238518a1a0ac46138e34be",
+      "sha1": "99c82efaaaf50e7a4428a99dd5f83aae6a507731",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T13:51:35Z",
+      "illustrators": [
+        "AFZero"
+      ],
+      "composers": [],
+      "song_titles": [
+        "Aegis"
+      ],
+      "song_ids": [
+        "song:aegis"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/42973848",
+          "field": "primary_post",
+          "quote": "Aegis"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221220032003/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "99c82efaaaf50e7a4428a99dd5f83aae6a507731",
+        "timestamp": "2022-12-20T03:20:03Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 1751691,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "99c82efaaaf50e7a4428a99dd5f83aae6a507731",
+        "sha256": "aee0d9e59598d8183412c97dfbfb88786b01be8544238518a1a0ac46138e34be"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20221220032003 of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1753016).",
+      "upstream_revision": "20221220032003"
+    },
+    {
+      "id": "archives:wayback:ba6a7784212b094d",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png@20221216101704",
+      "title": "62913946_p0.png (archived 20221216)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221216101704/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "download_url": "https://web.archive.org/web/20221216101704id_/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221216101704id_/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "path": "assets/public/archives/wayback/62913946_p0--ba6a7784212b.png",
+      "original_filename": "62913946_p0.png",
+      "bytes": 2379537,
+      "sha256": "ba6a7784212b094df108da2f85370370087b46895db58bccd644a69687c45ceb",
+      "sha1": "eeef426f5c05ddd6e5080ee5bbce12af44ab1f77",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T13:51:43Z",
+      "illustrators": [
+        "キカンシャ"
+      ],
+      "composers": [
+        "5argon"
+      ],
+      "song_titles": [
+        "Bluebell"
+      ],
+      "song_ids": [
+        "song:bluebell"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/62913946",
+          "field": "primary_post",
+          "quote": "My work for Dynamix song"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221216101704/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "eeef426f5c05ddd6e5080ee5bbce12af44ab1f77",
+        "timestamp": "2022-12-16T10:17:04Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 2379537,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "eeef426f5c05ddd6e5080ee5bbce12af44ab1f77",
+        "sha256": "ba6a7784212b094df108da2f85370370087b46895db58bccd644a69687c45ceb"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20221216101704 of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png (CDX mimetype image/png, status 200, WARC record length 2380619).",
+      "upstream_revision": "20221216101704"
+    },
+    {
+      "id": "archives:wayback:bda4de01f423cc49",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap3.png@20150412125233",
+      "title": "cap3.png (archived 20150412)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20150412125233/http://dynamix.c4-cat.com/img/cap3.png",
+      "download_url": "https://web.archive.org/web/20150412125233id_/http://dynamix.c4-cat.com/img/cap3.png",
+      "resolved_url": "https://web.archive.org/web/20150412125233id_/http://dynamix.c4-cat.com/img/cap3.png",
+      "path": "assets/public/archives/wayback/cap3--bda4de01f423.png",
+      "original_filename": "cap3.png",
+      "bytes": 1327205,
+      "sha256": "bda4de01f423cc4959d313288970d2423d89365e938f4b6b983f85b8f8c70352",
+      "sha1": "edb994a7ad7c20f89fd0c9fbc88c2298dd1eb389",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1280,
+      "height": 720,
+      "fetched_at": "2026-10-10T13:50:35Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20150412125233/http://dynamix.c4-cat.com/img/cap3.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap3.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "edb994a7ad7c20f89fd0c9fbc88c2298dd1eb389",
+        "timestamp": "2015-04-12T12:52:33Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 1327205,
+        "width": 1280,
+        "height": 720,
+        "sha1": "edb994a7ad7c20f89fd0c9fbc88c2298dd1eb389",
+        "sha256": "bda4de01f423cc4959d313288970d2423d89365e938f4b6b983f85b8f8c70352"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20150412125233 of http://dynamix.c4-cat.com/img/cap3.png (CDX mimetype image/png, status 200, WARC record length 1328199).",
+      "upstream_revision": "20150412125233"
+    },
+    {
+      "id": "archives:wayback:da488040ca54cf9a",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg@20160516163207",
+      "title": "TE4.jpg (archived 20160516)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160516163207/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+      "download_url": "https://web.archive.org/web/20160516163207id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+      "resolved_url": "https://web.archive.org/web/20160516163207id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+      "path": "assets/public/archives/wayback/TE4--da488040ca54.jpg",
+      "original_filename": "TE4.jpg",
+      "bytes": 136933,
+      "sha256": "da488040ca54cf9a33185fecb569b912ea37ccac560ca8da42fb01362b64b9bb",
+      "sha1": "a54e6fbc1bd921368ece39751eec689d57733144",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-10T13:51:23Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160516163207/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a54e6fbc1bd921368ece39751eec689d57733144",
+        "timestamp": "2016-05-16T16:32:07Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 136933,
+        "width": 600,
+        "height": 338,
+        "sha1": "a54e6fbc1bd921368ece39751eec689d57733144",
+        "sha256": "da488040ca54cf9a33185fecb569b912ea37ccac560ca8da42fb01362b64b9bb"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160516163207 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 125822).",
+      "upstream_revision": "20160516163207"
+    },
+    {
+      "id": "archives:wayback:f145b4af336c3feb",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
+      "title": "Untitled-1-700x365.png (archived 20160729)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+      "download_url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+      "resolved_url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+      "path": "assets/public/archives/wayback/Untitled-1-700x365--f145b4af336c.png",
+      "original_filename": "Untitled-1-700x365.png",
+      "bytes": 382145,
+      "sha256": "f145b4af336c3febbe2ddc498853ef24a44e5a4a54ce76b287cb0877aef3e9d5",
+      "sha1": "a93199be0effd9fe29f0abe80efaa45ea0bbc0b4",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 700,
+      "height": 365,
+      "fetched_at": "2026-10-10T13:51:28Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a93199be0effd9fe29f0abe80efaa45ea0bbc0b4",
+        "timestamp": "2016-07-29T21:43:42Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 382145,
+        "width": 700,
+        "height": 365,
+        "sha1": "a93199be0effd9fe29f0abe80efaa45ea0bbc0b4",
+        "sha256": "f145b4af336c3febbe2ddc498853ef24a44e5a4a54ce76b287cb0877aef3e9d5"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160729214342 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png (CDX mimetype image/png, status 200, WARC record length 382839).",
+      "upstream_revision": "20160729214342"
+    },
+    {
+      "id": "archives:wayback:f7587fb5c1e5de43",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg@20160516153751",
+      "title": "TE2.jpg (archived 20160516)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160516153751/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+      "download_url": "https://web.archive.org/web/20160516153751id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+      "resolved_url": "https://web.archive.org/web/20160516153751id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+      "path": "assets/public/archives/wayback/TE2--f7587fb5c1e5.jpg",
+      "original_filename": "TE2.jpg",
+      "bytes": 187657,
+      "sha256": "f7587fb5c1e5de4338fa507b16e7edb2891c49b3c99e021444e0f9a1c9403ecf",
+      "sha1": "6dcef4be9006c46fc12b18c860ca3e494002aa34",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-10T13:51:16Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160516153751/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "6dcef4be9006c46fc12b18c860ca3e494002aa34",
+        "timestamp": "2016-05-16T15:37:51Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 187657,
+        "width": 600,
+        "height": 338,
+        "sha1": "6dcef4be9006c46fc12b18c860ca3e494002aa34",
+        "sha256": "f7587fb5c1e5de4338fa507b16e7edb2891c49b3c99e021444e0f9a1c9403ecf"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160516153751 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 171269).",
+      "upstream_revision": "20160516153751"
+    },
+    {
+      "id": "archives:wayback:fa0acc556f8b2e98",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png@20221225234754",
+      "title": "80195226_p0.png (archived 20221225)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20221225234754/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "download_url": "https://web.archive.org/web/20221225234754id_/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "resolved_url": "https://web.archive.org/web/20221225234754id_/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "path": "assets/public/archives/wayback/80195226_p0--fa0acc556f8b.png",
+      "original_filename": "80195226_p0.png",
+      "bytes": 4501981,
+      "sha256": "fa0acc556f8b2e9872b1abfbf87c9b58fa1c43ec221b09571f36c782b2c7af88",
+      "sha1": "fd9daeb6990c13aa0bcd3d62a3e7c9eb0c52eded",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T13:55:58Z",
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "song_ids": [
+        "song:file-9f975b6a"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_primary",
+      "mapping_evidence": [
+        {
+          "url": "https://www.pixiv.net/artworks/80195226",
+          "field": "primary_post",
+          "quote": "終の舞姫"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20221225234754/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "fd9daeb6990c13aa0bcd3d62a3e7c9eb0c52eded",
+        "timestamp": "2022-12-25T23:47:54Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 4501981,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "fd9daeb6990c13aa0bcd3d62a3e7c9eb0c52eded",
+        "sha256": "fa0acc556f8b2e9872b1abfbf87c9b58fa1c43ec221b09571f36c782b2c7af88"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20221225234754 of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png (CDX mimetype image/png, status 200, WARC record length 4503116).",
+      "upstream_revision": "20221225234754"
+    },
+    {
+      "id": "archives:wayback:fa255ee778c01a50",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg@20160517082309",
+      "title": "TC1.jpg (archived 20160517)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160517082309/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+      "download_url": "https://web.archive.org/web/20160517082309id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+      "resolved_url": "https://web.archive.org/web/20160517082309id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+      "path": "assets/public/archives/wayback/TC1--fa255ee778c0.jpg",
+      "original_filename": "TC1.jpg",
+      "bytes": 128664,
+      "sha256": "fa255ee778c01a50889b4fc40eca2cf6c438b20537f9740fdea16ed3b2342e9a",
+      "sha1": "bf78618372c1567c11ead9702611e5648c6c7e0a",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 500,
+      "height": 281,
+      "fetched_at": "2026-10-10T13:50:55Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160517082309/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "bf78618372c1567c11ead9702611e5648c6c7e0a",
+        "timestamp": "2016-05-17T08:23:09Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 128664,
+        "width": 500,
+        "height": 281,
+        "sha1": "bf78618372c1567c11ead9702611e5648c6c7e0a",
+        "sha256": "fa255ee778c01a50889b4fc40eca2cf6c438b20537f9740fdea16ed3b2342e9a"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160517082309 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 119697).",
+      "upstream_revision": "20160517082309"
+    }
+  ],
+  "failures": [
+    {
+      "id": "archives:hkstp:media/blqg5pwq/appendix3.pdf:download",
+      "source_id": "archives:hkstp",
+      "candidate_id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
+      "phase": "download",
+      "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+      "attempted_at": "2026-10-10T13:53:51Z",
+      "attempts": 1,
+      "error_class": "http_4xx",
+      "http_status": 404,
+      "retriable": false,
+      "manual": false,
+      "message": "HTTP 404"
+    }
+  ]
+}

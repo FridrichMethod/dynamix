@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:meganegirai",
+  "started_at": "2026-10-10T13:59:53Z",
+  "finished_at": "2026-10-10T13:59:54Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:meganegirai:1536401093894189056:1",
+      "source_id": "artists:x:meganegirai",
+      "upstream_key": "1536401093894189056:1",
+      "page_url": "https://x.com/meganegirai/status/1536401093894189056",
+      "file_url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym?format=jpg&name=orig",
+      "title": "@meganegirai post 1536401093894189056 image 1",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/meganegirai/status/1536401093894189056",
+        "text: PUPA",
+        "text: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym?format=jpg&name=orig",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1556,
+        "height": 1926,
+        "sha1": null,
+        "timestamp": "2022-06-13T17:32:20.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:meganegirai:12eb1a4449191fdf",
+      "song_titles": [
+        "PUPA"
+      ],
+      "illustrators": [
+        "ANT"
+      ],
+      "composers": [
+        "モリモリあつし"
+      ]
+    }
+  ],
+  "errors": []
+}

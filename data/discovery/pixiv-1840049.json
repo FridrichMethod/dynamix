@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:1840049",
+  "started_at": "2026-10-10T13:57:50Z",
+  "finished_at": "2026-10-10T13:57:51Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:1840049:63416349:p0",
+      "source_id": "artists:pixiv:1840049",
+      "upstream_key": "63416349:p0",
+      "page_url": "https://www.pixiv.net/artworks/63416349",
+      "file_url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+      "title": "ぺたるすてっぷ (p0)",
+      "role": "song_art",
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/63416349"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 747,
+        "height": 747,
+        "sha1": null,
+        "timestamp": "2017-06-16T14:29:00+00:00",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: the caption says the artwork's use in Dynamix was still undecided; not compared with the in-game jacket",
+      "song_titles": [
+        "ぺたるすてっぷ"
+      ]
+    }
+  ],
+  "errors": []
+}

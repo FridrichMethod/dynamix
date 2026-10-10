@@ -1,0 +1,2025 @@
+{
+  "schema_version": 1,
+  "source_id": "archives:wayback",
+  "started_at": "2026-10-10T13:53:52Z",
+  "finished_at": "2026-10-10T13:56:34Z",
+  "scope": {
+    "lists": [
+      "official-img",
+      "official-uploads",
+      "official-ip-uploads",
+      "mycard",
+      "download-host",
+      "hkstp-appendix3",
+      "pixiv-62913946",
+      "pixiv-77296864",
+      "pixiv-80195226",
+      "pixiv-92594600",
+      "pixiv-42973848",
+      "pixiv-61859342",
+      "pixiv-122251308",
+      "pixiv-129309072",
+      "pixiv-86481781",
+      "pixiv-91845485",
+      "pixiv-51262301",
+      "pixiv-63416349"
+    ],
+    "api": "https://web.archive.org/cdx/search/cdx",
+    "notes": "Explicit CDX queries; one candidate per distinct archived payload (earliest capture). Pages linking elsewhere are not followed."
+  },
+  "continuation": {
+    "official-img": null,
+    "official-uploads": null,
+    "official-ip-uploads": null,
+    "mycard": null,
+    "download-host": null,
+    "hkstp-appendix3": null,
+    "pixiv-62913946": null,
+    "pixiv-77296864": null,
+    "pixiv-80195226": null,
+    "pixiv-92594600": null,
+    "pixiv-42973848": null,
+    "pixiv-61859342": null,
+    "pixiv-122251308": null,
+    "pixiv-129309072": null,
+    "pixiv-86481781": null,
+    "pixiv-91845485": null,
+    "pixiv-51262301": null,
+    "pixiv-63416349": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/09/LOGO3.png@20160314043903",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/09/LOGO3.png@20160314043903",
+      "page_url": "https://web.archive.org/web/20160314043903/http://188.166.254.2/wp-content/uploads/2015/09/LOGO3.png",
+      "file_url": "https://web.archive.org/web/20160314043903id_/http://188.166.254.2/wp-content/uploads/2015/09/LOGO3.png",
+      "title": "LOGO3.png (archived 20160314)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/09/LOGO3.png"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/09/LOGO3.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "7c733ab69287d880c9d378d7e5d220a8ab6fbc06",
+        "timestamp": "2016-03-14T04:39:03Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20160314043903 of http://188.166.254.2/wp-content/uploads/2015/09/LOGO3.png (CDX mimetype image/png, status 200, WARC record length 16092)."
+    },
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/09/OR.png@20160314003210",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/09/OR.png@20160314003210",
+      "page_url": "https://web.archive.org/web/20160314003210/http://188.166.254.2/wp-content/uploads/2015/09/OR.png",
+      "file_url": "https://web.archive.org/web/20160314003210id_/http://188.166.254.2/wp-content/uploads/2015/09/OR.png",
+      "title": "OR.png (archived 20160314)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/09/OR.png"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/09/OR.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "3df182bc0f73921b2a32e9bb552eed03ce9765f5",
+        "timestamp": "2016-03-14T00:32:10Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20160314003210 of http://188.166.254.2/wp-content/uploads/2015/09/OR.png (CDX mimetype image/png, status 200, WARC record length 19366)."
+    },
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg@20170720023802",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg@20170720023802",
+      "page_url": "https://web.archive.org/web/20170720023802/http://188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg",
+      "file_url": "https://web.archive.org/web/20170720023802id_/http://188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg",
+      "title": "loadingimage.jpg (archived 20170720)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "2adce7bdd78716593e01931854060441fa685991",
+        "timestamp": "2017-07-20T02:38:02Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20170720023802 of http://188.166.254.2/wp-content/uploads/2015/09/loadingimage.jpg (CDX mimetype image/jpeg, status 200, WARC record length 106712)."
+    },
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png@20170719230311",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png@20170719230311",
+      "page_url": "https://web.archive.org/web/20170719230311/http://188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png",
+      "file_url": "https://web.archive.org/web/20170719230311id_/http://188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png",
+      "title": "Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png (archived 20170719)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "52712cf10fca82ed320e69e2759509b73ead10db",
+        "timestamp": "2017-07-19T23:03:11Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20170719230311 of http://188.166.254.2/wp-content/uploads/2015/10/Comp-1-0001419-%E5%B7%B2%E4%BF%AE%E5%BE%A9.png (CDX mimetype image/png, status 200, WARC record length 188544)."
+    },
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/Zyon_ICON100.png@20200220010956",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/Zyon_ICON100.png@20200220010956",
+      "page_url": "https://web.archive.org/web/20200220010956/http://188.166.254.2/wp-content/uploads/2015/10/Zyon_ICON100.png",
+      "file_url": "https://web.archive.org/web/20200220010956id_/http://188.166.254.2/wp-content/uploads/2015/10/Zyon_ICON100.png",
+      "title": "Zyon_ICON100.png (archived 20200220)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/10/Zyon_ICON100.png"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/Zyon_ICON100.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "079bdf6a82c2a27b608032ce4e55cb907dba9a0c",
+        "timestamp": "2020-02-20T01:09:56Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 100x100 character icon whose game identity is not established",
+      "notes": "Wayback capture 20200220010956 of http://188.166.254.2/wp-content/uploads/2015/10/Zyon_ICON100.png (CDX mimetype image/png, status 200, WARC record length 29198)."
+    },
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new1.jpg@20170719230328",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new1.jpg@20170719230328",
+      "page_url": "https://web.archive.org/web/20170719230328/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+      "file_url": "https://web.archive.org/web/20170719230328id_/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+      "title": "new1.jpg (archived 20170719)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "6a8782f091497db62d78853d688e1a0df3f93b49",
+        "timestamp": "2017-07-19T23:03:28Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20170719230328 of http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 96091)."
+    },
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
+      "page_url": "https://web.archive.org/web/20160314012750/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+      "file_url": "https://web.archive.org/web/20160314012750id_/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+      "title": "new21.png (archived 20160314)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/10/new21.png"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "b09e40122918c14ddabdfce32f5ce0519eabf2d3",
+        "timestamp": "2016-03-14T01:27:50Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20160314012750 of http://188.166.254.2/wp-content/uploads/2015/10/new21.png (CDX mimetype image/png, status 200, WARC record length 586399)."
+    },
+    {
+      "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
+      "source_id": "archives:wayback",
+      "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
+      "page_url": "https://web.archive.org/web/20170720024322/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+      "file_url": "https://web.archive.org/web/20170720024322id_/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+      "title": "new32.png (archived 20170720)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://188.166.254.2/wp-content/uploads/2015/10/new32.png"
+      ],
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "dd6c860d4b4a357592fd4daae7bad6fd33931c09",
+        "timestamp": "2017-07-20T02:43:22Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20170720024322 of http://188.166.254.2/wp-content/uploads/2015/10/new32.png (CDX mimetype image/png, status 200, WARC record length 1116647)."
+    },
+    {
+      "id": "archives:wayback:dl.dnx.c4-cat.com/512512.png@20190330125323",
+      "source_id": "archives:wayback",
+      "upstream_key": "dl.dnx.c4-cat.com/512512.png@20190330125323",
+      "page_url": "https://web.archive.org/web/20190330125323/http://dl.dnx.c4-cat.com/512512.png",
+      "file_url": "https://web.archive.org/web/20190330125323id_/http://dl.dnx.c4-cat.com/512512.png",
+      "title": "512512.png (archived 20190330)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dl.dnx.c4-cat.com/512512.png"
+      ],
+      "source_reported": {
+        "url": "http://dl.dnx.c4-cat.com/512512.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "1f1fa48fe792a30a4bb3bd7c8456e281f1762fff",
+        "timestamp": "2019-03-30T12:53:23Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20190330125323 of http://dl.dnx.c4-cat.com/512512.png (CDX mimetype image/png, status 200, WARC record length 41407)."
+    },
+    {
+      "id": "archives:wayback:dl.dnx.c4-cat.com/as.png@20160516205106",
+      "source_id": "archives:wayback",
+      "upstream_key": "dl.dnx.c4-cat.com/as.png@20160516205106",
+      "page_url": "https://web.archive.org/web/20160516205106/http://dl.dnx.c4-cat.com/as.png",
+      "file_url": "https://web.archive.org/web/20160516205106id_/http://dl.dnx.c4-cat.com/as.png",
+      "title": "as.png (archived 20160516)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dl.dnx.c4-cat.com/as.png"
+      ],
+      "source_reported": {
+        "url": "http://dl.dnx.c4-cat.com/as.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "53c339b809495afd044a44ba1adee189912e6622",
+        "timestamp": "2016-05-16T20:51:06Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20160516205106 of http://dl.dnx.c4-cat.com/as.png (CDX mimetype image/png, status 200, WARC record length 2609)."
+    },
+    {
+      "id": "archives:wayback:dl.dnx.c4-cat.com/gpg.png@20160516194740",
+      "source_id": "archives:wayback",
+      "upstream_key": "dl.dnx.c4-cat.com/gpg.png@20160516194740",
+      "page_url": "https://web.archive.org/web/20160516194740/http://dl.dnx.c4-cat.com/gpg.png",
+      "file_url": "https://web.archive.org/web/20160516194740id_/http://dl.dnx.c4-cat.com/gpg.png",
+      "title": "gpg.png (archived 20160516)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dl.dnx.c4-cat.com/gpg.png"
+      ],
+      "source_reported": {
+        "url": "http://dl.dnx.c4-cat.com/gpg.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "7c1c58797cce7070627c7b42bd65aff54c3ed34b",
+        "timestamp": "2016-05-16T19:47:40Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20160516194740 of http://dl.dnx.c4-cat.com/gpg.png (CDX mimetype image/png, status 200, WARC record length 8994)."
+    },
+    {
+      "id": "archives:wayback:dl.dnx.c4-cat.com/title.png@20160516195255",
+      "source_id": "archives:wayback",
+      "upstream_key": "dl.dnx.c4-cat.com/title.png@20160516195255",
+      "page_url": "https://web.archive.org/web/20160516195255/http://dl.dnx.c4-cat.com/title.png",
+      "file_url": "https://web.archive.org/web/20160516195255id_/http://dl.dnx.c4-cat.com/title.png",
+      "title": "title.png (archived 20160516)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dl.dnx.c4-cat.com/title.png"
+      ],
+      "source_reported": {
+        "url": "http://dl.dnx.c4-cat.com/title.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "bda226d34113a410b1df2837c5f7be2da5018c13",
+        "timestamp": "2016-05-16T19:52:55Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20160516195255 of http://dl.dnx.c4-cat.com/title.png (CDX mimetype image/png, status 200, WARC record length 9861)."
+    },
+    {
+      "id": "archives:wayback:dynamix-server.c4-cat.com/mycard/img/DNXtypo.png@20200622223319",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix-server.c4-cat.com/mycard/img/DNXtypo.png@20200622223319",
+      "page_url": "https://web.archive.org/web/20200622223319/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+      "file_url": "https://web.archive.org/web/20200622223319id_/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+      "title": "DNXtypo.png (archived 20200622)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "timestamp": "2020-06-22T22:33:19Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20200622223319 of http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png (CDX mimetype image/png, status 200, WARC record length 85932)."
+    },
+    {
+      "id": "archives:wayback:dynamix-server.c4-cat.com/mycard/img/bg.png@20200622223326",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix-server.c4-cat.com/mycard/img/bg.png@20200622223326",
+      "page_url": "https://web.archive.org/web/20200622223326/http://dynamix-server.c4-cat.com/mycard/img/bg.png",
+      "file_url": "https://web.archive.org/web/20200622223326id_/http://dynamix-server.c4-cat.com/mycard/img/bg.png",
+      "title": "bg.png (archived 20200622)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix-server.c4-cat.com/mycard/img/bg.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix-server.c4-cat.com/mycard/img/bg.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "811f5a4e05a415fde5b7518be0e582b002a37e8a",
+        "timestamp": "2020-06-22T22:33:26Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20200622223326 of http://dynamix-server.c4-cat.com/mycard/img/bg.png (CDX mimetype image/png, status 200, WARC record length 3419)."
+    },
+    {
+      "id": "archives:wayback:dynamix-server.c4-cat.com/mycard/img/header.jpg@20200622223326",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix-server.c4-cat.com/mycard/img/header.jpg@20200622223326",
+      "page_url": "https://web.archive.org/web/20200622223326/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+      "file_url": "https://web.archive.org/web/20200622223326id_/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+      "title": "header.jpg (archived 20200622)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix-server.c4-cat.com/mycard/img/header.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a10f15a45034e90e5f3e9b39d4a7dce54d1ea23d",
+        "timestamp": "2020-06-22T22:33:26Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unclassified: no seed rule for this item; needs review",
+      "notes": "Wayback capture 20200622223326 of http://dynamix-server.c4-cat.com/mycard/img/header.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113482)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/a17.png@20150630041035",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/a17.png@20150630041035",
+      "page_url": "https://web.archive.org/web/20150630041035/http://dynamix.c4-cat.com/img/a17.png",
+      "file_url": "https://web.archive.org/web/20150630041035id_/http://dynamix.c4-cat.com/img/a17.png",
+      "title": "a17.png (archived 20150630)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/a17.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/a17.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "b5480e41941846bea4222b28762319e2cc15f92f",
+        "timestamp": "2015-06-30T04:10:35Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150630041035 of http://dynamix.c4-cat.com/img/a17.png (CDX mimetype image/png, status 200, WARC record length 5409)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/bg_fade.png@20150415194615",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/bg_fade.png@20150415194615",
+      "page_url": "https://web.archive.org/web/20150415194615/http://dynamix.c4-cat.com/img/bg_fade.png",
+      "file_url": "https://web.archive.org/web/20150415194615id_/http://dynamix.c4-cat.com/img/bg_fade.png",
+      "title": "bg_fade.png (archived 20150415)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/bg_fade.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/bg_fade.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a8ae9559719508f7cdef1b323e8fd5a80a147a50",
+        "timestamp": "2015-04-15T19:46:15Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150415194615 of http://dynamix.c4-cat.com/img/bg_fade.png (CDX mimetype image/png, status 200, WARC record length 3481)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/bg_fade_up.png@20150630052201",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/bg_fade_up.png@20150630052201",
+      "page_url": "https://web.archive.org/web/20150630052201/http://dynamix.c4-cat.com/img/bg_fade_up.png",
+      "file_url": "https://web.archive.org/web/20150630052201id_/http://dynamix.c4-cat.com/img/bg_fade_up.png",
+      "title": "bg_fade_up.png (archived 20150630)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/bg_fade_up.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/bg_fade_up.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "cc7759a4d529be4d8c0f68744879f8ff04127914",
+        "timestamp": "2015-06-30T05:22:01Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150630052201 of http://dynamix.c4-cat.com/img/bg_fade_up.png (CDX mimetype image/png, status 200, WARC record length 3483)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/cap1.png@20150412124448",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/cap1.png@20150412124448",
+      "page_url": "https://web.archive.org/web/20150412124448/http://dynamix.c4-cat.com/img/cap1.png",
+      "file_url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
+      "title": "cap1.png (archived 20150412)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/cap1.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap1.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "0606eeea6aca1b51e512513175edfd10b7b19d2f",
+        "timestamp": "2015-04-12T12:44:48Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:5dfc34aabbe587b5",
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/cap2.png@20150412125452",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/cap2.png@20150412125452",
+      "page_url": "https://web.archive.org/web/20150412125452/http://dynamix.c4-cat.com/img/cap2.png",
+      "file_url": "https://web.archive.org/web/20150412125452id_/http://dynamix.c4-cat.com/img/cap2.png",
+      "title": "cap2.png (archived 20150412)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/cap2.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "ca4db3f498a317a779902ad636a5f6cccd4ef876",
+        "timestamp": "2015-04-12T12:54:52Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:1e5222ccfcdc7d0c",
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/cap3.png@20150412125233",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/cap3.png@20150412125233",
+      "page_url": "https://web.archive.org/web/20150412125233/http://dynamix.c4-cat.com/img/cap3.png",
+      "file_url": "https://web.archive.org/web/20150412125233id_/http://dynamix.c4-cat.com/img/cap3.png",
+      "title": "cap3.png (archived 20150412)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/cap3.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap3.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "edb994a7ad7c20f89fd0c9fbc88c2298dd1eb389",
+        "timestamp": "2015-04-12T12:52:33Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:bda4de01f423cc49",
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/cap4.png@20150412125308",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/cap4.png@20150412125308",
+      "page_url": "https://web.archive.org/web/20150412125308/http://dynamix.c4-cat.com/img/cap4.png",
+      "file_url": "https://web.archive.org/web/20150412125308id_/http://dynamix.c4-cat.com/img/cap4.png",
+      "title": "cap4.png (archived 20150412)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/cap4.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap4.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "e88292a0148d5c7caa0eab2f23ab59d240546de3",
+        "timestamp": "2015-04-12T12:53:08Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:225baa3735776aff",
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/cap5.png@20150630034232",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/cap5.png@20150630034232",
+      "page_url": "https://web.archive.org/web/20150630034232/http://dynamix.c4-cat.com/img/cap5.png",
+      "file_url": "https://web.archive.org/web/20150630034232id_/http://dynamix.c4-cat.com/img/cap5.png",
+      "title": "cap5.png (archived 20150630)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/cap5.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap5.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "45e340811e646600b7781e843c59d8dc3df4fe5b",
+        "timestamp": "2015-06-30T03:42:32Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:919f9ba3e02695e9",
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/cap6.png@20150412124335",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/cap6.png@20150412124335",
+      "page_url": "https://web.archive.org/web/20150412124335/http://dynamix.c4-cat.com/img/cap6.png",
+      "file_url": "https://web.archive.org/web/20150412124335id_/http://dynamix.c4-cat.com/img/cap6.png",
+      "title": "cap6.png (archived 20150412)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/cap6.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/cap6.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "752a5ed4327dafc067f18cbb02beaf21d1de1e23",
+        "timestamp": "2015-04-12T12:43:35Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:2c8339f2a3f1310d",
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/dynamix.png@20150630045729",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/dynamix.png@20150630045729",
+      "page_url": "https://web.archive.org/web/20150630045729/http://dynamix.c4-cat.com/img/dynamix.png",
+      "file_url": "https://web.archive.org/web/20150630045729id_/http://dynamix.c4-cat.com/img/dynamix.png",
+      "title": "dynamix.png (archived 20150630)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/dynamix.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/dynamix.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "timestamp": "2015-06-30T04:57:29Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150630045729 of http://dynamix.c4-cat.com/img/dynamix.png (CDX mimetype image/png, status 200, WARC record length 85945)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/favicon.ico@20150412125153",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/favicon.ico@20150412125153",
+      "page_url": "https://web.archive.org/web/20150412125153/http://dynamix.c4-cat.com/img/favicon.ico",
+      "file_url": "https://web.archive.org/web/20150412125153id_/http://dynamix.c4-cat.com/img/favicon.ico",
+      "title": "favicon.ico (archived 20150412)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/favicon.ico"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/favicon.ico",
+        "mime": "image/x-icon",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a4aa54e12b59806babe645afd95f51cf0e68e5fc",
+        "timestamp": "2015-04-12T12:51:53Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150412125153 of http://dynamix.c4-cat.com/img/favicon.ico (CDX mimetype image/x-icon, status 200, WARC record length 652)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/fb.png@20150412124703",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/fb.png@20150412124703",
+      "page_url": "https://web.archive.org/web/20150412124703/http://dynamix.c4-cat.com/img/fb.png",
+      "file_url": "https://web.archive.org/web/20150412124703id_/http://dynamix.c4-cat.com/img/fb.png",
+      "title": "fb.png (archived 20150412)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/fb.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/fb.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "fcdfb47e9993f165b2239bc40bd1719faf42bf7e",
+        "timestamp": "2015-04-12T12:47:03Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150412124703 of http://dynamix.c4-cat.com/img/fb.png (CDX mimetype image/png, status 200, WARC record length 6283)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/icon_v2.png@20150412124811",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/icon_v2.png@20150412124811",
+      "page_url": "https://web.archive.org/web/20150412124811/http://dynamix.c4-cat.com/img/icon_v2.png",
+      "file_url": "https://web.archive.org/web/20150412124811id_/http://dynamix.c4-cat.com/img/icon_v2.png",
+      "title": "icon_v2.png (archived 20150412)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/icon_v2.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/icon_v2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "3ea116936feed1d202bdafaf8297afd5aa5a6157",
+        "timestamp": "2015-04-12T12:48:11Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: app icon",
+      "notes": "Wayback capture 20150412124811 of http://dynamix.c4-cat.com/img/icon_v2.png (CDX mimetype image/png, status 200, WARC record length 17845)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/ios.png@20150412124700",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/ios.png@20150412124700",
+      "page_url": "https://web.archive.org/web/20150412124700/http://dynamix.c4-cat.com/img/ios.png",
+      "file_url": "https://web.archive.org/web/20150412124700id_/http://dynamix.c4-cat.com/img/ios.png",
+      "title": "ios.png (archived 20150412)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/ios.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/ios.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "d48a23344ebc36f238286ca000a0d29b1e536556",
+        "timestamp": "2015-04-12T12:47:00Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150412124700 of http://dynamix.c4-cat.com/img/ios.png (CDX mimetype image/png, status 200, WARC record length 9817)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/loading.gif@20150412124209",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/loading.gif@20150412124209",
+      "page_url": "https://web.archive.org/web/20150412124209/http://dynamix.c4-cat.com/img/loading.gif",
+      "file_url": "https://web.archive.org/web/20150412124209id_/http://dynamix.c4-cat.com/img/loading.gif",
+      "title": "loading.gif (archived 20150412)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/loading.gif"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/loading.gif",
+        "mime": "image/gif",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "d3665f292d71f9ea2b9a61c476e6e2a9d0d35062",
+        "timestamp": "2015-04-12T12:42:09Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150412124209 of http://dynamix.c4-cat.com/img/loading.gif (CDX mimetype image/gif, status 200, WARC record length 5223)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/menu.png@20150630053010",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/menu.png@20150630053010",
+      "page_url": "https://web.archive.org/web/20150630053010/http://dynamix.c4-cat.com/img/menu.png",
+      "file_url": "https://web.archive.org/web/20150630053010id_/http://dynamix.c4-cat.com/img/menu.png",
+      "title": "menu.png (archived 20150630)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/menu.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/menu.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a91d192f2c3cbe921e36b2cce72c25cb27463bf8",
+        "timestamp": "2015-06-30T05:30:10Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150630053010 of http://dynamix.c4-cat.com/img/menu.png (CDX mimetype image/png, status 200, WARC record length 6991)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/play.png@20150412125619",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/play.png@20150412125619",
+      "page_url": "https://web.archive.org/web/20150412125619/http://dynamix.c4-cat.com/img/play.png",
+      "file_url": "https://web.archive.org/web/20150412125619id_/http://dynamix.c4-cat.com/img/play.png",
+      "title": "play.png (archived 20150412)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/play.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/play.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "da99d0d1f315e6ce3e64b62b8bec8bd99328fc95",
+        "timestamp": "2015-04-12T12:56:19Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150412125619 of http://dynamix.c4-cat.com/img/play.png (CDX mimetype image/png, status 200, WARC record length 1604)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/sprite.png@20150630065320",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/sprite.png@20150630065320",
+      "page_url": "https://web.archive.org/web/20150630065320/http://dynamix.c4-cat.com/img/sprite.png",
+      "file_url": "https://web.archive.org/web/20150630065320id_/http://dynamix.c4-cat.com/img/sprite.png",
+      "title": "sprite.png (archived 20150630)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/sprite.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/sprite.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "11b369d2703b21a4b3a681ffe2840db75a27f02e",
+        "timestamp": "2015-06-30T06:53:20Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150630065320 of http://dynamix.c4-cat.com/img/sprite.png (CDX mimetype image/png, status 200, WARC record length 9634)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/title_down.png@20150630051202",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/title_down.png@20150630051202",
+      "page_url": "https://web.archive.org/web/20150630051202/http://dynamix.c4-cat.com/img/title_down.png",
+      "file_url": "https://web.archive.org/web/20150630051202id_/http://dynamix.c4-cat.com/img/title_down.png",
+      "title": "title_down.png (archived 20150630)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/title_down.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/title_down.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "45174433504b07facb186eaca6cf0378f6f589f6",
+        "timestamp": "2015-06-30T05:12:02Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150630051202 of http://dynamix.c4-cat.com/img/title_down.png (CDX mimetype image/png, status 200, WARC record length 161228)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/img/title_up.png@20150630052904",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/img/title_up.png@20150630052904",
+      "page_url": "https://web.archive.org/web/20150630052904/http://dynamix.c4-cat.com/img/title_up.png",
+      "file_url": "https://web.archive.org/web/20150630052904id_/http://dynamix.c4-cat.com/img/title_up.png",
+      "title": "title_up.png (archived 20150630)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/img/title_up.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/img/title_up.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "bd2ce1455df4cad2044f7d61a9461c597de09b2d",
+        "timestamp": "2015-06-30T05:29:04Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20150630052904 of http://dynamix.c4-cat.com/img/title_up.png (CDX mimetype image/png, status 200, WARC record length 169696)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/09/LOGOwhite2.png@20160119210742",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/09/LOGOwhite2.png@20160119210742",
+      "page_url": "https://web.archive.org/web/20160119210742/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/LOGOwhite2.png",
+      "file_url": "https://web.archive.org/web/20160119210742id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/LOGOwhite2.png",
+      "title": "LOGOwhite2.png (archived 20160119)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/LOGOwhite2.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/09/LOGOwhite2.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a91d844c6e790c26f4b39af4bce99007ef82b358",
+        "timestamp": "2016-01-19T21:07:42Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20160119210742 of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/LOGOwhite2.png (CDX mimetype image/png, status 200, WARC record length 6073)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-180x180.jpg@20160118084458",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-180x180.jpg@20160118084458",
+      "page_url": "https://web.archive.org/web/20160118084458/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-180x180.jpg",
+      "file_url": "https://web.archive.org/web/20160118084458id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-180x180.jpg",
+      "title": "cropped-Apple_output-180x180.jpg (archived 20160118)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-180x180.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-180x180.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "cef043c530f009f8d72f5fc577df25eadfa83f39",
+        "timestamp": "2016-01-18T08:44:58Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20160118084458 of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-180x180.jpg (CDX mimetype image/jpeg, status 200, WARC record length 9970)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-192x192.jpg@20160119220605",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-192x192.jpg@20160119220605",
+      "page_url": "https://web.archive.org/web/20160119220605/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-192x192.jpg",
+      "file_url": "https://web.archive.org/web/20160119220605id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-192x192.jpg",
+      "title": "cropped-Apple_output-192x192.jpg (archived 20160119)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-192x192.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-192x192.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "56e31394b9d3d6dcc05d005e3f32c9582a215d1b",
+        "timestamp": "2016-01-19T22:06:05Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20160119220605 of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-192x192.jpg (CDX mimetype image/jpeg, status 200, WARC record length 10183)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-32x32.jpg@20160119233435",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-32x32.jpg@20160119233435",
+      "page_url": "https://web.archive.org/web/20160119233435/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-32x32.jpg",
+      "file_url": "https://web.archive.org/web/20160119233435id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-32x32.jpg",
+      "title": "cropped-Apple_output-32x32.jpg (archived 20160119)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-32x32.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-32x32.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "524f495c26c99f9f9f369a810244c5c4f302f258",
+        "timestamp": "2016-01-19T23:34:35Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20160119233435 of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/cropped-Apple_output-32x32.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1719)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/09/map.png@20190218112101",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/09/map.png@20190218112101",
+      "page_url": "https://web.archive.org/web/20190218112101/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/map.png",
+      "file_url": "https://web.archive.org/web/20190218112101id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/09/map.png",
+      "title": "map.png (archived 20190218)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/map.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/09/map.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "67109b11d3176fe8416e9b5b0fffc24c3be479b9",
+        "timestamp": "2019-02-18T11:21:01Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20190218112101 of http://dynamix.c4-cat.com/wp-content/uploads/2015/09/map.png (CDX mimetype image/png, status 200, WARC record length 13656)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/10/Zyon_ICON100.png@20170720142357",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/10/Zyon_ICON100.png@20170720142357",
+      "page_url": "https://web.archive.org/web/20170720142357/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/Zyon_ICON100.png",
+      "file_url": "https://web.archive.org/web/20170720142357id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/Zyon_ICON100.png",
+      "title": "Zyon_ICON100.png (archived 20170720)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/Zyon_ICON100.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/10/Zyon_ICON100.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "079bdf6a82c2a27b608032ce4e55cb907dba9a0c",
+        "timestamp": "2017-07-20T14:23:57Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: 100x100 character icon whose game identity is not established",
+      "notes": "Wayback capture 20170720142357 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/Zyon_ICON100.png (CDX mimetype image/png, status 200, WARC record length 29181)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png@20160119221302",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png@20160119221302",
+      "page_url": "https://web.archive.org/web/20160119221302/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png",
+      "file_url": "https://web.archive.org/web/20160119221302id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png",
+      "title": "new5-199x128.png (archived 20160119)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "d6c3811436827676be61838d72c9c69dca6813ca",
+        "timestamp": "2016-01-19T22:13:02Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "notes": "Wayback capture 20160119221302 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png (CDX mimetype image/png, status 200, WARC record length 37582)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
+      "page_url": "https://web.archive.org/web/20160517032816/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+      "file_url": "https://web.archive.org/web/20160517032816id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+      "title": "new5-700x365.png (archived 20160517)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "e467f3bc40f5f9973f80fe3c7a39d0fcbdd3ccf9",
+        "timestamp": "2016-05-17T03:28:16Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:a05e966293b8f4f7",
+      "notes": "Wayback capture 20160517032816 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png (CDX mimetype image/png, status 200, WARC record length 248915)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg@20160119043806",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg@20160119043806",
+      "page_url": "https://web.archive.org/web/20160119043806/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg",
+      "file_url": "https://web.archive.org/web/20160119043806id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg",
+      "title": "CodeEntry_tutorialC-199x128.jpg (archived 20160119)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "91c98bd776cb89a0afc0c7ffccd300d43e85ee1b",
+        "timestamp": "2016-01-19T04:38:06Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "notes": "Wayback capture 20160119043806 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg (CDX mimetype image/jpeg, status 200, WARC record length 10793)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg@20160118071821",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg@20160118071821",
+      "page_url": "https://web.archive.org/web/20160118071821/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg",
+      "file_url": "https://web.archive.org/web/20160118071821id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg",
+      "title": "CodeEntry_tutorialE1-199x128.jpg (archived 20160118)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a5a3881a050481c868319e9b497dc4e31305d418",
+        "timestamp": "2016-01-18T07:18:21Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "notes": "Wayback capture 20160118071821 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg (CDX mimetype image/jpeg, status 200, WARC record length 10781)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg@20160517082309",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg@20160517082309",
+      "page_url": "https://web.archive.org/web/20160517082309/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+      "file_url": "https://web.archive.org/web/20160517082309id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+      "title": "TC1.jpg (archived 20160517)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "bf78618372c1567c11ead9702611e5648c6c7e0a",
+        "timestamp": "2016-05-17T08:23:09Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:fa255ee778c01a50",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg@20160517010305",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg@20160517010305",
+      "page_url": "https://web.archive.org/web/20160517010305/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+      "file_url": "https://web.archive.org/web/20160517010305id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+      "title": "TC2.jpg (archived 20160517)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "dbd7db5d2982d3c606fc00c53f7b2ee33f2dfb35",
+        "timestamp": "2016-05-17T01:03:05Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:3ced66daba373e35",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg@20160517065421",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg@20160517065421",
+      "page_url": "https://web.archive.org/web/20160517065421/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+      "file_url": "https://web.archive.org/web/20160517065421id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+      "title": "TC3.jpg (archived 20160517)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "9f112428a470e0c0902df21fbfe70aa847c76199",
+        "timestamp": "2016-05-17T06:54:21Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:42704074a74a6ea4",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg@20160517032810",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg@20160517032810",
+      "page_url": "https://web.archive.org/web/20160517032810/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+      "file_url": "https://web.archive.org/web/20160517032810id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+      "title": "TC4.jpg (archived 20160517)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "2aa2a1e34e9b985a6843238cdd3b7389f057c29f",
+        "timestamp": "2016-05-17T03:28:10Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:3edb471466420017",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
+      "page_url": "https://web.archive.org/web/20160516183525/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+      "file_url": "https://web.archive.org/web/20160516183525id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+      "title": "TE1.jpg (archived 20160516)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "1baca8df1a07ec76dec7a1523ba04c423d17b437",
+        "timestamp": "2016-05-16T18:35:25Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:2e1d86734926b2fc",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg@20160516153751",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg@20160516153751",
+      "page_url": "https://web.archive.org/web/20160516153751/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+      "file_url": "https://web.archive.org/web/20160516153751id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+      "title": "TE2.jpg (archived 20160516)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "6dcef4be9006c46fc12b18c860ca3e494002aa34",
+        "timestamp": "2016-05-16T15:37:51Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:f7587fb5c1e5de43",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg@20160926180754",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg@20160926180754",
+      "page_url": "https://web.archive.org/web/20160926180754/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+      "file_url": "https://web.archive.org/web/20160926180754id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+      "title": "TE3.jpg (archived 20160926)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "f0c8458b5e782c4a9e2b76591b839e00b80c8bd1",
+        "timestamp": "2016-09-26T18:07:54Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:9afbfe33465a99ab",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg@20160516163207",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg@20160516163207",
+      "page_url": "https://web.archive.org/web/20160516163207/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+      "file_url": "https://web.archive.org/web/20160516163207id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+      "title": "TE4.jpg (archived 20160516)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a54e6fbc1bd921368ece39751eec689d57733144",
+        "timestamp": "2016-05-16T16:32:07Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:da488040ca54cf9a",
+      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png@20160119064719",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png@20160119064719",
+      "page_url": "https://web.archive.org/web/20160119064719/http://dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png",
+      "file_url": "https://web.archive.org/web/20160119064719id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png",
+      "title": "doujin-mark.png (archived 20160119)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "d48b3b7c6e9447fc343409e91f5a8c4e55553689",
+        "timestamp": "2016-01-19T06:47:19Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: website logo, icon, sprite or decoration",
+      "notes": "Wayback capture 20160119064719 of http://dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png (CDX mimetype image/png, status 200, WARC record length 5697)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png@20170720125056",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png@20170720125056",
+      "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+      "file_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+      "title": "3-199x128.png (archived 20170720)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "13f50f87073d443d1300b49a91f8c8449290b263",
+        "timestamp": "2017-07-20T12:50:56Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
+      "page_url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+      "file_url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+      "title": "Untitled-1-700x365.png (archived 20160729)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a93199be0effd9fe29f0abe80efaa45ea0bbc0b4",
+        "timestamp": "2016-07-29T21:43:42Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:f145b4af336c3feb",
+      "notes": "Wayback capture 20160729214342 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png (CDX mimetype image/png, status 200, WARC record length 382839)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png@20170720134107",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png@20170720134107",
+      "page_url": "https://web.archive.org/web/20170720134107/http://dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png",
+      "file_url": "https://web.archive.org/web/20170720134107id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png",
+      "title": "OR_icon_1000x1000-e1459851683184.png (archived 20170720)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "f8d6656aaeb9e53b21861b1ab08f371639efa5d3",
+        "timestamp": "2017-07-20T13:41:07Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: OverRapid app icon (collaboration partner)",
+      "notes": "Wayback capture 20170720134107 of http://dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png (CDX mimetype image/png, status 200, WARC record length 21676)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png@20170720125050",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png@20170720125050",
+      "page_url": "https://web.archive.org/web/20170720125050/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+      "file_url": "https://web.archive.org/web/20170720125050id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+      "title": "Dynamix_Website3_0-199x128.png (archived 20170720)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "76ab81a596919f0f87cec3d4054a683e3539d689",
+        "timestamp": "2017-07-20T12:50:50Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
+      "page_url": "https://web.archive.org/web/20170720132226/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+      "file_url": "https://web.archive.org/web/20170720132226id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+      "title": "OverRapid_Col-199x128.png (archived 20170720)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "83b73b7c4e2420aa0325a0b7049c8cc704b9ab7f",
+        "timestamp": "2017-07-20T13:22:26Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "notes": "Wayback capture 20170720132226 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png (CDX mimetype image/png, status 200, WARC record length 35853)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png@20170720125101",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png@20170720125101",
+      "page_url": "https://web.archive.org/web/20170720125101/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png",
+      "file_url": "https://web.archive.org/web/20170720125101id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png",
+      "title": "CP03-199x128.png (archived 20170720)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "5a6f52354908d2c75a3e0e8923574684cb704a1d",
+        "timestamp": "2017-07-20T12:51:01Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "notes": "Wayback capture 20170720125101 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png (CDX mimetype image/png, status 200, WARC record length 53015)."
+    },
+    {
+      "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
+      "source_id": "archives:wayback",
+      "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
+      "page_url": "https://web.archive.org/web/20190925101806/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+      "file_url": "https://web.archive.org/web/20190925101806id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+      "title": "CP03-700x365.png (archived 20190925)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png"
+      ],
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "4f148e32382c037c6b6cf1f4f8320f0801237349",
+        "timestamp": "2019-09-25T10:18:06Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:9040ed5440e36fce",
+      "notes": "Wayback capture 20190925101806 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png (CDX mimetype image/png, status 200, WARC record length 392022)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg@20221220032003",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg@20221220032003",
+      "page_url": "https://web.archive.org/web/20221220032003/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "file_url": "https://web.archive.org/web/20221220032003id_/https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+      "title": "42973848_p0.jpg (archived 20221220)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "99c82efaaaf50e7a4428a99dd5f83aae6a507731",
+        "timestamp": "2022-12-20T03:20:03Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:aee0d9e59598d818",
+      "song_titles": [
+        "Aegis"
+      ],
+      "illustrators": [
+        "AFZero"
+      ],
+      "notes": "Wayback capture 20221220032003 of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1753016)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png@20221221064601",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png@20221221064601",
+      "page_url": "https://web.archive.org/web/20221221064601/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+      "file_url": "https://web.archive.org/web/20221221064601id_/https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+      "title": "61859342_p0.png (archived 20221221)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "3f9900e2e6b786508145e6409244bb06ae6995e0",
+        "timestamp": "2022-12-21T06:46:01Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:653c79a6460b8316",
+      "song_titles": [
+        "Evoltex (poppi'n mix)"
+      ],
+      "illustrators": [
+        "Shionty"
+      ],
+      "notes": "Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png@20221216101704",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png@20221216101704",
+      "page_url": "https://web.archive.org/web/20221216101704/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "file_url": "https://web.archive.org/web/20221216101704id_/https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+      "title": "62913946_p0.png (archived 20221216)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "eeef426f5c05ddd6e5080ee5bbce12af44ab1f77",
+        "timestamp": "2022-12-16T10:17:04Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:ba6a7784212b094d",
+      "song_titles": [
+        "Bluebell"
+      ],
+      "illustrators": [
+        "キカンシャ"
+      ],
+      "composers": [
+        "5argon"
+      ],
+      "notes": "Wayback capture 20221216101704 of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png (CDX mimetype image/png, status 200, WARC record length 2380619)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png@20221215194007",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png@20221215194007",
+      "page_url": "https://web.archive.org/web/20221215194007/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+      "file_url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+      "title": "63416349_p0.png (archived 20221215)",
+      "role": "song_art",
+      "game": "unknown",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "51cf08bb894e3308160392073ed3bd06418ea381",
+        "timestamp": "2022-12-15T19:40:07Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: the caption says the artwork's use in Dynamix was still undecided",
+      "song_titles": [
+        "ぺたるすてっぷ"
+      ],
+      "notes": "Wayback capture 20221215194007 of https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png (CDX mimetype image/png, status 200, WARC record length 992639)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png@20221216052519",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png@20221216052519",
+      "page_url": "https://web.archive.org/web/20221216052519/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "file_url": "https://web.archive.org/web/20221216052519id_/https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+      "title": "77296864_p0.png (archived 20221216)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "61d7682b8f63dc9c72fc0ff700fecbf823aa5715",
+        "timestamp": "2022-12-16T05:25:19Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:4aa44c969862bdf2",
+      "song_titles": [
+        "Lumina"
+      ],
+      "illustrators": [
+        "Xomu"
+      ],
+      "composers": [
+        "Xomu",
+        "Wisp X"
+      ],
+      "notes": "Wayback capture 20221216052519 of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png (CDX mimetype image/png, status 200, WARC record length 5177803)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png@20221225234754",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png@20221225234754",
+      "page_url": "https://web.archive.org/web/20221225234754/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "file_url": "https://web.archive.org/web/20221225234754id_/https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+      "title": "80195226_p0.png (archived 20221225)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "fd9daeb6990c13aa0bcd3d62a3e7c9eb0c52eded",
+        "timestamp": "2022-12-25T23:47:54Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:fa0acc556f8b2e98",
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "notes": "Wayback capture 20221225234754 of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png (CDX mimetype image/png, status 200, WARC record length 4503116)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png@20221214210149",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png@20221214210149",
+      "page_url": "https://web.archive.org/web/20221214210149/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "file_url": "https://web.archive.org/web/20221214210149id_/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "title": "86481781_p0.png (archived 20221214)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "09d7ec4dbb2a97aedf89db2ff0bca1a94732fa16",
+        "timestamp": "2022-12-14T21:01:49Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:434752b49a6d8fd0",
+      "song_titles": [
+        "Totally bounded"
+      ],
+      "illustrators": [
+        "LESYEF"
+      ],
+      "notes": "Wayback capture 20221214210149 of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png (CDX mimetype image/png, status 200, WARC record length 867425)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg@20221220121848",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg@20221220121848",
+      "page_url": "https://web.archive.org/web/20221220121848/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "file_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "title": "91845485_p0.jpg (archived 20221220)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+        "timestamp": "2022-12-20T12:18:48Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:73d278d124f29ed8",
+      "song_titles": [
+        "Party Vinyl"
+      ],
+      "illustrators": [
+        "アサヤ"
+      ],
+      "notes": "Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg@20221216231357",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg@20221216231357",
+      "page_url": "https://web.archive.org/web/20221216231357/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "file_url": "https://web.archive.org/web/20221216231357id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+      "title": "92594600_p0.jpg (archived 20221216)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "79113eb664b3a63489f0681a37d973b1e7d02524",
+        "timestamp": "2022-12-16T23:13:57Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:362aac10e49bef63",
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "notes": "Wayback capture 20221216231357 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 6586774)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg@20221216231405",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg@20221216231405",
+      "page_url": "https://web.archive.org/web/20221216231405/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "file_url": "https://web.archive.org/web/20221216231405id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+      "title": "92594600_p1.jpg (archived 20221216)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "da4fa4c758ce0470546b1fd3e1145b628a04bcbf",
+        "timestamp": "2022-12-16T23:14:05Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:4f5486440b9711c4",
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "notes": "Wayback capture 20221216231405 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2154513)."
+    },
+    {
+      "id": "archives:wayback:i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg@20221216231408",
+      "source_id": "archives:wayback",
+      "upstream_key": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg@20221216231408",
+      "page_url": "https://web.archive.org/web/20221216231408/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "file_url": "https://web.archive.org/web/20221216231408id_/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+      "title": "92594600_p2.jpg (archived 20221216)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "capture of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "4ed7d3c8ac6f6d3a4c8f09ce22609f6b7ac81e35",
+        "timestamp": "2022-12-16T23:14:08Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:12e4d8c39092a447",
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "illustrators": [
+        "Sand Suna"
+      ],
+      "notes": "Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014)."
+    },
+    {
+      "id": "archives:wayback:www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
+      "source_id": "archives:wayback",
+      "upstream_key": "www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
+      "page_url": "https://web.archive.org/web/20240403110020/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+      "file_url": "https://web.archive.org/web/20240403110020id_/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+      "title": "appendix3.pdf (archived 20240403)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "capture of https://www.hkstp.org/media/blqg5pwq/appendix3.pdf"
+      ],
+      "source_reported": {
+        "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+        "mime": "application/pdf",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "f2b74ace46f9ebe658e7ec09b3a26095fce01847",
+        "timestamp": "2024-04-03T11:00:20Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:6e922fcfc86be714",
+      "notes": "HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404."
+    }
+  ],
+  "errors": []
+}

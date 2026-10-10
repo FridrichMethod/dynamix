@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:sctl_shin",
+  "started_at": "2026-10-10T13:59:15Z",
+  "finished_at": "2026-10-10T13:59:17Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:sctl_shin:venus-invader",
+      "source_id": "artists:soundcloud:sctl_shin",
+      "upstream_key": "venus-invader",
+      "page_url": "https://soundcloud.com/sctl_shin/venus-invader",
+      "file_url": "https://i1.sndcdn.com/artworks-vm5dOrm1cMku1rAF-Vz3WsA-original.jpg",
+      "title": "[PABAT! 2018/Dynamix] VENUS INVADER",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/sctl_shin/venus-invader",
+        "sc.title: Dynamix",
+        "sc.description: Illustration by Keiyuu"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-vm5dOrm1cMku1rAF-Vz3WsA-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2018-02-08T15:03:31Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:sctl_shin:2f079a0cc6cca08d",
+      "song_titles": [
+        "VENUS INVADER"
+      ],
+      "illustrators": [
+        "Keiyuu"
+      ],
+      "composers": [
+        "STARSTREAK CHAOS-TL12"
+      ]
+    }
+  ],
+  "errors": []
+}

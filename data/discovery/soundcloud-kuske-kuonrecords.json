@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:kuske-kuonrecords",
+  "started_at": "2026-10-10T13:58:50Z",
+  "finished_at": "2026-10-10T13:58:57Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:kuske-kuonrecords:dynamix-kplecraft-16383",
+      "source_id": "artists:soundcloud:kuske-kuonrecords",
+      "upstream_key": "dynamix-kplecraft-16383",
+      "page_url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
+      "file_url": "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg",
+      "title": "[Dynamix] Kplecraft - 16383",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
+        "sc.title: Dynamix",
+        "sc.title: 16383"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-12-04T13:40:06Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:kuske-kuonrecords:17e460e33143a1d4",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:kuske-kuonrecords:dynamix-kplecraft-nanohemu",
+      "source_id": "artists:soundcloud:kuske-kuonrecords",
+      "upstream_key": "dynamix-kplecraft-nanohemu",
+      "page_url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-nanohemu",
+      "file_url": "https://i1.sndcdn.com/artworks-000195302235-j0nbfi-original.jpg",
+      "title": "[Dynamix] Kplecraft - Nanohemu",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-nanohemu",
+        "sc.title: Dynamix",
+        "sc.title: Nanohemu"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000195302235-j0nbfi-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-11-25T10:49:08Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:kuske-kuonrecords:17cf3b2c92061376",
+      "song_titles": [
+        "Nanohemu"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:kuske-kuonrecords:kplecraft-okesuchi-2016",
+      "source_id": "artists:soundcloud:kuske-kuonrecords",
+      "upstream_key": "kplecraft-okesuchi-2016",
+      "page_url": "https://soundcloud.com/kuske-kuonrecords/kplecraft-okesuchi-2016",
+      "file_url": "https://i1.sndcdn.com/artworks-000197520417-s421ho-original.jpg",
+      "title": "[Dynamix] Kplecraft - Okesuchi (2016 Edit)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/kuske-kuonrecords/kplecraft-okesuchi-2016",
+        "sc.title: Okesuchi"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000197520417-s421ho-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-12-06T06:30:49Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:kuske-kuonrecords:f21101dd6270825e",
+      "song_titles": [
+        "Okesuchi"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ]
+    }
+  ],
+  "errors": []
+}

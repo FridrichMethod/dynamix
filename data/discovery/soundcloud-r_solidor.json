@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:r_solidor",
+  "started_at": "2026-10-10T13:59:09Z",
+  "finished_at": "2026-10-10T13:59:11Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:r_solidor:modello-di-neve",
+      "source_id": "artists:soundcloud:r_solidor",
+      "upstream_key": "modello-di-neve",
+      "page_url": "https://soundcloud.com/r_solidor/modello-di-neve",
+      "file_url": "https://i1.sndcdn.com/artworks-t1A8DqMREqZOoXsA-chIMKw-original.jpg",
+      "title": "ネーヴェの紋様",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/r_solidor/modello-di-neve",
+        "sc.description: Dynamix",
+        "sc.description: Zero"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-t1A8DqMREqZOoXsA-chIMKw-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2024-02-10T11:00:05Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:r_solidor:c1fd9e5918239e89",
+      "song_titles": [
+        "ネーヴェの紋様"
+      ],
+      "illustrators": [
+        "Zero"
+      ],
+      "composers": [
+        "R.Solidor"
+      ]
+    }
+  ],
+  "errors": []
+}

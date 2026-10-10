@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "source_id": "archives:4gamer",
+  "started_at": "2026-10-10T13:53:49Z",
+  "finished_at": "2026-10-10T13:53:49Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Links matching explicit patterns on explicit pages only."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/001.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/001.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/001.jpg",
+      "title": "001.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/001.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:94ffd3b171e23bc6"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/002.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/002.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/002.jpg",
+      "title": "002.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/002.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:0ef37b2796696701"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/003.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/003.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/003.jpg",
+      "title": "003.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:c471bc8e18acaf6d"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/004.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/004.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/004.jpg",
+      "title": "004.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:05da0cb8631abce2"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/005.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/005.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/005.jpg",
+      "title": "005.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:7121886afb701466"
+    }
+  ],
+  "errors": []
+}

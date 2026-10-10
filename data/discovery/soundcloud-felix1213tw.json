@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:felix1213tw",
+  "started_at": "2026-10-10T13:58:31Z",
+  "finished_at": "2026-10-10T13:58:32Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:felix1213tw:reconstruction",
+      "source_id": "artists:soundcloud:felix1213tw",
+      "upstream_key": "reconstruction",
+      "page_url": "https://soundcloud.com/felix1213tw/reconstruction",
+      "file_url": "https://i1.sndcdn.com/artworks-000495124080-0r0w28-original.jpg",
+      "title": "REconstruction",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/felix1213tw/reconstruction"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000495124080-0r0w28-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-01-31T15:27:09Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:felix1213tw:06fed71f56e6db7e",
+      "song_titles": [
+        "REconstruction"
+      ]
+    }
+  ],
+  "errors": []
+}

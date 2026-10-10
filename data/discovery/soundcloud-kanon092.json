@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:kanon092",
+  "started_at": "2026-10-10T13:58:42Z",
+  "finished_at": "2026-10-10T13:58:47Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:kanon092:feat-dl-free",
+      "source_id": "artists:soundcloud:kanon092",
+      "upstream_key": "feat-dl-free",
+      "page_url": "https://soundcloud.com/kanon092/feat-dl-free",
+      "file_url": "https://i1.sndcdn.com/artworks-000227869129-5q12e9-original.jpg",
+      "title": "奏音 feat. 駄々子 - 夏色メランコリー【DL FREE】",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/kanon092/feat-dl-free",
+        "sc.description: 眞緒"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000227869129-5q12e9-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-06-11T11:06:41Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:kanon092:ef86348ea8939324",
+      "song_titles": [
+        "夏色メランコリー"
+      ],
+      "illustrators": [
+        "眞緒"
+      ],
+      "composers": [
+        "奏音"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:kanon092:hnzwcq3eek1f",
+      "source_id": "artists:soundcloud:kanon092",
+      "upstream_key": "hnzwcq3eek1f",
+      "page_url": "https://soundcloud.com/kanon092/hnzwcq3eek1f",
+      "file_url": "https://i1.sndcdn.com/artworks-000227366537-3h9eyq-original.jpg",
+      "title": "ほしぞらトラベル【DL FREE】",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/kanon092/hnzwcq3eek1f",
+        "sc.description: BerryVerrine"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000227366537-3h9eyq-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-06-08T10:49:50Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:kanon092:d3158119829af8ed",
+      "song_titles": [
+        "ほしぞらトラベル"
+      ],
+      "illustrators": [
+        "BerryVerrine"
+      ],
+      "composers": [
+        "奏音"
+      ]
+    }
+  ],
+  "errors": []
+}

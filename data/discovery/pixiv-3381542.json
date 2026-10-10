@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:3381542",
+  "started_at": "2026-10-10T13:57:53Z",
+  "finished_at": "2026-10-10T13:57:54Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:3381542:86481781:p0",
+      "source_id": "artists:pixiv:3381542",
+      "upstream_key": "86481781:p0",
+      "page_url": "https://www.pixiv.net/artworks/86481781",
+      "file_url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+      "title": "totally bounded (p0)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/86481781",
+        "title: totally bounded"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1024,
+        "height": 1024,
+        "sha1": null,
+        "timestamp": "2020-12-23T13:45:00+00:00",
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "song_titles": [
+        "Totally bounded"
+      ],
+      "illustrators": [
+        "LESYEF"
+      ]
+    }
+  ],
+  "errors": []
+}
