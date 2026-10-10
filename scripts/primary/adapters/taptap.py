@@ -1,0 +1,148 @@
+"""TapTap app page screenshots (``www.taptap.cn/app/<id>``), parsed from the page's Nuxt payload.
+
+The server-rendered ``<script id="__NUXT_DATA__">`` is a ``devalue``-encoded array: objects and arrays hold indices into
+it. The app object (the one with ``screenshots`` and ``identifier``) lists image objects with ``original_url``,
+``original_format``, ``width``, ``height`` and ``original_size``; the transform suffixes (``/_tap_screenshot.jpg``) are
+previews. ``original_url`` is downloaded, the advertised size/bytes are kept as ``source_reported``, and the 32-hex
+name token is compared with the file's MD5 as extra evidence of an untouched upload. The banner, when it is the trailer
+thumbnail, is a ``video_placeholder`` and the icon a ``game_ui`` exclusion.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+from typing import Any, Mapping
+
+from lib import net
+
+from .. import model
+from . import base
+
+HOSTS = ["www.taptap.cn", ".tapimg.com"]
+SPECIAL = {-1: None, -2: None, -3: None, -4: None, -5: None, -6: 0}
+WRAPPERS = ("Reactive", "ShallowReactive", "Ref", "ShallowRef")
+_TOKEN = re.compile(r"/([0-9a-f]{32})\.(png|jpe?g|webp|gif)$")
+
+
+def check_seed(seed: Mapping[str, Any], where: str) -> None:
+    base.require_items(seed, where, ["url"])
+
+
+def nuxt_payload(html: str) -> list:
+    script = base.soup(html).find("script", attrs={"id": "__NUXT_DATA__"})
+    if script is None:
+        raise ValueError("no __NUXT_DATA__ payload on the page")
+    payload = json.loads(script.string or script.get_text())
+    if not isinstance(payload, list):
+        raise ValueError("__NUXT_DATA__ is not a devalue array")
+    return payload
+
+
+def resolve(payload: list, index: int, *, depth: int = 0) -> Any:
+    """Resolve a devalue index (objects/arrays hold indices; wrapper tuples such as ``["Reactive", i]``)."""
+    if depth > 64:
+        raise ValueError("devalue payload nested too deeply")
+    if isinstance(index, bool) or not isinstance(index, int):
+        raise ValueError(f"devalue reference is not an index: {index!r}")
+    if index < 0:
+        return SPECIAL.get(index)
+    value = payload[index]
+    if isinstance(value, dict):
+        return {key: resolve(payload, item, depth=depth + 1) for key, item in value.items()}
+    if isinstance(value, list):
+        if value and isinstance(value[0], str):
+            tag = value[0]
+            if tag in WRAPPERS:
+                return resolve(payload, value[1], depth=depth + 1) if len(value) > 1 else None
+            if tag in ("EmptyRef", "EmptyShallowRef", "null"):
+                return None
+            if tag == "Date":
+                return value[1] if len(value) > 1 else None
+            if tag == "Set":
+                return [resolve(payload, item, depth=depth + 1) for item in value[1:]]
+            if tag == "Map":
+                return {str(resolve(payload, value[i], depth=depth + 1)): resolve(payload, value[i + 1],
+                                                                                   depth=depth + 1)
+                        for i in range(1, len(value) - 1, 2)}
+        return [resolve(payload, item, depth=depth + 1) for item in value]
+    return value
+
+
+def find_app(payload: list, identifier: str | None) -> dict | None:
+    """The app object: a payload dict with ``screenshots`` and ``identifier`` (matching ``identifier`` if given)."""
+    for value in payload:
+        if isinstance(value, dict) and "screenshots" in value and "identifier" in value:
+            app = {key: (resolve(payload, value[key]) if key in ("screenshots", "banner", "icon", "identifier",
+                                                                 "title", "developers", "app_videos") else None)
+                   for key in value}
+            if identifier is None or app.get("identifier") == identifier:
+                return app
+    return None
+
+
+def _image(entry: Any) -> dict | None:
+    return entry if isinstance(entry, dict) and isinstance(entry.get("original_url"), str) else None
+
+
+def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
+    discovery = base.new_discovery(seed, lists=["app-screenshots"],
+                                   scope_notes="One app page; screenshots (original_url), banner and icon of the "
+                                               "app object only. Reviews/forum images are not collected.")
+    identifier = (seed.get("params") or {}).get("identifier")
+    for item in seed["items"]:
+        page_url = item["url"]
+        try:
+            html, _, _ = ctx.client.get_text(page_url)
+            app = find_app(nuxt_payload(html), identifier)
+        except net.FetchError as error:
+            discovery.candidates.append(model.error_draft("page", page_url, "TapTap app page", error,
+                                                          phase="discover"))
+            continue
+        except (ValueError, IndexError) as error:
+            discovery.errors.append(model.discovery_error("discover", page_url, f"page structure changed: {error}"))
+            discovery.continuation["app-screenshots"] = "structure-not-recognized"
+            continue
+        if app is None:
+            discovery.errors.append(model.discovery_error("discover", page_url,
+                                                          f"no app object with identifier {identifier}"))
+            discovery.continuation["app-screenshots"] = "app-not-found"
+            continue
+        developers = " ".join(d.get("name", "") for d in app.get("developers") or [] if isinstance(d, dict))
+        texts = {"identifier": str(app.get("identifier") or ""), "title": str(app.get("title") or ""),
+                 "developers": developers}
+        evidence, missing = base.identity(seed, texts, page_url)
+        for index, shot in enumerate(app.get("screenshots") or [], start=1):
+            image = _image(shot)
+            if image is None:
+                continue
+            url = image["original_url"]
+            token = _TOKEN.search(url)
+            key = f"screenshot:{token.group(1) if token else index}"
+            rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
+            draft = model.apply_rule(
+                rule, key=key, page_url=page_url, texts=texts, file_url=url,
+                default_title=f"TapTap screenshot {index}", default_quality=ctx.quality, default_rights=ctx.rights,
+                original_filename=base.last_segment(url), base_evidence=evidence,
+                source_reported=base.reported(url=url, mime=base.mime_for(image.get("original_format")),
+                                              bytes=image.get("original_size"), width=image.get("width"),
+                                              height=image.get("height")))
+            draft.md5_token = token.group(1) if token else None
+            discovery.candidates.append(draft)
+        thumbnails = {(((video.get("video") or {}).get("thumbnail")) or {}).get("original_url")
+                      for video in app.get("app_videos") or [] if isinstance(video, dict)}
+        banner, icon = _image(app.get("banner")), _image(app.get("icon"))
+        if banner:
+            is_thumb = banner["original_url"] in thumbnails or "_thumbnail_" in banner["original_url"]
+            discovery.candidates.append(model.Draft(
+                upstream_key=f"banner:{base.last_segment(banner['original_url'])}", page_url=page_url,
+                title="TapTap banner", action="excluded" if is_thumb else "pending",
+                file_url=base.stored(banner["original_url"]), game="dynamix", game_evidence=evidence,
+                reason=("video_placeholder: banner is the trailer video thumbnail" if is_thumb else
+                        "pending: banner image not classified")))
+        if icon:
+            discovery.candidates.append(model.Draft(
+                upstream_key=f"icon:{base.last_segment(icon['original_url'])}", page_url=page_url,
+                title="TapTap app icon", action="excluded", file_url=base.stored(icon["original_url"]),
+                game="dynamix", game_evidence=evidence, reason="game_ui: store app icon (branding, not artwork)"))
+    return discovery
