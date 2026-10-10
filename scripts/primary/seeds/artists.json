@@ -537,7 +537,8 @@
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Rave!_and_Get_on_it!",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49713)"
-          }
+          },
+          "notes": "The page title names the song and both RAVON and Dynamix, so the song mapping is confirmed by the page; the framed square layout matches the RAVON 'Squared' version, and the page does not say which game uses this exact image."
         }
       ]
     },
@@ -764,15 +765,6 @@
             "url": "https://dynamix.miraheze.org/wiki/The_Clockwork_Doll",
             "note": "the Dynamix wiki song page"
           },
-          "credit_evidence": [
-            {
-              "role": "illustrator",
-              "name": "ケシｋｓくん",
-              "url": "https://soundcloud.com/aboutlogic/the-clockwork-doll",
-              "field": "sc.description",
-              "quote": "アートワーク：https://twitter.com/KeshiksExt"
-            }
-          ],
           "notes": "The page credits the artwork to the X account KeshiksExt (ケシｋｓくん on the wiki); the composer credit follows the wiki (テヅカ), the uploader account is Tezuka."
         }
       ]

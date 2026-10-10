@@ -250,16 +250,7 @@
             "note": "the Dynamix wiki song page"
           },
           "candidate_notes": "Official event announcement image for Xetta.",
-          "credit_evidence": [
-            {
-              "role": "composer",
-              "name": "TangJuan vs Black Box",
-              "field": "text",
-              "quote": "次のイベントソングは @Tang0Juanさんvs Black Boxさん作った Xetta",
-              "url": "https://x.com/c4c4cat/status/981147690795900928"
-            }
-          ],
-          "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box."
+          "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box; the credit follows the wiki."
         },
         {
           "match": "^1156172591872167937:1$",

@@ -14,8 +14,8 @@ A candidate's ``game`` is the rule's only once the rule admits it (or a curated 
 candidate held by a guard is ``unknown`` (``dynamix_universe``/``mixed`` when the Universe guard matched). Admission
 also checks the asserted mapping and credits against the fetched text: ``confirmed_primary`` needs every mapped song
 title in the primary text (or in a ``primary_evidence`` quote), otherwise it becomes ``inferred``; each credited name
-gets a ``credit_evidence`` entry quoting the field that states it, or an entry without a quote (``credit_source``
-names where the credit comes from) when the fetched text does not state it.
+gets a ``credit_evidence`` entry quoting the field where a label of its own role leads to it (:func:`locate_credit`),
+or an entry without a quote citing the rule's ``credit_source`` when the fetched text does not state it with that role.
 """
 
 from __future__ import annotations
@@ -242,11 +242,18 @@ ROLE_TERMS = {  # labels that state a credit's role, in the languages the source
     "illustrator": re.compile("|".join([
         _ASCII_WORD.format(r"(?:illust\w*|art\s*works?|art|jackets?|covers?|visual\w*|drawn|drawing|"
                            r"painted|pic(?:ture)?\s*by)"),
-        "イラスト", "ジャケ", "アートワーク", "絵", "插画", "插圖", "画师", "美术", "封面"]), re.IGNORECASE),
+        "イラストレーター", "イラストレーション", "イラスト", "ジャケット", "ジャケ写", "ジャケ", "アートワーク", "絵師", "絵",
+        "插画", "插圖", "画师", "美术", "封面"]), re.IGNORECASE),
     "composer": re.compile("|".join([
         _ASCII_WORD.format(r"(?:music\w*|compos\w*|arrang\w*|track\s*by|sound)"),
-        "作曲", "編曲", "编曲", "作編曲", "楽曲", "音楽", "音乐", "曲"]), re.IGNORECASE),
+        "作編曲", "作曲", "編曲", "编曲", "楽曲提供", "楽曲", "音楽", "音乐", "曲"]), re.IGNORECASE),
 }
+# What may stand between a credit label and the credited name: separators (``: ``, `` by ``, ``は``, ``@``), a joined
+# label word (``Composition/Vocal:``) and earlier names of the same list (``Composed by A and B``, ``A & B``, ``A X B``).
+# Anything else (``music package "Kplecraft Collection"``, ``Illustration by A B:``) means the label credits someone else.
+_LABEL_GAP = re.compile(r"(?:\s*/\s*[A-Za-z]+)*[\s:：=\-–—・@＠]*(?:by|は|が)?[\s:：=\-–—@＠]*"
+                        r"(?:[^\n:：。．!！?？「」『』\"“”]{1,40}?(?:\s+(?:and|x|×|vs\.?|feat\.?)\s+|\s*[&＆,、/×]\s*)@?)?",
+                        re.IGNORECASE)
 # A credit label is read back from the name to the nearest of these (a new line or list bullet starts a new credit).
 _SEGMENT_BREAK = re.compile(r"[\n\r|｜◆◇■□●○★☆▼▽▶►•]|-{3,}|={3,}")
 _LABEL_JOIN = re.compile(r"^(?:[\s&/+＆・,、]|and|と|及び)*$", re.IGNORECASE)
@@ -275,7 +282,8 @@ def _excerpt(value: str, start: int, end: int, context: int = EXCERPT_CONTEXT) -
 def label_roles(before: str) -> tuple[set[str], int | None]:
     """Roles stated by the credit label that precedes a name: the text since the last segment break is searched for role
     terms; the last term found is the label, together with terms joined to it only by ``&``, ``/``, ``and`` ... (a
-    joint label such as ``Music&Artwork``). Returns (roles, label start offset in ``before``) or (set(), None)."""
+    joint label such as ``Music&Artwork``). Only a label that the name follows directly or in a list of names
+    (``_LABEL_GAP``) counts. Returns (roles, label start offset in ``before``) or (set(), None)."""
     breaks = list(_SEGMENT_BREAK.finditer(before))
     offset = breaks[-1].end() if breaks else 0
     segment = before[offset:]
@@ -290,6 +298,8 @@ def label_roles(before: str) -> tuple[set[str], int | None]:
     if not found:
         return set(), None
     group = [found[-1]]
+    if not _LABEL_GAP.fullmatch(segment[group[0][1]:]):
+        return set(), None
     for item in reversed(found[:-1]):
         if item[1] <= group[-1][0] and _LABEL_JOIN.match(segment[item[1]:group[-1][0]]):
             group.append(item)
@@ -311,8 +321,6 @@ def locate_credit(name: str, texts: Mapping[str, str], role: str) -> tuple[str, 
             continue
         value = unicodedata.normalize("NFKC", text)
         for match in pattern.finditer(value):
-            if re.match(r"\s*[:：]", value[match.end():]):  # "Black Box: https://..." labels a link, credits nothing
-                continue
             window = max(0, match.start() - LABEL_WINDOW)
             roles, label = label_roles(value[window:match.start()])
             if role in roles:

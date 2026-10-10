@@ -368,6 +368,17 @@ class MatchingTests(unittest.TestCase):
         self.assertIsNotNone(locate("kRM & 残響P", {"d": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」"},
                                     "composer"))
         self.assertIsNone(locate("Yunosuke", {"d": "Made the cover for Yunosuke!"}, "composer"))
+        # The label must lead to the name (directly, or through a list of names), not merely precede it.
+        self.assertIsNone(locate("Kplecraft", {"d": 'Included in the music package "Kplecraft Collection" of'},
+                                 "composer"))
+        self.assertIsNone(locate("Foo", {"d": "Artwork: Max Foo"}, "illustrator"))  # part of another name
+        for name, text, role in (("Jehezukiel", "Composition/Vocal: Jehezukiel Visualized by X", "composer"),
+                                 ("長井りく", "🎨Artwork 長井りく:https://twitter.com/sojyiqui", "illustrator"),
+                                 ("Violpa", "流星をイメージしました。ジャケットはViolpaさんです。", "illustrator"),
+                                 ("SCTL", "Composed by Linne X SCTL @sctl_shin Visualized by", "composer"),
+                                 ("deronoitz", "Mixing and Mastering done by myself illust by @deronoitz", "illustrator"),
+                                 ("MimiChair", "Visualized: DCWH & MimiChair Pattern Design: T", "illustrator")):
+            self.assertIsNotNone(locate(name, {"d": text}, role), (name, text))
 
     def test_credit_fields_never_borrow_the_other_roles_evidence(self):
         entries, notes = model.credit_fields(

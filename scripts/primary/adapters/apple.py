@@ -76,7 +76,8 @@ def rendition_note(requested: str, upload: str | None) -> str:
     if requested == "png" and upload == "png":
         return (f"Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy "
                 "variant the page or API advertises).")
-    lossy = " (lossy; Apple serves no lossless rendition of a JPEG upload)" if upload == "jpg" else ""
+    lossy = " (lossy, as the upload itself is a JPEG; a PNG re-encoding would add no information)" if upload == "jpg" \
+        else ""
     return f"Apple's {fmt} rendition of the {names.get(upload, upload.upper())} upload at native size{lossy}."
 
 

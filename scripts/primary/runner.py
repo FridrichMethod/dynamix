@@ -202,6 +202,16 @@ def adapter_hosts(seed: Mapping[str, Any]) -> list[str]:
 
 # --- Record builders --------------------------------------------------------------------------------------------------
 
+def append_note(notes: str | None, note: str) -> str:
+    """``notes`` with ``note`` appended once, as its own sentence."""
+    notes = (notes or "").strip()
+    if note in notes:
+        return notes
+    if notes and not notes.endswith((".", "!", "?", "。", ")")):
+        notes += "."
+    return f"{notes} {note}".strip()
+
+
 def stored_url(url: str | None) -> str | None:
     """A URL fit for storage (credential parameters redacted) or None when it is not a valid http(s) URL."""
     if not url or checks.url_problem(url):
@@ -476,8 +486,7 @@ class Runner:
                 note = (f"Decodes to pixels identical to {others} (different file bytes, e.g. embedded metadata); "
                         "not a distinct artwork.")
                 updated = dict(member)
-                if note not in (updated.get("notes") or ""):
-                    updated["notes"] = " ".join(filter(None, [updated.get("notes"), note]))
+                updated["notes"] = append_note(updated.get("notes"), note)
                 if group and not updated.get("variant_group"):
                     updated["variant_group"] = group
                 if updated != member:
@@ -811,8 +820,7 @@ class Runner:
                 continue
             updated = dict(asset)
             updated["upstream_status"] = status
-            if note not in (updated.get("notes") or ""):
-                updated["notes"] = " ".join(filter(None, [updated.get("notes"), note]))
+            updated["notes"] = append_note(updated.get("notes"), note)
             schema.validate_asset(updated, self.family)
             state.assets[asset["id"]] = schema.canonical(updated, "asset")
 

@@ -12,15 +12,26 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
 
 - `--verify` is offline: manifest and snapshot validation, reconciliation, every file re-hashed and decoded,
   unreferenced files and symlinks under `assets/public/<family>/` reported, and errors for: a seed source without a
-  source record (when checking this checkout or with `--seeds`), `primary_post` evidence that no artists snapshot
-  corroborates for the same file, and an archived candidate that a later run now *excludes* (kept for review; a
-  now pending/failed one is a warning).
+  source record (when checking this checkout or with `--seeds`), a source record without a valid snapshot at
+  `data/discovery/<slug>.json`, a snapshot file named for one of the family's sources that holds no valid source ID
+  (an unknown file name is a warning), a credit entry without a source URL, `primary_post` evidence that no artists
+  candidate admitted for Dynamix (not excluded, not held) corroborates for the same file, and an archived candidate
+  that a later run now *excludes* (kept for review; a now pending/failed one is a warning).
 - `--resume` re-hashes archived files instead of downloading them again; `--metadata-only` never downloads and
   never changes archived records.
 - Each acquisition holds an exclusive `fcntl.flock` (`--lock`; default: the family's `assets/public/<family>`
   directory under the root, so `TMPDIR` cannot give two writers different locks and no lock file is created); a second
   writer of the same family exits with status 3. Manifests and snapshots are validated and rewritten atomically after
   every resolved candidate, so a killed run loses at most the file in flight.
+- Refresh bookkeeping: an archived candidate that every covering *complete* enumeration (`Discovery.coverage`: page
+  links, store listings, a fully rendered SoundCloud `/tracks` list) no longer lists becomes `upstream_status: removed`
+  (bytes kept, candidate leaves the snapshot); one the seeds no longer reach after a complete run becomes `unknown`
+  (and `current` again when rediscovered); a failed or partial read changes no status. New bytes supersede the
+  previous record, also when they revert to an earlier archived one. A refresh that fails keeps the previous candidate
+  record unchanged. An archived file that no longer verifies is replaced atomically when a fresh download hashes to
+  the record's SHA-256; otherwise the damage is reported as a `verify` discovery error and `--verify` fails.
+  Current assets of one source that decode to identical pixels with different bytes (App Store renditions carry a
+  per-response identifier) name each other and share a `variant_group`.
 - One source's unexpected adapter error does not stop the run: its snapshot keeps the previous candidates, an open
   `adapter` continuation and the error, the remaining sources run, and the CLI exits 1. A page or API read that fails
   keeps its list open (`not-read:<error class>`), so `discovery_complete` is never inferred from an error.
@@ -33,9 +44,14 @@ A rule (`match` regex on the candidate key) may admit a candidate only with a `r
 the candidate stays `pending` with game `unknown`; `confirmed_primary` needs such quotes, or, for a copy of a primary
 post's file (Wayback), `primary_evidence` quoting that post, which `--verify` cross-checks, and every mapped song title
 must be named by the fetched text or a `primary_evidence` quote (else the record says `inferred`). Each credited name
-gets `credit_evidence` quoting the fetched field that states it, or an entry without a quote pointing at the rule's
-`credit_source` (research/wiki page) when the page does not state it; curated `credit_evidence` and `mapping_evidence`
-entries are kept as given. Two guards override seeds: a *rejected submission* announcement excludes the candidate,
+gets `credit_evidence` quoting the fetched field only where a credit label *of its own role* precedes it (`Artwork:`,
+`Composed by`, `イラストは`, a joint `Music&Artwork`; a title `Artist - Song`, an uploader field, a `Movie:`/`BGA` line
+or the other role's label is no evidence); otherwise the entry has no quote and cites the rule's `credit_source`
+(e.g. the Miraheze song page, whose Template:Song `Artist`/`Cover Artist` must state the name verbatim), which every
+download rule that credits names must have unless a curated `credit_evidence` entry with a URL covers each name.
+List fields are lists of non-empty strings and `min_interval` is at least 1 s. Collaboration/multi-game art
+(`game_associations` beyond `dynamix`) gets `rights.holder: null` unless the rule names a holder the source supports.
+Curated `credit_evidence` and `mapping_evidence` entries are kept as given. Two guards override seeds: a *rejected submission* announcement excludes the candidate,
 and a *Dynamix Universe* mention holds it as `pending` unless the rule sets `allow_universe_mention`. Unclassified
 items are `pending`, never admitted on keywords; X embed-timeline posts need a rule whose `match` names the post ID
 (or that requires evidence quotes). `variant_role` requires `variant_group` (`jacket:<song slug>` groups crops of one
@@ -47,13 +63,13 @@ that a rule now excludes stays archived and fails `--verify`.
 
 | Adapter | Access | Notes |
 | --- | --- | --- |
-| `x_post` | `cdn.syndication.twimg.com/tweet-result` (public embed), `pbs.twimg.com …name=orig`; optional `syndication.twitter.com` embed timeline | one candidate per image (`<post>:<n>`); timeline is a recent sample (list stays open); X re-encodes uploads |
+| `x_post` | `cdn.syndication.twimg.com/tweet-result` (public embed), `pbs.twimg.com …name=orig`; optional `syndication.twitter.com` embed timeline | one candidate per image (`<post>:<n>`); `media_url_https` and `original_info` stay `source_reported`; timeline is a recent sample (list stays open); X re-encodes uploads |
 | `pixiv_artwork` | `www.pixiv.net/ajax/illust/<id>` (+ `/pages`) | `i.pximg.net` refuses requests without a pixiv Referer, which is never forged: one attempt, `blocked`, host skipped for the run; withheld URLs → `blocked` without a request |
-| `release_page` | SoundCloud `__sc_hydration` / Bandcamp JSON-LD | cover upgraded to `-original` / `_0`; uploader permalink checked |
+| `release_page` | SoundCloud `__sc_hydration` / Bandcamp JSON-LD | cover upgraded to `-original` / `_0` (the advertised `artwork_url`/`og:image` stays `source_reported`); uploader permalink checked |
 | `bilibili_opus`, `artstation_project` | public JSON | risk-control codes / 403 / challenges → `blocked` (manual access) |
-| `apple_store` | product page `serialized-server-data` shelves; iTunes `lookup` per storefront | native size, Apple's lossless PNG rendition of PNG uploads (the advertised JPEG variant stays in `source_reported`), `transformed: true` |
-| `google_play` | listing pages per locale | `=s0` native size; advertised `=wW-hH` kept as notes, size decoded from bytes |
-| `taptap_app` | `__NUXT_DATA__` devalue payload | `original_url`; MD5 of the file compared with the name token (a mismatch is a re-encode: `transformed: true`, byte-exact twin named when archived); crop/upscale banner rendition excluded |
+| `apple_store` | product page `serialized-server-data` shelves; iTunes `lookup` per storefront | native size, Apple's lossless PNG rendition of PNG uploads (the advertised JPEG variant stays in `source_reported`), `transformed: true`; per-record quality note names the stored rendition and Apple's per-response identifier (re-verify by pixels) |
+| `google_play` | listing pages per locale | `=s0` native size; the advertised `src` rendition is `source_reported`, `=wW-hH` sizes kept as notes, size decoded from bytes |
+| `taptap_app` | `__NUXT_DATA__` devalue payload | `original_url`; MD5 of the file compared with the name token (a mismatch is a re-encode: `transformed: true`, byte-exact twin named when archived); crop/resize banner rendition excluded (`upscaled` only when larger than its crop) and kept as the upload's `source_reported` |
 | `wayback_cdx` | CDX API with `showResumeKey` paging (bounded: repeated key or `max_pages`), `id_` raw captures | earliest capture per distinct payload; CDX digest → `source_reported.sha1` |
 | `page_links`, `direct_files` | explicit pages / explicit file URLs | link patterns per page; JS galleries named file by file |
 | `release_page` (list mode) | `{"tracks_of": "<handle>"}`: one read of `soundcloud.com/<handle>/tracks` | every server-rendered track becomes an item; the list stays open when fewer than the account's `track_count` are rendered |
