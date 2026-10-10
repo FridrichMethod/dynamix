@@ -10,14 +10,21 @@ For each source with a cheap read-only adapter (the MediaWiki ``list=allimages``
 * **changed**: saved candidates whose live SHA-1, size, dimensions, MIME type or upload timestamp differ from the
   saved ``source_reported`` values (a value the snapshot did not record is not comparable and never a change);
 * **removed**: saved candidates absent from a live listing that was enumerated **completely** (every continuation
-  followed without an error). When the live listing is incomplete (HTTP error, timeout, block, API error, page
-  limit) missing candidates are only reported as *not seen*, never as removed.
+  followed without an error and every entry parsed). When the live listing is incomplete (HTTP error, timeout, block,
+  API error, an entry without a usable title, page limit) missing candidates are only reported as *not seen*, never as
+  removed;
+* **aliases not listed**: saved file redirects and aliases (``excluded`` with reason ``redirect_or_alias``), which
+  ``allimages`` never lists, so their absence is expected and never a removal.
 
-Every other saved snapshot is listed with its saved completeness and marked as not checked live. Nothing in the
-checkout is modified: the report paths must lie outside it, and no snapshot, manifest or asset is written. Network
-access uses the shared polite client (host allowlist, 1 s spacing, bounded retries). Upstream strings are untrusted:
-the Markdown report shows each one as an inline code span and links only https file pages on the source's own host.
-The exit status is 0 whenever the report was written, whatever it found; read the report or ``--summary`` JSON.
+``differences`` in the summary means added, changed or removed files only; *not seen* is reported separately. Every
+other saved snapshot is listed with its saved completeness and marked as not checked live. Nothing in the checkout is
+modified: the report paths must lie outside it, and no snapshot, manifest or asset is written. Network access uses
+the shared polite client (host allowlist, 1 s spacing, bounded retries). Upstream strings are untrusted: the Markdown
+report shows each one as an inline code span and links only https file pages on the source's own host.
+
+Exit status: 0 when the report was written and every selected source was enumerated completely (whatever it found);
+3 when the report was written but a live check was incomplete or its saved snapshot unusable, so the run is not
+mistaken for a clean check; 1 (or argparse's 2) for invalid arguments, with no report.
 """
 
 from __future__ import annotations
@@ -59,6 +66,8 @@ INTEGER_FIELDS = ("bytes", "width", "height")
 DEFAULT_MAX_PAGES = 200  # 100,000 files at 500 per page; reaching it leaves the listing incomplete
 MAX_TEXT = 300
 ROW_LIMIT = 100
+INCOMPLETE_STATUS = 3  # the report was written, but at least one selected live check is incomplete
+ALIAS_REASON = "redirect_or_alias"  # an excluded file redirect or alias: allimages lists only real files
 # Control characters and line/paragraph separators would end a table row; bidirectional controls reorder text.
 CONTROL = re.compile(r"[\x00-\x1f\x7f-\x9f\u2028\u2029]")
 BIDI_CONTROL = re.compile(r"[\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]")
@@ -125,14 +134,19 @@ def _read_page(listing: Listing, data: Any, api: str) -> dict | None:
     if not isinstance(images, list):
         listing.errors.append(_error(api, "response has no query.allimages list"))
         return None
+    unreadable = 0
     for image in images:
         record = parse_image(image)
         if record is None:
-            listing.notes.append("skipped an allimages entry without a usable title")
+            unreadable += 1  # some file is listed but cannot be identified: its saved candidate must not look removed
         elif record["key"] in listing.files:
             listing.notes.append(f"{record['key']} was listed twice; the first entry is kept")
         else:
             listing.files[record["key"]] = record
+    if unreadable:
+        listing.errors.append(_error(api, f"page {listing.pages}: {unreadable} allimages "
+                                          f"{'entry has' if unreadable == 1 else 'entries have'} no usable title or "
+                                          "name, so the listing is incomplete"))
     following = data.get("continue", {})
     if not isinstance(following, dict) or not all(isinstance(v, str) for v in following.values()):
         listing.errors.append(_error(api, "continuation is not an object of strings"))
@@ -156,8 +170,8 @@ def enumerate_allimages(client: Any, wiki: MediaWiki, max_pages: int) -> Listing
         following = _read_page(listing, data, wiki.api)
         if following is None:
             break
-        if not following:
-            listing.complete, listing.continuation = True, None
+        if not following:  # enumerated to the end; complete unless an entry could not be read
+            listing.complete, listing.continuation = not listing.errors, None
             return listing
         if following == continuation:
             listing.errors.append(_error(wiki.api, "continuation did not advance"))
@@ -201,6 +215,14 @@ def _saved_row(candidate: Mapping[str, Any]) -> dict:
             "saved": {name: candidate["source_reported"].get(name) for name in COMPARED_FIELDS}}
 
 
+def listed_by_allimages(candidate: Mapping[str, Any]) -> bool:
+    """Whether ``list=allimages`` is expected to list this saved candidate: every current file, but never a file
+    redirect or alias (excluded as ``redirect_or_alias``)."""
+    reason = candidate.get("reason")
+    prefix = reason.split(":", 1)[0].strip() if isinstance(reason, str) else ""
+    return not (candidate["disposition"] == "excluded" and prefix == ALIAS_REASON)
+
+
 def compare(snapshot: Mapping[str, Any], listing: Listing) -> dict:
     saved = {c["upstream_key"]: c for c in snapshot["candidates"] if c["upstream_key"].startswith(FILE_PREFIX)}
     live = listing.files
@@ -216,15 +238,16 @@ def compare(snapshot: Mapping[str, Any], listing: Listing) -> dict:
                             "changes": diff, "live": {name: live[key][name] for name in COMPARED_FIELDS}})
         else:
             unchanged += 1
-    missing = [_saved_row(saved[key]) for key in sorted(saved) if key not in live]
+    absent = [key for key in sorted(saved) if key not in live]
+    missing = [_saved_row(saved[key]) for key in absent if listed_by_allimages(saved[key])]
+    aliases = [_saved_row(saved[key]) for key in absent if not listed_by_allimages(saved[key])]
+    removed, not_seen = (missing, []) if listing.complete else ([], missing)
     return {
-        "added": added, "changed": changed,
-        "removed": missing if listing.complete else [],
-        "not_seen": [] if listing.complete else missing,
+        "added": added, "changed": changed, "removed": removed, "not_seen": not_seen, "aliases_not_listed": aliases,
         "counts": {"saved_candidates": len(snapshot["candidates"]), "saved_files": len(saved),
                    "not_comparable": len(snapshot["candidates"]) - len(saved), "live_files": len(live),
-                   "added": len(added), "changed": len(changed), "removed": len(missing) if listing.complete else 0,
-                   "not_seen": 0 if listing.complete else len(missing), "unchanged": unchanged,
+                   "added": len(added), "changed": len(changed), "removed": len(removed), "not_seen": len(not_seen),
+                   "aliases_not_listed": len(aliases), "unchanged": unchanged,
                    "saved_without_metadata": without_metadata},
     }
 
@@ -302,11 +325,11 @@ def run(root: Path, *, sources: Iterable[str] = tuple(MEDIAWIKI_SOURCES), client
     results += other_snapshots(root, selected)
     compared = [entry for entry in results if "counts" in entry]
     totals = {name: sum(entry["counts"][name] for entry in compared)
-              for name in ("added", "changed", "removed", "not_seen", "unchanged")}
+              for name in ("added", "changed", "removed", "not_seen", "aliases_not_listed", "unchanged")}
     return {"schema_version": schema.SCHEMA_VERSION, "generated_at": now or manifest.now_utc(), "read_only": True,
             "complete": bool(selected) and all(entry["status"] == "compared" for entry in results[:len(selected)]),
-            "differences": any(totals[name] for name in ("added", "changed", "removed", "not_seen")),
-            "totals": totals, "sources": results}
+            "differences": any(totals[name] for name in ("added", "changed", "removed")),
+            "not_seen": totals["not_seen"], "totals": totals, "sources": results}
 
 
 # ---------------------------------------------------------------- Markdown report (untrusted text as code spans)
@@ -379,10 +402,11 @@ def _source_section(entry: Mapping[str, Any]) -> list[str]:
     lines.append("")
     if "counts" in entry:
         counts = entry["counts"]
-        lines += ["| added | changed | removed | not seen (incomplete) | unchanged | not comparable |",
-                  "| --- | --- | --- | --- | --- | --- |",
+        lines += [("| added | changed | removed | not seen (incomplete) | aliases not listed | unchanged | "
+                   "not comparable |"),
+                  "| --- | --- | --- | --- | --- | --- | --- |",
                   f"| {counts['added']} | {counts['changed']} | {counts['removed']} | {counts['not_seen']} | "
-                  f"{counts['unchanged']} | {counts['not_comparable']} |", ""]
+                  f"{counts['aliases_not_listed']} | {counts['unchanged']} | {counts['not_comparable']} |", ""]
         lines += _table("Added", entry["added"], ("File", "Size", "Dimensions", "SHA-1", "Uploaded"),
                         lambda row: [_file_cell(row, host), _value("bytes", row["bytes"]),
                                      f"{_value('width', row['width'])}×{_value('height', row['height'])}",
@@ -397,6 +421,9 @@ def _source_section(entry: Mapping[str, Any]) -> list[str]:
         lines += _table("Not seen (live listing incomplete; not a removal)", entry["not_seen"],
                         ("File", "Saved disposition"),
                         lambda row: [_file_cell(row, host), code(row["disposition"])])
+        lines += _table("Redirects and aliases not listed (expected; not a removal)", entry["aliases_not_listed"],
+                        ("File", "Saved disposition"),
+                        lambda row: [_file_cell(row, host), code(row["disposition"])])
     return lines
 
 
@@ -406,11 +433,16 @@ def render(report: Mapping[str, Any]) -> str:
         "## Source metadata check", "",
         f"Generated {code(report['generated_at'])}. Read-only: no snapshot, manifest or asset was changed, and no "
         "file was downloaded.", "",
-        f"- Live checks complete: {code(report['complete'])}",
+        f"- Live checks complete: {code(report['complete'])}"
+        + ("" if report["complete"] else " (**incomplete**: some saved files could not be checked; see the errors "
+           "below)"),
+        f"- Upstream differences (added, changed or removed): {code(report['differences'])}",
         f"- Totals: {totals['added']} added · {totals['changed']} changed · {totals['removed']} removed · "
-        f"{totals['not_seen']} not seen (incomplete listing) · {totals['unchanged']} unchanged", "",
+        f"{totals['not_seen']} not seen (incomplete listing) · {totals['aliases_not_listed']} redirects/aliases not "
+        f"listed · {totals['unchanged']} unchanged", "",
         "A file is reported as removed only when the live listing was enumerated completely; a timeout, block, HTTP "
-        "or API error, or the page limit leaves the listing incomplete, and missing files are then only *not seen*. "
+        "or API error, an entry without a usable title, or the page limit leaves the listing incomplete, and missing "
+        "files are then only *not seen*. Saved file redirects and aliases are never in the listing. "
         "Archived bytes are never deleted because of this report; review it, then refresh snapshots and downloads "
         "with the fetchers (e.g. `fetch_wikis.py --resume`) and commit the reviewed result.", "",
     ]
@@ -454,7 +486,11 @@ def main(argv: list[str] | None = None, *, client_factory: ClientFactory = defau
         summary_path.parent.mkdir(parents=True, exist_ok=True)
         summary_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"complete": report["complete"], "differences": report["differences"],
-                      "totals": report["totals"]}, ensure_ascii=False))
+                      "not_seen": report["not_seen"], "totals": report["totals"]}, ensure_ascii=False))
+    if not report["complete"]:
+        print("check_sources: the report was written, but a live check was incomplete (see its errors); "
+              f"exit status {INCOMPLETE_STATUS}", file=sys.stderr)
+        return INCOMPLETE_STATUS
     return 0
 
 

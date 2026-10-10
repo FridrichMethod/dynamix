@@ -423,6 +423,32 @@ class StepBehaviorTests(unittest.TestCase):
             self.assertNotEqual(committed.returncode, 0)
             self.assertIn("docs/notes.md:1: trailing whitespace", committed.stdout)
 
+    def test_source_check_step_publishes_the_report_and_fails_when_incomplete(self):
+        steps = [step for step in steps_of(load("check-sources.yml")["jobs"]["report"])
+                 if step.get("name", "").startswith("Compare live metadata")]
+        self.assertEqual(len(steps), 1)
+        fake = ('#!/bin/sh\n[ "$1 $2 $3" = "-I scripts/check_sources.py --report" ] || exit 99\n'
+                'if [ -n "$WRITE_REPORT" ]; then printf "## Source metadata check\\n" > "$4"; fi\n'
+                'exit "$FAKE_STATUS"\n')
+        for status, write, expected, message in (
+                ("0", "1", 0, "listed completely"),
+                ("3", "1", 3, "::error::Live source check incomplete"),
+                ("1", "", 1, "::error::check_sources.py failed with exit status 1")):
+            with self.subTest(status=status), tempfile.TemporaryDirectory() as temporary:
+                base = Path(temporary)
+                venv = base / "runner/venv/bin"
+                venv.mkdir(parents=True)
+                (venv / "python").write_text(fake, encoding="utf-8")
+                (venv / "python").chmod(0o755)
+                summary = base / "step-summary.md"
+                result = self.bash(steps[0]["run"], base, RUNNER_TEMP=str(base / "runner"),
+                                   GITHUB_STEP_SUMMARY=str(summary), FAKE_STATUS=status, WRITE_REPORT=write)
+                self.assertEqual(result.returncode, expected, result.stdout + result.stderr)
+                self.assertIn(message, result.stdout)
+                published = summary.read_text(encoding="utf-8") if summary.exists() else ""
+                self.assertEqual("## Source metadata check" in published, bool(write),
+                                 "a written report is published even when the check is incomplete")
+
     def test_unchanged_checkout_step_fails_on_any_modification(self):
         script = self.script("Checks left the checkout unchanged")
         with tempfile.TemporaryDirectory() as temporary:

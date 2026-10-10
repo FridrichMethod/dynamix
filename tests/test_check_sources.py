@@ -109,6 +109,28 @@ def entry_for(report, source_id):
     return next(entry for entry in report["sources"] if entry["source_id"] == source_id)
 
 
+def keys(rows):
+    return [row["key"] for row in rows]
+
+
+ALIAS_KEY = "File:Cosmic_Pulse_alias.png"
+
+
+def fixture_with_alias(base: Path) -> Path:
+    """A copy of the fixture whose Miraheze snapshot also holds a file redirect excluded as redirect_or_alias."""
+    root = base / "checkout"
+    shutil.copytree(FIXTURE, root)
+    path = root / "data/discovery/miraheze.json"
+    snapshot = json.loads(path.read_text(encoding="utf-8"))
+    template = next(c for c in snapshot["candidates"] if c["disposition"] == "excluded")
+    alias = {**template, "id": "wikis:miraheze:" + ALIAS_KEY, "upstream_key": ALIAS_KEY,
+             "page_url": "https://dynamix.miraheze.org/wiki/" + ALIAS_KEY, "title": "Cosmic_Pulse_alias",
+             "role": None, "game_evidence": [], "reason": "redirect_or_alias: redirect to File:Cosmic_Pulse.png"}
+    snapshot["candidates"] = sorted(snapshot["candidates"] + [alias], key=lambda c: c["id"])
+    path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return root
+
+
 class CheckTestCase(unittest.TestCase):
     def check(self, pages, sources=("wikis:miraheze",), root=FIXTURE, **kwargs):
         client = FakeClient(pages)
@@ -125,7 +147,7 @@ class CompleteListingTests(CheckTestCase):
         self.assertIsNone(entry["live"]["continuation"])
         self.assertEqual(entry["counts"], {
             "saved_candidates": 8, "saved_files": 8, "not_comparable": 0, "live_files": 8, "added": 2, "changed": 1,
-            "removed": 2, "not_seen": 0, "unchanged": 5, "saved_without_metadata": 2})
+            "removed": 2, "not_seen": 0, "aliases_not_listed": 0, "unchanged": 5, "saved_without_metadata": 2})
         self.assertEqual([row["key"] for row in entry["removed"]],
                          ["File:Cosmic_Pulse_UV_cover.png", "File:Song_select_screen.png"])
         self.assertEqual({row["key"] for row in entry["added"]},
@@ -137,6 +159,28 @@ class CompleteListingTests(CheckTestCase):
         self.assertEqual(changed["disposition"], "downloaded")
         self.assertTrue(report["complete"])
         self.assertTrue(report["differences"])
+        self.assertEqual(report["not_seen"], 0)
+
+    def test_redirects_and_aliases_are_never_removals(self):
+        """allimages lists only real files: a saved redirect missing from it is expected, not removed."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = fixture_with_alias(Path(temporary))
+            report, _ = self.check(RECORDED, root=root)
+            entry = entry_for(report, "wikis:miraheze")
+            self.assertEqual(entry["status"], "compared")
+            self.assertEqual(keys(entry["removed"]), ["File:Cosmic_Pulse_UV_cover.png", "File:Song_select_screen.png"])
+            self.assertEqual(keys(entry["aliases_not_listed"]), [ALIAS_KEY])
+            self.assertEqual(entry["counts"]["aliases_not_listed"], 1)
+            self.assertEqual(report["totals"]["aliases_not_listed"], 1)
+            self.assertIn("#### Redirects and aliases not listed (expected; not a removal) (1)",
+                          check_sources.render(report))
+            pages = {**RECORDED, "Cosmic_Pulse_copy.png": net.TimeoutFetchError("timed out", url=MIRAHEZE.api)}
+            entry = entry_for(self.check(pages, root=root)[0], "wikis:miraheze")
+            self.assertEqual(keys(entry["aliases_not_listed"]), [ALIAS_KEY])
+            self.assertNotIn(ALIAS_KEY, keys(entry["not_seen"]))
+        self.assertTrue(check_sources.listed_by_allimages({"disposition": "excluded", "reason": "universe_only: x"}))
+        self.assertTrue(check_sources.listed_by_allimages({"disposition": "pending", "reason": "redirect_or_alias"}))
+        self.assertFalse(check_sources.listed_by_allimages({"disposition": "excluded", "reason": "redirect_or_alias"}))
 
     def test_requests_are_metadata_only_and_follow_continuation(self):
         _, client = self.check(RECORDED)
@@ -195,6 +239,34 @@ class IncompleteListingTests(CheckTestCase):
         self.assertNoRemovalConcluded(entry, 8)
         self.assertEqual(entry["live"]["pages"], 0)
         self.assertEqual(entry["live"]["errors"][0]["error_class"], "challenge")
+        self.assertFalse(report["complete"])
+        self.assertFalse(report["differences"], "files that were not seen are not upstream differences")
+        self.assertEqual(report["not_seen"], 8)
+
+    def test_unreadable_entry_makes_the_listing_incomplete(self):
+        """An entry without a usable title hides one file: no saved candidate may then be reported removed."""
+        for label, bad in (("no title or name", lambda e: {k: v for k, v in e.items() if k not in ("title", "name")}),
+                           ("not an object", lambda e: "garbage"),
+                           ("title outside the File namespace", lambda e: {**e, "title": "Dynamix", "name": ""})):
+            with self.subTest(entry=label):
+                pages = copy.deepcopy(RECORDED)
+                images = pages["Cosmic_Pulse_copy.png"]["query"]["allimages"]
+                index = next(i for i, e in enumerate(images) if e["title"] == "File:Dynamix background 03.png")
+                images[index] = bad(images[index])
+                report, client = self.check(pages)
+                entry = entry_for(report, "wikis:miraheze")
+                self.assertNoRemovalConcluded(entry, 3)
+                self.assertEqual(keys(entry["not_seen"]), ["File:Cosmic_Pulse_UV_cover.png",
+                                                           "File:Dynamix_background_03.png",
+                                                           "File:Song_select_screen.png"])
+                self.assertEqual(len(client.calls), 2, "the rest of the listing is still read")
+                self.assertIsNone(entry["live"]["continuation"])
+                self.assertIn("page 2: 1 allimages entry has no usable title or name",
+                              entry["live"]["errors"][0]["message"])
+                self.assertEqual(entry["counts"]["added"], 2)  # what was read is still compared
+                self.assertEqual(entry["counts"]["changed"], 1)
+                self.assertFalse(report["complete"])
+                self.assertTrue(report["differences"])
 
     def test_server_error_and_api_error_and_malformed_replies(self):
         for reply in (net.HttpError("HTTP 503", url=MIRAHEZE.api, http_status=503),
@@ -303,6 +375,25 @@ class ReadOnlyTests(unittest.TestCase):
                 self.assertIn("inside the checkout", err)
                 self.assertFalse(inside.exists())
             self.assertEqual(tree_digest(root), before)
+
+    def test_incomplete_check_writes_the_report_and_exits_3(self):
+        blocked = FakeClient({None: net.BlockedError("HTTP 403", url=MIRAHEZE.api, http_status=403)})
+        with tempfile.TemporaryDirectory() as temporary:
+            report, summary = Path(temporary) / "r.md", Path(temporary) / "s.json"
+            status, out, err = self.run_main("--root", str(FIXTURE), "--report", str(report), "--summary",
+                                             str(summary), client=blocked)
+            self.assertEqual(status, check_sources.INCOMPLETE_STATUS)
+            self.assertEqual(status, 3)
+            self.assertIn("a live check was incomplete", err)
+            self.assertEqual(json.loads(out), {"complete": False, "differences": False, "not_seen": 11,
+                                               "totals": json.loads(summary.read_text(encoding="utf-8"))["totals"]})
+            text = report.read_text(encoding="utf-8")
+            self.assertIn("Live checks complete: `False` (**incomplete**", text)
+            self.assertIn("Upstream differences (added, changed or removed): `False`", text)
+        with tempfile.TemporaryDirectory() as temporary:
+            status, out, err = self.run_main("--root", str(FIXTURE), "--report", str(Path(temporary) / "r.md"))
+            self.assertEqual((status, err), (0, ""))
+            self.assertTrue(json.loads(out)["complete"])
 
     def test_script_runs_isolated_as_ci_invokes_it(self):
         result = subprocess.run([sys.executable, "-I", str(ROOT / "scripts/check_sources.py"), "--help"],
