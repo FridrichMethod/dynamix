@@ -141,6 +141,10 @@ Separate metrics as in 07-data-contracts §Catalog and coverage, from the song i
 - Filters: text, source family/source, kind, minimum long edge; sort: title, source, pixel area. Pagination 60 per page. Deep links `archive.html#<asset id>` and slideshow `index.html#<asset id>`; keep DEEMO URL semantics.
 - No remote fonts, analytics, audio, or network requests during browsing; works from `file://`, HTTP root and an HTTP `/dynamix/` subpath.
 
+## Slideshow rendering interface
+
+`scripts/render_slideshow.py` (UI-owned) exposes `render_slideshow(root: Path, catalog: dict) -> str`, ported from DEEMO's `render_slideshow`/`art_layout`/`slide_*` helpers: it reads `templates/slideshow.html`, replaces the single `@python-work-area` placeholder with one `<div class="mySlides fade"><img ...></div>` per catalog asset whose `slideshow` is true (catalog order), and HTML-attribute-escapes every value. `build_catalog.py` (catalog-owned) imports it to write `index.html`; it must not duplicate slide markup.
+
 ## CLI contract
 
 ```text
@@ -168,7 +172,7 @@ scripts/prepare_pages.py  --output PATH
 | `impl/contracts` (bootstrap) | `scripts/lib/**`, `tests/test_lib_*.py`, `tests/test_fixtures_contract.py`, `tests/fixtures/contract/**`, `requirements*.txt`, `.gitattributes`, `LICENSE` |
 | `impl/wikis` | `scripts/fetch_wikis.py`, `scripts/wikis/**`, `tests/test_fetch_wikis*.py`, `tests/fixtures/wikis/**`, `data/sources/wikis.json`, `data/discovery/{miraheze,fandom,atwiki-ja,rhythmgame-ja}.json`, `data/discovery/song-index.wikis.json`, `assets/public/wikis/**` |
 | `impl/primary-sources` | `scripts/fetch_{artists,official,archives}.py`, `scripts/primary/**`, `tests/test_fetch_{artists,official,archives}*.py`, `tests/fixtures/{artists,official,archives}/**`, `data/sources/{artists,official,archives}.json`, their `data/discovery/*.json`, `assets/public/{artists,official,archives}/**` |
-| `impl/ui` | `archive.html`, `templates/slideshow.html`, `src/**`, `assets/site/**`, `site.webmanifest`, `browserconfig.xml`, `tests/test_{i18n,layout,slideshow,archive_labels}*.py`, `tests/browser_smoke.py`, `tests/fixtures/ui/**`, `tests/fixtures/browser/**`, `licenses/*-MIT.txt` for reused vendor JS |
+| `impl/ui` | `archive.html`, `templates/slideshow.html`, `scripts/render_slideshow.py`, `tests/test_render_slideshow.py`, `src/**`, `assets/site/**`, `site.webmanifest`, `browserconfig.xml`, `tests/test_{i18n,layout,slideshow,archive_labels}*.py`, `tests/browser_smoke.py`, `tests/fixtures/ui/**`, `tests/fixtures/browser/**`, `licenses/*-MIT.txt` for reused vendor JS |
 | `impl/catalog` | `scripts/build_{catalog,thumbnails,coverage}.py`, `tests/test_{catalog,thumbnails,coverage,provenance}*.py`, `tests/fixtures/catalog/**` |
 | `impl/ci` | `.github/workflows/**`, `scripts/{prepare_pages,check_sources}.py`, `tests/test_{pages,check_sources,workflows,line_endings,licensing}*.py`, `tests/run_all.py` |
 | coordinator | root docs, `NOTICE`, `docs/implementation/**`, `data/sources/song-index.json`, `data/{catalog.json,catalog.js,thumbs.json,coverage.json}`, `assets/thumbs/**`, `index.html`, merges, remote |
