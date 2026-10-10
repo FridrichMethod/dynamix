@@ -507,8 +507,8 @@ def _quality(source: config.WikiSource, transform: str | None, fmt: str, reporte
         return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
                 "notes": f"Fandom's CDN response to format=original ({nbytes} bytes) differs from the upload Fandom's "
                          f"API records (SHA-1 {reported.get('sha1')}, {reported.get('bytes')} bytes), and Miraheze's "
-                         "API reports the same SHA-1 and size for its copy of that upload: these bytes are a platform "
-                         "transform of the stored upload, not the upload itself."}
+                         "API reports the same SHA-1 and size for this title: these bytes are a platform transform of "
+                         "the stored upload, not the upload itself."}
     if source.key == "fandom" and comparisons["sha1_match"] is False:
         return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
                 "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API "
@@ -526,8 +526,8 @@ def known_transform(source: config.WikiSource, reported: Mapping[str, Any], comp
                     counterpart: Mapping[str, Any]) -> str | None:
     """Why the served bytes are known to be a platform transform of the stored upload (``transformed``), else None:
     ``"format"`` -- another format than advertised and not the advertised bytes (Fandom's CDN WEBP); ``"upload"`` --
-    Fandom's response differs from the upload its API records, and Miraheze's API (the other wiki's own copy of the
-    upload) reports that same SHA-1 and size, so two wikis agree on the stored bytes that Fandom did not serve."""
+    Fandom's response differs from the upload its API records, and Miraheze's API (the other wiki's own stored file
+    of the title) reports that same SHA-1 and size, so two wikis agree on the stored bytes that Fandom did not serve."""
     if comparisons["sha1_match"] is not False:
         return None
     if comparisons["format_match"] is False:
