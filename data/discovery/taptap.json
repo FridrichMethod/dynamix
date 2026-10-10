@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:taptap",
-  "started_at": "2026-10-10T15:17:43Z",
-  "finished_at": "2026-10-10T15:17:45Z",
+  "started_at": "2026-10-10T16:45:11Z",
+  "finished_at": "2026-10-10T16:45:13Z",
   "scope": {
     "lists": [
       "app-screenshots"
@@ -28,18 +28,18 @@
         "identifier: C4Cat"
       ],
       "source_reported": {
-        "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg",
+        "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1080,
         "sha1": null,
         "timestamp": null,
         "revision": null
       },
       "disposition": "downloaded",
       "asset_id": "official:taptap:47d0961643bea294",
-      "notes": "Store banner upload (Dynamix logo graphic)."
+      "notes": "Store banner upload (Dynamix logo graphic). The page lists only the rendition 4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg; 4395ff13f01cca52f28efb2a1694bce9.jpg is the upload its name derives from."
     },
     {
       "id": "official:taptap:banner:4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
@@ -54,17 +54,17 @@
         "identifier: C4Cat"
       ],
       "source_reported": {
-        "url": null,
-        "mime": null,
+        "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
+        "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1080,
         "sha1": null,
         "timestamp": null,
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "upscaled: TapTap crop/resize rendition (1920x1080) of the uploaded banner (also the trailer's poster frame); the upload itself is the separate banner candidate"
+      "reason": "upscaled: TapTap crop/resize rendition (1920x1080) of the uploaded banner, enlarged from a 888x500 crop to 1920x1080 (also the trailer's poster frame); the upload itself is the separate banner candidate"
     },
     {
       "id": "official:taptap:icon:23c51666ae309b07d5f4fe5d888157e5.png",

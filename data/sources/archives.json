@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-10T15:18:00Z",
+      "checked_at": "2026-10-10T16:45:27Z",
       "notes": "Historical press screenshots (2015-06-18); not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T15:18:01Z",
+      "checked_at": "2026-10-10T16:45:27Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T15:18:01Z",
+      "checked_at": "2026-10-10T16:45:27Z",
       "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,7 +58,7 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "partially_available",
-      "checked_at": "2026-10-10T15:18:04Z",
+      "checked_at": "2026-10-10T16:45:30Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -497,7 +497,9 @@
       "illustrators": [
         "Sand Suna"
       ],
-      "composers": [],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],
@@ -525,7 +527,7 @@
         "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": "Sand Suna",
         "url": "https://web.archive.org/web/20221216231408/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg",
         "license": null,
@@ -560,7 +562,14 @@
         {
           "role": "illustrator",
           "name": "Sand Suna",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Spiegel vs Yukino",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
           "field": null,
           "quote": null
         }
@@ -572,7 +581,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Sand Suna (illustrator). Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014).",
+      "notes": "The primary post's caption says the art was commissioned by Spiegel for the Dynamix x RAVON collaboration event; a commission does not establish the rights holder. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271) https://dynamix.miraheze.org/wiki/MassacrE: Sand Suna (illustrator), Spiegel vs Yukino (composer). Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014).",
       "upstream_revision": "20221216231408"
     },
     {
@@ -943,7 +952,9 @@
       "illustrators": [
         "Sand Suna"
       ],
-      "composers": [],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],
@@ -971,7 +982,7 @@
         "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": "Sand Suna",
         "url": "https://web.archive.org/web/20221216231357/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg",
         "license": null,
@@ -1006,7 +1017,14 @@
         {
           "role": "illustrator",
           "name": "Sand Suna",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Spiegel vs Yukino",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
           "field": null,
           "quote": null
         }
@@ -1018,7 +1036,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Sand Suna (illustrator). Wayback capture 20221216231357 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 6586774).",
+      "notes": "The primary post's caption says the art was commissioned by Spiegel for the Dynamix x RAVON collaboration event; a commission does not establish the rights holder. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271) https://dynamix.miraheze.org/wiki/MassacrE: Sand Suna (illustrator), Spiegel vs Yukino (composer). Wayback capture 20221216231357 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 6586774).",
       "upstream_revision": "20221216231357"
     },
     {
@@ -1394,7 +1412,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Coordinator review: the primary post presents this as RAVON jacket art; Dynamix lists the song in its RAVON collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Credits not stated in the fetched text, recorded from the Dynamix wiki song page: LESYEF (illustrator). Wayback capture 20221214210149 of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png (CDX mimetype image/png, status 200, WARC record length 867425).",
+      "notes": "Coordinator review: the primary post presents this as RAVON jacket art; Dynamix lists the song in its RAVON collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki song page https://dynamix.miraheze.org/wiki/Totally_bounded: LESYEF (illustrator). Wayback capture 20221214210149 of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png (CDX mimetype image/png, status 200, WARC record length 867425).",
       "upstream_revision": "20221214210149"
     },
     {
@@ -1421,8 +1439,7 @@
         "Xomu"
       ],
       "composers": [
-        "Xomu",
-        "Wisp X"
+        "Wisp X & Xomu"
       ],
       "song_titles": [
         "Lumina"
@@ -1481,21 +1498,14 @@
         {
           "role": "illustrator",
           "name": "Xomu",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/Lumina",
           "field": null,
           "quote": null
         },
         {
           "role": "composer",
-          "name": "Xomu",
-          "url": null,
-          "field": null,
-          "quote": null
-        },
-        {
-          "role": "composer",
-          "name": "Wisp X",
-          "url": null,
+          "name": "Wisp X & Xomu",
+          "url": "https://dynamix.miraheze.org/wiki/Lumina",
           "field": null,
           "quote": null
         }
@@ -1503,7 +1513,7 @@
       "variant_group": "jacket:lumina",
       "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop",
       "upstream_status": "current",
-      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Xomu (illustrator), Xomu (composer), Wisp X (composer). Wayback capture 20221216052519 of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png (CDX mimetype image/png, status 200, WARC record length 5177803).",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49920) https://dynamix.miraheze.org/wiki/Lumina: Xomu (illustrator), Wisp X & Xomu (composer). Wayback capture 20221216052519 of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png (CDX mimetype image/png, status 200, WARC record length 5177803).",
       "upstream_revision": "20221216052519"
     },
     {
@@ -1529,7 +1539,9 @@
       "illustrators": [
         "Sand Suna"
       ],
-      "composers": [],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
       "song_titles": [
         "MassacrE || 3rc4224M"
       ],
@@ -1557,7 +1569,7 @@
         "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": "Sand Suna",
         "url": "https://web.archive.org/web/20221216231405/https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg",
         "license": null,
@@ -1592,7 +1604,14 @@
         {
           "role": "illustrator",
           "name": "Sand Suna",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Spiegel vs Yukino",
+          "url": "https://dynamix.miraheze.org/wiki/MassacrE",
           "field": null,
           "quote": null
         }
@@ -1604,7 +1623,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Sand Suna (illustrator). Wayback capture 20221216231405 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2154513).",
+      "notes": "The primary post's caption says the art was commissioned by Spiegel for the Dynamix x RAVON collaboration event; a commission does not establish the rights holder. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271) https://dynamix.miraheze.org/wiki/MassacrE: Sand Suna (illustrator), Spiegel vs Yukino (composer). Wayback capture 20221216231405 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2154513).",
       "upstream_revision": "20221216231405"
     },
     {
@@ -1826,13 +1845,13 @@
         {
           "role": "illustrator",
           "name": "Shionty",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
           "field": null,
           "quote": null
         }
       ],
       "upstream_status": "current",
-      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Evoltex (poppi'n mix)”. Credits not stated in the fetched text, recorded from the seed's research source: Shionty (illustrator). Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100).",
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Evoltex (poppi'n mix)”. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214) https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix): Shionty (illustrator). Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100).",
       "upstream_revision": "20221221064601"
     },
     {
@@ -2070,7 +2089,7 @@
         "dynamix",
         "arcaea"
       ],
-      "notes": "Coordinator review: the primary post presents this as Arcaea jacket art; Dynamix lists the song in its Arcaea collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Credits not stated in the fetched text, recorded from the Dynamix wiki song page: アサヤ (illustrator). Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443).",
+      "notes": "Coordinator review: the primary post presents this as Arcaea jacket art; Dynamix lists the song in its Arcaea collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Credits the fetched text does not state with their role, cited from the Dynamix wiki song page https://dynamix.miraheze.org/wiki/Party_Vinyl: アサヤ (illustrator). Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443).",
       "upstream_revision": "20221220121848"
     },
     {
@@ -2499,13 +2518,13 @@
         {
           "role": "illustrator",
           "name": "AFZero",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/Aegis",
           "field": null,
           "quote": null
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: AFZero (illustrator). Wayback capture 20221220032003 of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1753016).",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50155) https://dynamix.miraheze.org/wiki/Aegis: AFZero (illustrator). Wayback capture 20221220032003 of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1753016).",
       "upstream_revision": "20221220032003"
     },
     {
@@ -2532,7 +2551,7 @@
         "キカンシャ"
       ],
       "composers": [
-        "5argon"
+        "5argon feat. imTiNEY"
       ],
       "song_titles": [
         "Bluebell"
@@ -2596,20 +2615,20 @@
         {
           "role": "illustrator",
           "name": "キカンシャ",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/Bluebell",
           "field": null,
           "quote": null
         },
         {
           "role": "composer",
-          "name": "5argon",
-          "url": null,
+          "name": "5argon feat. imTiNEY",
+          "url": "https://dynamix.miraheze.org/wiki/Bluebell",
           "field": null,
           "quote": null
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: キカンシャ (illustrator), 5argon (composer). Wayback capture 20221216101704 of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png (CDX mimetype image/png, status 200, WARC record length 2380619).",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49734) https://dynamix.miraheze.org/wiki/Bluebell: キカンシャ (illustrator), 5argon feat. imTiNEY (composer). Wayback capture 20221216101704 of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png (CDX mimetype image/png, status 200, WARC record length 2380619).",
       "upstream_revision": "20221216101704"
     },
     {
@@ -2971,20 +2990,20 @@
         {
           "role": "illustrator",
           "name": "Se-U-Ra",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
           "field": null,
           "quote": null
         },
         {
           "role": "composer",
           "name": "Se-U-Ra",
-          "url": null,
+          "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
           "field": null,
           "quote": null
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Se-U-Ra (illustrator), Se-U-Ra (composer). Wayback capture 20221225234754 of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png (CDX mimetype image/png, status 200, WARC record length 4503116).",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136) https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB: Se-U-Ra (illustrator), Se-U-Ra (composer). Wayback capture 20221225234754 of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png (CDX mimetype image/png, status 200, WARC record length 4503116).",
       "upstream_revision": "20221225234754"
     },
     {
@@ -3133,7 +3152,7 @@
       "candidate_id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
       "phase": "download",
       "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "attempted_at": "2026-10-10T15:18:02Z",
+      "attempted_at": "2026-10-10T16:45:29Z",
       "attempts": 1,
       "error_class": "http_4xx",
       "http_status": 404,

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:se-u-ra",
-  "started_at": "2026-10-10T15:16:49Z",
-  "finished_at": "2026-10-10T15:16:52Z",
+  "started_at": "2026-10-10T16:49:33Z",
+  "finished_at": "2026-10-10T16:49:35Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -30,7 +30,7 @@
         "sc.description: yoshimo"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000558766005-lm7u39-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000558766005-lm7u39-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -66,7 +66,7 @@
         "sc.description: Se-U-Ra"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-y5QUqkK5pG3QnGZc-zJUDwQ-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-y5QUqkK5pG3QnGZc-zJUDwQ-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

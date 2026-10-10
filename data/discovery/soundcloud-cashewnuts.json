@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:cashewnuts",
-  "started_at": "2026-10-10T15:15:54Z",
-  "finished_at": "2026-10-10T15:15:56Z",
+  "started_at": "2026-10-10T16:48:38Z",
+  "finished_at": "2026-10-10T16:48:39Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000212691845-ruevex-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000212691845-ruevex-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

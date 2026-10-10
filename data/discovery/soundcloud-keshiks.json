@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:keshiks",
-  "started_at": "2026-10-10T15:16:20Z",
-  "finished_at": "2026-10-10T15:16:22Z",
+  "started_at": "2026-10-10T16:49:04Z",
+  "finished_at": "2026-10-10T16:49:05Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/keshiks/nightmare-girl"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000229728959-mg62ph-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000229728959-mg62ph-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -43,7 +43,7 @@
         "Nightmare Girl"
       ],
       "composers": [
-        "KEshiKS"
+        "ケシｋｓくん"
       ]
     }
   ],

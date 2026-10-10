@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:whos-raphiiel",
-  "started_at": "2026-10-10T15:17:01Z",
-  "finished_at": "2026-10-10T15:17:02Z",
+  "started_at": "2026-10-10T16:49:45Z",
+  "finished_at": "2026-10-10T16:49:46Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/whos-raphiiel/tech-nique"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

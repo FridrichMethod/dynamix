@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T15:17:48Z",
-  "finished_at": "2026-10-10T15:17:58Z",
+  "started_at": "2026-10-10T16:45:16Z",
+  "finished_at": "2026-10-10T16:45:25Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -34,7 +34,7 @@
         "text: オレンジ"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,
@@ -71,7 +71,7 @@
         "text: 終の舞姫"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,
@@ -108,7 +108,7 @@
         "text: 玲瓏メテオ"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,
@@ -144,7 +144,7 @@
         "text: プリロール"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 654,
@@ -171,7 +171,7 @@
         "text: プリロール"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 653,
@@ -198,7 +198,7 @@
         "text: プリロール"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 651,
@@ -225,7 +225,7 @@
         "text: プリロール"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 653,
@@ -253,7 +253,7 @@
         "text: horloge"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1920,
@@ -290,7 +290,7 @@
         "text: Xetta"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:17081698",
-  "started_at": "2026-10-10T15:15:27Z",
-  "finished_at": "2026-10-10T15:15:28Z",
+  "started_at": "2026-10-10T16:48:10Z",
+  "finished_at": "2026-10-10T16:48:12Z",
   "scope": {
     "lists": [
       "seed-artworks"
@@ -47,8 +47,7 @@
         "Xomu"
       ],
       "composers": [
-        "Xomu",
-        "Wisp X"
+        "Wisp X & Xomu"
       ]
     }
   ],

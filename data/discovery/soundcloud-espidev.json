@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:espidev",
-  "started_at": "2026-10-10T15:16:05Z",
-  "finished_at": "2026-10-10T15:16:07Z",
+  "started_at": "2026-10-10T16:48:49Z",
+  "finished_at": "2026-10-10T16:48:50Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -30,7 +30,7 @@
         "sc.description: Eproph_4"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-PicLJ0oS6GQH4DpI-8Mw8yQ-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-PicLJ0oS6GQH4DpI-8Mw8yQ-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -48,7 +48,7 @@
         "Ep_4"
       ],
       "composers": [
-        "EspiDev"
+        "L.Mity & EspiDev"
       ]
     }
   ],

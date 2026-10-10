@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:trialsuperbeats",
-  "started_at": "2026-10-10T15:16:54Z",
-  "finished_at": "2026-10-10T15:16:58Z",
+  "started_at": "2026-10-10T16:49:38Z",
+  "finished_at": "2026-10-10T16:49:42Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -30,7 +30,7 @@
         "sc.description: Violpa"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000568584215-9gsllu-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000568584215-9gsllu-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -66,7 +66,7 @@
         "sc.description: inukoro"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-FfmOIovTq0AhLsUM-c5kVOQ-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-FfmOIovTq0AhLsUM-c5kVOQ-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -102,7 +102,7 @@
         "sc.title: WING"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-l9sxdxPLHW8RexnO-GgOGtg-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-l9sxdxPLHW8RexnO-GgOGtg-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:panbanana0729",
-  "started_at": "2026-10-10T15:16:39Z",
-  "finished_at": "2026-10-10T15:16:40Z",
+  "started_at": "2026-10-10T16:49:22Z",
+  "finished_at": "2026-10-10T16:49:24Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -30,7 +30,7 @@
         "sc.description: よしもん"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000232095644-i6efz5-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000232095644-i6efz5-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

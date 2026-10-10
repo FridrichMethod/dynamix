@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:cordantia",
-  "started_at": "2026-10-10T15:16:00Z",
-  "finished_at": "2026-10-10T15:16:01Z",
+  "started_at": "2026-10-10T16:48:44Z",
+  "finished_at": "2026-10-10T16:48:45Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/cordantia/arcana-idola"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000126349271-7ia6a3-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000126349271-7ia6a3-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

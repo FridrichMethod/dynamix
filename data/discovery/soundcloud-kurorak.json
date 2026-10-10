@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:kurorak",
-  "started_at": "2026-10-10T15:16:23Z",
-  "finished_at": "2026-10-10T15:16:24Z",
+  "started_at": "2026-10-10T16:49:07Z",
+  "finished_at": "2026-10-10T16:49:08Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000246939799-gq4bse-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000246939799-gq4bse-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -44,7 +44,7 @@
         "Tunnelling"
       ],
       "composers": [
-        "KURORAK"
+        "Kurorak"
       ]
     }
   ],

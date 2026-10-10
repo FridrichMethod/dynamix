@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:ebico",
-  "started_at": "2026-10-10T15:16:04Z",
-  "finished_at": "2026-10-10T15:16:05Z",
+  "started_at": "2026-10-10T16:48:48Z",
+  "finished_at": "2026-10-10T16:48:49Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/ebico/moonlight-of-sand-castle"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000150098114-5zzlbg-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000150098114-5zzlbg-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -43,7 +43,7 @@
         "Moonlight of Sand Castle"
       ],
       "composers": [
-        "EBICO"
+        "旅人E"
       ]
     }
   ],

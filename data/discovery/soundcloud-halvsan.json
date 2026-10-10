@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:halvsan",
-  "started_at": "2026-10-10T15:16:08Z",
-  "finished_at": "2026-10-10T15:16:11Z",
+  "started_at": "2026-10-10T16:48:52Z",
+  "finished_at": "2026-10-10T16:48:54Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: Sushi Tornado"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-7Yyke49SUs9f4SpL-wrzRzQ-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-7Yyke49SUs9f4SpL-wrzRzQ-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -65,7 +65,7 @@
         "sc.description: 原木シィタケ"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-1EWCTCrdvd0PQ7ef-sFyvcw-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-1EWCTCrdvd0PQ7ef-sFyvcw-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

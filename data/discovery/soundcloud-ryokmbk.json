@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:ryokmbk",
-  "started_at": "2026-10-10T15:16:46Z",
-  "finished_at": "2026-10-10T15:16:48Z",
+  "started_at": "2026-10-10T16:49:30Z",
+  "finished_at": "2026-10-10T16:49:31Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -22,13 +22,13 @@
       "page_url": "https://soundcloud.com/ryokmbk/hauynite",
       "file_url": "https://i1.sndcdn.com/artworks-bIRtaqZWdKt18inR-afD61Q-original.jpg",
       "title": "Hauynite w/CS4W",
-      "role": null,
+      "role": "song_art",
       "game": "unknown",
       "game_evidence": [
         "https://soundcloud.com/ryokmbk/hauynite"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-bIRtaqZWdKt18inR-afD61Q-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-bIRtaqZWdKt18inR-afD61Q-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -37,8 +37,11 @@
         "timestamp": "2023-07-03T12:08:14Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "external_release_art: single-cover design (vertical typography, QR code) different from the jacket composition"
+      "disposition": "pending",
+      "reason": "pending: single cover that shows the in-game jacket's shattered-glass artwork cropped to a vertical layout and framed with typography and a QR code; a different composition of shared imagery, needs review",
+      "song_titles": [
+        "Hauynite"
+      ]
     }
   ],
   "errors": []

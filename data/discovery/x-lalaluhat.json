@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:lalaluhat",
-  "started_at": "2026-10-10T15:17:07Z",
-  "finished_at": "2026-10-10T15:17:13Z",
+  "started_at": "2026-10-10T16:49:51Z",
+  "finished_at": "2026-10-10T16:49:57Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -28,7 +28,7 @@
         "https://x.com/lalaluhat/status/1001435080936472576"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/DeXPxAbU8AAphCA?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/DeXPxAbU8AAphCA.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 2894,
@@ -57,7 +57,7 @@
         "https://x.com/lalaluhat/status/1056156411304935429"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/Dqg2zqqU4AYWD4H?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/Dqg2zqqU4AYWD4H.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 2039,
@@ -86,7 +86,7 @@
         "https://x.com/lalaluhat/status/1188774644397924352"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/EH9gOo0U0AECEzc?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/EH9gOo0U0AECEzc.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 2894,
@@ -115,7 +115,7 @@
         "https://x.com/lalaluhat/status/1222836461155667968"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/EPhjRjhU8AADzC-?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/EPhjRjhU8AADzC-.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 2094,
@@ -144,7 +144,7 @@
         "https://x.com/lalaluhat/status/1233337738671218688"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/ER2ubZXUEAAWf4v?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/ER2ubZXUEAAWf4v.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 2894,

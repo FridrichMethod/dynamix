@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:dice-dd",
-  "started_at": "2026-10-10T15:16:03Z",
-  "finished_at": "2026-10-10T15:16:04Z",
+  "started_at": "2026-10-10T16:48:46Z",
+  "finished_at": "2026-10-10T16:48:48Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.description: 榊原またぎ"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-I25aaV3g3bIRnsV2-jJchQg-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-I25aaV3g3bIRnsV2-jJchQg-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

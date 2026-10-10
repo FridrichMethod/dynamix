@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:meganegirai",
-  "started_at": "2026-10-10T15:17:13Z",
-  "finished_at": "2026-10-10T15:17:15Z",
+  "started_at": "2026-10-10T16:49:57Z",
+  "finished_at": "2026-10-10T16:49:59Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -30,7 +30,7 @@
         "text: Dynamix"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1556,

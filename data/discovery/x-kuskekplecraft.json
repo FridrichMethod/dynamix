@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:kuskekplecraft",
-  "started_at": "2026-10-10T15:17:06Z",
-  "finished_at": "2026-10-10T15:17:07Z",
+  "started_at": "2026-10-10T16:49:50Z",
+  "finished_at": "2026-10-10T16:49:51Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -29,7 +29,7 @@
         "text: 16383"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
+        "url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV.png",
         "mime": "image/png",
         "bytes": null,
         "width": 1440,
@@ -65,7 +65,7 @@
         "text: 16383"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
+        "url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV.png",
         "mime": "image/png",
         "bytes": null,
         "width": 1336,
@@ -101,7 +101,7 @@
         "text: 16383"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
+        "url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J.png",
         "mime": "image/png",
         "bytes": null,
         "width": 1336,
@@ -137,7 +137,7 @@
         "text: 16383"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
+        "url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh.png",
         "mime": "image/png",
         "bytes": null,
         "width": 1336,

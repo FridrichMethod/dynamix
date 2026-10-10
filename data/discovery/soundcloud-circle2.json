@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:circle2",
-  "started_at": "2026-10-10T15:15:56Z",
-  "finished_at": "2026-10-10T15:16:00Z",
+  "started_at": "2026-10-10T16:48:39Z",
+  "finished_at": "2026-10-10T16:48:43Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/circle2/circle-2-gallium-nitride-blue-light"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000162005967-f7sqr8-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000162005967-f7sqr8-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -60,7 +60,7 @@
         "sc.title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000178576363-dwmlcy-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000178576363-dwmlcy-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -92,7 +92,7 @@
         "sc.description: Illustrated by Nano"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000183157725-7v3h0v-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000183157725-7v3h0v-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

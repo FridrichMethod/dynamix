@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:bilibili:ariiol",
-  "started_at": "2026-10-10T15:15:26Z",
-  "finished_at": "2026-10-10T15:15:26Z",
+  "started_at": "2026-10-10T16:48:10Z",
+  "finished_at": "2026-10-10T16:48:10Z",
   "scope": {
     "lists": [
       "seed-posts"

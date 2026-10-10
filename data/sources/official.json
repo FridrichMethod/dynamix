@@ -10,7 +10,7 @@
       "url": "https://apps.apple.com/us/app/dynamix/id945955095",
       "platform": "app-store",
       "status": "available",
-      "checked_at": "2026-10-10T15:17:18Z",
+      "checked_at": "2026-10-10T16:44:46Z",
       "notes": "Original app ID 945955095 (Universe 6741094831 excluded). Current product-page screenshots plus the older storefront-specific sets still listed by the iTunes lookup API.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://c4-cat.com/",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T15:17:28Z",
+      "checked_at": "2026-10-10T16:44:57Z",
       "notes": "Company placeholder page; identity lead only, no game catalog. Coming-soon/contact placeholder; no artwork.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.facebook.com/c4cat.dynamix/",
       "platform": "facebook",
       "status": "manual_access",
-      "checked_at": "2026-10-10T15:17:28Z",
+      "checked_at": "2026-10-10T16:44:58Z",
       "notes": "Linked by the stores. Individual photo permalinks expose only Open Graph text without login (research: REconstruction photo post 632702820249900 credits 織日ちひろ, og:image unrelated); no image recorded.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -58,7 +58,7 @@
       "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
       "platform": "google-play",
       "status": "available",
-      "checked_at": "2026-10-10T15:17:29Z",
+      "checked_at": "2026-10-10T16:44:58Z",
       "notes": "Package com.c4cat.dynamix (Universe com.c4cat.dynamix2 excluded). Listing pages in three locales.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -74,7 +74,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T15:17:33Z",
+      "checked_at": "2026-10-10T16:45:01Z",
       "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -90,7 +90,7 @@
       "url": "https://soundcloud.com/c4cat",
       "platform": "soundcloud",
       "status": "partially_available",
-      "checked_at": "2026-10-10T15:17:33Z",
+      "checked_at": "2026-10-10T16:45:01Z",
       "notes": "Official C4Cat account (11 tracks 2016-2017); every track its /tracks page renders is recorded (SoundCloud server-renders only part of the list). https://soundcloud.com/c4cat/tracks rendered 7 of 11 tracks on 2026-10-10; the others are not enumerated.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -106,7 +106,7 @@
       "url": "https://www.taptap.cn/app/7082",
       "platform": "taptap",
       "status": "available",
-      "checked_at": "2026-10-10T15:17:43Z",
+      "checked_at": "2026-10-10T16:45:11Z",
       "notes": "Secondary store listing (C4Cat identified as developer). Visible update text is historical.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -122,7 +122,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "web",
       "status": "temporarily_unavailable",
-      "checked_at": "2026-10-10T15:17:45Z",
+      "checked_at": "2026-10-10T16:45:13Z",
       "notes": "Official site; historical captures are archived by archives:wayback. Probe of https://dynamix.c4-cat.com/ on 2026-10-10 failed: other: cannot resolve dynamix.c4-cat.com: [Errno -5] No address associated with hostname.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -138,7 +138,7 @@
       "url": "https://x.com/c4c4cat",
       "platform": "x",
       "status": "partially_available",
-      "checked_at": "2026-10-10T15:17:48Z",
+      "checked_at": "2026-10-10T16:45:16Z",
       "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -181,7 +181,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -250,7 +250,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -319,7 +319,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's JPEG rendition of the JPEG upload at native size (lossy, as the upload itself is a JPEG; a PNG re-encoding would add no information). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -388,7 +388,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -457,7 +457,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -491,8 +491,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:4c941074f87af66a",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone4; the API advertises a 406x228bb.png rendition of the upload mzl.kqskrdml.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone4; the API advertises a 406x228bb.png rendition of the upload mzl.kqskrdml.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:29bab315b7a81afb (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -526,7 +527,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -595,7 +596,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -664,7 +665,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -698,8 +699,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:4c941074f87af66a",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone4, tw:phone4, kr:phone4, de:phone4; the API advertises a 406x228bb.png rendition of the upload mzl.isgegiad.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone4, tw:phone4, kr:phone4, de:phone4; the API advertises a 406x228bb.png rendition of the upload mzl.isgegiad.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:1862b9349d3c7184 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -733,7 +735,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -802,7 +804,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -871,7 +873,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -905,8 +907,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:2f252ec701e23dc9",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad3, gb:pad3, sg:pad3, th:pad3; the API advertises a 480x360bb.png rendition of the upload mzl.wrrdfycn.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad3, gb:pad3, sg:pad3, th:pad3; the API advertises a 480x360bb.png rendition of the upload mzl.wrrdfycn.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:3ae39c67a1c613a7 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -940,7 +943,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -974,8 +977,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:2f252ec701e23dc9",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad1; the API advertises a 480x360bb.png rendition of the upload mzl.kkbpfrgy.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad1; the API advertises a 480x360bb.png rendition of the upload mzl.kkbpfrgy.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:387179b025f73960 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1009,7 +1013,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1078,7 +1082,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1112,8 +1116,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:418248606181bafb",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone5; the API advertises a 406x228bb.png rendition of the upload mzl.ramqmmml.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone5; the API advertises a 406x228bb.png rendition of the upload mzl.ramqmmml.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:729f9d631569c7de (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1147,7 +1152,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1181,8 +1186,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:1fb382a5363b1296",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone2, tw:phone2, kr:phone2, de:phone2; the API advertises a 406x228bb.png rendition of the upload mzl.veyoacnv.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone2, tw:phone2, kr:phone2, de:phone2; the API advertises a 406x228bb.png rendition of the upload mzl.veyoacnv.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:e98cd74d4ed1035c (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1216,7 +1222,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1285,7 +1291,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1354,7 +1360,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1388,8 +1394,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:c17248897a74a715",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone3, tw:phone3, kr:phone3, de:phone3; the API advertises a 406x228bb.png rendition of the upload mzl.qgecxbnx.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone3, tw:phone3, kr:phone3, de:phone3; the API advertises a 406x228bb.png rendition of the upload mzl.qgecxbnx.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:86f3bddf95565823 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1423,7 +1430,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1492,7 +1499,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1526,8 +1533,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:418248606181bafb",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone5, tw:phone5, kr:phone5, de:phone5; the API advertises a 406x228bb.png rendition of the upload mzl.eumuhmxw.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone5, tw:phone5, kr:phone5, de:phone5; the API advertises a 406x228bb.png rendition of the upload mzl.eumuhmxw.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:52c52221242c3272 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1561,7 +1569,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1630,7 +1638,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1664,8 +1672,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:b79078c4ef12cb23",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad2; the API advertises a 480x360bb.png rendition of the upload mzl.nbslrlcq.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad2; the API advertises a 480x360bb.png rendition of the upload mzl.nbslrlcq.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:e083d937492d6dd4 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1699,7 +1708,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1733,8 +1742,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:c17248897a74a715",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone3; the API advertises a 406x228bb.png rendition of the upload mzl.hulrmfdm.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone3; the API advertises a 406x228bb.png rendition of the upload mzl.hulrmfdm.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:6d1e9ed45c5d9de5 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1768,7 +1778,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1802,8 +1812,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:bfd96697f2d3ebd7",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone1, tw:phone1, kr:phone1, de:phone1; the API advertises a 406x228bb.png rendition of the upload mzl.hnxwkfnn.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone1, tw:phone1, kr:phone1, de:phone1; the API advertises a 406x228bb.png rendition of the upload mzl.hnxwkfnn.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:e33673b4d49464c5 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -1837,7 +1848,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1906,7 +1917,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1975,7 +1986,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2044,7 +2055,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2113,7 +2124,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2182,7 +2193,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2216,8 +2227,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:b79078c4ef12cb23",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad2, gb:pad2, sg:pad2, th:pad2; the API advertises a 480x360bb.png rendition of the upload mzl.ckjnbvac.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad2, gb:pad2, sg:pad2, th:pad2; the API advertises a 480x360bb.png rendition of the upload mzl.ckjnbvac.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:84e2e1c9551f591e (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -2251,7 +2263,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2285,8 +2297,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:bfd96697f2d3ebd7",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone1; the API advertises a 406x228bb.png rendition of the upload mzl.fdjugjbd.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone1; the API advertises a 406x228bb.png rendition of the upload mzl.fdjugjbd.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:918e1fa43fef5904 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -2320,7 +2333,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2389,7 +2402,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2423,8 +2436,9 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "variant_group": "pixels:1fb382a5363b1296",
       "upstream_status": "current",
-      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone2; the API advertises a 406x228bb.png rendition of the upload mzl.rfgurcly.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone2; the API advertises a 406x228bb.png rendition of the upload mzl.rfgurcly.png; requested 4000x4000bb.png (Apple's rendition in the upload's format, bounded by 4000x4000, served at native size); stored size decoded from the bytes. Decodes to pixels identical to official:apple-store:5fa77fdedbde7b24 (different file bytes, e.g. embedded metadata); not a distinct artwork.",
       "transformed": true
     },
     {
@@ -2458,7 +2472,7 @@
         "source_variant": "site_original",
         "origin_status": "official",
         "master_status": "unverified",
-        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the JPEG the page loads); a store re-render, not the untouched upload file."
+        "notes": "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy variant the page or API advertises). A store re-render, not the untouched upload file. Apple writes a per-response identifier into the renditions it serves (a 26-character token in EXIF UserComment, and in XMP dc:creator for PNG), so a re-fetch of the same URL can return different bytes and SHA-256 with identical pixels: re-verify App Store items by decoded pixels, not by hash."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2537,7 +2551,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/zVLOM5cmI_lGKJRc8TsDgzw4QlAFoAsmoh5Po0-oEDfTG_qE_81b51PcN6JOGzvq7bi65j7dlnNSQNmS0YgXVg=s0",
+        "url": "https://play-lh.googleusercontent.com/zVLOM5cmI_lGKJRc8TsDgzw4QlAFoAsmoh5Po0-oEDfTG_qE_81b51PcN6JOGzvq7bi65j7dlnNSQNmS0YgXVg=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -2605,7 +2619,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM=s0",
+        "url": "https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -2673,7 +2687,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/FGPUy7TxEev6oAbtK-1NzoU9RmBUkRUKfUNdv9XRh9W8ZdFd6NFE-OWlGIEp8KOekUVZqSO0TH0oo1NOb4on=s0",
+        "url": "https://play-lh.googleusercontent.com/FGPUy7TxEev6oAbtK-1NzoU9RmBUkRUKfUNdv9XRh9W8ZdFd6NFE-OWlGIEp8KOekUVZqSO0TH0oo1NOb4on=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -2741,7 +2755,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu=s0",
+        "url": "https://play-lh.googleusercontent.com/k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -2809,7 +2823,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/h7MX8XEhr0QlPsw72CSnqcMdnAEJ9pJUSC13NpB32c4mxhiwoq37qIM1NQS91sC_dSc3dVNT68XnALhTR0uFi8o=s0",
+        "url": "https://play-lh.googleusercontent.com/h7MX8XEhr0QlPsw72CSnqcMdnAEJ9pJUSC13NpB32c4mxhiwoq37qIM1NQS91sC_dSc3dVNT68XnALhTR0uFi8o=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -2877,7 +2891,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/saGa_GHFrNAhE2xMiM9aidCCsjCsbnvbzd6KcI-KELUBSVW8Egptz1uD1SivN74pgYEa100YuZhSP1fBiJxdJfY=s0",
+        "url": "https://play-lh.googleusercontent.com/saGa_GHFrNAhE2xMiM9aidCCsjCsbnvbzd6KcI-KELUBSVW8Egptz1uD1SivN74pgYEa100YuZhSP1fBiJxdJfY=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -2945,7 +2959,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4=s0",
+        "url": "https://play-lh.googleusercontent.com/P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3013,7 +3027,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/IXwSCNFOUUJDWNaVN2oIT1spYSQj2vc6sllpFu0JKPHvDl420lRnWy68D7eYqVuERGAM7IJc_fRL6pP5Xt38=s0",
+        "url": "https://play-lh.googleusercontent.com/IXwSCNFOUUJDWNaVN2oIT1spYSQj2vc6sllpFu0JKPHvDl420lRnWy68D7eYqVuERGAM7IJc_fRL6pP5Xt38=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3081,7 +3095,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/hO2xRkkHhUzP6k4dXUQzfXKSIqJcGtRf1I47PnC5UAaO-1uXYJL6GjkqQv1orW_3IcvJ1zhjuk6EmLohH_zmrQ=s0",
+        "url": "https://play-lh.googleusercontent.com/hO2xRkkHhUzP6k4dXUQzfXKSIqJcGtRf1I47PnC5UAaO-1uXYJL6GjkqQv1orW_3IcvJ1zhjuk6EmLohH_zmrQ=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3149,7 +3163,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/kVgB78pjA7udXg7PIZYyHbWj6TbLfdRjz-Qa4cLCO16WweNjgXvSSHVtPpCIh0KUFjuCeOuUaa0dngm5FZLH=s0",
+        "url": "https://play-lh.googleusercontent.com/kVgB78pjA7udXg7PIZYyHbWj6TbLfdRjz-Qa4cLCO16WweNjgXvSSHVtPpCIh0KUFjuCeOuUaa0dngm5FZLH=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3217,7 +3231,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/8uKMRuO9KK1IXuDIt1ucSH59VvX81fwO1lWrvA1M46ghAknZf-mWx9fmoTV018z5bQTnOX0Pu9aC9JQPqlLaXoM=s0",
+        "url": "https://play-lh.googleusercontent.com/8uKMRuO9KK1IXuDIt1ucSH59VvX81fwO1lWrvA1M46ghAknZf-mWx9fmoTV018z5bQTnOX0Pu9aC9JQPqlLaXoM=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3285,7 +3299,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/0oVIU2t7ntjU7etMSVXT2wOr5BQx2JuagIlupIMzQwghEkrlwgTVMjy8k8RJysTjE5n4mZyLcW4Sk-ItVLYatA=s0",
+        "url": "https://play-lh.googleusercontent.com/0oVIU2t7ntjU7etMSVXT2wOr5BQx2JuagIlupIMzQwghEkrlwgTVMjy8k8RJysTjE5n4mZyLcW4Sk-ItVLYatA=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3353,7 +3367,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://play-lh.googleusercontent.com/MkTuw-xLyV7Dr6xr1Ntb27mcliHfUwJhTCNO6gBxhnfYojhZ8r5PKEmbg98fK4pBPF6PO_F6GrBC_-0I0bB_Ol8=s0",
+        "url": "https://play-lh.googleusercontent.com/MkTuw-xLyV7Dr6xr1Ntb27mcliHfUwJhTCNO6gBxhnfYojhZ8r5PKEmbg98fK4pBPF6PO_F6GrBC_-0I0bB_Ol8=w526-h296",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3438,7 +3452,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000190864912-knm6ov-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000190864912-knm6ov-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -3466,14 +3480,15 @@
         {
           "role": "composer",
           "name": "P4koo",
-          "url": "https://soundcloud.com/c4cat/le-ciel-heureux-p",
-          "field": "sc.title",
-          "quote": "P4koo - Le ciel heureux (Preview)"
+          "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
+          "field": null,
+          "quote": null
         }
       ],
       "variant_group": "jacket:le-ciel-heureux",
       "variant_role": "square crop of the jacket (official preview upload)",
-      "upstream_status": "current"
+      "upstream_status": "current",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45216) https://dynamix.miraheze.org/wiki/Le_ciel_heureux: P4koo (composer)."
     },
     {
       "id": "official:taptap:2d9ab8e4d3d71ced",
@@ -3585,11 +3600,11 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg",
+        "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1080,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -3606,11 +3621,11 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": false,
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Store banner upload (Dynamix logo graphic).",
+      "notes": "Store banner upload (Dynamix logo graphic). The page lists only the rendition 4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg; 4395ff13f01cca52f28efb2a1694bce9.jpg is the upload its name derives from.",
       "transformed": true
     },
     {
@@ -4201,7 +4216,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 653,
@@ -4293,7 +4308,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,
@@ -4321,13 +4336,13 @@
         {
           "role": "composer",
           "name": "TangJuan vs Black Box",
-          "url": "https://x.com/c4c4cat/status/981147690795900928",
-          "field": "text",
-          "quote": "次のイベントソングは @Tang0Juanさんvs Black Boxさん作った Xetta"
+          "url": "https://dynamix.miraheze.org/wiki/Xetta",
+          "field": null,
+          "quote": null
         }
       ],
       "upstream_status": "current",
-      "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box. Official event announcement image for Xetta."
+      "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box; the credit follows the wiki. Credits the fetched text does not state with their role, cited from the Dynamix wiki song page https://dynamix.miraheze.org/wiki/Xetta: TangJuan vs Black Box (composer). Official event announcement image for Xetta."
     },
     {
       "id": "official:x:4dba259589ea4635",
@@ -4394,7 +4409,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,
@@ -4471,7 +4486,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 653,
@@ -4539,7 +4554,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 651,
@@ -4631,7 +4646,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1920,
@@ -4708,7 +4723,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 654,
@@ -4800,7 +4815,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,
@@ -4901,7 +4916,7 @@
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1200,

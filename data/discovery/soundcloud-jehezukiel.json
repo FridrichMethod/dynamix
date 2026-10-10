@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:jehezukiel",
-  "started_at": "2026-10-10T15:16:13Z",
-  "finished_at": "2026-10-10T15:16:16Z",
+  "started_at": "2026-10-10T16:48:57Z",
+  "finished_at": "2026-10-10T16:49:00Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.description: DCWH"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-t6iqaHmHa53ntXYy-OpDVhg-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-t6iqaHmHa53ntXYy-OpDVhg-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -66,7 +66,7 @@
         "sc.description: PeerPiperWorks"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-GDhbYwTuokse1FUK-QL8tew-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-GDhbYwTuokse1FUK-QL8tew-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

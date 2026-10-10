@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:myukke",
-  "started_at": "2026-10-10T15:16:32Z",
-  "finished_at": "2026-10-10T15:16:35Z",
+  "started_at": "2026-10-10T16:49:16Z",
+  "finished_at": "2026-10-10T16:49:18Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000245380455-hyq6mc-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000245380455-hyq6mc-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -64,7 +64,7 @@
         "sc.title: SUTTA MONDAY"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-IcCygcJJY4oW0r4i-fbWBSg-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-IcCygcJJY4oW0r4i-fbWBSg-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

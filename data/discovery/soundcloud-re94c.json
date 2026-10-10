@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:re94c",
-  "started_at": "2026-10-10T15:16:42Z",
-  "finished_at": "2026-10-10T15:16:43Z",
+  "started_at": "2026-10-10T16:49:25Z",
+  "finished_at": "2026-10-10T16:49:27Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000222056894-oszoi6-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000222056894-oszoi6-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:misomyl",
-  "started_at": "2026-10-10T15:16:30Z",
-  "finished_at": "2026-10-10T15:16:31Z",
+  "started_at": "2026-10-10T16:49:13Z",
+  "finished_at": "2026-10-10T16:49:15Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000225124796-nw7p7d-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000225124796-nw7p7d-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

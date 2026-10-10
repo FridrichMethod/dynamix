@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-10T15:18:04Z",
-  "finished_at": "2026-10-10T15:20:25Z",
+  "started_at": "2026-10-10T16:45:30Z",
+  "finished_at": "2026-10-10T16:47:30Z",
   "scope": {
     "lists": [
       "official-img",
@@ -1730,7 +1730,7 @@
         "キカンシャ"
       ],
       "composers": [
-        "5argon"
+        "5argon feat. imTiNEY"
       ],
       "notes": "Wayback capture 20221216101704 of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png (CDX mimetype image/png, status 200, WARC record length 2380619)."
     },
@@ -1794,8 +1794,7 @@
         "Xomu"
       ],
       "composers": [
-        "Xomu",
-        "Wisp X"
+        "Wisp X & Xomu"
       ],
       "notes": "Wayback capture 20221216052519 of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png (CDX mimetype image/png, status 200, WARC record length 5177803)."
     },
@@ -1928,6 +1927,9 @@
       "illustrators": [
         "Sand Suna"
       ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
       "notes": "Wayback capture 20221216231357 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 6586774)."
     },
     {
@@ -1960,6 +1962,9 @@
       "illustrators": [
         "Sand Suna"
       ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
       "notes": "Wayback capture 20221216231405 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2154513)."
     },
     {
@@ -1991,6 +1996,9 @@
       ],
       "illustrators": [
         "Sand Suna"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
       ],
       "notes": "Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014)."
     },

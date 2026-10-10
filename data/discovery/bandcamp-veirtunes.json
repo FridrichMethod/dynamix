@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:bandcamp:veirtunes",
-  "started_at": "2026-10-10T15:15:26Z",
-  "finished_at": "2026-10-10T15:15:26Z",
+  "started_at": "2026-10-10T16:48:09Z",
+  "finished_at": "2026-10-10T16:48:10Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "upstream text: Dynamix [C4Cat Open Submission 2026] | Rejected Submission"
       ],
       "source_reported": {
-        "url": "https://f4.bcbits.com/img/a2011763979_0.jpg",
+        "url": "https://f4.bcbits.com/img/a2011763979_5.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

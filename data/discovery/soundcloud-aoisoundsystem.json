@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:aoisoundsystem",
-  "started_at": "2026-10-10T15:15:49Z",
-  "finished_at": "2026-10-10T15:15:52Z",
+  "started_at": "2026-10-10T16:48:33Z",
+  "finished_at": "2026-10-10T16:48:35Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: Dynamix"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000592869923-wgkax4-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000592869923-wgkax4-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -63,7 +63,7 @@
         "https://soundcloud.com/aoisoundsystem/soartophi"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000175257359-zajlfr-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000175257359-zajlfr-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

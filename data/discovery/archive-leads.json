@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:archive-leads",
-  "started_at": "2026-10-10T15:18:01Z",
-  "finished_at": "2026-10-10T15:18:01Z",
+  "started_at": "2026-10-10T16:45:27Z",
+  "finished_at": "2026-10-10T16:45:27Z",
   "scope": {
     "lists": [
       "registry"

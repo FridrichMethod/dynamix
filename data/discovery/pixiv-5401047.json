@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:5401047",
-  "started_at": "2026-10-10T15:15:34Z",
-  "finished_at": "2026-10-10T15:15:37Z",
+  "started_at": "2026-10-10T16:48:18Z",
+  "finished_at": "2026-10-10T16:48:21Z",
   "scope": {
     "lists": [
       "seed-artworks"
@@ -46,6 +46,9 @@
       ],
       "illustrators": [
         "Sand Suna"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
       ]
     },
     {
@@ -79,6 +82,9 @@
       ],
       "illustrators": [
         "Sand Suna"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
       ]
     },
     {
@@ -112,6 +118,9 @@
       ],
       "illustrators": [
         "Sand Suna"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
       ]
     }
   ],

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:bluenoup",
-  "started_at": "2026-10-10T15:17:04Z",
-  "finished_at": "2026-10-10T15:17:05Z",
+  "started_at": "2026-10-10T16:49:48Z",
+  "finished_at": "2026-10-10T16:49:49Z",
   "scope": {
     "lists": [
       "seed-posts"

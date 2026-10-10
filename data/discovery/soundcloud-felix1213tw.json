@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:felix1213tw",
-  "started_at": "2026-10-10T15:16:07Z",
-  "finished_at": "2026-10-10T15:16:08Z",
+  "started_at": "2026-10-10T16:48:50Z",
+  "finished_at": "2026-10-10T16:48:51Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/felix1213tw/reconstruction"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000495124080-0r0w28-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000495124080-0r0w28-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:vauboy",
-  "started_at": "2026-10-10T15:16:58Z",
-  "finished_at": "2026-10-10T15:17:01Z",
+  "started_at": "2026-10-10T16:49:42Z",
+  "finished_at": "2026-10-10T16:49:45Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.title: MLG"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000402006720-1ubsms-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000402006720-1ubsms-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -60,7 +60,7 @@
         "https://soundcloud.com/vauboy/you-were-with-a-boy"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-AiTz6CRv2zUdcjBp-UhvXaA-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-AiTz6CRv2zUdcjBp-UhvXaA-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

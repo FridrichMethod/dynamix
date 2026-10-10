@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:research:leads",
-  "started_at": "2026-10-10T15:15:46Z",
-  "finished_at": "2026-10-10T15:15:46Z",
+  "started_at": "2026-10-10T16:48:30Z",
+  "finished_at": "2026-10-10T16:48:30Z",
   "scope": {
     "lists": [
       "registry"
@@ -892,8 +892,9 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "blocked",
-      "reason": "blocked: HTTP 503 to automated requests (research sweep)"
+      "disposition": "pending",
+      "reason": "pending: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
+      "notes": "Research observation: 2026-10-10: HTTP 503 with the page 'SKIMAは現在メンテナンス中です' (an infrastructure outage), so the profile was not read"
     },
     {
       "id": "artists:research:leads:soundcloud:godong_0717:danse-de-romani",

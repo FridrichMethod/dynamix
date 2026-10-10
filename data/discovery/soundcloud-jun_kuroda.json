@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:jun_kuroda",
-  "started_at": "2026-10-10T15:16:16Z",
-  "finished_at": "2026-10-10T15:16:18Z",
+  "started_at": "2026-10-10T16:49:00Z",
+  "finished_at": "2026-10-10T16:49:01Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/jun_kuroda/aki-zakura"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000134737246-mlhny5-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000134737246-mlhny5-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

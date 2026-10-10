@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:seura_nue",
-  "started_at": "2026-10-10T15:17:16Z",
-  "finished_at": "2026-10-10T15:17:17Z",
+  "started_at": "2026-10-10T16:50:00Z",
+  "finished_at": "2026-10-10T16:50:01Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -29,7 +29,7 @@
         "text: Necroxus"
       ],
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/FU3_xGbUEAAYeco?format=jpg&name=orig",
+        "url": "https://pbs.twimg.com/media/FU3_xGbUEAAYeco.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1920,

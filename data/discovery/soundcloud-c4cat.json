@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:soundcloud-c4cat",
-  "started_at": "2026-10-10T15:17:33Z",
-  "finished_at": "2026-10-10T15:17:43Z",
+  "started_at": "2026-10-10T16:45:01Z",
+  "finished_at": "2026-10-10T16:45:11Z",
   "scope": {
     "lists": [
       "seed-pages",
@@ -31,7 +31,7 @@
         "sc.title: Le ciel heureux"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000190864912-knm6ov-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000190864912-knm6ov-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -62,7 +62,7 @@
         "https://soundcloud.com/c4cat/mmry-memento-mori"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000231947184-v4i27m-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000231947184-v4i27m-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -133,7 +133,7 @@
         "https://soundcloud.com/c4cat/packer-woo-meeting-in-sky"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000231947182-38k8d5-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000231947182-38k8d5-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -158,7 +158,7 @@
         "https://soundcloud.com/c4cat/packer-woo-origo-harbour"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000231947187-vl966l-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000231947187-vl966l-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

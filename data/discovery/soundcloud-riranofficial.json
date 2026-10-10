@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:riranofficial",
-  "started_at": "2026-10-10T15:16:43Z",
-  "finished_at": "2026-10-10T15:16:46Z",
+  "started_at": "2026-10-10T16:49:27Z",
+  "finished_at": "2026-10-10T16:49:30Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/riranofficial/bofu2016-unshakable"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000181747126-bdh1nt-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000181747126-bdh1nt-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -55,7 +55,7 @@
         "sc.title: Daydream"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000244696274-59jstb-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000244696274-59jstb-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

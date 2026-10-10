@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:bandcamp:ha1uday0",
-  "started_at": "2026-10-10T15:15:25Z",
-  "finished_at": "2026-10-10T15:15:26Z",
+  "started_at": "2026-10-10T16:48:08Z",
+  "finished_at": "2026-10-10T16:48:09Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "ld[0].creditText: 長井りく"
       ],
       "source_reported": {
-        "url": "https://f4.bcbits.com/img/a3136449385_0.jpg",
+        "url": "https://f4.bcbits.com/img/a3136449385_5.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

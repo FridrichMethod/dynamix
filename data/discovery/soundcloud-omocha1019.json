@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:omocha1019",
-  "started_at": "2026-10-10T15:16:38Z",
-  "finished_at": "2026-10-10T15:16:39Z",
+  "started_at": "2026-10-10T16:49:21Z",
+  "finished_at": "2026-10-10T16:49:22Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -30,7 +30,7 @@
         "sc.description: 國春"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000224961924-hxwr8m-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000224961924-hxwr8m-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

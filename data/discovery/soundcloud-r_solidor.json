@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:r_solidor",
-  "started_at": "2026-10-10T15:16:40Z",
-  "finished_at": "2026-10-10T15:16:42Z",
+  "started_at": "2026-10-10T16:49:24Z",
+  "finished_at": "2026-10-10T16:49:25Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -30,7 +30,7 @@
         "sc.description: Zero"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-t1A8DqMREqZOoXsA-chIMKw-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-t1A8DqMREqZOoXsA-chIMKw-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

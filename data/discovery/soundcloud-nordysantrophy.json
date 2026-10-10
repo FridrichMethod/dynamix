@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:nordysantrophy",
-  "started_at": "2026-10-10T15:16:35Z",
-  "finished_at": "2026-10-10T15:16:36Z",
+  "started_at": "2026-10-10T16:49:18Z",
+  "finished_at": "2026-10-10T16:49:20Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.description: Rumskii"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-bB13IqDxcVQgo0Sg-vPknfw-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-bB13IqDxcVQgo0Sg-vPknfw-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -44,8 +44,7 @@
         "Luxvinore"
       ],
       "illustrators": [
-        "lemonade;",
-        "Rumskii"
+        "lemonade; & Rumskii"
       ],
       "composers": [
         "Nordius Dystancius"

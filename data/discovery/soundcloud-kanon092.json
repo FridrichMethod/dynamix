@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:kanon092",
-  "started_at": "2026-10-10T15:16:18Z",
-  "finished_at": "2026-10-10T15:16:20Z",
+  "started_at": "2026-10-10T16:49:01Z",
+  "finished_at": "2026-10-10T16:49:04Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -29,7 +29,7 @@
         "sc.description: 眞緒"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000227869129-5q12e9-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000227869129-5q12e9-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
@@ -47,7 +47,7 @@
         "眞緒"
       ],
       "composers": [
-        "奏音"
+        "奏音 feat. 駄々子"
       ]
     },
     {
@@ -64,7 +64,7 @@
         "sc.description: BerryVerrine"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000227366537-3h9eyq-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000227366537-3h9eyq-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,

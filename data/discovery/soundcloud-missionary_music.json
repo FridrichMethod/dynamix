@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:missionary_music",
-  "started_at": "2026-10-10T15:16:31Z",
-  "finished_at": "2026-10-10T15:16:32Z",
+  "started_at": "2026-10-10T16:49:15Z",
+  "finished_at": "2026-10-10T16:49:16Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -28,7 +28,7 @@
         "https://soundcloud.com/missionary_music/yvvldpc55amz"
       ],
       "source_reported": {
-        "url": "https://i1.sndcdn.com/artworks-000111054218-908n17-original.jpg",
+        "url": "https://i1.sndcdn.com/artworks-000111054218-908n17-large.jpg",
         "mime": null,
         "bytes": null,
         "width": null,
