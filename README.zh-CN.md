@@ -42,7 +42,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 | `site` | `song_art`、`pack_cover`、`character`、`background`、`part`、`promotional`、`process` | 是 | 是 |
 | `archive` | `reference`、`gameplay_screenshot`、`store_screenshot`，以及所有 PDF | 是 | 否：查看器显示预览图（PDF 没有预览图），并链接到 GitHub 仓库中的原文件 |
 
-`reference` 指资料性图片和文档：谱面/难度一览、回归/新谱面及更新公告图、新闻稿 PDF 等。`promotional` 保留主视觉、横幅、活动/周年/联动视觉和预告图等不属于谱面一览的宣传图。商店截图是应用商店的渲染版本，不是美术原稿。
+`reference` 指资料性图片和文档。按照 2026-10-10 的分类规则，凡是显示谱面难度等级的公告图都属于 `reference`，无论它预告的是一首曲目还是多首、来自 wiki 还是官方 X 或 Facebook 帖子（包括带等级标记的单曲谱面一览、“即将推出”或回归预告图）；主要内容是曲目或谱面列表的图片同样如此：活动与回归曲目阵容、“即将举行的活动”和“回归曲目”图，以及印有多张带曲名封面的曲包或联动阵容卡。这类图片中出现的封面美术另行存档为该曲目自己的 `song_art` 文件。更新说明、新闻稿 PDF 等文档也属于 `reference`。`promotional` 保留不含谱面等级信息、关于单首曲目、单个曲包或单个活动的图片：主视觉、活动和周年海报、单张联动主视觉、横幅、标志和字标。商店截图是应用商店的渲染版本，不是美术原稿。
 
 `archive` 层级的原文件与其他文件一样保存在本仓库中；网站不提供它们只是为了控制体积。它们的目录条目带有 `archive_url`，即该文件在 `main` 分支上的 GitHub raw 地址（`https://github.com/FridrichMethod/dynamix/raw/main/...`），查看器会标注“原文件保存在仓库中”。只有当包含该文件的提交已经位于 GitHub 仓库的 `main` 分支上时，这个链接才可用。
 
@@ -51,7 +51,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 未存档的候选仍然记录在发现快照中，并附带原因，包括：
 
 - 仅用于 Dynamix Universe 的美术（`universe_only`），以及不属于 Dynamix 的文件（`not_dynamix`）；
-- 动态 GIF 录屏（`animated_capture`）；角色的 `-Raw.png` 等静态版本是独立的候选，在其自身证据被接受时存档，`fetch_wikis.py --include-animated` 可以撤销这一选择；
+- 动态 GIF 录屏（`animated_capture`），它们连同元数据一起记录，但默认不下载；更大的静态版本（例如角色的 `-Raw.png`）是独立的候选，在其自身证据被接受时存档，`fetch_wikis.py --include-animated` 会把动态文件也一并下载，因此这一排除可以撤销；
 - 人物照片（`person_photo`）、wiki 界面图片（`site_ui`），以及图标、按钮、评级徽章等游戏界面元素（`game_ui`）；
 - 嵌入视频的占位条目（`video_placeholder`）、独立音乐发行物的封面（`external_release_art`）、同人图（`fanart`）、放大图（`upscaled`）和落选投稿（`rejected_submission`）；
 - 其他文件的重定向或别名（`redirect_or_alias`），以及其他超出范围的文件（`out_of_scope_other`）。
@@ -66,7 +66,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 
 ### Wiki 副本：Miraheze 与 Fandom
 
-当前的 Miraheze 英文 wiki 以相同的文件名从旧 Fandom wiki 导入了文件。两者作为独立来源分别存档，各有自己的记录。请求 Fandom 文件时带上 `format=original`，否则它的 CDN 会返回转换后的 WebP；抽样文件的这些字节与 Miraheze 上的文件完全相同。多个来源中字节完全相同的文件合并为一个目录条目，列出所有来源记录，网站也只暂存一份。详见 [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md)。
+当前的 Miraheze 英文 wiki 以相同的文件名从旧 Fandom wiki 导入了文件。两者作为独立来源分别存档，各有自己的记录。请求 Fandom 文件时带上 `format=original`，否则它的 CDN 会返回转换后的 WebP。根据 2026-10-10 wiki 获取过程中的实测，在两个 wiki 都有的 3,337 个已接受文件名中，有 3,336 个的这些字节与 Miraheze 上的文件完全相同；剩下的那个文件名，Fandom 返回的字节与两个 wiki 记录的上传文件不同，因此这条 Fandom 记录标为平台转换（`transformed: true`），并作为单独的文件保留。多个来源中字节完全相同的文件合并为一个目录条目，列出所有来源记录，网站也只暂存一份。详见 [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md)。
 
 ## 来源记录模型
 
@@ -80,11 +80,15 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 - **权利：**权利人、创作者、权利信息 URL、许可证和限制。权利人默认为 “C4Cat Entertainment Limited and/or the credited artist”；只有确实确认了许可证时，`license` 才会填写。
 - **上游状态：**`current`、`removed`、`superseded`（较新的上传已存档时由 `superseded_by` 指向它）或 `unknown`；相关的裁切版本共享一个 `variant_group`。
 
+**主记录。**条目自身的字段（标题、类型、文件、质量标签）取自其中一条记录，按固定规则选出：先看类别（`artists`、`official`、`wikis`、`archives` 依次优先）；同一类别内看来源，当前的 Miraheze wiki 排在旧 Fandom wiki 之前，因为 Miraheze 保存的正是两个英文 wiki 提供的字节，其他来源按 ID 排序；然后依次看版本（`site_original`、`preview`、`unknown`）、来源 ID 和资产 ID。因此即使 wiki 上有相同的字节，画师或官方的副本也会作为条目的主记录，其他记录保留在 `provenance` 中。
+
+**标题。**标题是可读的名称，绝不是单纯的文件名。若 wiki 曲绘文件以 `confirmed_wiki` 或更强的证据只对应一首曲目，就使用该曲目的确切曲名；其他 wiki 文件使用 wiki 自己的图注，没有图注时使用去掉扩展名、下划线显示为空格的 `File:` 标题。其他类别的记录以其引用的帖子或页面文字作为标题。上游文件名始终保留在 `original_filename` 中。
+
 曲目 ID 来自 `data/sources/song-index.json`，即注明日期的原版曲目列表。只有存在属于原版游戏的正面证据时，曲目才会进入该列表；各项指标的定义见 [docs/coverage.zh-CN.md](docs/coverage.zh-CN.md)。
 
 ## 收藏统计
 
-下方标记之间的数字在构建目录时由 `data/coverage.json` 生成，不是手工填写的，并把记录数、文件数、图片数和曲目数作为不同的量分别报告。
+下方标记之间的数字在每次构建后由 `scripts/update_docs_stats.py` 根据 `data/coverage.json` 和 `data/catalog.json` 生成，不是手工填写的，并把记录数、文件数、图片数和曲目数作为不同的量分别报告。
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->
@@ -128,14 +132,16 @@ python3 -m venv .venv
 .venv/bin/python -I scripts/build_thumbnails.py --prune
 .venv/bin/python -I scripts/build_catalog.py --verify
 .venv/bin/python -I scripts/build_coverage.py
+.venv/bin/python -I scripts/update_docs_stats.py
 ```
 
-`--verify` 完全离线地重新计算并解码每个存档文件，并核对每份清单与其发现快照。`build_thumbnails.py` 生成预览图（`--prune` 还会删除它自己列出、但原文件已不再需要的预览图；它从不改动原文件）。`build_catalog.py` 生成 `data/catalog.json`、`data/catalog.js` 和 `index.html`。`build_coverage.py` 生成 `data/coverage.json`，输入无法对账时拒绝写入。这些输出都不依赖当前时间，同样的输入重新构建得到完全相同的字节。只检查已提交的输出是否最新、不写入任何文件：
+`--verify` 完全离线地重新计算并解码每个存档文件，并核对每份清单与其发现快照。`build_thumbnails.py` 生成预览图（`--prune` 还会删除它自己列出、但原文件已不再需要的预览图；它从不改动原文件）。`build_catalog.py` 生成 `data/catalog.json`、`data/catalog.js` 和 `index.html`。`build_coverage.py` 生成 `data/coverage.json`，输入无法对账时拒绝写入。随后 `update_docs_stats.py` 重写本 README、`docs/coverage.md` 和 `docs/sources-*.md` 两种语言版本中的统计块；它只读取 `data/coverage.json` 和 `data/catalog.json`，两者来自不同构建时拒绝使用，并且从不改动标记之外的文字。这些输出都不依赖当前时间，同样的输入重新构建得到完全相同的字节。只检查已提交的输出是否最新、不写入任何文件：
 
 ```sh
 .venv/bin/python -I scripts/build_thumbnails.py --check
 .venv/bin/python -I scripts/build_catalog.py --verify --check
 .venv/bin/python -I scripts/build_coverage.py --check
+.venv/bin/python -I scripts/update_docs_stats.py --check
 ```
 
 `scripts/build_thumbnails.py --verify` 还会重新编码每张预览图并比较字节；它更慢，并且需要固定版本的 Pillow 和 libwebp。

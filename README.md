@@ -42,7 +42,7 @@ Each file has one kind. The kind decides whether the website serves the original
 | `site` | `song_art`, `pack_cover`, `character`, `background`, `part`, `promotional`, `process` | yes | yes |
 | `archive` | `reference`, `gameplay_screenshot`, `store_screenshot`, and every PDF | yes | no: the viewer shows a preview (PDFs have none) and links the original in the GitHub repository |
 
-`reference` covers informational graphics and documents: chart/difficulty lists, comeback/new-chart and update announcement graphics, press PDFs and similar material. `promotional` keeps key art, banners, event, anniversary and collaboration visuals and teasers that are not chart listings. Store screenshots are app-store renditions, not artwork masters.
+`reference` covers informational graphics and documents. By the classification rule of 2026-10-10, any announcement graphic that shows chart difficulty levels is `reference`, whether it announces one song or several and whether it comes from a wiki or from an official X or Facebook post (a single song's chart list, "coming soon" or comeback teaser with level marks included), and so is any graphic whose main content is a list of songs or charts: event and comeback lineups, "upcoming events" and "comeback tracks" graphics, and pack or collaboration lineup cards that print several titled jackets. The jacket artwork shown inside such a graphic is archived separately, as the song's own `song_art` file. Update notes, press PDFs and similar documents are `reference` as well. `promotional` keeps graphics without chart-level information that concern a single song, pack or event: key art, event and anniversary posters, single collaboration key visuals, banners, logos and wordmarks. Store screenshots are app-store renditions, not artwork masters.
 
 Archive-tier originals are stored in this repository like every other file; the website leaves them out only to stay within its size budget. Their catalog entries carry an `archive_url`, the GitHub raw URL of the file on `main` (`https://github.com/FridrichMethod/dynamix/raw/main/...`), and the viewer labels them "Original kept in the repository". Such a link works once the commit that holds the file is on `main` of the GitHub repository.
 
@@ -51,7 +51,7 @@ Archive-tier originals are stored in this repository like every other file; the 
 Candidates that are not archived are still recorded in the discovery snapshots with a reason, among them:
 
 - artwork used only by Dynamix Universe (`universe_only`) and files that are not Dynamix material (`not_dynamix`);
-- animated GIF captures (`animated_capture`); a still rendition such as a character's `-Raw.png` is a separate candidate, archived when its own evidence accepts it, and `fetch_wikis.py --include-animated` makes this choice reversible;
+- animated GIF captures (`animated_capture`), which stay recorded with their metadata but are not downloaded by default; the larger still rendition, such as a character's `-Raw.png`, is a separate candidate and is archived when its own evidence accepts it, and `fetch_wikis.py --include-animated` downloads the animated files as well, so the exclusion can be reversed;
 - photos of people (`person_photo`), wiki interface images (`site_ui`) and game interface elements such as icons, buttons and grade badges (`game_ui`);
 - embedded video placeholders (`video_placeholder`), cover art of separate music releases (`external_release_art`), fanart (`fanart`), upscales (`upscaled`) and rejected submissions (`rejected_submission`);
 - redirects and aliases of another file (`redirect_or_alias`) and other out-of-scope files (`out_of_scope_other`).
@@ -66,7 +66,7 @@ A "site original" means the full-size file a source serves. It is not automatica
 
 ### Wiki copies: Miraheze and Fandom
 
-The current English wiki on Miraheze imported its files from the legacy Fandom wiki under the same titles. Both are archived as separate sources with their own records. Fandom files are requested with `format=original`, because its CDN otherwise serves a transformed WebP; for sampled files those bytes were identical to the Miraheze file. Byte-identical files from several sources become one catalog entry that lists every source record, and the website stages a single copy of them. The details are in [docs/sources-wikis.md](docs/sources-wikis.md).
+The current English wiki on Miraheze imported its files from the legacy Fandom wiki under the same titles. Both are archived as separate sources with their own records. Fandom files are requested with `format=original`, because its CDN otherwise serves a transformed WebP. As measured during the wiki acquisition of 2026-10-10, those bytes were identical to the Miraheze file for 3,336 of the 3,337 accepted file titles that both wikis hold; for the remaining title Fandom served other bytes than the upload both wikis record, so that Fandom record is marked as a platform transform (`transformed: true`) and kept as a separate file. Byte-identical files from several sources become one catalog entry that lists every source record, and the website stages a single copy of them. The details are in [docs/sources-wikis.md](docs/sources-wikis.md).
 
 ## Provenance model
 
@@ -80,11 +80,15 @@ The current English wiki on Miraheze imported its files from the legacy Fandom w
 - **Rights:** holder, creator, rights URL, license and restrictions. The holder defaults to "C4Cat Entertainment Limited and/or the credited artist"; `license` stays empty unless a license is actually established.
 - **Upstream state:** `current`, `removed`, `superseded` (with `superseded_by` naming the newer upload when it was archived) or `unknown`; related crops share a `variant_group`.
 
+**Primary record.** An entry's own fields (title, kind, file, quality labels) come from one of its records, chosen by a fixed rule: the family first (`artists`, then `official`, then `wikis`, then `archives`); within a family the source, where the current Miraheze wiki ranks before the legacy Fandom wiki because Miraheze stores the bytes that both English wikis serve, and other sources rank by ID; then the rendition (`site_original`, then `preview`, then `unknown`), the source ID and the asset ID. An artist's or official copy of a file therefore leads the entry even when a wiki holds the same bytes, and the other records stay in `provenance`.
+
+**Titles.** A title is a readable name, never a bare file name. Wiki song art whose file maps to exactly one song with `confirmed_wiki` or stronger evidence carries that song's exact title; other wiki files use the wiki's own caption when there is one, otherwise the `File:` title without its extension and with underscores shown as spaces. Records of the other families are titled from the text of the post or page they cite. The upstream file name always stays in `original_filename`.
+
 Song IDs come from `data/sources/song-index.json`, the dated original-game song list. A song enters it only with positive evidence of being in the original game; metric definitions are in [docs/coverage.md](docs/coverage.md).
 
 ## Collection statistics
 
-The numbers between the markers below are generated from `data/coverage.json` when the catalog is built, are not written by hand, and report records, files, images and songs as separate quantities.
+The numbers between the markers below are generated by `scripts/update_docs_stats.py` from `data/coverage.json` and `data/catalog.json` after each build, are not written by hand, and report records, files, images and songs as separate quantities.
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->
@@ -128,14 +132,16 @@ All network access goes through one shared client: an explicit host allowlist ch
 .venv/bin/python -I scripts/build_thumbnails.py --prune
 .venv/bin/python -I scripts/build_catalog.py --verify
 .venv/bin/python -I scripts/build_coverage.py
+.venv/bin/python -I scripts/update_docs_stats.py
 ```
 
-`--verify` re-hashes and decodes every archived file and reconciles each manifest with its discovery snapshots, entirely offline. `build_thumbnails.py` writes the previews (`--prune` also deletes previews it listed whose original left; it never touches originals). `build_catalog.py` writes `data/catalog.json`, `data/catalog.js` and `index.html`. `build_coverage.py` writes `data/coverage.json` and refuses to write when the inputs do not reconcile. Nothing in these outputs depends on the clock, so a rebuild from the same inputs is byte-identical. To check that the committed outputs are current without writing anything:
+`--verify` re-hashes and decodes every archived file and reconciles each manifest with its discovery snapshots, entirely offline. `build_thumbnails.py` writes the previews (`--prune` also deletes previews it listed whose original left; it never touches originals). `build_catalog.py` writes `data/catalog.json`, `data/catalog.js` and `index.html`. `build_coverage.py` writes `data/coverage.json` and refuses to write when the inputs do not reconcile. `update_docs_stats.py` then rewrites the statistics blocks of this README, `docs/coverage.md` and `docs/sources-*.md` in both languages; it reads only `data/coverage.json` and `data/catalog.json`, refuses the two files when they come from different builds, and never changes text outside the markers. Nothing in these outputs depends on the clock, so a rebuild from the same inputs is byte-identical. To check that the committed outputs are current without writing anything:
 
 ```sh
 .venv/bin/python -I scripts/build_thumbnails.py --check
 .venv/bin/python -I scripts/build_catalog.py --verify --check
 .venv/bin/python -I scripts/build_coverage.py --check
+.venv/bin/python -I scripts/update_docs_stats.py --check
 ```
 
 `scripts/build_thumbnails.py --verify` additionally re-encodes every preview and compares the bytes; it is slower and needs the pinned Pillow and libwebp.
