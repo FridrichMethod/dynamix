@@ -9,9 +9,12 @@ HTML/script injection strings, unknown credits, a character cut-out, archive-onl
 low-resolution file, failures and an empty catalog). It is not evidence about any real artwork or person.
 
 The outputs follow docs/implementation/09-frozen-contracts.md: catalog.json (UTF-8, indent 2, trailing newline),
-catalog.js (`window.DYNAMIX_CATALOG = ` + compact JSON with `<` written as \\u003c and U+2028/U+2029 escaped + `;\\n`),
-originals under assets/public/<family>/<source-slug>/<slug>--<sha256[:12]>.<ext> and WebP previews (long edge 480,
-never enlarged, quality 75, method 6) under assets/thumbs/<sha256[:16]>.webp.
+catalog.js (the frozen reference encoding: `window.DYNAMIX_CATALOG = ` + compact JSON, `separators=(",", ":")`,
+`ensure_ascii=False`, with every `<` written as \\u003c and U+2028/U+2029 escaped + `;\\n`), originals under
+assets/public/<family>/<source-slug>/<slug>--<sha256[:12]>.<ext> and WebP previews (long edge 480, never enlarged,
+quality 75, method 6) under assets/thumbs/<sha256[:16]>.webp. Slugs, asset paths, song IDs (with the title-hash suffix
+for non-ASCII titles) and comparisons come from scripts/lib, the executable contract, which also validates the result
+(tests/test_layout_fixture.py).
 """
 
 from __future__ import annotations
@@ -19,16 +22,17 @@ from __future__ import annotations
 import hashlib
 import io
 import json
-import re
 import shutil
 import sys
-import unicodedata
 from pathlib import Path
 from urllib.parse import quote
 
 from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[2] / "scripts"))
+
+from lib import paths, schema  # noqa: E402 - the contract library lives in scripts/lib
 OWNER, GAME, REPOSITORY = "FridrichMethod", "Dynamix", "https://github.com/FridrichMethod/dynamix"
 KIND_ORDER = ["song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot",
               "gameplay_screenshot", "process", "reference"]
@@ -141,8 +145,9 @@ def files():
              {"source_id": "artists:x:fixture-artist", "page_url": "https://example.org/artist-a/status/1001",
               "download_url": "https://example.org/media/aurora-lattice.png?name=orig", "quality": ["site_original", "artist_post", "confirmed", "The artist's post links this file as the full-size jacket."],
               "mapping_status": "confirmed_primary", "mapping_evidence": [{"url": "https://example.org/artist-a/status/1001", "quote": "Jacket illustration for Aurora Lattice"}],
-              "credit_evidence": [{"role": "illustrator", "name": "Fixture Artist A", "url": "https://example.org/artist-a/status/1001", "field": "post text", "quote": "I drew the jacket for Aurora Lattice"}],
-              "reported": {}, "creator": "Fixture Artist A"},
+              "credit_evidence": [{"role": "illustrator", "name": "Fixture Artist A", "url": "https://example.org/artist-a/status/1001", "field": "post text", "quote": "I drew the jacket for Aurora Lattice"},
+                                  {"role": "other", "name": "Fixture Designer", "url": None, "field": "post text", "quote": "logo by Fixture Designer"}],
+              "reported": {}, "creator": "Fixture Artist A", "collections": []},
              {"source_id": "wikis:miraheze", "page_url": f"{mh}/File:Aurora_Lattice.png", "download_url": f"{mh}/images/a/a1/Aurora_Lattice.png",
               "quality": ["site_original", "wiki_copy", "unverified", ""], "mapping_status": "confirmed_wiki",
               "mapping_evidence": [f"{mh}/Aurora_Lattice", "Template:Song image field names this file"], "reported": {"exact": True},
@@ -171,7 +176,8 @@ def files():
          "records": [{"source_id": "wikis:fandom", "page_url": f"{fd}/File:" + quote("交差して歪む過去と未来.png"),
                       "download_url": f"{fd}/images/" + quote("交差して歪む過去と未来.png") + "/revision/latest",
                       "quality": ["unknown", "wiki_copy", "unverified", "The CDN returned WEBP bytes for a .png name; no original was obtainable."],
-                      "mapping_status": "unmapped", "mapping_evidence": [], "reported": {"mime": "image/png", "sha1": None}}]},
+                      "mapping_status": "inferred", "mapping_evidence": ["The file name repeats the song page title; no page links the file."],
+                      "reported": {"mime": "image/png", "sha1": None}}]},
         {"key": "night", "title": f"Night {INJECTION} Drive </script>", "kind": "song_art", "name": "Night_Drive.png", "bytes": encode(night, "PNG", optimize=True),
          "illustrators": [INJECTION], "composers": ["\"Quote\" & 'Apostrophe' </script><script>alert(2)</script>"],
          "songs": [f"Night {INJECTION} Drive </script>"], "collections": ["</script><b>Pack</b>"], "notes": "<b>bold?</b> </script><script>alert(5)</script>",
@@ -226,25 +232,6 @@ def measure(raw):
         return image.format, image.width, image.height
 
 
-def slug(text, lower=False):
-    """The contract slug (scripts/lib/paths.py): NFKC; runs outside [A-Za-z0-9._-] become one "-"; hyphen runs collapse;
-    leading/trailing "-" and "." are trimmed; at most 80 characters; "file" when nothing remains."""
-    value = re.sub(r"-{2,}", "-", re.sub(r"[^A-Za-z0-9._-]+", "-", unicodedata.normalize("NFKC", text))).strip("-.")
-    value = (value.lower() if lower else value)[:80].rstrip("-.")
-    return value or "file"
-
-
-def compare(reported, observed):
-    """Tri-state comparisons of advertised versus measured values (scripts/lib/schema.py compute_comparisons)."""
-    size, seen = (reported["width"], reported["height"]), (observed["width"], observed["height"])
-    return {
-        "sha1_match": None if reported["sha1"] is None else reported["sha1"].lower() == observed["sha1"],
-        "bytes_match": None if reported["bytes"] is None else reported["bytes"] == observed["bytes"],
-        "dimensions_match": None if None in size or None in seen else size == seen,
-        "format_match": None if reported["mime"] is None else reported["mime"] == MIME[observed["sniffed_format"]],
-    }
-
-
 def preview(raw, fmt):
     """The DEEMO-style preview: WebP, long edge 480, never enlarged, quality 75, method 6; first frame; None for PDFs."""
     if fmt == "PDF":
@@ -261,14 +248,17 @@ def preview(raw, fmt):
 def build():
     sources = {source["id"]: source for source in SOURCES}
     entries, blobs, keyed = [], {}, {}
-    for spec in files():
+    specs = files()
+    # Song IDs as the reconciled song index assigns them: over the whole title set, in sorted exact-title order.
+    titles = sorted({title for spec in specs for title in spec["songs"]})
+    song_ids = dict(zip(titles, paths.assign_song_ids(titles)))
+    for spec in specs:
         raw = spec["bytes"]
         fmt, width, height = measure(raw)
         sha256, sha1 = hashlib.sha256(raw).hexdigest(), hashlib.sha1(raw).hexdigest()
         primary = spec["records"][0]
         family = sources[primary["source_id"]]["family"]
-        stem = spec["name"].rpartition(".")[0] or spec["name"]
-        path = f"assets/public/{family}/{SOURCE_SLUGS[primary['source_id']]}/{slug(stem)}--{sha256[:12]}.{EXTENSION[fmt]}"
+        path = paths.asset_relpath(family, SOURCE_SLUGS[primary["source_id"]], spec["name"], sha256, EXTENSION[fmt])
         blobs[path] = raw
         thumb_bytes = preview(raw, fmt)
         thumb = f"assets/thumbs/{sha256[:16]}.webp" if thumb_bytes else None
@@ -298,7 +288,7 @@ def build():
                                    "sha1": None, "timestamp": None, "revision": None}
             else:
                 source_reported = {key: None for key in ("url", "mime", "bytes", "width", "height", "sha1", "timestamp", "revision")}
-            comparisons = compare(source_reported, observed)
+            comparisons = schema.compute_comparisons(source_reported, observed)
             variant, origin, master, quality_notes = record["quality"]
             superseded = keyed[spec["superseded_by"]] if spec.get("superseded_by") else None
             # Exactly the provenance fields of the frozen contract; record-only details stay in `extra`.
@@ -313,24 +303,26 @@ def build():
                 "mapping_status": record["mapping_status"], "mapping_evidence": record["mapping_evidence"],
                 "credit_evidence": record.get("credit_evidence", []),
                 "illustrators": spec["illustrators"], "composers": spec["composers"], "song_titles": spec["songs"],
+                # An unmapped record links no song (the manifest rule); the catalog merges every record's lists.
+                "song_ids": [] if record["mapping_status"] == "unmapped" else [song_ids[title] for title in spec["songs"]],
+                "collections": record.get("collections", spec["collections"]),
                 "source_reported": source_reported, "comparisons": comparisons,
                 "upstream_status": spec.get("upstream_status", "current"), "superseded_by": superseded, "notes": spec.get("notes"),
             })
         # Primary first, then by family priority, source ID and asset ID, as the catalog builder orders provenance.
-        order = sorted(range(len(provenance)), key=lambda i: (FAMILY_ORDER.index(provenance[i]["family"]), provenance[i]["source_id"],
-                                                              provenance[i]["asset_id"]))
+        order = sorted(range(len(provenance)), key=lambda i: schema.provenance_sort_key(provenance[i]))
         provenance, extra = [provenance[i] for i in order], [extra[i] for i in order]
         primary = {**provenance[0], **extra[0]}
         site = spec["kind"] in SITE_KINDS and fmt != "PDF"
         gallery = fmt != "PDF" and spec["kind"] != "reference"
-        url = quote(path, safe="/")
+        url = schema.catalog_url(path)
         asset = {
             "id": primary["id"], "source_id": primary["source_id"], "candidate_id": primary["candidate_id"], "title": spec["title"],
             "kind": spec["kind"], "game": "dynamix", "page_url": primary["page_url"], "download_url": primary["download_url"],
             "resolved_url": primary["resolved_url"], "path": path, "original_filename": spec["name"], "bytes": len(raw), "sha256": sha256,
             "sha1": sha1, "format": fmt, "mime": MIME[fmt], "width": width, "height": height, "fetched_at": FETCHED,
-            "illustrators": spec["illustrators"], "composers": spec["composers"], "song_titles": spec["songs"],
-            "song_ids": [f"song:{slug(title, lower=True)}" for title in spec["songs"]], "collections": spec["collections"],
+            **{field: schema.ordered_union(record[field] for record in provenance)
+               for field in ("illustrators", "composers", "song_titles", "song_ids", "collections")},
             "mapping_status": primary["mapping_status"], "mapping_evidence": primary["mapping_evidence"], "quality": primary["quality"],
             "rights": primary["rights"], "source_reported": primary["source_reported"],
             "download_observed": observed,
@@ -356,7 +348,7 @@ def build():
             groups.setdefault(asset["variant_group"], []).append(asset["id"])
     for asset in assets:
         asset["variants"] = sorted(other for other in groups.get(asset.get("variant_group"), []) if other != asset["id"])
-    assets.sort(key=lambda asset: (KIND_ORDER.index(asset["kind"]), unicodedata.normalize("NFKC", asset["title"]).casefold(), asset["id"]))
+    assets.sort(key=schema.catalog_sort_key)
     failures = [
         {"id": "wikis:fandom:File:Missing_Jacket.png:download", "source_id": "wikis:fandom", "candidate_id": "wikis:fandom:File:Missing_Jacket.png",
          "phase": "download", "url": "https://example.org/wiki-b/images/Missing_Jacket.png", "attempted_at": FETCHED, "attempts": 1,

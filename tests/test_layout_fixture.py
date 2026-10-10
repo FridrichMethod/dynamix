@@ -15,6 +15,8 @@ from urllib.parse import quote
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from lib import paths, schema  # noqa: E402 - scripts/lib is the executable form of the frozen contract
 FIXTURE = ROOT / "tests/fixtures/ui"
 REPOSITORY = "https://github.com/FridrichMethod/dynamix"
 TOP_LEVEL = {"schema_version", "owner", "game", "repository", "snapshots", "sources", "assets", "failures", "summary"}
@@ -31,10 +33,9 @@ ASSET_OPTIONAL = {"credit_evidence", "variant_group", "variant_role", "upstream_
                   "upstream_revision", "transformed"}
 CATALOG_FIELDS = {"family", "source_name", "url", "thumb", "gallery", "slideshow", "site_original", "archive_url", "provenance", "variants"}
 PROVENANCE = {"source_id", "source_name", "family", "page_url", "download_url", "resolved_url", "quality", "rights", "mapping_status",
-              "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "source_reported", "comparisons",
-              "upstream_status", "superseded_by", "notes"}
+              "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "song_ids", "collections",
+              "source_reported", "comparisons", "upstream_status", "superseded_by", "notes"}
 PROVENANCE_OPTIONAL = {"asset_id"}  # scripts/lib/schema.py PROVENANCE_SPEC: the source record's own asset ID
-LIBRARY = ROOT / "scripts/lib/schema.py"
 FAILURE = {"id", "source_id", "candidate_id", "phase", "url", "attempted_at", "attempts", "error_class", "http_status", "retriable", "manual", "message"}
 QUALITY = {"source_variant", "origin_status", "master_status", "notes"}
 RIGHTS = {"holder", "creator", "url", "license", "restrictions"}
@@ -52,6 +53,9 @@ def load(name):
 
 
 def contract_js(catalog):
+    """The frozen catalog.js encoding (09-frozen-contracts.md, "Catalog"; the DEEMO reference form): `window.DYNAMIX_CATALOG = `
+    + compact JSON (separators ",", ":"; ensure_ascii=False) with every "<" written as \\u003c and U+2028/U+2029 escaped
+    + ";\\n"."""
     compact = json.dumps(catalog, ensure_ascii=False, separators=(",", ":"))
     return "window.DYNAMIX_CATALOG = " + compact.replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029") + ";\n"
 
@@ -70,7 +74,7 @@ class FixtureContractTests(unittest.TestCase):
         total = sum(path.stat().st_size for path in FIXTURE.rglob("*") if path.is_file() and "__pycache__" not in path.parts)
         self.assertLess(total, 300_000)
 
-    def test_catalog_js_is_the_contract_encoding(self):
+    def test_catalog_js_is_the_frozen_reference_encoding(self):
         for name in ("catalog", "catalog-empty"):
             with self.subTest(fixture=name):
                 data = load(f"{name}.json")
@@ -78,6 +82,7 @@ class FixtureContractTests(unittest.TestCase):
                 self.assertEqual(script, contract_js(data))
                 self.assertNotIn("<", script.removeprefix("window.DYNAMIX_CATALOG = "))
                 self.assertNotIn("\u2028", script)
+                self.assertNotIn("\u2029", script)
                 self.assertEqual(json.loads(script.removeprefix("window.DYNAMIX_CATALOG = ").removesuffix(";\n")), data)
                 self.assertEqual((FIXTURE / f"{name}.json").read_text(encoding="utf-8"), json.dumps(data, ensure_ascii=False, indent=2) + "\n")
 
@@ -196,14 +201,34 @@ class FixtureContractTests(unittest.TestCase):
         self.assertTrue(any(value is False for asset in assets for record in asset["provenance"] for value in record["comparisons"].values()))
         self.assertTrue(any(entry == "javascript:alert(6)" for asset in assets for record in asset["provenance"] for entry in record["mapping_evidence"]),
                         "a script-looking evidence string (valid text, never a link)")
+        self.assertTrue(any(entry["role"] == "other" for asset in assets for record in asset["provenance"] for entry in record["credit_evidence"] or []),
+                        "credit evidence with the role 'other'")
+        self.assertTrue(any(len({tuple(record["collections"]) for record in asset["provenance"]}) > 1 for asset in assets),
+                        "records of one file that name different packs")
 
-    @unittest.skipUnless(LIBRARY.is_file(), "scripts/lib (the executable contract) is not on this branch yet")
     def test_contract_library_accepts_the_fixture(self):
-        sys.path.insert(0, str(ROOT / "scripts"))
-        from lib import schema  # noqa: PLC0415 - only present once the contract library is merged
         for name in ("catalog.json", "catalog-empty.json"):
             with self.subTest(fixture=name):
                 schema.validate_catalog(load(name))
+
+    def test_song_ids_follow_the_contract_rules(self):
+        """Song IDs are assigned over the fixture's whole title set (as the reconciled song index does); a title whose slug
+        loses characters carries the 8-hex title hash; an unmapped record links no song; the catalog lists the
+        ordered union of its records' song IDs and collections."""
+        titles = sorted({title for asset in self.catalog["assets"] for title in asset["song_titles"]})
+        expected = dict(zip(titles, paths.assign_song_ids(titles)))
+        for asset in self.catalog["assets"]:
+            for record in asset["provenance"]:
+                with self.subTest(asset=asset["title"], source=record["source_id"]):
+                    if record["mapping_status"] == "unmapped":
+                        self.assertEqual(record["song_ids"], [])
+                    else:
+                        self.assertEqual(record["song_ids"], [expected[title] for title in record["song_titles"]])
+            for field in ("song_ids", "collections"):
+                self.assertEqual(asset[field], schema.ordered_union(record[field] for record in asset["provenance"]))
+        crossing = next(asset for asset in self.catalog["assets"] if asset["title"] == "交差して歪む過去と未来")
+        self.assertRegex(crossing["song_ids"][0], r"^song:file-[0-9a-f]{8}$")
+        self.assertEqual(crossing["song_ids"], [paths.song_id_base(crossing["title"])])
 
 
 if __name__ == "__main__":

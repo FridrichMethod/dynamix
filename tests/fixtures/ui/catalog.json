@@ -173,6 +173,13 @@
           "url": "https://example.org/artist-a/status/1001",
           "field": "post text",
           "quote": "I drew the jacket for Aurora Lattice"
+        },
+        {
+          "role": "other",
+          "name": "Fixture Designer",
+          "url": null,
+          "field": "post text",
+          "quote": "logo by Fixture Designer"
         }
       ],
       "upstream_status": "current",
@@ -220,6 +227,13 @@
               "url": "https://example.org/artist-a/status/1001",
               "field": "post text",
               "quote": "I drew the jacket for Aurora Lattice"
+            },
+            {
+              "role": "other",
+              "name": "Fixture Designer",
+              "url": null,
+              "field": "post text",
+              "quote": "logo by Fixture Designer"
             }
           ],
           "illustrators": [
@@ -231,6 +245,10 @@
           "song_titles": [
             "Aurora Lattice"
           ],
+          "song_ids": [
+            "song:aurora-lattice"
+          ],
+          "collections": [],
           "source_reported": {
             "url": null,
             "mime": null,
@@ -289,6 +307,12 @@
           "song_titles": [
             "Aurora Lattice"
           ],
+          "song_ids": [
+            "song:aurora-lattice"
+          ],
+          "collections": [
+            "Fixture Pack Vol. 1"
+          ],
           "source_reported": {
             "url": "https://example.org/wiki-b/images/Aurora_Lattice.png/revision/latest?format=original",
             "mime": "image/png",
@@ -344,6 +368,12 @@
           ],
           "song_titles": [
             "Aurora Lattice"
+          ],
+          "song_ids": [
+            "song:aurora-lattice"
+          ],
+          "collections": [
+            "Fixture Pack Vol. 1"
           ],
           "source_reported": {
             "url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
@@ -500,6 +530,12 @@
           "song_titles": [
             "Night <img src=x onerror=alert(1)> Drive </script>"
           ],
+          "song_ids": [
+            "song:night-img-src-x-onerror-alert-1-drive-script"
+          ],
+          "collections": [
+            "</script><b>Pack</b>"
+          ],
           "source_reported": {
             "url": "https://example.org/wiki-a/images/d/d4/Night_Drive.png",
             "mime": "image/png",
@@ -647,6 +683,10 @@
           "song_titles": [
             "Signal Bloom"
           ],
+          "song_ids": [
+            "song:signal-bloom"
+          ],
+          "collections": [],
           "source_reported": {
             "url": "https://example.org/wiki-a/images/b/b2/Signal_Bloom.png",
             "mime": "image/png",
@@ -795,6 +835,10 @@
           "song_titles": [
             "Signal Bloom"
           ],
+          "song_ids": [
+            "song:signal-bloom"
+          ],
+          "collections": [],
           "source_reported": {
             "url": "https://example.org/wiki-a/images/c/c3/Signal_Bloom_alt.jpg",
             "mime": "image/jpeg",
@@ -941,6 +985,10 @@
           "song_titles": [
             "Tiny Jacket"
           ],
+          "song_ids": [
+            "song:tiny-jacket"
+          ],
+          "collections": [],
           "source_reported": {
             "url": "https://example.org/wiki-b/images/Tiny_Jacket.png/revision/latest?format=original",
             "mime": "image/png",
@@ -990,11 +1038,13 @@
         "交差して歪む過去と未来"
       ],
       "song_ids": [
-        "song:file"
+        "song:file-568a196c"
       ],
       "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        "The file name repeats the song page title; no page links the file."
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -1066,14 +1116,20 @@
             "license": null,
             "restrictions": null
           },
-          "mapping_status": "unmapped",
-          "mapping_evidence": [],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            "The file name repeats the song page title; no page links the file."
+          ],
           "credit_evidence": [],
           "illustrators": [],
           "composers": [],
           "song_titles": [
             "交差して歪む過去と未来"
           ],
+          "song_ids": [
+            "song:file-568a196c"
+          ],
+          "collections": [],
           "source_reported": {
             "url": "https://example.org/wiki-b/images/%E4%BA%A4%E5%B7%AE%E3%81%97%E3%81%A6%E6%AD%AA%E3%82%80%E9%81%8E%E5%8E%BB%E3%81%A8%E6%9C%AA%E6%9D%A5.png/revision/latest",
             "mime": "image/png",
@@ -1206,6 +1262,10 @@
           "illustrators": [],
           "composers": [],
           "song_titles": [],
+          "song_ids": [],
+          "collections": [
+            "Fixture Pack Vol. 1"
+          ],
           "source_reported": {
             "url": null,
             "mime": null,
@@ -1340,6 +1400,8 @@
           ],
           "composers": [],
           "song_titles": [],
+          "song_ids": [],
+          "collections": [],
           "source_reported": {
             "url": "https://example.org/wiki-a/images/e/e5/Lane_Keeper.png",
             "mime": "image/png",
@@ -1466,6 +1528,8 @@
           "illustrators": [],
           "composers": [],
           "song_titles": [],
+          "song_ids": [],
+          "collections": [],
           "source_reported": {
             "url": "https://example.com/app-store/image/screenshot-1.png",
             "mime": null,
@@ -1592,6 +1656,8 @@
           "illustrators": [],
           "composers": [],
           "song_titles": [],
+          "song_ids": [],
+          "collections": [],
           "source_reported": {
             "url": null,
             "mime": null,
@@ -1718,6 +1784,8 @@
           "illustrators": [],
           "composers": [],
           "song_titles": [],
+          "song_ids": [],
+          "collections": [],
           "source_reported": {
             "url": null,
             "mime": null,
@@ -1844,6 +1912,8 @@
           "illustrators": [],
           "composers": [],
           "song_titles": [],
+          "song_ids": [],
+          "collections": [],
           "source_reported": {
             "url": "https://example.org/archive/20160101id_/press/press-kit.pdf",
             "mime": "application/pdf",

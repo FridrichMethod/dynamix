@@ -6,6 +6,10 @@ Every image is flat geometry drawn by `build_fixture.py`; titles, people and URL
 fictional. Nothing here is evidence about real Dynamix artwork, artists or sources.
 
 - `catalog.json` / `catalog.js`: 12 unique files from 14 source records, 2 failures, 6 sources.
+  Provenance records carry their own `song_ids` and `collections` (the 2026-10-10 contract rule), the catalog
+  entry lists their ordered union, and song IDs come from `scripts/lib` (a non-ASCII title gets the title-hash
+  suffix, `song:file-568a196c`). `tests/test_layout_fixture.py` validates both catalogs with `scripts/lib`.
+  `catalog.js` uses the frozen reference encoding (compact JSON, `<` as `\u003c`, U+2028/U+2029 escaped).
 - `catalog-empty.json` / `catalog-empty.js`: the same envelope with no sources, files or failures.
 - `assets/public/...`: originals; `assets/thumbs/...`: WebP previews (long edge 480, quality 75, method 6).
 

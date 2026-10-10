@@ -35,7 +35,10 @@ SHOWN_PROVENANCE = {
     "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "source_reported", "comparisons",
     "upstream_status", "superseded_by", "notes",
 }
-IGNORED_PROVENANCE = {}
+IGNORED_PROVENANCE = {
+    "song_ids": "project song keys; the record's verbatim song titles are shown",
+    "collections": "the catalog entry's merged list of packs is shown in the credits",
+}
 # Catalog-asset fields the page shows (grid, viewer, file info, links) or uses to decide what to show.
 SHOWN_ASSET = {
     "id", "source_id", "title", "kind", "page_url", "path", "original_filename", "bytes", "sha256", "sha1", "format", "mime",
