@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 from unittest import mock
 
@@ -20,6 +21,14 @@ from lib import schema  # noqa: E402
 
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def git_blob(data: bytes) -> str:
+    """The SHA-1 Git blob ID of ``data`` (what ``git hash-object --no-filters`` prints)."""
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+FAKE_HEAD = "c0ffee" + "0" * 34
 
 
 def catalog_js(catalog: dict) -> str:
@@ -117,6 +126,12 @@ class Checkout:
         self.write("data/catalog.json", (json.dumps(self.catalog, ensure_ascii=False, indent=2) + "\n").encode())
         self.write("data/catalog.js", catalog_js(js_catalog or self.catalog).encode())
 
+    def commit(self) -> "pages.Commit":
+        """A commit holding exactly the current bytes of every tracked regular file (as if committed just now)."""
+        blobs = {rel: git_blob((self.root / rel).read_bytes()) for rel in self.tracked
+                 if os.path.isfile(self.root / rel) and not os.path.islink(self.root / rel)}
+        return pages.Commit(FAKE_HEAD, blobs, "sha1")
+
 
 EXPECTED = sorted({*PAGE_FILES, "data/catalog.json", "data/catalog.js", SITE_ORIGINAL_PATH,
                    schema.thumb_relpath(sha256(ORIGINAL)), schema.thumb_relpath(sha256(ARCHIVE_PNG))})
@@ -135,6 +150,7 @@ class PagesTestCase(unittest.TestCase):
         self.output = self.base / "site"
 
     def prepare(self, **kwargs):
+        kwargs.setdefault("commit", self.checkout.commit())
         return pages.prepare(self.checkout.root, self.output, self.checkout.tracked, **kwargs)
 
     def assertRefused(self, pattern, **kwargs):
@@ -257,14 +273,47 @@ class SafetyTests(PagesTestCase):
         self.output = self.checkout.root / "build/site"
         self.assertRefused("outside the checkout")
 
-    def test_dirty_public_file_is_refused(self):
-        self.assertRefused("differ from the commit", dirty={"index.html"})
-        self.prepare(dirty={"scripts/build_catalog.py"})  # not published, so not relevant
+    def test_public_file_that_differs_from_the_commit_is_refused(self):
+        commit = self.checkout.commit()
+        self.checkout.write("scripts/build_catalog.py", b"print('edited')\n")  # not published, so not relevant
+        summary, _ = self.prepare(commit=commit)
+        self.assertEqual((summary["commit"], summary["matches_commit"], summary["differs_from_commit"]),
+                         (FAKE_HEAD, True, []))
+        self.output = self.base / "site-2"
+        self.checkout.write("index.html", b"<!doctype html><title>uncommitted</title>\n")
+        self.assertRefused(r"1 public file\(s\) differ from commit c0ffee0+ .*\['index.html'\]", commit=commit)
+
+    def test_public_files_added_or_dropped_since_the_commit_are_refused(self):
+        commit = self.checkout.commit()
+        self.checkout.write("docs/new-page.md", b"# not committed\n")  # tracked (e.g. git add) but not in HEAD
+        self.assertRefused(r"\['docs/new-page.md'\]", commit=commit)
+        del self.checkout.tracked["docs/new-page.md"]
+        del self.checkout.tracked["docs/sources-wikis.md"]  # in HEAD, removed from the index (git rm --cached)
+        self.assertRefused(r"\['docs/sources-wikis.md'\]", commit=commit)
+
+    def test_differences_are_staged_only_with_allow_dirty_and_recorded(self):
+        commit = self.checkout.commit()
+        self.checkout.write("archive.html", b"<!doctype html><title>UNCOMMITTED EDIT</title>\n")
+        self.checkout.write(schema.thumb_relpath(sha256(ORIGINAL)), b"RIFF edited preview")
+        summary, _ = self.prepare(commit=commit, allow_dirty=True)
+        self.assertEqual(summary["commit"], FAKE_HEAD)
+        self.assertIs(summary["allow_dirty"], True)
+        self.assertIs(summary["matches_commit"], False)
+        self.assertEqual(summary["differs_from_commit"], ["archive.html", schema.thumb_relpath(sha256(ORIGINAL))])
+        self.assertEqual(list(summary)[:4], ["commit", "allow_dirty", "matches_commit", "differs_from_commit"])
+
+    def test_without_any_commit_everything_differs(self):
+        empty = pages.Commit(None, {}, "sha1")
+        self.assertRefused(r"differ from a commit \(the repository has no HEAD\)", commit=empty)
+        summary, _ = self.prepare(commit=empty, allow_dirty=True)
+        self.assertIsNone(summary["commit"])
+        self.assertEqual(summary["differs_from_commit"], EXPECTED)
 
 
 class BudgetTests(PagesTestCase):
     def payload_bytes(self) -> int:
-        summary, _ = pages.prepare(self.checkout.root, self.base / "probe", self.checkout.tracked)
+        summary, _ = pages.prepare(self.checkout.root, self.base / "probe", self.checkout.tracked,
+                                   commit=self.checkout.commit())
         return summary["bytes"]
 
     def test_budget_is_inclusive_and_overflow_fails_before_copying(self):
@@ -325,9 +374,9 @@ class IntegrityTests(PagesTestCase):
     def test_staged_copy_is_verified_and_partial_output_removed(self):
         real = pages.copy_and_hash
 
-        def corrupt(source, destination):
-            digest = real(source, destination)
-            return "0" * 64 if destination.name.endswith(".png") else digest
+        def corrupt(source, destination, object_format):
+            digest = real(source, destination, object_format)
+            return replace(digest, sha256="0" * 64) if destination.name.endswith(".png") else digest
 
         with mock.patch.object(pages, "copy_and_hash", corrupt):
             self.assertRefused("staged assets/public/.* does not match the catalog")
@@ -335,21 +384,42 @@ class IntegrityTests(PagesTestCase):
     def test_interrupted_copy_removes_partial_output(self):
         real, calls = pages.copy_and_hash, []
 
-        def interrupted(source, destination):
+        def interrupted(source, destination, object_format):
             calls.append(destination)
             if len(calls) == 3:
                 raise OSError("disk full")
-            return real(source, destination)
+            return real(source, destination, object_format)
 
         with mock.patch.object(pages, "copy_and_hash", interrupted), self.assertRaises(OSError):
             self.prepare()
         self.assertFalse(os.path.lexists(self.output))
 
+    def test_file_changed_after_the_checks_is_refused(self):
+        real = pages.copy_and_hash
+
+        def edit_then_copy(source, destination, object_format):
+            if source.name == "archive.html":
+                source.write_bytes(b"<!doctype html><title>edited while staging</title>\n")
+            return real(source, destination, object_format)
+
+        with mock.patch.object(pages, "copy_and_hash", edit_then_copy):
+            self.assertRefused("staged archive.html differs from the bytes checked before copying")
+
+    def test_blob_ids_follow_the_object_format(self):
+        path = self.checkout.root / "NOTICE"
+        data = path.read_bytes()
+        self.assertEqual(pages.digest_file(path, "sha1"), pages.Digest(sha256(data), git_blob(data), len(data)))
+        self.assertEqual(pages.digest_file(path, "sha256").blob,
+                         hashlib.sha256(b"blob %d\0" % len(data) + data).hexdigest())
+        with self.assertRaisesRegex(pages.PagesError, "unsupported Git object format"):
+            pages.digest_file(path, "md5")
+
 
 class DigestTests(PagesTestCase):
     def test_digest_is_deterministic_and_matches_a_sha256sum_manifest(self):
         first, text = self.prepare()
-        second, text_again = pages.prepare(self.checkout.root, self.base / "elsewhere/site", self.checkout.tracked)
+        second, text_again = pages.prepare(self.checkout.root, self.base / "elsewhere/site", self.checkout.tracked,
+                                           commit=self.checkout.commit())
         self.assertEqual(text, text_again)
         self.assertEqual(first["manifest_sha256"], second["manifest_sha256"])
         self.assertEqual(first["manifest_sha256"], sha256(text.encode("utf-8")))
@@ -363,7 +433,8 @@ class DigestTests(PagesTestCase):
     def test_digest_changes_with_content(self):
         before, _ = self.prepare()
         self.checkout.write("src/archive.js", b"// ui changed\n")
-        after, _ = pages.prepare(self.checkout.root, self.base / "site-2", self.checkout.tracked)
+        after, _ = pages.prepare(self.checkout.root, self.base / "site-2", self.checkout.tracked,
+                                 commit=self.checkout.commit())
         self.assertNotEqual(before["manifest_sha256"], after["manifest_sha256"])
 
 
@@ -396,6 +467,8 @@ class CommandLineTests(PagesTestCase):
         self.assertEqual(self.main("--summary", str(summary_path), "--manifest", str(manifest_path)), 0)
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         self.assertEqual(summary["commit"], self.git("rev-parse", "HEAD").strip())
+        self.assertEqual((summary["allow_dirty"], summary["matches_commit"], summary["differs_from_commit"]),
+                         (False, True, []))
         self.assertEqual(staged_files(self.output), EXPECTED)
         text = manifest_path.read_text(encoding="utf-8")
         self.assertEqual(summary["manifest_sha256"], sha256(text.encode("utf-8")))
@@ -409,11 +482,96 @@ class CommandLineTests(PagesTestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["files"], len(EXPECTED))
 
+    def main_with_stderr(self, *extra, root=None):
+        with mock.patch("sys.stdout"), mock.patch("sys.stderr") as stderr:
+            status = pages.main(["--root", str(root or self.checkout.root), "--output", str(self.output), *extra])
+        return status, "".join(call.args[0] for call in stderr.write.call_args_list)
+
     def test_cli_refuses_dirty_public_files_unless_allowed(self):
         (self.checkout.root / "archive.html").write_text("edited", encoding="utf-8")
         self.assertEqual(self.main(), 1)
         self.assertFalse(self.output.exists())
-        self.assertEqual(self.main("--allow-dirty"), 0)
+        summary_path = self.base / "summary.json"
+        self.assertEqual(self.main("--allow-dirty", "--summary", str(summary_path)), 0)
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        self.assertEqual(summary["commit"], self.git("rev-parse", "HEAD").strip())
+        self.assertEqual((summary["allow_dirty"], summary["matches_commit"], summary["differs_from_commit"]),
+                         (True, False, ["archive.html"]))
+        self.assertEqual((self.output / "archive.html").read_text(encoding="utf-8"), "edited")
+
+    def test_cli_compares_with_head_not_git_status(self):
+        """Edits git status does not report (skip-worktree, assume-unchanged) or only staged still differ from HEAD."""
+        for label, flag in (("skip-worktree", "--skip-worktree"), ("assume-unchanged", "--assume-unchanged"),
+                            ("staged only", None)):
+            with self.subTest(case=label):
+                self.git("checkout", "-q", "--", ".")
+                if flag:
+                    self.git("update-index", flag, "archive.html")
+                (self.checkout.root / "archive.html").write_text("<title>UNCOMMITTED EDIT</title>", encoding="utf-8")
+                if flag:
+                    self.assertEqual(self.git("status", "--porcelain", "--untracked-files=no"), "")
+                else:
+                    self.git("add", "archive.html")
+                status, err = self.main_with_stderr()
+                self.assertEqual(status, 1)
+                self.assertIn("['archive.html']", err)
+                self.assertFalse(self.output.exists())
+                if flag:
+                    self.git("update-index", flag.replace("--", "--no-", 1), "archive.html")
+                else:
+                    self.git("reset", "-q", "--", "archive.html")
+        self.git("checkout", "-q", "--", ".")
+        self.assertEqual(self.main(), 0)
+
+    def test_cli_refuses_public_files_added_or_removed_in_the_index(self):
+        (self.checkout.root / "docs/new-page.md").write_text("# new\n", encoding="utf-8")
+        self.git("add", "docs/new-page.md")
+        status, err = self.main_with_stderr()
+        self.assertEqual(status, 1)
+        self.assertIn("['docs/new-page.md']", err)
+        self.git("rm", "-q", "--cached", "docs/new-page.md", "docs/sources-wikis.md")
+        status, err = self.main_with_stderr()
+        self.assertEqual(status, 1)
+        self.assertIn("['docs/sources-wikis.md']", err)
+        self.assertFalse(self.output.exists())
+
+    def test_cli_refuses_a_root_below_the_repository_top_level(self):
+        outer = self.base / "outer"
+        nested = outer / "site/checkout"
+        shutil.copytree(self.checkout.root, nested, ignore=shutil.ignore_patterns(".git"))
+        env = {**os.environ, **self.ENV}
+        for args in (("init", "-q"), ("add", "-A"), ("commit", "-q", "-m", "nested")):
+            subprocess.run(["git", "-C", str(outer), *args], check=True, capture_output=True, env=env)
+        (nested / "archive.html").write_text("<title>UNCOMMITTED EDIT</title>", encoding="utf-8")
+        for extra in ((), ("--allow-dirty",)):
+            with self.subTest(extra=extra):
+                status, err = self.main_with_stderr(*extra, root=nested)
+                self.assertEqual(status, 1)
+                self.assertIn("must be the top level of a Git work tree", err)
+                self.assertFalse(self.output.exists())
+
+    def test_cli_without_a_commit_needs_allow_dirty_and_reports_no_commit(self):
+        fresh = self.base / "fresh"
+        shutil.copytree(self.checkout.root, fresh, ignore=shutil.ignore_patterns(".git"))
+        subprocess.run(["git", "-C", str(fresh), "init", "-q"], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(fresh), "add", "--", *sorted(self.checkout.tracked)], check=True,
+                       capture_output=True)
+        status, err = self.main_with_stderr(root=fresh)
+        self.assertEqual(status, 1)
+        self.assertIn("the repository has no HEAD", err)
+        summary_path = self.base / "summary.json"
+        status, _ = self.main_with_stderr("--allow-dirty", "--summary", str(summary_path), root=fresh)
+        self.assertEqual(status, 0)
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        self.assertIsNone(summary["commit"])
+        self.assertIs(summary["matches_commit"], False)
+        self.assertEqual(summary["differs_from_commit"], EXPECTED)
+
+    def test_blob_ids_match_git_hash_object(self):
+        for rel in ("NOTICE", "README.zh-CN.md", SITE_ORIGINAL_PATH):
+            with self.subTest(path=rel):
+                expected = self.git("hash-object", "--no-filters", "--", rel).strip()
+                self.assertEqual(pages.digest_file(self.checkout.root / rel, "sha1").blob, expected)
 
     def test_cli_refuses_a_committed_symlink(self):
         (self.checkout.root / "assets/site/link.svg").symlink_to("icons/icon.svg")
