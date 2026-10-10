@@ -849,11 +849,16 @@ class SeedTests(unittest.TestCase):
         schema.check_source_slugs([*schema.REGISTERED_SOURCE_IDS, *ids])
 
     def test_every_research_lead_has_a_recorded_disposition(self):
-        crosswalk = manifest.load_json(runner.SEEDS_DIR / "leads-crosswalk.json")
         seeds = {}
         for family in ("artists", "official", "archives"):
             seeds.update({seed["id"]: seed for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json",
                                                                           family)})
+        # The sweep crosswalk and the gap-fill crosswalk each list every yes/unclear lead of their research file.
+        for name in ("leads-crosswalk.json", "leads-gapfill-crosswalk.json"):
+            with self.subTest(crosswalk=name):
+                self.check_crosswalk(manifest.load_json(runner.SEEDS_DIR / name), seeds)
+
+    def check_crosswalk(self, crosswalk, seeds):
         self.assertTrue(crosswalk["leads"])
         # The crosswalk still lists every yes/unclear lead of the research file (a dropped lead changes the hash).
         pairs = [[lead["lead"], lead["url"], lead["dynamix_original_game"]] for lead in crosswalk["leads"]]

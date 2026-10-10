@@ -82,7 +82,9 @@ that a rule now excludes stays archived and fails `--verify`.
 | `release_page` (list mode) | `{"tracks_of": "<handle>"}`: one read of `soundcloud.com/<handle>/tracks` | every server-rendered track becomes an item; the list stays open when fewer than the account's `track_count` are rendered |
 | `page_probe`, `lead_registry` | one availability read / no request | dead or login-walled sources; research leads without an acquirable file |
 
-`seeds/leads-crosswalk.json` maps every 2026-10-10 research-sweep lead (`dynamix_original_game` yes/unclear) to the
+`seeds/leads-crosswalk.json` (research sweep) and `seeds/leads-gapfill-crosswalk.json` (research gap-fill: Wayback pixiv
+originals, official YouTube/Facebook/X, press, partner collaborations) map every 2026-10-10 lead (`dynamix_original_game`
+yes/unclear) to the
 source and candidate-key prefix that records its disposition; `lead_list` holds the research file's SHA-256 and a hash
 of the lead list, so the seed test detects a dropped lead. `testing.py` holds the offline test doubles used by
 `tests/test_fetch_{artists,official,archives}.py`.

@@ -4758,9 +4758,15 @@
         {
           "key": "instagram:luxan93",
           "page_url": "https://www.instagram.com/luxan93/",
-          "title": "Instagram luxan93 (MLG artwork credit)",
+          "title": "Instagram luxan93 (Luxan)",
           "disposition": "blocked",
-          "reason": "blocked: redirected to the Instagram login page (research sweep); not bypassed"
+          "reason": "blocked: login wall; no posts readable",
+          "illustrators": [
+            "Luxan"
+          ],
+          "song_titles": [
+            "MLG"
+          ]
         },
         {
           "key": "vocadb:Ar-41817",
@@ -4773,8 +4779,8 @@
           "key": "behance:tobysatria",
           "page_url": "https://www.behance.net/tobysatria",
           "title": "Behance Toby Satria Yudha",
-          "disposition": "excluded",
-          "reason": "out_of_scope_other: credit/identity evidence only; no artwork file to acquire"
+          "disposition": "pending",
+          "reason": "unresolved: name-only match to the LIXION jacket's credited designer; pages not read (search snippets only)"
         },
         {
           "key": "x:orihi_",
@@ -4954,7 +4960,10 @@
           "page_url": "https://www.deviantart.com/deronoitz",
           "title": "DeviantArt deronoitz",
           "disposition": "excluded",
-          "reason": "out_of_scope_other: identity matched by handle only; no Nova Highway post"
+          "illustrators": [
+            "deronoitz"
+          ],
+          "reason": "out_of_scope_other: the public deviation feed (60 works, 2013-2018) holds no Nova Highway or Dynamix work"
         },
         {
           "key": "bilibili:space:703264",
@@ -5143,6 +5152,148 @@
           "title": "Instagram MayMiyuriAe",
           "disposition": "blocked",
           "reason": "blocked: Instagram profiles require login; not bypassed"
+        },
+        {
+          "key": "xfolio:hyouri:962116",
+          "page_url": "https://xfolio.jp/portfolio/hyouri/works/962116",
+          "title": "中本ひょうり xfolio page for the 流麗凛舞 jacket",
+          "disposition": "blocked",
+          "reason": "blocked: bot check (challenge) on the artist's portfolio page; not bypassed; manual access required",
+          "game": "dynamix",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "notes": "Linked by the artist: https://x.com/hyourinakamoto2/status/1902219675829981331 ('ジャケ絵はこちらで見れます！')."
+        },
+        {
+          "key": "x:KeshiksExt",
+          "page_url": "https://x.com/KeshiksExt",
+          "title": "X @KeshiksExt (ケシksくん)",
+          "disposition": "pending",
+          "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "song_titles": [
+            "The Clockwork Doll",
+            "soar to Ø",
+            "Kokytos"
+          ],
+          "illustrators": [
+            "ケシksくん"
+          ]
+        },
+        {
+          "key": "x:LESYEF103",
+          "page_url": "https://x.com/LESYEF103",
+          "title": "X @LESYEF103 (LESYEF)",
+          "disposition": "pending",
+          "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "song_titles": [
+            "Totally bounded",
+            "Beyond the Rainbow"
+          ],
+          "illustrators": [
+            "LESYEF"
+          ]
+        },
+        {
+          "key": "x:gfcv0709",
+          "page_url": "https://x.com/gfcv0709",
+          "title": "X @gfcv0709 (Irelriser)",
+          "disposition": "pending",
+          "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "song_titles": [
+            "Daydream",
+            "Own The Night",
+            "Unshakable"
+          ],
+          "illustrators": [
+            "Irelriser"
+          ]
+        },
+        {
+          "key": "x:DNX_EVENT:920786171411574784",
+          "page_url": "https://x.com/DNX_EVENT/status/920786171411574784",
+          "title": "Unofficial fan event account repost of the Theme of Rabi-Ribi jacket",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: repost by an unofficial fan event account (not C4Cat); downstream copy, not a provenance root",
+          "file_url": "https://pbs.twimg.com/media/DMdKIKNU8AAYeKk.jpg",
+          "song_titles": [
+            "Theme of Rabi-Ribi"
+          ]
+        },
+        {
+          "key": "x:ZingZyon:729345677545758721",
+          "page_url": "https://x.com/ZingZyon/status/729345677545758721",
+          "title": "Zing (Zyon mascot) post naming DomotoLain",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit evidence for the Zyon mascot's illustrator only, not the Reborn/Seedy Try jackets",
+          "illustrators": [
+            "DomotoLain"
+          ]
+        },
+        {
+          "key": "niconico:sm26262299",
+          "page_url": "https://www.nicovideo.jp/watch/sm26262299",
+          "title": "声が届かないのなら cover video",
+          "disposition": "excluded",
+          "song_titles": [
+            "声が届かないのなら"
+          ],
+          "reason": "external_release_art: the cover video's thumbnail reuses eb's Luka illustration, which does not match the Dynamix jacket"
+        },
+        {
+          "key": "karato-p.com",
+          "page_url": "https://karato-p.com/",
+          "title": "からとP composer site",
+          "disposition": "excluded",
+          "song_titles": [
+            "声が届かないのなら"
+          ],
+          "reason": "external_release_art: album IVORY cover is text-only and does not match the jacket; composer credits only"
+        },
+        {
+          "key": "wayback:soundcloud:mmry",
+          "page_url": "https://web.archive.org/web/20190806071613/https://soundcloud.com/mmry",
+          "title": "mmry SoundCloud captures (Aegis sketch lead)",
+          "disposition": "pending",
+          "song_titles": [
+            "Aegis"
+          ],
+          "reason": "unresolved: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)"
+        },
+        {
+          "key": "wix:stellights",
+          "page_url": "https://web.archive.org/web/20180628025749/https://www.stellights.com/",
+          "title": "STELLIGHTS official site (2018 captures)",
+          "disposition": "excluded",
+          "game": "mixed",
+          "reason": "out_of_scope_other: partner game's own UI screenshots (Dolqueen character with UI); no Dynamix collaboration page or illustrator credit"
+        },
+        {
+          "key": "x:RabiRibiGame:cdx-2017",
+          "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/RabiRibiGame&from=2016&to=2017",
+          "title": "Rabi-Ribi official X captures (Feb 2017 collaboration)",
+          "disposition": "pending",
+          "reason": "unresolved: no archived Rabi-Ribi post from the February 2017 collaboration window"
+        },
+        {
+          "key": "pixiv:users:1038265",
+          "page_url": "https://www.pixiv.net/users/1038265",
+          "title": "pixiv ラコ (HenryTz)",
+          "disposition": "excluded",
+          "illustrators": [
+            "HenryTz"
+          ],
+          "reason": "out_of_scope_other: the profile's 22 public works hold no Dynamix artwork"
+        },
+        {
+          "key": "profile.dcwh.me",
+          "page_url": "https://profile.dcwh.me/",
+          "title": "DCWH portfolio",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: lists Dynamix as music work only; no artwork for Dynamix"
         }
       ]
     },

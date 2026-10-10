@@ -2408,8 +2408,8 @@
       "dynamix_original_game": "yes",
       "dispositions": [
         {
-          "source_id": "official:official-leads",
-          "key_prefix": "youtube:C4CatEntertainment"
+          "source_id": "official:youtube",
+          "key_prefix": ""
         }
       ]
     },
