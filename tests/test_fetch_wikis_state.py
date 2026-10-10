@@ -250,6 +250,42 @@ class WorkDirTests(WikiRun):
         self.assertEqual(self.default_run("--metadata-only", "--source", "miraheze"), 0, "\n".join(self.logs))
         self.assertEqual(stat.S_IMODE(os.lstat(work).st_mode), 0o700)
 
+    def test_state_dir_is_private(self) -> None:
+        state = self.root / ".cache/fetch_wikis"
+        self.assertEqual(self.default_run("--metadata-only", "--source", "miraheze"), 0, "\n".join(self.logs))
+        self.assertEqual(stat.S_IMODE(os.lstat(state).st_mode), 0o700)
+        registry = state / "work-dirs.txt"
+        self.assertEqual(stat.S_IMODE(os.lstat(registry).st_mode), 0o600)
+        os.chmod(state, 0o775)  # a state directory created by an earlier version under a permissive umask
+        self.assertEqual(self.default_run("--metadata-only", "--source", "miraheze"), 0, "\n".join(self.logs))
+        self.assertEqual(stat.S_IMODE(os.lstat(state).st_mode), 0o700)
+
+    def test_registry_symlink_is_refused(self) -> None:
+        state = self.root / ".cache/fetch_wikis"
+        state.mkdir(parents=True, mode=0o700)
+        decoy = self.tmp / "decoy.txt"
+        decoy.write_text("precious\n", encoding="utf-8")
+        (state / "work-dirs.txt").symlink_to(decoy)
+        self.assertEqual(self.default_run("--metadata-only", "--source", "miraheze"), 3)
+        self.assertEqual(decoy.read_text(encoding="utf-8"), "precious\n")
+        self.assertFalse((self.root / "data/sources/wikis.json").exists())
+
+    def test_symlinked_state_dir_is_refused(self) -> None:
+        elsewhere = self.tmp / "elsewhere-state"
+        elsewhere.mkdir(mode=0o700)
+        (self.root / ".cache").mkdir()
+        (self.root / ".cache/fetch_wikis").symlink_to(elsewhere, target_is_directory=True)
+        self.assertEqual(self.default_run("--metadata-only", "--source", "miraheze"), 3)
+        self.assertEqual(list(elsewhere.iterdir()), [])
+
+    def test_group_writable_work_dir_is_refused(self) -> None:
+        shared = self.tmp / "group-work"
+        shared.mkdir()
+        shared.chmod(0o770)
+        code = cli.main(["--root", str(self.root), "--work-dir", str(shared), "--metadata-only"],
+                        client_factory=self.scenario.client, now=lambda: NOW, log=self.logs.append)
+        self.assertEqual(code, 3)
+
     def test_lock_symlink_is_refused(self) -> None:
         work = acquire.default_work_dir(self.root)
         work.mkdir(parents=True, mode=0o700)

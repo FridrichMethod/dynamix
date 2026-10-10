@@ -43,7 +43,7 @@ from lib import manifest, media, net, paths, schema
 
 from . import config, discover
 from .workdir import (STATE_DIR, Journal, LockHeld, UnsafeWorkDir, claim_work_dir,  # noqa: F401 (re-exported)
-                      default_work_dir, exclusive_lock, prepare_work_dir, root_lock_path)
+                      default_work_dir, exclusive_lock, prepare_state_dir, prepare_work_dir, root_lock_path)
 
 FAMILY = "wikis"
 DOWNLOAD_KINDS = discover.classify.DOWNLOAD_KINDS

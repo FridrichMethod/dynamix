@@ -1,13 +1,15 @@
 """Work directory, crash journal and run locks of ``fetch_wikis.py``.
 
 The work directory (journal and lock) is private: by default ``<root>/.cache/fetch_wikis/work`` (git-ignored), created
-mode 0700; a directory owned by another user, a symlink, or world-writable is refused, lock and journal files are
-opened without following symlinks, and a journal records the root it belongs to in its first line (a journal of
-another root, an unknown event or a corrupt line before the last is refused here; an event that contradicts the
-manifest is refused by :meth:`wikis.acquire.State.replay_problem`).
+mode 0700; a directory owned by another user, a symlink, or writable by its group or other users is refused, lock,
+journal and registry files are opened without following symlinks, and a journal records the root it belongs to in its
+first line (a journal of another root, an unknown event or a corrupt line before the last is refused here; an event
+that contradicts the manifest is refused by :meth:`wikis.acquire.State.replay_problem`).
 
-Every run on a root also takes ``<root>/.cache/fetch_wikis/root.lock`` and registers its work directory there, so an
-interrupted run's journal in another work directory of the same root blocks new runs until it is resumed.
+Every run on a root also takes ``<root>/.cache/fetch_wikis/root.lock`` and registers its work directory there
+(``work-dirs.txt``), so an interrupted run's journal in another work directory of the same root blocks new runs until it
+is resumed. That state directory is the tool's own: created mode 0700, refused when it is a symlink or another user's,
+and set to mode 0700 when an earlier run created it under a permissive umask.
 """
 
 from __future__ import annotations
@@ -58,14 +60,41 @@ def _unsafe_dir_problem(path: Path) -> str | None:
         return "is not a directory"
     if info.st_uid != os.getuid():
         return "is owned by another user"
-    if info.st_mode & stat.S_IWOTH:
-        return "is writable by other users"
+    if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+        return "is writable by its group or other users"
     return None
 
 
+def prepare_state_dir(root: Path) -> Path:
+    """Create ``<root>/.cache/fetch_wikis`` (mode 0700) if needed and make sure it is private: a real directory of the
+    current user (checked on a descriptor opened without following a symlink), set to mode 0700 if an earlier run
+    created it under a permissive umask; :class:`UnsafeWorkDir` otherwise."""
+    state = root / STATE_DIR
+    state.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        os.mkdir(state, 0o700)
+    except FileExistsError:
+        pass
+    try:
+        descriptor = os.open(state, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0))
+    except OSError as error:
+        if error.errno in (errno.ELOOP, errno.ENOTDIR):
+            raise UnsafeWorkDir(f"state directory {state} is a symlink or not a directory; remove it") from None
+        raise
+    try:
+        info = os.fstat(descriptor)
+        if info.st_uid != os.getuid():
+            raise UnsafeWorkDir(f"state directory {state} is owned by another user; remove it")
+        if stat.S_IMODE(info.st_mode) & 0o077:
+            os.fchmod(descriptor, 0o700)
+    finally:
+        os.close(descriptor)
+    return state
+
+
 def prepare_work_dir(work_dir: Path) -> Path:
-    """Create ``work_dir`` (mode 0700) if needed and check that it is a real directory of the current user that other
-    users cannot write; :class:`UnsafeWorkDir` otherwise."""
+    """Create ``work_dir`` (mode 0700) if needed and check that it is a real directory of the current user that its
+    group and other users cannot write; :class:`UnsafeWorkDir` otherwise."""
     work_dir.parent.mkdir(parents=True, exist_ok=True)
     try:
         os.mkdir(work_dir, 0o700)
@@ -128,8 +157,12 @@ def claim_work_dir(root: Path, work_dir: Path) -> None:
     this root count: a directory of another user, a symlink, or a journal of another root is not this root's."""
     registry = root / STATE_DIR / "work-dirs.txt"
     mine = str(work_dir.resolve())
-    known = [line for line in (registry.read_text(encoding="utf-8").splitlines() if registry.is_file() else [])
-             if line.strip()]
+    try:
+        with os.fdopen(_open_private(registry, os.O_RDONLY), "rb") as stream:
+            text = stream.read().decode("utf-8", errors="replace")
+    except FileNotFoundError:
+        text = ""
+    known = [line for line in text.splitlines() if line.strip()]
     for other in dict.fromkeys(known + [str(default_work_dir(root))]):
         if other == mine or _unsafe_dir_problem(Path(other)):
             continue
@@ -138,9 +171,11 @@ def claim_work_dir(root: Path, work_dir: Path) -> None:
             raise LockHeld(f"an interrupted run on this root left its journal in {other}; resume it with "
                            f"--work-dir {other} before starting another run")
     if mine not in known:
-        registry.parent.mkdir(parents=True, exist_ok=True)
-        with open(registry, "a", encoding="utf-8") as stream:
-            stream.write(mine + "\n")
+        descriptor = _open_private(registry, os.O_WRONLY | os.O_APPEND | os.O_CREAT)
+        try:
+            os.write(descriptor, (mine + "\n").encode("utf-8"))
+        finally:
+            os.close(descriptor)
 
 
 class Journal:

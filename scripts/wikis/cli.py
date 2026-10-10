@@ -324,6 +324,7 @@ def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | N
     factory = client_factory or (lambda: net.PoliteClient(config.ALL_HOSTS))
     previous = signal.signal(signal.SIGTERM, _raise_interrupt)
     try:
+        acquire.prepare_state_dir(root)
         acquire.prepare_work_dir(work_dir)
         with acquire.exclusive_lock(acquire.root_lock_path(root)), acquire.exclusive_lock(lock):
             acquire.claim_work_dir(root, work_dir)
