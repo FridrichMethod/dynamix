@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -36,7 +37,8 @@ FORBIDDEN_COMMANDS = {
     "git push": r"\bgit\s+push\b", "git tag": r"\bgit\s+tag\b", "git commit": r"\bgit\s+commit\b",
     "git remote": r"\bgit\s+remote\b", "git config": r"\bgit\s+config\b", "gh (any GitHub CLI call)": r"\bgh\s+\w",
     "curl write method": r"\bcurl\b[^\n]*(?:-X|--request)\s*(?:POST|PUT|PATCH|DELETE)",
-    "swallowed failure": r"\|\|\s*(?:true|:|echo)\b", "token": r"GITHUB_TOKEN|GH_TOKEN|github\.token|secrets\.",
+    "swallowed failure": r"\|\|\s*(?:true\b|:(?![^\s;)])|echo\b|exit\s+0\b)|\bset\s+\+e\b",
+    "token": r"GITHUB_TOKEN|GH_TOKEN|github\.token|secrets\.",
 }
 SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER = "fedcba9876543210fedcba9876543210fedcba98"
@@ -273,6 +275,25 @@ class PinningAndCommandTests(unittest.TestCase):
             text = (WORKFLOWS / name).read_text(encoding="utf-8")
             self.assertNotRegex(text, r"secrets\.|github\.token|GITHUB_TOKEN")
 
+    def test_forbidden_patterns_are_not_vacuous(self):
+        samples = {
+            "git push": "git push origin HEAD:main", "git tag": "git tag v1.0.0", "git commit": "git commit -m x",
+            "git remote": "git remote set-url origin x", "git config": "git config user.name bot",
+            "gh (any GitHub CLI call)": "gh release create v1", "curl write method": "curl -X POST https://x",
+            "token": 'echo "$GITHUB_TOKEN"',
+        }
+        for label, sample in samples.items():
+            with self.subTest(forbidden=label):
+                self.assertRegex(sample, FORBIDDEN_COMMANDS[label])
+        self.assertRegex("gh pr create --fill", FORBIDDEN_COMMANDS["gh (any GitHub CLI call)"])
+        for swallowed in ("check || true", "check || :", "check ||:;", "check || echo failed", "check || exit 0",
+                          "set +e"):
+            with self.subTest(swallowed=swallowed):
+                self.assertRegex(swallowed, FORBIDDEN_COMMANDS["swallowed failure"])
+        for fine in ('command -v x || { echo "::error::x"; exit 1; }', "[ -f a ] || { continue; }", "a::b"):
+            with self.subTest(fine=fine):
+                self.assertNotRegex(fine, FORBIDDEN_COMMANDS["swallowed failure"])
+
     def test_python_runs_isolated(self):
         for name, workflow in all_workflows().items():
             for script in run_scripts(workflow):
@@ -324,6 +345,98 @@ class TestsWorkflowContentTests(unittest.TestCase):
         self.assertNotRegex(runs, r"fetch_\w+\.py|prepare_pages|build_\w+\.py")
         actions = [action_name(uses) for _, uses in uses_in(workflow)]
         self.assertEqual(actions, ["actions/checkout", "actions/setup-python", "actions/upload-artifact"])
+
+
+GIT_ENV = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@example.invalid", "GIT_COMMITTER_NAME": "t",
+           "GIT_COMMITTER_EMAIL": "t@example.invalid", "GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": os.devnull}
+
+
+@unittest.skipUnless(shutil.which("bash") and shutil.which("git"), "needs bash and git to execute workflow steps")
+class StepBehaviorTests(unittest.TestCase):
+    """Execute the checks job's own shell steps in temporary trees: a failing check must fail its step."""
+
+    workflow = load("tests.yml")
+
+    def script(self, prefix: str) -> str:
+        steps = [step for step in steps_of(self.workflow["jobs"]["checks"]) if step["name"].startswith(prefix)]
+        self.assertEqual(len(steps), 1, prefix)
+        return steps[0]["run"]
+
+    def bash(self, script: str, cwd: Path, **env: str) -> subprocess.CompletedProcess:
+        environment = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": str(cwd), **GIT_ENV, **env}
+        # GitHub Actions runs `shell: bash` steps as `bash --noprofile --norc -eo pipefail {0}`.
+        return subprocess.run(["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", script], cwd=cwd,
+                              env=environment, capture_output=True, text=True)
+
+    def repository(self, base: Path, files: dict[str, bytes]) -> Path:
+        root = base / "checkout"
+        root.mkdir()
+        self.bash("git init -q", root)
+        for rel, data in files.items():
+            (root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (root / rel).write_bytes(data)
+        self.assertEqual(self.bash("git add -A && git commit -q -m fixture", root).returncode, 0)
+        return root
+
+    def test_family_verify_loop_fails_when_any_present_manifest_fails(self):
+        script = self.script("Every family manifest")
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            venv = base / "runner/venv/bin"
+            venv.mkdir(parents=True)
+            (venv / "python").write_text(f'#!/bin/sh\nexec "{sys.executable}" "$@"\n', encoding="utf-8")
+            (venv / "python").chmod(0o755)
+            root = base / "checkout"
+            for family, body in (("wikis", "raise SystemExit(1)\n"), ("artists", "print('verified')\n"),
+                                 ("archives", "print('verified')\n")):
+                (root / "scripts").mkdir(parents=True, exist_ok=True)
+                (root / "data/sources").mkdir(parents=True, exist_ok=True)
+                (root / f"scripts/fetch_{family}.py").write_text(
+                    "import sys\nassert sys.argv[1:] == ['--verify'] and sys.flags.isolated\n" + body, encoding="utf-8")
+                (root / f"data/sources/{family}.json").write_text("{}\n", encoding="utf-8")
+            failing = self.bash(script, root, RUNNER_TEMP=str(base / "runner"))
+            self.assertNotEqual(failing.returncode, 0, failing.stdout + failing.stderr)
+            self.assertIn("::error file=data/sources/wikis.json::fetch_wikis.py --verify failed", failing.stdout)
+            self.assertIn("data/sources/official.json is absent", failing.stdout)
+            self.assertIn("verified 2 family manifests", failing.stdout)
+            (root / "scripts/fetch_wikis.py").write_text("print('verified')\n", encoding="utf-8")
+            passing = self.bash(script, root, RUNNER_TEMP=str(base / "runner"))
+            self.assertEqual(passing.returncode, 0, passing.stdout + passing.stderr)
+            self.assertIn("verified 3 family manifests", passing.stdout)
+            (root / "scripts/fetch_artists.py").unlink()  # a manifest without its verifier is a failure, not a skip
+            missing = self.bash(script, root, RUNNER_TEMP=str(base / "runner"))
+            self.assertNotEqual(missing.returncode, 0)
+            self.assertIn("fetch_artists.py --verify failed", missing.stdout)
+
+    def test_whitespace_step_fails_on_committed_whitespace_errors_except_pinned_bytes(self):
+        script = self.script("No whitespace errors")
+        with tempfile.TemporaryDirectory() as temporary:
+            files = {".gitattributes": b"/assets/** -text\n", "README.md": b"# ok\n",
+                     "assets/public/x/sidecar.txt": b"pinned bytes with trailing space \n"}
+            root = self.repository(Path(temporary), files)
+            clean = self.bash(script, root)
+            self.assertEqual(clean.returncode, 0, clean.stdout + clean.stderr)
+            (root / "docs").mkdir()
+            (root / "docs/notes.md").write_bytes(b"trailing space \n")
+            self.assertEqual(self.bash("git add -A && git commit -q -m whitespace", root).returncode, 0)
+            committed = self.bash(script, root)
+            self.assertNotEqual(committed.returncode, 0)
+            self.assertIn("docs/notes.md:1: trailing whitespace", committed.stdout)
+
+    def test_unchanged_checkout_step_fails_on_any_modification(self):
+        script = self.script("Checks left the checkout unchanged")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self.repository(Path(temporary), {".gitignore": b"__pycache__/\n", "data/catalog.json": b"{}\n"})
+            (root / "scripts/__pycache__").mkdir(parents=True)
+            (root / "scripts/__pycache__/x.pyc").write_bytes(b"\0")  # ignored byproduct of running scripts
+            self.assertEqual(self.bash(script, root).returncode, 0)
+            for change in ("data/catalog.json", "data/new.json"):
+                with self.subTest(change=change):
+                    (root / change).write_text('{"changed": true}\n', encoding="utf-8")
+                    result = self.bash(script, root)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn(change, result.stdout)
+                    self.bash("git checkout -q -- . && git clean -q -f -- data", root)
 
 
 if __name__ == "__main__":
