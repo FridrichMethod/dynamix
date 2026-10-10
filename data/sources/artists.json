@@ -10,7 +10,7 @@
       "url": "https://sandgodoven.artstation.com/projects/6baqbW",
       "platform": "artstation",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:47Z",
+      "checked_at": "2026-10-10T14:03:37Z",
       "notes": "Seed project from 03-source-research §2 (Square / 16:9 / Original compositions of MassacrE || 3rc4224M for RAVON and Dynamix). Earlier probes received HTTP 403; a refusal is recorded, never bypassed.",
       "api_url": "https://www.artstation.com/projects/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -27,7 +27,7 @@
       "url": "https://ha1uday0.bandcamp.com/",
       "platform": "bandcamp",
       "status": "available",
-      "checked_at": "2026-10-10T13:57:47Z",
+      "checked_at": "2026-10-10T14:03:37Z",
       "notes": "Explicit Bandcamp track page by Halv.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -43,7 +43,7 @@
       "url": "https://veirtunes.bandcamp.com/",
       "platform": "bandcamp",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:57:47Z",
+      "checked_at": "2026-10-10T14:03:38Z",
       "notes": "Negative control from 03-source-research §2: the release calls itself a rejected Dynamix submission.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -59,7 +59,7 @@
       "url": "https://www.bilibili.com/opus/1022295438715256855",
       "platform": "bilibili",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:48Z",
+      "checked_at": "2026-10-10T14:03:38Z",
       "notes": "Seed post from 03-source-research §1/§2. Handle is the display name (the numeric space ID was not established because Bilibili refused anonymous reads).",
       "api_url": "https://api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -76,7 +76,7 @@
       "url": "https://www.pixiv.net/users/1652099",
       "platform": "pixiv",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:57:48Z",
+      "checked_at": "2026-10-10T14:03:39Z",
       "notes": "Explicit artworks by ANT via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -93,7 +93,7 @@
       "url": "https://www.pixiv.net/users/17081698",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:49Z",
+      "checked_at": "2026-10-10T14:03:39Z",
       "notes": "Explicit artworks by Xomu via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -110,7 +110,7 @@
       "url": "https://www.pixiv.net/users/1840049",
       "platform": "pixiv",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T13:57:50Z",
+      "checked_at": "2026-10-10T14:03:41Z",
       "notes": "Explicit artworks by くりあ via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -127,7 +127,7 @@
       "url": "https://www.pixiv.net/users/2624455",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:51Z",
+      "checked_at": "2026-10-10T14:03:42Z",
       "notes": "Explicit artworks by 123456蟹 via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -144,7 +144,7 @@
       "url": "https://www.pixiv.net/users/3381542",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:53Z",
+      "checked_at": "2026-10-10T14:03:43Z",
       "notes": "Explicit artworks by LESYEF via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -161,7 +161,7 @@
       "url": "https://www.pixiv.net/users/407585",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:54Z",
+      "checked_at": "2026-10-10T14:03:44Z",
       "notes": "Explicit artworks by AFZero via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -178,7 +178,7 @@
       "url": "https://www.pixiv.net/users/4349073",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:55Z",
+      "checked_at": "2026-10-10T14:03:46Z",
       "notes": "Explicit artworks by せゆーら via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -195,7 +195,7 @@
       "url": "https://www.pixiv.net/users/5401047",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:57:56Z",
+      "checked_at": "2026-10-10T14:03:47Z",
       "notes": "Explicit artworks by Sand Suna via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -211,8 +211,8 @@
       "family": "artists",
       "url": "https://www.pixiv.net/users/74278",
       "platform": "pixiv",
-      "status": "metadata_only",
-      "checked_at": "2026-10-10T13:57:59Z",
+      "status": "manual_access",
+      "checked_at": "2026-10-10T14:03:50Z",
       "notes": "Explicit artworks by Shionty via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -229,7 +229,7 @@
       "url": "https://www.pixiv.net/users/760598",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:58:00Z",
+      "checked_at": "2026-10-10T14:03:51Z",
       "notes": "Explicit artworks by キカンシャ via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -246,7 +246,7 @@
       "url": "https://www.pixiv.net/users/779504",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:58:03Z",
+      "checked_at": "2026-10-10T14:03:53Z",
       "notes": "Explicit artworks by アサヤ via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -263,7 +263,7 @@
       "url": "https://www.pixiv.net/users/89112381",
       "platform": "pixiv",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:58:04Z",
+      "checked_at": "2026-10-10T14:03:55Z",
       "notes": "Explicit artworks by 中本ひょうり via pixiv's public ajax JSON.",
       "api_url": "https://www.pixiv.net/ajax/illust/",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -280,7 +280,7 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "registry",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:58:08Z",
+      "checked_at": "2026-10-10T14:03:58Z",
       "notes": "Curated 2026-10-10 research-sweep leads (credit/identity evidence, login walls, bot checks, held items). Recorded without new requests; each keeps its own URL and decision.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -296,7 +296,7 @@
       "url": "https://soundcloud.com/3t1a",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:08Z",
+      "checked_at": "2026-10-10T14:03:58Z",
       "notes": "Explicit SoundCloud track pages by 三更 / 3t1a (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -315,7 +315,7 @@
       "url": "https://soundcloud.com/aboutlogic",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:09Z",
+      "checked_at": "2026-10-10T14:03:59Z",
       "notes": "Explicit SoundCloud track pages by aboutlogic (ケシｋｓくん credit) (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -334,7 +334,7 @@
       "url": "https://soundcloud.com/airlemonex",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:11Z",
+      "checked_at": "2026-10-10T14:04:00Z",
       "notes": "Explicit SoundCloud track pages by Xe/αirlemoneX (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -353,7 +353,7 @@
       "url": "https://soundcloud.com/aoisoundsystem",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:12Z",
+      "checked_at": "2026-10-10T14:04:02Z",
       "notes": "Explicit SoundCloud track pages by Aoi Sound System (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -372,7 +372,7 @@
       "url": "https://soundcloud.com/arforest",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:58:15Z",
+      "checked_at": "2026-10-10T14:04:04Z",
       "notes": "Explicit SoundCloud track pages by ARForest (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -391,7 +391,7 @@
       "url": "https://soundcloud.com/calixer",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:58:16Z",
+      "checked_at": "2026-10-10T14:04:06Z",
       "notes": "Explicit SoundCloud track pages by Calixer (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -410,7 +410,7 @@
       "url": "https://soundcloud.com/cashewnuts",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:17Z",
+      "checked_at": "2026-10-10T14:04:07Z",
       "notes": "Explicit SoundCloud track pages by Cashew (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -429,7 +429,7 @@
       "url": "https://soundcloud.com/circle2",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:19Z",
+      "checked_at": "2026-10-10T14:04:09Z",
       "notes": "Explicit SoundCloud track pages by Circle 2 (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -448,7 +448,7 @@
       "url": "https://soundcloud.com/cordantia",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:58:25Z",
+      "checked_at": "2026-10-10T14:04:13Z",
       "notes": "Explicit SoundCloud track pages by Cordantia (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -467,7 +467,7 @@
       "url": "https://soundcloud.com/cosmogrph",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:25Z",
+      "checked_at": "2026-10-10T14:04:14Z",
       "notes": "Explicit SoundCloud track pages by Cosmograph (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -486,7 +486,7 @@
       "url": "https://soundcloud.com/dice-dd",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:27Z",
+      "checked_at": "2026-10-10T14:04:15Z",
       "notes": "Explicit SoundCloud track pages by 打打だいず (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -505,7 +505,7 @@
       "url": "https://soundcloud.com/ebico",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:28Z",
+      "checked_at": "2026-10-10T14:04:17Z",
       "notes": "Explicit SoundCloud track pages by EBICO (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -524,7 +524,7 @@
       "url": "https://soundcloud.com/espidev",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:29Z",
+      "checked_at": "2026-10-10T14:04:18Z",
       "notes": "Explicit SoundCloud track pages by EspiDev (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -543,7 +543,7 @@
       "url": "https://soundcloud.com/felix1213tw",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:31Z",
+      "checked_at": "2026-10-10T14:04:20Z",
       "notes": "Explicit SoundCloud track pages by felix1213tw (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -562,7 +562,7 @@
       "url": "https://soundcloud.com/halvsan",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:32Z",
+      "checked_at": "2026-10-10T14:04:21Z",
       "notes": "Explicit SoundCloud track pages by Halv (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -581,7 +581,7 @@
       "url": "https://soundcloud.com/hino-isuka",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:36Z",
+      "checked_at": "2026-10-10T14:04:24Z",
       "notes": "Explicit SoundCloud track pages by 翡乃イスカ (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -600,7 +600,7 @@
       "url": "https://soundcloud.com/ianmirror",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:58:37Z",
+      "checked_at": "2026-10-10T14:04:25Z",
       "notes": "Explicit SoundCloud track pages by ianmirror (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -619,7 +619,7 @@
       "url": "https://soundcloud.com/jehezukiel",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:38Z",
+      "checked_at": "2026-10-10T14:04:26Z",
       "notes": "Explicit SoundCloud track pages by Jehezukiel (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -638,7 +638,7 @@
       "url": "https://soundcloud.com/jun_kuroda",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:58:42Z",
+      "checked_at": "2026-10-10T14:04:29Z",
       "notes": "Explicit SoundCloud track pages by Jun Kuroda (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -657,7 +657,7 @@
       "url": "https://soundcloud.com/kanon092",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:42Z",
+      "checked_at": "2026-10-10T14:04:31Z",
       "notes": "Explicit SoundCloud track pages by 奏音 (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -676,7 +676,7 @@
       "url": "https://soundcloud.com/keshiks",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:47Z",
+      "checked_at": "2026-10-10T14:04:33Z",
       "notes": "Explicit SoundCloud track pages by KEshiKS (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -695,7 +695,7 @@
       "url": "https://soundcloud.com/kforest",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:48Z",
+      "checked_at": "2026-10-10T14:04:35Z",
       "notes": "Explicit SoundCloud track pages by K-forest (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -714,7 +714,7 @@
       "url": "https://soundcloud.com/kurorak",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:49Z",
+      "checked_at": "2026-10-10T14:04:36Z",
       "notes": "Explicit SoundCloud track pages by KURORAK (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -733,7 +733,7 @@
       "url": "https://soundcloud.com/kuske-kuonrecords",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:50Z",
+      "checked_at": "2026-10-10T14:04:37Z",
       "notes": "Kplecraft (composer and pixel artist) uploads; illustrator credit from the wikis and the artist's 16383 post.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -752,7 +752,7 @@
       "url": "https://soundcloud.com/linne_ennil",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:57Z",
+      "checked_at": "2026-10-10T14:04:41Z",
       "notes": "Explicit SoundCloud track pages by Linne (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -771,7 +771,7 @@
       "url": "https://soundcloud.com/misomyl",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:58Z",
+      "checked_at": "2026-10-10T14:04:42Z",
       "notes": "Explicit SoundCloud track pages by MisoilePunch (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -790,7 +790,7 @@
       "url": "https://soundcloud.com/missionary_music",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:58:59Z",
+      "checked_at": "2026-10-10T14:04:44Z",
       "notes": "Explicit SoundCloud track pages by MIssionary (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -809,7 +809,7 @@
       "url": "https://soundcloud.com/myukke",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:00Z",
+      "checked_at": "2026-10-10T14:04:45Z",
       "notes": "Explicit SoundCloud track pages by MYUKKE. (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -828,7 +828,7 @@
       "url": "https://soundcloud.com/nordysantrophy",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:04Z",
+      "checked_at": "2026-10-10T14:04:48Z",
       "notes": "Explicit SoundCloud track pages by Nordius Dystancius (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -847,7 +847,7 @@
       "url": "https://soundcloud.com/nuunu5",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:06Z",
+      "checked_at": "2026-10-10T14:04:49Z",
       "notes": "Explicit SoundCloud track pages by aoWAVE (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -866,7 +866,7 @@
       "url": "https://soundcloud.com/omocha1019",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:07Z",
+      "checked_at": "2026-10-10T14:04:51Z",
       "notes": "Explicit SoundCloud track pages by Omocha (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -885,7 +885,7 @@
       "url": "https://soundcloud.com/panbanana0729",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:08Z",
+      "checked_at": "2026-10-10T14:04:52Z",
       "notes": "Explicit SoundCloud track pages by pan (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -904,7 +904,7 @@
       "url": "https://soundcloud.com/r_solidor",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:09Z",
+      "checked_at": "2026-10-10T14:04:54Z",
       "notes": "Explicit SoundCloud track pages by R.Solidor (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -923,7 +923,7 @@
       "url": "https://soundcloud.com/re94c",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:11Z",
+      "checked_at": "2026-10-10T14:04:55Z",
       "notes": "Explicit SoundCloud track pages by Reku Mochizuki (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -942,7 +942,7 @@
       "url": "https://soundcloud.com/riranofficial",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:12Z",
+      "checked_at": "2026-10-10T14:04:56Z",
       "notes": "Explicit SoundCloud track pages by RiraN (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -961,7 +961,7 @@
       "url": "https://soundcloud.com/ryokmbk",
       "platform": "soundcloud",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:59:14Z",
+      "checked_at": "2026-10-10T14:04:59Z",
       "notes": "Explicit SoundCloud track pages by RYOQUCHA (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -980,7 +980,7 @@
       "url": "https://soundcloud.com/sctl_shin",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:15Z",
+      "checked_at": "2026-10-10T14:05:00Z",
       "notes": "Explicit SoundCloud track pages by STARSTREAK CHAOS-TL12 (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -999,7 +999,7 @@
       "url": "https://soundcloud.com/se-u-ra",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:17Z",
+      "checked_at": "2026-10-10T14:05:02Z",
       "notes": "Explicit SoundCloud track pages by Se-U-Ra (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1018,7 +1018,7 @@
       "url": "https://soundcloud.com/soundperemotion",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:21Z",
+      "checked_at": "2026-10-10T14:05:04Z",
       "notes": "Explicit SoundCloud track pages by Sound Per Emotion (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1037,7 +1037,7 @@
       "url": "https://soundcloud.com/street",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:22Z",
+      "checked_at": "2026-10-10T14:05:06Z",
       "notes": "Explicit SoundCloud track pages by Street (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1056,7 +1056,7 @@
       "url": "https://soundcloud.com/trialsuperbeats",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:23Z",
+      "checked_at": "2026-10-10T14:05:07Z",
       "notes": "Explicit SoundCloud track pages by TRIAL (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1075,7 +1075,7 @@
       "url": "https://soundcloud.com/vauboy",
       "platform": "soundcloud",
       "status": "partially_available",
-      "checked_at": "2026-10-10T13:59:30Z",
+      "checked_at": "2026-10-10T14:05:11Z",
       "notes": "Explicit SoundCloud track pages by Vau Boy (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1094,7 +1094,7 @@
       "url": "https://soundcloud.com/whos-raphiiel",
       "platform": "soundcloud",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T13:59:32Z",
+      "checked_at": "2026-10-10T14:05:14Z",
       "notes": "Explicit SoundCloud track pages by Raphiiel (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1113,7 +1113,7 @@
       "url": "https://soundcloud.com/woof-owo",
       "platform": "soundcloud",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:33Z",
+      "checked_at": "2026-10-10T14:05:15Z",
       "notes": "Explicit SoundCloud track pages by Woof (composer upload); the account's other tracks are not enumerated.",
       "crawl_scope": {
         "notes": "Explicit track pages only."
@@ -1132,7 +1132,7 @@
       "url": "https://lalaluhat.wixsite.com/bhbhwork",
       "platform": "wix",
       "status": "partially_available",
-      "checked_at": "2026-10-10T13:59:35Z",
+      "checked_at": "2026-10-10T14:05:17Z",
       "notes": "Explicit gallery files from the artist's JavaScript-rendered Wix portfolio (original uploads without a resize suffix).",
       "owner_evidence": "About page: 'C4Cat Entertainment Limited 2D Artist (internship) (2017/06/01 - 2017/08/31)'; contact 'HAT: lalaluhat@...'; links twitter.com/lalaluhat (research sweep).",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1149,7 +1149,7 @@
       "url": "https://x.com/ariiol_",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:37Z",
+      "checked_at": "2026-10-10T14:05:17Z",
       "notes": "Explicit public posts by @ariiol_ read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1166,7 +1166,7 @@
       "url": "https://x.com/BLUEnoup",
       "platform": "x",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:59:37Z",
+      "checked_at": "2026-10-10T14:05:17Z",
       "notes": "Explicit public posts by @BLUEnoup read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1183,7 +1183,7 @@
       "url": "https://x.com/KUMEKI_3",
       "platform": "x",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:59:39Z",
+      "checked_at": "2026-10-10T14:05:18Z",
       "notes": "Explicit public posts by @KUMEKI_3 read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1200,7 +1200,7 @@
       "url": "https://x.com/KuskeKplecraft",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:40Z",
+      "checked_at": "2026-10-10T14:05:20Z",
       "notes": "Explicit public posts by @KuskeKplecraft read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1217,7 +1217,7 @@
       "url": "https://x.com/lalaluhat",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:44Z",
+      "checked_at": "2026-10-10T14:05:21Z",
       "notes": "B.H. (HAT; C4Cat 2D artist intern 2017 per the artist's portfolio). Seasonal character art; song mappings are left unmapped (characters, not jackets).",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1234,7 +1234,7 @@
       "url": "https://x.com/meganegirai",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:53Z",
+      "checked_at": "2026-10-10T14:05:27Z",
       "notes": "Profile states Dynamix jacket artwork work (research read the public embed timeline).",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1251,7 +1251,7 @@
       "url": "https://x.com/serolerr",
       "platform": "x",
       "status": "excluded",
-      "checked_at": "2026-10-10T13:59:54Z",
+      "checked_at": "2026-10-10T14:05:28Z",
       "notes": "Explicit public posts by @serolerr read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -1268,7 +1268,7 @@
       "url": "https://x.com/SeURa_Nue",
       "platform": "x",
       "status": "available",
-      "checked_at": "2026-10-10T13:59:55Z",
+      "checked_at": "2026-10-10T14:05:29Z",
       "notes": "Explicit public posts by @SeURa_Nue read through X's embed endpoint.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -6627,7 +6627,7 @@
       "candidate_id": "artists:artstation:sandgodoven:6baqbW",
       "phase": "discover",
       "url": "https://www.artstation.com/projects/6baqbW.json",
-      "attempted_at": "2026-10-10T13:57:47Z",
+      "attempted_at": "2026-10-10T14:03:37Z",
       "attempts": 1,
       "error_class": "challenge",
       "http_status": 403,
@@ -6641,7 +6641,7 @@
       "candidate_id": "artists:bilibili:ariiol:1022295438715256855",
       "phase": "discover",
       "url": "https://www.bilibili.com/opus/1022295438715256855",
-      "attempted_at": "2026-10-10T13:57:48Z",
+      "attempted_at": "2026-10-10T14:03:39Z",
       "attempts": 1,
       "error_class": "challenge",
       "http_status": 200,
@@ -6655,7 +6655,7 @@
       "candidate_id": "artists:pixiv:17081698:77296864:p0",
       "phase": "download",
       "url": "https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png",
-      "attempted_at": "2026-10-10T13:57:50Z",
+      "attempted_at": "2026-10-10T14:03:40Z",
       "attempts": 1,
       "error_class": "blocked",
       "http_status": 403,

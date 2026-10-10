@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "source_id": "official:official-leads",
+  "started_at": "2026-10-10T14:05:54Z",
+  "finished_at": "2026-10-10T14:05:54Z",
+  "scope": {
+    "lists": [
+      "registry"
+    ],
+    "api": null,
+    "notes": "Curated research-sweep leads recorded without a request (no file to acquire, or access already observed as limited)."
+  },
+  "continuation": {
+    "registry": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "official:official-leads:amazon:appstore-search",
+      "source_id": "official:official-leads",
+      "upstream_key": "amazon:appstore-search",
+      "page_url": "https://www.amazon.com/s?k=Dynamix+C4Cat&i=mobile-apps",
+      "file_url": null,
+      "title": "Amazon Appstore / Huawei AppGallery",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
+    },
+    {
+      "id": "official:official-leads:priroll:ct12529",
+      "source_id": "official:official-leads",
+      "upstream_key": "priroll:ct12529",
+      "page_url": "https://priroll.jp/shopbrand/ct12529/",
+      "file_url": null,
+      "title": "PRIROLL collaboration shop",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: merchandise shop page; the official announcement post is recorded under official:x"
+    },
+    {
+      "id": "official:official-leads:qooapp:237",
+      "source_id": "official:official-leads",
+      "upstream_key": "qooapp:237",
+      "page_url": "https://apps.qoo-app.com/en/app/237",
+      "file_url": null,
+      "title": "QooApp listing",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: mirrors Google Play images; distributes APKs, which this project does not use"
+    },
+    {
+      "id": "official:official-leads:x:SHINOBI_SLASH:1902697909684179446",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:SHINOBI_SLASH:1902697909684179446",
+      "page_url": "https://x.com/SHINOBI_SLASH/status/1902697909684179446",
+      "file_url": null,
+      "title": "Shinobi Slash collaboration banner (partner account)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
+    },
+    {
+      "id": "official:official-leads:x:c4c4cat:timeline-media",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:c4c4cat:timeline-media",
+      "page_url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/c4c4cat",
+      "file_url": null,
+      "title": "Embed-timeline media listed by research",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+    },
+    {
+      "id": "official:official-leads:youtube:C4CatEntertainment",
+      "source_id": "official:official-leads",
+      "upstream_key": "youtube:C4CatEntertainment",
+      "page_url": "https://www.youtube.com/@C4CatEntertainment",
+      "file_url": "https://i.ytimg.com/vi/ElhnpfB8Stw/maxresdefault.jpg",
+      "title": "C4 Cat YouTube channel",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/ElhnpfB8Stw/maxresdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "video_placeholder: video thumbnails (maxresdefault) are derivatives of trailers; channel recorded as official identity evidence"
+    }
+  ],
+  "errors": []
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "archives",
-  "fetched_at": "2026-10-10T13:56:30Z",
+  "fetched_at": "2026-10-10T14:03:32Z",
   "sources": [
     {
       "id": "archives:4gamer",
@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-10T13:53:49Z",
+      "checked_at": "2026-10-10T14:01:24Z",
       "notes": "Historical press screenshots (2015-06-18); not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "manual_access",
-      "checked_at": "2026-10-10T13:53:49Z",
+      "checked_at": "2026-10-10T14:01:24Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T13:53:49Z",
+      "checked_at": "2026-10-10T14:01:24Z",
       "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,13 +58,13 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "partially_available",
-      "checked_at": "2026-10-10T13:53:52Z",
+      "checked_at": "2026-10-10T14:01:27Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 73,
-      "asset_count": 28,
+      "asset_count": 31,
       "failure_count": 0,
       "evidence_level": "live_api"
     }
@@ -1473,6 +1473,75 @@
       "upstream_revision": "20221221064601"
     },
     {
+      "id": "archives:wayback:65e2fc2468b0eddb",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
+      "title": "new21.png (archived 20160314)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20160314012750/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+      "download_url": "https://web.archive.org/web/20160314012750id_/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+      "resolved_url": "https://web.archive.org/web/20160314012750id_/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+      "path": "assets/public/archives/wayback/new21--65e2fc2468b0.png",
+      "original_filename": "new21.png",
+      "bytes": 585707,
+      "sha256": "65e2fc2468b0eddb8551e0198de2f2f4dd32b19864791006d6f37026ece79aed",
+      "sha1": "b09e40122918c14ddabdfce32f5ce0519eabf2d3",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 815,
+      "height": 792,
+      "fetched_at": "2026-10-10T14:03:25Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20160314012750/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "b09e40122918c14ddabdfce32f5ce0519eabf2d3",
+        "timestamp": "2016-03-14T01:27:50Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 585707,
+        "width": 815,
+        "height": 792,
+        "sha1": "b09e40122918c14ddabdfce32f5ce0519eabf2d3",
+        "sha256": "65e2fc2468b0eddb8551e0198de2f2f4dd32b19864791006d6f37026ece79aed"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20160314012750 of http://188.166.254.2/wp-content/uploads/2015/10/new21.png (CDX mimetype image/png, status 200, WARC record length 586399).",
+      "upstream_revision": "20160314012750"
+    },
+    {
       "id": "archives:wayback:6e922fcfc86be714",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
@@ -1627,6 +1696,75 @@
       ],
       "notes": "Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443).",
       "upstream_revision": "20221220121848"
+    },
+    {
+      "id": "archives:wayback:77957c0d9f1b5ff4",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
+      "title": "new32.png (archived 20170720)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20170720024322/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+      "download_url": "https://web.archive.org/web/20170720024322id_/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+      "resolved_url": "https://web.archive.org/web/20170720024322id_/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+      "path": "assets/public/archives/wayback/new32--77957c0d9f1b.png",
+      "original_filename": "new32.png",
+      "bytes": 1116058,
+      "sha256": "77957c0d9f1b5ff4fcfa6e2cf0bcb0de6f722621267c385e3457dfb687007878",
+      "sha1": "dd6c860d4b4a357592fd4daae7bad6fd33931c09",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 815,
+      "height": 792,
+      "fetched_at": "2026-10-10T14:03:28Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20170720024322/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "dd6c860d4b4a357592fd4daae7bad6fd33931c09",
+        "timestamp": "2017-07-20T02:43:22Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 1116058,
+        "width": 815,
+        "height": 792,
+        "sha1": "dd6c860d4b4a357592fd4daae7bad6fd33931c09",
+        "sha256": "77957c0d9f1b5ff4fcfa6e2cf0bcb0de6f722621267c385e3457dfb687007878"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20170720024322 of http://188.166.254.2/wp-content/uploads/2015/10/new32.png (CDX mimetype image/png, status 200, WARC record length 1116647).",
+      "upstream_revision": "20170720024322"
     },
     {
       "id": "archives:wayback:9040ed5440e36fce",
@@ -2495,6 +2633,75 @@
       "upstream_status": "current",
       "notes": "Wayback capture 20160517082309 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 119697).",
       "upstream_revision": "20160517082309"
+    },
+    {
+      "id": "archives:wayback:ffbb74bc2c7d3404",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix-server.c4-cat.com/mycard/img/header.jpg@20200622223326",
+      "title": "header.jpg (archived 20200622)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20200622223326/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+      "download_url": "https://web.archive.org/web/20200622223326id_/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+      "resolved_url": "https://web.archive.org/web/20200622223326id_/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+      "path": "assets/public/archives/wayback/header--ffbb74bc2c7d.jpg",
+      "original_filename": "header.jpg",
+      "bytes": 130951,
+      "sha256": "ffbb74bc2c7d3404debf87994d80fa36625fc47eedf14c540d29991a1d1fd5c2",
+      "sha1": "a10f15a45034e90e5f3e9b39d4a7dce54d1ea23d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 540,
+      "fetched_at": "2026-10-10T14:03:32Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20200622223326/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "a10f15a45034e90e5f3e9b39d4a7dce54d1ea23d",
+        "timestamp": "2020-06-22T22:33:26Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 130951,
+        "width": 1920,
+        "height": 540,
+        "sha1": "a10f15a45034e90e5f3e9b39d4a7dce54d1ea23d",
+        "sha256": "ffbb74bc2c7d3404debf87994d80fa36625fc47eedf14c540d29991a1d1fd5c2"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20200622223326 of http://dynamix-server.c4-cat.com/mycard/img/header.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113482).",
+      "upstream_revision": "20200622223326"
     }
   ],
   "failures": [
@@ -2504,7 +2711,7 @@
       "candidate_id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
       "phase": "download",
       "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "attempted_at": "2026-10-10T13:53:51Z",
+      "attempted_at": "2026-10-10T14:01:26Z",
       "attempts": 1,
       "error_class": "http_4xx",
       "http_status": 404,

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "source_id": "official:soundcloud-c4cat",
+  "started_at": "2026-10-10T14:05:54Z",
+  "finished_at": "2026-10-10T14:05:55Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "official:soundcloud-c4cat:le-ciel-heureux-p",
+      "source_id": "official:soundcloud-c4cat",
+      "upstream_key": "le-ciel-heureux-p",
+      "page_url": "https://soundcloud.com/c4cat/le-ciel-heureux-p",
+      "file_url": "https://i1.sndcdn.com/artworks-000190864912-knm6ov-original.jpg",
+      "title": "P4koo - Le ciel heureux (Preview)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/c4cat/le-ciel-heureux-p",
+        "sc.title: Le ciel heureux"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000190864912-knm6ov-original.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-10-27T07:55:31Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:soundcloud-c4cat:4577f12c6953bd54",
+      "song_titles": [
+        "Le ciel heureux"
+      ],
+      "composers": [
+        "P4koo"
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "source_id": "official:facebook",
+  "started_at": "2026-10-10T14:05:49Z",
+  "finished_at": "2026-10-10T14:05:49Z",
+  "scope": {
+    "lists": [
+      "probe",
+      "page-timeline"
+    ],
+    "api": null,
+    "notes": "Availability probe only; no candidates are enumerated."
+  },
+  "continuation": {
+    "probe": null,
+    "page-timeline": "login wall: the timeline cannot be enumerated without an account"
+  },
+  "discovery_complete": false,
+  "candidates": [],
+  "errors": []
+}

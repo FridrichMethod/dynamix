@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:1652099",
-  "started_at": "2026-10-10T13:57:48Z",
-  "finished_at": "2026-10-10T13:57:49Z",
+  "started_at": "2026-10-10T14:03:39Z",
+  "finished_at": "2026-10-10T14:03:39Z",
   "scope": {
     "lists": [
       "seed-artworks"
@@ -25,7 +25,8 @@
       "role": null,
       "game": "unknown",
       "game_evidence": [
-        "https://www.pixiv.net/artworks/73741044"
+        "https://www.pixiv.net/artworks/73741044",
+        "caption: お世話になった人へあげたイラスト"
       ],
       "source_reported": {
         "url": "https://i.pximg.net/img-original/img/2019/03/18/00/53/09/73741044_p0.png",

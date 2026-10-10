@@ -1,0 +1,906 @@
+{
+  "schema_version": 1,
+  "source_id": "official:apple-store",
+  "started_at": "2026-10-10T14:05:39Z",
+  "finished_at": "2026-10-10T14:05:49Z",
+  "scope": {
+    "lists": [
+      "product-media-shelves",
+      "itunes-lookup"
+    ],
+    "api": null,
+    "notes": "One storefront product page; screenshots from its product_media_* shelves at native size; plus the iTunes lookup screenshot sets of the listed storefronts. App icon not collected."
+  },
+  "continuation": {
+    "product-media-shelves": null,
+    "itunes-lookup": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "official:apple-store:lookup:01c0aa35-0c88-e9d1-7d6f-90282fb6d393",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:01c0aa35-0c88-e9d1-7d6f-90282fb6d393",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/01/c0/aa/01c0aa35-0c88-e9d1-7d6f-90282fb6d393/mzl.nnifferx.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set jp:pad3)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/01/c0/aa/01c0aa35-0c88-e9d1-7d6f-90282fb6d393/mzl.nnifferx.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:34bd03294a871097",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad3; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:0fcb183d-e391-18ff-9032-2aa62a453bb3",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:0fcb183d-e391-18ff-9032-2aa62a453bb3",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/0f/cb/18/0fcb183d-e391-18ff-9032-2aa62a453bb3/mzl.ekaqpraf.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set hk:pad1)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/0f/cb/18/0fcb183d-e391-18ff-9032-2aa62a453bb3/mzl.ekaqpraf.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:17d0e614e98aeef5",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:pad1, tw:pad1, kr:pad1, de:pad1; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:24c4a8a4-d3e2-2eb1-4b98-9b31fccf0a3e",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:24c4a8a4-d3e2-2eb1-4b98-9b31fccf0a3e",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/24/c4/a8/24c4a8a4-d3e2-2eb1-4b98-9b31fccf0a3e/mzl.hnxwkfnn.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set hk:phone1)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/24/c4/a8/24c4a8a4-d3e2-2eb1-4b98-9b31fccf0a3e/mzl.hnxwkfnn.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:d65bd5d486760dac",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone1, tw:phone1, kr:phone1, de:phone1; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:3ae54a7d-bb0c-ab6e-9137-40bf1e91d8d7",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:3ae54a7d-bb0c-ab6e-9137-40bf1e91d8d7",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/3a/e5/4a/3ae54a7d-bb0c-ab6e-9137-40bf1e91d8d7/mzl.pnvbqftx.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set us:pad4)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/3a/e5/4a/3ae54a7d-bb0c-ab6e-9137-40bf1e91d8d7/mzl.pnvbqftx.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:86d98236244a92af",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad4, gb:pad4, sg:pad4, th:pad4; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:4375ad1d-74bd-f0a7-c09b-19ed2259ba0d",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:4375ad1d-74bd-f0a7-c09b-19ed2259ba0d",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/43/75/ad/4375ad1d-74bd-f0a7-c09b-19ed2259ba0d/mzl.rfgurcly.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set jp:phone2)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/43/75/ad/4375ad1d-74bd-f0a7-c09b-19ed2259ba0d/mzl.rfgurcly.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:730b7a697e1b1b02",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone2; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:4937b3ac-85c2-07d2-8e6a-210b24b5243c",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:4937b3ac-85c2-07d2-8e6a-210b24b5243c",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/49/37/b3/4937b3ac-85c2-07d2-8e6a-210b24b5243c/pr_source.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set us:phone3)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/49/37/b3/4937b3ac-85c2-07d2-8e6a-210b24b5243c/pr_source.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:e7fb6768a2365e23",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:phone3, gb:phone3, sg:phone3, th:phone3; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:498f5c17-9030-9db6-f954-fd60ca6d6e26",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:498f5c17-9030-9db6-f954-fd60ca6d6e26",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/49/8f/5c/498f5c17-9030-9db6-f954-fd60ca6d6e26/mzl.qgecxbnx.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set hk:phone3)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/49/8f/5c/498f5c17-9030-9db6-f954-fd60ca6d6e26/mzl.qgecxbnx.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:165b63fae6decb4a",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone3, tw:phone3, kr:phone3, de:phone3; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:4b59219a-06f6-3e05-317d-595eca968375",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:4b59219a-06f6-3e05-317d-595eca968375",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/4b/59/21/4b59219a-06f6-3e05-317d-595eca968375/pr_source.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set us:phone1)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/4b/59/21/4b59219a-06f6-3e05-317d-595eca968375/pr_source.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:6f6ee36794ccaa43",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:phone1, gb:phone1, sg:phone1, th:phone1; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:4fdc7a95-0870-d09f-5953-18ebec3be534",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:4fdc7a95-0870-d09f-5953-18ebec3be534",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/4f/dc/7a/4fdc7a95-0870-d09f-5953-18ebec3be534/mzl.wrrdfycn.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set us:pad3)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/4f/dc/7a/4fdc7a95-0870-d09f-5953-18ebec3be534/mzl.wrrdfycn.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:e0e050541814ac2b",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad3, gb:pad3, sg:pad3, th:pad3; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:5845a61d-5cf1-995e-c845-e7af7fa1d8ab",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:5845a61d-5cf1-995e-c845-e7af7fa1d8ab",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/58/45/a6/5845a61d-5cf1-995e-c845-e7af7fa1d8ab/mzl.sklhwvmk.jpg/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set hk:pad3)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/58/45/a6/5845a61d-5cf1-995e-c845-e7af7fa1d8ab/mzl.sklhwvmk.jpg/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:0b3e35f025fa6f82",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:pad3, tw:pad3, kr:pad3, de:pad3; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:62a65a28-7f44-e120-2c7f-4946d0ce333d",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:62a65a28-7f44-e120-2c7f-4946d0ce333d",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/62/a6/5a/62a65a28-7f44-e120-2c7f-4946d0ce333d/mzl.hulrmfdm.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set jp:phone3)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/62/a6/5a/62a65a28-7f44-e120-2c7f-4946d0ce333d/mzl.hulrmfdm.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:e617cda07a281cc1",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone3; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:65e9a098-3c06-1e59-5b6f-0c1d4485e63d",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:65e9a098-3c06-1e59-5b6f-0c1d4485e63d",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/65/e9/a0/65e9a098-3c06-1e59-5b6f-0c1d4485e63d/mzl.ckjnbvac.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set us:pad2)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/65/e9/a0/65e9a098-3c06-1e59-5b6f-0c1d4485e63d/mzl.ckjnbvac.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:b2a142458b34e31a",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad2, gb:pad2, sg:pad2, th:pad2; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:699c21cf-3f88-8a95-df72-6a0fc98753bd",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:699c21cf-3f88-8a95-df72-6a0fc98753bd",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/69/9c/21/699c21cf-3f88-8a95-df72-6a0fc98753bd/mzl.ksuxbxen.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set hk:pad4)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/69/9c/21/699c21cf-3f88-8a95-df72-6a0fc98753bd/mzl.ksuxbxen.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:da695c6388ec9e97",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:pad4, tw:pad4, kr:pad4, de:pad4; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:7a28a5bf-9e16-7ecf-91c6-f18938a5a2bc",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:7a28a5bf-9e16-7ecf-91c6-f18938a5a2bc",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/7a/28/a5/7a28a5bf-9e16-7ecf-91c6-f18938a5a2bc/mzl.nbslrlcq.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set jp:pad2)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/7a/28/a5/7a28a5bf-9e16-7ecf-91c6-f18938a5a2bc/mzl.nbslrlcq.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:1316a84c4390a210",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad2; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:7bba7f06-05f9-8934-6c66-1fb72465cd64",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:7bba7f06-05f9-8934-6c66-1fb72465cd64",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/7b/ba/7f/7bba7f06-05f9-8934-6c66-1fb72465cd64/mzl.eumuhmxw.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set hk:phone5)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/7b/ba/7f/7bba7f06-05f9-8934-6c66-1fb72465cd64/mzl.eumuhmxw.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:03923bfed994793e",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone5, tw:phone5, kr:phone5, de:phone5; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:7c464232-13ce-cba8-001b-6059be439a68",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:7c464232-13ce-cba8-001b-6059be439a68",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/7c/46/42/7c464232-13ce-cba8-001b-6059be439a68/pr_source.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set us:phone2)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/7c/46/42/7c464232-13ce-cba8-001b-6059be439a68/pr_source.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:e6e198492efc5988",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:phone2, gb:phone2, sg:phone2, th:phone2; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:92092603-00f8-d690-9f01-b4437bda3e80",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:92092603-00f8-d690-9f01-b4437bda3e80",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/92/09/26/92092603-00f8-d690-9f01-b4437bda3e80/mzl.fdjugjbd.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set jp:phone1)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/92/09/26/92092603-00f8-d690-9f01-b4437bda3e80/mzl.fdjugjbd.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:baab0e71aa14a472",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone1; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:921a5b89-b678-0767-0117-b1e7154b6440",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:921a5b89-b678-0767-0117-b1e7154b6440",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/92/1a/5b/921a5b89-b678-0767-0117-b1e7154b6440/mzl.veyoacnv.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set hk:phone2)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/92/1a/5b/921a5b89-b678-0767-0117-b1e7154b6440/mzl.veyoacnv.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:489d814747a2a3cd",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone2, tw:phone2, kr:phone2, de:phone2; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:97ccbe75-161e-ff4e-61b8-0e14da12b17f",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:97ccbe75-161e-ff4e-61b8-0e14da12b17f",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/97/cc/be/97ccbe75-161e-ff4e-61b8-0e14da12b17f/mzl.kkbpfrgy.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set jp:pad1)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/97/cc/be/97ccbe75-161e-ff4e-61b8-0e14da12b17f/mzl.kkbpfrgy.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:234f66b8569454e9",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad1; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:c0b9379b-7cd9-bdfd-6417-2efdb25ba766",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:c0b9379b-7cd9-bdfd-6417-2efdb25ba766",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/c0/b9/37/c0b9379b-7cd9-bdfd-6417-2efdb25ba766/pr_source.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set us:phone4)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/c0/b9/37/c0b9379b-7cd9-bdfd-6417-2efdb25ba766/pr_source.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:12c0cbf354c8b0d8",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:phone4, gb:phone4, sg:phone4, th:phone4; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:c5d8711d-4d55-24d6-0ef7-403b386cfe18",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:c5d8711d-4d55-24d6-0ef7-403b386cfe18",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/c5/d8/71/c5d8711d-4d55-24d6-0ef7-403b386cfe18/mzl.ramqmmml.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set jp:phone5)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/c5/d8/71/c5d8711d-4d55-24d6-0ef7-403b386cfe18/mzl.ramqmmml.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:33beefb331dbf963",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone5; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:cb9207b2-29aa-4364-9d8b-106f940d824a",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:cb9207b2-29aa-4364-9d8b-106f940d824a",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/cb/92/07/cb9207b2-29aa-4364-9d8b-106f940d824a/mzl.kqskrdml.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set jp:phone4)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/cb/92/07/cb9207b2-29aa-4364-9d8b-106f940d824a/mzl.kqskrdml.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:eccce576446d084d",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:phone4; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:cfd80d61-e8e2-b46a-de53-d81cb86017f4",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:cfd80d61-e8e2-b46a-de53-d81cb86017f4",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/cf/d8/0d/cfd80d61-e8e2-b46a-de53-d81cb86017f4/mzl.uknarjqb.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set jp:pad4)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/cf/d8/0d/cfd80d61-e8e2-b46a-de53-d81cb86017f4/mzl.uknarjqb.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:605e29e858f83c62",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad4; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:d9f1279b-78f2-76f9-05eb-958e98d34944",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:d9f1279b-78f2-76f9-05eb-958e98d34944",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/d9/f1/27/d9f1279b-78f2-76f9-05eb-958e98d34944/mzl.moqxpgne.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set jp:pad5)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple18/v4/d9/f1/27/d9f1279b-78f2-76f9-05eb-958e98d34944/mzl.moqxpgne.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:d40b964b1b9e9e5e",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) jp:pad5; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:dc88be08-a1ab-325b-0688-a3b630fd8587",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:dc88be08-a1ab-325b-0688-a3b630fd8587",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/dc/88/be/dc88be08-a1ab-325b-0688-a3b630fd8587/pr_source.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set us:phone5)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple30/v4/dc/88/be/dc88be08-a1ab-325b-0688-a3b630fd8587/pr_source.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:6d652e56d7e95655",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:phone5, gb:phone5, sg:phone5, th:phone5; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:e8ddfdec-2c31-3cb1-4070-e39b0ddd0cbf",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:e8ddfdec-2c31-3cb1-4070-e39b0ddd0cbf",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/e8/dd/fd/e8ddfdec-2c31-3cb1-4070-e39b0ddd0cbf/mzl.isgegiad.png/4000x4000bb.jpg",
+      "title": "App Store phone screenshot (storefront set hk:phone4)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/e8/dd/fd/e8ddfdec-2c31-3cb1-4070-e39b0ddd0cbf/mzl.isgegiad.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:86325ac3c216d347",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:phone4, tw:phone4, kr:phone4, de:phone4; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:f157f823-a9ed-9f80-637a-b21bbfe62eff",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:f157f823-a9ed-9f80-637a-b21bbfe62eff",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/f1/57/f8/f157f823-a9ed-9f80-637a-b21bbfe62eff/mzl.oluhqwho.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set hk:pad2)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/f1/57/f8/f157f823-a9ed-9f80-637a-b21bbfe62eff/mzl.oluhqwho.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:ebab86ef1dace878",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) hk:pad2, tw:pad2, kr:pad2, de:pad2; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:fcebf5e2-21fc-0be0-2ba8-76447a0ba2e7",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:fcebf5e2-21fc-0be0-2ba8-76447a0ba2e7",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/fc/eb/f5/fcebf5e2-21fc-0be0-2ba8-76447a0ba2e7/mzl.xxmqlglx.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set us:pad1)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/fc/eb/f5/fcebf5e2-21fc-0be0-2ba8-76447a0ba2e7/mzl.xxmqlglx.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:0da1357cc57213a6",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad1, gb:pad1, sg:pad1, th:pad1; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:lookup:ffbd1b67-1bdf-2ef4-e45d-b786d152fb85",
+      "source_id": "official:apple-store",
+      "upstream_key": "lookup:ffbd1b67-1bdf-2ef4-e45d-b786d152fb85",
+      "page_url": "https://apps.apple.com/app/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/ff/bd/1b/ffbd1b67-1bdf-2ef4-e45d-b786d152fb85/mzl.btelqzch.png/4000x4000bb.jpg",
+      "title": "App Store pad screenshot (storefront set us:pad5)",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "sellerName: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple20/v4/ff/bd/1b/ffbd1b67-1bdf-2ef4-e45d-b786d152fb85/mzl.btelqzch.png/4000x4000bb.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:622f590af35e1d8d",
+      "notes": "iTunes lookup API screenshot listed by storefront(s) us:pad5, gb:pad5, sg:pad5, th:pad5; requested at the 4000x4000bb bounding box, stored size decoded from the bytes"
+    },
+    {
+      "id": "official:apple-store:pad:4358f92e-22ee-b6d4-0c53-38eebad474c2",
+      "source_id": "official:apple-store",
+      "upstream_key": "pad:4358f92e-22ee-b6d4-0c53-38eebad474c2",
+      "page_url": "https://apps.apple.com/us/app/dynamix/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/43/58/f9/4358f92e-22ee-b6d4-0c53-38eebad474c2/pr_source.png/2732x2048bb.jpeg",
+      "title": "App Store pad screenshot 2",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "page: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/43/58/f9/4358f92e-22ee-b6d4-0c53-38eebad474c2/pr_source.png/2732x2048bb.jpeg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2732,
+        "height": 2048,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:7f1459bd87a8d7e0",
+      "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app."
+    },
+    {
+      "id": "official:apple-store:pad:a89c0c45-e49f-72ab-0a80-754c422d057f",
+      "source_id": "official:apple-store",
+      "upstream_key": "pad:a89c0c45-e49f-72ab-0a80-754c422d057f",
+      "page_url": "https://apps.apple.com/us/app/dynamix/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/a8/9c/0c/a89c0c45-e49f-72ab-0a80-754c422d057f/pr_source.png/2732x2048bb.jpeg",
+      "title": "App Store pad screenshot 1",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "page: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/a8/9c/0c/a89c0c45-e49f-72ab-0a80-754c422d057f/pr_source.png/2732x2048bb.jpeg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2732,
+        "height": 2048,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:5aea1e99441c3c3d",
+      "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app."
+    },
+    {
+      "id": "official:apple-store:phone:c9be7c48-f89d-774a-d0e3-8e5d59db7d74",
+      "source_id": "official:apple-store",
+      "upstream_key": "phone:c9be7c48-f89d-774a-d0e3-8e5d59db7d74",
+      "page_url": "https://apps.apple.com/us/app/dynamix/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/c9/be/7c/c9be7c48-f89d-774a-d0e3-8e5d59db7d74/pr_source.png/2688x1242bb.jpeg",
+      "title": "App Store phone screenshot 2",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "page: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/c9/be/7c/c9be7c48-f89d-774a-d0e3-8e5d59db7d74/pr_source.png/2688x1242bb.jpeg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2688,
+        "height": 1242,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:c7446a0794dde730",
+      "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app."
+    },
+    {
+      "id": "official:apple-store:phone:f09cad41-0b41-d96d-5c48-be8c76b110f4",
+      "source_id": "official:apple-store",
+      "upstream_key": "phone:f09cad41-0b41-d96d-5c48-be8c76b110f4",
+      "page_url": "https://apps.apple.com/us/app/dynamix/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/f0/9c/ad/f09cad41-0b41-d96d-5c48-be8c76b110f4/pr_source.png/2688x1242bb.jpeg",
+      "title": "App Store phone screenshot 1",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "page: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/f0/9c/ad/f09cad41-0b41-d96d-5c48-be8c76b110f4/pr_source.png/2688x1242bb.jpeg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2688,
+        "height": 1242,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:33d4b3dd47aabfc4",
+      "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app."
+    },
+    {
+      "id": "official:apple-store:phone:f1c38cf8-2903-4ed4-d7b1-49ad0de44ed3",
+      "source_id": "official:apple-store",
+      "upstream_key": "phone:f1c38cf8-2903-4ed4-d7b1-49ad0de44ed3",
+      "page_url": "https://apps.apple.com/us/app/dynamix/id945955095",
+      "file_url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/f1/c3/8c/f1c38cf8-2903-4ed4-d7b1-49ad0de44ed3/pr_source.png/2688x1242bb.jpeg",
+      "title": "App Store phone screenshot 3",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "page: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/f1/c3/8c/f1c38cf8-2903-4ed4-d7b1-49ad0de44ed3/pr_source.png/2688x1242bb.jpeg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2688,
+        "height": 1242,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:apple-store:f2b67c8c398fd394",
+      "notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app."
+    }
+  ],
+  "errors": []
+}

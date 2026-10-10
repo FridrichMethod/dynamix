@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:74278",
-  "started_at": "2026-10-10T13:57:59Z",
-  "finished_at": "2026-10-10T13:58:00Z",
+  "started_at": "2026-10-10T14:03:50Z",
+  "finished_at": "2026-10-10T14:03:51Z",
   "scope": {
     "lists": [
       "seed-artworks"
@@ -39,8 +39,8 @@
         "timestamp": "2017-03-11T13:08:00+00:00",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: no downloadable file URL was found for this item",
+      "disposition": "blocked",
+      "reason": "blocked: pixiv withholds this work's file URLs from logged-out readers (login required); not attempted",
       "song_titles": [
         "Evoltex (poppi'n mix)"
       ],

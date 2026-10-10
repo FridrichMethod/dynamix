@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_id": "official:c4cat",
+  "started_at": "2026-10-10T14:05:49Z",
+  "finished_at": "2026-10-10T14:05:49Z",
+  "scope": {
+    "lists": [
+      "probe"
+    ],
+    "api": null,
+    "notes": "Availability probe only; no candidates are enumerated."
+  },
+  "continuation": {
+    "probe": null
+  },
+  "discovery_complete": true,
+  "candidates": [],
+  "errors": []
+}

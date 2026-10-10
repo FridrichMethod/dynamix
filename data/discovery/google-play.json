@@ -1,0 +1,383 @@
+{
+  "schema_version": 1,
+  "source_id": "official:google-play",
+  "started_at": "2026-10-10T14:05:49Z",
+  "finished_at": "2026-10-10T14:05:54Z",
+  "scope": {
+    "lists": [
+      "listing-screenshots"
+    ],
+    "api": null,
+    "notes": "Listing pages of the seed locales; unique screenshot images at native size (=s0). Reviews, avatars and similar-app images are ignored."
+  },
+  "continuation": {
+    "listing-screenshots": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "official:google-play:icon:9fo8XNHTV8Xy-8ht10QfoaFs4dXKx0olW8UyiOvo-_oVa0q_SVmg0p2yl5pO-i5FC_3loplwthZbfZ6fLphrgw",
+      "source_id": "official:google-play",
+      "upstream_key": "icon:9fo8XNHTV8Xy-8ht10QfoaFs4dXKx0olW8UyiOvo-_oVa0q_SVmg0p2yl5pO-i5FC_3loplwthZbfZ6fLphrgw",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/9fo8XNHTV8Xy-8ht10QfoaFs4dXKx0olW8UyiOvo-_oVa0q_SVmg0p2yl5pO-i5FC_3loplwthZbfZ6fLphrgw=s0",
+      "title": "Google Play app icon",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: store app icon (branding, not artwork)"
+    },
+    {
+      "id": "official:google-play:screenshot:0oVIU2t7ntjU7etMSVXT2wOr5BQx2JuagIlupIMzQwghEkrlwgTVMjy8k8RJysTjE5n4mZyLcW4Sk-ItVLYatA",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:0oVIU2t7ntjU7etMSVXT2wOr5BQx2JuagIlupIMzQwghEkrlwgTVMjy8k8RJysTjE5n4mZyLcW4Sk-ItVLYatA",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/0oVIU2t7ntjU7etMSVXT2wOr5BQx2JuagIlupIMzQwghEkrlwgTVMjy8k8RJysTjE5n4mZyLcW4Sk-ItVLYatA=s0",
+      "title": "Google Play screenshot 3",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/0oVIU2t7ntjU7etMSVXT2wOr5BQx2JuagIlupIMzQwghEkrlwgTVMjy8k8RJysTjE5n4mZyLcW4Sk-ItVLYatA=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:c997e546b9254e28",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+    },
+    {
+      "id": "official:google-play:screenshot:8uKMRuO9KK1IXuDIt1ucSH59VvX81fwO1lWrvA1M46ghAknZf-mWx9fmoTV018z5bQTnOX0Pu9aC9JQPqlLaXoM",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:8uKMRuO9KK1IXuDIt1ucSH59VvX81fwO1lWrvA1M46ghAknZf-mWx9fmoTV018z5bQTnOX0Pu9aC9JQPqlLaXoM",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/8uKMRuO9KK1IXuDIt1ucSH59VvX81fwO1lWrvA1M46ghAknZf-mWx9fmoTV018z5bQTnOX0Pu9aC9JQPqlLaXoM=s0",
+      "title": "Google Play screenshot 9",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/8uKMRuO9KK1IXuDIt1ucSH59VvX81fwO1lWrvA1M46ghAknZf-mWx9fmoTV018z5bQTnOX0Pu9aC9JQPqlLaXoM=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:a7e32ccc4a062c03",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+    },
+    {
+      "id": "official:google-play:screenshot:FGPUy7TxEev6oAbtK-1NzoU9RmBUkRUKfUNdv9XRh9W8ZdFd6NFE-OWlGIEp8KOekUVZqSO0TH0oo1NOb4on",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:FGPUy7TxEev6oAbtK-1NzoU9RmBUkRUKfUNdv9XRh9W8ZdFd6NFE-OWlGIEp8KOekUVZqSO0TH0oo1NOb4on",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP",
+      "file_url": "https://play-lh.googleusercontent.com/FGPUy7TxEev6oAbtK-1NzoU9RmBUkRUKfUNdv9XRh9W8ZdFd6NFE-OWlGIEp8KOekUVZqSO0TH0oo1NOb4on=s0",
+      "title": "Google Play screenshot 6",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/FGPUy7TxEev6oAbtK-1NzoU9RmBUkRUKfUNdv9XRh9W8ZdFd6NFE-OWlGIEp8KOekUVZqSO0TH0oo1NOb4on=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:2012ffa1273216f0",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+    },
+    {
+      "id": "official:google-play:screenshot:IXwSCNFOUUJDWNaVN2oIT1spYSQj2vc6sllpFu0JKPHvDl420lRnWy68D7eYqVuERGAM7IJc_fRL6pP5Xt38",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:IXwSCNFOUUJDWNaVN2oIT1spYSQj2vc6sllpFu0JKPHvDl420lRnWy68D7eYqVuERGAM7IJc_fRL6pP5Xt38",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/IXwSCNFOUUJDWNaVN2oIT1spYSQj2vc6sllpFu0JKPHvDl420lRnWy68D7eYqVuERGAM7IJc_fRL6pP5Xt38=s0",
+      "title": "Google Play screenshot 2",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/IXwSCNFOUUJDWNaVN2oIT1spYSQj2vc6sllpFu0JKPHvDl420lRnWy68D7eYqVuERGAM7IJc_fRL6pP5Xt38=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:907a37f020de066a",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+    },
+    {
+      "id": "official:google-play:screenshot:MkTuw-xLyV7Dr6xr1Ntb27mcliHfUwJhTCNO6gBxhnfYojhZ8r5PKEmbg98fK4pBPF6PO_F6GrBC_-0I0bB_Ol8",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:MkTuw-xLyV7Dr6xr1Ntb27mcliHfUwJhTCNO6gBxhnfYojhZ8r5PKEmbg98fK4pBPF6PO_F6GrBC_-0I0bB_Ol8",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/MkTuw-xLyV7Dr6xr1Ntb27mcliHfUwJhTCNO6gBxhnfYojhZ8r5PKEmbg98fK4pBPF6PO_F6GrBC_-0I0bB_Ol8=s0",
+      "title": "Google Play screenshot 4",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/MkTuw-xLyV7Dr6xr1Ntb27mcliHfUwJhTCNO6gBxhnfYojhZ8r5PKEmbg98fK4pBPF6PO_F6GrBC_-0I0bB_Ol8=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:dc96ae0d6e2f979e",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+    },
+    {
+      "id": "official:google-play:screenshot:P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4=s0",
+      "title": "Google Play screenshot 1",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/P3sU0wnQ9kUeB-hjBw50MTW0Kil_mGlLjdlFWKISt5Y0O-GYB46LNk1UQdqw90ub57SkQa98W5haM7R-5lWzkP4=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:8eb8f5d60d82afa5",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP"
+    },
+    {
+      "id": "official:google-play:screenshot:QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM=s0",
+      "title": "Google Play screenshot 8",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:1bca716792ed5745",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+    },
+    {
+      "id": "official:google-play:screenshot:h7MX8XEhr0QlPsw72CSnqcMdnAEJ9pJUSC13NpB32c4mxhiwoq37qIM1NQS91sC_dSc3dVNT68XnALhTR0uFi8o",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:h7MX8XEhr0QlPsw72CSnqcMdnAEJ9pJUSC13NpB32c4mxhiwoq37qIM1NQS91sC_dSc3dVNT68XnALhTR0uFi8o",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/h7MX8XEhr0QlPsw72CSnqcMdnAEJ9pJUSC13NpB32c4mxhiwoq37qIM1NQS91sC_dSc3dVNT68XnALhTR0uFi8o=s0",
+      "title": "Google Play screenshot 7",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/h7MX8XEhr0QlPsw72CSnqcMdnAEJ9pJUSC13NpB32c4mxhiwoq37qIM1NQS91sC_dSc3dVNT68XnALhTR0uFi8o=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:320398d35a4d861e",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes"
+    },
+    {
+      "id": "official:google-play:screenshot:hO2xRkkHhUzP6k4dXUQzfXKSIqJcGtRf1I47PnC5UAaO-1uXYJL6GjkqQv1orW_3IcvJ1zhjuk6EmLohH_zmrQ",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:hO2xRkkHhUzP6k4dXUQzfXKSIqJcGtRf1I47PnC5UAaO-1uXYJL6GjkqQv1orW_3IcvJ1zhjuk6EmLohH_zmrQ",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/hO2xRkkHhUzP6k4dXUQzfXKSIqJcGtRf1I47PnC5UAaO-1uXYJL6GjkqQv1orW_3IcvJ1zhjuk6EmLohH_zmrQ=s0",
+      "title": "Google Play screenshot 5",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/hO2xRkkHhUzP6k4dXUQzfXKSIqJcGtRf1I47PnC5UAaO-1uXYJL6GjkqQv1orW_3IcvJ1zhjuk6EmLohH_zmrQ=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:963649e2bcd91dd1",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP"
+    },
+    {
+      "id": "official:google-play:screenshot:k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW",
+      "file_url": "https://play-lh.googleusercontent.com/k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu=s0",
+      "title": "Google Play screenshot 6",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/k8119xXBQNEAQ9YYEMezeZpqhV8MY7zaV8t8EcTZCOknXaUTIkTrBDWFF6oc8CPfh_6J3O9yUcqqLAfntpHu=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:2e7cb8b439d06c6c",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes"
+    },
+    {
+      "id": "official:google-play:screenshot:kVgB78pjA7udXg7PIZYyHbWj6TbLfdRjz-Qa4cLCO16WweNjgXvSSHVtPpCIh0KUFjuCeOuUaa0dngm5FZLH",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:kVgB78pjA7udXg7PIZYyHbWj6TbLfdRjz-Qa4cLCO16WweNjgXvSSHVtPpCIh0KUFjuCeOuUaa0dngm5FZLH",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/kVgB78pjA7udXg7PIZYyHbWj6TbLfdRjz-Qa4cLCO16WweNjgXvSSHVtPpCIh0KUFjuCeOuUaa0dngm5FZLH=s0",
+      "title": "Google Play screenshot 10",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/kVgB78pjA7udXg7PIZYyHbWj6TbLfdRjz-Qa4cLCO16WweNjgXvSSHVtPpCIh0KUFjuCeOuUaa0dngm5FZLH=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:a44b0620fe2ce0b1",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+    },
+    {
+      "id": "official:google-play:screenshot:saGa_GHFrNAhE2xMiM9aidCCsjCsbnvbzd6KcI-KELUBSVW8Egptz1uD1SivN74pgYEa100YuZhSP1fBiJxdJfY",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:saGa_GHFrNAhE2xMiM9aidCCsjCsbnvbzd6KcI-KELUBSVW8Egptz1uD1SivN74pgYEa100YuZhSP1fBiJxdJfY",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US",
+      "file_url": "https://play-lh.googleusercontent.com/saGa_GHFrNAhE2xMiM9aidCCsjCsbnvbzd6KcI-KELUBSVW8Egptz1uD1SivN74pgYEa100YuZhSP1fBiJxdJfY=s0",
+      "title": "Google Play screenshot 6",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/saGa_GHFrNAhE2xMiM9aidCCsjCsbnvbzd6KcI-KELUBSVW8Egptz1uD1SivN74pgYEa100YuZhSP1fBiJxdJfY=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:492c65f784f05ad2",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes; also listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP"
+    },
+    {
+      "id": "official:google-play:screenshot:zVLOM5cmI_lGKJRc8TsDgzw4QlAFoAsmoh5Po0-oEDfTG_qE_81b51PcN6JOGzvq7bi65j7dlnNSQNmS0YgXVg",
+      "source_id": "official:google-play",
+      "upstream_key": "screenshot:zVLOM5cmI_lGKJRc8TsDgzw4QlAFoAsmoh5Po0-oEDfTG_qE_81b51PcN6JOGzvq7bi65j7dlnNSQNmS0YgXVg",
+      "page_url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW",
+      "file_url": "https://play-lh.googleusercontent.com/zVLOM5cmI_lGKJRc8TsDgzw4QlAFoAsmoh5Po0-oEDfTG_qE_81b51PcN6JOGzvq7bi65j7dlnNSQNmS0YgXVg=s0",
+      "title": "Google Play screenshot 1",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "ld.url: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://play-lh.googleusercontent.com/zVLOM5cmI_lGKJRc8TsDgzw4QlAFoAsmoh5Po0-oEDfTG_qE_81b51PcN6JOGzvq7bi65j7dlnNSQNmS0YgXVg=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:google-play:11d60beb14da0e22",
+      "notes": "listed on https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW; page advertised resize requests 1052x592, 526x296; stored size is decoded from the =s0 bytes"
+    }
+  ],
+  "errors": []
+}
