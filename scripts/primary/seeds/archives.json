@@ -744,6 +744,60 @@
           "reason": "game_ui: app icon"
         },
         {
+          "match": "dl\\.dnx\\.c4-cat\\.com/512512\\.png@",
+          "action": "exclude",
+          "reason": "game_ui: app icon on the download landing page"
+        },
+        {
+          "match": "/OR\\.png@",
+          "action": "exclude",
+          "reason": "not_dynamix: OverRapid app icon (collaboration partner)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "(/LOGO3\\.png@|/new1\\.jpg@|dl\\.dnx\\.c4-cat\\.com/(as|gpg|title)\\.png@|/mycard/img/(DNXtypo|bg)\\.png@)",
+          "action": "exclude",
+          "reason": "site_ui: logo, store badge or spacer image of an official web page"
+        },
+        {
+          "match": "(/loadingimage\\.jpg@|/Comp-1-)",
+          "action": "exclude",
+          "reason": "site_ui: abstract website background (no artwork)"
+        },
+        {
+          "match": "/new32\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official home-page features collage of about twelve song jackets."
+        },
+        {
+          "match": "/new21\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official home-page photo of the game being played on a phone."
+        },
+        {
+          "match": "/mycard/img/header\\.jpg@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Header banner (planet) of the official MyCard top-up page."
+        },
+        {
           "match": "appendix3\\.pdf@",
           "role": "reference",
           "quality": {
