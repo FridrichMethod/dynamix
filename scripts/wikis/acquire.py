@@ -1,4 +1,4 @@
-"""Acquisition state, candidate dispositions, downloads, the crash journal and the run locks.
+"""Acquisition state, candidate dispositions and downloads.
 
 State = the committed family manifest + the previous discovery snapshots + a replayed journal. Every successful or
 failed download is appended to the journal (``<work dir>/journal.jsonl``, fsynced) before the next request, and the
@@ -17,27 +17,31 @@ Archived records follow their bytes (asset ID = source + SHA-256), not a title:
   that serves the same bytes now (a MediaWiki file move), so current upstream bytes are never recorded only as
   removed or superseded;
 - a reviewed withdrawal (``scripts/wikis/reviews.json``, ``withdrawals``) is the only way an archived file leaves the
-  manifest: its record and file are deleted when the current evidence excludes it with the reviewed reason.
+  manifest: its record and file are deleted when the current evidence excludes it with the reviewed reason, and only
+  by an acquiring run (a ``--metadata-only`` run reports it and keeps the file).
+
+Failure records follow the candidate's current upstream revision: a failed/blocked disposition is rebuilt from the
+Failure record while it describes the current revision (the previous snapshot, or the revision's upload time not later
+than the attempt), and a Failure whose candidate is gone from a complete discovery, re-uploaded or no longer accepted
+is dropped, so a transient outage or an upstream change never leaves the outputs unwritable.
+
+The work directory, journal and locks are in :mod:`wikis.workdir`.
 """
 
 from __future__ import annotations
 
-import errno
-import fcntl
-import hashlib
-import json
 import os
-import tempfile
 import threading
 import time
-from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Iterator, Mapping
+from typing import Any, Callable, Mapping
 
 from lib import manifest, media, net, paths, schema
 
 from . import config, discover
+from .workdir import (STATE_DIR, Journal, LockHeld, UnsafeWorkDir, claim_work_dir,  # noqa: F401 (re-exported)
+                      default_work_dir, exclusive_lock, prepare_work_dir, root_lock_path)
 
 FAMILY = "wikis"
 DOWNLOAD_KINDS = discover.classify.DOWNLOAD_KINDS
@@ -50,13 +54,11 @@ KEPT_NOTE = ("classification kept from the previous discovery: this discovery is
              "not re-classified")
 ANIMATED_NOTE = ("archived by an earlier --include-animated run and kept: the animated_capture exclusion only stops "
                  "new downloads")
+WITHDRAWAL_PENDING_NOTE = ("a reviewed withdrawal covers this archived file; a metadata-only run keeps the file, "
+                           "record and classification, and the next acquiring run carries the withdrawal out")
+NO_URL_MESSAGE = "the wiki API reported no usable file URL for this file; no request was sent"
 CLASSIFICATION_FIELDS = ("role", "game", "game_evidence", "song_titles", "illustrators", "composers", "collections",
                          "notes")
-STATE_DIR = ".cache/fetch_wikis"  # git-ignored, inside --root: the root lock and the registry of work directories
-
-
-class LockHeld(RuntimeError):
-    pass
 
 
 class ReclassifiedError(RuntimeError):
@@ -67,89 +69,6 @@ class ReclassifiedError(RuntimeError):
     def __init__(self, conflicts: list[str]):
         super().__init__("; ".join(conflicts))
         self.conflicts = conflicts
-
-
-def default_work_dir(root: Path) -> Path:
-    digest = hashlib.sha1(str(root.resolve()).encode()).hexdigest()[:12]
-    return Path(tempfile.gettempdir()) / f"dynamix-fetch-wikis-{digest}"
-
-
-def root_lock_path(root: Path) -> Path:
-    """The lock every run on ``root`` takes, whatever ``--work-dir``/``--lock-file`` say."""
-    return root / STATE_DIR / "root.lock"
-
-
-@contextmanager
-def exclusive_lock(path: Path) -> Iterator[None]:
-    """``fcntl.flock`` on ``path``; :class:`LockHeld` (naming the holder's PID when recorded) if another run has it."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    descriptor = os.open(path, os.O_RDWR | os.O_CREAT, 0o644)
-    try:
-        try:
-            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except OSError as error:
-            if error.errno not in (errno.EAGAIN, errno.EACCES, errno.EWOULDBLOCK):
-                raise
-            holder = os.pread(descriptor, 64, 0).decode("ascii", "replace").strip() or "unknown"
-            raise LockHeld(f"another fetch_wikis.py run holds {path} (pid {holder}); monitor it instead of starting "
-                           "a second writer") from None
-        os.ftruncate(descriptor, 0)
-        os.pwrite(descriptor, f"{os.getpid()}\n".encode(), 0)
-        yield
-    finally:
-        try:
-            fcntl.flock(descriptor, fcntl.LOCK_UN)
-        finally:
-            os.close(descriptor)
-
-
-def claim_work_dir(root: Path, work_dir: Path) -> None:
-    """Register ``work_dir`` for ``root`` (call while holding the root lock); :class:`LockHeld` when another work
-    directory used for this root still holds an interrupted run's journal (it must be resumed with that
-    ``--work-dir``, or its downloads would become orphan files)."""
-    registry = root / STATE_DIR / "work-dirs.txt"
-    mine = str(work_dir.resolve())
-    known = [line for line in (registry.read_text(encoding="utf-8").splitlines() if registry.is_file() else [])
-             if line.strip()]
-    for other in dict.fromkeys(known + [str(default_work_dir(root).resolve())]):
-        journal = Path(other) / "journal.jsonl"
-        if other != mine and journal.is_file() and journal.stat().st_size > 0:
-            raise LockHeld(f"an interrupted run on this root left its journal in {other}; resume it with "
-                           f"--work-dir {other} before starting another run")
-    if mine not in known:
-        registry.parent.mkdir(parents=True, exist_ok=True)
-        with open(registry, "a", encoding="utf-8") as stream:
-            stream.write(mine + "\n")
-
-
-class Journal:
-    """Append-only JSON-lines event log; a torn last line (crash during write) is ignored."""
-
-    def __init__(self, path: Path):
-        self.path = path
-
-    def read(self) -> list[dict]:
-        if not self.path.is_file():
-            return []
-        events = []
-        for line in self.path.read_text(encoding="utf-8", errors="replace").splitlines():
-            try:
-                event = json.loads(line)
-            except ValueError:
-                continue
-            if isinstance(event, dict) and "event" in event:
-                events.append(event)
-        return events
-
-    def append(self, event: dict) -> None:
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        with open(self.path, "a", encoding="utf-8") as stream:
-            stream.write(json.dumps(event, ensure_ascii=False, sort_keys=True) + "\n")
-            stream.flush()
-            os.fsync(stream.fileno())
-
-    def clear(self) -> None:
-        self.path.unlink(missing_ok=True)
 
 
 def delete_asset_file(root: Path, rel: str) -> None:
@@ -182,11 +101,51 @@ class State:
             previous[source.source_id] = {c["id"]: c for c in (snapshot or {}).get("candidates", [])}
         state = cls({s["id"]: s for s in data["sources"]}, {a["id"]: a for a in data["assets"]},
                     {f["id"]: f for f in data["failures"]}, data["fetched_at"], previous)
-        for event in journal.read() if journal else []:
+        for number, event in enumerate(journal.read() if journal else [], start=2):
+            problem = state.replay_problem(event)
+            if problem:
+                raise UnsafeWorkDir(f"{journal.path}: line {number}: {problem}; the journal does not fit this "
+                                    "root's manifest (inspect it, then remove it or use another --work-dir)")
             state.apply(event)
             if event["event"] == "withdraw":  # the file may outlive a crash between the journal entry and unlink
                 delete_asset_file(root, event["path"])
         return state
+
+    def replay_problem(self, event: Mapping[str, Any]) -> str | None:
+        """Why a journal event cannot be replayed onto this state (None when it can): records must validate, belong
+        to a registered MediaWiki source and refer to records the manifest (or earlier events) hold; a withdrawal
+        must name the archived record's own path."""
+        sources = {config.SOURCES[key].source_id for key in config.MEDIAWIKI_KEYS}
+        kind = event.get("event")
+        try:
+            if kind == "asset":
+                schema.validate_asset(event.get("asset"), FAMILY)
+                if event["asset"]["source_id"] not in sources:
+                    return "asset of an unknown source"
+            elif kind == "failure":
+                schema.validate_failure(event.get("failure"), FAMILY)
+                if event["failure"]["source_id"] not in sources:
+                    return "failure of an unknown source"
+            elif kind == "asset_status":
+                if event.get("id") not in self.assets:
+                    return f"status of an unknown asset {event.get('id')!r}"
+                if event.get("upstream_status") not in ("current", "removed", "superseded"):
+                    return "unknown upstream_status"
+                if event.get("superseded_by") is not None and event["superseded_by"] not in self.assets:
+                    return "superseded_by names an unknown asset"
+            elif kind == "withdraw":
+                asset = self.assets.get(event.get("id"))
+                if asset is None or asset["path"] != event.get("path"):
+                    return "withdrawal of an asset/path the manifest does not hold"
+            elif kind in ("candidate", "clear_failures"):
+                if not isinstance(event.get("id"), str) or not any(
+                        event["id"].startswith(source + ":") for source in sources):
+                    return "candidate of an unknown source"
+            else:
+                return f"unknown event {kind!r}"
+        except (ValueError, KeyError, TypeError) as error:
+            return f"invalid {kind} event ({error})"
+        return None
 
     def apply(self, event: Mapping[str, Any]) -> None:
         kind = event["event"]
@@ -312,6 +271,7 @@ class Resolution:
     candidates: list[dict] = field(default_factory=list)
     conflicts: list[str] = field(default_factory=list)  # archived current assets no longer accepted (review)
     withdrawals: list[tuple[dict, Any]] = field(default_factory=list)  # (asset, reviewed withdrawal) to carry out
+    deferred: list[tuple[dict, Any]] = field(default_factory=list)  # withdrawals a metadata-only run only reports
 
 
 def animated_kept(plan: discover.Plan) -> bool:
@@ -322,14 +282,20 @@ def animated_kept(plan: discover.Plan) -> bool:
 
 
 def resolve(plans: list[discover.Plan], state: State, *, complete: bool, evidence_complete: bool = True,
-            withdrawals: Mapping[str, Any] | None = None) -> Resolution:
-    """Candidates with their acquisition dispositions; marks re-uploaded and removed files in ``state``.
+            withdrawals: Mapping[str, Any] | None = None, defer_withdrawals: bool = False) -> Resolution:
+    """Candidates with their acquisition dispositions; marks re-uploaded and removed files in ``state`` and drops
+    Failure records that no longer describe their candidate (see the module docstring).
 
     ``complete``: this source's inventory is complete (files missing from it are ``removed``). ``evidence_complete``:
     every pooled inventory is complete; otherwise archived candidates keep their previous classification and their
     records are not refreshed (an outage must not re-classify archived files). A conflict is an archived current
     asset that complete evidence no longer accepts (see :class:`ReclassifiedError`), unless a reviewed withdrawal
-    (``withdrawals``: title -> :class:`wikis.reviews.Withdrawal`) covers it.
+    (``withdrawals``: title -> :class:`wikis.reviews.Withdrawal`) covers it; ``defer_withdrawals`` (metadata-only
+    runs) keeps such a file and its classification and only reports the withdrawal.
+
+    Removed and re-uploaded titles are marked before any candidate is resolved, so the outcome does not depend on the
+    order of titles (a byte duplicate sorting before the title whose record it carries over sees that record's
+    final status).
     """
     result = Resolution()
     if not plans:
@@ -341,16 +307,19 @@ def resolve(plans: list[discover.Plan], state: State, *, complete: bool, evidenc
             if asset["source_id"] == source_id and asset["candidate_id"] not in seen and asset.get(
                     "upstream_status") not in ("removed", "superseded"):
                 state.apply({"event": "asset_status", "id": asset["id"], "upstream_status": "removed"})
+    for plan in plans:  # re-uploads first (see above)
+        reported = plan.candidate["source_reported"]
+        current = state.current_asset(plan.candidate_id)
+        while current is not None and not same_revision(current["source_reported"], reported):
+            if same_content(current["source_reported"], reported):
+                state.assets[current["id"]] = adopt_revision(current, reported)
+            else:  # re-uploaded under the same title: the archived bytes stay, as an earlier revision
+                state.apply({"event": "asset_status", "id": current["id"], "upstream_status": "superseded"})
+            current = state.current_asset(plan.candidate_id)
     for plan in plans:
         candidate = dict(plan.candidate)
         cid = candidate["id"]
         current = state.current_asset(cid)
-        if current is not None and not same_revision(current["source_reported"], candidate["source_reported"]):
-            if same_content(current["source_reported"], candidate["source_reported"]):
-                current = state.assets[current["id"]] = adopt_revision(current, candidate["source_reported"])
-            else:  # re-uploaded under the same title: the archived bytes stay, as an earlier revision
-                state.apply({"event": "asset_status", "id": current["id"], "upstream_status": "superseded"})
-                current = None
         if current is not None:
             archived = _archived(plan, candidate, current, state, evidence_complete)
             if archived is not None:
@@ -358,6 +327,11 @@ def resolve(plans: list[discover.Plan], state: State, *, complete: bool, evidenc
                 continue
             withdrawal = (withdrawals or {}).get(plan.title)
             if withdrawal is not None and withdrawal.covers(current["sha256"], plan.decision):
+                if defer_withdrawals:
+                    result.deferred.append((current, withdrawal))
+                    result.candidates.append(_kept_classification(plan, candidate, current, state,
+                                                                  note=WITHDRAWAL_PENDING_NOTE))
+                    continue
                 result.withdrawals.append((current, withdrawal))
             else:
                 result.conflicts.append(f"{cid}: archived as {current['id']} but now classified "
@@ -365,8 +339,22 @@ def resolve(plans: list[discover.Plan], state: State, *, complete: bool, evidenc
                                         "classification or add a reviewed withdrawal")
             result.candidates.append(candidate)
             continue
-        result.candidates.append(_unarchived(plan, candidate, state))
+        result.candidates.append(_unarchived(plan, candidate, state, evidence_complete))
+    _drop_stale_failures(state, source_id, result.candidates, complete=complete)
     return result
+
+
+def _drop_stale_failures(state: State, source_id: str, candidates: list[dict], *, complete: bool) -> None:
+    """Drop this source's Failure records whose candidate is gone from a complete discovery or is no longer
+    failed/blocked (re-uploaded, reclassified, archived): the record described an attempt that no longer applies."""
+    by_id = {candidate["id"]: candidate for candidate in candidates}
+    for failure in list(state.failures.values()):
+        if failure["source_id"] != source_id or failure["phase"] == "discover":
+            continue
+        candidate = by_id.get(failure["candidate_id"])
+        if (candidate is None and complete) or (
+                candidate is not None and candidate["disposition"] not in ("failed", "blocked")):
+            state.apply({"event": "clear_failures", "id": failure["candidate_id"]})
 
 
 def _archived(plan: discover.Plan, candidate: dict, current: dict, state: State,
@@ -393,8 +381,10 @@ def _join_note(notes: str | None, note: str) -> str:
     return discover._clip("; ".join(part for part in (note, notes) if part), discover.NOTES_LIMIT)
 
 
-def _kept_classification(plan: discover.Plan, candidate: dict, current: Mapping[str, Any], state: State) -> dict:
-    """``candidate`` (current upstream fields) with the classification of the discovery that archived it."""
+def _kept_classification(plan: discover.Plan, candidate: dict, current: Mapping[str, Any], state: State, *,
+                         note: str = KEPT_NOTE) -> dict:
+    """``candidate`` (current upstream fields) with the classification of the discovery that archived it; ``note``
+    says why it is kept."""
     previous = state.previous.get(plan.source.source_id, {}).get(plan.candidate_id)
     kept = {key: value for key, value in candidate.items() if key not in CLASSIFICATION_FIELDS}
     if previous and previous.get("disposition") == "downloaded" and previous.get("asset_id") == current["id"]:
@@ -409,18 +399,51 @@ def _kept_classification(plan: discover.Plan, candidate: dict, current: Mapping[
     kept["role"] = current["kind"]
     if kept.get("game") not in ("dynamix", "mixed"):
         kept["game"] = "mixed" if current.get("game_associations") else "dynamix"
-    kept["notes"] = _join_note(kept.get("notes"), KEPT_NOTE)
+    kept["notes"] = _join_note(kept.get("notes"), note)
     kept.update(disposition="downloaded", asset_id=current["id"])
     kept.pop("reason", None)
     return kept
 
 
-def _unarchived(plan: discover.Plan, candidate: dict, state: State) -> dict:
+def failure_disposition(failure: Mapping[str, Any]) -> tuple[str, str]:
+    """``(disposition, reason)`` of a candidate whose current revision has this Failure record (as :meth:`Acquirer.
+    _failed` records them)."""
+    disposition = "blocked" if failure["error_class"] in ("blocked", "challenge") else "failed"
+    return disposition, f"{failure['phase']} {failure['error_class']}: {failure['message']}"[:300]
+
+
+def current_failure(state: State, candidate: Mapping[str, Any], previous: Mapping[str, Any] | None
+                    ) -> dict | None:
+    """The candidate's Failure record when it describes the candidate's current upstream revision, else None.
+
+    The previous outcome (this run's journal or the last snapshot) decides when it lists the candidate as failed or
+    blocked (same revision or not). Otherwise (e.g. an incomplete snapshot left the candidate out) the record applies
+    when the current revision was uploaded no later than the attempt. A "no usable file URL" failure no longer applies
+    once the API reports a URL."""
+    found = [failure for failure in state.failures.values()
+             if failure["candidate_id"] == candidate["id"] and failure["phase"] != "discover"]
+    if not found:
+        return None
+    failure = max(found, key=lambda record: record["attempted_at"])
+    reported = candidate["source_reported"]
+    if failure["message"] == NO_URL_MESSAGE and candidate.get("file_url"):
+        return None
+    if previous and previous.get("disposition") in ("failed", "blocked") and previous.get("source_reported"):
+        return failure if same_revision(previous["source_reported"], reported) else None
+    stamp = reported.get("timestamp")
+    return failure if isinstance(stamp, str) and stamp and stamp <= failure["attempted_at"] else None
+
+
+def _unarchived(plan: discover.Plan, candidate: dict, state: State, evidence_complete: bool = True) -> dict:
     """The candidate of a title whose current revision has no record of its own."""
     cid = candidate["id"]
-    if not plan.accepted and not plan.probe:
-        return candidate
     previous = state.candidate_events.get(cid) or state.previous.get(plan.source.source_id, {}).get(cid)
+    if not plan.accepted and not plan.probe:
+        failure = None if evidence_complete else current_failure(state, candidate, previous)
+        if failure is not None:  # partial evidence must not re-classify a failed file either
+            disposition, reason = failure_disposition(failure)
+            candidate.update(disposition=disposition, reason=reason)
+        return candidate
     carried = previous.get("disposition") if previous and same_revision(
         previous.get("source_reported"), candidate["source_reported"]) else None
     if carried == "duplicate_bytes" and plan.accepted and previous.get("asset_id") in state.assets:
@@ -437,8 +460,10 @@ def _unarchived(plan: discover.Plan, candidate: dict, state: State) -> dict:
             return candidate
         candidate.update(disposition="duplicate_bytes", reason=previous.get("reason"), asset_id=target["id"])
         return candidate
-    if carried in ("failed", "blocked") and any(f["candidate_id"] == cid for f in state.failures.values()):
-        candidate.update(disposition=carried, reason=previous.get("reason"))
+    failure = current_failure(state, candidate, previous)
+    if failure is not None:
+        disposition, reason = failure_disposition(failure)
+        candidate.update(disposition=disposition, reason=reason)
         return candidate
     if plan.accepted:
         candidate.update(disposition="pending", reason=awaiting_reason(plan))
@@ -676,11 +701,11 @@ class Acquirer:
         with self.lock:
             archived = self.state.current_asset(cid)  # a damaged archived file is being re-downloaded
         file_url = plan.candidate.get("file_url")
-        if not file_url:
+        if not file_url:  # retriable: the next discovery may report a URL again (then the Failure no longer applies)
             failure = schema.failure_record(
                 source_id=source.source_id, candidate_id=cid, phase="download", url=plan.candidate["page_url"],
-                attempted_at=attempted, attempts=1, error_class="other", http_status=None, retriable=False,
-                manual=False, message="the wiki API reported no usable file URL for this file; no request was sent")
+                attempted_at=attempted, attempts=1, error_class="other", http_status=None, retriable=True,
+                manual=False, message=NO_URL_MESSAGE)
             return self._failed(plan, failure, "failed", attempted, archived)
         url = discover.download_url(source, file_url)
         dest = self.root / paths.ASSET_ROOT / FAMILY / paths.source_slug(source.source_id)
@@ -726,7 +751,6 @@ class Acquirer:
         """The bytes of an archived record again: this title's own record (a damaged file being repaired, or the same
         bytes under a new revision) or the record of a title that is gone or changed (a move). A damaged file is
         replaced by the verified identical bytes; the record then describes this title's current revision."""
-        cid = plan.candidate_id
         try:
             if self.file_ok(existing, rehash=True):
                 Path(result.temp_path).unlink(missing_ok=True)

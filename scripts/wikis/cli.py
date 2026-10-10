@@ -9,14 +9,20 @@ English wikis are always enumerated together because classification pools their 
 
 An incomplete discovery (any list of either English wiki failed) is written with ``discovery_complete: false``, its
 continuation and errors; archived files keep their previous classification, nothing is downloaded and the song index
-proposal is not rewritten. Every run on a ``--root`` takes ``<root>/.cache/fetch_wikis/root.lock`` (git-ignored)
-besides the ``--work-dir``/``--lock-file`` lock, and refuses to start while another work directory used for that root
-holds an interrupted run's journal.
+proposal is not rewritten. A reviewed withdrawal (``scripts/wikis/reviews.json``) is carried out only by an acquiring
+run: ``--metadata-only`` never changes the archive; it reports the withdrawal (``WITHDRAWAL PENDING``) and keeps the
+file, its record and classification. Every run on a ``--root`` takes ``<root>/.cache/fetch_wikis/root.lock``
+(git-ignored) besides the ``--work-dir``/``--lock-file`` lock, and refuses to start while another work directory used
+for that root holds an interrupted run's journal. The default work directory is ``<root>/.cache/fetch_wikis/work``
+(private, mode 0700); see :mod:`wikis.acquire` for the checks on work directories, lock files and journals.
 
 Exit codes: 0 done; 1 failed/blocked downloads, or an archived file that could not be repaired; 2 incomplete
-discovery; 3 another run holds a lock, or an interrupted run's journal is in another work directory; 4 an archived
-file is no longer accepted by complete evidence and no reviewed withdrawal covers it (nothing written; review needed);
-130 interrupted (outputs written up to the last completed download).
+discovery; 3 another run holds a lock, an interrupted run's journal is in another work directory, or the work
+directory, a lock file or the journal cannot be used safely (another owner, a symlink, a journal of another root, a
+corrupt or contradictory journal); 4 an archived file is no longer accepted by complete evidence and no reviewed
+withdrawal covers it (nothing written; review needed); 5 internal error (an unexpected exception; traceback on stderr,
+outputs written only up to the last completed write); 130 interrupted (outputs written up to the last completed
+download).
 """
 
 from __future__ import annotations
@@ -25,6 +31,7 @@ import argparse
 import signal
 import sys
 import threading
+import traceback
 from pathlib import Path
 from typing import Any, Callable
 
@@ -49,7 +56,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--only", action="append", default=[], metavar="TITLE",
                         help="download only these candidates (File: title or candidate ID; repeatable)")
     parser.add_argument("--work-dir", default=None,
-                        help="journal/lock directory outside the repository (default: a per-root temp directory)")
+                        help="journal/lock directory, private to you (default: <root>/.cache/fetch_wikis/work)")
     parser.add_argument("--lock-file", default=None, help="lock file (default: <work dir>/lock)")
     parser.add_argument("--cache-dir", default=None,
                         help="reuse raw API responses stored here (crash recovery of one discovery; never reuse "
@@ -73,7 +80,7 @@ class Runner:
         self.root, self.args, self.work_dir = root, args, work_dir
         self.client_factory, self.now, self.log = client_factory, now, log
         self.selected = [args.source] if args.source else list(config.SOURCES)
-        self.journal = acquire.Journal(work_dir / "journal.jsonl")
+        self.journal = acquire.Journal(work_dir / "journal.jsonl", root)
         self.inventories: dict[str, discover.Inventory] = {}
         self.ja: dict[str, list[jawikis.ListPage]] = {}
         self.ja_times: dict[str, tuple[str, str]] = {}
@@ -128,15 +135,20 @@ class Runner:
         self.index = songindex.build(self.inventories, self.ja)
         self.plans = discover.build_plans(self.inventories, self.index, include_animated=self.args.include_animated)
         withdrawals = reviews.load_withdrawals()
-        conflicts, withdrawn = [], []
+        conflicts, withdrawn, deferred = [], [], []
         for key in self.mediawiki_selected:
             resolution = acquire.resolve(self.plans[key], self.state, complete=self.inventories[key].complete,
-                                         evidence_complete=self.evidence_complete, withdrawals=withdrawals)
+                                         evidence_complete=self.evidence_complete, withdrawals=withdrawals,
+                                         defer_withdrawals=self.args.metadata_only)
             self.candidates[key] = resolution.candidates
             conflicts.extend(resolution.conflicts)
             withdrawn.extend(resolution.withdrawals)
+            deferred.extend(resolution.deferred)
         if conflicts:
             raise acquire.ReclassifiedError(conflicts)
+        for asset, withdrawal in deferred:  # a metadata-only run never changes the archive
+            self.log(f"WITHDRAWAL PENDING {asset['id']} ({asset['candidate_id']}): {withdrawal.reason}: "
+                     f"{withdrawal.evidence}; carried out by the next acquiring run")
         for asset, withdrawal in withdrawn:
             self.withdraw(asset, withdrawal)
 
@@ -303,10 +315,11 @@ def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | N
     factory = client_factory or (lambda: net.PoliteClient(config.ALL_HOSTS))
     previous = signal.signal(signal.SIGTERM, _raise_interrupt)
     try:
+        acquire.prepare_work_dir(work_dir)
         with acquire.exclusive_lock(acquire.root_lock_path(root)), acquire.exclusive_lock(lock):
             acquire.claim_work_dir(root, work_dir)
             return Runner(root, args, work_dir, client_factory=factory, now=now, log=log).run()
-    except acquire.LockHeld as error:
+    except (acquire.LockHeld, acquire.UnsafeWorkDir) as error:
         print(str(error), file=sys.stderr)
         return 3
     except acquire.ReclassifiedError as error:
@@ -318,5 +331,10 @@ def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | N
     except KeyboardInterrupt:
         print("interrupted; outputs written up to the last completed download", file=sys.stderr)
         return 130
+    except Exception:  # noqa: BLE001 - reported with its own exit code (1 means failed downloads)
+        traceback.print_exc()
+        print("internal error: fetch_wikis.py stopped; outputs are written only up to the last completed write",
+              file=sys.stderr)
+        return 5
     finally:
         signal.signal(signal.SIGTERM, previous)

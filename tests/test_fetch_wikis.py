@@ -580,7 +580,8 @@ class ArchiveIntegrityTests(WikiRun):
         with acquire.exclusive_lock(acquire.root_lock_path(self.root)):
             self.assertEqual(self.run_cli("--metadata-only"), 3)  # another --work-dir does not help
         self.assertEqual(self.run_cli("--metadata-only"), 0)
-        acquire.Journal(self.work / "journal.jsonl").append({"event": "clear_failures", "id": "x"})
+        acquire.Journal(self.work / "journal.jsonl", self.root).append(
+            {"event": "clear_failures", "id": "wikis:miraheze:File:Nothing.png"})
         other = self.tmp / "other-work"
         code = cli.main(["--root", str(self.root), "--work-dir", str(other), "--metadata-only"],
                         client_factory=self.scenario.client, now=lambda: NOW, log=self.logs.append)
