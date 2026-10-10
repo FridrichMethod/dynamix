@@ -276,7 +276,8 @@
           "evidence_quotes": [
             "Le ciel heureux"
           ],
-          "variant_role": "square crop of the jacket (official preview upload)"
+          "variant_role": "square crop of the jacket (official preview upload)",
+          "variant_group": "jacket:le-ciel-heureux"
         }
       ]
     },

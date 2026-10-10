@@ -122,6 +122,10 @@ def check_rule(rule: Mapping[str, Any], where: str) -> None:
                                                                   or rule.get("primary_evidence")):
         raise ValueError(f"{where}: confirmed_primary needs evidence_quotes found in the primary post itself (or, "
                          "for a copy of that post's file, primary_evidence quoting it)")
+    if rule.get("variant_role") and not rule.get("variant_group"):
+        raise ValueError(f"{where}: variant_role requires variant_group")
+    if rule.get("game_associations") and schema.GAME not in rule["game_associations"]:
+        raise ValueError(f"{where}: game_associations must include {schema.GAME!r}")
     for index, entry in enumerate(rule.get("primary_evidence", [])):
         if not isinstance(entry, dict) or not all(isinstance(entry.get(k), str) and entry[k].strip()
                                                   for k in ("url", "quote")):

@@ -323,6 +323,7 @@
             "Wisp X"
           ],
           "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop",
+          "variant_group": "jacket:lumina",
           "quality": {
             "source_variant": "site_original",
             "origin_status": "artist_post",
@@ -592,6 +593,7 @@
             "ravon"
           ],
           "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop",
+          "variant_group": "jacket:totally-bounded",
           "quality": {
             "source_variant": "site_original",
             "origin_status": "artist_post",
@@ -621,6 +623,7 @@
             "arcaea"
           ],
           "variant_role": "square variant posted for the Arcaea release",
+          "variant_group": "jacket:party-vinyl",
           "quality": {
             "source_variant": "site_original",
             "origin_status": "artist_post",
