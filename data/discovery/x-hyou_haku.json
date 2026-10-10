@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:hyou_haku",
-  "started_at": "2026-10-10T20:47:24Z",
-  "finished_at": "2026-10-10T20:47:25Z",
+  "started_at": "2026-10-10T21:00:50Z",
+  "finished_at": "2026-10-10T21:00:51Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -21,7 +21,7 @@
       "upstream_key": "1819855437455606133:1",
       "page_url": "https://x.com/hyou_haku/status/1819855437455606133",
       "file_url": "https://pbs.twimg.com/media/GUFs4D5acAASeCO?format=jpg&name=orig",
-      "title": "@hyou_haku post 1819855437455606133 image 1",
+      "title": "先日 #Dynamix に追加されたAoiさんの『scualee』のイラストを描かせていただいてます！Aoiさんと出前さんに感謝！ 今回もミニキャラを実装していただいており！是非ゲットしてください！…",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [

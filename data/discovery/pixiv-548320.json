@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:pixiv:548320",
-  "started_at": "2026-10-10T20:46:16Z",
-  "finished_at": "2026-10-10T20:46:41Z",
+  "started_at": "2026-10-10T21:12:04Z",
+  "finished_at": "2026-10-10T21:12:17Z",
   "scope": {
     "lists": [
       "seed-artworks",
@@ -41,8 +41,8 @@
         "timestamp": "2014-08-17T22:41:00+00:00",
         "revision": null
       },
-      "disposition": "failed",
-      "reason": "http_4xx: HTTP 404",
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:548320:b5ff48835e4774ed",
       "song_titles": [
         "Regenerate Violence"
       ],

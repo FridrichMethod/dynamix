@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:flan_0207",
-  "started_at": "2026-10-10T20:47:19Z",
-  "finished_at": "2026-10-10T20:47:24Z",
+  "started_at": "2026-10-10T21:00:45Z",
+  "finished_at": "2026-10-10T21:00:49Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -93,7 +93,7 @@
       "upstream_key": "1185170668175814661:1",
       "page_url": "https://x.com/flan_0207/status/1185170668175814661",
       "file_url": "https://pbs.twimg.com/media/EHKSa4ZUYAAGGhX?format=png&name=orig",
-      "title": "@flan_0207 post 1185170668175814661 image 1",
+      "title": "構図とキャラデザを送って ましろまさんがいい感じにキャラデザを直してくれてそののあと描きこんだ @HaltquinZで作ったアートワークです。 #Dynamix",
       "role": "process",
       "game": "dynamix",
       "game_evidence": [

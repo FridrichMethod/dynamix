@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "archives",
-  "fetched_at": "2026-10-10T20:59:04Z",
+  "fetched_at": "2026-10-10T21:06:17Z",
   "sources": [
     {
       "id": "archives:4gamer",
@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-10T20:55:27Z",
+      "checked_at": "2026-10-10T21:05:39Z",
       "notes": "Historical press screenshots: the 2015-06-18 gallery and the 2015-06-17 column article (ほぼ)日刊スマホゲーム通信 #862; not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,12 +58,12 @@
       "url": "https://gnn.gamer.com.tw/",
       "platform": "web",
       "status": "partially_available",
-      "checked_at": "2026-10-10T20:55:29Z",
+      "checked_at": "2026-10-10T21:05:42Z",
       "notes": "Explicit images of press articles found by the 2026-10-10 research (Bahamut GNN, QooApp, unwire.hk, T客邦, ifanr, HK01); each article page is read for identity evidence. Lower-resolution syndicated copies (9game, Gamersky) are recorded in archives:archive-leads.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 28,
-      "asset_count": 15,
+      "candidate_count": 38,
+      "asset_count": 34,
       "failure_count": 1,
       "evidence_level": "page_read"
     },
@@ -74,7 +74,7 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "available",
-      "checked_at": "2026-10-10T20:56:01Z",
+      "checked_at": "2026-10-10T21:06:20Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -422,6 +422,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "archives:press:090696a1190f10ee",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn129234:0001345596",
+      "title": "0001345596.JPG",
+      "kind": "reference",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/96/0001345596.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/96/0001345596.JPG",
+      "path": "assets/public/archives/press/0001345596--090696a1190f.jpg",
+      "original_filename": "0001345596.JPG",
+      "bytes": 203674,
+      "sha256": "090696a1190f10eee29ce4ce48f8a3566cf2a5a26058ed1aa44e87280c54de1d",
+      "sha1": "eb1fc3a1f476ff50407d9c58f4ad31ea635166a5",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1600,
+      "height": 916,
+      "fetched_at": "2026-10-10T21:06:11Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/96/0001345596.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 203674,
+        "width": 1600,
+        "height": 916,
+        "sha1": "eb1fc3a1f476ff50407d9c58f4ad31ea635166a5",
+        "sha256": "090696a1190f10eee29ce4ce48f8a3566cf2a5a26058ed1aa44e87280c54de1d"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Official milestone timeline graphic (releases and download counts, 2016)."
+    },
+    {
       "id": "archives:press:0efa40512e0a541a",
       "source_id": "archives:press",
       "candidate_id": "archives:press:unwire2014:wm028",
@@ -556,6 +624,74 @@
       },
       "upstream_status": "current",
       "notes": "Dynamix 10th anniversary event poster (new character, special title, comeback event)."
+    },
+    {
+      "id": "archives:press:120b72aec06da88d",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/013",
+      "title": "013.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
+      "path": "assets/public/archives/press/013--120b72aec06d.jpg",
+      "original_filename": "013.jpg",
+      "bytes": 91754,
+      "sha256": "120b72aec06da88d22974f87e465dd62ff06cfae5eb4c6b5d1e815232ee44553",
+      "sha1": "e52b9cbaaf1b22e22dff95c62af13b31ad1112d6",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:06:04Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 91754,
+        "width": 1136,
+        "height": 640,
+        "sha1": "e52b9cbaaf1b22e22dff95c62af13b31ad1112d6",
+        "sha256": "120b72aec06da88d22974f87e465dd62ff06cfae5eb4c6b5d1e815232ee44553"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
     },
     {
       "id": "archives:press:16163c0e86d99cd8",
@@ -898,6 +1034,653 @@
       "notes": "Gameplay capture (Stardust) in a 2015 rhythm-game roundup."
     },
     {
+      "id": "archives:press:60fb696b18d2ccea",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn141991:0001490819",
+      "title": "0001490819.JPG",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
+      "path": "assets/public/archives/press/0001490819--60fb696b18d2.jpg",
+      "original_filename": "0001490819.JPG",
+      "bytes": 422402,
+      "sha256": "60fb696b18d2ccea8f02b90b84fbde5ab5ff83b2651d2e34ca05676bc646bef4",
+      "sha1": "55ef5b6e18ecdfa1d9eeca83af4913d9587a6273",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T21:06:16Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [
+        "Sakura Fubuki"
+      ],
+      "song_ids": [
+        "song:sakura-fubuki"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+          "field": "title",
+          "quote": "Dynamix"
+        },
+        {
+          "url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+          "field": "body",
+          "quote": "…歡迎,本星期活動歌曲除了在 BOFU2015 個人得分部分中排名第三的得獎歌曲《Sakura Fubuki》外,亦有經玩家投票的舊活動歌曲《Chrysoberyl》復刻,早前錯過活動時限…"
+        },
+        {
+          "url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+          "note": "visual_inspection 2026-10-10: the card prints 'Sakura Fubuki' and 'Street'"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 422402,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "55ef5b6e18ecdfa1d9eeca83af4913d9587a6273",
+        "sha256": "60fb696b18d2ccea8f02b90b84fbde5ab5ff83b2651d2e34ca05676bc646bef4"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Official event 'COMING SOON' card for Sakura Fubuki (1920x1080, 2017-01)."
+    },
+    {
+      "id": "archives:press:64833bd278b37dc5",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/012",
+      "title": "012.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
+      "path": "assets/public/archives/press/012--64833bd278b3.jpg",
+      "original_filename": "012.jpg",
+      "bytes": 111228,
+      "sha256": "64833bd278b37dc5dec4d8a25039d8c5961e38886859a84434667bb5eb8c1e6d",
+      "sha1": "f8128d32225dd9d4ff8a6fb205585557af19c250",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:06:03Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 111228,
+        "width": 1136,
+        "height": 640,
+        "sha1": "f8128d32225dd9d4ff8a6fb205585557af19c250",
+        "sha256": "64833bd278b37dc5dec4d8a25039d8c5961e38886859a84434667bb5eb8c1e6d"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:69b272851b76dcf8",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/011",
+      "title": "011.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+      "path": "assets/public/archives/press/011--69b272851b76.jpg",
+      "original_filename": "011.jpg",
+      "bytes": 123692,
+      "sha256": "69b272851b76dcf800ed9322a0da729f857103c8b9ef6c1b0229be4b7bee34db",
+      "sha1": "d8b054dc4e3123d1f6e56faa12cb96c0dc1b93f0",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:06:01Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 123692,
+        "width": 1136,
+        "height": 640,
+        "sha1": "d8b054dc4e3123d1f6e56faa12cb96c0dc1b93f0",
+        "sha256": "69b272851b76dcf800ed9322a0da729f857103c8b9ef6c1b0229be4b7bee34db"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:6f378d9046c9c5fb",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn138982:0001457652",
+      "title": "0001457652.JPG",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/52/0001457652.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/52/0001457652.JPG",
+      "path": "assets/public/archives/press/0001457652--6f378d9046c9.jpg",
+      "original_filename": "0001457652.JPG",
+      "bytes": 450678,
+      "sha256": "6f378d9046c9c5fbfbedd0c68f91faa5b3705b60a6074dbba45ee4e0be4613bc",
+      "sha1": "310ffc78ef76d9ddd041f7b0d4926c16479ff260",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1600,
+      "height": 1200,
+      "fetched_at": "2026-10-10T21:06:15Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [
+        "Oracle"
+      ],
+      "song_ids": [
+        "song:oracle"
+      ],
+      "collections": [],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+          "field": "title",
+          "quote": "Dynamix"
+        },
+        {
+          "url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+          "note": "visual_inspection 2026-10-10: the screen prints 'Oracle' and 'TQ☆'"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/52/0001457652.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 450678,
+        "width": 1600,
+        "height": 1200,
+        "sha1": "310ffc78ef76d9ddd041f7b0d4926c16479ff260",
+        "sha256": "6f378d9046c9c5fbfbedd0c68f91faa5b3705b60a6074dbba45ee4e0be4613bc"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Song-select screen over the Oracle jacket (v3.2, 2016)."
+    },
+    {
+      "id": "archives:press:72c58059dd9ecedf",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/015",
+      "title": "015.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
+      "path": "assets/public/archives/press/015--72c58059dd9e.jpg",
+      "original_filename": "015.jpg",
+      "bytes": 137909,
+      "sha256": "72c58059dd9ecedf467f6973ab1a624ebe57e5935e82465d7b5596e10549f6d1",
+      "sha1": "2ecd39f47bb489bf5d42c9eabe435120e5267257",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:06:07Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 137909,
+        "width": 1136,
+        "height": 640,
+        "sha1": "2ecd39f47bb489bf5d42c9eabe435120e5267257",
+        "sha256": "72c58059dd9ecedf467f6973ab1a624ebe57e5935e82465d7b5596e10549f6d1"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:73d0ffc3fb56e699",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/007",
+      "title": "007.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
+      "path": "assets/public/archives/press/007--73d0ffc3fb56.jpg",
+      "original_filename": "007.jpg",
+      "bytes": 79718,
+      "sha256": "73d0ffc3fb56e69986b774a060f0a3fe55a1fa7e90e70587ee9d320cb44839fa",
+      "sha1": "d24b496dcfbb3c9d4e9d51a199588bc3148f0e4d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:06:00Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 79718,
+        "width": 1136,
+        "height": 640,
+        "sha1": "d24b496dcfbb3c9d4e9d51a199588bc3148f0e4d",
+        "sha256": "73d0ffc3fb56e69986b774a060f0a3fe55a1fa7e90e70587ee9d320cb44839fa"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:7c699adba52ec3da",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/004",
+      "title": "004.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
+      "path": "assets/public/archives/press/004--7c699adba52e.jpg",
+      "original_filename": "004.jpg",
+      "bytes": 90467,
+      "sha256": "7c699adba52ec3da49a878f1e080dc9c1e07eb3cf986df840d7165427ba6d390",
+      "sha1": "8f84e94823b6caade78b9cc51483e93b9dd40663",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:05:56Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 90467,
+        "width": 1136,
+        "height": 640,
+        "sha1": "8f84e94823b6caade78b9cc51483e93b9dd40663",
+        "sha256": "7c699adba52ec3da49a878f1e080dc9c1e07eb3cf986df840d7165427ba6d390"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:8605e47772ef8255",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/006",
+      "title": "006.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
+      "path": "assets/public/archives/press/006--8605e47772ef.jpg",
+      "original_filename": "006.jpg",
+      "bytes": 88504,
+      "sha256": "8605e47772ef82556d54d45496a6b41af522c764016d30460008b9b0d60b3af2",
+      "sha1": "ed86131ac0fc998c0dc7d0068ec44b964d245c45",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:05:59Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 88504,
+        "width": 1136,
+        "height": 640,
+        "sha1": "ed86131ac0fc998c0dc7d0068ec44b964d245c45",
+        "sha256": "8605e47772ef82556d54d45496a6b41af522c764016d30460008b9b0d60b3af2"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:8f600b223c89a511",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/005",
+      "title": "005.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
+      "path": "assets/public/archives/press/005--8f600b223c89.jpg",
+      "original_filename": "005.jpg",
+      "bytes": 106771,
+      "sha256": "8f600b223c89a511af834a8674275f0e0deef6dcdcae5b4604d03aec7b72cada",
+      "sha1": "98469d74db0a6ccc4dc7fe69f6f9891432a8cbe4",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:05:57Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 106771,
+        "width": 1136,
+        "height": 640,
+        "sha1": "98469d74db0a6ccc4dc7fe69f6f9891432a8cbe4",
+        "sha256": "8f600b223c89a511af834a8674275f0e0deef6dcdcae5b4604d03aec7b72cada"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
       "id": "archives:press:919378b0ac0b780f",
       "source_id": "archives:press",
       "candidate_id": "archives:press:qoo52753:16031706432894",
@@ -964,6 +1747,74 @@
       },
       "upstream_status": "current",
       "notes": "Song-select screen over the Play A Day jacket (2016)."
+    },
+    {
+      "id": "archives:press:92b4fc7fb66f829b",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn115106:0001185987",
+      "title": "0001185987.PNG",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/87/0001185987.PNG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/87/0001185987.PNG",
+      "path": "assets/public/archives/press/0001185987--92b4fc7fb66f.png",
+      "original_filename": "0001185987.PNG",
+      "bytes": 235871,
+      "sha256": "92b4fc7fb66f829b06bc1403b177312f172d979c0e8fb48bc3ea45ccca81514d",
+      "sha1": "276ae55a59b12a3895e60edd215578aa42efac16",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 893,
+      "height": 501,
+      "fetched_at": "2026-10-10T21:06:08Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/87/0001185987.PNG",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 235871,
+        "width": 893,
+        "height": 501,
+        "sha1": "276ae55a59b12a3895e60edd215578aa42efac16",
+        "sha256": "92b4fc7fb66f829b06bc1403b177312f172d979c0e8fb48bc3ea45ccca81514d"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "In-game song-pack store screenshot (2015)."
     },
     {
       "id": "archives:press:970d16658ee9830c",
@@ -1034,6 +1885,144 @@
       "notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
     },
     {
+      "id": "archives:press:9adb797e925e335d",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn132827:0001386275",
+      "title": "0001386275.JPG",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
+      "path": "assets/public/archives/press/0001386275--9adb797e925e.jpg",
+      "original_filename": "0001386275.JPG",
+      "bytes": 222775,
+      "sha256": "9adb797e925e335dec5bad7c6abcdde83f81c66c507d868ff3553593c041b248",
+      "sha1": "ee7e5558f689c6e2bbd30515d6630ae1aff8f12c",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1440,
+      "height": 810,
+      "fetched_at": "2026-10-10T21:06:12Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 222775,
+        "width": 1440,
+        "height": 810,
+        "sha1": "ee7e5558f689c6e2bbd30515d6630ae1aff8f12c",
+        "sha256": "9adb797e925e335dec5bad7c6abcdde83f81c66c507d868ff3553593c041b248"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "3.0 'Outer Space' pack screen (2016)."
+    },
+    {
+      "id": "archives:press:9c641c2e02e3bac0",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn141991:0001490820",
+      "title": "0001490820.JPG",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/20/0001490820.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/20/0001490820.JPG",
+      "path": "assets/public/archives/press/0001490820--9c641c2e02e3.jpg",
+      "original_filename": "0001490820.JPG",
+      "bytes": 593761,
+      "sha256": "9c641c2e02e3bac059fff60c105d5b65623dd8aef5fb7d4b4f9dea43dae37496",
+      "sha1": "19106b7f3e69c4e02d768894c2415f36e8a1e534",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T21:06:17Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [
+        "Package Vocal"
+      ],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/20/0001490820.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 593761,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "19106b7f3e69c4e02d768894c2415f36e8a1e534",
+        "sha256": "9c641c2e02e3bac059fff60c105d5b65623dd8aef5fb7d4b4f9dea43dae37496"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Official Vocal Collection package promo (1920x1080, 2017-01)."
+    },
+    {
       "id": "archives:press:a30fe7faffd0158c",
       "source_id": "archives:press",
       "candidate_id": "archives:press:qoo77295:17072106445586",
@@ -1100,6 +2089,142 @@
       },
       "upstream_status": "current",
       "notes": "In-game character screen with the QooApp collaboration character Elly (2017-07)."
+    },
+    {
+      "id": "archives:press:a7240971560bcd40",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/014",
+      "title": "014.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
+      "path": "assets/public/archives/press/014--a7240971560b.jpg",
+      "original_filename": "014.jpg",
+      "bytes": 175659,
+      "sha256": "a7240971560bcd40a918b168afcb37449598fbf586bbeb540319df3f8f388ffc",
+      "sha1": "543e8c5fe473c1741bf40d1c48f9fd544df7f5a3",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:06:06Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 175659,
+        "width": 1136,
+        "height": 640,
+        "sha1": "543e8c5fe473c1741bf40d1c48f9fd544df7f5a3",
+        "sha256": "a7240971560bcd40a918b168afcb37449598fbf586bbeb540319df3f8f388ffc"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:a81504f802d2dd7a",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn132827:0001386276",
+      "title": "0001386276.JPG",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/76/0001386276.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/76/0001386276.JPG",
+      "path": "assets/public/archives/press/0001386276--a81504f802d2.jpg",
+      "original_filename": "0001386276.JPG",
+      "bytes": 386822,
+      "sha256": "a81504f802d2dd7aae2cba46c398b6bbf4a5ff43fe575c232f43ef5cd3ebae85",
+      "sha1": "4b04cc7349f9e6bdef4734fad464d19260fb12f5",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-10T21:06:13Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/76/0001386276.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 386822,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "4b04cc7349f9e6bdef4734fad464d19260fb12f5",
+        "sha256": "a81504f802d2dd7aae2cba46c398b6bbf4a5ff43fe575c232f43ef5cd3ebae85"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Planet key visual of the 3.0 update (2016)."
     },
     {
       "id": "archives:press:b21d16ea9de1e2de",
@@ -1238,6 +2363,74 @@
       "notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
     },
     {
+      "id": "archives:press:b87e79a8b8278c12",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn138982:0001457651",
+      "title": "0001457651.JPG",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/51/0001457651.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/51/0001457651.JPG",
+      "path": "assets/public/archives/press/0001457651--b87e79a8b827.jpg",
+      "original_filename": "0001457651.JPG",
+      "bytes": 225246,
+      "sha256": "b87e79a8b8278c12ec024df7b833b879e24eff81616e162562fe34aac0a1ef91",
+      "sha1": "878e9acddbce64fcad6ef1a4272650abdde1864d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1600,
+      "height": 1200,
+      "fetched_at": "2026-10-10T21:06:14Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/51/0001457651.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 225246,
+        "width": 1600,
+        "height": 1200,
+        "sha1": "878e9acddbce64fcad6ef1a4272650abdde1864d",
+        "sha256": "b87e79a8b8278c12ec024df7b833b879e24eff81616e162562fe34aac0a1ef91"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "In-game store screen of the Z.H.D. pack (2016)."
+    },
+    {
       "id": "archives:press:be39124eb2000dc8",
       "source_id": "archives:press",
       "candidate_id": "archives:press:techbang:20767",
@@ -1372,6 +2565,142 @@
       },
       "upstream_status": "current",
       "notes": "Song-select screen over the 香港ノ奇術師 jacket (2016)."
+    },
+    {
+      "id": "archives:press:d4f0d420c0b6338c",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:4gamer862:SS/003",
+      "title": "003.jpg",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "download_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+      "resolved_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+      "path": "assets/public/archives/press/003--d4f0d420c0b6.jpg",
+      "original_filename": "003.jpg",
+      "bytes": 72040,
+      "sha256": "d4f0d420c0b6338c151a5f0b6fbcdff40f4e484e8b1745a82aca56efed4a6553",
+      "sha1": "1bcd74625709bbbb3db0d0329564c6c5f5569396",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1136,
+      "height": 640,
+      "fetched_at": "2026-10-10T21:05:55Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 72040,
+        "width": 1136,
+        "height": 640,
+        "sha1": "1bcd74625709bbbb3db0d0329564c6c5f5569396",
+        "sha256": "d4f0d420c0b6338c151a5f0b6fbcdff40f4e484e8b1745a82aca56efed4a6553"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:e1982a2eb5021b63",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn115106:0001186000",
+      "title": "0001186000.JPG",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/00/0001186000.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/00/0001186000.JPG",
+      "path": "assets/public/archives/press/0001186000--e1982a2eb502.jpg",
+      "original_filename": "0001186000.JPG",
+      "bytes": 144463,
+      "sha256": "e1982a2eb5021b63bb694757b95e99f5d1da886f6df834422964f81d0973125a",
+      "sha1": "6cfb4e70c75276d48b5505fb2750aea7471a1e4c",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 800,
+      "height": 448,
+      "fetched_at": "2026-10-10T21:06:10Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy of developer-supplied images as served by the publication."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/00/0001186000.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 144463,
+        "width": 800,
+        "height": 448,
+        "sha1": "6cfb4e70c75276d48b5505fb2750aea7471a1e4c",
+        "sha256": "e1982a2eb5021b63bb694757b95e99f5d1da886f6df834422964f81d0973125a"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Official launch banner '香港制作 音樂遊戲 / 超本格音樂遊戲 三面落下' (2015-05 iOS launch)."
     },
     {
       "id": "archives:press:e3a5965306b6b7e5",
@@ -3096,7 +4425,7 @@
         "notes": "Facebook's Open Graph video poster as archived by the Internet Archive (2025-05-17)."
       },
       "rights": {
-        "holder": null,
+        "holder": "C4Cat Entertainment Limited and Dream Engine Games",
         "creator": null,
         "url": "https://web.archive.org/web/20250517214330/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
         "license": null,
@@ -3132,7 +4461,7 @@
         "dynamix",
         "rotaeno"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with rotaeno and no cited source names its holder, so the C4Cat default is not applied. Wayback capture 20250517214330 of https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847 (CDX mimetype image/jpeg, status 200, WARC record length 314847). Dynamix X Rotaeno collaboration key visual (video poster), 2025-04.",
+      "notes": "Rights holders as printed on the image (visual_inspection 2026-10-10: '©C4Cat Entertainment Limited ©Dream Engine Games', bottom right); four collaboration jacket crops and 'AVAIABLE ON 2025.04.24'. Wayback capture 20250517214330 of https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847 (CDX mimetype image/jpeg, status 200, WARC record length 314847). Dynamix X Rotaeno collaboration key visual (video poster), 2025-04.",
       "upstream_revision": "20250517214330",
       "transformed": true
     },
@@ -4448,7 +5777,7 @@
       "candidate_id": "archives:press:hk01:175169",
       "phase": "download",
       "url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg",
-      "attempted_at": "2026-10-10T20:55:43Z",
+      "attempted_at": "2026-10-10T21:06:19Z",
       "attempts": 1,
       "error_class": "http_4xx",
       "http_status": 404,

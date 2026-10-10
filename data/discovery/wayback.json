@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-10T20:56:01Z",
-  "finished_at": "2026-10-10T20:59:09Z",
+  "started_at": "2026-10-10T21:06:20Z",
+  "finished_at": "2026-10-10T21:11:12Z",
   "scope": {
     "lists": [
       "official-img",
@@ -1749,7 +1749,8 @@
       "game": "dynamix",
       "game_evidence": [
         "capture of https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
-        "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (MAD 6.7, edge-only residual)"
+        "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (MAD 6.7, edge-only residual)",
+        "own check 2026-10-10 (Pillow box refinement): RGB MAD 6.3/255 for the box (254.5,0)-(827.9,573.4) of PetalstepDynamix.png against 62.1 for a mirrored control"
       ],
       "source_reported": {
         "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",

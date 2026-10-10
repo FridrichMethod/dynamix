@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:r_solidor",
-  "started_at": "2026-10-10T20:47:41Z",
-  "finished_at": "2026-10-10T20:47:42Z",
+  "started_at": "2026-10-10T21:01:13Z",
+  "finished_at": "2026-10-10T21:01:14Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -21,7 +21,7 @@
       "upstream_key": "1890032490053861447:1",
       "page_url": "https://x.com/R_Solidor/status/1890032490053861447",
       "file_url": "https://pbs.twimg.com/media/Gjq-iDraEAEW-IR?format=jpg&name=orig",
-      "title": "@R_Solidor post 1890032490053861447 image 1",
+      "title": "Berry Melody × Dynamixコラボに際しまして、SoundCloudの \"ネーヴェの紋様\" ジャケットイラストを変更いたしました！ CHUNITHM公募に落ちた曲がここまでの日の目を…",
       "role": "song_art",
       "game": "mixed",
       "game_evidence": [

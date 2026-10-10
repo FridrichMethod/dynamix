@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:seura_nue",
-  "started_at": "2026-10-10T20:47:42Z",
-  "finished_at": "2026-10-10T20:47:46Z",
+  "started_at": "2026-10-10T21:01:15Z",
+  "finished_at": "2026-10-10T21:01:19Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -21,7 +21,7 @@
       "upstream_key": "1149949495305576448:1",
       "page_url": "https://x.com/SeURa_Nue/status/1149949495305576448",
       "file_url": "https://pbs.twimg.com/media/D_Vw97uU0AA2Z0v?format=jpg&name=orig",
-      "title": "@SeURa_Nue post 1149949495305576448 image 1",
+      "title": "【こっそりおしらせ】 Dynamixです。 Sです。 3です。 よろしくお願い致します。 (1/2)",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -46,7 +46,7 @@
       "upstream_key": "1149949495305576448:2",
       "page_url": "https://x.com/SeURa_Nue/status/1149949495305576448",
       "file_url": "https://pbs.twimg.com/media/D_Vw97rVUAEc3GO?format=jpg&name=orig",
-      "title": "@SeURa_Nue post 1149949495305576448 image 2",
+      "title": "【こっそりおしらせ】 Dynamixです。 Sです。 3です。 よろしくお願い致します。 (2/2)",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -71,7 +71,7 @@
       "upstream_key": "1241295713784328193:1",
       "page_url": "https://x.com/SeURa_Nue/status/1241295713784328193",
       "file_url": "https://pbs.twimg.com/media/ETn3x6CUwAEvgf5?format=jpg&name=orig",
-      "title": "@SeURa_Nue post 1241295713784328193 image 1",
+      "title": "終の舞姫アートワーク単品",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [
@@ -106,7 +106,7 @@
       "upstream_key": "1535164468476317696:1",
       "page_url": "https://x.com/SeURa_Nue/status/1535164468476317696",
       "file_url": "https://pbs.twimg.com/media/FU3_xGbUEAAYeco?format=jpg&name=orig",
-      "title": "@SeURa_Nue post 1535164468476317696 image 1",
+      "title": "Necroxus アートワーク",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:kuskekplecraft",
-  "started_at": "2026-10-10T20:47:31Z",
-  "finished_at": "2026-10-10T20:47:36Z",
+  "started_at": "2026-10-10T21:00:57Z",
+  "finished_at": "2026-10-10T21:01:02Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -21,7 +21,7 @@
       "upstream_key": "1253596942510075904:1",
       "page_url": "https://x.com/KuskeKplecraft/status/1253596942510075904",
       "file_url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5?format=jpg&name=orig",
-      "title": "@KuskeKplecraft post 1253596942510075904 image 1",
+      "title": "音楽ゲーム、Dynamixで楽曲パックが28日までセール中みたいです。 Kplecraft Collection がセール価格になるのはたぶん初めてだと思うのでまだ未プレイの人はこの機会に是非！ 全…",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -52,7 +52,7 @@
       "upstream_key": "1547147750847893505:1",
       "page_url": "https://x.com/KuskeKplecraft/status/1547147750847893505",
       "file_url": "https://pbs.twimg.com/media/FXiSO_bUEAAWFaH?format=png&name=orig",
-      "title": "@KuskeKplecraft post 1547147750847893505 image 1",
+      "title": "めちゃくちゃ今更ですが、 Kplecraft / 16383 が今日から Spotify や Apple Music 等の各種サブスクで聴けるようになりました。 各配信先へのリンクはリプライにぶら下…",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -77,7 +77,7 @@
       "upstream_key": "916314186858119169:1",
       "page_url": "https://x.com/KuskeKplecraft/status/916314186858119169",
       "file_url": null,
-      "title": "@KuskeKplecraft post 916314186858119169 image 1",
+      "title": "OCCHOCO-REST-LESS #Dynamix",
       "role": null,
       "game": "unknown",
       "game_evidence": [],
@@ -100,7 +100,7 @@
       "upstream_key": "946599307431460867:1",
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
-      "title": "@KuskeKplecraft post 946599307431460867 image 1",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (1/4)",
       "role": "background",
       "game": "dynamix",
       "game_evidence": [
@@ -136,7 +136,7 @@
       "upstream_key": "946599307431460867:2",
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
-      "title": "@KuskeKplecraft post 946599307431460867 image 2",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (2/4)",
       "role": "background",
       "game": "dynamix",
       "game_evidence": [
@@ -172,7 +172,7 @@
       "upstream_key": "946599307431460867:3",
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
-      "title": "@KuskeKplecraft post 946599307431460867 image 3",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (3/4)",
       "role": "background",
       "game": "dynamix",
       "game_evidence": [
@@ -208,7 +208,7 @@
       "upstream_key": "946599307431460867:4",
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
-      "title": "@KuskeKplecraft post 946599307431460867 image 4",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (4/4)",
       "role": "background",
       "game": "dynamix",
       "game_evidence": [

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:press",
-  "started_at": "2026-10-10T20:55:29Z",
-  "finished_at": "2026-10-10T20:56:01Z",
+  "started_at": "2026-10-10T21:05:42Z",
+  "finished_at": "2026-10-10T21:06:20Z",
   "scope": {
     "lists": [
       "seed-files"
@@ -16,6 +16,276 @@
   "discovery_complete": true,
   "candidates": [
     {
+      "id": "archives:press:4gamer862:SS/003",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/003",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+      "title": "003.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:d4f0d420c0b6338c",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/004",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/004",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
+      "title": "004.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:7c699adba52ec3da",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/005",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/005",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
+      "title": "005.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:8f600b223c89a511",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/006",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/006",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
+      "title": "006.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:8605e47772ef8255",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/007",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/007",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
+      "title": "007.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:73d0ffc3fb56e699",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/011",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/011",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+      "title": "011.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:69b272851b76dcf8",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/012",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/012",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
+      "title": "012.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:64833bd278b37dc5",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/013",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/013",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
+      "title": "013.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:120b72aec06da88d",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/014",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/014",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
+      "title": "014.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:a7240971560bcd40",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/015",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/015",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
+      "title": "015.jpg",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:press:72c58059dd9ecedf",
+      "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
       "id": "archives:press:gnn115106:0001185987",
       "source_id": "archives:press",
       "upstream_key": "gnn115106:0001185987",
@@ -23,9 +293,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/87/0001185987.PNG",
       "title": "0001185987.PNG",
       "role": "gameplay_screenshot",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -38,8 +309,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 手機音樂遊戲《Dynami)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:92b4fc7fb66f829b",
       "notes": "In-game song-pack store screenshot (2015)."
     },
     {
@@ -50,9 +321,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/00/0001186000.JPG",
       "title": "0001186000.JPG",
       "role": "promotional",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=115106",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -65,8 +337,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 手機音樂遊戲《Dynami)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:e1982a2eb5021b63",
       "notes": "Official launch banner '香港制作 音樂遊戲 / 超本格音樂遊戲 三面落下' (2015-05 iOS launch)."
     },
     {
@@ -77,9 +349,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/96/0001345596.JPG",
       "title": "0001345596.JPG",
       "role": "reference",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -92,8 +365,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 手機音樂遊戲《Dynami)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:090696a1190f10ee",
       "notes": "Official milestone timeline graphic (releases and download counts, 2016)."
     },
     {
@@ -104,9 +377,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
       "title": "0001386275.JPG",
       "role": "gameplay_screenshot",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=132827",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -119,8 +393,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 手機音樂遊戲《Dynami)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:9adb797e925e335d",
       "notes": "3.0 'Outer Space' pack screen (2016)."
     },
     {
@@ -131,9 +405,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/76/0001386276.JPG",
       "title": "0001386276.JPG",
       "role": "promotional",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=132827",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -146,8 +421,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 手機音樂遊戲《Dynami)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:a81504f802d2dd7a",
       "notes": "Planet key visual of the 3.0 update (2016)."
     },
     {
@@ -158,9 +433,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/51/0001457651.JPG",
       "title": "0001457651.JPG",
       "role": "gameplay_screenshot",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=138982",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -173,8 +449,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 手機音樂遊戲《Dynami)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:b87e79a8b8278c12",
       "notes": "In-game store screen of the Z.H.D. pack (2016)."
     },
     {
@@ -185,9 +461,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/52/0001457652.JPG",
       "title": "0001457652.JPG",
       "role": "gameplay_screenshot",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=138982",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -200,8 +477,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 手機音樂遊戲《Dynami)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:6f378d9046c9c5fb",
       "song_titles": [
         "Oracle"
       ],
@@ -215,9 +492,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
       "title": "0001490819.JPG",
       "role": "promotional",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=141991",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -230,8 +508,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 《Dynamix》v3.2)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:60fb696b18d2ccea",
       "song_titles": [
         "Sakura Fubuki"
       ],
@@ -248,9 +526,10 @@
       "file_url": "https://p2.bahamut.com.tw/B/2KU/20/0001490820.JPG",
       "title": "0001490820.JPG",
       "role": "promotional",
-      "game": "mixed",
+      "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=141991",
+        "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)",
         "title: Dynamix"
       ],
       "source_reported": {
@@ -263,8 +542,8 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "pending: upstream text mentions Dynamix Universe; confirm original-game use (e 偏好來源 哈啦板 作品資料 收藏新聞 載入中... 延伸報導 音樂遊戲《Dynamix》慶祝 10 週年 全新續作《Dynamix Universe》開放封測登記 手機 ｜ Dynamix 29 11 《Dynamix》v3.2)",
+      "disposition": "downloaded",
+      "asset_id": "archives:press:9c641c2e02e3bac0",
       "collections": [
         "Package Vocal"
       ],

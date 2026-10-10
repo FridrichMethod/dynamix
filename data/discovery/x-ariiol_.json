@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:ariiol_",
-  "started_at": "2026-10-10T17:44:06Z",
-  "finished_at": "2026-10-10T17:44:06Z",
+  "started_at": "2026-10-10T21:00:43Z",
+  "finished_at": "2026-10-10T21:00:43Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -21,7 +21,7 @@
       "upstream_key": "1879155241788293570:1",
       "page_url": "https://x.com/ariiol_/status/1879155241788293570",
       "file_url": "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig",
-      "title": "@ariiol_ post 1879155241788293570 image 1",
+      "title": "Made the cover for Yunosuke! Hope everyone likes it! ありがとうございます！❤️",
       "role": "song_art",
       "game": "dynamix",
       "game_evidence": [

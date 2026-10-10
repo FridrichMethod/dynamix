@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T20:49:07Z",
-  "finished_at": "2026-10-10T20:54:05Z",
+  "started_at": "2026-10-10T21:02:42Z",
+  "finished_at": "2026-10-10T21:05:33Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -25,7 +25,7 @@
       "upstream_key": "1060502195374714881:1",
       "page_url": "https://x.com/c4c4cat/status/1060502195374714881",
       "file_url": "https://pbs.twimg.com/media/DreYHaTV4AAfwm1?format=jpg&name=orig",
-      "title": "@c4c4cat post 1060502195374714881 image 1",
+      "title": "[Event] 今週は復刻曲「Soul Army」, 「 「銀梅花」が帰ってくるよ！ 開催期間は11月9日12時（UTC+8）から11月13日20時（UTC+8）まで！ @MonamiTech @k…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -60,7 +60,7 @@
       "upstream_key": "1156165289907838977:1",
       "page_url": "https://x.com/c4c4cat/status/1156165289907838977",
       "file_url": "https://pbs.twimg.com/media/EAt84UoVAAAN2oQ?format=jpg&name=orig",
-      "title": "@c4c4cat post 1156165289907838977 image 1",
+      "title": "[Dynamix 2019夏祭] 詳細は、次のサイトを参照してください： #Dynamix #Dynamix_Event",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -90,7 +90,7 @@
       "upstream_key": "1156172591872167937:1",
       "page_url": "https://x.com/c4c4cat/status/1156172591872167937",
       "file_url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
-      "title": "@c4c4cat post 1156172591872167937 image 1",
+      "title": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @logical_kRM @3ps708 #Dynamix",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -127,7 +127,7 @@
       "upstream_key": "1178640887355719681:1",
       "page_url": "https://x.com/c4c4cat/status/1178640887355719681",
       "file_url": "https://pbs.twimg.com/media/EFtc1NUUUAEagmM?format=jpg&name=orig",
-      "title": "@c4c4cat post 1178640887355719681 image 1",
+      "title": "[5周年記念xハロウィーンイベント] 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -157,7 +157,7 @@
       "upstream_key": "1186975557067653120:1",
       "page_url": "https://x.com/c4c4cat/status/1186975557067653120",
       "file_url": "https://pbs.twimg.com/media/EF3kK-aXoAE2YEH?format=jpg&name=orig",
-      "title": "@c4c4cat post 1186975557067653120 image 1",
+      "title": "[Event] 今週は復刻曲「Unshakable」、Own The Night」、Prismatic Flipper」が帰ってくるよ！ 開催期間は10月25日13時から10月29日21時（UTC+…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -192,7 +192,7 @@
       "upstream_key": "1189512271703269376:1",
       "page_url": "https://x.com/c4c4cat/status/1189512271703269376",
       "file_url": "https://pbs.twimg.com/media/EIH7rtuU0AIB5LF?format=jpg&name=orig",
-      "title": "@c4c4cat post 1189512271703269376 image 1",
+      "title": "[Event] 今週は復刻曲「Pandemik」、Hopeful Warrior」、Black：Magnam」が帰ってくるよ！ 開催期間は11月1日13時から11月5日21時（UTC+9）まで！ @…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -227,7 +227,7 @@
       "upstream_key": "1192048987358019585:1",
       "page_url": "https://x.com/c4c4cat/status/1192048987358019585",
       "file_url": "https://pbs.twimg.com/media/EIrsqgQU4AYCcZ9?format=jpg&name=orig",
-      "title": "@c4c4cat post 1192048987358019585 image 1",
+      "title": "[Event] 今週は復刻曲「Rain」、Cross†Soul」、Nightmare Girl」が帰ってくるよ！ 開催期間は11月8日13時から11月12日21時（UTC+9）まで！ @hyunes…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -262,7 +262,7 @@
       "upstream_key": "1204007768987881472:1",
       "page_url": "https://x.com/c4c4cat/status/1204007768987881472",
       "file_url": "https://pbs.twimg.com/media/ELV-lIPUwAE0kdx?format=jpg&name=orig",
-      "title": "@c4c4cat post 1204007768987881472 image 1",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -292,7 +292,7 @@
       "upstream_key": "1216690549182230528:1",
       "page_url": "https://x.com/c4c4cat/status/1216690549182230528",
       "file_url": "https://pbs.twimg.com/media/EOKNFnnUYAEOm_R?format=jpg&name=orig",
-      "title": "@c4c4cat post 1216690549182230528 image 1",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -322,7 +322,7 @@
       "upstream_key": "1217763427189309440:1",
       "page_url": "https://x.com/c4c4cat/status/1217763427189309440",
       "file_url": "https://pbs.twimg.com/media/EOZA6mlVAAEvSJj?format=jpg&name=orig",
-      "title": "@c4c4cat post 1217763427189309440 image 1",
+      "title": "[パッケージのリリース] 新しいパッケージ 「Intruders」 がリリースされました。 パッケージ内容： 「Impulse (Neutral Moon VIP Edit)」 - Daison 「…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -352,7 +352,7 @@
       "upstream_key": "1239884186070265856:1",
       "page_url": "https://x.com/c4c4cat/status/1239884186070265856",
       "file_url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
-      "title": "@c4c4cat post 1239884186070265856 image 1",
+      "title": "[Event] 次のイベント曲はSe-U-Raさんが作った「終の舞姫」。 開催期間は3月20日13時から3月24日21時（UTC+9）まで！ @SeURa_Nue #Dynamix #OS2019G…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -389,7 +389,7 @@
       "upstream_key": "1247131946095972353:1",
       "page_url": "https://x.com/c4c4cat/status/1247131946095972353",
       "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
-      "title": "@c4c4cat post 1247131946095972353 image 1",
+      "title": "《Dynamix Easter Event 2020》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -419,7 +419,7 @@
       "upstream_key": "1250393437095911427:1",
       "page_url": "https://x.com/c4c4cat/status/1250393437095911427",
       "file_url": "https://pbs.twimg.com/media/EVpEHqTUYAIntSM?format=jpg&name=orig",
-      "title": "@c4c4cat post 1250393437095911427 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Arcana Idola」、「Blue」が帰ってくるよ！ 開催期間は4月17日13時から4月21日21時（UTC+9）まで！ @riranofficial #D…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -453,7 +453,7 @@
       "upstream_key": "1251842986339598337:1",
       "page_url": "https://x.com/c4c4cat/status/1251842986339598337",
       "file_url": "https://pbs.twimg.com/media/EVpGq4oU4AEPnbq?format=jpg&name=orig",
-      "title": "@c4c4cat post 1251842986339598337 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「ほしぞらトラベル」、「Peony」が帰ってくるよ！ 開催期間は4月21日13時から4月25日21時（UTC+9）まで！ @MJ_KANON #Dynamix",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -487,7 +487,7 @@
       "upstream_key": "1252930152625049603:1",
       "page_url": "https://x.com/c4c4cat/status/1252930152625049603",
       "file_url": "https://pbs.twimg.com/media/EWNBf3ZU8AEDzXs?format=jpg&name=orig",
-      "title": "@c4c4cat post 1252930152625049603 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Soul fire lit」、「BLUFF」が帰ってくるよ！ 開催期間は4月24日13時から4月28日21時（UTC+9）まで！ @Ryo_Arue #Dyna…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -521,7 +521,7 @@
       "upstream_key": "1253292191897681920:1",
       "page_url": "https://x.com/c4c4cat/status/1253292191897681920",
       "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
-      "title": "@c4c4cat post 1253292191897681920 image 1",
+      "title": "パッケージセールが来ています!! 準備はできたか？ 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -549,7 +549,7 @@
       "upstream_key": "1254666590727155713:1",
       "page_url": "https://x.com/c4c4cat/status/1254666590727155713",
       "file_url": "https://pbs.twimg.com/media/EWlrkBwUYAATQWN?format=jpg&name=orig",
-      "title": "@c4c4cat post 1254666590727155713 image 1",
+      "title": "[Event] 火曜日は復刻曲「Defended」、「Justice Justice」が帰ってくるよ！ 開催期間は4月28日13時から5月2日21時（UTC+9）まで！ @stereoberry #…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -583,7 +583,7 @@
       "upstream_key": "1272499095123267585:1",
       "page_url": "https://x.com/c4c4cat/status/1272499095123267585",
       "file_url": "https://pbs.twimg.com/media/EajQRVgUcAA4ukS?format=jpg&name=orig",
-      "title": "@c4c4cat post 1272499095123267585 image 1",
+      "title": "《Dynamix Dragon Boat Festival Event 2020》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -613,7 +613,7 @@
       "upstream_key": "1275760589386776577:1",
       "page_url": "https://x.com/c4c4cat/status/1275760589386776577",
       "file_url": "https://pbs.twimg.com/media/EbRM1IXWAAEj46G?format=jpg&name=orig",
-      "title": "@c4c4cat post 1275760589386776577 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Angel x Angel」、「Vanilla_Sky」が帰ってくるよ！ 開催期間は6月26日13時から6月30日21時（UTC+9）まで！ @t4k4h1r0…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -647,7 +647,7 @@
       "upstream_key": "1277210136273027073:1",
       "page_url": "https://x.com/c4c4cat/status/1277210136273027073",
       "file_url": "https://pbs.twimg.com/media/EbRSVn-U4AE7nfP?format=jpg&name=orig",
-      "title": "@c4c4cat post 1277210136273027073 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「CORONA」、「交差して歪む過去と未来」が帰ってくるよ！ 開催期間は6月30日13時から7月4日21時（UTC+9）まで！ @Chicala_Lpis @kar…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -681,7 +681,7 @@
       "upstream_key": "1285907445466804224:1",
       "page_url": "https://x.com/c4c4cat/status/1285907445466804224",
       "file_url": "https://pbs.twimg.com/media/EdhX_DkUcAAO4x_?format=png&name=orig",
-      "title": "@c4c4cat post 1285907445466804224 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「diSTractiOn PoInT」、「Frontline B-Side」が帰ってくるよ！ 開催期間は7月24日13時から7月28日21時（UTC+9）まで！ …",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -715,7 +715,7 @@
       "upstream_key": "1287357000016224260:1",
       "page_url": "https://x.com/c4c4cat/status/1287357000016224260",
       "file_url": "https://pbs.twimg.com/media/EdhY3GyU8AU8oUN?format=png&name=orig",
-      "title": "@c4c4cat post 1287357000016224260 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「The Endless for Traveler」、「NOISIΛ」が帰ってくるよ！ 開催期間は7月28日13時から8月1日21時（UTC+9）まで！ @SeUR…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -749,7 +749,7 @@
       "upstream_key": "1288444160018612224:1",
       "page_url": "https://x.com/c4c4cat/status/1288444160018612224",
       "file_url": "https://pbs.twimg.com/media/Ed7NC7MUYAI9LeO?format=png&name=orig",
-      "title": "@c4c4cat post 1288444160018612224 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Nova Highway」、「soar to Ø」が帰ってくるよ！ 開催期間は7月31日13時から8月4日21時（UTC+9）まで！ @BLUEnoup #Dy…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -783,7 +783,7 @@
       "upstream_key": "1289893710214262786:1",
       "page_url": "https://x.com/c4c4cat/status/1289893710214262786",
       "file_url": "https://pbs.twimg.com/media/Ed7NchHUcAExQlq?format=png&name=orig",
-      "title": "@c4c4cat post 1289893710214262786 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Lily」、「Sunset Road」が帰ってくるよ！ 開催期間は8月4日13時から8月8日21時（UTC+9）まで！ @_JunKuroda @panbanan…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -817,7 +817,7 @@
       "upstream_key": "1298591025418481664:1",
       "page_url": "https://x.com/c4c4cat/status/1298591025418481664",
       "file_url": "https://pbs.twimg.com/media/EgVD8tRUcAAqNor?format=jpg&name=orig",
-      "title": "@c4c4cat post 1298591025418481664 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「to soar」、「哀しい竜とカイツール」が帰ってくるよ！ 開催期間は8月28日13時から9月1日21時（UTC+9）まで！ @BLUEnoup @mAoA9_…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -851,7 +851,7 @@
       "upstream_key": "1300040576968962048:1",
       "page_url": "https://x.com/c4c4cat/status/1300040576968962048",
       "file_url": "https://pbs.twimg.com/media/EgVEFIBUYAAp64w?format=jpg&name=orig",
-      "title": "@c4c4cat post 1300040576968962048 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Dement ~After Legend~」、「Knight of Tripletz (for DNX Edit)」が帰ってくるよ！ 開催期間は9月1日13時から…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -885,7 +885,7 @@
       "upstream_key": "1305114005191757824:1",
       "page_url": "https://x.com/c4c4cat/status/1305114005191757824",
       "file_url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk?format=jpg&name=orig",
-      "title": "@c4c4cat post 1305114005191757824 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Destruction」が帰ってくるよ！ 開催期間は9月15日13時から9月19日21時（UTC+9）まで！ #Dynamix",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -921,7 +921,7 @@
       "upstream_key": "1305838780729917441:1",
       "page_url": "https://x.com/c4c4cat/status/1305838780729917441",
       "file_url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64?format=jpg&name=orig",
-      "title": "@c4c4cat post 1305838780729917441 image 1",
+      "title": "[Event] 次のイベント曲はCROWLIAさんが作った「Moving On」。 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ #Dynamix #OS2019Silver",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -957,7 +957,7 @@
       "upstream_key": "1306201168503332870:1",
       "page_url": "https://x.com/c4c4cat/status/1306201168503332870",
       "file_url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5?format=jpg&name=orig",
-      "title": "@c4c4cat post 1306201168503332870 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Cryonix」が帰ってくるよ！ 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ @sky_delta #Dynamix",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -993,7 +993,7 @@
       "upstream_key": "1308737882526425088:1",
       "page_url": "https://x.com/c4c4cat/status/1308737882526425088",
       "file_url": "https://pbs.twimg.com/media/EimApnSVoAAcWIJ?format=jpg&name=orig",
-      "title": "@c4c4cat post 1308737882526425088 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Triumph And Regret」、「Youth」が帰ってくるよ！ 開催期間は9月25日13時から9月29日21時（UTC+9）まで！ @typeMARS …",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1027,7 +1027,7 @@
       "upstream_key": "1310187433485504513:1",
       "page_url": "https://x.com/c4c4cat/status/1310187433485504513",
       "file_url": "https://pbs.twimg.com/media/EimCJjJVgAEhAcX?format=jpg&name=orig",
-      "title": "@c4c4cat post 1310187433485504513 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「DeaDLiNE」、「夏色メランコリー」が帰ってくるよ！ 開催期間は9月29日13時から10月3日21時（UTC+9）まで！ @logical_kRM @MJ_K…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1061,7 +1061,7 @@
       "upstream_key": "1310910948119425025:1",
       "page_url": "https://x.com/c4c4cat/status/1310910948119425025",
       "file_url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U?format=jpg&name=orig",
-      "title": "@c4c4cat post 1310910948119425025 image 1",
+      "title": "[パッケージのリリース] 新しいパッケージ 「Crossing Delta」 がリリースされました。 パッケージ内容： FLUCTONが作った 「Paved Garden」、「Slapstick P…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1091,7 +1091,7 @@
       "upstream_key": "1315623248558686209:1",
       "page_url": "https://x.com/c4c4cat/status/1315623248558686209",
       "file_url": "https://pbs.twimg.com/media/EkHxQefU0AA7NAF?format=jpg&name=orig",
-      "title": "@c4c4cat post 1315623248558686209 image 1",
+      "title": "《Dynamix Halloween Event 2020 x 6th Anniversary》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1121,7 +1121,7 @@
       "upstream_key": "1318884743513919490:1",
       "page_url": "https://x.com/c4c4cat/status/1318884743513919490",
       "file_url": "https://pbs.twimg.com/media/Ek2SC4TVgAMAlh6?format=jpg&name=orig",
-      "title": "@c4c4cat post 1318884743513919490 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Link To Dungeons」、「Sultan Madness」が帰ってくるよ！ 開催期間は10月23日13時から10月27日21時（UTC+9）まで！ M…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1155,7 +1155,7 @@
       "upstream_key": "1320334293516709889:1",
       "page_url": "https://x.com/c4c4cat/status/1320334293516709889",
       "file_url": "https://pbs.twimg.com/media/Ek2SojJVcAE2Iec?format=jpg&name=orig",
-      "title": "@c4c4cat post 1320334293516709889 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Arty Party」、「Ice Chandelier」が帰ってくるよ！ 開催期間は10月27日13時から10月31日21時（UTC+9）まで！ @yasetak…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1189,7 +1189,7 @@
       "upstream_key": "1321421459638681601:1",
       "page_url": "https://x.com/c4c4cat/status/1321421459638681601",
       "file_url": "https://pbs.twimg.com/media/ElaYs8AUUAIDYVG?format=jpg&name=orig",
-      "title": "@c4c4cat post 1321421459638681601 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Sky land」、「Rudy」が帰ってくるよ！ 開催期間は10月30日13時から11月3日21時（UTC+9）まで！ @Levaslater Dusk @wa…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1223,7 +1223,7 @@
       "upstream_key": "1322871006357315585:1",
       "page_url": "https://x.com/c4c4cat/status/1322871006357315585",
       "file_url": "https://pbs.twimg.com/media/ElaahtdVMAE5RME?format=jpg&name=orig",
-      "title": "@c4c4cat post 1322871006357315585 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Time & Space (Dynamix Edit)」、「16383」が帰ってくるよ！ 開催期間は11月3日13時から11月7日21時（UTC+9）まで！ #D…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1257,7 +1257,7 @@
       "upstream_key": "1323490087397658624:1",
       "page_url": "https://x.com/c4c4cat/status/1323490087397658624",
       "file_url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U?format=jpg&name=orig",
-      "title": "@c4c4cat post 1323490087397658624 image 1",
+      "title": "[Package Sale] As our new package 《Crossing Delta》finally released. We decided to start a Package S…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1285,7 +1285,7 @@
       "upstream_key": "1325407725623283712:1",
       "page_url": "https://x.com/c4c4cat/status/1325407725623283712",
       "file_url": "https://pbs.twimg.com/media/El-TYtJVoAcIT1L?format=jpg&name=orig",
-      "title": "@c4c4cat post 1325407725623283712 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Black：Magnam」が帰ってくるよ！ 開催期間は11月10日13時から11月14日21時（UTC+9）まで！ @adaptor166 #Dynamix",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1321,7 +1321,7 @@
       "upstream_key": "1331568315706142723:1",
       "page_url": "https://x.com/c4c4cat/status/1331568315706142723",
       "file_url": "https://pbs.twimg.com/media/EnBdyDZUUAETadH?format=jpg&name=orig",
-      "title": "@c4c4cat post 1331568315706142723 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Hall of Fame」、「Glory of the Sacred Kingdom」が帰ってくるよ！ 開催期間は11月27日13時から12月1日21時（UTC…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1355,7 +1355,7 @@
       "upstream_key": "1333017872860213255:1",
       "page_url": "https://x.com/c4c4cat/status/1333017872860213255",
       "file_url": "https://pbs.twimg.com/media/EnBfi_ZVkAEQm63?format=jpg&name=orig",
-      "title": "@c4c4cat post 1333017872860213255 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「BOUNCE THE TECH」、「Chrysoberyl」が帰ってくるよ！ 開催期間は12月1日13時から12月5日21時（UTC+9）まで！ @soundpi…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1389,7 +1389,7 @@
       "upstream_key": "1338453689703555072:1",
       "page_url": "https://x.com/c4c4cat/status/1338453689703555072",
       "file_url": "https://pbs.twimg.com/media/EpMXSZrUwAAWUI8?format=jpg&name=orig",
-      "title": "@c4c4cat post 1338453689703555072 image 1",
+      "title": "《Dynamix 2020 Christmas Event》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1419,7 +1419,7 @@
       "upstream_key": "1341715177331335169:1",
       "page_url": "https://x.com/c4c4cat/status/1341715177331335169",
       "file_url": "https://pbs.twimg.com/media/EoOdjO6VkAEg6RD?format=jpg&name=orig",
-      "title": "@c4c4cat post 1341715177331335169 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Speedster, Trickster」、「Empty Stars」が帰ってくるよ！ 開催期間は12月25日13時から12月29日21時（UTC+9）まで！ …",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1453,7 +1453,7 @@
       "upstream_key": "1343164731750694917:1",
       "page_url": "https://x.com/c4c4cat/status/1343164731750694917",
       "file_url": "https://pbs.twimg.com/media/EoOelXgVcAEJLH9?format=jpg&name=orig",
-      "title": "@c4c4cat post 1343164731750694917 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Anökumene」、「JOACHIM : D」が帰ってくるよ！ 開催期間は12月29日13時から1月2日21時（UTC+9）まで！ @_JunKuroda @s…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1487,7 +1487,7 @@
       "upstream_key": "1351862036330905601:1",
       "page_url": "https://x.com/c4c4cat/status/1351862036330905601",
       "file_url": "https://pbs.twimg.com/media/Eqe07uhUwAELAuK?format=jpg&name=orig",
-      "title": "@c4c4cat post 1351862036330905601 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「曇る鑑《かがみ》の霧を含みて」、「白色の夢で。」が帰ってくるよ！ 開催期間は1月22日13時から1月26日21時（UTC+9）まで！ @chronoize @N…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1521,7 +1521,7 @@
       "upstream_key": "1353311589705854978:1",
       "page_url": "https://x.com/c4c4cat/status/1353311589705854978",
       "file_url": "https://pbs.twimg.com/media/Eqe1fYXUUAIZR4U?format=jpg&name=orig",
-      "title": "@c4c4cat post 1353311589705854978 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Dead Master」、「Lumina」が帰ってくるよ！ 開催期間は1月26日13時から1月30日21時（UTC+9）まで！ @wispx #Dynamix",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1555,7 +1555,7 @@
       "upstream_key": "1354398754414051334:1",
       "page_url": "https://x.com/c4c4cat/status/1354398754414051334",
       "file_url": "https://pbs.twimg.com/media/Eqe13YHVQAAeBiu?format=jpg&name=orig",
-      "title": "@c4c4cat post 1354398754414051334 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「声が届かないのなら」、「 開催期間は1月29日13時から2月2日21時（UTC+9）まで！ @karato_P @kukkugoo @MonamiTech #D…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1589,7 +1589,7 @@
       "upstream_key": "1355848303439581188:1",
       "page_url": "https://x.com/c4c4cat/status/1355848303439581188",
       "file_url": "https://pbs.twimg.com/media/Eqe2RpoVoAEsnQk?format=jpg&name=orig",
-      "title": "@c4c4cat post 1355848303439581188 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「The Clockwork Doll」、「Wish」が帰ってくるよ！ 開催期間は2月2日13時から2月6日21時（UTC+9）まで！ @aboutlogic @o…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1623,7 +1623,7 @@
       "upstream_key": "1356210690101489665:1",
       "page_url": "https://x.com/c4c4cat/status/1356210690101489665",
       "file_url": "https://pbs.twimg.com/media/EtI5i4yUYAM7l-e?format=jpg&name=orig",
-      "title": "@c4c4cat post 1356210690101489665 image 1",
+      "title": "[Dynamix] 2月の3週のイベント曲を予告します：( ´ ▽ ` )ﾉ 1. Symphonian feat.kei_iwata が作った My life is mine 2. Eu が作った…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1658,7 +1658,7 @@
       "upstream_key": "1358747410151870464:1",
       "page_url": "https://x.com/c4c4cat/status/1358747410151870464",
       "file_url": "https://pbs.twimg.com/media/EtsoXDrVoAAVULZ?format=jpg&name=orig",
-      "title": "@c4c4cat post 1358747410151870464 image 1",
+      "title": "《Dynamix 2021 Lunar New Year Event》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1688,7 +1688,7 @@
       "upstream_key": "1361646516008443909:1",
       "page_url": "https://x.com/c4c4cat/status/1361646516008443909",
       "file_url": "https://pbs.twimg.com/media/EuUhfVSVoAMk5x5?format=jpg&name=orig",
-      "title": "@c4c4cat post 1361646516008443909 image 1",
+      "title": "[Event] 次のイベント曲はLinne X SCTL(Illust.Keiyuu&RED-FOX)さんが作った「WHIRLWIND」。 開催期間は2月19日13時から2月23日21時（UTC+9…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1724,7 +1724,7 @@
       "upstream_key": "1364545616563507202:1",
       "page_url": "https://x.com/c4c4cat/status/1364545616563507202",
       "file_url": "https://pbs.twimg.com/media/EtS6TO0U4AYmRLg?format=jpg&name=orig",
-      "title": "@c4c4cat post 1364545616563507202 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Crank up」、「Aujourd'hui」が帰ってくるよ！ 開催期間は2月26日13時から3月2日21時（UTC+9）まで！ @litmus_music @…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1758,7 +1758,7 @@
       "upstream_key": "1365995165387792390:1",
       "page_url": "https://x.com/c4c4cat/status/1365995165387792390",
       "file_url": "https://pbs.twimg.com/media/EtS59PgU4AIZ2cW?format=jpg&name=orig",
-      "title": "@c4c4cat post 1365995165387792390 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Evoltex (poppi'n mix)」、「Regenerate Violence」が帰ってくるよ！ 開催期間は3月2日13時から3月6日21時（UTC+9）…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1792,7 +1792,7 @@
       "upstream_key": "1374692479027580930:1",
       "page_url": "https://x.com/c4c4cat/status/1374692479027580930",
       "file_url": "https://pbs.twimg.com/media/ExOFa9sVcAYlj6A?format=jpg&name=orig",
-      "title": "@c4c4cat post 1374692479027580930 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Xetta」、「Oriental Landscape」が帰ってくるよ！ 開催期間は3月26日13時から3月30日21時（UTC+9）まで！ @Tang0Juan…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1826,7 +1826,7 @@
       "upstream_key": "1376142026622828546:1",
       "page_url": "https://x.com/c4c4cat/status/1376142026622828546",
       "file_url": "https://pbs.twimg.com/media/ExOIV54VkAAk06Q?format=jpg&name=orig",
-      "title": "@c4c4cat post 1376142026622828546 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「終の舞姫」、「Kreuz」が帰ってくるよ！ 開催期間は3月30日13時から4月3日21時（UTC+9）まで！ @SeURa_Nue @sky_delta #Dyn…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1860,7 +1860,7 @@
       "upstream_key": "1376504413452439553:1",
       "page_url": "https://x.com/c4c4cat/status/1376504413452439553",
       "file_url": "https://pbs.twimg.com/media/ExpKp94UYAAkb4e?format=jpg&name=orig",
-      "title": "@c4c4cat post 1376504413452439553 image 1",
+      "title": "《Dynamix 2021 Easter Event》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1890,7 +1890,7 @@
       "upstream_key": "1385201723678003201:1",
       "page_url": "https://x.com/c4c4cat/status/1385201723678003201",
       "file_url": "https://pbs.twimg.com/media/EzkTRRYUcAE3bwR?format=jpg&name=orig",
-      "title": "@c4c4cat post 1385201723678003201 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Startail」、「Blue」が帰ってくるよ！ 開催期間は4月23日13時から4月27日21時（UTC+9）まで！ @_4rch @riranofficial…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1924,7 +1924,7 @@
       "upstream_key": "1386288886435876868:1",
       "page_url": "https://x.com/c4c4cat/status/1386288886435876868",
       "file_url": "https://pbs.twimg.com/media/Ezkyos0VEAAsmGH?format=jpg&name=orig",
-      "title": "@c4c4cat post 1386288886435876868 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Now Is The Time, Do It」、「Arcana Idola」が帰ってくるよ！ 開催期間は4月27日13時から5月1日21時（UTC+9）まで！ @…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1958,7 +1958,7 @@
       "upstream_key": "1387376051807047689:1",
       "page_url": "https://x.com/c4c4cat/status/1387376051807047689",
       "file_url": "https://pbs.twimg.com/media/E0DRsr8UUAAo2lx?format=jpg&name=orig",
-      "title": "@c4c4cat post 1387376051807047689 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「月奏リバイバル」、「Mass Control」が帰ってくるよ！ 開催期間は4月30日13時から5月4日21時（UTC+9）まで！ 作者要求唔Tag @untit…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1992,7 +1992,7 @@
       "upstream_key": "1388825604774977538:1",
       "page_url": "https://x.com/c4c4cat/status/1388825604774977538",
       "file_url": "https://pbs.twimg.com/media/E0DVENlVEAYH_e3?format=jpg&name=orig",
-      "title": "@c4c4cat post 1388825604774977538 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Fernand System Operating!!」、「ほしぞらトラベル」が帰ってくるよ！ 開催期間は5月4日13時から5月8日21時（UTC+9）まで！ @h…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2026,7 +2026,7 @@
       "upstream_key": "1397522911678840838:1",
       "page_url": "https://x.com/c4c4cat/status/1397522911678840838",
       "file_url": "https://pbs.twimg.com/media/E2T5jGJUcAErvEE?format=jpg&name=orig",
-      "title": "@c4c4cat post 1397522911678840838 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「New Story」、「αterlβus」が帰ってくるよ！ 開催期間は5月28日13時から6月1日21時（UTC+9）まで！ @Leigendar @BLUEn…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2060,7 +2060,7 @@
       "upstream_key": "1398972463879438337:1",
       "page_url": "https://x.com/c4c4cat/status/1398972463879438337",
       "file_url": "https://pbs.twimg.com/media/E2T6hMxVgAMOExz?format=jpg&name=orig",
-      "title": "@c4c4cat post 1398972463879438337 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Forbidden Area」、「Snowy Light」が帰ってくるよ！ 開催期間は6月1日13時から6月5日21時（UTC+9）まで！ @vamp_kgrn …",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2094,7 +2094,7 @@
       "upstream_key": "1407669775799623683:1",
       "page_url": "https://x.com/c4c4cat/status/1407669775799623683",
       "file_url": "https://pbs.twimg.com/media/E4kH7QdVgAIK-yq?format=jpg&name=orig",
-      "title": "@c4c4cat post 1407669775799623683 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Flarebirds of Scarlet Prism」、「Sky Adventure!」が帰ってくるよ！ 開催期間は6月25日13時から6月29日21時（UT…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2128,7 +2128,7 @@
       "upstream_key": "1409116629825294344:1",
       "page_url": "https://x.com/c4c4cat/status/1409116629825294344",
       "file_url": "https://pbs.twimg.com/media/E44wDiZVkAMg9HG?format=jpg&name=orig",
-      "title": "@c4c4cat post 1409116629825294344 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Starbirds of Zenith Blue」、「涅槃を灯すシャーデンフロイデ」が帰ってくるよ！ 開催期間は6月29日13時から7月3日21時（UTC+9）ま…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2162,7 +2162,7 @@
       "upstream_key": "1410901066380623872:1",
       "page_url": "https://x.com/c4c4cat/status/1410901066380623872",
       "file_url": "https://pbs.twimg.com/media/E5RlMB7VkAAqCzB?format=jpg&name=orig",
-      "title": "@c4c4cat post 1410901066380623872 image 1",
+      "title": "【重大告知】 アプリ音楽ゲーム『RAVON』とDynamixのコラボが決定🎉 8月中旬よりスタート。続報をお楽しみに！ テーマアート：@takelifesoul #RAVON #Dynamix",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2196,7 +2196,7 @@
       "upstream_key": "1417816629401030660:1",
       "page_url": "https://x.com/c4c4cat/status/1417816629401030660",
       "file_url": "https://pbs.twimg.com/media/E5HphI5VcAE28_1?format=jpg&name=orig",
-      "title": "@c4c4cat post 1417816629401030660 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Angel x Angel」、「The Path」が帰ってくるよ！ 開催期間は7月23日13時から7月27日21時（UTC+9）まで！ @t4k4h1r0 #D…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2230,7 +2230,7 @@
       "upstream_key": "1418541403244617732:1",
       "page_url": "https://x.com/c4c4cat/status/1418541403244617732",
       "file_url": "https://pbs.twimg.com/media/E69KT6rVkAYVLlF?format=jpg&name=orig",
-      "title": "@c4c4cat post 1418541403244617732 image 1",
+      "title": "[Artwork Submission] 作成者の名前: Yunana アートワークの名前: メイドさん メッセージ：Life flashes before weeb eyesのキャラクター名前は？…",
       "role": null,
       "game": "unknown",
       "game_evidence": [
@@ -2255,7 +2255,7 @@
       "upstream_key": "1419266181224177668:1",
       "page_url": "https://x.com/c4c4cat/status/1419266181224177668",
       "file_url": "https://pbs.twimg.com/media/E5Hp6YbUYAQ-gAZ?format=jpg&name=orig",
-      "title": "@c4c4cat post 1419266181224177668 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「RASeed」、「Dolqueen」が帰ってくるよ！ 開催期間は7月27日13時から7月31日21時（UTC+9）まで！ @TurretOmega @ax_ono…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2289,7 +2289,7 @@
       "upstream_key": "1420353347035582469:1",
       "page_url": "https://x.com/c4c4cat/status/1420353347035582469",
       "file_url": "https://pbs.twimg.com/media/E5HqUBJVkAYG1X3?format=jpg&name=orig",
-      "title": "@c4c4cat post 1420353347035582469 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「交差して歪む過去と未来」、「Enhanced Lights」が帰ってくるよ！ 開催期間は7月30日13時から8月3日21時（UTC+9）まで！ @karato_…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2323,7 +2323,7 @@
       "upstream_key": "1421802897663139843:1",
       "page_url": "https://x.com/c4c4cat/status/1421802897663139843",
       "file_url": "https://pbs.twimg.com/media/E5HqpGoVUAMwWfU?format=jpg&name=orig",
-      "title": "@c4c4cat post 1421802897663139843 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「CORONA」、「Between Boundaries」が帰ってくるよ！ 開催期間は8月3日13時から8月7日21時（UTC+9）まで！ @Chicala_Lpi…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2357,7 +2357,7 @@
       "upstream_key": "1427842694999527428:1",
       "page_url": "https://x.com/c4c4cat/status/1427842694999527428",
       "file_url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
-      "title": "@c4c4cat post 1427842694999527428 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 8月21日より、『RAVONコラボPack1』が「Dynamix」に登場！ 待望の一曲目はこちら！ 【White：Revolve】by adaptor…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2393,7 +2393,7 @@
       "upstream_key": "1428205081292251137:1",
       "page_url": "https://x.com/c4c4cat/status/1428205081292251137",
       "file_url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH?format=jpg&name=orig",
-      "title": "@c4c4cat post 1428205081292251137 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 新進気鋭のアプリ音ゲーRAVONより、『RAVONコラボPack1』に合計4曲追加！ 二曲目はこちら！ 【Astral】by Titan Chaos …",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2429,7 +2429,7 @@
       "upstream_key": "1428567468444950530:1",
       "page_url": "https://x.com/c4c4cat/status/1428567468444950530",
       "file_url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi?format=jpg&name=orig",
-      "title": "@c4c4cat post 1428567468444950530 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack1』三曲目、 RAVONではお馴染みのあの難関曲ーー 【Mitochondria】by 5argon 一体どんな譜…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2465,7 +2465,7 @@
       "upstream_key": "1428839259532836867:1",
       "page_url": "https://x.com/c4c4cat/status/1428839259532836867",
       "file_url": "https://pbs.twimg.com/media/E9EPwbSVoAQy4ZX?format=jpg&name=orig",
-      "title": "@c4c4cat post 1428839259532836867 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 本日リリースの『RAVONコラボPack1』、隠された最後の曲は……なんと！ 《RAVON、Dynamix同時収録の書き下ろし新曲》 【ReLyna】…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2501,7 +2501,7 @@
       "upstream_key": "1428960055492321284:1",
       "page_url": "https://x.com/c4c4cat/status/1428960055492321284",
       "file_url": "https://pbs.twimg.com/media/E9END1JVIAk8djf?format=jpg&name=orig",
-      "title": "@c4c4cat post 1428960055492321284 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack1』好評発売中🎉 【White：Revolve】by adaptor 【Astral】by Titan Chaos 【Mi…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2537,7 +2537,7 @@
       "upstream_key": "1430500213030936583:1",
       "page_url": "https://x.com/c4c4cat/status/1430500213030936583",
       "file_url": "https://pbs.twimg.com/media/E78abygVcAUiCoE?format=jpg&name=orig",
-      "title": "@c4c4cat post 1430500213030936583 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「diSTractiOn PoInT」、「The Endless for Traveler」が帰ってくるよ！ 開催期間は8月27日13時から8月31日21時（UT…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2571,7 +2571,7 @@
       "upstream_key": "1431949753311432704:1",
       "page_url": "https://x.com/c4c4cat/status/1431949753311432704",
       "file_url": "https://pbs.twimg.com/media/E78cecNVIAMnStE?format=jpg&name=orig",
-      "title": "@c4c4cat post 1431949753311432704 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Frontline B-Side」、「NOISIΛ」が帰ってくるよ！ 開催期間は8月31日13時から9月4日21時（UTC+9）まで！ @4nyuki @moti…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2605,7 +2605,7 @@
       "upstream_key": "1434365675686879233:1",
       "page_url": "https://x.com/c4c4cat/status/1434365675686879233",
       "file_url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
-      "title": "@c4c4cat post 1434365675686879233 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 9月8日より、『RAVONコラボPack2』が「Dynamix」に登場！ 一曲目はこちら！ 【Rave! and Get on it!】by Woof…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2641,7 +2641,7 @@
       "upstream_key": "1434728063649079298:1",
       "page_url": "https://x.com/c4c4cat/status/1434728063649079298",
       "file_url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw?format=jpg&name=orig",
-      "title": "@c4c4cat post 1434728063649079298 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 『RAVONコラボPack2』二曲目、公開！ 【Totally bounded】by 影虎。 イケイケの本格PsytranceがDynamixに登場😎…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2677,7 +2677,7 @@
       "upstream_key": "1435090451833315331:1",
       "page_url": "https://x.com/c4c4cat/status/1435090451833315331",
       "file_url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS?format=jpg&name=orig",
-      "title": "@c4c4cat post 1435090451833315331 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack2』三曲目、 RAVONといえばーー 【Euouae】by Spyro Kong BPMは驚異の410！Dynam…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2713,7 +2713,7 @@
       "upstream_key": "1435452837211803651:1",
       "page_url": "https://x.com/c4c4cat/status/1435452837211803651",
       "file_url": "https://pbs.twimg.com/media/E-cEBF4UUAI96Tk?format=jpg&name=orig",
-      "title": "@c4c4cat post 1435452837211803651 image 1",
+      "title": "全スマホ音ゲーマーへの挑戦状。 本日リリースの『RAVONコラボPack2』、最後の曲は……！ 《RAVON、Dynamix同時収録の書き下ろし新曲》 【MassacrE || 3rc4224M】b…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2749,7 +2749,7 @@
       "upstream_key": "1435483036779483139:1",
       "page_url": "https://x.com/c4c4cat/status/1435483036779483139",
       "file_url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO?format=jpg&name=orig",
-      "title": "@c4c4cat post 1435483036779483139 image 1",
+      "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack2』好評発売中🎉 【Rave! and Get on it!】by Woof 【Totally bounded】by 影虎…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2785,7 +2785,7 @@
       "upstream_key": "1437430883837956097:1",
       "page_url": "https://x.com/c4c4cat/status/1437430883837956097",
       "file_url": "https://pbs.twimg.com/media/E_LApDjVgAcCD2o?format=jpg&name=orig",
-      "title": "@c4c4cat post 1437430883837956097 image 1",
+      "title": "《Dynamix 2021 Mid-Autumn Festival Event》 詳細は、次のサイトを参照してください： #Dynamix #Dynamix_Event",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -2815,7 +2815,7 @@
       "upstream_key": "1437747970875674626:1",
       "page_url": "https://x.com/c4c4cat/status/1437747970875674626",
       "file_url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
-      "title": "@c4c4cat post 1437747970875674626 image 1",
+      "title": "[Event] 次のイベント曲はReku Mochizukiさんが作った「玲瓏メテオ」。 開催期間は9月17日13時から9月21日21時（UTC+9）まで！ @RekuMczk #Dynamix #…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -2852,7 +2852,7 @@
       "upstream_key": "1440662164495237120:1",
       "page_url": "https://x.com/c4c4cat/status/1440662164495237120",
       "file_url": "https://pbs.twimg.com/media/E_46yojVEAMaNQG?format=jpg&name=orig",
-      "title": "@c4c4cat post 1440662164495237120 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「MLG」、「おもひでファンタジア」が帰ってくるよ！ 開催期間は9月24日13時から9月28日21時（UTC+9）まで！ @umecha24909 #Dynamix",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2886,7 +2886,7 @@
       "upstream_key": "1450809024216059910:1",
       "page_url": "https://x.com/c4c4cat/status/1450809024216059910",
       "file_url": "https://pbs.twimg.com/media/FCJJmugVIAQGusP?format=jpg&name=orig",
-      "title": "@c4c4cat post 1450809024216059910 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「^/7(L|?[_(L+#<>+&|^(o)」、「Knight of Tripletz (for DNX Edit)」が帰ってくるよ！ 開催期間は10月22日1…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2920,7 +2920,7 @@
       "upstream_key": "1452606530516230145:1",
       "page_url": "https://x.com/c4c4cat/status/1452606530516230145",
       "file_url": "https://pbs.twimg.com/media/FCix0aVVcAIoDEh?format=jpg&name=orig",
-      "title": "@c4c4cat post 1452606530516230145 image 1",
+      "title": "《Dynamix 2021 Halloween Event X 7th Anniversiry》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -2950,7 +2950,7 @@
       "upstream_key": "1452615928441720832:1",
       "page_url": "https://x.com/c4c4cat/status/1452615928441720832",
       "file_url": "https://pbs.twimg.com/media/FCi0SbFUUAc3dku?format=jpg&name=orig",
-      "title": "@c4c4cat post 1452615928441720832 image 1",
+      "title": "[Event] 本週の火曜日は復刻曲「to soar」、「オレンジ」が帰ってくるよ！ 開催期間は10月26日13時から10月30日21時（UTC+9）まで！ @BLUEnoup @mAoA9_com…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2984,7 +2984,7 @@
       "upstream_key": "1453330641274097667:1",
       "page_url": "https://x.com/c4c4cat/status/1453330641274097667",
       "file_url": "https://pbs.twimg.com/media/FCs0G4jVIAIN2d0?format=jpg&name=orig",
-      "title": "@c4c4cat post 1453330641274097667 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「哀しい竜とカイツール」、「Laivisca」が帰ってくるよ！ 開催期間は10月29日13時から11月2日21時（UTC+9）まで！ @SeURa_Nue @ni…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3018,7 +3018,7 @@
       "upstream_key": "1454780199988457480:1",
       "page_url": "https://x.com/c4c4cat/status/1454780199988457480",
       "file_url": "https://pbs.twimg.com/media/FCs4YN1VgAEW4Z3?format=jpg&name=orig",
-      "title": "@c4c4cat post 1454780199988457480 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Dement ~After Legend~」、「紅」が帰ってくるよ！ 開催期間は11月2日13時から11月6日21時（UTC+9）まで！ @LunaticSoun…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3052,7 +3052,7 @@
       "upstream_key": "1463477504123932673:1",
       "page_url": "https://x.com/c4c4cat/status/1463477504123932673",
       "file_url": "https://pbs.twimg.com/media/FE9LQMnVEAMY-Ie?format=jpg&name=orig",
-      "title": "@c4c4cat post 1463477504123932673 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Daydream」、「Cervelle Connexion」が帰ってくるよ！ 開催期間は11月26日13時から11月30日21時（UTC+9）まで！ @EBIC…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3086,7 +3086,7 @@
       "upstream_key": "1464927056723156998:1",
       "page_url": "https://x.com/c4c4cat/status/1464927056723156998",
       "file_url": "https://pbs.twimg.com/media/FE9LJ54VIAQWSRR?format=jpg&name=orig",
-      "title": "@c4c4cat post 1464927056723156998 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Nives Marinae」、「ROAD to 773H」が帰ってくるよ！ 開催期間は11月26日13時から11月30日21時（UTC+9）まで！ @dialg…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3120,7 +3120,7 @@
       "upstream_key": "1472900045280190465:1",
       "page_url": "https://x.com/c4c4cat/status/1472900045280190465",
       "file_url": "https://pbs.twimg.com/media/FHDI1nHUcAAkBpK?format=jpg&name=orig",
-      "title": "@c4c4cat post 1472900045280190465 image 1",
+      "title": "《Dynamix 2021 Christmas X New Year's Eve Event》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3150,7 +3150,7 @@
       "upstream_key": "1473624368869748740:1",
       "page_url": "https://x.com/c4c4cat/status/1473624368869748740",
       "file_url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq?format=jpg&name=orig",
-      "title": "@c4c4cat post 1473624368869748740 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Own The Night」、「Arty Party」が帰ってくるよ！ 開催期間は12月24日13時から12月28日21時（UTC+9）まで！ @riranof…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3170,13 +3170,13 @@
       "disposition": "downloaded",
       "asset_id": "official:x:44f2c56eae77adb4",
       "song_titles": [
-        "Own The Night",
-        "Arty Party"
+        "Unshakable",
+        "Ice Chandelier"
       ],
       "collections": [
         "Event"
       ],
-      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+      "notes": "Official comeback card listing two songs (list graphic). The post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card."
     },
     {
       "id": "official:x:1475073909376618498:1",
@@ -3184,7 +3184,7 @@
       "upstream_key": "1475073909376618498:1",
       "page_url": "https://x.com/c4c4cat/status/1475073909376618498",
       "file_url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk?format=jpg&name=orig",
-      "title": "@c4c4cat post 1475073909376618498 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Unshakable」、「Ice Chandelier」が帰ってくるよ！ 開催期間は12月28日13時から1月1日21時（UTC+9）まで！ @riranoffi…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3219,7 +3219,7 @@
       "upstream_key": "1476161072998453249:1",
       "page_url": "https://x.com/c4c4cat/status/1476161072998453249",
       "file_url": "https://pbs.twimg.com/media/FHNFf4TakAogkvB?format=jpg&name=orig",
-      "title": "@c4c4cat post 1476161072998453249 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Link To Dungeons」、「Prismatic Flipper」が帰ってくるよ！ 開催期間は12月31日13時から1月4日21時（UTC+9）まで！ …",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3253,7 +3253,7 @@
       "upstream_key": "1477610628621561858:1",
       "page_url": "https://x.com/c4c4cat/status/1477610628621561858",
       "file_url": "https://pbs.twimg.com/media/FHNL1phVkAMfs7K?format=jpg&name=orig",
-      "title": "@c4c4cat post 1477610628621561858 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Sultan Madness」、「Sky land」が帰ってくるよ！ 開催期間は12月31日13時から1月4日21時（UTC+9）まで！ MonstDeath …",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3287,7 +3287,7 @@
       "upstream_key": "1480156399204061186:1",
       "page_url": "https://x.com/c4c4cat/status/1480156399204061186",
       "file_url": "https://pbs.twimg.com/media/FIf6dFoXsAMh_3T?format=jpg&name=orig",
-      "title": "@c4c4cat post 1480156399204061186 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Black：Magnam」が帰ってくるよ！ 開催期間は1月11日13時から1月15日21時（UTC+9）まで！ @adaptor166 #Dynamix",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3324,7 +3324,7 @@
       "upstream_key": "1485583166953779206:1",
       "page_url": "https://x.com/c4c4cat/status/1485583166953779206",
       "file_url": "https://pbs.twimg.com/media/FJ3O2gTWUAYRq08?format=jpg&name=orig",
-      "title": "@c4c4cat post 1485583166953779206 image 1",
+      "title": "《Dynamix 2022 Lunar New Year Event》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3354,7 +3354,7 @@
       "upstream_key": "1486307941267431426:1",
       "page_url": "https://x.com/c4c4cat/status/1486307941267431426",
       "file_url": "https://pbs.twimg.com/media/FKBghLwXMAE0Lty?format=jpg&name=orig",
-      "title": "@c4c4cat post 1486307941267431426 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「strawberry*passion」、「Hall of Fame」が帰ってくるよ！ 開催期間は1月28日13時から2月1日21時（UTC+9）まで！ @n_n…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3388,7 +3388,7 @@
       "upstream_key": "1487757487981748224:1",
       "page_url": "https://x.com/c4c4cat/status/1487757487981748224",
       "file_url": "https://pbs.twimg.com/media/FKBi2y8XEAEYk0t?format=jpg&name=orig",
-      "title": "@c4c4cat post 1487757487981748224 image 1",
+      "title": "[Event] 次の火曜日は復刻曲「Rain」、「Glory of the Sacred Kingdom」が帰ってくるよ！ 開催期間は2月1日13時から2月5日21時（UTC+9）まで！ @forb…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3422,7 +3422,7 @@
       "upstream_key": "1496454806998814725:1",
       "page_url": "https://x.com/c4c4cat/status/1496454806998814725",
       "file_url": "https://pbs.twimg.com/media/FKaJZW4X0AEFJIB?format=jpg&name=orig",
-      "title": "@c4c4cat post 1496454806998814725 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Partenza」、「Skrik (DNX edit)」が帰ってくるよ！ 開催期間は2月25日13時から3月1日21時（UTC+9）まで！ @y_shin_mu…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3456,7 +3456,7 @@
       "upstream_key": "1498266736608661505:1",
       "page_url": "https://x.com/c4c4cat/status/1498266736608661505",
       "file_url": "https://pbs.twimg.com/media/FMqisp-X0AEscgv?format=jpg&name=orig",
-      "title": "@c4c4cat post 1498266736608661505 image 1",
+      "title": "[Dynamix] 3月の3週のイベント曲を予告します：( ´ ▽ ` )ﾉ 1. Street (jacket : Sin:cK) が作った Φ 2. wotaku が作った アリス失格 3. L…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3491,7 +3491,7 @@
       "upstream_key": "1498629128467197954:1",
       "page_url": "https://x.com/c4c4cat/status/1498629128467197954",
       "file_url": "https://pbs.twimg.com/media/FMwrI-BWQAM46-W?format=jpg&name=orig",
-      "title": "@c4c4cat post 1498629128467197954 image 1",
+      "title": "[Event] 次のイベント曲はStreet (jacket : Sin:cK)さんが作った「Φ」。 開催期間は3月4日13時から3月8日21時（UTC+9）まで！ #Dynamix #OS2019…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3527,7 +3527,7 @@
       "upstream_key": "1506601655986388992:1",
       "page_url": "https://x.com/c4c4cat/status/1506601655986388992",
       "file_url": "https://pbs.twimg.com/media/FOhtI8raIAQT5UY?format=jpg&name=orig",
-      "title": "@c4c4cat post 1506601655986388992 image 1",
+      "title": "[Event] 今週の金曜日は復刻曲「Grenade」、「Future City Ⅵ」が帰ってくるよ！ 開催期間は3月25日13時から3月29日21時（UTC+9）まで！ @sky_delta @s…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3561,7 +3561,7 @@
       "upstream_key": "1513509675957841929:1",
       "page_url": "https://x.com/c4c4cat/status/1513509675957841929",
       "file_url": "https://pbs.twimg.com/media/FQEJleeacAAmUoV?format=jpg&name=orig",
-      "title": "@c4c4cat post 1513509675957841929 image 1",
+      "title": "《Dynamix 2022 Easter Event》 詳細は、次のサイトを参照してください：",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3591,7 +3591,7 @@
       "upstream_key": "1748030616950734862:1",
       "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
       "file_url": "https://pbs.twimg.com/media/GEI_OyZbAAAkJEM?format=jpg&name=orig",
-      "title": "@c4c4cat post 1748030616950734862 image 1",
+      "title": "【イベントバンドル 予告】 待ち望んでいたあの曲の復刻はまだですか？ それなら、チャンス到来！複数のイベント曲とキャラクターが含まれた超お得な合集が登場します！ (1/3)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3618,7 +3618,7 @@
       "upstream_key": "1748030616950734862:2",
       "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
       "file_url": "https://pbs.twimg.com/media/GEI_OycakAEMOPt?format=jpg&name=orig",
-      "title": "@c4c4cat post 1748030616950734862 image 2",
+      "title": "【イベントバンドル 予告】 待ち望んでいたあの曲の復刻はまだですか？ それなら、チャンス到来！複数のイベント曲とキャラクターが含まれた超お得な合集が登場します！ (2/3)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3645,7 +3645,7 @@
       "upstream_key": "1748030616950734862:3",
       "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
       "file_url": "https://pbs.twimg.com/media/GEI_OycbAAATaJB?format=jpg&name=orig",
-      "title": "@c4c4cat post 1748030616950734862 image 3",
+      "title": "【イベントバンドル 予告】 待ち望んでいたあの曲の復刻はまだですか？ それなら、チャンス到来！複数のイベント曲とキャラクターが含まれた超お得な合集が登場します！ (3/3)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3672,7 +3672,7 @@
       "upstream_key": "1748178472759865377:1",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-?format=jpg&name=orig",
-      "title": "@c4c4cat post 1748178472759865377 image 1",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (1/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3699,7 +3699,7 @@
       "upstream_key": "1748178472759865377:2",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh?format=jpg&name=orig",
-      "title": "@c4c4cat post 1748178472759865377 image 2",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (2/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3726,7 +3726,7 @@
       "upstream_key": "1748178472759865377:3",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL?format=jpg&name=orig",
-      "title": "@c4c4cat post 1748178472759865377 image 3",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (3/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3753,7 +3753,7 @@
       "upstream_key": "1748178472759865377:4",
       "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
       "file_url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ?format=jpg&name=orig",
-      "title": "@c4c4cat post 1748178472759865377 image 4",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ @h… (4/4)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3780,7 +3780,7 @@
       "upstream_key": "1797599111748731072:1",
       "page_url": "https://x.com/c4c4cat/status/1797599111748731072",
       "file_url": "https://pbs.twimg.com/media/GOat1kZbkAA4-yl?format=jpg&name=orig",
-      "title": "@c4c4cat post 1797599111748731072 image 1",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3807,7 +3807,7 @@
       "upstream_key": "1797599111748731072:2",
       "page_url": "https://x.com/c4c4cat/status/1797599111748731072",
       "file_url": "https://pbs.twimg.com/media/GOat1lEbIAAPJQU?format=jpg&name=orig",
-      "title": "@c4c4cat post 1797599111748731072 image 2",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3834,7 +3834,7 @@
       "upstream_key": "1814225168224727044:1",
       "page_url": "https://x.com/c4c4cat/status/1814225168224727044",
       "file_url": "https://pbs.twimg.com/media/GS1r7O0bQAA2dA5?format=jpg&name=orig",
-      "title": "@c4c4cat post 1814225168224727044 image 1",
+      "title": "【難易度調整】 一部の楽曲のMegaまたはGiga難易度を調整しました。 詳細はゲーム内で確認してください。 (1/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3861,7 +3861,7 @@
       "upstream_key": "1814225168224727044:2",
       "page_url": "https://x.com/c4c4cat/status/1814225168224727044",
       "file_url": "https://pbs.twimg.com/media/GS1r7PvagAAH43x?format=jpg&name=orig",
-      "title": "@c4c4cat post 1814225168224727044 image 2",
+      "title": "【難易度調整】 一部の楽曲のMegaまたはGiga難易度を調整しました。 詳細はゲーム内で確認してください。 (2/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3888,7 +3888,7 @@
       "upstream_key": "1817892842204807209:1",
       "page_url": "https://x.com/c4c4cat/status/1817892842204807209",
       "file_url": "https://pbs.twimg.com/media/GTblk6pagAED15o?format=jpg&name=orig",
-      "title": "@c4c4cat post 1817892842204807209 image 1",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3915,7 +3915,7 @@
       "upstream_key": "1817892842204807209:2",
       "page_url": "https://x.com/c4c4cat/status/1817892842204807209",
       "file_url": "https://pbs.twimg.com/media/GTbllrjaoAAOsRh?format=jpg&name=orig",
-      "title": "@c4c4cat post 1817892842204807209 image 2",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -3942,7 +3942,7 @@
       "upstream_key": "1818255227595743610:1",
       "page_url": "https://x.com/c4c4cat/status/1818255227595743610",
       "file_url": "https://pbs.twimg.com/media/GTbltElaMAAOT25?format=jpg&name=orig",
-      "title": "@c4c4cat post 1818255227595743610 image 1",
+      "title": "[Event] 次のイベント曲はAoiさんが作った「scualee」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @BLUEnoup #Dynamix #OS2023Regul…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -3979,7 +3979,7 @@
       "upstream_key": "1833837896794792179:1",
       "page_url": "https://x.com/c4c4cat/status/1833837896794792179",
       "file_url": "https://pbs.twimg.com/media/GXLyPAhbkAANEF8?format=jpg&name=orig",
-      "title": "@c4c4cat post 1833837896794792179 image 1",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4006,7 +4006,7 @@
       "upstream_key": "1833837896794792179:2",
       "page_url": "https://x.com/c4c4cat/status/1833837896794792179",
       "file_url": "https://pbs.twimg.com/media/GXLyPAVaIAE2OaV?format=jpg&name=orig",
-      "title": "@c4c4cat post 1833837896794792179 image 2",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4033,7 +4033,7 @@
       "upstream_key": "1840723270796292551:1",
       "page_url": "https://x.com/c4c4cat/status/1840723270796292551",
       "file_url": "https://pbs.twimg.com/media/GYp0GwSbIAAxdjh?format=jpg&name=orig",
-      "title": "@c4c4cat post 1840723270796292551 image 1",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4060,7 +4060,7 @@
       "upstream_key": "1840723270796292551:2",
       "page_url": "https://x.com/c4c4cat/status/1840723270796292551",
       "file_url": "https://pbs.twimg.com/media/GYt9iSeb0AA7dFE?format=jpg&name=orig",
-      "title": "@c4c4cat post 1840723270796292551 image 2",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4087,12 +4087,11 @@
       "upstream_key": "1870076698345287834:1",
       "page_url": "https://x.com/c4c4cat/status/1870076698345287834",
       "file_url": "https://pbs.twimg.com/media/GfPLwYUasAAVdJy?format=jpg&name=orig",
-      "title": "@c4c4cat post 1870076698345287834 image 1",
-      "role": "reference",
-      "game": "dynamix",
+      "title": "Dynamixの続編であるDynamix Universeがまもなくリリースされるのに伴い、2025年2月から、Dynamixの新曲の更新は従来の形式からパッケージ主体へと変わります。 今後のパッケ…",
+      "role": null,
+      "game": "unknown",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1870076698345287834",
-        "text: Dynamix Universe"
+        "https://x.com/c4c4cat/status/1870076698345287834"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/GfPLwYUasAAVdJy.jpg",
@@ -4104,9 +4103,9 @@
         "timestamp": "2024-12-20T12:00:03.000Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "official:x:1e74560694d8cbb2",
-      "notes": "Operational notice: new Dynamix songs move to packages from February 2025."
+      "disposition": "excluded",
+      "reason": "site_ui: decorative mascot-icon pattern strip attached to a text notice; no artwork or information",
+      "notes": "Withdrawn 2026-10-10 by a curated seed rule (site_ui: decorative mascot-icon pattern strip attached to a text notice; no artwork or information): archived record(s) official:x:1e74560694d8cbb2 (sha256 1e74560694d8cbb2a79d6b64b99cd71a457ced3b14b9fb4f40cd95b04df9b6b6) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "official:x:1889645633545613724:1",
@@ -4114,7 +4113,7 @@
       "upstream_key": "1889645633545613724:1",
       "page_url": "https://x.com/c4c4cat/status/1889645633545613724",
       "file_url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
-      "title": "@c4c4cat post 1889645633545613724 image 1",
+      "title": "[Dynamix X Berry Melody コラボレーション予告] Dynamix X Berry Melody のコラボレーションパッケージの内容予告。 第三曲はxLさんが作った「horlog…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -4151,7 +4150,7 @@
       "upstream_key": "1901242039800299634:1",
       "page_url": "https://x.com/c4c4cat/status/1901242039800299634",
       "file_url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC?format=jpg&name=orig",
-      "title": "@c4c4cat post 1901242039800299634 image 1",
+      "title": "[Dynamix X シノビスラッシュ コラボレーション予告] Dynamix X シノビスラッシュ のコラボレーションパッケージの内容予告。 第二曲はK-forestさんが作った「流麗凛舞」！",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -4187,7 +4186,7 @@
       "upstream_key": "809670504449572864:1",
       "page_url": "https://x.com/c4c4cat/status/809670504449572864",
       "file_url": "https://pbs.twimg.com/media/CzyHBXQUUAAy95S?format=jpg&name=orig",
-      "title": "@c4c4cat post 809670504449572864 image 1",
+      "title": "今週のイベントソング「紅」は初めてのLv.15のGigaです。日本の作曲家モリモリあつしが作りました；他にドラマで狂ってるドS女子高生Zakuroが登場します。#dynamix @ats024",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -4223,7 +4222,7 @@
       "upstream_key": "811543501733101568:1",
       "page_url": "https://x.com/c4c4cat/status/811543501733101568",
       "file_url": "https://pbs.twimg.com/media/C0MubPsUsAAuF-Z?format=jpg&name=orig",
-      "title": "@c4c4cat post 811543501733101568 image 1",
+      "title": "今週のイベントソングは@EBICOさんが作成されたソングですよ～内容は地下暗殺集団のストーリーです。今週のクリスマスを迎えるために、イベントは二日間、金曜日12時から来週火曜日8時まで延長することに…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -4260,7 +4259,7 @@
       "upstream_key": "819433943690670080:1",
       "page_url": "https://x.com/c4c4cat/status/819433943690670080",
       "file_url": "https://pbs.twimg.com/media/C182w-fUkAAMa1B?format=jpg&name=orig",
-      "title": "@c4c4cat post 819433943690670080 image 1",
+      "title": "イベントの時間です！@stereoberry さんの Vanilla Skyです！",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -4296,7 +4295,7 @@
       "upstream_key": "831877510870601728:1",
       "page_url": "https://x.com/c4c4cat/status/831877510870601728",
       "file_url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8?format=jpg&name=orig",
-      "title": "@c4c4cat post 831877510870601728 image 1",
+      "title": "今週のイベントはRabi-Ribiとコラボした曲Theme of @RabiRibiGame で、@3R2 さんの作ったものです。Rabi-RibiのキャラErina & Ribbonも登場しますよ！",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -4332,7 +4331,7 @@
       "upstream_key": "834312940610220032:1",
       "page_url": "https://x.com/c4c4cat/status/834312940610220032",
       "file_url": "https://pbs.twimg.com/media/C5QTJnJUkAAmXV_?format=jpg&name=orig",
-      "title": "@c4c4cat post 834312940610220032 image 1",
+      "title": "[Event]今週のイベントはコメントでよく言及された、待望の@BLUEnoup さんの作ったαterlβusです。内容は善と悪の対決(♯｀∧´) で、そしてDynamixの中で2曲目のGiga 1…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -4368,7 +4367,7 @@
       "upstream_key": "835073424917577728:1",
       "page_url": "https://x.com/c4c4cat/status/835073424917577728",
       "file_url": "https://pbs.twimg.com/media/C5bGz1aUYAAXsIY?format=jpg&name=orig",
-      "title": "@c4c4cat post 835073424917577728 image 1",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (1/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4398,7 +4397,7 @@
       "upstream_key": "835073424917577728:2",
       "page_url": "https://x.com/c4c4cat/status/835073424917577728",
       "file_url": "https://pbs.twimg.com/media/C5bG08xVMAADbAx?format=jpg&name=orig",
-      "title": "@c4c4cat post 835073424917577728 image 2",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (2/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4428,7 +4427,7 @@
       "upstream_key": "835081787436998656:1",
       "page_url": "https://x.com/c4c4cat/status/835081787436998656",
       "file_url": "https://pbs.twimg.com/media/C5bOTayU8AMwYG_?format=jpg&name=orig",
-      "title": "@c4c4cat post 835081787436998656 image 1",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (1/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4458,7 +4457,7 @@
       "upstream_key": "835081787436998656:2",
       "page_url": "https://x.com/c4c4cat/status/835081787436998656",
       "file_url": "https://pbs.twimg.com/media/C5bOUgkUYAA6WHW?format=jpg&name=orig",
-      "title": "@c4c4cat post 835081787436998656 image 2",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (2/2)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4488,7 +4487,7 @@
       "upstream_key": "842671176669323264:1",
       "page_url": "https://x.com/c4c4cat/status/842671176669323264",
       "file_url": "https://pbs.twimg.com/media/C7HEkCSU8AIXjNf?format=jpg&name=orig",
-      "title": "@c4c4cat post 842671176669323264 image 1",
+      "title": "One of the song in our latest package, Package Lovely! Crystal Ribbon Composed by @966__P !!",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -4524,7 +4523,7 @@
       "upstream_key": "870277523724132352:1",
       "page_url": "https://x.com/c4c4cat/status/870277523724132352",
       "file_url": "https://pbs.twimg.com/media/DBPYksUUQAEVjQ1?format=png&name=orig",
-      "title": "@c4c4cat post 870277523724132352 image 1",
+      "title": "6月より開始のコラボ企画にて、@arcaea_jp収録の5曲が@c4c4cat にやってきます！ #Dynamix #arcaea",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -4554,7 +4553,7 @@
       "upstream_key": "877170201267023872:1",
       "page_url": "https://x.com/c4c4cat/status/877170201267023872",
       "file_url": "https://pbs.twimg.com/media/DCxVkdcVoAEBoiA?format=jpg&name=orig",
-      "title": "@c4c4cat post 877170201267023872 image 1",
+      "title": "次のイベントソングは @akqmusic さん作った, @arcaea_jp 収録の Vexaria です。イベントの開催時間は 6月23日12時 (UTC+8) から 6月27日 20時まで (U…",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -4590,7 +4589,7 @@
       "upstream_key": "880003300275347458:1",
       "page_url": "https://x.com/c4c4cat/status/880003300275347458",
       "file_url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl?format=jpg&name=orig",
-      "title": "@c4c4cat post 880003300275347458 image 1",
+      "title": "次のイベントソングは @BLUEnoupさん with @mAoA9_com さん作った To soar です。イベントの開催時間は 6月30日12時 (UTC+8) から 7月4日 20時まで (…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -4626,7 +4625,7 @@
       "upstream_key": "900634708517593089:1",
       "page_url": "https://x.com/c4c4cat/status/900634708517593089",
       "file_url": "https://pbs.twimg.com/media/DH-yb22UMAAZhwY?format=jpg&name=orig",
-      "title": "@c4c4cat post 900634708517593089 image 1",
+      "title": "『自然界の神秘を刻み、指し示すもの』 次のイベントソングは @nixets さん作った Arcana Idola です。イベントの開催時間は 8月25日12時 (UTC+8) から 8月29日 20…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -4662,7 +4661,7 @@
       "upstream_key": "920935237567201281:1",
       "page_url": "https://x.com/c4c4cat/status/920935237567201281",
       "file_url": "https://pbs.twimg.com/media/DMfRnKqVwAEheW8?format=jpg&name=orig",
-      "title": "@c4c4cat post 920935237567201281 image 1",
+      "title": "[Event] 今週は復刻曲「紅」と「Theme of Rabi-ribi」が帰ってくるよ！ イベントの開催時間は10月20日12時 (UTC+8) から 10月24日 20時まで (UTC+8) …",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4696,7 +4695,7 @@
       "upstream_key": "957946437911941121:1",
       "page_url": "https://x.com/c4c4cat/status/957946437911941121",
       "file_url": "https://pbs.twimg.com/media/DUN8og2VAAAO-is?format=jpg&name=orig",
-      "title": "@c4c4cat post 957946437911941121 image 1",
+      "title": "二月の四週のイベント曲を予告します 由@soundpiercerさん作ったJOACHIM : D ； 由@Hidra_xjeilさん作った Emulisy ； 由@riranofficialさん作っ…",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -4732,7 +4731,7 @@
       "upstream_key": "981147690795900928:1",
       "page_url": "https://x.com/c4c4cat/status/981147690795900928",
       "file_url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
-      "title": "@c4c4cat post 981147690795900928 image 1",
+      "title": "[Event] 次のイベントソングは @Tang0Juanさんvs Black Boxさん作った Xetta。 開催期間は4月6日12時（UTC+8）から4月10日20時（UTC+8）まで！ #Dy…",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [

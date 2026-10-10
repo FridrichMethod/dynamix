@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:meganegirai",
-  "started_at": "2026-10-10T20:47:37Z",
-  "finished_at": "2026-10-10T20:47:41Z",
+  "started_at": "2026-10-10T21:01:09Z",
+  "finished_at": "2026-10-10T21:01:12Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -69,7 +69,7 @@
       "upstream_key": "1536401093894189056:1",
       "page_url": "https://x.com/meganegirai/status/1536401093894189056",
       "file_url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym?format=jpg&name=orig",
-      "title": "@meganegirai post 1536401093894189056 image 1",
+      "title": "#Dynamix 今モリモリあつし氏のPUPAがアツいらしいので是非Dynamixでも遊んでください～🦋キャラクターも入手できます！ I hope you play a lot of PUPA🦋",
       "role": "character",
       "game": "dynamix",
       "game_evidence": [

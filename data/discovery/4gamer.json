@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:4gamer",
-  "started_at": "2026-10-10T20:55:27Z",
-  "finished_at": "2026-10-10T20:55:29Z",
+  "started_at": "2026-10-10T21:05:39Z",
+  "finished_at": "2026-10-10T21:05:42Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -88,7 +88,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/004.jpg",
@@ -113,7 +113,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/005.jpg",
@@ -138,7 +138,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/006.jpg",
@@ -163,7 +163,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/007.jpg",
@@ -188,7 +188,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/011.jpg",
@@ -213,7 +213,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/012.jpg",
@@ -238,7 +238,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/013.jpg",
@@ -263,7 +263,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/014.jpg",
@@ -288,7 +288,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/015.jpg",
@@ -313,7 +313,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
     },
     {
       "id": "archives:4gamer:games/306/G030626/SS/001.jpg",
