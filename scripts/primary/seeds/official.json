@@ -646,11 +646,9 @@
         },
         {
           "match": "^452110388309145$",
-          "role": "gameplay_screenshot",
-          "evidence_quotes": [
-            "Dynamix"
-          ],
-          "candidate_notes": "Video poster: v2.6 update preview frame."
+          "action": "exclude",
+          "withdraw_archived": true,
+          "reason": "video_placeholder: poster frame of the v2.6 update preview video (abstract light streaks, no artwork or UI)"
         },
         {
           "match": "^429940337192817$",
@@ -2979,10 +2977,10 @@
         {
           "match": "^1473624368869748740:",
           "song_titles": [
-            "Own The Night",
-            "Arty Party"
+            "Unshakable",
+            "Ice Chandelier"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "evidence_quotes": [
             "復刻曲"
           ],
@@ -2990,7 +2988,13 @@
             "Event"
           ],
           "role": "reference",
-          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+          "candidate_notes": "Official comeback card listing two songs (list graphic). The post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1473624368869748740",
+              "note": "visual_inspection 2026-10-10: the attached card prints 'Unshakable / RiraN' and 'Ice Chandelier / pan', not the Own The Night / Arty Party comeback the post text announces; the same bytes are attached to 1475073909376618498, whose text names Unshakable and Ice Chandelier"
+            }
+          ]
         },
         {
           "match": "^1475073909376618498:",
@@ -3317,12 +3321,9 @@
         },
         {
           "match": "^1870076698345287834:",
-          "role": "reference",
-          "evidence_quotes": [
-            "Dynamix Universe"
-          ],
-          "allow_universe_mention": true,
-          "candidate_notes": "Operational notice: new Dynamix songs move to packages from February 2025."
+          "action": "exclude",
+          "withdraw_archived": true,
+          "reason": "site_ui: decorative mascot-icon pattern strip attached to a text notice; no artwork or information"
         },
         {
           "match": "^1901242039800299634:",

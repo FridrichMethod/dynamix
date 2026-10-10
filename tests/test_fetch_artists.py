@@ -328,6 +328,13 @@ class XTests(ArtistsTestCase):
         self.assertIn("kRM & 残響P", texts["text"])
         self.assertIsNotNone(model.locate_term("kRM & 残響P", texts))
 
+    def test_titles_come_from_the_post_text(self):
+        self.assertEqual(x_adapter.post_title("Necroxus アートワーク https://t.co/zyHzm1Nqs7", "fallback", 1, 1),
+                         "Necroxus アートワーク")
+        self.assertEqual(x_adapter.post_title("a\nb https://t.co/x", "fallback", 2, 3), "a b (2/3)")
+        self.assertEqual(x_adapter.post_title("https://t.co/aUjB5RvYuv", "@h post 1 image 1", 1, 1), "@h post 1 image 1")
+        self.assertLessEqual(len(x_adapter.post_title("x" * 300, "f", 1, 1)), 100)
+
     def test_syndication_token_matches_the_embed_script(self):
         # Value computed by X's embed script ((id / 1e15) * pi).toString(36) without zeros and dots.
         self.assertEqual(x_adapter.syndication_token("1879155241788293570"), "4jzjg8cthuv")

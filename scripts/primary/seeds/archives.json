@@ -117,13 +117,18 @@
           "reason": "site_ui: banner of the column (ほぼ)日刊スマホゲーム通信"
         },
         {
-          "match": "/SS/[0-9]+\\.jpg$",
-          "role": "gameplay_screenshot"
+          "match": "/20150617094/TN/002\\.jpg$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
         },
         {
           "match": "/20150617094/TN/[0-9]+\\.jpg$",
           "action": "exclude",
-          "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+          "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+        },
+        {
+          "match": "/SS/[0-9]+\\.jpg$",
+          "role": "gameplay_screenshot"
         }
       ]
     },
@@ -846,7 +851,8 @@
             }
           ],
           "game_evidence": [
-            "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (MAD 6.7, edge-only residual)"
+            "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (MAD 6.7, edge-only residual)",
+            "own check 2026-10-10 (Pillow box refinement): RGB MAD 6.3/255 for the box (254.5,0)-(827.9,573.4) of PetalstepDynamix.png against 62.1 for a mirrored control"
           ],
           "variant_group": "jacket:file-501df734",
           "variant_role": "square artwork; the in-game 16:9 jacket shows this painting with extra canvas on both sides",
@@ -1087,7 +1093,11 @@
             "notes": "Facebook's Open Graph video poster as archived by the Internet Archive (2025-05-17)."
           },
           "transformed": true,
-          "candidate_notes": "Dynamix X Rotaeno collaboration key visual (video poster), 2025-04."
+          "candidate_notes": "Dynamix X Rotaeno collaboration key visual (video poster), 2025-04.",
+          "rights": {
+            "holder": "C4Cat Entertainment Limited and Dream Engine Games"
+          },
+          "notes": "Rights holders as printed on the image (visual_inspection 2026-10-10: '©C4Cat Entertainment Limited ©Dream Engine Games', bottom right); four collaboration jacket crops and 'AVAIABLE ON 2025.04.24'."
         }
       ]
     },
@@ -1491,7 +1501,8 @@
         "www.ifanr.com",
         "s3.ifanr.com",
         "www.hk01.com",
-        "cdn.hk01.com"
+        "cdn.hk01.com",
+        "www.4gamer.net"
       ],
       "notes": "Explicit images of press articles found by the 2026-10-10 research (Bahamut GNN, QooApp, unwire.hk, T客邦, ifanr, HK01); each article page is read for identity evidence. Lower-resolution syndicated copies (9game, Gamersky) are recorded in archives:archive-leads.",
       "quality": {
@@ -1672,6 +1683,66 @@
           "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
           "file_url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg",
           "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/003",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/004",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/005",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/006",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/007",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/011",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/012",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/013",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/014",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/015",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
+          "read_page": true
         }
       ],
       "rules": [
@@ -1693,7 +1764,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "Official launch banner '香港制作 音樂遊戲 / 超本格音樂遊戲 三面落下' (2015-05 iOS launch)."
+          "candidate_notes": "Official launch banner '香港制作 音樂遊戲 / 超本格音樂遊戲 三面落下' (2015-05 iOS launch).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
         },
         {
           "match": "^gnn115106:0001185987$",
@@ -1701,7 +1776,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "In-game song-pack store screenshot (2015)."
+          "candidate_notes": "In-game song-pack store screenshot (2015).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
         },
         {
           "match": "^gnn129234:0001345596$",
@@ -1709,7 +1788,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "Official milestone timeline graphic (releases and download counts, 2016)."
+          "candidate_notes": "Official milestone timeline graphic (releases and download counts, 2016).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
         },
         {
           "match": "^gnn132827:0001386276$",
@@ -1717,7 +1800,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "Planet key visual of the 3.0 update (2016)."
+          "candidate_notes": "Planet key visual of the 3.0 update (2016).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
         },
         {
           "match": "^gnn132827:0001386275$",
@@ -1725,7 +1812,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "3.0 'Outer Space' pack screen (2016)."
+          "candidate_notes": "3.0 'Outer Space' pack screen (2016).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
         },
         {
           "match": "^gnn138982:0001457652$",
@@ -1743,6 +1834,10 @@
               "url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
               "note": "visual_inspection 2026-10-10: the screen prints 'Oracle' and 'TQ☆'"
             }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
           ]
         },
         {
@@ -1751,7 +1846,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "In-game store screen of the Z.H.D. pack (2016)."
+          "candidate_notes": "In-game store screen of the Z.H.D. pack (2016).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
         },
         {
           "match": "^gnn141991:0001490820$",
@@ -1762,6 +1861,10 @@
           "candidate_notes": "Official Vocal Collection package promo (1920x1080, 2017-01).",
           "collections": [
             "Package Vocal"
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
           ]
         },
         {
@@ -1783,6 +1886,10 @@
               "url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
               "note": "visual_inspection 2026-10-10: the card prints 'Sakura Fubuki' and 'Street'"
             }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
           ]
         },
         {
@@ -1919,6 +2026,86 @@
             "Dynamix"
           ],
           "candidate_notes": "Article image of the 2018 HK01 feature on Dynamix (research: the org URL answered 404)."
+        },
+        {
+          "match": "^4gamer862:SS/003$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/004$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/005$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/006$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/007$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/011$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/012$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/013$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/014$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/015$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
         }
       ]
     }

@@ -4351,7 +4351,8 @@
             "Dynamix"
           ],
           "game_evidence": [
-            "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (box 254.5,0-827.9,573.4; MAD 6.7, edge-only residual)"
+            "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (box 254.5,0-827.9,573.4; MAD 6.7, edge-only residual)",
+            "own check 2026-10-10 (Pillow box refinement): RGB MAD 6.3/255 for the box (254.5,0)-(827.9,573.4) of PetalstepDynamix.png against 62.1 for a mirrored control"
           ],
           "variant_group": "jacket:file-501df734",
           "variant_role": "square artwork; the in-game 16:9 jacket shows this painting with extra canvas on both sides",
@@ -5439,6 +5440,10 @@
             {
               "url": "https://dynamix.miraheze.org/wiki/File:RegenerateViolenceDynamix.png",
               "note": "research visual comparison 2026-10-10: the in-game jacket (1914x1076) is a darker crop of this illustration (source crop near x 160, y 20, 2670x1501, about 0.717 scale; mean absolute difference 20.4/255 against 88.9 for a mirrored control); the post itself names neither Dynamix nor the song"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:RegenerateViolenceDynamix.png",
+              "note": "own check 2026-10-10: Pillow box refinement finds the jacket at (153,20)-(2837,1529) of this file, RGB MAD 27.7/255 (the jacket is darker and desaturated), equalized-grayscale MAD 19.9 against 56.7 for a mirrored control; visual_inspection: same composition, mascot 兔兔, jellyfish and debris"
             }
           ],
           "rights": {
