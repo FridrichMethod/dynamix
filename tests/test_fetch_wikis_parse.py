@@ -452,5 +452,98 @@ class SmallHelperTests(unittest.TestCase):
             ["Event", "Open Submission (Gold)", "Collaboration: RAVON"])
 
 
+def _song_page(title: str, imgsuffix: str, gallery: str = "", extra: str = "") -> dict:
+    text = f"{{{{Song\n|Artist = Composer of {title}\n|Imgsuffix = {imgsuffix}\n}}}}\n"
+    if gallery:
+        text += f"==Gallery==\n<gallery>\n{gallery}\n</gallery>\n"
+    return {"title": title, "revision": {"content": text + extra, "revid": 1},
+            "categories": [{"title": "Category:Songs"}]}
+
+
+def _pooled(pages: list[dict], names: list[str]) -> dict[str, list]:
+    files = {"File:" + name: {"mime": "image/png", "width": 10, "height": 10} for name in names}
+    wiki = classify.collect(config.MIRAHEZE, files, {}, {page["title"]: page for page in pages})
+    return wiki.evidence
+
+
+class SongMappingTests(unittest.TestCase):
+    """Review round 2: which songs a file is mapped to, and how strongly."""
+
+    def decide(self, items, review=None):
+        extra = classify.review_evidence(config.MIRAHEZE, "File:X.png", review) if review else []
+        return classify.decide("File:X.png", items + extra, {"mime": "image/png"}, frames=None,
+                               include_animated=False, fandom_timestamp=None, threshold=None, review=review)
+
+    def test_cover_caption_naming_another_song(self) -> None:
+        """Each of two song pages shows the other song's cover ('Cover Art of "<other song>"'): every cover maps only
+        to the song whose Imgsuffix names it; a character named like a song keeps the host page's song."""
+        elph = _song_page("Elph’s Sadness -Dynamix Edition-", "ElphsSadness.jpeg",
+                          'File:Gallium_Phosphide.png|Cover Art of "[[Gallium Phosphide]]"')
+        gallium = _song_page("Gallium Phosphide", "Gallium_Phosphide.png",
+                             'File:ElphsSadness.jpeg|Cover Art of "[[Elph’s Sadness -Dynamix Edition-]]"')
+        nova = _song_page("Nova Highway", "NovaHighwayDynamix.png", 'Nova-Raw.png|Used Character "Nova"')
+        evidence = _pooled([elph, gallium, nova, _song_page("NOVA", "NOVADynamix.png")],
+                           ["ElphsSadness.jpeg", "Gallium Phosphide.png", "Nova-Raw.png", "NovaHighwayDynamix.png",
+                            "NOVADynamix.png"])
+        for name, song in (("Gallium Phosphide.png", "Gallium Phosphide"),
+                           ("ElphsSadness.jpeg", "Elph’s Sadness -Dynamix Edition-")):
+            decision = self.decide(evidence["File:" + name])
+            self.assertEqual((decision.role, decision.songs, decision.mapping), ("song_art", [song], "confirmed_wiki"))
+            self.assertTrue(all(song in str(item) or "Imgsuffix" in item["field"]
+                                for item in decision.mapping_evidence), decision.mapping_evidence)
+        character = self.decide(evidence["File:Nova-Raw.png"])
+        self.assertEqual((character.role, character.songs), ("character", ["Nova Highway"]))
+
+    def test_single_conflicting_link_target(self) -> None:
+        """FUNKTIME!!!Dynamix.png: two list pages link it to FUNK TIME!!!, one (a copy-paste error) to ISERA."""
+        def link(page, song):
+            return classify.Evidence("wikis:miraheze", page, f"https://dynamix.miraheze.org/wiki/{page}", "link",
+                                     "song_art", 1, "dynamix", song, song, f"link={song}")
+        items = [link("2024 Event", "FUNK TIME!!!"), link("Event", "FUNK TIME!!!"), link("Store/Dynamix", "ISERA")]
+        decision = self.decide(items)
+        self.assertEqual((decision.songs, decision.mapping), (["FUNK TIME!!!"], "inferred"))
+        self.assertNotIn("ISERA", str(decision.mapping_evidence))
+        tie = self.decide([link("2024 Event", "FUNK TIME!!!"), link("Store/Dynamix", "ISERA")])
+        self.assertEqual((tie.songs, tie.mapping), (["FUNK TIME!!!", "ISERA"], "conflict"))
+        template = classify.Evidence("wikis:miraheze", "A", "https://dynamix.miraheze.org/wiki/A",
+                                     "Template:Song|Imgsuffix", "song_art", 3, "dynamix", "A", "A", "Imgsuffix = X.png")
+        shared = self.decide([template, dataclasses.replace(template, page="B", song="B")])
+        self.assertEqual((shared.songs, shared.mapping), (["A", "B"], "confirmed_wiki"))  # a shared cover
+        weaker = self.decide([template, link("List", "B")])
+        self.assertEqual(weaker.songs, ["A"])  # the strongest evidence decides
+
+    def test_review_songs_only_when_the_review_decides(self) -> None:
+        caption = _evidence("song_art", 2, "dynamix", "Song A", song="Song A")
+        named_b = _review(role="song_art", songs=["Song B"], evidence="visual_inspection: jacket shows 'Song B'")
+        decision = self.decide([caption], named_b)
+        self.assertEqual((decision.songs, decision.mapping, [e["field"] for e in decision.mapping_evidence]),
+                         (["Song A"], "confirmed_wiki", ["gallery"]))
+        alone = self.decide(classify.filename_evidence(config.MIRAHEZE, "File:XDynamix.png"), named_b)
+        self.assertEqual((alone.songs, alone.mapping, alone.mapping_evidence[-1]["field"]),
+                         (["Song B"], "inferred", "archivist review"))
+        tie = [_evidence("character", 2, "dynamix", "A", song="S"), _evidence("part", 2, "dynamix", "B", song="S")]
+        broken = self.decide(tie, _review(role="part", songs=["T"]))
+        self.assertEqual((broken.role, broken.songs, broken.mapping), ("part", ["S", "T"], "inferred"))
+        self.assertIn("archivist review", [e["field"] for e in broken.mapping_evidence])
+
+    def test_gallery_placement_maps_a_role_less_caption(self) -> None:
+        """'Used "Justice Justice" Background Parts' gives no role; the Parts page does. The file sits in one
+        original-game song's gallery: inferred mapping quoting the gallery caption. Two songs' galleries: none."""
+        justice = _song_page("Justice Justice", "JusticeJusticeDynamix.png",
+                             'JusticeJusticeBG.png|Used "Justice Justice" Background Parts')
+        parts = {"title": "Parts", "revision": {"content": "==Background==\n<gallery>\nJusticeJusticeBG.png|\n"
+                                                           "Shared BG.png|\n</gallery>", "revid": 2}, "categories": []}
+        other = _song_page("Other Song", "OtherDynamix.png", "Shared BG.png|Used Background Parts")
+        evidence = _pooled([justice, parts, other, dict(justice, title="Justice Justice copy", revision={
+            "content": justice["revision"]["content"].replace("JusticeJusticeBG.png", "Shared BG.png"), "revid": 3})],
+            ["JusticeJusticeBG.png", "JusticeJusticeDynamix.png", "OtherDynamix.png", "Shared BG.png"])
+        decision = self.decide(evidence["File:JusticeJusticeBG.png"])
+        self.assertEqual((decision.role, decision.songs, decision.mapping), ("background", ["Justice Justice"],
+                                                                              "inferred"))
+        self.assertIn('Used "Justice Justice" Background Parts', decision.mapping_evidence[0]["quote"])
+        shared = self.decide(evidence["File:Shared BG.png"])
+        self.assertEqual((shared.role, shared.songs, shared.mapping), ("background", [], "unmapped"))
+
+
 if __name__ == "__main__":
     unittest.main()

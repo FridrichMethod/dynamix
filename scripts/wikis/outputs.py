@@ -109,10 +109,17 @@ def mediawiki_source(source: config.WikiSource, snapshot: Mapping[str, Any], ass
     asset_count = len(assets)
     failure_count = len(failures)
     summary = ", ".join(f"{name} {value}" for name, value in counts.items() if value)
+    awaiting = sum(1 for candidate in snapshot["candidates"] if candidate["disposition"] == "pending"
+                   and str(candidate.get("reason") or "").startswith("awaiting_download"))
+    unresolved = counts["pending"] - awaiting
+    pending = []
+    if awaiting:
+        pending.append(f"{awaiting} accepted files await download" + (" (metadata-only run)" if metadata_only else ""))
+    if unresolved:
+        pending.append(f"{unresolved} unresolved (role or game not established)")
     notes = (f"{source.notes} Last discovery: {len(snapshot['candidates'])} files ({summary}); enumeration "
              f"{'complete' if complete else 'INCOMPLETE (see the snapshot continuation/errors)'}."
-             + (" Metadata-only run: accepted files are pending download." if metadata_only and counts["pending"]
-                else ""))
+             + (f" Pending: {'; '.join(pending)}." if pending else ""))
     record = {
         "id": source.source_id, "name": source.name, "family": "wikis", "url": source.url,
         "platform": source.platform, "status": status, "checked_at": checked_at, "notes": notes,

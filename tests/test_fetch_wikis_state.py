@@ -163,6 +163,18 @@ class ArchiveStateTests(WikiRun):
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
 
+class SourceNoteTests(WikiRun):
+    def test_pending_note_describes_the_pending_set(self) -> None:
+        def note() -> str:
+            return next(s for s in self.manifest()["sources"] if s["id"] == "wikis:miraheze")["notes"]
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
+        self.assertRegex(note(), r"Pending: \d+ accepted files await download \(metadata-only run\); \d+ unresolved")
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
+        self.assertNotIn("await download", note())  # everything accepted is archived
+        self.assertRegex(note(), r"Pending: \d+ unresolved \(role or game not established\)\.$")
+
+
 class WorkDirTests(WikiRun):
     def default_run(self, *args: str, client=None) -> int:
         client = client or self.scenario.client()
