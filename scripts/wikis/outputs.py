@@ -38,8 +38,16 @@ def mediawiki_snapshot(inventory: discover.Inventory, candidates: list[dict], *,
                             "are tied, an archivist review (visual inspection of the bytes, "
                             "scripts/wikis/reviews.json, pinned to the reviewed SHA-1) may; its evidence is quoted and "
                             "its song mappings are 'inferred'. A review may also replace the reason of an exclusion "
-                            "that page evidence gives with the exclusion seen in the bytes. Accepted candidates that "
-                            "are not downloaded "
+                            "that page evidence gives with the exclusion seen in the bytes, and a 'mixed' review adds "
+                            "its shared-game associations to the game page context gives. Coordinator classification "
+                            "decision of 2026-10-10 (09-frozen-contracts.md), recorded in each decided candidate's "
+                            "role evidence: a graphic whose primary content is a list of songs or charts is "
+                            "'reference' even where a category or caption files it as promotional (list evidence: a "
+                            "list caption, Category:Chart list images, or a review that saw a list); this overrides "
+                            "promotional page evidence of any strength, including a majority. A chart-list, comeback "
+                            "or new-chart graphic about one song (its list caption, or file title, names one song; a "
+                            "review that saw one song) stays 'promotional'; the songs a multi-song list names are all "
+                            "mapped. Accepted candidates that are not downloaded "
                             "yet are 'pending' with reason 'awaiting_download'. When this discovery is incomplete, "
                             "archived candidates keep the classification of the discovery that archived them."),
                   "file_count": len(inventory.files), "article_count": len(inventory.pages),

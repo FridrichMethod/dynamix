@@ -20,6 +20,7 @@ from . import classify, config, mediawiki, reviews
 LISTS = ("allimages", "fileusage", "filepages", "pages", "gifmetadata", "expandtemplates")
 NOTES_LIMIT = 1500
 DESCRIPTION_LIMIT = 300
+TITLE_LIMIT = 200
 
 
 @dataclass
@@ -273,6 +274,7 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
             if value is not None:
                 frames[title] = value
     fandom = inventories.get("fandom")
+    names = song_names(song_index)
     plans: dict[str, list[Plan]] = {}
     for key, inv in inventories.items():
         result = []
@@ -285,7 +287,7 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
             decision = classify.decide(title, items, info, frames=frames.get(title),
                                        include_animated=include_animated, fandom_timestamp=stamp,
                                        threshold=threshold, review=review, review_stale=stale,
-                                       alias=_alias(inv, title, info, filepage))
+                                       alias=_alias(inv, title, info, filepage), song_names=names)
             description, file_notes = file_page_notes(info, filepage)
             note = note_table.get(title)
             archivist = [note.text()] if note is not None and note.applies_to(info.get("sha1")) else []
@@ -298,9 +300,44 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
             plan.counterpart = next((other.files[title] for other_key, other in inventories.items()
                                      if other_key != key and title in other.files), None)
             _attach_songs(plan, pooled.get(title, []), song_index)
+            plan.candidate["title"] = record_title(plan, pooled.get(title, []))
             result.append(plan)
         plans[key] = result
     return plans
+
+
+def record_title(plan: Plan, items: list[classify.Evidence]) -> str:
+    """Human-readable title (09-frozen-contracts.md, catalog presentation rules, "Titles"): song art mapped to exactly
+    one song with ``confirmed_wiki`` evidence is titled with that song's exact title; other files with the wiki's own
+    caption when one exists (the caption of the evidence for the decided role first, then the strongest, the one most
+    pages use, Miraheze before Fandom, then the text); else the ``File:`` title without its extension (spaces for
+    underscores). The upstream file name stays in ``original_filename``."""
+    if plan.decision.role == "song_art" and len(plan.song_ids) == 1 and mapping(plan)[0] in (
+            "confirmed_wiki", "confirmed_primary"):
+        return plan.song_titles[0]
+    captioned = [item for item in items if item.caption and item.context in ("gallery", "link")]
+    if captioned:
+        pages: dict[str, set[str]] = {}
+        for item in captioned:
+            pages.setdefault(item.caption, set()).add(item.page)
+        order = {source.source_id: number for number, source in enumerate(config.SOURCES.values())}
+        best = min(captioned, key=lambda item: (item.role != plan.decision.role, -item.strength,
+                                                -len(pages[item.caption]), order.get(item.source_id, 99),
+                                                item.caption))
+        text = " ".join(best.caption.split("\n")).strip()
+        if text:
+            return _clip(text, TITLE_LIMIT)
+    return display_title(plan.title) or upstream_key(plan.title)
+
+
+def song_names(song_index: Any) -> classify.SongNames | None:
+    """Spellings of the original-game songs of the song index (exact title, aliases, page titles), for reading the
+    subjects of list graphics; None without an index."""
+    entries = getattr(song_index, "entries", None)
+    if not entries:
+        return None
+    return classify.SongNames.build((entry.title, entry.titles) for entry in entries.values()
+                                    if entry.in_original_game)
 
 
 def _alias(inv: Inventory, title: str, info: Mapping[str, Any], filepage: Mapping[str, Any]

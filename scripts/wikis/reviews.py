@@ -9,17 +9,24 @@ rests on a review is at most ``inferred``.
 A review is pinned to the file revisions it looked at: ``sha1`` lists the API SHA-1 values the wikis reported for that
 title when it was reviewed, and it applies to a wiki's file only while that wiki still reports one of them. After a
 re-upload the review no longer applies and the file falls back to its page evidence (pending), so a reviewer looks
-again. Page evidence wins: a review supplies a role only when no page gives one (filename conventions aside) or to
-break a tie between equally supported page roles (the mapping is then ``inferred`` at most), and a game only when no
-page context gives one. One refinement concerns exclusions only: when page evidence excludes a file (e.g. as a wiki
-interface image because the Main Page banner template shows it) and the review saw another exclusion in the bytes
-(e.g. a Dynamix Universe announcement), the review's exclusion reason is recorded; a review never turns a file that
-page evidence excludes into a download. ``animated: "official"`` marks a GIF the review established as an official
-animation (not a wiki capture with a larger still), so the default ``animated_capture`` exclusion does not apply.
+again. Page evidence wins, with the exceptions below: a review supplies a role only when no page gives one (filename
+conventions aside) or to break a tie between equally supported page roles (the mapping is then ``inferred`` at most),
+and a game only when no page context gives one; a ``mixed`` review's associations (another game's identity seen in
+the bytes) are added to the original game that page context gives. One refinement concerns exclusions only: when
+page evidence excludes a file (e.g. as a wiki interface image because the Main Page banner template shows it) and the
+review saw another exclusion in the bytes (e.g. a Dynamix Universe announcement), the review's exclusion reason is
+recorded; a review never turns a file that page evidence excludes into a download. ``animated: "official"`` marks a
+GIF the review established as an official animation (not a wiki capture with a larger still), so the default
+``animated_capture`` exclusion does not apply.
+
+The coordinator classification decision of 2026-10-10 (09-frozen-contracts.md) is the other exception.
 ``list_graphic: true`` (role ``reference`` only) records that the bytes show a list of songs or charts (an event
-lineup, a "Comeback Tracks" list, a multi-song comeback announcement): under the coordinator's list-graphic rule
-(:data:`wikis.config.LIST_GRAPHIC_RULE`) such a review makes the file ``reference`` even where a page files it as
-promotional (a category or caption), and that page evidence and the rule are recorded with the decision.
+lineup, a "Comeback Tracks" list, a multi-song comeback announcement, a pack lineup of several titled jackets): under
+the list-graphic rule (:data:`wikis.config.LIST_GRAPHIC_RULE`) such a review makes the file ``reference`` even where
+page evidence of any strength files it as promotional (a category, or captions on several pages), and that page
+evidence and the rule are recorded with the decision. Conversely a review with role ``promotional`` that saw one song
+in the bytes (one half of a two-song comeback that a caption names as the pair) keeps a file promotional against list
+captions (:data:`wikis.config.SINGLE_SONG_RULE`).
 A review whose role is null and whose evidence is a ``download_probe:`` (the host refused the bytes, so they could
 not be inspected) makes the acquisition retry the download as an inspection probe: a refusal is recorded as a
 download Failure, a success is reported for review.

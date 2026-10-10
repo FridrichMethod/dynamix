@@ -119,7 +119,16 @@ SECTION_ROLES = (
     ("Store/Dynamix", re.compile(r"character", re.I), "character"),
     ("Store/Dynamix", re.compile(r"background", re.I), "background"),
     ("Store/Dynamix", re.compile(r"\bparts?\b", re.I), "part"),
+    # Wave Test Setting > Wave Test Instructions: "The pictures are from C4Cat's Wave Test Cantonese introduction video
+    # on YouTube" (the page, 2026-10-10). The 26 "Wave Test Step" images are frames of that presenter video (three
+    # people at a table, an inset tablet, bilingual subtitles; inspected 2026-10-10), explanatory stills rather than
+    # screenshots of the game: reference (archive tier), which also keeps the presenters out of the gallery grid.
+    ("Wave Test Setting", re.compile(r"^wave test instructions$", re.I), "reference"),
 )
+SECTION_NOTES = {
+    ("Wave Test Setting", "reference"): ("the page says \"The pictures are from C4Cat's Wave Test Cantonese "
+                                          "introduction video on YouTube\": stills of an official explanation video"),
+}
 # Wiki chrome: templates and pages that decorate the wiki itself.
 SITE_UI_PAGES = {"Main Page", "Dynamix Wiki"}
 SITE_UI_TEMPLATE_RE = re.compile(r"^Template:(?:Main ?Page|MainPage|Navbox|Dynamix|Tnavbar|Headercell|"
@@ -138,17 +147,29 @@ FILE_CATEGORY_ROLES = {
 # a graphic whose primary content is a list of songs or charts (chart/difficulty lists, comeback and new-chart
 # announcements, "Upcoming Events" and monthly event lineups, "Comeback Tracks" lists) is kind ``reference``
 # regardless of the wiki category or caption that files it as promotional; a graphic about a single song or event
-# (key art, anniversary/collaboration visuals, teasers) stays ``promotional``. List evidence is a caption naming such
-# a list (LIST_CAPTION; "<song> Chart List" captions follow tier revision 1.1, which names the wiki *_Chart_List*
-# graphics chart/difficulty lists), a file category of chart lists, or an archivist review that saw a list in the
-# bytes (``list_graphic``); a filename alone never is. The rule replaces only a ``promotional`` role (see
-# classify._list_rule) and is recorded in the role evidence and the asset notes.
+# (key art, a single-song "COMING SOON" teaser even if it shows difficulty marks, anniversary/collaboration visuals)
+# stays ``promotional``. List evidence is a caption naming such a list (LIST_CAPTION), a file category of chart lists,
+# or an archivist review that saw a list in the bytes (``list_graphic``); a filename alone never is. The rule replaces
+# only a ``promotional`` role (see classify._list_rule) and is recorded in the role evidence and the asset notes.
 LIST_GRAPHIC_RULE = ("list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list "
                      "of songs or charts is kind reference regardless of the wiki category or caption that files it "
                      "as promotional")
+# Only plural/lineup forms are list captions: "Upcoming Event: Halloween 2023" announces one event (promotional).
 LIST_CAPTION = re.compile(
-    r"chart\s*list|difficulty\s+list|new\s+charts?\b|comeback|(?:up)?coming\s+events?\b|event\s+line-?up", re.I)
+    r"chart\s*list|difficulty\s+list|new\s+charts?\b|comeback|(?:up)?coming\s+events\b|event\s+line-?up", re.I)
 LIST_CATEGORIES = {"Category:Chart list images"}
+
+# Single-song clause of the same decision: a chart-list, comeback or new-chart graphic whose subject is one song is a
+# single-song teaser (jacket, difficulty marks, "COMING SOON"/"i'm back!"), kind ``promotional``; one naming several
+# songs is a list (``reference``). The subject is the text of the list caption (or, without one, of the file title)
+# before the list words (SUBJECT_END), read against the original-game song titles: the whole text as one title, else
+# split at SUBJECT_SEPARATOR into the fewest known titles (classify.list_subject). Song pages that show the graphic
+# add their song. A subject the titles do not resolve stays a list (the tier revision 1.1 default) and is recorded.
+SINGLE_SONG_RULE = ("single-song rule (coordinator decision 2026-10-10): a graphic about a single song stays "
+                    "promotional, including a single-song chart-list, comeback or new-chart teaser that shows "
+                    "difficulty marks")
+SUBJECT_END = re.compile(r"\b(?:release\s+)?(?:chart\s*list|difficulty\s+list|new\s+charts?|comeback)\b", re.I)
+SUBJECT_SEPARATOR = re.compile(r"\s+[xX\u00d7]\s+|\s*[&\uff06]\s*|\s+and\s+|\s*[,\uff0c\u3001]\s*|\s+/\s+")
 
 # Informational announcement graphics (tier revision 1.1, kind ``reference``): the list graphics above plus
 # version-update/update-log notes and settings/difficulty/results announcements. Key art, banners,

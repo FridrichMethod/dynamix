@@ -8,7 +8,9 @@ Trivia gallery, a ``-HQ`` file that is only a background and an unused ``BG-HQ``
 and video placeholder exclusions, an animated GIF capture, a same-wiki duplicate, Unicode and case-colliding titles,
 same-size different bytes, a Fandom API size/SHA-1 that differs from the served bytes, a Fandom CDN WEBP behind a
 ``.png`` URL, a file description page that redirects to an identical file (alias), a file only cited by a
-``[[:File:]]`` link, and archivist reviews (one current, one of an earlier revision, one exclusion).
+``[[:File:]]`` link, archivist reviews (one current, one of an earlier revision, one exclusion), and the coordinator's
+list-graphic decision: a single-song chart list (promotional), a two-song comeback list on one song page (reference,
+both songs mapped) and a reviewed event lineup filed in Category:Event images (reference).
 """
 
 from __future__ import annotations
@@ -40,6 +42,7 @@ COSMIC = """{{Song
 ==Gallery==
 <gallery>
 Cosmic Pulse Chart List.jpg|Cosmic Pulse Chart List
+Pair Comeback Chart List.jpg|Cosmic Pulse X (XD) Comeback Chart List
 Cosmic Pulse copy.png|Cosmic Pulse artwork (copy)
 Cosmic Pulse Squared.png|Cosmic Pulse Artwork in RAVON
 </gallery>
@@ -180,6 +183,7 @@ class Scenario:
             "Stale Review.png": image_bytes("PNG", (30, 20), 23),
             "Wiki Button.png": image_bytes("PNG", (26, 10), 24),
             "Events Lineup.png": image_bytes("PNG", (48, 27), 25),
+            "Pair Comeback Chart List.jpg": image_bytes("JPEG", size, 26),
         }
         self.data["Alias Chart List.jpg"] = self.data["Cosmic Pulse Chart List.jpg"]
         self.data["Cosmic Pulse copy.png"] = self.data["CosmicPulseDynamix.png"]

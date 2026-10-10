@@ -297,6 +297,20 @@ class ReviewTests(unittest.TestCase):
         stale = self.decide([], None, stale=True)
         self.assertIn("earlier revision", stale.reason)
 
+    def test_mixed_review_adds_its_associations_to_page_game(self) -> None:
+        """File:MassacrE RAVON.jpg: its song page gives the original game; the review saw RAVON's announcer and logo
+        (game 'mixed', associations ['ravon']). The shared-game identity is kept, and the game evidence says why."""
+        page = _evidence("promotional", 2, "dynamix", "MassacrE", song="MassacrE || 3rc4224M")
+        shared = _review(game="mixed", associations=["ravon"],
+                         game_evidence="visual_inspection: RAVON's announcer and logo on a collaboration post")
+        decision = self.decide([page], shared)
+        self.assertEqual((decision.role, decision.game, decision.associations), ("promotional", "mixed", ["ravon"]))
+        self.assertTrue(decision.game_evidence[-1].endswith("(shared-game identity added to the page evidence)"))
+        plain = self.decide([page], _review())  # a review with game 'dynamix' adds nothing
+        self.assertEqual((plain.game, plain.associations), ("dynamix", []))
+        universe = self.decide([dataclasses.replace(page, game="dynamix_universe")], shared)
+        self.assertEqual(universe.game, "dynamix_universe")  # never added to another game's page context
+
     def test_review_refines_an_exclusion_only(self) -> None:
         """Page evidence that excludes a file (wiki banner template, profile list) yields to the exclusion a review
         saw in the bytes; a review never turns such a file into a download."""
@@ -393,6 +407,24 @@ class MediaWikiEnumerationTests(unittest.TestCase):
         result = mediawiki.allimages(mediawiki.MediaWikiAPI(client, "https://dynamix.miraheze.org/w/api.php"))
         self.assertFalse(result.complete)
         self.assertIn("repeated", result.errors[0]["message"])
+
+
+class SectionRoleTests(unittest.TestCase):
+    def test_wave_test_instruction_stills_are_references(self) -> None:
+        """Wave Test Setting > Wave Test Instructions shows stills of C4Cat's explanation video (presenters, an inset
+        tablet, subtitles): reference with the page's own statement quoted, not gameplay screenshots; the size
+        heuristic still applies to other sections of the interface page."""
+        page = {"title": "Wave Test Setting", "categories": [], "revision": {"revid": 1, "content": (
+            "==Wave Test Instructions==\nThe pictures are from C4Cat's Wave Test Cantonese introduction video.\n"
+            "[[File:Wave Test Step 1.jpg|thumb]]\n==Wave Test Medals==\n[[File:Medal Screen.jpg|thumb]]\n")}}
+        files = {"File:Wave Test Step 1.jpg": {"mime": "image/jpeg", "width": 960, "height": 540},
+                 "File:Medal Screen.jpg": {"mime": "image/jpeg", "width": 960, "height": 540}}
+        evidence = classify.collect(config.MIRAHEZE, files, {}, {page["title"]: page}).evidence
+        [still] = [item for item in evidence["File:Wave Test Step 1.jpg"] if item.role]
+        self.assertEqual((still.role, still.strength), ("reference", 2))
+        self.assertIn("stills of an official explanation video", still.detail)
+        [medal] = [item for item in evidence["File:Medal Screen.jpg"] if item.role]
+        self.assertEqual(medal.role, "gameplay_screenshot")
 
 
 class SmallHelperTests(unittest.TestCase):
@@ -510,6 +542,20 @@ class SongMappingTests(unittest.TestCase):
                                 for item in decision.mapping_evidence), decision.mapping_evidence)
         character = self.decide(evidence["File:Nova-Raw.png"])
         self.assertEqual((character.role, character.songs), ("character", ["Nova Highway"]))
+
+    def test_cover_shown_only_by_another_songs_caption(self) -> None:
+        """No Imgsuffix names the file: a 'Cover Art of "<song>"' caption in another song's gallery names the cover's
+        song; the host page's song is not used (review round 2)."""
+        host = _song_page("Host Song", "HostDynamix.png", 'Guest Cover.png|Cover Art of "Gallium Phosphide"')
+        evidence = _pooled([host, _song_page("Gallium Phosphide", "Gallium_Phosphide.png")],
+                           ["Guest Cover.png", "HostDynamix.png", "Gallium Phosphide.png"])
+        [caption] = [item for item in evidence["File:Guest Cover.png"] if item.context == "gallery"]
+        self.assertEqual((caption.role, caption.song, caption.song_page), ("song_art", "Gallium Phosphide",
+                                                                           "Gallium Phosphide"))
+        decision = self.decide(evidence["File:Guest Cover.png"])
+        self.assertEqual((decision.songs, decision.mapping), (["Gallium Phosphide"], "confirmed_wiki"))
+        self.assertIn("the caption names the cover of another song (Gallium Phosphide)",
+                      decision.mapping_evidence[0]["quote"])
 
     def test_single_conflicting_link_target(self) -> None:
         """FUNKTIME!!!Dynamix.png: two list pages link it to FUNK TIME!!!, one (a copy-paste error) to ISERA."""

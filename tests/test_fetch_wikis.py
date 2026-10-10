@@ -91,8 +91,12 @@ class MetadataOnlyTests(WikiRun):
 
         cosmic = check("miraheze", "File:CosmicPulseDynamix.png", "pending", "song_art", acquire.AWAITING, "dynamix")
         self.assertEqual((cosmic["illustrators"], cosmic["composers"]), (["ariiol"], ["Yunosuke"]))
-        # Tier revision 1.1: an official chart list is an informational graphic (kind reference, archive tier).
-        check("miraheze", "File:Cosmic Pulse Chart List.jpg", "pending", "reference", acquire.AWAITING)
+        # Coordinator decision 2026-10-10: a single-song chart list is a teaser (promotional, single-song rule); a
+        # comeback list of two songs is a list (reference, archive tier) and maps both songs its caption names.
+        single = check("miraheze", "File:Cosmic Pulse Chart List.jpg", "pending", "promotional", acquire.AWAITING)
+        self.assertIn("promotional <- single-song rule (coordinator decision 2026-10-10)", single["notes"])
+        pair = check("miraheze", "File:Pair Comeback Chart List.jpg", "pending", "reference", acquire.AWAITING)
+        self.assertEqual(pair["song_titles"], ["Cosmic Pulse", "(XD)"])
         self.assertEqual(schema.tier_for("reference", "JPEG"), "archive")
         # File description pages: a redirect to an identical file is an alias; a file that is only cited by a
         # [[:File:]] link has no role; the import boilerplate is not quoted, a human description is.
@@ -244,8 +248,22 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(event["mapping_evidence"][0]["field"], "archivist review")
         self.assertTrue(event["mapping_evidence"][0]["quote"].startswith("visual_inspection:"))
         chart_list = self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")
-        self.assertEqual(chart_list["kind"], "reference")
-        self.assertNotIn("list-graphic rule", chart_list.get("notes", ""))  # the caption decides, no rule needed
+        self.assertEqual((chart_list["kind"], chart_list["mapping_status"], chart_list["song_ids"]),
+                         ("promotional", "confirmed_wiki", ["song:cosmic-pulse"]))
+        self.assertIn("Kind promotional by the single-song rule (coordinator decision 2026-10-10)", chart_list["notes"])
+        self.assertIn("Subject: caption 'Cosmic Pulse Chart List' names Cosmic Pulse; one song: Cosmic Pulse.",
+                      chart_list["notes"])
+        pair = self.asset("miraheze", "File:Pair Comeback Chart List.jpg")
+        self.assertEqual((pair["kind"], pair["mapping_status"], pair["song_ids"]),
+                         ("reference", "confirmed_wiki", ["song:cosmic-pulse", "song:xd"]))
+        self.assertIn("caption 'Cosmic Pulse X (XD) Comeback Chart List' names the song '(XD)'",
+                      pair["mapping_evidence"][-1]["quote"])
+        # Titles (catalog presentation rules): confirmed single-song art takes the song's title; other files the
+        # wiki's caption, else the file name without its extension.
+        self.assertEqual(self.asset("miraheze", "File:CosmicPulseDynamix.png")["title"], "Cosmic Pulse")
+        self.assertEqual(chart_list["title"], "Cosmic Pulse Chart List")
+        self.assertEqual(self.asset("miraheze", "File:(XD)BG-HQ.png")["title"], 'Used Background "XD"')
+        self.assertEqual(self.asset("miraheze", "File:Unused Event.png")["title"], "Unused Event")
         # List-graphic rule: the asset notes name the rule, the list evidence and the overridden page evidence.
         lineup = self.asset("fandom", "File:Events Lineup.png")
         self.assertEqual((lineup["kind"], lineup["mapping_status"]), ("reference", "unmapped"))
