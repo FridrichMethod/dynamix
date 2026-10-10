@@ -1,0 +1,64 @@
+Dynamix Artwork Archive
+Maintained by FridrichMethod (Zhaoyang Li)
+https://github.com/FridrichMethod/dynamix
+
+Software
+--------
+The code in this repository is licensed under the Apache License, Version 2.0
+(see LICENSE).
+
+The archive interface and build tooling are derived from the DEEMO artwork
+archive by FridrichMethod, https://github.com/FridrichMethod/deemo, at commit
+b14bf0d5f5a05e5382c319f3fd5019a4936820b8 (Apache-2.0). That archive is itself
+derived from Mashiro's DEEMO gallery, https://github.com/mashirozx/deemo
+(Apache-2.0); the original gallery design is Mashiro's. Only code was
+adapted: no artwork, audio, fonts, manifests or other data of either DEEMO
+repository are included.
+
+Files adapted in 2026 say so in a notice at their top:
+  archive.html, browserconfig.xml, src/archive.css, src/archive.js,
+  src/i18n.js, src/i18n/common.js, src/i18n/archive.js and
+  src/i18n/slideshow.js (from the DEEMO archive);
+  templates/slideshow.html (from the DEEMO archive's template, itself derived
+  from mashirozx/deemo test.html; the generated index.html copies its header)
+  and src/slideshow.css (from the DEEMO archive, itself derived from
+  mashirozx/deemo style.css);
+  scripts/build_catalog.py, scripts/build_thumbnails.py and
+  scripts/prepare_pages.py (from the same scripts of the DEEMO archive);
+  scripts/render_slideshow.py (from the slideshow rendering helpers of the
+  DEEMO archive's scripts/build_catalog.py);
+  tests/browser_smoke.py, tests/test_archive_labels.py, tests/test_catalog.py,
+  tests/test_i18n.py, tests/test_layout.py, tests/test_slideshow.py and
+  tests/test_thumbnails.py (from the same tests of the DEEMO archive).
+site.webmanifest (JSON, which allows no comments) follows the structure of
+the DEEMO archive's manifest with this project's names and icons. Everything
+else was written for this project.
+
+Third-party software
+--------------------
+src/vendor/legacy-ui.js is byte-identical to src/vendor/legacy-ui.js of the
+DEEMO archive at the commit above, which is the upstream src/main.js of
+mashirozx/deemo. It is used for the slideshow screenshot feature and bundles
+software under the MIT License, whose full texts are in licenses/:
+  html2canvas 0.5.0-beta3, Copyright (c) 2012 Niklas von Hertzen
+    (licenses/html2canvas-MIT.txt; the bundle banner names 2016 and leaves
+    the license name blank)
+  punycode.js 1.2.4, Copyright Mathias Bynens, built into html2canvas
+    (licenses/punycode-MIT.txt)
+  Pace 1.0.0, Copyright (c) 2013 HubSpot, Inc. (licenses/pace-MIT.txt)
+
+The icons under assets/site/ were made for this project (see
+assets/site/README.md) and are covered by the software license together with
+the page code. The pages use system fonts; no font, audio or background image
+is distributed.
+
+Artwork
+-------
+Dynamix artwork and game assets belong to C4Cat Entertainment Limited and/or
+the credited artists. The software license does not grant any license to the
+artwork, screenshots, documents or other third-party media in this
+repository, including the previews derived from them. Public availability of
+a source does not change ownership, and no license is inferred for any file:
+a record names a license only when one has actually been established.
+Per-file attribution, rights notes and source URLs are recorded in
+data/sources/*.json and in each entry's provenance in data/catalog.json.
