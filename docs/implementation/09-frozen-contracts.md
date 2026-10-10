@@ -118,7 +118,7 @@ The wiki worker proposes `data/discovery/song-index.wikis.json`; the coordinator
 
 ## Catalog `data/catalog.json` and `data/catalog.js` (coordinator-generated)
 
-`catalog.js` is exactly `window.DYNAMIX_CATALOG = <catalog.json content>;\n` with `</` escaped as `<\/` and U+2028/U+2029 escaped.
+`catalog.js` is exactly `window.DYNAMIX_CATALOG = ` + the catalog as compact JSON (`separators=(",", ":")`, `ensure_ascii=False`) with every `<` written as `\u003c` and U+2028/U+2029 escaped + `;\n` (the DEEMO reference encoding).
 
 Top level: `schema_version`, `owner` (`"FridrichMethod"`), `game` (`"Dynamix"`), `repository` (`"https://github.com/FridrichMethod/dynamix"`), `snapshots` ({family: fetched_at}), `sources[]` (with `family`, `asset_count`), `assets[]`, `failures[]`, `summary`.
 
