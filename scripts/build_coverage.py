@@ -5,9 +5,11 @@
 
 Inputs: data/sources/song-index.json (the dated original-Dynamix denominator), the discovery snapshots
 data/discovery/<source-slug>.json, the family manifests and the catalog as scripts/build_catalog.py builds it
-(with data/thumbs.json when present). Every metric is a separate, defined count; record, file, image and song
-counts are never interchangeable. The build fails instead of writing when the inputs do not reconcile: per-source
-disposition totals, candidate <-> asset/failure links, source counts, asset song IDs against the song index.
+(with data/thumbs.json when present; at the repository root data/thumbs.json and the index.html template are
+required, as for build_catalog). Every metric is a separate, defined count; record, file, image and song counts are
+never interchangeable. Song coverage counts confirmed mappings only; inferred- and conflict-only songs are reported
+beside it. The build fails instead of writing when the inputs do not reconcile: per-source disposition totals,
+candidate <-> asset/failure links, source counts, asset song IDs against the song index.
 Nothing depends on the clock: the report is dated by the song index and the manifests' `fetched_at`.
 
 --check   regenerate in memory and compare with data/coverage.json byte-for-byte (CRLF checkout accepted).
@@ -22,7 +24,7 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
 SCRIPTS = Path(__file__).resolve().parent
 if str(SCRIPTS) not in sys.path:  # `python -I` does not put the script's directory on sys.path
@@ -42,8 +44,14 @@ SONG_ART_KINDS = ("song_art",)
 ARTWORK_KINDS = tuple(kind for kind in schema.KINDS
                       if kind not in ("store_screenshot", "gameplay_screenshot", "reference"))
 HIGH_RES_LONG_EDGE = 1920
+LOW_RES_LONG_EDGE = 1000
+LONG_EDGE_BUCKETS = ("lt_1000", "lt_1920", "ge_1920")
 ORIGINAL_FAMILIES = ("artists", "official")
 ORIGINAL_ORIGINS = ("artist_post", "official")
+CONFIRMED_MAPPINGS = ("confirmed_primary", "confirmed_wiki")
+RENDITIONS = ("site_original", "unknown", "preview")  # best first
+# Rounds to settle data/coverage.json's own size in the staged estimate (it settles in two or three).
+SIZE_ROUNDS = 10
 
 DEFINITIONS = {
     "source_asset_records": "Asset records across the family manifests (one per source x file).",
@@ -51,24 +59,49 @@ DEFINITIONS = {
     "exact_duplicate_records": "source_asset_records minus unique_files.",
     "song_denominator": "Songs of data/sources/song-index.json with in_original_game true (positive original-game "
                         "evidence); Universe-only songs are outside it. Variants never multiply it.",
-    "song_art": "A catalog gallery entry of kind song_art whose merged song_ids name the song.",
-    "with_any_artwork": "Denominator songs with at least one song_art entry.",
-    "with_any_linked_asset": "Denominator songs named by any catalog entry of any kind (screenshots included).",
-    "with_confirmed_original": "Denominator songs with song_art carrying a provenance record from the artists or "
-                               "official family, origin_status artist_post/official and mapping_status "
-                               "confirmed_primary that names the song. Not a claim of an artist master.",
-    "with_long_edge_ge_1920": "Denominator songs with song_art whose decoded long edge is at least 1920 px; a size "
-                              "bucket only, not evidence of authenticity, full composition or a master.",
-    "preview_only_songs": "Songs whose song_art entries have no provenance record with quality.source_variant "
-                          "site_original (only previews or unknown/transformed renditions).",
+    "song_art": "A catalog gallery entry of kind song_art. It links a song only through its provenance records whose "
+                "song_ids name that song, at their mapping_status; the merged song_ids alone link nothing. Confirmed "
+                "song art: linked by a record whose mapping_status is confirmed_primary or confirmed_wiki.",
+    "with_any_artwork": "Denominator songs with confirmed song art. Every per-song size, rendition, originality and "
+                        "illustrator metric below counts confirmed song art only.",
+    "inferred_only": "Denominator songs without confirmed song art whose song_art links are all inferred.",
+    "conflict_only": "Denominator songs without confirmed song art with at least one song_art link whose "
+                     "mapping_status is conflict (any other link inferred).",
+    "missing_art": "Denominator songs without any song_art link. with_any_artwork + inferred_only + conflict_only + "
+                   "missing_art = denominator.",
+    "with_any_linked_asset": "Denominator songs named by any catalog entry of any kind and any mapping status "
+                             "(screenshots included).",
+    "with_confirmed_original": "Denominator songs with song art carrying one provenance record that is from the "
+                               "artists or official family, origin_status artist_post/official, mapping_status "
+                               "confirmed_primary naming the song, rendition site_original. Not a claim of an artist "
+                               "master.",
+    "with_long_edge_ge_1920": "Denominator songs with confirmed song art whose decoded long edge is at least 1920 px; "
+                              "a size bucket only, not evidence of authenticity, full composition or a master.",
+    "low_resolution_only": "with_any_artwork songs whose confirmed song art all have a long edge under 1920 px. "
+                           "best_long_edge buckets the songs by their largest confirmed song art (<1000, <1920, "
+                           ">=1920 px); a size bucket only.",
+    "rendition": "Per provenance record: site_original when quality.source_variant is site_original and the record "
+                 "is not transformed; preview when source_variant is preview or transformed is true; else unknown.",
+    "with_site_original": "with_any_artwork songs with confirmed song art that has a site_original record (the file "
+                          "as the source serves it at full size; not a claim of an artist master).",
+    "variant_unknown": "with_any_artwork songs without a site_original record but with an unknown one.",
+    "preview_only": "with_any_artwork songs whose confirmed song art records are all previews or platform transforms. "
+                    "with_site_original + variant_unknown + preview_only = with_any_artwork.",
+    "unknown_illustrator": "with_any_artwork songs whose confirmed song art all have an empty illustrators list.",
     "unknown_illustrator_assets": "Catalog entries of artwork kinds (not screenshots or references) whose merged "
                                   "illustrators list is empty.",
     "unmapped_assets": "Catalog entries of artwork kinds whose provenance records are all unmapped.",
     "conflict_assets": "Catalog entries with at least one provenance record whose mapping_status is conflict.",
-    "inferred_only_assets": "Catalog entries mapped only by inferred records (none confirmed).",
+    "inferred_only_assets": "Catalog entries with an inferred record and no confirmed one (an entry that also has "
+                            "a conflict record is listed in conflict_assets too).",
     "source_reported_mismatches": "Records where an advertised SHA-1, byte count, size or MIME differs from the "
                                   "saved bytes (comparison false); null comparisons are not mismatches.",
-    "staged_site_estimate": "Site-tier originals + previews + data/catalog.js; excludes the UI files and pages.",
+    "staged_site_estimate": "Site-tier originals + previews + the generated data/catalog.json, data/catalog.js, "
+                            "index.html (null when it is not rendered: no template outside the repository root) and "
+                            "data/coverage.json (this file, LF line ends). It excludes the static files "
+                            "scripts/prepare_pages.py also stages (archive.html, README*, LICENSE, NOTICE, "
+                            ".nojekyll, assets/site/, docs/, licenses/, src/, ...); prepare_pages enforces the exact "
+                            "budget.",
     "successor_not_primary": "Records whose superseded_by names a record that is not the primary (catalog ID) of "
                              "its catalog entry; catalog_entry is the entry holding the successor's bytes.",
 }
@@ -214,14 +247,14 @@ def _long_edge(asset: Mapping[str, Any]) -> int:
     return max(asset["width"], asset["height"])
 
 
+def _edge_bucket(edge: int) -> str:
+    return "lt_1000" if edge < LOW_RES_LONG_EDGE else "lt_1920" if edge < HIGH_RES_LONG_EDGE else "ge_1920"
+
+
 def asset_metrics(catalog: Mapping[str, Any], records: list[dict], previews: bool) -> dict:
     assets, summary = catalog["assets"], catalog["summary"]
     groups = Counter(asset["variant_group"] for asset in assets if "variant_group" in asset)
-    buckets: Counter[str] = Counter()
-    for asset in assets:
-        if asset["gallery"]:
-            edge = _long_edge(asset)
-            buckets["lt_1000" if edge < 1000 else "lt_1920" if edge < HIGH_RES_LONG_EDGE else "ge_1920"] += 1
+    buckets = Counter(_edge_bucket(_long_edge(asset)) for asset in assets if asset["gallery"])
     return {
         "source_asset_records": summary["source_asset_records"], "unique_files": summary["unique_files"],
         "exact_duplicate_records": summary["exact_duplicate_records"],
@@ -235,51 +268,88 @@ def asset_metrics(catalog: Mapping[str, Any], records: list[dict], previews: boo
         "records_by_upstream_status": _ordered_counts((record.get("upstream_status") or "unset" for record in records),
                                                       (*schema.UPSTREAM_STATUSES, "unset")),
         "transformed_records": sum(record.get("transformed") is True for record in records),
-        "gallery_long_edge": {key: buckets.get(key, 0) for key in ("lt_1000", "lt_1920", "ge_1920")},
+        "gallery_long_edge": {key: buckets.get(key, 0) for key in LONG_EDGE_BUCKETS},
         "entries_with_preview": sum(asset["thumb"] is not None for asset in assets) if previews else None,
     }
 
 
-def _confirmed_original(asset: Mapping[str, Any], song_id: str) -> bool:
-    return any(record["family"] in ORIGINAL_FAMILIES and record["mapping_status"] == "confirmed_primary"
-               and record["quality"]["origin_status"] in ORIGINAL_ORIGINS and song_id in record["song_ids"]
-               for record in asset["provenance"])
+def _rendition(entry: Mapping[str, Any], transformed: set[str]) -> str:
+    """``site_original``, ``preview`` or ``unknown`` for one provenance record; a known platform transform (record
+    ``transformed`` true) is a preview whatever its source_variant says."""
+    return "preview" if entry["asset_id"] in transformed else entry["quality"]["source_variant"]
 
 
-def _site_original(asset: Mapping[str, Any]) -> bool:
-    return any(record["quality"]["source_variant"] == "site_original" for record in asset["provenance"])
+def _best_rendition(assets: list[dict], transformed: set[str]) -> str:
+    """The best rendition (RENDITIONS order) among every provenance record of these entries."""
+    found = {_rendition(entry, transformed) for asset in assets for entry in asset["provenance"]}
+    return next(kind for kind in RENDITIONS if kind in found)
 
 
-def song_metrics(index: Mapping[str, Any], catalog: Mapping[str, Any]) -> tuple[dict, dict]:
-    """``(songs section, song gaps)`` computed from catalog song_ids, never from titles."""
+def _confirmed_original(asset: Mapping[str, Any], song_id: str, transformed: set[str]) -> bool:
+    """One record of the entry is the artist's/official file for this song as the source serves it."""
+    return any(entry["family"] in ORIGINAL_FAMILIES and entry["mapping_status"] == "confirmed_primary"
+               and entry["quality"]["origin_status"] in ORIGINAL_ORIGINS and song_id in entry["song_ids"]
+               and _rendition(entry, transformed) == "site_original" for entry in asset["provenance"])
+
+
+def _song_links(catalog: Mapping[str, Any], denominator: list[str]) -> tuple[dict[str, list], dict[str, set]]:
+    """``(confirmed song art per song, unresolved link statuses per song)``. A song_art entry links a song through
+    each provenance record naming it, never through the merged song_ids alone (one conflicting secondary record
+    must not make a song covered)."""
+    confirmed: dict[str, list[dict]] = {song_id: [] for song_id in denominator}
+    unresolved: dict[str, set[str]] = {song_id: set() for song_id in denominator}
+    for asset in catalog["assets"]:
+        if not (asset["gallery"] and asset["kind"] in SONG_ART_KINDS):
+            continue
+        for song_id in asset["song_ids"]:
+            if song_id not in confirmed:
+                continue
+            statuses = {entry["mapping_status"] for entry in asset["provenance"] if song_id in entry["song_ids"]}
+            if statuses & set(CONFIRMED_MAPPINGS):
+                confirmed[song_id].append(asset)
+            unresolved[song_id] |= statuses & {"inferred", "conflict"}
+    return confirmed, unresolved
+
+
+def song_metrics(index: Mapping[str, Any], catalog: Mapping[str, Any], transformed: set[str]) -> tuple[dict, dict]:
+    """``(songs section, song gaps)`` computed from per-record song_ids and mapping statuses, never from titles.
+    ``transformed``: IDs of records whose stored bytes are a known platform transform."""
     songs = index["songs"]
     denominator = [song["id"] for song in songs if song["in_original_game"]]
     inside = set(denominator)
-    art: dict[str, list[dict]] = {song_id: [] for song_id in denominator}
-    linked: set[str] = set()
-    for asset in catalog["assets"]:
-        for song_id in asset["song_ids"]:
-            linked.add(song_id)
-            if song_id in art and asset["gallery"] and asset["kind"] in SONG_ART_KINDS:
-                art[song_id].append(asset)
-    with_art = [song_id for song_id in denominator if art[song_id]]
-    confirmed = [s for s in with_art if any(_confirmed_original(asset, s) for asset in art[s])]
-    high = [s for s in with_art if any(_long_edge(asset) >= HIGH_RES_LONG_EDGE for asset in art[s])]
-    preview_only = [s for s in with_art if not any(_site_original(asset) for asset in art[s])]
+    linked = {song_id for asset in catalog["assets"] for song_id in asset["song_ids"]}
+    art, unresolved = _song_links(catalog, denominator)
+    with_art = [s for s in denominator if art[s]]
+    conflict_only = [s for s in denominator if not art[s] and "conflict" in unresolved[s]]
+    inferred_only = [s for s in denominator if not art[s] and unresolved[s] == {"inferred"}]
+    missing = [s for s in denominator if not art[s] and not unresolved[s]]
+    best_edge = {s: _edge_bucket(max(_long_edge(asset) for asset in art[s])) for s in with_art}
+    rendition = {s: _best_rendition(art[s], transformed) for s in with_art}
+    confirmed = [s for s in with_art if any(_confirmed_original(asset, s, transformed) for asset in art[s])]
+    high = [s for s in with_art if best_edge[s] == "ge_1920"]
+    low = [s for s in with_art if best_edge[s] != "ge_1920"]
+    by_rendition = {kind: [s for s in with_art if rendition[s] == kind] for kind in RENDITIONS}
     unknown_illustrator = [s for s in with_art if all(not asset["illustrators"] for asset in art[s])]
+    if len(with_art) + len(inferred_only) + len(conflict_only) + len(missing) != len(denominator) \
+            or sum(map(len, by_rendition.values())) != len(with_art):
+        raise CoverageError("song coverage buckets do not reconcile with the denominator")
     by_id = {song["id"]: song for song in songs}
     section = {
         "index_as_of": index["as_of"], "index_songs": len(songs), "denominator": len(denominator),
         "outside_denominator": len(songs) - len(denominator),
         "denominator_removed": sum(by_id[s]["removed"] for s in denominator),
         "denominator_universe_also": sum(by_id[s]["universe_also"] for s in denominator),
-        "with_any_artwork": len(with_art), "with_any_linked_asset": len(inside & linked),
+        "with_any_artwork": len(with_art), "inferred_only": len(inferred_only), "conflict_only": len(conflict_only),
+        "missing_art": len(missing), "with_any_linked_asset": len(inside & linked),
         "with_confirmed_original": len(confirmed), "with_long_edge_ge_1920": len(high),
-        "preview_only": len(preview_only), "unknown_illustrator": len(unknown_illustrator),
-        "missing_art": len(denominator) - len(with_art),
+        "low_resolution_only": len(low),
+        "best_long_edge": {key: sum(value == key for value in best_edge.values()) for key in LONG_EDGE_BUCKETS},
+        "with_site_original": len(by_rendition["site_original"]), "variant_unknown": len(by_rendition["unknown"]),
+        "preview_only": len(by_rendition["preview"]), "unknown_illustrator": len(unknown_illustrator),
     }
-    gaps = {"missing_art_songs": [s for s in denominator if not art[s]], "preview_only_songs": preview_only,
-            "unknown_illustrator_songs": unknown_illustrator,
+    gaps = {"missing_art_songs": missing, "inferred_only_songs": inferred_only, "conflict_only_songs": conflict_only,
+            "low_resolution_only_songs": low, "preview_only_songs": by_rendition["preview"],
+            "variant_unknown_songs": by_rendition["unknown"], "unknown_illustrator_songs": unknown_illustrator,
             "linked_outside_denominator": sorted(linked - inside)}
     return section, gaps
 
@@ -349,24 +419,50 @@ def mismatches(index: Mapping[str, Any], records: list[dict], snapshots: Mapping
     }
 
 
-def byte_metrics(catalog: Mapping[str, Any], records: list[dict], thumbs: Mapping[str, Any] | None) -> dict:
+def generated_sizes(root: Path, catalog: Mapping[str, Any]) -> dict[str, int | None]:
+    """Byte sizes of the generated site files build_catalog.py writes for this catalog (UTF-8, LF line ends):
+    data/catalog.json, data/catalog.js and index.html (rendered like build_catalog does: required at the repository
+    root, None elsewhere without templates/slideshow.html)."""
+    index = build_catalog.render_index(root, catalog, required=build_catalog.is_repository_root(root))
+    return {"catalog_json": len(manifest.dumps(catalog).encode("utf-8")),
+            "catalog_script": len(build_catalog.catalog_script(catalog).encode("utf-8")),
+            "index_html": None if index is None else len(index.encode("utf-8"))}
+
+
+def byte_metrics(catalog: Mapping[str, Any], records: list[dict], thumbs: Mapping[str, Any] | None,
+                 generated: Mapping[str, int | None], coverage_bytes: int) -> dict:
+    """Byte totals; ``generated`` from generated_sizes, ``coverage_bytes`` the size of data/coverage.json itself."""
     assets = catalog["assets"]
     site = sum(asset["bytes"] for asset in assets if asset["site_original"])
     total = sum(asset["bytes"] for asset in assets)
     previews = None
     if thumbs is not None:
         previews = sum(thumbs["thumbnails"][asset["sha256"]]["bytes"] for asset in assets if asset["thumb"])
-    script = len(build_catalog.catalog_script(catalog).encode("utf-8"))
-    staged = site + (previews or 0) + script
+    files = {**generated, "coverage_json": coverage_bytes}
+    staged = site + (previews or 0) + sum(size for size in files.values() if size is not None)
     return {
         "records_by_family": {family: sum(r["bytes"] for r in records if r["family"] == family)
                               for family in schema.FAMILIES},
         "unique_by_primary_family": {family: sum(a["bytes"] for a in assets if a["family"] == family)
                                      for family in schema.FAMILIES},
-        "unique_total": total, "by_tier": {"site": site, "archive": total - site},
-        "previews": previews, "catalog_script": script, "staged_site_estimate": staged,
+        "unique_total": total, "by_tier": {"site": site, "archive": total - site}, "previews": previews,
+        **files, "staged_site_estimate": staged,
         "pages_budget": schema.PAGES_BUDGET_BYTES, "within_pages_budget": staged <= schema.PAGES_BUDGET_BYTES,
     }
+
+
+def with_byte_metrics(report: Mapping[str, Any], byte_metrics_for: Callable[[int], dict]) -> dict:
+    """``report`` with its ``bytes`` section, whose staged estimate counts data/coverage.json's own size: iterate
+    from 0 until the serialized size is the size the section names. Every size field grows with that size (and
+    within_pages_budget only turns from true to false), so the sizes never decrease and settle in a few rounds."""
+    size = 0
+    for _ in range(SIZE_ROUNDS):
+        result = {**report, "bytes": byte_metrics_for(size)}
+        written = len(manifest.dumps(result).encode("utf-8"))
+        if written == size:
+            return result
+        size = written
+    raise CoverageError("the size of data/coverage.json did not settle")
 
 
 # --- Build ------------------------------------------------------------------------------------------------------------
@@ -386,8 +482,10 @@ def build(root: Path) -> dict:
     index = load_song_index(root, (record["id"] for record in records), records)
     snapshots = load_snapshots(root, sources)
     counts = reconcile(manifests, snapshots, records)
-    songs, song_gaps = song_metrics(index, catalog)
-    return {
+    transformed = {record["id"] for record in records if record.get("transformed") is True}
+    songs, song_gaps = song_metrics(index, catalog, transformed)
+    generated = generated_sizes(root, catalog)
+    report = {
         "schema_version": schema.SCHEMA_VERSION, "game": schema.CATALOG_GAME, "as_of": index["as_of"],
         "inputs": {
             "song_index": SONG_INDEX, "manifests": {family: manifests[family]["fetched_at"]
@@ -404,8 +502,8 @@ def build(root: Path) -> dict:
         "songs": songs,
         "gaps": {**song_gaps, **asset_gaps(catalog, snapshots)},
         "mismatches": mismatches(index, records, snapshots, catalog),
-        "bytes": byte_metrics(catalog, records, thumbs),
     }
+    return with_byte_metrics(report, lambda size: byte_metrics(catalog, records, thumbs, generated, size))
 
 
 def main(argv: list[str] | None = None) -> int:

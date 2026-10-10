@@ -19,6 +19,7 @@ import build_thumbnails as thumbs  # noqa: E402
 from lib import manifest, paths, schema  # noqa: E402
 
 MISSING = "song:fixture-song-without-artwork"
+MISSING_TITLE = "Fixture Song Without Artwork"
 UNIVERSE = "song:fixture-universe-only-song"
 
 
@@ -53,11 +54,20 @@ class FixtureCoverageTests(Base):
         self.assertEqual(report["as_of"], "2026-10-10")
         songs = report["songs"]
         self.assertEqual((songs["index_songs"], songs["denominator"], songs["outside_denominator"]), (5, 4, 1))
-        self.assertEqual((songs["with_any_artwork"], songs["with_confirmed_original"], songs["with_long_edge_ge_1920"],
-                          songs["missing_art"]), (3, 1, 0, 1))
+        self.assertEqual((songs["with_any_artwork"], songs["inferred_only"], songs["conflict_only"],
+                          songs["missing_art"]), (3, 0, 0, 1))
+        self.assertEqual((songs["with_confirmed_original"], songs["with_long_edge_ge_1920"],
+                          songs["low_resolution_only"]), (1, 0, 3))
+        self.assertEqual(songs["best_long_edge"], {"lt_1000": 2, "lt_1920": 1, "ge_1920": 0})
+        # Moonlight's only record is a known platform transform: a preview whatever its source_variant says.
+        self.assertEqual((songs["with_site_original"], songs["variant_unknown"], songs["preview_only"]), (2, 0, 1))
         gaps = report["gaps"]
         self.assertEqual(gaps["missing_art_songs"], [MISSING])
+        self.assertEqual((gaps["inferred_only_songs"], gaps["conflict_only_songs"]), ([], []))
+        self.assertEqual(gaps["low_resolution_only_songs"],
+                         ["song:cosmic-pulse", "song:file-568a196c", "song:moonlight-of-sand-castle"])
         self.assertEqual(gaps["preview_only_songs"], ["song:moonlight-of-sand-castle"])
+        self.assertEqual(gaps["variant_unknown_songs"], [])
         self.assertEqual(gaps["pending_candidates"], ["wikis:miraheze:File:Song_select_screen.png"])
         self.assertEqual(gaps["blocked_candidates"], ["official:facebook:1000000000000001:1"])
         self.assertEqual(gaps["failed_candidates"], ["wikis:fandom:File:Broken_Upload.png"])
@@ -108,7 +118,12 @@ class FixtureCoverageTests(Base):
         records = [r for family in schema.FAMILIES for r in fx.load_manifest(self.root, family)["assets"]]
         self.assertEqual(sum(data["records_by_family"].values()), sum(r["bytes"] for r in records))
         self.assertIsNone(data["previews"])
-        self.assertEqual(data["staged_site_estimate"], data["by_tier"]["site"] + data["catalog_script"])
+        self.assertIsNone(data["index_html"], "no template under a fixture root: index.html is not rendered")
+        self.assertEqual(data["catalog_json"], len(manifest.dumps(catalog).encode("utf-8")))
+        self.assertEqual(data["catalog_script"], len(build_catalog.catalog_script(catalog).encode("utf-8")))
+        self.assertEqual(data["coverage_json"], len(manifest.dumps(report).encode("utf-8")))
+        self.assertEqual(data["staged_site_estimate"], data["by_tier"]["site"] + data["catalog_json"]
+                         + data["catalog_script"] + data["coverage_json"])
         self.assertTrue(data["within_pages_budget"])
         fandom = {item["asset_id"]: item["fields"] for item in report["mismatches"]["source_reported"]}
         cosmic = fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")
@@ -127,14 +142,39 @@ class FixtureCoverageTests(Base):
         self.assertEqual(report["mismatches"]["successor_not_primary"],
                          [{"asset_id": old["id"], "superseded_by": current["id"], "catalog_entry": artist["id"]}])
 
-    def test_previews_count_toward_the_staged_estimate(self):
+    def test_the_staged_estimate_counts_every_generated_site_file(self):
+        """Site originals, previews and the generated files prepare_pages stages, at their written sizes."""
+        fx.write_template(self.root)
         thumbs.build(self.root)
-        report = coverage.build(self.root)
+        build_catalog.build(self.root)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(coverage.main(["--root", str(self.root)]), 0)
+        report = json.loads((self.root / coverage.COVERAGE_JSON).read_text(encoding="utf-8"))
         listing = thumbs.read_manifest(self.root)["thumbnails"]
         self.assertEqual(report["assets"]["entries_with_preview"], len(listing))
-        self.assertEqual(report["bytes"]["previews"], sum(entry["bytes"] for entry in listing.values()))
-        self.assertEqual(report["bytes"]["staged_site_estimate"], report["bytes"]["by_tier"]["site"]
-                         + report["bytes"]["previews"] + report["bytes"]["catalog_script"])
+        data = report["bytes"]
+        self.assertEqual(data["previews"], sum(entry["bytes"] for entry in listing.values()))
+        written = {key: (self.root / rel).stat().st_size for key, rel in (
+            ("catalog_json", build_catalog.CATALOG_JSON), ("catalog_script", build_catalog.CATALOG_JS),
+            ("index_html", build_catalog.INDEX_HTML), ("coverage_json", coverage.COVERAGE_JSON))}
+        self.assertEqual({key: data[key] for key in written}, written)
+        self.assertEqual(data["staged_site_estimate"],
+                         data["by_tier"]["site"] + data["previews"] + sum(written.values()))
+        self.assertEqual(coverage.build(self.root), report)
+
+    def test_the_staged_estimate_decides_the_budget_flag(self):
+        """The estimate includes data/coverage.json itself, so the flag and the size must agree at the boundary."""
+        def staged(budget):
+            with mock.patch.object(schema, "PAGES_BUDGET_BYTES", budget):
+                report = coverage.build(self.root)
+            self.assertEqual(report["bytes"]["coverage_json"], len(manifest.dumps(report).encode("utf-8")))
+            return report["bytes"]["staged_site_estimate"], report["bytes"]["within_pages_budget"]
+
+        over, flag = staged(100_000)  # budgets with as many digits as the fixture's estimate (about 130 kB)
+        self.assertFalse(flag)
+        self.assertTrue(100_000 < over - 2 and over < 1_000_000, over)
+        self.assertEqual(staged(over), (over - 1, True))  # "true" is one byte shorter than "false"
+        self.assertEqual(staged(over - 2), (over, False))
 
 
 class SongCoverageTests(Base):
@@ -158,6 +198,10 @@ class SongCoverageTests(Base):
         self.assertEqual((report["songs"]["with_long_edge_ge_1920"], report["songs"]["with_confirmed_original"]),
                          (1, 1))
         self.assertEqual(report["assets"]["gallery_long_edge"]["ge_1920"], 1)
+        self.assertEqual(report["songs"]["best_long_edge"], {"lt_1000": 2, "lt_1920": 1, "ge_1920": 1})
+        self.assertEqual(report["songs"]["low_resolution_only"], 3)
+        self.assertNotIn(MISSING, report["gaps"]["low_resolution_only_songs"])
+        self.assertIn("song:cosmic-pulse", report["gaps"]["low_resolution_only_songs"])
         self.add_song_art("artists:x:fixture_painter", (1200, 600), "Fixture Song Without Artwork", MISSING,
                           mapping_status="confirmed_primary",
                           quality={"source_variant": "site_original", "origin_status": "artist_post",
@@ -165,6 +209,66 @@ class SongCoverageTests(Base):
         report = coverage.build(self.root)
         self.assertEqual((report["songs"]["with_long_edge_ge_1920"], report["songs"]["with_confirmed_original"]),
                          (1, 2))
+
+    def assert_song_buckets(self, report, expected):
+        """(with_any_artwork, inferred_only, conflict_only, missing_art), which always sum to the denominator."""
+        songs = report["songs"]
+        found = tuple(songs[key] for key in ("with_any_artwork", "inferred_only", "conflict_only", "missing_art"))
+        self.assertEqual(found, expected)
+        self.assertEqual(sum(found), songs["denominator"])
+        self.assertEqual(sum(songs["best_long_edge"].values()), songs["with_any_artwork"])
+        self.assertEqual(songs["with_site_original"] + songs["variant_unknown"] + songs["preview_only"],
+                         songs["with_any_artwork"])
+
+    def test_inferred_and_conflict_links_are_reported_beside_coverage(self):
+        record = self.add_song_art("wikis:fixture-mirror", (64, 64), MISSING_TITLE, MISSING, mapping_status="inferred")
+        report = coverage.build(self.root)
+        self.assert_song_buckets(report, (3, 1, 0, 0))
+        self.assertEqual((report["gaps"]["inferred_only_songs"], report["gaps"]["missing_art_songs"]), ([MISSING], []))
+        self.assertIn(record["id"], report["gaps"]["inferred_only_assets"])
+        self.assertNotIn(MISSING, report["gaps"]["low_resolution_only_songs"], "only confirmed art is measured")
+        record = self.add_song_art("wikis:fixture-mirror", (66, 66), MISSING_TITLE, MISSING, mapping_status="conflict")
+        report = coverage.build(self.root)
+        self.assert_song_buckets(report, (3, 0, 1, 0))
+        gaps = report["gaps"]
+        self.assertEqual((gaps["conflict_only_songs"], gaps["inferred_only_songs"]), ([MISSING], []))
+        self.assertIn(record["id"], report["gaps"]["conflict_assets"])
+        self.add_song_art("wikis:fixture-mirror", (68, 68), MISSING_TITLE, MISSING)  # confirmed_wiki
+        report = coverage.build(self.root)
+        self.assert_song_buckets(report, (4, 0, 0, 0))
+        self.assertEqual((report["gaps"]["conflict_only_songs"], report["gaps"]["inferred_only_songs"]), ([], []))
+
+    def test_a_conflicting_secondary_record_does_not_cover_its_song(self):
+        cosmic = fx.find_record(self.root, source_id="artists:x:ariiol_", kind="song_art")
+        fx.add_record(self.root, fx.copy_record(self.root, cosmic, "wikis:fixture-mirror", song_titles=[MISSING_TITLE],
+                                                song_ids=[MISSING], mapping_status="conflict",
+                                                mapping_evidence=["https://example.org/disputed"]))
+        entry = next(asset for asset in build_catalog.combine(self.root)["assets"] if asset["id"] == cosmic["id"])
+        self.assertIn(MISSING, entry["song_ids"], "the merged song_ids are a union across provenance")
+        report = coverage.build(self.root)
+        self.assert_song_buckets(report, (3, 0, 1, 0))
+        self.assertEqual(report["gaps"]["conflict_only_songs"], [MISSING])
+        self.assertIn(cosmic["id"], report["gaps"]["conflict_assets"])
+
+    def test_renditions_and_confirmed_originals_follow_each_record(self):
+        def artist_post(size, variant, **extra):
+            quality = {"source_variant": variant, "origin_status": "artist_post", "master_status": "unverified",
+                       "notes": ""}
+            self.add_song_art("artists:x:fixture_painter", size, MISSING_TITLE, MISSING,
+                              mapping_status="confirmed_primary", quality=quality, **extra)
+            report = coverage.build(self.root)
+            self.assert_song_buckets(report, (4, 0, 0, 0))
+            gaps = report["gaps"]
+            bucket = [name for name in ("preview_only_songs", "variant_unknown_songs") if MISSING in gaps[name]]
+            return report["songs"]["with_confirmed_original"], bucket
+
+        self.assertEqual(artist_post((640, 360), "preview"), (1, ["preview_only_songs"]),
+                         "a platform-downscaled post is neither an original nor a site original")
+        self.assertEqual(artist_post((650, 360), "site_original", transformed=True), (1, ["preview_only_songs"]),
+                         "a known platform transform is a preview")
+        self.assertEqual(artist_post((660, 360), "unknown"), (1, ["variant_unknown_songs"]),
+                         "an unknown variant is reported as unknown, not as a preview")
+        self.assertEqual(artist_post((670, 360), "site_original"), (2, []))
 
     def test_screenshots_do_not_count_as_song_art(self):
         self.add_song_art("archives:fixture-press", (320, 180), "Fixture Song Without Artwork", MISSING,
@@ -233,11 +337,15 @@ class ReconciliationFailureTests(Base):
         fx.save_manifest(self.root, "official", value)
         self.assert_fails("failure_count 2")
 
-    def test_the_repository_build_requires_previews(self):
+    def test_the_repository_build_requires_previews_and_the_index(self):
         with mock.patch.object(build_catalog, "REPO_ROOT", self.root):
             self.assert_fails("Missing required input: data/thumbs.json")
             thumbs.build(self.root)
-            self.assertIsNotNone(coverage.build(self.root)["bytes"]["previews"])
+            self.assert_fails("Missing required input: templates/slideshow.html")
+            fx.write_template(self.root)
+            data = coverage.build(self.root)["bytes"]
+            self.assertIsNotNone(data["previews"])
+            self.assertIsNotNone(data["index_html"])
 
     def test_song_index_problems_fail(self):
         target = self.root / coverage.SONG_INDEX
