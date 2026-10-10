@@ -1,7 +1,7 @@
 """Browser acceptance checks for archive.html and the slideshow (index.html), driving an installed Chrome via Playwright.
 
-    python -I tests/browser_smoke.py --fixture [--workdir DIR] [--browser /usr/bin/google-chrome]
-    python -I tests/browser_smoke.py --base http://127.0.0.1:8765/ [--root CHECKOUT] [--browser PATH]
+    python -I tests/browser_smoke.py --fixture [--workdir DIR] [--browser /usr/bin/google-chrome] [--only TEXT ...]
+    python -I tests/browser_smoke.py --base http://127.0.0.1:8765/ [--root CHECKOUT] [--browser PATH] [--allow-empty]
 
 --fixture builds sites from tests/fixtures/ui (the frozen catalog shape, including injection strings, archive-only files,
 a PDF, unknown credits and an empty catalog) and serves them itself on 127.0.0.1: one at an HTTP root, others under
@@ -11,7 +11,10 @@ skipped); --root additionally opens that checkout from file://.
 
 Besides its own assertions, a run fails on any uncaught exception, console error, HTTP error, failed request, request
 that leaves the local server or its mount path (each is blocked before it reaches the network), or JavaScript dialog,
-apart from failures the smoke causes on purpose (Monitor.expect). The exit status is nonzero on any failure.
+apart from failures a check causes on purpose (Monitor.expect, valid only until that check ends). It also fails when no
+check ran (an --only that matches nothing), when a fixture check is skipped, and in --base mode when the served catalog
+has no gallery or slideshow images or its summary and rendered slides disagree with it (--allow-empty accepts an empty
+catalog). The exit status is nonzero on any failure.
 Adapted from FridrichMethod/deemo tests/browser_smoke.py (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8)."""
 
 from __future__ import annotations
@@ -26,6 +29,7 @@ import tempfile
 import threading
 import time
 import traceback
+from collections import Counter
 from pathlib import Path
 from urllib.parse import quote, urljoin, urlparse
 
@@ -47,6 +51,7 @@ HAS_HAN = "(text) => /[\\u3400-\\u9fff]/.test(text)"
 IMAGE_SHOWN = "(() => { const img = document.getElementById('full-image'); return img.complete && img.naturalWidth > 0; })()"
 SLIDE_SHOWN = "imgTargets[slideIndex - 1].naturalWidth > 0 && imgTargets[slideIndex - 1].closest('.mySlides').classList.contains('is-current')"
 SHOWN_ID = "imgTargets[slideIndex - 1].dataset.id"
+STATUS_ORDER = ["available", "partially_available", "temporarily_unavailable", "manual_access", "metadata_only", "excluded"]
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -82,6 +87,7 @@ def serve(directory: Path):
 
 
 def catalog_js(catalog):
+    """The frozen catalog.js encoding (09-frozen-contracts.md; the DEEMO reference form), as tests/fixtures/ui uses."""
     compact = json.dumps(catalog, ensure_ascii=False, separators=(",", ":"))
     return "window.DYNAMIX_CATALOG = " + compact.replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029") + ";\n"
 
@@ -146,15 +152,29 @@ def many(catalog: dict, copies: int = 13) -> dict:
 
 class Monitor:
     """Every sign of trouble on the pages it watches: uncaught exceptions, console errors, HTTP errors, failed requests,
-    JavaScript dialogs and requests outside the allowed mounts (blocked before they leave the browser). Loads the smoke
-    makes fail on purpose are expected (expect(url) first, and the failure must then happen); requests still pending
-    when the smoke leaves a page are released."""
+    JavaScript dialogs and requests outside the allowed mounts (blocked before they leave the browser). Loads a check
+    makes fail on purpose are expected (expect(url) first, and the failure must then happen before that check ends; the
+    expectation does not outlive it); requests still pending when the smoke leaves a page are released. Each problem
+    names the check during which it happened."""
 
     def __init__(self):
         self.problems, self.urls, self.blocked = [], [], []
         self.expected = {}
         self.pending = {}
         self.released = set()
+        self.check = None
+
+    def report(self, problem):
+        self.problems.append(f"[{self.check or 'setup'}] {problem}")
+
+    def begin(self, check):
+        self.check, self.expected = check, {}
+
+    def end(self):
+        """Close the current check's scope; returns the loads it expected to fail that never did."""
+        unused = [url for url, seen in self.expected.items() if not seen]
+        self.check, self.expected = None, {}
+        return unused
 
     def watch(self, page, mount: str | None):
         pending = self.pending.setdefault(page, set())
@@ -177,18 +197,18 @@ class Monitor:
             if request in self.released or request.url in self.blocked:
                 return
             if not self.deliberate(request.url):
-                self.problems.append(f"request failed ({request.failure}): {request.url}")
+                self.report(f"request failed ({request.failure}): {request.url}")
 
         def response(response):
             if response.status >= 400 and not self.deliberate(response.url):
-                self.problems.append(f"HTTP {response.status}: {response.url}")
+                self.report(f"HTTP {response.status}: {response.url}")
 
         def console(message):
             if message.type == "error" and not self.deliberate(message.location.get("url", "")):
-                self.problems.append(f"console error on {page.url}: {message.text}")
+                self.report(f"console error on {page.url}: {message.text}")
 
         def dialog(dialog):
-            self.problems.append(f"JavaScript {dialog.type} dialog on {page.url}: {dialog.message}")
+            self.report(f"JavaScript {dialog.type} dialog on {page.url}: {dialog.message}")
             dialog.dismiss()
 
         page.route("**/*", route)
@@ -198,7 +218,7 @@ class Monitor:
         page.on("response", response)
         page.on("console", console)
         page.on("dialog", dialog)
-        page.on("pageerror", lambda error: self.problems.append(f"uncaught exception on {page.url}: {error}"))
+        page.on("pageerror", lambda error: self.report(f"uncaught exception on {page.url}: {error}"))
 
     def deliberate(self, url):
         if url not in self.expected:
@@ -237,13 +257,19 @@ class Monitor:
 # Harness
 
 
+class Skip(Exception):
+    """Raised by a check that does not apply to the served catalog (e.g. it has no slideshow images): reported as
+    skipped, never as passed."""
+
+
 class Smoke:
     def __init__(self, browser, monitor):
         self.browser, self.monitor = browser, monitor
-        self.passed, self.failed = [], []
+        self.passed, self.failed, self.skipped = [], [], []
         self.open_pages = []
         self.measurements = {}
         self.only = []
+        self.selected = 0
 
     def page(self, mount, width=1440, height=900, **options):
         """A page in a context of its own (fresh storage), watched by the monitor; mount is the allowed URL prefix."""
@@ -265,16 +291,29 @@ class Smoke:
     def run(self, name, check, *args):
         if self.only and not any(part in name for part in self.only):
             return
+        self.selected += 1
         started = time.monotonic()
+        self.monitor.begin(name)
+        failure = skipped = None
         try:
             check(self, *args)
+        except Skip as reason:
+            skipped = str(reason)
         except Exception as error:  # noqa: BLE001 - every failure is reported and fails the run
-            self.failed.append({"check": name, "error": f"{type(error).__name__}: {error}", "trace": traceback.format_exc(limit=4)})
-            print(f"FAIL {name}: {type(error).__name__}: {error}", file=sys.stderr)
-            for page in list(self.open_pages):  # a failed check leaves its pages open; close them quietly
-                self.monitor.leave(page)
-                page.context.close()
-                self.open_pages.remove(page)
+            failure = {"check": name, "error": f"{type(error).__name__}: {error}", "trace": traceback.format_exc(limit=4)}
+        for page in list(self.open_pages):  # a failed check leaves its pages open; close them quietly
+            self.monitor.leave(page)
+            page.context.close()
+            self.open_pages.remove(page)
+        unused = self.monitor.end()
+        if unused and not failure:
+            failure = {"check": name, "error": f"loads this check made fail never failed: {unused}", "trace": ""}
+        if failure:
+            self.failed.append(failure)
+            print(f"FAIL {name}: {failure['error']}", file=sys.stderr)
+        elif skipped is not None:
+            self.skipped.append(f"{name}: {skipped}")
+            print(f"skip {name}: {skipped}", file=sys.stderr)
         else:
             self.passed.append(f"{name} ({time.monotonic() - started:.1f}s)")
             print(f"ok   {name}", file=sys.stderr)
@@ -291,6 +330,10 @@ def catalog_count(page, predicate):
 def open_archive(smoke, page, base, query=""):
     smoke.goto(page, urljoin(base, "archive.html" + query))
     page.wait_for_function("document.getElementById('count').textContent.includes('/')")
+
+
+def translator(page):
+    return lambda key, **values: page.evaluate("([key, values]) => DYNAMIX_I18N.t(key, values)", [key, values])
 
 
 def find(catalog, predicate):
@@ -389,10 +432,16 @@ def check_pagination(smoke, base):
     total = count(page)
     assert total > 120, f"the bulk catalog has {total} gallery files"
     assert page.locator(".card").count() == 60 and page.locator("#more").is_visible()
-    page.locator("#more").click()
+    page.locator("#more").focus()
+    page.keyboard.press("Enter")
     assert page.locator(".card").count() == 120
-    page.locator("#more").click()
+    assert page.evaluate("document.activeElement === document.getElementById('more')"), "focus stays on Load more while it is shown"
+    page.keyboard.press("Enter")
     assert page.locator(".card").count() == total and page.locator("#more").is_hidden()
+    # The last Load more hides itself; focus moves to the first card it added, so Tab continues through the new cards.
+    assert page.evaluate("document.activeElement === document.querySelectorAll('.card-image')[120]"), page.evaluate("document.activeElement.outerHTML.slice(0, 80)")
+    page.keyboard.press("Tab")
+    assert page.evaluate("document.activeElement === document.querySelectorAll('.card-image')[121]")
     # Closing the viewer after Next past the drawn cards draws up to the image shown and focuses its card.
     page.locator("#reset-filters").click()
     page.locator(".card-image").nth(59).click()
@@ -406,11 +455,10 @@ def check_pagination(smoke, base):
 
 def check_viewer(smoke, base, catalog, fixture):
     """Open/close, keyboard, focus trap and return, URL fragment, deep link, download targets and provenance text."""
+    if not catalog["assets"]:
+        raise Skip("the catalog has no files")
     page = smoke.page(base)
     open_archive(smoke, page, base)
-    if not catalog["assets"]:
-        smoke.finish(page)
-        return
     cards = page.locator(".card-image")
     cards.first.click()
     viewer = page.locator("#viewer")
@@ -490,6 +538,14 @@ def check_provenance_text(smoke, base, catalog):
             assert line in text, (lang, line)
         assert t("provenance.rights_holder", holder=duplicate["rights"]["holder"]) in text
         assert lang == "en" or page.evaluate(HAS_HAN, t("comparison.unknown", field=field))
+        # Every credit-evidence role has a label (no raw "other"); each record lists the packs it names, and only those.
+        other = next(entry for record in duplicate["provenance"] for entry in record["credit_evidence"] or [] if entry["role"] == "other")
+        assert f"{t('credit.role.other')} · {other['name']}" in text and f"other · {other['name']}" not in text, (lang, "credit role")
+        packs = [record["collections"] for record in duplicate["provenance"] if record["collections"]]
+        assert packs and len(packs) < len(duplicate["provenance"]), "the fixture has records that name packs and one that does not"
+        for names in packs:
+            line = t("provenance.collections", names=" / ".join(names))
+            assert text.count(line) == packs.count(names), (lang, line)
         smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(hostile["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open")
         assert page.locator("a[href^='javascript:' i]").count() == 0
@@ -499,6 +555,8 @@ def check_provenance_text(smoke, base, catalog):
 
 def check_injection(smoke, base, catalog):
     """Catalog strings render as text: card titles equal the catalog's, no injected element exists, no dialog fires."""
+    if not any(asset["gallery"] for asset in catalog["assets"]):
+        raise Skip("the catalog has no gallery images")
     page = smoke.page(base)
     open_archive(smoke, page, base)
     pairs = page.evaluate("""() => [...document.querySelectorAll('.card')].map((card) => [card.querySelector('h2').textContent,
@@ -534,6 +592,8 @@ def check_injection(smoke, base, catalog):
 def check_previews(smoke, base, catalog, fixture):
     """Cards show previews and never request a previewed original; small files without a preview show the original;
     a failing preview falls back once to a published original, and to a labelled tile for an archive-only file."""
+    if not any(asset["gallery"] for asset in catalog["assets"]):
+        raise Skip("the catalog has no gallery images")
     page = smoke.page(base)
     requested = []
     page.on("request", lambda request: requested.append(urlparse(request.url).path))
@@ -608,6 +668,27 @@ def check_language(smoke, base, catalog):
         page.locator("[data-lang-toggle]").click()
         assert page.evaluate("document.documentElement.lang") == "en" and "lang=" not in page.url
         assert "lang=" not in page.locator(".archive-link a").get_attribute("href")
+        # A URL with only a fragment (the archive viewer's "View in slideshow" link) gains ?lang= too, so a copied
+        # link opens in the chosen language in a fresh browser.
+        slide = quote(next(asset for asset in catalog["assets"] if asset["slideshow"])["id"], safe="")
+        smoke.goto(page, urljoin(base, "index.html#" + slide))
+        page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
+        page.locator("[data-lang-toggle]").click()
+        assert page.url == urljoin(base, "index.html?lang=zh-CN#" + slide), page.url
+        shared = smoke.page(base)
+        smoke.goto(shared, page.url)
+        assert shared.evaluate("document.documentElement.lang") == "zh-CN"
+        smoke.finish(shared)
+        page.locator("[data-lang-toggle]").click()
+        assert page.url == urljoin(base, "index.html#" + slide), page.url
+    if catalog["assets"]:
+        opened = quote(catalog["assets"][0]["id"], safe="")
+        smoke.goto(page, urljoin(base, "archive.html#" + opened))
+        page.wait_for_function("document.getElementById('viewer').open")
+        page.evaluate("DYNAMIX_I18N.setLang('zh-CN')")  # the header toggle is inert behind the modal viewer
+        assert page.url == urljoin(base, "archive.html?lang=zh-CN#" + opened), page.url
+        page.evaluate("DYNAMIX_I18N.setLang('en')")
+        assert page.url == urljoin(base, "archive.html#" + opened), page.url
     smoke.finish(page)
     # Translations apply as soon as the page is parsed, before the catalog script (held back here) arrives.
     page = smoke.page(base)
@@ -629,6 +710,108 @@ def check_missing_catalog(smoke, base):
     page.route(url, lambda route: route.fulfill(status=404, body="missing"))
     smoke.goto(page, urljoin(base, "archive.html"))
     page.wait_for_function("document.getElementById('count').textContent.includes('catalog.js')")
+    smoke.finish(page)
+
+
+def check_viewer_failures(smoke, base, catalog):
+    """A viewer image that fails to load is hidden behind a message naming the link the viewer offers for that file (the
+    repository link for an archive-only file, whose note then no longer says a preview is shown); the next file shows
+    its image again."""
+    archived = find(catalog, lambda a: a["gallery"] and not a["site_original"] and a["thumb"])
+    published = find(catalog, lambda a: a["gallery"] and a["site_original"] and a["thumb"])
+    if not (archived and published):
+        raise Skip("the catalog lacks an archive-only or a published gallery image with a preview")
+    for asset, failing, key, link in ((archived, archived["thumb"], "viewer.preview_error", "viewer.repository"),
+                                      (published, published["url"], "viewer.image_error", "viewer.original")):
+        page = smoke.page(base)
+        url = urljoin(base, failing)
+        smoke.monitor.expect(url)
+        page.route(url, lambda route: route.abort())
+        smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
+        page.wait_for_function("document.getElementById('viewer').open")
+        page.locator("#image-error").wait_for(state="visible", timeout=5000)
+        t = translator(page)
+        for lang in ("en", "zh-CN"):
+            page.evaluate("(lang) => DYNAMIX_I18N.setLang(lang)", lang)
+            assert page.locator("#full-image").is_hidden(), (asset["id"], "no broken-image glyph")
+            assert page.locator("#image-error").inner_text() == t(key, link=t(link)), (lang, page.locator("#image-error").inner_text())
+            note = page.locator("#archive-note").inner_text()
+            if not asset["site_original"]:
+                assert note.startswith(t("viewer.archive_only_no_preview")) and t("viewer.archive_only") not in note, (lang, note)
+        page.keyboard.press("ArrowRight")
+        page.wait_for_function(IMAGE_SHOWN, timeout=5000)
+        assert page.locator("#image-error").is_hidden() and page.locator("#full-image").is_visible()
+        smoke.finish(page)
+
+
+def check_inventory(smoke, base, catalog):
+    """The inventory summary names only the source statuses the catalog's sources have, with counts; failure lines count
+    attempts in the language's plural form."""
+    tally = Counter(source["status"] for source in catalog["sources"])
+    for lang in ("en", "zh-CN"):
+        page = smoke.page(base)
+        open_archive(smoke, page, base, f"?lang={lang}")
+        t = translator(page)
+        page.locator(".source-inventory summary").first.click()
+        summary = page.locator("#inventory-summary").inner_text()
+        if tally:
+            statuses = " · ".join(f"{t('status.' + status)}: {tally[status]}" for status in STATUS_ORDER if tally[status])
+            assert t("inventory.statuses", statuses=statuses) in summary, (lang, summary)
+        for status in STATUS_ORDER:
+            if not tally[status]:
+                assert t("status." + status) not in summary, (lang, status, summary)
+        if catalog["failures"]:
+            page.locator("#failures summary").click()
+            failures = page.locator("#failures").inner_text()
+            assert "1 attempts" not in failures, failures
+            for failure in catalog["failures"]:
+                form = page.evaluate("([lang, count]) => new Intl.PluralRules(lang).select(count)", [lang, failure["attempts"]])
+                assert t(f"inventory.attempts.{form}", count=failure["attempts"]) in failures, (lang, failure["id"])
+        smoke.finish(page)
+
+
+def check_history(smoke, base, catalog):
+    """Back and Forward keep the page and its URL in step: Back from a file opened by the inventory's reference list
+    closes the viewer and restores the filters of the previous URL; Forward opens the file again."""
+    reference = find(catalog, lambda a: not a["gallery"])
+    if reference is None:
+        raise Skip("the catalog has no reference files")
+    page = smoke.page(base)
+    open_archive(smoke, page, base, "?sort=title")
+    page.locator(".source-inventory summary").first.click()
+    page.locator("#references a").first.click()
+    page.wait_for_function("document.getElementById('viewer').open")
+    assert page.locator("#viewer-title").inner_text() == reference["title"]
+    assert urlparse(page.url).query == "kind=reference" and urlparse(page.url).fragment == quote(reference["id"], safe=""), page.url
+    page.go_back()
+    page.wait_for_function("!document.getElementById('viewer').open", timeout=3000)
+    assert (urlparse(page.url).query, urlparse(page.url).fragment) == ("sort=title", ""), page.url
+    assert [page.locator(f"#{field}").input_value() for field in ("kind", "sort")] == ["", "title"]
+    assert count(page) == catalog_count(page, "() => true")
+    page.keyboard.press("Escape")
+    page.wait_for_timeout(200)
+    assert urlparse(page.url).query == "sort=title", "the URL keeps the restored filters"
+    page.go_forward()
+    page.wait_for_function("document.getElementById('viewer').open", timeout=3000)
+    assert page.locator("#viewer-title").inner_text() == reference["title"] and page.locator("#kind").input_value() == "reference"
+    page.keyboard.press("Escape")
+    page.wait_for_function("location.hash === ''", timeout=3000)
+    assert urlparse(page.url).query == "kind=reference", page.url
+    smoke.finish(page)
+
+
+def check_served_catalog(smoke, base, catalog, allow_empty):
+    """The catalog is not degenerate: it has gallery and slideshow images (unless an empty one is allowed), its summary
+    counts them, and index.html renders exactly its slideshow entries, in catalog order."""
+    gallery = sum(bool(asset["gallery"]) for asset in catalog["assets"])
+    slides = [asset["id"] for asset in catalog["assets"] if asset["slideshow"]]
+    summary = catalog.get("summary") or {}
+    assert (summary.get("gallery_images"), summary.get("slideshow_images")) == (gallery, len(slides)), (summary, gallery, len(slides))
+    assert allow_empty or (gallery and slides), f"the catalog has {gallery} gallery and {len(slides)} slideshow images"
+    page = smoke.page(base)
+    smoke.goto(page, urljoin(base, "index.html"))
+    rendered = page.evaluate("[...document.querySelectorAll('.mySlides img')].map((img) => img.dataset.id)")
+    assert rendered == slides, (rendered[:3], slides[:3], len(rendered), len(slides))
     smoke.finish(page)
 
 
@@ -681,7 +864,7 @@ def check_slideshow(smoke, base, catalog, fixture):
     """Deep links (?asset= and #id), arrows and keys, autoplay toggle, caption links, credits, control names."""
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
-        return
+        raise Skip("the catalog has no slideshow images")
     target = slides[0]
     for query in (f"?asset={quote(target['id'], safe='')}", f"#{quote(target['id'], safe='')}"):
         page = open_slideshow(smoke, base, query)
@@ -704,6 +887,9 @@ def check_slideshow(smoke, base, catalog, fixture):
             assert page.evaluate(SHOWN_ID) == slides[1]["id"]
             page.keyboard.press("ArrowLeft")
             assert page.evaluate(SHOWN_ID) == target["id"]
+            # A later fragment (Back, an edited URL, a link) turns to its slide even on a page opened with ?asset=.
+            page.evaluate("(id) => { location.hash = '#' + encodeURIComponent(id); }", slides[1]["id"])
+            page.wait_for_function(f"{SHOWN_ID} === {json.dumps(slides[1]['id'])}", timeout=3000)
         smoke.finish(page)
     page = open_slideshow(smoke, base, "")
     clock = page.locator(".random button")
@@ -764,7 +950,7 @@ def check_short_screens(smoke, base, catalog):
     is on screen."""
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
-        return
+        raise Skip("the catalog has no slideshow images")
     for lang in ("en", "zh-CN"):
         for width, height in SHORT_SCREENS:
             page = smoke.page(base, width, height, reduced_motion="reduce")
@@ -783,7 +969,7 @@ def check_short_screens(smoke, base, catalog):
 def check_screenshot_overlay(smoke, base, catalog):
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
-        return
+        raise Skip("the catalog has no slideshow images")
     page = open_slideshow(smoke, base, f"?asset={quote(slides[0]['id'], safe='')}#screenshot")
     overlay_open = "document.getElementById('screenshot').classList.contains('is-open')"
     assert not page.evaluate(overlay_open), "a #screenshot URL opens nothing"
@@ -906,6 +1092,8 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: archive filters, search, sorts, URL state", check_archive_filters, base, catalog)
     smoke.run(f"{label}: viewer, keyboard, focus, deep links, download targets", check_viewer, base, catalog, fixture)
     smoke.run(f"{label}: grid previews and bounded fallback", check_previews, base, catalog, fixture)
+    smoke.run(f"{label}: Back and Forward restore filters and the viewer", check_history, base, catalog)
+    smoke.run(f"{label}: inventory statuses and failure counts", check_inventory, base, catalog)
     smoke.run(f"{label}: language toggle, ?lang= and localStorage", check_language, base, catalog)
     smoke.run(f"{label}: catalog strings render as text", check_injection, base, catalog)
     smoke.run(f"{label}: slideshow deep links, controls and names", check_slideshow, base, catalog, fixture)
@@ -926,6 +1114,7 @@ def main(argv=None):
     parser.add_argument("--workdir", type=Path, help="with --fixture: directory for the generated sites (default: a new temp dir)")
     parser.add_argument("--browser", default="/usr/bin/google-chrome")
     parser.add_argument("--only", action="append", default=[], help="run only checks whose name contains this text (repeatable)")
+    parser.add_argument("--allow-empty", action="store_true", help="with --base: accept a catalog without gallery or slideshow images")
     args = parser.parse_args(argv)
     started = time.monotonic()
     servers, cleanup = [], None
@@ -952,13 +1141,16 @@ def main(argv=None):
                 servers = [serve(work / "root"), serve(work / "mounted")]
                 root_base = f"http://127.0.0.1:{servers[0].server_port}/"
                 mounted = f"http://127.0.0.1:{servers[1].server_port}/"
+                smoke.run("root: served catalog has gallery and slideshow images", check_served_catalog, root_base, catalog, False)
                 run_suite(smoke, root_base, catalog, True, "root")
                 smoke.run("root: provenance comparisons and unsafe links", check_provenance_text, root_base, catalog)
+                smoke.run("root: failed viewer images", check_viewer_failures, root_base, catalog)
                 smoke.run("root: missing catalog message", check_missing_catalog, root_base)
                 smoke.run("root: manifest and icons", check_site_icons, root_base)
                 run_suite(smoke, mounted + "dynamix/", catalog, True, "/dynamix/")
                 smoke.run("/dynamix/: requests stay under the mount", check_subpath_requests, mounted, ("/dynamix/",))
                 smoke.run("/empty/: empty catalog", check_empty, mounted + "empty/")
+                smoke.run("/empty/: an empty catalog is consistent when allowed", check_served_catalog, mounted + "empty/", empty, True)
                 smoke.run("/many/: 60 per page and focus after paging", check_pagination, mounted + "many/")
                 smoke.run("/hostile/: script URLs in a catalog are never linked or loaded", check_hostile, mounted + "hostile/")
                 smoke.run("subpath server: every request under /dynamix/, /empty/ or /many/", check_subpath_requests, mounted,
@@ -975,6 +1167,7 @@ def main(argv=None):
                 smoke.finish(probe)
                 if catalog is None:
                     raise SystemExit("The served archive.html has no data/catalog.js")
+                smoke.run("base: served catalog has gallery and slideshow images", check_served_catalog, base, catalog, args.allow_empty)
                 run_suite(smoke, base, catalog, False, "base")
                 smoke.run("base: missing catalog message", check_missing_catalog, base)
                 smoke.run("base: manifest and icons", check_site_icons, base)
@@ -988,8 +1181,14 @@ def main(argv=None):
             if cleanup:
                 shutil.rmtree(cleanup, ignore_errors=True)
     problems = monitor.verdict()
+    if args.only and not smoke.selected:
+        problems.append(f"--only {args.only} matched no check")
+    elif not smoke.passed and not smoke.failed:
+        problems.append("no check ran to completion")
+    if args.fixture and smoke.skipped:
+        problems.append(f"the fixture covers every check, but these were skipped: {smoke.skipped}")
     report = {"mode": "fixture" if args.fixture else "base", "base": base, "browser": browser_version, "passed": smoke.passed,
-              "failed": smoke.failed, "measurements": smoke.measurements,
+              "failed": smoke.failed, "skipped": smoke.skipped, "measurements": smoke.measurements,
               "monitor_problems": problems, "requests": len(monitor.urls), "seconds": round(time.monotonic() - started, 1)}
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 1 if smoke.failed or problems else 0
