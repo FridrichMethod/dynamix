@@ -868,12 +868,30 @@ canvas {
     .intro {
         font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.6vh);
     }
+    /* The title card keeps the name and the archive's name; its description does not fit above the control row. */
+    .intro-note {
+        display: none;
+    }
+    /* The eyebrow keeps to one line: plain case, light tracking, and no origin (the caption names a wiki copy, repost
+       or scan after its source on every screen). */
     .notes-eyebrow {
         margin-bottom: .5em;
         font-size: 11px;
+        letter-spacing: .06em;
+        text-transform: none;
     }
+    .notes-provenance {
+        display: none;
+    }
+    /* At most two lines of title, so a long one never pushes the credits and the caption under the control row; the
+       archive viewer shows every title in full. */
     .notes-title {
         font-size: min(3.6vw, 7.6vh);
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
     }
     .notes-title[data-length="long"] {
         font-size: min(3vw, 6.4vh);

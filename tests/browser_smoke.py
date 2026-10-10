@@ -742,6 +742,44 @@ def check_slideshow(smoke, base, catalog, fixture):
         smoke.finish(page)
 
 
+# Phones held sideways and short portrait phones (browser bars included), where the notes, the caption and the bottom
+# control row compete for height.
+SHORT_SCREENS = [(568, 320), (667, 375), (844, 390), (375, 553), (360, 568)]
+# The visible text blocks of the liner column that overlap a control of the bottom row, and whether the illustrator's
+# credit (when slide notes are up) lies on screen above that row.
+CLEARANCE = """(names) => { const row = names.map((name) => document.querySelector('.' + name).getBoundingClientRect());
+    const overlaps = (a, b) => a.top < b.bottom && a.bottom > b.top && a.left < b.right && a.right > b.left;
+    const blocks = [...document.querySelectorAll('.intro, .slide-notes, .asset-caption')]
+        .filter((node) => getComputedStyle(node).visibility !== 'hidden' && node.getClientRects().length);
+    const hits = blocks.filter((node) => row.some((box) => overlaps(node.getBoundingClientRect(), box))).map((node) => node.className);
+    const credit = document.querySelector('.slide-notes dd.notes-artist'), notes = blocks.some((node) => node.classList.contains('slide-notes'));
+    const top = Math.min(...row.map((box) => box.top));
+    const creditShown = !notes || Boolean(credit && credit.getBoundingClientRect().top >= 0 && credit.getBoundingClientRect().bottom <= top);
+    return {hits, creditShown}; }"""
+
+
+def check_short_screens(smoke, base, catalog):
+    """On phones held sideways and short portrait phones, stepping through the whole show, the title card, every
+    slide's notes and the caption stay clear of the bottom control row, in both languages, and the illustrator's credit
+    is on screen."""
+    slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
+    if not slides:
+        return
+    for lang in ("en", "zh-CN"):
+        for width, height in SHORT_SCREENS:
+            page = smoke.page(base, width, height, reduced_motion="reduce")
+            smoke.goto(page, urljoin(base, f"index.html?lang={lang}"))
+            page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
+            page.evaluate("randomClick(); setIntro(true)")  # pause, with the title card up
+            state = page.evaluate(CLEARANCE, BOTTOM_ROW)
+            assert state["hits"] == [], (lang, width, height, "title card", state)
+            for _ in slides:
+                page.evaluate("plusSlides(1)")
+                state = page.evaluate(CLEARANCE, BOTTOM_ROW)
+                assert state["hits"] == [] and state["creditShown"], (lang, width, height, page.evaluate(SHOWN_ID), state)
+            smoke.finish(page)
+
+
 def check_screenshot_overlay(smoke, base, catalog):
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
@@ -872,6 +910,7 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: catalog strings render as text", check_injection, base, catalog)
     smoke.run(f"{label}: slideshow deep links, controls and names", check_slideshow, base, catalog, fixture)
     smoke.run(f"{label}: screenshot overlay", check_screenshot_overlay, base, catalog)
+    smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog)
     smoke.run(f"{label}: notice without JavaScript", check_without_javascript, base)
     for lang in ("en", "zh-CN"):
         for size in VIEWPORTS:
