@@ -10,7 +10,7 @@
       "url": "https://w.atwiki.jp/dynamix2ch/",
       "platform": "atwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T14:08:02Z",
+      "checked_at": "2026-10-10T16:24:24Z",
       "notes": "Japanese wiki of the original game (\"無印Dynamix\"); read for the original-game song list only. Attachments were not enumerated. Last read: 5/5 list pages, 616 song rows.",
       "crawl_scope": "registered song-list pages only: https://w.atwiki.jp/dynamix2ch/pages/25.html, https://w.atwiki.jp/dynamix2ch/pages/36.html, https://w.atwiki.jp/dynamix2ch/pages/37.html, https://w.atwiki.jp/dynamix2ch/pages/499.html, https://w.atwiki.jp/dynamix2ch/pages/529.html",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -27,8 +27,8 @@
       "url": "https://dynamixc4cat.fandom.com/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T14:07:57Z",
-      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 4, excluded 1448, pending 3472); enumeration complete. Metadata-only run: accepted files are pending download.",
+      "checked_at": "2026-10-10T16:17:51Z",
+      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 4, excluded 1548, pending 3372); enumeration complete. Metadata-only run: accepted files are pending download.",
       "api_url": "https://dynamixc4cat.fandom.com/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -45,8 +45,8 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T14:06:29Z",
-      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 7, excluded 923, pending 3539); enumeration complete. Metadata-only run: accepted files are pending download.",
+      "checked_at": "2026-10-10T16:14:10Z",
+      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 7, excluded 1069, pending 3393); enumeration complete. Metadata-only run: accepted files are pending download.",
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -63,7 +63,7 @@
       "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
       "platform": "wikiwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T14:08:02Z",
+      "checked_at": "2026-10-10T16:24:24Z",
       "notes": "Japanese multi-game rhythm-game wiki; its Dynamix page has one original-game song table (title, credited name, levels). Read for metadata only; no files. Last read: 1/1 list pages, 517 song rows.",
       "crawl_scope": "registered song-list pages only: https://wikiwiki.jp/rhythmgame/Dynamix",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -179,14 +179,15 @@
           "quote": "ariiol<ref>[https://x.com/ariiol_/status/1879155241788293570 The illustrations are posted here.]</ref>"
         }
       ],
-      "upstream_status": "current"
+      "upstream_status": "current",
+      "notes": "File description page: 'The image is taken from the link below. https://x.com/ariiol_/status/1905164256078963116'."
     },
     {
       "id": "wikis:fandom:c8f4c83a404b6097",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:Cosmic_Pulse_Chart_List.jpg",
       "title": "Cosmic Pulse Chart List",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Cosmic_Pulse_Chart_List.jpg",
       "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/a/ad/Cosmic_Pulse_Chart_List.jpg/revision/latest?cb=20250114133337&format=original",
@@ -284,7 +285,7 @@
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:Jack_Out_KIllER_Comeback_Chart_List.jpg",
       "title": "Jack Out KIllER Comeback Chart List",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Jack_Out_KIllER_Comeback_Chart_List.jpg",
       "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/7c/Jack_Out_KIllER_Comeback_Chart_List.jpg/revision/latest?cb=20230413091337&format=original",
@@ -577,7 +578,8 @@
           "quote": "ariiol<ref>[https://x.com/ariiol_/status/1879155241788293570 The illustrations are posted here.]</ref>"
         }
       ],
-      "upstream_status": "current"
+      "upstream_status": "current",
+      "notes": "File description page: 'The image is taken from the link below. https://x.com/ariiol_/status/1905164256078963116'."
     },
     {
       "id": "wikis:miraheze:75f7b17a567ca3c4",
@@ -852,7 +854,7 @@
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:Cosmic_Pulse_Chart_List.jpg",
       "title": "Cosmic Pulse Chart List",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_Chart_List.jpg",
       "download_url": "https://static.wikitide.net/dynamixwiki/a/ad/Cosmic_Pulse_Chart_List.jpg",
