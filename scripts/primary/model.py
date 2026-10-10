@@ -240,6 +240,8 @@ def asset_meta(rule: Mapping[str, Any], found: list[dict], page_url: str, defaul
     rights = {**copy.deepcopy(dict(default_rights)), **rule.get("rights", {})}
     if rights.get("url") is None:
         rights["url"] = page_url
+    if rights.get("creator") is None and rule.get("illustrators"):
+        rights["creator"] = ", ".join(rule["illustrators"])  # the credited illustrator(s), verbatim
     meta = {
         "illustrators": list(rule.get("illustrators", [])),
         "composers": list(rule.get("composers", [])),

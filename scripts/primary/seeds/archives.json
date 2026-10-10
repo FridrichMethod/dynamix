@@ -806,7 +806,10 @@
             "master_status": "unverified",
             "notes": "Internet Archive raw capture of the HKSTP appendix PDF."
           },
-          "candidate_notes": "HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404."
+          "candidate_notes": "HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404.",
+          "rights": {
+            "holder": "Hong Kong Science and Technology Parks Corporation"
+          }
         }
       ]
     },
