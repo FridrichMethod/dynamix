@@ -27,17 +27,16 @@ CONTRACT_TOKENS = {
     "phase": {"discover", "download", "decode", "verify"},
     "error": {"http_4xx", "http_5xx", "timeout", "blocked", "challenge", "decode_error", "size_limit", "host_not_allowed", "other"},
     "comparison": {"sha1_match", "bytes_match", "dimensions_match", "format_match"},
-    "credit.role": {"illustrator", "composer"},
+    "credit.role": {"illustrator", "composer", "other"},
 }
 # Provenance-record fields src/archive.js shows in the viewer (or uses for search and filters).
 SHOWN_PROVENANCE = {
     "asset_id", "source_id", "source_name", "family", "page_url", "download_url", "resolved_url", "quality", "rights", "mapping_status",
-    "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "source_reported", "comparisons",
+    "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "collections", "source_reported", "comparisons",
     "upstream_status", "superseded_by", "notes",
 }
 IGNORED_PROVENANCE = {
     "song_ids": "project song keys; the record's verbatim song titles are shown",
-    "collections": "the catalog entry's merged list of packs is shown in the credits",
 }
 # Catalog-asset fields the page shows (grid, viewer, file info, links) or uses to decide what to show.
 SHOWN_ASSET = {

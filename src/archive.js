@@ -37,7 +37,8 @@
   const ARTWORK = new Set(["song_art", "pack_cover", "character", "background", "part", "promotional", "process"]);
   const isSmall = (asset) => ARTWORK.has(asset.kind) && isRaster(asset) && longEdge(asset) < LOW_RESOLUTION;
   const fields = ["query", "family", "source", "kind", "minimum", "sort"];
-  let filtered = [], shown = 0, current = -1;
+  const STATUSES = ["available", "partially_available", "temporarily_unavailable", "manual_access", "metadata_only", "excluded"];
+  let filtered = [], shown = 0, current = -1, imageFailed = false;
   const size = (bytes) => typeof bytes !== "number" ? "" : bytes >= 1048576 ? `${(bytes / 1048576).toFixed(2)} MiB` : `${Math.max(1, Math.round(bytes / 1024))} KiB`;
   const textValue = (value) => typeof value === "string" ? value : value == null ? "" : Array.isArray(value) ? value.map(textValue).join(" ") : JSON.stringify(value);
   const names = (value) => (Array.isArray(value) ? value : value ? [value] : []).map(textValue).filter(Boolean);
@@ -91,7 +92,7 @@
   // Search covers the verbatim source name and its localized display name, so the index is built per language.
   function searchable(asset) {
     return fold([asset.title, asset.original_filename, asset.illustrators, asset.composers, asset.song_titles, asset.collections,
-      ...records(asset).flatMap((p) => [p.source_name, sourceName(p.source_id, p.source_name), p.page_url, p.illustrators, p.composers, p.song_titles])]
+      ...records(asset).flatMap((p) => [p.source_name, sourceName(p.source_id, p.source_name), p.page_url, p.illustrators, p.composers, p.song_titles, p.collections])]
       .map(textValue).join(" "));
   }
   const searchIndexes = new Map();
@@ -157,13 +158,29 @@
     writeUrl();
   }
   // Filters live in the query string; the open image lives in the fragment (archive.html#<asset id>).
-  function writeUrl() {
+  function filterQuery() {
     const params = new URLSearchParams();
     for (const field of fields) if ($(field).value && !(field === "sort" && $(field).value === "source") && !(field === "minimum" && $(field).value === "0")) params.set(field, $(field).value);
     if (i18n.lang !== i18n.defaultLang) params.set("lang", i18n.lang);
     const query = params.toString();
+    return query ? `?${query}` : "";
+  }
+  function writeUrl() {
     const hash = $("viewer").open && filtered[current] ? `#${encodeURIComponent(filtered[current].id)}` : "";
-    try { history.replaceState(null, "", `${location.pathname}${query ? `?${query}` : ""}${hash}`); } catch { /* file:// remains usable */ }
+    try { history.replaceState(null, "", `${location.pathname}${filterQuery()}${hash}`); } catch { /* file:// remains usable */ }
+  }
+  // Sets the filters from a query string. Values that match no option are ignored, so each select keeps showing the
+  // default it applies.
+  function applyQuery(search) {
+    $("filters").reset();
+    renderSourceOptions();
+    const params = new URLSearchParams(search);
+    for (const field of fields) {
+      const value = params.get(field), control = $(field);
+      if (value === null) continue;
+      if (!control.options || [...control.options].some((option) => option.value === value)) control.value = value;
+      if (field === "family") renderSourceOptions();
+    }
   }
   // A card's preview: the derived thumbnail when there is one, else the original when this site publishes it. A failed
   // thumbnail falls back once to a published original; after that (or for an archive-only file) a labelled tile
@@ -214,6 +231,7 @@
     flags.hidden = !marks.length;
   }
   function more() {
+    const start = shown, button = $("more"), focused = document.activeElement === button;
     const stop = Math.min(shown + 60, filtered.length);
     const fragment = document.createDocumentFragment();
     for (let index = shown; index < stop; index++) {
@@ -230,7 +248,9 @@
     }
     $("grid").append(fragment);
     shown = stop;
-    $("more").hidden = shown >= filtered.length;
+    button.hidden = shown >= filtered.length;
+    // The last "Load more" hides itself; keyboard focus moves on to the first card it added instead of falling to <body>.
+    if (focused && button.hidden && shown > start) $("grid").children[start].querySelector(".card-image").focus();
   }
   // Shows a catalog entry in the viewer, clearing the filters first (as the reset button does) when they hide it and
   // switching to the references view for a file outside the gallery; focus moves to the new title, since the control
@@ -351,6 +371,7 @@
     if (names(p.illustrators).length) block.append(element("p", t("provenance.illustrators", {names: names(p.illustrators).join(" / ")})));
     if (names(p.composers).length) block.append(element("p", t("provenance.composers", {names: names(p.composers).join(" / ")})));
     if (names(p.song_titles).length) block.append(element("p", t("provenance.song_titles", {titles: names(p.song_titles).join(" / ")})));
+    if (names(p.collections).length) block.append(element("p", t("provenance.collections", {names: names(p.collections).join(" / ")})));
     const quality = p.quality || {};
     block.append(element("p", t("provenance.quality", {
       variant: label("quality.source_variant", quality.source_variant ?? "unknown"),
@@ -385,16 +406,29 @@
     if (asset.transformed === true) lines.push([t("file.transformed"), t("file.transformed_yes")]);
     return lines.filter(([, value]) => value != null && value !== "").map(([name, value]) => `${name}: ${textValue(value)}`).join("\n");
   }
+  // The image area and the note under the title. An image that failed to load is hidden (as a card shows a tile
+  // instead), and every message names the link the viewer actually offers for this file.
+  function renderImageState(asset) {
+    const image = $("full-image"), hasImage = Boolean(image.getAttribute("src"));
+    const repository = !asset.site_original && httpUrl(asset.archive_url);
+    const link = repository ? t("viewer.repository") : asset.site_original && siteUrl(asset.url) ? t("viewer.original") : null;
+    image.hidden = imageFailed;
+    $("no-preview").hidden = hasImage;
+    $("no-preview").textContent = link ? t("viewer.no_preview", {link}) : t("viewer.no_preview_no_link");
+    $("image-error").hidden = !imageFailed;
+    $("image-error").textContent = !link ? t("viewer.image_error_no_link") : t(asset.site_original ? "viewer.image_error" : "viewer.preview_error", {link});
+    const notes = [];
+    if (!asset.site_original) notes.push(t(!repository ? "viewer.archive_only_no_link" : hasImage && !imageFailed ? "viewer.archive_only" : "viewer.archive_only_no_preview"));
+    if (isSmall(asset)) notes.push(t("viewer.low_resolution", {size: longEdge(asset)}));
+    $("archive-note").textContent = notes.join(" ");
+    $("archive-note").hidden = !notes.length;
+  }
   // Language-dependent parts of the viewer; open() sets the image and the language-neutral fields.
   function localizeViewer(asset) {
     $("slideshow").href = i18n.localizeHref(`index.html#${encodeURIComponent(asset.id)}`);
     const download = $("download");
     download.textContent = t(download.dataset.i18n);
-    const notes = [];
-    if (!asset.site_original) notes.push(t(!httpUrl(asset.archive_url) ? "viewer.archive_only_no_link" : siteUrl(asset.thumb) ? "viewer.archive_only" : "viewer.archive_only_no_preview"));
-    if (isSmall(asset)) notes.push(t("viewer.low_resolution", {size: longEdge(asset)}));
-    $("archive-note").textContent = notes.join(" ");
-    $("archive-note").hidden = !notes.length;
+    renderImageState(asset);
     renderCredits(asset);
     renderVariants(asset);
     $("file-info").textContent = fileInfo(asset);
@@ -408,8 +442,7 @@
     const image = $("full-image");
     const local = siteUrl(asset.url);
     const source = asset.site_original && isRaster(asset) ? local : siteUrl(asset.thumb);
-    $("image-error").hidden = true;
-    $("no-preview").hidden = Boolean(source);
+    imageFailed = false;
     if (source) image.src = source; else image.removeAttribute("src");
     image.alt = asset.title;
     $("viewer-title").textContent = asset.title;
@@ -442,7 +475,9 @@
     writeUrl();
   }
   $("full-image").addEventListener("error", () => {
-    if ($("full-image").getAttribute("src")) $("image-error").hidden = false;
+    if (!$("full-image").getAttribute("src") || !$("viewer").open || !filtered[current]) return;
+    imageFailed = true;
+    renderImageState(filtered[current]);
   });
   $("filters").addEventListener("submit", (event) => event.preventDefault());
   for (const field of fields) {
@@ -472,20 +507,47 @@
     if (event.key === "ArrowRight") { event.preventDefault(); open(current + 1); }
   });
   // archive.html#<asset id> opens that file, from a shared link, the inventory's reference list or the Back button.
-  function openFromHash(hash = location.hash) {
-    let id = "";
-    try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
-    const asset = id && byId.get(id);
+  function hashAsset(hash) {
+    try { return byId.get(decodeURIComponent(hash.slice(1))); } catch { return undefined; }
+  }
+  function openFromHash(hash) {
+    const asset = hashAsset(hash);
     if (asset && !($("viewer").open && filtered[current] === asset)) show(asset, false);
   }
-  window.addEventListener("hashchange", () => openFromHash());
+  // Back and Forward (and a link to #<id>) land on a URL this page wrote: its filters are applied when they differ from
+  // the page's, and its fragment opens that file or, naming none, closes the viewer, so the page and the URL agree.
+  function followLocation() {
+    const hash = location.hash, refilter = location.search !== filterQuery();
+    if (refilter) current = -1;  // the old position means nothing under other filters; no URL written meanwhile names it
+    if (!hashAsset(hash) && $("viewer").open) $("viewer").close();
+    if (refilter) {
+      applyQuery(location.search);
+      filter();  // rewrites the URL without the fragment until the file is open again
+    }
+    openFromHash(hash);
+  }
+  window.addEventListener("popstate", followLocation);
+  window.addEventListener("hashchange", followLocation);
+  // The retrieval statuses the catalog's sources actually have, with counts; an absent status is never mentioned.
+  function statusSummary() {
+    const tally = new Map();
+    for (const source of sources) tally.set(source.status, (tally.get(source.status) || 0) + 1);
+    const rank = (status) => STATUSES.includes(status) ? STATUSES.indexOf(status) : STATUSES.length;
+    const parts = [...tally].sort(([a], [b]) => rank(a) - rank(b)).map(([status, number]) => `${label("status", status)}: ${number}`);
+    return parts.length ? t("inventory.statuses", {statuses: parts.join(" · ")}) : "";
+  }
+  function attemptsText(value) {
+    if (typeof value !== "number") return t("inventory.attempts.unknown");
+    const form = `inventory.attempts.${new Intl.PluralRules(i18n.lang).select(value)}`;
+    return t(i18n.has(form) ? form : "inventory.attempts.other", {count: value});
+  }
   // Rebuilt from scratch on every language change, so rows are never duplicated.
   function renderInventory() {
     const summary = catalog.summary || {};
-    $("inventory-summary").textContent = t("inventory.summary", {
+    $("inventory-summary").textContent = [t("inventory.summary", {
       sources: summary.source_count ?? sources.length, records: summary.source_asset_records ?? 0,
       files: summary.unique_files ?? assets.length, gallery: summary.gallery_images ?? gallery.length, failures: summary.failure_count ?? 0,
-    });
+    }), statusSummary()].filter(Boolean).join(" ");
     // A reference file's source is often named like the file itself; the second link then says what it leads to.
     $("references").replaceChildren(...references.map((asset) => {
       const link = element("a", `${asset.title} (${[asset.format, size(asset.bytes)].filter(Boolean).join(", ")})`);
@@ -518,7 +580,7 @@
         const where = sourceName(failure.source_id, null) || t("inventory.failure_source");
         item.append(sourceLink(where, failure.url), document.createTextNode(` · ${t("inventory.failure", {
           phase: label("phase", failure.phase), error: label("error", failure.error_class),
-          status: failure.http_status ?? "—", attempts: failure.attempts ?? "—",
+          status: failure.http_status ?? "—", attempts: attemptsText(failure.attempts),
         })}`));
         if (failure.retriable) item.append(document.createTextNode(` · ${t("inventory.retriable")}`));
         if (failure.manual) item.append(document.createTextNode(` · ${t("inventory.manual")}`));
@@ -531,15 +593,7 @@
   }
   // The first filter() rewrites the URL (without a fragment while no image is open), so the requested image is read first.
   const requestedHash = location.hash;
-  renderSourceOptions();
-  // Values from the query string that match no option are ignored, so each select keeps showing the default it applies.
-  const initial = new URLSearchParams(location.search);
-  for (const field of fields) {
-    const value = initial.get(field), control = $(field);
-    if (value === null) continue;
-    if (!control.options || [...control.options].some((option) => option.value === value)) control.value = value;
-    if (field === "family") renderSourceOptions();
-  }
+  applyQuery(location.search);
   renderInventory();
   filter();
   openFromHash(requestedHash);
