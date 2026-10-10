@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "wikis",
-  "fetched_at": "2026-10-10T19:10:18Z",
+  "fetched_at": "2026-10-10T22:23:38Z",
   "sources": [
     {
       "id": "wikis:atwiki-ja",
@@ -10,7 +10,7 @@
       "url": "https://w.atwiki.jp/dynamix2ch/",
       "platform": "atwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T21:33:52Z",
+      "checked_at": "2026-10-10T22:25:30Z",
       "notes": "Japanese wiki of the original game (\"無印Dynamix\"); read for the original-game song list only. Attachments were not enumerated. Last read: 5/5 list pages, 616 song rows.",
       "crawl_scope": "registered song-list pages only: https://w.atwiki.jp/dynamix2ch/pages/25.html, https://w.atwiki.jp/dynamix2ch/pages/36.html, https://w.atwiki.jp/dynamix2ch/pages/37.html, https://w.atwiki.jp/dynamix2ch/pages/499.html, https://w.atwiki.jp/dynamix2ch/pages/529.html",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -27,14 +27,14 @@
       "url": "https://dynamixc4cat.fandom.com/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T19:10:18Z",
-      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3333, duplicate_bytes 13, excluded 1552, failed 1, pending 25); enumeration complete. Pending: 25 unresolved (role or game not established).",
+      "checked_at": "2026-10-10T22:23:38Z",
+      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3334, duplicate_bytes 13, excluded 1551, failed 1, pending 25); enumeration complete. Pending: 25 unresolved (role or game not established).",
       "api_url": "https://dynamixc4cat.fandom.com/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4924,
-      "asset_count": 3333,
+      "asset_count": 3334,
       "failure_count": 1,
       "evidence_level": "live_api"
     },
@@ -45,14 +45,14 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T19:10:18Z",
-      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3356, duplicate_bytes 13, excluded 1073, pending 27); enumeration complete. Pending: 27 unresolved (role or game not established).",
+      "checked_at": "2026-10-10T22:23:38Z",
+      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3357, duplicate_bytes 13, excluded 1072, pending 27); enumeration complete. Pending: 27 unresolved (role or game not established).",
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4469,
-      "asset_count": 3356,
+      "asset_count": 3357,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -63,7 +63,7 @@
       "url": "https://wikiwiki.jp/rhythmgame/Dynamix",
       "platform": "wikiwiki",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T21:33:52Z",
+      "checked_at": "2026-10-10T22:25:31Z",
       "notes": "Japanese multi-game rhythm-game wiki; its Dynamix page has one original-game song table (title, credited name, levels). Read for metadata only; no files. Last read: 1/1 list pages, 517 song rows.",
       "crawl_scope": "registered song-list pages only: https://wikiwiki.jp/rhythmgame/Dynamix",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
@@ -1164,7 +1164,7 @@
       "id": "wikis:fandom:014064371abc39b0",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg",
-      "title": "[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List",
+      "title": "^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List",
       "kind": "reference",
       "game": "dynamix",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg",
@@ -1204,7 +1204,7 @@
         {
           "url": "https://dynamix.miraheze.org/wiki/Knight_of_Tripletz_(for_DNX_Edit)",
           "field": "gallery",
-          "quote": "section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
+          "quote": "section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
           "source_id": "wikis:miraheze"
         },
         {
@@ -1216,7 +1216,7 @@
         {
           "url": "https://dynamixc4cat.fandom.com/wiki/Knight_of_Tripletz_(for_DNX_Edit)",
           "field": "gallery",
-          "quote": "section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
+          "quote": "section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
           "source_id": "wikis:fandom"
         },
         {
@@ -3281,7 +3281,7 @@
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
         "master_status": "unverified",
-        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+        "notes": "Fandom's CDN response to format=original (242367 bytes) differs from the upload Fandom's API records (SHA-1 9c0eaf7ceaf2d8121f76b89944d751a9fc2c2d11, 242385 bytes), and Miraheze's API reports the same SHA-1 and size for this title: these bytes are a platform transform of the stored upload, not the upload itself."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited and/or the credited artist",
@@ -3325,7 +3325,8 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind promotional by the single-song rule (coordinator decision 2026-10-10): a graphic about a single song stays promotional, including a single-song chart-list, comeback or new-chart teaser that shows difficulty marks (09-frozen-contracts.md, coordinator classification decisions). Subject: caption 'Dangerous Insanity (2019 Rework) Comeback Chart List' names Dangerous Insanity (2019 Rework); one song: Dangerous Insanity (2019 Rework). Reference list evidence it overrides: https://dynamix.miraheze.org/wiki/Dangerous_Insanity_(2019_Rework) (gallery; section Gallery, caption 'Dangerous Insanity (2019 Rework) Comeback Chart List'); https://dynamix.miraheze.org/wiki/File:Dangerous_Insanity_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); https://dynamixc4cat.fandom.com/wiki/Dangerous_Insanity_(2019_Rework) (gallery; section Gallery, caption 'Dangerous Insanity (2019 Rework) Comeback Chart List')."
+      "notes": "Kind promotional by the single-song rule (coordinator decision 2026-10-10): a graphic about a single song stays promotional, including a single-song chart-list, comeback or new-chart teaser that shows difficulty marks (09-frozen-contracts.md, coordinator classification decisions). Subject: caption 'Dangerous Insanity (2019 Rework) Comeback Chart List' names Dangerous Insanity (2019 Rework); one song: Dangerous Insanity (2019 Rework). Reference list evidence it overrides: https://dynamix.miraheze.org/wiki/Dangerous_Insanity_(2019_Rework) (gallery; section Gallery, caption 'Dangerous Insanity (2019 Rework) Comeback Chart List'); https://dynamix.miraheze.org/wiki/File:Dangerous_Insanity_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); https://dynamixc4cat.fandom.com/wiki/Dangerous_Insanity_(2019_Rework) (gallery; section Gallery, caption 'Dangerous Insanity (2019 Rework) Comeback Chart List').",
+      "transformed": true
     },
     {
       "id": "wikis:fandom:02b4a7561f7d9ec3",
@@ -44527,12 +44528,38 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:46:41Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Klavistr a.k.a. Phantom MasK",
+        "Hyphen",
+        "Neutral Moon",
+        "Kplecraft"
+      ],
+      "song_titles": [
+        "Against The Pseudo",
+        "^/7(L⎥?[_(L+#<>+&⎥^(o)",
+        "Time & Space (Dynamix Edit)",
+        "16383"
+      ],
+      "song_ids": [
+        "song:against-the-pseudo",
+        "song:7-l-_-l-o",
+        "song:time-space-dynamix-edit",
+        "song:16383"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_December.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Against The Pseudo, ^/7(L|?[_(L+#<>+&|^(o) (Hyphen), Time & Space (Dynamix Edit), 16383",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -44571,8 +44598,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Klavistr a.k.a. Phantom MasK",
+          "url": "https://dynamix.miraheze.org/wiki/Against_The_Pseudo",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Klavistr_.28Phantom_MasK.29|Klavistr a.k.a. Phantom MasK]]"
+        },
+        {
+          "role": "composer",
+          "name": "Hyphen",
+          "url": "https://dynamix.miraheze.org/wiki/Nyarlathotep",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Hyphen_.28.E3.81.AF.E3.82.8C.E3.81.86.E3.81.A9.E3.82.93.29|Hyphen]]"
+        },
+        {
+          "role": "composer",
+          "name": "Neutral Moon",
+          "url": "https://dynamix.miraheze.org/wiki/Time_%26_Space_(Dynamix_Edit)",
+          "field": "Template:Song|Artist",
+          "quote": "Neutral Moon"
+        },
+        {
+          "role": "composer",
+          "name": "Kplecraft",
+          "url": "https://dynamix.miraheze.org/wiki/16383",
+          "field": "Template:Song|Artist",
+          "quote": "Kplecraft"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in December.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in December.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Against The Pseudo, ^/7(L|?[_(L+#<>+&|^(o) (Hyphen), Time & Space (Dynamix Edit), 16383."
     },
     {
       "id": "wikis:fandom:24ab49ffe5aa1c1e",
@@ -44595,12 +44652,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:46:46Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "stereoberry feat. Sanca",
+        "DJ Counterforce",
+        "影翔鼓舞"
+      ],
+      "song_titles": [
+        "Justice Justice",
+        "Between Boundaries",
+        "銀梅花"
+      ],
+      "song_ids": [
+        "song:justice-justice",
+        "song:between-boundaries",
+        "song:file-6b100bda"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: RAVON"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_September.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Justice Justice, Between Boundaries, 銀梅花 and a '?' panel (unannounced)",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -44639,8 +44720,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "stereoberry feat. Sanca",
+          "url": "https://dynamix.miraheze.org/wiki/Justice_Justice",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#stereoberry|stereoberry]] feat. [[Artists#Sanca|Sanca]]"
+        },
+        {
+          "role": "composer",
+          "name": "DJ Counterforce",
+          "url": "https://dynamix.miraheze.org/wiki/Between_Boundaries",
+          "field": "Template:Song|Artist",
+          "quote": "DJ Counterforce"
+        },
+        {
+          "role": "composer",
+          "name": "影翔鼓舞",
+          "url": "https://dynamix.miraheze.org/wiki/%E9%8A%80%E6%A2%85%E8%8A%B1",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#.E5.BD.B1.E7.BF.94.E9.BC.93.E8.88.9E|影翔鼓舞]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in September.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in September.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Justice Justice, Between Boundaries, 銀梅花 and a '?' panel (unannounced)."
     },
     {
       "id": "wikis:fandom:24ba09bbf32a8d5a",
@@ -48233,12 +48337,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:46:42Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Se-U-Ra",
+        "Farhan",
+        "Lunatic Sounds"
+      ],
+      "song_titles": [
+        "The Endless for Traveler",
+        "Rocket Lanterns",
+        "Dement ~After Legend~"
+      ],
+      "song_ids": [
+        "song:the-endless-for-traveler",
+        "song:rocket-lanterns",
+        "song:dement-after-legend"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_November.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): a 'Comeback Tracks' panel (four unnamed jackets), The Endless for Traveler, Rocket Lanterns, Dement ~After Legend~",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -48277,8 +48405,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Se-U-Ra",
+          "url": "https://dynamix.miraheze.org/wiki/The_Endless_for_Traveler",
+          "field": "Template:Song|Artist",
+          "quote": "Se-U-Ra"
+        },
+        {
+          "role": "composer",
+          "name": "Farhan",
+          "url": "https://dynamix.miraheze.org/wiki/Rocket_Lanterns",
+          "field": "Template:Song|Artist",
+          "quote": "Farhan"
+        },
+        {
+          "role": "composer",
+          "name": "Lunatic Sounds",
+          "url": "https://dynamix.miraheze.org/wiki/Dement_~After_Legend~",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Cosmograph|Lunatic Sounds]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): a 'Comeback Tracks' panel (four unnamed jackets), The Endless for Traveler, Rocket Lanterns, Dement ~After Legend~."
     },
     {
       "id": "wikis:fandom:2867a4de4797ba45",
@@ -53314,7 +53465,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Subject not read (single-song rule, 09-frozen-contracts.md): caption 'Comeback tracks polling Till 26 July 2018 12nn' and the file title name no subject before their list words; the original-game song pages showing it (Justice Justice, Persephone, Sakura Fubuki and 1 more) do not decide one; it stays a list."
     },
     {
       "id": "wikis:fandom:2bf0c3dfc6774cea",
@@ -55567,6 +55718,74 @@
       ],
       "upstream_status": "current",
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 357 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
+    },
+    {
+      "id": "wikis:fandom:2df4a20f78495731",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Dynamix.png",
+      "title": "Dynamix",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Dynamix.png",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8f/Dynamix.png/revision/latest?cb=20150520042849&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8f/Dynamix.png/revision/latest?cb=20150520042849&format=original",
+      "path": "assets/public/wikis/fandom/Dynamix--2df4a20f7849.png",
+      "original_filename": "Dynamix.png",
+      "bytes": 87124,
+      "sha256": "2df4a20f78495731572ccd14995082b89898746ce7c771dc6b5855191df7155d",
+      "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1003,
+      "height": 319,
+      "fetched_at": "2026-10-10T22:23:38Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Dynamix.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8f/Dynamix.png/revision/latest?cb=20150520042849",
+        "mime": "image/png",
+        "bytes": 87124,
+        "width": 1003,
+        "height": 319,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "timestamp": "2015-05-20T04:28:49Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 87124,
+        "width": 1003,
+        "height": 319,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "sha256": "2df4a20f78495731572ccd14995082b89898746ce7c771dc6b5855191df7155d"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Kind promotional by the archivist review: official branding (the game's own wordmark) that the wiki reuses as an interface image; the site_ui page evidence describes that use, not the file: https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)."
     },
     {
       "id": "wikis:fandom:2e18845458b1313f",
@@ -88508,12 +88727,39 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:46:33Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "MonstDeath vs Glúteos",
+        "HyuN feat. Syepias",
+        "Sound piercer vs. Iriss",
+        "Ms.+駄々子"
+      ],
+      "song_titles": [
+        "Hopeful Warrior",
+        "Cross†Soul",
+        "BOUNCE THE TECH",
+        "Speedster, Trickster"
+      ],
+      "song_ids": [
+        "song:hopeful-warrior",
+        "song:cross-soul",
+        "song:bounce-the-tech",
+        "song:speedster-trickster"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_2018_January.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Hopeful Warrior, Cross†Soul, BOUNCE THE TECH, Speedster Trickster",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -88552,8 +88798,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "MonstDeath vs Glúteos",
+          "url": "https://dynamix.miraheze.org/wiki/Hopeful_Warrior",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#MonstDeath|MonstDeath]] vs [[Artists#Glúteos|Glúteos]]"
+        },
+        {
+          "role": "composer",
+          "name": "HyuN feat. Syepias",
+          "url": "https://dynamix.miraheze.org/wiki/Cross%E2%80%A0Soul",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#HyuN|HyuN]] feat. [[Artists#Syepias|Syepias]]"
+        },
+        {
+          "role": "composer",
+          "name": "Sound piercer vs. Iriss",
+          "url": "https://dynamix.miraheze.org/wiki/BOUNCE_THE_TECH",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Sound_Piercer_.28WONDERTRAVELER_Project.29|Sound piercer]] vs. [[Artists#s-don_.28Iriss.29|Iriss]]"
+        },
+        {
+          "role": "composer",
+          "name": "Ms.+駄々子",
+          "url": "https://dynamix.miraheze.org/wiki/Speedster,_Trickster",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Ms.|Ms.]]+[[Artists#.E9.A7.84.E3.80.85.E5.AD.90|駄々子]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 January.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 January.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Hopeful Warrior, Cross†Soul, BOUNCE THE TECH, Speedster Trickster."
     },
     {
       "id": "wikis:fandom:49236a65d2eedd79",
@@ -95138,12 +95414,36 @@
       "height": 540,
       "fetched_at": "2026-10-10T17:45:41Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "colorless",
+        "Takahiro Aoki",
+        "onoken"
+      ],
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Angel x Angel",
+        "Dolqueen"
+      ],
+      "song_ids": [
+        "song:file-568a196c",
+        "song:angel-x-angel",
+        "song:dolqueen"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:3rd_Event_in_April.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dolqueen",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -95182,8 +95482,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "colorless",
+          "url": "https://dynamix.miraheze.org/wiki/%E4%BA%A4%E5%B7%AE%E3%81%97%E3%81%A6%E6%AD%AA%E3%82%80%E9%81%8E%E5%8E%BB%E3%81%A8%E6%9C%AA%E6%9D%A5",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#m.C3.A9t.C9.99_.28colorless.29|colorless]]"
+        },
+        {
+          "role": "composer",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Angel_x_Angel",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
+        },
+        {
+          "role": "composer",
+          "name": "onoken",
+          "url": "https://dynamix.miraheze.org/wiki/Dolqueen",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#onoken.28ani.29|onoken]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:3rd Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dotqueen."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:3rd Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dolqueen."
     },
     {
       "id": "wikis:fandom:4da968ecf7064cbf",
@@ -101748,12 +102071,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:46:39Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "RiraN",
+        "Kamisys",
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "song_titles": [
+        "Blue",
+        "天泣 -fracture-",
+        "Arcana Idola"
+      ],
+      "song_ids": [
+        "song:blue",
+        "song:fracture-8e85edf6",
+        "song:arcana-idola"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Open Submission (Silver)"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_August.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Blue, 天泣-fracture-, Arcana Idola and a 'Class 1 - 11 Wave Test' panel (no song)",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -101792,8 +102139,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "RiraN",
+          "url": "https://dynamix.miraheze.org/wiki/Blue",
+          "field": "Template:Song|Artist",
+          "quote": "RiraN"
+        },
+        {
+          "role": "composer",
+          "name": "Kamisys",
+          "url": "https://dynamix.miraheze.org/wiki/%E5%A4%A9%E6%B3%A3_-fracture-",
+          "field": "Template:Song|Artist",
+          "quote": "Kamisys"
+        },
+        {
+          "role": "composer",
+          "name": "紅葉月梛葉 a.k.a. Aine",
+          "url": "https://dynamix.miraheze.org/wiki/Arcana_Idola",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Nagiha|紅葉月梛葉 a.k.a. Aine]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in August.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in August.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Blue, 天泣-fracture-, Arcana Idola and a 'Class 1 - 11 Wave Test' panel (no song)."
     },
     {
       "id": "wikis:fandom:524b2143f1107602",
@@ -104475,7 +104845,7 @@
       "id": "wikis:fandom:548131b7c8bfc532",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:Package_TwoSquare_The_Old_Year_-1.png",
-      "title": "Package TwoSquare The Old Year -1",
+      "title": "Package TwoSquare The Old Year #1",
       "kind": "pack_cover",
       "game": "dynamix",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Package_TwoSquare_The_Old_Year_-1.png",
@@ -110066,12 +110436,38 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:46:34Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "dawn-system feat. 一之瀬りと",
+        "P4koo feat.初音ミク",
+        "aoWAVE",
+        "Jun Kuroda"
+      ],
+      "song_titles": [
+        "ぺたるすてっぷ",
+        "SECONDED WORLD",
+        "Nova Highway",
+        "Lily"
+      ],
+      "song_ids": [
+        "song:file-501df734",
+        "song:seconded-world",
+        "song:nova-highway",
+        "song:lily"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_2018_Jun.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ぺたるすてっぷ, SECONDED WORLD, Nova Highway, Lily",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -110110,8 +110506,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "dawn-system feat. 一之瀬りと",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#dawn-system|dawn-system]] feat. [[Artists#.E4.B8.80.E4.B9.8B.E7.80.AC.E3.82.8A.E3.81.A8|一之瀬りと]]"
+        },
+        {
+          "role": "composer",
+          "name": "P4koo feat.初音ミク",
+          "url": "https://dynamix.miraheze.org/wiki/SECONDED_WORLD",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#P4Koo|P4koo]] feat.初音ミク"
+        },
+        {
+          "role": "composer",
+          "name": "aoWAVE",
+          "url": "https://dynamix.miraheze.org/wiki/Nova_Highway",
+          "field": "Template:Song|Artist",
+          "quote": "aoWAVE"
+        },
+        {
+          "role": "composer",
+          "name": "Jun Kuroda",
+          "url": "https://dynamix.miraheze.org/wiki/Lily",
+          "field": "Template:Song|Artist",
+          "quote": "Jun Kuroda"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 Jun.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 Jun.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ぺたるすてっぷ, SECONDED WORLD, Nova Highway, Lily."
     },
     {
       "id": "wikis:fandom:589ba73c707a2944",
@@ -112555,12 +112981,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:50:02Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Cashew",
+        "5argon feat. imTiNEY",
+        "V!C"
+      ],
+      "song_titles": [
+        "High Speed Riders",
+        "Bluebell",
+        "Regenerate Violence"
+      ],
+      "song_ids": [
+        "song:high-speed-riders",
+        "song:bluebell",
+        "song:regenerate-violence"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission",
+        "Collaboration"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:List_5th_Event_in_November.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): High Speed Riders, BlueBell, Regenerate Violence",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -112599,6 +113049,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Cashew",
+          "url": "https://dynamix.miraheze.org/wiki/High_Speed_Riders",
+          "field": "Template:Song|Artist",
+          "quote": "Cashew"
+        },
+        {
+          "role": "composer",
+          "name": "5argon feat. imTiNEY",
+          "url": "https://dynamix.miraheze.org/wiki/Bluebell",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#5argon|5argon]] feat. [[Artists#imTiNEY|imTiNEY]]"
+        },
+        {
+          "role": "composer",
+          "name": "V!C",
+          "url": "https://dynamix.miraheze.org/wiki/Regenerate_Violence",
+          "field": "Template:Song|Artist",
+          "quote": "V!C"
+        }
+      ],
       "upstream_status": "current",
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:List 5th Event in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): High Speed Riders, BlueBell, Regenerate Violence."
     },
@@ -118864,12 +119337,39 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:45:25Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "D.F.K.Soundsystem",
+        "MonstDeath vs Glúteos",
+        "adaptor"
+      ],
+      "song_titles": [
+        "Pandemik",
+        "Hopeful Warrior",
+        "Black：Magnam"
+      ],
+      "song_ids": [
+        "song:pandemik",
+        "song:hopeful-warrior",
+        "song:black-magnam"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission (Silver)"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:1st_Comeback_in_Nov_2019.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Pandemik, Hopeful Warrior, Black：Magnam",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -118908,6 +119408,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "D.F.K.Soundsystem",
+          "url": "https://dynamix.miraheze.org/wiki/Pandemik",
+          "field": "Template:Song|Artist",
+          "quote": "D.F.K.Soundsystem"
+        },
+        {
+          "role": "composer",
+          "name": "MonstDeath vs Glúteos",
+          "url": "https://dynamix.miraheze.org/wiki/Hopeful_Warrior",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#MonstDeath|MonstDeath]] vs [[Artists#Glúteos|Glúteos]]"
+        },
+        {
+          "role": "composer",
+          "name": "adaptor",
+          "url": "https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam",
+          "field": "Template:Song|Artist",
+          "quote": "adaptor"
+        }
+      ],
       "upstream_status": "current",
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:1st Comeback in Nov 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Pandemik, Hopeful Warrior, Black：Magnam."
     },
@@ -122765,12 +123288,40 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:46:46Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "MYUKKE.",
+        "Kurorak",
+        "Arctures vs DJ KemoNOiZE",
+        "An Yuki"
+      ],
+      "song_titles": [
+        "OCCHOCO-REST-LESS",
+        "Tunnelling",
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "song_ids": [
+        "song:occhoco-rest-less",
+        "song:tunnelling",
+        "song:distraction-point",
+        "song:frontline-b-side"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_October.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): OCCHOCO-REST-LESS, Tunnelling, diSTractiOn PoInT, Frontline B-Side",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -122809,8 +123360,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "MYUKKE.",
+          "url": "https://dynamix.miraheze.org/wiki/OCCHOCO-REST-LESS",
+          "field": "Template:Song|Artist",
+          "quote": "MYUKKE."
+        },
+        {
+          "role": "composer",
+          "name": "Kurorak",
+          "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
+          "field": "Template:Song|Artist",
+          "quote": "Kurorak"
+        },
+        {
+          "role": "composer",
+          "name": "Arctures vs DJ KemoNOiZE",
+          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Arctures|Arctures]] vs [[Artists#DJ_KemoNOiZE|DJ KemoNOiZE]]"
+        },
+        {
+          "role": "composer",
+          "name": "An Yuki",
+          "url": "https://dynamix.miraheze.org/wiki/Frontline_B-Side",
+          "field": "Template:Song|Artist",
+          "quote": "An Yuki"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in October.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in October.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): OCCHOCO-REST-LESS, Tunnelling, diSTractiOn PoInT, Frontline B-Side."
     },
     {
       "id": "wikis:fandom:61e0f0ff46066710",
@@ -177973,7 +178554,7 @@
       "id": "wikis:fandom:892d43ee38c5bd61",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:Package_Pianomatic.jpg.jpg",
-      "title": "Package Pianomatic.jpg",
+      "title": "Package Pianomatic",
       "kind": "pack_cover",
       "game": "dynamix",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Package_Pianomatic.jpg.jpg",
@@ -180297,12 +180878,34 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:45:42Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "RiraN",
+        "polysha"
+      ],
+      "song_titles": [
+        "Unshakable",
+        "Own The Night",
+        "Prismatic Flipper"
+      ],
+      "song_ids": [
+        "song:unshakable",
+        "song:own-the-night",
+        "song:prismatic-flipper"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:4th_Comeback_in_Oct_2019.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Unshakable, Own The Night, Prismatic Flipper",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -180341,6 +180944,22 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "RiraN",
+          "url": "https://dynamix.miraheze.org/wiki/Unshakable",
+          "field": "Template:Song|Artist",
+          "quote": "RiraN"
+        },
+        {
+          "role": "composer",
+          "name": "polysha",
+          "url": "https://dynamix.miraheze.org/wiki/Prismatic_Flipper",
+          "field": "Template:Song|Artist",
+          "quote": "polysha"
+        }
+      ],
       "upstream_status": "current",
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:4th Comeback in Oct 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Unshakable, Own The Night, Prismatic Flipper."
     },
@@ -180968,12 +181587,37 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:45:44Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "DJ Counterforce",
+        "SaMZIng",
+        "MYUKKE."
+      ],
+      "song_titles": [
+        "Between Boundaries",
+        "Next Time (Feat.初音ミク)",
+        "OCCHOCO-REST-LESS"
+      ],
+      "song_ids": [
+        "song:between-boundaries",
+        "song:next-time-feat-38b23f96",
+        "song:occhoco-rest-less"
+      ],
+      "collections": [
+        "Event",
+        "Collaboration: RAVON",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Paradigm:Reboot"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:4th_Event_in_April.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Between Boundaries, NextTime, OCCHOCO-REST-LESS",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -181012,6 +181656,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "DJ Counterforce",
+          "url": "https://dynamix.miraheze.org/wiki/Between_Boundaries",
+          "field": "Template:Song|Artist",
+          "quote": "DJ Counterforce"
+        },
+        {
+          "role": "composer",
+          "name": "SaMZIng",
+          "url": "https://dynamix.miraheze.org/wiki/Next_Time_(Feat.%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF)",
+          "field": "Template:Song|Artist",
+          "quote": "SaMZIng"
+        },
+        {
+          "role": "composer",
+          "name": "MYUKKE.",
+          "url": "https://dynamix.miraheze.org/wiki/OCCHOCO-REST-LESS",
+          "field": "Template:Song|Artist",
+          "quote": "MYUKKE."
+        }
+      ],
       "upstream_status": "current",
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:4th Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Between Boundaries, NextTime, OCCHOCO-REST-LESS."
     },
@@ -186832,12 +187499,37 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:45:38Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "ケシｋｓくん",
+        "くるぶっこちゃん",
+        "HyuN feat. Syepias"
+      ],
+      "song_titles": [
+        "Nightmare Girl",
+        "Rain",
+        "Cross†Soul"
+      ],
+      "song_ids": [
+        "song:nightmare-girl",
+        "song:rain",
+        "song:cross-soul"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission",
+        "Collaboration: Arcaea",
+        "Open Submission (Gold)"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:2nd_Comeback_in_Nov_2019.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Nightmare Girl, Rain, CrossSoul",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -186876,6 +187568,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "ケシｋｓくん",
+          "url": "https://dynamix.miraheze.org/wiki/Nightmare_Girl",
+          "field": "Template:Song|Artist",
+          "quote": "ケシｋｓくん"
+        },
+        {
+          "role": "composer",
+          "name": "くるぶっこちゃん",
+          "url": "https://dynamix.miraheze.org/wiki/Rain",
+          "field": "Template:Song|Artist",
+          "quote": "くるぶっこちゃん"
+        },
+        {
+          "role": "composer",
+          "name": "HyuN feat. Syepias",
+          "url": "https://dynamix.miraheze.org/wiki/Cross%E2%80%A0Soul",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#HyuN|HyuN]] feat. [[Artists#Syepias|Syepias]]"
+        }
+      ],
       "upstream_status": "current",
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:2nd Comeback in Nov 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Nightmare Girl, Rain, CrossSoul."
     },
@@ -206352,12 +207067,38 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:46:36Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "奏音",
+        "かゆき feat.燈露",
+        "一ノ瀬樹 (Feat. Akane)",
+        "玖玲"
+      ],
+      "song_titles": [
+        "ほしぞらトラベル",
+        "月奏リバイバル",
+        "Peony",
+        "Last Fate"
+      ],
+      "song_ids": [
+        "song:file-30604f03",
+        "song:file-fcd42bd1",
+        "song:peony",
+        "song:last-fate"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_2018_March.jpg.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ほしぞらトラベル, 月奏リバイバル, Peony, Last Fate",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -206396,8 +207137,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "奏音",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%81%BB%E3%81%97%E3%81%9E%E3%82%89%E3%83%88%E3%83%A9%E3%83%99%E3%83%AB",
+          "field": "Template:Song|Artist",
+          "quote": "奏音"
+        },
+        {
+          "role": "composer",
+          "name": "かゆき feat.燈露",
+          "url": "https://dynamix.miraheze.org/wiki/%E6%9C%88%E5%A5%8F%E3%83%AA%E3%83%90%E3%82%A4%E3%83%90%E3%83%AB",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#.E3.81.8B.E3.82.86.E3.81.8D|かゆき]] feat.[[Artists#.E7.87.88.E9.9C.B2|燈露]]"
+        },
+        {
+          "role": "composer",
+          "name": "一ノ瀬樹 (Feat. Akane)",
+          "url": "https://dynamix.miraheze.org/wiki/Peony",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#.E4.B8.80.E3.83.8E.E7.80.AC.E6.A8.B9|一ノ瀬樹]] (Feat. [[Artists#Akane|Akane]])"
+        },
+        {
+          "role": "composer",
+          "name": "玖玲",
+          "url": "https://dynamix.miraheze.org/wiki/Last_Fate",
+          "field": "Template:Song|Artist",
+          "quote": "玖玲"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 March.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 March.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ほしぞらトラベル, 月奏リバイバル, Peony, Last Fate."
     },
     {
       "id": "wikis:fandom:9ffa92c53e3d81fb",
@@ -225653,12 +226424,36 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:46:30Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "TangJuan vs Black Box",
+        "カレイドサンスイ(庭師+4696-D)",
+        "Zekk"
+      ],
+      "song_titles": [
+        "Xetta",
+        "Oriental Landscape",
+        "Re_Construct"
+      ],
+      "song_ids": [
+        "song:xetta",
+        "song:oriental-landscape",
+        "song:re_construct"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: OverRapid"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_2018_April.jpg.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Xetta, Oriental Landscape, Re_Construct and a 'STELLIGHTS Collaboration' panel (no song)",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -225697,8 +226492,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "TangJuan vs Black Box",
+          "url": "https://dynamix.miraheze.org/wiki/Xetta",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#TangJuan|TangJuan]] vs [[Artists#Black_Box|Black Box]]"
+        },
+        {
+          "role": "composer",
+          "name": "カレイドサンスイ(庭師+4696-D)",
+          "url": "https://dynamix.miraheze.org/wiki/Oriental_Landscape",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "カレイドサンスイ([[Artists#.E5.BA.AD.E5.B8.AB.2FNIWASHI|庭師]]+[[Artists#4696-D|4696-D]])"
+        },
+        {
+          "role": "composer",
+          "name": "Zekk",
+          "url": "https://dynamix.miraheze.org/wiki/Re_Construct",
+          "field": "Template:Song|Artist",
+          "quote": "Zekk"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 April.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 April.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Xetta, Oriental Landscape, Re_Construct and a 'STELLIGHTS Collaboration' panel (no song)."
     },
     {
       "id": "wikis:fandom:b01219f600ae9cf3",
@@ -231104,12 +231922,40 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:46:38Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "colorless",
+        "Takahiro Aoki",
+        "SaMZIng",
+        "モリモリあつし"
+      ],
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Angel x Angel",
+        "Next Time (Feat.初音ミク)",
+        "PUPA"
+      ],
+      "song_ids": [
+        "song:file-568a196c",
+        "song:angel-x-angel",
+        "song:next-time-feat-38b23f96",
+        "song:pupa"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea",
+        "Collaboration: RAVON"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_2018_May.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): 交差して歪む過去と未来, Angel x Angel, Next Time(Feat.初音ミク), PUPA",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -231148,8 +231994,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "colorless",
+          "url": "https://dynamix.miraheze.org/wiki/%E4%BA%A4%E5%B7%AE%E3%81%97%E3%81%A6%E6%AD%AA%E3%82%80%E9%81%8E%E5%8E%BB%E3%81%A8%E6%9C%AA%E6%9D%A5",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#m.C3.A9t.C9.99_.28colorless.29|colorless]]"
+        },
+        {
+          "role": "composer",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Angel_x_Angel",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
+        },
+        {
+          "role": "composer",
+          "name": "SaMZIng",
+          "url": "https://dynamix.miraheze.org/wiki/Next_Time_(Feat.%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF)",
+          "field": "Template:Song|Artist",
+          "quote": "SaMZIng"
+        },
+        {
+          "role": "composer",
+          "name": "モリモリあつし",
+          "url": "https://dynamix.miraheze.org/wiki/PUPA",
+          "field": "Template:Song|Artist",
+          "quote": "モリモリあつし"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): 交差して歪む過去と未来, Angel x Angel, Next Time(Feat.初音ミク), PUPA."
     },
     {
       "id": "wikis:fandom:b407d824e9114a00",
@@ -240212,18 +241088,12 @@
         "Open Submission (Gold)",
         "Open Submission"
       ],
-      "mapping_status": "confirmed_wiki",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
-          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1'",
-          "source_id": "wikis:miraheze"
-        },
-        {
-          "url": "https://dynamixc4cat.fandom.com/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1'",
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:DiSTractiOn_PoInT_Comeback_Chart_List.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/10/11/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart Li",
           "source_id": "wikis:fandom"
         }
       ],
@@ -259815,12 +260685,38 @@
       "height": 540,
       "fetched_at": "2026-10-10T17:46:31Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "WONDERTRAVELER project",
+        "Hidra-Xjeil",
+        "RiraN",
+        "Ino(chronoize)"
+      ],
+      "song_titles": [
+        "JOACHIM : D",
+        "Emulisy",
+        "Own The Night",
+        "曇る鑑《かがみ》の霧を含みて"
+      ],
+      "song_ids": [
+        "song:joachim-d",
+        "song:emulisy",
+        "song:own-the-night",
+        "song:file-e25017fd"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:Coming_Events_in_2018_February.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): JOACHIM : D, Emulisy, Own The Night, 曇る鑑《かがみ》の霧を含みて",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -259859,8 +260755,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "WONDERTRAVELER project",
+          "url": "https://dynamix.miraheze.org/wiki/JOACHIM_:_D",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Sound_Piercer_.28WONDERTRAVELER_Project.29|WONDERTRAVELER project]]"
+        },
+        {
+          "role": "composer",
+          "name": "Hidra-Xjeil",
+          "url": "https://dynamix.miraheze.org/wiki/Emulisy",
+          "field": "Template:Song|Artist",
+          "quote": "Hidra-Xjeil"
+        },
+        {
+          "role": "composer",
+          "name": "RiraN",
+          "url": "https://dynamix.miraheze.org/wiki/Own_The_Night",
+          "field": "Template:Song|Artist",
+          "quote": "RiraN"
+        },
+        {
+          "role": "composer",
+          "name": "Ino(chronoize)",
+          "url": "https://dynamix.miraheze.org/wiki/%E6%9B%87%E3%82%8B%E9%91%91%E3%80%8A%E3%81%8B%E3%81%8C%E3%81%BF%E3%80%8B%E3%81%AE%E9%9C%A7%E3%82%92%E5%90%AB%E3%81%BF%E3%81%A6",
+          "field": "Template:Song|Artist",
+          "quote": "Ino(chronoize)"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 February.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 February.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): JOACHIM : D, Emulisy, Own The Night, 曇る鑑《かがみ》の霧を含みて."
     },
     {
       "id": "wikis:fandom:cda4cf94f953e3b4",
@@ -280741,18 +281667,12 @@
         "Open Submission (Gold)",
         "Open Submission"
       ],
-      "mapping_status": "confirmed_wiki",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
-          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 2'",
-          "source_id": "wikis:miraheze"
-        },
-        {
-          "url": "https://dynamixc4cat.fandom.com/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 2'",
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:DiSTractiOn_PoInT_Comeback_Chart_List_2.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/11/10/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart Li",
           "source_id": "wikis:fandom"
         }
       ],
@@ -320216,12 +321136,35 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:45:26Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Kurorak",
+        "Arctures vs DJ KemoNOiZE",
+        "An Yuki"
+      ],
+      "song_titles": [
+        "Tunnelling",
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "song_ids": [
+        "song:tunnelling",
+        "song:distraction-point",
+        "song:frontline-b-side"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamixc4cat.fandom.com/wiki/File:1st_Event_in_May.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTractiOn PoInT, Frontline B-Side",
+          "source_id": "wikis:fandom"
+        }
+      ],
       "quality": {
         "source_variant": "unknown",
         "origin_status": "wiki_copy",
@@ -320260,8 +321203,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Kurorak",
+          "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
+          "field": "Template:Song|Artist",
+          "quote": "Kurorak"
+        },
+        {
+          "role": "composer",
+          "name": "Arctures vs DJ KemoNOiZE",
+          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Arctures|Arctures]] vs [[Artists#DJ_KemoNOiZE|DJ KemoNOiZE]]"
+        },
+        {
+          "role": "composer",
+          "name": "An Yuki",
+          "url": "https://dynamix.miraheze.org/wiki/Frontline_B-Side",
+          "field": "Template:Song|Artist",
+          "quote": "An Yuki"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:1st Event in May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTracti0n PoinT, Frontline B-Side."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 176 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:1st Event in May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTractiOn PoInT, Frontline B-Side."
     },
     {
       "id": "wikis:fandom:fc6ac82ae33f92ff",
@@ -325380,7 +326346,7 @@
       "id": "wikis:miraheze:014064371abc39b0",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg",
-      "title": "[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List",
+      "title": "^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List",
       "kind": "reference",
       "game": "dynamix",
       "page_url": "https://dynamix.miraheze.org/wiki/File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg",
@@ -325420,7 +326386,7 @@
         {
           "url": "https://dynamix.miraheze.org/wiki/Knight_of_Tripletz_(for_DNX_Edit)",
           "field": "gallery",
-          "quote": "section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
+          "quote": "section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
           "source_id": "wikis:miraheze"
         },
         {
@@ -325432,7 +326398,7 @@
         {
           "url": "https://dynamixc4cat.fandom.com/wiki/Knight_of_Tripletz_(for_DNX_Edit)",
           "field": "gallery",
-          "quote": "section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
+          "quote": "section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'",
           "source_id": "wikis:fandom"
         },
         {
@@ -369024,12 +369990,38 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:27:30Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Klavistr a.k.a. Phantom MasK",
+        "Hyphen",
+        "Neutral Moon",
+        "Kplecraft"
+      ],
+      "song_titles": [
+        "Against The Pseudo",
+        "^/7(L⎥?[_(L+#<>+&⎥^(o)",
+        "Time & Space (Dynamix Edit)",
+        "16383"
+      ],
+      "song_ids": [
+        "song:against-the-pseudo",
+        "song:7-l-_-l-o",
+        "song:time-space-dynamix-edit",
+        "song:16383"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_December.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Against The Pseudo, ^/7(L|?[_(L+#<>+&|^(o) (Hyphen), Time & Space (Dynamix Edit), 16383",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -369068,8 +370060,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Klavistr a.k.a. Phantom MasK",
+          "url": "https://dynamix.miraheze.org/wiki/Against_The_Pseudo",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Klavistr_.28Phantom_MasK.29|Klavistr a.k.a. Phantom MasK]]"
+        },
+        {
+          "role": "composer",
+          "name": "Hyphen",
+          "url": "https://dynamix.miraheze.org/wiki/Nyarlathotep",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Hyphen_.28.E3.81.AF.E3.82.8C.E3.81.86.E3.81.A9.E3.82.93.29|Hyphen]]"
+        },
+        {
+          "role": "composer",
+          "name": "Neutral Moon",
+          "url": "https://dynamix.miraheze.org/wiki/Time_%26_Space_(Dynamix_Edit)",
+          "field": "Template:Song|Artist",
+          "quote": "Neutral Moon"
+        },
+        {
+          "role": "composer",
+          "name": "Kplecraft",
+          "url": "https://dynamix.miraheze.org/wiki/16383",
+          "field": "Template:Song|Artist",
+          "quote": "Kplecraft"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-12-04T13:46:12Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in December.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-12-04T13:46:12Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in December.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Against The Pseudo, ^/7(L|?[_(L+#<>+&|^(o) (Hyphen), Time & Space (Dynamix Edit), 16383."
     },
     {
       "id": "wikis:miraheze:24ab49ffe5aa1c1e",
@@ -369092,12 +370114,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:27:33Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "stereoberry feat. Sanca",
+        "DJ Counterforce",
+        "影翔鼓舞"
+      ],
+      "song_titles": [
+        "Justice Justice",
+        "Between Boundaries",
+        "銀梅花"
+      ],
+      "song_ids": [
+        "song:justice-justice",
+        "song:between-boundaries",
+        "song:file-6b100bda"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: RAVON"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_September.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Justice Justice, Between Boundaries, 銀梅花 and a '?' panel (unannounced)",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -369136,8 +370182,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "stereoberry feat. Sanca",
+          "url": "https://dynamix.miraheze.org/wiki/Justice_Justice",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#stereoberry|stereoberry]] feat. [[Artists#Sanca|Sanca]]"
+        },
+        {
+          "role": "composer",
+          "name": "DJ Counterforce",
+          "url": "https://dynamix.miraheze.org/wiki/Between_Boundaries",
+          "field": "Template:Song|Artist",
+          "quote": "DJ Counterforce"
+        },
+        {
+          "role": "composer",
+          "name": "影翔鼓舞",
+          "url": "https://dynamix.miraheze.org/wiki/%E9%8A%80%E6%A2%85%E8%8A%B1",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#.E5.BD.B1.E7.BF.94.E9.BC.93.E8.88.9E|影翔鼓舞]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-08-28T13:45:59Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in September.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-08-28T13:45:59Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in September.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Justice Justice, Between Boundaries, 銀梅花 and a '?' panel (unannounced)."
     },
     {
       "id": "wikis:miraheze:24ba09bbf32a8d5a",
@@ -372730,12 +373799,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:27:31Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Se-U-Ra",
+        "Farhan",
+        "Lunatic Sounds"
+      ],
+      "song_titles": [
+        "The Endless for Traveler",
+        "Rocket Lanterns",
+        "Dement ~After Legend~"
+      ],
+      "song_ids": [
+        "song:the-endless-for-traveler",
+        "song:rocket-lanterns",
+        "song:dement-after-legend"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_November.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): a 'Comeback Tracks' panel (four unnamed jackets), The Endless for Traveler, Rocket Lanterns, Dement ~After Legend~",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -372774,8 +373867,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Se-U-Ra",
+          "url": "https://dynamix.miraheze.org/wiki/The_Endless_for_Traveler",
+          "field": "Template:Song|Artist",
+          "quote": "Se-U-Ra"
+        },
+        {
+          "role": "composer",
+          "name": "Farhan",
+          "url": "https://dynamix.miraheze.org/wiki/Rocket_Lanterns",
+          "field": "Template:Song|Artist",
+          "quote": "Farhan"
+        },
+        {
+          "role": "composer",
+          "name": "Lunatic Sounds",
+          "url": "https://dynamix.miraheze.org/wiki/Dement_~After_Legend~",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Cosmograph|Lunatic Sounds]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-10-30T12:13:10Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-10-30T12:13:10Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): a 'Comeback Tracks' panel (four unnamed jackets), The Endless for Traveler, Rocket Lanterns, Dement ~After Legend~."
     },
     {
       "id": "wikis:miraheze:2867a4de4797ba45",
@@ -377811,7 +378927,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2026-07-06T11:30:39Z); this Miraheze copy is not byte-identical to that upload."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2026-07-06T11:30:39Z); this Miraheze copy is not byte-identical to that upload. Subject not read (single-song rule, 09-frozen-contracts.md): caption 'Comeback tracks polling Till 26 July 2018 12nn' and the file title name no subject before their list words; the original-game song pages showing it (Justice Justice, Persephone, Sakura Fubuki and 1 more) do not decide one; it stays a list."
     },
     {
       "id": "wikis:miraheze:2bf0c3dfc6774cea",
@@ -380158,6 +381274,74 @@
       ],
       "upstream_status": "current",
       "notes": "Fandom's API records this title's upload with another SHA-1 and +357 bytes (Fandom upload 2017-06-29T22:21:48Z); this Miraheze copy is not byte-identical to that upload."
+    },
+    {
+      "id": "wikis:miraheze:2df4a20f78495731",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Dynamix.png",
+      "title": "Dynamix",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix.png",
+      "download_url": "https://static.wikitide.net/dynamixwiki/8/8f/Dynamix.png",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/8/8f/Dynamix.png",
+      "path": "assets/public/wikis/miraheze/Dynamix--2df4a20f7849.png",
+      "original_filename": "Dynamix.png",
+      "bytes": 87124,
+      "sha256": "2df4a20f78495731572ccd14995082b89898746ce7c771dc6b5855191df7155d",
+      "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1003,
+      "height": 319,
+      "fetched_at": "2026-10-10T22:23:38Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Dynamix.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/8/8f/Dynamix.png",
+        "mime": "image/png",
+        "bytes": 87124,
+        "width": 1003,
+        "height": 319,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "timestamp": "2026-08-09T10:10:29Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 87124,
+        "width": 1003,
+        "height": 319,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "sha256": "2df4a20f78495731572ccd14995082b89898746ce7c771dc6b5855191df7155d"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Kind promotional by the archivist review: official branding (the game's own wordmark) that the wiki reuses as an interface image; the site_ui page evidence describes that use, not the file: https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template)."
     },
     {
       "id": "wikis:miraheze:2e18845458b1313f",
@@ -413531,12 +414715,39 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:27:24Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "MonstDeath vs Glúteos",
+        "HyuN feat. Syepias",
+        "Sound piercer vs. Iriss",
+        "Ms.+駄々子"
+      ],
+      "song_titles": [
+        "Hopeful Warrior",
+        "Cross†Soul",
+        "BOUNCE THE TECH",
+        "Speedster, Trickster"
+      ],
+      "song_ids": [
+        "song:hopeful-warrior",
+        "song:cross-soul",
+        "song:bounce-the-tech",
+        "song:speedster-trickster"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_2018_January.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Hopeful Warrior, Cross†Soul, BOUNCE THE TECH, Speedster Trickster",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -413575,8 +414786,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "MonstDeath vs Glúteos",
+          "url": "https://dynamix.miraheze.org/wiki/Hopeful_Warrior",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#MonstDeath|MonstDeath]] vs [[Artists#Glúteos|Glúteos]]"
+        },
+        {
+          "role": "composer",
+          "name": "HyuN feat. Syepias",
+          "url": "https://dynamix.miraheze.org/wiki/Cross%E2%80%A0Soul",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#HyuN|HyuN]] feat. [[Artists#Syepias|Syepias]]"
+        },
+        {
+          "role": "composer",
+          "name": "Sound piercer vs. Iriss",
+          "url": "https://dynamix.miraheze.org/wiki/BOUNCE_THE_TECH",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Sound_Piercer_.28WONDERTRAVELER_Project.29|Sound piercer]] vs. [[Artists#s-don_.28Iriss.29|Iriss]]"
+        },
+        {
+          "role": "composer",
+          "name": "Ms.+駄々子",
+          "url": "https://dynamix.miraheze.org/wiki/Speedster,_Trickster",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Ms.|Ms.]]+[[Artists#.E9.A7.84.E3.80.85.E5.AD.90|駄々子]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-01-02T11:47:12Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 January.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-01-02T11:47:12Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 January.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Hopeful Warrior, Cross†Soul, BOUNCE THE TECH, Speedster Trickster."
     },
     {
       "id": "wikis:miraheze:49236a65d2eedd79",
@@ -420161,12 +421402,36 @@
       "height": 540,
       "fetched_at": "2026-10-10T17:26:50Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "colorless",
+        "Takahiro Aoki",
+        "onoken"
+      ],
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Angel x Angel",
+        "Dolqueen"
+      ],
+      "song_ids": [
+        "song:file-568a196c",
+        "song:angel-x-angel",
+        "song:dolqueen"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:3rd_Event_in_April.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dolqueen",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -420205,8 +421470,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "colorless",
+          "url": "https://dynamix.miraheze.org/wiki/%E4%BA%A4%E5%B7%AE%E3%81%97%E3%81%A6%E6%AD%AA%E3%82%80%E9%81%8E%E5%8E%BB%E3%81%A8%E6%9C%AA%E6%9D%A5",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#m.C3.A9t.C9.99_.28colorless.29|colorless]]"
+        },
+        {
+          "role": "composer",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Angel_x_Angel",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
+        },
+        {
+          "role": "composer",
+          "name": "onoken",
+          "url": "https://dynamix.miraheze.org/wiki/Dolqueen",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#onoken.28ani.29|onoken]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-04-17T12:32:53Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:3rd Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dotqueen."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-04-17T12:32:53Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:3rd Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dolqueen."
     },
     {
       "id": "wikis:miraheze:4da968ecf7064cbf",
@@ -426703,12 +427991,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:27:28Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "RiraN",
+        "Kamisys",
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "song_titles": [
+        "Blue",
+        "天泣 -fracture-",
+        "Arcana Idola"
+      ],
+      "song_ids": [
+        "song:blue",
+        "song:fracture-8e85edf6",
+        "song:arcana-idola"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Open Submission (Silver)"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_August.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Blue, 天泣-fracture-, Arcana Idola and a 'Class 1 - 11 Wave Test' panel (no song)",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -426747,8 +428059,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "RiraN",
+          "url": "https://dynamix.miraheze.org/wiki/Blue",
+          "field": "Template:Song|Artist",
+          "quote": "RiraN"
+        },
+        {
+          "role": "composer",
+          "name": "Kamisys",
+          "url": "https://dynamix.miraheze.org/wiki/%E5%A4%A9%E6%B3%A3_-fracture-",
+          "field": "Template:Song|Artist",
+          "quote": "Kamisys"
+        },
+        {
+          "role": "composer",
+          "name": "紅葉月梛葉 a.k.a. Aine",
+          "url": "https://dynamix.miraheze.org/wiki/Arcana_Idola",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Nagiha|紅葉月梛葉 a.k.a. Aine]]"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-07-31T18:40:41Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in August.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2017-07-31T18:40:41Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in August.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Blue, 天泣-fracture-, Arcana Idola and a 'Class 1 - 11 Wave Test' panel (no song)."
     },
     {
       "id": "wikis:miraheze:524b2143f1107602",
@@ -429430,7 +430765,7 @@
       "id": "wikis:miraheze:548131b7c8bfc532",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:Package_TwoSquare_The_Old_Year_-1.png",
-      "title": "Package TwoSquare The Old Year -1",
+      "title": "Package TwoSquare The Old Year #1",
       "kind": "pack_cover",
       "game": "dynamix",
       "page_url": "https://dynamix.miraheze.org/wiki/File:Package_TwoSquare_The_Old_Year_-1.png",
@@ -435021,12 +436356,38 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:27:25Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "dawn-system feat. 一之瀬りと",
+        "P4koo feat.初音ミク",
+        "aoWAVE",
+        "Jun Kuroda"
+      ],
+      "song_titles": [
+        "ぺたるすてっぷ",
+        "SECONDED WORLD",
+        "Nova Highway",
+        "Lily"
+      ],
+      "song_ids": [
+        "song:file-501df734",
+        "song:seconded-world",
+        "song:nova-highway",
+        "song:lily"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_2018_Jun.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ぺたるすてっぷ, SECONDED WORLD, Nova Highway, Lily",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -435065,8 +436426,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "dawn-system feat. 一之瀬りと",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#dawn-system|dawn-system]] feat. [[Artists#.E4.B8.80.E4.B9.8B.E7.80.AC.E3.82.8A.E3.81.A8|一之瀬りと]]"
+        },
+        {
+          "role": "composer",
+          "name": "P4koo feat.初音ミク",
+          "url": "https://dynamix.miraheze.org/wiki/SECONDED_WORLD",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#P4Koo|P4koo]] feat.初音ミク"
+        },
+        {
+          "role": "composer",
+          "name": "aoWAVE",
+          "url": "https://dynamix.miraheze.org/wiki/Nova_Highway",
+          "field": "Template:Song|Artist",
+          "quote": "aoWAVE"
+        },
+        {
+          "role": "composer",
+          "name": "Jun Kuroda",
+          "url": "https://dynamix.miraheze.org/wiki/Lily",
+          "field": "Template:Song|Artist",
+          "quote": "Jun Kuroda"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-05-28T16:58:50Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 Jun.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-05-28T16:58:50Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 Jun.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ぺたるすてっぷ, SECONDED WORLD, Nova Highway, Lily."
     },
     {
       "id": "wikis:miraheze:589ba73c707a2944",
@@ -437510,12 +438901,36 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:30:03Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Cashew",
+        "5argon feat. imTiNEY",
+        "V!C"
+      ],
+      "song_titles": [
+        "High Speed Riders",
+        "Bluebell",
+        "Regenerate Violence"
+      ],
+      "song_ids": [
+        "song:high-speed-riders",
+        "song:bluebell",
+        "song:regenerate-violence"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission",
+        "Collaboration"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:List_5th_Event_in_November.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): High Speed Riders, BlueBell, Regenerate Violence",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -437554,6 +438969,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Cashew",
+          "url": "https://dynamix.miraheze.org/wiki/High_Speed_Riders",
+          "field": "Template:Song|Artist",
+          "quote": "Cashew"
+        },
+        {
+          "role": "composer",
+          "name": "5argon feat. imTiNEY",
+          "url": "https://dynamix.miraheze.org/wiki/Bluebell",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#5argon|5argon]] feat. [[Artists#imTiNEY|imTiNEY]]"
+        },
+        {
+          "role": "composer",
+          "name": "V!C",
+          "url": "https://dynamix.miraheze.org/wiki/Regenerate_Violence",
+          "field": "Template:Song|Artist",
+          "quote": "V!C"
+        }
+      ],
       "upstream_status": "current",
       "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-12-01T14:01:47Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:List 5th Event in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): High Speed Riders, BlueBell, Regenerate Violence."
     },
@@ -443819,12 +445257,39 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:26:37Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "D.F.K.Soundsystem",
+        "MonstDeath vs Glúteos",
+        "adaptor"
+      ],
+      "song_titles": [
+        "Pandemik",
+        "Hopeful Warrior",
+        "Black：Magnam"
+      ],
+      "song_ids": [
+        "song:pandemik",
+        "song:hopeful-warrior",
+        "song:black-magnam"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission (Silver)"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:1st_Comeback_in_Nov_2019.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Pandemik, Hopeful Warrior, Black：Magnam",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -443863,6 +445328,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "D.F.K.Soundsystem",
+          "url": "https://dynamix.miraheze.org/wiki/Pandemik",
+          "field": "Template:Song|Artist",
+          "quote": "D.F.K.Soundsystem"
+        },
+        {
+          "role": "composer",
+          "name": "MonstDeath vs Glúteos",
+          "url": "https://dynamix.miraheze.org/wiki/Hopeful_Warrior",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#MonstDeath|MonstDeath]] vs [[Artists#Glúteos|Glúteos]]"
+        },
+        {
+          "role": "composer",
+          "name": "adaptor",
+          "url": "https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam",
+          "field": "Template:Song|Artist",
+          "quote": "adaptor"
+        }
+      ],
       "upstream_status": "current",
       "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-10-30T17:51:55Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:1st Comeback in Nov 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Pandemik, Hopeful Warrior, Black：Magnam."
     },
@@ -447720,12 +449208,40 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:27:32Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "MYUKKE.",
+        "Kurorak",
+        "Arctures vs DJ KemoNOiZE",
+        "An Yuki"
+      ],
+      "song_titles": [
+        "OCCHOCO-REST-LESS",
+        "Tunnelling",
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "song_ids": [
+        "song:occhoco-rest-less",
+        "song:tunnelling",
+        "song:distraction-point",
+        "song:frontline-b-side"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_October.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): OCCHOCO-REST-LESS, Tunnelling, diSTractiOn PoInT, Frontline B-Side",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -447764,8 +449280,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "MYUKKE.",
+          "url": "https://dynamix.miraheze.org/wiki/OCCHOCO-REST-LESS",
+          "field": "Template:Song|Artist",
+          "quote": "MYUKKE."
+        },
+        {
+          "role": "composer",
+          "name": "Kurorak",
+          "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
+          "field": "Template:Song|Artist",
+          "quote": "Kurorak"
+        },
+        {
+          "role": "composer",
+          "name": "Arctures vs DJ KemoNOiZE",
+          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Arctures|Arctures]] vs [[Artists#DJ_KemoNOiZE|DJ KemoNOiZE]]"
+        },
+        {
+          "role": "composer",
+          "name": "An Yuki",
+          "url": "https://dynamix.miraheze.org/wiki/Frontline_B-Side",
+          "field": "Template:Song|Artist",
+          "quote": "An Yuki"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2017-10-02T16:59:43Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in October.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2017-10-02T16:59:43Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in October.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): OCCHOCO-REST-LESS, Tunnelling, diSTractiOn PoInT, Frontline B-Side."
     },
     {
       "id": "wikis:miraheze:61e0f0ff46066710",
@@ -503319,7 +504865,7 @@
       "id": "wikis:miraheze:892d43ee38c5bd61",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:Package_Pianomatic.jpg.jpg",
-      "title": "Package Pianomatic.jpg",
+      "title": "Package Pianomatic",
       "kind": "pack_cover",
       "game": "dynamix",
       "page_url": "https://dynamix.miraheze.org/wiki/File:Package_Pianomatic.jpg.jpg",
@@ -505643,12 +507189,34 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:26:51Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "RiraN",
+        "polysha"
+      ],
+      "song_titles": [
+        "Unshakable",
+        "Own The Night",
+        "Prismatic Flipper"
+      ],
+      "song_ids": [
+        "song:unshakable",
+        "song:own-the-night",
+        "song:prismatic-flipper"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:4th_Comeback_in_Oct_2019.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Unshakable, Own The Night, Prismatic Flipper",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -505687,6 +507255,22 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "RiraN",
+          "url": "https://dynamix.miraheze.org/wiki/Unshakable",
+          "field": "Template:Song|Artist",
+          "quote": "RiraN"
+        },
+        {
+          "role": "composer",
+          "name": "polysha",
+          "url": "https://dynamix.miraheze.org/wiki/Prismatic_Flipper",
+          "field": "Template:Song|Artist",
+          "quote": "polysha"
+        }
+      ],
       "upstream_status": "current",
       "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-10-25T04:44:36Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:4th Comeback in Oct 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Unshakable, Own The Night, Prismatic Flipper."
     },
@@ -506408,12 +507992,37 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:26:52Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "DJ Counterforce",
+        "SaMZIng",
+        "MYUKKE."
+      ],
+      "song_titles": [
+        "Between Boundaries",
+        "Next Time (Feat.初音ミク)",
+        "OCCHOCO-REST-LESS"
+      ],
+      "song_ids": [
+        "song:between-boundaries",
+        "song:next-time-feat-38b23f96",
+        "song:occhoco-rest-less"
+      ],
+      "collections": [
+        "Event",
+        "Collaboration: RAVON",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Paradigm:Reboot"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:4th_Event_in_April.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Between Boundaries, NextTime, OCCHOCO-REST-LESS",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -506452,6 +508061,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "DJ Counterforce",
+          "url": "https://dynamix.miraheze.org/wiki/Between_Boundaries",
+          "field": "Template:Song|Artist",
+          "quote": "DJ Counterforce"
+        },
+        {
+          "role": "composer",
+          "name": "SaMZIng",
+          "url": "https://dynamix.miraheze.org/wiki/Next_Time_(Feat.%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF)",
+          "field": "Template:Song|Artist",
+          "quote": "SaMZIng"
+        },
+        {
+          "role": "composer",
+          "name": "MYUKKE.",
+          "url": "https://dynamix.miraheze.org/wiki/OCCHOCO-REST-LESS",
+          "field": "Template:Song|Artist",
+          "quote": "MYUKKE."
+        }
+      ],
       "upstream_status": "current",
       "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-04-24T14:30:03Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:4th Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Between Boundaries, NextTime, OCCHOCO-REST-LESS."
     },
@@ -512366,12 +513998,37 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:26:47Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "ケシｋｓくん",
+        "くるぶっこちゃん",
+        "HyuN feat. Syepias"
+      ],
+      "song_titles": [
+        "Nightmare Girl",
+        "Rain",
+        "Cross†Soul"
+      ],
+      "song_ids": [
+        "song:nightmare-girl",
+        "song:rain",
+        "song:cross-soul"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission",
+        "Collaboration: Arcaea",
+        "Open Submission (Gold)"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:2nd_Comeback_in_Nov_2019.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Nightmare Girl, Rain, CrossSoul",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -512410,6 +514067,29 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "ケシｋｓくん",
+          "url": "https://dynamix.miraheze.org/wiki/Nightmare_Girl",
+          "field": "Template:Song|Artist",
+          "quote": "ケシｋｓくん"
+        },
+        {
+          "role": "composer",
+          "name": "くるぶっこちゃん",
+          "url": "https://dynamix.miraheze.org/wiki/Rain",
+          "field": "Template:Song|Artist",
+          "quote": "くるぶっこちゃん"
+        },
+        {
+          "role": "composer",
+          "name": "HyuN feat. Syepias",
+          "url": "https://dynamix.miraheze.org/wiki/Cross%E2%80%A0Soul",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#HyuN|HyuN]] feat. [[Artists#Syepias|Syepias]]"
+        }
+      ],
       "upstream_status": "current",
       "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-11-06T20:10:49Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:2nd Comeback in Nov 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Nightmare Girl, Rain, CrossSoul."
     },
@@ -531886,12 +533566,38 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:27:26Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "奏音",
+        "かゆき feat.燈露",
+        "一ノ瀬樹 (Feat. Akane)",
+        "玖玲"
+      ],
+      "song_titles": [
+        "ほしぞらトラベル",
+        "月奏リバイバル",
+        "Peony",
+        "Last Fate"
+      ],
+      "song_ids": [
+        "song:file-30604f03",
+        "song:file-fcd42bd1",
+        "song:peony",
+        "song:last-fate"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_2018_March.jpg.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ほしぞらトラベル, 月奏リバイバル, Peony, Last Fate",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -531930,8 +533636,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "奏音",
+          "url": "https://dynamix.miraheze.org/wiki/%E3%81%BB%E3%81%97%E3%81%9E%E3%82%89%E3%83%88%E3%83%A9%E3%83%99%E3%83%AB",
+          "field": "Template:Song|Artist",
+          "quote": "奏音"
+        },
+        {
+          "role": "composer",
+          "name": "かゆき feat.燈露",
+          "url": "https://dynamix.miraheze.org/wiki/%E6%9C%88%E5%A5%8F%E3%83%AA%E3%83%90%E3%82%A4%E3%83%90%E3%83%AB",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#.E3.81.8B.E3.82.86.E3.81.8D|かゆき]] feat.[[Artists#.E7.87.88.E9.9C.B2|燈露]]"
+        },
+        {
+          "role": "composer",
+          "name": "一ノ瀬樹 (Feat. Akane)",
+          "url": "https://dynamix.miraheze.org/wiki/Peony",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#.E4.B8.80.E3.83.8E.E7.80.AC.E6.A8.B9|一ノ瀬樹]] (Feat. [[Artists#Akane|Akane]])"
+        },
+        {
+          "role": "composer",
+          "name": "玖玲",
+          "url": "https://dynamix.miraheze.org/wiki/Last_Fate",
+          "field": "Template:Song|Artist",
+          "quote": "玖玲"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-02-27T07:52:10Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 March.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-02-27T07:52:10Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 March.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ほしぞらトラベル, 月奏リバイバル, Peony, Last Fate."
     },
     {
       "id": "wikis:miraheze:9ffa92c53e3d81fb",
@@ -551410,12 +553146,36 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:27:22Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "TangJuan vs Black Box",
+        "カレイドサンスイ(庭師+4696-D)",
+        "Zekk"
+      ],
+      "song_titles": [
+        "Xetta",
+        "Oriental Landscape",
+        "Re_Construct"
+      ],
+      "song_ids": [
+        "song:xetta",
+        "song:oriental-landscape",
+        "song:re_construct"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: OverRapid"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_2018_April.jpg.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Xetta, Oriental Landscape, Re_Construct and a 'STELLIGHTS Collaboration' panel (no song)",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -551454,8 +553214,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "TangJuan vs Black Box",
+          "url": "https://dynamix.miraheze.org/wiki/Xetta",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#TangJuan|TangJuan]] vs [[Artists#Black_Box|Black Box]]"
+        },
+        {
+          "role": "composer",
+          "name": "カレイドサンスイ(庭師+4696-D)",
+          "url": "https://dynamix.miraheze.org/wiki/Oriental_Landscape",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "カレイドサンスイ([[Artists#.E5.BA.AD.E5.B8.AB.2FNIWASHI|庭師]]+[[Artists#4696-D|4696-D]])"
+        },
+        {
+          "role": "composer",
+          "name": "Zekk",
+          "url": "https://dynamix.miraheze.org/wiki/Re_Construct",
+          "field": "Template:Song|Artist",
+          "quote": "Zekk"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-04-01T18:58:31Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 April.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-04-01T18:58:31Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 April.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Xetta, Oriental Landscape, Re_Construct and a 'STELLIGHTS Collaboration' panel (no song)."
     },
     {
       "id": "wikis:miraheze:b01219f600ae9cf3",
@@ -556860,12 +558643,40 @@
       "height": 628,
       "fetched_at": "2026-10-10T17:27:27Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "colorless",
+        "Takahiro Aoki",
+        "SaMZIng",
+        "モリモリあつし"
+      ],
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Angel x Angel",
+        "Next Time (Feat.初音ミク)",
+        "PUPA"
+      ],
+      "song_ids": [
+        "song:file-568a196c",
+        "song:angel-x-angel",
+        "song:next-time-feat-38b23f96",
+        "song:pupa"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea",
+        "Collaboration: RAVON"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_2018_May.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): 交差して歪む過去と未来, Angel x Angel, Next Time(Feat.初音ミク), PUPA",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -556904,8 +558715,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "colorless",
+          "url": "https://dynamix.miraheze.org/wiki/%E4%BA%A4%E5%B7%AE%E3%81%97%E3%81%A6%E6%AD%AA%E3%82%80%E9%81%8E%E5%8E%BB%E3%81%A8%E6%9C%AA%E6%9D%A5",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#m.C3.A9t.C9.99_.28colorless.29|colorless]]"
+        },
+        {
+          "role": "composer",
+          "name": "Takahiro Aoki",
+          "url": "https://dynamix.miraheze.org/wiki/Angel_x_Angel",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Vanity_a.k.a._Takahiro_Aoki|Takahiro Aoki]]"
+        },
+        {
+          "role": "composer",
+          "name": "SaMZIng",
+          "url": "https://dynamix.miraheze.org/wiki/Next_Time_(Feat.%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF)",
+          "field": "Template:Song|Artist",
+          "quote": "SaMZIng"
+        },
+        {
+          "role": "composer",
+          "name": "モリモリあつし",
+          "url": "https://dynamix.miraheze.org/wiki/PUPA",
+          "field": "Template:Song|Artist",
+          "quote": "モリモリあつし"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-04-30T14:41:31Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-04-30T14:41:31Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): 交差して歪む過去と未来, Angel x Angel, Next Time(Feat.初音ミク), PUPA."
     },
     {
       "id": "wikis:miraheze:b407d824e9114a00",
@@ -566096,19 +567937,13 @@
         "Open Submission (Gold)",
         "Open Submission"
       ],
-      "mapping_status": "confirmed_wiki",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
-          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1'",
+          "url": "https://dynamix.miraheze.org/wiki/File:DiSTractiOn_PoInT_Comeback_Chart_List.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/10/11/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart Li",
           "source_id": "wikis:miraheze"
-        },
-        {
-          "url": "https://dynamixc4cat.fandom.com/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1'",
-          "source_id": "wikis:fandom"
         }
       ],
       "quality": {
@@ -586107,12 +587942,38 @@
       "height": 540,
       "fetched_at": "2026-10-10T17:27:23Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "WONDERTRAVELER project",
+        "Hidra-Xjeil",
+        "RiraN",
+        "Ino(chronoize)"
+      ],
+      "song_titles": [
+        "JOACHIM : D",
+        "Emulisy",
+        "Own The Night",
+        "曇る鑑《かがみ》の霧を含みて"
+      ],
+      "song_ids": [
+        "song:joachim-d",
+        "song:emulisy",
+        "song:own-the-night",
+        "song:file-e25017fd"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Coming_Events_in_2018_February.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): JOACHIM : D, Emulisy, Own The Night, 曇る鑑《かがみ》の霧を含みて",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -586151,8 +588012,38 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "WONDERTRAVELER project",
+          "url": "https://dynamix.miraheze.org/wiki/JOACHIM_:_D",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Sound_Piercer_.28WONDERTRAVELER_Project.29|WONDERTRAVELER project]]"
+        },
+        {
+          "role": "composer",
+          "name": "Hidra-Xjeil",
+          "url": "https://dynamix.miraheze.org/wiki/Emulisy",
+          "field": "Template:Song|Artist",
+          "quote": "Hidra-Xjeil"
+        },
+        {
+          "role": "composer",
+          "name": "RiraN",
+          "url": "https://dynamix.miraheze.org/wiki/Own_The_Night",
+          "field": "Template:Song|Artist",
+          "quote": "RiraN"
+        },
+        {
+          "role": "composer",
+          "name": "Ino(chronoize)",
+          "url": "https://dynamix.miraheze.org/wiki/%E6%9B%87%E3%82%8B%E9%91%91%E3%80%8A%E3%81%8B%E3%81%8C%E3%81%BF%E3%80%8B%E3%81%AE%E9%9C%A7%E3%82%92%E5%90%AB%E3%81%BF%E3%81%A6",
+          "field": "Template:Song|Artist",
+          "quote": "Ino(chronoize)"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-01-30T14:08:24Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 February.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2018-01-30T14:08:24Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Coming Events in 2018 February.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): JOACHIM : D, Emulisy, Own The Night, 曇る鑑《かがみ》の霧を含みて."
     },
     {
       "id": "wikis:miraheze:cda4cf94f953e3b4",
@@ -607237,19 +609128,13 @@
         "Open Submission (Gold)",
         "Open Submission"
       ],
-      "mapping_status": "confirmed_wiki",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
-          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 2'",
+          "url": "https://dynamix.miraheze.org/wiki/File:DiSTractiOn_PoInT_Comeback_Chart_List_2.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/11/10/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart Li",
           "source_id": "wikis:miraheze"
-        },
-        {
-          "url": "https://dynamixc4cat.fandom.com/wiki/DiSTractiOn_PoInT",
-          "field": "gallery",
-          "quote": "section Gallery, caption 'diSTractiOn PoInT X Frontline B-Side Comeback Chart List 2'",
-          "source_id": "wikis:fandom"
         }
       ],
       "quality": {
@@ -646822,12 +648707,35 @@
       "height": 1080,
       "fetched_at": "2026-10-10T17:26:39Z",
       "illustrators": [],
-      "composers": [],
-      "song_titles": [],
-      "song_ids": [],
-      "collections": [],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "composers": [
+        "Kurorak",
+        "Arctures vs DJ KemoNOiZE",
+        "An Yuki"
+      ],
+      "song_titles": [
+        "Tunnelling",
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "song_ids": [
+        "song:tunnelling",
+        "song:distraction-point",
+        "song:frontline-b-side"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:1st_Event_in_May.jpg",
+          "field": "archivist review",
+          "quote": "visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTractiOn PoInT, Frontline B-Side",
+          "source_id": "wikis:miraheze"
+        }
+      ],
       "quality": {
         "source_variant": "site_original",
         "origin_status": "wiki_copy",
@@ -646866,8 +648774,31 @@
         "dimensions_match": true,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "composer",
+          "name": "Kurorak",
+          "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
+          "field": "Template:Song|Artist",
+          "quote": "Kurorak"
+        },
+        {
+          "role": "composer",
+          "name": "Arctures vs DJ KemoNOiZE",
+          "url": "https://dynamix.miraheze.org/wiki/DiSTractiOn_PoInT",
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Arctures|Arctures]] vs [[Artists#DJ_KemoNOiZE|DJ KemoNOiZE]]"
+        },
+        {
+          "role": "composer",
+          "name": "An Yuki",
+          "url": "https://dynamix.miraheze.org/wiki/Frontline_B-Side",
+          "field": "Template:Song|Artist",
+          "quote": "An Yuki"
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-05-01T17:39:17Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:1st Event in May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTracti0n PoinT, Frontline B-Side."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +176 bytes (Fandom upload 2019-05-01T17:39:17Z); this Miraheze copy is not byte-identical to that upload. Kind reference by the list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:1st Event in May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTractiOn PoInT, Frontline B-Side."
     },
     {
       "id": "wikis:miraheze:fc6ac82ae33f92ff",

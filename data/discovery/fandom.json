@@ -5777,6 +5777,25 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:5efe20a987cb9e78",
+      "song_titles": [
+        "Pandemik",
+        "Hopeful Warrior",
+        "Black：Magnam"
+      ],
+      "composers": [
+        "D.F.K.Soundsystem",
+        "MonstDeath vs Glúteos",
+        "adaptor"
+      ],
+      "collections": [
+        "Open Submission (Bronze)",
+        "Event",
+        "Open Submission",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission (Silver)"
+      ],
       "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:1st Comeback in Nov 2019.jpg); reference <- archivist review (File:1st Comeback in Nov 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Pandemik, Hopeful Warrior, Black：Magnam; reference <- https://dynamix.miraheze.org/wiki/File:1st_Comeback_in_Nov_2019.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:1st_Comeback_in_Nov_2019.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -5803,7 +5822,22 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:fc6a9f02b4b7b56f",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:1st Event in May.jpg); reference <- archivist review (File:1st Event in May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTracti0n PoinT, Frontline B-Side"
+      "song_titles": [
+        "Tunnelling",
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "composers": [
+        "Kurorak",
+        "Arctures vs DJ KemoNOiZE",
+        "An Yuki"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:1st Event in May.jpg); reference <- archivist review (File:1st Event in May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Tunnelling, diSTractiOn PoInT, Frontline B-Side"
     },
     {
       "id": "wikis:fandom:File:2.4_Version_Update.jpg",
@@ -6681,6 +6715,23 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:903dcc8c7ddc9a59",
+      "song_titles": [
+        "Nightmare Girl",
+        "Rain",
+        "Cross†Soul"
+      ],
+      "composers": [
+        "ケシｋｓくん",
+        "くるぶっこちゃん",
+        "HyuN feat. Syepias"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission",
+        "Collaboration: Arcaea",
+        "Open Submission (Gold)"
+      ],
       "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:2nd Comeback in Nov 2019.jpg); reference <- archivist review (File:2nd Comeback in Nov 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Nightmare Girl, Rain, CrossSoul; reference <- https://dynamix.miraheze.org/wiki/File:2nd_Comeback_in_Nov_2019.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:2nd_Comeback_in_Nov_2019.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -6816,7 +6867,23 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:4da27c171b21ed13",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:3rd Event in April.jpg); reference <- archivist review (File:3rd Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dotqueen"
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Angel x Angel",
+        "Dolqueen"
+      ],
+      "composers": [
+        "colorless",
+        "Takahiro Aoki",
+        "onoken"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:3rd Event in April.jpg); reference <- archivist review (File:3rd Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): 交差して歪む過去と未来, Angel x Angel, Dolqueen"
     },
     {
       "id": "wikis:fandom:File:428DanceShowcaseBG-HQ.png",
@@ -7098,6 +7165,20 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:8ab3fff43ca007f4",
+      "song_titles": [
+        "Unshakable",
+        "Own The Night",
+        "Prismatic Flipper"
+      ],
+      "composers": [
+        "RiraN",
+        "polysha"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
       "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:4th Comeback in Oct 2019.jpg); reference <- archivist review (File:4th Comeback in Oct 2019.jpg): visual_inspection: comeback lineup 'DynAMIX Upcoming Events': Unshakable, Own The Night, Prismatic Flipper; reference <- https://dynamix.miraheze.org/wiki/File:4th_Comeback_in_Oct_2019.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:4th_Comeback_in_Oct_2019.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
@@ -7124,6 +7205,23 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:8b6673b304e95d59",
+      "song_titles": [
+        "Between Boundaries",
+        "Next Time (Feat.初音ミク)",
+        "OCCHOCO-REST-LESS"
+      ],
+      "composers": [
+        "DJ Counterforce",
+        "SaMZIng",
+        "MYUKKE."
+      ],
+      "collections": [
+        "Event",
+        "Collaboration: RAVON",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Paradigm:Reboot"
+      ],
       "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:4th Event in April.jpg); reference <- archivist review (File:4th Event in April.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): Between Boundaries, NextTime, OCCHOCO-REST-LESS"
     },
     {
@@ -29155,7 +29253,23 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:afd81253b33bdb63",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 April.jpg.jpg); reference <- archivist review (File:Coming Events in 2018 April.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "Xetta",
+        "Oriental Landscape",
+        "Re_Construct"
+      ],
+      "composers": [
+        "TangJuan vs Black Box",
+        "カレイドサンスイ(庭師+4696-D)",
+        "Zekk"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: OverRapid"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 April.jpg.jpg); reference <- archivist review (File:Coming Events in 2018 April.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Xetta, Oriental Landscape, Re_Construct and a 'STELLIGHTS Collaboration' panel (no song)"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_2018_February.jpg",
@@ -29181,7 +29295,24 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:cd82067af1e841e9",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 February.jpg); reference <- archivist review (File:Coming Events in 2018 February.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "JOACHIM : D",
+        "Emulisy",
+        "Own The Night",
+        "曇る鑑《かがみ》の霧を含みて"
+      ],
+      "composers": [
+        "WONDERTRAVELER project",
+        "Hidra-Xjeil",
+        "RiraN",
+        "Ino(chronoize)"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 February.jpg); reference <- archivist review (File:Coming Events in 2018 February.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): JOACHIM : D, Emulisy, Own The Night, 曇る鑑《かがみ》の霧を含みて"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_2018_January.jpg",
@@ -29207,7 +29338,25 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:49042bea689634eb",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 January.jpg); reference <- archivist review (File:Coming Events in 2018 January.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "Hopeful Warrior",
+        "Cross†Soul",
+        "BOUNCE THE TECH",
+        "Speedster, Trickster"
+      ],
+      "composers": [
+        "MonstDeath vs Glúteos",
+        "HyuN feat. Syepias",
+        "Sound piercer vs. Iriss",
+        "Ms.+駄々子"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 January.jpg); reference <- archivist review (File:Coming Events in 2018 January.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Hopeful Warrior, Cross†Soul, BOUNCE THE TECH, Speedster Trickster"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_2018_Jun.jpg",
@@ -29233,7 +29382,24 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:58764f172f21230e",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 Jun.jpg); reference <- archivist review (File:Coming Events in 2018 Jun.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "ぺたるすてっぷ",
+        "SECONDED WORLD",
+        "Nova Highway",
+        "Lily"
+      ],
+      "composers": [
+        "dawn-system feat. 一之瀬りと",
+        "P4koo feat.初音ミク",
+        "aoWAVE",
+        "Jun Kuroda"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 Jun.jpg); reference <- archivist review (File:Coming Events in 2018 Jun.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ぺたるすてっぷ, SECONDED WORLD, Nova Highway, Lily"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_2018_March.jpg.jpg",
@@ -29259,7 +29425,24 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:9fe313973488bf02",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 March.jpg.jpg); reference <- archivist review (File:Coming Events in 2018 March.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "ほしぞらトラベル",
+        "月奏リバイバル",
+        "Peony",
+        "Last Fate"
+      ],
+      "composers": [
+        "奏音",
+        "かゆき feat.燈露",
+        "一ノ瀬樹 (Feat. Akane)",
+        "玖玲"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 March.jpg.jpg); reference <- archivist review (File:Coming Events in 2018 March.jpg.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): ほしぞらトラベル, 月奏リバイバル, Peony, Last Fate"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_2018_May.jpg",
@@ -29285,7 +29468,26 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:b3f54d956cd76aaa",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 May.jpg); reference <- archivist review (File:Coming Events in 2018 May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Angel x Angel",
+        "Next Time (Feat.初音ミク)",
+        "PUPA"
+      ],
+      "composers": [
+        "colorless",
+        "Takahiro Aoki",
+        "SaMZIng",
+        "モリモリあつし"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea",
+        "Collaboration: RAVON"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in 2018 May.jpg); reference <- archivist review (File:Coming Events in 2018 May.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): 交差して歪む過去と未来, Angel x Angel, Next Time(Feat.初音ミク), PUPA"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_August.jpg",
@@ -29311,7 +29513,23 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:52481ec98031b64f",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in August.jpg); reference <- archivist review (File:Coming Events in August.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "Blue",
+        "天泣 -fracture-",
+        "Arcana Idola"
+      ],
+      "composers": [
+        "RiraN",
+        "Kamisys",
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Open Submission (Silver)"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in August.jpg); reference <- archivist review (File:Coming Events in August.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Blue, 天泣-fracture-, Arcana Idola and a 'Class 1 - 11 Wave Test' panel (no song)"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_December.jpg",
@@ -29337,7 +29555,24 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:24a74574601440e4",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in December.jpg); reference <- archivist review (File:Coming Events in December.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "Against The Pseudo",
+        "^/7(L⎥?[_(L+#<>+&⎥^(o)",
+        "Time & Space (Dynamix Edit)",
+        "16383"
+      ],
+      "composers": [
+        "Klavistr a.k.a. Phantom MasK",
+        "Hyphen",
+        "Neutral Moon",
+        "Kplecraft"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in December.jpg); reference <- archivist review (File:Coming Events in December.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Against The Pseudo, ^/7(L|?[_(L+#<>+&|^(o) (Hyphen), Time & Space (Dynamix Edit), 16383"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_November.jpg",
@@ -29363,7 +29598,23 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:284d55310b5320c5",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in November.jpg); reference <- archivist review (File:Coming Events in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "The Endless for Traveler",
+        "Rocket Lanterns",
+        "Dement ~After Legend~"
+      ],
+      "composers": [
+        "Se-U-Ra",
+        "Farhan",
+        "Lunatic Sounds"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: Arcaea"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in November.jpg); reference <- archivist review (File:Coming Events in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): a 'Comeback Tracks' panel (four unnamed jackets), The Endless for Traveler, Rocket Lanterns, Dement ~After Legend~"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_October.jpg",
@@ -29389,7 +29640,26 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:61cd2ef1904f4588",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in October.jpg); reference <- archivist review (File:Coming Events in October.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "OCCHOCO-REST-LESS",
+        "Tunnelling",
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "composers": [
+        "MYUKKE.",
+        "Kurorak",
+        "Arctures vs DJ KemoNOiZE",
+        "An Yuki"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Collaboration: Paradigm:Reboot",
+        "Collaboration: RAVON",
+        "Open Submission"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in October.jpg); reference <- archivist review (File:Coming Events in October.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): OCCHOCO-REST-LESS, Tunnelling, diSTractiOn PoInT, Frontline B-Side"
     },
     {
       "id": "wikis:fandom:File:Coming_Events_in_September.jpg",
@@ -29415,7 +29685,23 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:24ab49ffe5aa1c1e",
-      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in September.jpg); reference <- archivist review (File:Coming Events in September.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup)"
+      "song_titles": [
+        "Justice Justice",
+        "Between Boundaries",
+        "銀梅花"
+      ],
+      "composers": [
+        "stereoberry feat. Sanca",
+        "DJ Counterforce",
+        "影翔鼓舞"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Gold)",
+        "Open Submission",
+        "Collaboration: RAVON"
+      ],
+      "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Coming Events in September.jpg); reference <- archivist review (File:Coming Events in September.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg) (monthly 'Coming Events' lineup): Justice Justice, Between Boundaries, 銀梅花 and a '?' panel (unannounced)"
     },
     {
       "id": "wikis:fandom:File:Community-header-background",
@@ -40847,9 +41133,11 @@
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Dynamix.png",
       "file_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8f/Dynamix.png/revision/latest?cb=20150520042849",
       "title": "Dynamix",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:Dynamix.png): visual_inspection: the original game's DynAMIX wordmark; Fandom upload 2015-05-20 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/8f/Dynamix.png/revision/latest?cb=20150520042849",
         "mime": "image/png",
@@ -40860,9 +41148,9 @@
         "timestamp": "2015-05-20T04:28:49Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "site_ui: wiki interface image",
-      "notes": "role evidence: site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template); song_art <- https://dynamix.miraheze.org/wiki/File:Dynamix.png (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Dynamix.png (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/)"
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:2df4a20f78495731",
+      "notes": "role evidence: promotional <- archivist review (File:Dynamix.png): visual_inspection: the original DynAMIX wordmark (white letters with a drop shadow on a transparent background, 1003x319 RGBA), the logo of the original game's own announcement graphics (e.g. File:Coming Events in August.jpg) and File:DynamixLogo.jpg; the wiki shows it as its Main Page header, which makes that use, not the file, a wiki interface element; site_ui <- https://dynamix.miraheze.org/wiki/Main_Page (embedded; page game: none (no game evidence on the page); not referenced directly in the page text (transcluded or template-built)); site_ui <- https://dynamix.miraheze.org/wiki/Template:Main_Page (embedded in template); song_art <- https://dynamix.miraheze.org/wiki/File:Dynamix.png (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/); song_art <- https://dynamixc4cat.fandom.com/wiki/File:Dynamix.png (filename; filename convention /Dynamix\\.(?:png|jpe?g)$/)"
     },
     {
       "id": "wikis:fandom:File:Dynamix10thAnniversaryTitle-HQ.png",
@@ -87460,6 +87748,22 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:fandom:5acc5ad4a80857d5",
+      "song_titles": [
+        "High Speed Riders",
+        "Bluebell",
+        "Regenerate Violence"
+      ],
+      "composers": [
+        "Cashew",
+        "5argon feat. imTiNEY",
+        "V!C"
+      ],
+      "collections": [
+        "Event",
+        "Open Submission (Silver)",
+        "Open Submission",
+        "Collaboration"
+      ],
       "notes": "role evidence: reference <- list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list of songs or charts is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:List 5th Event in November.jpg); reference <- archivist review (File:List 5th Event in November.jpg): visual_inspection: \"DynAMIX Upcoming Events\" lineup in the design the wiki captions as '<songs> Chart List' (e.g. File:List 1st Event in November.jpg): High Speed Riders, BlueBell, Regenerate Violence"
     },
     {
@@ -104936,13 +105240,13 @@
       "upstream_key": "File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg",
       "file_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/8/87/Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg/revision/latest?cb=20211020140007",
-      "title": "[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List",
+      "title": "^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
-        "https://dynamix.miraheze.org/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List')",
+        "https://dynamix.miraheze.org/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List')",
         "https://dynamix.miraheze.org/wiki/Nyarlathotep (gallery; section Gallery, caption '^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List')",
-        "https://dynamixc4cat.fandom.com/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List')",
+        "https://dynamixc4cat.fandom.com/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List')",
         "https://dynamixc4cat.fandom.com/wiki/Nyarlathotep (gallery; section Gallery, caption '^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List')"
       ],
       "source_reported": {
@@ -104971,7 +105275,7 @@
         "Open Submission",
         "Open Submission (Gold)"
       ],
-      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamix.miraheze.org/wiki/Nyarlathotep (gallery; section Gallery, caption '^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamixc4cat.fandom.com/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '[[Nyarlathotep|^/7(L⎥?[_(L+#<>+&⎥^(o)]] X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamixc4cat.fandom.com/wiki/Nyarlathotep (gallery; section Gallery, caption '^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamix.miraheze.org/wiki/File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
+      "notes": "role evidence: reference <- https://dynamix.miraheze.org/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamix.miraheze.org/wiki/Nyarlathotep (gallery; section Gallery, caption '^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamixc4cat.fandom.com/wiki/Knight_of_Tripletz_(for_DNX_Edit) (gallery; section Gallery, caption '^/7(L⎥?[_(L+#<>+&⎥^(o) X Knigtht of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamixc4cat.fandom.com/wiki/Nyarlathotep (gallery; section Gallery, caption '^/7(L|?[_(L+#<>+&|^(o) X Knight of Tripletz (for DNX Edit) Comeback Chart List'); reference <- https://dynamix.miraheze.org/wiki/File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Nyarlathotep_X_Knight_of_Tripletz_Comeback_Chart_List.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
     },
     {
       "id": "wikis:fandom:File:Nyla-Raw.png",
@@ -108317,7 +108621,7 @@
       "upstream_key": "File:Package_Pianomatic.jpg.jpg",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Package_Pianomatic.jpg.jpg",
       "file_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/0/0d/Package_Pianomatic.jpg.jpg/revision/latest?cb=20171025130330",
-      "title": "Package Pianomatic.jpg",
+      "title": "Package Pianomatic",
       "role": "pack_cover",
       "game": "dynamix",
       "game_evidence": [
@@ -108407,7 +108711,7 @@
       "upstream_key": "File:Package_TwoSquare_The_Old_Year_-1.png",
       "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Package_TwoSquare_The_Old_Year_-1.png",
       "file_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/4/4f/Package_TwoSquare_The_Old_Year_-1.png/revision/latest?cb=20180309022718",
-      "title": "Package TwoSquare The Old Year -1",
+      "title": "Package TwoSquare The Old Year #1",
       "role": "pack_cover",
       "game": "dynamix",
       "game_evidence": [
