@@ -1154,7 +1154,8 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:71991fd77eae894d",
-        "wikis:miraheze:71991fd77eae894d"
+        "wikis:miraheze:71991fd77eae894d",
+        "wikis:miraheze:b812f70bd9ccf7f9"
       ]
     },
     {
@@ -1673,6 +1674,7 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:b08d099762bfa0ec",
+        "wikis:miraheze:155017b1ccf08482",
         "wikis:miraheze:b08d099762bfa0ec"
       ]
     },
@@ -8177,7 +8179,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:d366410b7dc6ea23"
+      ]
     },
     {
       "id": "song:file-3a5f7d08",
@@ -11317,7 +11321,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:a1981b9f4b87d016"
+      ]
     },
     {
       "id": "song:future-city-vi",
@@ -14399,6 +14405,7 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:c102835a9a5e3ba9",
+        "wikis:miraheze:a1981b9f4b87d016",
         "wikis:miraheze:c102835a9a5e3ba9"
       ]
     },
@@ -17924,7 +17931,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:2c14c1b263b53e63"
+      ]
     },
     {
       "id": "song:moonlit-party-game-edit",
@@ -21484,6 +21493,7 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:11930e151506f4e5",
+        "wikis:fandom:617110c43b0d1de4",
         "wikis:miraheze:11930e151506f4e5",
         "wikis:miraheze:617110c43b0d1de4"
       ]
@@ -22140,6 +22150,7 @@
       ],
       "artwork_asset_ids": [
         "wikis:fandom:22a38a2f24ba5dc0",
+        "wikis:fandom:c965f54fd03d13e0",
         "wikis:miraheze:22a38a2f24ba5dc0",
         "wikis:miraheze:c965f54fd03d13e0"
       ]
@@ -24212,7 +24223,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:0af37de217185368"
+      ]
     },
     {
       "id": "song:stage-5",
@@ -25681,7 +25694,9 @@
           "revision": null
         }
       ],
-      "artwork_asset_ids": []
+      "artwork_asset_ids": [
+        "wikis:miraheze:2824d34f572c22f8"
+      ]
     },
     {
       "id": "song:the-endless-for-traveler",
