@@ -214,6 +214,7 @@
     for (let index = shown; index < stop; index++) {
       const asset = filtered[index];
       const card = element("article", null, "card");
+      card.dataset.id = asset.id;
       const button = element("button", null, "card-image");
       button.type = "button";
       cardImage(button, asset);
