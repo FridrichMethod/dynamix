@@ -34,6 +34,12 @@ Measured site-tier estimate before this revision: wikis 944,412,040 B (2,971 uni
 - App Store records: per-request URL tokens are not stored; source checks compare App Store items by decoded pixels, not bytes.
 - `mapping_status: conflict` may appear on song art; consumers must display it, not resolve it. Known case: *Another World* (wiki artist anchor `Artists#Cosmograph`), left for a curator.
 
+### Catalog presentation rules (2026-10-10, from the trial integration build)
+
+- **Primary record.** Among records sharing a SHA-256 the primary is the minimum of (family priority `artists` < `official` < `wikis` < `archives`; source preference within the family, where `wikis:miraheze` (current wiki; its stored bytes are the bytes both English wikis serve) ranks before `wikis:fandom` (legacy) and other sources rank by ID; `quality.source_variant` `site_original` < `preview` < `unknown`; source ID; asset ID). The rule is deterministic and recorded in `build_catalog.py`.
+- **Titles.** `title` is a human-readable name, not a file stem. Wiki song art whose candidate maps to exactly one song with `confirmed_wiki` (or stronger) evidence is titled with that song's exact title; other wiki files use the wiki's own caption when one exists, else the `File:` title without extension and with `_` as spaces. The upstream file name always stays in `original_filename`. Other families title records from the post/page text they cite.
+- **Pages payload.** `data/catalog.json` and `data/catalog.js` are both published as long as the staged site stays within budget; if it does not, `catalog.json` (which the pages never load) is the first thing removed from the payload, by an explicit `prepare_pages.py` rule.
+
 ## Identifiers and paths
 
 - Source IDs: `<family>:<slug>`; family ∈ `wikis`, `artists`, `official`, `archives`. Registered: `wikis:miraheze`, `wikis:fandom`, `wikis:atwiki-ja`, `wikis:rhythmgame-ja`, `official:apple-store`, `official:google-play`, `official:taptap`, `official:website`, `official:c4cat`, `official:facebook`, `official:x`, `archives:hkstp`, `archives:4gamer`, `archives:wayback`. Artists: `artists:<platform>:<handle>` (e.g. `artists:x:ariiol_`, `artists:artstation:sandgodoven`). New IDs are registered by the owning worker in its family manifest; slugs are lowercase `[a-z0-9-]`.
