@@ -468,6 +468,12 @@
             "Dynamix",
             "Illustration by Keiyuu"
           ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "bms"
+          ],
+          "notes": "The page title '[PABAT! 2018/Dynamix] VENUS INVADER' names the BMS event PABAT! 2018 as well as Dynamix.",
           "variant_role": "square composition with title/composer/KEIYUU text overlay",
           "variant_group": "jacket:venus-invader",
           "credit_source": {
