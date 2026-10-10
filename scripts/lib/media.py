@@ -76,17 +76,23 @@ def _check_pdf(path: Path, size: int) -> None:
         raise MediaError(f"PDF without %%EOF trailer near the end: {path.name}")
 
 
+# Pillow formats accepted for a signature. Pillow's JPEG factory returns an ``MpoImageFile`` (format ``MPO``) for any
+# JPEG carrying an MPF APP2 segment (many camera/phone files); it is still a JPEG file, stored and reported as JPEG.
+_PILLOW_FORMATS = {"JPEG": ("JPEG", "MPO")}
+
+
 def _decode_raster(path: Path, fmt: str) -> dict[str, Any]:
     if ImageFile.LOAD_TRUNCATED_IMAGES:
         raise MediaError("refusing to verify images while PIL.ImageFile.LOAD_TRUNCATED_IMAGES is enabled")
     try:
         with Image.open(path, formats=[fmt]) as image:
-            if image.format != fmt:
+            if image.format not in _PILLOW_FORMATS.get(fmt, (fmt,)):
                 raise MediaError(f"Pillow reads {image.format}, signature says {fmt}: {path.name}")
-            width, height = image.size
+            width, height = image.size  # first frame; for MPO the primary picture
             mode = image.mode
             frames = int(getattr(image, "n_frames", 1))
-            animated = bool(getattr(image, "is_animated", False))
+            # A multi-picture JPEG holds separate pictures (e.g. a preview), not an animation.
+            animated = image.format != "MPO" and bool(getattr(image, "is_animated", False))
             image.verify()
         with Image.open(path, formats=[fmt]) as image:
             for frame in range(frames):
@@ -105,7 +111,9 @@ def inspect(path: str | os.PathLike[str]) -> dict[str, Any]:
     """Measure a file: ``format, mime, ext, width, height, mode, frames, animated, bytes, sha256, sha1``.
 
     Raises :class:`MediaError` for an unknown signature, an undecodable/truncated raster, a Pillow/signature
-    disagreement or a PDF without trailer. PDFs report ``width``/``height``/``mode``/``frames`` as ``None``.
+    disagreement or a PDF without trailer. PDFs report ``width``/``height``/``mode``/``frames`` as ``None``. A
+    multi-picture JPEG (Pillow ``MPO``) is a JPEG: ``format`` ``JPEG``, the primary picture's size, ``frames`` the
+    number of pictures and ``animated`` false. ``animated`` is true only for animated GIF/PNG/WEBP.
     """
     file = Path(path)
     size, sha256, sha1, head = _digest(file)

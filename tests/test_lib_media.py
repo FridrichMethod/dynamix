@@ -72,6 +72,20 @@ class SniffAndInspectTests(MediaTestCase):
         info = media.inspect(self.write("idle.gif", animated_gif()))
         self.assertEqual((info["format"], info["frames"], info["animated"]), ("GIF", 3, True))
 
+    def test_multi_picture_jpeg_is_a_jpeg(self):
+        """Pillow opens a JPEG with an MPF APP2 segment (camera/phone files) as MPO; it is still a valid JPEG."""
+        buffer = io.BytesIO()
+        Image.new("RGB", (64, 48), (10, 200, 30)).save(buffer, "MPO", save_all=True,
+                                                         append_images=[Image.new("RGB", (32, 24))])
+        data = buffer.getvalue()
+        self.assertTrue(data.startswith(b"\xff\xd8\xff"))
+        info = media.inspect(self.write("camera.jpg", data))
+        self.assertEqual((info["format"], info["mime"], info["ext"]), ("JPEG", "image/jpeg", "jpg"))
+        self.assertEqual((info["width"], info["height"], info["frames"], info["animated"]), (64, 48, 2, False))
+        self.assertEqual(info["sha256"], hashlib.sha256(data).hexdigest())
+        with self.assertRaises(media.MediaError):
+            media.inspect(self.write("camera-truncated.jpg", data[:-200]))
+
     def test_webp_behind_png_name(self):
         info = media.inspect(self.write("Moonlight_of_Sand_Castle.png", encode("WEBP", lossless=True)))
         self.assertEqual((info["format"], info["mime"], info["ext"]), ("WEBP", "image/webp", "webp"))
