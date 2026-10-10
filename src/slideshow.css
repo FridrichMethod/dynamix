@@ -1,0 +1,1183 @@
+/* Adapted from FridrichMethod/deemo src/slideshow.css (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8),
+   itself derived from mashirozx/deemo style.css (Apache-2.0, https://github.com/mashirozx/deemo); modified for the
+   Dynamix archive, 2026. See NOTICE. No font files are bundled or requested: every face is a system font stack, and
+   the page background is drawn in CSS rather than taken from an image. */
+
+[hidden] {
+    display: none !important;
+}
+
+html,
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    color: #20242c;
+    font-size: 16px;
+    background-color: #eef1f6;
+    background-image: linear-gradient(160deg, #f6f8fb 0%, #eef1f6 45%, #e2e7ef 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.dynamix-view {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s; /* Safari */
+    -webkit-transition-timing-function: linear; /* Safari */
+    transition: opacity 0.3s;
+    transition-timing-function: linear;
+}
+
+/* Liner-notes composition. Wide screens: a text column on the left (the archive's title card, then each slide's
+   notes, then the file caption above the round controls) and an artwork stage on the right, clear of the
+   language toggle (top right, 105px tall) and the side arrows. Every artwork is fitted to the same visual
+   area (--art-size squared) inside the stage, so square, tall and wide pieces carry the same weight and none
+   is blown up to the full screen height. Portrait screens stack the stage above the notes. */
+.dynamix-view {
+    --ink: #20242c;
+    --muted: #5b6474;
+    --accent: #1d6f93;
+    --rule: rgba(32, 36, 44, .22);
+    --gutter: clamp(56px, 6vw, 112px);
+    --art-size: min(66vh, 42vw);
+    /* Every stack starts with a generic family: the screenshot renderer (html2canvas) keeps only the first family of a
+       list, so a named face that a visitor lacks would turn into the canvas's default serif in the saved picture. */
+    --display: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    --small-caps: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    position: fixed;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 40vw minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "liner stage";
+}
+
+.liner {
+    grid-area: liner;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 64px 32px 120px var(--gutter);
+}
+
+/* The text hangs from a fixed line so the eyebrow and the title stay put from slide to slide and longer
+   notes grow downward. The line sits half a typical notes block (it scales with the type, hence vw) above
+   the stage's centre, and on short screens high enough that a large block (about 233px: two title lines and
+   two credits) still clears the caption (103px with its margin) above the 120px padding; it rises only when
+   a longer block would otherwise run into the caption. */
+.liner::before {
+    content: "";
+    flex: 0 1 max(0px, min(50vh - 64px - 9vw, 100vh - 520px));
+}
+
+.liner-text {
+    display: grid;
+    margin: 0 0 auto;
+}
+
+/* The title card and the notes share one cell, start on the same line and crossfade. */
+.liner-text > * {
+    grid-area: 1 / 1;
+    align-self: start;
+    -webkit-transition: opacity .8s ease .2s, transform .8s ease .2s, visibility 0s;
+    transition: opacity .8s ease .2s, transform .8s ease .2s, visibility 0s;
+}
+
+.liner-text.is-intro .slide-notes,
+.liner-text:not(.is-intro) .intro {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    -webkit-transition: opacity .4s ease, transform .4s ease, visibility 0s .4s;
+    transition: opacity .4s ease, transform .4s ease, visibility 0s .4s;
+}
+
+.slide-notes.is-turning {
+    opacity: 0;
+    transform: translateY(6px);
+    -webkit-transition: opacity .25s ease, transform .25s ease;
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+/* The title card: the game's name in the display face (plain text, not a logo), the archive's name under it and a
+   one-line description. It keeps inside the text column at every width. */
+.intro {
+    justify-self: start;
+    min-width: 0;
+    margin: 0;
+    /* The base size scales the whole card: the name is 2em, the lines under it a fraction of that. */
+    font-size: clamp(16px, (40vw - var(--gutter) - 32px) / 12.6, 46px);
+    color: var(--ink);
+}
+
+.intro p {
+    margin: 0;
+}
+
+.intro-title {
+    font: 300 2em/1 var(--display);
+    letter-spacing: .06em;
+    white-space: nowrap;
+}
+
+.intro-line {
+    margin-top: .35em !important;
+    font: 400 max(12px, .42em)/1.4 var(--small-caps);
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.intro-line:lang(zh-CN) {
+    letter-spacing: .2em;
+}
+
+.intro-note {
+    margin-top: 1.2em !important;
+    max-width: 26em;
+    font: max(13px, .34em)/1.6 var(--small-caps);
+    color: var(--muted);
+}
+
+.intro-empty {
+    margin-top: 1em !important;
+    font: max(13px, .34em)/1.6 var(--small-caps);
+}
+
+.intro-empty a {
+    color: var(--ink);
+}
+
+.slide-notes {
+    min-width: 0;
+    color: var(--ink);
+}
+
+/* The dot between kind and count sits in the gap before the count; when a narrow column wraps the count onto
+   its own line, the dot falls outside the eyebrow's left edge and is clipped, so no line ends or starts with it. */
+.notes-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.9em;
+    overflow: hidden;
+    margin: 0 0 1em;
+    font: clamp(12px, .9vw, 16px)/1.5 var(--small-caps);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* 2.06em = the gap plus the kind's trailing letter-spacing, so the dot sits centred between the words. */
+.notes-count::before {
+    content: "\00b7";
+    display: inline-block;
+    width: 2.06em;
+    margin-left: -2.06em;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.notes-title {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(40px, 4.3vw, 84px);
+    line-height: 1.06;
+    /* Break CJK titles at spaces ("曲名 — Remix"), never inside a word; an over-long run still wraps. */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+}
+
+.notes-title-part {
+    display: inline-block;
+}
+
+.notes-title[data-length="long"] {
+    font-size: clamp(32px, 3.4vw, 66px);
+}
+
+.notes-title[data-length="longer"] {
+    font-size: clamp(28px, 2.8vw, 54px);
+}
+
+/* A title that is only a file name ("Song_jacket_01") reads as a catalogue reference in the small caps, not as
+   the headline; the eyebrow and the credits carry the block. */
+.notes-title[data-length="file"] {
+    font: clamp(17px, 1.4vw, 26px)/1.35 var(--small-caps);
+    font-weight: 400;
+    letter-spacing: .04em;
+    text-wrap: wrap;
+}
+
+/* Album-sleeve credits: small uppercase labels, verbatim names in true case. */
+.notes-meta {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: baseline;
+    gap: .55em 1.3em;
+    margin: 1.6em 0 0;
+    font: clamp(15px, 1.1vw, 20px)/1.45 var(--small-caps);
+}
+
+/* A short rule between the title and the credits (a pseudo-element, which the screenshot renderer draws faithfully). */
+.notes-meta::before {
+    content: "";
+    grid-column: 1 / -1;
+    width: 56px;
+    height: 1px;
+    margin-bottom: .75em;
+    background: var(--rule);
+}
+
+.notes-meta dt {
+    font-size: .72em;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Han labels need size rather than tracking to stay legible. */
+.notes-eyebrow:lang(zh-CN),
+.notes-meta dt:lang(zh-CN) {
+    letter-spacing: .06em;
+}
+
+.notes-meta dt:lang(zh-CN) {
+    font-size: .86em;
+}
+
+.notes-meta dd {
+    margin: 0;
+    font: .92em/1.5 var(--small-caps);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+/* An empty credit says "Unknown" in a quieter voice than a credited name. */
+.notes-meta dd.notes-unknown {
+    font-style: italic;
+    color: var(--muted);
+}
+
+/* When the signature wraps on a narrow phone, its box reaches the right edge of the screen, over the top of the
+   language toggle; only its links take pointer events, so taps there still reach the toggle. */
+.signature {
+    font-family: var(--display, sans-serif);
+    font-size: 20px;
+    letter-spacing: .04em;
+    position: fixed;
+    left: 15px;
+    top: 5px;
+    z-index: 9999;
+    pointer-events: none
+}
+
+.signature a {
+    color: #20242c;
+    pointer-events: auto
+}
+
+.signature a:hover {
+    color: #1d6f93
+}
+
+/* Artwork stage: right margin clears the language toggle and the next arrow; the left one holds the prev arrow. */
+.slideshow-container {
+    grid-area: stage;
+    position: relative;
+    margin: 8vh 120px 8vh 64px;
+    container-type: size;
+}
+
+/* The stage clips the transparent margins of padded textures (see .dynamix-draw). The soft shadow sits here rather
+   than on the image, so it follows the art's alpha after a softened edge (below) and is not clipped by the stage;
+   it sets opaque squares and strips and cut-out art alike on the paper as prints. The opacity transition is the
+   crossfade between slides (the "fade" class on each slide carries no animation of its own). */
+.mySlides {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    filter: drop-shadow(0 14px 22px rgba(18, 28, 48, .18));
+    opacity: 1;
+    /* A slide that is not shown takes no clicks or long-presses and, once it has faded out, leaves the
+       accessibility tree; only the current one (showSlides()) is visible to both. */
+    visibility: hidden;
+    pointer-events: none;
+    -webkit-transition: opacity 1s, visibility 0s 1s; /* Safari */
+    -webkit-transition-timing-function: linear; /* Safari */
+    transition: opacity 1s, visibility 0s 1s;
+    transition-timing-function: linear;
+}
+
+.mySlides.is-current {
+    visibility: visible;
+    pointer-events: auto;
+    -webkit-transition: opacity 1s; /* Safari */
+    transition: opacity 1s;
+}
+
+img {
+    vertical-align: middle;
+    height: 100%
+}
+
+img:not([src]) {
+    visibility: hidden;
+}
+
+/* The visible art is contained in the stage and scaled to the shared visual area, at most twice its natural size
+   and never taller than 1.12 x --art-size (about the tallest portraits), so long strips stop short of the full
+   height. The tiniest sources (70 x 47 title tabs) may go up to three times their size to reach 40% of the shared
+   side, so they do not read as broken thumbnails. For a padded game texture the visible art is its opaque box
+   (data-art-box), not the canvas: the image is enlarged by 1 / --box-width so that box gets the area, and shifted
+   so the box sits at the stage's centre; the stage clips the transparent overhang. --ratio, --root and
+   --natural-width describe the visible box; lazyload() sets them, the box size, the canvas's own ratio and the
+   shift (as fractions of the image's width and height). The shift is a relative offset, not a transform, which the
+   screenshot renderer would clip at the wrong place. */
+.dynamix-draw {
+    --natural: var(--natural-width, 100vw);
+    --width: calc(min(100cqw, 100cqh * var(--ratio, 1), var(--art-size) * var(--root, 1), var(--art-size) * 1.12 * var(--ratio, 1), max(2 * var(--natural), min(.4 * var(--art-size) * var(--root, 1), 3 * var(--natural)))) / var(--box-width, 1));
+    position: relative;
+    left: calc(var(--width) * var(--shift-x, 0));
+    top: calc(var(--width) / var(--canvas-ratio, 1) * var(--shift-y, 0));
+    flex: none;
+    width: var(--width);
+    height: auto;
+}
+
+/* Art cut hard at a canvas edge (data-bleed) fades out over the last 14% of the visible art towards that edge,
+   so the crop reads as a vignette rather than a broken edge in the middle of the paper. The fade is clear for the
+   last 2px, so the partly covered pixel column at the image's fractional edge stays clear too; on an uncut edge
+   the outer colour is opaque, so those 2px do nothing there. */
+.dynamix-draw[data-bleed] {
+    --fade-x: calc(var(--box-width, 1) * 14%);
+    --fade-y: calc(var(--box-height, 1) * 14%);
+    --left: #000;
+    --left-fade: 0%;
+    --right: #000;
+    --right-fade: 0%;
+    --top: #000;
+    --top-fade: 0%;
+    --bottom: #000;
+    --bottom-fade: 0%;
+    --mask-x: linear-gradient(to right, var(--left) 2px, #000 calc(2px + var(--left-fade)), #000 calc(100% - 2px - var(--right-fade)), var(--right) calc(100% - 2px));
+    --mask-y: linear-gradient(to bottom, var(--top) 2px, #000 calc(2px + var(--top-fade)), #000 calc(100% - 2px - var(--bottom-fade)), var(--bottom) calc(100% - 2px));
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.dynamix-draw:is([data-bleed~="left"], [data-bleed~="right"]) {
+    -webkit-mask-image: var(--mask-x);
+    mask-image: var(--mask-x);
+}
+
+.dynamix-draw:is([data-bleed~="top"], [data-bleed~="bottom"]) {
+    -webkit-mask-image: var(--mask-y);
+    mask-image: var(--mask-y);
+}
+
+/* Cut on both axes (a few textures, at the top and the right): two masks, intersected, the vertical one on top.
+   Chromium lets the lower mask show through the last, partly covered pixel column at the far end of the upper
+   one, which would draw a faint line down a cut right edge if the horizontal mask were on top. */
+.dynamix-draw:is([data-bleed~="top"], [data-bleed~="bottom"]):is([data-bleed~="left"], [data-bleed~="right"]) {
+    -webkit-mask-image: var(--mask-y), var(--mask-x);
+    mask-image: var(--mask-y), var(--mask-x);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+.dynamix-draw[data-bleed~="left"] {
+    --left: transparent;
+    --left-fade: var(--fade-x);
+}
+
+.dynamix-draw[data-bleed~="right"] {
+    --right: transparent;
+    --right-fade: var(--fade-x);
+}
+
+.dynamix-draw[data-bleed~="top"] {
+    --top: transparent;
+    --top-fade: var(--fade-y);
+}
+
+.dynamix-draw[data-bleed~="bottom"] {
+    --bottom: transparent;
+    --bottom-fade: var(--fade-y);
+}
+
+@media screen and (max-width: 1100px) {
+    .signature {
+        font-size: 15px
+    }
+}
+
+/* Next & previous: CSS-drawn chevrons in quiet round buttons flanking the stage. */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--ink);
+    font-size: 0;
+    opacity: .6;
+    transition: background-color .3s ease, color .3s ease, opacity .3s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Inset, so the ring is not cut off where a phone puts the arrow 2px from the screen edge. */
+.prev:focus-visible,
+.next:focus-visible {
+    outline: 3px solid #2a8fb8;
+    outline-offset: -3px;
+    opacity: 1;
+}
+
+.prev::before,
+.next::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    /* Centre the 12px box (10px + 2px border), then pull the stroke back: after the rotation the visible
+       top and right borders sit 5px / sqrt(2) = 3.54px towards the tip, so the chevron's ink is centred. */
+    margin: -6px 0 0 -6px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: translateX(-3.54px) rotate(45deg);
+}
+
+.prev::before {
+    transform: translateX(3.54px) rotate(-135deg);
+}
+
+.prev {
+    right: calc(100% + 10px);
+}
+
+.next {
+    left: calc(100% + 38px);
+}
+
+/* Only where a pointer can hover: a tap would leave the fill stuck on touch screens. */
+@media (hover: hover) {
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(32, 36, 44, .88);
+        color: #fff;
+        opacity: 1;
+    }
+}
+
+.prev:active,
+.next:active {
+    opacity: 1;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+/* On smaller screens, decrease text size */
+
+@media only screen and (max-width: 300px) {
+    .text {
+        font-size: 11px
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1000;
+}
+
+.overlay.is-open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.overlay.is-open .save {
+    display: block !important;
+}
+
+/* The preview canvas is fixed and drawn after the overlay's buttons, so on short landscape screens it covered the
+   Save button in the bottom-left corner; both buttons stay above it. */
+.overlay.is-open .save,
+.popup .close {
+    z-index: 1;
+}
+
+.popup {
+    margin: 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    width: 100%;
+    height: 100% position: relative;
+    transition: all 2s ease-in-out;
+}
+
+.normal {
+    margin: 70px auto;
+    background: #fff;
+    width: 80%;
+}
+
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
+
+.popup .close:focus-visible {
+    outline: 3px solid #2a8fb8;
+    outline-offset: 3px;
+}
+
+.popup .content {
+    max-height: 30%;
+    overflow: auto;
+}
+
+canvas {
+    transform: scale(0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.pop {
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+/* The round controls that act on the page are buttons; they fill their disc like the links do. */
+.bt > button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.bt {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    background-color: #20242c;
+    cursor: pointer;
+    transform: translate(50%, -50%);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    -webkit-transition: opacity 0.3s; /* Safari */
+    -webkit-transition-timing-function: linear; /* Safari */
+    transition: opacity 0.3s;
+    transition-timing-function: linear;
+}
+
+.photo {
+    display: block
+}
+
+.save {
+    display: none
+}
+
+.github {
+    left: 90px;
+}
+
+.archive-link {
+    left: 180px;
+}
+
+.archive-link a { color: white; text-decoration: none; display: grid; place-items: center; height: 100%; font-family: var(--small-caps, sans-serif); }
+
+/* The project's own line icons (assets/site/icons/) fill the disc's content box. */
+.pop img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Language toggle: a round .bt control in the free top-right corner, clear of the bottom button row,
+   the caption and the side arrows at every width. It clears the loading spinner too, except in the short
+   portrait tier below (max-height 600px), where the smaller, higher disc overlaps the spinner's rim by
+   about 3px while the page loads (cosmetic: the spinner takes no pointer events and hides within a second).
+   The 35px offsets mirror the bottom-left camera button (.bt is translated by half its 70px size). */
+.lang-toggle {
+    top: 35px;
+    right: 35px;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    box-sizing: content-box;
+    margin: 0;
+    border: 0;
+    color: white;
+    font: 15px/1 var(--small-caps, sans-serif);
+    white-space: nowrap;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Chromium's default ring sits on the dark rim and vanishes; match the archive page's focus ring. */
+.lang-toggle:focus-visible {
+    outline: 3px solid #2a8fb8;
+    outline-offset: 3px;
+}
+
+/* Draw the keyboard ring round the disc, like .lang-toggle, not round the link or button box inside it. */
+@supports selector(:has(a)) {
+    .bt > :is(a, button):focus-visible {
+        outline: none;
+    }
+    .bt:has(> :is(a, button):focus-visible) {
+        outline: 3px solid #2a8fb8;
+        outline-offset: 3px;
+    }
+}
+
+/* The screenshot overlay's close button sits in the same corner; screenshot() resets inline visibility, hence !important. */
+.overlay.is-open ~ .lang-toggle {
+    visibility: hidden !important;
+}
+
+/* File details as the sleeve's fine print, at the foot of the text column. Three lines are reserved so a
+   longer source name does not shift the notes or the stage between slides. */
+.asset-caption { flex: none; box-sizing: content-box; min-height: 4.8em; margin-top: 28px; padding-top: 12px; border-top: 1px solid var(--rule); max-width: 36em; font: 13px/1.6 var(--small-caps); color: #4a5262; user-select: text; }
+.asset-caption a { color: #20242c; }
+/* On a turn it already holds the new slide's details, so it is hidden at once (not faded, which would show them
+   beside the previous notes) and fades back in with the new notes (see showNotes()). */
+.asset-caption { -webkit-transition: opacity .8s ease .2s; transition: opacity .8s ease .2s; }
+.asset-caption.is-turning { opacity: 0; -webkit-transition: none; transition: none; }
+/* Long source names wrap; the short links and the size stay whole. */
+#asset-source { overflow-wrap: anywhere; }
+#asset-original, .asset-caption [data-lang-link], #asset-size { white-space: nowrap; }
+/* One line: a title too long for it is cut with an ellipsis (the notes show it in full), so the caption keeps its
+   height when the title card hands over and the stage does not jump. */
+.asset-heading { display: flex; min-width: 0; white-space: nowrap; }
+#asset-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.asset-title-sep { flex: none; white-space: pre; }
+/* The title joins the fine print only while the title card stands in for the notes. */
+.liner-text:not(.is-intro) ~ .asset-caption :is(#asset-title, .asset-title-sep) { display: none; }
+
+.random {
+    left: 270px;
+}
+
+.random img {
+    transform:rotate(20deg);
+    -webkit-transition: transform 0.3s; /* Safari */
+    -webkit-transition-timing-function: linear; /* Safari */
+    transition: transform 0.3s;
+    transition-timing-function: linear;
+}
+
+/* Upright while autoplay is paused (randomClick() and plusSlides() keep aria-pressed in step). */
+.random [aria-pressed="false"] img {
+    transform: none;
+}
+
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #20242c;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+
+.pace .pace-progress-inner {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #20242c, 0 0 5px #20242c;
+  opacity: 1.0;
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+  -moz-transform: rotate(3deg) translate(0px, -4px);
+  -ms-transform: rotate(3deg) translate(0px, -4px);
+  -o-transform: rotate(3deg) translate(0px, -4px);
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+.pace .pace-activity {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  top: 15px;
+  right: 15px;
+  width: 14px;
+  height: 14px;
+  border: solid 2px transparent;
+  border-top-color: #20242c;
+  border-left-color: #20242c;
+  border-radius: 10px;
+  -webkit-animation: pace-spinner 400ms linear infinite;
+  -moz-animation: pace-spinner 400ms linear infinite;
+  -ms-animation: pace-spinner 400ms linear infinite;
+  -o-animation: pace-spinner 400ms linear infinite;
+  animation: pace-spinner 400ms linear infinite;
+}
+
+@-webkit-keyframes pace-spinner {
+  0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-moz-keyframes pace-spinner {
+  0% { -moz-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-o-keyframes pace-spinner {
+  0% { -o-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-ms-keyframes pace-spinner {
+  0% { -ms-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes pace-spinner {
+  0% { transform: rotate(0deg); transform: rotate(0deg); }
+  100% { transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+/* Phones: the four bottom controls are 70px wide on a 90px grid; shrink them to 56px and spread them evenly
+   between 8px margins. .bt is shifted right by half its width (28px), hence
+   left = 8px - 28px + i * (100vw - 2 * 8px - 56px) / 3. The language toggle keeps its size. */
+@media screen and (max-width: 480px) {
+    .bt:not(.lang-toggle) {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+    .archive-link a {
+        font-size: 13px;
+    }
+    .photo,
+    .save {
+        left: -20px;
+    }
+    .github {
+        left: calc(-20px + (100vw - 72px) / 3);
+    }
+    .archive-link {
+        left: calc(-20px + (100vw - 72px) * 2 / 3);
+    }
+    .random {
+        left: calc(-20px + 100vw - 72px);
+    }
+}
+
+/* Below ~1040px the stage's left edge comes within reach of the bottom control row (it ends at 375px and
+   its top is 105px above the bottom), so the stage stops 16px above that row. */
+@media screen and (max-width: 1039px) {
+    .slideshow-container {
+        margin-bottom: max(8vh, 121px);
+    }
+}
+
+/* Short landscape screens (phones turned sideways): tighter column, type sized by height. */
+@media screen and (orientation: landscape) and (max-height: 560px) {
+    .dynamix-view {
+        --gutter: 32px;
+    }
+    .liner {
+        padding: 30px 24px 112px var(--gutter);
+    }
+    /* The stage's centre is about 50vh - 48px here; the line sits a short notes block (about 70px) above it. */
+    .liner::before {
+        flex-basis: max(0px, 50vh - 118px);
+    }
+    .slideshow-container {
+        margin-top: 24px;
+    }
+    /* The next arrow shares its column with the language toggle (35-105px from the top); below about 345px of
+       height the stage's centre comes within its reach, so the arrows stop where the toggle ends. */
+    .prev,
+    .next {
+        top: max(50%, 112px);
+    }
+    .intro {
+        font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.6vh);
+    }
+    .notes-eyebrow {
+        margin-bottom: .5em;
+        font-size: 11px;
+    }
+    .notes-title {
+        font-size: min(3.6vw, 7.6vh);
+    }
+    .notes-title[data-length="long"] {
+        font-size: min(3vw, 6.4vh);
+    }
+    .notes-title[data-length="longer"] {
+        font-size: min(2.6vw, 5.6vh);
+    }
+    .notes-meta {
+        gap: .3em 1em;
+        margin-top: .8em;
+        font-size: 13px;
+    }
+    .notes-meta::before {
+        margin-bottom: .4em;
+    }
+    .asset-caption {
+        min-height: 0;
+        margin-top: 10px;
+        padding-top: 6px;
+        font-size: 11px;
+        line-height: 1.45;
+    }
+}
+
+/* Phones held sideways: of the credits only the illustrator's stays, as one run of text without the rule above it, a
+   file reference takes the credits' size and keeps a long key ("Rac01rethefullmoonworld") on one line, and the
+   caption leaves out the image size while the notes are up, so the title and the caption stay clear of the control
+   row and the artwork is never shown without its artist (screenshots too). */
+@media screen and (orientation: landscape) and (max-height: 430px) {
+    .intro {
+        font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.2vh);
+    }
+    .notes-title[data-length="file"] {
+        font-size: 13px;
+        letter-spacing: .04em;
+    }
+    .notes-meta {
+        display: block;
+        margin-top: .5em;
+    }
+    .notes-meta::before,
+    .notes-meta > :not(.notes-artist) {
+        display: none;
+    }
+    .notes-meta > .notes-artist {
+        display: inline;
+    }
+    .notes-meta dt {
+        margin-right: .8em;
+    }
+    .liner-text:not(.is-intro) ~ .asset-caption .asset-heading {
+        display: none;
+    }
+}
+
+/* Portrait screens: the stage on top (below the language toggle), then a fixed-height notes
+   block and the caption, clear of the bottom control row. Fixed heights keep the artwork from jumping
+   as titles change length. */
+@media screen and (orientation: portrait) {
+    .dynamix-view {
+        --art-size: 100cqmin;
+        /* The text column takes the square artwork's width while the notes keep their reserved height
+           (--notes-reserve; --chrome is the rest: 116px + 120px padding, the stage's 20px margin and the caption's
+           87.4px), so the notes hang under the artwork like a museum label without moving between slides; never
+           under 300px. --view-height follows mobile browser bars where dvh is supported (see below). */
+        --view-height: 100vh;
+        --notes-reserve: clamp(176px, 24vh, 240px);
+        --chrome: 344px;
+        --label-width: max(min(100vw - 96px, var(--view-height) - var(--chrome) - var(--notes-reserve)), min(100vw - 48px, 300px));
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        grid-template-areas: "stage" "liner";
+        padding: 116px 0 120px;
+    }
+    .slideshow-container {
+        margin: 0 48px 20px;
+    }
+    .prev {
+        right: calc(100% + 2px);
+    }
+    .next {
+        left: calc(100% + 2px);
+    }
+    .liner {
+        padding: 0 calc((100vw - var(--label-width)) / 2);
+    }
+    .liner::before {
+        display: none;
+    }
+    .liner-text {
+        min-height: var(--notes-reserve);
+        margin: 0;
+    }
+    .liner-text > * {
+        align-self: start;
+    }
+    .intro {
+        justify-self: center;
+        font-size: clamp(18px, min(5.8vw, var(--label-width) / 12.4), 36px);
+        text-align: center;
+    }
+    .intro-note {
+        margin-inline: auto;
+    }
+    .notes-title {
+        font-size: clamp(30px, 8vw, 48px);
+    }
+    .notes-title[data-length="long"] {
+        font-size: clamp(25px, 6.4vw, 40px);
+    }
+    .notes-title[data-length="longer"] {
+        font-size: clamp(22px, 5.4vw, 34px);
+    }
+    .notes-eyebrow {
+        margin-bottom: .7em;
+        font-size: 12px;
+    }
+    .notes-meta {
+        margin-top: 1em;
+        font-size: 14px;
+    }
+    .notes-meta::before {
+        margin-bottom: .35em;
+    }
+    .asset-caption {
+        margin-top: 12px;
+        max-width: none;
+    }
+}
+
+@supports (height: 100dvh) {
+    @media screen and (orientation: portrait) {
+        .dynamix-view {
+            --view-height: 100dvh;
+        }
+    }
+}
+
+@media screen and (orientation: portrait) and (max-width: 480px) {
+    .dynamix-view {
+        /* 116px + 96px padding, the stage's 16px margin and the caption's 83px. */
+        --chrome: 311px;
+        --label-width: max(min(100vw - 80px, var(--view-height) - var(--chrome) - var(--notes-reserve)), min(100vw - 40px, 300px));
+        padding-bottom: 96px;
+    }
+    .slideshow-container {
+        margin: 0 40px 16px;
+    }
+    /* 36px arrows fit the 40px side margins: 2px from the stage and from the screen edge. */
+    .prev,
+    .next {
+        width: 36px;
+        height: 36px;
+        margin-top: -18px;
+    }
+    .liner {
+        padding: 0 calc((100vw - var(--label-width)) / 2);
+    }
+    .asset-caption {
+        font-size: 12px;
+    }
+}
+
+/* Short portrait phones (360 x 640, 375 x 667): the reserve sized for tall phones left the artwork smaller than
+   the notes under it. Tighter type and a lower reserve, which still holds the tallest notes (about 121px: a title
+   over three lines of credits), give the artwork 218-240px; the caption keeps its three lines in smaller print.
+   --chrome: 116px + 96px padding, the stage's 12px margin and the caption's 69.5px. */
+@media screen and (orientation: portrait) and (max-width: 480px) and (max-height: 700px) {
+    .dynamix-view {
+        --notes-reserve: clamp(124px, 20vh, 240px);
+        --chrome: 293.5px;
+    }
+    .slideshow-container {
+        margin-bottom: 12px;
+    }
+    .notes-eyebrow {
+        margin-bottom: .45em;
+        font-size: 11px;
+    }
+    .notes-title {
+        font-size: clamp(24px, 7vw, 30px);
+    }
+    .notes-title[data-length="long"] {
+        font-size: clamp(21px, 6vw, 26px);
+    }
+    .notes-title[data-length="longer"] {
+        font-size: clamp(19px, 5.2vw, 23px);
+    }
+    .notes-title[data-length="file"] {
+        font-size: 15px;
+    }
+    .notes-meta {
+        gap: .3em 1em;
+        margin-top: .75em;
+        font-size: 12.5px;
+    }
+    .notes-meta::before {
+        margin-bottom: .25em;
+    }
+    .asset-caption {
+        min-height: 4.5em;
+        margin-top: 10px;
+        padding-top: 9px;
+        font-size: 11px;
+        line-height: 1.5;
+    }
+}
+
+/* Short portrait phones with the browser's bars showing (375 x 553, 360 x 568, 393 x 600; the page never scrolls,
+   so the bars never collapse): the reserves above left the artwork smaller than the text under it. A compact
+   label keeps the artwork the largest element: the language toggle takes the bottom row's 56px size, so the stage
+   starts higher; smaller type; of the credits only the illustrator's, as one run of text (as on landscape phones). The
+   title card, set smaller, gives the notes cell its height, so the stage stays put between slides.
+   --chrome: 92px + 96px padding, the stage's 10px margin and the caption's 66.5px. */
+@media screen and (orientation: portrait) and (max-width: 480px) and (max-height: 600px) {
+    .dynamix-view {
+        --notes-reserve: 0px;
+        --chrome: 264.5px;
+        padding-top: 92px;
+    }
+    .lang-toggle {
+        top: 28px;
+        right: 8px;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        font-size: 13px;
+    }
+    .slideshow-container {
+        margin-bottom: 10px;
+    }
+    .intro {
+        font-size: clamp(14px, 4.2vw, 16px);
+    }
+    .notes-eyebrow {
+        margin-bottom: .3em;
+        font-size: 10.5px;
+    }
+    .notes-title {
+        font-size: clamp(20px, 6vw, 24px);
+    }
+    .notes-title[data-length="long"] {
+        font-size: clamp(18px, 5.2vw, 21px);
+    }
+    .notes-title[data-length="longer"] {
+        font-size: clamp(16px, 4.6vw, 19px);
+    }
+    .notes-title[data-length="file"] {
+        font-size: 14px;
+    }
+    .notes-meta {
+        display: block;
+        margin-top: .4em;
+        font-size: 12px;
+    }
+    .notes-meta::before,
+    .notes-meta > :not(.notes-artist) {
+        display: none;
+    }
+    .notes-meta > .notes-artist {
+        display: inline;
+    }
+    .notes-meta dt {
+        margin-right: .8em;
+    }
+    .asset-caption {
+        padding-top: 6px;
+    }
+}
+
+/* The smallest (320 x 454, the first iPhone SE): the eyebrow and the caption's title and size line give way too,
+   and the caption keeps two lines. --chrome: 92px + 96px padding, 10px and the caption's 50px. */
+@media screen and (orientation: portrait) and (max-width: 480px) and (max-height: 500px) {
+    .dynamix-view {
+        --chrome: 248px;
+    }
+    .intro {
+        font-size: clamp(13px, 4vw, 14px);
+    }
+    .intro-note {
+        display: none;
+    }
+    .notes-eyebrow {
+        display: none;
+    }
+    .asset-heading {
+        display: none;
+    }
+    .asset-caption {
+        min-height: 3em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mySlides,
+    .mySlides.is-current,
+    .liner-text > *,
+    .liner-text.is-intro .slide-notes,
+    .liner-text:not(.is-intro) .intro,
+    .slide-notes.is-turning,
+    .asset-caption,
+    .asset-caption.is-turning {
+        transform: none;
+        -webkit-transition: none;
+        transition: none;
+    }
+}
