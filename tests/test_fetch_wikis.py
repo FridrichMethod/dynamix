@@ -188,6 +188,17 @@ class MetadataOnlyTests(WikiRun):
         source = next(s for s in self.manifest()["sources"] if s["id"] == "wikis:rhythmgame-ja")
         self.assertEqual((source["status"], source["evidence_level"]), ("manual_access", "blocked"))
 
+    def test_pack_cover_is_titled_with_its_caption(self) -> None:
+        """A package page's cover takes the wiki's caption as its title (Titles rule), not the file name."""
+        vocal = dict(self.scenario.miraheze_pages["Vocal"])
+        vocal["wikitext"] = vocal["wikitext"].replace("File:Package Vocal.jpg|Package Vocal",
+                                                      "File:Package Vocal.jpg|Package Vocal #1")
+        for pages in (self.scenario.miraheze_pages, self.scenario.fandom_pages):
+            pages["Vocal"] = vocal
+        self.assertEqual(self.run_cli("--metadata-only", "--source", "miraheze"), 0, "\n".join(self.logs))
+        candidate = self.candidate("miraheze", "File:Package Vocal.jpg")
+        self.assertEqual((candidate["role"], candidate["title"]), ("pack_cover", "Package Vocal #1"))
+
     def test_lock_prevents_second_writer(self) -> None:
         with acquire.exclusive_lock(self.work / "lock"):
             self.assertEqual(self.run_cli("--metadata-only"), 3)

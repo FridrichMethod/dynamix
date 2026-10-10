@@ -315,7 +315,7 @@ def record_title(plan: Plan, items: list[classify.Evidence]) -> str:
     if plan.decision.role == "song_art" and len(plan.song_ids) == 1 and mapping(plan)[0] in (
             "confirmed_wiki", "confirmed_primary"):
         return plan.song_titles[0]
-    captioned = [item for item in items if item.caption and item.context in ("gallery", "link")]
+    captioned = [item for item in items if item.caption and classify.caption_context(item.context)]
     if captioned:
         pages: dict[str, set[str]] = {}
         for item in captioned:

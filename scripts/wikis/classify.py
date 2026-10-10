@@ -299,7 +299,7 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
         elif (info.package and info.game == "dynamix" and region_game in (None, "dynamix") and ref.caption
               and config.PACKAGE_CAPTION.search(ref.caption)):
             # An original-game package page's own "Package <name>" image: its cover, as specific as an Imgsuffix.
-            role, strength, context = "pack_cover", 3, f"{ref.context} on a Category:Song Package page"
+            role, strength, context = "pack_cover", 3, ref.context + PACK_CONTEXT
         else:
             caption_role = _caption_role(ref.caption) if ref.caption else None
             if caption_role is not None:
@@ -768,6 +768,13 @@ def _short(values: list[str]) -> list[str]:
 
 LINK_CONTEXTS = ("linked from article", "file page alias")
 REVIEW_CONTEXT = "archivist review"
+PACK_CONTEXT = " on a Category:Song Package page"  # suffix of the context of a package page's own cover
+
+
+def caption_context(context: str) -> bool:
+    """Evidence contexts that carry the wiki's own caption of the file: a gallery entry or a ``[[File:...]]`` link,
+    including a package page's own cover."""
+    return context.removesuffix(PACK_CONTEXT) in ("gallery", "link")
 
 
 def _is_link(item: Evidence) -> bool:
