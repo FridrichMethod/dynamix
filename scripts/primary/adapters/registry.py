@@ -74,4 +74,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         if notes:
             draft.candidate_extra["notes"] = model.clip(notes, 1200)
         discovery.candidates.append(draft)
+    # A registry is a metadata record of leads, not an access attempt: its own status stays metadata_only even when
+    # some of its leads were observed behind a login wall (those candidates are ``blocked``).
+    discovery.status = "metadata_only"
     return discovery

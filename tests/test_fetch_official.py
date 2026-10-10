@@ -269,6 +269,7 @@ class ProbeAndRegistryTests(OfficialTestCase):
         self.assertEqual(network.factories, [])  # no network client was even created
         found = self.candidates("official:official-leads")
         self.assertEqual(found["fb:login"]["disposition"], "blocked")
+        self.assertEqual(self.manifest()["sources"][0]["status"], "metadata_only")
         self.assertEqual(self.manifest()["failures"], [])
         self.verify()
 
