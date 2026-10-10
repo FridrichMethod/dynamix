@@ -5,7 +5,8 @@
 used, and only explicit artwork IDs from the seed are read. Original files live on ``i.pximg.net``, which refuses
 requests that do not carry a pixiv ``Referer`` (hotlink protection, HTTP 403). The project does not forge that header:
 the download is attempted once with the ordinary client, recorded as ``blocked`` (manual access), and the host is not
-contacted again in the run. Public Internet Archive captures of the same originals are collected by
+contacted again in the run. Works whose file URLs pixiv withholds from logged-out readers (all ``urls`` null) are
+``blocked`` without any file request. Public Internet Archive captures of the same originals are collected by
 ``archives:wayback``.
 
 Each page is its own candidate ``<artwork id>:p<index>`` (0-based like pixiv's ``_p0``), classified by its own seed rule,
@@ -27,6 +28,7 @@ HOSTS = ["www.pixiv.net", "i.pximg.net"]
 API = "https://www.pixiv.net/ajax/illust/"
 _ORIGINAL = re.compile(r"^https://i\.pximg\.net/img-original/img/[0-9/]+/(\d+)_p(\d+)\.(png|jpg|jpeg|gif)$")
 _TAGS = re.compile(r"<[^>]+>")
+NO_FILE = "pending: no downloadable file URL was found for this item"
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -94,6 +96,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             discovery.candidates.append(draft)
             continue
         texts = texts_of(info)
+        withheld = not any((info.get("urls") or {}).values())
         owner_ok = str(info.get("userId") or "") == user_id
         posted = info.get("uploadDate") or info.get("createDate")
         for page in pages_of(info, pages):
@@ -111,6 +114,10 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 default_rights=ctx.rights, original_filename=name, base_evidence=[page_url],
                 source_reported=base.reported(url=page["url"], mime=base.mime_for(ext), width=page["width"],
                                               height=page["height"], timestamp=posted))
+            if withheld and draft.action == "pending" and not page["url"] and draft.reason == NO_FILE:
+                draft.action = "blocked"
+                draft.reason = ("blocked: pixiv withholds this work's file URLs from logged-out readers (login "
+                                "required); not attempted")
             if item.get("notes") and "notes" not in draft.candidate_extra:
                 draft.candidate_extra["notes"] = item["notes"]
             discovery.candidates.append(draft)

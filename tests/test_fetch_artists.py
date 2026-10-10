@@ -109,6 +109,21 @@ class PixivTests(ArtistsTestCase):
         self.assertIs(p0["comparisons"]["dimensions_match"], False)
         self.verify()
 
+    def test_withheld_file_urls_are_blocked_without_a_file_request(self):
+        routes = pixiv_routes()
+        detail = fixture_json("pixiv_illust_92594600.json")
+        detail["body"]["pageCount"] = 1
+        detail["body"]["urls"] = {"original": None, "regular": None}
+        routes["https://www.pixiv.net/ajax/illust/92594600"] = {"json": detail}
+        network = FakeNetwork(routes)
+        self.run_family([pixiv_seed()], network)
+        candidate = self.candidates("artists:pixiv:5401047")["92594600:p0"]
+        self.assertEqual(candidate["disposition"], "blocked")
+        self.assertIn("logged-out readers", candidate["reason"])
+        self.assertEqual(network.count("i.pximg.net"), 0)
+        self.assertEqual(self.manifest()["failures"], [])
+        self.verify()
+
     def test_hotlink_protected_originals_are_blocked_once_without_retry_storm(self):
         network = FakeNetwork(pixiv_routes(lambda url: net.BlockedError("HTTP 403", url=url, http_status=403)))
         acquisition, counts = self.run_family([pixiv_seed()], network)

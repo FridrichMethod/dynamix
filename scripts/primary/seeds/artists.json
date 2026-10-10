@@ -3149,6 +3149,9 @@
           "match": "^75762797:",
           "action": "exclude",
           "reason": "rejected_submission: artist marks it as an unused image for Dynamix Submission 2019",
+          "evidence_quotes": [
+            "Unused image. (Dynamix Submission 2019)"
+          ],
           "candidate_notes": "Submission artwork that did not enter the game."
         }
       ]
@@ -3723,7 +3726,10 @@
         {
           "match": "^73741044:",
           "action": "exclude",
-          "reason": "out_of_scope_other: personal gift illustration tagged Dynamix, not game artwork"
+          "reason": "out_of_scope_other: personal gift illustration tagged Dynamix, not game artwork",
+          "evidence_quotes": [
+            "お世話になった人へあげたイラスト"
+          ]
         }
       ]
     },
