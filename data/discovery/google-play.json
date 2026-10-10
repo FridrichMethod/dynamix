@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:google-play",
-  "started_at": "2026-10-10T14:05:49Z",
-  "finished_at": "2026-10-10T14:05:54Z",
+  "started_at": "2026-10-10T15:17:29Z",
+  "finished_at": "2026-10-10T15:17:33Z",
   "scope": {
     "lists": [
       "listing-screenshots"

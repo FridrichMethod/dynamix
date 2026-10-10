@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:artstation:sandgodoven",
-  "started_at": "2026-10-10T14:08:43Z",
-  "finished_at": "2026-10-10T14:08:43Z",
+  "started_at": "2026-10-10T15:15:25Z",
+  "finished_at": "2026-10-10T15:15:25Z",
   "scope": {
     "lists": [
       "seed-projects"
@@ -11,9 +11,9 @@
     "notes": "Explicit seed project hashes via ArtStation project JSON; the portfolio listing is not crawled."
   },
   "continuation": {
-    "seed-projects": null
+    "seed-projects": "not-read:challenge"
   },
-  "discovery_complete": true,
+  "discovery_complete": false,
   "candidates": [
     {
       "id": "artists:artstation:sandgodoven:6baqbW",

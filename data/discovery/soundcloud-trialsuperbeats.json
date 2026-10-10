@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:trialsuperbeats",
-  "started_at": "2026-10-10T14:10:13Z",
-  "finished_at": "2026-10-10T14:10:18Z",
+  "started_at": "2026-10-10T15:16:54Z",
+  "finished_at": "2026-10-10T15:16:58Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -48,7 +48,7 @@
         "Violpa"
       ],
       "composers": [
-        "TRIAL"
+        "Notorious(Nota & TRIAL)"
       ]
     },
     {

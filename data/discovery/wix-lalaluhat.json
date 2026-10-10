@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:wix:lalaluhat",
-  "started_at": "2026-10-10T14:10:23Z",
-  "finished_at": "2026-10-10T14:10:23Z",
+  "started_at": "2026-10-10T15:17:03Z",
+  "finished_at": "2026-10-10T15:17:03Z",
   "scope": {
     "lists": [
       "seed-files"
@@ -62,12 +62,12 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:wix:lalaluhat:2d5139ef56f25788",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "Written 'ANGLE x ANGLE BH! 2018-5-23' (Angel x Angel jacket characters)."
+      "notes": "Written 'ANGLE x ANGLE BH! 2018-5-23' (Angel x Angel jacket characters). Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:wix:lalaluhat:2d5139ef56f25788 (sha256 2d5139ef56f257886be2df3e9ac0aab2b76afdcd9fffcd6b73941c60cb48a3c1) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "artists:wix:lalaluhat:5a0163_939b56d57a8a4540a6a300d1a3d1eb03",
@@ -91,12 +91,12 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:wix:lalaluhat:5f09cefac2c66bec",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "Signed 'RENKO & TSUKIYO 2018-6-1 BH!' (Rocket Lanterns / 月奏リバイバル characters per wiki trivia)."
+      "notes": "Signed 'RENKO & TSUKIYO 2018-6-1 BH!' (Rocket Lanterns / 月奏リバイバル characters per wiki trivia). Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:wix:lalaluhat:5f09cefac2c66bec (sha256 5f09cefac2c66bec9cb7bf382abedc2f6fefa6190c22b710ee4da4292bbb6c7c) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "artists:wix:lalaluhat:5a0163_c92d32f3e10a4a4e8ac81189d748e0a9",
@@ -120,12 +120,12 @@
         "timestamp": null,
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:wix:lalaluhat:eb874ea89a0d757f",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "Image text 'DYNAMIX ALICE SUMMER VER 2018' (Alice: Frontline B-Side character per wiki trivia); lossless twin of X post 1001435080936472576."
+      "notes": "Image text 'DYNAMIX ALICE SUMMER VER 2018' (Alice: Frontline B-Side character per wiki trivia); lossless twin of X post 1001435080936472576. Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:wix:lalaluhat:eb874ea89a0d757f (sha256 eb874ea89a0d757f0a3395d263643a9e862c0dfbcdcbbc60021fe24ff8f77ce0) removed from the manifest and asset tree; the bytes remain in the Git history."
     }
   ],
   "errors": []

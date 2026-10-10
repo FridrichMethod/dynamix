@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:cosmogrph",
-  "started_at": "2026-10-10T14:09:20Z",
-  "finished_at": "2026-10-10T14:09:21Z",
+  "started_at": "2026-10-10T15:16:01Z",
+  "finished_at": "2026-10-10T15:16:03Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -42,9 +42,6 @@
       "asset_id": "artists:soundcloud:cosmogrph:b0ba67592124f9d4",
       "song_titles": [
         "Another World"
-      ],
-      "composers": [
-        "Cosmograph"
       ]
     }
   ],

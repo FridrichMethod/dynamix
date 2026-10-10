@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:3t1a",
-  "started_at": "2026-10-10T14:09:05Z",
-  "finished_at": "2026-10-10T14:09:05Z",
+  "started_at": "2026-10-10T15:15:46Z",
+  "finished_at": "2026-10-10T15:15:46Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -46,6 +46,9 @@
       ],
       "illustrators": [
         "三更"
+      ],
+      "composers": [
+        "ETIA."
       ]
     }
   ],

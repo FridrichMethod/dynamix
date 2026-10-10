@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-10T14:07:01Z",
-  "finished_at": "2026-10-10T14:08:42Z",
+  "started_at": "2026-10-10T15:18:04Z",
+  "finished_at": "2026-10-10T15:20:25Z",
   "scope": {
     "lists": [
       "official-img",
@@ -186,8 +186,8 @@
       "page_url": "https://web.archive.org/web/20170719230328/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
       "file_url": "https://web.archive.org/web/20170719230328id_/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
       "title": "new1.jpg (archived 20170719)",
-      "role": null,
-      "game": "unknown",
+      "role": "promotional",
+      "game": "dynamix",
       "game_evidence": [
         "capture of http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg"
       ],
@@ -201,9 +201,9 @@
         "timestamp": "2017-07-19T23:03:28Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "site_ui: logo, store badge or spacer image of an official web page",
-      "notes": "Wayback capture 20170719230328 of http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 96091)."
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:37b167ce476582c6",
+      "notes": "Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365)."
     },
     {
       "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
@@ -1138,7 +1138,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "reason": "out_of_scope_other: WordPress 199x128 thumbnail of an image whose larger version is also archived (its 700x365 resize, or the full-size tutorial panels TC1-4/TE1-4)",
       "notes": "Wayback capture 20160119221302 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-199x128.png (CDX mimetype image/png, status 200, WARC record length 37582)."
     },
     {
@@ -1190,7 +1190,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "reason": "out_of_scope_other: WordPress 199x128 thumbnail of an image whose larger version is also archived (its 700x365 resize, or the full-size tutorial panels TC1-4/TE1-4)",
       "notes": "Wayback capture 20160119043806 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg (CDX mimetype image/jpeg, status 200, WARC record length 10793)."
     },
     {
@@ -1216,7 +1216,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "reason": "out_of_scope_other: WordPress 199x128 thumbnail of an image whose larger version is also archived (its 700x365 resize, or the full-size tutorial panels TC1-4/TE1-4)",
       "notes": "Wayback capture 20160118071821 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialE1-199x128.jpg (CDX mimetype image/jpeg, status 200, WARC record length 10781)."
     },
     {
@@ -1460,8 +1460,8 @@
       "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
       "file_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
       "title": "3-199x128.png (archived 20170720)",
-      "role": null,
-      "game": "unknown",
+      "role": "promotional",
+      "game": "dynamix",
       "game_evidence": [
         "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png"
       ],
@@ -1475,8 +1475,8 @@
         "timestamp": "2017-07-20T12:50:56Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:2715479009f201a3",
       "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206)."
     },
     {
@@ -1538,8 +1538,8 @@
       "page_url": "https://web.archive.org/web/20170720125050/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
       "file_url": "https://web.archive.org/web/20170720125050id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
       "title": "Dynamix_Website3_0-199x128.png (archived 20170720)",
-      "role": null,
-      "game": "unknown",
+      "role": "promotional",
+      "game": "dynamix",
       "game_evidence": [
         "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png"
       ],
@@ -1553,8 +1553,8 @@
         "timestamp": "2017-07-20T12:50:50Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:5a334091a7a67952",
       "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760)."
     },
     {
@@ -1564,8 +1564,8 @@
       "page_url": "https://web.archive.org/web/20170720132226/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
       "file_url": "https://web.archive.org/web/20170720132226id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
       "title": "OverRapid_Col-199x128.png (archived 20170720)",
-      "role": null,
-      "game": "unknown",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
       "game_evidence": [
         "capture of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png"
       ],
@@ -1579,9 +1579,9 @@
         "timestamp": "2017-07-20T13:22:26Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
-      "notes": "Wayback capture 20170720132226 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png (CDX mimetype image/png, status 200, WARC record length 35853)."
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:110c58ef490c6918",
+      "notes": "OverRapid collaboration news thumbnail showing the in-game store."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png@20170720125101",
@@ -1606,7 +1606,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: smaller WordPress thumbnail of a banner or tutorial image archived at a larger size",
+      "reason": "out_of_scope_other: WordPress 199x128 thumbnail of an image whose larger version is also archived (its 700x365 resize, or the full-size tutorial panels TC1-4/TE1-4)",
       "notes": "Wayback capture 20170720125101 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png (CDX mimetype image/png, status 200, WARC record length 53015)."
     },
     {

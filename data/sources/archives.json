@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "archives",
-  "fetched_at": "2026-10-10T14:03:32Z",
+  "fetched_at": "2026-10-10T15:08:12Z",
   "sources": [
     {
       "id": "archives:4gamer",
@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-10T14:06:58Z",
+      "checked_at": "2026-10-10T15:18:00Z",
       "notes": "Historical press screenshots (2015-06-18); not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T14:11:31Z",
+      "checked_at": "2026-10-10T15:18:01Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T14:06:58Z",
+      "checked_at": "2026-10-10T15:18:01Z",
       "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,13 +58,13 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "partially_available",
-      "checked_at": "2026-10-10T14:07:01Z",
+      "checked_at": "2026-10-10T15:18:04Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 73,
-      "asset_count": 31,
+      "asset_count": 35,
       "failure_count": 0,
       "evidence_level": "live_api"
     }
@@ -406,6 +406,75 @@
       "upstream_status": "current"
     },
     {
+      "id": "archives:wayback:110c58ef490c6918",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
+      "title": "OverRapid_Col-199x128.png (archived 20170720)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20170720132226/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+      "download_url": "https://web.archive.org/web/20170720132226id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+      "resolved_url": "https://web.archive.org/web/20170720132226id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+      "path": "assets/public/archives/wayback/OverRapid_Col-199x128--110c58ef490c.png",
+      "original_filename": "OverRapid_Col-199x128.png",
+      "bytes": 35242,
+      "sha256": "110c58ef490c6918a335293deaeb2453a0a98adccb94fb16a05115b4a04287e4",
+      "sha1": "83b73b7c4e2420aa0325a0b7049c8cc704b9ab7f",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 199,
+      "height": 128,
+      "fetched_at": "2026-10-10T15:08:12Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "WordPress 199x128 thumbnail (no larger capture)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20170720132226/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "83b73b7c4e2420aa0325a0b7049c8cc704b9ab7f",
+        "timestamp": "2017-07-20T13:22:26Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 35242,
+        "width": 199,
+        "height": 128,
+        "sha1": "83b73b7c4e2420aa0325a0b7049c8cc704b9ab7f",
+        "sha256": "110c58ef490c6918a335293deaeb2453a0a98adccb94fb16a05115b4a04287e4"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20170720132226 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png (CDX mimetype image/png, status 200, WARC record length 35853). OverRapid collaboration news thumbnail showing the in-game store.",
+      "upstream_revision": "20170720132226"
+    },
+    {
       "id": "archives:wayback:12e4d8c39092a447",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg@20221216231408",
@@ -442,6 +511,11 @@
           "url": "https://www.pixiv.net/artworks/92594600",
           "field": "primary_post",
           "quote": "For Dynamix x RAVON collaboration event"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "primary_post",
+          "quote": "MassacrE"
         }
       ],
       "quality": {
@@ -482,6 +556,15 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Sand Suna",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "massacre-3rc4224m-sand-suna",
       "variant_role": "page 3 of 3 (original composition)",
       "upstream_status": "current",
@@ -489,7 +572,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014).",
+      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Sand Suna (illustrator). Wayback capture 20221216231408 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2217014).",
       "upstream_revision": "20221216231408"
     },
     {
@@ -558,7 +641,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412125452 of http://dynamix.c4-cat.com/img/cap2.png (CDX mimetype image/png, status 200, WARC record length 868707).",
+      "notes": "Wayback capture 20150412125452 of http://dynamix.c4-cat.com/img/cap2.png (CDX mimetype image/png, status 200, WARC record length 868707). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
       "upstream_revision": "20150412125452"
     },
     {
@@ -627,8 +710,77 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412125308 of http://dynamix.c4-cat.com/img/cap4.png (CDX mimetype image/png, status 200, WARC record length 990078).",
+      "notes": "Wayback capture 20150412125308 of http://dynamix.c4-cat.com/img/cap4.png (CDX mimetype image/png, status 200, WARC record length 990078). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
       "upstream_revision": "20150412125308"
+    },
+    {
+      "id": "archives:wayback:2715479009f201a3",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png@20170720125056",
+      "title": "3-199x128.png (archived 20170720)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+      "download_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+      "resolved_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+      "path": "assets/public/archives/wayback/3-199x128--2715479009f2.png",
+      "original_filename": "3-199x128.png",
+      "bytes": 40647,
+      "sha256": "2715479009f201a35bf2107b780b88aa7c727c821dcbd49af4ab7c155081f6c5",
+      "sha1": "13f50f87073d443d1300b49a91f8c8449290b263",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 199,
+      "height": 128,
+      "fetched_at": "2026-10-10T15:08:02Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "WordPress 199x128 thumbnail of a news banner (no larger capture)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "13f50f87073d443d1300b49a91f8c8449290b263",
+        "timestamp": "2017-07-20T12:50:56Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 40647,
+        "width": 199,
+        "height": 128,
+        "sha1": "13f50f87073d443d1300b49a91f8c8449290b263",
+        "sha256": "2715479009f201a35bf2107b780b88aa7c727c821dcbd49af4ab7c155081f6c5"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206).",
+      "upstream_revision": "20170720125056"
     },
     {
       "id": "archives:wayback:2c8339f2a3f1310d",
@@ -696,7 +848,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412124335 of http://dynamix.c4-cat.com/img/cap6.png (CDX mimetype image/png, status 200, WARC record length 513310).",
+      "notes": "Wayback capture 20150412124335 of http://dynamix.c4-cat.com/img/cap6.png (CDX mimetype image/png, status 200, WARC record length 513310). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
       "upstream_revision": "20150412124335"
     },
     {
@@ -765,7 +917,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160516183525 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 162306).",
+      "notes": "Wayback capture 20160516183525 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 162306). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160516183525"
     },
     {
@@ -805,6 +957,11 @@
           "url": "https://www.pixiv.net/artworks/92594600",
           "field": "primary_post",
           "quote": "For Dynamix x RAVON collaboration event"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "primary_post",
+          "quote": "MassacrE"
         }
       ],
       "quality": {
@@ -845,6 +1002,15 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Sand Suna",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "massacre-3rc4224m-sand-suna",
       "variant_role": "page 1 of 3 (square composition)",
       "upstream_status": "current",
@@ -852,8 +1018,77 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Wayback capture 20221216231357 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 6586774).",
+      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Sand Suna (illustrator). Wayback capture 20221216231357 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 6586774).",
       "upstream_revision": "20221216231357"
+    },
+    {
+      "id": "archives:wayback:37b167ce476582c6",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new1.jpg@20170719230328",
+      "title": "new1.jpg (archived 20170719)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20170719230328/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+      "download_url": "https://web.archive.org/web/20170719230328id_/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+      "resolved_url": "https://web.archive.org/web/20170719230328id_/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+      "path": "assets/public/archives/wayback/new1--37b167ce4765.jpg",
+      "original_filename": "new1.jpg",
+      "bytes": 141532,
+      "sha256": "37b167ce476582c6041dfe3082ac54d55a489fa3ef74d3d13d801c06bc78d17c",
+      "sha1": "6a8782f091497db62d78853d688e1a0df3f93b49",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 815,
+      "height": 792,
+      "fetched_at": "2026-10-10T15:07:58Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20170719230328/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "6a8782f091497db62d78853d688e1a0df3f93b49",
+        "timestamp": "2017-07-19T23:03:28Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 141532,
+        "width": 815,
+        "height": 792,
+        "sha1": "6a8782f091497db62d78853d688e1a0df3f93b49",
+        "sha256": "37b167ce476582c6041dfe3082ac54d55a489fa3ef74d3d13d801c06bc78d17c"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20170719230328 of http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 96091). Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365).",
+      "upstream_revision": "20170719230328"
     },
     {
       "id": "archives:wayback:3ced66daba373e35",
@@ -921,7 +1156,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517010305 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 130896).",
+      "notes": "Wayback capture 20160517010305 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 130896). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160517010305"
     },
     {
@@ -990,7 +1225,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517032810 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 102975).",
+      "notes": "Wayback capture 20160517032810 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 102975). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160517032810"
     },
     {
@@ -1059,7 +1294,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517065421 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113877).",
+      "notes": "Wayback capture 20160517065421 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113877). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160517065421"
     },
     {
@@ -1093,12 +1328,16 @@
         "song:totally-bounded"
       ],
       "collections": [],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://www.pixiv.net/artworks/86481781",
           "field": "primary_post",
           "quote": "totally bounded"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+          "note": "wiki song page: Totally bounded (影虎。, illustration LESYEF) in the Dynamix RAVON collaboration pack; the Dynamix jacket is a 16:9 crop of this artwork (2026-10-10 research)"
         }
       ],
       "quality": {
@@ -1108,7 +1347,7 @@
         "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": "LESYEF",
         "url": "https://web.archive.org/web/20221214210149/https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png",
         "license": null,
@@ -1139,6 +1378,15 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "LESYEF",
+          "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "jacket:totally-bounded",
       "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop",
       "upstream_status": "current",
@@ -1146,7 +1394,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Wayback capture 20221214210149 of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png (CDX mimetype image/png, status 200, WARC record length 867425).",
+      "notes": "Coordinator review: the primary post presents this as RAVON jacket art; Dynamix lists the song in its RAVON collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Credits not stated in the fetched text, recorded from the Dynamix wiki song page: LESYEF (illustrator). Wayback capture 20221214210149 of https://i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p0.png (CDX mimetype image/png, status 200, WARC record length 867425).",
       "upstream_revision": "20221214210149"
     },
     {
@@ -1229,10 +1477,33 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Xomu",
+          "url": null,
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Xomu",
+          "url": null,
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Wisp X",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "jacket:lumina",
       "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop",
       "upstream_status": "current",
-      "notes": "Wayback capture 20221216052519 of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png (CDX mimetype image/png, status 200, WARC record length 5177803).",
+      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Xomu (illustrator), Xomu (composer), Wisp X (composer). Wayback capture 20221216052519 of https://i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p0.png (CDX mimetype image/png, status 200, WARC record length 5177803).",
       "upstream_revision": "20221216052519"
     },
     {
@@ -1272,6 +1543,11 @@
           "url": "https://www.pixiv.net/artworks/92594600",
           "field": "primary_post",
           "quote": "For Dynamix x RAVON collaboration event"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/92594600",
+          "field": "primary_post",
+          "quote": "MassacrE"
         }
       ],
       "quality": {
@@ -1312,6 +1588,15 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Sand Suna",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "massacre-3rc4224m-sand-suna",
       "variant_role": "page 2 of 3 (16:9 in-game composition)",
       "upstream_status": "current",
@@ -1319,8 +1604,77 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Wayback capture 20221216231405 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2154513).",
+      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Sand Suna (illustrator). Wayback capture 20221216231405 of https://i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 2154513).",
       "upstream_revision": "20221216231405"
+    },
+    {
+      "id": "archives:wayback:5a334091a7a67952",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png@20170720125050",
+      "title": "Dynamix_Website3_0-199x128.png (archived 20170720)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20170720125050/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+      "download_url": "https://web.archive.org/web/20170720125050id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+      "resolved_url": "https://web.archive.org/web/20170720125050id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+      "path": "assets/public/archives/wayback/Dynamix_Website3_0-199x128--5a334091a7a6.png",
+      "original_filename": "Dynamix_Website3_0-199x128.png",
+      "bytes": 45148,
+      "sha256": "5a334091a7a6795276baf09d866f161386be514355a93bbae869fecba4565f45",
+      "sha1": "76ab81a596919f0f87cec3d4054a683e3539d689",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 199,
+      "height": 128,
+      "fetched_at": "2026-10-10T15:08:05Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "WordPress 199x128 thumbnail of a news banner (no larger capture)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20170720125050/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "76ab81a596919f0f87cec3d4054a683e3539d689",
+        "timestamp": "2017-07-20T12:50:50Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 45148,
+        "width": 199,
+        "height": 128,
+        "sha1": "76ab81a596919f0f87cec3d4054a683e3539d689",
+        "sha256": "5a334091a7a6795276baf09d866f161386be514355a93bbae869fecba4565f45"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760).",
+      "upstream_revision": "20170720125050"
     },
     {
       "id": "archives:wayback:5dfc34aabbe587b5",
@@ -1388,7 +1742,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412124448 of http://dynamix.c4-cat.com/img/cap1.png (CDX mimetype image/png, status 200, WARC record length 1160031).",
+      "notes": "Wayback capture 20150412124448 of http://dynamix.c4-cat.com/img/cap1.png (CDX mimetype image/png, status 200, WARC record length 1160031). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
       "upstream_revision": "20150412124448"
     },
     {
@@ -1422,7 +1776,7 @@
         "song:evoltex-poppi-n-mix"
       ],
       "collections": [],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://www.pixiv.net/artworks/61859342",
@@ -1468,8 +1822,17 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Shionty",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100).",
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Evoltex (poppi'n mix)”. Credits not stated in the fetched text, recorded from the seed's research source: Shionty (illustrator). Wayback capture 20221221064601 of https://i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p0.png (CDX mimetype image/png, status 200, WARC record length 606100).",
       "upstream_revision": "20221221064601"
     },
     {
@@ -1538,7 +1901,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160314012750 of http://188.166.254.2/wp-content/uploads/2015/10/new21.png (CDX mimetype image/png, status 200, WARC record length 586399).",
+      "notes": "Wayback capture 20160314012750 of http://188.166.254.2/wp-content/uploads/2015/10/new21.png (CDX mimetype image/png, status 200, WARC record length 586399). Official home-page photo of the game being played on a phone.",
       "upstream_revision": "20160314012750"
     },
     {
@@ -1607,7 +1970,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20240403110020 of https://www.hkstp.org/media/blqg5pwq/appendix3.pdf (CDX mimetype application/pdf, status 200, WARC record length 326425).",
+      "notes": "Wayback capture 20240403110020 of https://www.hkstp.org/media/blqg5pwq/appendix3.pdf (CDX mimetype application/pdf, status 200, WARC record length 326425). HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404.",
       "upstream_revision": "20240403110020"
     },
     {
@@ -1641,12 +2004,16 @@
         "song:party-vinyl"
       ],
       "collections": [],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://www.pixiv.net/artworks/91845485",
           "field": "primary_post",
           "quote": "Party Vinyl"
+        },
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+          "note": "wiki song page: Party Vinyl (モリモリあつし, illustration アサヤ) in the Dynamix Arcaea collaboration pack; the jacket matches this artwork (2026-10-10 research)"
         }
       ],
       "quality": {
@@ -1656,7 +2023,7 @@
         "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": "lowiro and/or the credited artist (the artist's caption names lowiro's Arcaea release)",
         "creator": "アサヤ",
         "url": "https://web.archive.org/web/20221220121848/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
         "license": null,
@@ -1687,6 +2054,15 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "アサヤ",
+          "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+          "field": null,
+          "quote": null
+        }
+      ],
       "variant_group": "jacket:party-vinyl",
       "variant_role": "square variant posted for the Arcaea release",
       "upstream_status": "current",
@@ -1694,7 +2070,7 @@
         "dynamix",
         "arcaea"
       ],
-      "notes": "Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443).",
+      "notes": "Coordinator review: the primary post presents this as Arcaea jacket art; Dynamix lists the song in its Arcaea collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post. Credits not stated in the fetched text, recorded from the Dynamix wiki song page: アサヤ (illustrator). Wayback capture 20221220121848 of https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1088443).",
       "upstream_revision": "20221220121848"
     },
     {
@@ -1763,7 +2139,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170720024322 of http://188.166.254.2/wp-content/uploads/2015/10/new32.png (CDX mimetype image/png, status 200, WARC record length 1116647).",
+      "notes": "Wayback capture 20170720024322 of http://188.166.254.2/wp-content/uploads/2015/10/new32.png (CDX mimetype image/png, status 200, WARC record length 1116647). Official home-page features collage of about twelve song jackets.",
       "upstream_revision": "20170720024322"
     },
     {
@@ -1901,7 +2277,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150630034232 of http://dynamix.c4-cat.com/img/cap5.png (CDX mimetype image/png, status 200, WARC record length 921781).",
+      "notes": "Wayback capture 20150630034232 of http://dynamix.c4-cat.com/img/cap5.png (CDX mimetype image/png, status 200, WARC record length 921781). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
       "upstream_revision": "20150630034232"
     },
     {
@@ -1970,7 +2346,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160926180754 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 146704).",
+      "notes": "Wayback capture 20160926180754 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 146704). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160926180754"
     },
     {
@@ -2119,8 +2495,17 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "AFZero",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Wayback capture 20221220032003 of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1753016).",
+      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: AFZero (illustrator). Wayback capture 20221220032003 of https://i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg (CDX mimetype image/jpeg, status 200, WARC record length 1753016).",
       "upstream_revision": "20221220032003"
     },
     {
@@ -2162,6 +2547,11 @@
           "url": "https://www.pixiv.net/artworks/62913946",
           "field": "primary_post",
           "quote": "My work for Dynamix song"
+        },
+        {
+          "url": "https://www.pixiv.net/artworks/62913946",
+          "field": "primary_post",
+          "quote": "Bluebell"
         }
       ],
       "quality": {
@@ -2202,8 +2592,24 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "キカンシャ",
+          "url": null,
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "5argon",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Wayback capture 20221216101704 of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png (CDX mimetype image/png, status 200, WARC record length 2380619).",
+      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: キカンシャ (illustrator), 5argon (composer). Wayback capture 20221216101704 of https://i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p0.png (CDX mimetype image/png, status 200, WARC record length 2380619).",
       "upstream_revision": "20221216101704"
     },
     {
@@ -2272,7 +2678,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412125233 of http://dynamix.c4-cat.com/img/cap3.png (CDX mimetype image/png, status 200, WARC record length 1328199).",
+      "notes": "Wayback capture 20150412125233 of http://dynamix.c4-cat.com/img/cap3.png (CDX mimetype image/png, status 200, WARC record length 1328199). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
       "upstream_revision": "20150412125233"
     },
     {
@@ -2341,7 +2747,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160516163207 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 125822).",
+      "notes": "Wayback capture 20160516163207 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 125822). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160516163207"
     },
     {
@@ -2479,7 +2885,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160516153751 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 171269).",
+      "notes": "Wayback capture 20160516153751 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 171269). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160516153751"
     },
     {
@@ -2561,8 +2967,24 @@
         "dimensions_match": null,
         "format_match": true
       },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "Se-U-Ra",
+          "url": null,
+          "field": null,
+          "quote": null
+        },
+        {
+          "role": "composer",
+          "name": "Se-U-Ra",
+          "url": null,
+          "field": null,
+          "quote": null
+        }
+      ],
       "upstream_status": "current",
-      "notes": "Wayback capture 20221225234754 of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png (CDX mimetype image/png, status 200, WARC record length 4503116).",
+      "notes": "Credits not stated in the fetched text, recorded from the seed's research source: Se-U-Ra (illustrator), Se-U-Ra (composer). Wayback capture 20221225234754 of https://i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p0.png (CDX mimetype image/png, status 200, WARC record length 4503116).",
       "upstream_revision": "20221225234754"
     },
     {
@@ -2631,7 +3053,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517082309 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 119697).",
+      "notes": "Wayback capture 20160517082309 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 119697). Official code-entry tutorial screenshot (Chinese/English).",
       "upstream_revision": "20160517082309"
     },
     {
@@ -2700,7 +3122,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20200622223326 of http://dynamix-server.c4-cat.com/mycard/img/header.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113482).",
+      "notes": "Wayback capture 20200622223326 of http://dynamix-server.c4-cat.com/mycard/img/header.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113482). Header banner (planet) of the official MyCard top-up page.",
       "upstream_revision": "20200622223326"
     }
   ],
@@ -2711,7 +3133,7 @@
       "candidate_id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
       "phase": "download",
       "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "attempted_at": "2026-10-10T14:06:59Z",
+      "attempted_at": "2026-10-10T15:18:02Z",
       "attempts": 1,
       "error_class": "http_4xx",
       "http_status": 404,

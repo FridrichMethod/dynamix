@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:lalaluhat",
-  "started_at": "2026-10-10T14:10:27Z",
-  "finished_at": "2026-10-10T14:10:33Z",
+  "started_at": "2026-10-10T15:17:07Z",
+  "finished_at": "2026-10-10T15:17:13Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -25,8 +25,7 @@
       "role": "character",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/lalaluhat/status/1001435080936472576",
-        "text: #Dynamix"
+        "https://x.com/lalaluhat/status/1001435080936472576"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/DeXPxAbU8AAphCA?format=jpg&name=orig",
@@ -38,12 +37,12 @@
         "timestamp": "2018-05-29T12:08:23.000Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:x:lalaluhat:e291c1c6f3df4743",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "Summer Alice (Frontline B-Side character per wiki trivia); a lossless PNG twin is on the artist's Wix portfolio."
+      "notes": "Summer Alice (Frontline B-Side character per wiki trivia); a lossless PNG twin is on the artist's Wix portfolio. Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:x:lalaluhat:e291c1c6f3df4743 (sha256 e291c1c6f3df474383c9dce086f956656254d5cbe67dba386af45bbfacab33f2) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "artists:x:lalaluhat:1056156411304935429:1",
@@ -55,8 +54,7 @@
       "role": "character",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/lalaluhat/status/1056156411304935429",
-        "text: #Dynamix"
+        "https://x.com/lalaluhat/status/1056156411304935429"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/Dqg2zqqU4AYWD4H?format=jpg&name=orig",
@@ -68,12 +66,12 @@
         "timestamp": "2018-10-27T12:11:25.000Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:x:lalaluhat:4ca24927a1f944c8",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "Halloween zombie Renko (Rocket Lanterns character per wiki trivia)."
+      "notes": "Halloween zombie Renko (Rocket Lanterns character per wiki trivia). Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:x:lalaluhat:4ca24927a1f944c8 (sha256 4ca24927a1f944c84899a7a4034bdb9de175a16d43cb95b19d80e74fec4ee84e) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "artists:x:lalaluhat:1188774644397924352:1",
@@ -85,8 +83,7 @@
       "role": "character",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/lalaluhat/status/1188774644397924352",
-        "text: #Dynamix"
+        "https://x.com/lalaluhat/status/1188774644397924352"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/EH9gOo0U0AECEzc?format=jpg&name=orig",
@@ -98,12 +95,12 @@
         "timestamp": "2019-10-28T11:08:56.000Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:x:lalaluhat:ac3fcbce2ce59183",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "Halloween illustration; LionCubs (Lionhearted) per the post text."
+      "notes": "Halloween illustration; LionCubs (Lionhearted) per the post text. Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:x:lalaluhat:ac3fcbce2ce59183 (sha256 ac3fcbce2ce59183bc1f7b99a7bedaac2ad24c469eaf1d38c83fde0b53d34f7b) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "artists:x:lalaluhat:1222836461155667968:1",
@@ -115,8 +112,7 @@
       "role": "character",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/lalaluhat/status/1222836461155667968",
-        "text: #Dynamix"
+        "https://x.com/lalaluhat/status/1222836461155667968"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/EPhjRjhU8AADzC-?format=jpg&name=orig",
@@ -128,12 +124,12 @@
         "timestamp": "2020-01-30T10:58:26.000Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:x:lalaluhat:3f82b63a59367e19",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "New-year group illustration of Dynamix jacket characters."
+      "notes": "New-year group illustration of Dynamix jacket characters. Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:x:lalaluhat:3f82b63a59367e19 (sha256 3f82b63a59367e1983aaa4d5abdfbc7f780cb66067f59af6766d8b7bc937512a) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "artists:x:lalaluhat:1233337738671218688:1",
@@ -145,8 +141,7 @@
       "role": "character",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/lalaluhat/status/1233337738671218688",
-        "text: #Dynamix"
+        "https://x.com/lalaluhat/status/1233337738671218688"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/ER2ubZXUEAAWf4v?format=jpg&name=orig",
@@ -158,12 +153,12 @@
         "timestamp": "2020-02-28T10:26:45.000Z",
         "revision": null
       },
-      "disposition": "downloaded",
-      "asset_id": "artists:x:lalaluhat:7f0c5ddd6f3c7881",
+      "disposition": "pending",
+      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
-      "notes": "Wiki Encore trivia: cover character Moru (cites this post)."
+      "notes": "Wiki Encore trivia: cover character Moru (cites this post). Withdrawn 2026-10-10 by a curated seed rule (pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision): archived record(s) artists:x:lalaluhat:7f0c5ddd6f3c7881 (sha256 7f0c5ddd6f3c7881609f3853a0669430b941899c79359b44431b721f75bdba37) removed from the manifest and asset tree; the bytes remain in the Git history."
     }
   ],
   "errors": []

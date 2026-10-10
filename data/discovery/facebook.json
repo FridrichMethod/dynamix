@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:facebook",
-  "started_at": "2026-10-10T14:05:49Z",
-  "finished_at": "2026-10-10T14:05:49Z",
+  "started_at": "2026-10-10T15:17:28Z",
+  "finished_at": "2026-10-10T15:17:29Z",
   "scope": {
     "lists": [
       "probe",

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:website",
-  "started_at": "2026-10-10T14:05:58Z",
-  "finished_at": "2026-10-10T14:06:01Z",
+  "started_at": "2026-10-10T15:17:45Z",
+  "finished_at": "2026-10-10T15:17:48Z",
   "scope": {
     "lists": [
       "probe"
@@ -11,9 +11,9 @@
     "notes": "Availability probe only; no candidates are enumerated."
   },
   "continuation": {
-    "probe": null
+    "probe": "not-read:other"
   },
-  "discovery_complete": true,
+  "discovery_complete": false,
   "candidates": [],
   "errors": [
     {

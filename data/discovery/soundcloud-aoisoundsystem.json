@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:aoisoundsystem",
-  "started_at": "2026-10-10T14:09:08Z",
-  "finished_at": "2026-10-10T14:09:11Z",
+  "started_at": "2026-10-10T15:15:49Z",
+  "finished_at": "2026-10-10T15:15:52Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -41,13 +41,13 @@
       "disposition": "downloaded",
       "asset_id": "artists:soundcloud:aoisoundsystem:2e88dadb896b5442",
       "song_titles": [
-        "Soar to Ø"
+        "soar to Ø"
       ],
       "illustrators": [
         "ケシksくん"
       ],
       "composers": [
-        "Aoi Sound System"
+        "Aoi"
       ]
     },
     {

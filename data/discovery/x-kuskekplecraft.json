@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:kuskekplecraft",
-  "started_at": "2026-10-10T14:10:26Z",
-  "finished_at": "2026-10-10T14:10:27Z",
+  "started_at": "2026-10-10T15:17:06Z",
+  "finished_at": "2026-10-10T15:17:07Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -22,7 +22,7 @@
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
       "title": "@KuskeKplecraft post 946599307431460867 image 1",
-      "role": "process",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/KuskeKplecraft/status/946599307431460867",
@@ -48,7 +48,8 @@
       ],
       "composers": [
         "Kplecraft"
-      ]
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
     },
     {
       "id": "artists:x:kuskekplecraft:946599307431460867:2",
@@ -57,7 +58,7 @@
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
       "title": "@KuskeKplecraft post 946599307431460867 image 2",
-      "role": "process",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/KuskeKplecraft/status/946599307431460867",
@@ -83,7 +84,8 @@
       ],
       "composers": [
         "Kplecraft"
-      ]
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
     },
     {
       "id": "artists:x:kuskekplecraft:946599307431460867:3",
@@ -92,7 +94,7 @@
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
       "title": "@KuskeKplecraft post 946599307431460867 image 3",
-      "role": "process",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/KuskeKplecraft/status/946599307431460867",
@@ -118,7 +120,8 @@
       ],
       "composers": [
         "Kplecraft"
-      ]
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
     },
     {
       "id": "artists:x:kuskekplecraft:946599307431460867:4",
@@ -127,7 +130,7 @@
       "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
       "file_url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
       "title": "@KuskeKplecraft post 946599307431460867 image 4",
-      "role": "process",
+      "role": "background",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/KuskeKplecraft/status/946599307431460867",
@@ -153,7 +156,8 @@
       ],
       "composers": [
         "Kplecraft"
-      ]
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
     }
   ],
   "errors": []

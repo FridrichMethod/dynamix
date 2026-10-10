@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T14:06:01Z",
-  "finished_at": "2026-10-10T14:06:11Z",
+  "started_at": "2026-10-10T15:17:48Z",
+  "finished_at": "2026-10-10T15:17:58Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -29,7 +29,9 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1156172591872167937"
+        "https://x.com/c4c4cat/status/1156172591872167937",
+        "text: [Event]",
+        "text: オレンジ"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
@@ -42,7 +44,17 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:4dba259589ea4635"
+      "asset_id": "official:x:4dba259589ea4635",
+      "song_titles": [
+        "オレンジ"
+      ],
+      "composers": [
+        "kRM & 残響P"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for オレンジ."
     },
     {
       "id": "official:x:1239884186070265856:1",
@@ -54,7 +66,9 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1239884186070265856"
+        "https://x.com/c4c4cat/status/1239884186070265856",
+        "text: [Event]",
+        "text: 終の舞姫"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
@@ -67,7 +81,17 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:de89cf99f475bcbc"
+      "asset_id": "official:x:de89cf99f475bcbc",
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for 終の舞姫."
     },
     {
       "id": "official:x:1437747970875674626:1",
@@ -79,7 +103,9 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1437747970875674626"
+        "https://x.com/c4c4cat/status/1437747970875674626",
+        "text: [Event]",
+        "text: 玲瓏メテオ"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
@@ -92,7 +118,17 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:e946e4ce416ca1aa"
+      "asset_id": "official:x:e946e4ce416ca1aa",
+      "song_titles": [
+        "玲瓏メテオ"
+      ],
+      "composers": [
+        "Reku Mochizuki"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for 玲瓏メテオ."
     },
     {
       "id": "official:x:1748178472759865377:1",
@@ -104,7 +140,8 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1748178472759865377"
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-?format=jpg&name=orig",
@@ -117,7 +154,8 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:d752be74553686c2"
+      "asset_id": "official:x:d752be74553686c2",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
     },
     {
       "id": "official:x:1748178472759865377:2",
@@ -129,7 +167,8 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1748178472759865377"
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh?format=jpg&name=orig",
@@ -142,7 +181,8 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:65e72f2d8e013e28"
+      "asset_id": "official:x:65e72f2d8e013e28",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
     },
     {
       "id": "official:x:1748178472759865377:3",
@@ -154,7 +194,8 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1748178472759865377"
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL?format=jpg&name=orig",
@@ -167,7 +208,8 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:6edc80f1d3abe83f"
+      "asset_id": "official:x:6edc80f1d3abe83f",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
     },
     {
       "id": "official:x:1748178472759865377:4",
@@ -179,7 +221,8 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1748178472759865377"
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ?format=jpg&name=orig",
@@ -192,7 +235,8 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:256c9272a0c39014"
+      "asset_id": "official:x:256c9272a0c39014",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
     },
     {
       "id": "official:x:1889645633545613724:1",
@@ -204,7 +248,9 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/1889645633545613724"
+        "https://x.com/c4c4cat/status/1889645633545613724",
+        "text: Berry Melody",
+        "text: horloge"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
@@ -217,7 +263,17 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:c18773b8b5555b0a"
+      "asset_id": "official:x:c18773b8b5555b0a",
+      "song_titles": [
+        "Horloge"
+      ],
+      "composers": [
+        "xL"
+      ],
+      "collections": [
+        "Berry Melody Collaboration"
+      ],
+      "notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge."
     },
     {
       "id": "official:x:981147690795900928:1",
@@ -229,7 +285,9 @@
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
-        "https://x.com/c4c4cat/status/981147690795900928"
+        "https://x.com/c4c4cat/status/981147690795900928",
+        "text: [Event]",
+        "text: Xetta"
       ],
       "source_reported": {
         "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
@@ -242,7 +300,17 @@
         "revision": null
       },
       "disposition": "downloaded",
-      "asset_id": "official:x:2af98b637036de9c"
+      "asset_id": "official:x:2af98b637036de9c",
+      "song_titles": [
+        "Xetta"
+      ],
+      "composers": [
+        "TangJuan vs Black Box"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Xetta."
     }
   ],
   "errors": [

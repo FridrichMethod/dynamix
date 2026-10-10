@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:bilibili:ariiol",
-  "started_at": "2026-10-10T14:08:44Z",
-  "finished_at": "2026-10-10T14:08:44Z",
+  "started_at": "2026-10-10T15:15:26Z",
+  "finished_at": "2026-10-10T15:15:26Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -11,9 +11,9 @@
     "notes": "Explicit seed opus IDs via Bilibili's public web API; no space listing or search is crawled."
   },
   "continuation": {
-    "seed-posts": null
+    "seed-posts": "not-read:challenge"
   },
-  "discovery_complete": true,
+  "discovery_complete": false,
   "candidates": [
     {
       "id": "artists:bilibili:ariiol:1022295438715256855",

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:woof-owo",
-  "started_at": "2026-10-10T14:10:22Z",
-  "finished_at": "2026-10-10T14:10:23Z",
+  "started_at": "2026-10-10T15:17:02Z",
+  "finished_at": "2026-10-10T15:17:03Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -42,7 +42,7 @@
       "disposition": "downloaded",
       "asset_id": "artists:soundcloud:woof-owo:35da92efcf3baffa",
       "song_titles": [
-        "Rave! and Get on it!"
+        "Rave! and Get On It!"
       ],
       "illustrators": [
         "びびすか"
