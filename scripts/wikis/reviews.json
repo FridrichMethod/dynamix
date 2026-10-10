@@ -374,8 +374,8 @@
         "13d094572d84f502bca8cf88c1ff05b0414603e9",
         "36f160f0a1e32f62170e91ee66f08032c44ad086"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: new-song chart list: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg)",
+      "role": "promotional",
+      "evidence": "visual_inspection: new-song chart list: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg); one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game chart-list design (level diamonds, Dynamix icon) for the original-game song Snowy Light; Fandom upload 2019-03-12 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -493,8 +493,8 @@
         "4198fe988411e953029cd73a608bb8ac7e2783c0",
         "566e75408b91a21149e0ad81040fa16aec9517ff"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: comeback chart list 'Against The Pseudo', \"i'm back!\", level diamonds 3/9/6",
+      "role": "promotional",
+      "evidence": "visual_inspection: comeback chart list 'Against The Pseudo', \"i'm back!\", level diamonds 3/9/6; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-29 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -711,17 +711,41 @@
       ]
     },
     {
+      "title": "File:Berry Melody Collaboration Package.jpg",
+      "sha1": [
+        "92504924effd524054d08c9273ab4f456727bb65",
+        "e6df84d844c779beeb88f6b0edef2b1db950e79c"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: 'berry Melody × DynAMIX 2025.02 Collaboration Event' with four titled jackets (titles as printed: Grayscale Tragedy; ネーヴェの紋様; horloge; NNOYiA); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "songs": [
+        "Grayscale Tragedy",
+        "ネーヴェの紋様",
+        "Horloge",
+        "NNOYiA"
+      ]
+    },
+    {
       "title": "File:Between Boundaries RAVON.jpg",
       "sha1": [
         "3e90c3b1e357d5004771992505b51c9c9beb9dfe",
         "5360677c0d50f7dbf8b7bb83a7cd2007dc7b9305"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 2 9月8日より配信!' (Caelus, OCCHOCO-REST-LESS, Between Boundaries)",
+      "role": "reference",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with three titled jackets and one '?' slot (titles as printed: Caelus; OCCHOCO-REST-LESS; Between Boundaries); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-09-07 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
         "ravon"
+      ],
+      "list_graphic": true,
+      "songs": [
+        "Caelus",
+        "OCCHOCO-REST-LESS",
+        "Between Boundaries"
       ]
     },
     {
@@ -731,11 +755,14 @@
         "9497f3d0f80ad00f0d001cc5d24303e572484e01"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 1 8月21日より配信!' (Black：Magnam)",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with one titled jacket (Black：Magnam) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-08-19 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
         "ravon"
+      ],
+      "songs": [
+        "Black：Magnam"
       ]
     },
     {
@@ -779,11 +806,14 @@
         "9b5ceec24c7fae62bde3f631efbd7d63dbe17b74"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 2 9月8日より配信!' (Caelus)",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with one titled jacket (Caelus) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-09-05 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
         "ravon"
+      ],
+      "songs": [
+        "Caelus"
       ]
     },
     {
@@ -908,10 +938,11 @@
         "33a37e6cd8afe02f880344bb795f584a2e14dac5",
         "8a542c5da095f6bb7c55dff1d8f4cb9cc5f9cfc1"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 75% Off' (15 Dec - 2 Jan 2018)",
+      "role": "reference",
+      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 75% Off' (15 Dec 2017 - 2 Jan 2018) listing four titled pack jackets: Evas, Chiptune, Four Horsemen, Fantasy; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX Christmas Discount Package 75% Off' (15 Dec - 2 Jan 2018); Fandom upload 2017-12-14 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX Christmas Discount Package 75% Off' (15 Dec - 2 Jan 2018); Fandom upload 2017-12-14 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true
     },
     {
       "title": "File:Christmas Special Event 2017 3.jpg",
@@ -919,10 +950,11 @@
         "973538d8a67de2c117973be96201b98638c4ad69",
         "cd86c60327f227cd687e9d4948602aa3d6575b3a"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 50% Off' (15 Dec - 2 Jan 2018)",
+      "role": "reference",
+      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 50% Off' (15 Dec 2017 - 2 Jan 2018) listing eight titled pack jackets: Two Square: Horoscope, Two Square: Rising, Piano, VelecTi, ArcStar Collaboration #1 & #2, (an unreadable title), Z.H.D., Teardrops; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX Christmas Discount Package 50% Off' (15 Dec - 2 Jan 2018); Fandom upload 2017-12-14 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX Christmas Discount Package 50% Off' (15 Dec - 2 Jan 2018); Fandom upload 2017-12-14 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true
     },
     {
       "title": "File:Chrysobery.jpg",
@@ -1108,8 +1140,8 @@
         "202179ffbd790a777bf5c8e5d7eb56580d18fa18",
         "ca09dfe49aa0f4b055b38147f6fc675002aa4125"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: comeback chart list 'Crystal Clear Sky / Takahiro Aoki', \"i'm back!\"",
+      "role": "promotional",
+      "evidence": "visual_inspection: comeback chart list 'Crystal Clear Sky / Takahiro Aoki', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-06 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -1155,6 +1187,34 @@
       "game_evidence": "visual_inspection: a character of the original game's Characters/Store pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Go Escape"
+      ]
+    },
+    {
+      "title": "File:DiSTractiOn PoInT Comeback Chart List 2.jpg",
+      "sha1": [
+        "69467d17e4eb4d9cba13072f5e26e0cec42d3c8c",
+        "e9e642af3a71c1b738d87cad6a29c7e8925a0f8f"
+      ],
+      "role": "promotional",
+      "evidence": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/11/10/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1/2\"); this image is one half of it, so it stays promotional under the single-song clause of the coordinator decision of 2026-10-10",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\") of the original game's comeback announcements",
+      "songs": [
+        "diSTractiOn PoInT"
+      ]
+    },
+    {
+      "title": "File:DiSTractiOn PoInT Comeback Chart List.jpg",
+      "sha1": [
+        "34eaa2043d3613e2071a1d5d1266507173d60dca",
+        "d6a4b0452534e22245056af24b45383d0b7f4d02"
+      ],
+      "role": "promotional",
+      "evidence": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/10/11/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1/2\"); this image is one half of it, so it stays promotional under the single-song clause of the coordinator decision of 2026-10-10",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\") of the original game's comeback announcements",
+      "songs": [
+        "diSTractiOn PoInT"
       ]
     },
     {
@@ -1303,10 +1363,23 @@
         "c2b23ecf825114fc07a637f4123a060ee086cc8f",
         "e6b09163b8fc4d0acd328816812a746d90002463"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: 'DynAMIX x ARCAEA Collaboration Package, Event 23 June to 27 June'",
+      "role": "reference",
+      "evidence": "visual_inspection: 'DynAMIX × ARCAEA Collaboration Package' with four jackets and the 'Event 23 June to 27 June' jacket; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX x ARCAEA Collaboration Package, Event 23 June to 27 June'; Fandom upload 2017-07-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX x ARCAEA Collaboration Package, Event 23 June to 27 June'; Fandom upload 2017-07-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true
+    },
+    {
+      "title": "File:Dynamix x Arcaea Collaboration.jpg",
+      "sha1": [
+        "3f7d901bd97817a23f708b7557da7638d195bf4e",
+        "bf86c94ca055c8464c07876348d70f7baafa0ec9"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: 'DynAMIX × ARCAEA Collaboration Package' with four jackets and the 'Event 23 June to 27 June' jacket; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional"
     },
     {
       "title": "File:Dynamix-Dynamix-Card.png",
@@ -1507,9 +1580,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 四月活動預告 / April Events\" listing 4 event-song jackets with titles and composers (titles as printed: 涅槃を灯すシャーデンフロイデ; Class memories; CORONA; Magic of love (Dynamix Ver)); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-03-26 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-03-26 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "涅槃を灯すシャーデンフロイデ",
+        "Class memories",
+        "CORONA",
+        "Magic of love (Dynamix Edit)"
+      ]
     },
     {
       "title": "File:Event in 2019 Aug.png",
@@ -1519,9 +1598,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 八月活動預告 / August Events\" listing 4 event-song jackets with titles and composers (titles as printed: オレンジ; Destruction; The Path; Youth); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-07-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-07-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "オレンジ",
+        "Destruction",
+        "The Path",
+        "Youth"
+      ]
     },
     {
       "title": "File:Event in 2019 Dec.png",
@@ -1531,9 +1616,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十二月活動預告 / December Events\" listing 4 event-song jackets with titles and composers (titles as printed: Faithtival; Skrik (DNX edit); Empty Stars; Slyness Foxx); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-12-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-12-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Faithtival",
+        "Skrik (DNX edit)",
+        "Empty Stars",
+        "Slyness Foxx"
+      ]
     },
     {
       "title": "File:Event in 2019 Feb.png",
@@ -1543,9 +1634,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 二月活動預告 / February Events\" listing 4 event-song jackets with titles and composers (titles as printed: Eschatology; BLUFF; Life Style; Holy Lightbringer); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-02-04 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-02-04 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Eschatology",
+        "BLUFF",
+        "Life Style",
+        "Holy Lightbringer"
+      ]
     },
     {
       "title": "File:Event in 2019 Jan.png",
@@ -1555,9 +1652,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 一月活動預告 / January Events\" listing 4 event-song jackets with titles and composers (titles as printed: Fernand System Operating!!; Mechanismós ton Antikythíron; Soul fire lit; Future City Ⅵ); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-01-08 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-01-08 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Fernand System Operating!!",
+        "Mechanismós ton Antikythíron",
+        "Soul fire lit",
+        "Future City Ⅵ"
+      ]
     },
     {
       "title": "File:Event in 2019 July.png",
@@ -1567,9 +1670,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 七月活動預告 / July Events\" listing 4 event-song jackets with titles and composers (titles as printed: Knight of Tripletz (for DNX Edit); RASeed; Stargazer; demonic juggernauts); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-07-02 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-07-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Knight of Tripletz (for DNX Edit)",
+        "RASeed",
+        "Stargazer",
+        "demonic juggernauts"
+      ]
     },
     {
       "title": "File:Event in 2019 June.png",
@@ -1579,9 +1688,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 六月活動預告 / June Events\" listing 4 event-song jackets with titles and composers (titles as printed: HumaN; Perpetual; Kokytos; 哀しい竜とカイツール); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-05-28 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-05-28 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "HumaN",
+        "Perpetual",
+        "Kokytos",
+        "哀しい竜とカイツール"
+      ]
     },
     {
       "title": "File:Event in 2019 Mar.png",
@@ -1591,9 +1706,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 三月活動預告 / March Events\" listing 4 event-song jackets with titles and composers (titles as printed: New Story; Snowy Light; Dead Soul; HYPER-NOVA); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-02-25 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-02-25 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "New Story",
+        "Snowy Light",
+        "Dead Soul",
+        "HYPER-NOVA"
+      ]
     },
     {
       "title": "File:Event in 2019 May.png",
@@ -1603,9 +1724,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 五月活動預告 / May Events\" listing 4 event-song jackets with titles and composers (titles as printed: NOISIΛ; soar to Ø; Sunset Road; おもひでファンタジア); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-04-30 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-04-30 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "NOISIΛ",
+        "soar to Ø",
+        "Sunset Road",
+        "おもひでファンタジア"
+      ]
     },
     {
       "title": "File:Event in 2019 Nov.png",
@@ -1615,9 +1742,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十一月活動預告 / November Events\" listing 4 event-song jackets with titles and composers (titles as printed: At the peak; Hall of Fame; Glory of the Sacred Kingdom; Atomic Dropper); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-10-28 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-10-28 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "At the peak",
+        "Hall of Fame",
+        "Glory of the Sacred Kingdom",
+        "Atomic Dropper"
+      ]
     },
     {
       "title": "File:Event in 2019 Oct.png",
@@ -1627,9 +1760,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十月活動預告 / October Events\" listing 4 event-song jackets with titles and composers (titles as printed: Sultan Madness; Rudy; Jack Out KIllER; Lonely Cat); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-09-23 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-09-23 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Sultan Madness",
+        "Rudy",
+        "Jack Out KIllER",
+        "Lonely Cat"
+      ]
     },
     {
       "title": "File:Event in 2019 Sep.png",
@@ -1639,9 +1778,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 九月活動預告 / September Events\" listing 4 event-song jackets with titles and composers (titles as printed: ROAD to 773H; Fading Sky; Link To Dungeons; Sky land); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-08-27 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2019-08-27 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "ROAD to 773H",
+        "Fading Sky",
+        "Link To Dungeons",
+        "Sky land"
+      ]
     },
     {
       "title": "File:Event in 2020 August.png",
@@ -1651,9 +1796,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 八月活動預告 / August Events\" listing 3 event-song jackets with titles and composers (titles as printed: MLG; Aeronautica; 紅に染まる森); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-07-27 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-07-27 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "MLG",
+        "Aeronautica",
+        "紅に染まる森"
+      ]
     },
     {
       "title": "File:Event in 2020 July.png",
@@ -1663,9 +1813,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 七月活動預告 / Jul Events\" listing 3 event-song jackets with titles and composers (titles as printed: Enhanced Lights; UCHOUTEN Highway; CHAKA); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-06-30 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-06-30 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Enhanced Lights",
+        "UCHOUTEN Highway",
+        "CHAKA"
+      ]
     },
     {
       "title": "File:Event in 2020 Sep.png",
@@ -1675,9 +1830,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 九月活動預告 / September Events\" listing 3 event-song jackets with titles and composers (titles as printed: Laivisca; Reef Hideout; Moving On); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-08-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-08-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Laivisca",
+        "Reef Hideout",
+        "Moving On"
+      ]
     },
     {
       "title": "File:Event in Feb 2023.jpg",
@@ -1687,9 +1847,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 二月活動預告 / February Events\" listing 3 event-song jackets with titles and composers (titles as printed: Polaris Australis; Rule The World; Physical Cosmology); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-02-02 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-02-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Polaris Australis",
+        "Rule The World",
+        "Physical Cosmology"
+      ]
     },
     {
       "title": "File:Event in Jan 2023.jpg",
@@ -1699,9 +1864,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 一月活動預告 / January Events\" listing 3 event-song jackets with titles and composers (titles as printed: Waldjaegerin; You Were With A Boy; You Psy); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-01-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-01-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Waldjaegerin",
+        "You Were With A Boy",
+        "You Psy"
+      ]
     },
     {
       "title": "File:Event.jpg",
@@ -1730,9 +1900,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 四月活動預告 / April Events\" listing 3 event-song jackets with titles and composers (titles as printed: Xetta; Oriental Landscape; Re_Construct); a fourth slot for the STELLIGHTS collaboration (合作曲目) and a \"合作活動 Collaboration\" heading beside the Comeback Tracks row; a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-04-05 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-04-05 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Xetta",
+        "Oriental Landscape",
+        "Re_Construct"
+      ]
     },
     {
       "title": "File:Events in 2018 Aug.png",
@@ -1742,9 +1917,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 八月活動預告 / August Events\" listing 3 event-song jackets with titles and composers (titles as printed: Arty Party; Ice Chandelier; Unshakable); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-08-06 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-08-06 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Arty Party",
+        "Ice Chandelier",
+        "Unshakable"
+      ]
     },
     {
       "title": "File:Events in 2018 Dec.png",
@@ -1754,9 +1934,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十二月活動預告 / December Events\" listing 4 event-song jackets with titles and composers (titles as printed: Little Flower; Anökumene; 炯眼の絶対零度; Kreuz); the Comeback Tracks row has two '?' slots; a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-12-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-12-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Little Flower",
+        "Anökumene",
+        "炯眼の絶対零度",
+        "Kreuz"
+      ]
     },
     {
       "title": "File:Events in 2018 Jul.png",
@@ -1766,9 +1952,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 七月活動預告 / July Events\" listing 4 event-song jackets with titles and composers (titles as printed: Envy Luvs Melancholy; Crystal Clear Sky; Startail; 夏色メランコリー); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-07-04 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-07-04 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Envy Luvs Melancholy",
+        "Crystal Clear Sky",
+        "Startail",
+        "夏色メランコリー"
+      ]
     },
     {
       "title": "File:Events in 2018 Jun.png",
@@ -1778,9 +1970,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 六月活動預告 / June Events\" listing 4 event-song jackets with titles and composers (titles as printed: ぺたるすてっぷ; SECONDED WORLD; Nova Highway; Lily); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-05-28 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-05-28 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "ぺたるすてっぷ",
+        "SECONDED WORLD",
+        "Nova Highway",
+        "Lily"
+      ]
     },
     {
       "title": "File:Events in 2018 March.png",
@@ -1790,9 +1988,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 三月活動預告 / March Events\" listing 4 event-song jackets with titles and composers (titles as printed: ほしぞらトラベル; 月奏リバイバル; Peony; Last Fate); the row is headed \"復刻歌曲 Comeback tracks\"; a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-02-27 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-02-27 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "ほしぞらトラベル",
+        "月奏リバイバル",
+        "Peony",
+        "Last Fate"
+      ]
     },
     {
       "title": "File:Events in 2018 May.png",
@@ -1802,9 +2006,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 五月活動預告 / May Events\" listing 4 event-song jackets with titles and composers (titles as printed: 交差して歪む過去と未来; Angel x Angel; Next Time (feat.初音ミク); PUPA); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-04-30 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-04-30 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "交差して歪む過去と未来",
+        "Angel x Angel",
+        "Next Time (Feat.初音ミク)",
+        "PUPA"
+      ]
     },
     {
       "title": "File:Events in 2018 Nov.png",
@@ -1814,9 +2024,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十一月活動預告 / November Events\" listing 4 event-song jackets with titles and composers (titles as printed: The Clockwork Doll; Lionhearted; 白色の夢で。; Wish); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-11-05 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-11-05 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "The Clockwork Doll",
+        "Lionhearted",
+        "白色の夢で。",
+        "Wish"
+      ]
     },
     {
       "title": "File:Events in 2018 Oct.png",
@@ -1826,9 +2042,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十月活動預告 / October Events\" listing 3 event-song jackets with titles and composers (titles as printed: Mechanical Jäger; Black sour Ruby; Grenade); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-10-07 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-10-07 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Mechanical Jäger",
+        "Black sour Ruby",
+        "Grenade"
+      ]
     },
     {
       "title": "File:Events in 2018 Sep.png",
@@ -1838,9 +2059,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 九月活動預告 / September Events\" listing 4 event-song jackets with titles and composers (titles as printed: Prismatic Flipper; Black：Magnam; Nightmare Girl; Rain); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-09-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-09-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Prismatic Flipper",
+        "Black：Magnam",
+        "Nightmare Girl",
+        "Rain"
+      ]
     },
     {
       "title": "File:Events in 2020 Apr.png",
@@ -1850,9 +2077,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 四月活動預告 / April Events\" listing 4 event-song jackets with titles and composers (titles as printed: DestroY StresS; Now Is The Time, Do It; Mass Control; Hope!!); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-03-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-03-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "DestroY StresS",
+        "Now Is The Time, Do It",
+        "Mass Control",
+        "Hope!!"
+      ]
     },
     {
       "title": "File:Events in 2020 Dec.png",
@@ -1862,9 +2095,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十二月活動預告 / December Events\" listing 3 event-song jackets with titles and composers (titles as printed: Reminds Me Of You (feat. Asuna Vanilla); Love like we're dying; Partenza); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-12-02 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-12-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Reminds Me Of You (feat. Asuna Vanilla)",
+        "Love like we're dying",
+        "Partenza"
+      ]
     },
     {
       "title": "File:Events in 2020 Feb.png",
@@ -1874,9 +2112,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 二月活動預告 / February Events\" listing 4 event-song jackets with titles and composers (titles as printed: Chromosphere; Aujourd'hui; Tenebris; Encore); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-01-30 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-01-30 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Chromosphere",
+        "Aujourd'hui",
+        "Tenebris",
+        "Encore"
+      ]
     },
     {
       "title": "File:Events in 2020 Jan.png",
@@ -1886,9 +2130,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 一月活動預告 / January Events\" listing 4 event-song jackets with titles and composers (titles as printed: Vector Matrix; Dead Master; Lumina; MOONLIT PARTY (Game Edit)); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-01-10 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-01-10 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Vector Matrix",
+        "Dead Master",
+        "Lumina",
+        "MOONLIT PARTY (Game Edit.)"
+      ]
     },
     {
       "title": "File:Events in 2020 June.png",
@@ -1898,9 +2148,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 六月活動預告 / June Events\" listing 3 event-song jackets with titles and composers (titles as printed: ∀I∃Y§§; Sky Adventure!; モシモシビット (Moshi Moshi Bit)); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-06-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-06-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "∀I∃Y§§",
+        "Sky Adventure!",
+        "モシモシビット (Moshi Moshi Bit)"
+      ]
     },
     {
       "title": "File:Events in 2020 Mar.jpg",
@@ -1910,9 +2165,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 三月活動預告 / March Events\" listing 4 event-song jackets with titles and composers (titles as printed: NaCl; Fireworks; 終の舞姫; Chemical Infusion); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-02-27 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-02-27 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "NaCl",
+        "Fireworks",
+        "終の舞姫",
+        "Chemical Infusion"
+      ]
     },
     {
       "title": "File:Events in 2020 May.png",
@@ -1922,9 +2183,15 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 五月活動預告 / May Events\" listing 4 event-song jackets with titles and composers (titles as printed: Fatality Saga; That's How We Rock; Forbidden Area; VENUS INVADER); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-04-27 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-04-27 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Fatality Saga",
+        "That's How We Rock",
+        "Forbidden Area",
+        "VENUS INVADER"
+      ]
     },
     {
       "title": "File:Events in 2020 Nov.png",
@@ -1934,9 +2201,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十一月活動預告 / November Events\" listing 3 event-song jackets with titles and composers (titles as printed: Dangerous Insanity (2019 Rework); Mind Blast (Dynamix Edit); strawberry*passion); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-11-02 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-11-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Dangerous Insanity (2019 Rework)",
+        "Mind Blast (Dynamix Edit)",
+        "strawberry*passion"
+      ]
     },
     {
       "title": "File:Events in 2020 Oct.png",
@@ -1946,9 +2218,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十月活動預告 / October Events\" listing 3 event-song jackets with titles and composers (titles as printed: Nives Marinae; High-School QUEEN!!!; The Last Arcady); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-10-06 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-10-06 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Nives Marinae",
+        "High-School QUEEN!!!",
+        "The Last Arcady"
+      ]
     },
     {
       "title": "File:Events in 2021 April.png",
@@ -1958,9 +2235,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 四月活動預告 / April Events\" listing 3 event-song jackets with titles and composers (titles as printed: Cross Time; PIXEVLAZZ; Antithesis); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-03-29 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-03-29 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Cross Time",
+        "PIXEVLAZZ",
+        "Antithesis"
+      ]
     },
     {
       "title": "File:Events in 2021 Feb.png",
@@ -1970,9 +2252,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 二月活動預告 / February Events\" listing 3 event-song jackets with titles and composers (titles as printed: My life is mine; (XD); WHIRLWIND); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-02-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-02-01 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "My life is mine",
+        "(XD)",
+        "WHIRLWIND"
+      ]
     },
     {
       "title": "File:Events in 2021 Jan.png",
@@ -1982,9 +2269,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 一月活動預告 / January Events\" listing 3 event-song jackets with titles and composers (titles as printed: Counter Terrorists; Heart Of Glass; Fl0at on Air); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-12-28 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2020-12-28 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Counter Terrorists",
+        "Heart Of Glass",
+        "Fl0at on Air"
+      ]
     },
     {
       "title": "File:Events in 2021 May.png",
@@ -1993,9 +2285,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 五月活動預告 / May Events\" listing 3 event-song jackets with titles and composers (titles as printed: Infinity Bullet; 荼蘼; 恋スル:Rabi-Love); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-05-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-05-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Infinity Bullet",
+        "荼蘼",
+        "恋スル:Rabi-Love"
+      ]
     },
     {
       "title": "File:Events in Apr 2022.png",
@@ -2004,9 +2301,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 四月活動預告 / April Events\" listing 3 event-song jackets with titles and composers (titles as printed: blueberry cheesecake; Deda Dash; ASTRAEA); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-03-29 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-03-29 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "blueberry cheesecake",
+        "Deda Dash",
+        "ASTRAEA"
+      ]
     },
     {
       "title": "File:Events in April 2018 Twitter.jpg",
@@ -2016,9 +2318,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event-song banner headed \"DynAMIX 四月のイベント曲\" listing 3 event-song jackets with titles and composers (titles as printed: Xetta; Oriental Landscape; Re_Construct); a fourth slot for the STELLIGHTS collaboration (コラボレーション); a 1500x500 banner; no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-04-08 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2018-04-08 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Xetta",
+        "Oriental Landscape",
+        "Re_Construct"
+      ]
     },
     {
       "title": "File:Events in April 2023.jpg",
@@ -2028,9 +2335,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 四月活動預告 / April Events\" listing 3 event-song jackets with titles and composers (titles as printed: ISERA (DNX Edit); Eldredth; Kyubi); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-04-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-04-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "ISERA (DNX Edit)",
+        "Eldredth",
+        "Kyubi"
+      ]
     },
     {
       "title": "File:Events in Aug 2021.png",
@@ -2039,9 +2351,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 八月活動預告 / August Events\" listing 3 event-song jackets with titles and composers (titles as printed: 428 Dance Showcase; Hyperspace Jump; Space Runners); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-08-02 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-08-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "428 Dance Showcase",
+        "Hyperspace Jump",
+        "Space Runners"
+      ]
     },
     {
       "title": "File:Events in Aug 2022.jpg",
@@ -2051,9 +2368,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 八月活動預告 / August Events\" listing 3 event-song jackets with titles and composers (titles as printed: Ionosphere; Acrise; Spooky Macaron); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-08-04 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-08-04 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "ionosphere",
+        "Acrise",
+        "Spooky Macaron"
+      ]
     },
     {
       "title": "File:Events in Aug 2023.jpg",
@@ -2063,9 +2385,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 八月活動預告 / August Events\" listing 3 event-song jackets with titles and composers (titles as printed: MEGA POP; Ragnarøk; City Girl in the Love); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-08-04 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-08-04 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "MEGA　POP",
+        "Ragnarøk",
+        "City Girl in the Love"
+      ]
     },
     {
       "title": "File:Events in Aug 2024.jpg",
@@ -2075,9 +2402,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 八月活動預告 / August Events\" listing 3 event-song jackets with titles and composers (titles as printed: scualee; Mamba; LOVE); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "scualee",
+        "Mamba",
+        "LOVE"
+      ]
     },
     {
       "title": "File:Events in Dec 2021.png",
@@ -2086,9 +2418,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十二月活動預告 / December Events\" listing 3 event-song jackets with titles and composers (titles as printed: Nightseeker; Dahlia; ほしのおとしもの); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-11-29 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-11-29 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Nightseeker",
+        "Dahlia",
+        "ほしのおとしもの"
+      ]
     },
     {
       "title": "File:Events in Dec 2022.jpg",
@@ -2098,9 +2435,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十二月活動預告 / December Events\" listing 3 event-song jackets with titles and composers (titles as printed: Back Out; Sunset Toybox feat. 桃雛なの; 2000VOLT); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-11-28 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-11-28 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Back Out",
+        "Sunset Toybox feat. 桃雛なの",
+        "2000VOLT"
+      ]
     },
     {
       "title": "File:Events in Dec 2023.jpg",
@@ -2110,9 +2452,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 12月活動預告 / December Events\" listing 3 event-song jackets with titles and composers (titles as printed: Distance; Assassin; Hauynite); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "Distance",
+        "Assassin",
+        "Hauynite"
+      ]
     },
     {
       "title": "File:Events in Dec 2024.jpg",
@@ -2122,9 +2469,13 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十二月活動預告 / December Events\" listing 3 event-song jackets with titles and composers (titles as printed: To Drop We Ride; Mithridates; Secret Track); the third jacket is a '?' placeholder captioned 'Secret Track / ???'; no Comeback Tracks row; store badges: a list of songs. Not mapped: Secret Track (no original-game song of that title in the song index)",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "To Drop We Ride",
+        "Mithridates"
+      ]
     },
     {
       "title": "File:Events in Feb 2022.png",
@@ -2133,9 +2484,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 二月活動預告 / February Events\" listing 3 event-song jackets with titles and composers (titles as printed: The Show's Over; Let the bass kick; Dusky Disslove); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-02-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-02-01 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "The Show's Over",
+        "Let the bass kick",
+        "Dusky Disslove"
+      ]
     },
     {
       "title": "File:Events in Feb 2024.png",
@@ -2144,9 +2500,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event-song banner headed \"DynAMIX 2月のイベント曲\" listing 3 event-song jackets with titles and composers (titles as printed: Amphisbaena; Far East Frontline; Sleepless); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "Amphisbaena",
+        "Far East Frontline",
+        "Sleepless"
+      ]
     },
     {
       "title": "File:Events in Jan 2022.png",
@@ -2155,9 +2516,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 一月活動預告 / January Events\" listing 3 event-song jackets with titles and composers (titles as printed: INFINITE ENERZY -Overdoze-; Re=correct; NOVA); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-01-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-01-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "INFiNiTE ENERZY -Overdoze-",
+        "Re=correct",
+        "NOVA"
+      ]
     },
     {
       "title": "File:Events in Jan 2024.jpg",
@@ -2167,9 +2533,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 一月活動預告 / January Events\" listing 3 event-song jackets with titles and composers (titles as printed: FREEZE; Alone; BIT TECH COMPUTER); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "FREEZE",
+        "Alone",
+        "BIT TECH COMPUTER"
+      ]
     },
     {
       "title": "File:Events in Jan 2025.jpg",
@@ -2179,9 +2550,13 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 一月活動預告 / January Events\" listing 3 event-song jackets with titles and composers (titles as printed: Reason of Fallen; Neptune; Lupus); no Comeback Tracks row; store badges: a list of songs. Not mapped: Lupus (no original-game song of that title in the song index)",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "Reason Of Fallen",
+        "Neptune"
+      ]
     },
     {
       "title": "File:Events in Jul 2022.png",
@@ -2190,9 +2565,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 七月活動預告 / July Events\" listing 3 event-song jackets with titles and composers (titles as printed: Vogue Flavour; Raving in Halloween; Viatores); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-06-27 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-06-27 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Vogue Flavour",
+        "Raving in Halloween",
+        "Viatores"
+      ]
     },
     {
       "title": "File:Events in Jul 2023.jpg",
@@ -2202,9 +2582,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 七月活動預告 / July Events\" listing 3 event-song jackets with titles and composers (titles as printed: Volcano; NightTheater; lehigh); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-07-15 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-07-15 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Volcano",
+        "NightTheater",
+        "lehigh"
+      ]
     },
     {
       "title": "File:Events in Jul 2024.jpg",
@@ -2214,9 +2599,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 七月活動預告 / July Events\" listing 3 event-song jackets with titles and composers (titles as printed: Resonance of Soul; HOPE; frerejacques); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "Resonance of Soul",
+        "HOPE",
+        "frerejacques"
+      ]
     },
     {
       "title": "File:Events in July 2021.png",
@@ -2225,9 +2615,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 七月活動預告 / July Events\" listing 3 event-song jackets with titles and composers (titles as printed: シュガーハイ; Calling; Give It To Me); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-06-28 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-06-28 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "シュガーハイ",
+        "Calling",
+        "Give It To Me"
+      ]
     },
     {
       "title": "File:Events in Jun 2021.png",
@@ -2236,9 +2631,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 六月活動預告 / June Events\" listing 3 event-song jackets with titles and composers (titles as printed: Lava Control; 天照; Happiness Bread); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-05-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-05-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Lava Control",
+        "天照",
+        "Happiness Bread"
+      ]
     },
     {
       "title": "File:Events in Jun 2022.png",
@@ -2247,9 +2647,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 六月活動預告 / June Events\" listing 3 event-song jackets with titles and composers (titles as printed: 妄想♡ちゅー!!; Necroxus; FORTALiCE); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-05-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-05-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "妄想♡ちゅー!!",
+        "Necroxus",
+        "FORTALiCE"
+      ]
     },
     {
       "title": "File:Events in Jun 2023.jpg",
@@ -2259,9 +2664,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 六月活動預告 / June Events\" listing 3 event-song jackets with titles and composers (titles as printed: ムーンリット・ワンダラー; Guilty Hostage; Ennor); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-05-29 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-05-29 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "ムーンリット・ワンダラー",
+        "Guilty Hostage",
+        "Ennor"
+      ]
     },
     {
       "title": "File:Events in Mar 2021.png",
@@ -2271,9 +2681,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 三月活動預告 / March Events\" listing 3 event-song jackets with titles and composers (titles as printed: Smile Encounter; Mithril; depTh of mem0ry); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-03-02 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-03-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Smile Encounter",
+        "Mithril",
+        "depTh of mem0ry"
+      ]
     },
     {
       "title": "File:Events in Mar 2022.png",
@@ -2282,9 +2697,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 三月活動預告 / March Events\" listing 3 event-song jackets with titles and composers (titles as printed: Φ; アリス失格; Fission); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-03-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-03-01 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Φ",
+        "アリス失格",
+        "Fission"
+      ]
     },
     {
       "title": "File:Events in Mar 2023.jpg",
@@ -2294,9 +2714,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 三月活動預告 / March Events\" listing 3 event-song jackets with titles and composers (titles as printed: Virtual Nature; ELYXiVN ELYXiUM; Decoherence); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-03-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-03-01 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Virtual Nature",
+        "ELYXiVN ELYXiUM",
+        "Decoherence"
+      ]
     },
     {
       "title": "File:Events in Mar 2024.jpg",
@@ -2306,9 +2731,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 3月活動預告 / March Events\" listing 3 event-song jackets with titles and composers (titles as printed: Ephemeral Echo; GIFT; Phoenixismia); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "Ephemeral Echo",
+        "GIFT",
+        "Phoenixismia"
+      ]
     },
     {
       "title": "File:Events in May 2022.png",
@@ -2317,9 +2747,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 五月活動預告 / May Events\" listing 3 event-song jackets with titles and composers (titles as printed: ニャンだふる♡サマー!!; Sushi Tornado; Riot Flavor); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-05-04 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-05-04 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "ニャンだふる♡サマー!!",
+        "Sushi Tornado",
+        "Riot Flavor"
+      ]
     },
     {
       "title": "File:Events in May 2023.jpg",
@@ -2329,9 +2764,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 五月活動預告 / May Events\" listing 3 event-song jackets with titles and composers (titles as printed: Zephyr; lodeinfo; Ultimate Lachesism); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-05-05 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2023-05-05 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Zephyr",
+        "lodeinfo",
+        "Ultimate Lachesism"
+      ]
     },
     {
       "title": "File:Events in Nov 2021.png",
@@ -2340,9 +2780,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十一月活動預告 / November Events\" listing 3 event-song jackets with titles and composers (titles as printed: Wanted Robbery; Mid Night Metropolitan Highway; INNOcENsION); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-11-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-11-01 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Wanted Robbery",
+        "Mid Night Metropolitan Highway",
+        "INNOceNsION"
+      ]
     },
     {
       "title": "File:Events in Nov 2022.jpg",
@@ -2352,9 +2797,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十一月活動預告 / November Events\" listing 3 event-song jackets with titles and composers (titles as printed: freewheeling; Legacy; Unsung Hero); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-10-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-10-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "freewheeling",
+        "Legacy",
+        "Unsung Hero"
+      ]
     },
     {
       "title": "File:Events in Nov 2023.jpg",
@@ -2364,9 +2814,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 11月活動預告 / November Events\" listing 3 event-song jackets with titles and composers (titles as printed: taunami; Welcome, SSSpooky!!!; Lacrimosa); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "taunami",
+        "Welcome, SSSpooky!!!",
+        "Lacrimosa"
+      ]
     },
     {
       "title": "File:Events in Nov 2024.png",
@@ -2375,9 +2830,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十一月活動預告 / November Events\" listing 3 event-song jackets with titles and composers (titles as printed: Circumscription; SYSTEM_ON; Rainbow Reaper); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "Circumscription",
+        "SYSTEM_ON",
+        "Rainbow Reaper"
+      ]
     },
     {
       "title": "File:Events in Oct 2021.png",
@@ -2386,9 +2846,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十月活動預告 / October Events\" listing 3 event-song jackets with titles and composers (titles as printed: Shinobi (Original Short Mix); Big Beats Blow; Kalis Mind); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-09-27 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-09-27 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Shinobi (Original Short Mix)",
+        "Big Beats Blow",
+        "Kalis Mind"
+      ]
     },
     {
       "title": "File:Events in Oct 2022.png",
@@ -2397,9 +2862,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十月活動預告 / October Events\" listing 3 event-song jackets with titles and composers (titles as printed: In a vat; Pollux; Once again (DNX Edit)); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-10-03 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-10-03 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "In a vat",
+        "Pollux",
+        "Once again (DNX Edit.)"
+      ]
     },
     {
       "title": "File:Events in Oct 2023.jpg",
@@ -2409,9 +2879,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十月活動預告 / October Events\" listing 3 event-song jackets with titles and composers (titles as printed: 魑魅戴天; haptime; (unidentified new entry)); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "魑魅戴天",
+        "haptime",
+        "((unidentified new entry))"
+      ]
     },
     {
       "title": "File:Events in Oct 2024.jpg",
@@ -2421,9 +2896,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 十月活動預告 / Octember Events\" listing 3 event-song jackets with titles and composers (titles as printed: Grimoire Heart; Far Eastern Flavor; Beyond the Rainbow); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "Grimoire Heart",
+        "Far Eastern Flavor",
+        "Beyond the Rainbow"
+      ]
     },
     {
       "title": "File:Events in Sep 2021.png",
@@ -2432,9 +2912,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 九月活動預告 / September Events\" listing 3 event-song jackets with titles and composers (titles as printed: Creigis; Cumulus; 玲瓏メテオ); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-08-30 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2021-08-30 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Creigis",
+        "Cumulus",
+        "玲瓏メテオ"
+      ]
     },
     {
       "title": "File:Events in Sep 2022.jpg",
@@ -2444,9 +2929,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 九月活動預告 / September Events\" listing 3 event-song jackets with titles and composers (titles as printed: Sin of Souls; Tech-Nique; War in the Mirrorworld); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-08-29 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs; Fandom upload 2022-08-29 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Sin of Souls",
+        "Tech-Nique",
+        "War in the Mirrorworld"
+      ]
     },
     {
       "title": "File:Events in Sep 2023.jpg",
@@ -2456,9 +2946,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 九月活動預告 / September Events\" listing 3 event-song jackets with titles and composers (titles as printed: 脫潾; Pumpkin Lollipop; Wuthering Weapon); a \"復刻曲目 Comeback Tracks\" row of further song jackets above the header; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "脫潾",
+        "Pumpkin Lollipop",
+        "Wuthering Weapon"
+      ]
     },
     {
       "title": "File:Events in Sep 2024.jpg",
@@ -2468,9 +2963,14 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX <月>活動預告 / <Month> Events\" (or \"<月>のイベント曲\") listing the month's event-song jackets with titles and composers, in most months also a \"復刻曲目 Comeback Tracks\" row of jackets, and store badges: a list of songs",
+      "evidence": "visual_inspection: monthly event lineup headed \"DynAMIX 九月活動預告 / September Events\" listing 3 event-song jackets with titles and composers (titles as printed: TYPE-Rebellion; WING; AndLadix); no Comeback Tracks row; store badges: a list of songs",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark on a monthly event lineup of original-game songs",
+      "songs": [
+        "TYPE-Rebellion",
+        "WING",
+        "AndLadix"
+      ]
     },
     {
       "title": "File:F.png",
@@ -2529,8 +3029,8 @@
         "8664c17a08e0e2d2c0ecdc8e3710d54c8ae086d9",
         "9be2d9b4e93acfb3909cb9760d07f7e7fb118372"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: Giga chart announcement 'OCCHOCO-REST-LESS / MYUKKE.', level diamond 14, 'unlock by followers'",
+      "role": "promotional",
+      "evidence": "visual_inspection: Giga chart announcement 'OCCHOCO-REST-LESS / MYUKKE.', level diamond 14, 'unlock by followers'; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2017-10-05 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -2568,8 +3068,8 @@
         "33118c174a816d96e4a03af3d657941970d285eb",
         "cc58d45fd9a354900fa9151c1afe74b20c628caf"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: special chart announcement 'Go Escape / mmry' with the level diamond '41'",
+      "role": "promotional",
+      "evidence": "visual_inspection: special chart announcement 'Go Escape / mmry' with the level diamond '41'; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2021-03-31 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -2600,8 +3100,8 @@
       "sha1": [
         "b556d4fd84c86dd103adb2ff436dbe10bb555506"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: comeback chart list 'Helios / Rin', \"i'm back!\"",
+      "role": "promotional",
+      "evidence": "visual_inspection: comeback chart list 'Helios / Rin', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-11 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -3021,12 +3521,18 @@
         "acc6d08b82a7a635b649e2af126953b81992650e",
         "cdfbc31cd500156cfa9fb5506d8b6d8c4320e90a"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 1 8月21日より配信!' (Black：Magnam, Perspicuus Aestus, Jack Out KIllER)",
+      "role": "reference",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with three titled jackets and one '?' slot (titles as printed: Black：Magnam; Perspicuus_Aestus; Jack Out KIllER); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-08-20 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
         "ravon"
+      ],
+      "list_graphic": true,
+      "songs": [
+        "Black：Magnam",
+        "Perspicuus_Aestus",
+        "Jack Out KIllER"
       ]
     },
     {
@@ -3324,12 +3830,17 @@
         "6ffad75d7292b328616ab9ca3c4f8bd6e440b86b",
         "88540e280275e9945852f154d48c12b08405b398"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 2 9月8日より配信!' (Caelus, OCCHOCO-REST-LESS)",
+      "role": "reference",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with two titled jackets and two '?' slots (titles as printed: Caelus; OCCHOCO-REST-LESS); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-09-06 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
         "ravon"
+      ],
+      "list_graphic": true,
+      "songs": [
+        "Caelus",
+        "OCCHOCO-REST-LESS"
       ]
     },
     {
@@ -3438,8 +3949,8 @@
         "d52d82a683d1af2f2582f683c06a348da17774ea",
         "fd630c5881819cd722c06e08a7047b75395f11b1"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: chart list 'PUPA / モリモリあつし', COMING SOON, level diamonds",
+      "role": "promotional",
+      "evidence": "visual_inspection: chart list 'PUPA / モリモリあつし', COMING SOON, level diamonds; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2018-05-08 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -3456,6 +3967,42 @@
       "evidence": "visual_inspection: 'BilliumMoto Collection Package OUT NOW!' announcement collage of four jackets (cf. the BilliumMoto package page)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'BilliumMoto Collection Package OUT NOW!' announcement collage of four jackets (cf. the BilliumMoto package page); Fandom upload 2019-05-17 precedes the wiki's first Universe-named upload (2023-08-18)"
+    },
+    {
+      "title": "File:Paradigm-Reboot Collaboration Pack1.jpg",
+      "sha1": [
+        "51d356ec775a1180ae69ce482e9df627eb4af903",
+        "6690743784237a8c6bcf492ea33f89b48d7d159e"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: 'DynAMIX × Paradigm: Reboot, Available on 2023.09.01' with four titled jackets (titles as printed: Restricted Access; Marsh Winds; Rondo of the 3nd; SUTTA MONDAY); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "songs": [
+        "Restricted Access",
+        "Marsh Winds",
+        "Rondo of the 3ND",
+        "SUTTA MONDAY"
+      ]
+    },
+    {
+      "title": "File:Paradigm-Reboot Collaboration Pack2.jpg",
+      "sha1": [
+        "014305401843d85a18c05f9a76f066cb83723108",
+        "8e93e69373cd21dc6ef0cb2533f1c4a861bf1a14"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: 'Paradigm: Reboot × DynAMIX 2023.12 Collaboration Event' with four titled jackets (titles as printed: HIYAIYA!; Lucid Trigger; Turning Point; 零號車輛); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "songs": [
+        "Hiyaiya!",
+        "Lucid Trigger",
+        "Turning POINT",
+        "零號車輛"
+      ]
     },
     {
       "title": "File:Persephone & Cryonix Chart List.jpg",
@@ -3492,12 +4039,17 @@
         "b81410a5f3131a4eaab94b0067068da46de3fa7e",
         "e93c78ab9a97061a54928d4959d2a6afcdd01c9c"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side collaboration announcement 'Dynamix Pack 1 8月21日より配信!' (Black：Magnam, Perspicuus Aestus)",
+      "role": "reference",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with two titled jackets and two '?' slots (titles as printed: Black：Magnam; Perspicuus_Aestus); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-08-19 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
         "ravon"
+      ],
+      "list_graphic": true,
+      "songs": [
+        "Black：Magnam",
+        "Perspicuus_Aestus"
       ]
     },
     {
@@ -3562,9 +4114,12 @@
         "e381284939e5afff96565ae595b559c478aad68c"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 1 8月21日より配信!' with one titled jacket (White：Revolve) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-08-18 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-08-18 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "White：Revolve"
+      ]
     },
     {
       "title": "File:RAVON Collab Pack 1 2 of 4.jpg",
@@ -3572,10 +4127,15 @@
         "2305ce067945c4b6f422b9f38f43dd11ffa93577",
         "58a6145aa2b5c1987a62b077cd56ebd2a629c379"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix",
+      "role": "reference",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 1 8月21日より配信!' with two titled jackets and two '?' slots (titles as printed: White：Revolve; Astral); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-08-19 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-08-19 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true,
+      "songs": [
+        "White：Revolve",
+        "Astral"
+      ]
     },
     {
       "title": "File:RAVON Collab Pack 1 3 of 4.jpg",
@@ -3583,10 +4143,16 @@
         "2862f5349c4a3cfe3801f62441dcca1c5579de9c",
         "96140f0e4d7cbca92a5207d1cea830f9de6a201a"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix",
+      "role": "reference",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 1 8月21日より配信!' with three titled jackets and one '?' slot (titles as printed: White：Revolve; Astral; Mitochondria); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-08-20 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-08-20 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true,
+      "songs": [
+        "White：Revolve",
+        "Astral",
+        "Mitochondria"
+      ]
     },
     {
       "title": "File:RAVON Collab Pack 2 1 of 4.jpg",
@@ -3595,9 +4161,12 @@
         "b178ffbf6c594b142730131e3895c7312a2c1b5b"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 2 9月8日より配信!' with one titled jacket (Rave! and Get on it!) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-09-05 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-09-05 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Rave! and Get On It!"
+      ]
     },
     {
       "title": "File:RAVON Collab Pack 2 2 of 4.jpg",
@@ -3605,10 +4174,15 @@
         "96ff0465fcbb6e583a13881a8d7afbccbf2cdb7e",
         "d98f929f62369f5131e4fc2ef0cc3f6b7832ffe2"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix",
+      "role": "reference",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 2 9月8日より配信!' with two titled jackets and two '?' slots (titles as printed: Rave! and Get on it!; Totally bounded); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-09-06 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-09-06 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true,
+      "songs": [
+        "Rave! and Get On It!",
+        "Totally bounded"
+      ]
     },
     {
       "title": "File:RAVON Collab Pack 2 3 of 4.jpg",
@@ -3616,10 +4190,52 @@
         "115981de6104a0e969f4b99941dcf4a0a718fae7",
         "725a15ddad61e881fed7aeb79aaa324db44f6671"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix",
+      "role": "reference",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 2 9月8日より配信!' with three titled jackets and one '?' slot (titles as printed: Rave! and Get on it!; Totally bounded; Euouae); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-09-07 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-09-07 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true,
+      "songs": [
+        "Rave! and Get On It!",
+        "Totally bounded",
+        "Euouae"
+      ]
+    },
+    {
+      "title": "File:RAVON Collaboration Pack1.jpg",
+      "sha1": [
+        "6e97738ec9334043d8c5eaa5ff0029988a5d6c78",
+        "ed75feafbc661d725c040c4aec5b70afa9c3845e"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 1 8月21日より配信!' with four titled jackets (titles as printed: White：Revolve; Astral; Mitochondria; ReLyna); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "songs": [
+        "White：Revolve",
+        "Astral",
+        "Mitochondria",
+        "ReLyna"
+      ]
+    },
+    {
+      "title": "File:RAVON Collaboration Pack2.jpg",
+      "sha1": [
+        "5103a48c054f7bd8196699ce6fc776fb03ccc19e",
+        "57e0e5d7b6f12a13c1a8f61aca3e1f6a589074b9"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 2 9月8日より配信!' with four titled jackets (titles as printed: Rave! and Get on it!; Totally bounded; Euouae; MassacrE || 3rc4224M); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "songs": [
+        "Rave! and Get On It!",
+        "Totally bounded",
+        "Euouae",
+        "MassacrE || 3rc4224M"
+      ]
     },
     {
       "title": "File:Redhorsemassacre.png",
@@ -3656,6 +4272,23 @@
       "role": null,
       "evidence": "visual_inspection: scene of a chibi girl among robotic parts in an oval frame, no logo or text (Miraheze-only 2026 upload)",
       "pending": "game (original or Universe) not established"
+    },
+    {
+      "title": "File:Rotaeno Collaboration Package.jpg",
+      "sha1": [
+        "128f654ed373b227db9e14c855c1284121ec866e",
+        "89717c6c5c2f0ec8a31030bca9562df1266d0281"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: 'Rotaeno × DynAMIX 2025.04 Collaboration Event' with four titled jackets (titles as printed: Starlight Traveler; Secret Illumination; heavens-cage; vs.TREAMER); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional. Not mapped: vs.TREAMER (not an original-game song in the song index)",
+      "songs": [
+        "Starlight Traveler",
+        "Secret Illumination",
+        "Heaven's Cage"
+      ]
     },
     {
       "title": "File:RoyMkltInfo.png",
@@ -3971,6 +4604,24 @@
       "game_evidence": "visual_inspection: the original Dynamix interface (original-game result screen 'Hopeful Warrior' Mega, rank S); Fandom upload 2018-01-05 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
+      "title": "File:Shinobi Slash Collaboration Package.jpg",
+      "sha1": [
+        "b5440052553cc5643762f72fe04ec313a3b1101a",
+        "b77ceab8bfd41012b33285bc431f2e4cb6845a11"
+      ],
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
+      "role": "reference",
+      "list_graphic": true,
+      "evidence": "visual_inspection: 'シノビスラッシュ × DynAMIX 2025.03 Collaboration Event' with four titled jackets (titles as printed: Luna Rossa; 流麗凛舞; 画竜天晴; Bloom Blade); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "songs": [
+        "Luna Rossa",
+        "流麗凛舞",
+        "画竜天晴",
+        "Bloom Blade"
+      ]
+    },
+    {
       "title": "File:Sigma-Still.jpg",
       "sha1": [
         "2594ba7b8d642bba7d8c89a93a48b952782dc709",
@@ -4192,8 +4843,8 @@
         "54f58cc12a8e81ea39f5237afccb7f225802efa0",
         "905143314acee45f296af5337b409cd1e1cd0869"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: comeback chart list 'Theme of Rabi-Ribi / 3R2', \"i'm back!\"",
+      "role": "promotional",
+      "evidence": "visual_inspection: comeback chart list 'Theme of Rabi-Ribi / 3R2', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-29 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -4231,8 +4882,8 @@
         "2a65f05598262c5b49e3d67081b46d668e7edf9d",
         "8be0e712603cdaaaa83c42bfbf32f735e2a1fb22"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: comeback chart list 'To soar / Aoi with mAoA9', \"i'm back!\"",
+      "role": "promotional",
+      "evidence": "visual_inspection: comeback chart list 'To soar / Aoi with mAoA9', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2017-11-24 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -4577,8 +5228,8 @@
         "4b5f3e1daf6644478634bc36cbd553b057bfba7e",
         "a737efca78d2968826c4c3833f3de464d348027d"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: new-song chart list 'αterlβus / Aoi', 'COMING SOON', level diamonds; byte-identical to File:Αterlβus Chart List.jpg, which the αterlβus page captions as its chart list; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\"",
+      "role": "promotional",
+      "evidence": "visual_inspection: new-song chart list 'αterlβus / Aoi', 'COMING SOON', level diamonds; byte-identical to File:Αterlβus Chart List.jpg, which the αterlβus page captions as its chart list; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "file_page: \"This is capture from Dynamix Facebook\"; original-game teaser design (level diamonds, Dynamix icon); Fandom upload 2017-02-24 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -4601,8 +5252,8 @@
       "sha1": [
         "f9b1dea7533b944d1d097ce80fd4c57559584c9d"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: comeback chart list 'おもひでファンタジア / 梅こぶ茶漬け', \"i'm back!\"",
+      "role": "promotional",
+      "evidence": "visual_inspection: comeback chart list 'おもひでファンタジア / 梅こぶ茶漬け', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-09 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
