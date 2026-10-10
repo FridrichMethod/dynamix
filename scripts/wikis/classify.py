@@ -563,10 +563,11 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
     if not sources and hosts:
         captions = list(dict.fromkeys(item.caption for item in listed if item.caption))
         pages = list(dict.fromkeys(item.song for item in hosts))
-        unread = (("caption " + ", ".join(repr(text[:80]) for text in captions[:2]) if captions else "the list evidence")
-                  + " and the file title name no subject before their list words; the original-game song page"
-                  + ("s" if len(pages) > 1 else "") + f" showing it ({', '.join(pages[:3])}"
-                  + (f" and {len(pages) - 3} more" if len(pages) > 3 else "") + ") do" + ("" if len(pages) > 1 else "es")
+        quoted = ", ".join(repr(text[:80]) for text in captions[:2])
+        listed_text = f"caption {quoted}" if captions else "the list evidence"
+        shown = ", ".join(pages[:3]) + (f" and {len(pages) - 3} more" if len(pages) > 3 else "")
+        unread = (f"{listed_text} and the file title name no subject before their list words; the original-game song "
+                  + (f"pages showing it ({shown}) do" if len(pages) > 1 else f"page showing it ({shown}) does")
                   + " not decide one")
         hosts = []
     for item in hosts:
@@ -1013,11 +1014,12 @@ def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, revi
 
 def _single_song_rule(page_items: list[Evidence], leaders: list[str], top: int, review: Any,
                       subject: Subject | None) -> tuple[str, str, bool] | None:
-    """``(role evidence entry, asset note, rests on the review)`` when the single-song clause of the coordinator decision makes a file with
-    list evidence ``promotional``: the roles otherwise decided are ``reference`` and/or ``promotional``, every
-    ``reference`` item at the deciding strength is list evidence (an update-note caption is no teaser), and either
-    the subject is one song and no review decided the role, or an archivist review saw one song or event in the
-    bytes (role ``promotional``; e.g. one half of a two-song comeback that a caption names as the pair)."""
+    """``(role evidence entry, asset note, rests on the review)`` when the single-song clause of the coordinator
+    decision makes a file with list evidence ``promotional``: the roles otherwise decided are ``reference`` and/or
+    ``promotional``, every ``reference`` item at the deciding strength is list evidence (an update-note caption is no
+    teaser), and either the subject is one song and no review decided the role, or an archivist review saw one song or
+    event in the bytes (role ``promotional``; e.g. one half of a two-song comeback that a caption names as the pair).
+    A mapping that rests on that review is ``inferred`` at most (see :func:`decide`)."""
     if subject is None or not leaders or not set(leaders) <= {"reference", "promotional"}:
         return None
     reviewed = review is not None and review.role == "promotional"
