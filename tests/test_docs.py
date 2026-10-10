@@ -1,0 +1,367 @@
+"""Public documentation: English/Simplified Chinese parity, links, statistics markers, attribution, release hold.
+
+Covers README.md, docs/sources-*.md, docs/coverage.md and licenses/README.md with their ``.zh-CN.md`` versions, plus
+NOTICE and .nojekyll. Offline: it reads files of this checkout and runs ``--help`` of the scripts the documents
+quote (a script that is not in this tree yet must be a name of the frozen CLI contract, and its check is skipped).
+"""
+
+from __future__ import annotations
+
+import re
+import subprocess
+import sys
+import unittest
+from pathlib import Path
+from urllib.parse import unquote
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE_DOCS = tuple(f"docs/sources-{family}" for family in ("wikis", "artists", "official", "archives"))
+STEMS = ("README", *SOURCE_DOCS, "docs/coverage", "licenses/README")
+PAIRS = tuple((f"{stem}.md", f"{stem}.zh-CN.md") for stem in STEMS)
+DOCUMENTS = tuple(path for pair in PAIRS for path in pair)
+# Documents whose numbers are generated from data/coverage.json between the markers, never written by hand.
+STATS_DOCUMENTS = tuple(path for pair in PAIRS[:-1] for path in pair)
+STATS_BEGIN, STATS_END = "<!-- STATS:BEGIN -->", "<!-- STATS:END -->"
+STATS_SECTION = {"README.md": "Collection statistics", "README.zh-CN.md": "收藏统计"}
+# Scripts of the frozen CLI contract (docs/implementation/09-frozen-contracts.md) and the test entry points.
+KNOWN_SCRIPTS = {"scripts": {"fetch_wikis", "fetch_artists", "fetch_official", "fetch_archives", "build_thumbnails",
+                             "build_catalog", "build_coverage", "check_sources", "prepare_pages", "render_slideshow"},
+                 "tests": {"run_all", "browser_smoke"}}
+REFERENCE_SHA = "b14bf0d5f5a05e5382c319f3fd5019a4936820b8"
+# Split so that this file never matches its own search for adaptation notices.
+ADAPTED_NOTICE = re.compile("adapted from " + r"FridrichMethod/deemo\b", re.IGNORECASE)
+# DEEMO may be named only where the text attributes or explains a derivation.
+ATTRIBUTION = re.compile(r"FridrichMethod/deemo|mashirozx/deemo|derived from|derives from|adapted from|adapted|"
+                         r"byte-identical|改编|派生|源自|逐字节相同", re.IGNORECASE)
+# A flat claim that something is deployed or live, in any tense that states it as done.
+FLAT_CLAIMS = re.compile(r"github\.io|\b(?:is|was|has been|have been|are|were) (?:now )?(?:deployed|live)\b|"
+                         r"\bwent live\b|\blive (?:site|website)\b|GitHub Pages site at|已(?:经)?部署|已上线|已经上线",
+                         re.IGNORECASE)
+# Words that state deployment or release; such a sentence must be negated, conditional, future or restricted.
+RELEASE_WORDS = re.compile(r"\bdeploy(?:s|ed|ing|ment|ments)?\b|\breleased\b|\bGitHub Releases?\b|\bversion tags?\b|"
+                           r"部署|上线|GitHub Release|版本标签", re.IGNORECASE)
+GUARDS = re.compile(r"\b(?:not|no|never|nothing|none|until|unless|would|will|only|cannot|held|hold|future|later|"
+                    r"requires?|before|if|when)\b|n't|不|未|没有|尚未|只有|只能|之前|将来|以后|如果|才|须|需要|冻结|手动|届时|会",
+                    re.IGNORECASE)
+# Collection counts belong between the STATS markers (generated), never in the prose.
+COUNT_CLAIMS = re.compile(r"\b\d[\d,]*\s+(?:files?|images?|songs?|records?|assets?|candidates?|artworks?|covers?|"
+                          r"jackets?|screenshots?|sources?)\b|\d[\d,]*\s*(?:个|张|首|条)\s*(?:文件|图片|曲目|记录|候选|曲绘|"
+                          r"资产|封面|截图|来源)", re.IGNORECASE)
+LINK = re.compile(r"(?<!!)\[(?:[^\[\]]|\[[^\]]*\])*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
+HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
+INLINE_CODE = re.compile(r"`[^`]*`")
+SCRIPT_CALL = re.compile(r"(?<![\w<>/.-])(?:(scripts|tests)/)?([a-z][a-z0-9_]*)\.py\b")
+FLAG = re.compile(r"(?<![\w-])(--[a-z][a-z0-9-]*)")
+
+
+def read(relative: str) -> str:
+    return (ROOT / relative).read_text(encoding="utf-8")
+
+
+def prose_lines(text: str) -> list[str]:
+    """Lines outside fenced code blocks."""
+    lines, fenced = [], False
+    for line in text.splitlines():
+        if line.lstrip().startswith("```"):
+            fenced = not fenced
+            continue
+        if not fenced:
+            lines.append(line)
+    return lines
+
+
+def code_lines(text: str) -> list[str]:
+    """Lines inside fenced code blocks plus every inline code span of the prose."""
+    lines, fenced = [], False
+    for line in text.splitlines():
+        if line.lstrip().startswith("```"):
+            fenced = not fenced
+            continue
+        lines.extend([line] if fenced else [span.strip("`") for span in INLINE_CODE.findall(line)])
+    return lines
+
+
+def headings(text: str) -> list[tuple[int, str]]:
+    return [(len(match.group(1)), match.group(2)) for line in prose_lines(text) if (match := HEADING.match(line))]
+
+
+def slug(title: str) -> str:
+    """GitHub's heading anchor: lower case, punctuation removed (Unicode word characters kept), spaces to hyphens."""
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", title).lower()
+    return re.sub(r"[^\w\- ]", "", text).replace(" ", "-")
+
+
+def anchors(text: str) -> set[str]:
+    seen: dict[str, int] = {}
+    result = set()
+    for _, title in headings(text):
+        base = slug(title)
+        count = seen.get(base, 0)
+        seen[base] = count + 1
+        result.add(base if count == 0 else f"{base}-{count}")
+    return result
+
+
+def sentences(lines: list[str]) -> list[str]:
+    text = "\n".join(INLINE_CODE.sub(" ", line) for line in lines)
+    return [part.strip() for part in re.split(r"(?<=[.!?。；;])\s+|\n", text) if part.strip()]
+
+
+class DocumentPresenceTests(unittest.TestCase):
+    def test_every_document_and_its_translation_exist(self):
+        for relative in (*DOCUMENTS, "NOTICE", ".nojekyll"):
+            with self.subTest(document=relative):
+                self.assertTrue((ROOT / relative).is_file(), f"{relative} is missing")
+
+    def test_nojekyll_is_empty(self):
+        self.assertEqual((ROOT / ".nojekyll").read_bytes(), b"", ".nojekyll must be an empty file")
+
+    def test_documents_end_with_one_newline_and_no_trailing_spaces(self):
+        for relative in (*DOCUMENTS, "NOTICE"):
+            text = read(relative)
+            with self.subTest(document=relative):
+                self.assertTrue(text.endswith("\n") and not text.endswith("\n\n"))
+                self.assertFalse([n for n, line in enumerate(text.splitlines(), 1) if line != line.rstrip()],
+                                 "trailing whitespace")
+
+
+class TranslationParityTests(unittest.TestCase):
+    def test_language_switch_links_at_the_top(self):
+        for english, chinese in PAIRS:
+            en_lines = [line for line in read(english).splitlines() if line.strip()]
+            zh_lines = [line for line in read(chinese).splitlines() if line.strip()]
+            with self.subTest(document=english):
+                self.assertTrue(en_lines[0].startswith("# "))
+                self.assertEqual(en_lines[1], f"**English** · [简体中文]({Path(chinese).name})")
+            with self.subTest(document=chinese):
+                self.assertTrue(zh_lines[0].startswith("# "))
+                self.assertEqual(zh_lines[1], f"[English]({Path(english).name}) · **简体中文**")
+
+    def test_same_sections_in_the_same_order(self):
+        for english, chinese in PAIRS:
+            en, zh = headings(read(english)), headings(read(chinese))
+            with self.subTest(pair=english):
+                self.assertTrue(en, "no headings found")
+                self.assertEqual([level for level, _ in en], [level for level, _ in zh],
+                                 f"{english} and {chinese} must have the same heading structure:\n{en}\n{zh}")
+
+    def test_same_tables_code_blocks_and_markers(self):
+        def shape(text: str) -> tuple:
+            lines = text.splitlines()
+            fences = sum(line.lstrip().startswith("```") for line in lines)
+            table_rows = sum(line.startswith("|") for line in prose_lines(text))
+            return fences, table_rows, text.count(STATS_BEGIN), text.count(STATS_END)
+
+        for english, chinese in PAIRS:
+            with self.subTest(pair=english):
+                self.assertEqual(shape(read(english)), shape(read(chinese)),
+                                 "code blocks, table rows and STATS markers must match between the languages")
+
+    def test_same_commands_in_code_blocks(self):
+        def commands(text: str) -> list[str]:
+            fenced, result = False, []
+            for line in text.splitlines():
+                if line.lstrip().startswith("```"):
+                    fenced = not fenced
+                    continue
+                if fenced and not line.lstrip().startswith("#"):
+                    result.append(line.split("  #", 1)[0].rstrip())
+            return result
+
+        for english, chinese in PAIRS:
+            with self.subTest(pair=english):
+                en, zh = commands(read(english)), commands(read(chinese))
+                if english == "README.md":  # the directory tree's descriptions are translated
+                    en, zh = [line.split("  ")[0] for line in en], [line.split("  ")[0] for line in zh]
+                self.assertEqual(en, zh, "the two languages must document the same commands")
+
+
+class LinkTests(unittest.TestCase):
+    def test_relative_links_and_anchors_resolve(self):
+        for relative in DOCUMENTS:
+            document = ROOT / relative
+            text = read(relative)
+            for line in prose_lines(text):
+                for target in LINK.findall(INLINE_CODE.sub("", line)):
+                    if re.match(r"^[a-z][a-z0-9+.-]*:", target, re.IGNORECASE):
+                        continue
+                    path_part, _, fragment = target.partition("#")
+                    with self.subTest(document=relative, link=target):
+                        resolved = (document.parent / unquote(path_part)).resolve() if path_part else document
+                        self.assertTrue(resolved.is_relative_to(ROOT), "link leaves the repository")
+                        self.assertTrue(resolved.exists(), f"broken link {target}")
+                        if fragment:
+                            self.assertEqual(resolved.suffix, ".md", "anchors are checked in Markdown only")
+                            self.assertIn(unquote(fragment), anchors(resolved.read_text(encoding="utf-8")),
+                                          f"no heading for #{fragment} in {resolved.relative_to(ROOT)}")
+
+    def test_external_links_use_https(self):
+        for relative in DOCUMENTS:
+            for line in prose_lines(read(relative)):
+                for target in LINK.findall(INLINE_CODE.sub("", line)):
+                    with self.subTest(document=relative, link=target):
+                        self.assertFalse(target.lower().startswith("http://"), "use https for external links")
+
+
+class StatisticsMarkerTests(unittest.TestCase):
+    def test_markers_appear_exactly_once_in_order(self):
+        for relative in DOCUMENTS:
+            text = read(relative)
+            lines = [line.strip() for line in text.splitlines()]
+            with self.subTest(document=relative):
+                if relative not in STATS_DOCUMENTS:
+                    self.assertNotIn("STATS:", text)
+                    continue
+                self.assertEqual(lines.count(STATS_BEGIN), 1, "one STATS:BEGIN line")
+                self.assertEqual(lines.count(STATS_END), 1, "one STATS:END line")
+                self.assertEqual(text.count("STATS:"), 2, "no other STATS marker")
+                self.assertLess(lines.index(STATS_BEGIN), lines.index(STATS_END))
+
+    def test_readme_statistics_section_holds_only_a_sentence_and_the_markers(self):
+        for relative, title in STATS_SECTION.items():
+            lines = read(relative).splitlines()
+            start = lines.index(f"## {title}")
+            end = next((n for n in range(start + 1, len(lines)) if lines[n].startswith("## ")), len(lines))
+            section = lines[start + 1:end]
+            with self.subTest(document=relative):
+                self.assertIn(STATS_BEGIN, section)
+                self.assertIn(STATS_END, section)
+                outside = section[:section.index(STATS_BEGIN)] + section[section.index(STATS_END) + 1:]
+                prose = [line for line in outside if line.strip()]
+                self.assertEqual(len(prose), 1, "one sentence explaining where the numbers come from")
+                self.assertIn("data/coverage.json", prose[0])
+                self.assertIsNone(re.search(r"\d", prose[0]), "no hand-written numbers in the statistics section")
+
+    def test_no_collection_counts_outside_the_markers(self):
+        for relative in DOCUMENTS:
+            text = read(relative)
+            if STATS_BEGIN in text:
+                text = text[:text.index(STATS_BEGIN)] + text[text.index(STATS_END):]
+            for line in prose_lines(text):
+                with self.subTest(document=relative, line=line[:60]):
+                    self.assertIsNone(COUNT_CLAIMS.search(INLINE_CODE.sub(" ", line)),
+                                      "collection counts are generated between the STATS markers")
+
+
+class AttributionTests(unittest.TestCase):
+    def test_deemo_is_named_only_to_attribute_a_derivation(self):
+        for relative in DOCUMENTS:
+            for line in prose_lines(read(relative)):
+                if re.search(r"deemo", line, re.IGNORECASE):
+                    with self.subTest(document=relative, line=line[:80]):
+                        self.assertRegex(line, ATTRIBUTION)
+        for paragraph in re.split(r"\n\s*\n", read("NOTICE")):
+            if re.search(r"deemo", paragraph, re.IGNORECASE):
+                with self.subTest(document="NOTICE", paragraph=paragraph[:80]):
+                    self.assertRegex(paragraph, ATTRIBUTION)
+
+    def test_notice_names_the_maintainer_and_the_derivation_chain(self):
+        notice = " ".join(read("NOTICE").split())
+        for required in ("FridrichMethod", "Zhaoyang Li", "https://github.com/FridrichMethod/dynamix",
+                         "https://github.com/FridrichMethod/deemo", REFERENCE_SHA, "https://github.com/mashirozx/deemo",
+                         "Apache License, Version 2.0", "C4Cat Entertainment Limited", "data/catalog.json",
+                         "src/vendor/legacy-ui.js"):
+            with self.subTest(required=required):
+                self.assertIn(required, notice)
+
+    def test_notice_lists_every_file_with_an_adaptation_notice(self):
+        notice = read("NOTICE")
+        adapted = [path for path in self.tracked_text_files() if ADAPTED_NOTICE.search(self.content(path))]
+        self.assertTrue(adapted, "no adaptation notices found; the search itself is broken")
+        for relative in adapted:
+            with self.subTest(file=relative):
+                self.assertRegex(notice, rf"(?<![\w/.-]){re.escape(relative)}(?![\w/-])",
+                                 "list this adapted file in NOTICE")
+
+    def test_files_that_notice_lists_as_adapted_exist(self):
+        paragraph = next(p for p in re.split(r"\n\s*\n", read("NOTICE")) if "Files adapted" in p)
+        listed = re.findall(r"(?<![\w/.-])((?:src|scripts|tests|templates)/[\w./-]+\.\w+|archive\.html|"
+                            r"browserconfig\.xml)", paragraph)
+        self.assertTrue(listed)
+        for relative in listed:
+            with self.subTest(file=relative):
+                self.assertTrue((ROOT / relative).is_file(), f"NOTICE lists {relative}, which does not exist")
+
+    def test_license_index_points_to_the_license_texts(self):
+        for relative in ("licenses/README.md", "licenses/README.zh-CN.md"):
+            text = read(relative)
+            for license_text in sorted((ROOT / "licenses").glob("*.txt")):
+                with self.subTest(document=relative, license=license_text.name):
+                    self.assertIn(f"]({license_text.name})", text)
+
+    @staticmethod
+    def content(path: str) -> str:
+        return (ROOT / path).read_text(encoding="utf-8", errors="replace")
+
+    @staticmethod
+    def tracked_text_files() -> list[str]:
+        try:
+            listing = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=True, timeout=60)
+            files = [name for name in listing.stdout.decode("utf-8").split("\0") if name]
+        except (OSError, subprocess.SubprocessError):
+            files = [path.relative_to(ROOT).as_posix() for path in ROOT.rglob("*") if path.is_file()
+                     and ".git" not in path.parts]
+        skip = ("assets/", "data/", "tests/fixtures/", "docs/implementation/")
+        own = Path(__file__).resolve().relative_to(ROOT).as_posix()
+        return sorted(name for name in files if not name.startswith(skip) and name != own
+                      and name.endswith((".py", ".js", ".css", ".html", ".xml", ".yml")))
+
+
+class ReleaseHoldTests(unittest.TestCase):
+    def test_no_claim_that_anything_is_deployed_or_released(self):
+        for relative in (*DOCUMENTS, "NOTICE"):
+            text = read(relative)
+            with self.subTest(document=relative):
+                self.assertIsNone(FLAT_CLAIMS.search(text), "no deployment or live-site claims")
+            for sentence in sentences(prose_lines(text)):
+                if RELEASE_WORDS.search(sentence):
+                    with self.subTest(document=relative, sentence=sentence[:80]):
+                        self.assertRegex(sentence, GUARDS,
+                                         "deployment and release may only be described as held, future or conditional")
+
+    def test_readme_states_the_release_hold(self):
+        for relative, not_deployed in (("README.md", "the website is not deployed"), ("README.zh-CN.md", "网站尚未部署")):
+            text = read(relative).replace("**", "")
+            for phrase in (not_deployed, "RELEASE_APPROVED_SHA", "(.github/workflows/pages.yml)",
+                           "(.github/workflows/check-sources.yml)"):
+                with self.subTest(document=relative, phrase=phrase):
+                    self.assertTrue(phrase.lower() in text.lower(), f"{relative} must say {phrase!r}")
+
+
+class CommandTests(unittest.TestCase):
+    def test_documented_flags_exist(self):
+        calls: dict[Path, set[str]] = {}
+        for relative in DOCUMENTS:
+            for line in code_lines(read(relative)):
+                line = line.split("  #", 1)[0]
+                matches = list(SCRIPT_CALL.finditer(line))
+                for n, match in enumerate(matches):
+                    directory, name = match.group(1), match.group(2)
+                    if directory is None:
+                        directory = next((d for d, names in KNOWN_SCRIPTS.items() if name in names), None)
+                        if directory is None:
+                            continue  # e.g. a module name, not one of the entry points
+                    with self.subTest(document=relative, script=f"{directory}/{name}.py"):
+                        self.assertIn(name, KNOWN_SCRIPTS[directory], "not a script of the CLI contract")
+                    tail = line[match.end():matches[n + 1].start() if n + 1 < len(matches) else len(line)]
+                    calls.setdefault(ROOT / directory / f"{name}.py", set()).update(FLAG.findall(tail))
+        self.assertTrue(calls, "no documented commands found")
+        for script, flags in sorted(calls.items()):
+            relative = script.relative_to(ROOT).as_posix()
+            with self.subTest(script=relative):
+                if not script.is_file():
+                    self.skipTest(f"{relative} is not in this tree yet")
+                if not flags:
+                    continue
+                result = subprocess.run([sys.executable, "-I", str(script), "--help"], cwd=ROOT, capture_output=True,
+                                        text=True, timeout=120)
+                if result.returncode != 0 and "No module named" in result.stderr:
+                    self.skipTest(f"{relative} --help needs a module that is not installed: {result.stderr[-200:]}")
+                self.assertEqual(result.returncode, 0, result.stderr[-500:])
+                for flag in sorted(flags):
+                    self.assertRegex(result.stdout, rf"(?<![\w-]){re.escape(flag)}(?![\w-])",
+                                     f"{relative} has no {flag} option")
+
+
+if __name__ == "__main__":
+    unittest.main()
