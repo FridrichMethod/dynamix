@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "source_id": "archives:hkstp",
+  "started_at": "2026-10-10T11:00:00Z",
+  "finished_at": "2026-10-10T11:30:00Z",
+  "scope": {
+    "lists": [
+      "seed-urls"
+    ],
+    "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork."
+  },
+  "continuation": {
+    "seed-urls": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "archives:hkstp:press-kit-2014-screenshot.png",
+      "source_id": "archives:hkstp",
+      "upstream_key": "press-kit-2014-screenshot.png",
+      "page_url": "https://www.hkstp.org/fixture/press-kit",
+      "file_url": "https://www.hkstp.org/fixture/press-kit-2014-screenshot.png",
+      "title": "Synthetic gameplay screenshot (press kit)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.hkstp.org/fixture/press-kit"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": "image/png",
+        "bytes": 250,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:hkstp:943a8a521deaa75e"
+    },
+    {
+      "id": "archives:hkstp:press-kit-2014.pdf",
+      "source_id": "archives:hkstp",
+      "upstream_key": "press-kit-2014.pdf",
+      "page_url": "https://www.hkstp.org/fixture/press-kit",
+      "file_url": "https://www.hkstp.org/fixture/press-kit-2014.pdf",
+      "title": "Synthetic press kit (reference)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.hkstp.org/fixture/press-kit"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": "application/pdf",
+        "bytes": 607,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:hkstp:2565964979c69a55"
+    }
+  ],
+  "errors": []
+}

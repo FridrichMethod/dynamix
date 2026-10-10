@@ -1,0 +1,596 @@
+{
+  "schema_version": 1,
+  "family": "wikis",
+  "fetched_at": "2026-10-10T12:00:00Z",
+  "sources": [
+    {
+      "id": "wikis:fandom",
+      "name": "Dynamix Wiki (Fandom)",
+      "family": "wikis",
+      "url": "https://dynamix.fandom.com/wiki/Dynamix_Wiki",
+      "platform": "mediawiki",
+      "status": "partially_available",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
+      "api_url": "https://dynamix.fandom.com/api.php",
+      "discovery_complete": false,
+      "candidate_count": 3,
+      "asset_count": 2,
+      "failure_count": 1,
+      "evidence_level": "live_api"
+    },
+    {
+      "id": "wikis:miraheze",
+      "name": "Dynamix Wiki (Miraheze)",
+      "family": "wikis",
+      "url": "https://dynamix.miraheze.org/wiki/Main_Page",
+      "platform": "mediawiki",
+      "status": "available",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
+      "api_url": "https://dynamix.miraheze.org/w/api.php",
+      "discovery_complete": true,
+      "candidate_count": 8,
+      "asset_count": 5,
+      "failure_count": 0,
+      "evidence_level": "live_api"
+    }
+  ],
+  "assets": [
+    {
+      "id": "wikis:fandom:7e4702912e3a0281",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Moonlight_of_Sand_Castle.png",
+      "title": "Moonlight of Sand Castle",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://dynamix.fandom.com/wiki/File:Moonlight_of_Sand_Castle.png",
+      "download_url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Moonlight_of_Sand_Castle.png/revision/latest?cb=20250114000000",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Moonlight_of_Sand_Castle.png/revision/latest?cb=20250114000000",
+      "path": "assets/public/wikis/fandom/Moonlight-of-Sand-Castle--7e4702912e3a.webp",
+      "original_filename": "Moonlight of Sand Castle.png",
+      "bytes": 80,
+      "sha256": "7e4702912e3a028115fb00bb024ae33088a0112d91da1ca92691e3904c98eea0",
+      "sha1": "335ea189db12294da7ece54a2b2500131686f7bd",
+      "format": "WEBP",
+      "mime": "image/webp",
+      "width": 256,
+      "height": 256,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [
+        "Moonlight of Sand Castle"
+      ],
+      "song_ids": [
+        "song:moonlight-of-sand-castle"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        "https://dynamix.fandom.com/wiki/Moonlight_of_Sand_Castle"
+      ],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "CDN-transformed WEBP delivered for a .png URL; the stored original was not obtained."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.fandom.com/wiki/File:Moonlight_of_Sand_Castle.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Moonlight_of_Sand_Castle.png/revision/latest?cb=20250114000000",
+        "mime": "image/png",
+        "bytes": 2128,
+        "width": 256,
+        "height": 256,
+        "sha1": "68014378e12af6f3c0024c1672b41c868d0bf1e4",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "download_observed": {
+        "content_type": "image/webp",
+        "sniffed_format": "WEBP",
+        "bytes": 80,
+        "width": 256,
+        "height": 256,
+        "sha1": "335ea189db12294da7ece54a2b2500131686f7bd",
+        "sha256": "7e4702912e3a028115fb00bb024ae33088a0112d91da1ca92691e3904c98eea0"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": false
+      },
+      "transformed": true
+    },
+    {
+      "id": "wikis:fandom:d3ae3e8c82b4367e",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Cosmic_Pulse.png",
+      "title": "Cosmic Pulse",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://dynamix.fandom.com/wiki/File:Cosmic_Pulse.png",
+      "download_url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Cosmic_Pulse.png/revision/latest?cb=20250114000000&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Cosmic_Pulse.png/revision/latest?cb=20250114000000&format=original",
+      "path": "assets/public/wikis/fandom/Cosmic-Pulse--d3ae3e8c82b4.png",
+      "original_filename": "Cosmic Pulse.png",
+      "bytes": 943,
+      "sha256": "d3ae3e8c82b4367ece8ba99df004cab0aabf8773d2eb8d6f9f9146d0b209ed4d",
+      "sha1": "155747e7f866176e7b567eaf88e3c9983fe18f9a",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 600,
+      "height": 600,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [
+        "ariiol"
+      ],
+      "composers": [
+        "Yunosuke"
+      ],
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "song_ids": [
+        "song:cosmic-pulse"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|image",
+          "quote": "image = Cosmic_Pulse.png"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ariiol",
+        "url": "https://dynamix.fandom.com/wiki/File:Cosmic_Pulse.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Cosmic_Pulse.png/revision/latest?cb=20250114000000",
+        "mime": "image/png",
+        "bytes": 1080,
+        "width": 600,
+        "height": 600,
+        "sha1": "286d2f023dc45e14248aaf16401cf216f6514949",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 943,
+        "width": 600,
+        "height": 600,
+        "sha1": "155747e7f866176e7b567eaf88e3c9983fe18f9a",
+        "sha256": "d3ae3e8c82b4367ece8ba99df004cab0aabf8773d2eb8d6f9f9146d0b209ed4d"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "variant_group": "song:cosmic-pulse/cover",
+      "variant_role": "wiki-copy",
+      "notes": "Fandom API size/SHA-1 differ from the format=original bytes, which equal the Miraheze file; kept as source_reported evidence, not a second version."
+    },
+    {
+      "id": "wikis:miraheze:8a6709242ecb038b",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Dynamix_background_03.png",
+      "title": "Dynamix background 03",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png",
+      "download_url": "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+      "resolved_url": "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+      "path": "assets/public/wikis/miraheze/Dynamix-background-03--8a6709242ecb.png",
+      "original_filename": "Dynamix background 03.png",
+      "bytes": 358,
+      "sha256": "8a6709242ecb038bbaf9c0ca90afd79d6afe1214c492ab0cf73b46d8acf419eb",
+      "sha1": "8d1a1b89b54ccd43664672d9bace250e1c4d7387",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 480,
+      "height": 270,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+        "mime": "image/png",
+        "bytes": 358,
+        "width": 480,
+        "height": 270,
+        "sha1": "8d1a1b89b54ccd43664672d9bace250e1c4d7387",
+        "timestamp": "2024-06-01T00:00:00Z",
+        "revision": 1000
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 358,
+        "width": 480,
+        "height": 270,
+        "sha1": "8d1a1b89b54ccd43664672d9bace250e1c4d7387",
+        "sha256": "8a6709242ecb038bbaf9c0ca90afd79d6afe1214c492ab0cf73b46d8acf419eb"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "superseded",
+      "superseded_by": "wikis:miraheze:aabe65e351474fc7",
+      "notes": "Earlier upload of File:Dynamix_background_03.png, replaced upstream by a re-upload under the same title; archived bytes kept.",
+      "upstream_revision": 1000
+    },
+    {
+      "id": "wikis:miraheze:aabe65e351474fc7",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Dynamix_background_03.png",
+      "title": "Dynamix background 03",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png",
+      "download_url": "https://static.miraheze.org/dynamixwiki/a/a1/Dynamix_background_03.png",
+      "resolved_url": "https://static.miraheze.org/dynamixwiki/a/a1/Dynamix_background_03.png",
+      "path": "assets/public/wikis/miraheze/Dynamix-background-03--aabe65e35147.png",
+      "original_filename": "Dynamix background 03.png",
+      "bytes": 525,
+      "sha256": "aabe65e351474fc7a9f8f565fdf4f8f46dc8329d46a12c7ceebf1e3c4b658295",
+      "sha1": "264ae36942e7d1553660f525f2f9a7978e8856e9",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 640,
+      "height": 360,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/Dynamix_background_03.png",
+        "mime": "image/png",
+        "bytes": 525,
+        "width": 640,
+        "height": 360,
+        "sha1": "264ae36942e7d1553660f525f2f9a7978e8856e9",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 525,
+        "width": 640,
+        "height": 360,
+        "sha1": "264ae36942e7d1553660f525f2f9a7978e8856e9",
+        "sha256": "aabe65e351474fc7a9f8f565fdf4f8f46dc8329d46a12c7ceebf1e3c4b658295"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "upstream_revision": 1001
+    },
+    {
+      "id": "wikis:miraheze:c431dd78cb4efeb3",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Cosmic_Pulse_(crop).png",
+      "title": "Cosmic Pulse (crop)",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png",
+      "download_url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse_(crop).png",
+      "resolved_url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse_(crop).png",
+      "path": "assets/public/wikis/miraheze/Cosmic-Pulse-crop--c431dd78cb4e.png",
+      "original_filename": "Cosmic Pulse (crop).png",
+      "bytes": 353,
+      "sha256": "c431dd78cb4efeb3bdd9b9b1144f675264d5a737bc29ba0e7c9a99d792611346",
+      "sha1": "0201c6228135375e2fd95df76f0c6ad128c74464",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 300,
+      "height": 300,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [
+        "ariiol"
+      ],
+      "composers": [
+        "Yunosuke"
+      ],
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "song_ids": [
+        "song:cosmic-pulse"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png",
+          "quote": "file name and crop of File:Cosmic_Pulse.png; not used by Template:Song (synthetic)"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ariiol",
+        "url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse_(crop).png",
+        "mime": "image/png",
+        "bytes": 353,
+        "width": 300,
+        "height": 300,
+        "sha1": "0201c6228135375e2fd95df76f0c6ad128c74464",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 353,
+        "width": 300,
+        "height": 300,
+        "sha1": "0201c6228135375e2fd95df76f0c6ad128c74464",
+        "sha256": "c431dd78cb4efeb3bdd9b9b1144f675264d5a737bc29ba0e7c9a99d792611346"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "variant_group": "song:cosmic-pulse/cover",
+      "variant_role": "crop"
+    },
+    {
+      "id": "wikis:miraheze:d3ae3e8c82b4367e",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Cosmic_Pulse.png",
+      "title": "Cosmic Pulse",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse.png",
+      "download_url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse.png",
+      "resolved_url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse.png",
+      "path": "assets/public/wikis/miraheze/Cosmic-Pulse--d3ae3e8c82b4.png",
+      "original_filename": "Cosmic Pulse.png",
+      "bytes": 943,
+      "sha256": "d3ae3e8c82b4367ece8ba99df004cab0aabf8773d2eb8d6f9f9146d0b209ed4d",
+      "sha1": "155747e7f866176e7b567eaf88e3c9983fe18f9a",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 600,
+      "height": 600,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [
+        "ariiol"
+      ],
+      "composers": [
+        "Yunosuke"
+      ],
+      "song_titles": [
+        "Cosmic Pulse"
+      ],
+      "song_ids": [
+        "song:cosmic-pulse"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "field": "Template:Song|image",
+          "quote": "image = Cosmic_Pulse.png"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ariiol",
+        "url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse.png",
+        "mime": "image/png",
+        "bytes": 943,
+        "width": 600,
+        "height": 600,
+        "sha1": "155747e7f866176e7b567eaf88e3c9983fe18f9a",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 943,
+        "width": 600,
+        "height": 600,
+        "sha1": "155747e7f866176e7b567eaf88e3c9983fe18f9a",
+        "sha256": "d3ae3e8c82b4367ece8ba99df004cab0aabf8773d2eb8d6f9f9146d0b209ed4d"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "variant_group": "song:cosmic-pulse/cover",
+      "variant_role": "wiki-copy"
+    },
+    {
+      "id": "wikis:miraheze:e7d044f0bc452894",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:交差して歪む過去と未来.jpg",
+      "title": "交差して歪む過去と未来",
+      "kind": "song_art",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:交差して歪む過去と未来.jpg",
+      "download_url": "https://static.miraheze.org/dynamixwiki/a/a1/交差して歪む過去と未来.jpg",
+      "resolved_url": "https://static.miraheze.org/dynamixwiki/a/a1/交差して歪む過去と未来.jpg",
+      "path": "assets/public/wikis/miraheze/file--e7d044f0bc45.jpg",
+      "original_filename": "交差して歪む過去と未来.jpg",
+      "bytes": 3395,
+      "sha256": "e7d044f0bc452894ed0c8fc9c83290309a4a002aa003cd696247cc0a191f0c68",
+      "sha1": "e02570b86336577ba18e514063a95f40e86a2135",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 320,
+      "height": 180,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [
+        "交差して歪む過去と未来"
+      ],
+      "song_ids": [
+        "song:file-568a196c"
+      ],
+      "collections": [],
+      "mapping_status": "confirmed_wiki",
+      "mapping_evidence": [
+        {
+          "url": "https://dynamix.miraheze.org/wiki/交差して歪む過去と未来",
+          "field": "Template:Song|image",
+          "quote": "image = 交差して歪む過去と未来.jpg"
+        }
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:交差して歪む過去と未来.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/交差して歪む過去と未来.jpg",
+        "mime": "image/jpeg",
+        "bytes": 3395,
+        "width": 320,
+        "height": 180,
+        "sha1": "e02570b86336577ba18e514063a95f40e86a2135",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 3395,
+        "width": 320,
+        "height": 180,
+        "sha1": "e02570b86336577ba18e514063a95f40e86a2135",
+        "sha256": "e7d044f0bc452894ed0c8fc9c83290309a4a002aa003cd696247cc0a191f0c68"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      }
+    }
+  ],
+  "failures": [
+    {
+      "id": "wikis:fandom:File:Broken_Upload.png:download",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Broken_Upload.png",
+      "phase": "download",
+      "url": "https://static.wikia.nocookie.net/dynamix/images/0/00/Broken_Upload.png/revision/latest?format=original",
+      "attempted_at": "2026-10-10T12:00:00Z",
+      "attempts": 3,
+      "error_class": "http_5xx",
+      "http_status": 503,
+      "retriable": true,
+      "manual": false,
+      "message": "HTTP 503"
+    }
+  ]
+}
