@@ -64,6 +64,10 @@ MAX_REPORTED = 20
 # copy. Every other source ranks after them and, after the rendition, by ID.
 PREFERRED_SOURCES = ("wikis:miraheze", "wikis:fandom")
 VARIANT_PRIORITY = ("site_original", "preview", "unknown")  # quality.source_variant, best first
+# Families whose titles come from the post or page text a record cites, never from its file name (09 "Titles").
+TEXT_TITLED_FAMILIES = ("artists", "official", "archives")
+# Quotation marks around a caption quoted in evidence ('A_O', "A_O", “A_O”, ‘A_O’, 「A_O」).
+QUOTE_PAIRS = (("'", "'"), ('"', '"'), ("“", "”"), ("‘", "’"), ("「", "」"))
 
 
 class CatalogError(ValueError):
@@ -152,6 +156,62 @@ def source_records(manifests: Mapping[str, Mapping[str, Any]]) -> tuple[list[dic
         if record["source_id"] not in known:
             raise CatalogError(f"asset {record['id']!r}: source {record['source_id']!r} is not declared")
     return sources, records, failures
+
+
+# --- Titles -----------------------------------------------------------------------------------------------------------
+
+def _evidence_texts(record: Mapping[str, Any]) -> list[str]:
+    """Every string the record's mapping evidence, credit evidence and notes carry."""
+    texts: list[str] = []
+    for item in [*(record.get("mapping_evidence") or []), *(record.get("credit_evidence") or [])]:
+        values = item.values() if isinstance(item, dict) else [item]
+        texts.extend(value for value in values if isinstance(value, str))
+    if isinstance(record.get("notes"), str):
+        texts.append(record["notes"])
+    return texts
+
+
+def _quoted_in_evidence(record: Mapping[str, Any], text: str) -> bool:
+    """The record's evidence quotes ``text`` exactly between quotation marks (a recorded wiki caption)."""
+    quoted = [f"{left}{text}{right}" for left, right in QUOTE_PAIRS]
+    return any(form in value for value in _evidence_texts(record) for form in quoted)
+
+
+def title_problem(record: Mapping[str, Any]) -> str | None:
+    """Why the record's title is its bare upstream file name, else None (09 "Catalog presentation rules", Titles: a
+    human-readable name; the file name stays in ``original_filename``). A regression check run by --verify:
+
+    * any family: the title is ``original_filename`` (extension included);
+    * artists, official, archives: the title is the file stem (their titles come from the cited post or page text);
+    * wikis: the title is a file stem containing ``_``, which the rule's fallback writes as spaces, unless the
+      record's evidence quotes exactly that text (a wiki caption such as ``'A_O'``).
+
+    Otherwise a title equal to one of the record's exact ``song_titles`` passes, and so does a wiki title equal to a
+    stem without ``_``: the rule's own fallback for ``File:SummerIslandBG.png`` is ``SummerIslandBG``."""
+    title, filename = record["title"].strip(), record["original_filename"]
+    stem = paths.filename_stem(filename)
+    if title == filename:
+        return f"title {title!r} is the upstream file name (original_filename)"
+    if title != stem or title in record.get("song_titles", ()):
+        return None
+    family = record.get("family") or schema.source_family(record["source_id"])
+    if family in TEXT_TITLED_FAMILIES:
+        return (f"title {title!r} is the stem of original_filename {filename!r}; {family} titles come from the cited "
+                "post or page text")
+    if "_" in stem and not _quoted_in_evidence(record, title):
+        return (f"title {title!r} is the File: name with underscores (original_filename {filename!r}); use the "
+                "mapped song's title, the wiki caption (quoted in evidence), or the File: title with spaces")
+    return None
+
+
+def check_titles(records: Iterable[Mapping[str, Any]]) -> None:
+    """Fail when any record is titled with its bare upstream file name (see title_problem)."""
+    found = [f"{record['id']}: {problem}" for record in records if (problem := title_problem(record))]
+    if found:
+        more = f"\n... and {len(found) - MAX_REPORTED} more" if len(found) > MAX_REPORTED else ""
+        raise CatalogError(f"{len(found)} record(s) are titled with their bare upstream file name; a title is a "
+                           "human-readable name and the file name stays in original_filename (09-frozen-contracts.md, "
+                           "Catalog presentation rules, Titles):\n" + "\n".join(found[:MAX_REPORTED]) + more)
 
 
 # --- Archived files ---------------------------------------------------------------------------------------------------
@@ -338,10 +398,13 @@ def summarize(sources: list[dict], assets: list[dict], failures: list[dict]) -> 
 def combine(root: Path, *, verify: bool = False, manifests: Mapping[str, Mapping[str, Any]] | None = None,
             workers: int | None = None) -> dict:
     """The catalog without previews (``thumb`` null): validated inputs, checked files, SHA-256 dedup, provenance,
-    variants, deterministic order and summary. ``verify`` re-hashes/decodes every file and rejects orphans."""
+    variants, deterministic order and summary. ``verify`` also rejects records titled with their file name,
+    re-hashes/decodes every file and rejects orphans."""
     root = Path(root)
     manifests = load_manifests(root) if manifests is None else manifests
     sources, records, failures = source_records(manifests)
+    if verify:
+        check_titles(records)
     check_files(root, records, verify, workers)
     if verify:
         orphans = orphan_files(root, {record["path"] for record in records})
