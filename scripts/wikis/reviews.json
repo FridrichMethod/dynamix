@@ -368,10 +368,10 @@
         "13d094572d84f502bca8cf88c1ff05b0414603e9",
         "36f160f0a1e32f62170e91ee66f08032c44ad086"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: new-song teaser: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon",
+      "role": "reference",
+      "evidence": "visual_inspection: new-song chart list: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg)",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game teaser design (level diamonds, Dynamix icon) for the original-game song Snowy Light; Fandom upload 2019-03-12 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "game_evidence": "visual_inspection: original-game chart-list design (level diamonds, Dynamix icon) for the original-game song Snowy Light; Fandom upload 2019-03-12 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Snowy Light"
       ]
@@ -2515,9 +2515,10 @@
         "c9a8db60ce9d198ce1eca3d42e7c8c43773e6d1e",
         "fa1a6a263e23a9b5e59d02d642a7ff4bb9b3f70d"
       ],
-      "role": null,
-      "evidence": "visual_inspection: 136px framed chibi character icon",
-      "pending": "the character is not identified with certainty"
+      "role": "character",
+      "evidence": "visual_inspection: 136px framed icon of the character Aki: the same character and frame as File:Aki-Still.png and File:Aki.jpg (dHash distance 15 to Aki.jpg, confirmed side by side)",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: a character of the original game's Characters/Store pages; Fandom upload 2017-01-11 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:IMG 20190708 173023.jpg",
@@ -3777,10 +3778,10 @@
       "sha1": [
         "e7dcec1f771ce4c8eac5ccd6b4b4fd49a22ae404"
       ],
-      "role": "gameplay_screenshot",
-      "evidence": "visual_inspection: screen capture of a pink background with mice; file page text: \"Screenshot i took for 'Mouse runs for cheese', as the background art hasn't been uploaded yet.\"",
+      "role": "song_art",
+      "evidence": "visual_inspection: pink background with mice, byte-identical (same SHA-256) to File:MouseRunsForCheeseDynamix.png, the Template:Song cover of Mouse Runs For Cheese(Short Edit); file page text: \"Screenshot i took for 'Mouse runs for cheese', as the background art hasn't been uploaded yet.\"",
       "game": "dynamix",
-      "game_evidence": "file_page: the uploader names the original-game song Mouse Runs For Cheese; Fandom upload 2017-06-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "game_evidence": "file_page: the uploader names the original-game song Mouse Runs For Cheese; identical bytes to that song's cover; Fandom upload 2017-06-02 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Mouse Runs For Cheese(Short Edit)"
       ]
@@ -4388,8 +4389,8 @@
         "4b5f3e1daf6644478634bc36cbd553b057bfba7e",
         "a737efca78d2968826c4c3833f3de464d348027d"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: new-song teaser: 'αterlβus / Aoi', 'COMING SOON', level diamonds; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\"",
+      "role": "reference",
+      "evidence": "visual_inspection: new-song chart list 'αterlβus / Aoi', 'COMING SOON', level diamonds; byte-identical to File:Αterlβus Chart List.jpg, which the αterlβus page captions as its chart list; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\"",
       "game": "dynamix",
       "game_evidence": "file_page: \"This is capture from Dynamix Facebook\"; original-game teaser design (level diamonds, Dynamix icon); Fandom upload 2017-02-24 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
