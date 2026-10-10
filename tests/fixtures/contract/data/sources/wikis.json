@@ -31,7 +31,7 @@
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "discovery_complete": true,
       "candidate_count": 8,
-      "asset_count": 4,
+      "asset_count": 5,
       "failure_count": 0,
       "evidence_level": "live_api"
     }
@@ -196,6 +196,76 @@
       "notes": "Fandom API size/SHA-1 differ from the format=original bytes, which equal the Miraheze file; kept as source_reported evidence, not a second version."
     },
     {
+      "id": "wikis:miraheze:8a6709242ecb038b",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Dynamix_background_03.png",
+      "title": "Dynamix background 03",
+      "kind": "background",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png",
+      "download_url": "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+      "resolved_url": "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+      "path": "assets/public/wikis/miraheze/Dynamix-background-03--8a6709242ecb.png",
+      "original_filename": "Dynamix background 03.png",
+      "bytes": 358,
+      "sha256": "8a6709242ecb038bbaf9c0ca90afd79d6afe1214c492ab0cf73b46d8acf419eb",
+      "sha1": "8d1a1b89b54ccd43664672d9bace250e1c4d7387",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 480,
+      "height": 270,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+        "mime": "image/png",
+        "bytes": 358,
+        "width": 480,
+        "height": 270,
+        "sha1": "8d1a1b89b54ccd43664672d9bace250e1c4d7387",
+        "timestamp": "2024-06-01T00:00:00Z",
+        "revision": 1000
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 358,
+        "width": 480,
+        "height": 270,
+        "sha1": "8d1a1b89b54ccd43664672d9bace250e1c4d7387",
+        "sha256": "8a6709242ecb038bbaf9c0ca90afd79d6afe1214c492ab0cf73b46d8acf419eb"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "superseded",
+      "superseded_by": "wikis:miraheze:aabe65e351474fc7",
+      "notes": "Earlier upload of File:Dynamix_background_03.png, replaced upstream by a re-upload under the same title; archived bytes kept.",
+      "upstream_revision": 1000
+    },
+    {
       "id": "wikis:miraheze:aabe65e351474fc7",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:Dynamix_background_03.png",
@@ -259,7 +329,9 @@
         "bytes_match": true,
         "dimensions_match": true,
         "format_match": true
-      }
+      },
+      "upstream_status": "current",
+      "upstream_revision": 1001
     },
     {
       "id": "wikis:miraheze:c431dd78cb4efeb3",
@@ -296,12 +368,11 @@
       "collections": [
         "Event"
       ],
-      "mapping_status": "confirmed_wiki",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
-          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
-          "field": "Template:Song|image",
-          "quote": "image = Cosmic_Pulse.png"
+          "url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png",
+          "quote": "file name and crop of File:Cosmic_Pulse.png; not used by Template:Song (synthetic)"
         }
       ],
       "quality": {
@@ -455,7 +526,7 @@
         "交差して歪む過去と未来"
       ],
       "song_ids": [
-        "song:file"
+        "song:file-568a196c"
       ],
       "collections": [],
       "mapping_status": "confirmed_wiki",

@@ -13,13 +13,90 @@
       "checked_at": "2026-10-10T12:00:00Z",
       "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
       "discovery_complete": true,
-      "candidate_count": 2,
-      "asset_count": 1,
+      "candidate_count": 3,
+      "asset_count": 2,
       "failure_count": 0,
       "evidence_level": "page_read"
     }
   ],
   "assets": [
+    {
+      "id": "artists:x:ariiol_:5f23e4ed066d09db",
+      "source_id": "artists:x:ariiol_",
+      "candidate_id": "artists:x:ariiol_:1000000000000000003:1",
+      "title": "Fixture character idle animation",
+      "kind": "character",
+      "game": "dynamix",
+      "page_url": "https://x.com/ariiol_/status/1000000000000000003",
+      "download_url": "https://pbs.twimg.com/media/FIXTUREidle.gif",
+      "resolved_url": "https://pbs.twimg.com/media/FIXTUREidle.gif",
+      "path": "assets/public/artists/x-ariiol_/FIXTUREidle--5f23e4ed066d.gif",
+      "original_filename": "FIXTUREidle.gif",
+      "bytes": 1380,
+      "sha256": "5f23e4ed066d09db93853cc05554d606b5f569e0b9507f88d92da9c24e9b8b38",
+      "sha1": "842d2896eca4abc08a938afb175085e84728cc72",
+      "format": "GIF",
+      "mime": "image/gif",
+      "width": 64,
+      "height": 64,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [
+        "ariiol"
+      ],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "artist_post",
+        "master_status": "unverified",
+        "notes": "Animated GIF as posted; first frame is the preview."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": "ariiol",
+        "url": "https://x.com/ariiol_/status/1000000000000000003",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FIXTUREidle.gif",
+        "mime": "image/gif",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/gif",
+        "sniffed_format": "GIF",
+        "bytes": 1380,
+        "width": 64,
+        "height": 64,
+        "sha1": "842d2896eca4abc08a938afb175085e84728cc72",
+        "sha256": "5f23e4ed066d09db93853cc05554d606b5f569e0b9507f88d92da9c24e9b8b38"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "credit_evidence": [
+        {
+          "role": "illustrator",
+          "name": "ariiol",
+          "url": "https://x.com/ariiol_/status/1000000000000000003",
+          "field": "post author",
+          "quote": null
+        }
+      ]
+    },
     {
       "id": "artists:x:ariiol_:77df023568b32c0a",
       "source_id": "artists:x:ariiol_",

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "source_id": "official:facebook",
+  "started_at": "2026-10-10T11:00:00Z",
+  "finished_at": "2026-10-10T11:30:00Z",
+  "scope": {
+    "lists": [
+      "seed-posts",
+      "page-feed"
+    ],
+    "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork."
+  },
+  "continuation": {
+    "page-feed": null,
+    "seed-posts": null
+  },
+  "discovery_complete": false,
+  "candidates": [
+    {
+      "id": "official:facebook:1000000000000001:1",
+      "source_id": "official:facebook",
+      "upstream_key": "1000000000000001:1",
+      "page_url": "https://www.facebook.com/dynamix.fixture/posts/1000000000000001",
+      "file_url": "https://www.facebook.com/photo/?fbid=1000000000000001",
+      "title": "Synthetic official announcement image",
+      "role": "promotional",
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "challenge: HTTP 403 bot/login interstitial; manual access required"
+    }
+  ],
+  "errors": [
+    {
+      "phase": "discover",
+      "url": "https://www.facebook.com/dynamix.fixture",
+      "message": "page feed not enumerated: HTTP 403 challenge (login/bot interstitial)"
+    }
+  ]
+}

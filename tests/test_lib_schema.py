@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from lib import manifest, schema  # noqa: E402
+from lib import checks, manifest, schema  # noqa: E402
 
 FIXTURE = ROOT / "tests/fixtures/contract"
 
@@ -102,8 +102,16 @@ class EnumerationTests(unittest.TestCase):
                                                    "conflict"))
         for source_id in schema.REGISTERED_SOURCE_IDS + ("artists:x:ariiol_", "artists:artstation:sandgodoven"):
             self.assertRegex(source_id, schema.SOURCE_ID_RE)
-        for bad in ("legacy:x", "wikis:Mira", "wikis:a_b", "artists:x", "artists:x:-bad", "wikis:x:y"):
+        for bad in ("legacy:x", "wikis:Mira", "wikis:a_b", "artists:x", "artists:x:-bad", "wikis:x:y",
+                    "artists:x-foo:bar"):  # a hyphenated platform could not be split back out of its source slug
             self.assertNotRegex(bad, schema.SOURCE_ID_RE)
+
+    def test_source_slugs_must_be_unique(self):
+        schema.check_source_slugs([*schema.REGISTERED_SOURCE_IDS, "artists:x:ariiol_"])
+        for ids in (["official:x", "archives:x"], ["artists:x:a--b", "artists:x:a-b"]):
+            with self.subTest(ids=ids), self.assertRaises(ValueError) as caught:
+                schema.check_source_slugs(ids)
+            self.assertIn("share the source slug", str(caught.exception))
 
     def test_trailing_newlines_are_rejected(self):
         manifests, _, _ = load_fixture()
@@ -153,6 +161,52 @@ class HelperTests(unittest.TestCase):
             self.assertNotIn(secret, redacted)
         self.assertTrue(schema.contains_credentials(text))
         self.assertFalse(schema.contains_credentials("basic illustration of the bearer of news"))
+
+    def test_redaction_of_pairs_outside_absolute_urls(self):
+        """urllib3 messages carry the path and query without a scheme (``Max retries exceeded with url: /x?...``)."""
+        text = ("HTTPConnectionPool(host='127.0.0.1', port=9): Max retries exceeded with url: "
+                "/x.png?X-Amz-Signature=deadbeefsecret&token=topsecret&format=original (Caused by ...)")
+        redacted = schema.redact_text(text)
+        for secret in ("deadbeefsecret", "topsecret"):
+            self.assertNotIn(secret, redacted)
+        self.assertIn("format=original", redacted)
+        self.assertTrue(schema.contains_credentials(text))
+        self.assertEqual(schema.redact_text("?access_token=abc"), "?access_token=REDACTED")
+        self.assertEqual(schema.redact_text(redacted), redacted)  # idempotent
+        self.assertFalse(schema.contains_credentials("cb=20250114000000&format=original; token="))
+
+    def test_stored_urls_keep_generic_parameters(self):
+        """Stored provenance URLs only lose real credential parameters; logs/messages stay strict."""
+        wayback = "https://web.archive.org/web/2014/http://www.example.com/img.php?key=12&sid=3&code=x"
+        self.assertIsNone(checks.http_url(wayback))
+        self.assertEqual(schema.redact_url(wayback, strict=False), wayback)
+        self.assertNotIn("key=12", schema.redact_url(wayback))
+        self.assertIn("key=REDACTED", schema.redact_text(f"HTTP 404 for {wayback}"))
+        self.assertIsNotNone(checks.http_url("https://cdn.example.com/a.png?X-Amz-Signature=abc"))
+        self.assertIsNotNone(checks.http_url("https://cdn.example.com/a.png?token=abc"))
+        record = schema.failure_record(source_id="archives:wayback", candidate_id="archives:wayback:img-12",
+                                       phase="download", url=wayback, attempted_at="2026-10-10T12:00:00Z",
+                                       attempts=1, error_class="http_4xx", http_status=404, retriable=False,
+                                       manual=False, message=f"HTTP 404 for {wayback}")
+        self.assertEqual(record["url"], wayback)
+        self.assertNotIn("key=12", record["message"])
+
+    def test_url_syntax_rules(self):
+        """A backslash ends the authority for urllib3 but not for urlsplit, so it can smuggle a host past a suffix
+        check; all ASCII characters RFC 3986 forbids are refused, non-ASCII (IRI) characters are allowed."""
+        for bad in ("http://evil.example\\.miraheze.org/x", "http://evil.example\\@a.miraheze.org/x",
+                    "https://a.example/x y", "https://a.example/x|y", "https://a.example/{x}", "https://a.example/x<",
+                    "https://a.example/\x01", "http://evil%2eexample.miraheze.org/", "http://a.example:99999/",
+                    "http://[::1/x", "ftp://a.example/x", "https://a.example/x\t", "//a.example/x"):
+            with self.subTest(url=bad):
+                self.assertIsNotNone(checks.url_problem(bad))
+                self.assertIsNotNone(checks.http_url(bad))
+        for good in ("https://dynamix.miraheze.org/wiki/交差して歪む過去と未来",
+                     "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+                     "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png", "http://[2001:db8::1]:8080/x",
+                     "https://Dynamix.Miraheze.org./w/api.php?action=query&list=allimages"):
+            with self.subTest(url=good):
+                self.assertIsNone(checks.url_problem(good))
 
     def test_canonical_orders_keys_without_mutation(self):
         manifests, _, _ = load_fixture()
@@ -240,7 +294,7 @@ class RecordValidationTests(unittest.TestCase):
             (crop, lambda r: r["source_reported"].update(sha1="b" * 40), "comparisons: must be"),
             (crop, lambda r: r.update(mapping_evidence=[]), "mapping_evidence: must not be empty"),
             (crop, lambda r: r.update(mapping_status="unmapped"), "song_ids: must be empty"),
-            (crop, lambda r: r.update(upstream_status="superseded"), "superseded_by"),
+            (crop, lambda r: r.update(superseded_by="wikis:miraheze:" + "1" * 16), "superseded_by: is only allowed"),
             (crop, lambda r: r.update(superseded_by=r["id"], upstream_status="superseded"), "must name another"),
             (crop, lambda r: r.pop("variant_group"), "variant_role: requires variant_group"),
             (crop, lambda r: r.update(game_associations=["arcaea"]), "game_associations: must include"),
@@ -327,12 +381,20 @@ class RecordValidationTests(unittest.TestCase):
             (lambda m: m.update(schema_version=2), "schema_version"),
             (lambda m: m["assets"][0].update(upstream_status="superseded", superseded_by="wikis:fandom:" + "e" * 16),
              "superseded_by: names no asset"),
+            (lambda m: m["assets"][0].update(upstream_status="superseded", superseded_by=m["assets"][1]["id"])
+             or m["assets"][1].update(upstream_status="superseded", superseded_by=m["assets"][0]["id"]),
+             "chain forms a cycle"),
         ]
         for mutate, fragment in cases:
             with self.subTest(fragment=fragment):
                 record = copy.deepcopy(wikis)
                 mutate(record)
                 self.assertInvalid(schema.validate_manifest, record, fragment)
+        artists = copy.deepcopy(self.manifests["artists"])  # slug() collapses "--", so a--b and a-b collide
+        artists["sources"] = sorted([{**artists["sources"][0], "id": handle, "name": handle}
+                                     for handle in ("artists:x:a--b", "artists:x:a-b")], key=lambda s: s["id"])
+        artists.update(assets=[], failures=[])
+        self.assertInvalid(schema.validate_manifest, artists, "share the source slug")
 
     def test_reconcile(self):
         all_assets = [asset for value in self.manifests.values() for asset in value["assets"]]
@@ -368,16 +430,63 @@ class RecordValidationTests(unittest.TestCase):
                     schema.reconcile(wikis, snaps, other_assets=all_assets)
                 self.assertIn(fragment, str(caught.exception))
 
+    def wiki_snapshots(self):
+        return {sid: copy.deepcopy(snap) for sid, snap in self.discoveries.items() if sid.startswith("wikis:")}
+
+    def test_superseded_revision_shares_the_current_candidate(self):
+        """MediaWiki re-uploads keep the File: title, so the older archived revision keeps the candidate ID."""
+        wikis = self.manifests["wikis"]
+        old = next(a for a in wikis["assets"] if a.get("upstream_status") == "superseded")
+        current = next(a for a in wikis["assets"] if a["id"] == old["superseded_by"])
+        self.assertEqual(old["candidate_id"], current["candidate_id"])
+        self.assertNotEqual(old["sha256"], current["sha256"])
+        schema.reconcile(wikis, self.wiki_snapshots())
+
+        def run(mutate):
+            manifest_copy, snaps = copy.deepcopy(wikis), self.wiki_snapshots()
+            by_id = {a["id"]: a for a in manifest_copy["assets"]}
+            candidate = next(c for c in snaps["wikis:miraheze"]["candidates"] if c["id"] == old["candidate_id"])
+            mutate(by_id[old["id"]], by_id[current["id"]], candidate)
+            schema.validate_manifest(manifest_copy, "wikis")
+            return schema.reconcile(manifest_copy, snaps)
+
+        def unmarked(older, newer, candidate):
+            older.pop("upstream_status")
+            older.pop("superseded_by")
+
+        def new_revision_failed(older, newer, candidate):
+            older.pop("superseded_by")  # the newest archived revision; its successor was not archived
+            newer.update(upstream_status="superseded", superseded_by=older["id"])
+            candidate.update(disposition="failed", reason="download failed: HTTP 503", asset_id=None)
+
+        run(lambda older, newer, candidate: older.update(upstream_status="removed") or older.pop("superseded_by"))
+        failing = [
+            (unmarked, "its candidate is not 'downloaded' with this asset_id"),
+            (lambda older, newer, candidate: older.pop("superseded_by"), "chain ends at"),
+            (lambda older, newer, candidate: newer.update(upstream_status="removed"),
+             "its candidate names this asset as downloaded"),
+            (new_revision_failed, "needs a Failure record"),  # superseded rule passes; the failed candidate does not
+        ]
+        for mutate, fragment in failing:
+            with self.subTest(fragment=fragment), self.assertRaises(ValueError) as caught:
+                run(mutate)
+            self.assertIn(fragment, str(caught.exception))
+
     def test_removed_asset_may_leave_complete_discovery(self):
         wikis = copy.deepcopy(self.manifests["wikis"])
         snaps = {sid: copy.deepcopy(snap) for sid, snap in self.discoveries.items() if sid.startswith("wikis:")}
-        background = next(a for a in wikis["assets"] if a["kind"] == "background")
+        background = next(a for a in wikis["assets"] if a["kind"] == "background"
+                          and a.get("upstream_status") == "current")
         snaps["wikis:miraheze"]["candidates"] = [c for c in snaps["wikis:miraheze"]["candidates"]
                                                  if c["id"] != background["candidate_id"]]
         wikis["sources"][1]["candidate_count"] -= 1
-        background["upstream_status"] = "removed"
+        background["upstream_status"] = "removed"  # its superseded predecessor stays archived as well
         schema.validate_manifest(wikis, "wikis")
         schema.reconcile(wikis, snaps)
+        background.pop("upstream_status")
+        with self.assertRaises(ValueError) as caught:
+            schema.reconcile(wikis, snaps)
+        self.assertIn("missing from a complete discovery", str(caught.exception))
 
     def test_song_index_rules(self):
         index = self.song_index
@@ -401,6 +510,24 @@ class RecordValidationTests(unittest.TestCase):
         broken["songs"][0]["artwork_asset_ids"].append("wikis:miraheze:" + "f" * 16)
         with self.assertRaises(ValueError):
             schema.validate_song_index(broken, known)
+
+    def test_song_links(self):
+        assets = [asset for value in self.manifests.values() for asset in value["assets"]]
+        schema.validate_song_links(self.song_index, assets)
+        kousa = copy.deepcopy(next(a for a in assets if a["song_titles"] == ["交差して歪む過去と未来"]))
+        cases = [
+            ({**kousa, "song_ids": ["song:file"]}, "is not in the song index"),  # the pre-hash, set-dependent ID
+            ({**kousa, "song_ids": ["song:cosmic-pulse"]}, "is not among song_titles"),
+        ]
+        for asset, fragment in cases:
+            with self.subTest(fragment=fragment):
+                with self.assertRaises(ValueError) as caught:
+                    schema.validate_song_links(self.song_index, [asset])
+                self.assertIn(fragment, str(caught.exception))
+        aliased = copy.deepcopy(self.song_index)
+        song = next(s for s in aliased["songs"] if s["title"] == "交差して歪む過去と未来")
+        song["title"], song["aliases"] = "Kousa (romanized, synthetic)", ["交差して歪む過去と未来"]
+        schema.validate_song_links(aliased, [kousa])
 
 
 class CatalogValidationTests(unittest.TestCase):
@@ -433,6 +560,14 @@ class CatalogValidationTests(unittest.TestCase):
             (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse").update(variants=[]), "variants"),
             (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse")["provenance"].reverse(), "provenance"),
             (lambda c: first(c, kind="background").update(illustrators=["someone"]), "ordered union"),
+            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse").update(song_ids=[]),
+             "song_ids: must be the ordered union"),
+            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse").update(collections=[]),
+             "collections: must be the ordered union"),
+            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse")["provenance"][0].pop("song_ids"),
+             "missing key 'song_ids'"),
+            (lambda c: c["sources"].append({**c["sources"][0], "id": "archives:miraheze", "family": "archives"}),
+             "share the source slug"),
             (lambda c: c.update(owner="mashirozx"), "owner"),
             (lambda c: c["snapshots"].update(legacy=None), "snapshots"),
             (lambda c: c["sources"].append(copy.deepcopy(c["sources"][0])), "duplicate source"),

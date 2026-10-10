@@ -64,6 +64,17 @@ class ContractPathTests(unittest.TestCase):
         names = [paths.discovery_relpath(source_id) for source_id in schema.REGISTERED_SOURCE_IDS]
         names.append(paths.discovery_relpath("artists:x:ariiol_"))
         self.assertEqual(len(set(names)), len(names))
+        self.assertEqual(paths.source_slug_collisions([*schema.REGISTERED_SOURCE_IDS, "artists:x:ariiol_"]), [])
+
+    def test_source_slug_collisions(self):
+        """data/discovery is flat across families, and slug() collapses hyphen runs."""
+        self.assertEqual(paths.source_slug_collisions(["official:x", "archives:x", "wikis:miraheze"]),
+                         [["archives:x", "official:x"]])
+        self.assertEqual(paths.source_slug_collisions(["artists:x:a--b", "artists:x:a-b"]),
+                         [["artists:x:a--b", "artists:x:a-b"]])
+        self.assertEqual(paths.source_slug_collisions(["artists:x:foo-bar", "artists:x-foo:bar"]),
+                         [["artists:x-foo:bar", "artists:x:foo-bar"]])
+        self.assertEqual(paths.source_slug_collisions(["artists:x:foo-bar", "artists:pixiv:foo-bar"]), [])
 
     def test_asset_relpath(self):
         self.assertEqual(paths.asset_relpath("wikis", "miraheze", "File:Cosmic Pulse.png", SHA, "webp"),
@@ -159,8 +170,28 @@ class SongIdTests(unittest.TestCase):
         self.assertEqual(ids["Cosmic Pulse 2"], "song:cosmic-pulse-2")  # natural slug keeps its ID
         self.assertEqual(ids["Cosmic Pulse"], "song:cosmic-pulse-3")
         self.assertEqual(ids["cosmic pulse"], "song:cosmic-pulse-4")
-        self.assertEqual(ids["交差して歪む過去と未来"], "song:file")
-        self.assertEqual(ids["歪む"], "song:file-2")
+        self.assertEqual(ids["交差して歪む過去と未来"], "song:file-" + paths.song_title_hash("交差して歪む過去と未来"))
+        self.assertEqual(ids["歪む"], "song:file-" + paths.song_title_hash("歪む"))
+        self.assertEqual(paths.song_title_hash("交差して歪む過去と未来"), "568a196c")  # SHA-256 of the UTF-8 title
+
+    def test_non_latin_ids_do_not_depend_on_the_title_set(self):
+        """Parallel workers see different title sets; a title's ID must not change when another title appears."""
+        alone = paths.assign_song_ids(["交差して歪む過去と未来"])
+        self.assertEqual(paths.assign_song_ids(["交差して歪む過去と未来", "ユメ", "歪む"])[0], alone[0])
+        self.assertEqual(paths.assign_song_ids(["ユメ", "交差して歪む過去と未来"])[1], alone[0])
+        self.assertEqual(alone[0], paths.song_id_base("交差して歪む過去と未来"))
+
+    def test_lossy_slugs_get_a_title_hash(self):
+        self.assertEqual(paths.song_id_base("Moonlight"), "song:moonlight")
+        partial = paths.song_id_base("Moonlight 砂の城")
+        self.assertEqual(partial, "song:moonlight-" + paths.song_title_hash("Moonlight 砂の城"))
+        self.assertEqual(paths.assign_song_ids(["Moonlight", "Moonlight 砂の城"]), ["song:moonlight", partial])
+        self.assertTrue(paths.song_id_base("Café").startswith("song:caf-"))
+        self.assertTrue(paths.song_id_base("∞").startswith("song:file-"))
+        self.assertEqual(paths.song_id_base("Cosmic Pulse!"), "song:cosmic-pulse")  # punctuation only: no hash
+        nfd = unicodedata.normalize("NFD", "パズル")
+        self.assertNotEqual(nfd, "パズル")
+        self.assertEqual(paths.song_id_base(nfd), paths.song_id_base("パズル"))  # hash over NFC
 
     def test_independent_of_input_order(self):
         titles = ["b", "A", "a", "a 2", "交差", "歪む", "Z"]

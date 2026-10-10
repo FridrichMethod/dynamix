@@ -15,6 +15,31 @@
   "discovery_complete": true,
   "candidates": [
     {
+      "id": "archives:hkstp:press-kit-2014-screenshot.png",
+      "source_id": "archives:hkstp",
+      "upstream_key": "press-kit-2014-screenshot.png",
+      "page_url": "https://www.hkstp.org/fixture/press-kit",
+      "file_url": "https://www.hkstp.org/fixture/press-kit-2014-screenshot.png",
+      "title": "Synthetic gameplay screenshot (press kit)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.hkstp.org/fixture/press-kit"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": "image/png",
+        "bytes": 250,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:hkstp:943a8a521deaa75e"
+    },
+    {
       "id": "archives:hkstp:press-kit-2014.pdf",
       "source_id": "archives:hkstp",
       "upstream_key": "press-kit-2014.pdf",

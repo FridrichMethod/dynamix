@@ -66,6 +66,31 @@
       },
       "disposition": "excluded",
       "reason": "not_dynamix: unrelated portfolio illustration"
+    },
+    {
+      "id": "artists:x:ariiol_:1000000000000000003:1",
+      "source_id": "artists:x:ariiol_",
+      "upstream_key": "1000000000000000003:1",
+      "page_url": "https://x.com/ariiol_/status/1000000000000000003",
+      "file_url": "https://pbs.twimg.com/media/FIXTUREidle.gif",
+      "title": "Fixture character idle animation",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/ariiol_/status/1000000000000000003"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FIXTUREidle.gif",
+        "mime": "image/gif",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:ariiol_:5f23e4ed066d09db"
     }
   ],
   "errors": []

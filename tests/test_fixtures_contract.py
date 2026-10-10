@@ -58,6 +58,7 @@ class FixtureContractTests(unittest.TestCase):
         self.assertEqual(totals["wikis:miraheze"], {"downloaded": 4, "duplicate_bytes": 1, "excluded": 2,
                                                     "failed": 0, "blocked": 0, "pending": 1})
         schema.validate_song_index(self.song_index, self.by_id)
+        schema.validate_song_links(self.song_index, self.assets)
         json_files = sorted(p.relative_to(FIXTURE).as_posix() for p in (FIXTURE / "data").rglob("*.json"))
         expected = sorted([paths.manifest_relpath(f) for f in schema.FAMILIES] + ["data/sources/song-index.json"]
                           + [paths.discovery_relpath(sid) for sid in self.discoveries])
@@ -126,7 +127,7 @@ class FixtureContractTests(unittest.TestCase):
         self.assertEqual(self.candidates("artists:x:ariiol_", "excluded")[0]["game"], "not_dynamix")
 
     def test_e_unknown_illustrator_and_unmapped(self):
-        background = self.find(kind="background")[0]
+        background = self.find(kind="background", upstream_status="current")[0]
         self.assertEqual((background["illustrators"], background["mapping_status"], background["song_ids"]),
                          ([], "unmapped", []))
 
@@ -174,8 +175,55 @@ class FixtureContractTests(unittest.TestCase):
         self.assertEqual((universe["in_original_game"], universe["universe_also"]), (False, True))
         missing = songs["Fixture Song Without Artwork"]
         self.assertEqual((missing["in_original_game"], missing["artwork_asset_ids"]), (True, []))
-        self.assertEqual(songs["交差して歪む過去と未来"]["id"], "song:file")
+        kousa = songs["交差して歪む過去と未来"]["id"]
+        self.assertEqual(kousa, "song:file-" + paths.song_title_hash("交差して歪む過去と未来"))
+        self.assertEqual(paths.assign_song_ids(["交差して歪む過去と未来"]), [kousa])  # independent of the title set
         self.assertTrue(self.song_index["disagreements"])
+
+    def test_k_superseded_revision_under_the_same_candidate(self):
+        old = self.find(upstream_status="superseded")[0]
+        current = self.by_id[old["superseded_by"]]
+        self.assertEqual((old["candidate_id"], old["title"], old["kind"]),
+                         (current["candidate_id"], current["title"], current["kind"]))
+        self.assertEqual(current["upstream_status"], "current")
+        self.assertNotEqual(old["sha256"], current["sha256"])
+        self.assertLess(old["upstream_revision"], current["upstream_revision"])
+        self.assertTrue((FIXTURE / old["path"]).is_file())
+        candidate = next(c for c in self.candidates("wikis:miraheze") if c["id"] == old["candidate_id"])
+        self.assertEqual((candidate["disposition"], candidate["asset_id"]), ("downloaded", current["id"]))
+        source = next(s for s in self.manifests["wikis"]["sources"] if s["id"] == "wikis:miraheze")
+        self.assertEqual(source["asset_count"], len(self.candidates("wikis:miraheze", "downloaded")) + 1)
+
+    def test_l_raster_archive_tier_screenshot(self):
+        shot = self.find(kind="gameplay_screenshot")[0]
+        self.assertEqual((shot["format"], schema.tier_for(shot["kind"], shot["format"])), ("PNG", "archive"))
+        self.assertTrue(schema.is_gallery(shot))
+        self.assertFalse(schema.is_slideshow(shot))
+
+    def test_m_blocked_candidate_with_challenge_failure(self):
+        blocked = self.candidates("official:facebook", "blocked")
+        self.assertEqual(len(blocked), 1)
+        self.assertTrue(blocked[0]["reason"].startswith("challenge"))
+        failure = self.manifests["official"]["failures"][0]
+        self.assertEqual((failure["candidate_id"], failure["error_class"], failure["http_status"],
+                          failure["retriable"], failure["manual"]), (blocked[0]["id"], "challenge", 403, False, True))
+        source = next(s for s in self.manifests["official"]["sources"] if s["id"] == "official:facebook")
+        self.assertEqual((source["status"], source["evidence_level"], source["discovery_complete"]),
+                         ("manual_access", "blocked", False))
+        self.assertTrue(self.discoveries["official:facebook"]["errors"])
+
+    def test_n_animated_gif(self):
+        gif = self.find(format="GIF")[0]
+        info = media.inspect(FIXTURE / gif["path"])
+        self.assertEqual((info["ext"], info["animated"], info["frames"]), ("gif", True, 3))
+        self.assertTrue(schema.is_gallery(gif))
+        self.assertEqual(schema.tier_for(gif["kind"], gif["format"]), "site")
+
+    def test_o_inferred_mapping(self):
+        inferred = self.find(mapping_status="inferred")
+        self.assertEqual(len(inferred), 1)
+        self.assertTrue(inferred[0]["mapping_evidence"])
+        self.assertTrue(inferred[0]["song_ids"])
 
     def test_pending_and_partial_states_stay_visible(self):
         self.assertEqual(len(self.candidates("wikis:miraheze", "pending")), 1)
@@ -187,7 +235,7 @@ class FixtureContractTests(unittest.TestCase):
 
     def test_generator_reproduces_committed_bytes(self):
         with tempfile.TemporaryDirectory() as temp:
-            result = subprocess.run([sys.executable, "-I", str(GENERATOR), "--output", temp],
+            result = subprocess.run([sys.executable, "-I", "-B", str(GENERATOR), "--output", temp],
                                     capture_output=True, text=True, timeout=120)
             self.assertEqual(result.returncode, 0, result.stderr[-2000:])
             generated, committed = tree(Path(temp)), tree(FIXTURE)

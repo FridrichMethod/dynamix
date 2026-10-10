@@ -9,9 +9,11 @@ from collections import Counter
 from typing import Any, Mapping
 
 from .schema import (ARCHIVE_URL_PREFIX, CATALOG_SPEC, FAMILIES, KINDS, _check_fields, _fail, _integer, _label,
-                     _nullable, _object, _timestamp, catalog_sort_key, catalog_url, is_gallery, is_slideshow,
-                     ordered_union, provenance_sort_key, source_family, thumb_relpath, tier_for, validate_asset,
-                     validate_failure, validate_source)
+                     _nullable, _object, _timestamp, catalog_sort_key, catalog_url, check_source_slugs, is_gallery,
+                     is_slideshow, ordered_union, provenance_sort_key, source_family, thumb_relpath, tier_for,
+                     validate_asset, validate_failure, validate_source)
+
+MERGED_FIELDS = ("illustrators", "composers", "song_titles", "song_ids", "collections")
 
 
 def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, str]) -> None:
@@ -43,7 +45,7 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
         _fail(label, "provenance", "must be unique and ordered by family priority, source ID, asset ID")
     if provenance[0]["source_id"] != asset["source_id"]:
         _fail(label, "provenance", "the first entry must be the primary record")
-    for field in ("illustrators", "composers", "song_titles"):
+    for field in MERGED_FIELDS:
         merged = ordered_union(record[field] for record in provenance)
         if asset[field] != merged:
             _fail(label, field, f"must be the ordered union across provenance {merged!r}")
@@ -96,6 +98,10 @@ def validate_catalog(catalog: Any) -> None:
     source_ids = [source["id"] for source in catalog["sources"]]
     if len(set(source_ids)) != len(source_ids):
         _fail("catalog", "sources", "duplicate source ID")
+    try:
+        check_source_slugs(source_ids)
+    except ValueError as error:
+        _fail("catalog", "sources", str(error))
     for failure in catalog["failures"]:
         validate_failure(failure)
     source_names = {source["id"]: source["name"] for source in catalog["sources"]}

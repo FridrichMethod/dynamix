@@ -12,6 +12,7 @@ Only the standard library is used. Every function is pure except :func:`safe_pat
 
 from __future__ import annotations
 
+import hashlib
 import os
 import re
 import stat
@@ -22,6 +23,7 @@ from typing import Iterable
 
 SLUG_MAX_LENGTH = 80
 SLUG_FALLBACK = "file"
+SONG_HASH_LENGTH = 8
 ASSET_ROOT = "assets/public"
 DISCOVERY_ROOT = "data/discovery"
 SOURCES_ROOT = "data/sources"
@@ -46,20 +48,25 @@ def slug(text: str, *, lower: bool = False, max_length: int = SLUG_MAX_LENGTH) -
 
     ``lower=True`` additionally lowercases (used for song IDs, e.g. ``song:cosmic-pulse``). Non-Latin titles such as
     ``交差して歪む過去と未来`` have no allowed characters and therefore become ``file``; asset paths stay unique through
-    their hash suffix and song IDs through :func:`assign_song_ids`.
+    their hash suffix and song IDs through the title hash of :func:`song_id_base`.
     """
+    value = _slug_body(text, lower=lower, max_length=max_length)
+    if not value:
+        return SLUG_FALLBACK
+    if _RESERVED.match(value):  # e.g. "CON" or "nul.txt" cannot be a file or directory name on Windows
+        value = f"{SLUG_FALLBACK}-{value}"[:max_length].rstrip("-.")
+    return value
+
+
+def _slug_body(text: str, *, lower: bool, max_length: int) -> str:
+    """:func:`slug` before the ``file`` fallback and the reserved-name prefix ("" when nothing remains)."""
     if not isinstance(text, str):
         raise TypeError(f"slug() needs a string, got {type(text).__name__}")
     value = unicodedata.normalize("NFKC", text)
     value = _HYPHENS.sub("-", _DISALLOWED.sub("-", value)).strip("-.")
     if lower:
         value = value.lower()
-    value = value[:max_length].rstrip("-.")
-    if not value:
-        return SLUG_FALLBACK
-    if _RESERVED.match(value):  # e.g. "CON" or "nul.txt" cannot be a file or directory name on Windows
-        value = f"{SLUG_FALLBACK}-{value}"[:max_length].rstrip("-.")
-    return value
+    return value[:max_length].rstrip("-.")
 
 
 def source_family(source_id: str) -> str:
@@ -74,6 +81,15 @@ def source_slug(source_id: str) -> str:
     """Slug of a source for directories/files: the ID after the family with ``:`` -> ``-`` (``x-ariiol_``)."""
     source_family(source_id)
     return slug(source_id.split(":", 1)[1].replace(":", "-"))
+
+
+def source_slug_collisions(source_ids: Iterable[str]) -> list[list[str]]:
+    """Groups of distinct source IDs with the same source slug after casefold (they would share a discovery file and,
+    within a family, an asset directory). Sorted groups in sorted order; empty when every slug is unique."""
+    groups: dict[str, set[str]] = defaultdict(set)
+    for source_id in source_ids:
+        groups[source_slug(source_id).casefold()].add(source_id)
+    return sorted(sorted(members) for members in groups.values() if len(members) > 1)
 
 
 def discovery_relpath(source_id: str) -> str:
@@ -175,20 +191,37 @@ def casefold_collisions(rel_paths: Iterable[str]) -> list[list[str]]:
     return sorted(sorted(members) for members in groups.values() if len(members) > 1)
 
 
+def song_title_hash(title: str) -> str:
+    """First :data:`SONG_HASH_LENGTH` hex digits of SHA-256 over the NFC-normalized exact title (UTF-8)."""
+    return hashlib.sha256(unicodedata.normalize("NFC", title).encode("utf-8")).hexdigest()[:SONG_HASH_LENGTH]
+
+
 def song_id_base(title: str) -> str:
-    """``song:<slug(title, lower=True)>`` without a collision suffix."""
+    """Song ID without a collision suffix; it depends on the title alone, never on which other titles exist.
+
+    ``song:<slug(title, lower=True)>`` when the slug keeps every letter/digit of the title. When the slug is lossy
+    (it would be empty, i.e. ``file``, or it drops non-ASCII letters/digits) a title hash is appended:
+    ``交差して歪む過去と未来`` -> ``song:file-<8 hex>``, ``Moonlight 砂の城`` -> ``song:moonlight-<8 hex>``. Only ASCII
+    titles that differ in case or punctuation can still share a base; :func:`assign_song_ids` numbers those.
+    """
     if not isinstance(title, str) or not title.strip():
         raise ValueError(f"song title must be a non-empty string: {title!r}")
-    return "song:" + slug(title, lower=True)
+    body = _slug_body(title, lower=True, max_length=SLUG_MAX_LENGTH)
+    lossy = not body or any(char.isalnum() and not char.isascii()
+                            for char in unicodedata.normalize("NFKC", title))
+    base = slug(title, lower=True)
+    return f"song:{base}-{song_title_hash(title)}" if lossy else f"song:{base}"
 
 
 def assign_song_ids(titles: Iterable[str]) -> list[str]:
     """Deterministic song IDs, parallel to ``titles``.
 
-    Titles are processed in sorted exact-title order (ties in input order). First every base ID goes to the first title
-    that produces it; then each remaining title gets the smallest ``-2``, ``-3``, ... suffix not already taken, as the
-    contract specifies. A title whose natural slug ends in ``-2`` therefore keeps it. Adding a title that sorts earlier
-    and shares a base can still renumber later ones, notably non-Latin titles that all share ``song:file``.
+    Titles are processed in sorted exact-title order (ties in input order). First every base ID (:func:`song_id_base`)
+    goes to the first title that produces it; then each remaining title gets the smallest ``-2``, ``-3``, ... suffix
+    not already taken, as the contract specifies. A title whose natural slug ends in ``-2`` therefore keeps it.
+    Non-Latin and partly non-Latin titles carry a title hash, so they never collide or renumber; only ASCII titles
+    differing in case/punctuation (``Cosmic Pulse``/``COSMIC PULSE``) depend on the title set, which is why song IDs
+    in manifests must agree with the reconciled song index (:func:`lib.schema.validate_song_links`).
     """
     titles = list(titles)
     order = sorted(range(len(titles)), key=lambda index: (titles[index], index))

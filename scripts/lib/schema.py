@@ -17,14 +17,15 @@ from typing import Any, Iterable, Mapping
 from urllib.parse import quote
 
 from . import checks, paths
-from .checks import (DATE_RE, REDACTED, SENSITIVE_QUERY_KEYS, TIMESTAMP_RE, contains_credentials,  # noqa: F401
-                     redact_text, redact_url)
+from .checks import (CREDENTIAL_QUERY_KEYS, DATE_RE, REDACTED, SENSITIVE_QUERY_KEYS,  # noqa: F401
+                     TIMESTAMP_RE, contains_credentials, redact_text, redact_url)
 
 Checker = checks.Checker
 _nonempty, _text, _boolean, _tristate = checks.nonempty, checks.text, checks.boolean, checks.tristate
 _integer, _nullable, _one_of, _const = checks.integer, checks.nullable, checks.one_of, checks.const
 _pattern = checks.pattern
 _timestamp, _date, _http_url, _clean_text = checks.timestamp, checks.date, checks.http_url, checks.clean_text
+_message_text = checks.message_text
 _list_of, _object = checks.list_of, checks.obj
 
 SCHEMA_VERSION = 1
@@ -85,8 +86,9 @@ MIME_ALIASES = {"image/jpg": "image/jpeg", "image/pjpeg": "image/jpeg", "image/x
 # --- Identifier patterns ----------------------------------------------------------------------------------------------
 
 _SLUG_PART = r"[a-z0-9]+(?:-[a-z0-9]+)*"
+_PLATFORM = r"[a-z0-9]+"  # no hyphen: <platform>-<handle> must split back unambiguously (artists:x:foo-bar)
 _HANDLE = r"[a-z0-9_](?:[a-z0-9_.-]*[a-z0-9_])?"
-_SOURCE_ID_PATTERN = rf"(?:(?:wikis|official|archives):{_SLUG_PART}|artists:{_SLUG_PART}:{_HANDLE})"
+_SOURCE_ID_PATTERN = rf"(?:(?:wikis|official|archives):{_SLUG_PART}|artists:{_PLATFORM}:{_HANDLE})"
 SOURCE_ID_RE = re.compile(rf"^{_SOURCE_ID_PATTERN}$")
 ASSET_ID_RE = re.compile(rf"^{_SOURCE_ID_PATTERN}:[0-9a-f]{{16}}$")
 SONG_ID_RE = re.compile(r"^song:[a-z0-9._-]+$")
@@ -111,6 +113,17 @@ def candidate_id(source_id: str, upstream_key: str) -> str:
 
 def failure_id(candidate_id_value: str, phase: str) -> str:
     return f"{candidate_id_value}:{phase}"
+
+
+def check_source_slugs(source_ids: Iterable[str]) -> None:
+    """ValueError when two source IDs share a source slug, i.e. a discovery file (``data/discovery`` is one flat
+    directory for every family) or, within a family, an asset directory. Call it with every known source ID (e.g.
+    ``REGISTERED_SOURCE_IDS`` plus the IDs a fetcher registers); the catalog validator checks all sources."""
+    collisions = paths.source_slug_collisions(source_ids)
+    if collisions:
+        group = collisions[0]
+        raise ValueError(f"source IDs {group} share the source slug {paths.source_slug(group[0])!r} "
+                         f"({paths.discovery_relpath(group[0])})")
 
 
 def normalize_mime(mime: str | None) -> str | None:
@@ -214,9 +227,10 @@ def default_rights(*, creator: str | None = None, url: str | None = None, restri
 
 def failure_record(*, source_id: str, candidate_id: str, phase: str, url: str, attempted_at: str, attempts: int,
                    error_class: str, http_status: int | None, retriable: bool, manual: bool, message: str) -> dict:
-    """A validated Failure record; URL and message are redacted first."""
+    """A validated Failure record. The URL is redacted with the stored-URL rule (credential parameters only), the
+    message with the strict log rule."""
     record = {"id": failure_id(candidate_id, phase), "source_id": source_id, "candidate_id": candidate_id,
-              "phase": phase, "url": redact_url(url), "attempted_at": attempted_at, "attempts": attempts,
+              "phase": phase, "url": redact_url(url, strict=False), "attempted_at": attempted_at, "attempts": attempts,
               "error_class": error_class, "http_status": http_status, "retriable": retriable, "manual": manual,
               "message": redact_text(message) or error_class}
     validate_failure(record)
@@ -256,7 +270,7 @@ def _evidence_item(value: Any) -> str | None:
             if not isinstance(key, str) or not (item is None or isinstance(item, (str, int)) and not isinstance(
                     item, bool)):
                 return "object values must be strings, integers or null"
-            if isinstance(item, str) and contains_credentials(item):
+            if isinstance(item, str) and contains_credentials(item, strict=False):
                 return "must not contain credentials"
         return None
     return "must be a non-empty string or object"
@@ -322,7 +336,8 @@ PROVENANCE_SPEC = {
     "download_url": _URL, "resolved_url": _URL, "quality": _object(QUALITY_SPEC), "rights": _object(RIGHTS_SPEC),
     "mapping_status": _one_of(MAPPING_STATUSES), "mapping_evidence": _list_of(_evidence_item),
     "credit_evidence": _nullable(_list_of(_object(CREDIT_EVIDENCE_SPEC))), "illustrators": _STRINGS,
-    "composers": _STRINGS, "song_titles": _STRINGS, "source_reported": _object(SOURCE_REPORTED_SPEC),
+    "composers": _STRINGS, "song_titles": _STRINGS, "song_ids": _list_of(_SONG_ID), "collections": _STRINGS,
+    "source_reported": _object(SOURCE_REPORTED_SPEC),
     "comparisons": _object(COMPARISONS_SPEC), "upstream_status": _nullable(_one_of(UPSTREAM_STATUSES)),
     "superseded_by": _nullable(_ASSET_ID), "notes": _nullable(_text),
 }
@@ -334,7 +349,7 @@ CATALOG_ASSET_SPEC = {
 FAILURE_SPEC = {"id": _nonempty, "source_id": _SOURCE_ID, "candidate_id": _nonempty, "phase": _one_of(FAILURE_PHASES),
                 "url": _URL, "attempted_at": _timestamp, "attempts": _integer(1), "error_class": _one_of(ERROR_CLASSES),
                 "http_status": _nullable(_integer(100, 599)), "retriable": _boolean, "manual": _boolean,
-                "message": _clean_text}
+                "message": _message_text}
 CANDIDATE_SPEC = {"id": _nonempty, "source_id": _SOURCE_ID, "upstream_key": _nonempty, "page_url": _URL,
                   "file_url": _NULLABLE_URL, "title": _nonempty, "role": _nullable(_one_of(KINDS)),
                   "game": _one_of(GAMES), "game_evidence": _list_of(_clean_text),
@@ -350,7 +365,7 @@ DISCOVERY_SPEC = {
     "scope": _object({"lists": _STRINGS}, {"api": _NULLABLE_URL, "notes": _text}, extra=True),
     "continuation": lambda value: None if isinstance(value, dict) else "must be an object",
     "discovery_complete": _boolean, "candidates": _list_of(_ANY_JSON, unique=False),
-    "errors": _list_of(_object({"phase": _one_of(FAILURE_PHASES), "url": _NULLABLE_URL, "message": _clean_text}),
+    "errors": _list_of(_object({"phase": _one_of(FAILURE_PHASES), "url": _NULLABLE_URL, "message": _message_text}),
                        unique=False),
 }
 SONG_SPEC = {"id": _SONG_ID, "title": _nonempty, "aliases": _STRINGS, "composers": _STRINGS, "illustrators": _STRINGS,
@@ -484,8 +499,8 @@ def _check_relations(label: str, asset: Mapping[str, Any], *, merged: bool) -> N
     if status == "unmapped" and asset["song_ids"] and not merged:
         _fail(label, "song_ids", "must be empty when mapping_status is 'unmapped'")
     upstream, successor = asset.get("upstream_status"), asset.get("superseded_by")
-    if (upstream == "superseded") != (successor is not None):
-        _fail(label, "superseded_by", "goes with upstream_status 'superseded', and only with it")
+    if successor is not None and upstream != "superseded":
+        _fail(label, "superseded_by", "is only allowed with upstream_status 'superseded'")
     if successor is not None and successor == asset["id"]:
         _fail(label, "superseded_by", "must name another asset")
     if "variant_role" in asset and "variant_group" not in asset:
@@ -608,16 +623,22 @@ def validate_manifest(manifest: Any, family: str | None = None) -> None:
         validate_source(source, actual)
     _check_unique_sorted(label, "sources", manifest["sources"])
     source_ids = {source["id"] for source in manifest["sources"]}
+    try:
+        check_source_slugs(source_ids)
+    except ValueError as error:
+        _fail(label, "sources", str(error))
     for field, validate in (("assets", validate_asset), ("failures", validate_failure)):
         for record in manifest[field]:
             validate(record, actual)
             if record["source_id"] not in source_ids:
                 _fail(_label(field[:-1], record), "source_id", f"is not a source of {label}")
         _check_unique_sorted(label, field, manifest[field])
-    asset_ids = {asset["id"] for asset in manifest["assets"]}
+    by_id = {asset["id"]: asset for asset in manifest["assets"]}
     for asset in manifest["assets"]:
-        if asset.get("superseded_by") is not None and asset["superseded_by"] not in asset_ids:
-            _fail(_label("asset", asset), "superseded_by", "names no asset of this manifest")
+        if asset.get("superseded_by") is not None:
+            if asset["superseded_by"] not in by_id:
+                _fail(_label("asset", asset), "superseded_by", "names no asset of this manifest")
+            _supersession_end(asset, by_id)
     asset_paths = [asset["path"] for asset in manifest["assets"]]
     if len(set(asset_paths)) != len(asset_paths):
         _fail(label, "assets", "two records share a path")
@@ -657,13 +678,7 @@ def reconcile(manifest: Mapping[str, Any], snapshots: Mapping[str, Mapping[str, 
         for candidate in candidates.values():
             _reconcile_candidate(candidate, assets, known)
         for asset in own_assets:
-            candidate = candidates.get(asset["candidate_id"])
-            if candidate is None:
-                if snapshot["discovery_complete"] and asset.get("upstream_status") not in ("removed", "superseded"):
-                    _fail(_label("asset", asset), "candidate_id", "missing from a complete discovery; mark the asset "
-                                                                  "upstream_status 'removed' or 'superseded'")
-            elif candidate["disposition"] != "downloaded" or candidate.get("asset_id") != asset["id"]:
-                _fail(_label("asset", asset), "candidate_id", "its candidate is not 'downloaded' with this asset_id")
+            _reconcile_asset(asset, candidates.get(asset["candidate_id"]), snapshot["discovery_complete"], assets)
         failed = {failure["candidate_id"] for failure in own_failures}
         for failure in own_failures:
             candidate = candidates.get(failure["candidate_id"])
@@ -679,6 +694,56 @@ def reconcile(manifest: Mapping[str, Any], snapshots: Mapping[str, Mapping[str, 
                 _fail(_label("candidate", candidate), "disposition", "'failed' needs a Failure record")
         result[source_id] = disposition_counts(candidates.values())
     return result
+
+
+def _supersession_end(asset: Mapping[str, Any], by_id: Mapping[str, Mapping[str, Any]]) -> Mapping[str, Any]:
+    """The last asset of the ``superseded_by`` chain starting at ``asset`` (``asset`` itself without a successor)."""
+    seen = {asset["id"]}
+    current = asset
+    while current.get("superseded_by") is not None:
+        successor = by_id.get(current["superseded_by"])
+        if successor is None:
+            _fail(_label("asset", current), "superseded_by", "names no asset of this manifest")
+        if successor["id"] in seen:
+            _fail(_label("asset", asset), "superseded_by", "chain forms a cycle")
+        seen.add(successor["id"])
+        current = successor
+    return current
+
+
+def _reconcile_asset(asset: Mapping[str, Any], candidate: Mapping[str, Any] | None, complete: bool,
+                     assets: Mapping[str, Mapping[str, Any]]) -> None:
+    """One archived asset against the candidate it was downloaded for.
+
+    MediaWiki keeps the ``File:`` title (hence the candidate ID) across re-uploads, so earlier revisions share the
+    candidate of the current one: they stay archived with ``upstream_status`` ``superseded`` (``superseded_by`` chain
+    ending at the asset the candidate now names, or no successor when the new revision is not archived) or
+    ``removed``.
+    """
+    label = _label("asset", asset)
+    upstream = asset.get("upstream_status")
+    if candidate is None:
+        if complete and upstream not in ("removed", "superseded"):
+            _fail(label, "candidate_id", "missing from a complete discovery; mark the asset upstream_status "
+                                         "'removed' or 'superseded'")
+        return
+    target, disposition = candidate.get("asset_id"), candidate["disposition"]
+    if disposition == "downloaded" and target == asset["id"]:
+        if upstream in ("removed", "superseded"):
+            _fail(label, "upstream_status", f"is {upstream!r}, but its candidate names this asset as downloaded")
+        return
+    if upstream == "removed":
+        return
+    if upstream == "superseded":
+        end = _supersession_end(asset, assets)
+        if end["id"] == target and end is not asset:
+            return
+        if end.get("upstream_status") == "superseded" and disposition not in ("downloaded", "duplicate_bytes"):
+            return  # the newest archived revision is superseded by one that was not archived (failed/blocked/...)
+        _fail(label, "superseded_by", f"chain ends at {end['id']!r}, but its candidate {candidate['id']!r} is "
+                                      f"{disposition!r} with asset_id {target!r}")
+    _fail(label, "candidate_id", "its candidate is not 'downloaded' with this asset_id (an earlier revision kept "
+                                 "under the same candidate needs upstream_status 'superseded' or 'removed')")
 
 
 def _reconcile_candidate(candidate: Mapping[str, Any], assets: Mapping[str, Mapping[str, Any]],
@@ -716,6 +781,22 @@ def validate_song_index(index: Any, known_asset_ids: Iterable[str] | None = None
     for disagreement in index["disagreements"]:
         if disagreement["song_id"] not in song_ids:
             _fail("song index", "disagreements", f"unknown song {disagreement['song_id']!r}")
+
+
+def validate_song_links(index: Mapping[str, Any], assets: Iterable[Mapping[str, Any]]) -> None:
+    """Cross-check asset (or catalog asset) ``song_ids`` against a validated song index: every ID names a song of the
+    index, and that song's exact title or one of its aliases is among the asset's ``song_titles``. This catches IDs
+    a worker derived from a different title set than the reconciled index."""
+    songs = {song["id"]: song for song in index["songs"]}
+    for asset in assets:
+        label = _label("asset", asset)
+        for song_id in asset["song_ids"]:
+            song = songs.get(song_id)
+            if song is None:
+                _fail(label, "song_ids", f"{song_id!r} is not in the song index")
+            if not {song["title"], *song["aliases"]} & set(asset["song_titles"]):
+                _fail(label, "song_ids", f"{song_id!r} is the song {song['title']!r}, which is not among "
+                                         f"song_titles {asset['song_titles']!r}")
 
 
 # --- Catalog ----------------------------------------------------------------------------------------------------------
