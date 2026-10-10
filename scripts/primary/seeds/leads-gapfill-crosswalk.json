@@ -1729,10 +1729,6 @@
         {
           "source_id": "archives:press",
           "key_prefix": "gnn275656:"
-        },
-        {
-          "source_id": "archives:archive-leads",
-          "key_prefix": "gnn:275656:universe-images"
         }
       ]
     },
@@ -1972,7 +1968,7 @@
       "dispositions": [
         {
           "source_id": "archives:press",
-          "key_prefix": "techbang:20767"
+          "key_prefix": "techbang"
         }
       ]
     },

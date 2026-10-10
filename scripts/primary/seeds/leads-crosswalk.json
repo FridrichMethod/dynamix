@@ -2224,8 +2224,8 @@
       "dynamix_original_game": "yes",
       "dispositions": [
         {
-          "source_id": "archives:archive-leads",
-          "key_prefix": "unwire.hk:2016-08-11"
+          "source_id": "archives:press",
+          "key_prefix": "unwire2016:"
         }
       ]
     },
@@ -2235,8 +2235,8 @@
       "dynamix_original_game": "yes",
       "dispositions": [
         {
-          "source_id": "archives:archive-leads",
-          "key_prefix": "techbang:20767"
+          "source_id": "archives:press",
+          "key_prefix": "techbang"
         }
       ]
     },
