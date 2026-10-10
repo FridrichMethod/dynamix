@@ -11,8 +11,8 @@ bytes are a known platform transform (``transformed: true``), never an untouched
 A ``{"lookup_id": "<app id>", "countries": [...]}`` item reads the public iTunes Search ``lookup`` API per storefront,
 which still lists older, storefront-specific screenshot sets (``screenshotUrls``/``ipadScreenshotUrls``) that the web
 page no longer shows. Those URLs carry a small ``<w>x<h>bb`` size; the adapter requests the ``4000x4000bb`` bounding
-box, which Apple serves at the image's native size (it does not enlarge), and the stored size is decoded from the
-bytes. A screenshot listed by several storefronts is one candidate whose notes name every storefront.
+box in JPEG (the format the product page requests), which Apple serves at the image's native size (it does not
+enlarge); the stored size is decoded from the bytes. A screenshot listed by several storefronts is one candidate whose notes name every storefront.
 """
 
 from __future__ import annotations
@@ -30,6 +30,7 @@ HOSTS = ["apps.apple.com", ".mzstatic.com", "itunes.apple.com"]
 LOOKUP = "https://itunes.apple.com/lookup"
 _SIZED = re.compile(r"^(https://[a-z0-9-]+\.mzstatic\.com/image/thumb/.+/)(\d+)x(\d+)(bb|sr|[a-z]{2})\.(jpg|jpeg|png|webp)$")
 LOOKUP_BOX = 4000
+LOOKUP_FORMAT = "jpg"
 _UUID = re.compile(r"/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/")
 FORMAT_EXT = {"jpeg": "jpg", "jpg": "jpg", "png": "png", "webp": "webp"}
 
@@ -48,11 +49,13 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
 
 
 def native_lookup_url(url: str) -> str | None:
-    """A lookup screenshot URL re-sized to the ``4000x4000bb`` bounding box (Apple caps it at the native size)."""
+    """A lookup screenshot URL re-sized to the ``4000x4000bb`` bounding box (Apple caps it at the native size), in
+    the JPEG rendition the product page itself requests (``LOOKUP_FORMAT``); Apple renders every format from the same
+    uploaded source, so the choice changes the encoding, not the pixels' origin."""
     match = _SIZED.match(url or "")
     if not match:
         return None
-    return f"{match.group(1)}{LOOKUP_BOX}x{LOOKUP_BOX}bb.{match.group(5)}"
+    return f"{match.group(1)}{LOOKUP_BOX}x{LOOKUP_BOX}bb.{LOOKUP_FORMAT}"
 
 
 def lookup_key(url: str) -> str:
