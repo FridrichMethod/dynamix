@@ -466,7 +466,8 @@
           ],
           "evidence_quotes": [
             "Dynamix",
-            "Illustration by Keiyuu"
+            "Illustration by Keiyuu",
+            "PABAT! 2018"
           ],
           "game": "mixed",
           "game_associations": [
@@ -629,6 +630,9 @@
             "WING"
           ],
           "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "KinCraft"
+          ],
           "composers": [
             "Notorious(Nota & TRIAL)"
           ],
@@ -636,12 +640,18 @@
             "#Dynamix",
             "WING"
           ],
-          "variant_role": "square layout of the jacket art; the page names no illustrator (wiki: KinCraft)",
+          "variant_role": "square layout of the jacket art",
           "variant_group": "jacket:wing",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/WING",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 41855)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:WINGDynamix.png",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket (moon with 'Wing' lettering), square layout; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         },
         {
           "match": "^dynamixnova$",
@@ -961,8 +971,15 @@
           ],
           "evidence_quotes": [
             "Dynamix",
-            "Keiyuu"
+            "Keiyuu",
+            "PABAT! 2017"
           ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "bms"
+          ],
+          "notes": "The page title '[PABAT! 2017/Dynamix] Linne X SCTL - WHIRLWIND' names the BMS event PABAT! 2017 as well as Dynamix.",
           "variant_role": "square crop with 'WIND' title text",
           "variant_group": "jacket:whirlwind",
           "credit_source": {
@@ -1117,18 +1134,27 @@
             "MLG"
           ],
           "mapping_status": "inferred",
+          "illustrators": [
+            "Luxan"
+          ],
           "composers": [
             "Vau Boy"
           ],
           "evidence_quotes": [
             "MLG"
           ],
-          "variant_role": "square layout with 'MLG / VAU BOY' text; the page gives no illustrator (wiki: Luxan)",
+          "variant_role": "square layout with 'MLG / VAU BOY' text",
           "variant_group": "jacket:mlg",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/MLG",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49948)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:MLGDynamix.png",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square layout with 'MLG / VAU BOY' text; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         }
       ]
     },
@@ -1863,12 +1889,11 @@
           "evidence_quotes": [
             "Dynamix"
           ],
-          "variant_role": "close-up variant; no illustrator credit on the page",
-          "variant_group": "jacket:gallium-nitride",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Gallium_Nitride",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225)"
-          }
+          },
+          "notes": "Illustrator not credited: visual inspection (2026-10-10) shows a different drawing from the in-game jacket File:GalliumNitride.jpeg (close-up of the character in another pose and background), so the wiki Cover Artist (NanoKun) is not transferred, and the page names no illustrator."
         },
         {
           "match": "^circle\\-2\\-gallium\\-nitride\\-blue\\-light$",
@@ -1880,12 +1905,11 @@
           "composers": [
             "Circle 2"
           ],
-          "variant_role": "square crop; no illustrator credit on the page",
-          "variant_group": "jacket:gallium-nitride",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Gallium_Nitride",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50225)"
-          }
+          },
+          "notes": "Illustrator not credited: visual inspection (2026-10-10) shows a different drawing from the in-game jacket File:GalliumNitride.jpeg (the character with a second, green-haired figure), so the wiki Cover Artist (NanoKun) is not transferred, and the page names no illustrator."
         }
       ]
     },
@@ -1929,13 +1953,16 @@
             "White Chocolate (dynamix edit)"
           ],
           "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "NanoKun"
+          ],
           "composers": [
             "Cashew"
           ],
           "evidence_quotes": [
             "Dynamix"
           ],
-          "variant_role": "square crop of the jacket; no illustrator credit on the page (wiki: NanoKun); possible upscale",
+          "variant_role": "square crop of the jacket; possible upscale",
           "variant_group": "jacket:white-chocolate-dynamix-edit",
           "quality": {
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1080x1080 square crop with soft detail); not verified, so it is not a confirmed high-resolution original."
@@ -1944,7 +1971,13 @@
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/White_Chocolate_(dynamix_edit)",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50383)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:WhiteChocolateDynamix.png",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         }
       ]
     },
@@ -1988,16 +2021,25 @@
             "Moonlight of Sand Castle"
           ],
           "mapping_status": "inferred",
+          "illustrators": [
+            "NanoKun"
+          ],
           "composers": [
             "旅人E"
           ],
-          "variant_role": "square crop smaller than the wiki copy; no illustrator credit (wiki: NanoKun)",
+          "variant_role": "square crop smaller than the wiki copy",
           "variant_group": "jacket:moonlight-of-sand-castle",
           "notes": "Uploaded by the SoundCloud account EBICO (ebico); the page states no composer credit, so the credit follows the wiki (旅人E).",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50282)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:Ad6637f81a4c510fa47513a66759252dd52aa5f8.jpg",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         }
       ]
     },
@@ -2041,19 +2083,30 @@
             "Another World"
           ],
           "mapping_status": "conflict",
+          "illustrators": [
+            "NanoKun"
+          ],
           "composers": [],
           "evidence_quotes": [
             "Dynamix"
           ],
-          "variant_role": "same-composition copy smaller than the wiki copy; no illustrator credit",
+          "variant_role": "same-composition copy smaller than the wiki copy",
           "variant_group": "jacket:another-world",
           "mapping_evidence": [
             {
               "url": "https://dynamix.miraheze.org/wiki/Another_World",
               "note": "conflict: the uploader is Cosmograph and the page text is only 'Dynamix 3.0', while the wiki song page credits Another World to Lunatic Sounds (illustration NanoKun)"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:Lunatic_Sounds_-_Another_World.jpg",
+              "note": "visual_inspection 2026-10-10: same composition as the in-game jacket; the in-game jacket's Cover Artist credit applies to this file"
             }
           ],
-          "notes": "Uploaded by Cosmograph; the page states no composer, and the wiki credits Lunatic Sounds, so the song mapping is recorded as a conflict."
+          "notes": "Uploaded by Cosmograph; the page states no composer, and the wiki credits Lunatic Sounds, so the song mapping is recorded as a conflict.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Another_World",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45197)"
+          }
         }
       ]
     },
@@ -2097,15 +2150,24 @@
             "名無しの宣教師"
           ],
           "mapping_status": "inferred",
+          "illustrators": [
+            "NanoKun"
+          ],
           "composers": [
             "MIssionary"
           ],
-          "variant_role": "copy smaller than the wiki copy; no illustrator credit (wiki: NanoKun)",
+          "variant_role": "copy smaller than the wiki copy",
           "variant_group": "jacket:file-dddd0fc3",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/%E5%90%8D%E7%84%A1%E3%81%97%E3%81%AE%E5%AE%A3%E6%95%99%E5%B8%AB",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50407)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:ThatAwesomeDynamixSong.jpg",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, crop; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         }
       ]
     },
@@ -2149,10 +2211,13 @@
             "Φ"
           ],
           "mapping_status": "inferred",
+          "illustrators": [
+            "Sin:cK"
+          ],
           "composers": [
             "Street"
           ],
-          "variant_role": "square crop; possibly upscaled; no credit text (wiki: Sin:cK)",
+          "variant_role": "square crop; possibly upscaled",
           "variant_group": "jacket:file-13fd1c57",
           "quality": {
             "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master. Suspected upscale (1068x1068 square crop); not verified, so it is not a confirmed high-resolution original."
@@ -2161,7 +2226,13 @@
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/%CE%A6",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44863)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:%CE%A6Dynamix.png",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         }
       ]
     },
@@ -2205,16 +2276,25 @@
             "Nightmare Girl"
           ],
           "mapping_status": "inferred",
+          "illustrators": [
+            "Sin:cK"
+          ],
           "composers": [
             "ケシｋｓくん"
           ],
-          "variant_role": "crop at the same scale as the wiki jacket (wiki: Sin:cK)",
+          "variant_role": "crop at the same scale as the wiki jacket",
           "variant_group": "jacket:nightmare-girl",
           "notes": "Uploaded by the SoundCloud account KEshiKS; the page states no composer credit, so the credit follows the wiki (ケシｋｓくん).",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Nightmare_Girl",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50524)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:NightmareGirlDynamix.png",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, crop at the same scale; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         }
       ]
     },
@@ -2358,19 +2438,28 @@
             "Tunnelling"
           ],
           "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Lunchwere"
+          ],
           "composers": [
             "Kurorak"
           ],
           "evidence_quotes": [
             "Dynamix"
           ],
-          "variant_role": "square crop with 'KURORAK / TUNNELLING' text; no illustrator credit (wiki: Lunchwere)",
+          "variant_role": "square crop with 'KURORAK / TUNNELLING' text",
           "variant_group": "jacket:tunnelling",
           "notes": "Uploaded by the SoundCloud account KURORAK; the composer credit follows the wiki's spelling (Kurorak).",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Tunnelling",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50364)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:TunnellingDynamix.png",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop with 'KURORAK / TUNNELLING' text; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         }
       ]
     },
@@ -2409,13 +2498,36 @@
       "rules": [
         {
           "match": "^tech\\-nique$",
-          "action": "pending",
-          "reason": "pending: illustration identity versus the in-game jacket not verified (may be the LiNKARYZE compilation art)",
           "role": "song_art",
           "song_titles": [
             "Tech-Nique"
           ],
-          "candidate_notes": "Credit: 'Illustration : MayMiyuriAe' (instagram maymiyuriae12)."
+          "mapping_status": "inferred",
+          "illustrators": [
+            "MayMiyuriAe"
+          ],
+          "composers": [
+            "Raphiiel"
+          ],
+          "game_evidence": [
+            "visual_inspection 2026-10-10: the cover's illustration is the in-game jacket File:TechNiqueDynamix.png"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:TechNiqueDynamix.png",
+              "note": "visual_inspection 2026-10-10: the cover shows the same drawing as the in-game jacket (girl holding a phone among music notes), framed by the LiNKED EMOTiONS / LiNKARYZE compilation design; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ],
+          "variant_role": "LiNKED EMOTiONS compilation cover framing the jacket illustration",
+          "variant_group": "jacket:tech-nique",
+          "rights": {
+            "holder": null
+          },
+          "notes": "The file is the cover of the LiNKARYZE compilation LiNKED EMOTiONS (track title 'Tech-Nique 【F/C LiNKED EMOTiONS】'); no cited source names the holder of that cover design, so the C4Cat default holder is not applied.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Tech-Nique",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50351)"
+          }
         }
       ]
     },
@@ -2905,8 +3017,25 @@
             "REconstruction"
           ],
           "mapping_status": "inferred",
-          "variant_role": "square copy smaller than the wiki jacket (illustrator per the official Facebook post: 織日ちひろ)",
-          "variant_group": "jacket:reconstruction"
+          "illustrators": [
+            "織日ちひろ"
+          ],
+          "composers": [
+            "Ryazan"
+          ],
+          "variant_role": "square copy smaller than the wiki jacket",
+          "variant_group": "jacket:reconstruction",
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:REconstructionDynamix.png",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/REconstruction",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44995)"
+          },
+          "notes": "The page states no credits; composer and illustrator follow the wiki song page (the illustrator also per the official Facebook photo post 632702820249900, research sweep)."
         }
       ]
     },
@@ -4737,7 +4866,7 @@
           "page_url": "https://linkaryze.bandcamp.com/album/linked-emotions",
           "title": "LiNKARYZE Linked Emotions album",
           "disposition": "pending",
-          "reason": "pending: compilation art credited to MayMiyuriae; identity with the Tech-Nique jacket unverified"
+          "reason": "pending: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
         },
         {
           "key": "wayback:soundcloud.com/mmry",

@@ -812,14 +812,37 @@
           "candidate_notes": "Official code-entry tutorial screenshot (Chinese/English)."
         },
         {
-          "match": "/wp-content/uploads/.*-700x365\\.png@",
+          "match": "/wp-content/uploads/2015/10/new5-700x365\\.png@",
           "role": "promotional",
           "quality": {
             "source_variant": "preview",
             "origin_status": "official",
             "master_status": "unverified",
             "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
-          }
+          },
+          "candidate_notes": "Official news banner with the Dynamix logo."
+        },
+        {
+          "match": "/wp-content/uploads/2016/07/CP03-700x365\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+          },
+          "candidate_notes": "Official news banner: C4Cat character key art with the Dynamix logo."
+        },
+        {
+          "match": "/wp-content/uploads/2016/03/Untitled-1-700x365\\.png@",
+          "role": "reference",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+          },
+          "candidate_notes": "Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1)."
         },
         {
           "match": "/wp-content/uploads/2016/05/OverRapid_Col-199x128\\.png@",
@@ -833,14 +856,26 @@
           "candidate_notes": "OverRapid collaboration news thumbnail showing the in-game store."
         },
         {
-          "match": "/wp-content/uploads/2016/0[35]/(Dynamix_Website3_0|3)-199x128\\.png@",
+          "match": "/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128\\.png@",
           "role": "promotional",
           "quality": {
             "source_variant": "preview",
             "origin_status": "official",
             "master_status": "unverified",
             "notes": "WordPress 199x128 thumbnail of a news banner (no larger capture)."
-          }
+          },
+          "candidate_notes": "Thumbnail of the Dynamix website 3.0 news banner."
+        },
+        {
+          "match": "/wp-content/uploads/2016/03/3-199x128\\.png@",
+          "role": "reference",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 199x128 thumbnail of a news banner (no larger capture)."
+          },
+          "candidate_notes": "Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1)."
         },
         {
           "match": "/wp-content/uploads/.*-199x128\\.(png|jpg)@",

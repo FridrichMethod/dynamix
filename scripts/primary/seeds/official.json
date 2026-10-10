@@ -225,6 +225,9 @@
         },
         {
           "post_id": "1748178472759865377"
+        },
+        {
+          "post_id": "1818255227595743610"
         }
       ],
       "rules": [
@@ -343,7 +346,45 @@
             "url": "https://dynamix.miraheze.org/wiki/Horloge",
             "note": "the Dynamix wiki song page"
           },
-          "candidate_notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge."
+          "candidate_notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge.",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "berry_melody"
+          ],
+          "rights": {
+            "holder": "Sky Way Studio and C4Cat Entertainment Limited"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1889645633545613724",
+              "note": "visual_inspection 2026-10-10: the image shows the jackets of Grayscale Tragedy (Polysha), ネーヴェの紋様 (R.Solidor) and horloge (xL) of the Berry Melody collaboration package plus a hidden fourth song; the post text announces only horloge"
+            }
+          ],
+          "notes": "Collaboration preview, not a single-song visual: it also shows the Grayscale Tragedy and ネーヴェの紋様 jackets. Rights holders as printed on the image itself (visual_inspection: '©Sky Way Studio ©C4Cat Entertainment Limited', bottom centre)."
+        },
+        {
+          "match": "^1818255227595743610:1$",
+          "role": "promotional",
+          "song_titles": [
+            "scualee"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Aoi"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "scualee"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Scualee",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733)."
         },
         {
           "match": "^1748178472759865377:[1-4]$",
@@ -354,7 +395,7 @@
           "candidate_notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
         },
         {
-          "match": "^(1437747970875674626|1889645633545613724|1156172591872167937|1239884186070265856|981147690795900928|1748178472759865377):",
+          "match": "^(1437747970875674626|1889645633545613724|1156172591872167937|1239884186070265856|981147690795900928|1748178472759865377|1818255227595743610):",
           "role": "promotional",
           "game": "dynamix",
           "candidate_notes": "Explicit official post; the embed-timeline sample needs a per-post rule before any of its posts is admitted."
@@ -401,6 +442,9 @@
             "Le ciel heureux"
           ],
           "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "NanoKun"
+          ],
           "composers": [
             "P4koo"
           ],
@@ -412,12 +456,19 @@
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45216)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:LeCeilHeureuxDynamix.jpg",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
         },
         {
           "match": "^(mmry-memento-mori|packer-woo-meeting-in-sky|packer-woo-origo-harbour)$",
-          "action": "pending",
-          "reason": "pending: official C4Cat upload of 2017-07-04 (no description) whose title is not in the 2026-10-10 original-game song index; its use in Dynamix is unconfirmed"
+          "action": "exclude",
+          "reason": "not_dynamix: visual_inspection: the cover art shows the Zold:out logo (another C4Cat title); official C4Cat upload of 2017-07-04 without description, title not in the 2026-10-10 original-game song index",
+          "game": "not_dynamix"
         }
       ]
     },
