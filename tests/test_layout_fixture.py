@@ -8,6 +8,7 @@ import json
 import re
 import subprocess
 import sys
+import unicodedata
 import unittest
 from pathlib import Path
 from urllib.parse import quote
@@ -208,7 +209,7 @@ class FixtureContractTests(unittest.TestCase):
         # The most text a slide carries, in Latin and in CJK script (tests/browser_smoke.py, check_short_screens).
         crowded = [asset for asset in assets if asset["slideshow"] and len(asset["collections"]) >= 5 and len(asset["illustrators"]) >= 2
                    and asset["composers"] and asset["song_titles"] and asset["title"] not in asset["song_titles"]
-                   and len(asset["source_name"]) >= 45]
+                   and sum(2 if unicodedata.east_asian_width(char) in "WF" else 1 for char in asset["source_name"]) >= 45]
         self.assertEqual(sorted(bool(re.search(r"[぀-ヿ一-鿿]", asset["title"])) for asset in crowded), [False, True],
                          "one crowded slide in Latin and one in CJK script")
 
