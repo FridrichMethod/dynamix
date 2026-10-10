@@ -35,7 +35,9 @@ Miraheze serves files unmodified from `static.wikitide.net`; for sampled files t
 
 Fandom's CDN (`static.wikia.nocookie.net`) answers `/revision/latest` URLs with a transformed WebP by default, even when the path ends in `.png`. Every Fandom download therefore appends `format=original`, which returns the stored original. The saved file is named after the format decoded from its bytes, never after the URL suffix.
 
-For many Fandom files, the size and SHA-1 that the Fandom API reports differ from the bytes `format=original` returns, while for sampled files those bytes match the Miraheze copy exactly. This is recorded as it is: the API values stay in `source_reported`, the measured values in `download_observed`, and `comparisons` marks the differing fields `false`. It is not treated as a second version of the file.
+For many Fandom files, the size and SHA-1 that the Fandom API reports differ from the bytes `format=original` returns. Those bytes are nevertheless the stored upload: as measured during the wiki acquisition of 2026-10-10, they were byte-identical to the Miraheze file for 3,336 of the 3,337 accepted file titles that both wikis hold. The difference is recorded as it is: the API values stay in `source_reported`, the measured values in `download_observed`, and `comparisons` marks the differing fields `false`. It is not treated as a second version of the file.
+
+The remaining title is `File:Dangerous_Insanity_Comeback_Chart_List.jpg`. There Fandom's API and Miraheze's API report the same SHA-1 and size for the upload, but Fandom's CDN served other bytes, so those bytes are known to be a platform transform of the stored upload: the Fandom record carries `transformed: true` and a quality note that says so, and it is kept as a separate file beside the Miraheze copy. A Fandom file whose API values differ from Miraheze's as well is not marked as a transform, because the cause is not established.
 
 ### Japanese song lists
 
@@ -56,7 +58,17 @@ The kind of a file comes from where and how the wikis use it. Evidence is pooled
 
 A file named only by its filename, or with a tie between roles named by equally many pages, stays `pending` with a concrete reason instead of being guessed. A large image is not artwork just because it is large: `(XD)_D.jpg` measures 2048×1152 px, but its page places it among gameplay notes, so it is a gameplay screenshot.
 
-Chart-list, comeback, new-chart and update-note announcement graphics are informational and belong to kind `reference`; gameplay captures are `gameplay_screenshot`. Both are archived but only previewed on the website (archive tier). Key art, banners, event visuals and teasers are `promotional`.
+Graphics that inform rather than illustrate are `reference`, by the classification rule of 2026-10-10:
+
+- any announcement graphic that shows chart difficulty levels, whether for one song or several, including a single song's "Chart List", "COMING SOON" or "i'm back!" teaser with level marks;
+- any graphic whose main content is a list of songs or charts: the `*_Chart_List*`, `*_Comeback*` and `*_New_Charts*` graphics and their equivalents, event and comeback lineups, "Upcoming Events" and "Comeback Tracks" graphics, and pack or collaboration lineup cards that print several titled jackets;
+- update notes and similar informational graphics.
+
+The official X and Facebook posts of the same designs follow the same rule (see [sources-official.md](sources-official.md)). The jacket artwork shown inside such a graphic is archived separately, as the song's own `song_art` file. `promotional` keeps graphics without chart-level information that concern a single song, pack or event: key art, event and anniversary posters, single collaboration key visuals, banners, logos and wordmarks. Gameplay captures are `gameplay_screenshot`. `reference` and `gameplay_screenshot` files are archived but only previewed on the website (archive tier).
+
+### Titles
+
+A record's `title` is a readable name, never a bare file name. Song art whose candidate maps to exactly one song with `confirmed_wiki` or stronger evidence is titled with that song's exact title. Other files take the wiki's own caption when there is one, otherwise the `File:` title without its extension and with underscores shown as spaces. The upstream file name stays verbatim in `original_filename`.
 
 ### Game
 
@@ -68,11 +80,11 @@ A file used by both games is accepted as `mixed` and keeps `dynamix_universe` in
 
 Every candidate has exactly one disposition: `downloaded`, `duplicate_bytes`, `excluded`, `failed`, `blocked` or `pending`. Exclusion reasons used for the wikis include `universe_only`, `animated_capture`, `person_photo` (composer, artist and charter profile images), `site_ui` (wiki skins, logos, navigation templates), `game_ui` (icons, buttons, grade badges, store bits), `external_release_art` (covers of separate music releases), `video_placeholder` (`video/*` entries, which are embedded videos rather than files) and `out_of_scope_other`.
 
-Animated GIF captures are excluded by default; a still rendition such as a character's `-Raw.png` is a separate candidate and is archived when its own evidence accepts it. `--include-animated` accepts the animated files as well, so the choice is reversible. Pending candidates carry `awaiting_download`, `unresolved_role` or `unresolved_game` as their reason, and the coverage report lists them.
+Animated GIF captures are excluded by default: they stay recorded as candidates with their metadata but are not downloaded. The larger still rendition, such as a character's `-Raw.png`, is a separate candidate and is archived when its own evidence accepts it. `--include-animated` accepts and downloads the animated files as well, so the exclusion can be reversed. Pending candidates carry `awaiting_download`, `unresolved_role` or `unresolved_game` as their reason, and the coverage report lists them.
 
 ## Duplicates, revisions and the two English wikis
 
-Each wiki keeps its own records at its own paths (`assets/public/wikis/miraheze/…` and `assets/public/wikis/fandom/…`). When both wikis serve identical bytes, Git stores a single blob, and the catalog merges the two records into one entry whose provenance lists both sources; the website stages only one copy. Within one wiki, a second file title with the same bytes becomes `duplicate_bytes` and points at the existing record instead of writing another file. Files whose bytes differ are always kept as separate files, even when they look alike.
+Each wiki keeps its own records at its own paths (`assets/public/wikis/miraheze/…` and `assets/public/wikis/fandom/…`). When both wikis serve identical bytes, Git stores a single blob, and the catalog merges the two records into one entry whose provenance lists both sources; the website stages only one copy. The Miraheze record is that entry's primary record, because Miraheze is the current wiki and stores the bytes that both wikis serve, unless an artist or official record holds the same bytes (see [Primary record](../README.md#provenance-model)). Within one wiki, a second file title with the same bytes becomes `duplicate_bytes` and points at the existing record instead of writing another file. Files whose bytes differ are always kept as separate files, even when they look alike.
 
 A re-upload keeps the file title and therefore the candidate. The new bytes become the current record, and the older bytes stay archived with `upstream_status: superseded` and `superseded_by` naming the newer record when it was archived. A file that disappears from a wiki keeps its archived record as `removed`. If the current evidence no longer accepts a file that is already archived, the fetcher writes nothing, lists the file for review and exits with status 4.
 
@@ -88,7 +100,7 @@ The English wikis are read through their live APIs (`live_api`); the Japanese wi
 
 ## Counts
 
-The numbers between the markers below are generated from `data/coverage.json` (`sources.records` of the `wikis` family) when the catalog is built; they are not written by hand.
+The numbers between the markers below are generated by `scripts/update_docs_stats.py` from `data/coverage.json` (`sources.records` of the `wikis` family) and `data/catalog.json` after each build; they are not written by hand.
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->

@@ -35,7 +35,9 @@ Miraheze 从 `static.wikitide.net` 原样提供文件；对抽样文件而言，
 
 Fandom 的 CDN（`static.wikia.nocookie.net`）默认对 `/revision/latest` 地址返回转换后的 WebP，即使路径以 `.png` 结尾。因此每次从 Fandom 下载都会附加 `format=original`，以取得存储的原文件。保存的文件按其字节解码出的格式命名，从不依据 URL 后缀。
 
-对于许多 Fandom 文件，Fandom API 报告的大小和 SHA-1 与 `format=original` 返回的字节不同，而对抽样文件而言，这些字节与 Miraheze 的副本完全一致。这一点按实际情况记录：API 的值保留在 `source_reported`，实测值保留在 `download_observed`，`comparisons` 把不一致的字段标为 `false`。这不被视为文件的第二个版本。
+对于许多 Fandom 文件，Fandom API 报告的大小和 SHA-1 与 `format=original` 返回的字节不同。但这些字节仍然是存储的上传文件：根据 2026-10-10 wiki 获取过程中的实测，在两个 wiki 都有的 3,337 个已接受文件名中，有 3,336 个的这些字节与 Miraheze 的文件逐字节相同。这种差异按实际情况记录：API 的值保留在 `source_reported`，实测值保留在 `download_observed`，`comparisons` 把不一致的字段标为 `false`。这不被视为文件的第二个版本。
+
+剩下的那个文件名是 `File:Dangerous_Insanity_Comeback_Chart_List.jpg`。对它而言，Fandom API 和 Miraheze API 报告的上传文件 SHA-1 和大小相同，但 Fandom 的 CDN 返回了别的字节，因此可以确定这些字节是存储的上传文件经平台转换的结果：这条 Fandom 记录带有 `transformed: true` 和说明这一点的质量备注，并作为单独的文件与 Miraheze 副本并存。如果某个 Fandom 文件的 API 值与 Miraheze 的也不一致，则不标为转换，因为原因没有得到确认。
 
 ### 日文曲目列表
 
@@ -56,7 +58,17 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 只有文件名证据的文件，或者被同样多页面指向不同类型而打平的文件，保持 `pending` 并附具体原因，而不是靠猜测分类。大图不因为尺寸大就算作曲绘：`(XD)_D.jpg` 的尺寸为 2048×1152 px，但它所在的页面把它放在游戏音符说明中，因此它是游戏截图。
 
-谱面一览、回归、新谱面和更新说明的公告图属于资料性图片，类型为 `reference`；游戏截图为 `gameplay_screenshot`。两者都会存档，但网站上只提供预览图（`archive` 层级）。主视觉、横幅、活动视觉和预告图为 `promotional`。
+按照 2026-10-10 的分类规则，提供信息而非作为插画的图片属于 `reference`：
+
+- 凡是显示谱面难度等级的公告图，无论针对一首曲目还是多首，包括带等级标记的单曲 “Chart List”、“COMING SOON” 或 “i'm back!” 预告图；
+- 主要内容是曲目或谱面列表的图片：`*_Chart_List*`、`*_Comeback*`、`*_New_Charts*` 及同类图片，活动和回归曲目阵容，“Upcoming Events” 和 “Comeback Tracks” 图，以及印有多张带曲名封面的曲包或联动阵容卡；
+- 更新说明及类似的资料性图片。
+
+官方 X 和 Facebook 帖子中同样设计的图片遵循同一规则（见 [sources-official.zh-CN.md](sources-official.zh-CN.md)）。这类图片中出现的封面美术另行存档为该曲目自己的 `song_art` 文件。`promotional` 保留不含谱面等级信息、关于单首曲目、单个曲包或单个活动的图片：主视觉、活动和周年海报、单张联动主视觉、横幅、标志和字标。游戏截图为 `gameplay_screenshot`。`reference` 和 `gameplay_screenshot` 文件都会存档，但网站上只提供预览图（`archive` 层级）。
+
+### 标题
+
+记录的 `title` 是可读的名称，绝不是单纯的文件名。若曲绘候选以 `confirmed_wiki` 或更强的证据只对应一首曲目，标题就是该曲目的确切曲名。其他文件使用 wiki 自己的图注，没有图注时使用去掉扩展名、下划线显示为空格的 `File:` 标题。上游文件名按原样保留在 `original_filename` 中。
 
 ### 游戏
 
@@ -68,11 +80,11 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 每个候选恰好有一个处置结果：`downloaded`、`duplicate_bytes`、`excluded`、`failed`、`blocked` 或 `pending`。wiki 使用的排除原因包括 `universe_only`、`animated_capture`、`person_photo`（作曲者、艺术家和谱师的个人资料图片）、`site_ui`（wiki 皮肤、标志、导航模板）、`game_ui`（图标、按钮、评级徽章、商店中的 bits）、`external_release_art`（独立音乐发行物的封面）、`video_placeholder`（`video/*` 条目，它们是嵌入的视频而不是文件）和 `out_of_scope_other`。
 
-动态 GIF 录屏默认排除；角色的 `-Raw.png` 等静态版本是独立的候选，在其自身证据被接受时存档。`--include-animated` 也会接受动态文件，因此这一选择可以撤销。待定候选的原因为 `awaiting_download`、`unresolved_role` 或 `unresolved_game`，覆盖率报告会列出它们。
+动态 GIF 录屏默认排除：它们作为候选连同元数据一起记录，但不下载。更大的静态版本（例如角色的 `-Raw.png`）是独立的候选，在其自身证据被接受时存档。`--include-animated` 会把动态文件也一并接受并下载，因此这一排除可以撤销。待定候选的原因为 `awaiting_download`、`unresolved_role` 或 `unresolved_game`，覆盖率报告会列出它们。
 
 ## 重复文件、修订与两个英文 wiki
 
-每个 wiki 在自己的路径下保存自己的记录（`assets/public/wikis/miraheze/…` 和 `assets/public/wikis/fandom/…`）。两个 wiki 提供完全相同的字节时，Git 只存储一个 blob，目录把两条记录合并成一个条目，其来源记录列出两个来源；网站也只暂存一份。在同一个 wiki 内，字节相同的第二个文件名记为 `duplicate_bytes`，指向已有记录，而不再写入另一个文件。字节不同的文件即使看起来相似，也始终作为不同文件保留。
+每个 wiki 在自己的路径下保存自己的记录（`assets/public/wikis/miraheze/…` 和 `assets/public/wikis/fandom/…`）。两个 wiki 提供完全相同的字节时，Git 只存储一个 blob，目录把两条记录合并成一个条目，其来源记录列出两个来源；网站也只暂存一份。该条目的主记录是 Miraheze 的记录，因为 Miraheze 是当前的 wiki，保存的正是两个 wiki 提供的字节；除非画师或官方的记录持有相同的字节（见[主记录](../README.zh-CN.md#来源记录模型)）。在同一个 wiki 内，字节相同的第二个文件名记为 `duplicate_bytes`，指向已有记录，而不再写入另一个文件。字节不同的文件即使看起来相似，也始终作为不同文件保留。
 
 重新上传会保留文件名，因此保留同一个候选。新字节成为当前记录，旧字节继续存档并标为 `upstream_status: superseded`，较新的记录已存档时由 `superseded_by` 指向它。从 wiki 消失的文件保留其存档记录，标为 `removed`。如果当前证据不再接受某个已存档的文件，抓取脚本不写入任何内容，列出该文件供复核，并以状态码 4 退出。
 
@@ -88,7 +100,7 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 ## 数量
 
-下方标记之间的数字在构建目录时由 `data/coverage.json`（`wikis` 类别的 `sources.records`）生成，不是手工填写的。
+下方标记之间的数字在每次构建后由 `scripts/update_docs_stats.py` 根据 `data/coverage.json`（`wikis` 类别的 `sources.records`）和 `data/catalog.json` 生成，不是手工填写的。
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->
