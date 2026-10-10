@@ -358,10 +358,14 @@ class Runner:
         for draft in drafts:  # first pass: everything not needing a download, and placeholders
             cid = schema.candidate_id(state.source_id, draft.upstream_key)
             if draft.action == "download":
-                state.candidates[cid] = candidate_record(
-                    state.source_id, draft, "pending", reason="pending: download not attempted yet (run in progress "
-                                                              "or interrupted; rerun with --resume)")
-                state.pending_ids.add(cid)
+                previous_asset = self._previous_current_asset(state, cid)
+                if previous_asset is not None:  # until refreshed, the candidate still names its archived file
+                    state.candidates[cid] = self._previous_candidate(state, cid)
+                else:
+                    state.candidates[cid] = candidate_record(
+                        state.source_id, draft, "pending", reason="pending: download not attempted yet (run in "
+                                                                  "progress or interrupted; rerun with --resume)")
+                    state.pending_ids.add(cid)
             else:
                 self._record_non_download(state, draft)
         self._carry_over(state, {schema.candidate_id(state.source_id, key) for key in keys})
