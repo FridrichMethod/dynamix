@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:ariiol_",
+  "started_at": "2026-10-10T11:00:00Z",
+  "finished_at": "2026-10-10T11:30:00Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:ariiol_:1000000000000000001:1",
+      "source_id": "artists:x:ariiol_",
+      "upstream_key": "1000000000000000001:1",
+      "page_url": "https://x.com/ariiol_/status/1000000000000000001",
+      "file_url": "https://pbs.twimg.com/media/FIXTUREcosmic?format=png&name=orig",
+      "title": "Cosmic Pulse full illustration </script><script>alert(\"x\")</script> & 'quotes'",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/ariiol_/status/1000000000000000001"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FIXTUREcosmic?format=png&name=orig",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:ariiol_:77df023568b32c0a",
+      "song_titles": [
+        "Cosmic Pulse"
+      ]
+    },
+    {
+      "id": "artists:x:ariiol_:1000000000000000002:1",
+      "source_id": "artists:x:ariiol_",
+      "upstream_key": "1000000000000000002:1",
+      "page_url": "https://x.com/ariiol_/status/1000000000000000002",
+      "file_url": null,
+      "title": "Unrelated portfolio piece",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "post text names another project (synthetic)"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: unrelated portfolio illustration"
+    }
+  ],
+  "errors": []
+}

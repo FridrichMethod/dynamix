@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "family": "archives",
+  "fetched_at": "2026-10-10T12:00:00Z",
+  "sources": [
+    {
+      "id": "archives:hkstp",
+      "name": "HKSTP press archive",
+      "family": "archives",
+      "url": "https://www.hkstp.org/fixture",
+      "platform": "web",
+      "status": "available",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
+      "discovery_complete": true,
+      "candidate_count": 1,
+      "asset_count": 1,
+      "failure_count": 0,
+      "evidence_level": "page_read"
+    }
+  ],
+  "assets": [
+    {
+      "id": "archives:hkstp:2565964979c69a55",
+      "source_id": "archives:hkstp",
+      "candidate_id": "archives:hkstp:press-kit-2014.pdf",
+      "title": "Synthetic press kit (reference)",
+      "kind": "reference",
+      "game": "dynamix",
+      "page_url": "https://www.hkstp.org/fixture/press-kit",
+      "download_url": "https://www.hkstp.org/fixture/press-kit-2014.pdf",
+      "resolved_url": "https://www.hkstp.org/fixture/press-kit-2014.pdf",
+      "path": "assets/public/archives/hkstp/press-kit-2014--2565964979c6.pdf",
+      "original_filename": "press-kit-2014.pdf",
+      "bytes": 607,
+      "sha256": "2565964979c69a558d7fbb1694a7d7b7225b76279e9d03504319d6fcfdc4111e",
+      "sha1": "fdba891ec8d39c4cfc89ed2ecc04e7205b3e3564",
+      "format": "PDF",
+      "mime": "application/pdf",
+      "width": null,
+      "height": null,
+      "fetched_at": "2026-10-10T12:00:00Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "unknown",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://www.hkstp.org/fixture/press-kit",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": null,
+        "mime": "application/pdf",
+        "bytes": 607,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "application/pdf",
+        "sniffed_format": "PDF",
+        "bytes": 607,
+        "width": null,
+        "height": null,
+        "sha1": "fdba891ec8d39c4cfc89ed2ecc04e7205b3e3564",
+        "sha256": "2565964979c69a558d7fbb1694a7d7b7225b76279e9d03504319d6fcfdc4111e"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": true,
+        "dimensions_match": null,
+        "format_match": true
+      }
+    }
+  ],
+  "failures": []
+}

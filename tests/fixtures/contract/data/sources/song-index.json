@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "generated_from": [
+    "data/discovery/fandom.json",
+    "data/discovery/miraheze.json"
+  ],
+  "as_of": "2026-10-10",
+  "songs": [
+    {
+      "id": "song:cosmic-pulse",
+      "title": "Cosmic Pulse",
+      "aliases": [],
+      "composers": [
+        "Yunosuke"
+      ],
+      "illustrators": [
+        "ariiol"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "in_original_game": true,
+      "inclusion_evidence": [
+        "https://dynamix.miraheze.org/wiki/Cosmic_Pulse (Template:Song; synthetic)"
+      ],
+      "universe_also": true,
+      "removed": false,
+      "evidence": [
+        {
+          "source_id": "wikis:miraheze",
+          "url": "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
+          "revision": 1001
+        }
+      ],
+      "artwork_asset_ids": [
+        "artists:x:ariiol_:77df023568b32c0a",
+        "wikis:fandom:d3ae3e8c82b4367e",
+        "wikis:miraheze:c431dd78cb4efeb3",
+        "wikis:miraheze:d3ae3e8c82b4367e"
+      ]
+    },
+    {
+      "id": "song:file",
+      "title": "交差して歪む過去と未来",
+      "aliases": [],
+      "composers": [],
+      "illustrators": [],
+      "collections": [],
+      "in_original_game": true,
+      "inclusion_evidence": [
+        "https://dynamix.miraheze.org/wiki/交差して歪む過去と未来 (Template:Song; synthetic)"
+      ],
+      "universe_also": false,
+      "removed": false,
+      "evidence": [
+        {
+          "source_id": "wikis:miraheze",
+          "url": "https://dynamix.miraheze.org/wiki/交差して歪む過去と未来",
+          "revision": 1001
+        }
+      ],
+      "artwork_asset_ids": [
+        "wikis:miraheze:e7d044f0bc452894"
+      ]
+    },
+    {
+      "id": "song:fixture-song-without-artwork",
+      "title": "Fixture Song Without Artwork",
+      "aliases": [],
+      "composers": [],
+      "illustrators": [],
+      "collections": [],
+      "in_original_game": true,
+      "inclusion_evidence": [
+        "https://dynamix.miraheze.org/wiki/Fixture_Song_Without_Artwork (Template:Song; synthetic)"
+      ],
+      "universe_also": false,
+      "removed": false,
+      "evidence": [
+        {
+          "source_id": "wikis:miraheze",
+          "url": "https://dynamix.miraheze.org/wiki/Fixture_Song_Without_Artwork",
+          "revision": 1001
+        }
+      ],
+      "artwork_asset_ids": []
+    },
+    {
+      "id": "song:fixture-universe-only-song",
+      "title": "Fixture Universe-only Song",
+      "aliases": [],
+      "composers": [],
+      "illustrators": [],
+      "collections": [],
+      "in_original_game": false,
+      "inclusion_evidence": [],
+      "universe_also": true,
+      "removed": false,
+      "evidence": [
+        {
+          "source_id": "wikis:miraheze",
+          "url": "https://dynamix.miraheze.org/wiki/Fixture_Universe-only_Song",
+          "revision": 1001
+        }
+      ],
+      "artwork_asset_ids": []
+    },
+    {
+      "id": "song:moonlight-of-sand-castle",
+      "title": "Moonlight of Sand Castle",
+      "aliases": [],
+      "composers": [],
+      "illustrators": [],
+      "collections": [],
+      "in_original_game": true,
+      "inclusion_evidence": [
+        "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle (Template:Song; synthetic)"
+      ],
+      "universe_also": false,
+      "removed": false,
+      "evidence": [
+        {
+          "source_id": "wikis:miraheze",
+          "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
+          "revision": 1001
+        }
+      ],
+      "artwork_asset_ids": [
+        "wikis:fandom:7e4702912e3a0281"
+      ]
+    }
+  ],
+  "disagreements": [
+    {
+      "song_id": "song:moonlight-of-sand-castle",
+      "field": "collections",
+      "values": {
+        "wikis:miraheze": [
+          "Fixture Pack"
+        ],
+        "wikis:fandom": []
+      }
+    }
+  ]
+}

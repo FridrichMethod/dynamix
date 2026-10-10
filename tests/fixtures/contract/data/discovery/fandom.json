@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "source_id": "wikis:fandom",
+  "started_at": "2026-10-10T11:00:00Z",
+  "finished_at": "2026-10-10T11:30:00Z",
+  "scope": {
+    "api": "https://dynamix.fandom.com/api.php",
+    "lists": [
+      "allimages",
+      "Category:Songs"
+    ],
+    "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork."
+  },
+  "continuation": {
+    "allimages": "Zeta_file.png"
+  },
+  "discovery_complete": false,
+  "candidates": [
+    {
+      "id": "wikis:fandom:File:Broken_Upload.png",
+      "source_id": "wikis:fandom",
+      "upstream_key": "File:Broken_Upload.png",
+      "page_url": "https://dynamix.fandom.com/wiki/File:Broken_Upload.png",
+      "file_url": "https://static.wikia.nocookie.net/dynamix/images/0/00/Broken_Upload.png/revision/latest?format=original",
+      "title": "Broken_Upload",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.fandom.com/wiki/Broken_Upload"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "failed",
+      "reason": "download failed: HTTP 503 after 3 attempts"
+    },
+    {
+      "id": "wikis:fandom:File:Cosmic_Pulse.png",
+      "source_id": "wikis:fandom",
+      "upstream_key": "File:Cosmic_Pulse.png",
+      "page_url": "https://dynamix.fandom.com/wiki/File:Cosmic_Pulse.png",
+      "file_url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Cosmic_Pulse.png/revision/latest?cb=20250114000000&format=original",
+      "title": "Cosmic Pulse",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.fandom.com/wiki/File:Cosmic_Pulse.png"
+      ],
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Cosmic_Pulse.png/revision/latest?cb=20250114000000",
+        "mime": "image/png",
+        "bytes": 1080,
+        "width": 600,
+        "height": 600,
+        "sha1": "286d2f023dc45e14248aaf16401cf216f6514949",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:d3ae3e8c82b4367e",
+      "song_titles": [
+        "Cosmic Pulse"
+      ]
+    },
+    {
+      "id": "wikis:fandom:File:Moonlight_of_Sand_Castle.png",
+      "source_id": "wikis:fandom",
+      "upstream_key": "File:Moonlight_of_Sand_Castle.png",
+      "page_url": "https://dynamix.fandom.com/wiki/File:Moonlight_of_Sand_Castle.png",
+      "file_url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Moonlight_of_Sand_Castle.png/revision/latest?cb=20250114000000",
+      "title": "Moonlight of Sand Castle",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.fandom.com/wiki/File:Moonlight_of_Sand_Castle.png"
+      ],
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamix/images/a/a1/Moonlight_of_Sand_Castle.png/revision/latest?cb=20250114000000",
+        "mime": "image/png",
+        "bytes": 2128,
+        "width": 256,
+        "height": 256,
+        "sha1": "68014378e12af6f3c0024c1672b41c868d0bf1e4",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "disposition": "downloaded",
+      "asset_id": "wikis:fandom:7e4702912e3a0281",
+      "song_titles": [
+        "Moonlight of Sand Castle"
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "phase": "discover",
+      "url": "https://dynamix.fandom.com/api.php",
+      "message": "run stopped at --limit; continuation kept"
+    }
+  ]
+}

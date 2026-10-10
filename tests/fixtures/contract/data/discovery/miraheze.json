@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "source_id": "wikis:miraheze",
+  "started_at": "2026-10-10T11:00:00Z",
+  "finished_at": "2026-10-10T11:30:00Z",
+  "scope": {
+    "api": "https://dynamix.miraheze.org/w/api.php",
+    "lists": [
+      "allimages",
+      "Category:Songs"
+    ],
+    "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork."
+  },
+  "continuation": {
+    "allimages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "wikis:miraheze:File:Character_idle.gif",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:Character_idle.gif",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Character_idle.gif",
+      "file_url": null,
+      "title": "Character_idle",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "Category:Characters (synthetic)"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "animated_capture: 250 px animated GIF capture"
+    },
+    {
+      "id": "wikis:miraheze:File:Cosmic_Pulse.png",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:Cosmic_Pulse.png",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse.png",
+      "file_url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse.png",
+      "title": "Cosmic Pulse",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse.png"
+      ],
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse.png",
+        "mime": "image/png",
+        "bytes": 943,
+        "width": 600,
+        "height": 600,
+        "sha1": "155747e7f866176e7b567eaf88e3c9983fe18f9a",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:d3ae3e8c82b4367e",
+      "song_titles": [
+        "Cosmic Pulse"
+      ]
+    },
+    {
+      "id": "wikis:miraheze:File:Cosmic_Pulse_(crop).png",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:Cosmic_Pulse_(crop).png",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png",
+      "file_url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse_(crop).png",
+      "title": "Cosmic Pulse (crop)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png"
+      ],
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/Cosmic_Pulse_(crop).png",
+        "mime": "image/png",
+        "bytes": 353,
+        "width": 300,
+        "height": 300,
+        "sha1": "0201c6228135375e2fd95df76f0c6ad128c74464",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:c431dd78cb4efeb3",
+      "song_titles": [
+        "Cosmic Pulse"
+      ]
+    },
+    {
+      "id": "wikis:miraheze:File:Cosmic_Pulse_UV_cover.png",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:Cosmic_Pulse_UV_cover.png",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_UV_cover.png",
+      "file_url": null,
+      "title": "Cosmic_Pulse_UV_cover",
+      "role": "song_art",
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "Category:Dynamix Universe covers (synthetic)"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: square Dynamix Universe cover"
+    },
+    {
+      "id": "wikis:miraheze:File:Cosmic_Pulse_copy.png",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:Cosmic_Pulse_copy.png",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_copy.png",
+      "file_url": null,
+      "title": "Cosmic_Pulse_copy",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.miraheze.org/wiki/Cosmic_Pulse"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "identical SHA-256 to File:Cosmic_Pulse.png",
+      "asset_id": "wikis:miraheze:d3ae3e8c82b4367e"
+    },
+    {
+      "id": "wikis:miraheze:File:Dynamix_background_03.png",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:Dynamix_background_03.png",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png",
+      "file_url": "https://static.miraheze.org/dynamixwiki/a/a1/Dynamix_background_03.png",
+      "title": "Dynamix background 03",
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.miraheze.org/wiki/File:Dynamix_background_03.png"
+      ],
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/Dynamix_background_03.png",
+        "mime": "image/png",
+        "bytes": 525,
+        "width": 640,
+        "height": 360,
+        "sha1": "264ae36942e7d1553660f525f2f9a7978e8856e9",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:aabe65e351474fc7"
+    },
+    {
+      "id": "wikis:miraheze:File:Song_select_screen.png",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:Song_select_screen.png",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Song_select_screen.png",
+      "file_url": null,
+      "title": "Song_select_screen",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "classification pending manual review"
+    },
+    {
+      "id": "wikis:miraheze:File:交差して歪む過去と未来.jpg",
+      "source_id": "wikis:miraheze",
+      "upstream_key": "File:交差して歪む過去と未来.jpg",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:交差して歪む過去と未来.jpg",
+      "file_url": "https://static.miraheze.org/dynamixwiki/a/a1/交差して歪む過去と未来.jpg",
+      "title": "交差して歪む過去と未来",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://dynamix.miraheze.org/wiki/File:交差して歪む過去と未来.jpg"
+      ],
+      "source_reported": {
+        "url": "https://static.miraheze.org/dynamixwiki/a/a1/交差して歪む過去と未来.jpg",
+        "mime": "image/jpeg",
+        "bytes": 3395,
+        "width": 320,
+        "height": 180,
+        "sha1": "e02570b86336577ba18e514063a95f40e86a2135",
+        "timestamp": "2025-01-14T00:00:00Z",
+        "revision": 1001
+      },
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:e7d044f0bc452894",
+      "song_titles": [
+        "交差して歪む過去と未来"
+      ]
+    }
+  ],
+  "errors": []
+}

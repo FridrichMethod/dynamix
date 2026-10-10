@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "family": "official",
+  "fetched_at": null,
+  "sources": [
+    {
+      "id": "official:apple-store",
+      "name": "App Store listing",
+      "family": "official",
+      "url": "https://apps.apple.com/app/id000000000",
+      "platform": "app-store",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
+      "evidence_level": "page_read"
+    },
+    {
+      "id": "official:facebook",
+      "name": "Official Facebook page",
+      "family": "official",
+      "url": "https://www.facebook.com/dynamix.fixture",
+      "platform": "web",
+      "status": "manual_access",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
+      "evidence_level": "blocked"
+    }
+  ],
+  "assets": [],
+  "failures": []
+}
