@@ -135,6 +135,8 @@ class Plan:
     credit_evidence: list[dict] = field(default_factory=list)
     description: str = ""  # human-written text of the file description page (boilerplate removed)
     counterpart: dict | None = None  # the other English wiki's allimages row for the same title, if any
+    probe: bool = False  # role unresolved because the bytes could not be inspected: an inspection download is tried
+    archivist_notes: list[str] = field(default_factory=list)  # reviewed notes (reviews.json "notes") for the record
 
     @property
     def candidate_id(self) -> str:
@@ -251,11 +253,13 @@ def song_credits(songs: Mapping[str, Any]) -> dict[str, list[SongCredit]]:
 
 
 def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, include_animated: bool,
-                review_table: Mapping[str, reviews.Review] | None = None) -> dict[str, list[Plan]]:
-    """Classify every file of every inventory (evidence pooled by title across the wikis). ``review_table`` defaults
-    to the committed archivist reviews (``scripts/wikis/reviews.json``)."""
+                review_table: Mapping[str, reviews.Review] | None = None,
+                note_table: Mapping[str, reviews.Note] | None = None) -> dict[str, list[Plan]]:
+    """Classify every file of every inventory (evidence pooled by title across the wikis). ``review_table`` and
+    ``note_table`` default to the committed archivist reviews and notes (``scripts/wikis/reviews.json``)."""
     if review_table is None:
         review_table = reviews.load()
+    note_table = reviews.load_notes() if note_table is None else note_table
     wikis = {key: classify.collect(inv.source, inv.files, inv.usage, inv.pages, inv.gif_frames, inv.filepages)
              for key, inv in inventories.items()}
     threshold = classify.universe_threshold(wikis.values())
@@ -283,9 +287,12 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
                                        threshold=threshold, review=review, review_stale=stale,
                                        alias=_alias(inv, title, info, filepage))
             description, file_notes = file_page_notes(info, filepage)
+            note = note_table.get(title)
+            archivist = [note.text()] if note is not None and note.applies_to(info.get("sha1")) else []
             plan = Plan(inv.source, title, info, decision,
-                        base_candidate(inv.source, title, info, decision, file_notes),
-                        accepted=decision.disposition == "download", description=description)
+                        base_candidate(inv.source, title, info, decision, file_notes + archivist),
+                        accepted=decision.disposition == "download", description=description,
+                        probe=decision.disposition == "probe", archivist_notes=archivist)
             plan.counterpart = next((other.files[title] for other_key, other in inventories.items()
                                      if other_key != key and title in other.files), None)
             _attach_songs(plan, pooled.get(title, []), song_index)

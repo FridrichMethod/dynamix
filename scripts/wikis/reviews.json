@@ -571,6 +571,36 @@
       "evidence": "visual_inspection: 260x100 crop of event artwork with no text, one of the *Button.png wiki navigation buttons uploaded together on Miraheze"
     },
     {
+      "title": "File:AreaTAComebackSongs.jpg",
+      "sha1": [
+        "02176bc5df409762cf2c152223183688d5ce5f8b"
+      ],
+      "role": "universe_only",
+      "evidence": "visual_inspection: 'AREA TA' comeback announcement 'I'M BACK' (Volcano, Riot Flavor; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "game": "dynamix_universe",
+      "game_evidence": "visual_inspection: 'AREA TA' comeback announcement 'I'M BACK' (Volcano, Riot Flavor; Takahiro Aoki) with the DYNAMIX UNIVERSE logo"
+    },
+    {
+      "title": "File:AreaTANewSongs1.jpg",
+      "sha1": [
+        "c2f2797e38022cb95f156ac83db1a7be1d152dfa"
+      ],
+      "role": "universe_only",
+      "evidence": "visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Riot Savor, STARLIT NIGHT, Adrenaline Rush, We Ride on Groove Digital Reverie; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "game": "dynamix_universe",
+      "game_evidence": "visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Riot Savor, STARLIT NIGHT, Adrenaline Rush, We Ride on Groove Digital Reverie; Takahiro Aoki) with the DYNAMIX UNIVERSE logo"
+    },
+    {
+      "title": "File:AreaTANewSongs2.jpg",
+      "sha1": [
+        "0b1579117631baa79b41f11f11a8deb1e64708ee"
+      ],
+      "role": "universe_only",
+      "evidence": "visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Zestful Edge, Rising GENERATION, Bassline Blitz, Blazing Through Infinity; Takahiro Aoki) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "game": "dynamix_universe",
+      "game_evidence": "visual_inspection: 'AREA TA' 'NEW SONGS' announcement (Zestful Edge, Rising GENERATION, Bassline Blitz, Blazing Through Infinity; Takahiro Aoki) with the DYNAMIX UNIVERSE logo"
+    },
+    {
       "title": "File:AreaTATeaser.jpg",
       "sha1": [
         "37a43c7f39bcbd293409393d359c53b5f2fb8861"
@@ -834,9 +864,10 @@
         "642049f86a8a9dc7dccea197e94567bd3323b629"
       ],
       "role": "character",
-      "evidence": "visual_inspection: 'Carrot' title with the character Carrot, an official animation (GIF) used on the Oracle page",
+      "evidence": "visual_inspection: 480x270 2-frame 'Carrot' title card with the character Carrot, an official animation (GIF) used on the Oracle page; not a wiki capture of a character animation",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: a character of the original game's Characters/Store pages; Fandom upload 2017-08-18 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: a character of the original game's Characters/Store pages; Fandom upload 2017-08-18 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "animated": "official"
     },
     {
       "title": "File:Carrot.jpg",
@@ -1183,7 +1214,7 @@
         "654ea7498af9625ed98c5b70c610d52c85e09879",
         "8388a4c4f0cf3b77552638540fa69f442c950fe0"
       ],
-      "role": "reference",
+      "role": "promotional",
       "evidence": "visual_inspection: title-screen graphic: the original DynAMIX wordmark on white",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark on an original-game announcement; Fandom upload 2020-10-06 precedes the wiki's first Universe-named upload (2023-08-18)"
@@ -1312,7 +1343,7 @@
         "1f609a173de522b9bf435c913e3b534c6b464995",
         "4c295281b956f775f112316b3c5640876572a159"
       ],
-      "role": "reference",
+      "role": "promotional",
       "evidence": "visual_inspection: the original DynAMIX wordmark logo",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark on an original-game announcement; Fandom upload 2014-10-30 precedes the wiki's first Universe-named upload (2023-08-18)"
@@ -2713,9 +2744,10 @@
         "6d974ff8efa632d9b1a806b4e7915704193837b8",
         "953f7d8c6321d828f2c8bc9a4fa40a59a38a34da"
       ],
-      "role": null,
-      "evidence": "visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError",
-      "pending": "whether it shows a background or a parts item, and of which song, is not established from the image"
+      "role": "background",
+      "evidence": "visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:BeforeSunriseBG.jpg (a skull with long claws on magenta), an archived background item of the original game; compared side by side",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the background item File:BeforeSunriseBG.jpg of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:IMG 4687.jpg",
@@ -2743,9 +2775,10 @@
         "932a73ea94ee2de23e6df9f116503c102f456d62",
         "e179d78af71767a75033c686b48113788a7abbdf"
       ],
-      "role": null,
-      "evidence": "visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError",
-      "pending": "whether it shows a background or a parts item, and of which song, is not established from the image"
+      "role": "background",
+      "evidence": "visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:DefendedBG.jpg (towers with UFOs on blue), an archived background item of the original game; compared side by side",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the background item File:DefendedBG.jpg of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:IMG 4691.jpg",
@@ -2753,9 +2786,10 @@
         "4cc918a6be46f0d6e6f74ea21e533c3d89bf592e",
         "fe10e184c9fc8febe3a2bc3320e6ef53d9113a24"
       ],
-      "role": null,
-      "evidence": "visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError",
-      "pending": "whether it shows a background or a parts item, and of which song, is not established from the image"
+      "role": "background",
+      "evidence": "visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:BlueBG.png (a spiral of glowing triangles with orange dots on blue), an archived background item of the original game; compared side by side",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the background item File:BlueBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:IMG 4692.jpg",
@@ -2763,9 +2797,10 @@
         "5c0bd2e95062cc456380cc1f7e84f2db0e1a74a3",
         "924a671bea78661c191f2e284b0b6b7134d55689"
       ],
-      "role": null,
-      "evidence": "visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError",
-      "pending": "whether it shows a background or a parts item, and of which song, is not established from the image"
+      "role": "background",
+      "evidence": "visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:ArcanaIdolaBG.png (a dark tower before a full moon on purple), an archived background item of the original game; compared side by side",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the background item File:ArcanaIdolaBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:IMG 4693.jpg",
@@ -2773,9 +2808,10 @@
         "175edab337c84ee3710edb0d1669056eea7574de",
         "4aaaaf7614360d6e35966595340ddddae604cc4b"
       ],
-      "role": null,
-      "evidence": "visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError",
-      "pending": "whether it shows a background or a parts item, and of which song, is not established from the image"
+      "role": "background",
+      "evidence": "visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:JusticeJusticeBG.png (a grey/white diamond lattice on dark red), an archived background item of the original game; compared side by side",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the background item File:JusticeJusticeBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:IMG 4695.jpg",
@@ -2793,9 +2829,10 @@
         "c45bee26f9e3e54998f7846e544ec8b5d3e3a9e6",
         "d266d5baeaea699232570d6baec2a51f86364886"
       ],
-      "role": null,
-      "evidence": "visual_inspection: user-captured framed in-game item icon (209px JPEG) in the Wave Test/collection tables of User:ItemError",
-      "pending": "whether it shows a background or a parts item, and of which song, is not established from the image"
+      "role": "background",
+      "evidence": "visual_inspection: framed in-game item icon (209px capture, User:ItemError) showing the same picture as File:ToSoarBG.png (a broken pale ring on teal), an archived background item of the original game; compared side by side",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the background item File:ToSoarBG.png of the original game's Parts/Event Bundles pages; Fandom upload 2017-09-19 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:Icon v2.png",
@@ -3137,6 +3174,14 @@
       ]
     },
     {
+      "title": "File:NPS.png",
+      "sha1": [
+        "8226020854552308131deeea07d337261c051ec0"
+      ],
+      "role": "game_ui",
+      "evidence": "visual_inspection: 513x513 black placeholder with the text 'Now Printing...' (the in-game placeholder jacket), listed on the Artists/Charters/Store pages for entries without a picture; not a person photo"
+    },
+    {
       "title": "File:NPUV.png",
       "sha1": [
         "298d89ff7406a4c88fc21d0e29c51cbc0d02cf97"
@@ -3145,6 +3190,16 @@
       "evidence": "visual_inspection: Universe 'NOW PRINTING' placeholder: 'DYNAMIX / Dynamix Inc. Space Development' (used on Template:SongUV2.0)",
       "game": "dynamix_universe",
       "game_evidence": "visual_inspection: Universe 'NOW PRINTING' placeholder: 'DYNAMIX / Dynamix Inc. Space Development' (used on Template:SongUV2.0)"
+    },
+    {
+      "title": "File:NewNoteSkin1.jpg",
+      "sha1": [
+        "45ae73eaf9e685e1ae2e6510d40cbe67e35c4689"
+      ],
+      "role": "universe_only",
+      "evidence": "visual_inspection: new note skin announcement (Regular, Dense, Touch, Bomb, Hold, Mixer notes) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "game": "dynamix_universe",
+      "game_evidence": "visual_inspection: new note skin announcement (Regular, Dense, Touch, Bomb, Hold, Mixer notes) with the DYNAMIX UNIVERSE logo"
     },
     {
       "title": "File:Nova Highway X soar to Ø Chart List.png",
@@ -3311,6 +3366,19 @@
       "songs": [
         "Persephone",
         "Cryonix"
+      ]
+    },
+    {
+      "title": "File:Persephone-Scene.png",
+      "sha1": [
+        "a37df0d9c38df99ac12fdfe44c84a4eaf07fbf75"
+      ],
+      "role": "character",
+      "evidence": "visual_inspection: 1817x1277 sheet of the Persephone BGA's character sprites (white-haired girls in yellow and blue dresses in several poses) and a pendant on black; the Persephone page captions it 'Scene Assets'",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: assets of the original-game song Persephone's BGA (Template:Song page); Fandom upload 2020-05-02 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "songs": [
+        "Persephone"
       ]
     },
     {
@@ -3898,6 +3966,16 @@
       "evidence": "visual_inspection: 260x100 crop of event artwork with no text, one of the *Button.png wiki navigation buttons uploaded together on Miraheze"
     },
     {
+      "title": "File:SoundscapeRuinsSecretArea.jpg",
+      "sha1": [
+        "475273b902d3a5b93bd6fc0fd3608e34fc73434d"
+      ],
+      "role": "universe_only",
+      "evidence": "visual_inspection: 'SECRET AREA AWAITS' announcement for Soundscape Ruins with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "game": "dynamix_universe",
+      "game_evidence": "visual_inspection: 'SECRET AREA AWAITS' announcement for Soundscape Ruins with the DYNAMIX UNIVERSE logo"
+    },
+    {
       "title": "File:Special2016Button.png",
       "sha1": [
         "a956b76e2ba2cbd9d7af28bb660aee9e8b79048d"
@@ -4446,6 +4524,17 @@
       "pending": "no song 'Sense of Purpose' in the song index; may be an artist logo"
     },
     {
+      "title": "File:六億光年先の鳥 & 声憶 Free Update.jpg",
+      "sha1": [
+        "20e1362558a62428662f56caed41aa9d9dd7f632",
+        "52da25fbeb7cf7a1e879e559d2eac06aa5be3cdc"
+      ],
+      "role": "universe_only",
+      "evidence": "visual_inspection: 'FREE UPDATE Soundscape Ruins' announcement (六億光年先の鳥, 声憶) with the DYNAMIX UNIVERSE logo; shown by the Main Page banner template",
+      "game": "dynamix_universe",
+      "game_evidence": "visual_inspection: 'FREE UPDATE Soundscape Ruins' announcement (六億光年先の鳥, 声憶) with the DYNAMIX UNIVERSE logo"
+    },
+    {
       "title": "File:未命名.png",
       "sha1": [
         "5aea87c57f4569793929e2e4bb35973775d196b3"
@@ -4475,6 +4564,84 @@
         "紅",
         "Sakura Fubuki"
       ]
+    }
+  ],
+  "notes": [
+    {
+      "title": "File:Astral Squared.png",
+      "sha1": [
+        "f0b004cd00a9e4b8d2afa8cb64e69462b9532677"
+      ],
+      "note": "visual_inspection: the same picture as File:Astral_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 24/256"
+    },
+    {
+      "title": "File:Astral cover.png",
+      "sha1": [
+        "fec477b06cee0ac8d56bd56bff2dc278d6621b5a"
+      ],
+      "note": "visual_inspection: the same picture as File:Astral_Squared.png (the RAVON rendition archived as original-game song art for Astral); compared side by side, dHash 16x16 distance 24/256"
+    },
+    {
+      "title": "File:Euouae Squared.png",
+      "sha1": [
+        "ac470cd8b9c1fe9089f7102aaffbde6d39dfd9ac"
+      ],
+      "note": "visual_inspection: the same picture as File:Euouae_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 3/256"
+    },
+    {
+      "title": "File:Euouae cover.png",
+      "sha1": [
+        "728631072d717a714a1a3aad5a3bc5073db246d4"
+      ],
+      "note": "visual_inspection: the same picture as File:Euouae_Squared.png (the RAVON rendition archived as original-game song art for Euouae); compared side by side, dHash 16x16 distance 3/256"
+    },
+    {
+      "title": "File:Mitochondria Squared.png",
+      "sha1": [
+        "01d95a902929ded451ca7eccbf46bea04e16caca"
+      ],
+      "note": "visual_inspection: the same picture as File:Mitochondria_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 4/256"
+    },
+    {
+      "title": "File:Mitochondria cover.png",
+      "sha1": [
+        "fe6f444784e2c1ffba6eaf0096d485be9a629c71"
+      ],
+      "note": "visual_inspection: the same picture as File:Mitochondria_Squared.png (the RAVON rendition archived as original-game song art for Mitochondria); compared side by side, dHash 16x16 distance 4/256"
+    }
+  ],
+  "withdrawals": [
+    {
+      "title": "File:Eyecatch extra.jpg",
+      "sha256": [
+        "2a60fe8805d1ede0ed76fba35d76c66db51cead4f15a32ea6d067261201e0cfb"
+      ],
+      "reason": "external_release_art",
+      "evidence": "visual_inspection: 800x600 eyecatch with 'PABAT!2017 Linne x SCTL mov:RED-FOX illust:keiyuu' and 'WHIRLWIND', the artwork of the song's release in the PABAT! 2017 BMS event (the WHIRLWIND gallery captions it 'Artwork in PABAT! 2017'); the Dynamix cover is File:WHIRLWINDDynamix.png"
+    },
+    {
+      "title": "File:Eyecatch hard.jpg",
+      "sha256": [
+        "da64170fd4ea521d5b3e965028450f6d7f8ef289ba1a6d52cd75faae3def0635"
+      ],
+      "reason": "external_release_art",
+      "evidence": "visual_inspection: 800x600 eyecatch with 'PABAT!2017 Linne x SCTL mov:RED-FOX illust:keiyuu' and 'WHIRLWIND', the artwork of the song's release in the PABAT! 2017 BMS event (the WHIRLWIND gallery captions it 'Artwork in PABAT! 2017'); the Dynamix cover is File:WHIRLWINDDynamix.png"
+    },
+    {
+      "title": "File:Eyecatch nomal.jpg",
+      "sha256": [
+        "7331f542a48ae436baad408ad4864f2aab9af75f7a781c2825b189e76588c4dc"
+      ],
+      "reason": "external_release_art",
+      "evidence": "visual_inspection: 800x600 eyecatch with 'PABAT!2017 Linne x SCTL mov:RED-FOX illust:keiyuu' and 'WHIRLWIND', the artwork of the song's release in the PABAT! 2017 BMS event (the WHIRLWIND gallery captions it 'Artwork in PABAT! 2017'); the Dynamix cover is File:WHIRLWINDDynamix.png"
+    },
+    {
+      "title": "File:Eyecatch superhard.jpg",
+      "sha256": [
+        "7e3ad047eabf9b436eb320980bbe99c85a6c31b8da3753f7bd54f522c1515103"
+      ],
+      "reason": "external_release_art",
+      "evidence": "visual_inspection: 800x600 eyecatch with 'PABAT!2017 Linne x SCTL mov:RED-FOX illust:keiyuu' and 'WHIRLWIND', the artwork of the song's release in the PABAT! 2017 BMS event (the WHIRLWIND gallery captions it 'Artwork in PABAT! 2017'); the Dynamix cover is File:WHIRLWINDDynamix.png"
     }
   ]
 }

@@ -28,7 +28,8 @@ _TABBER = re.compile(r"<tabber\b[^>]*>(.*?)</tabber\s*>", re.IGNORECASE | re.DOT
 _REF = re.compile(r"<ref\b[^>/]*/>|<ref\b[^>]*>.*?</ref\s*>", re.IGNORECASE | re.DOTALL)
 _TAG = re.compile(r"<[^<>]+>")
 _BR = re.compile(r"<br\s*/?>", re.IGNORECASE)
-_WIKILINK = re.compile(r"\[\[([^\[\]|]*)(?:\|([^\[\]]*))?\]\]")
+# Display text may hold single-bracketed text: [[Artists#.5Bsound_shinobi.5D|[sound shinobi]]] shows "[sound shinobi]".
+_WIKILINK = re.compile(r"\[\[([^\[\]|]*)(?:\|((?:[^\[\]]|\[[^\[\]]*\])*))?\]\]")
 _EXTLINK = re.compile(r"\[(?:https?:)?//[^\s\]]+(?:\s+([^\]]*))?\]")
 _QUOTES = re.compile(r"'{2,}")
 _LINK_OPTION = re.compile(
@@ -352,5 +353,21 @@ def file_refs(text: str) -> list[FileRef]:
 
 def normalize_key(value: str) -> str:
     """Loose comparison key (NFKC, casefold, alphanumerics only) used to match titles across sources; never stored
-    as a display value."""
-    return "".join(char for char in unicodedata.normalize("NFKC", value).casefold() if char.isalnum())
+    as a display value. Spacing modifier letters (U+02B0-U+02FF, e.g. ``ˍ`` standing in for ``_``) count as
+    punctuation, not letters."""
+    return "".join(char for char in unicodedata.normalize("NFKC", value).casefold()
+                   if char.isalnum() and not 0x02B0 <= ord(char) <= 0x02FF)
+
+
+# Upside-down ("turned") spellings: each turned letter and the letter it reads as when the text is rotated 180°.
+_TURNED = dict(zip("ɐqɔpǝɟƃɥᴉıɾʞןɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲ⅁ſꓘ˥WԀᴚ⊥∩ΛMX⅄",
+                   "abcdefghiijklmnopqrstuvwxyzABCDEFGJKLMPRTUVWXY"))
+_TURNED_ONLY = set("ɐɔǝɟƃɥᴉɾʞɯɹʇʌʍʎ∀ꓭƆᗡƎℲ⅁ꓘ˥ԀᴚΛ⅄")  # characters that occur only in turned text
+
+
+def unturned(value: str) -> str | None:
+    """The plain reading of an upside-down title (``ǝɹǝɥdsᴉɯǝH`` -> ``Hemisphere``): turned letters mapped back and
+    the order reversed; None unless at least two characters occur only in turned text."""
+    if sum(1 for char in value if char in _TURNED_ONLY) < 2:
+        return None
+    return "".join(_TURNED.get(char, char) for char in reversed(value))

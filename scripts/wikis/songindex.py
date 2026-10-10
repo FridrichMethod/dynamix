@@ -5,9 +5,12 @@ Songs are grouped by English wiki page title (Miraheze and Fandom share titles);
 evidence: an original ``Template:Song`` on a page that is not ``Category:Unreleased``, or a row of the Japanese
 original-game wiki's lists (atwiki ``dynamix2ch``). The wikiwiki rhythm-game summary is only a corroborating lead: its
 rows add evidence and disagreements but never inclusion. ``Template:SongOther`` pages (unreleased/cancelled songs) and
-pages with only ``Template:SongUV`` (Universe songs) are kept with ``in_original_game`` false. Composer and illustrator credits
-are kept separately and verbatim (``N/A`` and similar mean unknown). Japanese rows are matched to English songs by a
-loose title key (NFKC, casefold, alphanumerics); unmatched rows become their own entries and disagreements.
+pages with only ``Template:SongUV`` (Universe songs) are kept with ``in_original_game`` false. Composer and
+illustrator credits are kept separately and verbatim (``N/A`` and similar mean unknown). Japanese rows are matched to
+English songs by exact title, then a loose title key (NFKC, casefold, alphanumerics), a key without an edit/version
+label, an upside-down spelling read back (April Fools chart names), and a row whose title and credit columns are
+exchanged (its credit is a song whose composer is its title); every such match is recorded as a disagreement.
+Unmatched rows become their own entries and disagreements.
 """
 
 from __future__ import annotations
@@ -257,6 +260,21 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                     disagreements.append((entry.key, "title", {
                         "wikis:miraheze": entry.title,
                         source.source_id: f"{row.title} (matched ignoring the edit/version label)"}))
+                plain = wikitext.unturned(row.title) if entry is None else None
+                if plain and len(keys.get(wikitext.normalize_key(plain), [])) == 1:
+                    # An upside-down spelling of a song's title (an April Fools chart name, e.g. ǝɹǝɥdsᴉɯǝH).
+                    entry = keys[wikitext.normalize_key(plain)][0]
+                    disagreements.append((entry.key, "title", {
+                        "wikis:miraheze": entry.title,
+                        source.source_id: f"{row.title} (upside-down spelling of {plain}; matched to that song)"}))
+                swapped = entry is None and _swapped(row, keys)
+                if swapped:
+                    # Title and credit columns exchanged: the credit is a song title whose composer is the "title".
+                    entry = keys[wikitext.normalize_key(row.credit)][0]
+                    disagreements.append((entry.key, "title", {
+                        "wikis:miraheze": entry.title,
+                        source.source_id: f"row with title {row.title!r} and credit {row.credit!r} (columns "
+                                          "swapped; matched to that song)"}))
                 created = entry is None
                 if created:
                     entry = entries[f"ja:{loose}"] = SongEntry(key=f"ja:{loose}", title=row.title)
@@ -271,7 +289,7 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                 if not any(item["source_id"] == source.source_id and item["url"] == page.url
                            for item in entry.evidence):
                     entry.evidence.append({"source_id": source.source_id, "url": page.url, "revision": None})
-                if row.title not in entry.titles:
+                if row.title not in entry.titles and not swapped:
                     entry.titles.append(row.title)
                     if row.title != entry.title:
                         _add(entry.aliases, [row.title])
@@ -290,7 +308,7 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                 if grants:
                     entry.in_original_game = True
                     _add(entry.inclusion_evidence, [label])
-                if not created and grants:
+                if not created and grants and not swapped:
                     names = wikitext.credit_names(row.credit)
                     if names and entry.composers and {wikitext.normalize_key(n) for n in names} != {
                             wikitext.normalize_key(n) for n in entry.composers}:
@@ -300,6 +318,13 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                             entry.title):
                         disagreements.append((entry.key, "title", {"wikis:miraheze": entry.title,
                                                                    source.source_id: row.title}))
+
+
+def _swapped(row: jawikis.SongRow, keys: Mapping[str, list[SongEntry]]) -> bool:
+    """The row's credit names exactly one song and the row's title is that song's composer."""
+    songs = keys.get(wikitext.normalize_key(row.credit), []) if row.credit else []
+    return len(songs) == 1 and bool(wikitext.normalize_key(row.title)) and wikitext.normalize_key(row.title) in {
+        wikitext.normalize_key(name) for name in songs[0].composers}
 
 
 def _finish(entries: dict[str, SongEntry], disagreements: list) -> SongIndex:

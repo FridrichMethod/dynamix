@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import sys
 import unittest
 from pathlib import Path
@@ -42,6 +43,20 @@ class WikitextTests(unittest.TestCase):
             ("Y.png", "link", "Used Part", None)])
         heads = wikitext.headings(text)
         self.assertEqual(wikitext.section_path(heads, refs[0].offset), ["Trivia"])
+
+    def test_link_display_text_with_brackets(self) -> None:
+        """[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]] shows "[sound shinobi]" (a credited name in brackets)."""
+        self.assertEqual(wikitext.credit_names("[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"), ["[sound shinobi]"])
+        self.assertEqual(wikitext.clean_markup("[[A|B]] and [[C]], [x] [[D|[E] F]]"), "B and C, [x] [E] F")
+
+    def test_loose_keys_and_upside_down_titles(self) -> None:
+        # A spacing modifier letter standing in for "_" is punctuation; kana/CJK modifiers stay letters.
+        self.assertEqual(wikitext.normalize_key("^/7(L∣?［ˍ(L+⌗‹›+&⎥^(o)"),
+                         wikitext.normalize_key("^/7(L⎥?[_(L+#<>+&⎥^(o)"))
+        self.assertEqual(wikitext.normalize_key("々ーテスト"), "々ーテスト")
+        self.assertEqual(wikitext.unturned("ǝɹǝɥdsᴉɯǝH"), "Hemisphere")
+        self.assertIsNone(wikitext.unturned("Hemisphere"))
+        self.assertIsNone(wikitext.unturned("∀I∃Y§§"))  # a stylized title, not turned text
 
     def test_tabs(self) -> None:
         text = ('<div class="tabberex-tab" data-tab-header="Dynamix">[[File:A.png]]</div>'
@@ -144,6 +159,46 @@ class DecideTests(unittest.TestCase):
                                    fandom_timestamp=None, threshold=None, alias=("File:A X.jpg", False))
         self.assertEqual(decision.disposition, "pending")  # different bytes: not silently an alias
 
+    def test_bga_captions_keep_the_art_role(self) -> None:
+        """BGA art is artwork of its kind (not an informational reference); numbered BGA scenes are captures."""
+        cases = {'Character "PUPA" from the BGA': "character", "Background from the BGA": "background",
+                 'Background used in BGA of "CROSSING DELTA"': "background", "Character used in BGA": "character",
+                 "Scene 3": "gameplay_screenshot", '"Crossing Delta" logo used in POP SEQUENCE\'s BGA': "promotional",
+                 "The C4CAT logo when game starts": None}
+        for caption, role in cases.items():
+            self.assertEqual(classify._caption_role(caption), role, caption)
+
+    def test_external_release_event_artwork_is_excluded(self) -> None:
+        """'Artwork in PABAT! 2017' is the song's BMS event release art; 'Artwork in RAVON' is shared artwork."""
+        text = ("{{Song\n|Artist = Linne X SCTL\n|Imgsuffix = WHIRLWINDDynamix.png\n}}\n<gallery>\n"
+                "Eyecatch hard.jpg|WHIRLWIND \"Hard\" Artwork in PABAT! 2017\n"
+                "WHIRLWIND Squared.png|WHIRLWIND Artwork in RAVON\n</gallery>")
+        page = {"title": "WHIRLWIND", "revision": {"content": text, "revid": 1}, "categories": []}
+        info = classify.analyze_page(config.MIRAHEZE, page)
+        files = {name: {"mime": "image/png", "width": 10, "height": 10} for name in (
+            "File:WHIRLWINDDynamix.png", "File:Eyecatch hard.jpg", "File:WHIRLWIND Squared.png")}
+        found = dict(classify.page_evidence(config.MIRAHEZE, page, info, files, {}))
+        pabat = self.decide([found["File:Eyecatch hard.jpg"]])
+        self.assertEqual((pabat.disposition, pabat.reason.split(":")[0], pabat.associations),
+                         ("excluded", "external_release_art", []))
+        ravon = self.decide([found["File:WHIRLWIND Squared.png"]])
+        self.assertEqual((ravon.disposition, ravon.game, ravon.associations), ("download", "mixed", ["ravon"]))
+
+    def test_embedding_song_page_maps_filename_only_song_art(self) -> None:
+        """A cover named only by the filename convention, embedded by one original-game song page: inferred."""
+        name = classify.filename_evidence(config.MIRAHEZE, "File:SetFreeDynamix.jpg")
+        host = classify.Evidence("wikis:miraheze", "Set Free", "https://dynamix.miraheze.org/wiki/Set_Free",
+                                 "embedded", None, 0, "dynamix", "Set Free -KIVΛ Edition-", "Set Free")
+        decision = self.decide(name + [host])
+        self.assertEqual((decision.role, decision.songs, decision.mapping),
+                         ("song_art", ["Set Free -KIVΛ Edition-"], "inferred"))
+        self.assertEqual(decision.mapping_evidence[0]["field"], "embedded")
+        other = classify.Evidence("wikis:miraheze", "B", "https://dynamix.miraheze.org/wiki/B", "embedded", None, 0,
+                                  "dynamix", "Another Song", "B")
+        self.assertEqual(self.decide(name + [host, other]).mapping, "unmapped")  # two song pages: no mapping
+        background = self.decide([_evidence("background", 2, "dynamix"), host])
+        self.assertEqual((background.songs, background.mapping), ([], "unmapped"))  # only for song art
+
     def test_universe_categories(self) -> None:
         for category in ("Category:Dynamix UV", "Category:DynamixUV", "Category:Songs (Dynamix Universe)"):
             self.assertTrue(classify._universe_category(category), category)
@@ -201,8 +256,9 @@ class ReviewTests(unittest.TestCase):
         universe = self.decide([_evidence("song_art", 3, "dynamix_universe")], _review(role="song_art"))
         self.assertEqual(universe.reason.split(":")[0], "universe_only")
         # A review may break a tie between equally supported page roles, but only by choosing one of them.
-        tie = [_evidence("character", 2, "dynamix", "A"), _evidence("part", 2, "dynamix", "B")]
-        self.assertEqual(self.decide(tie, _review(role="part")).role, "part")
+        tie = [_evidence("character", 2, "dynamix", "A", song="S"), _evidence("part", 2, "dynamix", "B", song="S")]
+        broken = self.decide(tie, _review(role="part"))
+        self.assertEqual((broken.role, broken.songs, broken.mapping), ("part", ["S"], "inferred"))  # never confirmed
         self.assertIsNone(self.decide(tie, _review(role="background")).role)
         undecided = self.decide(tie, _review(role=None, game=None, game_evidence="", pending="item not identifiable"))
         self.assertIn("conflicting", undecided.reason)
@@ -223,6 +279,61 @@ class ReviewTests(unittest.TestCase):
         self.assertIn("no original-game evidence", no_game.reason)
         stale = self.decide([], None, stale=True)
         self.assertIn("earlier revision", stale.reason)
+
+    def test_review_refines_an_exclusion_only(self) -> None:
+        """Page evidence that excludes a file (wiki banner template, profile list) yields to the exclusion a review
+        saw in the bytes; a review never turns such a file into a download."""
+        banner = [_evidence("site_ui", 1, None, "Template:MainPageBanner", context="embedded in template")]
+        universe = self.decide(banner, _review(role="universe_only", game="dynamix_universe",
+                                               game_evidence="visual_inspection: DYNAMIX UNIVERSE logo"))
+        self.assertEqual((universe.disposition, universe.game, universe.reason.split(":")[0]),
+                         ("excluded", "dynamix_universe", "universe_only"))
+        listed = [_evidence("person_photo", 2, "dynamix", "Artists")]
+        placeholder = self.decide(listed, _review(role="game_ui", game=None, game_evidence=""))
+        self.assertEqual(placeholder.reason.split(":")[0], "game_ui")
+        kept = self.decide(banner, _review(role="song_art"))
+        self.assertEqual((kept.disposition, kept.reason.split(":")[0]), ("excluded", "site_ui"))
+
+    def test_official_animation_and_download_probe(self) -> None:
+        gif = {"mime": "image/gif", "width": 480, "height": 270}
+        official = classify.decide("File:X.png", [_evidence("character", 2, "dynamix")], gif, frames=2,
+                                   include_animated=False, fandom_timestamp=None, threshold=None,
+                                   review=_review(role="character", animated="official"))
+        self.assertEqual(official.disposition, "download")
+        with self.assertRaises(ValueError):
+            _review(animated="yes")
+        probe = _review(role=None, game=None, game_evidence="", pending="the content could not be inspected",
+                        evidence="download_probe: HTTP 404 from the CDN")
+        decision = self.decide([], probe)
+        self.assertEqual((decision.disposition, decision.reason.split(":")[0]), ("probe", "unresolved_role"))
+        self.assertEqual(self.decide([_evidence("character", 0, None, context="filename")], probe).disposition,
+                         "pending")  # a role hint exists: not a probe
+
+    def test_notes_and_withdrawals_tables(self) -> None:
+        base = {"format": reviews.FORMAT, "reviews": []}
+        note = {"title": "File:A.png", "sha1": ["a" * 40], "note": "visual_inspection: same picture as File:B.png"}
+        table = reviews.parse_notes(dict(base, notes=[note]))
+        self.assertTrue(table["File:A.png"].applies_to("A" * 40))
+        self.assertEqual(table["File:A.png"].text(), "archivist note (File:A.png): visual_inspection: same picture "
+                                                     "as File:B.png")
+        withdrawal = {"title": "File:A.png", "sha256": ["b" * 64], "reason": "external_release_art",
+                      "evidence": "visual_inspection: BMS event eyecatch"}
+        entry = reviews.parse_withdrawals(dict(base, withdrawals=[withdrawal]))["File:A.png"]
+        excluded = classify.Decision(None, "dynamix", [], [], [], [], "excluded", "external_release_art: x",
+                                     "unmapped")
+        self.assertTrue(entry.covers("b" * 64, excluded))
+        self.assertFalse(entry.covers("c" * 64, excluded))  # other bytes than the reviewed ones
+        self.assertFalse(entry.covers("b" * 64, dataclasses.replace(excluded, reason="fanart: x")))
+        bad = [dict(note, note="no basis"), dict(note, sha1=["x"]), dict(note, extra=1)]
+        for fields in bad:
+            with self.assertRaises(ValueError, msg=fields):
+                reviews.parse_notes(dict(base, notes=[fields]))
+        for fields in (dict(withdrawal, reason="wrong"), dict(withdrawal, sha256=["b" * 40]),
+                       dict(withdrawal, evidence="")):
+            with self.assertRaises(ValueError, msg=fields):
+                reviews.parse_withdrawals(dict(base, withdrawals=[fields]))
+        self.assertTrue(reviews.load_withdrawals())  # the committed table parses
+        self.assertTrue(reviews.load_notes())
 
 
 class MediaWikiEnumerationTests(unittest.TestCase):
@@ -281,6 +392,29 @@ class SmallHelperTests(unittest.TestCase):
         self.assertTrue(acquire.same_revision(a, dict(a)))
         self.assertFalse(acquire.same_revision(a, dict(a, sha1="b" * 40)))
         self.assertFalse(acquire.same_revision(a, None))
+        self.assertTrue(acquire.same_content(a, dict(a, timestamp="2026-01-01T00:00:00Z")))
+        self.assertFalse(acquire.same_content(a, dict(a, bytes=6)))
+        self.assertFalse(acquire.same_content(dict(a, sha1=None), dict(a, sha1=None)))
+
+    def test_history_note_survives_rewrites(self) -> None:
+        notes = acquire._replace_history("File description page: 'x'.", ["first", "second"])
+        self.assertEqual(notes, "File description page: 'x'. Upstream history: first | second.")
+        self.assertEqual(acquire.history({"notes": notes}), ["first", "second"])
+        self.assertEqual(acquire.history({"notes": acquire._replace_history(notes, ["third"])}), ["third"])
+        self.assertEqual(acquire.history({}), [])
+
+    def test_japanese_rows_upside_down_and_swapped(self) -> None:
+        url = config.ATWIKI.list_pages[2][1]
+        entries = {title: songindex.SongEntry(key=title, title=title, titles=[title], composers=[composer])
+                   for title, composer in (("Hemisphere", "ARForest"), ("The Dystopia's Tomorrow", "Moonset"))}
+        rows = [jawikis.SongRow("ǝɹǝɥdsᴉɯǝH", "ARForest", "list", url),
+                jawikis.SongRow("Moonset", "The Dystopia's Tomorrow", "list", url)]
+        disagreements = []
+        songindex._match_japanese(entries, {"rhythmgame-ja": [jawikis.ListPage("list", url, rows)]}, disagreements)
+        self.assertEqual(sorted(entries), ["Hemisphere", "The Dystopia's Tomorrow"])  # no new song entries
+        self.assertEqual(entries["Hemisphere"].aliases, ["ǝɹǝɥdsᴉɯǝH"])
+        self.assertEqual(entries["The Dystopia's Tomorrow"].aliases, [])  # "Moonset" is the composer, not a title
+        self.assertEqual({key for key, _field, _values in disagreements}, {"Hemisphere", "The Dystopia's Tomorrow"})
 
     def test_japanese_tables(self) -> None:
         html = ('<div id="wikibody"><table><tr><th colspan="2">Title</th><th>Composer</th></tr>'

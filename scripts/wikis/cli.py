@@ -3,12 +3,20 @@
 ``--metadata-only`` enumerates and classifies without downloading; the default run also downloads accepted
 candidates, one worker thread per selected English wiki (their file hosts differ, so they download concurrently while
 each host still sees one request at a time); ``--resume`` re-hashes already archived files instead of trusting their
-presence (a normal run checks presence and size); ``--verify`` is offline. ``--source`` selects which snapshots are
-written and which source is acquired: the two English wikis are always enumerated together because classification
-pools their evidence.
-Exit codes: 0 done; 1 failed/blocked downloads; 2 incomplete discovery; 3 another run holds the lock; 4 an archived
-file is no longer accepted by the current evidence (nothing written; review needed); 130 interrupted (outputs written
-up to the last completed download).
+presence (a normal run checks presence and size) and repairs damaged ones from identical downloaded bytes;
+``--verify`` is offline. ``--source`` selects which snapshots are written and which source is acquired: the two
+English wikis are always enumerated together because classification pools their evidence.
+
+An incomplete discovery (any list of either English wiki failed) is written with ``discovery_complete: false``, its
+continuation and errors; archived files keep their previous classification, nothing is downloaded and the song index
+proposal is not rewritten. Every run on a ``--root`` takes ``<root>/.cache/fetch_wikis/root.lock`` (git-ignored)
+besides the ``--work-dir``/``--lock-file`` lock, and refuses to start while another work directory used for that root
+holds an interrupted run's journal.
+
+Exit codes: 0 done; 1 failed/blocked downloads, or an archived file that could not be repaired; 2 incomplete
+discovery; 3 another run holds a lock, or an interrupted run's journal is in another work directory; 4 an archived
+file is no longer accepted by complete evidence and no reviewed withdrawal covers it (nothing written; review needed);
+130 interrupted (outputs written up to the last completed download).
 """
 
 from __future__ import annotations
@@ -22,7 +30,7 @@ from typing import Any, Callable
 
 from lib import manifest, net, paths, schema
 
-from . import acquire, config, discover, jawikis, outputs, songindex, verify
+from . import acquire, config, discover, jawikis, outputs, reviews, songindex, verify
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -73,10 +81,16 @@ class Runner:
         self.candidates: dict[str, list[dict]] = {}
         self.index: songindex.SongIndex | None = None
         self.lock = threading.RLock()  # shared state, journal and output writes (see acquire.Acquirer)
+        self.repair_failures: list[str] = []
 
     @property
     def mediawiki_selected(self) -> list[str]:
         return [key for key in config.MEDIAWIKI_KEYS if key in self.selected]
+
+    @property
+    def evidence_complete(self) -> bool:
+        """Every pooled English-wiki inventory is complete (classification of archived files may change)."""
+        return bool(self.inventories) and all(inventory.complete for inventory in self.inventories.values())
 
     def run(self) -> int:
         self.state = acquire.State.load(self.root, self.journal)
@@ -87,7 +101,10 @@ class Runner:
             self.discover(client)
             self.write()
             if not self.args.metadata_only and self.mediawiki_selected:
-                self.acquire(client)
+                if self.evidence_complete:
+                    self.acquire(client)
+                else:
+                    self.log("discovery incomplete: nothing is downloaded (classification evidence is partial)")
         return self.exit_code()
 
     def discover(self, client: Any) -> None:
@@ -110,13 +127,36 @@ class Runner:
             return
         self.index = songindex.build(self.inventories, self.ja)
         self.plans = discover.build_plans(self.inventories, self.index, include_animated=self.args.include_animated)
-        conflicts = []
+        withdrawals = reviews.load_withdrawals()
+        conflicts, withdrawn = [], []
         for key in self.mediawiki_selected:
-            candidates, found = acquire.resolve(self.plans[key], self.state, complete=self.inventories[key].complete)
-            self.candidates[key] = candidates
-            conflicts.extend(found)
+            resolution = acquire.resolve(self.plans[key], self.state, complete=self.inventories[key].complete,
+                                         evidence_complete=self.evidence_complete, withdrawals=withdrawals)
+            self.candidates[key] = resolution.candidates
+            conflicts.extend(resolution.conflicts)
+            withdrawn.extend(resolution.withdrawals)
         if conflicts:
             raise acquire.ReclassifiedError(conflicts)
+        for asset, withdrawal in withdrawn:
+            self.withdraw(asset, withdrawal)
+
+    def withdraw(self, asset: dict, withdrawal: Any) -> None:
+        """Carry out a reviewed withdrawal: journal it, delete the file, drop the record; candidates of the same source
+        that pointed at it as ``duplicate_bytes`` become pending again (they are downloaded under their own title)."""
+        event = {"event": "withdraw", "id": asset["id"], "path": asset["path"], "reason": withdrawal.reason}
+        with self.lock:
+            self.journal.append(event)
+            acquire.delete_asset_file(self.root, asset["path"])
+            self.state.apply(event)
+        self.log(f"WITHDRAWN {asset['id']} ({asset['candidate_id']}): {withdrawal.reason}: {withdrawal.evidence}")
+        for key in self.mediawiki_selected:
+            plans = {plan.candidate_id: plan for plan in self.plans[key]}
+            for number, candidate in enumerate(self.candidates[key]):
+                if candidate.get("asset_id") == asset["id"] and candidate["disposition"] == "duplicate_bytes":
+                    pending = dict(candidate, disposition="pending",
+                                   reason=acquire.awaiting_reason(plans[candidate["id"]]))
+                    pending.pop("asset_id", None)
+                    self.candidates[key][number] = pending
 
     def write(self) -> None:
         """Validate and atomically write snapshots, the manifest and the song index; then clear the journal."""
@@ -133,7 +173,7 @@ class Runner:
             snapshots[source.source_id] = snapshot
             self.state.sources[source.source_id] = outputs.mediawiki_source(
                 source, snapshot, self.state.assets.values(), self.state.failures.values(),
-                metadata_only=self.args.metadata_only)
+                metadata_only=self.args.metadata_only, last_attempt=self.state.attempts.get(source.source_id))
         for key in config.HTML_KEYS:
             if key in self.selected and key in self.ja:
                 source = config.SOURCES[key]
@@ -149,7 +189,11 @@ class Runner:
             all_snapshots[source_id] = snapshots.get(source_id) or manifest.load_discovery(self.root, source_id)
         schema.reconcile(data, {key: value for key, value in all_snapshots.items() if value is not None})
         index = None
-        if self.index is not None and set(self.selected) == set(config.SOURCES):
+        ja_complete = all(page.error is None for pages in self.ja.values() for page in pages)
+        if self.index is not None and set(self.selected) == set(config.SOURCES) and not (
+                self.evidence_complete and ja_complete):
+            self.log("song index proposal not rewritten: the discovery is incomplete")
+        elif self.index is not None and set(self.selected) == set(config.SOURCES):
             index = self.index.to_json(as_of=min(s["finished_at"] for s in snapshots.values())[:10],
                                        generated_from=outputs.GENERATED_FROM,
                                        artwork=songindex.artwork_ids(data["assets"]))
@@ -196,7 +240,7 @@ class Runner:
                         return
                     if only and not ({plan.title, plan.candidate_id, discover.upstream_key(plan.title)} & only):
                         continue
-                    if not acquirer.needs_download(candidate, resume=self.args.resume, retry_failed=True):
+                    if not acquirer.needs_download(plan, candidate, resume=self.args.resume, retry_failed=True):
                         continue
                     number = take_attempt()
                     if number is None:
@@ -226,6 +270,7 @@ class Runner:
                 worker.join()
             raise
         finally:
+            self.repair_failures = list(acquirer.repair_failures)
             self.write()
             self.log(f"downloads this run: {counter['attempts']} attempts, " + ", ".join(
                 f"{name} {count}" for name, count in sorted(totals.items())))
@@ -239,7 +284,7 @@ class Runner:
             return 2
         failed = [f for f in self.state.failures.values()
                   if any(f["source_id"] == config.SOURCES[key].source_id for key in self.mediawiki_selected)]
-        return 1 if failed else 0
+        return 1 if failed or self.repair_failures else 0
 
 
 def _raise_interrupt(signum: int, frame: Any) -> None:
@@ -258,7 +303,8 @@ def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | N
     factory = client_factory or (lambda: net.PoliteClient(config.ALL_HOSTS))
     previous = signal.signal(signal.SIGTERM, _raise_interrupt)
     try:
-        with acquire.exclusive_lock(lock):
+        with acquire.exclusive_lock(acquire.root_lock_path(root)), acquire.exclusive_lock(lock):
+            acquire.claim_work_dir(root, work_dir)
             return Runner(root, args, work_dir, client_factory=factory, now=now, log=log).run()
     except acquire.LockHeld as error:
         print(str(error), file=sys.stderr)
@@ -266,7 +312,8 @@ def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | N
     except acquire.ReclassifiedError as error:
         for conflict in error.conflicts:
             print(f"REVIEW {conflict}", file=sys.stderr)
-        print("archived files are no longer accepted by the current evidence; nothing was written", file=sys.stderr)
+        print("archived files are no longer accepted by the current (complete) evidence; nothing was written. Fix "
+              "the classification, or add a reviewed withdrawal to scripts/wikis/reviews.json", file=sys.stderr)
         return 4
     except KeyboardInterrupt:
         print("interrupted; outputs written up to the last completed download", file=sys.stderr)

@@ -34,11 +34,14 @@ def mediawiki_snapshot(inventory: discover.Inventory, candidates: list[dict], *,
                             "(Template:Song = original game, Template:SongUV = Dynamix Universe), page usage, "
                             "gallery/link captions, reviewed list pages, file categories and, only when nothing "
                             "else applies, filename conventions; evidence is pooled by file title with "
-                            + ", ".join(pooled_with) + ". Where no page establishes a role or game, an archivist "
-                            "review (visual inspection of the bytes, scripts/wikis/reviews.json, pinned to the "
-                            "reviewed SHA-1) may; its evidence is quoted and its song mappings are 'inferred'. "
-                            "Accepted candidates that are not downloaded yet are 'pending' with reason "
-                            "'awaiting_download'."),
+                            + ", ".join(pooled_with) + ". Where no page establishes a role or game, or page roles "
+                            "are tied, an archivist review (visual inspection of the bytes, "
+                            "scripts/wikis/reviews.json, pinned to the reviewed SHA-1) may; its evidence is quoted and "
+                            "its song mappings are 'inferred'. A review may also replace the reason of an exclusion "
+                            "that page evidence gives with the exclusion seen in the bytes. Accepted candidates that "
+                            "are not downloaded "
+                            "yet are 'pending' with reason 'awaiting_download'. When this discovery is incomplete, "
+                            "archived candidates keep the classification of the discovery that archived them."),
                   "file_count": len(inventory.files), "article_count": len(inventory.pages),
                   "requests": inventory.requests, "cached_responses": inventory.cache_hits},
         "continuation": {name: inventory.continuation.get(name, {}) for name in discover.LISTS},
@@ -86,7 +89,14 @@ def _validated_discovery(snapshot: dict) -> dict:
 
 
 def mediawiki_source(source: config.WikiSource, snapshot: Mapping[str, Any], assets: Iterable[Mapping[str, Any]],
-                     failures: Iterable[Mapping[str, Any]], *, metadata_only: bool) -> dict:
+                     failures: Iterable[Mapping[str, Any]], *, metadata_only: bool,
+                     last_attempt: str | None = None) -> dict:
+    """The source record. ``checked_at`` is the last access attempt: the later of the discovery's end and the last
+    download attempt (this run's, or the latest recorded download/failure of the source)."""
+    assets = [asset for asset in assets if asset["source_id"] == source.source_id]
+    failures = [failure for failure in failures if failure["source_id"] == source.source_id]
+    checked_at = max([snapshot["finished_at"], last_attempt or ""] + [asset["fetched_at"] for asset in assets]
+                     + [failure["attempted_at"] for failure in failures])
     counts = schema.disposition_counts(snapshot["candidates"])
     complete = snapshot["discovery_complete"]
     blocked = counts["blocked"] > 0
@@ -96,8 +106,8 @@ def mediawiki_source(source: config.WikiSource, snapshot: Mapping[str, Any], ass
         status = "partially_available"
     else:
         status = "available"
-    asset_count = sum(1 for asset in assets if asset["source_id"] == source.source_id)
-    failure_count = sum(1 for failure in failures if failure["source_id"] == source.source_id)
+    asset_count = len(assets)
+    failure_count = len(failures)
     summary = ", ".join(f"{name} {value}" for name, value in counts.items() if value)
     notes = (f"{source.notes} Last discovery: {len(snapshot['candidates'])} files ({summary}); enumeration "
              f"{'complete' if complete else 'INCOMPLETE (see the snapshot continuation/errors)'}."
@@ -105,7 +115,7 @@ def mediawiki_source(source: config.WikiSource, snapshot: Mapping[str, Any], ass
                 else ""))
     record = {
         "id": source.source_id, "name": source.name, "family": "wikis", "url": source.url,
-        "platform": source.platform, "status": status, "checked_at": snapshot["finished_at"], "notes": notes,
+        "platform": source.platform, "status": status, "checked_at": checked_at, "notes": notes,
         "api_url": source.api_url, "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
         "rate_policy": RATE_POLICY, "discovery_complete": complete, "candidate_count": len(snapshot["candidates"]),
         "asset_count": asset_count, "failure_count": failure_count, "evidence_level": "live_api",

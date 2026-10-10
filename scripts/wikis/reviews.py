@@ -9,8 +9,24 @@ rests on a review is at most ``inferred``.
 A review is pinned to the file revisions it looked at: ``sha1`` lists the API SHA-1 values the wikis reported for that
 title when it was reviewed, and it applies to a wiki's file only while that wiki still reports one of them. After a
 re-upload the review no longer applies and the file falls back to its page evidence (pending), so a reviewer looks
-again. Page evidence always wins: a review only supplies a role when no page
-gives one (filename conventions aside) and only supplies a game when no page context gives one.
+again. Page evidence wins: a review supplies a role only when no page gives one (filename conventions aside) or to
+break a tie between equally supported page roles (the mapping is then ``inferred`` at most), and a game only when no
+page context gives one. One refinement concerns exclusions only: when page evidence excludes a file (e.g. as a wiki
+interface image because the Main Page banner template shows it) and the review saw another exclusion in the bytes
+(e.g. a Dynamix Universe announcement), the review's exclusion reason is recorded; a review never turns a file that
+page evidence excludes into a download. ``animated: "official"`` marks a GIF the review established as an official
+animation (not a wiki capture with a larger still), so the default ``animated_capture`` exclusion does not apply.
+A review whose role is null and whose evidence is a ``download_probe:`` (the host refused the bytes, so they could
+not be inspected) makes the acquisition retry the download as an inspection probe: a refusal is recorded as a
+download Failure, a success is reported for review.
+
+Two further tables, also pinned to reviewed bytes:
+
+- ``notes``: archivist notes appended to a title's candidate and asset notes (e.g. the same picture under another
+  title), keyed by title and API SHA-1;
+- ``withdrawals``: reviewed decisions that an *archived* file leaves the manifest (record and file deleted, Git
+  history keeps them) because complete evidence now excludes it with the reviewed reason. Keyed by title and the
+  archived bytes' SHA-256; anything else that stops accepting an archived file stops the run for review.
 """
 
 from __future__ import annotations
@@ -45,6 +61,12 @@ class Review:
     songs: tuple[str, ...] = ()  # exact song titles the image shows or its exact filename names
     associations: tuple[str, ...] = ()  # other games/events of shared artwork (game "mixed")
     pending: str = ""  # why the file stays pending although reviewed (role or game not established)
+    official_animation: bool = False  # an official animation: animated_capture does not apply
+
+    @property
+    def probe(self) -> bool:
+        """The bytes could not be inspected because the host refused them (retry as an inspection download)."""
+        return self.role is None and self.evidence.startswith("download_probe:")
 
     def applies_to(self, reported_sha1: str | None) -> bool:
         return bool(reported_sha1) and reported_sha1.lower() in self.sha1
@@ -84,7 +106,7 @@ def parse(data: Any) -> dict[str, Review]:
         if not isinstance(entry, dict):
             raise ValueError(f"{label}: must be an object")
         unknown = set(entry) - {"title", "sha1", "role", "game", "evidence", "game_evidence", "songs",
-                                "associations", "pending"}
+                                "associations", "pending", "animated"}
         if unknown:
             raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
         title = _string(entry, "title", label, required=True)
@@ -120,12 +142,124 @@ def parse(data: Any) -> dict[str, Review]:
                              "reason")
         if game == "mixed" and not associations:
             raise ValueError(f"{label}: game 'mixed' needs associations")
+        animated = entry.get("animated")
+        if animated not in (None, "official"):
+            raise ValueError(f"{label}: animated must be 'official' when present")
+        if animated and role not in schema.KINDS:
+            raise ValueError(f"{label}: animated 'official' needs a kind as role")
         for text in (evidence, game_evidence, pending):
             if schema.contains_credentials(text, strict=False):
                 raise ValueError(f"{label}: evidence must not contain credentials")
         result[title] = Review(title, sha1, role, game, evidence, game_evidence, _strings(entry, "songs", label),
-                               associations, pending)
+                               associations, pending, official_animation=animated == "official")
     return result
+
+
+@dataclass(frozen=True)
+class Note:
+    """An archivist note for one title, pinned to the reviewed revision(s) by API SHA-1."""
+
+    title: str
+    sha1: tuple[str, ...]
+    note: str  # "<basis>: <observation>"
+
+    def applies_to(self, reported_sha1: str | None) -> bool:
+        return bool(reported_sha1) and reported_sha1.lower() in self.sha1
+
+    def text(self) -> str:
+        return f"archivist note ({self.title}): {self.note}"
+
+
+@dataclass(frozen=True)
+class Withdrawal:
+    """A reviewed decision that an archived file leaves the manifest (see the module docstring)."""
+
+    title: str
+    sha256: tuple[str, ...]  # SHA-256 of the archived bytes the decision is about
+    reason: str  # exclusion reason prefix the current evidence must give (frozen vocabulary)
+    evidence: str  # "<basis>: <observation>"
+
+    def covers(self, sha256: str, decision: Any) -> bool:
+        return (sha256 in self.sha256 and decision.disposition == "excluded"
+                and decision.reason.split(":", 1)[0].strip() == self.reason)
+
+
+_SHA256 = re.compile(r"^[0-9a-f]{64}$")
+
+
+def _table(data: Any, name: str) -> list:
+    if not isinstance(data, dict) or data.get("format") != FORMAT:
+        raise ValueError(f"reviews: expected an object with format {FORMAT!r}")
+    entries = data.get(name, [])
+    if not isinstance(entries, list):
+        raise ValueError(f"reviews: {name} must be a list")
+    return entries
+
+
+def _entry(entry: Any, number: int, name: str, fields: set[str]) -> tuple[str, str]:
+    label = f"{name} #{number}"
+    if not isinstance(entry, dict):
+        raise ValueError(f"{label}: must be an object")
+    unknown = set(entry) - fields
+    if unknown:
+        raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
+    title = _string(entry, "title", label, required=True)
+    if not title.startswith("File:"):
+        raise ValueError(f"{label}: title must start with 'File:'")
+    return title, f"{name} {title!r}"
+
+
+def _basis_text(entry: Mapping[str, Any], name: str, label: str) -> str:
+    text = _string(entry, name, label, required=True)
+    if not EVIDENCE_PREFIX.match(text):
+        raise ValueError(f"{label}: {name} must start with its basis, e.g. 'visual_inspection: ...'")
+    if schema.contains_credentials(text, strict=False):
+        raise ValueError(f"{label}: {name} must not contain credentials")
+    return text
+
+
+def parse_notes(data: Any) -> dict[str, Note]:
+    result: dict[str, Note] = {}
+    for number, entry in enumerate(_table(data, "notes")):
+        title, label = _entry(entry, number, "note", {"title", "sha1", "note"})
+        if title in result:
+            raise ValueError(f"{label}: duplicate note")
+        sha1 = tuple(value.lower() for value in _strings(entry, "sha1", label))
+        if not sha1 or not all(_SHA1.match(value) for value in sha1):
+            raise ValueError(f"{label}: sha1 must list 40-hex SHA-1 values")
+        result[title] = Note(title, sha1, _basis_text(entry, "note", label))
+    return result
+
+
+def parse_withdrawals(data: Any) -> dict[str, Withdrawal]:
+    result: dict[str, Withdrawal] = {}
+    for number, entry in enumerate(_table(data, "withdrawals")):
+        title, label = _entry(entry, number, "withdrawal", {"title", "sha256", "reason", "evidence"})
+        if title in result:
+            raise ValueError(f"{label}: duplicate withdrawal")
+        sha256 = tuple(value.lower() for value in _strings(entry, "sha256", label))
+        if not sha256 or not all(_SHA256.match(value) for value in sha256):
+            raise ValueError(f"{label}: sha256 must list 64-hex SHA-256 values of the archived bytes")
+        reason = _string(entry, "reason", label, required=True)
+        if reason not in schema.EXCLUSION_REASONS:
+            raise ValueError(f"{label}: reason {reason!r} is not a frozen exclusion reason")
+        result[title] = Withdrawal(title, sha256, reason, _basis_text(entry, "evidence", label))
+    return result
+
+
+def _read(path: Path | None) -> Any:
+    target = path or REVIEWS_PATH
+    return json.loads(target.read_text(encoding="utf-8")) if target.is_file() else None
+
+
+def load_notes(path: Path | None = None) -> dict[str, Note]:
+    data = _read(path)
+    return {} if data is None else parse_notes(data)
+
+
+def load_withdrawals(path: Path | None = None) -> dict[str, Withdrawal]:
+    data = _read(path)
+    return {} if data is None else parse_withdrawals(data)
 
 
 def load(path: Path | None = None) -> dict[str, Review]:

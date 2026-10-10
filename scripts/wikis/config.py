@@ -146,8 +146,11 @@ CAPTION_ROLES = (
     (INFORMATIONAL_CAPTION, "reference"),
     (re.compile(r"background\s+parts?\b", re.I), None),  # "Background Parts": part or background, undecidable
     (re.compile(r"\bgameplay\b|screen\s*shot|\bin-?game\b|result screen", re.I), "gameplay_screenshot"),
-    # Background-animation (BGA) scenes, logos and assets: in-game material, kept as references (archive tier).
-    (re.compile(r"\bBGA\b|\bscene\b", re.I), "reference"),
+    # Numbered scenes of a song's background animation (BGA) are captures of the game during play ("Scene 1"); the
+    # BGA's own art keeps its role from the rest of the caption ('Character "PUPA" from the BGA' is a character,
+    # 'Background from the BGA' a background), and a collaboration/unit logo shown in it is promotional.
+    (re.compile(r"\bscene\s*\d+\b", re.I), "gameplay_screenshot"),
+    (re.compile(r"\blogo\b.*\bBGA\b|\bBGA\b.*\blogo\b", re.I), "promotional"),
     # Covers of separate music releases ("Cover Art from Circle 2: Light Evolved Diodes", "Single" jacket).
     (re.compile(r"\balbum\b|cover\s*art\s+from\b|\b(?:single|EP)\b[^|]*\bjacket\b", re.I), "external_release_art"),
     (re.compile(r"\bartwork\b|cover\s*art|\bjacket\b|\billustration\b", re.I), "song_art"),
@@ -159,8 +162,11 @@ CAPTION_ROLES = (
      "promotional"),
     (re.compile(r"\balbum\b", re.I), "external_release_art"),
 )
-# A caption naming artwork for another game or event ("Artwork in RAVON", "Artwork in PABAT! 2017"): the file is a
-# shared/variant artwork of the song, so its game association is "mixed".
+# A caption naming artwork for another game ("Artwork in RAVON"): the file is a shared/variant artwork of the song,
+# so its game association is "mixed". Release events of the BMS (and similar doujin) scene are the exception:
+# "Artwork in PABAT! 2017" is the artwork of the song's own release in that event (an eyecatch with the event title
+# and credits), a separate external release (external_release_art), not Dynamix artwork.
+EXTERNAL_RELEASE_EVENT = re.compile(r"\b(?:PABAT|BOF|BMS)\b", re.I)
 OTHER_GAME_ARTWORK = re.compile(r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+(?!dynamix\b)"
                                 r"(?P<other>[^\s,;()][^,;()]*)", re.I)
 # Observed layout of all song pages with both Template:Song and Template:SongUV (2026-10-10, 20 pages on Miraheze):

@@ -6,6 +6,7 @@ The real CLI (``wikis.cli.main``) runs with ``--root`` in a temporary directory 
 
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import subprocess
@@ -204,6 +205,7 @@ class AcquisitionTests(WikiRun):
         self.assertEqual((fandom["comparisons"]["sha1_match"], fandom["comparisons"]["bytes_match"]),
                          (False, False))
         self.assertIn("not as a second version", fandom["notes"])
+        self.assertIn("(the API reports 18 more bytes than were served; cause not established)", fandom["notes"])
         self.assertEqual(fandom["quality"]["source_variant"], "unknown")  # not the upload byte for byte
         self.assertEqual(mira["quality"]["source_variant"], "site_original")
         self.assertIn("Fandom's API records this title's upload with another SHA-1", mira["notes"])
@@ -252,9 +254,19 @@ class AcquisitionTests(WikiRun):
         self.assertIn(mira["id"], cosmic["artwork_asset_ids"])
 
     def test_include_animated(self) -> None:
-        self.assertEqual(self.run_cli("--include-animated", "--only", "File:Emi-Animated.gif"), 0)
+        self.assertEqual(self.run_cli("--include-animated", "--source", "miraheze", "--only",
+                                      "File:Emi-Animated.gif"), 0)
         gif = self.asset("miraheze", "File:Emi-Animated.gif")
         self.assertEqual((gif["format"], gif["kind"]), ("GIF", "character"))
+        # The option is reversible: later default runs keep the archived GIF instead of stopping for review.
+        self.assertEqual(self.run_cli("--metadata-only"), 0, "\n".join(self.logs))
+        self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
+        candidate = self.candidate("miraheze", "File:Emi-Animated.gif")
+        self.assertEqual((candidate["disposition"], candidate["asset_id"]), ("downloaded", gif["id"]))
+        self.assertIn("--include-animated", candidate["notes"])
+        self.assertEqual(self.candidate("fandom", "File:Emi-Animated.gif")["reason"].split(":")[0],
+                         "animated_capture")  # never archived on Fandom: still excluded by default
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
     def test_metadata_refresh_without_download(self) -> None:
         """Better evidence on a later run updates an archived record's descriptive fields, never its bytes."""
@@ -335,6 +347,243 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(client.downloads[-1], bad)
         self.assertEqual(self.candidate("miraheze", "File:Package Vocal.jpg")["disposition"], "downloaded")
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+
+def clock():
+    """Increasing UTC timestamps (one second per call)."""
+    count = iter(range(10 ** 6))
+
+    def now() -> str:
+        n = next(count)
+        return f"2026-10-10T{12 + n // 3600:02d}:{n // 60 % 60:02d}:{n % 60:02d}Z"
+    return now
+
+
+class ArchiveIntegrityTests(WikiRun):
+    """Archived records follow their bytes: damage is repaired, moves and reverts keep a current record, an outage
+    never re-classifies archived files, and only a reviewed withdrawal removes one."""
+
+    def damage(self, title: str, how: str) -> dict:
+        asset = self.asset("miraheze", title)
+        target = self.root / asset["path"]
+        data = bytearray(target.read_bytes())
+        if how == "truncate":
+            del data[-10:]
+        else:
+            data[-20] ^= 0xFF  # same size, other bytes
+        target.write_bytes(bytes(data))
+        return asset
+
+    def test_resume_repairs_damaged_files(self) -> None:
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        truncated = self.damage("File:(XD)Dynamix.png", "truncate")
+        flipped = self.damage("File:Emi-Raw.png", "flip")
+        self.assertEqual(self.verify(), 1)
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", "--resume", client=client), 0, "\n".join(self.logs))
+        self.assertEqual(len(client.downloads), 2)
+        self.assertFalse((self.work / "journal.jsonl").exists())
+        self.assertEqual(self.manifest()["failures"], [])
+        for asset in (truncated, flipped):
+            self.assertEqual(self.asset("miraheze", "File:" + asset["original_filename"].replace("_", " "))["id"],
+                             asset["id"])
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0)  # nothing left to replay
+
+    def test_failed_repair_keeps_the_record(self) -> None:
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        asset = self.damage("File:(XD)Dynamix.png", "truncate")
+        client = self.scenario.client()
+        url = next(url for url in client.blobs if "(XD)Dynamix" in url.replace("%28", "(").replace("%29", ")")
+                   and "wikitide" in url)
+        client.errors[url] = net.HttpError("HTTP 503", url=url, http_status=503, retriable=True)
+        self.assertEqual(self.run_cli("--source", "miraheze", "--resume", client=client), 1)
+        self.assertTrue(any(line.startswith("REPAIR FAILED") for line in self.logs))
+        candidate = self.candidate("miraheze", "File:(XD)Dynamix.png")
+        self.assertEqual((candidate["disposition"], candidate["asset_id"]), ("downloaded", asset["id"]))
+        self.assertEqual(self.manifest()["failures"], [])
+        self.assertFalse((self.work / "journal.jsonl").exists())
+        self.assertEqual(self.verify(), 1)  # the damage is still visible
+        self.assertEqual(self.run_cli("--source", "miraheze", "--resume"), 0, "\n".join(self.logs))
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_file_move_keeps_a_current_record(self) -> None:
+        self.assertEqual(self.run_cli(), 0)
+        old = self.asset("miraheze", "File:(XD)Dynamix.png")
+        sc = self.scenario
+        new = "XD cover (moved).png"
+        sc.data[new] = sc.data["(XD)Dynamix.png"]
+        for names in (sc.miraheze_names, sc.fandom_names):
+            names.remove("(XD)Dynamix.png")
+            names.append(new)
+        for pages in (sc.miraheze_pages, sc.fandom_pages):
+            pages["(XD)"] = dict(pages["(XD)"], wikitext=pages["(XD)"]["wikitext"].replace("(XD)Dynamix.png", new))
+        self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
+        moved = self.asset("miraheze", "File:" + new)
+        self.assertEqual((moved["id"], moved["path"], moved["upstream_status"]), (old["id"], old["path"], "current"))
+        self.assertEqual((moved["candidate_id"], moved["original_filename"]),
+                         ("wikis:miraheze:File:XD_cover_(moved).png", "(XD)Dynamix.png"))
+        self.assertIn("first archived as wikis:miraheze:File:(XD)Dynamix.png", moved["notes"])
+        index = manifest.load_json(self.root / "data/discovery/song-index.wikis.json")
+        xd = next(song for song in index["songs"] if song["title"] == "(XD)")
+        self.assertIn(old["id"], xd["artwork_asset_ids"])
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_duplicate_title_inherits_the_record_of_a_removed_title(self) -> None:
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        record = self.asset("miraheze", "File:CosmicPulseDynamix.png")
+        self.assertEqual(self.candidate("miraheze", "File:Cosmic Pulse copy.png")["disposition"], "duplicate_bytes")
+        self.scenario.miraheze_names.remove("CosmicPulseDynamix.png")
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only", client=client), 0,
+                         "\n".join(self.logs))
+        copy = self.candidate("miraheze", "File:Cosmic Pulse copy.png")
+        self.assertEqual((copy["disposition"], copy["asset_id"]), ("downloaded", record["id"]))
+        assets = {a["id"]: a for a in self.manifest()["assets"]}
+        self.assertEqual(assets[record["id"]]["upstream_status"], "current")
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_same_bytes_under_a_new_revision_stay_current(self) -> None:
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        before = self.asset("miraheze", "File:(XD)BG-HQ.png")
+        self.scenario.overrides[("miraheze", "(XD)BG-HQ.png")] = {"timestamp": "2026-09-01T00:00:00Z"}
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0)
+        after = self.asset("miraheze", "File:(XD)BG-HQ.png")
+        self.assertEqual((after["id"], after["upstream_status"], after["source_reported"]["timestamp"]),
+                         (before["id"], "current", "2026-09-01T00:00:00Z"))
+        self.assertIn("Upstream history: same bytes as the earlier upload 2021-02-11T14:41:30Z", after["notes"])
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 0)
+        self.assertEqual(client.downloads, [])  # nothing to re-download, no flip-flop
+        self.assertEqual(self.asset("miraheze", "File:(XD)BG-HQ.png"), after)
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_revert_restores_the_earlier_record(self) -> None:
+        from fakewiki import image_bytes
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        first = self.asset("miraheze", "File:(XD)BG-HQ.png")
+        original = self.scenario.data["(XD)BG-HQ.png"]
+        self.scenario.data["(XD)BG-HQ.png"] = image_bytes("PNG", (49, 42), 99)
+        self.scenario.overrides[("miraheze", "(XD)BG-HQ.png")] = {"timestamp": "2026-09-01T00:00:00Z"}
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        second = self.asset("miraheze", "File:(XD)BG-HQ.png")
+        self.scenario.data["(XD)BG-HQ.png"] = original  # revert: the first bytes as a new revision
+        self.scenario.overrides[("miraheze", "(XD)BG-HQ.png")] = {"timestamp": "2026-09-02T00:00:00Z"}
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
+        assets = {a["id"]: a for a in self.manifest()["assets"]}
+        self.assertEqual(self.candidate("miraheze", "File:(XD)BG-HQ.png")["asset_id"], first["id"])
+        self.assertEqual(assets[first["id"]]["upstream_status"], "current")
+        self.assertNotIn("superseded_by", assets[first["id"]])
+        self.assertEqual((assets[second["id"]]["upstream_status"], assets[second["id"]]["superseded_by"]),
+                         ("superseded", first["id"]))
+        self.assertEqual(assets[first["id"]]["source_reported"]["timestamp"], "2026-09-02T00:00:00Z")
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_outage_after_acquisition_keeps_archived_classification(self) -> None:
+        self.assertEqual(self.run_cli(), 0)
+        before = {key: self.snapshot(key) for key in ("miraheze", "fandom")}
+        index = (self.root / "data/discovery/song-index.wikis.json").read_bytes()
+        wikis = self.scenario.wikis()
+        wikis[config.FANDOM.api_url].fail[("pages", 1)] = net.HttpError(
+            "HTTP 503", url=config.FANDOM.api_url, http_status=503)  # an outage on Fandom only
+        client = self.scenario.client(wikis)
+        self.assertEqual(self.run_cli(client=client), 2, "\n".join(self.logs))
+        self.assertEqual(client.downloads, [])
+        mira, fandom = self.snapshot("miraheze"), self.snapshot("fandom")
+        self.assertTrue(mira["discovery_complete"])  # Miraheze itself was enumerated completely ...
+        self.assertFalse(fandom["discovery_complete"])
+        self.assertTrue(fandom["errors"])
+        for key, snapshot in (("miraheze", mira), ("fandom", fandom)):  # ... but the pooled evidence is partial
+            old = {c["id"]: c for c in before[key]["candidates"]}
+            for candidate in snapshot["candidates"]:
+                if old[candidate["id"]]["disposition"] == "downloaded":
+                    self.assertEqual((candidate["disposition"], candidate["role"], candidate["asset_id"]),
+                                     (old[candidate["id"]]["disposition"], old[candidate["id"]]["role"],
+                                      old[candidate["id"]]["asset_id"]))
+                    self.assertIn("this discovery is incomplete", candidate["notes"])
+        self.assertEqual((self.root / "data/discovery/song-index.wikis.json").read_bytes(), index)
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))  # the next complete discovery re-classifies
+        self.assertNotIn("incomplete", self.candidate("miraheze", "File:Emi-Raw.png")["notes"])
+
+    def test_withdrawal_is_the_only_way_out(self) -> None:
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        event = self.asset("miraheze", "File:Unused Event.png")
+        table = self.scenario.reviews_json()
+        entry = next(item for item in table["reviews"] if item["title"] == "File:Unused Event.png")
+        entry.update(role="fanart", evidence="visual_inspection: fan-made event poster")
+        for key in ("game", "game_evidence", "songs"):
+            entry.pop(key)
+        self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
+        before = (self.root / "data/sources/wikis.json").read_bytes()
+        self.assertEqual(self.run_cli("--source", "miraheze"), 4)  # an unreviewed exclusion stops the run
+        self.assertEqual((self.root / "data/sources/wikis.json").read_bytes(), before)
+        table["withdrawals"] = [{"title": "File:Unused Event.png", "sha256": [event["sha256"]], "reason": "fanart",
+                                 "evidence": "visual_inspection: fan-made event poster"}]
+        self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
+        self.assertNotIn(event["id"], {a["id"] for a in self.manifest()["assets"]})
+        self.assertFalse((self.root / event["path"]).exists())
+        self.assertEqual(self.candidate("miraheze", "File:Unused Event.png")["reason"].split(":")[0], "fanart")
+        self.assertTrue(any(line.startswith("WITHDRAWN") for line in self.logs))
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_download_probe_failure_is_recorded(self) -> None:
+        table = self.scenario.reviews_json()
+        table["reviews"].append({"title": "File:Cited Screenshot.png", "sha1": [hashlib.sha1(
+            self.scenario.data["Cited Screenshot.png"]).hexdigest()], "role": None,
+            "evidence": "download_probe: the file returns HTTP 404 from the CDN",
+            "pending": "the content could not be inspected"})
+        self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
+        client = self.scenario.client()
+        url = next(url for url in client.blobs if "Cited_Screenshot" in url and "wikitide" in url)
+        del client.blobs[url]  # the CDN answers 404
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 1)
+        candidate = self.candidate("miraheze", "File:Cited Screenshot.png")
+        self.assertEqual((candidate["disposition"], candidate["role"]), ("failed", None))
+        [failure] = [f for f in self.manifest()["failures"] if f["candidate_id"] == candidate["id"]]
+        self.assertEqual((failure["phase"], failure["error_class"], failure["http_status"]), ("download", "http_4xx",
+                                                                                              404))
+        client = self.scenario.client()
+        del client.blobs[url]
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 1)
+        self.assertNotIn(url, client.downloads)  # a 404 is not retried automatically
+        self.assertEqual(self.candidate("miraheze", "File:Cited Screenshot.png")["disposition"], "failed")
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_missing_file_url_is_a_failure(self) -> None:
+        wikis = self.scenario.wikis()
+        row = next(row for row in wikis[config.MIRAHEZE.api_url].files if row["name"] == "TwinDynamix.png")
+        row["url"] = None
+        client = self.scenario.client(wikis)
+        self.assertEqual(self.run_cli(client=client), 1, "\n".join(self.logs))
+        candidate = self.candidate("miraheze", "File:TwinDynamix.png")
+        self.assertEqual(candidate["disposition"], "failed")
+        [failure] = [f for f in self.manifest()["failures"] if f["candidate_id"] == candidate["id"]]
+        self.assertEqual((failure["error_class"], failure["url"]), ("other", candidate["page_url"]))
+        self.assertEqual(self.candidate("fandom", "File:TwinDynamix.png")["disposition"], "downloaded")
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_checked_at_is_the_last_access(self) -> None:
+        client = self.scenario.client()
+        self.assertEqual(cli.main(["--root", str(self.root), "--work-dir", str(self.work), "--source", "miraheze"],
+                                  client_factory=lambda: client, now=clock(), log=self.logs.append), 0)
+        data = self.manifest()
+        source = next(s for s in data["sources"] if s["id"] == "wikis:miraheze")
+        last = max(a["fetched_at"] for a in data["assets"] if a["source_id"] == "wikis:miraheze")
+        self.assertGreater(last, self.snapshot("miraheze")["finished_at"])
+        self.assertGreaterEqual(source["checked_at"], last)
+
+    def test_root_lock_and_foreign_journal(self) -> None:
+        with acquire.exclusive_lock(acquire.root_lock_path(self.root)):
+            self.assertEqual(self.run_cli("--metadata-only"), 3)  # another --work-dir does not help
+        self.assertEqual(self.run_cli("--metadata-only"), 0)
+        acquire.Journal(self.work / "journal.jsonl").append({"event": "clear_failures", "id": "x"})
+        other = self.tmp / "other-work"
+        code = cli.main(["--root", str(self.root), "--work-dir", str(other), "--metadata-only"],
+                        client_factory=self.scenario.client, now=lambda: NOW, log=self.logs.append)
+        self.assertEqual(code, 3)
+        self.assertEqual(self.run_cli("--metadata-only"), 0)  # resuming with the journal's own work dir works
 
 
 class ResumeTests(WikiRun):
