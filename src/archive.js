@@ -326,7 +326,8 @@
   }
   function upstreamNotes(p) {
     const notes = [element("p", t("provenance.upstream", {status: label("upstream", p.upstream_status)}))];
-    const newer = p.superseded_by && (byId.get(p.superseded_by) || assets.find((asset) => records(asset).some((record) => record.id === p.superseded_by)));
+    // superseded_by names a source record's asset ID: a catalog entry's own ID, or the asset_id of one of its records.
+    const newer = p.superseded_by && (byId.get(p.superseded_by) || assets.find((asset) => records(asset).some((record) => record.asset_id === p.superseded_by)));
     if (newer) {
       const button = element("button", t("provenance.superseded_by", {title: newer.title, size: dimensions(newer) || newer.format}));
       button.type = "button";

@@ -33,6 +33,8 @@ CATALOG_FIELDS = {"family", "source_name", "url", "thumb", "gallery", "slideshow
 PROVENANCE = {"source_id", "source_name", "family", "page_url", "download_url", "resolved_url", "quality", "rights", "mapping_status",
               "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "source_reported", "comparisons",
               "upstream_status", "superseded_by", "notes"}
+PROVENANCE_OPTIONAL = {"asset_id"}  # scripts/lib/schema.py PROVENANCE_SPEC: the source record's own asset ID
+LIBRARY = ROOT / "scripts/lib/schema.py"
 FAILURE = {"id", "source_id", "candidate_id", "phase", "url", "attempted_at", "attempts", "error_class", "http_status", "retriable", "manual", "message"}
 QUALITY = {"source_variant", "origin_status", "master_status", "notes"}
 RIGHTS = {"holder", "creator", "url", "license", "restrictions"}
@@ -124,10 +126,11 @@ class FixtureContractTests(unittest.TestCase):
                 self.assertEqual(asset["slideshow"], asset["gallery"] and asset["kind"] in {"song_art", "pack_cover", "promotional", "character"}
                                  and max(asset["width"], asset["height"]) >= 1000)
                 for record in asset["provenance"]:
-                    self.assertEqual(set(record), PROVENANCE, "provenance records carry exactly the contract's fields")
+                    self.assertTrue(PROVENANCE <= set(record) <= PROVENANCE | PROVENANCE_OPTIONAL, "provenance records carry the contract's fields")
+                    self.assertEqual(record["asset_id"], f"{record['source_id']}:{asset['sha256'][:16]}")
                 self.assertEqual(asset["provenance"][0]["source_id"], asset["source_id"], "the primary record comes first")
-                families = [FAMILY_PRIORITY.index(record["family"]) for record in asset["provenance"]]
-                self.assertEqual(families, sorted(families))
+                keys = [(FAMILY_PRIORITY.index(record["family"]), record["source_id"], record["asset_id"]) for record in asset["provenance"]]
+                self.assertEqual(keys, sorted(keys), "provenance is ordered by family priority, source ID, asset ID")
 
     def test_files_match_their_records(self):
         for asset in self.catalog["assets"]:
@@ -191,7 +194,16 @@ class FixtureContractTests(unittest.TestCase):
         self.assertTrue(any(not asset["site_original"] and asset["gallery"] for asset in assets), "an archive-only gallery image")
         self.assertTrue(any(asset["format"] != "PDF" and max(asset["width"], asset["height"]) <= 200 for asset in assets), "a 200 px file")
         self.assertTrue(any(value is False for asset in assets for record in asset["provenance"] for value in record["comparisons"].values()))
-        self.assertTrue(any(str(record["page_url"]).startswith("javascript:") for asset in assets for record in asset["provenance"]))
+        self.assertTrue(any(entry == "javascript:alert(6)" for asset in assets for record in asset["provenance"] for entry in record["mapping_evidence"]),
+                        "a script-looking evidence string (valid text, never a link)")
+
+    @unittest.skipUnless(LIBRARY.is_file(), "scripts/lib (the executable contract) is not on this branch yet")
+    def test_contract_library_accepts_the_fixture(self):
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from lib import schema  # noqa: PLC0415 - only present once the contract library is merged
+        for name in ("catalog.json", "catalog-empty.json"):
+            with self.subTest(fixture=name):
+                schema.validate_catalog(load(name))
 
 
 if __name__ == "__main__":

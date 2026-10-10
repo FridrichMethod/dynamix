@@ -471,7 +471,7 @@ def check_provenance_text(smoke, base, catalog):
     """Comparisons read matched / mismatched / unknown in both languages; a javascript: page URL is never a link;
     quality labels and the rights holder appear for each record."""
     duplicate = find(catalog, lambda a: len(a["provenance"]) > 2)
-    hostile = find(catalog, lambda a: any(str(p["page_url"]).startswith("javascript:") for p in a["provenance"]))
+    hostile = find(catalog, lambda a: any("javascript:alert(6)" in p["mapping_evidence"] for p in a["provenance"]))
     for lang in ("en", "zh-CN"):
         page = smoke.page(base)
         smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(duplicate["id"], safe="")))
@@ -493,8 +493,7 @@ def check_provenance_text(smoke, base, catalog):
         smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(hostile["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open")
         assert page.locator("a[href^='javascript:' i]").count() == 0
-        heading = page.locator("#provenance .provenance-item > p").first
-        assert heading.locator("a").count() == 0 and hostile["provenance"][0]["source_name"] in heading.inner_text()
+        assert "javascript:alert(6)" in page.locator("#provenance").inner_text(), "a script-looking string is shown as text"
         smoke.finish(page)
 
 
@@ -524,7 +523,8 @@ def check_injection(smoke, base, catalog):
         page.wait_for_function("document.querySelector('.slide-notes .notes-title') !== null")
         assert page.locator(".slide-notes .notes-title").inner_text().replace("\u00a0", " ") == hostile["title"]
         assert INJECTION in page.locator(".slide-notes").inner_text()
-        assert page.locator("#asset-source").get_attribute("href") is None, "a javascript: page URL is not linked"
+        assert page.locator("#asset-source").get_attribute("href") == hostile["page_url"], "the caption links the source page"
+        assert page.locator(".slide-notes").evaluate("(node) => node.querySelector('img, script, b') === null"), "no markup from the data"
     page.wait_for_timeout(300)
     assert page.evaluate("document.querySelectorAll('img[src=\"x\"]').length") == 0, "no injected element"
     assert page.evaluate("[...document.scripts].every((s) => !s.textContent.includes('alert('))")

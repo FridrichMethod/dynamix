@@ -31,7 +31,7 @@ CONTRACT_TOKENS = {
 }
 # Provenance-record fields src/archive.js shows in the viewer (or uses for search and filters).
 SHOWN_PROVENANCE = {
-    "source_id", "source_name", "family", "page_url", "download_url", "resolved_url", "quality", "rights", "mapping_status",
+    "asset_id", "source_id", "source_name", "family", "page_url", "download_url", "resolved_url", "quality", "rights", "mapping_status",
     "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "source_reported", "comparisons",
     "upstream_status", "superseded_by", "notes",
 }

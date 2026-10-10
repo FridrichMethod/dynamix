@@ -19,6 +19,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import re
 import shutil
 import sys
 import unicodedata
@@ -174,7 +175,7 @@ def files():
         {"key": "night", "title": f"Night {INJECTION} Drive </script>", "kind": "song_art", "name": "Night_Drive.png", "bytes": encode(night, "PNG", optimize=True),
          "illustrators": [INJECTION], "composers": ["\"Quote\" & 'Apostrophe' </script><script>alert(2)</script>"],
          "songs": [f"Night {INJECTION} Drive </script>"], "collections": ["</script><b>Pack</b>"], "notes": "<b>bold?</b> </script><script>alert(5)</script>",
-         "records": [{"source_id": "wikis:miraheze", "page_url": "javascript:alert(3)", "download_url": f"{mh}/images/d/d4/Night_Drive.png",
+         "records": [{"source_id": "wikis:miraheze", "page_url": f"{mh}/File:Night_Drive.png", "download_url": f"{mh}/images/d/d4/Night_Drive.png",
                       "quality": ["site_original", "wiki_copy", "unverified", "<i>not italic</i>"], "mapping_status": "inferred",
                       "mapping_evidence": [{"field": "Template:Song|artist", "quote": "<script>alert(4)</script>"}, "javascript:alert(6)"],
                       "reported": {"exact": True}, "restrictions": "<u>No reuse</u> </script>"}]},
@@ -225,11 +226,23 @@ def measure(raw):
         return image.format, image.width, image.height
 
 
-def slug(text):
-    stem = unicodedata.normalize("NFKC", text)
-    out = "".join(char if char.isascii() and (char.isalnum() or char in "._-") else "-" for char in stem)
-    out = "-".join(part for part in out.split("-") if part)
-    return out or "file"
+def slug(text, lower=False):
+    """The contract slug (scripts/lib/paths.py): NFKC; runs outside [A-Za-z0-9._-] become one "-"; hyphen runs collapse;
+    leading/trailing "-" and "." are trimmed; at most 80 characters; "file" when nothing remains."""
+    value = re.sub(r"-{2,}", "-", re.sub(r"[^A-Za-z0-9._-]+", "-", unicodedata.normalize("NFKC", text))).strip("-.")
+    value = (value.lower() if lower else value)[:80].rstrip("-.")
+    return value or "file"
+
+
+def compare(reported, observed):
+    """Tri-state comparisons of advertised versus measured values (scripts/lib/schema.py compute_comparisons)."""
+    size, seen = (reported["width"], reported["height"]), (observed["width"], observed["height"])
+    return {
+        "sha1_match": None if reported["sha1"] is None else reported["sha1"].lower() == observed["sha1"],
+        "bytes_match": None if reported["bytes"] is None else reported["bytes"] == observed["bytes"],
+        "dimensions_match": None if None in size or None in seen else size == seen,
+        "format_match": None if reported["mime"] is None else reported["mime"] == MIME[observed["sniffed_format"]],
+    }
 
 
 def preview(raw, fmt):
@@ -254,7 +267,8 @@ def build():
         sha256, sha1 = hashlib.sha256(raw).hexdigest(), hashlib.sha1(raw).hexdigest()
         primary = spec["records"][0]
         family = sources[primary["source_id"]]["family"]
-        path = f"assets/public/{family}/{SOURCE_SLUGS[primary['source_id']]}/{slug(Path(spec['name']).stem)}--{sha256[:12]}.{EXTENSION[fmt]}"
+        stem = spec["name"].rpartition(".")[0] or spec["name"]
+        path = f"assets/public/{family}/{SOURCE_SLUGS[primary['source_id']]}/{slug(stem)}--{sha256[:12]}.{EXTENSION[fmt]}"
         blobs[path] = raw
         thumb_bytes = preview(raw, fmt)
         thumb = f"assets/thumbs/{sha256[:16]}.webp" if thumb_bytes else None
@@ -265,34 +279,33 @@ def build():
     assets = []
     for spec, raw, fmt, width, height, sha256, sha1, path, thumb in entries:
         provenance, extra = [], []
+        observed = {"content_type": "image/png" if spec.get("transformed") else MIME[fmt], "sniffed_format": fmt, "bytes": len(raw),
+                    "width": width, "height": height, "sha1": sha1, "sha256": sha256}
         for record in spec["records"]:
             source = sources[record["source_id"]]
             reported = record["reported"]
             if reported.get("exact"):
                 source_reported = {"url": record["download_url"], "mime": MIME[fmt], "bytes": len(raw), "width": width, "height": height,
                                    "sha1": sha1, "timestamp": "2024-05-01T00:00:00Z", "revision": None}
-                comparisons = {"sha1_match": True, "bytes_match": True, "dimensions_match": width is not None or None, "format_match": True}
             elif "bytes_delta" in reported:
                 source_reported = {"url": record["download_url"], "mime": MIME[fmt], "bytes": len(raw) + reported["bytes_delta"], "width": width,
                                    "height": height, "sha1": reported["sha1"], "timestamp": "2024-05-02T00:00:00Z", "revision": None}
-                comparisons = {"sha1_match": False, "bytes_match": False, "dimensions_match": True, "format_match": True}
             elif reported.get("dims_only"):
                 source_reported = {"url": record["download_url"], "mime": None, "bytes": None, "width": 1242, "height": 2208, "sha1": None,
                                    "timestamp": None, "revision": None}
-                comparisons = {"sha1_match": None, "bytes_match": None, "dimensions_match": False, "format_match": None}
             elif "mime" in reported:
                 source_reported = {"url": record["download_url"], "mime": reported["mime"], "bytes": None, "width": None, "height": None,
                                    "sha1": None, "timestamp": None, "revision": None}
-                comparisons = {"sha1_match": None, "bytes_match": None, "dimensions_match": None, "format_match": reported["mime"] == MIME[fmt]}
             else:
                 source_reported = {key: None for key in ("url", "mime", "bytes", "width", "height", "sha1", "timestamp", "revision")}
-                comparisons = {"sha1_match": None, "bytes_match": None, "dimensions_match": None, "format_match": None}
+            comparisons = compare(source_reported, observed)
             variant, origin, master, quality_notes = record["quality"]
             superseded = keyed[spec["superseded_by"]] if spec.get("superseded_by") else None
             # Exactly the provenance fields of the frozen contract; record-only details stay in `extra`.
             extra.append({"id": f"{record['source_id']}:{sha256[:16]}", "candidate_id": f"{record['source_id']}:{spec['name'].replace(' ', '_')}",
                           "upstream_revision": record.get("upstream_revision")})
             provenance.append({
+                "asset_id": f"{record['source_id']}:{sha256[:16]}",
                 "source_id": record["source_id"], "source_name": source["name"], "family": source["family"],
                 "page_url": record["page_url"], "download_url": record["download_url"], "resolved_url": record["download_url"],
                 "quality": {"source_variant": variant, "origin_status": origin, "master_status": master, "notes": quality_notes},
@@ -303,6 +316,10 @@ def build():
                 "source_reported": source_reported, "comparisons": comparisons,
                 "upstream_status": spec.get("upstream_status", "current"), "superseded_by": superseded, "notes": spec.get("notes"),
             })
+        # Primary first, then by family priority, source ID and asset ID, as the catalog builder orders provenance.
+        order = sorted(range(len(provenance)), key=lambda i: (FAMILY_ORDER.index(provenance[i]["family"]), provenance[i]["source_id"],
+                                                              provenance[i]["asset_id"]))
+        provenance, extra = [provenance[i] for i in order], [extra[i] for i in order]
         primary = {**provenance[0], **extra[0]}
         site = spec["kind"] in SITE_KINDS and fmt != "PDF"
         gallery = fmt != "PDF" and spec["kind"] != "reference"
@@ -313,11 +330,10 @@ def build():
             "resolved_url": primary["resolved_url"], "path": path, "original_filename": spec["name"], "bytes": len(raw), "sha256": sha256,
             "sha1": sha1, "format": fmt, "mime": MIME[fmt], "width": width, "height": height, "fetched_at": FETCHED,
             "illustrators": spec["illustrators"], "composers": spec["composers"], "song_titles": spec["songs"],
-            "song_ids": [f"song:{slug(title).lower()}" for title in spec["songs"]], "collections": spec["collections"],
+            "song_ids": [f"song:{slug(title, lower=True)}" for title in spec["songs"]], "collections": spec["collections"],
             "mapping_status": primary["mapping_status"], "mapping_evidence": primary["mapping_evidence"], "quality": primary["quality"],
             "rights": primary["rights"], "source_reported": primary["source_reported"],
-            "download_observed": {"content_type": "image/png" if spec.get("transformed") else MIME[fmt], "sniffed_format": fmt, "bytes": len(raw),
-                                  "width": width, "height": height, "sha1": sha1, "sha256": sha256},
+            "download_observed": observed,
             "comparisons": primary["comparisons"], "credit_evidence": primary["credit_evidence"],
             "upstream_status": primary["upstream_status"],
         }

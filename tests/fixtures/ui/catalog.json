@@ -186,6 +186,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/artists/x-fixture-artist/Aurora_Lattice--af96aae516e8.png",
       "provenance": [
         {
+          "asset_id": "artists:x:fixture-artist:af96aae516e8e476",
           "source_id": "artists:x:fixture-artist",
           "source_name": "Fixture Artist A (X)",
           "family": "artists",
@@ -251,61 +252,7 @@
           "notes": null
         },
         {
-          "source_id": "wikis:miraheze",
-          "source_name": "Fixture Wiki (MediaWiki A)",
-          "family": "wikis",
-          "page_url": "https://example.org/wiki-a/File:Aurora_Lattice.png",
-          "download_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
-          "resolved_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
-          "quality": {
-            "source_variant": "site_original",
-            "origin_status": "wiki_copy",
-            "master_status": "unverified",
-            "notes": ""
-          },
-          "rights": {
-            "holder": "C4Cat Entertainment Limited and/or the credited artist",
-            "creator": null,
-            "url": null,
-            "license": null,
-            "restrictions": null
-          },
-          "mapping_status": "confirmed_wiki",
-          "mapping_evidence": [
-            "https://example.org/wiki-a/Aurora_Lattice",
-            "Template:Song image field names this file"
-          ],
-          "credit_evidence": [],
-          "illustrators": [
-            "Fixture Artist A"
-          ],
-          "composers": [
-            "Fixture Composer"
-          ],
-          "song_titles": [
-            "Aurora Lattice"
-          ],
-          "source_reported": {
-            "url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
-            "mime": "image/png",
-            "bytes": 17098,
-            "width": 1600,
-            "height": 1600,
-            "sha1": "33d3f739dcb34a68bb1018bfbaebd1301c862c4e",
-            "timestamp": "2024-05-01T00:00:00Z",
-            "revision": null
-          },
-          "comparisons": {
-            "sha1_match": true,
-            "bytes_match": true,
-            "dimensions_match": true,
-            "format_match": true
-          },
-          "upstream_status": "current",
-          "superseded_by": null,
-          "notes": null
-        },
-        {
+          "asset_id": "wikis:fandom:af96aae516e8e476",
           "source_id": "wikis:fandom",
           "source_name": "Fixture Wiki (MediaWiki B)",
           "family": "wikis",
@@ -361,6 +308,62 @@
           "upstream_status": "current",
           "superseded_by": null,
           "notes": null
+        },
+        {
+          "asset_id": "wikis:miraheze:af96aae516e8e476",
+          "source_id": "wikis:miraheze",
+          "source_name": "Fixture Wiki (MediaWiki A)",
+          "family": "wikis",
+          "page_url": "https://example.org/wiki-a/File:Aurora_Lattice.png",
+          "download_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
+          "resolved_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "wiki_copy",
+            "master_status": "unverified",
+            "notes": ""
+          },
+          "rights": {
+            "holder": "C4Cat Entertainment Limited and/or the credited artist",
+            "creator": null,
+            "url": null,
+            "license": null,
+            "restrictions": null
+          },
+          "mapping_status": "confirmed_wiki",
+          "mapping_evidence": [
+            "https://example.org/wiki-a/Aurora_Lattice",
+            "Template:Song image field names this file"
+          ],
+          "credit_evidence": [],
+          "illustrators": [
+            "Fixture Artist A"
+          ],
+          "composers": [
+            "Fixture Composer"
+          ],
+          "song_titles": [
+            "Aurora Lattice"
+          ],
+          "source_reported": {
+            "url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
+            "mime": "image/png",
+            "bytes": 17098,
+            "width": 1600,
+            "height": 1600,
+            "sha1": "33d3f739dcb34a68bb1018bfbaebd1301c862c4e",
+            "timestamp": "2024-05-01T00:00:00Z",
+            "revision": null
+          },
+          "comparisons": {
+            "sha1_match": true,
+            "bytes_match": true,
+            "dimensions_match": true,
+            "format_match": true
+          },
+          "upstream_status": "current",
+          "superseded_by": null,
+          "notes": null
         }
       ],
       "variants": []
@@ -372,7 +375,7 @@
       "title": "Night <img src=x onerror=alert(1)> Drive </script>",
       "kind": "song_art",
       "game": "dynamix",
-      "page_url": "javascript:alert(3)",
+      "page_url": "https://example.org/wiki-a/File:Night_Drive.png",
       "download_url": "https://example.org/wiki-a/images/d/d4/Night_Drive.png",
       "resolved_url": "https://example.org/wiki-a/images/d/d4/Night_Drive.png",
       "path": "assets/public/wikis/miraheze/Night_Drive--61e893dbff1e.png",
@@ -459,10 +462,11 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/miraheze/Night_Drive--61e893dbff1e.png",
       "provenance": [
         {
+          "asset_id": "wikis:miraheze:61e893dbff1e9c54",
           "source_id": "wikis:miraheze",
           "source_name": "Fixture Wiki (MediaWiki A)",
           "family": "wikis",
-          "page_url": "javascript:alert(3)",
+          "page_url": "https://example.org/wiki-a/File:Night_Drive.png",
           "download_url": "https://example.org/wiki-a/images/d/d4/Night_Drive.png",
           "resolved_url": "https://example.org/wiki-a/images/d/d4/Night_Drive.png",
           "quality": {
@@ -609,6 +613,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/miraheze/Signal_Bloom--90ea6b004aa9.png",
       "provenance": [
         {
+          "asset_id": "wikis:miraheze:90ea6b004aa9faf2",
           "source_id": "wikis:miraheze",
           "source_name": "Fixture Wiki (MediaWiki A)",
           "family": "wikis",
@@ -756,6 +761,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/miraheze/Signal_Bloom_alt--f3cad806832e.jpg",
       "provenance": [
         {
+          "asset_id": "wikis:miraheze:f3cad806832e768b",
           "source_id": "wikis:miraheze",
           "source_name": "Fixture Wiki (MediaWiki A)",
           "family": "wikis",
@@ -901,6 +907,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/fandom/Tiny_Jacket--5395d64a7e8a.png",
       "provenance": [
         {
+          "asset_id": "wikis:fandom:5395d64a7e8afa9f",
           "source_id": "wikis:fandom",
           "source_name": "Fixture Wiki (MediaWiki B)",
           "family": "wikis",
@@ -1039,6 +1046,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/fandom/file--8878452a2ded.webp",
       "provenance": [
         {
+          "asset_id": "wikis:fandom:8878452a2dedbdc5",
           "source_id": "wikis:fandom",
           "source_name": "Fixture Wiki (MediaWiki B)",
           "family": "wikis",
@@ -1170,6 +1178,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/archives/wayback/pack-vol-1--4c984b8f98f9.jpg",
       "provenance": [
         {
+          "asset_id": "archives:wayback:4c984b8f98f96681",
           "source_id": "archives:wayback",
           "source_name": "Web archive snapshots (fixture)",
           "family": "archives",
@@ -1301,6 +1310,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/wikis/miraheze/Lane_Keeper--600e7a7c10c6.png",
       "provenance": [
         {
+          "asset_id": "wikis:miraheze:600e7a7c10c62c93",
           "source_id": "wikis:miraheze",
           "source_name": "Fixture Wiki (MediaWiki A)",
           "family": "wikis",
@@ -1430,6 +1440,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/official/apple-store/screenshot-1--0cc7da89df09.png",
       "provenance": [
         {
+          "asset_id": "official:apple-store:0cc7da89df091c4f",
           "source_id": "official:apple-store",
           "source_name": "App Store listing (fixture)",
           "family": "official",
@@ -1555,6 +1566,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/archives/wayback/gameplay-capture--8906b41c0052.png",
       "provenance": [
         {
+          "asset_id": "archives:wayback:8906b41c00528308",
           "source_id": "archives:wayback",
           "source_name": "Web archive snapshots (fixture)",
           "family": "archives",
@@ -1680,6 +1692,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/archives/wayback/interview-scan--c428dee5a776.jpg",
       "provenance": [
         {
+          "asset_id": "archives:wayback:c428dee5a7767c48",
           "source_id": "archives:wayback",
           "source_name": "Web archive snapshots (fixture)",
           "family": "archives",
@@ -1805,6 +1818,7 @@
       "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/assets/public/archives/wayback/press-kit--c4548b9cf270.pdf",
       "provenance": [
         {
+          "asset_id": "archives:wayback:c4548b9cf270fe53",
           "source_id": "archives:wayback",
           "source_name": "Web archive snapshots (fixture)",
           "family": "archives",
