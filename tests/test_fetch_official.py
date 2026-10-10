@@ -188,6 +188,22 @@ class TapTapTests(OfficialTestCase):
         self.verify()
 
 
+    def test_banner_rendition_used_as_trailer_poster_still_yields_the_upload(self):
+        from primary import runner as runner_module
+        from primary.adapters import taptap
+
+        url = ("https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_"
+               "thumbnail_1920x1080.jpg")
+        context = runner_module.AdapterContext(client=None, seed={}, source_id="official:taptap")
+        drafts = taptap.banner_drafts(context, {"rules": [{"match": "^banner:", "role": "promotional"}]},
+                                      {"original_url": url, "width": 1920, "height": 1080}, {url},
+                                      "https://www.taptap.cn/app/7082", {}, [], [])
+        self.assertEqual([d.action for d in drafts], ["excluded", "download"])
+        self.assertIn("trailer's poster frame", drafts[0].reason)
+        self.assertEqual(drafts[1].file_url,
+                         "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg")
+
+
 class XTimelineTests(OfficialTestCase):
     def test_embed_timeline_is_a_sample_and_guards_apply(self):
         post_url = full_url(x_adapter.API, {"id": "981147690795900928", "lang": "en",

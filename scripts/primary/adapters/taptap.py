@@ -93,18 +93,19 @@ def banner_drafts(ctx: Any, seed: Mapping[str, Any], banner: Mapping[str, Any], 
     becomes the candidate that seed rules classify."""
     url = banner["original_url"]
     key = f"banner:{base.last_segment(url)}"
-    if url in thumbnails:
+    match = _RENDITION.match(url)
+    if url in thumbnails and not match:
         return [model.Draft(upstream_key=key, page_url=page_url, title="TapTap banner", action="excluded",
                             file_url=base.stored(url), game="dynamix", game_evidence=evidence,
                             reason="video_placeholder: banner is the trailer video thumbnail")]
     drafts = []
-    match = _RENDITION.match(url)
     if match:
+        role = " (also the trailer's poster frame)" if url in thumbnails else ""
         drafts.append(model.Draft(
             upstream_key=key, page_url=page_url, title="TapTap banner (platform rendition)", action="excluded",
             file_url=base.stored(url), game="dynamix", game_evidence=evidence,
             reason=f"upscaled: TapTap crop/resize rendition ({banner.get('width')}x{banner.get('height')}) of the "
-                   "uploaded banner; the upload itself is the separate banner candidate"))
+                   f"uploaded banner{role}; the upload itself is the separate banner candidate"))
         url = f"{match.group(1)}.{match.group(2)}"
         key = f"banner:{base.last_segment(url)}"
     token = _TOKEN.search(url)

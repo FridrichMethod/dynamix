@@ -1,6 +1,6 @@
 """Google Play listing screenshots (``play.google.com/store/apps/details?id=...``).
 
-The listing's ``<img alt="Screenshot image" data-screenshot-index=...>`` elements carry ``play-lh.googleusercontent.com``
+The listing's ``<img data-screenshot-index=...>`` elements (alt text is localized) carry ``play-lh.googleusercontent.com``
 URLs with a size suffix (``=w526-h296``, srcset ``=w1052-h592``). The suffix is a resize request, not the image's
 size, and may even disagree with the decoded result (e.g. 1052x591 for ``-h592``); the base URL with ``=s0`` asks for the
 stored image at its native size. Width and height always come from decoding the saved bytes; the advertised srcset
@@ -43,7 +43,10 @@ def screenshots(html: str, page_url: str) -> list[dict]:
     """Unique screenshots in page order: {token, base, srcs[]} (first index wins)."""
     document = base.soup(html)
     found: dict[str, dict] = {}
-    for image in document.find_all("img", attrs={"alt": "Screenshot image"}):
+    # ``data-screenshot-index`` marks the gallery in every locale (the alt text is localized).
+    images = document.find_all("img", attrs={"data-screenshot-index": True}) or document.find_all(
+        "img", attrs={"alt": "Screenshot image"})
+    for image in images:
         urls = [image.get("src") or ""]
         urls += [part.strip().split(" ")[0] for part in (image.get("srcset") or "").split(",") if part.strip()]
         for url in urls:
