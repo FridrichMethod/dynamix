@@ -265,6 +265,23 @@ class SingleSongTests(unittest.TestCase):
         self.assertEqual((decision.role, decision.songs), ("promotional", ["diSTractiOn PoInT"]))
         self.assertIn("subject: archivist review (File:Events in 2020 June.png): visual_inspection: one song's",
                       decision.role_evidence[0])
+        # Dropping Frontline B-Side rests on the review alone: the mapping is inferred and quotes the review.
+        self.assertEqual(decision.mapping, "inferred")
+        self.assertEqual([entry["field"] for entry in decision.mapping_evidence], ["archivist review"])
+
+    def test_host_page_alone_names_no_subject(self) -> None:
+        """A lineup caption without a subject on one song's page stays a list: the host page only corroborates a
+        subject that a caption or the file title gives (an unresolved one-name subject, e.g. a spelling variant)."""
+        for caption in ("Upcoming Events", "Comeback Tracks", "New Charts", "New Charts: A & B"):
+            decision = _decide([_caption(caption, "Cosmic Pulse")] + _category("Category:Event images"))
+            self.assertEqual(decision.role, "reference", caption)
+            self.assertFalse(any(note.startswith("Kind promotional") for note in decision.rule_notes), caption)
+            self.assertTrue(any(note.startswith("Subject not read") and "name no subject" in note
+                                for note in decision.rule_notes), caption)
+        variant = _decide([_caption("Cosmic Pulse Remastered Chart List", "Cosmic Pulse")])
+        self.assertEqual((variant.role, variant.songs), ("promotional", ["Cosmic Pulse"]))
+        self.assertIn("subject 'Cosmic Pulse Remastered' is not resolved to song titles; one song: Cosmic Pulse",
+                      variant.rule_notes[0])
 
     def test_update_notes_are_no_teasers(self) -> None:
         decision = _decide([_caption("2.4 Version Update", "Cosmic Pulse")])
