@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "wikis:fandom",
-  "started_at": "2026-10-10T13:48:15Z",
-  "finished_at": "2026-10-10T13:49:49Z",
+  "started_at": "2026-10-10T14:06:29Z",
+  "finished_at": "2026-10-10T14:07:57Z",
   "scope": {
     "api": "https://dynamixc4cat.fandom.com/api.php",
     "lists": [
@@ -15,8 +15,8 @@
     "notes": "One candidate per file of list=allimages. Roles and games come from song templates (Template:Song = original game, Template:SongUV = Dynamix Universe), page usage, gallery/link captions, reviewed list pages, file categories and, only when nothing else applies, filename conventions; evidence is pooled by file title with wikis:miraheze. Accepted candidates that are not downloaded yet are 'pending' with reason 'awaiting_download'.",
     "file_count": 4924,
     "article_count": 756,
-    "requests": 0,
-    "cached_responses": 77
+    "requests": 77,
+    "cached_responses": 0
   },
   "continuation": {
     "allimages": null,
