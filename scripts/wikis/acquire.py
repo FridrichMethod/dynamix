@@ -37,6 +37,16 @@ class LockHeld(RuntimeError):
     pass
 
 
+class ReclassifiedError(RuntimeError):
+    """An archived asset's candidate is no longer accepted (e.g. a page edit made the file Universe-only). The
+    contract has no state for "archived but no longer accepted", so the run stops before writing anything and the
+    case goes to review instead of silently keeping or dropping the record."""
+
+    def __init__(self, conflicts: list[str]):
+        super().__init__("; ".join(conflicts))
+        self.conflicts = conflicts
+
+
 def default_work_dir(root: Path) -> Path:
     digest = hashlib.sha1(str(root.resolve()).encode()).hexdigest()[:12]
     return Path(tempfile.gettempdir()) / f"dynamix-fetch-wikis-{digest}"
@@ -178,7 +188,8 @@ def awaiting_reason(plan: discover.Plan) -> str:
 def resolve(plans: list[discover.Plan], state: State, *, complete: bool) -> tuple[list[dict], list[str]]:
     """Candidates with their acquisition dispositions; marks re-uploaded and removed files in ``state``.
 
-    Returns ``(candidates, warnings)``.
+    Returns ``(candidates, conflicts)``: a conflict is an archived current asset whose candidate is no longer
+    accepted (see :class:`ReclassifiedError`).
     """
     warnings: list[str] = []
     candidates = []

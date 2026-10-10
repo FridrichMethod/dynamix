@@ -233,6 +233,18 @@ class AcquisitionTests(WikiRun):
                          {k: v for k, v in before.items() if k != "collections"})
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
+    def test_reclassified_archived_file_stops_for_review(self) -> None:
+        self.assertEqual(self.run_cli("--source", "miraheze", "--only", "File:Emi-Raw.png"), 0)
+        before = (self.root / "data/sources/wikis.json").read_bytes()
+        # A page edit: the only page using Emi-Raw.png is now a Dynamix Universe song page.
+        xd = dict(self.scenario.miraheze_pages["(XD)"])
+        xd["wikitext"] = xd["wikitext"].replace("{{Song", "{{SongUV")
+        self.scenario.miraheze_pages["(XD)"] = xd
+        self.scenario.fandom_pages["(XD)"] = xd
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 4)
+        self.assertEqual((self.root / "data/sources/wikis.json").read_bytes(), before)
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
     def test_reupload_and_removal_keep_archived_bytes(self) -> None:
         self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
         old_bg = self.asset("miraheze", "File:(XD)BG-HQ.png")

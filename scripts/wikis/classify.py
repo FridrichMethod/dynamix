@@ -4,9 +4,17 @@ Evidence is collected per file *title* on each wiki and pooled across Miraheze a
 files under the same titles, so a page on either wiki that embeds a title is evidence about that title). Every
 decision keeps human-readable evidence strings naming the page, context and quoted caption/field.
 
-Strengths: 3 = the song template's ``Imgsuffix`` field; 2 = a gallery/link caption, a reviewed list page or section,
-or a file category; 1 = an image linked to a song page from an original-game list, or an image in a song page's
-Trivia/Notes section; 0 = a filename convention, used only when nothing stronger names a role.
+Strengths: 3 = the song template's ``Imgsuffix`` field, or the "Package <name>" image of an original-game package
+page; 2 = a gallery/link caption, a reviewed list page or section, or a file category; 1 = an image linked to a song
+page from an original-game list, an image in a song page's Trivia/Notes section, or the documented size heuristic on
+interface pages; 0 = a filename convention, used only to fill a role that page usage leaves open (a file whose only
+evidence is its name stays pending with role null). The most specific strength decides; ties between roles named
+by equally many pages stay pending. Game evidence never comes from a filename.
+
+Exclusions: video placeholders (``video/*``), animated GIF captures (frame count > 1 or unknown, reversible with
+``--include-animated``), Universe-only use, and the exclusion roles (profile photos, wiki/game interface images,
+covers of external releases). Everything else without both a role and an original-game (or shared) context stays
+``pending`` with a concrete reason.
 
 Game: the union of the games of the contexts that embed the file (song template, game tab, page category/suffix, or
 the reviewed original-game page table). A page about both games gives no game by itself. A file whose role comes from

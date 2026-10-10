@@ -4,8 +4,9 @@
 candidates; ``--resume`` re-hashes already archived files instead of trusting their presence (a normal run checks
 presence and size); ``--verify`` is offline. ``--source`` selects which snapshots are written and which source is
 acquired: the two English wikis are always enumerated together because classification pools their evidence.
-Exit codes: 0 done; 1 failed/blocked downloads or a classification warning; 2 incomplete discovery; 3 another run
-holds the lock; 130 interrupted (outputs written first).
+Exit codes: 0 done; 1 failed/blocked downloads; 2 incomplete discovery; 3 another run holds the lock; 4 an archived
+file is no longer accepted by the current evidence (nothing written; review needed); 130 interrupted (outputs written
+up to the last completed download).
 """
 
 from __future__ import annotations
@@ -68,7 +69,6 @@ class Runner:
         self.plans: dict[str, list[discover.Plan]] = {}
         self.candidates: dict[str, list[dict]] = {}
         self.index: songindex.SongIndex | None = None
-        self.warnings: list[str] = []
 
     @property
     def mediawiki_selected(self) -> list[str]:
@@ -106,13 +106,13 @@ class Runner:
             return
         self.index = songindex.build(self.inventories, self.ja)
         self.plans = discover.build_plans(self.inventories, self.index, include_animated=self.args.include_animated)
+        conflicts = []
         for key in self.mediawiki_selected:
-            candidates, warnings = acquire.resolve(self.plans[key], self.state,
-                                                   complete=self.inventories[key].complete)
+            candidates, found = acquire.resolve(self.plans[key], self.state, complete=self.inventories[key].complete)
             self.candidates[key] = candidates
-            self.warnings.extend(warnings)
-        for warning in self.warnings:
-            self.log(f"WARNING {warning}")
+            conflicts.extend(found)
+        if conflicts:
+            raise acquire.ReclassifiedError(conflicts)
 
     def write(self) -> None:
         """Validate and atomically write snapshots, the manifest and the song index; then clear the journal."""
@@ -192,7 +192,7 @@ class Runner:
             return 2
         failed = [f for f in self.state.failures.values()
                   if any(f["source_id"] == config.SOURCES[key].source_id for key in self.mediawiki_selected)]
-        return 1 if failed or self.warnings else 0
+        return 1 if failed else 0
 
 
 def _raise_interrupt(signum: int, frame: Any) -> None:
@@ -216,6 +216,11 @@ def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | N
     except acquire.LockHeld as error:
         print(str(error), file=sys.stderr)
         return 3
+    except acquire.ReclassifiedError as error:
+        for conflict in error.conflicts:
+            print(f"REVIEW {conflict}", file=sys.stderr)
+        print("archived files are no longer accepted by the current evidence; nothing was written", file=sys.stderr)
+        return 4
     except KeyboardInterrupt:
         print("interrupted; outputs written up to the last completed download", file=sys.stderr)
         return 130
