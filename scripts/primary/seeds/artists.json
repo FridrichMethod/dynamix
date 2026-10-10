@@ -4067,11 +4067,16 @@
           ],
           "evidence_quotes": [
             "Dynamix",
-            "Evoltex"
+            "Evoltex(poppin mix)"
           ],
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214)"
+          },
+          "title_aliases": {
+            "Evoltex (poppi'n mix)": [
+              "Evoltex(poppin mix)"
+            ]
           }
         }
       ],
@@ -4223,7 +4228,7 @@
           "song_titles": [
             "Totally bounded"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "illustrators": [
             "LESYEF"
           ],
@@ -4240,7 +4245,18 @@
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715)"
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+              "note": "wiki song page: Totally bounded (影虎。, illustration LESYEF) in the Dynamix RAVON collaboration pack; the Dynamix jacket is a 16:9 crop of this artwork (2026-10-10 research)"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+              "note": "research pixel comparison 2026-10-10: TotallyBoundedDynamix.png (805x453) is the top 1024x576 band of this square downscaled (MAD 2.87, edge-only residual, same 'totally bounded / 影虎。' title text)"
+            }
+          ],
+          "notes": "Coordinator review: the primary post presents this as RAVON jacket art; Dynamix lists the song in its RAVON collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post."
         }
       ],
       "min_interval": 3.0
@@ -4404,7 +4420,7 @@
           "song_titles": [
             "Party Vinyl"
           ],
-          "mapping_status": "confirmed_primary",
+          "mapping_status": "inferred",
           "illustrators": [
             "アサヤ"
           ],
@@ -4416,11 +4432,25 @@
             "dynamix",
             "arcaea"
           ],
-          "variant_role": "square variant posted for the Arcaea release; same illustration as the Dynamix jacket (research OGP comparison)",
+          "variant_role": "square variant posted for the Arcaea release",
           "variant_group": "jacket:party-vinyl",
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303)"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+              "note": "wiki song page: Party Vinyl (モリモリあつし, illustration アサヤ) in the Dynamix Arcaea collaboration pack; the jacket matches this artwork (2026-10-10 research)"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+              "note": "research pixel comparison 2026-10-10: PartyVinylDynamix.png (1024x568) is the 1000x555 band at y 31-586 of this square, upscaled (MAD 8.7, edge-only residual, same 'Party Vinyl' title text)"
+            }
+          ],
+          "notes": "Coordinator review: the primary post presents this as Arcaea jacket art; Dynamix lists the song in its Arcaea collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post.",
+          "rights": {
+            "holder": "lowiro and/or the credited artist (the artist's caption names lowiro's Arcaea release)"
           }
         }
       ],

@@ -610,12 +610,17 @@
           "primary_evidence": [
             {
               "url": "https://www.pixiv.net/artworks/61859342",
-              "quote": "Evoltex"
+              "quote": "Evoltex(poppin mix)"
             }
           ],
           "credit_source": {
             "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214)"
+          },
+          "title_aliases": {
+            "Evoltex (poppi'n mix)": [
+              "Evoltex(poppin mix)"
+            ]
           }
         },
         {
@@ -747,6 +752,10 @@
             {
               "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
               "note": "wiki song page: Totally bounded (影虎。, illustration LESYEF) in the Dynamix RAVON collaboration pack; the Dynamix jacket is a 16:9 crop of this artwork (2026-10-10 research)"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+              "note": "research pixel comparison 2026-10-10: TotallyBoundedDynamix.png (805x453) is the top 1024x576 band of this square downscaled (MAD 2.87, edge-only residual, same 'totally bounded / 影虎。' title text)"
             }
           ],
           "credit_source": {
@@ -792,6 +801,10 @@
             {
               "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
               "note": "wiki song page: Party Vinyl (モリモリあつし, illustration アサヤ) in the Dynamix Arcaea collaboration pack; the jacket matches this artwork (2026-10-10 research)"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+              "note": "research pixel comparison 2026-10-10: PartyVinylDynamix.png (1024x568) is the 1000x555 band at y 31-586 of this square, upscaled (MAD 8.7, edge-only residual, same 'Party Vinyl' title text)"
             }
           ],
           "credit_source": {
