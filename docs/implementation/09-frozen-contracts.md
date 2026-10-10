@@ -93,7 +93,10 @@ Enumerations:
 
 `id`, `source_id`, `upstream_key`, `page_url`, `file_url` (nullable), `title`, `role` (a `kind` value or `null` when unclassified), `game` (`dynamix`, `dynamix_universe`, `mixed`, `unknown`, `not_dynamix`), `game_evidence` (list of strings/URLs), `source_reported` (object as above), `disposition`, `reason` (string; required unless `downloaded`), `asset_id` (when `downloaded` or `duplicate_bytes`), optional `song_titles`, `illustrators`, `composers`, `collections`, `notes`.
 
-- `disposition`: `downloaded`, `duplicate_bytes` (identical SHA-256 already archived — `asset_id` names that asset), `excluded`, `failed`, `blocked`, `pending`.
+- `disposition`: `downloaded`, `duplicate_bytes`, `excluded`, `failed`, `blocked`, `pending`.
+- `downloaded`: this source has its **own** asset record at its **own** contract path. Identical bytes obtained from several sources (e.g. Miraheze and Fandom `format=original`) are stored at each source's path — Git stores a single blob — and the catalog merges the records by SHA-256 into one entry with every provenance record. `prepare_pages.py` stages only the file named by each catalog entry's `url`, so the site payload holds one copy per SHA-256.
+- `duplicate_bytes`: the **same source** already archived identical bytes under another candidate (e.g. two `File:` titles with the same content); `asset_id` names that existing record and no new record or file is written.
+- Rule changes accepted from the contracts review (2026-10-10): song IDs whose slug loses characters (non-ASCII or empty) get an 8-hex SHA-256 suffix of the NFC title (`song:file-568a196c`), numeric suffixes only for ASCII collisions, and `schema.validate_song_links` cross-checks asset song IDs; catalog provenance entries also carry `song_ids` and `collections`; artist platform segments are `[a-z0-9]+` and source slugs are unique across families; an older MediaWiki revision under the same candidate keeps `upstream_status: superseded` with a `superseded_by` chain to the current asset, or no successor when the newer revision was not archived.
 - Exclusion `reason` vocabulary (prefix before an optional `: detail`): `universe_only`, `not_dynamix`, `animated_capture`, `person_photo`, `site_ui`, `game_ui`, `video_placeholder`, `external_release_art`, `fanart`, `upscaled`, `rejected_submission`, `redirect_or_alias`, `out_of_scope_other`.
 - Every candidate of a complete discovery has exactly one disposition. Totals per source reconcile: `downloaded + duplicate_bytes + excluded + failed + blocked + pending = candidates`.
 
@@ -141,6 +144,10 @@ Separate metrics as in 07-data-contracts §Catalog and coverage, from the song i
 - Filters: text, source family/source, kind, minimum long edge; sort: title, source, pixel area. Pagination 60 per page. Deep links `archive.html#<asset id>` and slideshow `index.html#<asset id>`; keep DEEMO URL semantics.
 - No remote fonts, analytics, audio, or network requests during browsing; works from `file://`, HTTP root and an HTTP `/dynamix/` subpath.
 
+## Slideshow rendering interface
+
+`scripts/render_slideshow.py` (UI-owned) exposes `render_slideshow(root: Path, catalog: dict) -> str`, ported from DEEMO's `render_slideshow`/`art_layout`/`slide_*` helpers: it reads `templates/slideshow.html`, replaces the single `@python-work-area` placeholder with one `<div class="mySlides fade"><img ...></div>` per catalog asset whose `slideshow` is true (catalog order), and HTML-attribute-escapes every value. `build_catalog.py` (catalog-owned) imports it to write `index.html`; it must not duplicate slide markup.
+
 ## CLI contract
 
 ```text
@@ -168,7 +175,7 @@ scripts/prepare_pages.py  --output PATH
 | `impl/contracts` (bootstrap) | `scripts/lib/**`, `tests/test_lib_*.py`, `tests/test_fixtures_contract.py`, `tests/fixtures/contract/**`, `requirements*.txt`, `.gitattributes`, `LICENSE` |
 | `impl/wikis` | `scripts/fetch_wikis.py`, `scripts/wikis/**`, `tests/test_fetch_wikis*.py`, `tests/fixtures/wikis/**`, `data/sources/wikis.json`, `data/discovery/{miraheze,fandom,atwiki-ja,rhythmgame-ja}.json`, `data/discovery/song-index.wikis.json`, `assets/public/wikis/**` |
 | `impl/primary-sources` | `scripts/fetch_{artists,official,archives}.py`, `scripts/primary/**`, `tests/test_fetch_{artists,official,archives}*.py`, `tests/fixtures/{artists,official,archives}/**`, `data/sources/{artists,official,archives}.json`, their `data/discovery/*.json`, `assets/public/{artists,official,archives}/**` |
-| `impl/ui` | `archive.html`, `templates/slideshow.html`, `src/**`, `assets/site/**`, `site.webmanifest`, `browserconfig.xml`, `tests/test_{i18n,layout,slideshow,archive_labels}*.py`, `tests/browser_smoke.py`, `tests/fixtures/ui/**`, `tests/fixtures/browser/**`, `licenses/*-MIT.txt` for reused vendor JS |
+| `impl/ui` | `archive.html`, `templates/slideshow.html`, `scripts/render_slideshow.py`, `tests/test_render_slideshow.py`, `src/**`, `assets/site/**`, `site.webmanifest`, `browserconfig.xml`, `tests/test_{i18n,layout,slideshow,archive_labels}*.py`, `tests/browser_smoke.py`, `tests/fixtures/ui/**`, `tests/fixtures/browser/**`, `licenses/*-MIT.txt` for reused vendor JS |
 | `impl/catalog` | `scripts/build_{catalog,thumbnails,coverage}.py`, `tests/test_{catalog,thumbnails,coverage,provenance}*.py`, `tests/fixtures/catalog/**` |
 | `impl/ci` | `.github/workflows/**`, `scripts/{prepare_pages,check_sources}.py`, `tests/test_{pages,check_sources,workflows,line_endings,licensing}*.py`, `tests/run_all.py` |
 | coordinator | root docs, `NOTICE`, `docs/implementation/**`, `data/sources/song-index.json`, `data/{catalog.json,catalog.js,thumbs.json,coverage.json}`, `assets/thumbs/**`, `index.html`, merges, remote |

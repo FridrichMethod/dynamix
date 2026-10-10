@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "family": "official",
+  "fetched_at": null,
+  "sources": [
+    {
+      "id": "official:apple-store",
+      "name": "App Store listing",
+      "family": "official",
+      "url": "https://apps.apple.com/app/id000000000",
+      "platform": "app-store",
+      "status": "metadata_only",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
+      "evidence_level": "page_read"
+    },
+    {
+      "id": "official:facebook",
+      "name": "Official Facebook page",
+      "family": "official",
+      "url": "https://www.facebook.com/dynamix.fixture",
+      "platform": "web",
+      "status": "manual_access",
+      "checked_at": "2026-10-10T12:00:00Z",
+      "notes": "Synthetic contract fixture for offline tests; not a real acquisition or real artwork.",
+      "discovery_complete": false,
+      "candidate_count": 1,
+      "asset_count": 0,
+      "failure_count": 1,
+      "evidence_level": "blocked"
+    }
+  ],
+  "assets": [],
+  "failures": [
+    {
+      "id": "official:facebook:1000000000000001:1:download",
+      "source_id": "official:facebook",
+      "candidate_id": "official:facebook:1000000000000001:1",
+      "phase": "download",
+      "url": "https://www.facebook.com/photo/?fbid=1000000000000001",
+      "attempted_at": "2026-10-10T12:00:00Z",
+      "attempts": 1,
+      "error_class": "challenge",
+      "http_status": 403,
+      "retriable": false,
+      "manual": true,
+      "message": "challenge page (HTTP 403)"
+    }
+  ]
+}
