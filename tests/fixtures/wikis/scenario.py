@@ -37,6 +37,7 @@ COSMIC = """{{Song
 <gallery>
 Cosmic Pulse Chart List.jpg|Cosmic Pulse Chart List
 Cosmic Pulse copy.png|Cosmic Pulse artwork (copy)
+Cosmic Pulse Squared.png|Cosmic Pulse Artwork in RAVON
 </gallery>
 [[Category:Songs]]
 """
@@ -97,6 +98,12 @@ File:Package Vocal.jpg|Package Vocal
 """
 
 ARTISTS = "== Yunosuke ==\n[[File:Composer Photo.jpg|200px]]\n"
+LOST = """{{SongOther
+|Artist = Somebody Else
+|Imgsuffix = LostDynamix.png
+|Cover Artist = Unknown Painter
+}}
+"""
 WHIRLWIND = """{{Song
 |Artist = Keiyuu & RED-FOX
 |Imgsuffix = WHIRLWINDDynamix.png
@@ -115,6 +122,7 @@ PAGES_COMMON = {
     "Twin Song": {"wikitext": TWIN, "categories": ["Category:Songs"], "revid": 40004},
     "Vocal": {"wikitext": VOCAL, "categories": ["Category:Dynamix", "Category:Song Package"], "revid": 40005},
     "Artists": {"wikitext": ARTISTS, "categories": ["Category:Artists"], "revid": 40006},
+    "Lost Song": {"wikitext": LOST, "categories": ["Category:Unreleased"], "revid": 40007},
 }
 
 ATWIKI_25 = """<html><body><div id="wikibody"><table>
@@ -161,6 +169,8 @@ class Scenario:
             "WHIRLWINDDynamix.png": image_bytes("PNG", size, 16),
             "WHIRLWINDBG.png": image_bytes("PNG", (20, 20), 17),
             "Fandom Only Chart List.jpg": image_bytes("JPEG", size, 18),
+            "Cosmic Pulse Squared.png": image_bytes("PNG", (36, 36), 19),
+            "LostDynamix.png": image_bytes("PNG", size, 20),
         }
         self.data["Cosmic Pulse copy.png"] = self.data["CosmicPulseDynamix.png"]
         self.webp_whirlwind = image_bytes("WEBP", (20, 20), 17)

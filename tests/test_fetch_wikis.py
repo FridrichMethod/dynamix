@@ -98,6 +98,10 @@ class MetadataOnlyTests(WikiRun):
         check("miraheze", "File:Composer Photo.jpg", "excluded", None, "person_photo")
         check("miraheze", "File:Package Vocal.jpg", "pending", "pack_cover", acquire.AWAITING)
         check("fandom", "File:Some video", "excluded", None, "video_placeholder")
+        # Shared artwork for another game named by its caption; an unreleased song's cover stays pending.
+        check("miraheze", "File:Cosmic Pulse Squared.png", "pending", "song_art", acquire.AWAITING, "mixed")
+        lost = check("miraheze", "File:LostDynamix.png", "pending", "song_art", "unresolved_game", "unknown")
+        self.assertIn("Template:SongOther", lost["reason"])
         check("fandom", "File:WHIRLWINDBG.png", "pending", "background", acquire.AWAITING)
 
         index = manifest.load_json(self.root / "data/discovery/song-index.wikis.json")
@@ -112,6 +116,7 @@ class MetadataOnlyTests(WikiRun):
         self.assertEqual(songs["交差して歪む過去と未来"]["composers"], [])  # "N/A" is unknown, not a name
         self.assertTrue(songs["Japanese Only Song"]["in_original_game"])
         self.assertTrue(songs["Removed Song"]["removed"])
+        self.assertFalse(songs["Lost Song"]["in_original_game"])  # Template:SongOther + Category:Unreleased
         fields = {(d["song_id"], d["field"]) for d in index["disagreements"]}
         self.assertIn((songs["Japanese Only Song"]["id"], "presence"), fields)
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
@@ -193,6 +198,9 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(self.asset("miraheze", "File:(XD) D.jpg")["kind"], "gameplay_screenshot")
         self.assertEqual(self.asset("miraheze", "File:(XD)BG-HQ.png")["kind"], "background")
         self.assertEqual(self.asset("miraheze", "File:(XD)BG-HQ.png")["illustrators"], [])
+        squared = self.asset("miraheze", "File:Cosmic Pulse Squared.png")
+        self.assertEqual(squared["game_associations"], ["dynamix", "ravon"])
+        self.assertEqual(squared["illustrators"], [])  # not the template's cover: no illustrator inferred
         # Excluded and pending candidates are never downloaded.
         downloaded = " ".join(self.client.downloads)
         for name in ("Emi-Animated.gif", "Universe_Song_cover.png", "Composer_Photo.jpg", "Lonely_BG-HQ.png"):

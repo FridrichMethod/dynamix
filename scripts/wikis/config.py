@@ -153,7 +153,8 @@ CAPTION_ROLES = (
 )
 # A caption naming artwork for another game or event ("Artwork in RAVON", "Artwork in PABAT! 2017"): the file is a
 # shared/variant artwork of the song, so its game association is "mixed".
-OTHER_GAME_ARTWORK = re.compile(r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+(?!dynamix\b)\S", re.I)
+OTHER_GAME_ARTWORK = re.compile(r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+(?!dynamix\b)"
+                                r"(?P<other>[^\s,;()][^,;()]*)", re.I)
 # Observed layout of all song pages with both Template:Song and Template:SongUV (2026-10-10, 20 pages on Miraheze):
 # each game's template and notes sit in its own tab, and the page-level gallery after the tabs lists the original
 # game's event items (characters, parts, backgrounds, chart lists, comeback announcements). A page-level gallery

@@ -267,15 +267,17 @@ def build_asset(plan: discover.Plan, info: Mapping[str, Any], result: Any, url: 
     }
     if plan.credit_evidence:
         asset["credit_evidence"] = [dict(item) for item in plan.credit_evidence]
+    associations = [name for name in plan.decision.associations if name != schema.GAME]
     if plan.decision.game == "mixed":
-        asset["game_associations"] = ["dynamix", "dynamix_universe"]
+        asset["game_associations"] = [schema.GAME] + (associations or ["unknown_other"])
     notes = []
     mismatched = [name for name in ("sha1", "bytes") if comparisons[f"{name}_match"] is False]
     if mismatched and not transformed:
         notes.append(f"The wiki API reports different {' and '.join(mismatched)} than the served bytes; recorded as "
                      "source_reported versus download_observed, not as a second version.")
     if plan.decision.game == "mixed":
-        notes.append("Used by both Dynamix and Dynamix Universe pages (shared artwork).")
+        notes.append("Shared artwork: the wikis also associate this file with " + (", ".join(associations) or
+                                                                                    "another game") + ".")
     if notes:
         asset["notes"] = " ".join(notes)
     if transformed:

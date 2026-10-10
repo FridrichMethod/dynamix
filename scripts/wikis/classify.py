@@ -10,8 +10,8 @@ Trivia/Notes section; 0 = a filename convention, used only when nothing stronger
 
 Game: the union of the games of the contexts that embed the file (song template, game tab, page category/suffix, or
 the reviewed original-game page table). A page about both games gives no game by itself. A file whose role comes from
-a song page and whose earliest Fandom upload predates the first upload with Universe-only evidence is original-game
-material (``pre-Universe upload``).
+a song page and whose Fandom upload predates the wiki's first Universe-named upload is original-game material
+(``pre-Universe upload``).
 """
 
 from __future__ import annotations
@@ -47,6 +47,7 @@ class Evidence:
     song: str | None = None  # exact song title the context associates with the file
     song_page: str | None = None
     detail: str = ""
+    other_game: str | None = None  # "RAVON" for a caption "<song> Artwork in RAVON" (shared artwork)
 
     def text(self) -> str:
         bits = [self.context]
@@ -105,6 +106,7 @@ class Decision:
     mapping: str  # "confirmed_wiki", "inferred" or "unmapped"
     mapping_evidence: list[Any] = field(default_factory=list)
     strength: int = -1  # strength of the evidence behind ``role`` (3 template ... 0 filename, -1 none)
+    associations: list[str] = field(default_factory=list)  # other games/events using the file (game_associations)
 
 
 # --- Pages ------------------------------------------------------------------------------------------------------------
@@ -242,7 +244,7 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
         if ref.link:
             where.append(f"link={ref.link[:120]}")
         detail = ", ".join(where)
-        role, strength, song, song_page, context = None, 0, None, None, ref.context
+        role, strength, song, song_page, context, other_game = None, 0, None, None, ref.context, None
         if ref.context == "template" and ref.template in SONG_TEMPLATES and ref.param == "Imgsuffix":
             record = imgsuffix.get((ref.template, ref.name))
             role, strength, game = "song_art", 3, SONG_TEMPLATES[ref.template]
@@ -266,9 +268,11 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
                 if info.songs:
                     song_page = info.title
                     song = _region_song(info, region_game) if caption_role != "external_release_art" else None
-                if caption_role in KINDS and config.OTHER_GAME_ARTWORK.search(ref.caption):
+                other = config.OTHER_GAME_ARTWORK.search(ref.caption) if caption_role in KINDS else None
+                if other is not None:
                     game = "mixed"
-                    detail += ", artwork of the song for another game/event"
+                    other_game = other.group("other").strip().strip("'\"")
+                    detail += f", artwork of the song for {other_game} (another game/event)"
                 elif (game is None and info.game == "mixed" and region is None and ref.context == "gallery"
                       and caption_role in config.MIXED_PAGE_GALLERY_ROLES
                       and not re.search(r"universe|\bUV\b", ref.caption, re.I)):
@@ -291,7 +295,7 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
             if role in ("person_photo",) and re.search(r"album|cover\s*art|coverart|-cover", ref.name, re.I):
                 role = "external_release_art"
         result.append((file_title, Evidence(source.source_id, info.title, info.url, context, role, strength, game,
-                                            song, song_page, detail)))
+                                            song, song_page, detail, other_game)))
     return result
 
 
@@ -410,16 +414,16 @@ def collect(source: config.WikiSource, files: Mapping[str, Mapping[str, Any]],
 
 
 def universe_threshold(wikis: Iterable[WikiEvidence], fandom_key: str = "fandom") -> str | None:
-    """Earliest Fandom upload timestamp among files with Universe-only template/tab/page evidence or a Universe name
-    (None if none). A Universe-like name can only move the threshold earlier, which keeps the rule conservative.
+    """Earliest Fandom upload of a file whose name mentions Dynamix Universe (None if none): before it the wiki had
+    no Universe material, so an upload predating it was made for the original game. Usage is not used here because
+    old files are reused on Universe pages (``File:Crane.jpg``, uploaded 2015, is now used only by a Universe page).
     Miraheze timestamps are 2026 import times and are not used."""
     earliest = None
     for wiki in wikis:
         if wiki.source.key != fandom_key:
             continue
-        for title, items in wiki.evidence.items():
-            games = {item.game for item in items if item.game}
-            if games == {"dynamix_universe"} or UNIVERSE_NAME.search(title):
+        for title in wiki.evidence:
+            if UNIVERSE_NAME.search(title):
                 stamp = wiki.files[title].get("timestamp")
                 if stamp and (earliest is None or stamp < earliest):
                     earliest = stamp
@@ -450,11 +454,12 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     songs = list(dict.fromkeys(item.song for item in items if item.song and item.role == role))
     song_pages = list(dict.fromkeys(item.song_page for item in items if item.song_page))
     song_page_roles = any(item.song_page for item in role_items)
-    if not games and role in DOWNLOAD_KINDS and song_page_roles and threshold and fandom_timestamp \
-            and fandom_timestamp < threshold:
+    unreleased = any(item.context == "Template:SongOther|Imgsuffix" for item in items)
+    if not games and role in DOWNLOAD_KINDS and song_page_roles and not unreleased and threshold \
+            and fandom_timestamp and fandom_timestamp < threshold:
         games = {"dynamix"}
-        game_items.append(f"pre-Universe upload: Fandom upload {fandom_timestamp} precedes the first upload with "
-                          f"Universe-only evidence ({threshold}); role from an original-game song page")
+        game_items.append(f"pre-Universe upload: Fandom upload {fandom_timestamp} precedes the wiki's first "
+                          f"Universe-named upload ({threshold}); role from a song page")
     if games == {"dynamix"}:
         game = "dynamix"
     elif games == {"dynamix_universe"}:
@@ -464,8 +469,12 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     else:
         game = "unknown"
     mapping, mapping_evidence = _mapping(items, role)
+    associations = sorted({"dynamix_universe" for item in items if item.game == "dynamix_universe"} | {
+        re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_") for item in items
+        if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")})
     base = dict(game=game, game_evidence=_short(game_items), role_evidence=role_evidence, songs=songs,
-                song_pages=song_pages, mapping=mapping, mapping_evidence=mapping_evidence, strength=top)
+                song_pages=song_pages, mapping=mapping, mapping_evidence=mapping_evidence, strength=top,
+                associations=associations)
     if len(leaders) > 1:
         return Decision(None, **base, disposition="excluded" if game == "dynamix_universe" else "pending",
                         reason=("universe_only: Universe-only usage; conflicting roles " + ", ".join(leaders))
@@ -497,9 +506,10 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
                         reason=f"animated_capture: {what} ({frames or '?'} frames); use --include-animated to keep")
     if game == "unknown":
         # A filename convention alone never classifies a file: the hint stays in the reason only.
+        why = ("cover of an unreleased/cancelled song (Template:SongOther); in-game use not established"
+               if unreleased else "no page establishes original-game use")
         return Decision(kind if top > 0 else None, **base, disposition="pending",
-                        reason=f"unresolved_game: {kind} role ({_strength_name(top)}) but no page establishes "
-                               "original-game use")
+                        reason=f"unresolved_game: {kind} role ({_strength_name(top)}) but {why}")
     if mime not in ("image/png", "image/jpeg", "image/gif", "image/webp"):
         return Decision(kind, **base, disposition="excluded",
                         reason=f"out_of_scope_other: unsupported media type {mime or 'unknown'}")
