@@ -8,7 +8,7 @@
 
 ## 当前数字
 
-下方标记之间的数字在每次构建后由 `scripts/update_docs_stats.py` 根据 `data/coverage.json` 和 `data/catalog.json` 生成，不是手工填写的。两者来自不同构建时脚本拒绝使用，`scripts/update_docs_stats.py --check` 会报告与它们不再一致的统计块。表中的指标名就是 `data/coverage.json` 的字段，定义见下文各节。
+下方标记之间的数字在每次构建后由 `scripts/update_docs_stats.py` 根据 `data/coverage.json` 和 `data/catalog.json` 生成，不是手工填写的。两份文件在描述同一事物之处不一致时，脚本拒绝使用：汇总总数与字节层级、目录条目的数量与字节总和、每个来源的资产记录与主记录条目、各类别的字节总和、来源 ID 与状态，以及获取快照。只有目录才有的字段（例如日期表中每个来源的 `checked_at`）按目录所写原样输出。`scripts/update_docs_stats.py --check` 会报告与这两份文件不再一致的统计块。表中的指标名就是 `data/coverage.json` 的字段，定义见下文各节。
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->

@@ -193,6 +193,25 @@ class RenderTests(Base):
                         self.assertNotIn(row, block)
                 self.assertIn(f"Family `{family}`:", block)
 
+    def test_family_blocks_count_entries_shared_by_sources_of_the_family(self):
+        self.render()
+        for family in stats.FAMILIES:
+            expected = sum(len({record["source_id"] for record in asset["provenance"]
+                                if record["source_id"].split(":", 1)[0] == family}) > 1
+                           for asset in self.catalog["assets"])
+            with self.subTest(family=family):
+                self.assertIn(f"source records): {expected:,}.", block_of(self.read(f"docs/sources-{family}.md")))
+                self.assertIn(f"多条来源记录）：{expected:,}。", block_of(self.read(f"docs/sources-{family}.zh-CN.md")))
+
+    def test_shared_entries_count_distinct_sources_within_one_family(self):
+        def asset(*sources):
+            return {"source_id": sources[0], "bytes": 1, "provenance": [{"source_id": s} for s in sources]}
+
+        catalog = {"assets": [asset("wikis:miraheze", "wikis:fandom"), asset("wikis:miraheze"),
+                              asset("artists:x:a", "wikis:fandom"), asset("official:x", "official:x"),
+                              asset("official:apple-store", "official:google-play", "wikis:fandom")]}
+        self.assertEqual([stats.shared_entries(catalog, family) for family in stats.FAMILIES], [1, 0, 1, 0])
+
     def test_coverage_totals_match_the_report(self):
         self.render()
         block = block_of(self.read("docs/coverage.md"))
@@ -243,6 +262,64 @@ class InputTests(Base):
         self.catalog["summary"]["unique_files"] += 1
         self.save()
         self.assertRefused("come from different builds")
+
+    def test_a_cut_down_catalog_is_refused(self):
+        """Only the summary would agree: the entries themselves no longer add up to the coverage totals."""
+        self.catalog["assets"] = self.catalog["assets"][:1]
+        self.save()
+        self.assertRefused("catalog assets vs assets.unique_files")
+
+    def test_catalog_entries_must_match_the_coverage_totals(self):
+        def changed_bytes(catalog):
+            catalog["assets"][0]["bytes"] += 1
+
+        def moved_record(catalog):
+            records = [record for asset in catalog["assets"] for record in asset["provenance"]]
+            ids = sorted({record["source_id"] for record in records})
+            other = next(source_id for source_id in ids if source_id != records[0]["source_id"])
+            records[0]["source_id"] = other
+
+        def moved_primary(catalog):
+            ids = sorted({asset["source_id"] for asset in catalog["assets"]})
+            first = catalog["assets"][0]
+            first["source_id"] = next(source_id for source_id in ids if source_id != first["source_id"])
+
+        def changed_status(catalog):
+            source = catalog["sources"][0]
+            source["status"] = "excluded" if source["status"] != "excluded" else "available"
+
+        cases = ((changed_bytes, "bytes.unique_total"),
+                 (moved_record, "sources.records[].asset_records"),
+                 (moved_primary, "sources.records[].primary_unique_files"),
+                 (changed_status, "sources.records[].status"))
+        for mutate, fragment in cases:
+            with self.subTest(case=mutate.__name__):
+                catalog = copy.deepcopy(self.catalog)
+                mutate(catalog)
+                (self.root / stats.CATALOG_JSON).write_text(json.dumps(catalog), encoding="utf-8")
+                self.assertRefused(fragment)
+
+    def test_catalog_only_fields_are_printed_as_the_catalog_states_them(self):
+        """checked_at exists only in the catalog, so it cannot be cross-checked; the documents say so."""
+        source = next(source for source in self.catalog["sources"] if source["family"] == "official")
+        source["checked_at"] = "2027-01-01T00:00:00Z"
+        self.save()
+        self.render()
+        self.assertIn("2027-01-01T00:00:00Z", block_of(self.read("docs/coverage.md")))
+        for relative in ("docs/coverage.md", "docs/coverage.zh-CN.md"):
+            self.assertIn("`checked_at`", outside(self.read(relative)))
+
+    def test_malformed_catalog_assets(self):
+        cases = ((lambda c: c.update(assets={}), "'assets' must be a list of objects"),
+                 (lambda c: c["assets"][0].update(bytes=-1), "assets[0].bytes must be a non-negative integer"),
+                 (lambda c: c["assets"][0].update(provenance=[]), "assets[0].provenance must be a non-empty list"),
+                 (lambda c: c["assets"][0]["provenance"][0].update(source_id="wikis:a|b"), "not a plain identifier"))
+        for mutate, fragment in cases:
+            with self.subTest(fragment=fragment):
+                catalog = copy.deepcopy(self.catalog)
+                mutate(catalog)
+                (self.root / stats.CATALOG_JSON).write_text(json.dumps(catalog), encoding="utf-8")
+                self.assertRefused(fragment)
 
     def test_snapshot_dates_must_agree(self):
         family = next(iter(self.catalog["snapshots"]))

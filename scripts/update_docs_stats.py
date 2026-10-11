@@ -8,10 +8,13 @@ lines between the "<!-- STATS:BEGIN -->" and "<!-- STATS:END -->" marker lines o
 
   README.md, README.zh-CN.md                   summary (sources, candidates, files, songs, bytes, acquisition dates)
   docs/coverage.md, docs/coverage.zh-CN.md     every coverage section as tables
-  docs/sources-<family>.md (+ .zh-CN.md)       the family's sources, row by row
+  docs/sources-<family>.md (+ .zh-CN.md)       the family's sources, row by row, and the entries they share
 
 Text outside the markers is never changed. Both languages are rendered from the same numbers with the same table rows.
-The two inputs must come from the same build: their shared totals, byte tiers and acquisition snapshots must agree.
+The two inputs must agree wherever they describe the same thing: the summary totals and byte tiers, the number and byte
+sum of the catalog entries, the asset records and primary entries of every source, the byte sums per family, the
+source IDs and statuses, and the acquisition snapshots. Fields that only the catalog holds (each source's
+``checked_at``) are printed as the catalog states them.
 
 --check   render in memory and compare with the documents without writing; exit 1 when a block is out of date.
 --root    another repository-shaped tree (tests).
@@ -107,6 +110,8 @@ TEXT = {
                          "{candidates} candidates; {records} asset records, {record_bytes} in all; {primary} catalog "
                          "entries whose primary record comes from this family, {primary_bytes}."),
         "family_reasons": "Exclusion reasons in this family: {reasons}.",
+        "family_shared": ("Catalog entries held by two or more sources of this family (the same bytes: one entry "
+                          "with several source records): {shared}."),
         "status": {"available": "available", "partially_available": "partially available",
                    "temporarily_unavailable": "temporarily unavailable", "manual_access": "manual access",
                    "metadata_only": "metadata only", "excluded": "excluded"},
@@ -148,17 +153,19 @@ TEXT = {
         "row_staged": "网站暂存估算",
         "val_staged": "{bytes}，预算 {budget}（占 {pct}，{verdict}）",
         "within": "在预算之内", "over": "超出预算",
-        "t_dates": "**日期。**曲目索引日期：{as_of}。",
-        "t_sources": "**按状态和枚举情况统计的来源。**",
-        "t_candidates": "**按处置统计的候选。**按类别汇总每个发现快照中的候选。",
-        "t_reasons": "**排除原因。**", "t_games": "**按游戏归属统计的候选。**",
-        "t_files": "**文件。**", "t_kinds": "**按类型统计的唯一文件。**", "t_formats": "**按格式统计的唯一文件。**",
-        "t_songs": "**曲目。**", "t_gaps": "**缺口与交叉检查**（每个列表中的条目数）。",
-        "t_bytes": "**字节。**",
+        # Full-width punctuation stays outside the emphasis: "**日期。**曲目" does not render as bold in CommonMark/GFM.
+        "t_dates": "**日期**。曲目索引日期：{as_of}。",
+        "t_sources": "**按状态和枚举情况统计的来源**。",
+        "t_candidates": "**按处置统计的候选**。按类别汇总每个发现快照中的候选。",
+        "t_reasons": "**排除原因**。", "t_games": "**按游戏归属统计的候选**。",
+        "t_files": "**文件**。", "t_kinds": "**按类型统计的唯一文件**。", "t_formats": "**按格式统计的唯一文件**。",
+        "t_songs": "**曲目**。", "t_gaps": "**缺口与交叉检查**（每个列表中的条目数）。",
+        "t_bytes": "**字节**。",
         "family_intro": ("`{family}` 类别：{sources} 个来源；最近一次获取（清单的 `fetched_at`）{fetched}；候选 "
                          "{candidates}；资产记录 {records}，合计 {record_bytes}；主记录来自本类别的目录条目 {primary}，"
                          "合计 {primary_bytes}。"),
         "family_reasons": "本类别的排除原因：{reasons}。",
+        "family_shared": "由本类别两个或更多来源持有的目录条目（相同字节：一个条目带多条来源记录）：{shared}。",
         "status": {"available": "可获取", "partially_available": "部分可获取",
                    "temporarily_unavailable": "暂时无法访问", "manual_access": "需人工访问",
                    "metadata_only": "仅元数据", "excluded": "已排除"},
@@ -266,7 +273,11 @@ def load_json(root: Path, relative: str) -> dict:
 # --- Consistency between the two inputs -------------------------------------------------------------------------------
 
 def check_inputs(coverage: Mapping[str, Any], catalog: Mapping[str, Any]) -> None:
-    """Both inputs have the schema version this script knows and come from the same build."""
+    """Both inputs have the schema version this script knows and agree wherever they describe the same thing.
+
+    Compared: the catalog summary with the coverage totals and byte tiers; the catalog's entries (number, byte sum,
+    byte sums by primary family and by record family, asset records and primary entries per source) with the coverage
+    report; source IDs and statuses; acquisition snapshots. ``checked_at`` exists only in the catalog."""
     for name, data in ((COVERAGE_JSON, coverage), (CATALOG_JSON, catalog)):
         if data.get("schema_version") != SCHEMA_VERSION:
             raise StatsError(f"{name}: schema_version {data.get('schema_version')!r}, expected {SCHEMA_VERSION}")
@@ -274,18 +285,83 @@ def check_inputs(coverage: Mapping[str, Any], catalog: Mapping[str, Any]) -> Non
     pairs += [(f"summary.{key}", f"assets.{key}") for key in
               ("source_asset_records", "unique_files", "exact_duplicate_records", "gallery_images", "slideshow_images")]
     pairs += [("summary.site_original_bytes", "bytes.by_tier.site"),
-              ("summary.archive_only_bytes", "bytes.by_tier.archive")]
+              ("summary.archive_only_bytes", "bytes.by_tier.archive"),
+              ("summary.downloaded_bytes", "bytes.unique_total")]
     differences = [f"{left} {count(catalog, left)} vs {right} {count(coverage, right)}" for left, right in pairs
                    if count(catalog, left) != count(coverage, right)]
     if counts(catalog, "summary.by_kind") != counts(coverage, "assets.by_kind"):
         differences.append("summary.by_kind vs assets.by_kind")
+    differences += entry_differences(catalog_assets(catalog), coverage)
     if snapshots(catalog) != manifest_dates(coverage):
         differences.append("snapshots vs inputs.manifests")
-    if sorted(source["id"] for source in catalog_sources(catalog)) != [r["id"] for r in coverage_records(coverage)]:
+    sources, records = catalog_sources(catalog), coverage_records(coverage)
+    if sorted(source["id"] for source in sources) != [record["id"] for record in records]:
         differences.append("source IDs")
+    elif {s["id"]: _get(s, "status") for s in sources} != {r["id"]: r["status"] for r in records}:
+        differences.append("sources[].status vs sources.records[].status")
     if differences:
         raise StatsError(f"{CATALOG_JSON} and {COVERAGE_JSON} come from different builds ("
                          + "; ".join(differences) + "): rebuild both")
+
+
+def _nonzero(values: Mapping[str, int]) -> dict[str, int]:
+    return {key: value for key, value in values.items() if value}
+
+
+def entry_differences(assets: list[dict], coverage: Mapping[str, Any]) -> list[str]:
+    """Where the catalog's entries disagree with the coverage totals that are computed from them."""
+    records = coverage_records(coverage)
+    differences = []
+    if len(assets) != count(coverage, "assets.unique_files"):
+        differences.append(f"{len(assets)} catalog assets vs assets.unique_files "
+                           f"{count(coverage, 'assets.unique_files')}")
+    total = sum(asset["bytes"] for asset in assets)
+    if total != count(coverage, "bytes.unique_total"):
+        differences.append(f"catalog asset bytes {total} vs bytes.unique_total {count(coverage, 'bytes.unique_total')}")
+    per_record: dict[str, int] = {}
+    per_primary: dict[str, int] = {}
+    family_records: dict[str, int] = {}
+    family_primary: dict[str, int] = {}
+    for asset in assets:
+        primary = asset["source_id"]
+        per_primary[primary] = per_primary.get(primary, 0) + 1
+        family_primary[family_of(primary)] = family_primary.get(family_of(primary), 0) + asset["bytes"]
+        for record in asset["provenance"]:
+            source_id = record["source_id"]
+            per_record[source_id] = per_record.get(source_id, 0) + 1
+            family_records[family_of(source_id)] = family_records.get(family_of(source_id), 0) + asset["bytes"]
+    if _nonzero(per_record) != _nonzero({r["id"]: r["asset_records"] for r in records}):
+        differences.append("catalog provenance records per source vs sources.records[].asset_records")
+    if _nonzero(per_primary) != _nonzero({r["id"]: r["primary_unique_files"] for r in records}):
+        differences.append("catalog primary entries per source vs sources.records[].primary_unique_files")
+    if _nonzero(family_records) != _nonzero(counts(coverage, "bytes.records_by_family")):
+        differences.append("catalog record bytes per family vs bytes.records_by_family")
+    if _nonzero(family_primary) != _nonzero(counts(coverage, "bytes.unique_by_primary_family")):
+        differences.append("catalog entry bytes per primary family vs bytes.unique_by_primary_family")
+    return differences
+
+
+def catalog_assets(catalog: Mapping[str, Any]) -> list[dict]:
+    """``assets`` with the fields this script reads validated: source_id, bytes and the provenance source IDs."""
+    assets = _get(catalog, "assets")
+    if not isinstance(assets, list) or not all(isinstance(asset, dict) for asset in assets):
+        raise StatsError("'assets' must be a list of objects")
+    for n, asset in enumerate(assets):
+        token(_get(asset, "source_id"), f"assets[{n}].source_id")
+        if not _is_count(_get(asset, "bytes")):
+            raise StatsError(f"assets[{n}].bytes must be a non-negative integer, not {asset['bytes']!r}")
+        provenance = _get(asset, "provenance")
+        if not isinstance(provenance, list) or not provenance or not all(isinstance(r, dict) for r in provenance):
+            raise StatsError(f"assets[{n}].provenance must be a non-empty list of objects")
+        for m, record in enumerate(provenance):
+            token(_get(record, "source_id"), f"assets[{n}].provenance[{m}].source_id")
+    return assets
+
+
+def shared_entries(catalog: Mapping[str, Any], family: str) -> int:
+    """Catalog entries whose provenance holds records from two or more sources of ``family``."""
+    return sum(len({record["source_id"] for record in asset["provenance"] if family_of(record["source_id"]) == family})
+               > 1 for asset in catalog_assets(catalog))
 
 
 def snapshots(catalog: Mapping[str, Any]) -> dict[str, str | None]:
@@ -653,6 +729,7 @@ def render_family(lang: str, family: str, coverage: Mapping[str, Any], catalog: 
     header = (t["source"], t["status_head"], t["discovery"], t["candidates"], *map(code, keys), t["records"],
               t["primary"])
     return join_parts([[intro], table(header, rows, (False, False, False, *[True] * (len(header) - 3))),
+                       [t["family_shared"].format(shared=number(shared_entries(catalog, family)))],
                        [t["family_reasons"].format(reasons=reasons(lang, excluded))]])
 
 
