@@ -261,6 +261,13 @@ class PinnedPNGTests(unittest.TestCase):
         return image
 
     @staticmethod
+    def grey_palette_image(index):
+        """A P image whose palette maps every index to that grey: stored values and RGBA equal an L image's."""
+        image = Image.new("P", (4, 4), index)
+        image.putpalette([value for grey in range(256) for value in (grey, grey, grey)])
+        return image
+
+    @staticmethod
     def png(image, **options):
         buffer = io.BytesIO()
         image.save(buffer, "PNG", **options)
@@ -283,6 +290,23 @@ class PinnedPNGTests(unittest.TestCase):
         self.assertEqual(data, self.png(changed, compress_level=9))
         with Image.open(io.BytesIO(data)) as decoded:
             self.assertEqual(decoded.tobytes(), changed.tobytes())
+
+    def test_a_different_shape_or_mode_is_never_taken_for_the_committed_image(self):
+        cases = [(Image.new("RGB", (2, 3), (40, 90, 200)), Image.new("RGB", (3, 2), (40, 90, 200))),  # transposed
+                 (Image.new("L", (4, 4), 128), Image.new("RGB", (4, 4), (128, 128, 128))),  # same grey, other mode
+                 (Image.new("L", (4, 4), 7), self.grey_palette_image(7))]  # same stored values and colours
+        for committed_image, drawn in cases:
+            with self.subTest(committed=committed_image.mode, drawn=drawn.mode, size=drawn.size):
+                with tempfile.TemporaryDirectory() as temp:
+                    (Path(temp) / "picture.png").write_bytes(self.png(committed_image, compress_level=1))
+                    data = PinnedPNG(Path(temp)).encode(drawn, compress_level=9)
+                self.assertEqual(data, self.png(drawn, compress_level=9))
+                with Image.open(io.BytesIO(data)) as decoded:
+                    self.assertEqual((decoded.mode, decoded.size), (drawn.mode, drawn.size))
+
+    def test_values_above_eight_bits_are_not_clipped_into_one_key(self):
+        from pinned_png import pixel_key
+        self.assertNotEqual(pixel_key(Image.new("I;16", (2, 2), 300)), pixel_key(Image.new("I;16", (2, 2), 400)))
 
     def test_two_committed_encodings_of_one_image_are_refused(self):
         image = self.picture()

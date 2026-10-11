@@ -5,7 +5,7 @@
 
 Writes ``data/`` and ``assets/`` under DIR (default: this directory). Every byte is deterministic for the pinned
 Pillow (requirements.txt): a PNG keeps the committed bytes of the identical image (tests/fixtures/pinned_png.py), so the
-zlib build cannot change them. tests/test_fixtures_contract.py regenerates into a temporary directory and compares.
+zlib build cannot change a committed picture. tests/test_fixtures_contract.py regenerates into a temporary directory and compares.
 All records are SYNTHETIC test data: images are generated patterns, post IDs/URLs are placeholders and nothing here
 is evidence about real Dynamix artwork. Scenario letters (a)-(o) are listed in README.md.
 """
