@@ -91,6 +91,8 @@ Missing approval variables must fail closed. Test that push, PR, wrong branch, w
 
 Inspect GitHub Pages settings before the first push to any existing repository: legacy branch-based Pages can deploy independently of workflow guards. A newly created repo should leave Pages unconfigured until release. If an existing repo has Pages deployment enabled, reconcile with the owner and hold requirement before pushing deployable content; never assume an absent YAML push trigger is sufficient. Do not change unrelated repository settings.
 
+**Owner decision (2026-10-11, after release v1.0.0):** the approval-variable design above is replaced by a release-triggered one, the same in this repository and in DEEMO. Publishing a GitHub Release with a `vX.Y.Z` tag deploys that tag's commit, and a manual dispatch on such a tag redeploys it. Deployment still fails closed: the ref must be a `vX.Y.Z` tag, a release must not be a prerelease, the tag's commit must be on `main`, and the full tests workflow must pass on it before any artifact is built. Pushes, pull requests and schedules never deploy. The `github-pages` environment allows `main` and `v*` tags, and the `RELEASE_APPROVED_SHA` variable is no longer used. Creating a release remains an explicit owner action.
+
 ## Gate 6 — main and GitHub
 
 The intended target is **`FridrichMethod/dynamix`**, inferred from the matching DEEMO remote and the user's publication request. Verify identity and destination read-only before creating or pushing:
