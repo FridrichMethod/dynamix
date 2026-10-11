@@ -231,6 +231,10 @@ class RuffConfigurationTests(unittest.TestCase):
         self.assertEqual(self.ruff["lint"]["select"], STAGE_1_SELECT)
         self.assertNotIn("extend-select", self.ruff["lint"], "stage 1 is exactly the select list")
 
+    def test_ruff_reads_python_files_only(self):
+        # ruff 0.17 would otherwise also reformat Python code blocks in the hand-edited (partly published) Markdown.
+        self.assertEqual(self.ruff["include"], ["*.py", "*.pyi", "**/pyproject.toml"])
+
     def test_pinned_paths_are_excluded_even_when_passed_explicitly(self):
         self.assertIs(self.ruff["force-exclude"], True)
         self.assertTrue(RUFF_EXCLUDED <= set(self.ruff["extend-exclude"]), self.ruff["extend-exclude"])
@@ -330,6 +334,10 @@ class PreCommitConfigurationTests(unittest.TestCase):
         used = {entry["id"] for _, entry in hooks(self.config)}
         self.assertFalse(used & FORBIDDEN_HOOKS, used & FORBIDDEN_HOOKS)
         self.assertTrue({"ruff-check", "ruff-format", "mypy", "actionlint", "eslint"} <= used, used)
+
+    def test_ruff_format_hook_receives_python_files_only(self):
+        # The hook's default types_or includes markdown; ruff would reformat code blocks in the documents.
+        self.assertEqual(hook(self.config, "ruff-format")["types_or"], ["python", "pyi"])
 
     def test_eslint_hook_is_check_only(self):
         eslint = hook(self.config, "eslint")

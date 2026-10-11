@@ -6,6 +6,9 @@
 line-length = 120
 target-version = "py314"
 src = ["scripts", "tests"]
+# Python files only: ruff 0.17 also formats Python code blocks in Markdown by default, and the Markdown documents
+# (several of them published with the website) are edited by hand.
+include = ["*.py", "*.pyi", "**/pyproject.toml"]
 # Byte-pinned and generated files (.gitattributes -text entries, build outputs) are never linted or formatted, even
 # when a hook passes their paths explicitly.
 force-exclude = true
