@@ -22,7 +22,7 @@ Only the coordinator generates or edits merged `data/catalog.{json,js}`, `data/t
 
 Reinspect the workspace; this packet's initial non-Git state may have changed. Check `git status`, `git worktree list`, active agent ownership, and current diffs before mutations. If it is still non-Git, the user-authorized implementation can initialize `main`, create an appropriate `.gitignore`, and deliberately stage this packet, instruction files, and ignore file for an initial planning commit. Do not run `git init` inside an unexpected parent repository.
 
-Use a unique writable worktree root, for example `/tmp/dynamix-implementation-20261010-<run-id>`. Worktrees are transient; commit and integrate completed work before cleanup or machine restart. Record the actual path outside tracked product data. Reference path stays `/home/fridrichmethod/data/repos/deemo`, not `../deemo` relative to a `/tmp` worktree.
+Use a unique writable worktree root, for example `/tmp/dynamix-implementation-20261010-<run-id>`. Worktrees are transient; commit and integrate completed work before cleanup or machine restart. Record the actual path outside tracked product data. Refer to the DEEMO reference by the absolute path of its local clone, not `../deemo` relative to a `/tmp` worktree.
 
 Example commands after the initial commit, with `DYNAMIX_WT_ROOT` set to that new, unused directory:
 
