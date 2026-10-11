@@ -1058,6 +1058,37 @@ class PressArticleTests(ArchivesTestCase):
         self.assertFalse(any("seed evidence not found" in m for m in messages), messages)
         self.verify()
 
+    def test_an_image_url_with_a_space_does_not_abort_the_article(self):
+        routes = self.routes()
+        routes[self.PAGE] = {
+            "text": routes[self.PAGE]["text"].replace(
+                '<div class="article-body">',
+                "<div class=\"article-body\"><img src='https://img.example.org/ads/banner 1.gif'>"
+                "<img src='https://img.example.org/ads/c\\d.gif'>",
+            )
+        }
+        self.assertIn("banner 1.gif", routes[self.PAGE]["text"])
+        acquisition = runner.Runner(
+            self.root,
+            "archives",
+            [self.seed(self.RULES)],
+            client_factory=FakeNetwork(routes).factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+        )
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        other = found["gnn129234:other:img.example.org/ads/banner%201.gif"]
+        self.assertEqual(
+            (other["disposition"], other["file_url"]), ("pending", "https://img.example.org/ads/banner%201.gif")
+        )
+        self.assertEqual(found["gnn129234:0001345608"]["disposition"], "downloaded")
+        self.assertEqual(snapshot["continuation"], {"article-images": "urls-skipped-1", "seed-files": None})
+        self.assertTrue(any("c\\\\d.gif" in e["message"] for e in snapshot["errors"]), snapshot["errors"])
+        self.verify()
+
     def test_named_item_matched_by_url_is_not_enumerated_twice(self):
         items = [
             {
@@ -1675,6 +1706,36 @@ class RunnerStateTests(ArchivesTestCase):
         self.run_family([self.seed()], FakeNetwork(routes))
         statuses = {a["id"]: a["upstream_status"] for a in self.manifest()["assets"]}
         self.assertEqual(statuses[first["id"]], "superseded")
+        self.verify()
+
+    def test_a_link_with_a_literal_space_is_requested_as_a_browser_requests_it(self):
+        # html.parser keeps the space a browser percent-encodes; it must not abort the source (a key with whitespace
+        # fails candidate validation). A link that is still no valid URL is skipped and keeps the list open.
+        routes = {
+            self.PAGE: {
+                "text": "<html><title>Dynamix gallery</title><body><img src='/img/New Shot.png'>"
+                "<img src='/img/b.png'><img src='/img/c\\d.png'></body></html>"
+            },
+            "https://press.example.org/img/New%20Shot.png": self.file((1, 2, 3)),
+            "https://press.example.org/img/b.png": self.file((4, 5, 6)),
+        }
+        acquisition = runner.Runner(
+            self.root,
+            "archives",
+            [self.seed()],
+            client_factory=FakeNetwork(routes).factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+        )
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(sorted(found), ["img/New%20Shot.png", "img/b.png"])
+        self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
+        self.assertEqual(found["img/New%20Shot.png"]["file_url"], "https://press.example.org/img/New%20Shot.png")
+        self.assertEqual(snapshot["continuation"], {"seed-pages": "links-skipped-1"})
+        self.assertTrue(any("c\\\\d.png" in e["message"] for e in snapshot["errors"]), snapshot["errors"])
         self.verify()
 
     @staticmethod

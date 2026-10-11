@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from collections.abc import Iterable, Mapping
 from typing import Any
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import quote, urljoin, urlsplit
 
 from bs4 import BeautifulSoup
 
@@ -124,6 +125,24 @@ def meta_content(document: BeautifulSoup, name: str) -> str | None:
 
 def absolute(base: str, link: str) -> str:
     return urljoin(base, link.strip())
+
+
+_LINK_DROPPED = str.maketrans("", "", "\t\n\r")  # removed from a link before parsing (WHATWG URL)
+_LINK_ESCAPED = frozenset(' "<>^`{|}')  # ASCII a URL cannot carry literally (lib.checks URL_FORBIDDEN_ASCII, not \)
+
+
+def link_url(base: str, link: str) -> str:
+    """The absolute URL a browser requests for the page link ``link`` (``href``/``src``) against the document base
+    ``base``: ASCII tab and newline removed, surrounding whitespace stripped, resolved, then every whitespace or control
+    character and ``"<>^`{|}`` percent-encoded as UTF-8 (``img/New Shot.png`` -> ``img/New%20Shot.png``), as browsers and
+    ``requests`` send it. Every other character stays as written, so a link that is already a valid URL resolves exactly
+    as with :func:`absolute`; one that still fails :func:`lib.checks.url_problem` (a backslash, credentials, a bad host)
+    is for the caller to skip and report."""
+    joined = urljoin(base, link.translate(_LINK_DROPPED).strip())
+    return "".join(
+        quote(char, safe="") if char.isspace() or unicodedata.category(char) == "Cc" or char in _LINK_ESCAPED else char
+        for char in joined
+    )
 
 
 def last_segment(url: str) -> str:

@@ -308,15 +308,22 @@ def _orig_size(element: Any) -> tuple[int, int] | None:
     return _size(*parts) if len(parts) == 2 else None
 
 
-def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple[list[dict], list[dict], str | None]:
+def article_images(
+    html: str, page_url: str, config: Mapping[str, Any], *, skipped: list[str] | None = None
+) -> tuple[list[dict], list[dict], str | None]:
     """([article image], [other image], None when the enumeration is complete or the open continuation token) for one
-    configured article page; each image is ``{key, url, advertised, caption, supplied, name, size}`` in page order."""
+    configured article page; each image is ``{key, url, advertised, caption, supplied, name, size}`` in page order.
+
+    Links are resolved as a browser requests them (:func:`base.link_url`, e.g. a literal space percent-encoded). An
+    image URL that is still no valid http(s) URL is not keyed: it is appended to ``skipped`` and keeps the enumeration
+    open (``urls-skipped-<n>``)."""
     document = base.soup(html)
     pattern = re.compile(config["pattern"])
     rewrite = config.get("rewrite", [])
     found: dict[str, dict] = {}
     others: dict[str, dict] = {}
     body: set[str] = set()
+    unusable: list[str] = skipped if skipped is not None else []
     title = base.headline(document)
 
     def add(
@@ -334,8 +341,13 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
         or a quoted URL (``image_link`` False) counts only when it names an image file."""
         if not raw or not raw.strip():
             return None
-        absolute = _without_fragment(base.absolute(page_url, raw))
-        if urlsplit(absolute).scheme not in ("http", "https"):  # data: placeholders, javascript: links
+        try:
+            absolute = _without_fragment(base.link_url(page_url, raw))
+            scheme = urlsplit(absolute).scheme
+        except ValueError:  # unparseable, e.g. an unbalanced IPv6 bracket
+            unusable.append(raw)
+            return None
+        if scheme not in ("http", "https"):  # data: placeholders, javascript: links
             return None
         url = normalized(absolute, rewrite)
         match = pattern.fullmatch(url)
@@ -349,11 +361,15 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
             key, bucket = f"{config['key_prefix']}{OTHER}{parts.netloc}{parts.path}", others
         else:
             return None
+        if checks.url_problem(url):  # keyed and downloaded as this URL: it must be one
+            if url not in unusable:
+                unusable.append(url)
+            return None
         entry = bucket.setdefault(
             key,
             {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False, "name": name, "size": None},
         )
-        if absolute != url and absolute not in entry["advertised"]:
+        if absolute != url and absolute not in entry["advertised"] and not checks.url_problem(absolute):
             entry["advertised"].append(absolute)
         entry["supplied"] = entry["supplied"] or supplied
         if size and entry["size"] is None and (absolute == url or not size_of_listed):
@@ -402,6 +418,8 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
         state = "selection-not-found"
     elif not body and state is None:
         state = "selection-empty"
+    if unusable and state is None:
+        state = f"urls-skipped-{len(unusable)}"
     return list(found.values()), list(others.values()), state
 
 
@@ -484,8 +502,18 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         page = read(page_url)
         if page["html"] is None:
             continue
-        images, others[page_url], state = article_images(page["html"], page_url, config)
+        skipped: list[str] = []
+        images, others[page_url], state = article_images(page["html"], page_url, config, skipped=skipped)
         enumerated[page_url] = images
+        for url in skipped:
+            discovery.errors.append(
+                model.discovery_error(
+                    "discover",
+                    page_url,
+                    f"image URL skipped, not a valid http(s) URL ({checks.url_problem(url) or 'unparseable'}): "
+                    f"{model.clip(repr(url), 160)}",
+                )
+            )
         if state is None:
             read_complete.add(page_url)
             continue
@@ -496,6 +524,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             "an empty selection is not a complete enumeration",
             "embedded-json-not-found": f"embedded article payload {script!r} not found or unreadable",
         }.get(state, f"article image count disagrees with the page ({state})")
+        if state.startswith("urls-skipped-"):
+            detail = f"{len(skipped)} image URL(s) of the page could not be keyed; the enumeration is not complete"
         discovery.errors.append(model.discovery_error("discover", page_url, detail))
         discovery.continuation[ARTICLE_LIST] = discovery.continuation.get(ARTICLE_LIST) or state
 
