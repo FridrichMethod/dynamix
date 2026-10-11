@@ -177,6 +177,79 @@ class WikitextTests(unittest.TestCase):
         self.assertEqual([wikitext.region_game(r.label) for r in regions], ["dynamix", "dynamix_universe"])
 
 
+class WikitextRuleTests(unittest.TestCase):
+    """DX2-11: every parsing rule that classification relies on (game tabs, comments, parser functions, captions,
+    credits, titles, sections) has a test that fails when the rule is removed."""
+
+    def test_tabber_tabs_name_their_games(self) -> None:
+        text = "<tabber>\nDynamix=\n[[File:A.png]]\n|-|\nUV=\n[[File:B.png]]\n</tabber>"
+        regions = wikitext.regions(text)
+        self.assertEqual([region.label for region in regions], ["Dynamix", "UV"])
+        games = [
+            wikitext.region_game(wikitext.regions_at(regions, ref.offset)[-1].label) for ref in wikitext.file_refs(text)
+        ]
+        self.assertEqual(games, ["dynamix", "dynamix_universe"])
+        self.assertEqual(wikitext.region_game("Dynamix UV"), "dynamix_universe")  # the UV word wins over "Dynamix"
+        self.assertEqual(wikitext.region_game("Dynamix Universe"), "dynamix_universe")
+        self.assertIsNone(wikitext.region_game("Gallery"))
+
+    def test_a_tab_ends_at_the_next_tab(self) -> None:
+        """Tabs are siblings: an unclosed <div> inside one tab does not nest the next tab in it."""
+        text = (
+            '<div class="tabberex-tab" data-tab-header="Dynamix"><div>[[File:A.png]]'
+            '<div class="tabberex-tab" data-tab-header="Dynamix Universe">[[File:B.png]]</div></div>'
+        )
+        first, second = wikitext.regions(text)
+        self.assertEqual(first.end, second.start)
+        [_, b] = wikitext.file_refs(text)
+        self.assertEqual(wikitext.regions_at([first, second], b.offset), [second])
+
+    def test_unclosed_comment_hides_the_rest(self) -> None:
+        text = "{{Song|Title=A}}[[File:A.png]]<!-- {{Song|Title=B}} [[File:B.png]]"
+        self.assertEqual([t.params["Title"] for t in wikitext.find_templates(text, {"Song"})], ["A"])
+        self.assertEqual([ref.name for ref in wikitext.file_refs(text)], ["A.png"])
+        self.assertEqual(wikitext.mask_comments("a<!--b\nc"), "a" + " " * 5 + "\n ")  # same length, newline kept
+
+    def test_parser_functions_and_colon_magic_words_are_skipped(self) -> None:
+        text = "{{#if:x|y}}{{lc:ABC}}{{DISPLAYTITLE:x}}{{Song|Title=A}}"
+        self.assertEqual([t.name for t in wikitext.find_templates(text)], ["Song"])
+
+    def test_keys_with_links_or_templates_are_positional(self) -> None:
+        [song] = wikitext.find_templates("{{Song|[[A|b]]=c|{{x|y}}=z|Title=T}}", {"Song"})
+        self.assertEqual(song.params, {"1": "[[A|b]]=c", "2": "{{x|y}}=z", "Title": "T"})
+
+    def test_gallery_links_are_not_counted_twice(self) -> None:
+        refs = wikitext.file_refs("<gallery>\nX.png|caption with [[File:Y.png]]\n</gallery>\n[[File:Z.png|z]]")
+        self.assertEqual([(ref.name, ref.context) for ref in refs], [("X.png", "gallery"), ("Z.png", "link")])
+
+    def test_last_caption_part_wins(self) -> None:
+        self.assertEqual(wikitext.file_refs("<gallery>\nX.png|first|last\n</gallery>")[0].caption, "last")
+        self.assertEqual(wikitext.file_refs("[[File:X.png|first|thumb|last]]")[0].caption, "last")
+
+    def test_illustrator_notes_and_duplicate_credits(self) -> None:
+        """docs/sources-wikis.md: an explicitly labeled illustrator note in a composer credit is removed (it is the
+        illustrator's credit, stated separately); names are verbatim otherwise, each once."""
+        for raw, name in (
+            ("Linne X SCTL(Illust.Keiyuu&RED-FOX)", "Linne X SCTL"),
+            ("Street (jacket : Sin:cK)", "Street"),
+        ):
+            self.assertEqual(wikitext.credit_names(raw, strip_illustrator_notes=True), [name])
+            self.assertEqual(wikitext.credit_names(raw), [raw])
+        self.assertEqual(wikitext.credit_names("A<br>B<br>A"), ["A", "B"])
+
+    def test_page_titles_drop_the_fragment(self) -> None:
+        self.assertEqual(wikitext.canonical_page_title("a_b#c"), "A b")
+        self.assertEqual(wikitext.canonical_page_title("Artists#.5Bsound_shinobi.5D"), "Artists")
+
+    def test_heading_levels_and_sections_since_a_tab(self) -> None:
+        text = "==Outer==\n<div>\n===Inner===\n[[File:X.png]]\n"
+        heads = wikitext.headings(text)
+        self.assertEqual([(level, title) for _, level, title in heads], [(2, "Outer"), (3, "Inner")])
+        offset = wikitext.file_refs(text)[0].offset
+        self.assertEqual(wikitext.section_path(heads, offset), ["Outer", "Inner"])
+        self.assertEqual(wikitext.section_path(heads, offset, since=text.index("<div>")), ["Inner"])
+
+
 def _evidence(role, strength, game, page="P", context="gallery", song=None):
     return classify.Evidence(
         "wikis:miraheze", page, f"https://dynamix.miraheze.org/wiki/{page}", context, role, strength, game, song, None
