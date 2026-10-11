@@ -104,8 +104,11 @@ def capture_key(original: str, timestamp: str) -> str:
     return f"{host}{path}{'?' + parts.query if parts.query else ''}@{timestamp}".replace(" ", "%20")
 
 
-def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[list[dict], str | None]:
-    """One CDX page as dicts and the resume key for the next page (None at the end)."""
+def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[list[dict], str | None, int]:
+    """One CDX page as dicts, the resume key for the next page (None at the end) and the number of rows of unexpected
+    shape (neither header-sized nor the empty separator and one-string resume-key rows that end a page), which the
+    caller reports. A first row that is not a header of field names with ``timestamp`` and ``original`` raises
+    ValueError, so the listing counts as interrupted instead of as an empty complete page."""
     params: dict[str, Any] = {
         "url": item["url"],
         "matchType": item.get("match_type", "exact"),
@@ -122,14 +125,23 @@ def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[lis
     if not isinstance(data, list):
         raise ValueError("CDX response is not a JSON list")
     if not data:
-        return [], None
-    header, rows, next_key = data[0], [], None
+        return [], None, 0
+    header = data[0]
+    if (
+        not isinstance(header, list)
+        or not all(isinstance(name, str) for name in header)
+        or not {"timestamp", "original"} <= set(header)
+    ):
+        raise ValueError(f"CDX response has no header row of field names: {model.clip(repr(header), 80)}")
+    rows, next_key, malformed = [], None, 0
     for row in data[1:]:
         if isinstance(row, list) and len(row) == len(header):
             rows.append(dict(zip(header, row, strict=True)))  # equal lengths: checked on the line above
         elif isinstance(row, list) and len(row) == 1 and isinstance(row[0], str):
             next_key = row[0]  # after an empty separator row
-    return rows, next_key
+        elif row != []:  # the empty separator before the resume key is expected
+            malformed += 1
+    return rows, next_key, malformed
 
 
 def _cdx_form(url: str) -> tuple[str, str]:
@@ -194,13 +206,15 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     )
     for item in items:
         rows: list[dict] = []
+        malformed = 0  # rows of unexpected shape: listed, but no capture can be read from them
         resume: str | None = None  # the key of the page being requested; kept open when paging stops early
         seen: set[str] = set()
         limit = item.get("max_pages", MAX_PAGES)
         try:
             for _ in range(limit):
-                page, next_key = cdx_rows(ctx, item, resume)
+                page, next_key, bad = cdx_rows(ctx, item, resume)
                 rows.extend(page)
+                malformed += bad
                 if not next_key:
                     resume = None
                     break
@@ -240,7 +254,13 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                     )
                 )
                 discovery.continuation[item["name"]] = "empty-answer"
-        skipped = 0
+        skipped = malformed
+        if malformed:
+            discovery.errors.append(
+                model.discovery_error(
+                    "discover", CDX, f"{item['name']}: {malformed} CDX row(s) of unexpected shape skipped"
+                )
+            )
         for row in unique_captures(rows):
             original, stamp = row.get("original", ""), row.get("timestamp", "")
             if not base.stored(original) or iso_timestamp(stamp) is None:

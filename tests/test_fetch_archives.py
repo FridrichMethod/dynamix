@@ -390,6 +390,28 @@ class WaybackTests(ArchivesTestCase):
         self.assertEqual(sum("unusable CDX row skipped" in e["message"] for e in snapshot["errors"]), 2)
         self.verify()
 
+    def test_a_row_of_unexpected_shape_keeps_the_listing_open(self):
+        routes = self.routes()
+        page1 = list(routes[cdx_url(self.ITEM)]["json"])
+        page1.insert(2, ["com,c4-cat,dynamix)/img/short.png", "20150101000000", "http://dynamix.c4-cat.com/img/s.png"])
+        routes[cdx_url(self.ITEM)] = {"json": page1}
+        self.run_family([self.seed(self.RULES)], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")
+        self.assertEqual(snapshot["continuation"], {"official-img": "rows-skipped-1"})
+        self.assertTrue(any("row(s) of unexpected shape" in e["message"] for e in snapshot["errors"]), snapshot)
+        self.assertEqual(len(snapshot["candidates"]), 3)  # the well-formed rows are still accounted for
+        self.verify()
+
+    def test_a_response_without_a_header_row_is_an_interrupted_listing(self):
+        for header in ({"urlkey": "x"}, ["error"], [1, 2]):
+            with self.subTest(header=header):
+                network = FakeNetwork({cdx_url(self.ITEM): {"json": [header, ["a", "b"]]}})
+                self.run_family([self.seed(self.RULES)], network)
+                snapshot = manifest.load_discovery(self.root, "archives:wayback")
+                self.assertFalse(snapshot["discovery_complete"])
+                self.assertEqual(snapshot["continuation"], {"official-img": "not-started"})
+                self.assertTrue(any("header" in e["message"] for e in snapshot["errors"]), snapshot["errors"])
+
     def test_digest_conversion(self):
         data = b"payload"
         self.assertEqual(wayback.digest_hex(cdx_digest(data)), hashlib.sha1(data).hexdigest())
