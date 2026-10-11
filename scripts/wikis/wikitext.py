@@ -93,9 +93,22 @@ def mask_comments(text: str) -> str:
     return _COMMENT.sub(lambda match: re.sub(r"[^\n]", " ", match.group(0)), text or "")
 
 
+def upper_first(text: str) -> str:
+    """``text`` with its first letter capitalized as MediaWiki capitalizes a title, one character for one character:
+    a lowercase letter takes its titlecase form when that is a single character (``é`` -> ``É``, the digraph ``ǆ`` ->
+    ``ǅ``, not ``Ǆ``), and stays as it is when it is not (``ß``, whose upper case is ``SS``, or ``ŉ``). Upper-case,
+    titlecase and uncased first characters are kept."""
+    first = text[:1]
+    if not first.islower():
+        return text
+    title = first.title()
+    return (title if len(title) == 1 else first) + text[1:]
+
+
 def canonical_file_name(raw: str | None) -> str | None:
     """MediaWiki canonical title text of a file reference (no namespace): entities and percent-escapes decoded,
-    underscores as spaces, whitespace collapsed, first letter upper-case. None unless it names an image file."""
+    underscores as spaces, whitespace collapsed, first letter upper-case (upper_first). None unless it names an image
+    file."""
     if not raw:
         return None
     value = html.unescape(_COMMENT.sub("", raw)).strip()
@@ -105,15 +118,15 @@ def canonical_file_name(raw: str | None) -> str | None:
     value = " ".join(value.replace("_", " ").split())
     if not value or not _FILE_VALUE.match(value):
         return None
-    return value[0].upper() + value[1:]
+    return upper_first(value)
 
 
 def canonical_page_title(raw: str) -> str:
-    """Canonical page title: entities decoded, underscores as spaces, collapsed whitespace, first letter upper,
-    fragment removed."""
+    """Canonical page title: entities decoded, underscores as spaces, collapsed whitespace, first letter upper
+    (upper_first), fragment removed."""
     value = html.unescape(raw).split("#", 1)[0]
     value = " ".join(value.replace("_", " ").split())
-    return value[:1].upper() + value[1:]
+    return upper_first(value)
 
 
 def _matching(text: str, start: int, opener: str, closer: str) -> int:
@@ -180,7 +193,7 @@ def split_top_level(text: str, separator: str = "|") -> list[str]:
 def _template_name(raw: str) -> str:
     name = " ".join(raw.replace("_", " ").split())
     name = re.sub(r"^template\s*:\s*", "", name, flags=re.IGNORECASE)
-    return name[:1].upper() + name[1:]
+    return upper_first(name)
 
 
 def find_templates(text: str, names: set[str] | None = None) -> list[Template]:

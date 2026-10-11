@@ -62,6 +62,8 @@ from typing import Any
 
 from lib import schema
 
+from . import wikitext
+
 REVIEWS_PATH = Path(__file__).resolve().parent / "reviews.json"
 FORMAT = "dynamix-wiki-archivist-reviews/1"
 # Exclusions a review may assign; animated captures and video placeholders are detected mechanically.
@@ -122,9 +124,10 @@ def _string(entry: Mapping[str, Any], name: str, label: str, *, required: bool =
 
 def canonical_title(title: str) -> str:
     """The canonical spelling of a ``File:`` title, as the API reports it and as reviews, notes and withdrawals are
-    looked up: underscores as spaces, whitespace runs collapsed, the first letter of the name upper-case."""
+    looked up: underscores as spaces, whitespace runs collapsed, the first letter of the name upper-case as MediaWiki
+    capitalizes it (wikitext.upper_first: ß stays, ǆ becomes ǅ)."""
     name = " ".join(title.removeprefix("File:").replace("_", " ").split())
-    return "File:" + name[:1].upper() + name[1:]
+    return "File:" + wikitext.upper_first(name)
 
 
 def _title(entry: Mapping[str, Any], label: str) -> str:

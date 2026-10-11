@@ -482,6 +482,14 @@ class RecordValidationTests(unittest.TestCase):
         self.assertInvalid(schema.validate_source, without_count, "asset_count: missing", catalog=True)
         failure = copy.deepcopy(self.manifests["wikis"]["failures"][0])
         schema.validate_failure(failure, "wikis")
+        schema.validate_failure(failure)  # without a family, any registered family
+        self.assertInvalid(
+            schema.validate_failure,
+            failure,
+            f"failure {failure['id']!r}",
+            "belongs to family 'wikis'",
+            family="artists",
+        )
         self.assertInvalid(schema.validate_failure, {**failure, "id": failure["id"] + "x"}, "id: must be")
         self.assertInvalid(schema.validate_failure, {**failure, "error_class": "http_4xx"}, "http_status")
         self.assertInvalid(schema.validate_failure, {**failure, "error_class": "blocked"}, "retriable: must be false")
@@ -745,6 +753,27 @@ class RecordValidationTests(unittest.TestCase):
                 run(mutate)
             self.assertIn(fragment, str(caught.exception))
 
+    def test_a_superseded_asset_is_not_its_own_successor(self):
+        """A chain that ends at the superseded asset itself never reaches the asset its candidate names, even when
+        the candidate names that very asset. reconcile() refuses such a candidate earlier (a duplicate_bytes
+        candidate cannot name its own record), so the asset-level rule is checked here on its own."""
+        wikis = copy.deepcopy(self.manifests["wikis"])
+        by_id = {asset["id"]: asset for asset in wikis["assets"]}
+        old = next(asset for asset in wikis["assets"] if asset.get("upstream_status") == "superseded")
+        snaps = self.wiki_snapshots()
+        candidate = next(c for c in snaps[old["source_id"]]["candidates"] if c["id"] == old["candidate_id"])
+        schema._reconcile_asset(old, candidate, True, by_id)  # the chain ends at the asset the candidate names
+        old.pop("superseded_by")  # newest archived revision, successor not archived: the chain ends at itself
+        candidate.update(disposition="duplicate_bytes", asset_id=old["id"], reason="identical SHA-256")
+        schema.validate_asset(old, "wikis")
+        schema.validate_candidate(candidate, old["source_id"])
+        with self.assertRaises(ValueError) as caught:
+            schema._reconcile_asset(old, candidate, True, by_id)
+        self.assertIn(f"asset {old['id']!r}: superseded_by: chain ends at {old['id']!r}", str(caught.exception))
+        with self.assertRaises(ValueError) as caught:
+            schema.reconcile(wikis, snaps)
+        self.assertIn("this candidate's own record", str(caught.exception))
+
     def test_removed_asset_may_leave_complete_discovery(self):
         wikis = copy.deepcopy(self.manifests["wikis"])
         snaps = {sid: copy.deepcopy(snap) for sid, snap in self.discoveries.items() if sid.startswith("wikis:")}
@@ -814,10 +843,47 @@ class RecordValidationTests(unittest.TestCase):
         for name, record in cases.items():
             with self.subTest(case=name):
                 self.assertInvalid(schema.validate_song_index, record, "id: must be", "sorted exact-title order")
-        for second in ("song:cosmic-pulse-2", "song:cosmic-pulse-7"):  # identical exact titles cannot be ordered
-            with self.subTest(identical_title=second):
-                record = with_songs(cosmic, {**cosmic, "id": second})
-                self.assertInvalid(schema.validate_song_index, record, "title:", "more than one song")
+
+    def test_identical_exact_titles_take_their_ids_in_any_order(self):
+        """Two wiki pages can give the same exact title (wikis/songindex._finish breaks the tie by page key, which the
+        index does not show). Such a group may hold its IDs in any order, but as a set they are the IDs
+        paths.assign_song_ids gives it: the base ID (unless an earlier title took it) and the next free -N suffixes."""
+        cosmic = next(song for song in self.song_index["songs"] if song["title"] == "Cosmic Pulse")
+        upper = {**cosmic, "title": "COSMIC PULSE", "id": "song:cosmic-pulse"}
+        twin = {**cosmic, "composers": ["Another composer (synthetic)"]}  # a second page with the same title
+
+        def with_songs(*songs):
+            record = copy.deepcopy(self.song_index)
+            others = [song for song in record["songs"] if song["title"] != "Cosmic Pulse"]
+            record["songs"] = sorted(others + copy.deepcopy(list(songs)), key=lambda song: song["id"])
+            return record
+
+        many = [{**cosmic, "id": "song:cosmic-pulse"}] + [
+            {**cosmic, "id": f"song:cosmic-pulse-{number}", "aliases": [f"Twin {number}"]} for number in range(2, 12)
+        ]  # sorted by ID, -10 and -11 come before -2
+        valid = {
+            "base and -2": with_songs({**cosmic, "id": "song:cosmic-pulse"}, {**twin, "id": "song:cosmic-pulse-2"}),
+            "-2 and base": with_songs({**cosmic, "id": "song:cosmic-pulse-2"}, {**twin, "id": "song:cosmic-pulse"}),
+            "eleven pages": with_songs(*many),
+            "after a case variant": with_songs(
+                upper, {**cosmic, "id": "song:cosmic-pulse-3"}, {**twin, "id": "song:cosmic-pulse-2"}
+            ),
+        }
+        for name, record in valid.items():
+            with self.subTest(valid=name):
+                schema.validate_song_index(record)
+        invalid = {
+            "gap": with_songs({**cosmic, "id": "song:cosmic-pulse"}, {**twin, "id": "song:cosmic-pulse-7"}),
+            "no base": with_songs({**cosmic, "id": "song:cosmic-pulse-2"}, {**twin, "id": "song:cosmic-pulse-3"}),
+            "base taken by the case variant": with_songs(
+                {**upper, "id": "song:cosmic-pulse-3"},
+                {**cosmic, "id": "song:cosmic-pulse"},
+                {**twin, "id": "song:cosmic-pulse-2"},
+            ),
+        }
+        for name, record in invalid.items():
+            with self.subTest(invalid=name):
+                self.assertInvalid(schema.validate_song_index, record, "id: must be", "sorted exact-title order")
 
     def test_song_links(self):
         assets = [asset for value in self.manifests.values() for asset in value["assets"]]

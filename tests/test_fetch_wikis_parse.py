@@ -569,14 +569,73 @@ class OtherGameCaptionTests(unittest.TestCase):
             "Artwork for Christmas Event 2021": "Christmas Event 2021",
             "Illustration in Event 23 June to 27 June": "Event 23 June to 27 June",
             "Artwork for the New Year Festival": "the New Year Festival",
+            "Artwork for the 9th Anniversary x Halloween Event 2023": "the 9th Anniversary x Halloween Event 2023",
+            "Jacket for the Mid-Autumn Festival": "the Mid-Autumn Festival",
+            "Artwork for the Collaboration Event": "the Collaboration Event",
         }
         for caption, occasion in captions.items():
-            text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
-            item = self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
+            item = self.gallery_item(caption)
             self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", None), caption)
             self.assertIn(f"artwork for {occasion} (a Dynamix event, not another game)", item.detail)
             decision = self.decide([item])
             self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "dynamix", []))
+
+    def test_events_of_another_game_are_that_games(self) -> None:
+        """Only Dynamix's own occasions are suppressed: an event or anniversary name that also names another game or
+        collaboration partner is that game's, a shared artwork with the same association as 'Artwork in <game>' (so
+        the default C4Cat rights holder is not applied)."""
+        captions = {
+            "S Artwork for the RAVON Collaboration Event": "RAVON",
+            "S Jacket in Arcaea Event": "Arcaea",
+            "S Artwork for Lanota Anniversary": "Lanota",
+            "S Artwork for the Dynamix X Rotaeno Collaboration Event": "Rotaeno",
+            "S Artwork in RAVON": "RAVON",  # controls: a plain other-game caption, as before
+            "S Artwork in Rotaeno": "Rotaeno",
+        }
+        for caption, other in captions.items():
+            with self.subTest(caption=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", other))
+                self.assertNotIn("a Dynamix event", item.detail)
+                self.assertIn("(another game/event", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations),
+                    ("download", "mixed", [other.casefold()]),
+                )
+
+    def gallery_item(self, caption: str):
+        """The evidence of a gallery image captioned ``caption`` on an original-game song page."""
+        text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
+        return self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
+
+    def test_the_documented_caption_examples_behave_as_documented(self) -> None:
+        """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: another game's
+        artwork or event records an association, Dynamix's own events do not, and a BMS release event is the song's
+        separate release (external_release_art). The stale 'another game or event' wording is gone."""
+        expected = {
+            "Artwork in RAVON": ("download", ["ravon"]),
+            "Artwork for the RAVON Collaboration Event": ("download", ["ravon"]),
+            "Jacket for the Halloween Event": ("download", []),
+            "Artwork in PABAT! 2017": ("excluded", []),
+        }
+        for relative, stale in (
+            ("docs/sources-wikis.md", "another game or event"),
+            ("docs/sources-wikis.zh-CN.md", "其他游戏或活动"),
+        ):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            [paragraph] = [line for line in text.splitlines() if "`mixed`" in line and "`game_associations`" in line]
+            with self.subTest(document=relative):
+                self.assertNotIn(stale, paragraph)
+                self.assertIn("`external_release_art`", paragraph)
+                for caption in expected:
+                    self.assertIn(caption, paragraph)
+        for caption, (disposition, associations) in expected.items():
+            with self.subTest(caption=caption):
+                decision = self.decide([self.gallery_item("S " + caption)])
+                self.assertEqual((decision.disposition, decision.associations), (disposition, associations))
+                if disposition == "excluded":
+                    self.assertEqual(decision.reason.split(":")[0], "external_release_art")
 
 
 def _review(**fields):
@@ -658,6 +717,43 @@ class ReviewTests(unittest.TestCase):
                 reviews.parse_notes(dict(base, notes=[dict(note, title=title)]))
             with self.assertRaises(ValueError, msg=title):
                 reviews.parse_withdrawals(dict(base, withdrawals=[dict(withdrawal, title=title)]))
+
+    def test_first_letter_is_capitalized_as_mediawiki_does(self) -> None:
+        """MediaWiki upper-cases the first letter one character for one character: ß (whose upper case is "SS")
+        stays, and a lowercase digraph takes its titlecase form (ǆ -> ǅ, not Ǆ). Titles, file references and page
+        links are canonicalized alike, so a review of such a file is accepted and matches its references."""
+        cases = {
+            "ß.png": "ß.png",
+            "ǆungla.png": "ǅungla.png",
+            "ǅungla.png": "ǅungla.png",
+            "Ǆ.png": "Ǆ.png",
+            "ŉ.png": "ŉ.png",
+            "ﬁle.png": "ﬁle.png",
+            "é b.png": "É b.png",
+            "a_b.png": "A b.png",
+            "日本.png": "日本.png",
+            "1st.png": "1st.png",
+        }
+        for name, canonical in cases.items():
+            with self.subTest(name=name):
+                self.assertEqual(reviews.canonical_title("File:" + name), "File:" + canonical)
+                self.assertEqual(wikitext.canonical_file_name(name), canonical)
+                self.assertEqual(wikitext.canonical_page_title(name.removesuffix(".png")), canonical[:-4])
+        review = {
+            "title": "File:ß.png",
+            "sha1": ["a" * 40],
+            "role": "promotional",
+            "game": "dynamix",
+            "evidence": "visual_inspection: event key art",
+            "game_evidence": "visual_inspection: original logo",
+        }
+        base = {"format": reviews.FORMAT, "reviews": []}
+        for title in ("File:ß.png", "File:ǅ.png", "File:SS.png"):
+            with self.subTest(title=title):
+                self.assertIn(title, reviews.parse(dict(base, reviews=[dict(review, title=title)])))
+        with self.assertRaises(ValueError) as caught:
+            reviews.parse(dict(base, reviews=[dict(review, title="File:ǆ.png")]))
+        self.assertIn("'File:ǅ.png'", str(caught.exception))
 
     def test_committed_review_titles_are_discovered_files(self) -> None:
         """Every committed review, note and withdrawal names a file that a committed wiki discovery snapshot lists,

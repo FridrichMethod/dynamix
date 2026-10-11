@@ -50,8 +50,9 @@ TOP_REASONS = 5
 SCHEMA_VERSION = 1
 # Enumeration values and IDs are printed as code spans; anything else in them would be Markdown.
 TOKEN_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/@+-]{0,199}$")
-TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
-DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# ASCII digits only (as scripts/lib/checks.py): without re.ASCII, \d matches every Unicode decimal digit.
+TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$", re.ASCII)
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$", re.ASCII)
 DASH = "—"
 
 

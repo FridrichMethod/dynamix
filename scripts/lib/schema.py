@@ -1114,23 +1114,27 @@ def validate_song_index(index: Any, known_asset_ids: Iterable[str] | None = None
 
 def _check_song_id_assignment(songs: list[dict]) -> None:
     """09: song IDs get their -2, -3 suffixes deterministically by sorted exact title, i.e. they equal
-    :func:`paths.assign_song_ids` over the index's titles. Identical exact titles have no such order."""
-    counts = Counter(song["title"] for song in songs)
-    for song in songs:
-        if counts[song["title"]] > 1:
-            _fail(
-                _label("song", song),
-                "title",
-                f"{song['title']!r} is the exact title of more than one song; song IDs are assigned by sorted exact "
-                "title, so identical titles have no deterministic ID",
-            )
+    :func:`paths.assign_song_ids` over the index's titles.
+
+    Songs with an identical exact title (two wiki pages giving the same title; the producer breaks the tie by page
+    key, which the index does not record) have no order the index shows, so such a group may hold its IDs in any
+    order. The set of IDs a tied group receives does not depend on the order inside the tie, and the IDs are unique
+    (checked before), so each song of the group must hold one of the group's IDs."""
     expected = paths.assign_song_ids([song["title"] for song in songs])
+    groups: dict[str, list[str]] = {}
     for song, want in zip(songs, expected, strict=True):  # assign_song_ids returns one ID per title, in order
-        if song["id"] != want:
+        groups.setdefault(song["title"], []).append(want)
+    rule = "paths.assign_song_ids: -N suffixes in sorted exact-title order over the index"
+    for song, want in zip(songs, expected, strict=True):
+        group = groups[song["title"]]
+        if len(group) == 1 and song["id"] != want:
+            _fail(_label("song", song), "id", f"must be {want!r} ({rule})")
+        if len(group) > 1 and song["id"] not in group:
             _fail(
                 _label("song", song),
                 "id",
-                f"must be {want!r} (paths.assign_song_ids: -N suffixes in sorted exact-title order over the index)",
+                f"must be one of {sorted(group)!r} ({rule}; songs with an identical exact title take them in any "
+                "order)",
             )
 
 
