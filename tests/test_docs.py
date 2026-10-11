@@ -255,7 +255,7 @@ class TranslationParityTests(unittest.TestCase):
 class EmphasisTests(unittest.TestCase):
     def test_bold_labels_render(self):
         for relative in DOCUMENTS:
-            for number, line in enumerate(prose_lines(read(relative)), 1):
+            for line in prose_lines(read(relative)):
                 with self.subTest(document=relative, line=line[:60]):
                     self.assertEqual(
                         unrendered_bold(line),

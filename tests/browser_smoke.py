@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import functools
 import http.server
+import itertools
 import json
 import shutil
 import sys
@@ -33,7 +34,6 @@ from collections import Counter
 from pathlib import Path
 from urllib.parse import quote, urljoin, urlparse
 
-from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -395,6 +395,11 @@ def translator(page):
     return lambda key, **values: page.evaluate("([key, values]) => DYNAMIX_I18N.t(key, values)", [key, values])
 
 
+def path_recorder(paths):
+    """A request handler that appends each request's URL path to ``paths``."""
+    return lambda request: paths.append(urlparse(request.url).path)
+
+
 def find(catalog, predicate):
     for asset in catalog["assets"]:
         if predicate(asset):
@@ -609,7 +614,7 @@ def check_provenance_text(smoke, base, catalog):
         smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(duplicate["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open")
         text = page.locator("#provenance").inner_text()
-        t = lambda key, **values: page.evaluate("([key, values]) => DYNAMIX_I18N.t(key, values)", [key, values])
+        t = translator(page)
         field = t("comparison.sha1_match")
         assert t("comparison.matched", field=field) in text, (lang, "matched")
         mismatch = next(p for p in duplicate["provenance"] if p["comparisons"]["sha1_match"] is False)
@@ -708,7 +713,7 @@ def check_previews(smoke, base, catalog, fixture):
         raise Skip("the catalog has no gallery images")
     page = smoke.page(base)
     requested = []
-    page.on("request", lambda request: requested.append(urlparse(request.url).path))
+    page.on("request", path_recorder(requested))
     open_archive(smoke, page, base)
     smoke.monitor.settle(page)
     cards = page.evaluate("""() => [...document.querySelectorAll('.card')].map((card) => {
@@ -732,7 +737,7 @@ def check_previews(smoke, base, catalog, fixture):
     for asset, fallback in ((site_thumb, site_thumb["url"]), (archive_thumb, None)):
         page = smoke.page(base)
         requested = []
-        page.on("request", lambda request: requested.append(urlparse(request.url).path))
+        page.on("request", path_recorder(requested))
         preview = urljoin(base, asset["thumb"])
         smoke.monitor.expect(preview)
         page.route(preview, lambda route: route.abort())
@@ -878,7 +883,10 @@ def check_inventory(smoke, base, catalog):
     first; failure lines count attempts in the language's plural form."""
     tally = Counter(source["status"] for source in catalog["sources"])
     totals = catalog.get("summary") or {}
-    pick = lambda key, fallback: fallback if totals.get(key) is None else totals[key]  # the page's `??`
+
+    def pick(key, fallback):
+        return fallback if totals.get(key) is None else totals[key]  # the page's `??`
+
     counts = {
         "sources": pick("source_count", len(catalog["sources"])),
         "records": pick("source_asset_records", 0),
@@ -1012,7 +1020,7 @@ def check_layout(smoke, base, catalog, lang, size):
                 box,
             )
         boxes = [page.locator(f".{name}").first.bounding_box() for name in BOTTOM_ROW]
-        assert all(left["x"] + left["width"] <= right["x"] for left, right in zip(boxes, boxes[1:])), boxes
+        assert all(left["x"] + left["width"] <= right["x"] for left, right in itertools.pairwise(boxes)), boxes
         for arrow in (".prev", ".next"):
             assert page.locator(
                 arrow

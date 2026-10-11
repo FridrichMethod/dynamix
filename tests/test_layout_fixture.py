@@ -435,7 +435,7 @@ class FixtureContractTests(unittest.TestCase):
         loses characters carries the 8-hex title hash; an unmapped record links no song; the catalog lists the
         ordered union of its records' song IDs and collections."""
         titles = sorted({title for asset in self.catalog["assets"] for title in asset["song_titles"]})
-        expected = dict(zip(titles, paths.assign_song_ids(titles)))
+        expected = dict(zip(titles, paths.assign_song_ids(titles), strict=True))
         for asset in self.catalog["assets"]:
             for record in asset["provenance"]:
                 with self.subTest(asset=asset["title"], source=record["source_id"]):

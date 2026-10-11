@@ -3,6 +3,7 @@ Dynamix globals and storage key, and that no DEEMO branding survives outside att
 
 Adapted from FridrichMethod/deemo tests/test_i18n.py (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8)."""
 
+import itertools
 import json
 import re
 import unittest
@@ -112,7 +113,7 @@ def script_order_problems(scripts, callers):
     if problems:
         return problems
     rank = {"runtime": 0, "table": 1, "caller": 2}
-    for (before, first), (after, second) in zip(group, group[1:]):
+    for (before, first), (after, second) in itertools.pairwise(group):
         if rank[before] > rank[after]:
             problems.append(
                 f"{name(first)} ({before}) runs before {name(second)} ({after}); expected the runtime, then every message table, then the code that calls t()"

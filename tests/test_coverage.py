@@ -15,6 +15,7 @@ from unittest import mock
 sys.path.insert(0, str(Path(__file__).resolve().parent / "fixtures/catalog"))
 
 import catalog_fixture as fx  # noqa: E402
+
 import build_catalog  # noqa: E402
 import build_coverage as coverage  # noqa: E402
 import build_thumbnails as thumbs  # noqa: E402
@@ -226,7 +227,7 @@ class PagesConsistencyTests(Base):
         "LICENSE": b"Fixture license text\n",
         "NOTICE": b"Fixture notice\n",
         "README.md": b"# Fixture\n",
-        "README.zh-CN.md": "# 样例\n".encode("utf-8"),
+        "README.zh-CN.md": "# 样例\n".encode(),
         "archive.html": b"<!doctype html>\n<title>Archive</title>\n",
         "src/app.js": b'"use strict";\n',
         "assets/site/site.css": b"body { margin: 0; }\n",

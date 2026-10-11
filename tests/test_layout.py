@@ -185,7 +185,7 @@ class LayoutTests(unittest.TestCase):
             "@media (max-width: 480px) { .c { top: 0 --gap: 4px; } }",
         )
         valid = (
-            ".a:hover, .b::before { content: \"x: y\"; color: red }",
+            '.a:hover, .b::before { content: "x: y"; color: red }',
             "select { background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E\"); }",
             ".d { background: url(data:image/png;base64,AAA:B) no-repeat; }",
             "@media (orientation: landscape) and (max-height: 560px) { .e { inset: 0; } }",
