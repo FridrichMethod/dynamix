@@ -482,6 +482,14 @@ class RecordValidationTests(unittest.TestCase):
         self.assertInvalid(schema.validate_source, without_count, "asset_count: missing", catalog=True)
         failure = copy.deepcopy(self.manifests["wikis"]["failures"][0])
         schema.validate_failure(failure, "wikis")
+        schema.validate_failure(failure)  # without a family, any registered family
+        self.assertInvalid(
+            schema.validate_failure,
+            failure,
+            f"failure {failure['id']!r}",
+            "belongs to family 'wikis'",
+            family="artists",
+        )
         self.assertInvalid(schema.validate_failure, {**failure, "id": failure["id"] + "x"}, "id: must be")
         self.assertInvalid(schema.validate_failure, {**failure, "error_class": "http_4xx"}, "http_status")
         self.assertInvalid(schema.validate_failure, {**failure, "error_class": "blocked"}, "retriable: must be false")
@@ -744,6 +752,27 @@ class RecordValidationTests(unittest.TestCase):
             with self.subTest(fragment=fragment), self.assertRaises(ValueError) as caught:
                 run(mutate)
             self.assertIn(fragment, str(caught.exception))
+
+    def test_a_superseded_asset_is_not_its_own_successor(self):
+        """A chain that ends at the superseded asset itself never reaches the asset its candidate names, even when
+        the candidate names that very asset. reconcile() refuses such a candidate earlier (a duplicate_bytes
+        candidate cannot name its own record), so the asset-level rule is checked here on its own."""
+        wikis = copy.deepcopy(self.manifests["wikis"])
+        by_id = {asset["id"]: asset for asset in wikis["assets"]}
+        old = next(asset for asset in wikis["assets"] if asset.get("upstream_status") == "superseded")
+        snaps = self.wiki_snapshots()
+        candidate = next(c for c in snaps[old["source_id"]]["candidates"] if c["id"] == old["candidate_id"])
+        schema._reconcile_asset(old, candidate, True, by_id)  # the chain ends at the asset the candidate names
+        old.pop("superseded_by")  # newest archived revision, successor not archived: the chain ends at itself
+        candidate.update(disposition="duplicate_bytes", asset_id=old["id"], reason="identical SHA-256")
+        schema.validate_asset(old, "wikis")
+        schema.validate_candidate(candidate, old["source_id"])
+        with self.assertRaises(ValueError) as caught:
+            schema._reconcile_asset(old, candidate, True, by_id)
+        self.assertIn(f"asset {old['id']!r}: superseded_by: chain ends at {old['id']!r}", str(caught.exception))
+        with self.assertRaises(ValueError) as caught:
+            schema.reconcile(wikis, snaps)
+        self.assertIn("this candidate's own record", str(caught.exception))
 
     def test_removed_asset_may_leave_complete_discovery(self):
         wikis = copy.deepcopy(self.manifests["wikis"])
