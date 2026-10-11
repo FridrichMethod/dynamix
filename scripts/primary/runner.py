@@ -160,12 +160,14 @@ class GuardedClient:
 
 @dataclass
 class AdapterContext:
-    """What an adapter may use: the guarded client and the source seed."""
+    """What an adapter may use: the guarded client, the source seed and the source's previous discovery snapshot
+    (read-only; e.g. to tell an empty answer from a listing that shrank)."""
 
     client: GuardedClient
     seed: Mapping[str, Any]
     source_id: str
     now: Callable[[], str] = manifest.now_utc
+    previous: Mapping[str, Any] | None = None
 
     @property
     def quality(self) -> dict:
@@ -464,7 +466,7 @@ class Runner:
         self.clients.append(client)
         crashed = False
         try:
-            context = AdapterContext(client=client, seed=seed, source_id=source_id, now=self.now)
+            context = AdapterContext(client=client, seed=seed, source_id=source_id, now=self.now, previous=previous)
             LOG.info("%s: discovering", source_id)
             try:
                 discovery = ADAPTERS[seed["adapter"]].discover(context, seed)

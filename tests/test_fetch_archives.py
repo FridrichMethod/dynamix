@@ -124,6 +124,38 @@ class WaybackTests(ArchivesTestCase):
         self.assertIn("WARC record length 1160031", cap["notes"])
         self.verify()
 
+    def test_an_empty_answer_after_listed_captures_keeps_the_list_open(self):
+        """A CDX query that listed captures before and now answers [] is an incomplete listing (07 §Integrity): the
+        archived captures keep their status and the snapshot is not complete. A query that never listed a capture
+        may stay empty and complete."""
+        self.run_family([self.seed(self.RULES)], FakeNetwork(self.routes()))
+        before = {a["id"]: a["upstream_status"] for a in self.manifest()["assets"]}
+        self.assertEqual(set(before.values()), {"current"})
+        empty_item = {"name": "never-archived", "url": "dynamix.c4-cat.com/none/", "match_type": "prefix"}
+        routes = {cdx_url(self.ITEM): {"json": []}, cdx_url(empty_item): {"json": []}}
+        self.run_family([self.seed(self.RULES, items=[self.ITEM, empty_item])], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"], {"official-img": "empty-answer", "never-archived": None})
+        self.assertTrue(any("listed no capture, although the previous snapshot holds 3 capture(s)" in e["message"]
+                            for e in snapshot["errors"]), snapshot["errors"])
+        self.assertEqual({a["id"]: a["upstream_status"] for a in self.manifest()["assets"]}, before)
+        self.assertFalse(any(runner.UNKNOWN_NOTE in (a.get("notes") or "") for a in self.manifest()["assets"]))
+        self.assertNotEqual(self.manifest()["sources"][0]["status"], "available")
+        self.verify()
+
+    def test_cdx_item_matching_follows_the_query(self):
+        prefix = {"url": "dynamix.c4-cat.com/img/", "match_type": "prefix"}
+        self.assertTrue(wayback.matches_item(prefix, "http://www.dynamix.c4-cat.com:80/IMG/cap1.png"))
+        self.assertFalse(wayback.matches_item(prefix, "http://dynamix.c4-cat.com/image/cap1.png"))
+        exact = {"url": "www.hkstp.org/media/a.pdf"}
+        self.assertTrue(wayback.matches_item(exact, "https://www.hkstp.org/media/a.pdf"))
+        self.assertFalse(wayback.matches_item(exact, "https://www.hkstp.org/media/a.pdf2"))
+        self.assertTrue(wayback.matches_item({"url": "c4-cat.com", "match_type": "domain"},
+                                             "http://dl.dnx.c4-cat.com/x.png"))
+        self.assertFalse(wayback.matches_item({"url": "c4-cat.com", "match_type": "host"},
+                                              "http://dl.dnx.c4-cat.com/x.png"))
+
     def test_a_capture_served_from_another_timestamp_or_with_other_bytes_is_held(self):
         routes = self.routes()
         routes["https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png"]["final_url"] = (

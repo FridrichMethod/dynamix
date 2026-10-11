@@ -4,7 +4,9 @@ Each seed item is one CDX query (``url`` + ``match_type`` + filters). Pages of `
 ``showResumeKey`` until the API returns no resume key; an interrupted listing keeps its key in ``continuation`` and the
 discovery stays incomplete. Paging is bounded: a resume key returned twice or more than ``max_pages`` pages (default
 200) stop the listing with the pending key kept open. Captures are grouped by (URL key, content digest): the earliest
-capture of each distinct payload is one candidate ``<host/path>@<timestamp>``.
+capture of each distinct payload is one candidate ``<host/path>@<timestamp>``. A query that lists no capture although the
+previous snapshot holds captures it matched is not a complete listing: its list stays open (``empty-answer``) with a
+discovery error, so no archived capture changes status on an empty response (07 §Integrity).
 ``web.archive.org/web/<ts>id_/<original>`` returns the archived bytes without replay rewriting; the replay page is the
 ``page_url``.
 
@@ -115,6 +117,46 @@ def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[lis
     return rows, next_key
 
 
+def _cdx_form(url: str) -> tuple[str, str]:
+    """``(host, path?query)`` of an original or seed URL the way the CDX index compares them: no scheme, lower case,
+    no leading ``www.`` and no default port."""
+    text = url if "://" in url else f"http://{url}"
+    try:
+        parts = urlsplit(text)
+        port = parts.port
+    except ValueError:
+        return "", ""
+    host = (parts.hostname or "").lower()
+    host = host[4:] if host.startswith("www.") else host
+    if port and port not in (80, 443):
+        host = f"{host}:{port}"
+    return host, ((parts.path or "/") + (f"?{parts.query}" if parts.query else "")).casefold()
+
+
+def matches_item(item: Mapping[str, Any], original: str) -> bool:
+    """Whether the CDX query ``item`` (url + match_type) covers the capture of ``original``."""
+    want_host, want_rest = _cdx_form(item["url"])
+    host, rest = _cdx_form(original)
+    if not host:
+        return False
+    match_type = item.get("match_type", "exact")
+    if match_type == "domain":
+        return host == want_host or host.endswith(f".{want_host}")
+    if host != want_host:
+        return False
+    return match_type == "host" or (rest.startswith(want_rest) if match_type == "prefix" else rest == want_rest)
+
+
+def previously_listed(previous: Mapping[str, Any] | None, item: Mapping[str, Any]) -> int:
+    """How many candidates of the previous snapshot are captures the query ``item`` covers."""
+    count = 0
+    for candidate in (previous or {}).get("candidates", []):
+        original = (candidate.get("source_reported") or {}).get("url")
+        if isinstance(original, str) and matches_item(item, original):
+            count += 1
+    return count
+
+
 def unique_captures(rows: list[dict]) -> list[dict]:
     """Earliest capture of every (urlkey, digest), ordered by key."""
     best: dict[tuple[str, str], dict] = {}
@@ -155,6 +197,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             discovery.continuation[item["name"]] = resume or "not-started"
             if isinstance(error, net.BlockedError):
                 discovery.evidence_level = "blocked"
+        else:
+            listed_before = previously_listed(getattr(ctx, "previous", None), item) if not rows else 0
+            if listed_before:
+                discovery.errors.append(model.discovery_error(
+                    "discover", CDX, f"{item['name']}: the CDX API listed no capture, although the previous snapshot "
+                                     f"holds {listed_before} capture(s) of this query; an empty answer is not taken "
+                                     "as the complete listing"))
+                discovery.continuation[item["name"]] = "empty-answer"
         skipped = 0
         for row in unique_captures(rows):
             original, stamp = row.get("original", ""), row.get("timestamp", "")
