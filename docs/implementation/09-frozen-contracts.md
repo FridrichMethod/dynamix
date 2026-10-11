@@ -216,3 +216,26 @@ scripts/prepare_pages.py  --output PATH
 | `impl/ci` | `.github/workflows/**`, `scripts/{prepare_pages,check_sources}.py`, `tests/test_{pages,check_sources,workflows,line_endings,licensing}*.py`, `tests/run_all.py` |
 | `impl/docs` (wave 2–4) | `README.md`, `README.zh-CN.md`, `NOTICE`, `.nojekyll`, `docs/sources-*.md`, `docs/coverage*.md`, `licenses/README*.md`, `scripts/update_docs_stats.py`, `tests/test_docs*.py` (generated STATS blocks are rendered by the coordinator) |
 | coordinator | remaining root docs, `docs/implementation/**`, `data/sources/song-index.json`, `data/{catalog.json,catalog.js,thumbs.json,coverage.json}`, `assets/thumbs/**`, `index.html`, merges, remote |
+
+## Tooling contract (2026-10-11, code-quality task)
+
+Frozen by the coordinator before the review and tooling work on `quality/*` branches. `pyproject.toml`, `.pre-commit-config.yaml`, `requirements-lint.txt`, `package.json`/`package-lock.json` and `eslint.config.mjs` are its executable form; `tests/test_tooling.py` checks that they agree.
+
+- **Versions:** ruff 0.17.0, mypy 2.4.0, coverage.py 7.16.2, pre-commit 4.6.2 with pre-commit-hooks v6.0.0 and actionlint v1.7.12, ESLint 10.12.0 with @eslint/js 10.0.1, @eslint/css 2.0.0 and globals 17.13.0. Every pre-commit `rev:` is a full commit SHA; npm packages are installed with `npm ci --ignore-scripts` from the lockfile.
+- **ruff:** line length 120, target Python 3.14. Lint stage 1 selects `E4 E7 E9 F W I B UP PLE`; stage 2 (not yet enforced) adds `C4 SIM PIE PERF PLW RUF` (without RUF001–003, which fire on Chinese text) and `S` with test exemptions. `ruff format` keeps its defaults; the mechanical formatting commit is listed in `.git-blame-ignore-revs`.
+- **mypy:** stage 1 checks `scripts/lib` without strict mode (`check_untyped_defs`, `strict_equality`, warnings for redundant casts, unused ignores and unused config). Stage 2 adds `scripts/primary` and the entry scripts, stage 3 `scripts/wikis`, stage 4 the tests, then `disallow_untyped_defs` and finally `strict` for `scripts/lib`.
+- **ESLint:** checks `src/**/*.js` (classic scripts, ESLint recommended rules) and `src/**/*.css` (@eslint/css recommended without `use-baseline` and `no-important`), never with `--fix`. There is no JavaScript or CSS formatter: `src/` is published as committed.
+- **Coverage:** the unit tests run under `coverage run` with `patch = ["subprocess"]`, so every script they start is measured. `fail_under` is the measured baseline rounded down and may only be raised.
+- **Excluded from every tool and hook:** `assets/`, `data/`, `index.html`, `LICENSE`, `licenses/*.txt`, `src/vendor/` and `tests/fixtures/`, that is every `-text` path in `.gitattributes` and every generated output. After any tooling change the build `--check`/`--verify` commands must still pass and the staged Pages payload must be unchanged except for files changed on purpose.
+- **CI:** a `lint` job in `tests.yml` with read-only permissions runs `pre-commit run --all-files`; the `checks` job runs the unit tests under coverage and reports it. No new workflow, trigger or permission.
+
+| Branch | Owns |
+| --- | --- |
+| `quality/integration` (coordinator) | the tool configuration above, `.editorconfig`, `.gitignore`, `.git-blame-ignore-revs`, the formatting commit, `AGENTS.md`, `docs/implementation/**`, merges, remote |
+| `quality/ci` | `.github/workflows/tests.yml`, `tests/test_tooling.py`, `tests/test_workflows*.py`, `README.md`, `README.zh-CN.md` |
+| `quality/fix-lib` | `scripts/lib/**`, `tests/test_lib_*.py`, `tests/test_fixtures_contract.py` |
+| `quality/fix-wikis` | `scripts/fetch_wikis.py`, `scripts/wikis/**`, `tests/test_fetch_wikis*.py` |
+| `quality/fix-primary` | `scripts/fetch_{artists,official,archives}.py`, `scripts/primary/**`, `tests/test_fetch_{artists,official,archives}*.py` |
+| `quality/fix-rest` | the remaining `scripts/*.py`, `src/**` except `src/vendor/`, the remaining `tests/*.py`, documentation fixes from review findings |
+
+Existing files under `tests/fixtures/` are never edited; new tests build their inputs in temporary directories.

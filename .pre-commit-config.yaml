@@ -1,0 +1,59 @@
+# Pinned pre-commit hooks. Every rev is a full commit SHA; update them with `pre-commit autoupdate --freeze` in a
+# reviewed commit, together with requirements-lint.txt (tests/test_tooling.py checks that the versions agree).
+# Run them with `pre-commit run --all-files`; the lint job of .github/workflows/tests.yml runs the same command.
+minimum_pre_commit_version: "4.6.0"
+# Byte-pinned files (.gitattributes -text) and generated outputs keep their exact bytes: no hook reads or rewrites them.
+exclude: |
+  (?x)^(
+      assets/
+    | data/
+    | index\.html$
+    | LICENSE$
+    | licenses/[^/]+\.txt$
+    | src/vendor/
+    | tests/fixtures/
+  )
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=no]
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-added-large-files
+      - id: detect-private-key
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 44b5042edab9382aba712eed4f9c7bab7a3d6a3e  # frozen: v0.17.0
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 2834ec6639549dd6796205c8f011dedcd587288b  # frozen: v2.4.0
+    hooks:
+      - id: mypy
+        # The checked files come from [tool.mypy] in pyproject.toml.
+        args: []
+        pass_filenames: false
+        additional_dependencies:
+          - Pillow==12.3.0
+          - beautifulsoup4==4.15.0
+          - requests==2.34.2
+          - types-requests==2.33.0.20261006
+  - repo: https://github.com/rhysd/actionlint
+    rev: 914e7df21a07ef503a81201c76d2b11c789d3fca  # frozen: v1.7.12
+    hooks:
+      - id: actionlint
+  - repo: local
+    hooks:
+      - id: eslint
+        # Check only: src/ is published unchanged, so nothing here rewrites it. Needs `npm ci` first.
+        name: eslint (src JavaScript and CSS, check only)
+        entry: npx --no-install eslint --max-warnings=0
+        language: system
+        files: ^src/.*\.(css|js)$

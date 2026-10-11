@@ -25,6 +25,7 @@ Read `docs/implementation/README.md`, then the plan and your assigned handoff. T
 ## Verification and publication
 
 - Follow `docs/implementation/06-validation-and-release.md`. Offline tests must not require the live source sites. Acquisition failures need visible status, not fabricated successful records.
+- Run `pre-commit run --all-files` (ruff, ruff format, mypy, ESLint, actionlint, file hygiene) before committing; the tool versions and rules are in `pyproject.toml` and `.pre-commit-config.yaml`. No formatter, fixer or hook may rewrite byte-pinned or generated files (`assets/`, `data/`, `index.html`, `LICENSE`, `licenses/*.txt`, `src/vendor/`, `tests/fixtures/`), and ESLint never runs with `--fix` on the published `src/` files.
 - Review both scientific-style data integrity (provenance, mapping, byte identity) and software correctness (escaping, paths, resumability, browser behavior, CI publication boundaries).
 - The implementation request authorizes the coordinator's eventual GitHub creation/push for this project. Verify the destination and never overwrite an unrelated repository.
 - **Release hold:** a push to `main` may run tests and prepare an artifact; it must not deploy Pages, create a version tag, publish a GitHub Release, or enable scheduled write automation. Releasing requires a later user instruction.

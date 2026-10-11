@@ -1,0 +1,15 @@
+{
+  "name": "dynamix-lint",
+  "private": true,
+  "description": "Pinned ESLint that checks src/*.js and src/*.css; nothing is built, bundled or published from here.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "devDependencies": {
+    "@eslint/css": "2.0.0",
+    "@eslint/js": "10.0.1",
+    "eslint": "10.12.0",
+    "globals": "17.13.0"
+  }
+}

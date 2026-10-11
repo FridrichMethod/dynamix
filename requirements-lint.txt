@@ -1,0 +1,7 @@
+# Code-quality tools for development and the CI lint and coverage steps (see "Development" in README.md).
+# The versions match .pre-commit-config.yaml; tests/test_tooling.py checks that they stay equal.
+coverage==7.16.2
+mypy==2.4.0
+pre-commit==4.6.2
+ruff==0.17.0
+types-requests==2.33.0.20261006

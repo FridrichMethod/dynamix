@@ -1,0 +1,23 @@
+# Editor defaults that match the repository checks: UTF-8, LF, a final newline, no trailing whitespace.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.py]
+indent_size = 4
+
+[*.{json,mjs,toml,yaml,yml}]
+indent_size = 2
+
+# Byte-pinned (.gitattributes -text) and generated files keep their exact bytes.
+[{LICENSE,index.html,licenses/*.txt,assets/**,data/**,src/vendor/**,tests/fixtures/**}]
+charset = unset
+end_of_line = unset
+indent_style = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset

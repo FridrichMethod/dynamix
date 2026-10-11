@@ -7,3 +7,8 @@ __pycache__/
 *.part
 *.tmp
 test-results/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+node_modules/
