@@ -661,6 +661,22 @@ class CredentialFreeMessageTests(NetTestCase):
                 client.get_json(self.url(path) + SECRET_QUERY)
             self.assertNoSecrets(caught.exception)
 
+    def test_downgrade_refusal_message_is_credential_free(self):
+        """The https -> http refusal is the message that embeds a URL (the redirect target), e.g. a signed CDN URL.
+        Offline stand-in for TLS as in test_https_to_http_redirect_is_refused."""
+        client = self.client(hosts=["secure.example"], max_attempts=1)
+
+        @contextmanager
+        def fake_exchange(url, headers):
+            yield types.SimpleNamespace(status_code=302, headers={"Location": "http://secure.example/x" + SECRET_QUERY})
+
+        client._exchange = fake_exchange
+        with self.assertRaises(net.HostNotAllowedError) as caught:
+            client.get_json("https://secure.example/a")
+        self.assertIn("downgrades https to http: http://secure.example/x?", caught.exception.message)
+        self.assertIn("format=original", caught.exception.message)  # only the credential values are replaced
+        self.assertNoSecrets(caught.exception)
+
 
 class DeadlineTests(NetTestCase):
     def test_trickling_body_hits_the_overall_deadline(self):
