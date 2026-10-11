@@ -733,6 +733,45 @@ class XTimelineTests(OfficialTestCase):
         self.assertEqual(network.count("pbs.twimg.com"), 1)
         self.verify()
 
+    def test_an_explicit_post_in_the_timeline_sample_is_read_from_tweet_result(self):
+        # The explicit item names the post: it is classified from its own tweet-result read, with its own notes, even
+        # when the timeline sample lists it too (the timeline object lacks the quoted tweet and has another date format).
+        post = "1913000000000000001"
+        result = {
+            "__typename": "Tweet",
+            "id_str": post,
+            "text": "Event song coming soon! #Dynamix",
+            "created_at": "2025-04-18T10:00:00.000Z",
+            "user": {"screen_name": "c4c4cat", "name": "c4c4cat"},
+            "quoted_tweet": {"text": "Cosmic Pulse jacket by ariiol", "user": {"screen_name": "ariiol_"}},
+            "mediaDetails": [
+                {
+                    "type": "photo",
+                    "media_url_https": "https://pbs.twimg.com/media/GoqoEkJW4AA5saO.jpg",
+                    "original_info": {"width": 1200, "height": 628},
+                }
+            ],
+        }
+        network = FakeNetwork(
+            {
+                x_adapter.TIMELINE + "c4c4cat": {"text": text("x_timeline.html")},
+                full_url(x_adapter.API, {"id": post, "lang": "en", "token": x_adapter.syndication_token(post)}): {
+                    "json": result
+                },
+                self.MEDIA: {"bytes": image_bytes("JPEG", (120, 63)), "content_type": "image/jpeg"},
+            }
+        )
+        rules = [{"match": f"^{post}:1$", "role": "promotional", "evidence_quotes": ["Cosmic Pulse jacket"]}]
+        items = [{"timeline": "c4c4cat"}, {"post_id": post, "notes": "Curator note."}]
+        self.run_family([self.seed(rules, items)], network)
+        found = self.candidates("official:x")
+        self.assertEqual(network.count("cdn.syndication.twimg.com"), 1)
+        self.assertEqual(found[f"{post}:1"]["disposition"], "downloaded")
+        self.assertEqual(found[f"{post}:1"]["notes"], "Curator note.")
+        self.assertEqual(found[f"{post}:1"]["source_reported"]["timestamp"], "2025-04-18T10:00:00.000Z")
+        self.assertEqual(found["1913000000000000002:1"]["disposition"], "pending")  # other sample posts still listed
+        self.verify()
+
     def test_committed_official_x_rules_hold_a_sequel_post_from_the_timeline(self):
         page = text("x_timeline.html")
         match = re.search(r'(<script id="__NEXT_DATA__"[^>]*>)(.*?)(</script>)', page, re.S)

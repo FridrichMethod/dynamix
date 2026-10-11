@@ -16,7 +16,8 @@ A ``{"timeline": "<screen name>"}`` item reads the account's public embed timeli
 request, a bounded recent sample of the account's posts (never complete history; the list stays open with its reason),
 whose image posts become candidates like explicit ones. Retweets and other authors are held as ``pending``, and so is
 every timeline post that no per-post rule (one whose ``match`` names the post ID, or that needs ``evidence_quotes``)
-classifies: a catch-all rule never admits a timeline post.
+classifies: a catch-all rule never admits a timeline post. A post that an explicit item names is always classified
+from its own ``tweet-result`` read, with that item's notes; the timeline sample only adds the posts no item names.
 """
 
 from __future__ import annotations
@@ -304,7 +305,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             else "; the account timeline is not enumerated."
         ),
     )
-    seen: set[str] = set()
+    # Explicitly seeded posts are read from tweet-result below (with their item notes), never classified from the
+    # timeline sample, whose tweet objects lack fields such as the quoted tweet.
+    seen: set[str] = {str(item["post_id"]) for item in seed["items"] if "timeline" not in item}
     for item in timelines:
         name = f"timeline:{item['timeline']}"
         url = TIMELINE + item["timeline"]
@@ -323,13 +326,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 continue
             seen.add(post_id)
             _post_candidates(ctx, seed, discovery, handle, post_id, tweet, item, from_timeline=True)
+    read: set[str] = set()
     for item in seed["items"]:
         if "timeline" in item:
             continue
         post_id = str(item["post_id"])
-        if post_id in seen:
+        if post_id in read:
             continue
-        seen.add(post_id)
+        read.add(post_id)
         status_url = f"https://x.com/{handle}/status/{post_id}"
         try:
             data, _ = ctx.client.get_json(API, {"id": post_id, "lang": "en", "token": syndication_token(post_id)})
