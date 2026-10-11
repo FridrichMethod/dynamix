@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import cli, model, runner  # noqa: E402
+from primary.adapters import base as base_adapter  # noqa: E402
 from primary.adapters import direct as direct_adapter  # noqa: E402
 from primary.adapters import wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
@@ -233,9 +234,60 @@ class WaybackTests(ArchivesTestCase):
         self.assertNotEqual(self.manifest()["sources"][0]["status"], "available")
         self.verify()
 
+    def test_an_interrupted_listing_keeps_the_captures_of_its_query(self):
+        """An interrupted CDX read (503) between list reads is no observation either: the captures the query listed
+        before stay in the snapshot with their dispositions, so neither the interrupted run nor a later empty answer
+        closes the list (probe sequences [list, 503, []] and [list, [], 503, []]). A listing read again decides."""
+        item = {"name": "download-host", "url": "dl.example.org/", "match_type": "prefix"}
+        rules = [{"match": "^dl\\.example\\.org/", "action": "exclude", "reason": "site_ui: download page"}]
+        rows = [
+            HEADER,
+            *(
+                [f"org,example,dl)/{name}", stamp, f"http://dl.example.org/{name}", "text/html", "200", "A" * 32, "9"]
+                for name, stamp in (("index.html", "20150101000000"), ("get.html", "20150102000000"))
+            ),
+        ]
+        url = cdx_url(item)
+        listing, empty = {"json": rows}, {"json": []}
+        interrupted = {"error": net.HttpError("HTTP 503", url=wayback.CDX, http_status=503)}
+        keys = ["dl.example.org/get.html@20150102000000", "dl.example.org/index.html@20150101000000"]
+        for answers, tokens in (
+            ([listing, interrupted, empty], [None, "not-started", "empty-answer"]),
+            ([listing, empty, interrupted, empty], [None, "empty-answer", "not-started", "empty-answer"]),
+        ):
+            with self.subTest(answers=len(answers)):
+                self.tearDown()
+                self.setUp()
+                for answer, token in zip(answers, tokens, strict=True):
+                    self.run_family([self.seed(rules, items=[item])], FakeNetwork({url: answer}))
+                    snapshot = manifest.load_discovery(self.root, "archives:wayback")
+                    found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+                    self.assertEqual(
+                        (snapshot["continuation"]["download-host"], snapshot["discovery_complete"]),
+                        (token, token is None),
+                    )
+                    self.assertEqual(sorted(found), keys)
+                    self.assertEqual(
+                        {(c["disposition"], c["reason"]) for c in found.values()},
+                        {("excluded", "site_ui: download page")},
+                    )
+                    if token is not None:
+                        self.assertTrue(all(runner.HELD_NOTE in c["notes"] for c in found.values()), found)
+                    self.assertIs(self.manifest()["sources"][0]["discovery_complete"], token is None)
+                    self.verify()
+                # A listing read again closes the list; a capture it no longer lists leaves the snapshot.
+                self.run_family([self.seed(rules, items=[item])], FakeNetwork({url: {"json": rows[:2]}}))
+                snapshot = manifest.load_discovery(self.root, "archives:wayback")
+                self.assertEqual(
+                    (snapshot["continuation"], [c["upstream_key"] for c in snapshot["candidates"]]),
+                    ({"download-host": None}, [keys[1]]),
+                )
+                self.assertNotIn(runner.HELD_NOTE, snapshot["candidates"][0]["notes"])
+                self.verify()
+
     def test_a_second_empty_answer_still_keeps_the_list_open(self):
-        """Captures without archived bytes (all excluded) leave the snapshot after the first empty answer, so the
-        guard must not depend on them alone: every later empty answer keeps the list open until a listing is read."""
+        """Every later empty answer keeps the list open until a listing is read (the captures of the open query stay
+        in the snapshot, and an earlier ``empty-answer`` state alone also keeps it open)."""
         item = {"name": "download-host", "url": "dl.example.org/", "match_type": "prefix"}
         rules = [{"match": "^dl\\.example\\.org/", "action": "exclude", "reason": "site_ui: download page"}]
         rows = [
@@ -857,7 +909,7 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(([image["key"] for image in images], others, state), (["q:a"], [], None))
         self.assertEqual(images[0]["advertised"], [f"{upload}.jpg?resize=300,169&ssl=1", f"{upload}-1024x576.jpg"])
         self.assertEqual(
-            direct_adapter.srcset_urls(" a.jpg 1x,b.jpg 2x , c,d.jpg (x, y) 3x,, e.jpg,"),
+            base_adapter.srcset_urls(" a.jpg 1x,b.jpg 2x , c,d.jpg (x, y) 3x,, e.jpg,"),
             ["a.jpg", "b.jpg", "c,d.jpg", "e.jpg"],
         )
 
@@ -1075,6 +1127,90 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(candidate["disposition"], "blocked")
         self.assertEqual(self.manifest()["sources"][0]["status"], "manual_access")
         self.verify()
+
+    def test_an_unread_article_page_keeps_its_earlier_image_candidates(self):
+        """The excluded and pending article images of a page that could not be read, or whose article body was not
+        found, stay in the snapshot with their dispositions; a later complete enumeration decides."""
+        self.run_family([self.seed(self.RULES)], FakeNetwork(self.routes()))
+        before = self.candidates("archives:press")
+        unarchived = sorted(key for key, c in before.items() if c["disposition"] != "downloaded")
+        self.assertEqual(
+            unarchived,
+            [
+                "gnn129234:0001345595",
+                "gnn129234:0001345632",
+                "gnn129234:0001345692",
+                "gnn129234:other:img.example.org/lazy.gif",
+            ],
+        )
+        for token, answer in (
+            ("not-read:http_5xx", {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}),
+            ("selection-not-found", None),
+        ):
+            with self.subTest(token=token):
+                select = "div.article-body" if answer else "div.no-such-body"
+                routes = {**self.routes(), **({self.PAGE: answer} if answer else {})}
+                self.run_family([self.seed(self.RULES, select=select)], FakeNetwork(routes), resume=True)
+                snapshot = manifest.load_discovery(self.root, "archives:press")
+                self.assertEqual(snapshot["continuation"]["article-images"], token)
+                found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+                self.assertEqual(sorted(found), sorted(before))
+                for key in unarchived:
+                    self.assertEqual(
+                        (found[key]["disposition"], found[key].get("reason")),
+                        (before[key]["disposition"], before[key].get("reason")),
+                    )
+                self.assertIn(runner.HELD_NOTE, found["gnn129234:0001345692"]["notes"])
+                self.verify()
+        routes = self.routes()
+        routes[self.PAGE] = {"text": routes[self.PAGE]["text"].replace("0001345692", "0001345693")}
+        self.run_family([self.seed(self.RULES)], FakeNetwork(routes), resume=True)
+        found = self.candidates("archives:press")
+        self.assertNotIn("gnn129234:0001345692", found)  # the complete enumeration no longer lists it
+        self.assertEqual(found["gnn129234:0001345693"]["disposition"], "pending")
+        self.verify()
+
+    def test_an_unreadable_page_fails_only_the_items_whose_decision_needs_its_text(self):
+        """A curated exclude or pending rule decides without the page text: on an unreadable page such an item keeps
+        its curated decision (no Failure, no manual-access claim). A download rule quotes the page, so its item fails
+        (503) or is blocked (403) with the read's error."""
+        items = [
+            {"key": key, "page_url": self.PAGE, "read_page": True, "file_url": self.IMG.format(name, "JPG")}
+            for key, name in (("named:x", "92/0001345692"), ("named:p", "95/0001345595"), ("named:d", "96/0001345596"))
+        ]
+        rules = [
+            {"match": "^named:x$", "action": "exclude", "reason": "site_ui: QR code"},
+            {"match": "^named:p$", "action": "pending", "reason": "unresolved_role: curator check pending"},
+            {"match": "^named:d$", "role": "reference", "evidence_quotes": ["Dynamix"]},
+        ]
+        curated = {"named:x": ("excluded", "site_ui: QR code"), "named:p": ("pending", rules[1]["reason"])}
+
+        def seed(chosen):
+            source = self.seed(rules, items=chosen)
+            del source["params"]  # named files only
+            return source
+
+        for error, disposition, status in (
+            (net.HttpError("HTTP 503", url=self.PAGE, http_status=503), "failed", "temporarily_unavailable"),
+            (net.BlockedError("HTTP 403", url=self.PAGE, http_status=403), "blocked", "manual_access"),
+        ):
+            with self.subTest(error=type(error).__name__):
+                self.run_family([seed(items)], FakeNetwork({self.PAGE: {"error": error}}))
+                found = self.candidates("archives:press")
+                self.assertEqual({key: (found[key]["disposition"], found[key]["reason"]) for key in curated}, curated)
+                self.assertEqual(found["named:d"]["disposition"], disposition)
+                self.assertEqual(
+                    [f["id"] for f in self.manifest()["failures"]], ["archives:press:named:d:discover"]
+                )  # only the item whose rule needed the page
+                self.assertEqual(self.manifest()["sources"][0]["status"], status)
+                snapshot = manifest.load_discovery(self.root, "archives:press")
+                self.assertTrue(snapshot["continuation"]["seed-files"].startswith("not-read:"))  # still not complete
+                self.verify()
+                self.run_family([seed(items[:1])], FakeNetwork({self.PAGE: {"error": error}}))  # exclusions only
+                self.assertEqual(self.candidates("archives:press")["named:x"]["disposition"], "excluded")
+                self.assertEqual(self.manifest()["failures"], [])
+                self.assertEqual(self.manifest()["sources"][0]["status"], "excluded")
+                self.verify()
 
     def test_an_unreadable_page_changes_no_status_of_an_archived_named_item(self):
         item = {
@@ -1457,6 +1593,46 @@ class RunnerStateTests(ArchivesTestCase):
         routes[self.PAGE] = {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}
         self.run_family([self.seed()], FakeNetwork(routes))
         self.assertEqual({a["upstream_status"] for a in self.manifest()["assets"]}, {"current", "removed"})
+        self.verify()
+
+    def test_links_of_an_unread_page_keep_their_earlier_dispositions(self):
+        """Candidates without archived bytes (excluded, pending) of a page that this run could not read, or read without
+        matching links, stay in the snapshot unchanged; the page's next complete read decides which are gone. Those of
+        a page the seeds no longer name leave it."""
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]  # y.png: no rule
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        routes = {self.PAGE: self.page("x.png", "y.png"), other: self.page("z.png")}
+        self.run_family([seed], FakeNetwork(routes))
+        before = self.candidates("archives:press")
+        self.assertEqual(
+            {key: c["disposition"] for key, c in before.items()},
+            {"img/x.png": "excluded", "img/y.png": "pending", "img/z.png": "pending"},
+        )
+        for token, answer in (
+            ("not-read:http_5xx", {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}),
+            ("no-matching-links", {"text": "<html><title>Dynamix gallery</title><body>new layout</body></html>"}),
+        ):
+            with self.subTest(token=token):
+                self.run_family([seed], FakeNetwork({**routes, self.PAGE: answer}))
+                snapshot = manifest.load_discovery(self.root, "archives:press")
+                self.assertEqual(snapshot["continuation"], {"seed-pages": token})
+                found = self.candidates("archives:press")
+                self.assertLessEqual({"img/x.png", "img/y.png"}, set(found))
+                for key in ("img/x.png", "img/y.png"):
+                    self.assertEqual(
+                        (found[key]["disposition"], found[key].get("reason")),
+                        (before[key]["disposition"], before[key].get("reason")),
+                    )
+                    self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+                self.assertNotIn(runner.HELD_NOTE, found["img/z.png"].get("notes", ""))  # its page was read
+                self.verify()
+        routes[self.PAGE] = self.page("x.png")
+        self.run_family([seed], FakeNetwork(routes))  # read completely again: y.png is gone from the page
+        self.assertEqual(sorted(self.candidates("archives:press")), ["img/x.png", "img/z.png"])
+        self.run_family([self.seed(rules=rules)], FakeNetwork(routes))  # the other page is no longer seeded
+        self.assertEqual(sorted(self.candidates("archives:press")), ["img/x.png"])
         self.verify()
 
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
@@ -1952,6 +2128,81 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(
             ([image["url"] for image in images], others, state), (["https://press.example.org/cdn/img/e.png"], [], None)
         )
+
+    def test_the_url_links_resolve_against_is_noted_on_their_candidates(self):
+        """A page served from another URL (a redirect) or with a ``<base href>`` resolves its links against that URL:
+        the candidates (and their asset records) say so; ``page_url`` stays the seed page. A page served from its own
+        URL without a base adds no note."""
+        page = "https://press.example.org/news/item"
+        seed = self.seed(rules=[{"match": "/img/", "role": "promotional", "game": "dynamix"}])
+        seed["items"] = [{"url": page, "link_rules": [{"attr": "src", "pattern": "/img/"}]}]
+        body = "<html><title>Dynamix news</title>{head}<body><img src='img/a.png'></body></html>"
+        for answer, file_url, expected in (
+            (
+                {"text": body.format(head=""), "final_url": f"{page}/"},
+                f"{page}/img/a.png",
+                f"The page was served from {page}/ after redirects from the seed URL; its links resolve against that "
+                "URL.",
+            ),
+            (
+                {"text": body.format(head="<head><base href='https://press.example.org/cdn/'></head>")},
+                "https://press.example.org/cdn/img/a.png",
+                "The page's <base href> https://press.example.org/cdn/ is the URL its links resolve against.",
+            ),
+            (
+                {
+                    "text": body.format(head="<head><base href='/cdn/'></head>"),
+                    "final_url": "https://press.example.org/news/item/",
+                },
+                "https://press.example.org/cdn/img/a.png",
+                f"The page was served from {page}/ after redirects from the seed URL; its links resolve against its "
+                "<base href> https://press.example.org/cdn/.",
+            ),
+            ({"text": body.format(head="")}, "https://press.example.org/news/img/a.png", None),
+        ):
+            with self.subTest(expected=expected):
+                self.tearDown()
+                self.setUp()
+                self.run_family([seed], FakeNetwork({page: answer, file_url: self.file((1, 2, 3))}))
+                [candidate] = manifest.load_discovery(self.root, "archives:press")["candidates"]
+                self.assertEqual((candidate["file_url"], candidate["page_url"]), (file_url, page))
+                [asset] = self.manifest()["assets"]
+                if expected is None:
+                    self.assertNotIn("resolve against", candidate.get("notes") or "")
+                    self.assertNotIn("resolve against", asset.get("notes") or "")
+                else:
+                    self.assertIn(expected, candidate.get("notes") or "")
+                    self.assertIn(expected, asset.get("notes") or "")
+                self.verify()
+        # An article page answered from another URL: its enumerated images carry the same note.
+        config = {
+            "page_url": page,
+            "key_prefix": "p:",
+            "select": "div.post",
+            "pattern": "https://press\\.example\\.org/news/item/img/[^/]+\\.png",
+        }
+        article = {
+            "id": "archives:press",
+            "name": "Press",
+            "url": page,
+            "platform": "web",
+            "adapter": "direct_files",
+            "hosts": ["press.example.org"],
+            "quality": QUALITY,
+            "params": {"article_images": [config]},
+            "items": [],
+            "rules": [],
+        }
+        self.tearDown()
+        self.setUp()
+        routes = {page: {"text": "<div class='post'><img src='img/e.png'></div>", "final_url": f"{page}/"}}
+        self.run_family([article], FakeNetwork(routes))
+        [candidate] = manifest.load_discovery(self.root, "archives:press")["candidates"]
+        self.assertEqual((candidate["upstream_key"], candidate["disposition"]), ("p:e", "pending"))
+        self.assertIn(
+            f"The page was served from {page}/ after redirects from the seed URL", candidate.get("notes") or ""
+        )
+        self.verify()
 
     def test_links_of_other_hosts_keep_their_host_in_the_key(self):
         from primary.adapters import page_links

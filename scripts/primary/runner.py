@@ -14,6 +14,9 @@ Robustness rules (07 §Integrity):
   keeps the previous record and logs a discovery error; new bytes for the same candidate supersede the old record
   (``upstream_status: superseded``) instead of replacing it; a previous candidate that a run no longer discovers is
   carried over unchanged (with a note) so that its asset stays reconciled.
+* An incomplete read drops nothing: a previous candidate without archived bytes (excluded, pending, failed, blocked)
+  that the run did not list again because the read that lists it failed or stayed incomplete keeps its disposition
+  until a complete read of that list or page says otherwise.
 * ``--metadata-only`` never downloads and never changes archived records; not-yet-archived candidates are ``pending``.
 """
 
@@ -39,6 +42,7 @@ from lib import checks, manifest, media, net, paths, schema
 
 from . import model
 from .adapters import ADAPTERS
+from .adapters.base import PAGE_KEY_PREFIX
 
 LOG = logging.getLogger("dynamix.primary")
 SEEDS_DIR = Path(__file__).resolve().parent / "seeds"
@@ -47,6 +51,13 @@ UNKNOWN_NOTE = (
     "No longer reached by the seeds of a later run whose listings were all read: upstream status "
     "unknown; the archived bytes are kept."
 )
+# Note on a previous candidate without archived bytes that this run did not list again because the read that lists it
+# did not complete (``Runner._held``): the snapshot keeps it with its earlier disposition.
+HELD_NOTE = (
+    "Carried over from an earlier run: the read that lists it did not complete in this run, so its earlier "
+    "disposition stands (an incomplete read is no observation)."
+)
+HELD_DISPOSITIONS = ("excluded", "pending", "failed", "blocked")  # dispositions without an asset record
 KEPT_FOR_REVIEW = "is kept for review"  # discovery-error marker of an archived candidate a refresh no longer admits
 # Discovery-error marker of a curated ``archive_under`` whose target is not a download candidate of the run.
 UNMATCHED_ARCHIVE_UNDER = "names no download candidate of this run"
@@ -785,7 +796,8 @@ class Runner:
                     state.pending_ids.add(cid)
             else:
                 self._record_non_download(state, draft)
-        self._carry_over(state, {schema.candidate_id(state.source_id, key) for key in keys})
+        unread = {draft.page_url for draft in drafts if draft.error is not None and draft.error_phase == "discover"}
+        self._carry_over(state, {schema.candidate_id(state.source_id, key) for key in keys}, unread)
         self._persist(state)
         state.yields = {
             schema.candidate_id(state.source_id, draft.upstream_key): draft.archive_under
@@ -1500,7 +1512,7 @@ class Runner:
         }
         return withdrawn
 
-    def _carry_over(self, state: SourceState, current_ids: set[str]) -> None:
+    def _carry_over(self, state: SourceState, current_ids: set[str], unread_pages: Iterable[str] = ()) -> None:
         """Account for previous candidates that this run did not rediscover (all of them are kept when this run's
         discovery failed).
 
@@ -1509,7 +1521,11 @@ class Runner:
         ``upstream_status: removed`` (bytes kept, note added) and the candidate leaves the snapshot. Otherwise the
         candidate is carried over; when this run read every list completely and still did not reach it (the seeds no
         longer name it), its current asset becomes ``unknown``. A failed or partial read is no observation and changes
-        no status; neither does ``--metadata-only``."""
+        no status; neither does ``--metadata-only``.
+
+        A candidate without archived bytes is carried over unchanged while the read that lists it did not complete
+        (:meth:`_held`; ``unread_pages``: the pages of this run's discovery error drafts); otherwise it leaves the
+        snapshot (a complete read no longer lists it, or the seeds no longer name it)."""
         if not state.previous:
             return
         asset_candidates = {asset["candidate_id"] for asset in state.assets.values()}
@@ -1518,6 +1534,12 @@ class Runner:
             if state.keep_previous
             else "Carried over from an earlier run: not rediscovered by this run's seeds/enumeration."
         )
+        unread = set(unread_pages)
+        read_failures = {
+            failure["candidate_id"]
+            for failure in self.manifest["failures"]
+            if failure["source_id"] == state.source_id and failure["phase"] == "discover"
+        }
         for candidate in state.previous["candidates"]:
             if candidate["id"] in current_ids:
                 continue
@@ -1526,6 +1548,8 @@ class Runner:
                 and candidate.get("asset_id") not in state.assets
                 and candidate["id"] not in asset_candidates
             ):
+                if self._held(state, candidate, unread, read_failures):
+                    self._keep(state, candidate, HELD_NOTE)
                 continue
             if not state.keep_previous and not self.metadata_only:
                 covering = sorted(name for name, covers in state.discovery.coverage.items() if covers(candidate))
@@ -1534,13 +1558,37 @@ class Runner:
                     continue
                 if state.discovery.complete:  # every list was read and none reaches it: the seeds changed
                     self._mark_upstream(state, candidate["id"], "unknown", UNKNOWN_NOTE)
-            kept = dict(candidate)
-            if note not in kept.get("notes", ""):
-                kept["notes"] = " ".join(filter(None, [kept.get("notes"), note]))
-            state.candidates[kept["id"]] = kept
-            for failure in self.manifest["failures"]:
-                if failure["candidate_id"] == kept["id"]:
-                    state.failures[failure["id"]] = failure
+            self._keep(state, candidate, note)
+
+    def _keep(self, state: SourceState, candidate: Mapping[str, Any], note: str) -> None:
+        """Carry a previous candidate record (and its Failure records) into this run's snapshot with ``note``."""
+        kept = dict(candidate)
+        if note not in kept.get("notes", ""):
+            kept["notes"] = " ".join(filter(None, [kept.get("notes"), note]))
+        state.candidates[kept["id"]] = kept
+        for failure in self.manifest["failures"]:
+            if failure["candidate_id"] == kept["id"]:
+                state.failures[failure["id"]] = failure
+
+    @staticmethod
+    def _held(
+        state: SourceState, candidate: Mapping[str, Any], unread_pages: set[str], read_failures: set[str]
+    ) -> bool:
+        """Whether an incomplete read of this run is why a previous candidate without archived bytes was not listed
+        again: its page is one whose read failed (a discovery error draft of this run names it), or a list that holds
+        it (``Discovery.holds``) is open. A complete discovery holds nothing. An earlier read-failure record
+        (``page:<url>``, or a candidate with a ``discover`` Failure) is never held: this run's attempt at that page or
+        post either records it again or replaces it."""
+        discovery = state.discovery
+        if discovery.complete or candidate.get("disposition") not in HELD_DISPOSITIONS:
+            return False
+        if str(candidate.get("upstream_key", "")).startswith(PAGE_KEY_PREFIX) or candidate["id"] in read_failures:
+            return False
+        if candidate.get("page_url") in unread_pages:
+            return True
+        return any(
+            discovery.continuation.get(name) is not None and holds(candidate) for name, holds in discovery.holds.items()
+        )
 
     def _mark_upstream(self, state: SourceState, cid: str, status: str, note: str) -> None:
         """Set ``upstream_status`` of the candidate's current (or unknown) archived assets and add ``note`` once."""

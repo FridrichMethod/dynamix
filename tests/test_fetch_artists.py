@@ -172,6 +172,30 @@ class PixivTests(ArtistsTestCase):
         self.assertIs(p0["comparisons"]["dimensions_match"], False)
         self.verify()
 
+    def test_pages_of_an_unreadable_artwork_keep_their_earlier_dispositions(self):
+        """The artwork read fails: its earlier page without archived bytes (p2, pending) is not dropped from the
+        snapshot, because the read that lists it failed; the next successful read lists it again."""
+        self.run_family([pixiv_seed()], FakeNetwork(pixiv_routes()))
+        before = self.candidates("artists:pixiv:5401047")["92594600:p2"]
+        self.assertEqual(before["disposition"], "pending")
+        routes = pixiv_routes()
+        api = "https://www.pixiv.net/ajax/illust/92594600"
+        routes[api] = {"error": net.HttpError("HTTP 503", url=api, http_status=503)}
+        self.run_family([pixiv_seed()], FakeNetwork(routes))
+        snapshot = self.snapshot("artists:pixiv:5401047")
+        self.assertEqual(snapshot["continuation"]["seed-artworks"], "not-read:http_5xx")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(sorted(found), ["92594600:p0", "92594600:p1", "92594600:p2"])
+        held = found["92594600:p2"]
+        self.assertEqual((held["disposition"], held["reason"]), (before["disposition"], before["reason"]))
+        self.assertIn(runner.HELD_NOTE, held["notes"])
+        self.verify()
+        self.run_family([pixiv_seed()], FakeNetwork(pixiv_routes()), resume=True)
+        relisted = self.candidates("artists:pixiv:5401047")["92594600:p2"]
+        self.assertEqual(relisted["disposition"], "pending")
+        self.assertNotIn(runner.HELD_NOTE, relisted.get("notes") or "")
+        self.verify()
+
     def test_withheld_file_urls_are_blocked_without_a_file_request(self):
         routes = pixiv_routes()
         detail = fixture_json("pixiv_illust_92594600.json")

@@ -60,19 +60,37 @@ def mark_unread(discovery: model.Discovery, list_name: str, error: Any) -> None:
         discovery.continuation[list_name] = f"not-read:{getattr(error, 'error_class', None) or type(error).__name__}"
 
 
+PAGE_KEY_PREFIX = "page:"  # key of a seed page whose read failed (:func:`page_key`)
+
+
 def listed_on(pages: set[str]) -> Any:
     """Coverage predicate (``Discovery.coverage``): a previous candidate is covered by a list when its page is one of
     the ``pages`` this run read completely (a page-read failure candidate ``page:<url>`` never is)."""
 
     def covers(candidate: Mapping[str, Any]) -> bool:
-        return candidate.get("page_url") in pages and not str(candidate.get("upstream_key", "")).startswith("page:")
+        return candidate.get("page_url") in pages and not str(candidate.get("upstream_key", "")).startswith(
+            PAGE_KEY_PREFIX
+        )
 
     return covers
 
 
+def held_on(pages: Iterable[str], complete: set[str]) -> Any:
+    """Hold predicate (``Discovery.holds``): a previous candidate is held by a list while its page is one of the list's
+    seeded ``pages`` that this run did not read completely (``complete``, filled during discovery: the pages whose
+    :func:`listed_on` coverage applies). A candidate of a page the seeds no longer name is not held."""
+    seeded = set(pages)
+
+    def holds(candidate: Mapping[str, Any]) -> bool:
+        page = candidate.get("page_url")
+        return page in seeded and page not in complete
+
+    return holds
+
+
 def page_key(url: str) -> str:
     """Candidate key of a seed page whose read failed (one per page, so several failed pages never collide)."""
-    return f"page:{url}"
+    return f"{PAGE_KEY_PREFIX}{url}"
 
 
 def rules(seed: Mapping[str, Any]) -> list[dict]:
@@ -142,6 +160,24 @@ def document_base(document: BeautifulSoup, url: str) -> str:
     return url
 
 
+def resolution_note(document: BeautifulSoup, page_url: str, final_url: str | None) -> str | None:
+    """Provenance note for the candidates whose links a read page resolves against another URL than the seed
+    ``page_url`` (which stays their ``page_url``): the URL it was served from after redirects (``final_url``) and/or its
+    ``<base href>`` (:func:`document_base`). None when links resolve against ``page_url`` itself."""
+    served = final_url or page_url
+    resolved = document_base(document, served)
+    shown_served, shown_resolved = stored(served), stored(resolved)
+    if served != page_url and shown_served:
+        against = f"its <base href> {shown_resolved}" if resolved != served and shown_resolved else "that URL"
+        return (
+            f"The page was served from {shown_served} after redirects from the seed URL; its links resolve against "
+            f"{against}."
+        )
+    if resolved != page_url and shown_resolved:
+        return f"The page's <base href> {shown_resolved} is the URL its links resolve against."
+    return None
+
+
 _LINK_DROPPED = str.maketrans("", "", "\t\n\r")  # removed from a link before parsing (WHATWG URL)
 _LINK_ESCAPED = frozenset(' "<>^`{|}')  # ASCII a URL cannot carry literally (lib.checks URL_FORBIDDEN_ASCII, not \)
 
@@ -158,6 +194,38 @@ def link_url(base: str, link: str) -> str:
         quote(char, safe="") if char.isspace() or unicodedata.category(char) == "Cc" or char in _LINK_ESCAPED else char
         for char in joined
     )
+
+
+_SRCSET_SPACE = "\t\n\f\r "  # ASCII whitespace (HTML)
+
+
+def srcset_urls(value: str) -> list[str]:
+    """The image URLs of a ``srcset`` attribute, parsed as HTML does: a candidate URL runs to whitespace (so it may
+    contain commas, e.g. Jetpack's ``?resize=300,169``) without its trailing commas, and its descriptors run to the next
+    comma outside parentheses. Shared by the adapters that read ``srcset`` (direct article images, Google Play)."""
+    urls: list[str] = []
+    position, end = 0, len(value)
+    while True:
+        while position < end and (value[position] in _SRCSET_SPACE or value[position] == ","):
+            position += 1
+        if position >= end:
+            return urls
+        start = position
+        while position < end and value[position] not in _SRCSET_SPACE:
+            position += 1
+        url = value[start:position]
+        if url.endswith(","):  # no descriptors: the comma ends the candidate
+            url = url.rstrip(",")
+        else:
+            in_parens = False
+            while position < end and (value[position] != "," or in_parens):
+                if value[position] == "(":
+                    in_parens = True
+                elif value[position] == ")":
+                    in_parens = False
+                position += 1
+        if url:
+            urls.append(url)
 
 
 def last_segment(url: str) -> str:

@@ -2,8 +2,9 @@
 
 For pages whose gallery is rendered by JavaScript (Wix pro-gallery, Tumblr themes) the seed names each file directly:
 ``{"key", "page_url", "file_url"}``. With ``"read_page": true`` the page is fetched once and its title/text become the
-evidence that seed rules quote (an item whose page cannot be read is ``failed``/``blocked`` with that read's error and a
-Failure record); otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
+evidence that seed rules quote (an item whose download rule needs a page that cannot be read is ``failed``/``blocked``
+with that read's error and a Failure record; a curated exclude or pending rule decides without the page text and keeps
+its decision); otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
 
 Article pages (``params.article_images``): every image of a read page's article body is accounted for, not only the
 named files. Each entry ``{"page_url", "key_prefix", "select", "pattern", "og_image"?, "rewrite"?, "attr_urls"?,
@@ -20,6 +21,9 @@ placeholder, a comment avatar, a footer widget) is an *other* image keyed ``<key
 classified by the seed rules like any candidate, so nothing inside the selection is dropped unaccounted. A named seed
 item with an image's key or normalized URL stands for it; every other image becomes a candidate of its own, classified
 by the seed rules (unclassified images stay ``pending``).
+
+A page served from another URL (redirects) or with a ``<base href>`` resolves its image URLs against that URL and
+notes it on the enumerated candidates (:func:`base.resolution_note`); their ``page_url`` stays the seed page.
 
 The URLs the page itself lists for an image are kept as download fallbacks: when the normalized URL answers HTTP 404 (a
 rewrite of ours, not an upstream failure) the listed URL is downloaded instead and the record says so: its
@@ -41,7 +45,8 @@ The list ``article-images`` is complete only when every configured page was read
 (``selection-not-found``), a selection that holds no matching body image (``selection-empty``; an empty response is
 never taken as a complete one), a missing embedded payload (``embedded-json-not-found``) or an image count that
 disagrees with the article's own (``image-count-mismatch``) keeps it open. A complete enumeration covers (for
-``Discovery.coverage``) only the candidates it produces: keys under the page's ``key_prefix``.
+``Discovery.coverage``) only the candidates it produces: keys under the page's ``key_prefix``; a page that was not
+enumerated completely holds those keys (``Discovery.holds``), so their earlier dispositions stay until it is.
 
 ``supplied_marker``: text with which the page itself labels what follows as material supplied by the developer (e.g.
 GNN's ``【以下內容為廠商提供資料原文】``); ``supplied_note`` (required with it) is the quality note that replaces the source's
@@ -302,38 +307,6 @@ def _og_images(document: Any) -> list[tuple[str, Any]]:
     return [(url, size) for url, size in found]
 
 
-_SRCSET_SPACE = "\t\n\f\r "  # ASCII whitespace (HTML)
-
-
-def srcset_urls(value: str) -> list[str]:
-    """The image URLs of a ``srcset`` attribute, parsed as HTML does: a candidate URL runs to whitespace (so it may
-    contain commas, e.g. Jetpack's ``?resize=300,169``) without its trailing commas, and its descriptors run to the next
-    comma outside parentheses."""
-    urls: list[str] = []
-    position, end = 0, len(value)
-    while True:
-        while position < end and (value[position] in _SRCSET_SPACE or value[position] == ","):
-            position += 1
-        if position >= end:
-            return urls
-        start = position
-        while position < end and value[position] not in _SRCSET_SPACE:
-            position += 1
-        url = value[start:position]
-        if url.endswith(","):  # no descriptors: the comma ends the candidate
-            url = url.rstrip(",")
-        else:
-            in_parens = False
-            while position < end and (value[position] != "," or in_parens):
-                if value[position] == "(":
-                    in_parens = True
-                elif value[position] == ")":
-                    in_parens = False
-                position += 1
-        if url:
-            urls.append(url)
-
-
 def _orig_size(element: Any) -> tuple[int, int] | None:
     """The original upload's (width, height) a WordPress attachment ``img`` advertises (``data-orig-size="W,H"``)."""
     parts = str(element.get("data-orig-size") or "").split(",")
@@ -438,7 +411,7 @@ def article_images(
                 size = _orig_size(element)
                 for name in IMAGE_ATTRS:
                     add(element.get(name), caption, supplied=flag, size=size)
-                for candidate in srcset_urls(str(element.get("srcset") or "")):
+                for candidate in base.srcset_urls(str(element.get("srcset") or "")):
                     add(candidate, caption, supplied=flag, size=size)
     state = None
     spec = config.get("embedded_json")
@@ -497,6 +470,21 @@ def _covering(configs: Mapping[str, Mapping[str, Any]], complete: set[str]) -> A
     return covers
 
 
+def _holding(configs: Mapping[str, Mapping[str, Any]], complete: set[str]) -> Any:
+    """Hold predicate: a previous candidate under a configured page's ``key_prefix`` while that page was not
+    enumerated completely (unread, or an open state such as ``selection-not-found``)."""
+
+    def holds(candidate: Mapping[str, Any]) -> bool:
+        page = candidate.get("page_url")
+        return (
+            page in configs
+            and page not in complete
+            and str(candidate.get("upstream_key", "")).startswith(configs[page]["key_prefix"])
+        )
+
+    return holds
+
+
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     configs = {page["page_url"]: page for page in (seed.get("params") or {}).get("article_images", [])}
     discovery = base.new_discovery(
@@ -513,6 +501,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     read_complete: set[str] = set()
     if configs:
         discovery.coverage[ARTICLE_LIST] = _covering(configs, read_complete)
+        discovery.holds[ARTICLE_LIST] = _holding(configs, read_complete)
 
     def read(page_url: str) -> dict:
         if page_url not in pages:
@@ -522,6 +511,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 pages[page_url] = {
                     "html": html,
                     "final_url": final_url if final_url else None,
+                    "resolved": base.resolution_note(document, page_url, final_url if final_url else None),
                     "texts": {
                         "title": document.title.get_text(" ", strip=True) if document.title else "",
                         "body": base.page_text(base.soup(html)),
@@ -588,9 +578,10 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         page_url, file_url, key = item["page_url"], item["file_url"], item["key"]
         page = read(page_url) if item.get("read_page") else {"texts": {}, "headline": ""}
         name = base.last_segment(file_url)
-        if page.get("error") is not None:
+        if page.get("error") is not None and _needs_page(model.find_rule(base.rules(seed), key)):
             # The page whose text the seed rule quotes could not be read: the item fails (or is blocked) with that
-            # error and a Failure record, instead of a rule check against text that was never fetched.
+            # error and a Failure record, instead of a rule check against text that was never fetched. A curated
+            # exclude/pending rule (or no rule: unclassified) decides without the page text and keeps its decision.
             discovery.candidates.append(
                 model.error_draft(
                     key,
@@ -633,17 +624,20 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             name = base.last_segment(image["url"])
             item = {"key": image["key"], "page_url": page_url, "file_url": image["url"]}
             discovery.candidates.append(
-                _draft(
-                    ctx,
-                    seed,
-                    item,
-                    key=image["key"],
-                    page_url=page_url,
-                    file_url=image["url"],
-                    texts=page["texts"],
-                    title=_title(None, page["headline"], image["caption"], (index, len(images)), name),
-                    image=image,
-                    config=configs[page_url],
+                _noted(
+                    _draft(
+                        ctx,
+                        seed,
+                        item,
+                        key=image["key"],
+                        page_url=page_url,
+                        file_url=image["url"],
+                        texts=page["texts"],
+                        title=_title(None, page["headline"], image["caption"], (index, len(images)), name),
+                        image=image,
+                        config=configs[page_url],
+                    ),
+                    page.get("resolved"),
                 )
             )
     named = {(item["page_url"], item["file_url"]) for item in seed["items"]}
@@ -654,20 +648,37 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             name = base.last_segment(image["url"])
             item = {"key": image["key"], "page_url": page_url, "file_url": image["url"]}
             discovery.candidates.append(
-                _draft(
-                    ctx,
-                    seed,
-                    item,
-                    key=image["key"],
-                    page_url=page_url,
-                    file_url=image["url"],
-                    texts=page["texts"],
-                    title=_title(None, page["headline"], image["caption"], None, name, other=(index, len(listed))),
-                    image=image,
-                    config=configs[page_url],
+                _noted(
+                    _draft(
+                        ctx,
+                        seed,
+                        item,
+                        key=image["key"],
+                        page_url=page_url,
+                        file_url=image["url"],
+                        texts=page["texts"],
+                        title=_title(None, page["headline"], image["caption"], None, name, other=(index, len(listed))),
+                        image=image,
+                        config=configs[page_url],
+                    ),
+                    page.get("resolved"),
                 )
             )
     return discovery
+
+
+def _noted(draft: model.Draft, note: str | None) -> model.Draft:
+    """``draft`` with ``note`` (the page's :func:`base.resolution_note`) added to its candidate notes."""
+    if note:
+        draft.candidate_extra["notes"] = " ".join(filter(None, [draft.candidate_extra.get("notes"), note]))
+    return draft
+
+
+def _needs_page(rule: Mapping[str, Any] | None) -> bool:
+    """Whether the seed rule's decision depends on the read page's text: a download rule (its evidence quotes, mapping
+    and Universe guard check the page). Curated exclude/pending decisions apply without it
+    (:func:`model.apply_rule`)."""
+    return rule is not None and rule.get("action", "download") == "download"
 
 
 def _draft(
