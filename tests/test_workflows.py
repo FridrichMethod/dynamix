@@ -267,6 +267,30 @@ class ReleaseHoldTests(unittest.TestCase):
                     if action == "actions/upload-pages-artifact":
                         self.assertEqual((name, job_id), ("pages.yml", "build"))
 
+    def test_header_comment_describes_the_guard_not_a_hold(self):
+        """A maintainer reads this comment at dispatch time: it describes the guard as it works after a release (the
+        variable names the released commit), not a hold during which the variable stays unset."""
+        header = []
+        for line in (WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines():
+            if line.startswith("on:"):
+                break
+            if line.startswith("#"):
+                header.append(line.lstrip("#").strip())
+        text = " ".join(header)
+        for stale in ("stays unset", "during the hold", "release hold", "every dispatch fails closed"):
+            with self.subTest(stale=stale):
+                self.assertNotIn(stale, text.lower())
+        for required in (
+            "RELEASE_APPROVED_SHA",
+            "release_sha",
+            "main",
+            "last released commit",
+            "unset",
+            "fails closed",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(required, text)
+
     def test_guard_expression_semantics(self):
         self.assertTrue(evaluate(GUARD, APPROVED))
         for scenario, context in DENIED.items():
