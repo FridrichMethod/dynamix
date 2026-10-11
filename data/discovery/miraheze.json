@@ -37924,8 +37924,8 @@
         "timestamp": "2026-08-09T08:53:06Z",
         "revision": null
       },
-      "disposition": "pending",
-      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:2c98e662a65c2ca5",
       "notes": "role evidence: promotional <- archivist review (File:Dynamix Website.png): visual_inspection: the original DynAMIX wordmark of File:Dynamix.png (same letterforms, white on an opaque black ground without its drop shadow, 600x188 RGBA) and nothing else; Fandom created its file page on 2017-08-01 right after File:Dynamix Facebook.png and File:Dynamix Twitter.png (revisions 13084, 13086, 13087), the wiki's link buttons that add social-network icons and stay site_ui, and no page embeds it now; the name describes a link-button use, not the bytes: a logo/wordmark without chart-level information, promotional under the amended coordinator decision of 2026-10-10, like the three other wordmark files"
     },
     {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "wikis",
-  "fetched_at": "2026-10-10T22:23:38Z",
+  "fetched_at": "2026-10-11T02:42:56Z",
   "sources": [
     {
       "id": "wikis:atwiki-ja",
@@ -27,14 +27,14 @@
       "url": "https://dynamixc4cat.fandom.com/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T22:23:38Z",
-      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3334, duplicate_bytes 13, excluded 1550, failed 1, pending 26); enumeration complete. Pending: 1 accepted files await download (metadata-only run); 25 unresolved (role or game not established).",
+      "checked_at": "2026-10-11T02:42:56Z",
+      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3335, duplicate_bytes 13, excluded 1550, failed 1, pending 25); enumeration complete. Pending: 25 unresolved (role or game not established).",
       "api_url": "https://dynamixc4cat.fandom.com/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4924,
-      "asset_count": 3334,
+      "asset_count": 3335,
       "failure_count": 1,
       "evidence_level": "live_api"
     },
@@ -45,14 +45,14 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-10T22:23:38Z",
-      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3357, duplicate_bytes 13, excluded 1071, pending 28); enumeration complete. Pending: 1 accepted files await download (metadata-only run); 27 unresolved (role or game not established).",
+      "checked_at": "2026-10-11T02:42:56Z",
+      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3358, duplicate_bytes 13, excluded 1071, pending 27); enumeration complete. Pending: 27 unresolved (role or game not established).",
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4469,
-      "asset_count": 3357,
+      "asset_count": 3358,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -54766,6 +54766,73 @@
         "height": 393,
         "sha1": "577a2fcbb6d2a1db54dbf386722e755e7ad14d80",
         "sha256": "2c8616dadcd343a7a766a786d7f70ae25469a0121c35f20b0187249634074297"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:2c98e662a65c2ca5",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Dynamix_Website.png",
+      "title": "Dynamix Website",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Dynamix_Website.png",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/67/Dynamix_Website.png/revision/latest?cb=20170801170029&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/67/Dynamix_Website.png/revision/latest?cb=20170801170029&format=original",
+      "path": "assets/public/wikis/fandom/Dynamix_Website--2c98e662a65c.png",
+      "original_filename": "Dynamix_Website.png",
+      "bytes": 23522,
+      "sha256": "2c98e662a65c2ca582cf1e43ba667ec4d3394ec3f94a8bbdecc05065195d9a07",
+      "sha1": "0c0aba330a27de3f5d1fe3b9c383acff56aadea7",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 600,
+      "height": 188,
+      "fetched_at": "2026-10-11T02:42:56Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Dynamix_Website.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/6/67/Dynamix_Website.png/revision/latest?cb=20170801170029",
+        "mime": "image/png",
+        "bytes": 23522,
+        "width": 600,
+        "height": 188,
+        "sha1": "0c0aba330a27de3f5d1fe3b9c383acff56aadea7",
+        "timestamp": "2017-08-01T17:00:29Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 23522,
+        "width": 600,
+        "height": 188,
+        "sha1": "0c0aba330a27de3f5d1fe3b9c383acff56aadea7",
+        "sha256": "2c98e662a65c2ca582cf1e43ba667ec4d3394ec3f94a8bbdecc05065195d9a07"
       },
       "comparisons": {
         "sha1_match": true,
@@ -380300,6 +380367,73 @@
         "height": 393,
         "sha1": "577a2fcbb6d2a1db54dbf386722e755e7ad14d80",
         "sha256": "2c8616dadcd343a7a766a786d7f70ae25469a0121c35f20b0187249634074297"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:2c98e662a65c2ca5",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Dynamix_Website.png",
+      "title": "Dynamix Website",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix_Website.png",
+      "download_url": "https://static.wikitide.net/dynamixwiki/6/67/Dynamix_Website.png",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/6/67/Dynamix_Website.png",
+      "path": "assets/public/wikis/miraheze/Dynamix_Website--2c98e662a65c.png",
+      "original_filename": "Dynamix_Website.png",
+      "bytes": 23522,
+      "sha256": "2c98e662a65c2ca582cf1e43ba667ec4d3394ec3f94a8bbdecc05065195d9a07",
+      "sha1": "0c0aba330a27de3f5d1fe3b9c383acff56aadea7",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 600,
+      "height": 188,
+      "fetched_at": "2026-10-11T02:42:56Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T08:53:06Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Dynamix_Website.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/6/67/Dynamix_Website.png",
+        "mime": "image/png",
+        "bytes": 23522,
+        "width": 600,
+        "height": 188,
+        "sha1": "0c0aba330a27de3f5d1fe3b9c383acff56aadea7",
+        "timestamp": "2026-08-09T08:53:06Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 23522,
+        "width": 600,
+        "height": 188,
+        "sha1": "0c0aba330a27de3f5d1fe3b9c383acff56aadea7",
+        "sha256": "2c98e662a65c2ca582cf1e43ba667ec4d3394ec3f94a8bbdecc05065195d9a07"
       },
       "comparisons": {
         "sha1_match": true,
