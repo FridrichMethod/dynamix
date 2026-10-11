@@ -268,6 +268,25 @@ body {
     color: var(--muted);
 }
 
+/* Notes that would reach the bottom control row give up their least needed parts in turn (fitNotes() in the page sets
+   data-fit): the packs row, the composer's row, a file reference's extra lines, the title's second line, then the
+   eyebrow. A cut text keeps its full wording for screen readers and in a tooltip, and the archive viewer shows every
+   part. The illustrator's credit is never cut or dropped. */
+.slide-notes[data-fit~="collection"] .notes-collection,
+.slide-notes[data-fit~="composer"] .notes-composer,
+.slide-notes[data-fit~="eyebrow"] .notes-eyebrow {
+    display: none;
+}
+
+.slide-notes[data-fit~="reference"] .notes-title[data-length="file"],
+.slide-notes[data-fit~="title"] .notes-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    overflow: hidden;
+}
+
 /* When the signature wraps on a narrow phone, its box reaches the right edge of the screen, over the top of the
    language toggle; only its links take pointer events, so taps there still reach the toggle. */
 .signature {
@@ -696,8 +715,9 @@ canvas {
     visibility: hidden !important;
 }
 
-/* File details as the sleeve's fine print, at the foot of the text column. Three lines are reserved so a
-   longer source name does not shift the notes or the stage between slides. */
+/* File details as the sleeve's fine print, at the foot of the text column (on short landscape screens, in the band
+   beside the control row instead; see below). Three lines are reserved so a longer source name does not shift the
+   notes or the stage between slides. */
 .asset-caption { flex: none; box-sizing: content-box; min-height: 4.8em; margin-top: 28px; padding-top: 12px; border-top: 1px solid var(--rule); max-width: 36em; font: 13px/1.6 var(--small-caps); color: #4a5262; user-select: text; }
 .asset-caption a { color: #20242c; }
 /* On a turn it already holds the new slide's details, so it is hidden at once (not faded, which would show them
@@ -856,8 +876,11 @@ canvas {
     .liner::before {
         flex-basis: max(0px, 50vh - 118px);
     }
+    /* The stage keeps clear of the control row's height (105px) at every width here, leaving the band beside the row
+       free for the caption (below). */
     .slideshow-container {
         margin-top: 24px;
+        margin-bottom: max(8vh, 121px);
     }
     /* The next arrow shares its column with the language toggle (35-105px from the top); below about 345px of
        height the stage's centre comes within its reach, so the arrows stop where the toggle ends. */
@@ -883,8 +906,8 @@ canvas {
     .notes-provenance {
         display: none;
     }
-    /* At most two lines of title, so a long one never pushes the credits and the caption under the control row; the
-       archive viewer shows every title in full. */
+    /* At most two lines of title, so a long one leaves the credits their room above the control row; the archive
+       viewer shows every title in full. */
     .notes-title {
         font-size: min(3.6vw, 7.6vh);
         display: -webkit-box;
@@ -907,19 +930,39 @@ canvas {
     .notes-meta::before {
         margin-bottom: .4em;
     }
+    /* The caption leaves the text column for the free band beside the control row, under the stage: 16px right of the
+       row's last disc (it ends at 270px + 35px + 70px = 375px) and centred in the 105px between the stage and 8px above
+       the screen's foot. A long source name only wraps in that band, nothing of it is cut, and it never moves the notes.
+       The notes have the column to themselves; on a narrow column many credits can still outgrow it, and then give up
+       their least needed parts (see data-fit above) rather than run under the controls. */
     .asset-caption {
+        position: fixed;
+        left: 391px;
+        right: 16px;
+        bottom: 8px;
+        box-sizing: border-box;
+        height: 105px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         min-height: 0;
-        margin-top: 10px;
-        padding-top: 6px;
+        margin: 0;
+        padding: 0;
+        border-top: 0;
         font-size: 11px;
         line-height: 1.45;
     }
+    .asset-caption > * {
+        padding-left: 12px;
+        border-left: 1px solid var(--rule);
+    }
 }
 
-/* Phones held sideways: of the credits only the illustrator's stays, as one run of text without the rule above it, a
-   file reference takes the credits' size and keeps a long key ("Rac01rethefullmoonworld") on one line, and the
-   caption leaves out the image size while the notes are up, so the title and the caption stay clear of the control
-   row and the artwork is never shown without its artist (screenshots too). */
+/* Phones held sideways: of the credits only the illustrator's stays, as one run of text without the rule above it and
+   always in full, so the artwork is never shown without its whole credit (in a saved screenshot either); a file
+   reference takes the credits' size; the caption leaves out the image size while the notes are up. Notes still too
+   long for the column above the control row (185px on a 320px-tall screen) cut the file reference to one line, then
+   the title, then drop the eyebrow (data-fit, above). */
 @media screen and (orientation: landscape) and (max-height: 430px) {
     .intro {
         font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.2vh);
@@ -944,6 +987,38 @@ canvas {
     }
     .liner-text:not(.is-intro) ~ .asset-caption .asset-heading {
         display: none;
+    }
+}
+
+/* Short landscape windows under 600px wide (old 533 x 320 and 480 x 320 phones, small desktop windows): the 90px grid
+   would leave the caption's band too narrow, and under 481px the phone rule would spread the row across the whole
+   width. The row keeps to the left in the phones' 56px discs on a 72px grid instead (lefts -20px + i * 72px, the last
+   disc ending at 196px + 28px + 56px = 280px), and the band starts 16px after it. The discs stay within the band's
+   height (their tops are 84px above the screen's foot). */
+@media screen and (orientation: landscape) and (max-height: 560px) and (max-width: 599px) {
+    .bt:not(.lang-toggle) {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+    .archive-link a {
+        font-size: 13px;
+    }
+    .photo,
+    .save {
+        left: -20px;
+    }
+    .github {
+        left: 52px;
+    }
+    .archive-link {
+        left: 124px;
+    }
+    .random {
+        left: 196px;
+    }
+    .asset-caption {
+        left: 296px;
     }
 }
 
