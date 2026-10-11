@@ -291,6 +291,10 @@ OTHER_GAME_ARTWORK = re.compile(
     r"(?P<other>[^\s,;()][^,;()]*)",
     re.I,
 )
+# A name (group "other") that starts with "Dynamix" is never a release event of EXTERNAL_RELEASE_EVENT, as before such
+# names went to the reviewed list: "for Dynamix PABAT 2017" stays the song's artwork (with the curator note), while
+# "for the Dynamix BMS" and "in PABAT! 2017" are external releases (classify.page_evidence).
+DYNAMIX_NAME = re.compile(r"dynamix\b", re.I)
 
 
 @dataclass(frozen=True)

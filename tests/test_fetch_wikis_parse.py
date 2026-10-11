@@ -751,6 +751,42 @@ class OtherGameCaptionTests(unittest.TestCase):
                     (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
                 )
 
+    def test_names_that_start_with_dynamix_are_never_a_release_event(self) -> None:
+        """A name that starts with "Dynamix" is not tested against the BMS release events (EXTERNAL_RELEASE_EVENT:
+        PABAT, BOF, BMS), as before such names went through the reviewed list (R3): the caption keeps its art role and
+        the page game instead of becoming an excluded external release. It still goes through the reviewed list: an
+        unlisted name carries the curator note, a listed partner records its association. The same event names
+        without the Dynamix prefix, also when Dynamix comes later in the name, stay external releases."""
+        for named in ("Dynamix PABAT 2017", "Dynamix's BOF 2013 Event", "Dynamix BMS Collaboration Event"):
+            with self.subTest(named=named):
+                item = self.gallery_item(f"S Artwork for {named}")
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+                self.assertNotIn("external release event", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+        item = self.gallery_item("S Jacket for Dynamix x RAVON BMS Event")
+        self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ("RAVON",)))
+        self.assertNotIn(self.REVIEW, item.detail)
+        decision = self.decide([item])
+        self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "mixed", ["ravon"]))
+        for caption in (
+            "S Artwork in PABAT! 2017",
+            "S Artwork for the BOF 2013 Event",
+            "S Artwork for the Dynamix BMS",
+        ):
+            with self.subTest(control=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.other_games), ("external_release_art", ()))
+                self.assertIn("(an external release event)", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.reason.split(":")[0], decision.associations),
+                    ("excluded", "external_release_art", []),
+                )
+
     def test_listed_names_match_whole_words_longest_first(self) -> None:
         """A listed spelling matches only as whole words, the longest first ("Cytus II" before "Cytus"); a name that
         names several listed games records each; a plural possessive ("Phigros'") is read as its game."""
