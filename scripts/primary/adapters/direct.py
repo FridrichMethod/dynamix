@@ -12,7 +12,8 @@ quoted URLs in the attributes named by ``attr_urls``, e.g. an ``onclick`` overla
 JSON article model (``embedded_json``, below) and, with ``og_image``, the page's ``og:image``. Each URL is normalized
 to the uploaded file (query and fragment dropped, then the ordered ``rewrite`` regex substitutions, e.g. a WordPress
 ``-1024x576`` size suffix) and kept when it fully matches ``pattern``; its key is ``key_prefix`` plus the pattern's
-``key`` group (default: the file name without extension). A named seed item with that key or that normalized URL
+``key`` group (default: the file name without extension); a ``name`` group names the upload's file name when the URL
+does not end with it (a signed CDN path), else the last path segment is the ``original_filename``. A named seed item with that key or that normalized URL
 stands for it; every other image becomes a candidate of its own, classified by the seed rules (unclassified images
 stay ``pending``). The URLs the page itself lists for an image are kept as download fallbacks: when the normalized URL
 answers HTTP 404 (a rewrite of ours, not an upstream failure) the advertised URL is downloaded instead and the record
@@ -221,7 +222,8 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
             return None
         stem = base.last_segment(url).rsplit(".", 1)[0]
         key = config["key_prefix"] + (match.groupdict().get("key") or stem)
-        entry = found.setdefault(key, {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False})
+        entry = found.setdefault(key, {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False,
+                                       "name": match.groupdict().get("name") or base.last_segment(url)})
         if absolute != url and absolute not in entry["advertised"]:
             entry["advertised"].append(absolute)
         entry["supplied"] = entry["supplied"] or supplied
@@ -384,7 +386,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
 def _draft(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], *, key: str, page_url: str, file_url: str,
            texts: Mapping[str, str], title: str, image: Mapping[str, Any] | None = None,
            config: Mapping[str, Any] | None = None) -> model.Draft:
-    name = base.last_segment(file_url)
+    name = image["name"] if image is not None else base.last_segment(file_url)
     ext = name.rsplit(".", 1)[-1] if "." in name else None
     draft = model.apply_rule(
         model.find_rule(base.rules(seed), key), key=key, page_url=page_url, texts=texts,

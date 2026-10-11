@@ -389,8 +389,8 @@ class PressArticleTests(ArchivesTestCase):
                                       "type_field": "blockType", "images": {"image": "image", "gallery": "images"},
                                       "url_field": "cdnUrl", "caption_field": "caption",
                                       "count": "props.pageProps.article.imageCount"},
-                    "pattern": "https://cdn\\.example\\.hk/di/media/images/(?P<key>\\d+)/org/[0-9a-f]+"
-                               "\\.(?:jpe?g|png|PNG)/[A-Za-z0-9_-]+"}]},
+                    "pattern": "https://cdn\\.example\\.hk/di/media/images/(?P<key>\\d+)/org/(?P<name>[0-9a-f]+"
+                               "\\.(?:jpe?g|png|PNG))/[A-Za-z0-9_-]+"}]},
                 "items": [{"key": "hk01:175169", "page_url": self.NEXT_PAGE, "read_page": True,
                            "file_url": self.CDN.format(1, "aa", "jpg", "tok1")}],
                 "rules": rules}
@@ -428,6 +428,9 @@ class PressArticleTests(ArchivesTestCase):
         titles = {a["candidate_id"].split(":", 2)[2]: a["title"] for a in self.manifest()["assets"]}
         self.assertEqual(titles["hk01-175169:2"], "本地獨立手機遊戲系列：《Dynamix》 — 簡潔又帶科幻感的界面 (2/4)")
         self.assertEqual(titles["hk01:175169"], "本地獨立手機遊戲系列：《Dynamix》 (1/4)")
+        names = {a["candidate_id"].split(":", 2)[2]: a["original_filename"] for a in self.manifest()["assets"]}
+        self.assertEqual(names["hk01-175169:2"], "bb.PNG")  # the upload's name, not the signature segment
+        self.assertEqual(names["hk01:175169"], "aa.jpg")
         self.verify()
 
     def test_an_image_count_that_disagrees_keeps_the_list_open(self):

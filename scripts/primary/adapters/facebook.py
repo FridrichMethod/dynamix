@@ -182,7 +182,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             draft.same_file = lambda archived, identity=identity: file_identity(archived) == identity
         sizes = ", ".join(filter(None, [f"display size {m.group(1)}" for m in [_CTP.search(image)] if m]
                                  + [f"source bound {m.group(1)}" for m in [_CSTP.search(image)] if m]))
-        note = (f"Open Graph image of {url} as served logged out on {ctx.now()[:10]}"
+        # No date here: a refresh that reuses the archive keeps fetched_at, which dates the archived fetch.
+        note = (f"Open Graph image of {url} as served to a logged-out reader"
                 + (f" (Facebook rendition parameters: {sizes})" if sizes else "") + ".")
         uploaded = base.mime_for(ext)
         if requested and uploaded and uploaded != requested:

@@ -594,6 +594,9 @@ class FacebookTests(OfficialTestCase):
         self.assertEqual(asset["mapping_evidence"][0]["field"], "og:description")
         self.assertTrue(asset["transformed"])
         self.assertIn("display size p600x600", asset["notes"])
+        # The note carries no run date: a later refresh that reuses the archive must not restate when it was served.
+        self.assertIn("as served to a logged-out reader", asset["notes"])
+        self.assertNotRegex(asset["notes"], r"\d{4}-\d{2}-\d{2}")
         self.verify()
 
     def test_the_open_graph_note_appears_once_with_item_and_rule_notes(self):
