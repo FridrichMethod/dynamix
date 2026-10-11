@@ -4,6 +4,7 @@ misleading extensions, press-release PDFs (archive tier), live 404s, primary-pos
 """
 
 import base64
+import json
 import hashlib
 import sys
 import tempfile
@@ -331,8 +332,164 @@ class PressArticleTests(ArchivesTestCase):
         snapshot = manifest.load_discovery(self.root, "archives:press")
         self.assertFalse(snapshot["discovery_complete"])
         self.assertEqual(snapshot["continuation"]["article-images"], "selection-not-found")
-        self.assertEqual(sorted(c["upstream_key"] for c in snapshot["candidates"]), ["gnn129234:0001345596"])
+        # The images that were found (the og:image) are still accounted for; the list just is not complete.
+        self.assertEqual(sorted(c["upstream_key"] for c in snapshot["candidates"]),
+                         ["gnn129234:0001345596", "gnn129234:0001345632"])
         self.verify()
+
+    def test_an_empty_selection_is_not_a_complete_enumeration(self):
+        # The selection exists but holds no image of the pattern (a client-rendered body): the list stays open, and a
+        # previously archived article image is not marked removed by this empty read.
+        network = FakeNetwork(self.routes())
+        self.run_family([self.seed(self.RULES)], network)
+        empty = self.routes()
+        empty[self.PAGE] = {"text": "<html><head><title>音樂遊戲《Dynamix》近期更新內容預告</title>"
+                                    "<meta property='og:image' content='https://img.example.org/B/2KU/32/0001345632.JPG'>"
+                                    "</head><body><div class='article-body'><p>Dynamix</p></div></body></html>"}
+        self.run_family([self.seed(self.RULES)], FakeNetwork(empty), resume=True)
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"]["article-images"], "selection-empty")
+        self.assertTrue(any("holds no image" in error["message"] for error in snapshot["errors"]))
+        statuses = {a["candidate_id"].split(":", 2)[2]: a["upstream_status"] for a in self.manifest()["assets"]}
+        self.assertEqual(statuses["gnn129234:0001345608"], "current")  # carried over, not removed
+        self.verify()
+
+    def test_coverage_is_limited_to_the_keys_the_enumeration_produces(self):
+        # A named file outside the key prefix that the seeds stop naming is "unknown", never "removed" by the article
+        # enumeration; an enumerated image that the complete page no longer shows is "removed".
+        items = [{"key": "gnn129234:0001345596", "page_url": self.PAGE, "read_page": True,
+                  "file_url": self.IMG.format("96/0001345596", "JPG")},
+                 {"key": "named:extra", "page_url": self.PAGE, "read_page": True,
+                  "file_url": "https://img.example.org/B/2KU/50/0001345650.JPG"}]
+        rules = [*self.RULES, {"match": "^named:extra$", "role": "promotional", "evidence_quotes": ["Dynamix"]}]
+        routes = self.routes()
+        routes["https://img.example.org/B/2KU/50/0001345650.JPG"] = {"bytes": image_bytes("JPEG", (30, 20)),
+                                                                     "content_type": "image/jpeg"}
+        self.run_family([self.seed(rules, items=items)], FakeNetwork(routes))
+        later = dict(routes)
+        later[self.PAGE] = {"text": routes[self.PAGE]["text"].replace("0001345608", "0001345609")}
+        later[self.IMG.format("09/0001345609", "JPG")] = {"bytes": image_bytes("JPEG", (41, 22)),
+                                                          "content_type": "image/jpeg"}
+        self.run_family([self.seed(rules, items=items[:1])], FakeNetwork(later), resume=True)
+        statuses = {a["candidate_id"].split(":", 2)[2]: a["upstream_status"] for a in self.manifest()["assets"]}
+        self.assertEqual(statuses["gnn129234:0001345608"], "removed")
+        self.assertEqual(statuses["named:extra"], "unknown")
+        self.verify()
+
+    NEXT_PAGE = "https://www.example.hk/article/175169"
+    CDN = "https://cdn.example.hk/di/media/images/{}/org/{}.{}/{}"
+
+    def next_seed(self, rules, *, count=3):
+        return {"id": "archives:press", "name": "Press", "url": "https://www.example.hk/", "platform": "web",
+                "adapter": "direct_files", "hosts": ["www.example.hk", "cdn.example.hk"], "quality": QUALITY,
+                "params": {"article_images": [{
+                    "page_url": self.NEXT_PAGE, "key_prefix": "hk01-175169:", "select": "article", "og_image": True,
+                    "embedded_json": {"script_id": "__NEXT_DATA__", "blocks": "props.pageProps.article.blocks",
+                                      "type_field": "blockType", "images": {"image": "image", "gallery": "images"},
+                                      "url_field": "cdnUrl", "caption_field": "caption",
+                                      "count": "props.pageProps.article.imageCount"},
+                    "pattern": "https://cdn\\.example\\.hk/di/media/images/(?P<key>\\d+)/org/[0-9a-f]+"
+                               "\\.(?:jpe?g|png|PNG)/[A-Za-z0-9_-]+"}]},
+                "items": [{"key": "hk01:175169", "page_url": self.NEXT_PAGE, "read_page": True,
+                           "file_url": self.CDN.format(1, "aa", "jpg", "tok1")}],
+                "rules": rules}
+
+    def next_page(self, count):
+        def image(media, caption):
+            return {"mediaId": media, "caption": caption, "cdnUrl": self.CDN.format(media, "bb", "PNG", f"t{media}")}
+        data = {"props": {"pageProps": {"article": {"imageCount": count, "blocks": [
+            {"blockType": "text", "htmlTokens": []},
+            {"blockType": "image", "image": image(2, "簡潔又帶科幻感的界面")},
+            {"blockType": "gallery", "images": [image(3, "藍色是輕觸屏幕"), image(4, "")]},
+            {"blockType": "related", "articles": [{"data": {"mainImage": image(99, "other article")}}]}]}}}}
+        og = self.CDN.format(1, "aa", "jpg", "tok1") + "?v=w1280r16_9"
+        return {"text": f"<html><head><title>本地獨立手機遊戲系列：《Dynamix》</title>"
+                        f"<meta property='og:image' content='{og}'></head><body><h1>本地獨立手機遊戲系列：《Dynamix》</h1>"
+                        f"<article><p>Dynamix</p></article><script id='__NEXT_DATA__' type='application/json'>"
+                        f"{json.dumps(data, ensure_ascii=False)}</script></body></html>"}
+
+    NEXT_RULES = [{"match": "^hk01:175169$", "role": "promotional", "evidence_quotes": ["Dynamix"]},
+                  {"match": "^hk01-175169:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}]
+
+    def test_body_images_of_an_embedded_article_payload_are_enumerated(self):
+        routes = {self.NEXT_PAGE: self.next_page(3)}
+        for media in (1, 2, 3, 4):
+            url = self.CDN.format(media, "aa" if media == 1 else "bb", "jpg" if media == 1 else "PNG",
+                                  "tok1" if media == 1 else f"t{media}")
+            routes[url] = {"bytes": image_bytes("JPEG", (30 + media, 20)), "content_type": "image/jpeg"}
+        self.run_family([self.next_seed(self.NEXT_RULES)], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertTrue(snapshot["discovery_complete"], snapshot["continuation"])
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        # The named og:image (signed path kept, query dropped) and the 3 body images; never the related article's.
+        self.assertEqual(sorted(found), ["hk01-175169:2", "hk01-175169:3", "hk01-175169:4", "hk01:175169"])
+        self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
+        titles = {a["candidate_id"].split(":", 2)[2]: a["title"] for a in self.manifest()["assets"]}
+        self.assertEqual(titles["hk01-175169:2"], "本地獨立手機遊戲系列：《Dynamix》 — 簡潔又帶科幻感的界面 (2/4)")
+        self.assertEqual(titles["hk01:175169"], "本地獨立手機遊戲系列：《Dynamix》 (1/4)")
+        self.verify()
+
+    def test_an_image_count_that_disagrees_keeps_the_list_open(self):
+        routes = {self.NEXT_PAGE: self.next_page(10)}
+        self.run_family([self.next_seed(self.NEXT_RULES)], FakeNetwork(routes), metadata_only=True)
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertEqual(snapshot["continuation"]["article-images"], "image-count-mismatch:3/10")
+        routes = {self.NEXT_PAGE: {"text": self.next_page(3)["text"].replace("__NEXT_DATA__", "other")}}
+        self.run_family([self.next_seed(self.NEXT_RULES)], FakeNetwork(routes), metadata_only=True)
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertEqual(snapshot["continuation"]["article-images"], "embedded-json-not-found")
+
+    def test_a_404_of_our_normalized_url_falls_back_to_the_url_the_page_lists(self):
+        # The page lists only an M/ rendition; our rewrite to B/ answers 404 upstream: the listed URL is archived and
+        # the record says so (no failure is recorded against upstream).
+        rules = [*self.RULES[:1], {"match": "^gnn129234:0001345692$", "role": "promotional",
+                                   "evidence_quotes": ["Dynamix"]}]
+        routes = self.routes()
+        listed = "https://img.example.org/M/2KU/92/0001345692.PNG?_=1"
+        routes[listed] = {"bytes": image_bytes("PNG", (21, 21)), "content_type": "image/png"}
+        self.run_family([self.seed(rules)], FakeNetwork(routes))
+        asset = [a for a in self.manifest()["assets"] if a["candidate_id"].endswith("0001345692")][0]
+        self.assertEqual(asset["download_url"], listed)
+        self.assertIn("answered HTTP 404", asset["notes"])
+        self.assertEqual([f for f in self.manifest()["failures"] if f["candidate_id"].endswith("0001345692")], [])
+        self.verify()
+
+    def test_only_images_after_the_pages_supplied_marker_are_called_developer_supplied(self):
+        seed = self.seed([{"match": "^gnn129234:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}])
+        seed["params"]["article_images"][0]["supplied_marker"] = "【以下內容為廠商提供資料原文】"
+        routes = self.routes()
+        routes[self.PAGE] = {"text": routes[self.PAGE]["text"].replace(
+            '<ul class="thumbs"><li><div class="thumb">\n<img alt="image" title=',
+            '<p>【以下內容為廠商提供資料原文】</p><ul class="thumbs"><li><div class="thumb">\n<img alt="image" title=')}
+        for index, name in enumerate(("95/0001345595", "92/0001345692", "32/0001345632")):
+            routes[self.IMG.format(name, "PNG" if name.startswith("92") else "JPG")] = {
+                "bytes": image_bytes("JPEG", (30, 31 + index)), "content_type": "image/jpeg"}
+        self.run_family([seed], FakeNetwork(routes))
+        notes = {a["candidate_id"].split(":", 2)[2]: a["quality"]["notes"] for a in self.manifest()["assets"]}
+        self.assertIn("developer supplied", notes["gnn129234:0001345608"])
+        self.assertIn("developer supplied", notes["gnn129234:0001345595"])
+        self.assertNotIn("developer", notes["gnn129234:0001345596"])  # before the marker
+        self.assertNotIn("developer", notes["gnn129234:0001345632"])  # og:image only
+
+    def test_urls_in_named_attributes_are_enumerated(self):
+        seed = self.seed([{"match": "^gnn129234:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}],
+                         items=[])
+        config = seed["params"]["article_images"][0]
+        config.update({"og_image": False, "attr_urls": ["onclick"],
+                       "pattern": "https://news\\.example\\.org/SS/(?P<key>\\d+)\\.jpg"})
+        page = ("<html><head><title>Dynamix column</title></head><body><h1>Dynamix column #862 (long headline)</h1>"
+                "<div class='article-body'>" + "".join(
+                    f"<a href='./gallery?num={n}' onclick=\"return OPEN(event,'/SS/{n}.jpg','1136','640');\">"
+                    f"<img src='/TN/{n}.jpg' alt='thumb'></a>" for n in ("003", "012", "011")) + "</div></body></html>")
+        network = FakeNetwork({self.PAGE: {"text": page}})
+        self.run_family([seed], network, metadata_only=True)
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        titles = {c["upstream_key"]: c["title"] for c in snapshot["candidates"]}
+        self.assertEqual(titles, {"gnn129234:003": "Dynamix column #862 (long headline) (1/3)",
+                                  "gnn129234:012": "Dynamix column #862 (long headline) (2/3)",
+                                  "gnn129234:011": "Dynamix column #862 (long headline) (3/3)"})
+        self.assertTrue(snapshot["discovery_complete"])
 
     def test_an_unreadable_article_page_keeps_both_lists_open(self):
         network = FakeNetwork({self.PAGE: {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}})
@@ -358,6 +515,13 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(adapter_base.headline(adapter_base.soup(page)), "画像ギャラリー | iPhone/iPad版 Dynamix")
         article = "<html><head><title>X - Site</title></head><body><h1>音樂遊戲《Dynamix》近期更新內容預告</h1></body></html>"
         self.assertEqual(adapter_base.headline(adapter_base.soup(article)), "音樂遊戲《Dynamix》近期更新內容預告")
+
+    def test_rule_checks_for_titles_and_archive_under(self):
+        with self.assertRaises(ValueError):  # a file name is not a title
+            model.check_rule({"match": "x", "role": "promotional", "title": "Screenshot ({filename})"}, "test")
+        with self.assertRaises(ValueError):  # archive_under only on a download rule
+            model.check_rule({"match": "x", "action": "exclude", "reason": "site_ui: x", "archive_under": "y"}, "t")
+        model.check_rule({"match": "x", "role": "reference", "archive_under": "y:1"}, "test")
 
     def test_seed_validation(self):
         seed = self.seed(self.RULES)
@@ -524,6 +688,39 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(asset["upstream_status"], "current")
         self.assertNotIn(runner.UNKNOWN_NOTE, asset.get("notes") or "")
         self.verify()
+
+    def test_archive_under_records_the_file_under_the_named_candidate(self):
+        # Two listings carry identical bytes; a curated rule says the file belongs under img/b.png (whose text names
+        # what it shows). An existing record of img/a.png is taken over (same asset ID, b's own fetch and path) and
+        # img/a.png becomes duplicate_bytes; a fresh acquisition gives the same result directly.
+        routes = {self.PAGE: self.page("a.png", "b.png"), "https://press.example.org/img/a.png": self.file((5, 6, 7)),
+                  "https://press.example.org/img/b.png": self.file((5, 6, 7))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        first = self.candidates("archives:press")
+        self.assertEqual((first["img/a.png"]["disposition"], first["img/b.png"]["disposition"]),
+                         ("downloaded", "duplicate_bytes"))
+        old_path = self.manifest()["assets"][0]["path"]
+        rules = [{"match": "^img/a\\.png$", "role": "promotional", "game": "dynamix", "archive_under": "img/b.png"},
+                 {"match": "^img/", "role": "promotional", "game": "dynamix"}]
+        for _ in range(2):  # the second run changes nothing
+            self.run_family([self.seed(rules=rules)], FakeNetwork(routes), resume=True)
+            found = self.candidates("archives:press")
+            self.assertEqual((found["img/a.png"]["disposition"], found["img/b.png"]["disposition"]),
+                             ("duplicate_bytes", "downloaded"))
+            [asset] = self.manifest()["assets"]
+            self.assertEqual(asset["id"], first["img/a.png"]["asset_id"])
+            self.assertTrue(asset["candidate_id"].endswith("img/b.png"))
+            self.assertEqual(asset["download_url"], "https://press.example.org/img/b.png")
+            self.assertIn("archive_under", asset["notes"])
+            self.assertFalse(paths.safe_path(self.root, old_path).exists())
+            self.verify()
+        fresh = tempfile.TemporaryDirectory()
+        self.addCleanup(fresh.cleanup)
+        runner.Runner(fresh.name, "archives", [self.seed(rules=rules)], client_factory=FakeNetwork(routes).factory,
+                      now=lambda: FIXED_NOW, sleep=lambda s: None).run()
+        [asset] = manifest.load_manifest(Path(fresh.name), "archives")["assets"]
+        self.assertTrue(asset["candidate_id"].endswith("img/b.png"))
+        self.assertNotIn("archive_under", asset.get("notes") or "")  # nothing was taken over
 
     def test_bytes_that_revert_supersede_the_newer_record(self):
         url = "https://press.example.org/img/a.png"

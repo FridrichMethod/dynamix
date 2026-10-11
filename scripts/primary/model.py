@@ -36,7 +36,7 @@ RULE_FIELDS = {
     "collections", "illustrators", "composers", "mapping_status", "credit_evidence", "variant_group", "variant_role",
     "quality", "rights", "notes", "transformed", "allow_universe_mention", "game_associations", "candidate_notes",
     "primary_evidence", "upstream_revision", "withdraw_archived", "credit_source", "mapping_evidence",
-    "title_aliases",
+    "title_aliases", "archive_under",
 }
 ADMITTED_GAMES = ("dynamix", "mixed")  # the only games a download rule may assert (schema: accepted candidates)
 REJECTED_RE = re.compile(r"rejected\s+submission", re.IGNORECASE)
@@ -79,6 +79,11 @@ class Draft:
     candidate_extra: dict = field(default_factory=dict)  # song_titles, illustrators, composers, collections, notes
     md5_token: str | None = None  # upstream name that is expected to equal the file's MD5 (TapTap), evidence only
     fallback_urls: list[str] = field(default_factory=list)  # tried in order when file_url answers HTTP 404
+    # Note recorded when a fallback URL was archived (``{url}``: the URL used, ``{file_url}``: the 404 one).
+    fallback_note: str | None = None
+    # Curated download rule: the same file is attached to the candidate with this upstream key of the same source,
+    # whose text names what the file shows; that candidate holds the record and this one is ``duplicate_bytes``.
+    archive_under: str | None = None
     withdraw_archived: bool = False  # curated exclude/pending rule: remove an earlier archived record of this candidate
     # Adapter hook: whether an archived download URL names this draft's file although it differs from ``file_url``
     # (a rotating signature of the same CDN file, an earlier fallback rendition). ``--resume`` then reuses the archive.
@@ -172,6 +177,11 @@ def check_rule(rule: Mapping[str, Any], where: str) -> None:
                          f"{ADMITTED_GAMES} (use an exclude or pending rule for {rule['game']!r})")
     if "withdraw_archived" in rule and (rule["withdraw_archived"] is not True or action == "download"):
         raise ValueError(f"{where}: withdraw_archived must be true and only on an exclude or pending rule")
+    if "archive_under" in rule and (action != "download" or not isinstance(rule["archive_under"], str)
+                                    or not rule["archive_under"].strip()):
+        raise ValueError(f"{where}: archive_under names an upstream key and is only allowed on a download rule")
+    if "{filename}" in str(rule.get("title", "")):
+        raise ValueError(f"{where}: a title is human text from the cited page, not the file name ({{filename}})")
     _check_credit_sources(rule, action, where)
     for index, entry in enumerate(rule.get("mapping_evidence", [])):
         if not (isinstance(entry, dict) and isinstance(entry.get("url"), str) and entry["url"].startswith("http")
@@ -383,8 +393,7 @@ def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts
     """
     reported = source_reported or schema.make_source_reported(url=file_url)
     rule = dict(rule or {})
-    title = (rule.get("title") or default_title).replace("{default}", default_title).replace(
-        "{filename}", original_filename or "")
+    title = (rule.get("title") or default_title).replace("{default}", default_title)
     found, missing = find_quotes(rule.get("evidence_quotes", []), texts, page_url)
     game_evidence = [*base_evidence, *rule.get("game_evidence", []),
                      *(f"{item['field']}: {item['quote']}" for item in found)]
@@ -429,6 +438,7 @@ def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts
         draft.reason = "pending: no downloadable file URL was found for this item"
         return draft
     draft.action = "download"
+    draft.archive_under = rule.get("archive_under")
     draft.meta = asset_meta(rule, found, page_url, default_quality, default_rights, texts)
     return draft
 

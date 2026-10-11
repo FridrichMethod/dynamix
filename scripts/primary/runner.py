@@ -60,6 +60,11 @@ ADOPTED_NOTE = ("First archived for candidate {old} (upstream_status then {statu
 ADOPTED_NOTE_RE = re.compile(r"First archived for candidate \S+ \(upstream_status then [a-z]+\); the same bytes are listed "
                              r"upstream as this record's candidate since \d{4}-\d{2}-\d{2}\.")
 ALSO_LISTED_NOTE = "The same bytes are also listed upstream as {cid} (duplicate_bytes)."
+TAKEN_OVER_NOTE = ("Recorded under this candidate by a curated seed rule (archive_under): the same bytes, archived "
+                   "earlier for {other}, are attached to that candidate too, whose text does not name what they show.")
+TAKEN_OVER_NOTE_RE = re.compile(r"Recorded under this candidate by a curated seed rule \(archive_under\): the same bytes, "
+                                r"archived earlier for \S+, are attached to that candidate too, whose text does not name "
+                                r"what they show\.")
 SOURCE_SEED_FIELDS = {
     "id", "name", "url", "platform", "adapter", "notes", "api_url", "owner_evidence", "crawl_scope", "items",
     "hosts", "min_interval", "quality", "rights", "rules", "identity_quotes", "lists", "status_on_success",
@@ -370,6 +375,8 @@ class SourceState:
     errors: list[dict] = field(default_factory=list)
     pending_ids: set[str] = field(default_factory=set)
     keep_previous: bool = False  # discovery failed: every previous candidate is carried over unchanged
+    # candidate ID -> upstream key of the candidate whose record holds its bytes (seed rule ``archive_under``)
+    yields: dict[str, str] = field(default_factory=dict)
 
     @property
     def source_id(self) -> str:
@@ -492,7 +499,10 @@ class Runner:
                 self._record_non_download(state, draft)
         self._carry_over(state, {schema.candidate_id(state.source_id, key) for key in keys})
         self._persist(state)
-        for draft in drafts:
+        state.yields = {schema.candidate_id(state.source_id, draft.upstream_key): draft.archive_under
+                        for draft in drafts if draft.action == "download" and draft.archive_under}
+        # A candidate that archives its file under another one resolves after it (the other one holds the record).
+        for draft in sorted(drafts, key=lambda draft: bool(draft.archive_under)):
             if draft.action == "download":
                 try:
                     self._resolve_download(state, client, draft)
@@ -691,8 +701,7 @@ class Runner:
             try:
                 result = client.download(url, dest, paths.filename_stem(draft.original_filename))
                 if url != draft.file_url:
-                    draft = copy.copy(draft)
-                    draft.file_url = url
+                    draft = self._fallback_draft(draft, url)
                 break
             except net.FetchError as error:
                 if position + 1 < len(urls) and isinstance(error, net.HttpError) and error.http_status == 404:
@@ -708,6 +717,10 @@ class Runner:
             return
         new_id = schema.asset_id(sid, result.sha256)
         owner = state.assets.get(new_id)
+        if (owner is not None and owner["candidate_id"] != cid
+                and state.yields.get(owner["candidate_id"]) == draft.upstream_key):
+            self._take_over(state, draft, owner, result, attempted_at, previous_asset)
+            return
         if owner is None and previous_asset is not None and names_file(draft, previous_asset.get("download_url")):
             same = self._same_pixels(state.assets.get(previous_asset["id"], previous_asset), result)
             if same:  # other bytes, same picture: not a new upstream revision
@@ -761,6 +774,51 @@ class Runner:
         state.failures.pop(schema.failure_id(cid, "download"), None)
         state.failures.pop(schema.failure_id(cid, "decode"), None)
         state.failures.pop(schema.failure_id(cid, "verify"), None)
+
+    @staticmethod
+    def _fallback_draft(draft: model.Draft, url: str) -> model.Draft:
+        """``draft`` naming the fallback ``url`` that was archived (its ``file_url`` answered HTTP 404); the adapter's
+        ``fallback_note`` is added to the record's and the candidate's notes."""
+        used = copy.copy(draft)
+        used.file_url = url
+        if draft.fallback_note:
+            note = draft.fallback_note.format(url=stored_url(url), file_url=stored_url(draft.file_url))
+            used.candidate_extra = {**draft.candidate_extra, "notes": append_note(draft.candidate_extra.get("notes"),
+                                                                                  note)}
+            if used.action == "download":
+                used.meta = {**draft.meta, "notes": append_note(draft.meta.get("notes"), note)}
+        return used
+
+    def _take_over(self, state: SourceState, draft: model.Draft, owner: Mapping[str, Any], result: Any,
+                   attempted_at: str, previous_asset: dict | None) -> None:
+        """This candidate's bytes are archived under another candidate whose seed rule says ``archive_under`` this one:
+        the record (same asset ID) is rewritten from this candidate's own fetch at its own contract path, the earlier
+        file is removed when its path differs, and the other candidate becomes ``duplicate_bytes`` when it resolves."""
+        sid, family = state.source_id, self.family
+        cid = schema.candidate_id(sid, draft.upstream_key)
+        try:
+            info = media.finalize_download(result, self.root, lambda measured: paths.asset_relpath(
+                family, paths.source_slug(sid), draft.original_filename, measured["sha256"], measured["ext"]))
+        except media.MediaError as error:
+            self._download_failed(state, draft, error, "decode", attempted_at, previous_asset)
+            return
+        if info["path"] != owner["path"]:
+            paths.safe_path(self.root, owner["path"], under=f"{paths.ASSET_ROOT}/{family}").unlink(missing_ok=True)
+        draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, info["path"]))
+        record = asset_record(family, sid, draft, info, content_type=result.content_type,
+                              resolved_url=result.final_url, fetched_at=attempted_at,
+                              extra_notes=notes)
+        record["notes"] = append_note(record.get("notes"), TAKEN_OVER_NOTE.format(other=owner["candidate_id"]))
+        schema.validate_asset(record, family)
+        state.assets[record["id"]] = schema.canonical(record, "asset")
+        state.candidates[cid] = candidate_record(sid, draft, "downloaded", asset_id=record["id"])
+        other = state.candidates.get(owner["candidate_id"])
+        if other is not None and other.get("asset_id") == record["id"]:  # until it resolves itself
+            yielded = {**other, "disposition": "duplicate_bytes",
+                       "reason": f"duplicate_bytes: identical bytes already archived for {cid}"}
+            schema.validate_candidate(yielded, sid)
+            state.candidates[other["id"]] = schema.canonical(yielded, "candidate")
+        LOG.warning("%s: took over %s from %s (archive_under)", cid, record["id"], owner["candidate_id"])
 
     def _supersede(self, state: SourceState, previous_asset: dict | None, new_id: str) -> None:
         """Mark the candidate's previous current asset as superseded by ``new_id`` (new bytes, bytes that revert to an
@@ -902,7 +960,8 @@ class Runner:
                               content_type=asset["download_observed"]["content_type"],
                               resolved_url=asset["resolved_url"], fetched_at=asset["fetched_at"],
                               extra_notes=[*notes, *renamed])
-        carried = [match.group(0) for pattern in (ADOPTED_NOTE_RE, REFETCH_NOTE_RE, REREAD_NOTE_RE)
+        carried = [match.group(0)
+                   for pattern in (ADOPTED_NOTE_RE, REFETCH_NOTE_RE, REREAD_NOTE_RE, TAKEN_OVER_NOTE_RE)
                    for match in pattern.finditer(asset.get("notes") or "")]
         if not carried:
             return record

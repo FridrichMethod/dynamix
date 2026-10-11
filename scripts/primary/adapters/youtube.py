@@ -6,8 +6,9 @@ largest thumbnail rendition YouTube generates for the video: ``i.ytimg.com/vi/<i
 ``sddefault.jpg`` and ``hqdefault.jpg`` when the larger one answers 404 (older uploads have no maxres rendition). These
 are YouTube's own JPEG renditions of the video's thumbnail (``transformed``; never an uploaded original); what oEmbed
 advertises (the ``hqdefault`` URL) stays ``source_reported.url`` with its size in the notes, because another rendition
-is not comparable byte for byte. No video, audio, Data API or login is used, and the channel's video list is not
-enumerated here (the seed names the videos; the list stays open with its reason). ``--resume`` reuses an archived
+is not comparable byte for byte; oEmbed advertises no MIME type, so ``source_reported.mime`` is null and
+``format_match`` is not computed against a rendition the archive did not store. No video, audio, Data API or login
+is used, and the channel's video list is not enumerated here (the seed names the videos; the list stays open with its reason). ``--resume`` reuses an archived
 thumbnail of the same video whichever rendition it is (no maxres/sd requests for a video whose archive fell back).
 
 oEmbed answers 401/403 for a single private or non-embeddable video (YouTube's documented behaviour): that is the
@@ -100,7 +101,7 @@ def _video(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: 
         rule, key=video_id, page_url=watch, texts=texts, file_url=thumbnail(video_id, RENDITIONS[0]),
         default_title=data["title"], default_quality=ctx.quality, default_rights=ctx.rights,
         original_filename=f"{video_id}.jpg", base_evidence=[watch, f"oEmbed author: {texts['author']}"],
-        source_reported=base.reported(url=advertised, mime="image/jpeg"))
+        source_reported=base.reported(url=advertised))  # oEmbed names a URL, no MIME type: the stored rendition differs
     draft.fallback_urls = [thumbnail(video_id, rendition) for rendition in RENDITIONS[1:]]
     renditions = {thumbnail(video_id, rendition) for rendition in RENDITIONS}
     draft.same_file = renditions.__contains__  # an archived fallback rendition of this video is this file

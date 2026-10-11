@@ -470,6 +470,9 @@ class YouTubeTests(OfficialTestCase):
         # oEmbed advertises another rendition: its URL is kept, sizes are not compared.
         self.assertEqual(asset["source_reported"]["url"], "https://i.ytimg.com/vi/FInFw2lVz_I/hqdefault.jpg")
         self.assertIsNone(asset["comparisons"]["dimensions_match"])
+        # oEmbed names no MIME type and the stored rendition is another one: no format comparison either.
+        self.assertIsNone(asset["source_reported"]["mime"])
+        self.assertIsNone(asset["comparisons"]["format_match"])
         self.assertIn("advertises", asset["notes"])
         self.verify()
 
