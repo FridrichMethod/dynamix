@@ -5,12 +5,18 @@
 
 Inputs: data/sources/{artists,official,wikis,archives}.json (schema v1, validated with lib.schema), the media they
 name under assets/public/, data/thumbs.json (scripts/build_thumbnails.py) and templates/slideshow.html rendered by
-scripts/render_slideshow.py (UI-owned). Records with equal SHA-256 become one catalog entry whose primary record is
-chosen by family priority (artists < official < wikis < archives), then source ID, then asset ID; every record is kept
-in `provenance`. Distinct bytes always stay distinct entries; superseded and removed records stay archived.
+scripts/render_slideshow.py (UI-owned). Records with equal SHA-256 become one catalog entry whose primary record (its
+fields, title, path and URL) is the first by the frozen primary-record rule (09 "Catalog presentation rules"; see
+primary_sort_key): family priority (artists < official < wikis < archives); preferred source within the family
+(wikis:miraheze, then wikis:fandom, then every other source); quality.source_variant (site_original < preview <
+unknown); source ID; asset ID. Every record is kept in `provenance`, primary first, in that order. Distinct bytes
+always stay distinct entries; superseded and removed records stay archived. The generated catalog is checked with
+lib.schema.validate_catalog, provenance order excepted (see validate_catalog).
 
---verify  re-hash and fully decode every archived file, check previews by SHA-256 and reject files under
-          assets/public/ that no manifest record names (dot-files such as interrupted `.part` downloads excepted).
+--verify  re-hash and fully decode every archived file, check previews by SHA-256, reject files under assets/public/
+          that no manifest record names (dot-files such as interrupted `.part` downloads excepted) and reject records
+          that break the title rule: a bare upstream file name or stem as title, or confirmed single-song wiki song
+          art not titled with that song (see title_problem).
 --check   regenerate the outputs in memory and compare them byte-for-byte (a CRLF checkout is accepted) without
           writing anything; exit 1 when one is missing or stale.
 --root    build another repository-shaped tree (tests, fixtures). Outside the repository root data/thumbs.json and
@@ -24,6 +30,7 @@ family or song-mapping inputs, contract dedup/provenance/tier rules, slideshow m
 from __future__ import annotations
 
 import argparse
+import contextlib
 import hashlib
 import json
 import os
@@ -31,6 +38,8 @@ import re
 import subprocess
 import sys
 import tempfile
+import threading
+import unicodedata
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -54,6 +63,18 @@ MERGED_FIELDS = ("illustrators", "composers", "song_titles", "song_ids", "collec
 THUMB_ENTRY_FIELDS = ("path", "width", "height", "bytes", "sha256")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
 MAX_REPORTED = 20
+# Frozen primary-record rule (09 "Catalog presentation rules"). Within a family the listed sources come first in this
+# order: Miraheze is the current wiki and its stored bytes are the bytes both English wikis serve; Fandom is the legacy
+# copy. Every other source ranks after them and, after the rendition, by ID.
+PREFERRED_SOURCES = ("wikis:miraheze", "wikis:fandom")
+VARIANT_PRIORITY = ("site_original", "preview", "unknown")  # quality.source_variant, best first
+# Families whose titles come from the post or page text a record cites, never from its file name (09 "Titles").
+TEXT_TITLED_FAMILIES = ("artists", "official", "archives")
+# Wiki song art confirmed to show exactly one song with this evidence (confirmed_wiki or stronger) carries that song's
+# exact title (09 "Titles").
+CONFIRMED_STATUSES = ("confirmed_primary", "confirmed_wiki")
+# Quotation marks around a caption quoted in evidence ('A_O', "A_O", “A_O”, ‘A_O’, 「A_O」).
+QUOTE_PAIRS = (("'", "'"), ('"', '"'), ("“", "”"), ("‘", "’"), ("「", "」"))
 
 
 class CatalogError(ValueError):
@@ -144,6 +165,96 @@ def source_records(manifests: Mapping[str, Mapping[str, Any]]) -> tuple[list[dic
     return sources, records, failures
 
 
+# --- Titles -----------------------------------------------------------------------------------------------------------
+
+def _evidence_items(record: Mapping[str, Any]) -> list[Any]:
+    return [*(record.get("mapping_evidence") or []), *(record.get("credit_evidence") or [])]
+
+
+def _evidence_texts(record: Mapping[str, Any]) -> list[str]:
+    """Every string the record's mapping evidence, credit evidence and notes carry."""
+    texts: list[str] = []
+    for item in _evidence_items(record):
+        values = item.values() if isinstance(item, dict) else [item]
+        texts.extend(value for value in values if isinstance(value, str))
+    if isinstance(record.get("notes"), str):
+        texts.append(record["notes"])
+    return texts
+
+
+def _quoted_in_evidence(record: Mapping[str, Any], text: str) -> bool:
+    """The record's evidence quotes ``text`` verbatim: an evidence ``quote`` that is exactly ``text``, or ``text``
+    exactly between quotation marks in any evidence string or the notes (a recorded caption such as ``'A_O'``)."""
+    if any(isinstance(item, dict) and item.get("quote") == text for item in _evidence_items(record)):
+        return True
+    quoted = [f"{left}{text}{right}" for left, right in QUOTE_PAIRS]
+    return any(form in value for value in _evidence_texts(record) for form in quoted)
+
+
+def comparable_name(text: str) -> str:
+    """Comparison form of a title or file name: NFKC, casefolded, ``_`` and ``-`` read as spaces, whitespace
+    collapsed. 'IMG 0042', 'img_0042' and 'IMG-0042' all compare equal to the stem 'IMG_0042'."""
+    folded = unicodedata.normalize("NFKC", text).casefold().replace("_", " ").replace("-", " ")
+    return " ".join(folded.split())
+
+
+def _confirmed_song_title(record: Mapping[str, Any]) -> str | None:
+    """The one song a wiki song_art record is confirmed to show (confirmed_wiki or stronger), else None."""
+    songs = schema.ordered_union([record.get("song_titles") or []])
+    if record["kind"] == "song_art" and record.get("mapping_status") in CONFIRMED_STATUSES and len(songs) == 1:
+        return songs[0]
+    return None
+
+
+def title_problem(record: Mapping[str, Any]) -> str | None:
+    """Why the record's title breaks the title rule, else None (09 "Catalog presentation rules", Titles: a
+    human-readable name; the upstream file name stays in ``original_filename``). Checked by --verify:
+
+    * a title equal to one of the record's exact ``song_titles`` always passes;
+    * wikis: song art confirmed (``confirmed_wiki`` or stronger) to show exactly one song carries that song's exact
+      title;
+    * any family: the title is the upstream file name with its extension, compared ignoring case, ``_``/``-`` and
+      spacing (``IMG_0042.JPG``, ``img 0042.jpg`` for ``IMG_0042.jpg``);
+    * artists, official, archives: the title is the file stem, compared the same way (``IMG 0042``, ``img_0042``),
+      since their titles come from the post or page text they cite;
+    * wikis: the title keeps the ``_`` of the stem (case ignored), which the rule's fallback writes as spaces.
+
+    The stem checks pass when the record's evidence quotes the title verbatim (see _quoted_in_evidence): a post,
+    page or wiki caption that really is that text (the wiki captions ``File:A_O.jpg`` as ``'A_O'``). A wiki title
+    equal to a stem without ``_`` is the rule's own fallback (``File:SummerIslandBG.png`` gives ``SummerIslandBG``)."""
+    title, filename = record["title"].strip(), record["original_filename"]
+    if title in (record.get("song_titles") or ()):
+        return None
+    family = record.get("family") or schema.source_family(record["source_id"])
+    song = _confirmed_song_title(record) if family == "wikis" else None
+    if song is not None:
+        return (f"title {title!r} is not the exact title {song!r} of the one song this wiki song art is confirmed "
+                f"({record['mapping_status']}) to show")
+    name = re.split(r"[\\/]", filename)[-1]
+    stem, wanted = paths.filename_stem(filename), comparable_name(title)
+    if stem != name and wanted in (comparable_name(name), comparable_name(filename)):
+        return f"title {title!r} is the upstream file name {filename!r} (original_filename)"
+    if wanted != comparable_name(stem) or _quoted_in_evidence(record, title):
+        return None
+    if family in TEXT_TITLED_FAMILIES:
+        return (f"title {title!r} is the stem of original_filename {filename!r}; {family} titles come from the post "
+                "or page text they cite (quote it in the record's evidence when it really is that text)")
+    if "_" in title:
+        return (f"title {title!r} is the File: name with underscores (original_filename {filename!r}); use the "
+                "mapped song's title, the wiki caption (quoted in evidence), or the File: title with spaces")
+    return None
+
+
+def check_titles(records: Iterable[Mapping[str, Any]]) -> None:
+    """Fail when any record breaks the title rule (see title_problem)."""
+    found = [f"{record['id']}: {problem}" for record in records if (problem := title_problem(record))]
+    if found:
+        more = f"\n... and {len(found) - MAX_REPORTED} more" if len(found) > MAX_REPORTED else ""
+        raise CatalogError(f"{len(found)} record(s) break the title rule: a title is a human-readable name, never the "
+                           "bare upstream file name, which stays in original_filename (09-frozen-contracts.md, "
+                           "Catalog presentation rules, Titles):\n" + "\n".join(found[:MAX_REPORTED]) + more)
+
+
 # --- Archived files ---------------------------------------------------------------------------------------------------
 
 def check_record_file(root: Path, record: Mapping[str, Any], verify: bool) -> None:
@@ -220,6 +331,60 @@ def needs_preview(asset: Mapping[str, Any]) -> bool:
     return schema.is_gallery(asset) and max(asset["width"], asset["height"]) > PREVIEW_LONG_EDGE
 
 
+def primary_sort_key(record: Mapping[str, Any]) -> tuple:
+    """Order of the records sharing one SHA-256; the minimum is the primary record (09 "Catalog presentation
+    rules"): family priority (artists < official < wikis < archives); PREFERRED_SOURCES within the family (Miraheze
+    before Fandom, every other source after them); quality.source_variant (site_original < preview < unknown); source
+    ID; asset ID. Takes a manifest record (``id``) or a catalog provenance entry (``asset_id``); total and
+    deterministic, since an asset ID is unique."""
+    family = record.get("family") or schema.source_family(record["source_id"])
+    source_id = record["source_id"]
+    preferred = PREFERRED_SOURCES.index(source_id) if source_id in PREFERRED_SOURCES else len(PREFERRED_SOURCES)
+    return (schema.FAMILY_PRIORITY.index(family), preferred,
+            VARIANT_PRIORITY.index(record["quality"]["source_variant"]), source_id,
+            record.get("id") or record.get("asset_id") or "")
+
+
+# TEMPORARY until the shared library adopts the frozen primary-record rule (contract change request to the
+# coordinator): lib.schema.provenance_sort_key and lib.catalog_contract still implement the earlier order (family,
+# source ID, asset ID), which puts wikis:fandom before wikis:miraheze, and 09's "Catalog asset" paragraph and the lib
+# README still state it. Once the library implements primary_sort_key's order, delete _contract_primary_order and
+# validate_catalog (call schema.validate_catalog), make primary_sort_key the library's key, and drop the tripwire in
+# tests/test_provenance.py that asserts the library still rejects the frozen order.
+_LIBRARY_ORDER_TEXT = "ordered by family priority, source ID, asset ID"
+_FROZEN_ORDER_TEXT = ("ordered by the frozen primary-record rule (family priority; wikis:miraheze, then wikis:fandom, "
+                      "then other sources; quality.source_variant; source ID; asset ID)")
+_CONTRACT_PATCH_LOCK = threading.Lock()
+
+
+@contextlib.contextmanager
+def _contract_primary_order():
+    """lib.catalog_contract with primary_sort_key in place of the library's provenance key for the duration (see the
+    note above); every other contract check is the library's. Serialized, since it swaps a module global."""
+    from lib import catalog_contract
+
+    with _CONTRACT_PATCH_LOCK:
+        previous = catalog_contract.provenance_sort_key
+        catalog_contract.provenance_sort_key = primary_sort_key
+        try:
+            yield
+        finally:
+            catalog_contract.provenance_sort_key = previous
+
+
+def validate_catalog(catalog: Mapping[str, Any]) -> None:
+    """schema.validate_catalog with provenance checked against the frozen primary-record order (primary_sort_key)
+    instead of the library's earlier one; a misordered provenance is reported with the rule actually checked."""
+    with _contract_primary_order():
+        try:
+            schema.validate_catalog(catalog)
+        except ValueError as error:
+            message = str(error)
+            if _LIBRARY_ORDER_TEXT not in message:
+                raise
+            raise ValueError(message.replace(_LIBRARY_ORDER_TEXT, _FROZEN_ORDER_TEXT)) from None
+
+
 def provenance_entry(record: Mapping[str, Any], names: Mapping[str, str]) -> dict:
     """One source record as a catalog provenance entry (contract fields; absent optional fields are null)."""
     entry = {"asset_id": record["id"], "source_id": record["source_id"], "source_name": names[record["source_id"]],
@@ -243,8 +408,9 @@ def _group_by_sha(records: list[dict]) -> dict[str, list[dict]]:
 
 
 def catalog_entry(group: list[dict], names: Mapping[str, str]) -> dict:
-    """One deduplicated catalog asset from the records sharing a SHA-256."""
-    ordered = sorted(group, key=schema.provenance_sort_key)
+    """One deduplicated catalog asset from the records sharing a SHA-256: the primary record's fields (title, path,
+    URL included) plus every record as provenance, primary first (primary_sort_key)."""
+    ordered = sorted(group, key=primary_sort_key)
     primary = ordered[0]
     entry = {key: value for key, value in primary.items() if key != "family"}
     for field in MERGED_FIELDS:
@@ -292,10 +458,13 @@ def summarize(sources: list[dict], assets: list[dict], failures: list[dict]) -> 
 def combine(root: Path, *, verify: bool = False, manifests: Mapping[str, Mapping[str, Any]] | None = None,
             workers: int | None = None) -> dict:
     """The catalog without previews (``thumb`` null): validated inputs, checked files, SHA-256 dedup, provenance,
-    variants, deterministic order and summary. ``verify`` re-hashes/decodes every file and rejects orphans."""
+    variants, deterministic order and summary. ``verify`` also rejects records titled with their file name,
+    re-hashes/decodes every file and rejects orphans."""
     root = Path(root)
     manifests = load_manifests(root) if manifests is None else manifests
     sources, records, failures = source_records(manifests)
+    if verify:
+        check_titles(records)
     check_files(root, records, verify, workers)
     if verify:
         orphans = orphan_files(root, {record["path"] for record in records})
@@ -485,7 +654,7 @@ def build(root: Path, *, verify: bool = False, check: bool = False, workers: int
     catalog = combine(root, verify=verify, workers=workers)
     catalog = attach_thumbnails(root, catalog, verify=verify, required=strict)
     try:
-        schema.validate_catalog(catalog)
+        validate_catalog(catalog)
     except ValueError as error:
         raise CatalogError(f"generated catalog violates the contract: {error}") from None
     outputs = render_outputs(root, catalog, index_required=strict)

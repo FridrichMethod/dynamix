@@ -14,6 +14,7 @@ import os
 import shutil
 import subprocess
 import sys
+import unittest
 from pathlib import Path
 from urllib.parse import quote
 
@@ -113,6 +114,12 @@ def add_record(root: Path, record: dict, source_name: str | None = None) -> dict
     return record
 
 
+def default_title(original_filename: str) -> str:
+    """A human-readable title for a synthetic record that names none: never the bare file name or stem, which
+    ``build_catalog.py --verify`` rejects as a regression."""
+    return f"{paths.filename_stem(original_filename).replace('_', ' ')} (fixture record)"
+
+
 def make_record(root: Path, source_id: str, data: bytes, original_filename: str, *, title: str | None = None,
                 kind: str = "song_art", key: str | None = None, illustrators=(), composers=(), song_titles=(),
                 song_ids=(), collections=(), mapping_status: str = "unmapped", mapping_evidence=(),
@@ -134,7 +141,7 @@ def make_record(root: Path, source_id: str, data: bytes, original_filename: str,
     record = {
         "id": schema.asset_id(source_id, sha256), "source_id": source_id,
         "candidate_id": schema.candidate_id(source_id, upstream_key),
-        "title": title or original_filename, "kind": kind, "game": schema.GAME, "page_url": page_url,
+        "title": title or default_title(original_filename), "kind": kind, "game": schema.GAME, "page_url": page_url,
         "download_url": page_url + "/file", "resolved_url": page_url + "/file", "path": rel,
         "original_filename": original_filename, "bytes": info["bytes"], "sha256": sha256, "sha1": info["sha1"],
         "format": info["format"], "mime": info["mime"], "width": info["width"], "height": info["height"],
@@ -152,10 +159,14 @@ def make_record(root: Path, source_id: str, data: bytes, original_filename: str,
 
 
 def copy_record(root: Path, original: dict, source_id: str, **fields) -> dict:
-    """A record of ``source_id`` holding exactly the bytes of ``original`` (an exact cross-source duplicate)."""
+    """A record of ``source_id`` holding exactly the bytes of ``original`` (an exact cross-source duplicate). Without
+    an explicit title it keeps the original's title within the family; another family titles it from its own
+    (synthetic) post or page text, since only wiki titles may follow the file name."""
     data = (root / original["path"]).read_bytes()
-    return make_record(root, source_id, data, original["original_filename"], title=fields.pop("title",
-                       original["title"]), kind=fields.pop("kind", original["kind"]), **fields)
+    same_family = schema.source_family(source_id) == schema.source_family(original["source_id"])
+    title = fields.pop("title", original["title"] if same_family else f"{original['title']} ({source_id} post)")
+    return make_record(root, source_id, data, original["original_filename"], title=title,
+                       kind=fields.pop("kind", original["kind"]), **fields)
 
 
 # --- Deterministic images ---------------------------------------------------------------------------------------------
@@ -201,10 +212,24 @@ def run_script(name: str, *args: str) -> subprocess.CompletedProcess:
                           timeout=300, env=clean_environment())
 
 
-def git(root: Path, *args: str) -> bool:
-    """Run git in ``root``; False when git is unavailable."""
+def git_environment() -> dict[str, str]:
+    """clean_environment() without the user's and the system's Git configuration (a global core.hooksPath or
+    init.templateDir, signing, identity), so a throwaway fixture repository behaves the same on every machine. A fresh
+    fixture repository has no hooks of its own (GIT_TEMPLATE_DIR is dropped with the other GIT_* variables)."""
+    return {**clean_environment(), "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
+
+
+def git(root: Path, *args: str) -> None:
+    """Run git in the fixture repository ``root`` with git_environment(). The test is skipped only when the git
+    executable is missing; any failing git command fails the test with git's own message."""
+    executable = shutil.which("git")
+    if executable is None:
+        raise unittest.SkipTest("git is not installed")
+    command = [executable, "-C", str(root), *args]
     try:
-        subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True, env=clean_environment())
-    except (OSError, subprocess.CalledProcessError):
-        return False
-    return True
+        result = subprocess.run(command, capture_output=True, text=True, timeout=120, env=git_environment())
+    except FileNotFoundError:
+        raise unittest.SkipTest("git is not installed") from None
+    if result.returncode != 0:
+        raise AssertionError(f"git {' '.join(args)} failed with exit code {result.returncode}: "
+                             f"{(result.stderr or result.stdout).strip()}")
