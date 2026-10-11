@@ -65,7 +65,7 @@ class ProvenanceTests(unittest.TestCase):
         ID, and before an unlisted wiki whatever its ID or rendition; the catalog shows the Miraheze title and path."""
         cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
         fx.update_record(self.root, fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")["id"],
-                         title="Cosmic Pulse (Fandom caption)")
+                         title="Cosmic Pulse (Fandom caption)", mapping_status="inferred")
         atwiki = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "wikis:atwiki-ja", title="コズミックパルス"))
         catalog = build.combine(self.root, verify=True)
         build.validate_catalog(catalog)

@@ -173,18 +173,28 @@ class DedupTests(Base):
 
 
 class TitleTests(Base):
-    """Titles come from the data (09 "Catalog presentation rules", Titles); --verify rejects bare file names."""
+    """Titles come from the data (09 "Catalog presentation rules", Titles); --verify rejects bare file names and
+    confirmed single-song wiki song art that does not carry the song's exact title."""
+
+    RULE = "break the title rule"
 
     def add(self, source_id, filename, title, **fields):
-        seed = zlib.crc32(filename.encode("utf-8"))
+        seed = zlib.crc32(f"{source_id}/{filename}".encode("utf-8"))
         data = fx.solid_png((30, 20), (seed & 255, (seed >> 8) & 255, (seed >> 16) & 255))
         return fx.add_record(self.root, fx.make_record(self.root, source_id, data, filename, title=title, **fields))
+
+    @staticmethod
+    def record(source_id, filename, title, **fields):
+        """A bare record for title_problem (only the fields it reads)."""
+        return {"id": f"{source_id}:0000000000000000", "source_id": source_id, "original_filename": filename,
+                "title": title, "kind": "promotional", "song_titles": [], "mapping_status": "unmapped",
+                "mapping_evidence": [], "credit_evidence": None, **fields}
 
     def assert_verify_fails(self, *expected):
         with self.assertRaises(build.CatalogError) as caught:
             build.combine(self.root, verify=True)
         message = str(caught.exception)
-        self.assertIn("titled with their bare upstream file name", message)
+        self.assertIn(self.RULE, message)
         for text in expected:
             self.assertIn(text, message)
         build.combine(self.root)  # only --verify checks titles
@@ -192,7 +202,8 @@ class TitleTests(Base):
 
     def test_the_catalog_title_is_the_primary_records_title(self):
         fandom = fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")
-        fx.update_record(self.root, fandom["id"], title="Cosmic Pulse (Fandom gallery caption)")
+        fx.update_record(self.root, fandom["id"], title="Cosmic Pulse (Fandom gallery caption)",
+                         mapping_status="inferred")
         entry = self.entries(build.combine(self.root, verify=True), sha256=fandom["sha256"])[0]
         self.assertEqual((entry["source_id"], entry["title"]), ("wikis:miraheze", "Cosmic Pulse"))
         self.assertEqual([p["asset_id"] for p in entry["provenance"]][1], fandom["id"])
@@ -202,12 +213,12 @@ class TitleTests(Base):
         self.assertEqual((entry["id"], entry["title"]), (artist["id"], "Cosmic Pulse illustration (artist post)"))
 
     def test_verify_rejects_a_title_that_is_the_upstream_file_name(self):
-        cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
-        fx.update_record(self.root, cosmic["id"], title=cosmic["original_filename"])
-        self.assert_verify_fails(f"{cosmic['id']}: title 'Cosmic Pulse.png' is the upstream file name")
+        background = fx.find_record(self.root, title="Dynamix background 03", upstream_status="current")
+        fx.update_record(self.root, background["id"], title=background["original_filename"])
+        self.assert_verify_fails(f"{background['id']}: title 'Dynamix background 03.png' is the upstream file name")
         code, stderr = self.run_main("--verify")
         self.assertEqual(code, 1)
-        self.assertIn("1 record(s) are titled with their bare upstream file name", stderr)
+        self.assertIn(f"1 record(s) {self.RULE}", stderr)
         self.assertIn("original_filename", stderr)
         self.assertFalse((self.root / build.CATALOG_JSON).exists())
 
@@ -221,10 +232,83 @@ class TitleTests(Base):
         fx.update_record(self.root, scan["id"], title="Interview scan, page 4")
         build.combine(self.root, verify=True)
 
-    def test_a_stem_that_is_an_exact_song_title_passes(self):
+    def test_file_names_are_compared_ignoring_case_separators_and_spacing(self):
+        """The likely variants of a file-name title: '_' written as spaces or '-', another case, the extension in
+        another case. Text-titled families compare the stem this way, every family the full name."""
+        for family in ("artists:x:fixture_painter", "official:x", "archives:4gamer"):
+            for title in ("IMG 0042", "img_0042", "IMG-0042", " IMG  0042 ", "ＩＭＧ_００４２"):
+                with self.subTest(family=family, title=title):
+                    problem = build.title_problem(self.record(family, "IMG_0042.jpg", title))
+                    self.assertIn("is the stem of original_filename 'IMG_0042.jpg'", problem or "")
+            for title in ("IMG_0042.JPG", "img 0042.jpg", "IMG-0042.Jpg"):
+                with self.subTest(family=family, title=title):
+                    problem = build.title_problem(self.record(family, "IMG_0042.jpg", title))
+                    self.assertIn("is the upstream file name 'IMG_0042.jpg'", problem or "")
+        for title in ("Night Drive Chart List.JPG", "night_drive_chart_list.jpg"):
+            with self.subTest(family="wikis", title=title):
+                problem = build.title_problem(self.record("wikis:miraheze", "Night_Drive_Chart_List.jpg", title))
+                self.assertIn("is the upstream file name", problem or "")
+        self.assertIsNone(build.title_problem(self.record("archives:4gamer", "IMG_0042.jpg", "Interview photo 42")))
+        caught = [self.add("archives:fixture-scan", f"IMG_{n:04d}.jpg", title)
+                  for n, title in enumerate(("IMG 0000", "img_0001", "IMG_0002.JPG"))]
+        message = self.assert_verify_fails(*(record["id"] for record in caught))
+        self.assertIn("3 record(s)", message)
+
+    def test_wiki_titles_keeping_the_underscores_are_rejected_in_any_case(self):
+        record = self.record("wikis:miraheze", "Night_Drive_Chart_List.jpg", "night_drive_chart_list",
+                             kind="reference")
+        self.assertIn("File: name with underscores", build.title_problem(record) or "")
+        for title in ("Night Drive Chart List", "night drive chart list"):  # the fallback, whatever its case
+            self.assertIsNone(build.title_problem({**record, "title": title}))
+
+    def test_a_title_quoted_verbatim_in_evidence_passes_in_every_family(self):
+        """A post or page whose text really is the file stem: the record's evidence quotes it (a `quote` field equal
+        to the title, or the title between quotation marks in evidence or notes)."""
+        quote = {"url": "https://example.org/post/1", "field": "caption", "quote": "Cosmic Pulse"}
+        for family in ("artists:x:fixture_painter", "official:x", "archives:4gamer", "wikis:miraheze"):
+            with self.subTest(family=family):
+                bare = self.record(family, "Cosmic_Pulse.png", "Cosmic_Pulse")
+                self.assertIsNotNone(build.title_problem(bare))
+                caption = {"url": "https://example.org/post/1", "field": "caption", "quote": "Cosmic_Pulse"}
+                self.assertIsNone(build.title_problem({**bare, "mapping_evidence": [caption]}))
+                self.assertIsNone(build.title_problem({**bare, "notes": "post text: 'Cosmic_Pulse'"}))
+                credit = [{"role": "illustrator", "name": "P", "url": None, "field": "caption",
+                           "quote": "Cosmic_Pulse"}]
+                self.assertIsNone(build.title_problem({**bare, "credit_evidence": credit}))
+                partial = {**caption, "quote": "Cosmic_Pulse by P"}  # a longer text does not quote the title
+                self.assertIsNotNone(build.title_problem({**bare, "mapping_evidence": [partial]}))
+        post = self.add("artists:x:fixture_painter", "Cosmic Pulse.png", "Cosmic Pulse", kind="promotional")
+        self.assert_verify_fails(f"{post['id']}: title 'Cosmic Pulse' is the stem")
+        fx.update_record(self.root, post["id"], mapping_evidence=[quote])
+        build.combine(self.root, verify=True)
+
+    def test_an_exact_song_title_passes_even_when_it_is_the_file_name(self):
         self.add("artists:x:fixture_painter", "Cosmic Pulse.png", "Cosmic Pulse", song_titles=["Cosmic Pulse"],
                  song_ids=["song:cosmic-pulse"], mapping_status="confirmed_primary",
                  mapping_evidence=["https://example.org/x-fixture_painter/post"])
+        build.combine(self.root, verify=True)
+        record = self.record("official:x", "Marion.net", "Marion.net")  # a song whose title has a dot
+        self.assertIn("is the upstream file name", build.title_problem(record) or "")
+        self.assertIsNone(build.title_problem({**record, "song_titles": ["Marion.net"]}))
+
+    def test_a_file_name_without_extension_follows_the_stem_rules(self):
+        self.assertIsNone(build.title_problem(self.record("wikis:miraheze", "SummerIslandBG", "SummerIslandBG")))
+        problem = build.title_problem(self.record("archives:4gamer", "scan0001", "scan0001"))
+        self.assertIn("is the stem of original_filename", problem or "")
+
+    def test_confirmed_single_song_wiki_song_art_carries_the_song_title(self):
+        cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        fx.update_record(self.root, cosmic["id"], title="Cosmic Pulse jacket")
+        self.assert_verify_fails(f"{cosmic['id']}: title 'Cosmic Pulse jacket' is not the exact title 'Cosmic Pulse'")
+        song = self.record("wikis:miraheze", "CP_jacket.png", "Cosmic Pulse jacket", kind="song_art",
+                           mapping_status="confirmed_wiki", song_titles=["Cosmic Pulse"])
+        self.assertIsNotNone(build.title_problem({**song, "mapping_status": "confirmed_primary"}))
+        for fields in ({"mapping_status": "inferred"}, {"mapping_status": "conflict"},
+                       {"song_titles": ["Cosmic Pulse", "Moonlight of Sand Castle"]}, {"kind": "promotional"},
+                       {"source_id": "official:x", "id": "official:x:0000000000000000"}):
+            with self.subTest(fields=fields):
+                self.assertIsNone(build.title_problem({**song, **fields}))
+        fx.update_record(self.root, cosmic["id"], title="Cosmic Pulse")
         build.combine(self.root, verify=True)
 
     def test_wiki_titles_follow_the_rule_fallback(self):

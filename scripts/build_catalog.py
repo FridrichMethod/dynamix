@@ -14,7 +14,8 @@ always stay distinct entries; superseded and removed records stay archived.
 
 --verify  re-hash and fully decode every archived file, check previews by SHA-256, reject files under assets/public/
           that no manifest record names (dot-files such as interrupted `.part` downloads excepted) and reject records
-          titled with their bare upstream file name (see title_problem).
+          that break the title rule: a bare upstream file name or stem as title, or confirmed single-song wiki song
+          art not titled with that song (see title_problem).
 --check   regenerate the outputs in memory and compare them byte-for-byte (a CRLF checkout is accepted) without
           writing anything; exit 1 when one is missing or stale.
 --root    build another repository-shaped tree (tests, fixtures). Outside the repository root data/thumbs.json and
@@ -36,6 +37,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import unicodedata
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -66,6 +68,9 @@ PREFERRED_SOURCES = ("wikis:miraheze", "wikis:fandom")
 VARIANT_PRIORITY = ("site_original", "preview", "unknown")  # quality.source_variant, best first
 # Families whose titles come from the post or page text a record cites, never from its file name (09 "Titles").
 TEXT_TITLED_FAMILIES = ("artists", "official", "archives")
+# Wiki song art confirmed to show exactly one song with this evidence (confirmed_wiki or stronger) carries that song's
+# exact title (09 "Titles").
+CONFIRMED_STATUSES = ("confirmed_primary", "confirmed_wiki")
 # Quotation marks around a caption quoted in evidence ('A_O', "A_O", “A_O”, ‘A_O’, 「A_O」).
 QUOTE_PAIRS = (("'", "'"), ('"', '"'), ("“", "”"), ("‘", "’"), ("「", "」"))
 
@@ -160,10 +165,14 @@ def source_records(manifests: Mapping[str, Mapping[str, Any]]) -> tuple[list[dic
 
 # --- Titles -----------------------------------------------------------------------------------------------------------
 
+def _evidence_items(record: Mapping[str, Any]) -> list[Any]:
+    return [*(record.get("mapping_evidence") or []), *(record.get("credit_evidence") or [])]
+
+
 def _evidence_texts(record: Mapping[str, Any]) -> list[str]:
     """Every string the record's mapping evidence, credit evidence and notes carry."""
     texts: list[str] = []
-    for item in [*(record.get("mapping_evidence") or []), *(record.get("credit_evidence") or [])]:
+    for item in _evidence_items(record):
         values = item.values() if isinstance(item, dict) else [item]
         texts.extend(value for value in values if isinstance(value, str))
     if isinstance(record.get("notes"), str):
@@ -172,45 +181,75 @@ def _evidence_texts(record: Mapping[str, Any]) -> list[str]:
 
 
 def _quoted_in_evidence(record: Mapping[str, Any], text: str) -> bool:
-    """The record's evidence quotes ``text`` exactly between quotation marks (a recorded wiki caption)."""
+    """The record's evidence quotes ``text`` verbatim: an evidence ``quote`` that is exactly ``text``, or ``text``
+    exactly between quotation marks in any evidence string or the notes (a recorded caption such as ``'A_O'``)."""
+    if any(isinstance(item, dict) and item.get("quote") == text for item in _evidence_items(record)):
+        return True
     quoted = [f"{left}{text}{right}" for left, right in QUOTE_PAIRS]
     return any(form in value for value in _evidence_texts(record) for form in quoted)
 
 
+def comparable_name(text: str) -> str:
+    """Comparison form of a title or file name: NFKC, casefolded, ``_`` and ``-`` read as spaces, whitespace
+    collapsed. 'IMG 0042', 'img_0042' and 'IMG-0042' all compare equal to the stem 'IMG_0042'."""
+    folded = unicodedata.normalize("NFKC", text).casefold().replace("_", " ").replace("-", " ")
+    return " ".join(folded.split())
+
+
+def _confirmed_song_title(record: Mapping[str, Any]) -> str | None:
+    """The one song a wiki song_art record is confirmed to show (confirmed_wiki or stronger), else None."""
+    songs = schema.ordered_union([record.get("song_titles") or []])
+    if record["kind"] == "song_art" and record.get("mapping_status") in CONFIRMED_STATUSES and len(songs) == 1:
+        return songs[0]
+    return None
+
+
 def title_problem(record: Mapping[str, Any]) -> str | None:
-    """Why the record's title is its bare upstream file name, else None (09 "Catalog presentation rules", Titles: a
-    human-readable name; the file name stays in ``original_filename``). A regression check run by --verify:
+    """Why the record's title breaks the title rule, else None (09 "Catalog presentation rules", Titles: a
+    human-readable name; the upstream file name stays in ``original_filename``). Checked by --verify:
 
-    * any family: the title is ``original_filename`` (extension included);
-    * artists, official, archives: the title is the file stem (their titles come from the cited post or page text);
-    * wikis: the title is a file stem containing ``_``, which the rule's fallback writes as spaces, unless the
-      record's evidence quotes exactly that text (a wiki caption such as ``'A_O'``).
+    * a title equal to one of the record's exact ``song_titles`` always passes;
+    * wikis: song art confirmed (``confirmed_wiki`` or stronger) to show exactly one song carries that song's exact
+      title;
+    * any family: the title is the upstream file name with its extension, compared ignoring case, ``_``/``-`` and
+      spacing (``IMG_0042.JPG``, ``img 0042.jpg`` for ``IMG_0042.jpg``);
+    * artists, official, archives: the title is the file stem, compared the same way (``IMG 0042``, ``img_0042``),
+      since their titles come from the post or page text they cite;
+    * wikis: the title keeps the ``_`` of the stem (case ignored), which the rule's fallback writes as spaces.
 
-    Otherwise a title equal to one of the record's exact ``song_titles`` passes, and so does a wiki title equal to a
-    stem without ``_``: the rule's own fallback for ``File:SummerIslandBG.png`` is ``SummerIslandBG``."""
+    The stem checks pass when the record's evidence quotes the title verbatim (see _quoted_in_evidence): a post,
+    page or wiki caption that really is that text (the wiki captions ``File:A_O.jpg`` as ``'A_O'``). A wiki title
+    equal to a stem without ``_`` is the rule's own fallback (``File:SummerIslandBG.png`` gives ``SummerIslandBG``)."""
     title, filename = record["title"].strip(), record["original_filename"]
-    stem = paths.filename_stem(filename)
-    if title == filename:
-        return f"title {title!r} is the upstream file name (original_filename)"
-    if title != stem or title in record.get("song_titles", ()):
+    if title in (record.get("song_titles") or ()):
         return None
     family = record.get("family") or schema.source_family(record["source_id"])
+    song = _confirmed_song_title(record) if family == "wikis" else None
+    if song is not None:
+        return (f"title {title!r} is not the exact title {song!r} of the one song this wiki song art is confirmed "
+                f"({record['mapping_status']}) to show")
+    name = re.split(r"[\\/]", filename)[-1]
+    stem, wanted = paths.filename_stem(filename), comparable_name(title)
+    if stem != name and wanted in (comparable_name(name), comparable_name(filename)):
+        return f"title {title!r} is the upstream file name {filename!r} (original_filename)"
+    if wanted != comparable_name(stem) or _quoted_in_evidence(record, title):
+        return None
     if family in TEXT_TITLED_FAMILIES:
-        return (f"title {title!r} is the stem of original_filename {filename!r}; {family} titles come from the cited "
-                "post or page text")
-    if "_" in stem and not _quoted_in_evidence(record, title):
+        return (f"title {title!r} is the stem of original_filename {filename!r}; {family} titles come from the post "
+                "or page text they cite (quote it in the record's evidence when it really is that text)")
+    if "_" in title:
         return (f"title {title!r} is the File: name with underscores (original_filename {filename!r}); use the "
                 "mapped song's title, the wiki caption (quoted in evidence), or the File: title with spaces")
     return None
 
 
 def check_titles(records: Iterable[Mapping[str, Any]]) -> None:
-    """Fail when any record is titled with its bare upstream file name (see title_problem)."""
+    """Fail when any record breaks the title rule (see title_problem)."""
     found = [f"{record['id']}: {problem}" for record in records if (problem := title_problem(record))]
     if found:
         more = f"\n... and {len(found) - MAX_REPORTED} more" if len(found) > MAX_REPORTED else ""
-        raise CatalogError(f"{len(found)} record(s) are titled with their bare upstream file name; a title is a "
-                           "human-readable name and the file name stays in original_filename (09-frozen-contracts.md, "
+        raise CatalogError(f"{len(found)} record(s) break the title rule: a title is a human-readable name, never the "
+                           "bare upstream file name, which stays in original_filename (09-frozen-contracts.md, "
                            "Catalog presentation rules, Titles):\n" + "\n".join(found[:MAX_REPORTED]) + more)
 
 
