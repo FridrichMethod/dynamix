@@ -19,7 +19,7 @@ from test_fetch_wikis import NOW, WikiRun  # noqa: E402  (also puts scripts/ and
 
 from fakewiki import image_bytes  # noqa: E402
 from lib import net  # noqa: E402
-from wikis import acquire, cli, config  # noqa: E402
+from wikis import acquire, cli, config, variants  # noqa: E402
 
 
 class FailureLifecycleTests(WikiRun):
@@ -385,6 +385,60 @@ class WorkDirTests(WikiRun):
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 3)
         with self.assertRaises(acquire.UnsafeWorkDir):
             journal.read()
+
+
+class VariantLinkTests(WikiRun):
+    """Variant links between the wikis' records of one title follow the records: set while the current records hold
+    different bytes, removed when the bytes converge, never on removed or superseded revisions."""
+
+    def test_links_follow_a_reupload(self) -> None:
+        client = self.scenario.client()
+        url = next(url for url in client.blobs if "Pair_Comeback" in url and "nocookie" in url)
+        client.blobs[url] = image_bytes("JPEG", (64, 36), 126)  # Fandom's CDN serves other bytes than Miraheze
+        self.assertEqual(self.run_cli(client=client), 0, "\n".join(self.logs))
+        old_fandom = self.asset("fandom", "File:Pair Comeback Chart List.jpg")
+        mira = self.asset("miraheze", "File:Pair Comeback Chart List.jpg")
+        group = "wiki-file:File:Pair_Comeback_Chart_List.jpg"
+        self.assertEqual((old_fandom.get("variant_group"), mira.get("variant_group")), (group, group))
+        # Fandom re-uploads the title; format=original now returns the bytes Miraheze holds.
+        self.scenario.overrides[("fandom", "Pair Comeback Chart List.jpg")] = {
+            "timestamp": "2026-09-01T00:00:00Z", "sha1": "b" * 40}
+        self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        new_fandom = self.asset("fandom", "File:Pair Comeback Chart List.jpg")
+        self.assertNotEqual(new_fandom["id"], old_fandom["id"])
+        self.assertEqual(new_fandom["sha256"], mira["sha256"])
+        superseded = assets[old_fandom["id"]]
+        self.assertEqual((superseded["upstream_status"], superseded["superseded_by"]), ("superseded", new_fandom["id"]))
+        for record in (superseded, new_fandom, assets[mira["id"]]):  # stale links removed, none on the old revision
+            self.assertFalse(set(variants.FIELDS) & set(record), record["id"])
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    @staticmethod
+    def _record(source_id: str, sha256: str, status: str | None = None, **extra) -> dict:
+        record = {"id": f"{source_id}:{sha256[:16]}", "source_id": source_id,
+                  "candidate_id": f"{source_id}:File:T.png", "sha256": sha256, "comparisons": {"sha1_match": True}}
+        if status:
+            record["upstream_status"] = status
+        return dict(record, **extra)
+
+    def test_link_rules(self) -> None:
+        mira, fandom = config.MIRAHEZE.source_id, config.FANDOM.source_id
+        stale = {"variant_group": "wiki-file:File:T.png", "variant_role": "old"}
+        # Same bytes on both wikis: stale links are removed.
+        same = variants.link([self._record(mira, "a" * 64, **stale), self._record(fandom, "a" * 64, **stale)])
+        self.assertTrue(all(not set(variants.FIELDS) & set(record) for record in same))
+        # Different bytes on two wikis: both current records are linked.
+        linked = variants.link([self._record(mira, "a" * 64), self._record(fandom, "b" * 64)])
+        self.assertEqual({record.get("variant_group") for record in linked}, {"wiki-file:File:T.png"})
+        # A superseded or removed revision is never linked, and its stale fields go.
+        for status in ("superseded", "removed"):
+            records = variants.link([self._record(mira, "a" * 64), self._record(fandom, "a" * 64),
+                                     self._record(fandom, "c" * 64, status, **stale)])
+            self.assertTrue(all(not set(variants.FIELDS) & set(record) for record in records), status)
+        # Different bytes within one source only are not wiki variants.
+        alone = variants.link([self._record(mira, "a" * 64), self._record(mira, "d" * 64)])
+        self.assertTrue(all(not set(variants.FIELDS) & set(record) for record in alone))
 
 
 if __name__ == "__main__":
