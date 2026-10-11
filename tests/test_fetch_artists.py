@@ -1,8 +1,10 @@
-"""Offline tests for scripts/fetch_artists.py and the artist adapters (pixiv, X, SoundCloud/Bandcamp, ArtStation).
+"""Offline tests for scripts/fetch_artists.py and the artist adapters (pixiv, X, SoundCloud/Bandcamp, ArtStation,
+Bilibili).
 
-Covers multi-page/multi-image posts mapped per image, blocked access without a retry storm, rejected submissions,
-unrelated portfolio entries, uploader identity checks, misleading advertised dimensions, interrupted runs and
-idempotent ``--resume``. Run: ``python -I tests/test_fetch_artists.py``.
+Covers multi-page/multi-image posts mapped per image, blocked access without a retry storm, risk-control and captcha
+answers, rejected submissions, unrelated portfolio entries, uploader identity checks, misleading advertised
+dimensions, archived fallback renditions, interrupted runs and idempotent ``--resume``.
+Run: ``python -I tests/test_fetch_artists.py``.
 """
 
 import base64
