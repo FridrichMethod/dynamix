@@ -85,4 +85,4 @@ An archived copy does not change ownership. The rights holder defaults to "C4Cat
 .venv/bin/python -I scripts/fetch_archives.py --verify            # offline
 ```
 
-The options, locking, atomic writes, error handling and exit status are the same as for `fetch_artists.py` (see [sources-artists.md](sources-artists.md#commands)). The lock defaults to the family's `assets/public/archives/` directory.
+The options, locking, atomic writes, error handling and exit status are the same as for `fetch_artists.py` (see [sources-artists.md](sources-artists.md#commands)). The lock is always held on the family's `assets/public/archives/` directory; `--lock` adds a second one.

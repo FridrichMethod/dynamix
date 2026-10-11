@@ -76,4 +76,4 @@
 .venv/bin/python -I scripts/fetch_official.py --verify            # 离线
 ```
 
-参数、锁、原子写入、错误处理和退出状态与 `fetch_artists.py` 相同（见 [sources-artists.zh-CN.md](sources-artists.zh-CN.md#命令)）。锁默认位于本类别的 `assets/public/official/` 目录上。
+参数、锁、原子写入、错误处理和退出状态与 `fetch_artists.py` 相同（见 [sources-artists.zh-CN.md](sources-artists.zh-CN.md#命令)）。锁始终持有在本类别的 `assets/public/official/` 目录上；`--lock` 另加一把锁。

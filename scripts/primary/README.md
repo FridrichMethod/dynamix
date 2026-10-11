@@ -26,9 +26,9 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
   another (re-signed or moved) URL keeps them, notes `Re-fetched <date> ...` (latest only) and the downloaded
   candidate names the archived URL. An adapter's download check can hold a completed download as `pending` (nothing
   archived): a Wayback raw request answered from another capture, or bytes that are not the CDX payload.
-- Each acquisition holds an exclusive `fcntl.flock` (`--lock`; default: the family's `assets/public/<family>`
-  directory under the root, so `TMPDIR` cannot give two writers different locks and no lock file is created); a second
-  writer of the same family exits with status 3. Manifests and snapshots are validated and rewritten atomically after
+- Each acquisition holds an exclusive `fcntl.flock` on the family's `assets/public/<family>` directory under the root
+  (so `TMPDIR` cannot give two writers different locks and no lock file is created); `--lock` takes one more lock in
+  addition, never instead of it. A second writer of the same family exits with status 3. Manifests and snapshots are validated and rewritten atomically after
   every resolved candidate, so a killed run loses at most the file in flight. A file that no record names any more (a
   taken-over or withdrawn record) is deleted only after the manifest without it has been written.
 - A download whose drafted URL answers HTTP 404 tries the adapter's fallback URLs in order (a fallback on a host the
@@ -50,7 +50,9 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
   record: the record is adopted by the new candidate (`current`, note naming the first candidate) or, when its own
   candidate still names it, restored to `current`.
 - One source's unexpected adapter error does not stop the run: its snapshot keeps the previous candidates, an open
-  `adapter` continuation and the error, the remaining sources run, and the CLI exits 1. A page or API read that fails
+  `adapter` continuation and the error, the remaining sources run, and the CLI exits 1. The CLI also exits 1 when the
+  run leaves candidates `failed` or `blocked` (an incomplete acquisition, as `fetch_wikis.py` reports failed or blocked
+  downloads), and lists them per source on stderr. A page or API read that fails
   keeps its list open (`not-read:<error class>`), so `discovery_complete` is never inferred from an error.
 
 ## Seed rules (`model.py`)

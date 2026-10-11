@@ -4,18 +4,21 @@ misleading extensions, press-release PDFs (archive tier), live 404s, primary-pos
 """
 
 import base64
+import io
 import json
 import hashlib
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
-from primary import model, runner  # noqa: E402
+from primary import cli, model, runner  # noqa: E402
 from primary.adapters import direct as direct_adapter, wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
 
@@ -1203,6 +1206,68 @@ class VerifySnapshotTests(ArchivesTestCase):
         self.assertTrue(any(e.startswith("data/discovery/wayback.json: not a discovery snapshot") for e in errors))
         self.assertTrue(any(w.startswith("data/discovery/stray.json: not a discovery snapshot") for w in warnings))
         self.assertFalse(any("song-index" in line for line in errors + warnings))
+
+
+class CliExitTests(ArchivesTestCase):
+    """The shared primary CLI (fetch_artists/official/archives.py): exit status and the family lock."""
+
+    def write_seeds(self):
+        path = self.root / "seeds.json"
+        path.write_text(json.dumps({"family": "archives", "sources": [{
+            "id": "archives:press", "name": "Press", "url": "https://news.example.org/", "platform": "web",
+            "adapter": "direct_files", "hosts": ["news.example.org", "img.example.org"], "quality": QUALITY,
+            "items": [{"key": "k1", "page_url": "https://news.example.org/a", "file_url": "https://img.example.org/1.png"},
+                      {"key": "k2", "page_url": "https://news.example.org/a",
+                       "file_url": "https://img.example.org/2.png"}],
+            "rules": [{"match": "^k[12]$", "role": "promotional"}]}]}), encoding="utf-8")
+        return path
+
+    def main(self, routes, *extra):
+        network = FakeNetwork(routes)
+        err = io.StringIO()
+        with mock.patch.object(net, "PoliteClient", lambda hosts, **kw: network.factory(hosts, kw.get("min_interval",
+                                                                                                         1.0))), \
+                redirect_stdout(io.StringIO()), redirect_stderr(err):
+            code = cli.main("archives", ["--root", str(self.root), "--seeds", str(self.write_seeds()), *extra])
+        return code, err.getvalue()
+
+    def routes(self, error=None):
+        ok = {"bytes": image_bytes("PNG"), "content_type": "image/png"}
+        return {"https://img.example.org/1.png": {"error": error} if error else ok,
+                "https://img.example.org/2.png": {"bytes": image_bytes("PNG", (9, 9)), "content_type": "image/png"}}
+
+    def test_failed_or_blocked_candidates_exit_one(self):
+        url = "https://img.example.org/1.png"
+        for error, disposition in ((net.HttpError("HTTP 500", url=url, http_status=500, retriable=True), "failed"),
+                                   (net.TimeoutFetchError("timed out", url=url), "failed"),
+                                   (net.BlockedError("access refused (HTTP 403)", url=url, http_status=403), "blocked")):
+            with self.subTest(error=type(error).__name__):
+                code, err = self.main(self.routes(error))
+                self.assertEqual(code, 1, err)
+                self.assertEqual(self.candidates("archives:press")["k1"]["disposition"], disposition)
+                self.assertIn(f"archives:press left 1 {disposition}", err)
+        code, err = self.main(self.routes())
+        self.assertEqual(code, 0, err)
+        self.assertEqual({c["disposition"] for c in self.candidates("archives:press").values()}, {"downloaded"})
+
+    def test_explicit_lock_does_not_replace_the_family_lock(self):
+        held = cli.acquire_lock(cli.default_lock_path(self.root, "archives"))
+        try:
+            code, err = self.main(self.routes(), "--lock", str(self.root / "other.lock"))
+            self.assertEqual(code, 3)
+            self.assertIn("another acquisition holds the lock", err)
+            self.assertFalse((self.root / "data/sources/archives.json").exists())
+        finally:
+            held.close()
+        other = cli.acquire_lock(self.root / "other.lock")  # the additional lock was released (or never taken)
+        self.assertIsNotNone(other)
+        try:
+            code, err = self.main(self.routes(), "--lock", str(self.root / "other.lock"))
+            self.assertEqual(code, 3)  # the additional lock is honoured too
+        finally:
+            other.close()
+        code, err = self.main(self.routes(), "--lock", str(self.root / "other.lock"))
+        self.assertEqual(code, 0, err)
 
 
 if __name__ == "__main__":
