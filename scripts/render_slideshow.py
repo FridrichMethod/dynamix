@@ -90,6 +90,16 @@ def joined(asset: dict, key: str) -> str:
     return "\n".join(values)
 
 
+def display_title(asset: dict) -> str:
+    """The catalog's human title, verbatim; a record without one (the builder always writes one) is named by its songs,
+    then by its upstream file name, then by its ID, as the archive page names it."""
+    songs = " / ".join(entry for entry in asset.get("song_titles") or [] if isinstance(entry, str) and entry.strip())
+    for value in (asset.get("title"), songs, asset.get("original_filename"), asset.get("id")):
+        if isinstance(value, str) and value.strip():
+            return value
+    return ""
+
+
 def art_layout(root: Path, asset: dict) -> dict:
     """Stage layout hints for a cut-out on a transparent canvas: data-art-box is the box of the visibly opaque pixels
     (alpha above ALPHA_THRESHOLD) as "x y w h" fractions of the canvas, so the stage sizes and centres the art rather
@@ -158,7 +168,7 @@ def slide_fields(asset: dict, layout: dict) -> dict:
         raise ValueError(f"{asset.get('id')}: slideshow asset has no pixel dimensions")
     fields = {
         "class": "dynamix-draw", **slide_media(asset),
-        "data-id": asset["id"], "data-title": asset.get("title") or "",
+        "data-id": asset["id"], "data-title": display_title(asset),
         "data-source": asset.get("source_name") or asset.get("source_id") or "", "data-source-id": asset.get("source_id") or "",
         "data-family": asset.get("family") or "",
     }
@@ -173,7 +183,7 @@ def slide_fields(asset: dict, layout: dict) -> dict:
         value = joined(asset, key)
         if value:
             fields[attribute] = value
-    fields["alt"] = asset.get("title") or ""
+    fields["alt"] = fields["data-title"]
     return fields
 
 

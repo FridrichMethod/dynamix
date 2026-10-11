@@ -149,6 +149,25 @@ class RenderTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.render([asset(1, width=None, height=None)])
 
+    def test_a_missing_title_falls_back_to_the_songs_then_the_file_name(self):
+        """The data provides a human title; a record without one is named by its songs, then by its upstream file name,
+        then by its ID (as the archive page names it), never left blank."""
+        cases = [
+            (asset(1, title="Human Title", song_titles=["Song"], original_filename="Song_jacket.png"), "Human Title"),
+            (asset(2, title="", song_titles=["Song A", " ", "Song B"], original_filename="a.png"), "Song A / Song B"),
+            (asset(3, title="  ", song_titles=[], original_filename="Song_jacket.png"), "Song_jacket.png"),
+            (asset(4, title=None, song_titles=None), asset(4)["id"]),
+        ]
+        slides = slides_of(self.render([case for case, _ in cases])).slides
+        for slide, (_, expected) in zip(slides, cases, strict=True):
+            with self.subTest(expected=expected):
+                self.assertEqual((slide["data-title"], slide["alt"]), (expected, expected))
+        code = (ROOT / "src/archive.js").read_text(encoding="utf-8")
+        self.assertIn('const titleOf = (asset) => [asset.title, textList(asset.song_titles).join(" / "), asset.original_filename, asset.id]', code)
+        # Besides titleOf() only the search reads the raw title (with the songs and the file name it already searches).
+        self.assertEqual((code.count("asset.title"), code.count("other.title"), code.count("newer.title")), (2, 0, 0))
+        self.assertIn("return fold([asset.title, asset.original_filename,", code)
+
     def test_credits_are_merged_one_per_line_and_missing_ones_stay_missing(self):
         merged = asset(1, illustrators=None, composers=None, provenance=[
             {"source_id": "a", "illustrators": ["X", "Y"], "composers": []},

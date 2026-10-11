@@ -22,6 +22,11 @@
   const familyName = (family) => label("family", family);
   // Sentences in a row: English puts a space between them, Chinese (after its full stop) none.
   const sentences = (parts) => parts.filter(Boolean).reduce((first, second) => t("text.sentences", {first, second}), "");
+  // The catalog's human title; a record without one (never written by the builder) is named by its songs, then by its
+  // upstream file name, then by its ID.
+  const textList = (value) => Array.isArray(value) ? value.filter((entry) => typeof entry === "string" && entry.trim()) : [];
+  const titleOf = (asset) => [asset.title, textList(asset.song_titles).join(" / "), asset.original_filename, asset.id]
+    .find((value) => typeof value === "string" && value.trim()) || "";
   const kindName = (kind) => label("kind", kind);
   const sources = Array.isArray(catalog.sources) ? catalog.sources : [];
   const sourceInfo = new Map(sources.map((source) => [source.id, source]));
@@ -147,7 +152,7 @@
     if ($("sort").value === "source") filtered.sort((a, b) => FAMILIES.indexOf(a.family) - FAMILIES.indexOf(b.family));
     if ($("sort").value === "title") {
       const collator = new Intl.Collator(i18n.lang, {numeric: true});
-      filtered.sort((a, b) => collator.compare(String(a.title), String(b.title)));
+      filtered.sort((a, b) => collator.compare(titleOf(a), titleOf(b)));
     }
     if ($("sort").value === "resolution") filtered.sort((a, b) => (b.width || 0) * (b.height || 0) - (a.width || 0) * (a.height || 0));
     renderCount();
@@ -206,7 +211,7 @@
       else placeholder(button, asset);
     });
     image.src = first;
-    image.alt = asset.title;
+    image.alt = titleOf(asset);
     image.loading = "lazy";
     image.decoding = "async";
     if (isRaster(asset)) {
@@ -218,7 +223,7 @@
   // Language-dependent parts of a card; card.children is [image button, title, size line, source line, tag, flags].
   function localizeCard(card, asset) {
     const [button, , , source, tag, flags] = card.children;
-    button.setAttribute("aria-label", t("card.view", {title: asset.title}));
+    button.setAttribute("aria-label", t("card.view", {title: titleOf(asset)}));
     const tile = button.querySelector(".card-placeholder");
     if (tile) tile.textContent = t(tile.dataset.i18n);
     const name = sourceName(asset.source_id, asset.source_name);
@@ -244,7 +249,7 @@
       button.type = "button";
       cardImage(button, asset);
       button.addEventListener("click", () => open(index));
-      card.append(button, element("h2", asset.title), element("p", metaLine(asset)), element("p"), element("p", null, "tag"), element("p", null, "flags"));
+      card.append(button, element("h2", titleOf(asset)), element("p", metaLine(asset)), element("p"), element("p", null, "tag"), element("p", null, "flags"));
       localizeCard(card, asset);
       fragment.append(card);
     }
@@ -300,7 +305,7 @@
     for (const id of others) {
       const other = byId.get(id);
       if (!other) { box.append(paragraph(element("span", textValue(id)))); continue; }
-      const button = element("button", [other.title, dimensions(other), other.variant_role ? textValue(other.variant_role) : null].filter(Boolean).join(" · "));
+      const button = element("button", [titleOf(other), dimensions(other), other.variant_role ? textValue(other.variant_role) : null].filter(Boolean).join(" · "));
       button.type = "button";
       button.addEventListener("click", () => show(other));
       box.append(paragraph(button));
@@ -351,7 +356,7 @@
     // superseded_by names a source record's asset ID: a catalog entry's own ID, or the asset_id of one of its records.
     const newer = p.superseded_by && (byId.get(p.superseded_by) || assets.find((asset) => records(asset).some((record) => record.asset_id === p.superseded_by)));
     if (newer) {
-      const button = element("button", t("provenance.superseded_by", {title: newer.title, size: dimensions(newer) || newer.format}));
+      const button = element("button", t("provenance.superseded_by", {title: titleOf(newer), size: dimensions(newer) || newer.format}));
       button.type = "button";
       button.addEventListener("click", () => show(newer));
       notes.push(paragraph(button));
@@ -446,8 +451,8 @@
     const source = asset.site_original && isRaster(asset) ? local : siteUrl(asset.thumb);
     imageFailed = false;
     if (source) image.src = source; else image.removeAttribute("src");
-    image.alt = asset.title;
-    $("viewer-title").textContent = asset.title;
+    image.alt = titleOf(asset);
+    $("viewer-title").textContent = titleOf(asset);
     $("viewer-meta").textContent = metaLine(asset);
     $("position").textContent = `${current + 1} / ${filtered.length}`;
     const download = $("download");
@@ -552,12 +557,12 @@
     }), statusSummary()]);
     // A reference file's source is often named like the file itself; the second link then says what it leads to.
     $("references").replaceChildren(...references.map((asset) => {
-      const link = element("a", `${asset.title} (${[asset.format, size(asset.bytes)].filter(Boolean).join(", ")})`);
+      const link = element("a", `${titleOf(asset)} (${[asset.format, size(asset.bytes)].filter(Boolean).join(", ")})`);
       link.href = `#${encodeURIComponent(asset.id)}`;
       const p = element("p");
       const source = sourceName(asset.source_id, asset.source_name);
       p.append(link, document.createTextNode(` · ${kindName(asset.kind)}${asset.site_original ? "" : ` · ${t("card.archive_only")}`} · `),
-        sourceLink(source === asset.title ? t("inventory.source_page") : source, asset.page_url));
+        sourceLink(source === titleOf(asset) ? t("inventory.source_page") : source, asset.page_url));
       return p;
     }));
     $("sources").replaceChildren(...sources.map((source) => {
