@@ -1127,6 +1127,109 @@ class PressArticleTests(ArchivesTestCase):
                 self.assertEqual(self.manifest()["assets"], [])
                 self.verify()
 
+    PROXY = "https://i0.wp.com/img.example.org/up/{}.jpg"  # a CDN copy that the seed below rewrites to the upload
+
+    def proxy_seed(self, *, allow_proxy):
+        seed = self.wp_seed()
+        config = seed["params"]["article_images"][0]
+        proxy = ["^https://i0\\.wp\\.com/img\\.example\\.org/", "https://img.example.org/"]
+        config["rewrite"] = [proxy, *config["rewrite"]]
+        if allow_proxy:
+            seed["hosts"] = [*seed["hosts"], "i0.wp.com"]
+        return seed
+
+    @staticmethod
+    def refusal(url, status=403):
+        return net.BlockedError(f"access refused (HTTP {status})", url=url, http_status=status)
+
+    def test_a_derived_401_or_403_whose_listed_urls_give_nothing_is_that_items_refusal(self):
+        """09 (owner decision on DX3-02): when no URL the page lists downloads instead of the URL our rewrite derived
+        (each answers 404, or sits on a host this run may not contact: outside the seed's allowlist, or refused
+        earlier in the run), the derived URL's plain 401/403 is that item's result: ``blocked`` with its own status,
+        URL and ``manual`` set. The image host is not marked blocked for it: the next image on it is downloaded."""
+        upload, other = self.WP.format("shot"), self.WP.format("zzz")
+        listed, proxied = self.WP.format("shot-1024x576"), self.PROXY.format("shot-1024x576")
+        first_upload, first_proxied = self.WP.format("a1"), self.PROXY.format("a1")
+        cases = (  # label, status of the upload, seed, the page's images before zzz, extra routes, requests made
+            ("403, listed 404", 403, self.wp_seed(), [listed], {}, [upload, listed]),
+            ("401, listed 404", 401, self.wp_seed(), [listed], {}, [upload, listed]),
+            ("403, listed host not allowed", 403, self.proxy_seed(allow_proxy=False), [proxied], {}, [upload]),
+            (
+                "403, listed host refused earlier",
+                403,
+                self.proxy_seed(allow_proxy=True),
+                [first_proxied, proxied],
+                {
+                    first_upload: {"error": self.refusal(first_upload)},
+                    first_proxied: {"error": self.refusal(first_proxied)},
+                },
+                [first_upload, first_proxied, upload],  # a1's listed URL blocks i0.wp.com; shot's is not requested
+            ),
+        )
+        for label, status, seed, images, extra, requested in cases:
+            with self.subTest(label):
+                self.root = Path(self.temp.name) / label.replace(" ", "-").replace(",", "")
+                self.root.mkdir()
+                routes = {
+                    self.PAGE: self.wp_page(*(f"<img src='{url}'>" for url in images), f"<img src='{other}'>"),
+                    upload: {"error": self.refusal(upload, status)},
+                    listed: {"error": net.HttpError("HTTP 404", url=listed, http_status=404)},
+                    other: self.wp_file(33),
+                    **extra,
+                }
+                network = FakeNetwork(routes)
+                self.run_family([seed], network)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE, *requested, other])
+                found = self.candidates("archives:press")
+                self.assertEqual(
+                    (found["wp:shot"]["disposition"], found["wp:zzz"]["disposition"]), ("blocked", "downloaded")
+                )
+                [failure] = [f for f in self.manifest()["failures"] if f["candidate_id"] == "archives:press:wp:shot"]
+                self.assertEqual(
+                    (failure["error_class"], failure["http_status"], failure["manual"], failure["url"]),
+                    ("blocked", status, True, upload),
+                )
+                self.assertEqual([a["candidate_id"] for a in self.manifest()["assets"]], ["archives:press:wp:zzz"])
+                self.verify()
+
+    def test_a_refusal_of_the_listed_url_after_a_derived_401_or_403_blocks_the_host(self):
+        """The fallback of a derived URL is a URL the page lists, and a 401/403 of it is a refusal like any other (09:
+        a 401/403 on any other URL is still ``blocked``, with no retry): the item records that refusal (its status
+        and URL) and the host is not contacted again in the run, so the next image on it is blocked unrequested."""
+        listed, upload, other = self.WP.format("shot-1024x576"), self.WP.format("shot"), self.WP.format("zzz")
+        challenge = net.ChallengeError("challenge page (HTTP 403)", url=listed, http_status=403)
+        for label, upload_status, listed_error, error_class in (
+            ("403 then 403", 403, self.refusal(listed, 403), "blocked"),
+            ("401 then 403", 401, self.refusal(listed, 403), "blocked"),
+            ("403 then 401", 403, self.refusal(listed, 401), "blocked"),
+            ("403 then challenge", 403, challenge, "challenge"),
+        ):
+            with self.subTest(label):
+                self.root = Path(self.temp.name) / label.replace(" ", "-")
+                self.root.mkdir()
+                routes = {
+                    self.PAGE: self.wp_page(f"<img src='{listed}'>", f"<img src='{other}'>"),
+                    upload: {"error": self.refusal(upload, upload_status)},
+                    listed: {"error": listed_error},
+                    other: self.wp_file(33),
+                }
+                network = FakeNetwork(routes)
+                self.run_family([self.wp_seed()], network)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE, upload, listed])
+                found = self.candidates("archives:press")
+                self.assertEqual(
+                    {key: c["disposition"] for key, c in found.items()}, {"wp:shot": "blocked", "wp:zzz": "blocked"}
+                )
+                self.assertIn("host img.example.org refused an earlier request in this run", found["wp:zzz"]["reason"])
+                [failure] = self.manifest()["failures"]  # zzz was never requested: no Failure record
+                self.assertEqual(
+                    (failure["candidate_id"], failure["error_class"], failure["http_status"], failure["manual"]),
+                    ("archives:press:wp:shot", error_class, listed_error.http_status, True),
+                )
+                self.assertEqual(failure["url"], listed)
+                self.assertEqual(self.manifest()["assets"], [])
+                self.verify()
+
     DEFAULT_NOTE = "Press copy as served by the publication; the page does not state who supplied the image."
     SUPPLIED_NOTE = "Press copy as served by the publication, inside the part the page labels as supplied material."
 
