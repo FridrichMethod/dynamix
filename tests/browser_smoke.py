@@ -745,8 +745,9 @@ def check_viewer_failures(smoke, base, catalog):
 
 
 def check_inventory(smoke, base, catalog):
-    """The inventory summary names only the source statuses the catalog's sources have, with counts; failure lines count
-    attempts in the language's plural form."""
+    """The inventory summary names only the source statuses the catalog's sources have, with counts, in the language's
+    punctuation (full-width colons and no space after a Chinese full stop); failure lines count attempts in the
+    language's plural form."""
     tally = Counter(source["status"] for source in catalog["sources"])
     for lang in ("en", "zh-CN"):
         page = smoke.page(base)
@@ -755,8 +756,13 @@ def check_inventory(smoke, base, catalog):
         page.locator(".source-inventory summary").first.click()
         summary = page.locator("#inventory-summary").inner_text()
         if tally:
-            statuses = " · ".join(f"{t('status.' + status)}: {tally[status]}" for status in STATUS_ORDER if tally[status])
+            statuses = " · ".join(t("inventory.status_count", status=t("status." + status), count=tally[status])
+                                  for status in STATUS_ORDER if tally[status])
             assert t("inventory.statuses", statuses=statuses) in summary, (lang, summary)
+        if lang == "zh-CN":
+            assert ":" not in summary and "。 " not in summary and "：" in summary, summary
+        else:
+            assert ". Source statuses: " in summary or not tally, summary
         for status in STATUS_ORDER:
             if not tally[status]:
                 assert t("status." + status) not in summary, (lang, status, summary)

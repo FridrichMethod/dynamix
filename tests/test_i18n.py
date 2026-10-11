@@ -202,6 +202,26 @@ class MessageTests(unittest.TestCase):
                 if key not in same_allowed and key != "lang.toggle":
                     self.assertNotEqual(english, messages["zh-CN"][key], "untranslated Chinese string")
 
+    def test_chinese_punctuation_is_full_width(self):
+        """Chinese strings use full-width colons and leave no space after full-width punctuation; the archive composes
+        "label: value" pairs and runs of sentences from localized patterns, not with ASCII ": " or " " in the code."""
+        messages = all_messages()
+        for key, chinese in messages["zh-CN"].items():
+            with self.subTest(key=key):
+                self.assertNotIn(":", chinese)
+                self.assertIsNone(re.search(r"[，。；：！？、]\s", chinese), chinese)
+        self.assertEqual(messages["zh-CN"]["text.sentences"], "{first}{second}")
+        self.assertEqual(messages["en"]["text.sentences"], "{first} {second}")
+        self.assertRegex(messages["zh-CN"]["inventory.status_count"], r"^\{status\}：\{count\}")
+        self.assertRegex(messages["zh-CN"]["file.line"], r"^\{name\}：\{value\}$")
+        code = (ROOT / "src/archive.js").read_text(encoding="utf-8")
+        # Only raw catalog field names (an evidence entry's own keys, shown as data) are joined to values in the code.
+        self.assertEqual(re.findall(r"`[^`]*\}: \$\{[^`]*`", code), ["`${key}: ${textValue(entry[key])}`"])
+        self.assertIn('t("inventory.status_count", {status: label("status", status), count: number})', code)
+        self.assertIn('t("text.sentences", {first, second})', code)
+        self.assertEqual(len(re.findall(r"\bsentences\(\[|\bsentences\(notes\)", code)), 2, "the inventory summary and the viewer's note")
+        self.assertNotIn('notes.join(" ")', code)
+
     def test_titles_and_credit_labels(self):
         messages = all_messages()
         self.assertEqual(messages["en"]["meta.title"], "Dynamix Artwork Archive")

@@ -20,6 +20,8 @@
   // A label for a token when the tables have one; otherwise the recorded token as it is.
   const label = (prefix, token) => i18n.has(`${prefix}.${token}`) ? t(`${prefix}.${token}`) : String(token ?? "");
   const familyName = (family) => label("family", family);
+  // Sentences in a row: English puts a space between them, Chinese (after its full stop) none.
+  const sentences = (parts) => parts.filter(Boolean).reduce((first, second) => t("text.sentences", {first, second}), "");
   const kindName = (kind) => label("kind", kind);
   const sources = Array.isArray(catalog.sources) ? catalog.sources : [];
   const sourceInfo = new Map(sources.map((source) => [source.id, source]));
@@ -404,7 +406,7 @@
       [t("file.games"), Array.isArray(asset.game_associations) && asset.game_associations.length ? asset.game_associations.join(", ") : null],
     ];
     if (asset.transformed === true) lines.push([t("file.transformed"), t("file.transformed_yes")]);
-    return lines.filter(([, value]) => value != null && value !== "").map(([name, value]) => `${name}: ${textValue(value)}`).join("\n");
+    return lines.filter(([, value]) => value != null && value !== "").map(([name, value]) => t("file.line", {name, value: textValue(value)})).join("\n");
   }
   // The image area and the note under the title. An image that failed to load is hidden (as a card shows a tile
   // instead), and every message names the link the viewer actually offers for this file.
@@ -420,7 +422,7 @@
     const notes = [];
     if (!asset.site_original) notes.push(t(!repository ? "viewer.archive_only_no_link" : hasImage && !imageFailed ? "viewer.archive_only" : "viewer.archive_only_no_preview"));
     if (isSmall(asset)) notes.push(t("viewer.low_resolution", {size: longEdge(asset)}));
-    $("archive-note").textContent = notes.join(" ");
+    $("archive-note").textContent = sentences(notes);
     $("archive-note").hidden = !notes.length;
   }
   // Language-dependent parts of the viewer; open() sets the image and the language-neutral fields.
@@ -533,7 +535,7 @@
     const tally = new Map();
     for (const source of sources) tally.set(source.status, (tally.get(source.status) || 0) + 1);
     const rank = (status) => STATUSES.includes(status) ? STATUSES.indexOf(status) : STATUSES.length;
-    const parts = [...tally].sort(([a], [b]) => rank(a) - rank(b)).map(([status, number]) => `${label("status", status)}: ${number}`);
+    const parts = [...tally].sort(([a], [b]) => rank(a) - rank(b)).map(([status, number]) => t("inventory.status_count", {status: label("status", status), count: number}));
     return parts.length ? t("inventory.statuses", {statuses: parts.join(" · ")}) : "";
   }
   function attemptsText(value) {
@@ -544,10 +546,10 @@
   // Rebuilt from scratch on every language change, so rows are never duplicated.
   function renderInventory() {
     const summary = catalog.summary || {};
-    $("inventory-summary").textContent = [t("inventory.summary", {
+    $("inventory-summary").textContent = sentences([t("inventory.summary", {
       sources: summary.source_count ?? sources.length, records: summary.source_asset_records ?? 0,
       files: summary.unique_files ?? assets.length, gallery: summary.gallery_images ?? gallery.length, failures: summary.failure_count ?? 0,
-    }), statusSummary()].filter(Boolean).join(" ");
+    }), statusSummary()]);
     // A reference file's source is often named like the file itself; the second link then says what it leads to.
     $("references").replaceChildren(...references.map((asset) => {
       const link = element("a", `${asset.title} (${[asset.format, size(asset.bytes)].filter(Boolean).join(", ")})`);
