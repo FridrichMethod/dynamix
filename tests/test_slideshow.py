@@ -1,9 +1,9 @@
 """Offline guards for the slideshow template and stylesheet: named, keyboard-operable controls in both languages, a
-bottom row whose DOM order follows its layout, a screenshot overlay that does not live in the URL, slides that
-crossfade without a keyframe fade and take no hits while hidden, an illustrator credit that no tier drops, arrows kept
-below the language toggle and a caption beside the control row on short landscape screens, a signature whose box leaves the toggle its taps, the visible
-attribution link, no music player and no DEEMO dedication, an empty-show state, and font stacks the screenshot
-renderer can draw. They read the sources only; real hit-testing, focus, keyboard handling and layout need a browser
+bottom row and a page whose DOM order follows their layout, a screenshot overlay that does not live in the URL, slides
+that crossfade without a keyframe fade and take no hits while hidden, an illustrator credit that no tier or fit drops or
+cuts, arrows kept below the language toggle and a caption beside the control row on short landscape screens, a
+signature whose box leaves the toggle its taps, the visible attribution link, no music player and no DEEMO dedication,
+an empty-show state, and font stacks the screenshot renderer can draw. They read the sources only; real hit-testing, focus, keyboard handling and layout need a browser
 (tests/browser_smoke.py).
 
 Adapted from FridrichMethod/deemo tests/test_slideshow.py (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8)."""
@@ -232,14 +232,15 @@ class SlideshowTemplateTests(unittest.TestCase):
         self.assertTrue(reduced, "No reduced-motion block")
         self.assertIn(".mySlides", reduced.group(1), "Reduced motion turns slides without the crossfade")
 
-    def test_short_screens_keep_the_illustrator_credit(self):
-        """Tiers that drop credits keep the illustrator's row, so no layout shows an artwork without its credit line."""
-        tagged = re.findall(r'if \(label === DYNAMIX_I18N\.t\("([\w.]+)"\)\) \{\s*dt\.classList\.add\("notes-artist"\);\s*dd\.classList\.add\("notes-artist"\);', self.code)
-        self.assertEqual(tagged, ["credit.illustrator"], "metaRow() tags the illustrator's row")
-        rows = re.findall(r'(?m)metaRow\(meta, DYNAMIX_I18N\.t\("([\w.]+)"\), data\.(\w+), (.*)\);\s*$', self.code)
-        by_field = {field: (key, always) for key, field, always in rows}
-        self.assertEqual(by_field["illustrators"], ("credit.illustrator", "true"), "The illustrator row is always shown")
-        self.assertEqual(by_field["composers"][0], "credit.composer")
+    def test_short_screens_keep_the_whole_illustrator_credit(self):
+        """Tiers and fits that drop credits keep the illustrator's row, and nothing clamps it, so no layout (and no saved
+        screenshot, which draws a clamp without its ellipsis) shows an artwork without its whole credit line."""
+        self.assertIn('var dt = element("dt", "notes-" + role, label);', self.code)
+        self.assertIn('var dd = element("dd", "notes-" + role);', self.code)
+        rows = re.findall(r'(?m)metaRow\(meta, "(\w+)", DYNAMIX_I18N\.t\("([\w.]+)"\), data\.(\w+), (.*)\);\s*$', self.code)
+        by_field = {field: (role, key, always) for role, key, field, always in rows}
+        self.assertEqual(by_field["illustrators"], ("artist", "credit.illustrator", "true"), "The illustrator row is always shown")
+        self.assertEqual(by_field["composers"][:2], ("composer", "credit.composer"))
         for lang in ("en", "zh-CN"):
             with self.subTest(lang=lang):
                 self.assertNotEqual(self.messages[lang]["credit.illustrator"], self.messages[lang]["credit.composer"])
@@ -248,6 +249,22 @@ class SlideshowTemplateTests(unittest.TestCase):
             for part in selector.split(","):
                 if ".notes-meta" in part and "::before" not in part:
                     self.assertIn(":not(.notes-artist)", part)
+        clamp = re.search(r"\.notes-(?:meta|artist)\b[^{}]*\{[^}]*(?<![\w-])(?:-webkit-line-clamp|line-clamp|max-height|overflow)\s*:", self.css)
+        self.assertIsNone(clamp, clamp and clamp.group())
+        # The fit gives up parts in turn (fitNotes()); each step has its rule, and none touches the illustrator's row.
+        steps = json.loads(re.search(r"var FIT_STEPS = (\[[^\]]*\]);", self.code).group(1))
+        self.assertEqual(steps, ["collection", "composer", "reference", "title", "eyebrow"])
+        for step in steps:
+            self.assertIn(f'.slide-notes[data-fit~="{step}"]', self.css)
+        for selector in re.findall(r"([^{}]*data-fit[^{}]*)\{", self.css):
+            self.assertNotRegex(selector, r"notes-(?:meta|artist)")
+
+    def test_tab_order_follows_the_drawing(self):
+        """The signature (top left) first, the stage's arrows, the caption with the notes it describes, the bottom row,
+        then the language toggle (kept last so the open screenshot overlay can hide it)."""
+        groups = ["signature", "prev", "next", "asset-caption", *BOTTOM_ROW, "lang-toggle"]
+        order = [name for node in self.nodes for name in groups if name in node.classes]
+        self.assertEqual(order, groups)
 
     def test_unknown_credits_say_unknown(self):
         self.assertIn('dd.textContent = DYNAMIX_I18N.t("credit.unknown");', self.code)

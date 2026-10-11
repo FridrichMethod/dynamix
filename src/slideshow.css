@@ -268,6 +268,25 @@ body {
     color: var(--muted);
 }
 
+/* Notes that would reach the bottom control row give up their least needed parts in turn (fitNotes() in the page sets
+   data-fit): the packs row, the composer's row, a file reference's extra lines, the title's second line, then the
+   eyebrow. A cut text keeps its full wording for screen readers and in a tooltip, and the archive viewer shows every
+   part. The illustrator's credit is never cut or dropped. */
+.slide-notes[data-fit~="collection"] .notes-collection,
+.slide-notes[data-fit~="composer"] .notes-composer,
+.slide-notes[data-fit~="eyebrow"] .notes-eyebrow {
+    display: none;
+}
+
+.slide-notes[data-fit~="reference"] .notes-title[data-length="file"],
+.slide-notes[data-fit~="title"] .notes-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    overflow: hidden;
+}
+
 /* When the signature wraps on a narrow phone, its box reaches the right edge of the screen, over the top of the
    language toggle; only its links take pointer events, so taps there still reach the toggle. */
 .signature {
@@ -887,8 +906,8 @@ canvas {
     .notes-provenance {
         display: none;
     }
-    /* At most two lines of title, so a long one never pushes the credits and the caption under the control row; the
-       archive viewer shows every title in full. */
+    /* At most two lines of title, so a long one leaves the credits their room above the control row; the archive
+       viewer shows every title in full. */
     .notes-title {
         font-size: min(3.6vw, 7.6vh);
         display: -webkit-box;
@@ -913,8 +932,9 @@ canvas {
     }
     /* The caption leaves the text column for the free band beside the control row, under the stage: 16px right of the
        row's last disc (it ends at 270px + 35px + 70px = 375px) and centred in the 105px between the stage and 8px above
-       the screen's foot. The notes then have the column to themselves, so a long source name or many credits never
-       push the caption, or the notes, under the controls; nothing is cut, the caption only wraps in its band. */
+       the screen's foot. A long source name only wraps in that band, nothing of it is cut, and it never moves the notes.
+       The notes have the column to themselves; on a narrow column many credits can still outgrow it, and then give up
+       their least needed parts (see data-fit above) rather than run under the controls. */
     .asset-caption {
         position: fixed;
         left: 391px;
@@ -938,12 +958,11 @@ canvas {
     }
 }
 
-/* Phones held sideways: of the credits only the illustrator's stays, as one run of text without the rule above it; a
-   file reference takes the credits' size and keeps to one line, and the illustrator's run to four, each cut with an
-   ellipsis only when longer (the page keeps the full text for screen readers and in a tooltip, and the archive viewer
-   shows it); the caption leaves out the image size while the notes are up. With the title's two lines this bounds the
-   notes at about 182px on a 320px-tall screen (the column has 185px above the control row), so the notes stay clear
-   of the row and the artwork is never shown without its artist (screenshots too). */
+/* Phones held sideways: of the credits only the illustrator's stays, as one run of text without the rule above it and
+   always in full, so the artwork is never shown without its whole credit (in a saved screenshot either); a file
+   reference takes the credits' size; the caption leaves out the image size while the notes are up. Notes still too
+   long for the column above the control row (185px on a 320px-tall screen) cut the file reference to one line, then
+   the title, then drop the eyebrow (data-fit, above). */
 @media screen and (orientation: landscape) and (max-height: 430px) {
     .intro {
         font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.2vh);
@@ -951,15 +970,9 @@ canvas {
     .notes-title[data-length="file"] {
         font-size: 13px;
         letter-spacing: .04em;
-        -webkit-line-clamp: 1;
-        line-clamp: 1;
     }
     .notes-meta {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
-        overflow: hidden;
+        display: block;
         margin-top: .5em;
     }
     .notes-meta::before,

@@ -969,14 +969,16 @@ def check_slideshow(smoke, base, catalog, fixture):
         smoke.finish(page)
 
 
-# Phones held sideways (533 x 320: the compact control row of windows under 600px wide), short portrait phones (browser
-# bars included) and a short desktop window, where the notes, the caption and the bottom control row compete for room.
-SHORT_SCREENS = [(533, 320), (568, 320), (640, 360), (667, 375), (812, 375), (844, 390), (960, 540), (320, 454), (375, 553),
-                 (360, 568), (360, 640)]
+# Phones held sideways (533 x 320: the compact control row of windows under 600px wide), short narrow landscape windows
+# (560 x 440 to 700 x 560, where the text column is narrowest for its height), short portrait phones (browser bars
+# included) and short desktop windows, where the notes, the caption and the bottom control row compete for room.
+SHORT_SCREENS = [(533, 320), (568, 320), (640, 360), (667, 375), (812, 375), (844, 390), (560, 440), (600, 450), (700, 560),
+                 (960, 540), (320, 454), (375, 553), (360, 568), (360, 640)]
 # The visible text blocks of the liner column that overlap a control of the bottom row; what the caption's lines cross
 # besides (the stage, the arrows, the language toggle, the notes or the title card); the blocks not wholly on screen;
-# and whether the first line of the illustrator's credit (when slide notes are up) lies on screen above that row. The
-# caption is measured by its lines: on short landscape screens its box is a fixed band beside the control row.
+# and whether the illustrator's whole credit (when slide notes are up) lies on screen above that row, every line of it
+# inside the credits' box (none hidden by a clamp). The caption is measured by its lines: on short landscape screens
+# its box is a fixed band beside the control row.
 CLEARANCE = """(names) => { const row = names.map((name) => document.querySelector('.' + name).getBoundingClientRect());
     const overlaps = (a, b) => a.top < b.bottom && a.bottom > b.top && a.left < b.right && a.right > b.left;
     const extent = (node) => { const boxes = node.classList.contains('asset-caption')
@@ -993,24 +995,30 @@ CLEARANCE = """(names) => { const row = names.map((name) => document.querySelect
     const offscreen = blocks.filter((node) => { const box = extent(node);
         return box.top < 0 || box.left < 0 || box.bottom > innerHeight || box.right > innerWidth; }).map((node) => node.className);
     const credit = document.querySelector('.slide-notes dd.notes-artist'), notes = blocks.some((node) => node.classList.contains('slide-notes'));
-    const top = Math.min(...row.map((box) => box.top)), line = credit && credit.getClientRects()[0];
-    const creditShown = !notes || Boolean(line && line.top >= 0 && line.bottom <= top);
+    const top = Math.min(...row.map((box) => box.top)), lines = credit ? [...credit.getClientRects()] : [];
+    const meta = credit && credit.parentNode.getBoundingClientRect();
+    const creditShown = !notes || (lines.length > 0 && lines.every((line) => line.top >= 0 && line.bottom <= top && line.bottom <= meta.bottom + 1));
     return {hits, crossed, offscreen, creditShown}; }"""
 CLEAR = {"hits": [], "crossed": [], "offscreen": [], "creditShown": True}
 # The notes' texts a short screen cut with an ellipsis, each with its tooltip (which must hold the full text).
 CUT = "[...document.querySelectorAll('.slide-notes [data-full][title]')].map((node) => [node.dataset.full, node.title])"
+# The parts notes too long for their screen give up, in this order (fitNotes() in templates/slideshow.html).
+FIT_STEPS = ["collection", "composer", "reference", "title", "eyebrow"]
+FIT = "document.querySelector('.slide-notes').dataset.fit || ''"
 
 
 def check_short_screens(smoke, base, catalog, fixture):
-    """On phones held sideways, short portrait phones and a short desktop window, stepping through the whole show, the
-    title card, every slide's notes and the caption stay on screen and clear of the bottom control row, the caption
-    clear of the stage, the arrows, the language toggle and the notes, in both languages, and the illustrator's credit
-    is on screen. A text cut short shows its full wording in a tooltip (the fixture's crowded slides are cut on the
-    smallest landscape phone)."""
+    """On phones held sideways, short narrow landscape windows, short portrait phones and short desktop windows,
+    stepping through the whole show, the title card, every slide's notes and the caption stay on screen and clear of the
+    bottom control row, the caption clear of the stage, the arrows, the language toggle and the notes, in both
+    languages, and the illustrator's whole credit is on screen. Notes too long for their screen give up parts in the
+    fixed order, never the illustrator's credit; a text cut short shows its full wording in a tooltip (the fixture's
+    crowded slides give up parts on the narrow short windows, and the Latin one's file name is cut on a landscape
+    phone)."""
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
         raise Skip("the catalog has no slideshow images")
-    cut = set()
+    cut, fitted = set(), set()
     for lang in ("en", "zh-CN"):
         for width, height in SHORT_SCREENS:
             page = smoke.page(base, width, height, reduced_motion="reduce")
@@ -1023,13 +1031,107 @@ def check_short_screens(smoke, base, catalog, fixture):
                 page.evaluate("plusSlides(1)")
                 state = page.evaluate(CLEARANCE, BOTTOM_ROW)
                 assert state == CLEAR, (lang, width, height, page.evaluate(SHOWN_ID), state)
+                steps = page.evaluate(FIT).split()
+                assert steps == FIT_STEPS[:len(steps)], (lang, width, height, page.evaluate(SHOWN_ID), steps)
+                if steps:
+                    fitted.add(page.evaluate(SHOWN_ID))
                 for full, tooltip in page.evaluate(CUT):
                     assert tooltip == full, (lang, width, height, page.evaluate(SHOWN_ID), full, tooltip)
                     cut.add((width, height, full))
             smoke.finish(page)
     if fixture:
-        crowded = next(asset for asset in slides if len(asset["collections"]) >= 5 and asset["title"].isascii())
-        assert (568, 320, crowded["title"]) in cut, ("the crowded slide's file name is cut on the smallest phone", sorted(cut))
+        crowded = [asset for asset in slides if len(asset["collections"]) >= 5]
+        assert len(crowded) == 2 and {asset["id"] for asset in crowded} <= fitted, ("the crowded slides give up parts", sorted(fitted))
+        latin = next(asset for asset in crowded if asset["title"].isascii())
+        assert (568, 320, latin["title"]) in cut, ("the crowded slide's file name is cut on a landscape phone", sorted(cut))
+
+
+# The saved screenshot's copy of the page (html2canvas's clone, seen through markCuts()): each notes text with its full
+# wording, its text there and whether it is still cut; the illustrator's credit there, and whether all of it is drawn
+# (every line on screen and inside the credits' box). Null when the renderer never handed its copy to markCuts().
+CAPTURE = """() => new Promise((resolve) => {
+    window.setTimeout(() => resolve(null), 20000);
+    const mark = window.markCuts;
+    if (typeof mark !== 'function') return resolve(null);
+    window.markCuts = (doc) => {
+        window.markCuts = mark;
+        mark(doc);
+        const view = doc.defaultView;
+        const texts = [...doc.querySelectorAll('.slide-notes [data-full]')].map((node) => [node.dataset.full, node.textContent,
+            node.scrollHeight - node.clientHeight > parseFloat(view.getComputedStyle(node).lineHeight) / 2]);
+        const credit = doc.querySelector('.slide-notes dd.notes-artist');
+        const lines = [...credit.getClientRects()], meta = credit.parentNode.getBoundingClientRect();
+        resolve({texts, credit: [...credit.childNodes].map((node) => node.nodeName === 'BR' ? '\\n' : node.textContent).join(''),
+                 whole: lines.length > 0 && lines.every((line) => line.top >= 0 && line.bottom <= view.innerHeight && line.bottom <= meta.bottom + 1)});
+    };
+    screenshot();
+})"""
+OVERLAY_OPEN = "document.getElementById('screenshot').classList.contains('is-open')"
+
+
+def check_screenshot_notes(smoke, base, catalog, fixture):
+    """A saved screenshot never cuts a text silently: where the page cuts a title or file reference with an ellipsis
+    (which the screenshot renderer would not draw), its copy for the picture ends in a written one after a start of the
+    full text, and the illustrator's credit is drawn whole, on landscape phones and short narrow windows in both
+    languages (the fixture's crowded slides and its slide without credits; else the slides with the longest titles and
+    credits)."""
+    slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
+    if not slides:
+        raise Skip("the catalog has no slideshow images")
+    if fixture:
+        chosen = [asset for asset in slides if len(asset["collections"]) >= 5 or not asset["illustrators"]]
+    else:
+        chosen = sorted(slides, key=lambda asset: -len(asset["title"] + "".join(asset["illustrators"])))[:3]
+    shortened = []
+    for lang in ("en", "zh-CN"):
+        for width, height in ((533, 320), (568, 320), (600, 450), (700, 560)):
+            page = smoke.page(base, width, height, reduced_motion="reduce")
+            for asset in chosen:
+                smoke.goto(page, urljoin(base, f"index.html?lang={lang}&asset=" + quote(asset["id"], safe="")))
+                page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
+                page.wait_for_function(SLIDE_SHOWN, timeout=10_000)
+                credit = page.evaluate("imgTargets[slideIndex - 1].dataset.illustrators || DYNAMIX_I18N.t('credit.unknown')")
+                capture = page.evaluate(CAPTURE)
+                where = (lang, width, height, asset["id"])
+                assert capture, (where, "the screenshot is drawn from a copy that markCuts() has seen")
+                page.wait_for_function(OVERLAY_OPEN, timeout=20_000)
+                page.evaluate("closeScreenshot()")
+                assert capture["credit"] == credit and capture["whole"], (where, capture)
+                for full, text, still_cut in capture["texts"]:
+                    assert not still_cut, (where, full, text)
+                    if text.replace(" ", " ") != full:
+                        assert text.endswith("…") and full.startswith(text[:-1]), (where, full, text)
+                        shortened.append((where, text))
+            smoke.finish(page)
+    if fixture:
+        assert shortened, "the crowded slides' cut file names end in a written ellipsis in the screenshot"
+
+
+# Tab takes the slideshow as it is drawn (the caption stays with its notes, before the row, at every size).
+TAB_GROUPS = ["signature", "prev", "next", "asset-caption", *BOTTOM_ROW, "lang-toggle"]
+FOCUS_GROUP = """(names) => { const node = document.activeElement.closest(names.map((name) => '.' + name).join(', '));
+    return node ? names.find((name) => node.classList.contains(name)) : document.activeElement.tagName; }"""
+
+
+def check_tab_order(smoke, base, catalog):
+    """Tab runs through the signature, the stage's arrows, the caption's links, the bottom row from the left and the
+    language toggle, on a desktop, a landscape phone (where the caption is drawn right of the row) and a portrait one."""
+    slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
+    if not slides:
+        raise Skip("the catalog has no slideshow images")
+    for width, height in ((1440, 900), (568, 320), (375, 812)):
+        page = open_slideshow(smoke, base, f"?asset={quote(slides[0]['id'], safe='')}", width, height)
+        page.evaluate("document.activeElement.blur()")
+        groups = []
+        for _ in range(30):
+            page.keyboard.press("Tab")
+            group = page.evaluate(FOCUS_GROUP, TAB_GROUPS)
+            if not groups or groups[-1] != group:
+                groups.append(group)
+            if group == TAB_GROUPS[-1]:
+                break
+        assert groups == TAB_GROUPS, (width, height, groups)
+        smoke.finish(page)
 
 
 def check_screenshot_overlay(smoke, base, catalog):
@@ -1037,18 +1139,17 @@ def check_screenshot_overlay(smoke, base, catalog):
     if not slides:
         raise Skip("the catalog has no slideshow images")
     page = open_slideshow(smoke, base, f"?asset={quote(slides[0]['id'], safe='')}#screenshot")
-    overlay_open = "document.getElementById('screenshot').classList.contains('is-open')"
-    assert not page.evaluate(overlay_open), "a #screenshot URL opens nothing"
+    assert not page.evaluate(OVERLAY_OPEN), "a #screenshot URL opens nothing"
     history = page.evaluate("[history.length, location.href]")
     page.locator(".photo button").click()
-    page.wait_for_function(overlay_open, timeout=20_000)
+    page.wait_for_function(OVERLAY_OPEN, timeout=20_000)
     assert page.evaluate("Boolean(document.activeElement.closest('#screenshot'))")
     assert page.evaluate("document.querySelector('#screenshot-content canvas') !== null")
     start = page.evaluate("slideIndex")
     page.keyboard.press("ArrowRight")
     assert page.evaluate("slideIndex") == start, "the arrow keys wait while the overlay is open"
     page.keyboard.press("Escape")
-    assert not page.evaluate(overlay_open)
+    assert not page.evaluate(OVERLAY_OPEN)
     assert page.evaluate("document.getElementById('screenshot-content').childElementCount") == 0
     assert page.evaluate("document.activeElement === document.querySelector('.photo button')")
     assert page.evaluate("[history.length, location.href]") == history
@@ -1200,6 +1301,8 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: slideshow deep links, controls and names", check_slideshow, base, catalog, fixture)
     smoke.run(f"{label}: screenshot overlay", check_screenshot_overlay, base, catalog)
     smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog, fixture)
+    smoke.run(f"{label}: screenshots cut no notes text silently", check_screenshot_notes, base, catalog, fixture)
+    smoke.run(f"{label}: Tab follows the drawing", check_tab_order, base, catalog)
     smoke.run(f"{label}: notice without JavaScript", check_without_javascript, base)
     for lang in ("en", "zh-CN"):
         for size in VIEWPORTS:
