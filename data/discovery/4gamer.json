@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:4gamer",
-  "started_at": "2026-10-11T00:18:51Z",
-  "finished_at": "2026-10-11T00:18:53Z",
+  "started_at": "2026-10-11T01:19:03Z",
+  "finished_at": "2026-10-11T01:19:05Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -63,7 +63,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+      "reason": "out_of_scope_other: article thumbnail (og:image) cropped from the Wonderful Days song-select screenshot SS/014, archived in archives:press as 4gamer862:SS/014"
     },
     {
       "id": "archives:4gamer:games/306/G030626/20150617094/TN/003.jpg",

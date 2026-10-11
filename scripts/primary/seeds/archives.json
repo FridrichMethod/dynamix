@@ -3031,7 +3031,7 @@
           "reason": "site_ui: thumbnail in the publication's 'latest video' footer block inside the article container (a later, unrelated video; 2026-10-10: 'MATELASER W1 REGEN ULTRA 香港開箱評測'), not an image of this article"
         },
         {
-          "match": "^techbang20767:other:cdn0\\.techbang\\.com/images/lazyload/loading\\.gif$",
+          "match": "^techbang20767:other:cdn[0-9]\\.techbang\\.com/images/lazyload/loading\\.gif$",
           "action": "exclude",
           "reason": "site_ui: lazy-load placeholder (the article image itself is in data-original)"
         },

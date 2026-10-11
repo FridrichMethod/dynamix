@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-11T00:18:51Z",
+      "checked_at": "2026-10-11T01:19:03Z",
       "notes": "Historical press screenshots: the 2015-06-18 gallery and the 2015-06-17 column article (ほぼ)日刊スマホゲーム通信 #862; not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,11 +58,11 @@
       "url": "https://gnn.gamer.com.tw/",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-11T00:18:56Z",
+      "checked_at": "2026-10-11T01:20:13Z",
       "notes": "Images of press articles found by the 2026-10-10 research (Bahamut GNN, QooApp, unwire.hk, T客邦, ifanr, HK01): the named files plus every article-body image of each read article page (params.article_images), each classified by a rule (downloaded, excluded with its reason, or pending); the 4Gamer #862 column page is enumerated by archives:4gamer. Lower-resolution syndicated copies (9game, Gamersky) are recorded in archives:archive-leads.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 113,
+      "candidate_count": 133,
       "asset_count": 74,
       "failure_count": 0,
       "evidence_level": "page_read"
@@ -688,8 +688,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072410221141.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1024,
+        "height": 461,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -706,7 +706,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "variant_group": "press:qoo77295-collab-banner",
@@ -826,8 +826,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334203/org/5015266b7456839f7f50267011a48bfc.PNG/qijGWQ74yenOd_-iZdZ78uTLdwKgI5HpaTOB4mkzgeI",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -844,7 +844,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -1294,8 +1294,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334028/org/376815983551e819172ef93f225dcc4f.PNG/BJJmaPg17f1Mr-N4UdZOBij3JqruaziuMlUAtzJVALc",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1312,7 +1312,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -1649,8 +1649,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334210/org/9716afa2fab9d3806048edb3c83b0561.PNG/G4NWiCK_Q7tdgqPLEaHEv3PGDGJxWDyJttcFFrbXBRY",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1667,7 +1667,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -1718,8 +1718,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334136/org/c599db175d2d88e38fefc8bed9cff8d5.PNG/kZm5NJlAgp8SoqQKu8nojBcoga1IH2NVMwsJOTMLCTk",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1736,7 +1736,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -1787,8 +1787,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334175/org/174a4743844b9d481e22db65e50d1626.PNG/iGMBrwetOHZIFi9lf0ByRy61Gq140iS8ow9wzaMPcM0",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1805,7 +1805,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -2263,8 +2263,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334137/org/fe7f84156974cf525964486ce4c3297b.PNG/NLoeb7hj2xdU-87qOuBglr0QFHvQ1rll62uzdOtrs3Q",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2281,7 +2281,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -2414,8 +2414,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Dynamix.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 800,
+        "height": 600,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2432,7 +2432,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",
@@ -2482,8 +2482,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334029/org/5a917415c4ffb490e0185e699554bfd7.PNG/dt_HAdOYr8bvI0pXD-WoXmRIFP5ANHsVj53yM4-d8jM",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2500,7 +2500,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -2559,7 +2559,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
+        "notes": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer. The page places this image after its label '【以下內容為廠商提供資料原文】'."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2845,7 +2845,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
+        "notes": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer. The page places this image after its label '【以下內容為廠商提供資料原文】'."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2926,8 +2926,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg/_lRFrv0u7IvyWIOlFpbyxCKcor0yxRZGl4Ez25eBM9s",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1280,
+        "height": 720,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2944,7 +2944,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",
@@ -3348,8 +3348,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334043/org/a0e4029e55efc4fcb6fdaa509aad4ee7.PNG/Dj2IPhUTExvwBf-sRBsq8Hb6nKEi4NV9hcwjWIXMI1g",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -3366,7 +3366,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -3635,8 +3635,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706432894.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1203,
+        "height": 681,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -3653,7 +3653,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",
@@ -3800,7 +3800,7 @@
       "source_id": "archives:press",
       "candidate_id": "archives:press:gnn132827:0001386275",
       "title": "音樂遊戲《Dynamix》3.0 版本即將登陸 iOS 平台 (2/2)",
-      "kind": "gameplay_screenshot",
+      "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
       "download_url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
@@ -3826,7 +3826,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
+        "notes": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer. The page places this image after its label '【以下內容為廠商提供資料原文】'."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3861,7 +3861,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "3.0 'Outer Space' pack screen (2016)."
+      "notes": "3.0 'Outer Space' announcement card (2016): the 'Exchange Songs List: Loading… Pre-view Available' card template, a designed pack/update announcement, not an in-game screen. visual_inspection 2026-10-10: the same template as the official 3.0 news banner (Wayback thumbnail Dynamix_Website3_0-199x128.png, the same 'Outer Space' card) and the OverRapid collaboration video thumbnail shbCnvJovcE ('WAH!'), both promotional, so the three share one kind."
     },
     {
       "id": "archives:press:9c641c2e02e3bac0",
@@ -3896,7 +3896,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
+        "notes": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer. The page places this image after its label '【以下內容為廠商提供資料原文】'."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3977,8 +3977,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334138/org/033405e537f7dde6076e9fbc240558c6.PNG/DeAqhmgg5bIb1UbA-IUq_kDVVlGlS19I6_HFBuvxxQY",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -3995,7 +3995,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -4592,8 +4592,8 @@
         "url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm005.png",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1024,
+        "height": 576,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -4610,7 +4610,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",
@@ -4647,7 +4647,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
+        "notes": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer. The page places this image after its label '【以下內容為廠商提供資料原文】'."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4728,8 +4728,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334197/org/3f108a35a223448d56ed46d6f916c290.PNG/fXjNEINvcTBTGCShMueFAxra2icd916OdFliEXRZYhE",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -4746,7 +4746,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": false
       },
       "upstream_status": "current",
@@ -5015,8 +5015,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013015554246.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 720,
+        "height": 960,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -5033,7 +5033,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",
@@ -5097,8 +5097,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706514913.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1280,
+        "height": 720,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -5115,7 +5115,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",
@@ -5526,8 +5526,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707051357.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 815,
+        "height": 401,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -5544,7 +5544,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",
@@ -5828,8 +5828,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072409525150.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1706,
+        "height": 960,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -5846,7 +5846,7 @@
       "comparisons": {
         "sha1_match": null,
         "bytes_match": null,
-        "dimensions_match": null,
+        "dimensions_match": true,
         "format_match": true
       },
       "upstream_status": "current",

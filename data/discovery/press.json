@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:press",
-  "started_at": "2026-10-11T00:18:56Z",
-  "finished_at": "2026-10-11T00:19:25Z",
+  "started_at": "2026-10-11T01:20:13Z",
+  "finished_at": "2026-10-11T01:20:30Z",
   "scope": {
     "lists": [
       "seed-files",
@@ -286,6 +286,331 @@
       "disposition": "downloaded",
       "asset_id": "archives:press:72c58059dd9ecedf",
       "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.001のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよう… (other image 1/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: banner of the column (ほぼ)日刊スマホゲーム通信 (also recorded by archives:4gamer)"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.003のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよう… (other image 2/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.004のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよう… (other image 5/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.005のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよう… (other image 6/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.006のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよう… (other image 7/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.007のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよう… (other image 8/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.011のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよ… (other image 13/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.012のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよう… (other image 9/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.013のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよ… (other image 11/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.014のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよ… (other image 10/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 — 画像ギャラリー No.015のサムネイル画像 / 3方向に流れるバーをタップしてメロディを奏でよ… (other image 12/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/images/qrcode_000.png",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/images/qrcode_000.png",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/images/qrcode_000.png",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (other image 3/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/images/qrcode_000.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: QR code of the iOS/Android download page"
+    },
+    {
+      "id": "archives:press:4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/images/qrcode_001.png",
+      "source_id": "archives:press",
+      "upstream_key": "4gamer862:SS/other:www.4gamer.net/games/306/G030626/20150617094/images/qrcode_001.png",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/images/qrcode_001.png",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (other image 4/13)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.4gamer.net/games/306/G030626/20150617094/"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/images/qrcode_001.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: QR code of the iOS/Android download page"
     },
     {
       "id": "archives:press:gnn115106:0001185987",
@@ -949,7 +1274,7 @@
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
       "file_url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
       "title": "音樂遊戲《Dynamix》3.0 版本即將登陸 iOS 平台 (2/2)",
-      "role": "gameplay_screenshot",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "https://gnn.gamer.com.tw/detail.php?sn=132827",
@@ -968,7 +1293,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:press:9adb797e925e335d",
-      "notes": "3.0 'Outer Space' pack screen (2016)."
+      "notes": "3.0 'Outer Space' announcement card (2016): the 'Exchange Songs List: Loading… Pre-view Available' card template, a designed pack/update announcement, not an in-game screen. visual_inspection 2026-10-10: the same template as the official 3.0 news banner (Wayback thumbnail Dynamix_Website3_0-199x128.png, the same 'Outer Space' card) and the OverRapid collaboration video thumbnail shbCnvJovcE ('WAH!'), both promotional, so the three share one kind."
     },
     {
       "id": "archives:press:gnn132827:0001386276",
@@ -1398,8 +1723,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334028/org/376815983551e819172ef93f225dcc4f.PNG/BJJmaPg17f1Mr-N4UdZOBij3JqruaziuMlUAtzJVALc",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1425,8 +1750,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334029/org/5a917415c4ffb490e0185e699554bfd7.PNG/dt_HAdOYr8bvI0pXD-WoXmRIFP5ANHsVj53yM4-d8jM",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1452,8 +1777,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334043/org/a0e4029e55efc4fcb6fdaa509aad4ee7.PNG/Dj2IPhUTExvwBf-sRBsq8Hb6nKEi4NV9hcwjWIXMI1g",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1479,8 +1804,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334136/org/c599db175d2d88e38fefc8bed9cff8d5.PNG/kZm5NJlAgp8SoqQKu8nojBcoga1IH2NVMwsJOTMLCTk",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1506,8 +1831,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334137/org/fe7f84156974cf525964486ce4c3297b.PNG/NLoeb7hj2xdU-87qOuBglr0QFHvQ1rll62uzdOtrs3Q",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1533,8 +1858,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334138/org/033405e537f7dde6076e9fbc240558c6.PNG/DeAqhmgg5bIb1UbA-IUq_kDVVlGlS19I6_HFBuvxxQY",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1560,8 +1885,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334175/org/174a4743844b9d481e22db65e50d1626.PNG/iGMBrwetOHZIFi9lf0ByRy61Gq140iS8ow9wzaMPcM0",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1587,8 +1912,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334197/org/3f108a35a223448d56ed46d6f916c290.PNG/fXjNEINvcTBTGCShMueFAxra2icd916OdFliEXRZYhE",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1614,8 +1939,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334203/org/5015266b7456839f7f50267011a48bfc.PNG/qijGWQ74yenOd_-iZdZ78uTLdwKgI5HpaTOB4mkzgeI",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1641,8 +1966,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1334210/org/9716afa2fab9d3806048edb3c83b0561.PNG/G4NWiCK_Q7tdgqPLEaHEv3PGDGJxWDyJttcFFrbXBRY",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1920,
+        "height": 1440,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1668,8 +1993,8 @@
         "url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg/_lRFrv0u7IvyWIOlFpbyxCKcor0yxRZGl4Ez25eBM9s",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1280,
+        "height": 720,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1694,8 +2019,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Cytus.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 800,
+        "height": 600,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1719,8 +2044,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Deemo.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 800,
+        "height": 600,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1744,8 +2069,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Feature.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1000,
+        "height": 625,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1769,8 +2094,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Feature1.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1000,
+        "height": 625,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1794,8 +2119,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Jukebeat.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 800,
+        "height": 529,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1819,8 +2144,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-LoveLive.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 800,
+        "height": 450,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1844,6 +2169,31 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-tgdr.jpg",
         "mime": "image/jpeg",
         "bytes": null,
+        "width": 800,
+        "height": 600,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: Taiko no Tatsujin capture in the roundup"
+    },
+    {
+      "id": "archives:press:ifanr543028:other:images.ifanr.cn/wp-content/themes/ifanr/static/images/default-avatar.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "ifanr543028:other:images.ifanr.cn/wp-content/themes/ifanr/static/images/default-avatar.jpg",
+      "page_url": "https://www.ifanr.com/app/543028",
+      "file_url": "https://images.ifanr.cn/wp-content/themes/ifanr/static/images/default-avatar.jpg",
+      "title": "没有音游的夏天，是不完整的！ (other image)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.ifanr.com/app/543028"
+      ],
+      "source_reported": {
+        "url": "https://images.ifanr.cn/wp-content/themes/ifanr/static/images/default-avatar.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
         "width": null,
         "height": null,
         "sha1": null,
@@ -1851,7 +2201,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "not_dynamix: Taiko no Tatsujin capture in the roundup"
+      "reason": "site_ui: default avatar of the site theme's comment form"
     },
     {
       "id": "archives:press:ifanr543028:shutterstock_130039298",
@@ -1869,8 +2219,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/shutterstock_130039298.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1000,
+        "height": 625,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1894,8 +2244,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/shutterstock_262575536.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1000,
+        "height": 667,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1920,8 +2270,8 @@
         "url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Dynamix.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 800,
+        "height": 600,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1947,8 +2297,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013015554246.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 720,
+        "height": 960,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1973,8 +2323,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013016364422.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1280,
+        "height": 720,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -1998,8 +2348,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031608485927.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1024,
+        "height": 576,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2023,8 +2373,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031608485930.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1024,
+        "height": 576,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2048,8 +2398,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706195396.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1024,
+        "height": 682,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2074,8 +2424,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706432894.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1203,
+        "height": 681,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2101,8 +2451,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706514913.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1280,
+        "height": 720,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2155,8 +2505,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/1603170701198.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 815,
+        "height": 792,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2181,8 +2531,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707051357.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 815,
+        "height": 401,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2207,6 +2557,31 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707070483.jpg",
         "mime": "image/jpeg",
         "bytes": null,
+        "width": 1280,
+        "height": 960,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: exhibition booth with visitors"
+    },
+    {
+      "id": "archives:press:qoo52753:other:o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+      "source_id": "archives:press",
+      "upstream_key": "qoo52753:other:o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "file_url": "https://o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (other image)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/52753"
+      ],
+      "source_reported": {
+        "url": "https://o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+        "mime": null,
+        "bytes": null,
         "width": null,
         "height": null,
         "sha1": null,
@@ -2214,7 +2589,7 @@
         "revision": null
       },
       "disposition": "excluded",
-      "reason": "person_photo: exhibition booth with visitors"
+      "reason": "game_ui: store app icon of Dynamix in QooApp's app card at the end of the article (branding, not artwork)"
     },
     {
       "id": "archives:press:qoo77295:17072106445586",
@@ -2287,8 +2662,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072409525150.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1706,
+        "height": 960,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2314,8 +2689,8 @@
         "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072410221141.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1024,
+        "height": 461,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2350,6 +2725,56 @@
       "disposition": "downloaded",
       "asset_id": "archives:press:faa4b6732811dca4",
       "notes": "'QOOAPP x DYNAMIX コラボレーション' banner with the collaboration characters (1022x570; the article's og:image)."
+    },
+    {
+      "id": "archives:press:qoo77295:other:o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+      "source_id": "archives:press",
+      "upstream_key": "qoo77295:other:o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+      "page_url": "https://news.qoo-app.com/post/77295",
+      "file_url": "https://o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (other image 1/2)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/77295"
+      ],
+      "source_reported": {
+        "url": "https://o.qoo-img.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: store app icon of Dynamix in QooApp's app card at the end of the article (branding, not artwork)"
+    },
+    {
+      "id": "archives:press:qoo77295:other:o.qoo-img.com/storage.qoo-img.com/game/880/yN0SsuRVE8KIPNUbHQmfTKiCOlIxon9I.png",
+      "source_id": "archives:press",
+      "upstream_key": "qoo77295:other:o.qoo-img.com/storage.qoo-img.com/game/880/yN0SsuRVE8KIPNUbHQmfTKiCOlIxon9I.png",
+      "page_url": "https://news.qoo-app.com/post/77295",
+      "file_url": "https://o.qoo-img.com/storage.qoo-img.com/game/880/yN0SsuRVE8KIPNUbHQmfTKiCOlIxon9I.png",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (other image 2/2)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://news.qoo-app.com/post/77295"
+      ],
+      "source_reported": {
+        "url": "https://o.qoo-img.com/storage.qoo-img.com/game/880/yN0SsuRVE8KIPNUbHQmfTKiCOlIxon9I.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: app icon of the QooApp store app in the publication's own app card (QooApp promoting itself)"
     },
     {
       "id": "archives:press:techbang20767:185818",
@@ -2581,6 +3006,31 @@
       "notes": "visual_inspection 2026-10-10: song-list screen of the Missionary pack; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
     },
     {
+      "id": "archives:press:techbang20767:other:cdn1.techbang.com/images/lazyload/loading.gif",
+      "source_id": "archives:press",
+      "upstream_key": "techbang20767:other:cdn1.techbang.com/images/lazyload/loading.gif",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "file_url": "https://cdn1.techbang.com/images/lazyload/loading.gif",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (other image)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit"
+      ],
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/images/lazyload/loading.gif",
+        "mime": "image/gif",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: lazy-load placeholder (the article image itself is in data-original)"
+    },
+    {
       "id": "archives:press:techbang:20767",
       "source_id": "archives:press",
       "upstream_key": "techbang:20767",
@@ -2658,6 +3108,31 @@
       "reason": "site_ui: 'Get it on Google play' store badge"
     },
     {
+      "id": "archives:press:unwire2014:other:cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2014:other:cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+      "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+      "title": "香港製作！達人級手機音樂 GAME《Dynamix》正式推出 ＆ 初部試玩 — MATELASER W1 REGEN ULTRA 香港開箱評測 (other image)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://unwire.hk/2014/10/30/dynamix/game-channel/"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: thumbnail in the publication's 'latest video' footer block inside the article container (a later, unrelated video; 2026-10-10: 'MATELASER W1 REGEN ULTRA 香港開箱評測'), not an image of this article"
+    },
+    {
       "id": "archives:press:unwire2014:wm005",
       "source_id": "archives:press",
       "upstream_key": "unwire2014:wm005",
@@ -2674,8 +3149,8 @@
         "url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm005.png",
         "mime": "image/png",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1024,
+        "height": 576,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -2939,8 +3414,8 @@
         "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03701.jpg",
         "mime": "image/jpeg",
         "bytes": null,
-        "width": null,
-        "height": null,
+        "width": 1280,
+        "height": 721,
         "sha1": null,
         "timestamp": null,
         "revision": null
@@ -3091,6 +3566,31 @@
         "Stardust"
       ],
       "notes": "Gameplay of Stardust (Hard) with side notes (caption on notes from three sides)."
+    },
+    {
+      "id": "archives:press:unwire2016:other:cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+      "source_id": "archives:press",
+      "upstream_key": "unwire2016:other:cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+      "file_url": "https://cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — MATELASER W1 REGEN ULTRA 香港開箱評測 (other image)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://unwire.hk/2016/08/11/dynamix-2/game-channel/"
+      ],
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2026/10/maxresdefault-1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: thumbnail in the publication's 'latest video' footer block inside the article container (a later, unrelated video; 2026-10-10: 'MATELASER W1 REGEN ULTRA 香港開箱評測'), not an image of this article"
     }
   ],
   "errors": []
