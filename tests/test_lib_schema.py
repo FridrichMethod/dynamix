@@ -947,6 +947,75 @@ class CatalogValidationTests(unittest.TestCase):
         ]
         self.assertEqual(sorted(reversed(ordered), key=schema.provenance_sort_key), ordered)
 
+    def test_credit_evidence_names_a_credited_name_of_its_role(self):
+        """DX2-07: composer and illustrator are separate roles, and the viewer shows a record's credit_evidence beside
+        its role lists (src/archive.js provenance), so in the catalog an illustrator or composer entry names a member
+        of the matching list of its own provenance record (a name the record does not credit, or a role swap, is
+        refused), and a catalog asset's entries name members of its merged lists. A role 'other' entry is not tied to
+        a list. Committed data and every fixture satisfy the rule."""
+        url = "https://x.com/ariiol_/status/1000000000000000003"
+
+        def entry(role, name, quote="Yunosuke"):
+            return {"role": role, "name": name, "url": url, "field": "post text", "quote": quote}
+
+        def cosmic(catalog):
+            return next(
+                a
+                for a in catalog["assets"]
+                if a["source_id"] == "wikis:miraheze" and a["kind"] == "song_art" and a["title"] == "Cosmic Pulse"
+            )
+
+        base = cosmic(self.catalog)
+        [primary, fandom] = base["provenance"]
+        for record in (base, primary, fandom):
+            self.assertEqual((record["illustrators"], record["composers"]), (["ariiol"], ["Yunosuke"]))
+        refused = {
+            "a composer the record does not credit": (
+                1,
+                [entry("composer", "Somebody Else")],
+                f"provenance: {fandom['asset_id']!r} credit_evidence: [0] names composer 'Somebody Else', "
+                "who is not in composers",
+            ),
+            "a role swap": (
+                0,
+                [entry("illustrator", "Yunosuke")],
+                f"provenance: {primary['asset_id']!r} credit_evidence: [0] names illustrator 'Yunosuke', "
+                "who is not in illustrators",
+            ),
+            "the second entry": (
+                1,
+                [entry("illustrator", "ariiol"), entry("composer", "ariiol")],
+                "credit_evidence: [1] names composer 'ariiol', who is not in composers",
+            ),
+            "the catalog asset's own entries": (
+                None,
+                [entry("composer", "Somebody Else")],
+                f"catalog asset {base['id']!r}: credit_evidence: [0] names composer 'Somebody Else'",
+            ),
+        }
+        for case, (index, evidence, fragment) in refused.items():
+            with self.subTest(case=case):
+                catalog = copy.deepcopy(self.catalog)
+                target = cosmic(catalog) if index is None else cosmic(catalog)["provenance"][index]
+                target["credit_evidence"] = evidence
+                with self.assertRaises(ValueError) as caught:
+                    schema.validate_catalog(catalog)
+                self.assertIn(fragment, str(caught.exception))
+        accepted = [
+            [entry("illustrator", "ariiol"), entry("composer", "Yunosuke")],
+            [entry("illustrator", "ariiol", quote=None)],
+            [entry("other", "Fixture Designer")],  # role other: no role list
+            [],
+            None,
+        ]
+        for evidence in accepted:
+            with self.subTest(accepted=evidence):
+                catalog = copy.deepcopy(self.catalog)
+                cosmic(catalog)["provenance"][1]["credit_evidence"] = evidence
+                if evidence is not None:
+                    cosmic(catalog)["credit_evidence"] = evidence
+                schema.validate_catalog(catalog)
+
     def test_catalog_mutations_are_rejected(self):
         def first(catalog, **match):
             return next(a for a in catalog["assets"] if all(a[k] == v for k, v in match.items()))
@@ -976,6 +1045,14 @@ class CatalogValidationTests(unittest.TestCase):
             (
                 lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"][0].pop("song_ids"),
                 "missing key 'song_ids'",
+            ),
+            (  # DX2-07: a provenance record's credit evidence names a credited name of its role, as a record's does
+                lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"][1].update(
+                    credit_evidence=[
+                        {"role": "composer", "name": "Somebody Else", "url": None, "field": None, "quote": "x"}
+                    ]
+                ),
+                "provenance: 'wikis:fandom:d3ae3e8c82b4367e' credit_evidence: [0] names composer 'Somebody Else'",
             ),
             (
                 lambda c: c["sources"].append({**c["sources"][0], "id": "archives:miraheze", "family": "archives"}),
