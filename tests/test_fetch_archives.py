@@ -1723,6 +1723,68 @@ class RunnerStateTests(ArchivesTestCase):
             self.verify()
             self.assertEqual(list(target.parent.glob(".*")), [])
 
+    def runner_for(self, routes):
+        network = FakeNetwork(routes)
+        acquisition = runner.Runner(
+            self.root,
+            "archives",
+            [self.seed()],
+            client_factory=network.factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+        )
+        return acquisition, network
+
+    def test_a_symlinked_archived_file_is_reported_not_written_through(self):
+        url = "https://press.example.org/img/a.png"
+        routes = {self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        [asset] = self.manifest()["assets"]
+        target = self.root / asset["path"]
+        outside_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(outside_dir.cleanup)
+        outside = Path(outside_dir.name) / "outside.png"
+        outside.write_bytes(target.read_bytes())
+        target.unlink()
+        target.symlink_to(outside)  # a planted leaf link to a copy outside the root
+        for resume in (False, True):
+            acquisition, _ = self.runner_for(routes)
+            acquisition.resume = resume
+            acquisition.run()
+            self.assertEqual(acquisition.source_errors, {})  # no "source run aborted"
+            self.assertEqual([p.name for p in target.parent.iterdir()], [target.name])  # no leftover .part file
+            self.assertTrue(target.is_symlink())  # nothing replaced at or through the link ...
+            self.assertEqual(outside.read_bytes(), self.file((1, 2, 3))["bytes"])  # ... and the outside file unchanged
+            self.assertEqual(self.manifest()["assets"], [asset])
+            errors = manifest.load_discovery(self.root, "archives:press")["errors"]
+            self.assertTrue(
+                any(
+                    e["phase"] == "verify" and "refresh of archives:press:img/a.png failed" in e["message"]
+                    for e in errors
+                ),
+                errors,
+            )
+            self.assertFalse(any("source run aborted" in e["message"] for e in errors), errors)
+            verify_errors, _, _ = runner.verify_family(self.root, "archives")
+            self.assertIn(f"symlink in asset tree: {asset['path']}", verify_errors)
+
+    def test_a_symlinked_asset_directory_is_refused_before_any_download(self):
+        outside_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(outside_dir.cleanup)
+        family_dir = self.root / "assets/public/archives"
+        family_dir.mkdir(parents=True)
+        (family_dir / "press").symlink_to(outside_dir.name, target_is_directory=True)
+        url = "https://press.example.org/img/a.png"
+        acquisition, network = self.runner_for({self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))})
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        self.assertEqual([call for call in network.calls if call[0] == "download"], [])  # no temp file anywhere
+        self.assertEqual(list(Path(outside_dir.name).iterdir()), [])
+        self.assertEqual(self.candidates("archives:press")["img/a.png"]["disposition"], "failed")
+        self.assertIn("symlinked component", self.manifest()["failures"][0]["message"])
+        verify_errors, _, _ = runner.verify_family(self.root, "archives")
+        self.assertIn("symlink in asset tree: assets/public/archives/press", verify_errors)
+
     def test_a_corrupted_file_that_cannot_be_repaired_is_reported(self):
         url = "https://press.example.org/img/a.png"
         routes = {self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))}

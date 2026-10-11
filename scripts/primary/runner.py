@@ -839,7 +839,11 @@ class Runner:
         if asset["format"] not in schema.RASTER_FORMATS:
             return None
         if asset["sha256"] not in self._pixels:
-            self._pixels[asset["sha256"]] = pixel_digest(paths.safe_path(self.root, asset["path"]), asset["format"])
+            try:
+                file = paths.safe_path(self.root, asset["path"])
+            except ValueError:  # a planted symlink or an escaping path: --verify reports it; no digest
+                return None
+            self._pixels[asset["sha256"]] = pixel_digest(file, asset["format"])
         return self._pixels[asset["sha256"]]
 
     def _same_pixels(self, asset: Mapping[str, Any], result: Any) -> str | None:
@@ -1076,7 +1080,7 @@ class Runner:
         if owner is not None:
             try:
                 repaired = self._repair(state, owner, result)
-            except (media.MediaError, OSError) as error:
+            except (media.MediaError, OSError, ValueError) as error:  # ValueError: paths.safe_path refused the target
                 Path(result.temp_path).unlink(missing_ok=True)
                 self._download_failed(state, draft, error, "verify", attempted_at, previous_asset)
                 return
