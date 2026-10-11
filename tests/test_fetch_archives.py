@@ -4,9 +4,9 @@ misleading extensions, press-release PDFs (archive tier), live 404s, primary-pos
 """
 
 import base64
+import hashlib
 import io
 import json
-import hashlib
 import sys
 import tempfile
 import unittest
@@ -19,7 +19,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import cli, model, runner  # noqa: E402
-from primary.adapters import direct as direct_adapter, wayback  # noqa: E402
+from primary.adapters import direct as direct_adapter  # noqa: E402
+from primary.adapters import wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/archives"
@@ -232,6 +233,33 @@ class WaybackTests(ArchivesTestCase):
         self.assertNotEqual(self.manifest()["sources"][0]["status"], "available")
         self.verify()
 
+    def test_a_second_empty_answer_still_keeps_the_list_open(self):
+        """Captures without archived bytes (all excluded) leave the snapshot after the first empty answer, so the
+        guard must not depend on them alone: every later empty answer keeps the list open until a listing is read."""
+        item = {"name": "download-host", "url": "dl.example.org/", "match_type": "prefix"}
+        rules = [{"match": "^dl\\.example\\.org/", "action": "exclude", "reason": "site_ui: download page"}]
+        rows = [
+            HEADER,
+            *(
+                [f"org,example,dl)/{name}", stamp, f"http://dl.example.org/{name}", "text/html", "200", "A" * 32, "9"]
+                for name, stamp in (("index.html", "20150101000000"), ("get.html", "20150102000000"))
+            ),
+        ]
+        self.run_family([self.seed(rules, items=[item])], FakeNetwork({cdx_url(item): {"json": rows}}))
+        self.assertEqual(len(self.candidates("archives:wayback")), 2)
+        for _ in range(2):  # two transient empty answers in a row
+            self.run_family([self.seed(rules, items=[item])], FakeNetwork({cdx_url(item): {"json": []}}))
+            snapshot = manifest.load_discovery(self.root, "archives:wayback")
+            self.assertFalse(snapshot["discovery_complete"])
+            self.assertEqual(snapshot["continuation"], {"download-host": "empty-answer"})
+            self.assertTrue(any("not taken as the complete listing" in e["message"] for e in snapshot["errors"]))
+            self.assertFalse(self.manifest()["sources"][0]["discovery_complete"])
+            self.verify()
+        self.run_family([self.seed(rules, items=[item])], FakeNetwork({cdx_url(item): {"json": rows}}))
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")  # a listing read again closes it
+        self.assertEqual((snapshot["continuation"], len(snapshot["candidates"])), ({"download-host": None}, 2))
+        self.verify()
+
     def test_cdx_item_matching_follows_the_query(self):
         prefix = {"url": "dynamix.c4-cat.com/img/", "match_type": "prefix"}
         self.assertTrue(wayback.matches_item(prefix, "http://www.dynamix.c4-cat.com:80/IMG/cap1.png"))
@@ -361,6 +389,28 @@ class WaybackTests(ArchivesTestCase):
         self.assertFalse(snapshot["discovery_complete"])
         self.assertEqual(sum("unusable CDX row skipped" in e["message"] for e in snapshot["errors"]), 2)
         self.verify()
+
+    def test_a_row_of_unexpected_shape_keeps_the_listing_open(self):
+        routes = self.routes()
+        page1 = list(routes[cdx_url(self.ITEM)]["json"])
+        page1.insert(2, ["com,c4-cat,dynamix)/img/short.png", "20150101000000", "http://dynamix.c4-cat.com/img/s.png"])
+        routes[cdx_url(self.ITEM)] = {"json": page1}
+        self.run_family([self.seed(self.RULES)], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")
+        self.assertEqual(snapshot["continuation"], {"official-img": "rows-skipped-1"})
+        self.assertTrue(any("row(s) of unexpected shape" in e["message"] for e in snapshot["errors"]), snapshot)
+        self.assertEqual(len(snapshot["candidates"]), 3)  # the well-formed rows are still accounted for
+        self.verify()
+
+    def test_a_response_without_a_header_row_is_an_interrupted_listing(self):
+        for header in ({"urlkey": "x"}, ["error"], [1, 2]):
+            with self.subTest(header=header):
+                network = FakeNetwork({cdx_url(self.ITEM): {"json": [header, ["a", "b"]]}})
+                self.run_family([self.seed(self.RULES)], network)
+                snapshot = manifest.load_discovery(self.root, "archives:wayback")
+                self.assertFalse(snapshot["discovery_complete"])
+                self.assertEqual(snapshot["continuation"], {"official-img": "not-started"})
+                self.assertTrue(any("header" in e["message"] for e in snapshot["errors"]), snapshot["errors"])
 
     def test_digest_conversion(self):
         data = b"payload"
@@ -788,6 +838,29 @@ class PressArticleTests(ArchivesTestCase):
         )
         self.assertEqual((others, state), ([], None))
 
+    def test_a_comma_inside_a_srcset_url_does_not_split_it(self):
+        # Jetpack/Photon renditions carry a raw comma in their query (resize=300,169): a srcset candidate runs to
+        # whitespace, and only a comma after its descriptor (or at its end) separates candidates (HTML srcset rules).
+        upload = "https://i0.wp.com/news.example.org/wp-content/uploads/2016/08/a"
+        page = (
+            "<html><head><title>Dynamix</title></head><body><div class='post'>"
+            f"<img srcset='{upload}.jpg?resize=300,169&amp;ssl=1 300w, {upload}-1024x576.jpg 1024w'></div></body></html>"
+        )
+        config = {
+            "page_url": self.PAGE,
+            "key_prefix": "q:",
+            "select": "div.post",
+            "pattern": "https://news\\.example\\.org/wp-content/uploads/\\d+/\\d+/[^/]+\\.jpg",
+            "rewrite": [["^https://i0\\.wp\\.com/", "https://"], ["-\\d+x\\d+(\\.\\w+)$", "\\1"]],
+        }
+        images, others, state = direct_adapter.article_images(page, self.PAGE, config)
+        self.assertEqual(([image["key"] for image in images], others, state), (["q:a"], [], None))
+        self.assertEqual(images[0]["advertised"], [f"{upload}.jpg?resize=300,169&ssl=1", f"{upload}-1024x576.jpg"])
+        self.assertEqual(
+            direct_adapter.srcset_urls(" a.jpg 1x,b.jpg 2x , c,d.jpg (x, y) 3x,, e.jpg,"),
+            ["a.jpg", "b.jpg", "c,d.jpg", "e.jpg"],
+        )
+
     def test_an_image_count_that_disagrees_keeps_the_list_open(self):
         routes = {self.NEXT_PAGE: self.next_page(10)}
         self.run_family([self.next_seed(self.NEXT_RULES)], FakeNetwork(routes), metadata_only=True)
@@ -986,6 +1059,79 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(
             snapshot["continuation"], {"article-images": "not-read:http_5xx", "seed-files": "not-read:http_5xx"}
         )
+        # The named read_page item was never checked against its page: failed with the page's error, not "evidence
+        # not found in the fetched content".
+        candidate = self.candidates("archives:press")["gnn129234:0001345596"]
+        self.assertEqual(candidate["disposition"], "failed")
+        self.assertTrue(candidate["reason"].startswith("http_5xx"), candidate["reason"])
+        self.assertEqual(
+            [f["id"] for f in self.manifest()["failures"]], ["archives:press:gnn129234:0001345596:discover"]
+        )
+        self.assertEqual(self.manifest()["sources"][0]["status"], "temporarily_unavailable")
+        self.verify()
+        blocked = FakeNetwork({self.PAGE: {"error": net.BlockedError("HTTP 403", url=self.PAGE, http_status=403)}})
+        self.run_family([self.seed(self.RULES)], blocked)
+        candidate = self.candidates("archives:press")["gnn129234:0001345596"]
+        self.assertEqual(candidate["disposition"], "blocked")
+        self.assertEqual(self.manifest()["sources"][0]["status"], "manual_access")
+        self.verify()
+
+    def test_an_unreadable_page_changes_no_status_of_an_archived_named_item(self):
+        item = {
+            "key": "named:a",
+            "page_url": self.PAGE,
+            "read_page": True,
+            "file_url": self.IMG.format("96/0001345596", "JPG"),
+        }
+        rules = [{"match": "^named:", "role": "promotional", "evidence_quotes": ["Dynamix"]}]
+
+        def seed(items):
+            source = self.seed(rules, items=items)
+            del source["params"]  # named files only
+            return source
+
+        self.run_family([seed([item])], FakeNetwork(self.routes()))
+        self.run_family([seed([])], FakeNetwork(self.routes()))  # every list read, the seeds no longer name it
+        self.assertEqual([a["upstream_status"] for a in self.manifest()["assets"]], ["unknown"])
+        failing = FakeNetwork({self.PAGE: {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}})
+        self.run_family([seed([item])], failing)
+        [asset] = self.manifest()["assets"]
+        self.assertEqual(asset["upstream_status"], "unknown")  # a failed read is no observation
+        self.assertEqual(self.candidates("archives:press")["named:a"]["disposition"], "downloaded")  # archive kept
+        messages = [e["message"] for e in manifest.load_discovery(self.root, "archives:press")["errors"]]
+        self.assertTrue(any("is now failed (http_5xx" in m for m in messages), messages)
+        self.assertFalse(any("seed evidence not found" in m for m in messages), messages)
+        self.verify()
+
+    def test_an_image_url_with_a_space_does_not_abort_the_article(self):
+        routes = self.routes()
+        routes[self.PAGE] = {
+            "text": routes[self.PAGE]["text"].replace(
+                '<div class="article-body">',
+                "<div class=\"article-body\"><img src='https://img.example.org/ads/banner 1.gif'>"
+                "<img src='https://img.example.org/ads/c\\d.gif'>",
+            )
+        }
+        self.assertIn("banner 1.gif", routes[self.PAGE]["text"])
+        acquisition = runner.Runner(
+            self.root,
+            "archives",
+            [self.seed(self.RULES)],
+            client_factory=FakeNetwork(routes).factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+        )
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        other = found["gnn129234:other:img.example.org/ads/banner%201.gif"]
+        self.assertEqual(
+            (other["disposition"], other["file_url"]), ("pending", "https://img.example.org/ads/banner%201.gif")
+        )
+        self.assertEqual(found["gnn129234:0001345608"]["disposition"], "downloaded")
+        self.assertEqual(snapshot["continuation"], {"article-images": "urls-skipped-1", "seed-files": None})
+        self.assertTrue(any("c\\\\d.gif" in e["message"] for e in snapshot["errors"]), snapshot["errors"])
         self.verify()
 
     def test_named_item_matched_by_url_is_not_enumerated_twice(self):
@@ -1026,12 +1172,72 @@ class PressArticleTests(ArchivesTestCase):
     def test_seed_validation(self):
         seed = self.seed(self.RULES)
         seed["params"]["article_images"][0]["pattern"] = "("
-        with self.assertRaises(Exception):
+        with self.assertRaisesRegex(ValueError, r"^test: params\.article_images\[0\]\.pattern .*regular expression"):
+            direct_adapter.check_seed(seed, "test")
+        seed = self.seed(self.RULES)
+        seed["params"]["article_images"][0]["rewrite"] = [["(", "x"]]
+        with self.assertRaisesRegex(ValueError, r"rewrite\[0\] .*regular expression"):
             direct_adapter.check_seed(seed, "test")
         seed = self.seed(self.RULES)
         del seed["params"]["article_images"][0]["select"]
         with self.assertRaises(ValueError):
             direct_adapter.check_seed(seed, "test")
+
+    def load_seeds(self, source):
+        path = self.root / "seeds.json"
+        path.write_text(json.dumps({"family": "archives", "sources": [source]}), encoding="utf-8")
+        return runner.load_seeds(path, "archives")
+
+    def test_seeds_that_would_fail_at_run_time_are_rejected_when_loaded(self):
+        """Each of these passed load_seeds (and --verify) and then crashed or aborted the source at run time."""
+        page_links = RunnerStateTests.seed(self)
+        self.load_seeds(page_links)  # the valid seed loads
+        cases = []
+        bad_rule = json.loads(json.dumps(page_links))
+        bad_rule["rules"] = [{"match": "(", "role": "promotional"}]
+        cases.append((bad_rule, r"rules\[0\]: match .*regular expression"))
+        bad_rule = json.loads(json.dumps(page_links))
+        bad_rule["rules"] = [{"match": ["img/"], "role": "promotional"}]
+        cases.append((bad_rule, r"rules\[0\]: match must be a regular expression string"))
+        bad_link = json.loads(json.dumps(page_links))
+        bad_link["items"][0]["link_rules"][0]["pattern"] = "("
+        cases.append((bad_link, r"link_rules\[0\]\.pattern .*regular expression"))
+        registry = {
+            "id": "archives:test-leads",
+            "name": "Leads",
+            "url": "https://press.example.org/",
+            "platform": "web",
+            "adapter": "lead_registry",
+            "items": [
+                {
+                    "key": "a",
+                    "page_url": "https://press.example.org/a",
+                    "title": "A",
+                    "disposition": "pending",
+                    "reason": "needs review: x",
+                }
+            ],
+        }
+        cases.append((registry, r"items\[0\]: a pending reason must start with one of"))
+        probe = {
+            "id": "archives:test-probe",
+            "name": "Probe",
+            "url": "https://press.example.org/",
+            "platform": "web",
+            "adapter": "page_probe",
+            "hosts": ["press.example.org"],
+            "lists": [],
+            "items": [{"url": "https://press.example.org/"}],
+        }
+        cases.append((probe, r"lists must be a non-empty list of names"))
+        for source, message in cases:
+            with self.subTest(message=message):
+                with self.assertRaisesRegex(ValueError, message) as caught:
+                    self.load_seeds(source)
+                self.assertIn(f"source {source['id']!r}", str(caught.exception))
+        registry["items"][0]["reason"] = "unresolved_role: x"
+        probe["lists"] = ["probe"]
+        self.assertEqual(len(self.load_seeds(registry)) + len(self.load_seeds(probe)), 2)
 
 
 class PrimaryEvidenceTests(ArchivesTestCase):
@@ -1517,6 +1723,68 @@ class RunnerStateTests(ArchivesTestCase):
             self.verify()
             self.assertEqual(list(target.parent.glob(".*")), [])
 
+    def runner_for(self, routes):
+        network = FakeNetwork(routes)
+        acquisition = runner.Runner(
+            self.root,
+            "archives",
+            [self.seed()],
+            client_factory=network.factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+        )
+        return acquisition, network
+
+    def test_a_symlinked_archived_file_is_reported_not_written_through(self):
+        url = "https://press.example.org/img/a.png"
+        routes = {self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        [asset] = self.manifest()["assets"]
+        target = self.root / asset["path"]
+        outside_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(outside_dir.cleanup)
+        outside = Path(outside_dir.name) / "outside.png"
+        outside.write_bytes(target.read_bytes())
+        target.unlink()
+        target.symlink_to(outside)  # a planted leaf link to a copy outside the root
+        for resume in (False, True):
+            acquisition, _ = self.runner_for(routes)
+            acquisition.resume = resume
+            acquisition.run()
+            self.assertEqual(acquisition.source_errors, {})  # no "source run aborted"
+            self.assertEqual([p.name for p in target.parent.iterdir()], [target.name])  # no leftover .part file
+            self.assertTrue(target.is_symlink())  # nothing replaced at or through the link ...
+            self.assertEqual(outside.read_bytes(), self.file((1, 2, 3))["bytes"])  # ... and the outside file unchanged
+            self.assertEqual(self.manifest()["assets"], [asset])
+            errors = manifest.load_discovery(self.root, "archives:press")["errors"]
+            self.assertTrue(
+                any(
+                    e["phase"] == "verify" and "refresh of archives:press:img/a.png failed" in e["message"]
+                    for e in errors
+                ),
+                errors,
+            )
+            self.assertFalse(any("source run aborted" in e["message"] for e in errors), errors)
+            verify_errors, _, _ = runner.verify_family(self.root, "archives")
+            self.assertIn(f"symlink in asset tree: {asset['path']}", verify_errors)
+
+    def test_a_symlinked_asset_directory_is_refused_before_any_download(self):
+        outside_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(outside_dir.cleanup)
+        family_dir = self.root / "assets/public/archives"
+        family_dir.mkdir(parents=True)
+        (family_dir / "press").symlink_to(outside_dir.name, target_is_directory=True)
+        url = "https://press.example.org/img/a.png"
+        acquisition, network = self.runner_for({self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))})
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        self.assertEqual([call for call in network.calls if call[0] == "download"], [])  # no temp file anywhere
+        self.assertEqual(list(Path(outside_dir.name).iterdir()), [])
+        self.assertEqual(self.candidates("archives:press")["img/a.png"]["disposition"], "failed")
+        self.assertIn("symlinked component", self.manifest()["failures"][0]["message"])
+        verify_errors, _, _ = runner.verify_family(self.root, "archives")
+        self.assertIn("symlink in asset tree: assets/public/archives/press", verify_errors)
+
     def test_a_corrupted_file_that_cannot_be_repaired_is_reported(self):
         url = "https://press.example.org/img/a.png"
         routes = {self.PAGE: self.page("a.png"), url: self.file((1, 2, 3))}
@@ -1538,8 +1806,9 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertTrue(any("cannot be repaired from upstream" in m for m in messages), messages)
 
     def test_pixel_identical_files_are_linked(self):
-        from PIL import Image
         import io
+
+        from PIL import Image
 
         def png(text):
             image = Image.new("RGB", (8, 8), (10, 20, 30))
@@ -1571,8 +1840,9 @@ class RunnerStateTests(ArchivesTestCase):
     @staticmethod
     def tagged_png(token):
         """The same pixels with a different embedded token (an App Store re-render)."""
-        from PIL import Image, PngImagePlugin
         import io
+
+        from PIL import Image, PngImagePlugin
 
         info = PngImagePlugin.PngInfo()
         info.add_text("Comment", token)
@@ -1605,6 +1875,239 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(statuses[first["id"]], "superseded")
         self.verify()
 
+    def test_a_file_linked_from_two_seed_pages_is_one_candidate(self):
+        other = "https://press.example.org/other"
+        seed = self.seed()
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        routes = {
+            self.PAGE: self.page("a.png"),
+            other: self.page("a.png", "b.png"),
+            "https://press.example.org/img/a.png": self.file((1, 2, 3)),
+            "https://press.example.org/img/b.png": self.file((4, 5, 6)),
+        }
+        for resume in (False, True):  # stable on a refresh
+            self.run_family([seed], FakeNetwork(routes), resume=resume)
+            snapshot = manifest.load_discovery(self.root, "archives:press")
+            self.assertTrue(snapshot["discovery_complete"], snapshot["continuation"])
+            self.assertEqual(snapshot["continuation"], {"seed-pages": None})
+            found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+            self.assertEqual(sorted(found), ["img/a.png", "img/b.png"])
+            self.assertEqual(found["img/a.png"]["page_url"], self.PAGE)  # the first page wins ...
+            self.assertIn(f"Also linked from {other}.", found["img/a.png"]["notes"])  # ... and the other is noted
+            self.assertEqual(self.manifest()["sources"][0]["status"], "available")
+            self.verify()
+
+    def test_relative_links_resolve_against_the_document_base(self):
+        # The page answers from /news/item/ (a redirect): its relative links name files below that directory.
+        page = "https://press.example.org/news/item"
+        seed = self.seed(rules=[{"match": "/img/", "role": "promotional", "game": "dynamix"}])
+        seed["items"] = [{"url": page, "link_rules": [{"attr": "src", "pattern": "/img/"}]}]
+        routes = {
+            page: {
+                "text": "<html><title>Dynamix news</title><body><img src='img/a.png'></body></html>",
+                "final_url": f"{page}/",
+            },
+            f"{page}/img/a.png": self.file((1, 2, 3)),
+        }
+        self.run_family([seed], FakeNetwork(routes))
+        [candidate] = manifest.load_discovery(self.root, "archives:press")["candidates"]
+        self.assertEqual(
+            (candidate["upstream_key"], candidate["file_url"], candidate["disposition"]),
+            ("news/item/img/a.png", f"{page}/img/a.png", "downloaded"),
+        )
+        self.assertEqual(candidate["page_url"], page)  # the seed page stays the candidate's page
+        self.verify()
+
+    def test_links_honour_base_href_and_the_final_host(self):
+        from primary.adapters import page_links
+
+        rules = [{"attr": "src", "pattern": "/img/"}]
+        html = "<head><base href='/cdn/'></head><img src='img/b.png'><img src='https://press.example.org/img/c.png'>"
+        self.assertEqual(
+            page_links.links(html, self.PAGE, rules),
+            (
+                [
+                    ("cdn/img/b.png", "https://press.example.org/cdn/img/b.png"),
+                    ("img/c.png", "https://press.example.org/img/c.png"),
+                ],
+                [],
+            ),
+        )
+        # Requested on one host, answered from another: links on the answering host are the page's own.
+        moved = page_links.links(
+            "<img src='/img/d.png'>", "https://old.example.org/p", rules, final_url="https://press.example.org/p"
+        )
+        self.assertEqual(moved, ([("img/d.png", "https://press.example.org/img/d.png")], []))
+        config = {
+            "page_url": self.PAGE,
+            "key_prefix": "p:",
+            "select": "div.post",
+            "pattern": "https://press\\.example\\.org/cdn/img/[^/]+\\.png",
+        }
+        images, others, state = direct_adapter.article_images(
+            "<head><base href='https://press.example.org/cdn/'></head><div class='post'><img src='img/e.png'></div>",
+            self.PAGE,
+            config,
+        )
+        self.assertEqual(
+            ([image["url"] for image in images], others, state), (["https://press.example.org/cdn/img/e.png"], [], None)
+        )
+
+    def test_links_of_other_hosts_keep_their_host_in_the_key(self):
+        from primary.adapters import page_links
+
+        html = (
+            "<img src='https://cdn1.example.org/img/a.png'><img src='https://cdn2.example.org/img/a.png'>"
+            "<img src='/img/a.png'>"
+        )
+        rules = [{"attr": "src", "pattern": "^/img/", "same_host": False}]
+        self.assertEqual(
+            page_links.links(html, self.PAGE, rules),
+            (
+                [
+                    ("cdn1.example.org/img/a.png", "https://cdn1.example.org/img/a.png"),
+                    ("cdn2.example.org/img/a.png", "https://cdn2.example.org/img/a.png"),
+                    ("press.example.org/img/a.png", "https://press.example.org/img/a.png"),
+                ],
+                [],
+            ),
+        )
+        seed = self.seed()
+        seed["items"][0]["link_rules"][0]["same_host"] = "no"
+        with self.assertRaisesRegex(ValueError, r"link_rules\[0\]\.same_host must be true or false"):
+            page_links.check_seed(seed, "test")
+
+    def test_a_link_with_a_literal_space_is_requested_as_a_browser_requests_it(self):
+        # html.parser keeps the space a browser percent-encodes; it must not abort the source (a key with whitespace
+        # fails candidate validation). A link that is still no valid URL is skipped and keeps the list open.
+        routes = {
+            self.PAGE: {
+                "text": "<html><title>Dynamix gallery</title><body><img src='/img/New Shot.png'>"
+                "<img src='/img/b.png'><img src='/img/c\\d.png'></body></html>"
+            },
+            "https://press.example.org/img/New%20Shot.png": self.file((1, 2, 3)),
+            "https://press.example.org/img/b.png": self.file((4, 5, 6)),
+        }
+        acquisition = runner.Runner(
+            self.root,
+            "archives",
+            [self.seed()],
+            client_factory=FakeNetwork(routes).factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+        )
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(sorted(found), ["img/New%20Shot.png", "img/b.png"])
+        self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
+        self.assertEqual(found["img/New%20Shot.png"]["file_url"], "https://press.example.org/img/New%20Shot.png")
+        self.assertEqual(snapshot["continuation"], {"seed-pages": "links-skipped-1"})
+        self.assertTrue(any("c\\\\d.png" in e["message"] for e in snapshot["errors"]), snapshot["errors"])
+        self.verify()
+
+    @staticmethod
+    def gif(*colours, duration=200):
+        """An animated GIF with one 16x16 frame per colour."""
+        from PIL import Image
+
+        frames = [Image.new("RGB", (16, 16), colour) for colour in colours]
+        buffer = io.BytesIO()
+        frames[0].save(buffer, "GIF", save_all=True, append_images=frames[1:], duration=duration, loop=0)
+        return {"bytes": buffer.getvalue(), "content_type": "image/gif"}
+
+    @staticmethod
+    def jpeg(orientation=None):
+        """The same JPEG pixels, optionally with an EXIF Orientation tag (the image then displays rotated)."""
+        from PIL import Image
+
+        image = Image.new("RGB", (24, 12), (10, 20, 30))
+        image.paste((250, 0, 0), (0, 0, 8, 12))
+        exif = Image.Exif()
+        if orientation is not None:
+            exif[0x0112] = orientation
+        buffer = io.BytesIO()
+        image.save(buffer, "JPEG", quality=95, exif=exif.tobytes())
+        return {"bytes": buffer.getvalue(), "content_type": "image/jpeg"}
+
+    def test_animations_that_share_only_their_first_frame_are_distinct(self):
+        routes = {
+            self.PAGE: self.page("a.gif", "b.gif"),
+            "https://press.example.org/img/a.gif": self.gif((255, 255, 255), (200, 0, 0)),
+            "https://press.example.org/img/b.gif": self.gif((255, 255, 255), (0, 0, 200)),
+        }
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = self.assets()
+        for key in ("img/a.gif", "img/b.gif"):
+            self.assertNotIn("variant_group", assets[key])
+            self.assertNotIn("pixels identical", assets[key].get("notes") or "")
+        self.verify()
+
+    def test_a_refetch_whose_later_frames_changed_is_a_new_revision(self):
+        url = "https://press.example.org/img/a.gif"
+        routes = {self.PAGE: self.page("a.gif"), url: self.gif((255, 255, 255), (200, 0, 0))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        [first] = self.manifest()["assets"]
+        routes[url] = self.gif((255, 255, 255), (0, 200, 0))
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual(len(assets), 2)
+        newer = self.candidates("archives:press")["img/a.gif"]["asset_id"]
+        self.assertNotEqual(newer, first["id"])
+        self.assertEqual(
+            (assets[first["id"]]["upstream_status"], assets[first["id"]]["superseded_by"]), ("superseded", newer)
+        )
+        self.assertNotRegex(assets[first["id"]].get("notes") or "", runner.REFETCH_NOTE_RE)
+        self.verify()
+
+    def test_a_reencode_that_only_adds_an_exif_orientation_is_a_new_revision(self):
+        url = "https://press.example.org/img/a.jpg"
+        routes = {self.PAGE: self.page("a.jpg"), url: self.jpeg()}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        [first] = self.manifest()["assets"]
+        routes[url] = self.jpeg(orientation=6)
+        self.run_family([self.seed()], FakeNetwork(routes))
+        statuses = {asset["id"]: asset["upstream_status"] for asset in self.manifest()["assets"]}
+        self.assertEqual(statuses[first["id"]], "superseded")
+        self.assertEqual(sorted(statuses.values()), ["current", "superseded"])
+        self.verify()
+
+    def test_pixel_digest_covers_frames_orientation_and_colour_profile(self):
+        import hashlib as hashes
+
+        from PIL import Image, ImageCms
+
+        def digest(name, payload):
+            path = self.root / name
+            path.write_bytes(payload)
+            with Image.open(path) as image:
+                fmt = image.format
+            return runner.pixel_digest(path, fmt)
+
+        self.assertNotEqual(
+            digest("a.gif", self.gif((255, 255, 255), (200, 0, 0))["bytes"]),
+            digest("b.gif", self.gif((255, 255, 255), (0, 0, 200))["bytes"]),
+        )
+        self.assertNotEqual(  # the same frames shown for other durations
+            digest("c.gif", self.gif((255, 255, 255), (200, 0, 0))["bytes"]),
+            digest("d.gif", self.gif((255, 255, 255), (200, 0, 0), duration=900)["bytes"]),
+        )
+        self.assertNotEqual(digest("a.jpg", self.jpeg()["bytes"]), digest("b.jpg", self.jpeg(6)["bytes"]))
+        self.assertEqual(digest("c.jpg", self.jpeg(1)["bytes"]), digest("d.jpg", self.jpeg()["bytes"]))  # 1: as stored
+        image = Image.new("RGB", (8, 8), (10, 20, 30))
+        profiles = {}
+        for name in ("sRGB", "LAB"):
+            buffer = io.BytesIO()
+            image.save(buffer, "PNG", icc_profile=ImageCms.ImageCmsProfile(ImageCms.createProfile(name)).tobytes())
+            profiles[name] = digest(f"{name}.png", buffer.getvalue())
+        self.assertNotEqual(profiles["sRGB"], profiles["LAB"])
+        # A static image without orientation or profile keeps the digest of earlier runs (existing pixels: groups).
+        buffer = io.BytesIO()
+        image.save(buffer, "PNG")
+        rgba = image.convert("RGBA")
+        self.assertEqual(digest("plain.png", buffer.getvalue()), hashes.sha256(b"8x8:" + rgba.tobytes()).hexdigest())
+
     def test_a_file_moved_to_a_new_key_is_adopted_not_left_removed(self):
         data = self.file((1, 2, 3))
         routes = {self.PAGE: self.page("a.png"), "https://press.example.org/img/a.png": data}
@@ -1629,6 +2132,49 @@ class RunnerStateTests(ArchivesTestCase):
         self.verify()
         self.run_family([self.seed()], FakeNetwork(routes), resume=True)  # stable, history kept
         self.assertIn("First archived for candidate archives:press:img/a.png", self.manifest()["assets"][0]["notes"])
+        self.verify()
+
+    def test_a_record_that_ends_a_supersession_chain_is_kept_for_review(self):
+        # A0 -> A (removed); a new key then lists A's bytes. Adopting A would cut A0's chain: the run keeps b.png as
+        # duplicate_bytes and records the review error in the written snapshot.
+        a, b, c = (f"https://press.example.org/img/{name}" for name in ("a.png", "b.png", "c.png"))
+        routes = {self.PAGE: self.page("a.png"), a: self.file((1, 1, 1))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        first = self.manifest()["assets"][0]["id"]
+        routes[a] = self.file((2, 2, 2))
+        self.run_family([self.seed()], FakeNetwork(routes))
+        second = self.candidates("archives:press")["img/a.png"]["asset_id"]
+        routes = {self.PAGE: self.page("c.png"), c: self.file((3, 3, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))  # a complete listing without a.png: A is removed
+        self.assertEqual(self.assets()["img/a.png"]["upstream_status"], "superseded")  # A0 (the first file)
+        routes = {self.PAGE: self.page("b.png", "c.png"), b: self.file((2, 2, 2)), c: self.file((3, 3, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual(assets[second]["upstream_status"], "removed")
+        self.assertEqual((assets[first]["upstream_status"], assets[first]["superseded_by"]), ("superseded", second))
+        found = self.candidates("archives:press")
+        self.assertEqual(
+            (found["img/b.png"]["disposition"], found["img/b.png"]["asset_id"]), ("duplicate_bytes", second)
+        )
+        messages = [e["message"] for e in manifest.load_discovery(self.root, "archives:press")["errors"]]
+        self.assertTrue(any("ends the supersession chain" in m for m in messages), messages)
+        warnings = self.verify()
+        self.assertTrue(any("a listed file is represented only by that record" in w for w in warnings), warnings)
+
+    def test_a_superseded_record_is_no_pixel_twin(self):
+        a, b = "https://press.example.org/img/a.png", "https://press.example.org/img/b.png"
+        routes = {self.PAGE: self.page("a.png"), a: self.tagged_png("TOKENAAAA")}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        old = self.manifest()["assets"][0]["id"]
+        # a.png gets other pixels (old is superseded); b.png lists other bytes with old's pixels.
+        routes = {self.PAGE: self.page("a.png", "b.png"), a: self.file((1, 2, 3)), b: self.tagged_png("TOKENBBBB")}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual(assets[old]["upstream_status"], "superseded")
+        self.assertEqual(len(assets), 3)
+        for asset in assets.values():
+            self.assertNotIn("variant_group", asset)
+            self.assertNotIn("pixels identical", asset.get("notes") or "")
         self.verify()
 
     def test_bytes_of_another_candidates_earlier_revision_are_adopted(self):

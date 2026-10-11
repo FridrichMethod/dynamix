@@ -13,8 +13,9 @@ import fcntl
 import logging
 import os
 import sys
+from collections.abc import Sequence
 from pathlib import Path
-from typing import IO, Sequence
+from typing import IO
 
 from lib import paths
 

@@ -12,8 +12,9 @@ import hashlib
 import io
 import os
 import tempfile
+from collections.abc import Mapping
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 from urllib.parse import urlencode, urlsplit
 
 from lib import net
@@ -44,7 +45,7 @@ class FakeNetwork:
         self.calls: list[tuple[str, str]] = []
         self.factories: list[list[str]] = []
 
-    def factory(self, hosts: list[str], min_interval: float) -> "FakeClient":
+    def factory(self, hosts: list[str], min_interval: float) -> FakeClient:
         self.factories.append(list(hosts))
         return FakeClient(self, hosts)
 

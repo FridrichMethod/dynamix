@@ -23,8 +23,9 @@ from __future__ import annotations
 import copy
 import re
 import unicodedata
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 
 from lib import paths, schema
 from lib.checks import redact_text
@@ -121,7 +122,7 @@ class Draft:
     # Adapter hook: the draft describing the bytes of an archived fallback URL (``(draft, url) -> draft``), e.g. the
     # URL the page advertised as ``source_reported.url``, that rendition's file name and a quality that does not call
     # it the upload. Applied on the acquisition that archives the fallback and on every later refresh of that record.
-    fallback_adjust: Callable[["Draft", str], "Draft"] | None = None
+    fallback_adjust: Callable[[Draft, str], Draft] | None = None
     # Curated download rule: the same file is attached to the candidate with this upstream key of the same source,
     # whose text names what the file shows; that candidate holds the record and this one is ``duplicate_bytes``.
     archive_under: str | None = None
@@ -221,10 +222,24 @@ def _check_credit_sources(rule: Mapping[str, Any], action: str, where: str) -> N
         )
 
 
+def check_regex(value: Any, label: str) -> None:
+    """ValueError naming ``label`` unless ``value`` is a string that compiles as a regular expression. A seed pattern
+    must fail when the seeds are loaded (and in ``--verify``), not when a run first applies it; ``re.error`` itself is
+    no ValueError."""
+    if not isinstance(value, str):
+        raise ValueError(f"{label} must be a regular expression string")
+    try:
+        re.compile(value)
+    except re.error as error:
+        raise ValueError(f"{label} is not a valid regular expression ({error})") from None
+
+
 def check_rule(rule: Mapping[str, Any], where: str) -> None:
     unknown = sorted(set(rule) - RULE_FIELDS)
     if unknown:
         raise ValueError(f"{where}: unknown rule field {unknown[0]!r}")
+    if rule.get("match") is not None:  # a rule without ``match`` matches every key
+        check_regex(rule["match"], f"{where}: match")
     for name in LIST_FIELDS:  # a string here would be iterated per character (one-letter "quotes" and credits)
         value = rule.get(name, [])
         if not isinstance(value, list) or not all(isinstance(item, str) and item.strip() for item in value):

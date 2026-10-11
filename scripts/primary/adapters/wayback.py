@@ -6,7 +6,8 @@ discovery stays incomplete. Paging is bounded: a resume key returned twice or mo
 200) stop the listing with the pending key kept open. Captures are grouped by (URL key, content digest): the earliest
 capture of each distinct payload is one candidate ``<host/path>@<timestamp>``. A query that lists no capture although the
 previous snapshot holds captures it matched is not a complete listing: its list stays open (``empty-answer``) with a
-discovery error, so no archived capture changes status on an empty response (07 §Integrity).
+discovery error, so no archived capture changes status on an empty response (07 §Integrity). The state persists over
+further empty answers (the excluded or pending captures are no longer in the snapshot by then) until a listing is read.
 ``web.archive.org/web/<ts>id_/<original>`` returns the archived bytes without replay rewriting; the replay page is the
 ``page_url``.
 
@@ -22,7 +23,8 @@ from __future__ import annotations
 import base64
 import binascii
 import re
-from typing import Any, Callable, Mapping
+from collections.abc import Callable, Mapping
+from typing import Any
 from urllib.parse import urlsplit
 
 from lib import checks, net
@@ -102,8 +104,11 @@ def capture_key(original: str, timestamp: str) -> str:
     return f"{host}{path}{'?' + parts.query if parts.query else ''}@{timestamp}".replace(" ", "%20")
 
 
-def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[list[dict], str | None]:
-    """One CDX page as dicts and the resume key for the next page (None at the end)."""
+def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[list[dict], str | None, int]:
+    """One CDX page as dicts, the resume key for the next page (None at the end) and the number of rows of unexpected
+    shape (neither header-sized nor the empty separator and one-string resume-key rows that end a page), which the
+    caller reports. A first row that is not a header of field names with ``timestamp`` and ``original`` raises
+    ValueError, so the listing counts as interrupted instead of as an empty complete page."""
     params: dict[str, Any] = {
         "url": item["url"],
         "matchType": item.get("match_type", "exact"),
@@ -120,14 +125,23 @@ def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[lis
     if not isinstance(data, list):
         raise ValueError("CDX response is not a JSON list")
     if not data:
-        return [], None
-    header, rows, next_key = data[0], [], None
+        return [], None, 0
+    header = data[0]
+    if (
+        not isinstance(header, list)
+        or not all(isinstance(name, str) for name in header)
+        or not {"timestamp", "original"} <= set(header)
+    ):
+        raise ValueError(f"CDX response has no header row of field names: {model.clip(repr(header), 80)}")
+    rows, next_key, malformed = [], None, 0
     for row in data[1:]:
         if isinstance(row, list) and len(row) == len(header):
-            rows.append(dict(zip(header, row)))
+            rows.append(dict(zip(header, row, strict=True)))  # equal lengths: checked on the line above
         elif isinstance(row, list) and len(row) == 1 and isinstance(row[0], str):
             next_key = row[0]  # after an empty separator row
-    return rows, next_key
+        elif row != []:  # the empty separator before the resume key is expected
+            malformed += 1
+    return rows, next_key, malformed
 
 
 def _cdx_form(url: str) -> tuple[str, str]:
@@ -192,13 +206,15 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     )
     for item in items:
         rows: list[dict] = []
+        malformed = 0  # rows of unexpected shape: listed, but no capture can be read from them
         resume: str | None = None  # the key of the page being requested; kept open when paging stops early
         seen: set[str] = set()
         limit = item.get("max_pages", MAX_PAGES)
         try:
             for _ in range(limit):
-                page, next_key = cdx_rows(ctx, item, resume)
+                page, next_key, bad = cdx_rows(ctx, item, resume)
                 rows.extend(page)
+                malformed += bad
                 if not next_key:
                     resume = None
                     break
@@ -217,19 +233,34 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if isinstance(error, net.BlockedError):
                 discovery.evidence_level = "blocked"
         else:
-            listed_before = previously_listed(getattr(ctx, "previous", None), item) if not rows else 0
-            if listed_before:
+            previous = getattr(ctx, "previous", None)
+            listed_before = previously_listed(previous, item) if not rows else 0
+            # Captures without archived bytes (excluded, pending, failed) are not carried into the snapshot of a run
+            # whose listing was empty, so an earlier empty answer keeps the list open on its own: it stays open until
+            # a listing is read again (07 §Integrity: never infer completeness from an empty response).
+            empty_before = not rows and ((previous or {}).get("continuation") or {}).get(item["name"]) == "empty-answer"
+            if listed_before or empty_before:
+                held = (
+                    f"the previous snapshot holds {listed_before} capture(s) of this query"
+                    if listed_before
+                    else "the previous run got an empty answer too, after this query had listed captures"
+                )
                 discovery.errors.append(
                     model.discovery_error(
                         "discover",
                         CDX,
-                        f"{item['name']}: the CDX API listed no capture, although the previous snapshot "
-                        f"holds {listed_before} capture(s) of this query; an empty answer is not taken "
-                        "as the complete listing",
+                        f"{item['name']}: the CDX API listed no capture, although {held}; an empty answer is not "
+                        "taken as the complete listing",
                     )
                 )
                 discovery.continuation[item["name"]] = "empty-answer"
-        skipped = 0
+        skipped = malformed
+        if malformed:
+            discovery.errors.append(
+                model.discovery_error(
+                    "discover", CDX, f"{item['name']}: {malformed} CDX row(s) of unexpected shape skipped"
+                )
+            )
         for row in unique_captures(rows):
             original, stamp = row.get("original", ""), row.get("timestamp", "")
             if not base.stored(original) or iso_timestamp(stamp) is None:

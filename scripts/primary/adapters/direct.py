@@ -2,7 +2,8 @@
 
 For pages whose gallery is rendered by JavaScript (Wix pro-gallery, Tumblr themes) the seed names each file directly:
 ``{"key", "page_url", "file_url"}``. With ``"read_page": true`` the page is fetched once and its title/text become the
-evidence that seed rules quote; otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
+evidence that seed rules quote (an item whose page cannot be read is ``failed``/``blocked`` with that read's error and a
+Failure record); otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
 
 Article pages (``params.article_images``): every image of a read page's article body is accounted for, not only the
 named files. Each entry ``{"page_url", "key_prefix", "select", "pattern", "og_image"?, "rewrite"?, "attr_urls"?,
@@ -60,7 +61,8 @@ from __future__ import annotations
 import copy
 import json
 import re
-from typing import Any, Callable, Mapping
+from collections.abc import Callable, Mapping
+from typing import Any
 from urllib.parse import urlsplit, urlunsplit
 
 from bs4 import NavigableString
@@ -155,15 +157,15 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
         if checks.http_url(page["page_url"]) or page["page_url"] in seen:
             raise ValueError(f"{label}.page_url must be a distinct http(s) URL")
         seen.add(page["page_url"])
-        re.compile(page["pattern"])
+        model.check_regex(page["pattern"], f"{label}.pattern")
         rewrite = page.get("rewrite", [])
         if not isinstance(rewrite, list) or any(
             not isinstance(pair, list) or len(pair) != 2 or not all(isinstance(part, str) for part in pair)
             for pair in rewrite
         ):
             raise ValueError(f"{label}.rewrite must be a list of [pattern, replacement] pairs")
-        for pattern, _ in rewrite:
-            re.compile(pattern)
+        for pair_index, (pattern, _) in enumerate(rewrite):
+            model.check_regex(pattern, f"{label}.rewrite[{pair_index}]")
         attrs = page.get("attr_urls", [])
         if not isinstance(attrs, list) or not all(isinstance(name, str) and name.strip() for name in attrs):
             raise ValueError(f"{label}.attr_urls must be a list of attribute names")
@@ -300,22 +302,68 @@ def _og_images(document: Any) -> list[tuple[str, Any]]:
     return [(url, size) for url, size in found]
 
 
+_SRCSET_SPACE = "\t\n\f\r "  # ASCII whitespace (HTML)
+
+
+def srcset_urls(value: str) -> list[str]:
+    """The image URLs of a ``srcset`` attribute, parsed as HTML does: a candidate URL runs to whitespace (so it may
+    contain commas, e.g. Jetpack's ``?resize=300,169``) without its trailing commas, and its descriptors run to the next
+    comma outside parentheses."""
+    urls: list[str] = []
+    position, end = 0, len(value)
+    while True:
+        while position < end and (value[position] in _SRCSET_SPACE or value[position] == ","):
+            position += 1
+        if position >= end:
+            return urls
+        start = position
+        while position < end and value[position] not in _SRCSET_SPACE:
+            position += 1
+        url = value[start:position]
+        if url.endswith(","):  # no descriptors: the comma ends the candidate
+            url = url.rstrip(",")
+        else:
+            in_parens = False
+            while position < end and (value[position] != "," or in_parens):
+                if value[position] == "(":
+                    in_parens = True
+                elif value[position] == ")":
+                    in_parens = False
+                position += 1
+        if url:
+            urls.append(url)
+
+
 def _orig_size(element: Any) -> tuple[int, int] | None:
     """The original upload's (width, height) a WordPress attachment ``img`` advertises (``data-orig-size="W,H"``)."""
     parts = str(element.get("data-orig-size") or "").split(",")
     return _size(*parts) if len(parts) == 2 else None
 
 
-def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple[list[dict], list[dict], str | None]:
+def article_images(
+    html: str,
+    page_url: str,
+    config: Mapping[str, Any],
+    *,
+    skipped: list[str] | None = None,
+    final_url: str | None = None,
+) -> tuple[list[dict], list[dict], str | None]:
     """([article image], [other image], None when the enumeration is complete or the open continuation token) for one
-    configured article page; each image is ``{key, url, advertised, caption, supplied, name, size}`` in page order."""
+    configured article page; each image is ``{key, url, advertised, caption, supplied, name, size}`` in page order.
+
+    Links are resolved as a browser requests them: against the document base (``<base href>``, else ``final_url``, the
+    URL the page was served from after redirects, else ``page_url``) and encoded by :func:`base.link_url` (e.g. a
+    literal space percent-encoded). An image URL that is still no valid http(s) URL is not keyed: it is appended to
+    ``skipped`` and keeps the enumeration open (``urls-skipped-<n>``)."""
     document = base.soup(html)
     pattern = re.compile(config["pattern"])
     rewrite = config.get("rewrite", [])
     found: dict[str, dict] = {}
     others: dict[str, dict] = {}
     body: set[str] = set()
+    unusable: list[str] = skipped if skipped is not None else []
     title = base.headline(document)
+    resolve = base.document_base(document, final_url or page_url)
 
     def add(
         raw: str | None,
@@ -332,8 +380,13 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
         or a quoted URL (``image_link`` False) counts only when it names an image file."""
         if not raw or not raw.strip():
             return None
-        absolute = _without_fragment(base.absolute(page_url, raw))
-        if urlsplit(absolute).scheme not in ("http", "https"):  # data: placeholders, javascript: links
+        try:
+            absolute = _without_fragment(base.link_url(resolve, raw))
+            scheme = urlsplit(absolute).scheme
+        except ValueError:  # unparseable, e.g. an unbalanced IPv6 bracket
+            unusable.append(raw)
+            return None
+        if scheme not in ("http", "https"):  # data: placeholders, javascript: links
             return None
         url = normalized(absolute, rewrite)
         match = pattern.fullmatch(url)
@@ -347,11 +400,15 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
             key, bucket = f"{config['key_prefix']}{OTHER}{parts.netloc}{parts.path}", others
         else:
             return None
+        if checks.url_problem(url):  # keyed and downloaded as this URL: it must be one
+            if url not in unusable:
+                unusable.append(url)
+            return None
         entry = bucket.setdefault(
             key,
             {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False, "name": name, "size": None},
         )
-        if absolute != url and absolute not in entry["advertised"]:
+        if absolute != url and absolute not in entry["advertised"] and not checks.url_problem(absolute):
             entry["advertised"].append(absolute)
         entry["supplied"] = entry["supplied"] or supplied
         if size and entry["size"] is None and (absolute == url or not size_of_listed):
@@ -381,8 +438,8 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
                 size = _orig_size(element)
                 for name in IMAGE_ATTRS:
                     add(element.get(name), caption, supplied=flag, size=size)
-                for candidate in str(element.get("srcset") or "").split(","):
-                    add(candidate.strip().split(" ")[0], caption, supplied=flag, size=size)
+                for candidate in srcset_urls(str(element.get("srcset") or "")):
+                    add(candidate, caption, supplied=flag, size=size)
     state = None
     spec = config.get("embedded_json")
     if spec:
@@ -400,6 +457,8 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
         state = "selection-not-found"
     elif not body and state is None:
         state = "selection-empty"
+    if unusable and state is None:
+        state = f"urls-skipped-{len(unusable)}"
     return list(found.values()), list(others.values()), state
 
 
@@ -458,10 +517,11 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     def read(page_url: str) -> dict:
         if page_url not in pages:
             try:
-                html, _, _ = ctx.client.get_text(page_url)
+                html, final_url, _ = ctx.client.get_text(page_url)
                 document = base.soup(html)
                 pages[page_url] = {
                     "html": html,
+                    "final_url": final_url if final_url else None,
                     "texts": {
                         "title": document.title.get_text(" ", strip=True) if document.title else "",
                         "body": base.page_text(base.soup(html)),
@@ -473,7 +533,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 base.mark_unread(discovery, "seed-files", error)
                 if page_url in configs:
                     base.mark_unread(discovery, ARTICLE_LIST, error)
-                pages[page_url] = {"html": None, "texts": {}, "headline": ""}
+                pages[page_url] = {"html": None, "texts": {}, "headline": "", "error": error}
         return pages[page_url]
 
     enumerated: dict[str, list[dict]] = {}
@@ -482,8 +542,20 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         page = read(page_url)
         if page["html"] is None:
             continue
-        images, others[page_url], state = article_images(page["html"], page_url, config)
+        skipped: list[str] = []
+        images, others[page_url], state = article_images(
+            page["html"], page_url, config, skipped=skipped, final_url=page["final_url"]
+        )
         enumerated[page_url] = images
+        for url in skipped:
+            discovery.errors.append(
+                model.discovery_error(
+                    "discover",
+                    page_url,
+                    f"image URL skipped, not a valid http(s) URL ({checks.url_problem(url) or 'unparseable'}): "
+                    f"{model.clip(repr(url), 160)}",
+                )
+            )
         if state is None:
             read_complete.add(page_url)
             continue
@@ -494,6 +566,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             "an empty selection is not a complete enumeration",
             "embedded-json-not-found": f"embedded article payload {script!r} not found or unreadable",
         }.get(state, f"article image count disagrees with the page ({state})")
+        if state.startswith("urls-skipped-"):
+            detail = f"{len(skipped)} image URL(s) of the page could not be keyed; the enumeration is not complete"
         discovery.errors.append(model.discovery_error("discover", page_url, detail))
         discovery.continuation[ARTICLE_LIST] = discovery.continuation.get(ARTICLE_LIST) or state
 
@@ -514,6 +588,21 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         page_url, file_url, key = item["page_url"], item["file_url"], item["key"]
         page = read(page_url) if item.get("read_page") else {"texts": {}, "headline": ""}
         name = base.last_segment(file_url)
+        if page.get("error") is not None:
+            # The page whose text the seed rule quotes could not be read: the item fails (or is blocked) with that
+            # error and a Failure record, instead of a rule check against text that was never fetched.
+            discovery.candidates.append(
+                model.error_draft(
+                    key,
+                    page_url,
+                    _title(item.get("title"), "", "", None, name),
+                    page["error"],
+                    phase="discover",
+                    file_url=base.stored(file_url),
+                    source_reported=base.reported(url=file_url),
+                )
+            )
+            continue
         place, image = placed[id(item)]
         linked = None
         if place is not None:

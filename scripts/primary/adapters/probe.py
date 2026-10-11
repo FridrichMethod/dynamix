@@ -8,7 +8,8 @@ quote is reported as a discovery error. Items with ``"request": false`` make no 
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 
@@ -20,6 +21,9 @@ FAILURE_STATUS = {"blocked": "manual_access", "challenge": "manual_access", "hos
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
+    lists = seed.get("lists", ["probe"])
+    if not isinstance(lists, list) or not lists or not all(isinstance(name, str) and name.strip() for name in lists):
+        raise ValueError(f"{where}: lists must be a non-empty list of names (a failed probe keeps the first one open)")
     for index, item in enumerate(base.require_items(seed, where, ["url"])):
         if item.get("request", True) and not seed.get("hosts"):
             raise ValueError(f"{where}: hosts are required when items[{index}] makes a request")

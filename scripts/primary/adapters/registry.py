@@ -11,7 +11,8 @@ when the lead named one, its file URL, so the decision stays traceable.
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import checks, schema
 
@@ -58,6 +59,8 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             prefix = item["reason"].split(":", 1)[0].strip()
             if prefix not in schema.EXCLUSION_REASONS:
                 raise ValueError(f"{label}: exclusion reason must start with one of {schema.EXCLUSION_REASONS}")
+        if item["disposition"] == "pending" and item["reason"].split(":", 1)[0].strip() not in schema.PENDING_REASONS:
+            raise ValueError(f"{label}: a pending reason must start with one of {schema.PENDING_REASONS}")
         if model.awaiting_without_file(item):
             raise ValueError(
                 f"{label}: an awaiting_download item needs its file_url (a lead with no file to fetch "

@@ -27,12 +27,13 @@ import math
 import os
 import re
 import time
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 from urllib.parse import unquote, urlsplit
 
-from PIL import Image
+from PIL import Image, ImageSequence
 
 from lib import checks, manifest, media, net, paths, schema
 
@@ -833,11 +834,16 @@ class Runner:
             self._persist(state)
 
     def _pixel_digest(self, asset: Mapping[str, Any]) -> str | None:
-        """SHA-256 of the decoded first frame (RGBA) of a raster asset; None for a PDF or an unreadable file."""
+        """:func:`pixel_digest` of a raster asset's file (every frame, orientation, profile); None for a PDF or an
+        unreadable file."""
         if asset["format"] not in schema.RASTER_FORMATS:
             return None
         if asset["sha256"] not in self._pixels:
-            self._pixels[asset["sha256"]] = pixel_digest(paths.safe_path(self.root, asset["path"]), asset["format"])
+            try:
+                file = paths.safe_path(self.root, asset["path"])
+            except ValueError:  # a planted symlink or an escaping path: --verify reports it; no digest
+                return None
+            self._pixels[asset["sha256"]] = pixel_digest(file, asset["format"])
         return self._pixels[asset["sha256"]]
 
     def _same_pixels(self, asset: Mapping[str, Any], result: Any) -> str | None:
@@ -885,8 +891,9 @@ class Runner:
         key, e.g. a renamed page link, or a candidate now serves another candidate's earlier revision) either restores
         the record (still named by its own candidate: ``current`` again, noting the other listing) or adopts it: the
         record becomes the candidate's current asset (same asset ID and file, ``upstream_status: current``) with a note
-        naming the candidate it was first archived for, and the candidate is ``downloaded``. Returns whether a record
-        changed."""
+        naming the candidate it was first archived for, and the candidate is ``downloaded``. Returns whether the snapshot
+        must be written again: a record changed, or a review error was recorded for a record that ends another
+        candidate's supersession chain (kept ``duplicate_bytes``)."""
         changed = False
         for cid in sorted(state.candidates):
             candidate, draft = state.candidates[cid], drafts.get(cid)
@@ -923,6 +930,7 @@ class Runner:
                         + "; kept as duplicate_bytes for review",
                     )
                 )
+                changed = True  # no record changes, but the snapshot must be written with this review error
                 continue
             for asset in pointing:  # the adopted record leaves its former candidate's revision chain
                 relinked = dict(asset)
@@ -1074,7 +1082,7 @@ class Runner:
         if owner is not None:
             try:
                 repaired = self._repair(state, owner, result)
-            except (media.MediaError, OSError) as error:
+            except (media.MediaError, OSError, ValueError) as error:  # ValueError: paths.safe_path refused the target
                 Path(result.temp_path).unlink(missing_ok=True)
                 self._download_failed(state, draft, error, "verify", attempted_at, previous_asset)
                 return
@@ -1657,15 +1665,40 @@ class Runner:
         state.obsolete_paths.clear()
 
 
+EXIF_ORIENTATION = 0x0112
+
+
 def pixel_digest(path: Path, fmt: str) -> str | None:
-    """SHA-256 of the decoded first frame of a raster file as RGBA (with its size), None when it cannot be decoded."""
+    """SHA-256 of what a raster file displays, None when it cannot be decoded: every frame decoded as RGBA (with its
+    size), and, where they apply, an animation's frame count and frame durations, the EXIF orientation (other than 1,
+    "as stored") and the embedded ICC profile. Two files have one digest only when all of these agree, so two
+    animations that share a first frame, or a re-encode that only rotates the image or changes its colour profile, are
+    never "pixel-identical". A static image without orientation tag or profile hashes as before (``<w>x<h>:`` and its
+    RGBA bytes), so existing ``pixels:`` groups keep their digest."""
     try:
         with Image.open(path, formats=["JPEG", "MPO"] if fmt == "JPEG" else [fmt]) as image:
-            image.seek(0)
-            frame = image.convert("RGBA")
-            return hashlib.sha256(f"{frame.width}x{frame.height}:".encode() + frame.tobytes()).hexdigest()
+            profile = image.info.get("icc_profile")
+            orientation = image.getexif().get(EXIF_ORIENTATION)
+            digest = hashlib.sha256()
+            durations = []
+            for index, frame in enumerate(ImageSequence.Iterator(image)):
+                rgba = frame.convert("RGBA")
+                label = f"{rgba.width}x{rgba.height}:" if index == 0 else f"|frame {index} {rgba.width}x{rgba.height}:"
+                digest.update(label.encode())
+                digest.update(rgba.tobytes())
+                durations.append(frame.info.get("duration"))
     except OSError, ValueError, SyntaxError, EOFError, Image.DecompressionBombError:
         return None
+    extra = []
+    if len(durations) > 1:
+        extra.append(f"frames {len(durations)} durations {durations}")
+    if orientation not in (None, 1):
+        extra.append(f"orientation {orientation}")
+    if profile:
+        extra.append(f"icc {hashlib.sha256(profile).hexdigest()}")
+    if extra:
+        digest.update(("|" + "; ".join(extra)).encode())
+    return digest.hexdigest()
 
 
 def compute_status(counts: Mapping[str, int], complete: bool, has_assets: bool, failures: list[dict]) -> str:
@@ -1967,7 +2000,9 @@ def verify_family(
             media.verify_asset_file(root, asset)
         except (media.MediaError, OSError) as error:
             errors.append(f"asset file: {error}")
-        for title, song_id in zip(asset["song_titles"], asset["song_ids"]):
+        # strict=False: the schema does not require equal lengths, and --verify must report, not crash, on a record
+        # whose lists disagree.
+        for title, song_id in zip(asset["song_titles"], asset["song_ids"], strict=False):
             if not song_id.startswith(paths.song_id_base(title)):
                 warnings.append(f"{asset['id']}: song ID {song_id} does not derive from title {title!r}")
         if index is not None:
