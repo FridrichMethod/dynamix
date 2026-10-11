@@ -12,7 +12,9 @@ import hashlib
 import json
 import sys
 import tempfile
+import threading
 import unittest
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from unittest import mock
 
@@ -24,7 +26,7 @@ from primary import model, runner  # noqa: E402
 from primary.adapters import bilibili as bilibili_adapter  # noqa: E402
 from primary.adapters import pixiv as pixiv_adapter  # noqa: E402
 from primary.adapters import x as x_adapter  # noqa: E402
-from primary.testing import FIXED_NOW, FakeClient, FakeNetwork, full_url, image_bytes  # noqa: E402
+from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/artists"
 QUALITY = {
@@ -1158,6 +1160,48 @@ class ArtStationTests(ArtistsTestCase):
         self.assertIn(f"Archived from {large}", found["6baqbW:101"]["notes"])
         self.verify()
 
+    def test_a_plain_401_or_403_of_the_4k_rendition_falls_back_to_the_listed_one(self):
+        # 09 (owner decision on DX3-02): the 4k URL is our derivation, so a plain refusal is taken as a missing key; a
+        # bot challenge of it still blocks the CDN host.
+        data = fixture_json("artstation_project.json")
+        large = data["assets"][0]["image_url"]
+        four_k = large.replace("/large/", "/4k/")
+        for status in (401, 403):
+            with self.subTest(status=status):
+                self.root = Path(self.temp.name) / str(status)
+                self.root.mkdir()
+                network = FakeNetwork(
+                    {
+                        "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                        four_k: {"error": net.BlockedError(f"HTTP {status}", url=four_k, http_status=status)},
+                        large: {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"},
+                    }
+                )
+                acquisition, _ = self.run_family([self.seed()], network)
+                self.assertEqual(acquisition.blocked_hosts, {})
+                [asset] = self.manifest()["assets"]
+                self.assertEqual(asset["download_url"], large)
+                self.assertEqual(asset["quality"]["source_variant"], "unknown")
+                self.assertIn(f"4k rendition {four_k} answered HTTP {status}.", asset["quality"]["notes"])
+                self.assertIn(f"{four_k} answered HTTP {status}.", asset["notes"])
+                self.assertEqual(self.manifest()["failures"], [])
+                self.verify()
+        self.root = Path(self.temp.name) / "challenge"
+        self.root.mkdir()
+        challenge = net.ChallengeError("challenge page (HTTP 403)", url=four_k, http_status=403)
+        network = FakeNetwork(
+            {
+                "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                four_k: {"error": challenge},
+                large: {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"},
+            }
+        )
+        acquisition, _ = self.run_family([self.seed()], network)
+        self.assertIn("cdna.artstation.com", acquisition.blocked_hosts)
+        self.assertEqual(network.count("cdna.artstation.com"), 1)
+        self.assertEqual(self.candidates("artists:artstation:sandgodoven")["6baqbW:101"]["disposition"], "blocked")
+        self.verify()
+
     def test_the_4k_rendition_keeps_the_seed_quality(self):
         data = fixture_json("artstation_project.json")
         large = data["assets"][0]["image_url"]
@@ -1228,24 +1272,9 @@ class ArtStationTests(ArtistsTestCase):
 # --- Bilibili: opus posts, author check, risk-control answers ---------------------------------------------------------
 
 
-class TextJsonClient(FakeClient):
-    """A fake client whose ``get_json`` parses a text route like ``lib.net.PoliteClient.get_json``: a body that is not
-    JSON raises the same ``FetchError`` (HTTP 200), so the body itself is only available through ``get_text``."""
-
-    def get_json(self, url, params=None, **_):
-        target = full_url(url, params)
-        self._check(target)
-        response = self.network.respond("get_json", target)
-        try:
-            return json.loads(response["text"]), target
-        except ValueError as error:
-            raise net.FetchError(f"response is not valid JSON: {error}", url=target, http_status=200) from None
-
-
-class TextJsonNetwork(FakeNetwork):
-    def factory(self, hosts, min_interval):
-        self.factories.append(list(hosts))
-        return TextJsonClient(self, hosts)
+def bilibili_answer(text, content_type="application/json; charset=utf-8"):
+    """An ``opus/detail`` answer route: the adapter reads the body as bytes (``download``, see bilibili.read_answer)."""
+    return {"bytes": text.encode("utf-8"), "content_type": content_type}
 
 
 BILI_OPUS = "1022295438715256855"
@@ -1310,7 +1339,7 @@ def bilibili_api(opus_id=BILI_OPUS):
 
 
 def bilibili_routes(payload):
-    routes = {bilibili_api(): {"text": json.dumps(payload, ensure_ascii=False)}}
+    routes = {bilibili_api(): bilibili_answer(json.dumps(payload, ensure_ascii=False))}
     for index, (url, _, _) in enumerate(BILI_PICS):
         routes[bilibili_adapter.original_picture_url(url)] = {
             "bytes": image_bytes("PNG", (40 + index, 24)),
@@ -1323,7 +1352,7 @@ class BilibiliTests(ArtistsTestCase):
     SOURCE = "artists:bilibili:ariiol"
 
     def test_post_of_the_seeded_account_is_downloaded_per_picture(self):
-        network = TextJsonNetwork(bilibili_routes(bilibili_payload(12345, "ariiol")))
+        network = FakeNetwork(bilibili_routes(bilibili_payload(12345, "ariiol")))
         self.run_family([bilibili_seed({"mid": "12345"})], network)
         found = self.candidates(self.SOURCE)
         self.assertEqual(sorted(found), [f"{BILI_OPUS}:1", f"{BILI_OPUS}:2"])
@@ -1337,7 +1366,7 @@ class BilibiliTests(ArtistsTestCase):
         self.verify()
 
     def test_post_of_another_account_is_held(self):
-        network = TextJsonNetwork(bilibili_routes(bilibili_payload(999, "fan_reposter")))
+        network = FakeNetwork(bilibili_routes(bilibili_payload(999, "fan_reposter")))
         self.run_family([bilibili_seed({"mid": "12345"})], network)
         held = self.candidates(self.SOURCE)[f"{BILI_OPUS}:1"]
         self.assertEqual((held["disposition"], held["game"]), ("pending", "unknown"))
@@ -1347,7 +1376,7 @@ class BilibiliTests(ArtistsTestCase):
 
     def test_post_is_held_while_the_account_id_is_not_established(self):
         # The committed seed has no params.mid: the author check cannot run, so no post is admitted as the artist's own.
-        network = TextJsonNetwork(bilibili_routes(bilibili_payload(999, "fan_reposter")))
+        network = FakeNetwork(bilibili_routes(bilibili_payload(999, "fan_reposter")))
         self.run_family([bilibili_seed()], network)
         found = self.candidates(self.SOURCE)
         for key in (f"{BILI_OPUS}:1", f"{BILI_OPUS}:2"):
@@ -1365,7 +1394,7 @@ class BilibiliTests(ArtistsTestCase):
     def assert_refusal_blocks_the_host(self, answer):
         """Two seed posts: the first answer is a risk-control refusal, so the second post is never requested."""
         second = "1022295438715256856"
-        network = TextJsonNetwork({bilibili_api(): answer, bilibili_api(second): answer})
+        network = FakeNetwork({bilibili_api(): answer, bilibili_api(second): answer})
         self.run_family([bilibili_seed({"mid": "12345"}, [{"opus_id": BILI_OPUS}, {"opus_id": second}])], network)
         found = self.candidates(self.SOURCE)
         self.assertEqual(found[BILI_OPUS]["disposition"], "blocked")
@@ -1374,15 +1403,17 @@ class BilibiliTests(ArtistsTestCase):
         self.assertEqual(found[second]["disposition"], "blocked")  # host refused earlier in the run: not contacted
         self.assertEqual(network.count("api.bilibili.com"), 1)
         self.assertEqual(self.manifest()["sources"][0]["status"], "manual_access")
+        [failure] = self.manifest()["failures"]  # the skipped second post has none
+        self.assertEqual(failure["url"], f"https://www.bilibili.com/opus/{BILI_OPUS}")  # the post's page, not the API
         self.verify()
         return found
 
     def test_risk_control_code_is_a_challenge(self):
-        found = self.assert_refusal_blocks_the_host({"text": json.dumps({"code": -352, "message": "-352"})})
+        found = self.assert_refusal_blocks_the_host(bilibili_answer(json.dumps({"code": -352, "message": "-352"})))
         self.assertIn("risk control (code -352)", found[BILI_OPUS]["reason"])
 
     def test_captcha_page_is_a_challenge(self):
-        found = self.assert_refusal_blocks_the_host({"text": self.CAPTCHA})
+        found = self.assert_refusal_blocks_the_host(bilibili_answer(self.CAPTCHA, "text/html"))
         self.assertIn("captcha", found[BILI_OPUS]["reason"])
 
     def test_http_412_is_a_challenge(self):
@@ -1390,15 +1421,90 @@ class BilibiliTests(ArtistsTestCase):
         found = self.assert_refusal_blocks_the_host({"error": error})
         self.assertIn("HTTP 412", found[BILI_OPUS]["reason"])
 
+    def serve(self, answer, content_type):
+        """A loopback server answering every request with ``answer``; (opus/detail URL on it, requested paths)."""
+        requested = []
+
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):  # noqa: N802 - http.server API
+                requested.append(self.path)
+                self.send_response(200)
+                self.send_header("Content-Type", content_type)
+                self.send_header("Content-Length", str(len(answer)))
+                self.end_headers()
+                self.wfile.write(answer)
+
+            def log_message(self, *args):
+                pass
+
+        server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        threading.Thread(target=server.serve_forever, kwargs={"poll_interval": 0.02}, daemon=True).start()
+        self.addCleanup(server.server_close)
+        self.addCleanup(server.shutdown)
+        return f"http://127.0.0.1:{server.server_address[1]}/x/polymer/web-dynamic/v1/opus/detail", requested
+
+    def test_cloudflare_markers_count_only_in_a_markup_answer(self):
+        """Through the real lib.net client on a loopback server: a JSON answer whose post text quotes a Cloudflare token
+        (``cf_chl``) is parsed, not taken for a challenge; the same marker in an HTML answer is a challenge (blocked,
+        API host not contacted again in the run)."""
+        payload = bilibili_payload(999, "fan_reposter", words="Dynamix Cosmic Pulse 曲绘: the cf_chl token")
+        challenge_page = (
+            b"<!DOCTYPE html><html><head><title>Just a moment...</title></head><body>"
+            b"<script>window._cf_chl_opt={cvId: '3'};</script></body></html>"
+        )
+        second = "1022295438715256856"
+        seed = bilibili_seed(items=[{"opus_id": BILI_OPUS}, {"opus_id": second}])
+
+        def factory(hosts, min_interval):
+            return net.PoliteClient(["127.0.0.1"], allow_loopback=True, min_interval=0, max_attempts=1)
+
+        for label, answer, content_type in (
+            ("json", json.dumps(payload, ensure_ascii=False).encode("utf-8"), "application/json; charset=utf-8"),
+            ("html", challenge_page, "text/html"),
+        ):
+            with self.subTest(label):
+                self.root = Path(self.temp.name) / label
+                self.root.mkdir()
+                api, requested = self.serve(answer, content_type)
+                with mock.patch.object(bilibili_adapter, "API", api):
+                    acquisition = runner.Runner(
+                        self.root,
+                        "artists",
+                        [seed],
+                        client_factory=factory,
+                        now=lambda: FIXED_NOW,
+                        sleep=lambda s: None,
+                    )
+                    acquisition.run()
+                found = self.candidates(self.SOURCE)
+                if label == "json":  # parsed: the author check holds both pictures of each post
+                    self.assertEqual((len(requested), acquisition.blocked_hosts), (2, {}))
+                    self.assertEqual(len(found), 4)
+                    self.assertEqual({c["disposition"] for c in found.values()}, {"pending"})
+                    held = found[f"{BILI_OPUS}:1"]["reason"]
+                    self.assertTrue(held.startswith("unresolved_game: post author not verified"), held)
+                else:
+                    self.assertEqual(len(requested), 1)  # the second post is never requested
+                    self.assertIn("127.0.0.1", acquisition.blocked_hosts)
+                    self.assertEqual(
+                        {key: c["disposition"] for key, c in found.items()}, {BILI_OPUS: "blocked", second: "blocked"}
+                    )
+                    self.assertTrue(found[BILI_OPUS]["reason"].startswith("challenge: "), found[BILI_OPUS]["reason"])
+                self.verify()
+
     def test_other_non_json_answer_is_a_failure_that_keeps_the_list_open(self):
         second = "1022295438715256856"
-        answer = {"text": "<html><body>maintenance</body></html>"}
-        network = TextJsonNetwork({bilibili_api(): answer, bilibili_api(second): answer})
+        answer = bilibili_answer("<html><body>maintenance</body></html>", "text/html")
+        network = FakeNetwork({bilibili_api(): answer, bilibili_api(second): answer})
         self.run_family([bilibili_seed({"mid": "12345"}, [{"opus_id": BILI_OPUS}, {"opus_id": second}])], network)
         found = self.candidates(self.SOURCE)
         self.assertEqual({found[BILI_OPUS]["disposition"], found[second]["disposition"]}, {"failed"})
         self.assertIn("response is not valid JSON", found[BILI_OPUS]["reason"])
         self.assertEqual(network.count("api.bilibili.com"), 2)  # not a refusal: the host is not blocked
+        self.assertEqual(
+            sorted(f["url"] for f in self.manifest()["failures"]),
+            [f"https://www.bilibili.com/opus/{key}" for key in (BILI_OPUS, second)],
+        )
         self.assertEqual(self.snapshot(self.SOURCE)["continuation"]["seed-posts"], "not-read:other")
 
 

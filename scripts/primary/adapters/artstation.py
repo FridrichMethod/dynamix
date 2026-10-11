@@ -9,9 +9,11 @@ artist's own only when its owner equals the seed's ``params.username``; without 
 ``pending`` (``unresolved_game``).
 
 Image URLs (``cdn*.artstation.com/p/assets/images/.../large/<name>``) are requested in the ``4k`` rendition first and
-fall back to the advertised ``large`` one when ``4k`` does not exist; the stored ``download_url`` is the one that
-delivered the bytes. An archived fallback is not called the upload (09, archived fallback renditions):
-``quality.source_variant`` becomes ``unknown`` and the notes name the 4k URL that answered HTTP 404.
+fall back to the advertised ``large`` one when ``4k`` does not exist (HTTP 404, or a plain 401/403 for the 4k URL, which
+is our derivation: object stores answer 403 for a missing key; it does not block the CDN host, a bot challenge does);
+the stored ``download_url`` is the one that delivered the bytes. An archived fallback is not called the upload (09,
+archived fallback renditions): ``quality.source_variant`` becomes ``unknown`` and the notes name the 4k URL and the
+status it answered.
 """
 
 from __future__ import annotations
@@ -29,11 +31,11 @@ from . import base
 HOSTS = ["www.artstation.com", ".artstation.com"]
 _SIZE_SEGMENT = re.compile(r"/(large|medium|small|smaller_square|micro_square|4k|original)/")
 FALLBACK_NOTE = (
-    "Archived from {url}, the rendition the project JSON lists: the 4k rendition {file_url} answered HTTP 404."
+    "Archived from {url}, the rendition the project JSON lists: the 4k rendition {file_url} answered HTTP {status}."
 )
 FALLBACK_QUALITY_NOTE = (
     "Not established as the upload: ArtStation's listed rendition {url}, archived because the 4k rendition "
-    "{file_url} answered HTTP 404. The advertised width and height describe the upload, not this rendition."
+    "{file_url} answered HTTP {status}. The advertised width and height describe the upload, not this rendition."
 )
 
 
@@ -50,12 +52,13 @@ def rendition_urls(image_url: str) -> list[str]:
     return [image_url]
 
 
-def fallback_adjust(draft: model.Draft, url: str) -> model.Draft:
-    """``Draft.fallback_adjust``: archived from the listed rendition ``url`` (``source_reported.url`` already names it),
-    the record is not called the upload (``source_variant: unknown``, with a note)."""
+def fallback_adjust(draft: model.Draft, url: str, status: int) -> model.Draft:
+    """``Draft.fallback_adjust``: archived from the listed rendition ``url`` (``source_reported.url`` already names it)
+    after the 4k rendition answered HTTP ``status``, the record is not called the upload (``source_variant: unknown``,
+    with a note)."""
     used = copy.copy(draft)
     if draft.action == "download":
-        note = FALLBACK_QUALITY_NOTE.format(url=base.stored(url), file_url=base.stored(draft.file_url))
+        note = FALLBACK_QUALITY_NOTE.format(url=base.stored(url), file_url=base.stored(draft.file_url), status=status)
         quality = {**draft.meta["quality"], "source_variant": "unknown"}
         quality["notes"] = " ".join(filter(None, [quality.get("notes"), note]))
         used.meta = {**draft.meta, "quality": quality}
@@ -141,6 +144,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 ),
             )
             draft.fallback_urls = urls[1:]
+            draft.derived_file_url = len(urls) > 1  # the 4k URL is ours; the JSON lists the rendition after it
             draft.fallback_note = FALLBACK_NOTE
             draft.fallback_adjust = fallback_adjust
             discovery.candidates.append(draft)

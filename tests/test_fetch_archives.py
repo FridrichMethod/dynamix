@@ -1017,6 +1017,116 @@ class PressArticleTests(ArchivesTestCase):
         self.assertNotIn("host_not_allowed", candidate["reason"])
         self.verify()
 
+    WP = "https://img.example.org/up/{}.jpg"
+
+    def wp_seed(self):
+        seed = self.seed([{"match": "^wp:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}], items=[])
+        seed["params"]["article_images"][0].update(
+            {
+                "key_prefix": "wp:",
+                "og_image": False,
+                "rewrite": [["-\\d+x\\d+(\\.\\w+)$", "\\1"]],
+                "pattern": "https://img\\.example\\.org/up/[^/]+\\.jpg",
+            }
+        )
+        return seed
+
+    def wp_page(self, *images):
+        body = "".join(images)
+        return {
+            "text": "<html><head><title>Dynamix review</title></head><body><h1>A long Dynamix review headline</h1>"
+            f"<div class='article-body'>{body}</div></body></html>"
+        }
+
+    def wp_file(self, width):
+        return {"bytes": image_bytes("JPEG", (width, 18)), "content_type": "image/jpeg"}
+
+    def test_a_401_or_403_of_our_normalized_url_falls_back_like_a_404(self):
+        """09 (owner decision on DX3-02): an object store answers 403 for a missing key, so a plain 401/403 for the URL
+        our rewrite derived is treated like its 404. The URL the page lists is archived for that item only, the host
+        is not marked blocked (the next image on it is downloaded), no Failure is recorded and the notes name the
+        status that was answered; --resume and a re-download keep the status of the acquisition."""
+        listed, upload, other = self.WP.format("shot-1024x576"), self.WP.format("shot"), self.WP.format("zzz")
+        for status, error in (
+            (404, net.HttpError("HTTP 404", url=upload, http_status=404)),
+            (403, net.BlockedError("access refused (HTTP 403)", url=upload, http_status=403)),
+            (401, net.BlockedError("access refused (HTTP 401)", url=upload, http_status=401)),
+        ):
+            with self.subTest(status=status):
+                self.root = Path(self.temp.name) / str(status)
+                self.root.mkdir()
+                routes = {
+                    self.PAGE: self.wp_page(f"<img src='{listed}'>", f"<img src='{other}'>"),
+                    upload: {"error": error},
+                    listed: self.wp_file(32),
+                    other: self.wp_file(33),
+                }
+                network = FakeNetwork(routes)
+                self.run_family([self.wp_seed()], network)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE, upload, listed, other])
+                found = self.candidates("archives:press")
+                self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
+                self.assertEqual(self.manifest()["failures"], [])
+                asset = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith("wp:shot"))
+                self.assertEqual((asset["download_url"], asset["source_reported"]["url"]), (listed, listed))
+                self.assertEqual(asset["quality"]["source_variant"], "unknown")
+                answered = f"{upload} answered HTTP {status}."
+                self.assertIn(answered, asset["notes"])
+                self.assertIn(answered, asset["quality"]["notes"])
+                self.assertIn(answered, found["wp:shot"]["notes"])
+                self.verify()
+                network = FakeNetwork(routes)
+                self.run_family([self.wp_seed()], network, resume=True)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE])
+                self.assertIn(asset, self.manifest()["assets"])  # the refresh names the acquisition's status
+                routes[upload] = {"error": net.HttpError("HTTP 404", url=upload, http_status=404)}
+                self.run_family([self.wp_seed()], FakeNetwork(routes))  # the same bytes again, now after a 404
+                self.assertIn(asset, self.manifest()["assets"])
+                self.assertIn(answered, self.candidates("archives:press")["wp:shot"]["notes"])
+                self.verify()
+
+    def test_a_401_or_403_of_a_url_the_page_lists_or_a_challenge_still_blocks(self):
+        """Only a plain 401/403 for a URL our rewrite derived falls back. A refusal of a URL the page lists itself
+        (with or without other listed renditions) and a bot challenge are blocked as before: no fallback is tried and
+        the host is not contacted again in the run."""
+        first, second = self.WP.format("a1"), self.WP.format("b2")
+        refused = net.BlockedError("access refused (HTTP 403)", url=first, http_status=403)
+        challenge = net.ChallengeError("challenge page (HTTP 403)", url=first, http_status=403)
+        for label, image, error, error_class in (
+            ("listed, no fallback", f"<img src='{first}'>", refused, "blocked"),
+            (
+                "listed, with fallbacks",
+                f"<img src='{first}' srcset='{self.WP.format('a1-1024x576')} 1024w'>",
+                refused,
+                "blocked",
+            ),
+            ("derived, challenge", f"<img src='{self.WP.format('a1-1024x576')}'>", challenge, "challenge"),
+        ):
+            with self.subTest(label):
+                self.root = Path(self.temp.name) / label.replace(" ", "-").replace(",", "")
+                self.root.mkdir()
+                routes = {
+                    self.PAGE: self.wp_page(image, f"<img src='{second}'>"),
+                    first: {"error": error},
+                    self.WP.format("a1-1024x576"): self.wp_file(32),
+                    second: self.wp_file(33),
+                }
+                network = FakeNetwork(routes)
+                self.run_family([self.wp_seed()], network)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE, first])
+                found = self.candidates("archives:press")
+                self.assertEqual(
+                    {key: c["disposition"] for key, c in found.items()}, {"wp:a1": "blocked", "wp:b2": "blocked"}
+                )
+                self.assertIn("refused an earlier request in this run", found["wp:b2"]["reason"])
+                [failure] = self.manifest()["failures"]
+                self.assertEqual(
+                    (failure["candidate_id"], failure["error_class"], failure["http_status"], failure["manual"]),
+                    ("archives:press:wp:a1", error_class, 403, True),
+                )
+                self.assertEqual(self.manifest()["assets"], [])
+                self.verify()
+
     DEFAULT_NOTE = "Press copy as served by the publication; the page does not state who supplied the image."
     SUPPLIED_NOTE = "Press copy as served by the publication, inside the part the page labels as supplied material."
 
@@ -1211,6 +1321,75 @@ class PressArticleTests(ArchivesTestCase):
                 self.assertEqual(self.manifest()["failures"], [])
                 self.assertEqual(self.manifest()["sources"][0]["status"], "excluded")
                 self.verify()
+
+    def test_an_unreadable_page_keeps_an_earlier_rejected_submission_exclusion(self):
+        """model.apply_rule's rejected-submission guard reads the page before any curated decision. An item that a
+        readable page excluded as a rejected submission keeps that exclusion while the page cannot be read (an unread
+        page is no observation), whatever its curated rule or none; an item whose download rule needs the page fails
+        as before. A readable page decides again."""
+        items = [
+            {"key": key, "page_url": self.PAGE, "read_page": True, "file_url": self.IMG.format(name, "JPG")}
+            for key, name in (
+                ("named:p", "95/0001345595"),
+                ("named:n", "96/0001345596"),
+                ("named:x", "92/0001345692"),
+                ("named:d", "08/0001345608"),
+            )
+        ]
+        rules = [
+            {"match": "^named:p$", "action": "pending", "reason": "unresolved_role: curator check pending"},
+            {"match": "^named:x$", "action": "exclude", "reason": "site_ui: QR code"},
+            {"match": "^named:d$", "role": "reference", "evidence_quotes": ["Dynamix"]},
+        ]  # named:n has no rule
+        seed = self.seed(rules, items=items)
+        del seed["params"]  # named files only
+        page = "<html><head><title>Dynamix fan art</title></head><body><p>{}</p></body></html>"
+        rejected = {"text": page.format("This is a rejected submission for Dynamix.")}
+        unread = {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}
+        self.run_family([seed], FakeNetwork({self.PAGE: rejected}))
+        before = self.candidates("archives:press")
+        for key in ("named:p", "named:n", "named:x", "named:d"):
+            self.assertEqual(before[key]["disposition"], "excluded")
+            self.assertTrue(before[key]["reason"].startswith("rejected_submission: "), before[key]["reason"])
+        for run, chosen in ((1, items), (2, items), (3, items[:3])):  # sticky while the page stays unreadable
+            with self.subTest(run=run):
+                # Without named:d (run 3) no error draft names the page: the seed-files hold alone keeps them.
+                source = {**seed, "items": chosen}
+                self.run_family([source], FakeNetwork({self.PAGE: unread}))
+                found = self.candidates("archives:press")
+                for key in ("named:p", "named:n", "named:x"):
+                    self.assertEqual(
+                        (found[key]["disposition"], found[key]["reason"], found[key]["game"]),
+                        (before[key]["disposition"], before[key]["reason"], before[key]["game"]),
+                    )
+                    self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+                failures = [f["id"] for f in self.manifest()["failures"]]
+                if chosen is items:
+                    self.assertEqual(found["named:d"]["disposition"], "failed")  # its download rule needs the page
+                    self.assertEqual(failures, ["archives:press:named:d:discover"])
+                else:
+                    self.assertEqual((sorted(found), failures), (["named:n", "named:p", "named:x"], []))
+                self.assertTrue(
+                    manifest.load_discovery(self.root, "archives:press")["continuation"]["seed-files"].startswith(
+                        "not-read:"
+                    )
+                )
+                self.verify()
+        self.run_family([seed], FakeNetwork({self.PAGE: {"text": page.format("Dynamix fan art.")}}))
+        found = self.candidates("archives:press")
+        self.assertEqual(
+            {key: (found[key]["disposition"], found[key]["reason"]) for key in ("named:p", "named:n", "named:x")},
+            {
+                "named:p": ("pending", "unresolved_role: curator check pending"),
+                "named:n": ("pending", "unresolved_role: no seed rule for this item; needs review"),
+                "named:x": ("excluded", "site_ui: QR code"),
+            },
+        )
+        self.run_family([seed], FakeNetwork({self.PAGE: unread}))  # not rejected before: the curated decisions apply
+        found = self.candidates("archives:press")
+        self.assertEqual(found["named:p"]["reason"], "unresolved_role: curator check pending")
+        self.assertNotIn(runner.HELD_NOTE, found["named:p"].get("notes") or "")
+        self.verify()
 
     def test_an_unreadable_page_changes_no_status_of_an_archived_named_item(self):
         item = {
@@ -1633,6 +1812,69 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(sorted(self.candidates("archives:press")), ["img/x.png", "img/z.png"])
         self.run_family([self.seed(rules=rules)], FakeNetwork(routes))  # the other page is no longer seeded
         self.assertEqual(sorted(self.candidates("archives:press")), ["img/x.png"])
+        self.verify()
+
+    def test_an_adapter_crash_carries_every_previous_candidate_over(self):
+        """Discovery that raises enumerated nothing: every previous candidate is carried over unchanged with its Failure
+        records (archived, excluded, pending, and a read-failure placeholder, which no other run keeps) and the crash
+        note; no upstream status changes, and the open adapter list keeps the snapshot incomplete."""
+        rules = [
+            {"match": "^img/a\\.png$", "role": "promotional", "game": "dynamix"},
+            {"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"},
+        ]  # y.png: no rule
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        routes = {
+            self.PAGE: self.page("a.png", "x.png", "y.png"),
+            other: {"error": net.HttpError("HTTP 503", url=other, http_status=503)},
+            "https://press.example.org/img/a.png": self.file((1, 2, 3)),
+        }
+        self.run_family([seed], FakeNetwork(routes))
+        before = {c["upstream_key"]: c for c in manifest.load_discovery(self.root, "archives:press")["candidates"]}
+        self.assertEqual(
+            {key: c["disposition"] for key, c in before.items()},
+            {"img/a.png": "downloaded", "img/x.png": "excluded", "img/y.png": "pending", f"page:{other}": "failed"},
+        )
+        failures, assets = self.manifest()["failures"], self.manifest()["assets"]
+        self.assertEqual([f["candidate_id"] for f in failures], [f"archives:press:page:{other}"])
+        page_links = runner.ADAPTERS["page_links"]
+        with mock.patch.object(page_links, "discover", side_effect=RuntimeError("unexpected markup")):
+            self.run_family([seed], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertEqual(
+            (snapshot["continuation"], snapshot["discovery_complete"]), ({"adapter": "error:RuntimeError"}, False)
+        )
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(sorted(found), sorted(before))
+        for key, candidate in before.items():
+            self.assertEqual({**found[key], "notes": None}, {**candidate, "notes": None})
+            self.assertIn("Carried over from an earlier run: this run's discovery failed.", found[key]["notes"])
+        self.assertEqual((self.manifest()["failures"], self.manifest()["assets"]), (failures, assets))
+        self.verify()
+
+    def test_a_file_two_seed_pages_link_is_held_while_either_page_is_unread(self):
+        """A file that two seed pages link is one candidate, the first page's, whose notes name the other page. When
+        the first page is read completely without it while the other page, which linked it too, cannot be read, its
+        earlier disposition stays (an incomplete read is no observation); complete reads of both pages drop it."""
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("x.png", "y.png"), other: self.page("x.png")}))
+        before = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual((before["disposition"], before["page_url"]), ("excluded", self.PAGE))
+        self.assertIn(f"Also linked from {other}.", before["notes"])
+        unread = {"error": net.HttpError("HTTP 503", url=other, http_status=503)}
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: unread}))
+        held = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual((held["disposition"], held["reason"]), ("excluded", "site_ui: logo"))
+        self.assertIn(runner.HELD_NOTE, held["notes"])
+        self.verify()
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: unread}))  # still unread: kept
+        self.assertIn("img/x.png", self.candidates("archives:press"))
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: self.page("y.png")}))
+        self.assertNotIn("img/x.png", self.candidates("archives:press"))  # both pages read, neither links it
         self.verify()
 
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):

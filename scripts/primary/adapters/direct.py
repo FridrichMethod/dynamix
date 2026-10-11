@@ -3,8 +3,10 @@
 For pages whose gallery is rendered by JavaScript (Wix pro-gallery, Tumblr themes) the seed names each file directly:
 ``{"key", "page_url", "file_url"}``. With ``"read_page": true`` the page is fetched once and its title/text become the
 evidence that seed rules quote (an item whose download rule needs a page that cannot be read is ``failed``/``blocked``
-with that read's error and a Failure record; a curated exclude or pending rule decides without the page text and keeps
-its decision); otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
+with that read's error and a Failure record; a curated exclude or pending rule, or no rule, decides without the page
+text and keeps its decision, except an item that an earlier read excluded as a rejected submission: that guard reads
+the page, so the exclusion is kept, held while ``seed-files`` is open); otherwise rules cannot claim
+``confirmed_primary`` and carry their own notes.
 
 Article pages (``params.article_images``): every image of a read page's article body is accounted for, not only the
 named files. Each entry ``{"page_url", "key_prefix", "select", "pattern", "og_image"?, "rewrite"?, "attr_urls"?,
@@ -27,8 +29,11 @@ notes it on the enumerated candidates (:func:`base.resolution_note`); their ``pa
 
 The URLs the page itself lists for an image are kept as download fallbacks: when the normalized URL answers HTTP 404 (a
 rewrite of ours, not an upstream failure) the listed URL is downloaded instead and the record says so: its
-``source_reported.url`` is the listed URL, a rendition keeps its own file name, and the quality is ``unknown`` (a URL
-the page lists is not established as the upload). A listed URL on a host the seed does not allow is not tried.
+``source_reported.url`` is the listed URL, a rendition keeps its own file name, the quality is ``unknown`` (a URL the
+page lists is not established as the upload), and the notes name the status the normalized URL answered. When the page
+does not list the normalized URL itself, a plain HTTP 401/403 for it falls back the same way (object stores answer 403
+for a missing key; 09, owner decision 2026-10-11) and does not block the image host; a bot challenge, or a refusal of a
+URL the page lists, is ``blocked`` as anywhere else. A listed URL on a host the seed does not allow is not tried.
 
 Advertised sizes become ``source_reported.width``/``height`` of the upload they describe: ``og:image:width``/``height``
 of an ``og:image`` listed as the upload URL itself, a WordPress attachment's ``data-orig-size`` (its original upload),
@@ -109,11 +114,11 @@ EMBEDDED_FIELDS = {
 }
 FALLBACK_NOTE = (
     "Archived from {url}, the URL the page lists for this image: the normalized upload URL {file_url} "
-    "answered HTTP 404."
+    "answered HTTP {status}."
 )
 FALLBACK_QUALITY_NOTE = (
     "Not established as the upload: archived from the URL the page lists ({how}) because the "
-    "upload URL {file_url} answered HTTP 404."
+    "upload URL {file_url} answered HTTP {status}."
 )
 SUPPLIED_LABEL = "The page places this image after its label '{marker}'."
 
@@ -379,8 +384,18 @@ def article_images(
             return None
         entry = bucket.setdefault(
             key,
-            {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False, "name": name, "size": None},
+            {
+                "key": key,
+                "url": url,
+                "advertised": [],
+                "listed": False,
+                "caption": "",
+                "supplied": False,
+                "name": name,
+                "size": None,
+            },
         )
+        entry["listed"] = entry["listed"] or absolute == url  # the page lists the normalized URL itself
         if absolute != url and absolute not in entry["advertised"] and not checks.url_problem(absolute):
             entry["advertised"].append(absolute)
         entry["supplied"] = entry["supplied"] or supplied
@@ -502,6 +517,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     if configs:
         discovery.coverage[ARTICLE_LIST] = _covering(configs, read_complete)
         discovery.holds[ARTICLE_LIST] = _holding(configs, read_complete)
+    rejected_before = _rejected_keys(ctx.previous)
+    kept_rejected: set[str] = set()  # named items whose earlier rejected-submission exclusion stands (page unread)
+    discovery.holds["seed-files"] = lambda candidate: candidate.get("upstream_key") in kept_rejected
 
     def read(page_url: str) -> dict:
         if page_url not in pages:
@@ -594,6 +612,12 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 )
             )
             continue
+        if page.get("error") is not None and key in rejected_before:
+            # model.apply_rule's rejected-submission guard reads the page before any curated decision: an earlier read
+            # excluded this item as a rejected submission, and an unread page is no observation, so no draft is made
+            # and the runner keeps that exclusion while seed-files is open.
+            kept_rejected.add(key)
+            continue
         place, image = placed[id(item)]
         linked = None
         if place is not None:
@@ -676,9 +700,21 @@ def _noted(draft: model.Draft, note: str | None) -> model.Draft:
 
 def _needs_page(rule: Mapping[str, Any] | None) -> bool:
     """Whether the seed rule's decision depends on the read page's text: a download rule (its evidence quotes, mapping
-    and Universe guard check the page). Curated exclude/pending decisions apply without it
-    (:func:`model.apply_rule`)."""
+    and Universe guard check the page). Curated exclude/pending decisions (and no rule) apply without it
+    (:func:`model.apply_rule`), except that its rejected-submission guard reads the page before them: an item an
+    earlier read excluded that way keeps its exclusion while the page cannot be read (:func:`_rejected_keys`)."""
     return rule is not None and rule.get("action", "download") == "download"
+
+
+def _rejected_keys(previous: Mapping[str, Any] | None) -> set[str]:
+    """Upstream keys of the previous snapshot's candidates that :func:`model.apply_rule`'s guard excluded as rejected
+    submissions (``rejected_submission:`` reasons)."""
+    return {
+        candidate["upstream_key"]
+        for candidate in (previous or {}).get("candidates") or []
+        if candidate.get("disposition") == "excluded"
+        and str(candidate.get("reason") or "").startswith("rejected_submission:")
+    }
 
 
 def _draft(
@@ -717,6 +753,9 @@ def _draft(
     if image["supplied"] and draft.action == "download" and config and config.get("supplied_marker"):
         draft.meta = {**draft.meta, "quality": _supplied_quality(draft.meta["quality"], ctx.quality, config)}
     draft.fallback_urls = [url for url in image["advertised"] if url != file_url][:3]
+    # A URL of our own (the normalized upload, or a URL the seed names) that the page does not list itself.
+    listed = {*image["advertised"], *([image["url"]] if image["listed"] else [])}
+    draft.derived_file_url = file_url not in listed
     draft.fallback_note = FALLBACK_NOTE
     draft.fallback_adjust = _fallback_adjust(image, file_url, item.get("original_filename"))
     return draft
@@ -735,12 +774,13 @@ def _supplied_quality(quality: Mapping[str, Any], default: Mapping[str, Any], co
 
 def _fallback_adjust(
     image: Mapping[str, Any], file_url: str, named: str | None
-) -> Callable[[model.Draft, str], model.Draft]:
-    """The ``fallback_adjust`` hook of an article image: archived from ``url``, a URL the page lists, the record names
-    that URL as advertised (sizes advertised for the upload do not describe it), keeps a rendition's own file name
-    (unless the seed or the pattern names the upload's) and is not called the upload (``source_variant: unknown``)."""
+) -> Callable[[model.Draft, str, int], model.Draft]:
+    """The ``fallback_adjust`` hook of an article image: archived from ``url``, a URL the page lists, after the upload
+    URL answered HTTP ``status``, the record names that URL as advertised (sizes advertised for the upload do not
+    describe it), keeps a rendition's own file name (unless the seed or the pattern names the upload's) and is not
+    called the upload (``source_variant: unknown``)."""
 
-    def adjust(draft: model.Draft, url: str) -> model.Draft:
+    def adjust(draft: model.Draft, url: str, status: int) -> model.Draft:
         parts = urlsplit(url)
         plain = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
         rendition = plain != file_url  # the seed's rewrite, not only the query, maps it to the upload
@@ -762,7 +802,7 @@ def _fallback_adjust(
                 if rendition
                 else "the upload URL with the page's query"
             )
-            note = FALLBACK_QUALITY_NOTE.format(how=how, file_url=base.stored(file_url))
+            note = FALLBACK_QUALITY_NOTE.format(how=how, file_url=base.stored(file_url), status=status)
             quality = {**draft.meta["quality"], "source_variant": "unknown"}
             quality["notes"] = " ".join(filter(None, [quality.get("notes"), note]))
             used.meta = {**draft.meta, "quality": quality}

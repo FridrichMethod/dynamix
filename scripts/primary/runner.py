@@ -9,19 +9,37 @@ validated and rewritten after **every** resolved candidate, so an interruption l
 Robustness rules (07 §Integrity):
 
 * A host that answers 401/403 or a bot challenge is not contacted again in the same run; later candidates on that host
-  are recorded ``blocked`` without a request (no retry storm).
+  are recorded ``blocked`` without a request (no retry storm). A plain 401/403 answers for one item only on an endpoint
+  documented to refuse single items (YouTube oEmbed, until 3 in a row) and for a download URL the fetcher derived that
+  has URLs the source lists: that one falls back to them like a 404 (09, archived fallback renditions).
 * Archived bytes are never dropped. A transient failure while refreshing a candidate that already has an archived file
   keeps the previous record and logs a discovery error; new bytes for the same candidate supersede the old record
-  (``upstream_status: superseded``) instead of replacing it; a previous candidate that a run no longer discovers is
-  carried over unchanged (with a note) so that its asset stays reconciled.
-* A previous candidate without archived bytes (excluded, pending, failed, blocked) that the run did not list again
-  keeps its disposition only while its page failed to read in this run (a discovery error draft names it) or a list
-  that holds it is open (``Discovery.holds``: each Wayback CDX query, the iTunes lookup list, the seed and article
-  pages of a few adapters that were not read completely, and a SoundCloud ``tracks:<handle>`` list or X embed timeline
-  whose read failed or listed nothing; ``scripts/primary/README.md`` gives each condition). Otherwise it leaves the
-  snapshot, also while the read that listed it is open: a partly rendered ``/tracks`` page, a timeline sample that was
-  read and a TapTap page read with an unparsed screenshot entry hold nothing.
+  (``upstream_status: superseded``) instead of replacing it.
 * ``--metadata-only`` never downloads and never changes archived records; not-yet-archived candidates are ``pending``.
+
+Carry-over (:meth:`Runner._carry_over`) of a previous candidate that this run's discovery did not list again:
+
+* The adapter raised (``SourceState.keep_previous``): nothing was enumerated, so **every** previous candidate is
+  carried over unchanged with its Failure records and the note ``Carried over from an earlier run: this run's discovery
+  failed.``, whether archived or not and including read-failure placeholders; no upstream status changes, and the open
+  ``adapter`` list keeps the snapshot incomplete.
+* Otherwise a candidate with archived bytes (its ``asset_id`` is a record of the source, or a record names it) is never
+  dropped. When every list that covers it (``Discovery.coverage``) was read completely and no longer lists it, its
+  record becomes ``upstream_status: removed`` and the candidate leaves the snapshot; else it is carried over with a
+  note, and its record becomes ``unknown`` when every list of the run was read completely (the seeds no longer reach
+  it). A failed or partial read, and ``--metadata-only``, change no status.
+* A candidate without archived bytes is carried over with its earlier disposition, its Failure records and
+  :data:`HELD_NOTE` only while :meth:`Runner._held` holds it: the discovery is not complete, the disposition is
+  excluded, pending, failed or blocked, it is no earlier read-failure record (``page:<url>``, or a candidate with a
+  ``discover`` Failure: this run's attempt records it again or replaces it), and either its page's read failed in this
+  run (a discovery error draft names that page) or an open list's ``Discovery.holds`` predicate names it. Those lists
+  are each Wayback CDX query, the iTunes lookup list, the seed pages of ``page_links`` (any page that linked the file),
+  Google Play, the App Store and TapTap that were not read completely, an article page of ``direct_files`` not
+  enumerated completely, a ``direct_files`` named item that an earlier read excluded as a rejected submission while
+  its page is unread, and a SoundCloud ``tracks:<handle>`` list or X embed timeline whose read failed or listed nothing
+  (``scripts/primary/README.md`` gives each condition). Otherwise the candidate leaves the snapshot, also while the
+  read that listed it is open: a partly rendered ``/tracks`` page, a timeline sample that was read and a TapTap page
+  read with an unparsed screenshot entry hold nothing.
 """
 
 from __future__ import annotations
@@ -147,6 +165,10 @@ class GuardedClient:
     * ``per_item_refusal=True`` (an endpoint documented to answer 401/403 for one unavailable item, e.g. YouTube's oEmbed
       for a private or non-embeddable video): a plain 401/403 is that request's result and does not block the host,
       unless :data:`ITEM_REFUSAL_LIMIT` such refusals in a row show a host-wide refusal. A bot challenge always blocks.
+    * ``derived=True`` (a download URL the fetcher derived that has URLs the source lists to fall back to,
+      :attr:`primary.model.Draft.derived_file_url`): a plain 401/403 is that request's result, like a 404 (an object
+      store's answer for a missing key), and never blocks the host; it does not count towards
+      :data:`ITEM_REFUSAL_LIMIT`. A bot challenge always blocks (09, archived fallback renditions).
     """
 
     ITEM_REFUSAL_LIMIT = 3
@@ -172,7 +194,9 @@ class GuardedClient:
         except ValueError:
             return ""
 
-    def _call(self, method: str, url: str, *args: Any, per_item_refusal: bool = False, **kwargs: Any) -> Any:
+    def _call(
+        self, method: str, url: str, *args: Any, per_item_refusal: bool = False, derived: bool = False, **kwargs: Any
+    ) -> Any:
         host = self._host(url)
         if host in self._blocked:
             raise HostSkipped(
@@ -190,12 +214,10 @@ class GuardedClient:
         except net.BlockedError as error:
             contacted.add(self._host(error.url or ""))
             refusals = self._item_refusals.get(host, 0) + 1
-            if (
-                per_item_refusal
-                and not isinstance(error, net.ChallengeError)
-                and error.http_status in (401, 403)
-                and refusals < self.ITEM_REFUSAL_LIMIT
-            ):
+            plain = not isinstance(error, net.ChallengeError) and error.http_status in (401, 403)
+            if derived and plain:
+                pass  # this URL's own answer: the caller falls back to the URLs the source lists
+            elif per_item_refusal and plain and refusals < self.ITEM_REFUSAL_LIMIT:
                 self._item_refusals[host] = refusals
             else:
                 for name in (host, self._host(error.url or "")):  # the requested host and the hop that refused
@@ -236,8 +258,8 @@ class GuardedClient:
     def get_text(self, url: str, **kwargs: Any) -> Any:
         return self._call("get_text", url, **kwargs)
 
-    def download(self, url: str, dest_dir: Any, stem: str, **kwargs: Any) -> Any:
-        return self._call("download", url, dest_dir, stem, **kwargs)
+    def download(self, url: str, dest_dir: Any, stem: str, *, derived: bool = False, **kwargs: Any) -> Any:
+        return self._call("download", url, dest_dir, stem, derived=derived, **kwargs)
 
     def close(self) -> None:
         close = getattr(self._client, "close", None)
@@ -446,33 +468,63 @@ def names_file(draft: model.Draft, url: str | None) -> bool:
     )
 
 
-def fallback_draft(draft: model.Draft, url: str) -> model.Draft:
-    """``draft`` naming the fallback ``url`` that was archived (its ``file_url`` answered HTTP 404): the adapter's
-    ``fallback_adjust`` describes those bytes (advertised URL, file name, quality) and its ``fallback_note`` is added to
-    the record's and the candidate's notes."""
-    used = draft.fallback_adjust(draft, url) if draft.fallback_adjust else copy.copy(draft)
+def falls_back(draft: model.Draft, error: Exception) -> bool:
+    """Whether ``error`` of the drafted ``file_url`` sends the download on to ``draft.fallback_urls``: an HTTP 404, or a
+    plain 401/403 (no bot challenge) of a URL the fetcher derived (:attr:`primary.model.Draft.derived_file_url`; 09,
+    archived fallback renditions: object stores answer 403 for a missing key)."""
+    if not draft.fallback_urls:
+        return False
+    if isinstance(error, net.HttpError) and error.http_status == 404:
+        return True
+    return (
+        draft.derived_file_url
+        and isinstance(error, net.BlockedError)
+        and not isinstance(error, net.ChallengeError)
+        and error.http_status in (401, 403)
+    )
+
+
+def fallback_draft(draft: model.Draft, url: str, status: int) -> model.Draft:
+    """``draft`` naming the fallback ``url`` that was archived (its ``file_url`` answered HTTP ``status``: 404, or
+    401/403 for a derived URL): the adapter's ``fallback_adjust`` describes those bytes (advertised URL, file name,
+    quality) and its ``fallback_note`` is added to the record's and the candidate's notes."""
+    used = draft.fallback_adjust(draft, url, status) if draft.fallback_adjust else copy.copy(draft)
     if used is draft:
         used = copy.copy(draft)
     used.file_url = url
     if draft.fallback_note:
-        note = draft.fallback_note.format(url=stored_url(url), file_url=stored_url(draft.file_url))
+        note = draft.fallback_note.format(url=stored_url(url), file_url=stored_url(draft.file_url), status=status)
         used.candidate_extra = {**used.candidate_extra, "notes": append_note(used.candidate_extra.get("notes"), note)}
         if used.action == "download":
             used.meta = {**used.meta, "notes": append_note(used.meta.get("notes"), note)}
     return used
 
 
+def noted_status(draft: model.Draft, url: str, asset: Mapping[str, Any]) -> int:
+    """The HTTP status that ``draft.file_url`` answered when ``asset`` was archived from its fallback ``url``, as the
+    record's ``fallback_note`` names it; 404 when no note names one (the only status that fell back before 09's owner
+    decision of 2026-10-11)."""
+    marker = "\x00"
+    note = (draft.fallback_note or "").format(url=stored_url(url), file_url=stored_url(draft.file_url), status=marker)
+    if marker in note:
+        pattern = "(40[134])".join(re.escape(part) for part in note.split(marker))
+        match = re.search(pattern, asset.get("notes") or "")
+        if match:
+            return int(match.group(1))
+    return 404
+
+
 def archived_draft(draft: model.Draft, asset: Mapping[str, Any]) -> model.Draft:
     """``draft`` naming the archived file of ``asset``: its ``file_url`` becomes the asset's ``download_url`` (the URL the
-    archived bytes came from; a fallback rendition is described as :func:`fallback_draft` describes it), and a
-    ``source_reported.url`` that named the drafted file URL itself names the archived record's advertised URL. A refresh
-    thus never pairs this run's (re-signed, moved or fallback) URL with the redirect target and time of an earlier
-    fetch."""
+    archived bytes came from; a fallback rendition is described as :func:`fallback_draft` describes it, with the status
+    the record's note names), and a ``source_reported.url`` that named the drafted file URL itself names the archived
+    record's advertised URL. A refresh thus never pairs this run's (re-signed, moved or fallback) URL with the redirect
+    target and time of an earlier fetch. ``draft`` is the adapter's draft (never one :func:`fallback_draft` made)."""
     archived = asset.get("download_url")
     if not archived or archived == stored_url(draft.file_url):
         return draft
     fallback = fallback_of(draft, archived)
-    moved = fallback_draft(draft, fallback) if fallback else copy.copy(draft)
+    moved = fallback_draft(draft, fallback, noted_status(draft, fallback, asset)) if fallback else copy.copy(draft)
     reported = draft.source_reported.get("url")
     if reported and stored_url(reported) == stored_url(draft.file_url):
         moved.source_reported = {
@@ -1072,6 +1124,7 @@ class Runner:
         fetched = self._download_with_fallbacks(state, client, draft, dest, attempted_at, previous_asset)
         if fetched is None:
             return
+        requested = draft  # describes an archived record of these bytes (:func:`archived_draft`)
         result, draft = fetched  # the draft of the URL whose bytes were downloaded
         self.downloads += 1
         held = draft.check_download(result) if draft.check_download else None
@@ -1092,7 +1145,7 @@ class Runner:
             same = self._same_pixels(state.assets.get(previous_asset["id"], previous_asset), result)
             if same:  # other bytes, same picture: not a new upstream revision
                 Path(result.temp_path).unlink(missing_ok=True)
-                self._keep_same_pixels(state, draft, previous_asset, same)
+                self._keep_same_pixels(state, requested, previous_asset, same)
                 return
         repaired = False
         if owner is not None:
@@ -1132,7 +1185,7 @@ class Runner:
                 self._download_failed(state, draft, error, "decode", attempted_at, previous_asset)
                 return
         if owner is not None:  # keep the first acquisition's measurements (a reverted upstream file is current again)
-            refreshed = self._refresh_record(owner, draft)
+            refreshed = self._refresh_record(owner, requested)
             if stored_url(draft.file_url) != owner.get("download_url"):  # the same bytes from a re-signed/moved URL
                 resigned = bool(draft.same_file and draft.same_file(owner.get("download_url")))
                 via = " (same file, re-signed URL)" if resigned else f" from {stored_url(draft.file_url)}"
@@ -1141,7 +1194,7 @@ class Runner:
                 schema.validate_asset(refreshed, self.family)
                 refreshed = schema.canonical(refreshed, "asset")
             state.assets[new_id] = refreshed
-            draft = archived_draft(draft, owner)
+            draft = archived_draft(requested, owner)
         else:
             draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, info["path"]))
             state.assets[new_id] = asset_record(
@@ -1170,24 +1223,29 @@ class Runner:
         previous_asset: dict | None,
     ) -> tuple[Any, model.Draft] | None:
         """(download result, the draft describing the URL it came from) for ``draft.file_url`` or, when that answers
-        HTTP 404, the first of ``draft.fallback_urls`` that downloads; None after recording the failure.
+        HTTP 404 (or, for a derived URL, a plain 401/403: :func:`falls_back`), the first of ``draft.fallback_urls`` that
+        downloads; None after recording the failure.
 
-        A fallback on a host this run may not contact (outside the seed's allowlist, or refused earlier in the run) is
-        not attempted, and a fallback that also answers 404 says nothing new: the recorded failure is then the 404 of
-        ``file_url`` itself. Any other error of a fallback (a 5xx, a timeout, a refusal) is that attempt's own
-        failure."""
+        A derived URL's 401/403 does not block its host (``GuardedClient`` ``derived``); a refusal of a fallback, a URL
+        the source lists, does. A fallback on a host this run may not contact (outside the seed's allowlist, or refused
+        earlier in the run) is not attempted, and a fallback that also answers 404 says nothing new: the recorded
+        failure is then the error of ``file_url`` itself (its 404 or 401/403). Any other error of a fallback (a 5xx, a
+        timeout, a refusal) is that attempt's own failure."""
         cid = schema.candidate_id(state.source_id, draft.upstream_key)
         primary: net.FetchError | None = None
         for url in [draft.file_url, *draft.fallback_urls]:
+            derived = primary is None and draft.derived_file_url and bool(draft.fallback_urls)
             try:
-                result = client.download(url, dest, paths.filename_stem(draft.original_filename))
+                result = client.download(url, dest, paths.filename_stem(draft.original_filename), derived=derived)
             except net.FetchError as error:
                 if primary is None:  # the drafted file URL itself
-                    if not (isinstance(error, net.HttpError) and error.http_status == 404 and draft.fallback_urls):
+                    if not falls_back(draft, error):
                         self._download_failed(state, draft, error, "download", attempted_at, previous_asset)
                         return None
                     primary = error
-                    LOG.info("%s: %s not found, trying the URLs the source lists for it", cid, url)
+                    LOG.info(
+                        "%s: %s answered HTTP %s, trying the URLs the source lists for it", cid, url, error.http_status
+                    )
                 elif isinstance(error, (net.HostNotAllowedError, HostSkipped)) or (
                     isinstance(error, net.HttpError) and error.http_status == 404
                 ):
@@ -1196,7 +1254,9 @@ class Runner:
                     self._download_failed(state, draft, error, "download", attempted_at, previous_asset)
                     return None
                 continue
-            return result, (draft if url == draft.file_url else fallback_draft(draft, url))
+            if primary is None:
+                return result, draft
+            return result, fallback_draft(draft, url, primary.http_status or 404)
         self._download_failed(state, draft, primary, "download", attempted_at, previous_asset)
         return None
 
