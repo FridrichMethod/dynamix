@@ -339,7 +339,7 @@ def _group_by_sha(records: list[dict]) -> dict[str, list[dict]]:
     for record in records:
         groups.setdefault(record["sha256"], []).append(record)
     for sha256, group in groups.items():
-        for field in ("bytes", "sha1", "format", "width", "height"):
+        for field in ("bytes", "sha1", "format", "width", "height", "kind"):  # one file, one kind (09, wave 4)
             values = {json.dumps(record[field]) for record in group}
             if len(values) > 1:
                 ids = ", ".join(record["id"] for record in group)

@@ -5,7 +5,7 @@ Frozen by the coordinator on **2026-10-10** before parallel implementation. This
 ## Measured inputs behind these decisions (2026-10-10 probes)
 
 - Miraheze `allimages`: 4,469 files, 2,102,094,760 bytes (API sizes). Fandom: 4,924 entries (569 `video/youtube`), 2,070,864,118 bytes.
-- Fandom's CDN serves **transformed WEBP** for `/revision/latest` URLs. Appending `format=original` returns the stored original. For sampled files the Fandom `format=original` bytes were **byte-identical to Miraheze** (SHA-1 equal to the Miraheze API value) while the **Fandom API `size`/`sha1` differed** by 18–530 bytes. Exact-byte dedup therefore collapses the two wikis naturally; the Fandom API mismatch is recorded as `source_reported` evidence, not as a second version.
+- Fandom's CDN serves **transformed WEBP** for `/revision/latest` URLs. Appending `format=original` returns the file Fandom's CDN stores instead of that WEBP; whether it is the upload is judged against the API values, not assumed. For sampled files the Fandom `format=original` bytes were **byte-identical to Miraheze** (SHA-1 equal to the Miraheze API value) while the **Fandom API `size`/`sha1` differed** by 18–530 bytes. Exact-byte dedup therefore collapses the two wikis naturally; the Fandom API mismatch is recorded as `source_reported` evidence, not as a second version.
 - Original-game song pages (Miraheze `Category:Songs`, excluding `Dynamix Universe` categories): ~510 template covers (`Imgsuffix`), ~460 MB. Core artwork roles together ≈ 780 MB. Chart-list announcement graphics ≈ 271 MB; animated character GIFs (≤250 px) ≈ 634 MB; probable Universe square `_cover` files ≈ 151 MB.
 
 ## Storage and publication policy
@@ -34,6 +34,16 @@ Measured site-tier estimate before this revision: wikis 944,412,040 B (2,971 uni
 - `fetch_wikis.py` exit codes: 0 ok, 1 failed/blocked downloads, 2 incomplete discovery, 3 lock held or unsafe work directory/journal, 4 archived file no longer accepted (review), 5 internal error, 130 interrupted (outputs written). Default work directory `<root>/.cache/fetch_wikis/work` (ignored by Git).
 - App Store records: per-request URL tokens are not stored; source checks compare App Store items by decoded pixels, not bytes.
 - `mapping_status: conflict` may appear on song art; consumers must display it, not resolve it. Known case: *Another World* (wiki artist anchor `Artists#Cosmograph`), left for a curator.
+
+### Coordinator decisions (2026-10-11, wave 4 review)
+
+- **"Several titled jackets" (D2) is read literally:** at least two jackets whose song titles are printed legibly on the card. First-reveal cards of a lineup series (one titled jacket plus `?` slots, no level marks) and collages of untitled jackets are `promotional`; later cards of the same series that print two or more titled jackets are `reference`. A curated rule that cites D2 names at least two titles.
+- **Level marks trigger D1, difficulty names alone do not.** Anniversary and event posters that name new charts only by difficulty name (e.g. "GIGA", "MEGA") without level numbers or level marks stay `promotional`.
+- **One file, one kind.** Every record of one SHA-256, in every source and family, carries the same `kind`; acquisition `--verify` and `build_catalog.py --verify` fail on a disagreement.
+- **Fallback titles stay.** Wiki files without a caption or a confirmed single song keep the `File:`-title fallback (the wiki's own page name, `_` as spaces). No archivist-invented titles are added; opaque fallback titles (for example numeric upload IDs) are a documented limitation.
+- **Archived fallback renditions.** When the URL a fetcher derives answers 404 and the record is archived from the URL the page itself lists, `source_reported.url` is that listed URL and `quality.source_variant` is `unknown`, with a note.
+- **"Supplied by the developer"** appears in `quality.notes` only where the page itself labels the material as supplied; otherwise the note says the page does not state who supplied the image.
+- **Fandom/Miraheze byte identity** is documented as measured ("every accepted title both wikis hold except one"), never as a claim that either copy is the original upload.
 
 ### Catalog presentation rules (2026-10-10, from the trial integration build)
 
@@ -180,6 +190,7 @@ scripts/fetch_archives.py [--metadata-only] [--resume] [--verify]
 scripts/build_thumbnails.py [--check | --verify | --prune]
 scripts/build_catalog.py  [--verify] [--check]
 scripts/build_coverage.py [--check]
+scripts/update_docs_stats.py [--check]   (fills the STATS blocks of README*/docs from data/coverage.json + data/catalog.json; exit 0 current/rewritten, 1 stale under --check, 2 bad or mismatched inputs/markers)
 scripts/check_sources.py  --report PATH   (manual, read-only; compares live metadata with saved snapshots)
 scripts/prepare_pages.py  --output PATH
 ```
@@ -202,4 +213,5 @@ scripts/prepare_pages.py  --output PATH
 | `impl/ui` | `archive.html`, `templates/slideshow.html`, `scripts/render_slideshow.py`, `tests/test_render_slideshow.py`, `src/**`, `assets/site/**`, `site.webmanifest`, `browserconfig.xml`, `tests/test_{i18n,layout,slideshow,archive_labels}*.py`, `tests/browser_smoke.py`, `tests/fixtures/ui/**`, `tests/fixtures/browser/**`, `licenses/*-MIT.txt` for reused vendor JS |
 | `impl/catalog` | `scripts/build_{catalog,thumbnails,coverage}.py`, `tests/test_{catalog,thumbnails,coverage,provenance}*.py`, `tests/fixtures/catalog/**` |
 | `impl/ci` | `.github/workflows/**`, `scripts/{prepare_pages,check_sources}.py`, `tests/test_{pages,check_sources,workflows,line_endings,licensing}*.py`, `tests/run_all.py` |
-| coordinator | root docs, `NOTICE`, `docs/implementation/**`, `data/sources/song-index.json`, `data/{catalog.json,catalog.js,thumbs.json,coverage.json}`, `assets/thumbs/**`, `index.html`, merges, remote |
+| `impl/docs` (wave 2–4) | `README.md`, `README.zh-CN.md`, `NOTICE`, `.nojekyll`, `docs/sources-*.md`, `docs/coverage*.md`, `licenses/README*.md`, `scripts/update_docs_stats.py`, `tests/test_docs*.py` (generated STATS blocks are rendered by the coordinator) |
+| coordinator | remaining root docs, `docs/implementation/**`, `data/sources/song-index.json`, `data/{catalog.json,catalog.js,thumbs.json,coverage.json}`, `assets/thumbs/**`, `index.html`, merges, remote |

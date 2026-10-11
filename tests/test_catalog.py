@@ -160,9 +160,16 @@ class DedupTests(Base):
 
     def test_records_sharing_a_hash_must_agree_on_measured_fields(self):
         record = {"id": "wikis:a:0000000000000000", "sha256": "0" * 64, "bytes": 1, "sha1": "a" * 40,
-                  "format": "PNG", "width": 1, "height": 1}
+                  "format": "PNG", "width": 1, "height": 1, "kind": "song_art"}
         with self.assertRaisesRegex(build.CatalogError, "disagree on width"):
             build._group_by_sha([record, {**record, "id": "wikis:b:0000000000000000", "width": 2}])
+
+    def test_records_sharing_a_hash_must_agree_on_kind(self):
+        """09 "Coordinator decisions (2026-10-11)": every record of one SHA-256 carries the same kind."""
+        record = {"id": "wikis:a:0000000000000000", "sha256": "0" * 64, "bytes": 1, "sha1": "a" * 40,
+                  "format": "PNG", "width": 1, "height": 1, "kind": "promotional"}
+        with self.assertRaisesRegex(build.CatalogError, "disagree on kind"):
+            build._group_by_sha([record, {**record, "id": "official:x:0000000000000000", "kind": "reference"}])
 
     def test_asset_count_must_match_the_records(self):
         value = fx.load_manifest(self.root, "archives")
