@@ -4,9 +4,9 @@ misleading extensions, press-release PDFs (archive tier), live 404s, primary-pos
 """
 
 import base64
+import hashlib
 import io
 import json
-import hashlib
 import sys
 import tempfile
 import unittest
@@ -19,7 +19,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import cli, model, runner  # noqa: E402
-from primary.adapters import direct as direct_adapter, wayback  # noqa: E402
+from primary.adapters import direct as direct_adapter  # noqa: E402
+from primary.adapters import wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/archives"
@@ -1538,8 +1539,9 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertTrue(any("cannot be repaired from upstream" in m for m in messages), messages)
 
     def test_pixel_identical_files_are_linked(self):
-        from PIL import Image
         import io
+
+        from PIL import Image
 
         def png(text):
             image = Image.new("RGB", (8, 8), (10, 20, 30))
@@ -1571,8 +1573,9 @@ class RunnerStateTests(ArchivesTestCase):
     @staticmethod
     def tagged_png(token):
         """The same pixels with a different embedded token (an App Store re-render)."""
-        from PIL import Image, PngImagePlugin
         import io
+
+        from PIL import Image, PngImagePlugin
 
         info = PngImagePlugin.PngInfo()
         info.add_text("Comment", token)

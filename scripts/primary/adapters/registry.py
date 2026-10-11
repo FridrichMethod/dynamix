@@ -11,7 +11,8 @@ when the lead named one, its file URL, so the decision stays traceable.
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import checks, schema
 

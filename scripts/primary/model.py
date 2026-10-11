@@ -23,8 +23,9 @@ from __future__ import annotations
 import copy
 import re
 import unicodedata
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 
 from lib import paths, schema
 from lib.checks import redact_text
@@ -121,7 +122,7 @@ class Draft:
     # Adapter hook: the draft describing the bytes of an archived fallback URL (``(draft, url) -> draft``), e.g. the
     # URL the page advertised as ``source_reported.url``, that rendition's file name and a quality that does not call
     # it the upload. Applied on the acquisition that archives the fallback and on every later refresh of that record.
-    fallback_adjust: Callable[["Draft", str], "Draft"] | None = None
+    fallback_adjust: Callable[[Draft, str], Draft] | None = None
     # Curated download rule: the same file is attached to the candidate with this upstream key of the same source,
     # whose text names what the file shows; that candidate holds the record and this one is ``duplicate_bytes``.
     archive_under: str | None = None

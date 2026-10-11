@@ -27,9 +27,10 @@ import math
 import os
 import re
 import time
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 from urllib.parse import unquote, urlsplit
 
 from PIL import Image
@@ -1967,7 +1968,9 @@ def verify_family(
             media.verify_asset_file(root, asset)
         except (media.MediaError, OSError) as error:
             errors.append(f"asset file: {error}")
-        for title, song_id in zip(asset["song_titles"], asset["song_ids"]):
+        # strict=False: the schema does not require equal lengths, and --verify must report, not crash, on a record
+        # whose lists disagree.
+        for title, song_id in zip(asset["song_titles"], asset["song_ids"], strict=False):
             if not song_id.startswith(paths.song_id_base(title)):
                 warnings.append(f"{asset['id']}: song ID {song_id} does not derive from title {title!r}")
         if index is not None:

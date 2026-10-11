@@ -22,7 +22,8 @@ from __future__ import annotations
 import base64
 import binascii
 import re
-from typing import Any, Callable, Mapping
+from collections.abc import Callable, Mapping
+from typing import Any
 from urllib.parse import urlsplit
 
 from lib import checks, net
@@ -124,7 +125,7 @@ def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[lis
     header, rows, next_key = data[0], [], None
     for row in data[1:]:
         if isinstance(row, list) and len(row) == len(header):
-            rows.append(dict(zip(header, row)))
+            rows.append(dict(zip(header, row, strict=True)))  # equal lengths: checked on the line above
         elif isinstance(row, list) and len(row) == 1 and isinstance(row[0], str):
             next_key = row[0]  # after an empty separator row
     return rows, next_key

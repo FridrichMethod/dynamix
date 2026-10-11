@@ -60,7 +60,8 @@ from __future__ import annotations
 import copy
 import json
 import re
-from typing import Any, Callable, Mapping
+from collections.abc import Callable, Mapping
+from typing import Any
 from urllib.parse import urlsplit, urlunsplit
 
 from bs4 import NavigableString

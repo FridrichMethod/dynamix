@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import json
 import re
-from typing import Any, Iterable, Mapping
+from collections.abc import Iterable, Mapping
+from typing import Any
 from urllib.parse import urljoin, urlsplit
 
 from bs4 import BeautifulSoup

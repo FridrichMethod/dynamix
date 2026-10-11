@@ -8,7 +8,8 @@ quote is reported as a discovery error. Items with ``"request": false`` make no 
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 

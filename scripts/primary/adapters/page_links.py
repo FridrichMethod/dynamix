@@ -9,7 +9,8 @@ Used for the HKSTP press release (appendix PDFs, press photo) and the 4Gamer scr
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 from urllib.parse import urlsplit, urlunsplit
 
 from lib import net
