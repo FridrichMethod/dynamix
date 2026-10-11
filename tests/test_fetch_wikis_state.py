@@ -348,6 +348,29 @@ class WorkDirTests(WikiRun):
         )
         self.assertEqual(code, 3)
 
+    def test_hard_linked_journal_or_lock_is_refused(self) -> None:
+        """DX6-10: a journal or lock file with a second hard link (planted to make the run write into another file)
+        is refused (exit 3), and the linked file is left as it was."""
+        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
+        journal = acquire.Journal(self.work / "journal.jsonl", self.root)
+        journal.append({"event": "clear_failures", "id": "wikis:miraheze:File:Nothing.png"})
+        os.link(journal.path, self.tmp / "second-link")
+        before = journal.path.read_bytes()
+        code, stderr = self.run_cli_stderr("--source", "miraheze", "--metadata-only")
+        self.assertEqual(code, 3)
+        self.assertIn(f"{journal.path} has several hard links", stderr)
+        self.assertEqual(journal.path.read_bytes(), before)
+        journal.path.unlink()
+        (self.tmp / "second-link").unlink()
+        decoy = self.tmp / "decoy.txt"
+        decoy.write_text("precious\n", encoding="utf-8")
+        (self.work / "lock").unlink(missing_ok=True)
+        os.link(decoy, self.work / "lock")
+        code, stderr = self.run_cli_stderr("--source", "miraheze", "--metadata-only")
+        self.assertEqual(code, 3)
+        self.assertIn(f"{self.work / 'lock'} has several hard links", stderr)
+        self.assertEqual(decoy.read_text(encoding="utf-8"), "precious\n")
+
     def test_journal_of_another_root_is_refused_and_kept(self) -> None:
         other_root = self.tmp / "other-repo"
         other_root.mkdir()

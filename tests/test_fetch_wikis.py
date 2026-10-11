@@ -700,6 +700,18 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0)  # nothing left to replay
 
+    def test_plain_run_repairs_a_truncated_file(self) -> None:
+        """DX6-10: a normal run checks presence and size (cli.py), so it downloads a truncated archived file again;
+        a same-size change is found only by --resume, which re-hashes."""
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        truncated = self.damage("File:(XD)Dynamix.png", "truncate")
+        flipped = self.damage("File:Emi-Raw.png", "flip")
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 0, "\n".join(self.logs))
+        self.assertEqual(len(client.downloads), 1)
+        self.assertEqual(hashlib.sha256((self.root / truncated["path"]).read_bytes()).hexdigest(), truncated["sha256"])
+        self.assertNotEqual(hashlib.sha256((self.root / flipped["path"]).read_bytes()).hexdigest(), flipped["sha256"])
+
     def test_failed_repair_keeps_the_record(self) -> None:
         self.assertEqual(self.run_cli("--source", "miraheze"), 0)
         asset = self.damage("File:(XD)Dynamix.png", "truncate")

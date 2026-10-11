@@ -12,7 +12,18 @@ sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "tests" / "fixtures" / "wikis"))
 
 from lib import net  # noqa: E402
-from wikis import acquire, classify, config, discover, jawikis, mediawiki, reviews, songindex, wikitext  # noqa: E402
+from wikis import (  # noqa: E402
+    acquire,
+    classify,
+    config,
+    discover,
+    jawikis,
+    mediawiki,
+    outputs,
+    reviews,
+    songindex,
+    wikitext,
+)
 
 
 class WikitextTests(unittest.TestCase):
@@ -978,6 +989,47 @@ class SmallHelperTests(unittest.TestCase):
             ("File:Hope!!", "Hope!!"),
         ):
             self.assertEqual(discover.display_title(title), expected, title)
+
+    def test_flusher_writes_every_n_downloads_and_every_few_minutes(self) -> None:
+        """DX6-10: outputs are rewritten periodically during a run (acquire module docstring), not only at the end."""
+        now = [0.0]
+        writes: list[float] = []
+        flusher = acquire.Flusher(lambda: writes.append(now[0]), every=3, seconds=300.0, clock=lambda: now[0])
+        for _ in range(7):
+            flusher.tick()
+        self.assertEqual(len(writes), 2)  # after the third and the sixth download
+        now[0] = 301.0
+        flusher.tick()  # the eighth: only two since the last write, but five minutes have passed
+        self.assertEqual(writes, [0.0, 0.0, 301.0])
+
+    def test_snapshot_errors_have_a_stable_order(self) -> None:
+        """DX6-10: discovery errors are written in a stable order, so snapshot bytes do not depend on the order in
+        which the lists failed."""
+        errors = [
+            {
+                "phase": "discover",
+                "url": "https://dynamix.miraheze.org/w/api.php?list=allimages",
+                "message": "HTTP 503",
+            },
+            {
+                "phase": "discover",
+                "url": "https://dynamix.miraheze.org/w/api.php?generator=allpages",
+                "message": "HTTP 503",
+            },
+            {"phase": "discover", "url": None, "message": "timeout"},
+        ]
+        snapshots = []
+        for ordered in (errors, errors[::-1]):
+            inventory = discover.Inventory(
+                config.MIRAHEZE,
+                "2026-10-10T12:00:00Z",
+                "2026-10-10T12:00:01Z",
+                continuation={name: {"continue": "x"} for name in discover.LISTS},
+                errors=list(ordered),
+            )
+            snapshots.append(outputs.mediawiki_snapshot(inventory, [], pooled_with=["wikis:fandom"]))
+        self.assertEqual(snapshots[0], snapshots[1])
+        self.assertEqual([error["url"] for error in snapshots[0]["errors"]], [None, errors[1]["url"], errors[0]["url"]])
 
     def test_fandom_download_url_requests_original(self) -> None:
         url = "https://static.wikia.nocookie.net/d/images/9/9b/A.png/revision/latest?cb=20210409081347"
