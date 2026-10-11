@@ -35,22 +35,22 @@ distinct pages (see :func:`_song_mapping`); a cover-art caption that quotes anot
 that song, not the host page's; a file whose role evidence names no song is mapped (``inferred``) to the one
 original-game song whose page gallery shows it (:func:`_gallery_song`).
 
-List graphics (coordinator decision 2026-10-10, :data:`config.LIST_GRAPHIC_RULE`): a graphic whose primary content is
-a list of songs or charts is ``reference`` even where a category or caption files it as promotional. List evidence is
-a list caption, a chart-list file category or an archivist review that saw a list (``list_graphic``); a review that
-calls the graphic promotional (one song or event) keeps it promotional. The rule replaces only a ``promotional`` role
-(alone or tied with ``reference``) and is recorded, with the page evidence it overrides, in the role evidence and the
-asset notes (:func:`_list_rule`). The same decision keeps a graphic about one song promotional
-(:data:`config.SINGLE_SONG_RULE`): the subject of the list captions (or of the file title) is read against the
-original-game song titles (:func:`list_subject`); one song makes the chart-list, comeback or new-chart teaser
-``promotional`` (:func:`_single_song_rule`), several songs make it a list whose songs are all mapped
-(:func:`_subject_songs`), and a subject the titles do not resolve leaves the list as it is.
+List and chart-announcement graphics (coordinator decision 2026-10-10 as amended, :data:`config.LIST_GRAPHIC_RULE`): an
+announcement graphic that displays chart difficulty levels (for one song or several) or whose primary content is a
+list of songs or charts is ``reference`` even where a category or caption files it as promotional. Its evidence is a
+chart-list/comeback/new-chart/lineup caption, a chart-list file category or an archivist review that saw such a
+graphic in the bytes (``list_graphic``); a review that saw neither a list nor level marks (role ``promotional``) keeps
+the graphic promotional. The rule replaces only a ``promotional`` role (alone or tied with ``reference``) and is
+recorded, with the page evidence it overrides, in the role evidence and the asset notes (:func:`_list_rule`). The
+subject of the list captions (or of the file title) is read against the original-game song titles
+(:func:`list_subject`) and every song it names is mapped (:func:`_subject_songs`), one song or several; a subject the
+titles do not resolve maps nothing.
 """
 
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any, Iterable, Mapping
 
 from lib import paths, schema
@@ -81,7 +81,7 @@ class Evidence:
     song_page: str | None = None
     detail: str = ""
     other_game: str | None = None  # "RAVON" for a caption "<song> Artwork in RAVON" (shared artwork)
-    list_graphic: bool = False  # the context says the graphic is a list of songs/charts (list-graphic rule)
+    list_graphic: bool = False  # the context files it as a list or chart announcement (config.LIST_GRAPHIC_RULE)
     caption: str = ""  # the cleaned gallery/link caption, verbatim (subject of a list graphic, display title)
 
     def text(self) -> str:
@@ -398,7 +398,7 @@ def _named_song(caption: str, song_titles: Mapping[str, tuple[str, str]] | None)
     return named.pop() if len(named) == 1 else None
 
 
-# --- List subjects (single-song clause of the list-graphic decision) --------------------------------------------------
+# --- List subjects (the songs a list or chart-announcement graphic names) ---------------------------------------------
 
 # A trailing note of a spelling: "(Dynamix Edit)", "（feat. ...）", "[...]", " ~After Legend~", " -fracture-".
 _TRAILING_NOTE = re.compile(r"\s*[(（\[][^()（）\[\]]*[)）\]]\s*$|\s+[~～-][^~～-]*[~～-]\s*$")
@@ -486,29 +486,27 @@ def read_subject(text: str, names: SongNames) -> SubjectReading:
 
 @dataclass(frozen=True)
 class Subject:
-    """What a list graphic is about (config.SINGLE_SONG_RULE): the songs its list captions (or file title) name and,
-    when one of them gives a subject, the songs of the original-game song pages whose galleries show it."""
+    """What a list or chart-announcement graphic is about (config.SUBJECT_END): the songs its list captions (or file
+    title) name and, when one of them gives a subject, the songs of the original-game song pages whose galleries show
+    it."""
 
     songs: tuple[str, ...]  # exact titles in order: names read from the subjects, then host song pages
     page_named: frozenset[str]  # songs named by page evidence: a caption naming the whole title, or a host song page
     named: tuple[tuple[str, str, str, str, str], ...]  # (song, url, field, quote, source_id) for mapping evidence
-    readings: tuple[str, ...]  # human-readable readings for the role evidence and notes
-    several: bool  # a reading names several songs or several names the titles do not resolve
     unread: str = ""  # no caption or file title gives a subject although song pages show the graphic (recorded)
 
-    @property
-    def single(self) -> bool:
-        return not self.several and len(self.songs) == 1
-
-    @property
-    def multiple(self) -> bool:
-        return self.several or len(self.songs) > 1
+    def only(self, titles: Iterable[str]) -> "Subject":
+        """The subject restricted to ``titles`` (the songs an archivist review saw in the bytes)."""
+        keep = set(titles)
+        return replace(self, songs=tuple(song for song in self.songs if song in keep),
+                       page_named=frozenset(song for song in self.page_named if song in keep),
+                       named=tuple(entry for entry in self.named if entry[0] in keep))
 
 
 def _list_item(item: Evidence) -> bool:
-    """Reference evidence that files the graphic as a list: a list caption or chart-list category, or a chart-list,
-    comeback or new-chart filename (only where the filename gives the reference role, see :func:`_single_song_rule`;
-    a filename never makes a promotional graphic a list)."""
+    """Reference evidence that files the graphic as a list or chart announcement: a list caption or chart-list
+    category, or a chart-list, comeback or new-chart filename (its subject is read for the song mapping; a filename
+    never makes a promotional graphic a reference, see :func:`_list_rule`)."""
     if item.role != "reference" or item.context == REVIEW_CONTEXT:
         return False
     return item.list_graphic or (item.context == "filename" and bool(config.SUBJECT_END.search(item.page)))
@@ -519,7 +517,7 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
     first; the file title only when no list caption has a subject. Original-game song pages that show the graphic only
     corroborate a subject read from a caption or the file title (a one-name subject the titles do not resolve, such as
     a spelling variant, is their song): a lineup caption without one ("Upcoming Events", "Comeback Tracks", "New
-    Charts") names no song however few song pages show it, so it stays a list and the missing subject is recorded."""
+    Charts") names no song however few song pages show it, and the missing subject is recorded."""
     listed = [item for item in items if _list_item(item)]
     if not listed or names is None:
         return None
@@ -538,17 +536,8 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
     songs: list[str] = []
     page_named: set[str] = set()
     named: list[tuple[str, str, str, str, str]] = []
-    readings: list[str] = []
-    several = False
     for item, label, subject in sources:
         reading = read_subject(subject, names)
-        titles = list(dict.fromkeys(title for title, _whole in reading.songs))
-        several = several or (reading.names > 1 and (not reading.complete or len(titles) > 1))
-        if reading.complete:
-            readings.append(f"{label} names {'; '.join(titles)}")
-        else:
-            readings.append(f"{label}: subject {subject!r} is not resolved to song titles"
-                            + (f" ({reading.names} names)" if reading.names > 1 else ""))
         field_name = "file title" if item is file_title_item else item.context
         url = config.page_url(config.SOURCES[_source_key(item.source_id)], file_title) \
             if item is file_title_item else item.url
@@ -567,8 +556,8 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
         listed_text = f"caption {quoted}" if captions else "the list evidence"
         shown = ", ".join(pages[:3]) + (f" and {len(pages) - 3} more" if len(pages) > 3 else "")
         unread = (f"{listed_text} and the file title name no subject before their list words; the original-game song "
-                  + (f"pages showing it ({shown}) do" if len(pages) > 1 else f"page showing it ({shown}) does")
-                  + " not decide one")
+                  + (f"pages showing it ({shown}) are" if len(pages) > 1 else f"page showing it ({shown}) is")
+                  + " not taken as its subject")
         hosts = []
     for item in hosts:
         if item.song not in songs:
@@ -576,7 +565,7 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
         page_named.add(item.song)
         named.append((item.song, item.url, item.context, (f"{item.detail}; " if item.detail else "")
                       + f"shown on the page of the original-game song {item.song!r}", item.source_id))
-    return Subject(tuple(songs), frozenset(page_named), tuple(named), tuple(readings), several, unread)
+    return Subject(tuple(songs), frozenset(page_named), tuple(named), unread)
 
 
 def _source_key(source_id: str) -> str:
@@ -807,8 +796,8 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     between equally supported page roles) and the game only when no page context gives one; a ``mixed`` review adds
     its shared-game associations to a game that page context gives. ``review_stale`` marks a review of an earlier
     revision. ``alias`` is ``(target title, same reported SHA-1)`` for a file whose description page redirects to
-    another file. ``song_names`` (the original-game song titles) lets the subject of a list graphic be read: a
-    graphic about one song stays promotional, the songs of a list are all mapped (:func:`list_subject`).
+    another file. ``song_names`` (the original-game song titles) lets the subject of a list or chart-announcement
+    graphic be read, so that every song it names is mapped (:func:`list_subject`).
     """
     mime = (info.get("mime") or "").lower()
     if mime.startswith("video/"):
@@ -843,35 +832,17 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
                           f"that the wiki reuses as an interface image; the site_ui page evidence describes that use, "
                           f"not the file: {overridden}.")
     subject = list_subject(file_title, page_items, song_names)
-    listed = _list_rule(page_items, leaders, review, reviewed_role, subject)
+    listed = _list_rule(page_items, leaders, review, reviewed_role)
     if listed is not None:
         entry, note, by_review = listed
         leaders, top = ["reference"], max(top, 0)
         reviewed_role = reviewed_role or by_review  # a mapping that rests on the review is inferred at most
         role_evidence = _short([f"reference <- {entry}"] + role_evidence)
         rule_notes.append(note)
-    single = _single_song_rule(page_items, leaders, top, review, subject)
-    single_by_review = False
-    if single is not None:
-        entry, note, single_by_review = single
-        leaders = ["promotional"]
-        reviewed_role = reviewed_role or single_by_review  # a mapping that rests on the review is inferred at most
-        role_evidence = _short([f"promotional <- {entry}"] + role_evidence)
-        rule_notes.append(note)
     role = leaders[0] if len(leaders) == 1 else None
     if subject is not None and subject.unread and role == "reference":
-        rule_notes.append(f"Subject not read ({config.SINGLE_SONG_RULE.split(' (')[0]}, 09-frozen-contracts.md): "
-                          f"{subject.unread}; it stays a list.")
-    # A single-song teaser keeps the song its list items (role reference) name, else the one its review names; one
-    # whose subject an archivist review decided (one half of a pair a caption names) keeps the review's song first.
-    mapping_roles = [role]
-    if single is not None:
-        mapping_roles = ["promotional", "reference"] if single_by_review else ["reference", role]
-    songs, mapping, mapping_evidence = [], "unmapped", []
-    for mapping_role in mapping_roles:
-        songs, mapping, mapping_evidence = _song_mapping(items, mapping_role, reviewed_role=reviewed_role)
-        if songs:
-            break
+        rule_notes.append(f"List subject not read: {subject.unread}.")
+    songs, mapping, mapping_evidence = _song_mapping(items, role, reviewed_role=reviewed_role)
     song_pages = list(dict.fromkeys(item.song_page for item in items if item.song_page))
     song_page_roles = any(item.song_page for item in role_items)
     unreleased = any(item.context == "Template:SongOther|Imgsuffix" for item in items)
@@ -905,11 +876,21 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         songs, mapping, mapping_evidence = _embedding_song(page_items, songs, mapping, mapping_evidence)
     if role in KINDS and not songs:
         songs, mapping, mapping_evidence = _gallery_song(page_items, songs, mapping, mapping_evidence)
-    # The songs a list subject names join the mapping; not where a review saw one song in the bytes (the caption may
-    # name the pair of a two-song comeback whose halves are separate images).
-    if subject is not None and ((single is not None and not single[2]) or (role == "reference" and subject.multiple)):
-        songs, mapping, mapping_evidence = _subject_songs(subject, songs, mapping, mapping_evidence,
+    # The songs a list subject names join the mapping, one song or several. An archivist review that saw the list or
+    # chart announcement in the bytes and names its songs transcribes them: a subject song it does not name is left
+    # out (a caption may name the pair of a two-song comeback whose halves are separate images) and a song it names
+    # that no page evidence maps is added; either change rests on the review (inferred).
+    transcribed = (review is not None and review.list_graphic and review.role == role == "reference"
+                   and bool(review.songs))
+    if subject is not None and role == "reference" and subject.songs:
+        wanted = subject.only(review.songs) if transcribed else subject
+        songs, mapping, mapping_evidence = _subject_songs(wanted, songs, mapping, mapping_evidence,
                                                           reviewed_role=reviewed_role)
+        if wanted.songs != subject.songs:
+            mapping, mapping_evidence = _with_review_evidence(items, mapping_evidence)
+    if transcribed and any(song not in songs for song in review.songs):
+        songs = songs + [song for song in review.songs if song not in songs]
+        mapping, mapping_evidence = _with_review_evidence(items, mapping_evidence)
     associations = {"dynamix_universe" for item in page_items if item.game == "dynamix_universe"} | {
         re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_") for item in page_items
         if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")}
@@ -983,22 +964,19 @@ def _clip_text(text: str) -> str:
     return text if len(text) <= RULE_TEXT_LIMIT else text[:RULE_TEXT_LIMIT - 3] + "..."
 
 
-def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, reviewed_role: bool,
-               subject: Subject | None = None) -> tuple[str, str, bool] | None:
-    """``(role evidence entry, asset note, rests on the review)`` when the list-graphic rule decides that the file is
-    ``reference``, else None.
+def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, reviewed_role: bool
+               ) -> tuple[str, str, bool] | None:
+    """``(role evidence entry, asset note, rests on the review)`` when the list and chart-announcement rule
+    (:data:`config.LIST_GRAPHIC_RULE`) decides that the file is ``reference``, else None.
 
-    It applies when list evidence exists (a page item flagged ``list_graphic`` -- a list caption or chart-list
-    category -- or an applicable review with ``list_graphic``) and the roles otherwise decided are ``promotional``
-    alone or tied with ``reference``; the asset note quotes the overridden promotional page evidence (the role
-    evidence lists it after the rule's entry). A review that calls the graphic promotional (one song or event, seen
-    in the bytes) blocks the rule. A file whose ``reference`` role a list review decided (no page role evidence)
-    records the rule too, without an override. List evidence whose subject is one song (:func:`list_subject`) is no
-    list: :func:`_single_song_rule` decides such a file, unless a review saw a list in the bytes."""
+    It applies when its evidence exists (a page item flagged ``list_graphic`` -- a chart-list, comeback, new-chart or
+    lineup caption, or a chart-list category -- or an applicable review with ``list_graphic``) and the roles otherwise
+    decided are ``promotional`` alone or tied with ``reference``, whether the graphic is about one song or several;
+    the asset note quotes the overridden promotional page evidence (the role evidence lists it after the rule's entry).
+    A review that saw neither a list nor level marks in the bytes (role promotional) blocks the rule. A file whose
+    ``reference`` role a list review decided (no page role evidence) records the rule too, without an override."""
     reviewed_list = review is not None and review.list_graphic
     if review is not None and review.role == "promotional":
-        return None
-    if subject is not None and subject.single and not reviewed_list:
         return None
     page_lists = [item for item in page_items if item.list_graphic and item.role == "reference"]
     if reviewed_list and reviewed_role and leaders == ["reference"]:
@@ -1020,38 +998,9 @@ def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, revi
     return entry, note, not page_lists
 
 
-def _single_song_rule(page_items: list[Evidence], leaders: list[str], top: int, review: Any,
-                      subject: Subject | None) -> tuple[str, str, bool] | None:
-    """``(role evidence entry, asset note, rests on the review)`` when the single-song clause of the coordinator
-    decision makes a file with list evidence ``promotional``: the roles otherwise decided are ``reference`` and/or
-    ``promotional``, every ``reference`` item at the deciding strength is list evidence (an update-note caption is no
-    teaser), and either the subject is one song and no review decided the role, or an archivist review saw one song or
-    event in the bytes (role ``promotional``; e.g. one half of a two-song comeback that a caption names as the pair).
-    A mapping that rests on that review is ``inferred`` at most (see :func:`decide`)."""
-    if subject is None or not leaders or not set(leaders) <= {"reference", "promotional"}:
-        return None
-    reviewed = review is not None and review.role == "promotional"
-    if not reviewed and (not subject.single or (review is not None and review.role is not None)):
-        return None
-    if not all(_list_item(item) for item in page_items if item.role == "reference" and item.strength == top):
-        return None
-    overridden = [item.text() for item in page_items if _list_item(item)]
-    if reviewed:
-        basis = _clip_text(review.role_text())
-        song = ""
-    else:
-        basis = "; ".join(_clip_text(text) for text in subject.readings[:2])
-        song = f"; one song: {subject.songs[0]}"
-    overridden_text = "; ".join(_clip_text(text) for text in list(dict.fromkeys(overridden))[:3])
-    entry = f"{config.SINGLE_SONG_RULE}; subject: {basis}{song}; it overrides the reference list evidence listed here"
-    note = (f"Kind promotional by the {config.SINGLE_SONG_RULE} (09-frozen-contracts.md, coordinator classification "
-            f"decisions). Subject: {basis}{song}. Reference list evidence it overrides: {overridden_text}.")
-    return entry, note, reviewed
-
-
 def _subject_songs(subject: Subject, songs: list[str], mapping: str, evidence: list[Any], *, reviewed_role: bool
                    ) -> tuple[list[str], str, list[Any]]:
-    """Adds the songs a list graphic's subject names (or the song a single-song teaser is about) to its mapping. The
+    """Adds the songs a list or chart-announcement graphic's subject names (one song or several) to its mapping. The
     mapping stays ``confirmed_wiki`` only when every added song is named by page evidence (a caption naming the whole
     title, or a song page showing the graphic); a song read from the file title or from a partial spelling is
     ``inferred``."""
@@ -1066,6 +1015,17 @@ def _subject_songs(subject: Subject, songs: list[str], mapping: str, evidence: l
         added.append({"url": url, "field": field_name, "quote": quote[:300], "source_id": source_id})
     room = max(0, MAX_EVIDENCE - len(added))
     return songs + extra, "confirmed_wiki" if confirmed else "inferred", (evidence[:room] + added)[:MAX_EVIDENCE]
+
+
+def _with_review_evidence(items: list[Evidence], evidence: list[Any]) -> tuple[str, list[Any]]:
+    """``(inferred, mapping evidence)`` of a mapping an archivist review changed: the review is quoted last."""
+    reviewed = next((item for item in items if item.context == REVIEW_CONTEXT), None)
+    if reviewed is None:
+        return "inferred", evidence
+    entry = {"url": reviewed.url, "field": REVIEW_CONTEXT, "quote": reviewed.detail[:300] or None,
+             "source_id": reviewed.source_id}
+    kept = [item for item in evidence if item != entry]
+    return "inferred", (kept[:MAX_EVIDENCE - 1] + [entry])
 
 
 def _gallery_song(items: list[Evidence], songs: list[str], mapping: str, evidence: list[Any]

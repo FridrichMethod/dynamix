@@ -1,8 +1,9 @@
-"""Unit tests of the list-graphic rule (coordinator decision 2026-10-10): ``python -I tests/test_fetch_wikis_lists.py``.
+"""Unit tests of the list and chart-announcement rule (coordinator decision 2026-10-10 as amended):
+``python -I tests/test_fetch_wikis_lists.py``.
 
-A graphic whose primary content is a list of songs or charts is kind ``reference`` regardless of the wiki category or
-caption that files it as promotional; a graphic about a single song or event stays ``promotional`` (a single-song
-chart-list, comeback or new-chart teaser too, even with difficulty marks). No network.
+An announcement graphic that displays chart difficulty levels (for one song or several) or whose primary content is a
+list of songs or charts is kind ``reference`` regardless of the wiki category or caption that files it as
+promotional; key art, event posters and teasers without level marks stay ``promotional``. No network.
 """
 
 from __future__ import annotations
@@ -104,14 +105,14 @@ class ListRuleTests(unittest.TestCase):
         decision = _decide(items, _review(songs=["Cosmic Pulse"]))
         self.assertEqual((decision.role, decision.game, decision.disposition), ("reference", "dynamix", "download"))
         self.assertTrue(decision.role_evidence[0].startswith(
-            "reference <- list-graphic rule (coordinator decision 2026-10-10)"))
+            "reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended)"))
         self.assertIn("list evidence: archivist review (File:Events in 2020 June.png): visual_inspection: monthly "
                       "event lineup", decision.role_evidence[0])
         self.assertIn("it overrides the promotional page evidence listed here", decision.role_evidence[0])
         self.assertIn("promotional <- https://dynamix.miraheze.org/wiki/File:Events_in_2020_June.png (file category; "
                       "Category:Event images)", decision.role_evidence)
         [note] = decision.rule_notes
-        self.assertTrue(note.startswith("Kind reference by the list-graphic rule"))
+        self.assertTrue(note.startswith("Kind reference by the list and chart-announcement rule"))
         self.assertIn("Promotional page evidence it overrides: https://dynamix.miraheze.org/wiki/"
                       "File:Events_in_2020_June.png (file category; Category:Event images); "
                       "https://dynamixc4cat.fandom.com/wiki/File:Events_in_2020_June.png", note)
@@ -140,22 +141,20 @@ class ListRuleTests(unittest.TestCase):
         decision = _decide(items, _review())
         self.assertEqual((decision.role, decision.songs, decision.mapping), ("reference", ["Cosmic Pulse"], "inferred"))
 
-    def test_single_song_or_event_stays_promotional(self) -> None:
+    def test_event_and_teaser_without_list_evidence_stay_promotional(self) -> None:
         """No list evidence: event categories, event/teaser captions and a list-like filename stay promotional; a
-        review that saw one song or event keeps the file promotional even against a list caption."""
+        review that saw neither a list nor level marks keeps the file promotional even against a list caption."""
         name = classify.filename_evidence(config.MIRAHEZE, "File:Helios Comeback.png")
         for items in (_category("Category:Event images"), [_caption("Christmas Event 2021")],
                       [_caption("New Exclusive Song \"ReLyna\"")], name + _category("Category:Event images")):
             decision = _decide(items)
             self.assertEqual((decision.role, decision.rule_notes), ("promotional", []), items)
         teaser = _review(role="promotional", list_graphic=None,
-                         evidence="visual_inspection: single-song COMING SOON teaser with difficulty marks")
+                         evidence="visual_inspection: COMING SOON teaser with the Dynamix icon and no level marks")
         listed = _caption("PUPA Chart List", "PUPA")
         decision = _decide([listed] + _category("Category:Event images"), teaser)
-        self.assertEqual(decision.role, "promotional")  # the review's reading is recorded against the list caption
-        [note] = decision.rule_notes
-        self.assertIn("Subject: archivist review (File:Events in 2020 June.png): visual_inspection: single-song "
-                      "COMING SOON teaser", note)
+        self.assertEqual((decision.role, decision.rule_notes), ("promotional", []))
+        self.assertTrue(decision.role_evidence[0].startswith("promotional <- archivist review"))
 
     def test_rule_replaces_only_a_promotional_role(self) -> None:
         cover = classify.Evidence("wikis:miraheze", "Cosmic Pulse", "https://dynamix.miraheze.org/wiki/Cosmic_Pulse",
@@ -186,13 +185,14 @@ class ListRuleTests(unittest.TestCase):
         song titles a subject cannot be read and the caption decides alone."""
         decision = _decide([_caption("Cosmic Pulse X PUPA Comeback Chart List")])
         self.assertEqual((decision.role, decision.rule_notes), ("reference", []))
-        self.assertFalse(any("list-graphic rule" in entry for entry in decision.role_evidence))
+        self.assertFalse(any("chart-announcement rule" in entry for entry in decision.role_evidence))
         unread = _decide([_caption("Cosmic Pulse Chart List")], names=None)
         self.assertEqual((unread.role, unread.rule_notes), ("reference", []))
 
 
-class SingleSongTests(unittest.TestCase):
-    """The single-song clause: a chart-list, comeback or new-chart graphic about one song stays promotional."""
+class ChartAnnouncementTests(unittest.TestCase):
+    """D1 of the amended decision: an announcement graphic that displays chart difficulty levels is a reference for
+    one song as for several; every song its subject names is mapped."""
 
     def test_subject_text(self) -> None:
         self.assertEqual(classify.subject_text("Xetta Chart List (Promoted)\nand Xetta Comeback Chart List"), "Xetta")
@@ -218,23 +218,22 @@ class SingleSongTests(unittest.TestCase):
         whole = classify.SongNames.build([("Hope!!", []), ("HOPE", [])])
         self.assertIsNone(whole.resolve("Hope"))  # titles sharing a loose key are ambiguous
 
-    def test_single_song_teaser_is_promotional(self) -> None:
+    def test_single_song_chart_list_is_a_reference(self) -> None:
+        """The superseded single-song exception no longer applies: one song's chart list is a reference by its
+        caption, mapped to its song; nothing overrides it, so no rule is recorded."""
         decision = _decide([_caption("Cosmic Pulse Chart List")])
         self.assertEqual((decision.role, decision.disposition, decision.songs, decision.mapping),
-                         ("promotional", "download", ["Cosmic Pulse"], "confirmed_wiki"))
-        self.assertTrue(decision.role_evidence[0].startswith("promotional <- " + config.SINGLE_SONG_RULE))
-        self.assertIn("subject: caption 'Cosmic Pulse Chart List' names Cosmic Pulse; one song: Cosmic Pulse",
-                      decision.role_evidence[0])
-        [note] = decision.rule_notes
-        self.assertTrue(note.startswith("Kind promotional by the single-song rule"))
-        self.assertIn("Reference list evidence it overrides: https://dynamix.miraheze.org/wiki/Cosmic_Pulse "
-                      "(gallery; caption 'Cosmic Pulse Chart List')", note)
-        # A title containing a separator is still one song; the list rule does not turn a tie with an event
-        # category into a reference.
+                         ("reference", "download", ["Cosmic Pulse"], "confirmed_wiki"))
+        self.assertEqual(decision.rule_notes, [])
+        self.assertFalse(any("single-song" in entry for entry in decision.role_evidence))
+        # A title containing a separator is one song; against an event category (a tie) the rule decides reference.
         angel = _decide([_caption("Angel x Angel Comeback Chart List", "Angel x Angel")]
                         + _category("Category:Event images"))
-        self.assertEqual((angel.role, angel.songs), ("promotional", ["Angel x Angel"]))
-        self.assertFalse(any("list-graphic rule" in note for note in angel.rule_notes))
+        self.assertEqual((angel.role, angel.songs, angel.mapping), ("reference", ["Angel x Angel"], "confirmed_wiki"))
+        [note] = angel.rule_notes
+        self.assertTrue(note.startswith("Kind reference by the list and chart-announcement rule"))
+        self.assertIn("Promotional page evidence it overrides: https://dynamix.miraheze.org/wiki/"
+                      "File:Events_in_2020_June.png (file category; Category:Event images)", note)
 
     def test_file_title_names_the_subject_of_a_chart_list_category(self) -> None:
         title = "File:Cosmic Pulse Chart List.png"
@@ -242,7 +241,7 @@ class SingleSongTests(unittest.TestCase):
             "categories": [{"ns": 14, "title": "Category:Chart list images"}]}, {}, set())
         decision = _decide([category], title=title)
         self.assertEqual((decision.role, decision.songs, decision.mapping),
-                         ("promotional", ["Cosmic Pulse"], "inferred"))  # read from the file title only
+                         ("reference", ["Cosmic Pulse"], "inferred"))  # read from the file title only
         self.assertEqual(decision.mapping_evidence[-1]["field"], "file title")
 
     def test_several_songs_are_a_list_and_all_mapped(self) -> None:
@@ -256,18 +255,47 @@ class SingleSongTests(unittest.TestCase):
         unknown = _decide([_caption("Amaterasu and Abyss Comeback Chart List", "A")])
         self.assertEqual((unknown.role, unknown.songs), ("reference", ["A"]))  # unresolved names: still a list
 
-    def test_review_that_saw_one_song_keeps_it_promotional(self) -> None:
-        """The caption names the pair of a two-song comeback; the archivist saw one song in this half."""
-        half = _review(role="promotional", list_graphic=None, songs=["diSTractiOn PoInT"],
-                       evidence="visual_inspection: one song's comeback card; the caption names the pair")
+    def test_reviewed_half_of_a_pair_maps_the_song_it_shows(self) -> None:
+        """The caption names the pair of a two-song comeback; the archivist saw one song (with level marks) in this
+        half: a reference that maps only that song, and dropping the other rests on the review (inferred)."""
+        half = _review(songs=["diSTractiOn PoInT"],
+                       evidence="visual_inspection: one song's comeback card with level marks; the caption names "
+                                "the pair")
         decision = _decide([_caption("diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1",
                                      "diSTractiOn PoInT")], half)
-        self.assertEqual((decision.role, decision.songs), ("promotional", ["diSTractiOn PoInT"]))
-        self.assertIn("subject: archivist review (File:Events in 2020 June.png): visual_inspection: one song's",
-                      decision.role_evidence[0])
-        # Dropping Frontline B-Side rests on the review alone: the mapping is inferred and quotes the review.
-        self.assertEqual(decision.mapping, "inferred")
-        self.assertEqual([entry["field"] for entry in decision.mapping_evidence], ["archivist review"])
+        self.assertEqual((decision.role, decision.songs, decision.mapping),
+                         ("reference", ["diSTractiOn PoInT"], "inferred"))
+        self.assertEqual(decision.mapping_evidence[-1]["field"], "archivist review")
+        self.assertTrue(decision.mapping_evidence[-1]["quote"].startswith("visual_inspection: one song's"))
+        unreviewed = _decide([_caption("diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1",
+                                       "diSTractiOn PoInT")])
+        self.assertEqual(unreviewed.songs, ["diSTractiOn PoInT", "Frontline B-Side"])
+
+    def test_list_review_adds_the_songs_it_transcribed(self) -> None:
+        """A list review names a song that no page evidence maps: it joins the mapping, which is then inferred."""
+        lineup = _review(songs=["Cosmic Pulse", "PUPA"])
+        decision = _decide([_caption("Upcoming Events", "Cosmic Pulse")], lineup)
+        self.assertEqual((decision.role, decision.songs, decision.mapping),
+                         ("reference", ["Cosmic Pulse", "PUPA"], "inferred"))
+        self.assertEqual(decision.mapping_evidence[-1]["field"], "archivist review")
+
+    def test_chart_level_review_overrides_promotional_captions(self) -> None:
+        """A review that saw level marks (e.g. a Giga chart unlock card) makes a graphic that captions file as an
+        event a reference, recording the overridden captions; the mapping rests on the review."""
+        giga = _review(songs=["PUPA"], evidence="visual_inspection: Giga chart announcement 'PUPA', level diamond 14")
+        decision = _decide([_caption("Unlock Giga Chart by follow", "PUPA"), _caption("November Event", "B")], giga)
+        self.assertEqual((decision.role, decision.songs, decision.mapping), ("reference", ["PUPA"], "inferred"))
+        self.assertIn("it overrides the promotional page evidence listed here", decision.role_evidence[0])
+
+    def test_review_without_list_or_levels_keeps_it_promotional(self) -> None:
+        """A review that saw neither a list nor level marks (a pack card with one titled jacket under a caption
+        that calls it a comeback) keeps the graphic promotional: the rule is not applied."""
+        card = _review(role="promotional", list_graphic=None, songs=["PUPA"],
+                       evidence="visual_inspection: pack card with one titled jacket and three '?' slots, no level "
+                                "marks")
+        decision = _decide([_caption("PUPA Comeback", "PUPA")] + _category("Category:Event images"), card)
+        self.assertEqual((decision.role, decision.rule_notes), ("promotional", []))
+        self.assertEqual(decision.songs, ["PUPA"])
 
     def test_host_page_alone_names_no_subject(self) -> None:
         """A lineup caption without a subject on one song's page stays a list: the host page only corroborates a
@@ -275,18 +303,14 @@ class SingleSongTests(unittest.TestCase):
         for caption in ("Upcoming Events", "Comeback Tracks", "New Charts", "New Charts: A & B"):
             decision = _decide([_caption(caption, "Cosmic Pulse")] + _category("Category:Event images"))
             self.assertEqual(decision.role, "reference", caption)
-            self.assertFalse(any(note.startswith("Kind promotional") for note in decision.rule_notes), caption)
-            self.assertTrue(any(note.startswith("Subject not read") and "name no subject" in note
+            self.assertTrue(any(note.startswith("List subject not read") and "name no subject" in note
                                 for note in decision.rule_notes), caption)
         variant = _decide([_caption("Cosmic Pulse Remastered Chart List", "Cosmic Pulse")])
-        self.assertEqual((variant.role, variant.songs), ("promotional", ["Cosmic Pulse"]))
-        self.assertIn("subject 'Cosmic Pulse Remastered' is not resolved to song titles; one song: Cosmic Pulse",
-                      variant.rule_notes[0])
+        self.assertEqual((variant.role, variant.songs), ("reference", ["Cosmic Pulse"]))
 
-    def test_update_notes_are_no_teasers(self) -> None:
+    def test_update_notes(self) -> None:
         decision = _decide([_caption("2.4 Version Update", "Cosmic Pulse")])
         self.assertEqual((decision.role, decision.rule_notes), ("reference", []))
-        # An update-note caption at the deciding strength keeps the reference even where a list caption names one song.
         both = _decide([_caption("Cosmic Pulse Chart List"), _caption("2.4 Version Update", "B")])
         self.assertEqual((both.role, both.rule_notes), ("reference", []))
 

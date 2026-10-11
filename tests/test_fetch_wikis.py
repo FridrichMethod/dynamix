@@ -92,10 +92,11 @@ class MetadataOnlyTests(WikiRun):
 
         cosmic = check("miraheze", "File:CosmicPulseDynamix.png", "pending", "song_art", acquire.AWAITING, "dynamix")
         self.assertEqual((cosmic["illustrators"], cosmic["composers"]), (["ariiol"], ["Yunosuke"]))
-        # Coordinator decision 2026-10-10: a single-song chart list is a teaser (promotional, single-song rule); a
-        # comeback list of two songs is a list (reference, archive tier) and maps both songs its caption names.
-        single = check("miraheze", "File:Cosmic Pulse Chart List.jpg", "pending", "promotional", acquire.AWAITING)
-        self.assertIn("promotional <- single-song rule (coordinator decision 2026-10-10)", single["notes"])
+        # Coordinator decision 2026-10-10 as amended: a chart announcement is a reference (archive tier) whether it
+        # is about one song or two, and maps the songs its caption names.
+        single = check("miraheze", "File:Cosmic Pulse Chart List.jpg", "pending", "reference", acquire.AWAITING)
+        self.assertEqual(single["song_titles"], ["Cosmic Pulse"])
+        self.assertNotIn("single-song", single["notes"])
         pair = check("miraheze", "File:Pair Comeback Chart List.jpg", "pending", "reference", acquire.AWAITING)
         self.assertEqual(pair["song_titles"], ["Cosmic Pulse", "(XD)"])
         self.assertEqual(schema.tier_for("reference", "JPEG"), "archive")
@@ -123,7 +124,8 @@ class MetadataOnlyTests(WikiRun):
         # notes keep the overridden category evidence and name the rule.
         for key in ("miraheze", "fandom"):
             lineup = check(key, "File:Events Lineup.png", "pending", "reference", acquire.AWAITING, "dynamix")
-            self.assertIn("reference <- list-graphic rule (coordinator decision 2026-10-10)", lineup["notes"])
+            self.assertIn("reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended)",
+                          lineup["notes"])
             self.assertIn("(file category; Category:Event images)", lineup["notes"])
         # (XD)_D.jpg: a large JPEG in the Trivia gallery is gameplay, not the song's artwork.
         xd_d = check("miraheze", "File:(XD) D.jpg", "pending", "gameplay_screenshot", acquire.AWAITING, "dynamix")
@@ -261,10 +263,8 @@ class AcquisitionTests(WikiRun):
         self.assertTrue(event["mapping_evidence"][0]["quote"].startswith("visual_inspection:"))
         chart_list = self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")
         self.assertEqual((chart_list["kind"], chart_list["mapping_status"], chart_list["song_ids"]),
-                         ("promotional", "confirmed_wiki", ["song:cosmic-pulse"]))
-        self.assertIn("Kind promotional by the single-song rule (coordinator decision 2026-10-10)", chart_list["notes"])
-        self.assertIn("Subject: caption 'Cosmic Pulse Chart List' names Cosmic Pulse; one song: Cosmic Pulse.",
-                      chart_list["notes"])
+                         ("reference", "confirmed_wiki", ["song:cosmic-pulse"]))
+        self.assertNotIn("single-song", chart_list.get("notes", ""))
         pair = self.asset("miraheze", "File:Pair Comeback Chart List.jpg")
         self.assertEqual((pair["kind"], pair["mapping_status"], pair["song_ids"]),
                          ("reference", "confirmed_wiki", ["song:cosmic-pulse", "song:xd"]))
@@ -279,7 +279,8 @@ class AcquisitionTests(WikiRun):
         # List-graphic rule: the asset notes name the rule, the list evidence and the overridden page evidence.
         lineup = self.asset("fandom", "File:Events Lineup.png")
         self.assertEqual((lineup["kind"], lineup["mapping_status"]), ("reference", "unmapped"))
-        self.assertIn("Kind reference by the list-graphic rule (coordinator decision 2026-10-10)", lineup["notes"])
+        self.assertIn("Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, "
+                      "amended)", lineup["notes"])
         self.assertIn("List evidence: archivist review (File:Events Lineup.png): visual_inspection: monthly event "
                       "lineup", lineup["notes"])
         self.assertIn("Promotional page evidence it overrides: https://dynamix.miraheze.org/wiki/"

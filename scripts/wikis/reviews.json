@@ -404,13 +404,14 @@
         "13d094572d84f502bca8cf88c1ff05b0414603e9",
         "36f160f0a1e32f62170e91ee66f08032c44ad086"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: new-song chart list: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg); one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: new-song chart announcement: 'Snowy Light / dotn' jacket, 'COMING SOON', level diamonds 6/9/12 with the Dynamix icon (the design the wiki captions '<song> Chart List', e.g. File:Αterlβus Chart List.jpg); chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game chart-list design (level diamonds, Dynamix icon) for the original-game song Snowy Light; Fandom upload 2019-03-12 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Snowy Light"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:5pj7GXjd 400x400.jpg",
@@ -523,13 +524,14 @@
         "4198fe988411e953029cd73a608bb8ac7e2783c0",
         "566e75408b91a21149e0ad81040fa16aec9517ff"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: comeback chart list 'Against The Pseudo', \"i'm back!\", level diamonds 3/9/6; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: comeback chart announcement 'Against The Pseudo / Klavistr a.k.a. Phantom Mask', \"i'm back!\", level diamonds 3/9/6; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-29 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Against The Pseudo"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:Aki.jpg",
@@ -785,7 +787,7 @@
         "9497f3d0f80ad00f0d001cc5d24303e572484e01"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with one titled jacket (Black：Magnam) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' card with one titled jacket (Black：Magnam / adaptor) and three '?' slots; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10 (the later cards of the same pack, which print two or more titled jackets, are references)",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-08-19 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
@@ -836,7 +838,7 @@
         "9b5ceec24c7fae62bde3f631efbd7d63dbe17b74"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with one titled jacket (Caelus) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
+      "evidence": "visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' card with one titled jacket (Caelus / Woof) and three '?' slots; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10 (the later cards of the same pack, which print two or more titled jackets, are references)",
       "game": "mixed",
       "game_evidence": "visual_inspection: promotes original Dynamix songs in the 2021 Dynamix x RAVON collaboration (RAVON's announcer and logo, Dynamix songs); Fandom upload 2021-09-05 precedes the wiki's first Universe-named upload (2023-08-18)",
       "associations": [
@@ -969,7 +971,7 @@
         "8a542c5da095f6bb7c55dff1d8f4cb9cc5f9cfc1"
       ],
       "role": "reference",
-      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 75% Off' (15 Dec 2017 - 2 Jan 2018) listing four titled pack jackets: Evas, Chiptune, Four Horsemen, Fantasy; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 75% Off' (15 Dec 2017 - 2 Jan 2018) listing four titled pack jackets: Evas, Chiptune, Four Horsemen, Fantasy; a pack/collaboration lineup card printing several titled jackets: reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the printed titles name song packs, not songs",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX Christmas Discount Package 75% Off' (15 Dec - 2 Jan 2018); Fandom upload 2017-12-14 precedes the wiki's first Universe-named upload (2023-08-18)",
       "list_graphic": true
@@ -981,7 +983,7 @@
         "cd86c60327f227cd687e9d4948602aa3d6575b3a"
       ],
       "role": "reference",
-      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 50% Off' (15 Dec 2017 - 2 Jan 2018) listing eight titled pack jackets: Two Square: Horoscope, Two Square: Rising, Piano, VelecTi, ArcStar Collaboration #1 & #2, (an unreadable title), Z.H.D., Teardrops; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "evidence": "visual_inspection: 'DynAMIX Christmas Discount Package 50% Off' (15 Dec 2017 - 2 Jan 2018) listing eight titled pack jackets: Two Square: Horoscope, Two Square: Rising, Piano, VelecTi, ArcStar Collaboration #1 & #2, (an unreadable title), Z.H.D., Teardrops; a pack/collaboration lineup card printing several titled jackets: reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the printed titles name song packs, not songs",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX Christmas Discount Package 50% Off' (15 Dec - 2 Jan 2018); Fandom upload 2017-12-14 precedes the wiki's first Universe-named upload (2023-08-18)",
       "list_graphic": true
@@ -1025,7 +1027,7 @@
         "9bb02ede7045f50948f3b825482631a01c48a3fe"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: new-song teaser: 'Dream Starter / VelecTi', 'COMING SOON' with the Dynamix icon",
+      "evidence": "visual_inspection: new-song teaser 'Dream Starter / VelecTi', 'COMING SOON' with the Dynamix icon and no level marks; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game teaser design for the original-game song Dream Starter; Fandom upload 2016-08-01 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
@@ -1232,13 +1234,14 @@
         "202179ffbd790a777bf5c8e5d7eb56580d18fa18",
         "ca09dfe49aa0f4b055b38147f6fc675002aa4125"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: comeback chart list 'Crystal Clear Sky / Takahiro Aoki', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: comeback chart announcement 'Crystal Clear Sky / Takahiro Aoki', \"i'm back!\", level diamonds 2/12/5; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-06 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Crystal Clear Sky"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:D.png",
@@ -1287,13 +1290,14 @@
         "69467d17e4eb4d9cba13072f5e26e0cec42d3c8c",
         "e9e642af3a71c1b738d87cad6a29c7e8925a0f8f"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/11/10/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1/2\"); this image is one half of it, so it stays promotional under the single-song clause of the coordinator decision of 2026-10-10",
+      "role": "reference",
+      "evidence": "visual_inspection: one song's comeback chart announcement: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/11/10/4 and \"i'm back!\"; no second song is shown, although the song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1/2\"): this image is one half of it and shows diSTractiOn PoInT only; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\") of the original game's comeback announcements",
       "songs": [
         "diSTractiOn PoInT"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:DiSTractiOn PoInT Comeback Chart List.jpg",
@@ -1301,13 +1305,14 @@
         "34eaa2043d3613e2071a1d5d1266507173d60dca",
         "d6a4b0452534e22245056af24b45383d0b7f4d02"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: one song's comeback card: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/10/11/4 and \"i'm back!\"; no second song is shown. The song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1/2\"); this image is one half of it, so it stays promotional under the single-song clause of the coordinator decision of 2026-10-10",
+      "role": "reference",
+      "evidence": "visual_inspection: one song's comeback chart announcement: the 'diSTractiOn PoInT / Arctures vs DJ KemoNOIZE' jacket, level diamonds 14/10/11/4 and \"i'm back!\"; no second song is shown, although the song page's gallery caption names the pair of the two-song comeback (\"diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1/2\"): this image is one half of it and shows diSTractiOn PoInT only; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\") of the original game's comeback announcements",
       "songs": [
         "diSTractiOn PoInT"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:Discord Logo.webp",
@@ -1455,11 +1460,10 @@
         "c2b23ecf825114fc07a637f4123a060ee086cc8f",
         "e6b09163b8fc4d0acd328816812a746d90002463"
       ],
-      "role": "reference",
-      "evidence": "visual_inspection: 'DynAMIX × ARCAEA Collaboration Package' with four jackets and the 'Event 23 June to 27 June' jacket; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional",
+      "role": "promotional",
+      "evidence": "visual_inspection: 'DynAMIX × ARCAEA Collaboration Package' card: the two games' logos and mascots, four untitled jackets ('Collaboration Package') and one untitled jacket ('Event 23 June to 27 June'); no song titles are printed and no chart difficulty levels are shown, so it is not a lineup card printing several titled jackets (D2) but the announcement visual of one collaboration pack and its event: promotional under the amended coordinator decision of 2026-10-10",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX x ARCAEA Collaboration Package, Event 23 June to 27 June'; Fandom upload 2017-07-31 precedes the wiki's first Universe-named upload (2023-08-18)",
-      "list_graphic": true
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'DynAMIX x ARCAEA Collaboration Package, Event 23 June to 27 June'; Fandom upload 2017-07-31 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
     {
       "title": "File:Dynamix x Arcaea Collaboration.jpg",
@@ -1469,9 +1473,8 @@
       ],
       "game": "dynamix",
       "game_evidence": "visual_inspection: the DynAMIX logo and the original game's mascot on a pack announcement (page context also places it in the original game)",
-      "role": "reference",
-      "list_graphic": true,
-      "evidence": "visual_inspection: 'DynAMIX × ARCAEA Collaboration Package' with four jackets and the 'Event 23 June to 27 June' jacket; a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (same layout: mascot, titled jackets) are; the collaboration's key visuals (logos, mascots, 'Collaboration Decision' teasers) stay promotional"
+      "role": "promotional",
+      "evidence": "visual_inspection: 'DynAMIX × ARCAEA Collaboration Package' card: the two games' logos and mascots, four untitled jackets ('Collaboration Package') and one untitled jacket ('Event 23 June to 27 June'); no song titles are printed and no chart difficulty levels are shown, so it is not a lineup card printing several titled jackets (D2) but the announcement visual of one collaboration pack and its event: promotional under the amended coordinator decision of 2026-10-10"
     },
     {
       "title": "File:Dynamix-Dynamix-Card.png",
@@ -3132,10 +3135,14 @@
         "8664c17a08e0e2d2c0ecdc8e3710d54c8ae086d9",
         "9be2d9b4e93acfb3909cb9760d07f7e7fb118372"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: Giga chart announcement 'OCCHOCO-REST-LESS / MYUKKE.', level diamond 14, 'unlock by followers'; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: Giga chart announcement 'OCCHOCO-REST-LESS / MYUKKE.', level diamond 14, 'unlock by followers'; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2017-10-05 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: the chart-announcement design (level diamonds with the Dynamix icon) of the original game's announcements; Fandom upload 2017-10-05 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true,
+      "songs": [
+        "OCCHOCO-REST-LESS"
+      ]
     },
     {
       "title": "File:GleamStoneDynamix.png",
@@ -3171,10 +3178,14 @@
         "33118c174a816d96e4a03af3d657941970d285eb",
         "cc58d45fd9a354900fa9151c1afe74b20c628caf"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: special chart announcement 'Go Escape / mmry' with the level diamond '41'; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: special chart announcement 'Go Escape / mmry' with the level diamond '41'; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2021-03-31 precedes the wiki's first Universe-named upload (2023-08-18)"
+      "game_evidence": "visual_inspection: the chart-announcement design (level diamonds with the Dynamix icon) of the original game's announcements; Fandom upload 2021-03-31 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "list_graphic": true,
+      "songs": [
+        "Go Escape"
+      ]
     },
     {
       "title": "File:GoemonDynamix.png",
@@ -3203,13 +3214,14 @@
       "sha1": [
         "b556d4fd84c86dd103adb2ff436dbe10bb555506"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: comeback chart list 'Helios / Rin', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: comeback chart announcement 'Helios / Rin', \"i'm back!\", level diamonds 9/15/14/7; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-11 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Helios"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:HemisphereDynamix-0.png",
@@ -3774,7 +3786,7 @@
         "bff40f1cbe0d4d35346f16206e6cac21a53743aa"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: 'DynAMIX Lunar New Year Special': Lion Dance D, New Giga Chart",
+      "evidence": "visual_inspection: 'DynAMIX Lunar New Year Special' card: Lion Dance D and a 'New Giga Chart' tile without song title or level marks; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement; Fandom upload 2018-02-16 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -4039,7 +4051,7 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: 'DynAMIX Comeback Tracks' (One Extra Day event) listing five comeback jackets",
+      "evidence": "visual_inspection: 'DynAMIX Comeback Tracks' (One Extra Day event) listing five comeback jackets: a 'Comeback Tracks' list, reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the jackets carry no titles (identifying them would rest on recognizing artwork, not on text)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark on an original-game announcement; Fandom upload 2017-08-25 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -4057,13 +4069,14 @@
         "d52d82a683d1af2f2582f683c06a348da17774ea",
         "fd630c5881819cd722c06e08a7047b75395f11b1"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: chart list 'PUPA / モリモリあつし', COMING SOON, level diamonds; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: chart announcement 'PUPA / モリモリあつし', 'COMING SOON', level diamonds 7/10/3; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2018-05-08 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "PUPA"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:Package BilliumMoto.jpg",
@@ -4072,7 +4085,7 @@
         "beeea1f2bfdf1ef76623f2b8567d61611d15b0a4"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: 'BilliumMoto Collection Package OUT NOW!' announcement collage of four jackets (cf. the BilliumMoto package page)",
+      "evidence": "visual_inspection: 'BilliumMoto Collection Package OUT NOW!' collage of four untitled jackets (cf. the BilliumMoto package page): the pack's own key visual; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'BilliumMoto Collection Package OUT NOW!' announcement collage of four jackets (cf. the BilliumMoto package page); Fandom upload 2019-05-17 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -4222,9 +4235,9 @@
         "e381284939e5afff96565ae595b559c478aad68c"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 1 8月21日より配信!' with one titled jacket (White：Revolve) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 1 8月21日より配信!' card with one titled jacket (White：Revolve / adaptor) and three '?' slots; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10 (the later cards of the same pack, which print two or more titled jackets, are references)",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-08-18 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix; Fandom upload 2021-08-18 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "White：Revolve"
       ]
@@ -4269,9 +4282,9 @@
         "b178ffbf6c594b142730131e3895c7312a2c1b5b"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 2 9月8日より配信!' with one titled jacket (Rave! and Get on it!) and three '?' slots; one song revealed (the other slots are '?'): a single-song reveal, promotional under the single-song clause of the coordinator decision of 2026-10-10; the pack lineups that show several songs are references",
+      "evidence": "visual_inspection: Dynamix-side 'RAVON Pack 2 9月8日より配信!' card with one titled jacket (Rave! and Get on it! / Woof) and three '?' slots; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10 (the later cards of the same pack, which print two or more titled jackets, are references)",
       "game": "dynamix",
-      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to ; Fandom upload 2021-09-05 precedes the wiki's first Universe-named upload (2023-08-18)",
+      "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: Dynamix-side announcement 'RAVON Pack 1/2 ... より配信!' by the Dynamix announcer character revealing RAVON songs coming to Dynamix; Fandom upload 2021-09-05 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Rave! and Get On It!"
       ]
@@ -4421,7 +4434,7 @@
         "62783f1aac382f0835b4fef665849bd9c16cc72a"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Dream Starter COMING SOON teaser",
+      "evidence": "visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Dream Starter COMING SOON teaser (no level marks); no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Dream Starter COM; Fandom upload 2016-08-01 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -4432,7 +4445,7 @@
         "e2966ab00ef7d3e1f676ad89b3be646c052f591b"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Meteor Hope COMING SOON teaser",
+      "evidence": "visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Meteor Hope COMING SOON teaser (no level marks); no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Meteor Hope COMIN; Fandom upload 2016-08-10 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -4443,7 +4456,7 @@
         "cd2fb74f9346b87d4949ef80ebfe1800ee759e06"
       ],
       "role": "promotional",
-      "evidence": "visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: 3.1 is going to update soon.' with the 刻み付け、散華の名を COMING SOON teaser",
+      "evidence": "visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: 3.1 is going to update soon.' with the 刻み付け、散華の名を COMING SOON teaser (no level marks); no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark / original-game announcement: screenshot of an official tweet 'Dynamix Official @c4c4cat: 3.1 is going to update soon.' with the 刻み付け、散華の名を COMING SOO; Fandom upload 2016-08-10 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -4951,13 +4964,14 @@
         "54f58cc12a8e81ea39f5237afccb7f225802efa0",
         "905143314acee45f296af5337b409cd1e1cd0869"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: comeback chart list 'Theme of Rabi-Ribi / 3R2', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: comeback chart announcement 'Theme of Rabi-Ribi / 3R2', \"i'm back!\", level diamonds 6/13/10; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-29 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "Theme of Rabi-Ribi"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:Thumb cb6f1900-6e72-4434-a99d-7dcc44140756.png",
@@ -4990,13 +5004,14 @@
         "2a65f05598262c5b49e3d67081b46d668e7edf9d",
         "8be0e712603cdaaaa83c42bfbf32f735e2a1fb22"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: comeback chart list 'To soar / Aoi with mAoA9', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: comeback chart announcement 'To soar / Aoi with mAoA9', \"i'm back!\", level diamonds 7/14/11/1; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2017-11-24 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "to soar"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:Triumph & Regret & 夏色メランコリー Chart List.jpg",
@@ -5158,7 +5173,7 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with candidate jackets and Facebook reactions",
+      "evidence": "visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with four candidate jackets and Facebook reactions: a comeback-tracks list, reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the jackets carry no titles (identifying them would rest on recognizing artwork, not on text)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark on an original-game announcement; Fandom upload 2017-10-14 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -5170,7 +5185,7 @@
       ],
       "role": "reference",
       "list_graphic": true,
-      "evidence": "visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with candidate jackets (Twitter)",
+      "evidence": "visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with candidate jackets (Twitter): a comeback-tracks list, reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the jackets carry no titles (identifying them would rest on recognizing artwork, not on text)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: original-game DynAMIX wordmark on an original-game announcement; Fandom upload 2017-10-14 precedes the wiki's first Universe-named upload (2023-08-18)"
     },
@@ -5336,13 +5351,14 @@
         "4b5f3e1daf6644478634bc36cbd553b057bfba7e",
         "a737efca78d2968826c4c3833f3de464d348027d"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: new-song chart list 'αterlβus / Aoi', 'COMING SOON', level diamonds; byte-identical to File:Αterlβus Chart List.jpg, which the αterlβus page captions as its chart list; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: new-song chart announcement 'αterlβus / Aoi', 'COMING SOON', level diamonds 8/14/12/5; byte-identical to File:Αterlβus Chart List.jpg, which the αterlβus page captions as its chart list; file page: \"This is capture from Dynamix Facebook. Copyright from C4cat.\"; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "file_page: \"This is capture from Dynamix Facebook\"; original-game teaser design (level diamonds, Dynamix icon); Fandom upload 2017-02-24 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "αterlβus"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:「Future House」Genre mismatch.jpg",
@@ -5360,13 +5376,14 @@
       "sha1": [
         "f9b1dea7533b944d1d097ce80fd4c57559584c9d"
       ],
-      "role": "promotional",
-      "evidence": "visual_inspection: comeback chart list 'おもひでファンタジア / 梅こぶ茶漬け', \"i'm back!\"; one song's teaser, not a list of songs: promotional under the single-song clause of the coordinator decision of 2026-10-10 (a single-song \"COMING SOON\" teaser stays promotional even if it shows difficulty marks)",
+      "role": "reference",
+      "evidence": "visual_inspection: comeback chart announcement 'おもひでファンタジア / 梅こぶ茶漬け', \"i'm back!\", level diamonds 1/11/8; chart difficulty levels are shown: reference under the amended coordinator decision of 2026-10-10 (D1: an announcement graphic that displays chart difficulty levels is reference, for one song as for several)",
       "game": "dynamix",
       "game_evidence": "visual_inspection: the chart-list design (level diamonds with the Dynamix icon, \"i'm back!\"/\"We're back\") of the original game's announcements; Fandom upload 2020-08-09 precedes the wiki's first Universe-named upload (2023-08-18)",
       "songs": [
         "おもひでファンタジア"
-      ]
+      ],
+      "list_graphic": true
     },
     {
       "title": "File:つゆだま BG.png",

@@ -23,14 +23,17 @@ most) and the overridden page evidence is recorded. ``animated: "official"`` mar
 GIF the review established as an official animation (not a wiki capture with a larger still), so the default
 ``animated_capture`` exclusion does not apply.
 
-The coordinator classification decision of 2026-10-10 (09-frozen-contracts.md) is the other exception.
-``list_graphic: true`` (role ``reference`` only) records that the bytes show a list of songs or charts (an event
-lineup, a "Comeback Tracks" list, a multi-song comeback announcement, a pack lineup of several titled jackets): under
-the list-graphic rule (:data:`wikis.config.LIST_GRAPHIC_RULE`) such a review makes the file ``reference`` even where
-page evidence of any strength files it as promotional (a category, or captions on several pages), and that page
-evidence and the rule are recorded with the decision. Conversely a review with role ``promotional`` that saw one song
-in the bytes (one half of a two-song comeback that a caption names as the pair) keeps a file promotional against list
-captions (:data:`wikis.config.SINGLE_SONG_RULE`).
+The coordinator classification decision of 2026-10-10 as amended (09-frozen-contracts.md, "List and
+chart-announcement graphics are reference") is the other exception. ``list_graphic: true`` (role ``reference`` only)
+records that the bytes show a graphic of that rule (:data:`wikis.config.LIST_GRAPHIC_RULE`): an announcement that
+displays chart difficulty levels, for one song or several (a "COMING SOON" or "i'm back!" card with level marks, a
+Giga chart unlock), or a list of songs or charts (an event lineup, a "Comeback Tracks" list, a pack/collaboration
+lineup card printing several titled jackets). Such a review makes the file ``reference`` even where page evidence of
+any strength files it as promotional (a category, or captions on several pages), and that page evidence and the rule
+are recorded with the decision; the songs it names are its transcription of the bytes (a song a caption names but the
+bytes do not show is not mapped). Conversely a review with role ``promotional`` saw neither a list nor level marks in
+the bytes (key art, an event poster, a single collaboration key visual, a pack card with one titled jacket) and keeps
+the file promotional against list captions.
 A review whose role is null and whose evidence is a ``download_probe:`` (the host refused the bytes, so they could
 not be inspected) makes the acquisition retry the download as an inspection probe: a refusal is recorded as a
 download Failure, a success is reported for review.
@@ -77,7 +80,7 @@ class Review:
     associations: tuple[str, ...] = ()  # other games/events of shared artwork (game "mixed")
     pending: str = ""  # why the file stays pending although reviewed (role or game not established)
     official_animation: bool = False  # an official animation: animated_capture does not apply
-    list_graphic: bool = False  # the bytes show a list of songs or charts (list-graphic rule; role reference)
+    list_graphic: bool = False  # the bytes show a list or a chart announcement (config.LIST_GRAPHIC_RULE; reference)
     official_branding: bool = False  # the game's own branding reused by the wiki as an interface image (see above)
 
     @property
@@ -168,7 +171,7 @@ def parse(data: Any) -> dict[str, Review]:
         if not isinstance(list_graphic, bool):
             raise ValueError(f"{label}: list_graphic must be true or false")
         if list_graphic and role != "reference":
-            raise ValueError(f"{label}: list_graphic needs role 'reference' (the list-graphic rule)")
+            raise ValueError(f"{label}: list_graphic needs role 'reference' (the list and chart-announcement rule)")
         branding = entry.get("official_branding", False)
         if not isinstance(branding, bool):
             raise ValueError(f"{label}: official_branding must be true or false")

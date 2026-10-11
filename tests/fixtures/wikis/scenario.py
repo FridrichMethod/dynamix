@@ -9,8 +9,8 @@ and video placeholder exclusions, an animated GIF capture, a same-wiki duplicate
 same-size different bytes, a Fandom API size/SHA-1 that differs from the served bytes, a Fandom CDN WEBP behind a
 ``.png`` URL, a file description page that redirects to an identical file (alias), a file only cited by a
 ``[[:File:]]`` link, archivist reviews (one current, one of an earlier revision, one exclusion), and the coordinator's
-list-graphic decision: a single-song chart list (promotional), a two-song comeback list on one song page (reference,
-both songs mapped) and a reviewed event lineup filed in Category:Event images (reference).
+list and chart-announcement decision: a single-song chart list (reference), a two-song comeback list on one song page
+(reference, both songs mapped) and a reviewed event lineup filed in Category:Event images (reference).
 """
 
 from __future__ import annotations
@@ -215,12 +215,12 @@ class Scenario:
         }
         self.links = {"File:Cited Screenshot.png": [{"ns": 0, "title": "Cosmic Pulse"},
                                                     {"ns": 1, "title": "Talk:Cosmic Pulse"}]}
-        # A monthly event lineup the wiki files as an event image (promotional by category; list-graphic rule).
+        # A monthly event lineup the wiki files as an event image (promotional by category; list rule).
         self.file_categories = {"File:Events Lineup.png": ["Category:Event images"]}
 
     def reviews_json(self) -> dict:
         """Archivist reviews of the scenario: one current (pinned to the served bytes' SHA-1), one whose file has been
-        re-uploaded since (SHA-1 of other bytes), one exclusion, one list graphic (list-graphic rule)."""
+        re-uploaded since (SHA-1 of other bytes), one exclusion, one list graphic (list and chart rule)."""
         def sha1(name: str) -> str:
             return hashlib.sha1(self.data[name]).hexdigest()
         return {"format": reviews.FORMAT, "reviews": [

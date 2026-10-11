@@ -143,39 +143,39 @@ FILE_CATEGORY_ROLES = {
     "Category:Cover Art": "song_art", "Category:Videos": "video_placeholder",
 }
 
-# List-graphic rule (coordinator decision 2026-10-10, 09-frozen-contracts.md "Coordinator classification decisions"):
-# a graphic whose primary content is a list of songs or charts (chart/difficulty lists, comeback and new-chart
-# announcements, "Upcoming Events" and monthly event lineups, "Comeback Tracks" lists) is kind ``reference``
-# regardless of the wiki category or caption that files it as promotional; a graphic about a single song or event
-# (key art, a single-song "COMING SOON" teaser even if it shows difficulty marks, anniversary/collaboration visuals)
-# stays ``promotional``. List evidence is a caption naming such a list (LIST_CAPTION), a file category of chart lists,
-# or an archivist review that saw a list in the bytes (``list_graphic``); a filename alone never is. The rule replaces
-# only a ``promotional`` role (see classify._list_rule) and is recorded in the role evidence and the asset notes.
-LIST_GRAPHIC_RULE = ("list-graphic rule (coordinator decision 2026-10-10): a graphic whose primary content is a list "
-                     "of songs or charts is kind reference regardless of the wiki category or caption that files it "
-                     "as promotional")
+# List and chart-announcement rule (coordinator decision 2026-10-10 as amended after wave 3, 09-frozen-contracts.md
+# "Coordinator classification decisions"; it supersedes the earlier single-song exception): kind ``reference`` covers
+# (D1) any announcement graphic that displays chart difficulty levels, for one song or several -- the single-song
+# "<song> Chart List" / "COMING SOON" / "i'm back!" teasers with level marks included -- and (D2) any graphic whose
+# primary content is a list of songs or charts (event and comeback lineups, "Upcoming Events", "Comeback Tracks",
+# pack/collaboration lineup cards that print several titled jackets), regardless of the wiki category or caption that
+# files it as promotional. ``promotional`` keeps graphics without chart-level information about one song, pack or
+# event: key art, event/anniversary posters, single collaboration key visuals, banners, logos/wordmarks. Evidence for
+# the rule is a chart-list/comeback/new-chart/lineup caption (LIST_CAPTION: the wiki's names of this design), a file
+# category of chart lists, or an archivist review that saw such a graphic in the bytes (``list_graphic``); a filename
+# alone never is. The rule replaces only a ``promotional`` role (classify._list_rule) and is recorded in the role
+# evidence and the asset notes; a review that saw neither a list nor level marks (role promotional) keeps the graphic
+# promotional.
+LIST_GRAPHIC_RULE = ("list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement "
+                     "graphic that displays chart difficulty levels, for one song or several, or whose primary content "
+                     "is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) "
+                     "is kind reference regardless of the wiki category or caption that files it as promotional")
 # Only plural/lineup forms are list captions: "Upcoming Event: Halloween 2023" announces one event (promotional).
 LIST_CAPTION = re.compile(
     r"chart\s*list|difficulty\s+list|new\s+charts?\b|comeback|(?:up)?coming\s+events\b|event\s+line-?up", re.I)
 LIST_CATEGORIES = {"Category:Chart list images"}
 
-# Single-song clause of the same decision: a chart-list, comeback or new-chart graphic whose subject is one song is a
-# single-song teaser (jacket, difficulty marks, "COMING SOON"/"i'm back!"), kind ``promotional``; one naming several
-# songs is a list (``reference``). The subject is the text of the list caption (or, without one, of the file title)
-# before the list words (SUBJECT_END), read against the original-game song titles: the whole text as one title, else
-# split at SUBJECT_SEPARATOR into the fewest known titles (classify.list_subject). Song pages that show the graphic
-# add their song only to a subject that a caption or the file title gives (a lineup caption without one, such as
-# "Upcoming Events", stays a list however few song pages show it). A subject the titles do not resolve stays a list
-# (the tier revision 1.1 default) and is recorded.
-SINGLE_SONG_RULE = ("single-song rule (coordinator decision 2026-10-10): a graphic about a single song stays "
-                    "promotional, including a single-song chart-list, comeback or new-chart teaser that shows "
-                    "difficulty marks")
+# The songs such a graphic names (its subject) are all mapped: the text of the list caption (or, without one, of the
+# file title) before the list words (SUBJECT_END), read against the original-game song titles: the whole text as one
+# title, else split at SUBJECT_SEPARATOR into the fewest known titles (classify.list_subject). Song pages that show the
+# graphic add their song only to a subject that a caption or the file title gives (a lineup caption without one, such
+# as "Upcoming Events", names no song, which is recorded); a subject the titles do not resolve maps nothing.
 SUBJECT_END = re.compile(r"\b(?:release\s+)?(?:chart\s*list|difficulty\s+list|new\s+charts?|comeback)\b", re.I)
 SUBJECT_SEPARATOR = re.compile(r"\s+[xX\u00d7]\s+|\s*[&\uff06]\s*|\s+and\s+|\s*[,\uff0c\u3001]\s*|\s+/\s+")
 
-# Informational announcement graphics (tier revision 1.1, kind ``reference``): the list graphics above plus
-# version-update/update-log notes and settings/difficulty/results announcements. Key art, banners,
-# event/anniversary/collaboration visuals and teasers stay ``promotional``.
+# Informational announcement graphics (tier revision 1.1, kind ``reference``): the list and chart-announcement
+# graphics above plus version-update/update-log notes and settings/difficulty/results announcements. Key art, banners,
+# event/anniversary/collaboration visuals and teasers without level marks stay ``promotional``.
 INFORMATIONAL_CAPTION = re.compile(
     LIST_CAPTION.pattern + r"|version\s+update|update\s+(?:log|notes?)\b|patch\s+notes?|"
     r"(?:settings?|difficulty|results?)\s+announcement", re.I)
