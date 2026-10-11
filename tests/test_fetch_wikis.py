@@ -443,6 +443,57 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(self.candidate("miraheze", "File:TwinDynamix.png")["disposition"], "blocked")
 
 
+    def test_refusing_file_host_is_not_contacted_again(self) -> None:
+        """After a challenge/403 from a file host, no further request goes to it in the run (07 §Network): its other
+        candidates are recorded blocked without a request or Failure record, and the next run tries them again."""
+        client = self.scenario.client()
+        challenged = []
+        original = client.download
+
+        def download(url, dest, stem):
+            if url.startswith("https://static.wikitide.net/"):
+                challenged.append(url)
+                raise net.ChallengeError("challenge page served with HTTP 403", url=url, http_status=403)
+            return original(url, dest, stem)
+
+        client.download = download
+        self.assertEqual(self.run_cli("--source", "miraheze", "--limit", "2", client=client), 1)
+        self.assertEqual(len(challenged), 1, challenged)
+        failures = [f for f in self.manifest()["failures"] if f["source_id"] == "wikis:miraheze"]
+        self.assertEqual([(f["error_class"], f["url"]) for f in failures], [("challenge", challenged[0])])
+        snapshot = self.snapshot("miraheze")
+        skipped = [c for c in snapshot["candidates"] if c["disposition"] == "blocked"
+                   and c["id"] != failures[0]["candidate_id"]]
+        self.assertGreater(len(skipped), 2)  # skips are not attempts: --limit 2 does not stop them
+        self.assertTrue(all("host static.wikitide.net refused an earlier request in this run (challenge, HTTP 403)"
+                            in c["reason"] for c in skipped))
+        self.assertFalse([c for c in snapshot["candidates"] if c["disposition"] == "downloaded"])
+        self.assertIn("[skip] blocked", "\n".join(self.logs))
+        source = next(s for s in self.manifest()["sources"] if s["id"] == "wikis:miraheze")
+        self.assertEqual(source["checked_at"], NOW)
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        # The next run downloads the skipped files; the challenged one stays blocked (its Failure is manual).
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 1)
+        self.assertNotIn(challenged[0], client.downloads)
+        now = {c["id"]: c["disposition"] for c in self.snapshot("miraheze")["candidates"]}
+        self.assertLessEqual({now[c["id"]] for c in skipped}, {"downloaded", "duplicate_bytes"})
+        self.assertEqual(now[failures[0]["candidate_id"]], "blocked")
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_symlinked_asset_directory_is_refused(self) -> None:
+        """A wiki asset directory that is a symlink is refused before any download (exit 3): no temp file is ever
+        written through it outside the root."""
+        outside = self.tmp / "outside"
+        outside.mkdir()
+        (self.root / "assets/public/wikis").mkdir(parents=True)
+        (self.root / "assets/public/wikis/miraheze").symlink_to(outside, target_is_directory=True)
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 3)
+        self.assertEqual(client.downloads, [])
+        self.assertEqual(list(outside.iterdir()), [])
+        self.assertTrue(all(c["disposition"] != "downloaded" for c in self.snapshot("miraheze")["candidates"]))
+
     def test_failed_files_are_retried_after_new_files(self) -> None:
         """A --limit batch spends its attempts on new files first; an earlier failure is retried once, last."""
         client = self.scenario.client()
