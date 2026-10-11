@@ -5025,7 +5025,7 @@
           "page_url": "https://skima.jp/profile?id=296360",
           "title": "Skima Youki",
           "disposition": "pending",
-          "reason": "awaiting_download: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
+          "reason": "unresolved_role: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
           "observed": "2026-10-10: HTTP 503 with the page 'SKIMAは現在メンテナンス中です' (an infrastructure outage), so the profile was not read"
         },
         {
@@ -5128,14 +5128,14 @@
           "page_url": "https://linkaryze.bandcamp.com/album/linked-emotions",
           "title": "LiNKARYZE Linked Emotions album",
           "disposition": "pending",
-          "reason": "awaiting_download: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
+          "reason": "unresolved_role: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
         },
         {
           "key": "wayback:soundcloud.com/mmry",
           "page_url": "https://web.archive.org/web/20190806071613/https://soundcloud.com/mmry",
           "title": "Wayback MMRY SoundCloud profile (Aegis sketch lead)",
           "disposition": "pending",
-          "reason": "awaiting_download: the deleted Aegis 'sketch version' upload was not located in captures"
+          "reason": "unresolved_role: the deleted Aegis 'sketch version' upload was not located in captures"
         },
         {
           "key": "soundcloud:ingolk:xetta-piano",
@@ -5221,7 +5221,7 @@
           "page_url": "https://x.com/KeshiksExt",
           "title": "X @KeshiksExt (ケシksくん)",
           "disposition": "pending",
-          "reason": "awaiting_download: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "reason": "unresolved_role: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
           "song_titles": [
             "The Clockwork Doll",
             "soar to Ø",
@@ -5236,7 +5236,7 @@
           "page_url": "https://x.com/LESYEF103",
           "title": "X @LESYEF103 (LESYEF)",
           "disposition": "pending",
-          "reason": "awaiting_download: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "reason": "unresolved_role: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
           "song_titles": [
             "Totally bounded",
             "Beyond the Rainbow"
@@ -5250,7 +5250,7 @@
           "page_url": "https://x.com/gfcv0709",
           "title": "X @gfcv0709 (Irelriser)",
           "disposition": "pending",
-          "reason": "awaiting_download: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "reason": "unresolved_role: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
           "song_titles": [
             "Daydream",
             "Own The Night",
@@ -5309,7 +5309,7 @@
           "song_titles": [
             "Aegis"
           ],
-          "reason": "awaiting_download: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)"
+          "reason": "unresolved_role: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)"
         },
         {
           "key": "wix:stellights",
@@ -5324,7 +5324,7 @@
           "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/RabiRibiGame&from=2016&to=2017",
           "title": "Rabi-Ribi official X captures (Feb 2017 collaboration)",
           "disposition": "pending",
-          "reason": "awaiting_download: no archived Rabi-Ribi post from the February 2017 collaboration window"
+          "reason": "unresolved_role: no archived Rabi-Ribi post from the February 2017 collaboration window"
         },
         {
           "key": "pixiv:users:1038265",

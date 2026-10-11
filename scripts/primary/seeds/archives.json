@@ -1606,7 +1606,7 @@
           "page_url": "https://appget.com/appli/view/66131/",
           "title": "Press and reference pages seen only as search snippets",
           "disposition": "pending",
-          "reason": "awaiting_download: not fetched (appget review, CUHK Newsletter 447, CUHK Pre-incubation Centre, Giant Bomb, Baidu Baike, Gcores); search-index snippets only"
+          "reason": "unresolved_role: not fetched (appget review, CUHK Newsletter 447, CUHK Pre-incubation Centre, Giant Bomb, Baidu Baike, Gcores); search-index snippets only"
         },
         {
           "key": "wikiwiki:ravon",
