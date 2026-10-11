@@ -612,7 +612,7 @@ class AttributionTests(unittest.TestCase):
         try:
             listing = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=True, timeout=60)
             files = [name for name in listing.stdout.decode("utf-8").split("\0") if name]
-        except OSError, subprocess.SubprocessError:
+        except (OSError, subprocess.SubprocessError):
             files = [
                 path.relative_to(ROOT).as_posix()
                 for path in ROOT.rglob("*")

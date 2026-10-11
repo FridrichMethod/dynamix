@@ -121,7 +121,7 @@ def art_layout(root: Path, asset: dict) -> dict:
             if "A" not in image.getbands() and "transparency" not in image.info:
                 return {}
             alpha = image.convert("RGBA").getchannel("A")
-    except OSError, ValueError, Image.DecompressionBombError:
+    except (OSError, ValueError, Image.DecompressionBombError):
         return {}
     opaque = alpha.point([0] * (ALPHA_THRESHOLD + 1) + [255] * (255 - ALPHA_THRESHOLD))
     width, height = opaque.size

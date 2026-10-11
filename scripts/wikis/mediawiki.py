@@ -340,7 +340,7 @@ def _merge_gif_metadata(items: dict[str, Any], data: dict) -> None:
                 if isinstance(entry, dict) and entry.get("name") == "frameCount":
                     try:
                         frames = int(entry.get("value"))
-                    except TypeError, ValueError:
+                    except (TypeError, ValueError):
                         frames = None
         items[page["title"]] = frames
 

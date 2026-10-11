@@ -104,7 +104,7 @@ def tracked_files(root: Path, directories: Iterable[str]) -> list[str] | None:
             check=True,
             env=environment,
         )
-    except OSError, subprocess.CalledProcessError:
+    except (OSError, subprocess.CalledProcessError):
         return None
     return sorted(name.decode("utf-8") for name in listed.stdout.split(b"\0") if name)
 

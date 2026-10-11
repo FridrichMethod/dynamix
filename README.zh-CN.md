@@ -133,7 +133,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-dev.txt
 ```
 
-`requirements.txt` 固定了 Pillow 12.3.0、requests 2.34.2 和 beautifulsoup4 4.15.0；`requirements-dev.txt` 另外加入 Playwright 1.62.0，用来驱动已安装的 Google Chrome（不会下载浏览器）；`requirements-lint.txt` 固定代码质量工具 ruff、mypy、coverage.py 和 pre-commit（见[开发](#开发)）。CI 使用 Python 3.14。预览图用 Pillow 12.3.0 和 libwebp 1.6.0 编码，`data/thumbs.json` 记录这两个版本；版本相同时重新生成的字节完全一致。所有脚本都以隔离模式（`python -I`）运行。
+`requirements.txt` 固定了 Pillow 12.3.0、requests 2.34.2 和 beautifulsoup4 4.15.0；`requirements-dev.txt` 另外加入 Playwright 1.62.0，用来驱动已安装的 Google Chrome（不会下载浏览器）；`requirements-lint.txt` 固定代码质量工具 ruff、mypy、coverage.py 和 pre-commit（见[开发](#开发)）。CI 使用 Python 3.14；脚本可在 Python 3.10 及以上版本运行。预览图用 Pillow 12.3.0 和 libwebp 1.6.0 编码，`data/thumbs.json` 记录这两个版本；版本相同时重新生成的字节完全一致。所有脚本都以隔离模式（`python -I`）运行。
 
 ### 获取（联网）
 
@@ -224,7 +224,7 @@ npm ci --ignore-scripts
 npx --no-install eslint --max-warnings=0 src
 ```
 
-`ruff check` 和 `ruff format --check` 只报告问题；`ruff format` 会应用格式化（行宽 120，Python 3.14）。mypy 检查 `scripts/lib`（第一阶段，不启用 strict 模式）；分阶段扩大检查范围的计划见 `docs/implementation/09-frozen-contracts.md`。ESLint 检查 `src/**/*.js` 和 `src/**/*.css`，从不使用 `--fix` 运行：`src/` 按提交时的原样发布，因此发现的问题要在经过审阅的改动中手动修复；本项目也没有 JavaScript 或 CSS 格式化工具。
+`ruff check` 和 `ruff format --check` 只报告问题；`ruff format` 会应用格式化（行宽 120；ruff 和 mypy 按最低支持版本 Python 3.10 检查）。mypy 检查 `scripts/lib`（第一阶段，不启用 strict 模式）；分阶段扩大检查范围的计划见 `docs/implementation/09-frozen-contracts.md`。ESLint 检查 `src/**/*.js` 和 `src/**/*.css`，从不使用 `--fix` 运行：`src/` 按提交时的原样发布，因此发现的问题要在经过审阅的改动中手动修复；本项目也没有 JavaScript 或 CSS 格式化工具。
 
 单元测试对 `scripts/` 的覆盖率，包括测试以子进程方式启动的每个脚本：
 

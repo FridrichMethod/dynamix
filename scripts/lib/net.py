@@ -47,7 +47,7 @@ import time
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, cast
@@ -232,13 +232,13 @@ def parse_retry_after(value: str | None, *, now: datetime | None = None) -> floa
     except ValueError:
         try:
             when = parsedate_to_datetime(value.strip())
-        except TypeError, ValueError, IndexError:
+        except (TypeError, ValueError, IndexError):
             return None
         if when is None:
             return None
         if when.tzinfo is None:
-            when = when.replace(tzinfo=UTC)
-        seconds = (when - (now or datetime.now(UTC))).total_seconds()
+            when = when.replace(tzinfo=timezone.utc)
+        seconds = (when - (now or datetime.now(timezone.utc))).total_seconds()
     return None if math.isnan(seconds) else max(seconds, 0.0)
 
 
@@ -275,12 +275,12 @@ def _redirect_target(current: str, location: str) -> str:
     check rejects; a backslash therefore cannot split the authority)."""
     try:
         location = location.encode("latin-1").decode("utf-8")
-    except UnicodeEncodeError, UnicodeDecodeError:
+    except (UnicodeEncodeError, UnicodeDecodeError):
         pass
     target = urljoin(current, location)
     try:
         return requests.utils.requote_uri(target)
-    except requests.RequestException, ValueError:
+    except (requests.RequestException, ValueError):
         return target
 
 
@@ -661,7 +661,7 @@ class PoliteClient:
         """
         try:
             scheme = urlsplit(url).scheme
-        except TypeError, ValueError, AttributeError:
+        except (TypeError, ValueError, AttributeError):
             scheme = ""
         if scheme and scheme not in ("http", "https"):
             raise HostNotAllowedError(f"scheme {scheme!r} is not allowed", url=url)

@@ -133,7 +133,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-dev.txt
 ```
 
-`requirements.txt` pins Pillow 12.3.0, requests 2.34.2 and beautifulsoup4 4.15.0; `requirements-dev.txt` adds Playwright 1.62.0, which drives an installed Google Chrome (it downloads no browser); `requirements-lint.txt` pins the code-quality tools ruff, mypy, coverage.py and pre-commit (see [Development](#development)). CI uses Python 3.14. The previews are encoded with Pillow 12.3.0 and libwebp 1.6.0, and `data/thumbs.json` records both versions; with the same versions a rebuild produces identical bytes. Every script runs in isolated mode (`python -I`).
+`requirements.txt` pins Pillow 12.3.0, requests 2.34.2 and beautifulsoup4 4.15.0; `requirements-dev.txt` adds Playwright 1.62.0, which drives an installed Google Chrome (it downloads no browser); `requirements-lint.txt` pins the code-quality tools ruff, mypy, coverage.py and pre-commit (see [Development](#development)). CI uses Python 3.14; the scripts run on Python 3.10 or newer. The previews are encoded with Pillow 12.3.0 and libwebp 1.6.0, and `data/thumbs.json` records both versions; with the same versions a rebuild produces identical bytes. Every script runs in isolated mode (`python -I`).
 
 ### Acquisition (network)
 
@@ -224,7 +224,7 @@ npm ci --ignore-scripts
 npx --no-install eslint --max-warnings=0 src
 ```
 
-`ruff check` and `ruff format --check` only report; `ruff format` applies the formatting (line length 120, Python 3.14). mypy checks `scripts/lib` (stage 1, without strict mode); the plan for widening it in stages is in `docs/implementation/09-frozen-contracts.md`. ESLint checks `src/**/*.js` and `src/**/*.css` and is never run with `--fix`: `src/` is published as committed, so its findings are fixed by hand in a reviewed change, and there is no JavaScript or CSS formatter.
+`ruff check` and `ruff format --check` only report; `ruff format` applies the formatting (line length 120; ruff and mypy check against Python 3.10, the oldest supported version). mypy checks `scripts/lib` (stage 1, without strict mode); the plan for widening it in stages is in `docs/implementation/09-frozen-contracts.md`. ESLint checks `src/**/*.js` and `src/**/*.css` and is never run with `--fix`: `src/` is published as committed, so its findings are fixed by hand in a reviewed change, and there is no JavaScript or CSS formatter.
 
 Coverage of `scripts/` by the unit tests, including every script that the tests start as a subprocess:
 

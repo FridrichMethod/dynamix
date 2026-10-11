@@ -56,7 +56,7 @@ def digest_hex(digest: str | None) -> str | None:
         return None
     try:
         raw = base64.b32decode(digest.upper())
-    except binascii.Error, ValueError:
+    except (binascii.Error, ValueError):
         return None
     return raw.hex() if len(raw) == 20 else None
 

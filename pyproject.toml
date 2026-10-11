@@ -4,7 +4,9 @@
 
 [tool.ruff]
 line-length = 120
-target-version = "py314"
+# The oldest Python the scripts run on (3.10, as at release v1.0.0; CI uses 3.14). ruff must never rewrite the code
+# into syntax or APIs of a newer version, such as unparenthesized multi-type except clauses (3.14) or datetime.UTC.
+target-version = "py310"
 src = ["scripts", "tests"]
 # Python files only: ruff 0.17 also formats Python code blocks in Markdown by default, and the Markdown documents
 # (several of them published with the website) are edited by hand.
@@ -28,7 +30,7 @@ known-first-party = ["lib", "primary", "wikis"]
 [tool.mypy]
 # Stage 1: the shared library only, without strict mode. The staged plan for widening it is in
 # docs/implementation/09-frozen-contracts.md ("Tooling contract").
-python_version = "3.14"
+python_version = "3.10"
 files = ["scripts/lib"]
 mypy_path = "scripts"
 explicit_package_bases = true

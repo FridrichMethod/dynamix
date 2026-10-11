@@ -17,7 +17,6 @@ import re
 import shutil
 import subprocess
 import sys
-import tomllib
 import unittest
 from pathlib import Path
 
@@ -25,6 +24,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tests"))
 
 from test_workflows_yaml import parse_yaml  # noqa: E402
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # Python 3.10: the tests that read pyproject.toml are skipped
+    tomllib = None
 
 PRE_COMMIT_CONFIG = ".pre-commit-config.yaml"
 STAGE_1_SELECT = ["E4", "E7", "E9", "F", "W", "I", "B", "UP", "PLE"]
@@ -99,6 +103,8 @@ def read(relative: str) -> str:
 
 
 def pyproject() -> dict:
+    if tomllib is None:
+        raise unittest.SkipTest("reading pyproject.toml needs tomllib (Python 3.11 or newer)")
     return tomllib.loads(read("pyproject.toml"))
 
 
@@ -200,7 +206,7 @@ def git_checkout_available() -> bool:
         return False
     try:
         return git("rev-parse", "--is-inside-work-tree").stdout.strip() == b"true"
-    except OSError, subprocess.SubprocessError:
+    except (OSError, subprocess.SubprocessError):
         return False
 
 
@@ -223,11 +229,14 @@ def unset_text_paths(paths: list[str]) -> set[str]:
 
 
 class RuffConfigurationTests(unittest.TestCase):
-    ruff = pyproject()["tool"]["ruff"]
+    @classmethod
+    def setUpClass(cls):
+        cls.ruff = pyproject()["tool"]["ruff"]
 
     def test_line_length_target_and_stage_1_rules(self):
         self.assertEqual(self.ruff["line-length"], 120)
-        self.assertEqual(self.ruff["target-version"], "py314")
+        # The oldest Python the scripts run on; a newer target lets ruff write newer-only syntax (FR-DX-01).
+        self.assertEqual(self.ruff["target-version"], "py310")
         self.assertEqual(self.ruff["lint"]["select"], STAGE_1_SELECT)
         self.assertNotIn("extend-select", self.ruff["lint"], "stage 1 is exactly the select list")
 
@@ -247,22 +256,28 @@ class RuffConfigurationTests(unittest.TestCase):
 
 
 class MypyAndCoverageConfigurationTests(unittest.TestCase):
-    tool = pyproject()["tool"]
+    @classmethod
+    def setUpClass(cls):
+        cls.tool = pyproject()["tool"]
 
     def test_mypy_stage_1_checks_the_shared_library(self):
         self.assertEqual(self.tool["mypy"]["files"], ["scripts/lib"])
 
-    def test_one_python_version_everywhere(self):
-        self.assertEqual(
-            self.tool["ruff"]["target-version"], "py" + self.tool["mypy"]["python_version"].replace(".", "")
-        )
+    def test_one_python_floor_everywhere(self):
+        # ruff and mypy check against the oldest supported Python; CI may run a newer one, never an older one.
+        floor = self.tool["mypy"]["python_version"]
+        self.assertEqual(self.tool["ruff"]["target-version"], "py" + floor.replace(".", ""))
+        version = lambda text: tuple(int(part) for part in text.split("."))  # noqa: E731
+        checked = 0
         for path in sorted((ROOT / ".github/workflows").glob("*.yml")):
             workflow = parse_yaml(path.read_text(encoding="utf-8"))
             for job_id, job in workflow["jobs"].items():
                 for step in job.get("steps") or []:
                     if step.get("uses", "").startswith("actions/setup-python@"):
                         with self.subTest(workflow=path.name, job=job_id):
-                            self.assertEqual(step["with"]["python-version"], self.tool["mypy"]["python_version"])
+                            self.assertGreaterEqual(version(step["with"]["python-version"]), version(floor))
+                            checked += 1
+        self.assertGreater(checked, 0, "no setup-python step found")
 
     def test_coverage_measures_scripts_in_every_subprocess(self):
         run = self.tool["coverage"]["run"]

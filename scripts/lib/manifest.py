@@ -12,7 +12,7 @@ import json
 import os
 import tempfile
 from collections.abc import Iterable, Mapping
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -23,7 +23,7 @@ _RECORD_KINDS = {"sources": "source", "assets": "asset", "failures": "failure"}
 
 def now_utc() -> str:
     """Current UTC time as ``YYYY-MM-DDTHH:MM:SSZ`` (only for acquisition timestamps, never in offline builds)."""
-    return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict:

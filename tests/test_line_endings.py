@@ -65,7 +65,7 @@ def in_git_checkout() -> bool:
         return False
     try:
         return Path(git("rev-parse", "--show-toplevel").decode().strip()).resolve() == ROOT
-    except OSError, subprocess.CalledProcessError:
+    except (OSError, subprocess.CalledProcessError):
         return False
 
 

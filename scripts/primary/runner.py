@@ -380,7 +380,7 @@ def wiki_credit_fields(root: str | os.PathLike[str]) -> dict[tuple[str, str, str
     takes the field and quote from here, so the credit can be checked against the cited page like a wiki record's."""
     try:
         data = manifest.load_manifest(root, "wikis", missing_ok=True)
-    except ValueError, OSError:
+    except (ValueError, OSError):
         return {}
     found: dict[tuple[str, str, str], set[tuple[str, str]]] = {}
     for asset in data["assets"]:
@@ -866,7 +866,7 @@ class Runner:
             return None
         try:
             info = media.inspect(result.temp_path)
-        except media.MediaError, OSError:
+        except (media.MediaError, OSError):
             return None
         if info["format"] not in schema.RASTER_FORMATS or (info["width"], info["height"]) != (
             asset["width"],
@@ -1484,7 +1484,7 @@ class Runner:
             for asset in sorted(self.manifest["assets"], key=lambda a: a.get("upstream_status") != "current"):
                 try:
                     data = paths.safe_path(self.root, asset["path"]).read_bytes()
-                except OSError, ValueError:
+                except (OSError, ValueError):
                     continue
                 self._md5_index.setdefault(hashlib.md5(data, usedforsecurity=False).hexdigest(), asset["id"])
         return self._md5_index.get(digest)
@@ -1735,7 +1735,7 @@ def pixel_digest(path: Path, fmt: str) -> str | None:
                 digest.update(label.encode())
                 digest.update(rgba.tobytes())
                 durations.append(frame.info.get("duration"))
-    except OSError, ValueError, SyntaxError, EOFError, Image.DecompressionBombError:
+    except (OSError, ValueError, SyntaxError, EOFError, Image.DecompressionBombError):
         return None
     extra = []
     if len(durations) > 1:
@@ -1777,7 +1777,7 @@ def artist_candidates(root: Path) -> list[dict]:
     for path in sorted(discovery_dir.glob("*.json")) if discovery_dir.is_dir() else []:
         try:
             data = manifest.load_json(path)
-        except ValueError, OSError:
+        except (ValueError, OSError):
             continue
         if isinstance(data, dict) and str(data.get("source_id", "")).startswith("artists:"):
             candidates.extend(c for c in data.get("candidates", []) if isinstance(c, dict))

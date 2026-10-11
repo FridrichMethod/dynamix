@@ -53,7 +53,7 @@ def _expanded(cells: list[Any]) -> list[str]:
     for cell in cells:
         try:
             span = max(1, min(20, int(cell.get("colspan", 1))))
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             span = 1
         values.extend([_text(cell)] * span)
     return values

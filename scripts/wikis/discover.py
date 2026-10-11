@@ -87,9 +87,9 @@ def fetch_inventory(
 
 
 def _utc(seconds: float) -> str:
-    from datetime import UTC, datetime
+    from datetime import datetime, timezone
 
-    return datetime.fromtimestamp(seconds, UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.fromtimestamp(seconds, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def templated_titles(pages: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:
