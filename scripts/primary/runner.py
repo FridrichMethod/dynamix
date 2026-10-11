@@ -44,6 +44,8 @@ MIN_INTERVAL = 1.0  # frozen network default: >= 1 s between requests to one hos
 UNKNOWN_NOTE = ("No longer reached by the seeds of a later run whose listings were all read: upstream status "
                 "unknown; the archived bytes are kept.")
 KEPT_FOR_REVIEW = "is kept for review"  # discovery-error marker of an archived candidate a refresh no longer admits
+# Discovery-error marker of a curated ``archive_under`` whose target is not a download candidate of the run.
+UNMATCHED_ARCHIVE_UNDER = "names no download candidate of this run"
 WITHDRAWN_RE = re.compile(r"Withdrawn \d{4}-\d{2}-\d{2} by a curated seed rule .*?the bytes remain in the Git history\.")
 # Provenance notes a refresh keeps (descriptive notes are otherwise rebuilt from the seed on every refresh).
 REFETCH_NOTE = ("Re-fetched {date}: the same URL returned different bytes (sha256 {sha256}) that decode to pixels "
@@ -256,26 +258,52 @@ def stored_url(url: str | None) -> str | None:
     return checks.redact_url(url, strict=False)
 
 
+def fallback_of(draft: model.Draft, url: str | None) -> str | None:
+    """The entry of ``draft.fallback_urls`` that the stored URL ``url`` names, else None."""
+    if not url:
+        return None
+    return next((fallback for fallback in draft.fallback_urls if stored_url(fallback) == url), None)
+
+
 def names_file(draft: model.Draft, url: str | None) -> bool:
     """Whether the stored URL ``url`` (an archived ``download_url``) names the file ``draft`` describes: the same URL,
-    or one the adapter's ``same_file`` identifies with it (a re-signed CDN URL, an earlier fallback rendition)."""
+    one of its fallback renditions, or one the adapter's ``same_file`` identifies with it (a re-signed CDN URL)."""
     if not url:
         return False
-    return url == stored_url(draft.file_url) or bool(draft.same_file and draft.same_file(url))
+    return (url == stored_url(draft.file_url) or fallback_of(draft, url) is not None
+            or bool(draft.same_file and draft.same_file(url)))
+
+
+def fallback_draft(draft: model.Draft, url: str) -> model.Draft:
+    """``draft`` naming the fallback ``url`` that was archived (its ``file_url`` answered HTTP 404): the adapter's
+    ``fallback_adjust`` describes those bytes (advertised URL, file name, quality) and its ``fallback_note`` is added to
+    the record's and the candidate's notes."""
+    used = draft.fallback_adjust(draft, url) if draft.fallback_adjust else copy.copy(draft)
+    if used is draft:
+        used = copy.copy(draft)
+    used.file_url = url
+    if draft.fallback_note:
+        note = draft.fallback_note.format(url=stored_url(url), file_url=stored_url(draft.file_url))
+        used.candidate_extra = {**used.candidate_extra, "notes": append_note(used.candidate_extra.get("notes"), note)}
+        if used.action == "download":
+            used.meta = {**used.meta, "notes": append_note(used.meta.get("notes"), note)}
+    return used
 
 
 def archived_draft(draft: model.Draft, asset: Mapping[str, Any]) -> model.Draft:
     """``draft`` naming the archived file of ``asset``: its ``file_url`` becomes the asset's ``download_url`` (the URL the
-    archived bytes came from), and a ``source_reported.url`` that named the drafted file URL itself names the archived
-    record's advertised URL. A refresh thus never pairs this run's (re-signed, moved or fallback) URL with the
-    redirect target and time of an earlier fetch."""
+    archived bytes came from; a fallback rendition is described as :func:`fallback_draft` describes it), and a
+    ``source_reported.url`` that named the drafted file URL itself names the archived record's advertised URL. A refresh
+    thus never pairs this run's (re-signed, moved or fallback) URL with the redirect target and time of an earlier
+    fetch."""
     archived = asset.get("download_url")
     if not archived or archived == stored_url(draft.file_url):
         return draft
-    moved = copy.copy(draft)
+    fallback = fallback_of(draft, archived)
+    moved = fallback_draft(draft, fallback) if fallback else copy.copy(draft)
     reported = draft.source_reported.get("url")
     if reported and stored_url(reported) == stored_url(draft.file_url):
-        moved.source_reported = {**draft.source_reported,
+        moved.source_reported = {**moved.source_reported,
                                  "url": (asset.get("source_reported") or {}).get("url") or archived}
     moved.file_url = archived
     return moved
@@ -377,6 +405,9 @@ class SourceState:
     keep_previous: bool = False  # discovery failed: every previous candidate is carried over unchanged
     # candidate ID -> upstream key of the candidate whose record holds its bytes (seed rule ``archive_under``)
     yields: dict[str, str] = field(default_factory=dict)
+    # Archived files that no record names any more (a record moved to another path, a withdrawn record): deleted only
+    # after the manifest that no longer names them has been written, so a failed run never loses a referenced file.
+    obsolete_paths: list[str] = field(default_factory=list)
 
     @property
     def source_id(self) -> str:
@@ -501,6 +532,13 @@ class Runner:
         self._persist(state)
         state.yields = {schema.candidate_id(state.source_id, draft.upstream_key): draft.archive_under
                         for draft in drafts if draft.action == "download" and draft.archive_under}
+        downloads = {draft.upstream_key: draft for draft in drafts if draft.action == "download"}
+        for cid, target in sorted(state.yields.items()):
+            if target not in downloads:  # a typo, or a post the adapter no longer returns: say so, never ignore it
+                draft = downloads[cid.removeprefix(f"{state.source_id}:")]
+                state.errors.append(model.discovery_error(
+                    "discover", stored_url(draft.page_url), f"{cid}: its seed rule's archive_under {target!r} "
+                    f"{UNMATCHED_ARCHIVE_UNDER}; the file stays under {cid} until the rule is corrected"))
         # A candidate that archives its file under another one resolves after it (the other one holds the record).
         for draft in sorted(drafts, key=lambda draft: bool(draft.archive_under)):
             if draft.action == "download":
@@ -696,19 +734,10 @@ class Runner:
         dest = paths.safe_path(self.root, f"{paths.ASSET_ROOT}/{family}/{paths.source_slug(sid)}",
                                under=paths.ASSET_ROOT)
         attempted_at = self.now()
-        urls = [draft.file_url, *draft.fallback_urls]
-        for position, url in enumerate(urls):
-            try:
-                result = client.download(url, dest, paths.filename_stem(draft.original_filename))
-                if url != draft.file_url:
-                    draft = self._fallback_draft(draft, url)
-                break
-            except net.FetchError as error:
-                if position + 1 < len(urls) and isinstance(error, net.HttpError) and error.http_status == 404:
-                    LOG.info("%s: %s not found, trying the next rendition", cid, url)
-                    continue
-                self._download_failed(state, draft, error, "download", attempted_at, previous_asset)
-                return
+        fetched = self._download_with_fallbacks(state, client, draft, dest, attempted_at, previous_asset)
+        if fetched is None:
+            return
+        result, draft = fetched  # the draft of the URL whose bytes were downloaded
         self.downloads += 1
         held = draft.check_download(result) if draft.check_download else None
         if held:  # not the file the draft describes: nothing is archived from this response
@@ -756,8 +785,8 @@ class Runner:
         if owner is not None:  # keep the first acquisition's measurements (a reverted upstream file is current again)
             refreshed = self._refresh_record(owner, draft)
             if stored_url(draft.file_url) != owner.get("download_url"):  # the same bytes from a re-signed/moved URL
-                via = (" (same file, re-signed URL)" if names_file(draft, owner.get("download_url"))
-                       else f" from {stored_url(draft.file_url)}")
+                resigned = bool(draft.same_file and draft.same_file(owner.get("download_url")))
+                via = " (same file, re-signed URL)" if resigned else f" from {stored_url(draft.file_url)}"
                 notes = " ".join(REREAD_NOTE_RE.sub("", refreshed.get("notes") or "").split())
                 refreshed["notes"] = append_note(notes, REREAD_NOTE.format(date=self.now()[:10], via=via))
                 schema.validate_asset(refreshed, self.family)
@@ -775,25 +804,45 @@ class Runner:
         state.failures.pop(schema.failure_id(cid, "decode"), None)
         state.failures.pop(schema.failure_id(cid, "verify"), None)
 
-    @staticmethod
-    def _fallback_draft(draft: model.Draft, url: str) -> model.Draft:
-        """``draft`` naming the fallback ``url`` that was archived (its ``file_url`` answered HTTP 404); the adapter's
-        ``fallback_note`` is added to the record's and the candidate's notes."""
-        used = copy.copy(draft)
-        used.file_url = url
-        if draft.fallback_note:
-            note = draft.fallback_note.format(url=stored_url(url), file_url=stored_url(draft.file_url))
-            used.candidate_extra = {**draft.candidate_extra, "notes": append_note(draft.candidate_extra.get("notes"),
-                                                                                  note)}
-            if used.action == "download":
-                used.meta = {**draft.meta, "notes": append_note(draft.meta.get("notes"), note)}
-        return used
+    def _download_with_fallbacks(self, state: SourceState, client: GuardedClient, draft: model.Draft, dest: Path,
+                                 attempted_at: str, previous_asset: dict | None) -> tuple[Any, model.Draft] | None:
+        """(download result, the draft describing the URL it came from) for ``draft.file_url`` or, when that answers
+        HTTP 404, the first of ``draft.fallback_urls`` that downloads; None after recording the failure.
+
+        A fallback on a host this run may not contact (outside the seed's allowlist, or refused earlier in the run) is
+        not attempted, and a fallback that also answers 404 says nothing new: the recorded failure is then the 404 of
+        ``file_url`` itself. Any other error of a fallback (a 5xx, a timeout, a refusal) is that attempt's own
+        failure."""
+        cid = schema.candidate_id(state.source_id, draft.upstream_key)
+        primary: net.FetchError | None = None
+        for url in [draft.file_url, *draft.fallback_urls]:
+            try:
+                result = client.download(url, dest, paths.filename_stem(draft.original_filename))
+            except net.FetchError as error:
+                if primary is None:  # the drafted file URL itself
+                    if not (isinstance(error, net.HttpError) and error.http_status == 404 and draft.fallback_urls):
+                        self._download_failed(state, draft, error, "download", attempted_at, previous_asset)
+                        return None
+                    primary = error
+                    LOG.info("%s: %s not found, trying the URLs the source lists for it", cid, url)
+                elif isinstance(error, (net.HostNotAllowedError, HostSkipped)) or (
+                        isinstance(error, net.HttpError) and error.http_status == 404):
+                    LOG.info("%s: fallback %s not used (%s)", cid, url, error)
+                else:
+                    self._download_failed(state, draft, error, "download", attempted_at, previous_asset)
+                    return None
+                continue
+            return result, (draft if url == draft.file_url else fallback_draft(draft, url))
+        self._download_failed(state, draft, primary, "download", attempted_at, previous_asset)
+        return None
 
     def _take_over(self, state: SourceState, draft: model.Draft, owner: Mapping[str, Any], result: Any,
                    attempted_at: str, previous_asset: dict | None) -> None:
         """This candidate's bytes are archived under another candidate whose seed rule says ``archive_under`` this one:
-        the record (same asset ID) is rewritten from this candidate's own fetch at its own contract path, the earlier
-        file is removed when its path differs, and the other candidate becomes ``duplicate_bytes`` when it resolves."""
+        the record (same asset ID) is rewritten from this candidate's own fetch at its own contract path and the other
+        candidate becomes ``duplicate_bytes`` when it resolves. This candidate's own earlier record (other bytes) is
+        superseded like any replaced revision; the earlier file of the taken-over record is deleted only after the
+        manifest naming the new path has been written (:meth:`_persist`)."""
         sid, family = state.source_id, self.family
         cid = schema.candidate_id(sid, draft.upstream_key)
         try:
@@ -802,8 +851,6 @@ class Runner:
         except media.MediaError as error:
             self._download_failed(state, draft, error, "decode", attempted_at, previous_asset)
             return
-        if info["path"] != owner["path"]:
-            paths.safe_path(self.root, owner["path"], under=f"{paths.ASSET_ROOT}/{family}").unlink(missing_ok=True)
         draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, info["path"]))
         record = asset_record(family, sid, draft, info, content_type=result.content_type,
                               resolved_url=result.final_url, fetched_at=attempted_at,
@@ -811,7 +858,12 @@ class Runner:
         record["notes"] = append_note(record.get("notes"), TAKEN_OVER_NOTE.format(other=owner["candidate_id"]))
         schema.validate_asset(record, family)
         state.assets[record["id"]] = schema.canonical(record, "asset")
+        if info["path"] != owner["path"]:
+            state.obsolete_paths.append(owner["path"])
+        self._supersede(state, previous_asset, record["id"])
         state.candidates[cid] = candidate_record(sid, draft, "downloaded", asset_id=record["id"])
+        for phase in ("download", "decode", "verify"):
+            state.failures.pop(schema.failure_id(cid, phase), None)
         other = state.candidates.get(owner["candidate_id"])
         if other is not None and other.get("asset_id") == record["id"]:  # until it resolves itself
             yielded = {**other, "disposition": "duplicate_bytes",
@@ -949,11 +1001,11 @@ class Runner:
         :func:`archived_draft`), so the three always describe one and the same fetch."""
         info = {name: asset[name] for name in ("path", "bytes", "sha256", "sha1", "format", "mime", "width",
                                                "height")}
+        draft = copy.copy(archived_draft(draft, asset))  # (an archived fallback rendition keeps its own file name)
         renamed = []
         if draft.original_filename and draft.original_filename != asset["original_filename"]:
             renamed.append(f"The upstream file name is now {draft.original_filename}; the archived copy keeps "
                            f"{asset['original_filename']}.")
-        draft = copy.copy(archived_draft(draft, asset))
         draft.original_filename = asset["original_filename"]
         draft, notes = self._md5_evidence(draft, paths.safe_path(self.root, asset["path"]))
         record = asset_record(self.family, asset["source_id"], draft, info,
@@ -1011,8 +1063,7 @@ class Runner:
                          key=lambda asset: asset["id"])
         for asset in removed:
             del state.assets[asset["id"]]
-            paths.safe_path(self.root, asset["path"], under=f"{paths.ASSET_ROOT}/{self.family}").unlink(
-                missing_ok=True)
+            state.obsolete_paths.append(asset["path"])  # deleted once the manifest without the record is written
             LOG.warning("%s: withdrew archived record %s (%s) per curated rule", cid, asset["id"], asset["path"])
         note = (f"Withdrawn {self.now()[:10]} by a curated seed rule ({draft.reason}): archived record(s) "
                 + ", ".join(f"{asset['id']} (sha256 {asset['sha256']})" for asset in removed)
@@ -1139,6 +1190,12 @@ class Runner:
         manifest.write_json_atomic(paths.safe_path(self.root, paths.discovery_relpath(sid)), snapshot)
         manifest.write_json_atomic(paths.safe_path(self.root, paths.manifest_relpath(self.family)), updated)
         self.manifest = updated
+        named = {asset["path"] for asset in updated["assets"]}
+        for rel in state.obsolete_paths:  # the written manifest no longer names them
+            if rel not in named:
+                paths.safe_path(self.root, rel, under=f"{paths.ASSET_ROOT}/{self.family}").unlink(missing_ok=True)
+                LOG.info("%s: removed %s (no record names it)", sid, rel)
+        state.obsolete_paths.clear()
 
 
 def pixel_digest(path: Path, fmt: str) -> str | None:
@@ -1246,16 +1303,19 @@ def primary_evidence_problems(root: Path, asset: Mapping[str, Any],
 
 
 def review_conflicts(snapshot: Mapping[str, Any]) -> tuple[list[str], list[str]]:
-    """(errors, warnings) for archived candidates a refresh no longer admits (``KEPT_FOR_REVIEW`` discovery errors):
-    an archived file whose candidate is now *excluded* (a scope decision such as ``universe_only``) is an error until a
-    curator restores the rule or withdraws the record; a now pending/failed/blocked one is a warning."""
+    """(errors, warnings) for curated decisions a run could not apply. Archived candidates a refresh no longer admits
+    (``KEPT_FOR_REVIEW`` discovery errors): an archived file whose candidate is now *excluded* (a scope decision such as
+    ``universe_only``) is an error until a curator restores the rule or withdraws the record; a now pending/failed/
+    blocked one is a warning. An ``archive_under`` rule whose target the run did not list
+    (``UNMATCHED_ARCHIVE_UNDER``) is a warning: the file stays under the rule's own candidate."""
     errors, warnings = [], []
     for entry in snapshot.get("errors", []):
         message = str(entry.get("message", ""))
-        if KEPT_FOR_REVIEW not in message:
-            continue
         line = f"{snapshot['source_id']}: {message}"
-        (errors if " is now excluded (" in message else warnings).append(line)
+        if UNMATCHED_ARCHIVE_UNDER in message:
+            warnings.append(line)
+        elif KEPT_FOR_REVIEW in message:
+            (errors if " is now excluded (" in message else warnings).append(line)
     return errors, warnings
 
 
@@ -1364,6 +1424,10 @@ def verify_family(root: str | os.PathLike[str], family: str,
                     and target.get("upstream_status") not in (None, "current")):
                 warnings.append(f"{candidate['id']}: duplicate_bytes of {target['id']}, whose upstream_status is "
                                 f"{target['upstream_status']!r}: a listed file is represented only by that record")
+            if (candidate["disposition"] in ("downloaded", "duplicate_bytes") and target is not None
+                    and candidate.get("role") != target["kind"]):  # one file, one kind within a source
+                errors.append(f"{candidate['id']}: role {candidate.get('role')!r} differs from the kind "
+                              f"{target['kind']!r} of {target['id']}, the record of its bytes")
     artists = artist_candidates(root)
     for asset in current["assets"]:
         try:

@@ -81,12 +81,17 @@ class Draft:
     fallback_urls: list[str] = field(default_factory=list)  # tried in order when file_url answers HTTP 404
     # Note recorded when a fallback URL was archived (``{url}``: the URL used, ``{file_url}``: the 404 one).
     fallback_note: str | None = None
+    # Adapter hook: the draft describing the bytes of an archived fallback URL (``(draft, url) -> draft``), e.g. the
+    # URL the page advertised as ``source_reported.url``, that rendition's file name and a quality that does not call
+    # it the upload. Applied on the acquisition that archives the fallback and on every later refresh of that record.
+    fallback_adjust: Callable[["Draft", str], "Draft"] | None = None
     # Curated download rule: the same file is attached to the candidate with this upstream key of the same source,
     # whose text names what the file shows; that candidate holds the record and this one is ``duplicate_bytes``.
     archive_under: str | None = None
     withdraw_archived: bool = False  # curated exclude/pending rule: remove an earlier archived record of this candidate
     # Adapter hook: whether an archived download URL names this draft's file although it differs from ``file_url``
-    # (a rotating signature of the same CDN file, an earlier fallback rendition). ``--resume`` then reuses the archive.
+    # (a rotating signature of the same CDN file). ``--resume`` then reuses the archive. A ``fallback_urls`` entry always
+    # names the draft's file (the runner checks those itself).
     same_file: Callable[[str], bool] | None = None
     # Adapter hook: a ``pending: ...`` reason when a completed download is not the file the draft describes (e.g. the
     # Internet Archive redirected a raw capture request to another capture); the bytes are then not archived.

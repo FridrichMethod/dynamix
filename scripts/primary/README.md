@@ -15,10 +15,12 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
   source record (when checking this checkout or with `--seeds`), a source record without a valid snapshot at
   `data/discovery/<slug>.json`, a snapshot file named for one of the family's sources that holds no valid source ID
   (an unknown file name is a warning), a credit entry without a source URL, `primary_post` evidence that no artists
-  candidate admitted for Dynamix (not excluded, not held) corroborates for the same file, and an archived candidate
-  that a later run now *excludes* (kept for review; a now pending/failed one is a warning).
-- `--resume` re-hashes archived files instead of downloading them again (an adapter may identify an archived URL
-  with this run's: a re-signed Facebook CDN URL of the same rendition, an earlier YouTube fallback rendition);
+  candidate admitted for Dynamix (not excluded, not held) corroborates for the same file, an archived candidate
+  that a later run now *excludes* (kept for review; a now pending/failed one is a warning), and a downloaded or
+  `duplicate_bytes` candidate whose role differs from the kind of the record of its bytes (one file, one kind within
+  a source). An `archive_under` rule whose target the run did not list as a download candidate is a warning.
+- `--resume` re-hashes archived files instead of downloading them again (an archived fallback URL of the draft is its
+  file, and an adapter may identify an archived URL with this run's, e.g. a re-signed Facebook CDN URL);
   `--metadata-only` never downloads and never changes archived records. A record's `download_url`, `resolved_url` and
   `fetched_at` always describe the one fetch that archived its bytes: a refresh that receives the same bytes from
   another (re-signed or moved) URL keeps them, notes `Re-fetched <date> ...` (latest only) and the downloaded
@@ -27,7 +29,12 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
 - Each acquisition holds an exclusive `fcntl.flock` (`--lock`; default: the family's `assets/public/<family>`
   directory under the root, so `TMPDIR` cannot give two writers different locks and no lock file is created); a second
   writer of the same family exits with status 3. Manifests and snapshots are validated and rewritten atomically after
-  every resolved candidate, so a killed run loses at most the file in flight.
+  every resolved candidate, so a killed run loses at most the file in flight. A file that no record names any more (a
+  taken-over or withdrawn record) is deleted only after the manifest without it has been written.
+- A download whose drafted URL answers HTTP 404 tries the adapter's fallback URLs in order (a fallback on a host the
+  run may not contact is skipped); when none downloads, the recorded failure is the drafted URL's 404. An archived
+  fallback is described by the adapter's `fallback_adjust` (e.g. the advertised URL, a rendition's own file name, a
+  quality that does not call it the upload) on the acquisition and on every refresh.
 - Refresh bookkeeping: an archived candidate that every covering *complete* enumeration (`Discovery.coverage`: page
   links, store listings, a fully rendered SoundCloud `/tracks` list) no longer lists becomes `upstream_status: removed`
   (bytes kept, candidate leaves the snapshot); one the seeds no longer reach after a complete run becomes `unknown`
@@ -70,7 +77,8 @@ archived record of that candidate (file and record; the bytes stay in Git histor
 that a rule now excludes stays archived and fails `--verify`. A download rule with `"archive_under": "<upstream key>"`
 says the same file is attached to that other candidate of the source, whose text names what it shows: that candidate
 resolves first and holds the record (an existing record of this candidate is taken over: same asset ID, the other
-candidate's own fetch and contract path, a note), and this candidate becomes `duplicate_bytes`. A rule `title` is human
+candidate's own fetch and contract path, a note; that candidate's own earlier record of other bytes is superseded), and
+this candidate becomes `duplicate_bytes`; a target the run does not list is reported, never silently ignored. A rule `title` is human
 text from the cited page (`{default}` stands for the adapter's title); a file name is never a title.
 
 ## Adapters
@@ -87,7 +95,7 @@ text from the cited page (`{default}` stands for the adapter's title); a file na
 | `google_play` | listing pages per locale | `=s0` native size; the advertised `src` rendition is `source_reported`, `=wW-hH` sizes kept as notes, size decoded from bytes |
 | `taptap_app` | `__NUXT_DATA__` devalue payload | `original_url`; MD5 of the file compared with the name token (a mismatch is a re-encode: `transformed: true`, byte-exact twin named when archived); crop/resize banner rendition excluded (`upscaled` only when larger than its crop), its URL kept as the upload's `source_reported.url` (size in the notes: another rendition is not comparable); trailer poster frames are `video_placeholder` exclusions |
 | `wayback_cdx` | CDX API with `showResumeKey` paging (bounded: repeated key or `max_pages`), `id_` raw captures | earliest capture per distinct payload; CDX digest → `source_reported.sha1`; a response from another capture or with other bytes is held `pending` |
-| `page_links`, `direct_files` | explicit pages / explicit file URLs | link patterns per page; JS galleries named file by file; `direct_files` `params.article_images` accounts for every article-body image (and `og:image`) of a read article page: CSS selection, quoted URLs in named attributes (`attr_urls`, e.g. an `onclick` overlay), or the body blocks of an embedded JSON article model (`embedded_json`, e.g. Next.js `__NEXT_DATA__`, checked against the article's own image count); normalized to the upload, keyed `<prefix><name>` (a pattern `name` group gives the upload's file name when the URL ends in a CDN signature), unclassified → `pending`. `article-images` stays open on a missing selection, a selection with no matching body image (`selection-empty`), a missing payload or a count mismatch, and a complete page covers only keys under its prefix. A normalized URL that answers 404 falls back to the URL the page lists (noted on the record). `supplied_marker` (page text such as GNN's `【以下內容為廠商提供資料原文】`) marks the images after it as developer-supplied; no other press image is described so. Records are titled from the page headline (+ caption, `(n/N)`; a named file the article does not show is a `linked file`), the file name stays `original_filename` |
+| `page_links`, `direct_files` | explicit pages / explicit file URLs | link patterns per page; JS galleries named file by file; `direct_files` `params.article_images` accounts for every image of a read article page's CSS selection (and `og:image`): `img`/`source` URLs, links and quoted URLs in named attributes (`attr_urls`, e.g. an `onclick` overlay) that name an image file, or the body blocks of an embedded JSON article model (`embedded_json`, e.g. Next.js `__NEXT_DATA__`, checked against the article's own image count; `extra_images` such as the main image are read but not counted); article uploads (normalized URL matching `pattern`) are keyed `<prefix><name>` (a pattern `name` group gives the upload's file name when the URL ends in a CDN signature), every other selection image (app-card icon, lazy-load placeholder, comment avatar, footer widget) `<prefix>other:<host><path>`, all classified by rules, unclassified → `pending`. `article-images` stays open on a missing selection, a selection with no matching body image (`selection-empty`), a missing payload or a count mismatch, and a complete page covers only keys under its prefix. Advertised sizes (`og:image:width`/`height` of an `og:image` listed as the upload itself, WordPress `data-orig-size`, embedded `width_field`/`height_field`) become `source_reported.width`/`height`. A normalized URL that answers 404 falls back to the URL the page lists: the record says so, names that URL as `source_reported.url`, keeps a rendition's own file name and is `source_variant: unknown`. `supplied_marker` (page text such as GNN's `【以下內容為廠商提供資料原文】`) marks the images after it as developer-supplied: `supplied_note` replaces the source's default quality note and a sentence quotes the label; no other press image is described so. Records are titled from the page headline (+ caption, `(n/N)`; a named file the article does not show is a `linked file`, another selection image an `other image`), the file name stays `original_filename` |
 | `release_page` (list mode) | `{"tracks_of": "<handle>"}`: one read of `soundcloud.com/<handle>/tracks` | every server-rendered track becomes an item; the list stays open when fewer than the account's `track_count` are rendered |
 | `page_probe`, `lead_registry` | one availability read / no request | dead or login-walled sources; research leads without an acquirable file |
 

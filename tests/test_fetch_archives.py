@@ -279,6 +279,7 @@ class PressReleaseTests(ArchivesTestCase):
 
 
 class PressArticleTests(ArchivesTestCase):
+    maxDiff = None
     PAGE = "https://news.example.org/detail.php?sn=129234"
     IMG = "https://img.example.org/B/2KU/{}.{}"
 
@@ -310,10 +311,20 @@ class PressArticleTests(ArchivesTestCase):
         self.run_family([self.seed(self.RULES)], network)
         snapshot = manifest.load_discovery(self.root, "archives:press")
         found = {c["upstream_key"]: c for c in snapshot["candidates"]}
-        # og:image, the body images (srcset/data-src, an M/ rendition rewritten to B/), never the sidebar or logo.
+        # og:image, the body images (srcset/data-src, an M/ rendition rewritten to B/) and the selection's other image
+        # (a lazy-load placeholder), never the sidebar or logo outside the selection, a data: URI or a page link.
         self.assertEqual(sorted(found), ["gnn129234:0001345595", "gnn129234:0001345596", "gnn129234:0001345608",
-                                         "gnn129234:0001345632", "gnn129234:0001345692"])
+                                         "gnn129234:0001345632", "gnn129234:0001345692",
+                                         "gnn129234:other:img.example.org/lazy.gif"])
         self.assertEqual(found["gnn129234:0001345595"]["disposition"], "pending")  # no rule: held, not dropped
+        other = found["gnn129234:other:img.example.org/lazy.gif"]
+        self.assertEqual((other["disposition"], other["file_url"]), ("pending", "https://img.example.org/lazy.gif"))
+        self.assertEqual(other["title"], "音樂遊戲《Dynamix》近期更新內容預告 (other image)")
+        # Advertised sizes: og:image:width/height of an og:image listed as the upload itself, data-orig-size.
+        reported = {key: (c["source_reported"]["width"], c["source_reported"]["height"]) for key, c in found.items()}
+        self.assertEqual(reported["gnn129234:0001345632"], (640, 360))
+        self.assertEqual(reported["gnn129234:0001345608"], (40, 22))
+        self.assertEqual(reported["gnn129234:0001345596"], (None, None))
         self.assertEqual(found["gnn129234:0001345595"]["file_url"], self.IMG.format("95/0001345595", "JPG"))
         self.assertEqual(found["gnn129234:0001345692"]["file_url"], self.IMG.format("92/0001345692", "PNG"))
         self.assertEqual(found["gnn129234:0001345608"]["disposition"], "downloaded")
@@ -325,6 +336,8 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(titles["gnn129234:0001345596"], f"{headline} (2/5)")  # the named item takes its position
         self.assertEqual(titles["gnn129234:0001345608"], f"{headline} — GameParty2016 活動的來場特典曲，Play A Day (3/5)")
         self.assertNotIn("4", found["gnn129234:0001345595"]["title"].replace("(4/5)", ""))  # alt repeating the headline
+        asset = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith("0001345608"))
+        self.assertTrue(asset["comparisons"]["dimensions_match"])
         self.verify()
 
     def test_a_missing_article_selection_keeps_the_list_open(self):
@@ -388,6 +401,8 @@ class PressArticleTests(ArchivesTestCase):
                     "embedded_json": {"script_id": "__NEXT_DATA__", "blocks": "props.pageProps.article.blocks",
                                       "type_field": "blockType", "images": {"image": "image", "gallery": "images"},
                                       "url_field": "cdnUrl", "caption_field": "caption",
+                                      "width_field": "originalWidth", "height_field": "originalHeight",
+                                      "extra_images": ["props.pageProps.article.mainImage"],
                                       "count": "props.pageProps.article.imageCount"},
                     "pattern": "https://cdn\\.example\\.hk/di/media/images/(?P<key>\\d+)/org/(?P<name>[0-9a-f]+"
                                "\\.(?:jpe?g|png|PNG))/[A-Za-z0-9_-]+"}]},
@@ -397,8 +412,11 @@ class PressArticleTests(ArchivesTestCase):
 
     def next_page(self, count):
         def image(media, caption):
-            return {"mediaId": media, "caption": caption, "cdnUrl": self.CDN.format(media, "bb", "PNG", f"t{media}")}
-        data = {"props": {"pageProps": {"article": {"imageCount": count, "blocks": [
+            return {"mediaId": media, "caption": caption, "cdnUrl": self.CDN.format(media, "bb", "PNG", f"t{media}"),
+                    "originalWidth": 30 + media, "originalHeight": 20}
+        main = {"mediaId": 1, "caption": "", "cdnUrl": self.CDN.format(1, "aa", "jpg", "tok1"), "originalWidth": 31,
+                "originalHeight": 20}
+        data = {"props": {"pageProps": {"article": {"imageCount": count, "mainImage": main, "blocks": [
             {"blockType": "text", "htmlTokens": []},
             {"blockType": "image", "image": image(2, "簡潔又帶科幻感的界面")},
             {"blockType": "gallery", "images": [image(3, "藍色是輕觸屏幕"), image(4, "")]},
@@ -431,7 +449,29 @@ class PressArticleTests(ArchivesTestCase):
         names = {a["candidate_id"].split(":", 2)[2]: a["original_filename"] for a in self.manifest()["assets"]}
         self.assertEqual(names["hk01-175169:2"], "bb.PNG")  # the upload's name, not the signature segment
         self.assertEqual(names["hk01:175169"], "aa.jpg")
+        # The payload's originalWidth/originalHeight (blocks, and the main image outside them) are the advertised size.
+        for asset in self.manifest()["assets"]:
+            self.assertEqual((asset["source_reported"]["width"], asset["source_reported"]["height"]),
+                             (asset["width"], asset["height"]))
+            self.assertTrue(asset["comparisons"]["dimensions_match"], asset["id"])
         self.verify()
+
+    def test_advertised_sizes_describe_only_the_upload_url(self):
+        # og:image:width/height belong to the og:image they follow, and only to one listed as the upload URL itself
+        # (a query may select a resized rendition); data-orig-size is the WordPress attachment's original upload.
+        page = ("<html><head><meta property='og:image' content='https://img.example.org/B/2KU/01/0000000001.JPG?w=300'>"
+                "<meta property='og:image:width' content='300'><meta property='og:image:height' content='200'>"
+                "<meta property='og:image' content='https://img.example.org/B/2KU/02/0000000002.JPG'>"
+                "<meta property='og:image:width' content='1200'><meta property='og:image:height' content='800'>"
+                "</head><body><div class='article-body'><img src='https://img.example.org/S/2KU/03/0000000003.JPG' "
+                "data-orig-size='1920,1080'><img src='https://img.example.org/B/2KU/04/0000000004.JPG' "
+                "data-orig-size='x,1'></div></body></html>")
+        config = self.seed(self.RULES)["params"]["article_images"][0]
+        images, others, state = direct_adapter.article_images(page, self.PAGE, config)
+        self.assertEqual({image["key"]: image["size"] for image in images},
+                         {"gnn129234:0000000001": None, "gnn129234:0000000002": (1200, 800),
+                          "gnn129234:0000000003": (1920, 1080), "gnn129234:0000000004": None})
+        self.assertEqual((others, state), ([], None))
 
     def test_an_image_count_that_disagrees_keeps_the_list_open(self):
         routes = {self.NEXT_PAGE: self.next_page(10)}
@@ -445,35 +485,107 @@ class PressArticleTests(ArchivesTestCase):
 
     def test_a_404_of_our_normalized_url_falls_back_to_the_url_the_page_lists(self):
         # The page lists only an M/ rendition; our rewrite to B/ answers 404 upstream: the listed URL is archived and
-        # the record says so (no failure is recorded against upstream).
+        # the record describes it (advertised URL, quality not called the upload); no failure is recorded against
+        # upstream, and --resume reuses the archived rendition without requesting either URL again.
         rules = [*self.RULES[:1], {"match": "^gnn129234:0001345692$", "role": "promotional",
                                    "evidence_quotes": ["Dynamix"]}]
         routes = self.routes()
         listed = "https://img.example.org/M/2KU/92/0001345692.PNG?_=1"
         routes[listed] = {"bytes": image_bytes("PNG", (21, 21)), "content_type": "image/png"}
         self.run_family([self.seed(rules)], FakeNetwork(routes))
-        asset = [a for a in self.manifest()["assets"] if a["candidate_id"].endswith("0001345692")][0]
+
+        def record():
+            return [a for a in self.manifest()["assets"] if a["candidate_id"].endswith("0001345692")][0]
+        asset = record()
         self.assertEqual(asset["download_url"], listed)
+        self.assertEqual(asset["source_reported"]["url"], listed)  # what the page lists, not the URL that 404'd
+        self.assertEqual(asset["original_filename"], "0001345692.PNG")
+        self.assertEqual(asset["quality"]["source_variant"], "unknown")
+        self.assertIn("Not established as the upload", asset["quality"]["notes"])
+        self.assertIn("rendition or proxy copy", asset["quality"]["notes"])
         self.assertIn("answered HTTP 404", asset["notes"])
         self.assertEqual([f for f in self.manifest()["failures"] if f["candidate_id"].endswith("0001345692")], [])
+        candidate = self.candidates("archives:press")["gnn129234:0001345692"]
+        self.assertEqual((candidate["file_url"], candidate["source_reported"]["url"]), (listed, listed))
+        self.verify()
+        network = FakeNetwork(routes)
+        self.run_family([self.seed(rules)], network, resume=True)
+        self.assertEqual([url for _, url in network.calls if "0001345692" in url], [])
+        self.assertEqual(record(), asset)  # a refresh describes the same fetch the same way
         self.verify()
 
-    def test_only_images_after_the_pages_supplied_marker_are_called_developer_supplied(self):
-        seed = self.seed([{"match": "^gnn129234:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}])
-        seed["params"]["article_images"][0]["supplied_marker"] = "【以下內容為廠商提供資料原文】"
+    def test_a_fallback_rendition_keeps_its_own_file_name(self):
+        page = ("<html><head><title>Dynamix review</title></head><body><h1>A long Dynamix review headline</h1>"
+                "<div class='article-body'><img src='https://img.example.org/up/shot-1024x576.jpg'></div></body></html>")
+        seed = self.seed([{"match": "^wp:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}], items=[])
+        seed["params"]["article_images"][0].update({
+            "key_prefix": "wp:", "og_image": False, "rewrite": [["-\\d+x\\d+(\\.\\w+)$", "\\1"]],
+            "pattern": "https://img\\.example\\.org/up/[^/]+\\.jpg"})
+        listed = "https://img.example.org/up/shot-1024x576.jpg"
+        network = FakeNetwork({self.PAGE: {"text": page},
+                               listed: {"bytes": image_bytes("JPEG", (32, 18)), "content_type": "image/jpeg"}})
+        self.run_family([seed], network)
+        self.assertEqual([url for _, url in network.calls if "/up/" in url],
+                         ["https://img.example.org/up/shot.jpg", listed])
+        [asset] = self.manifest()["assets"]
+        self.assertEqual((asset["original_filename"], asset["download_url"]), ("shot-1024x576.jpg", listed))
+        self.assertIn("/shot-1024x576--", asset["path"])
+        self.assertEqual(asset["quality"]["source_variant"], "unknown")
+        self.verify()
+
+    def test_a_fallback_on_a_host_the_seed_does_not_allow_is_not_tried(self):
+        # A proxy URL the page lists (i0.wp.com) is outside the seed's hosts: the recorded failure is the 404 of the
+        # normalized upload URL, not a host_not_allowed error of the proxy.
+        seed = self.seed([*self.RULES[:1], {"match": "^gnn129234:0001345692$", "role": "promotional",
+                                            "evidence_quotes": ["Dynamix"]}])
+        config = seed["params"]["article_images"][0]
+        config["rewrite"] = [["^https://i0\\.wp\\.com/img\\.example\\.org/[MS]/", "https://img.example.org/B/"],
+                             *config["rewrite"]]
         routes = self.routes()
         routes[self.PAGE] = {"text": routes[self.PAGE]["text"].replace(
-            '<ul class="thumbs"><li><div class="thumb">\n<img alt="image" title=',
-            '<p>【以下內容為廠商提供資料原文】</p><ul class="thumbs"><li><div class="thumb">\n<img alt="image" title=')}
+            "https://img.example.org/M/2KU/92/0001345692.PNG", "https://i0.wp.com/img.example.org/M/2KU/92/0001345692.PNG")}
+        self.run_family([seed], FakeNetwork(routes))
+        [failure] = [f for f in self.manifest()["failures"] if f["candidate_id"].endswith("0001345692")]
+        self.assertEqual((failure["error_class"], failure["http_status"], failure["url"]),
+                         ("http_4xx", 404, self.IMG.format("92/0001345692", "PNG")))
+        candidate = self.candidates("archives:press")["gnn129234:0001345692"]
+        self.assertEqual(candidate["disposition"], "failed")
+        self.assertNotIn("host_not_allowed", candidate["reason"])
+        self.verify()
+
+    DEFAULT_NOTE = "Press copy as served by the publication; the page does not state who supplied the image."
+    SUPPLIED_NOTE = "Press copy as served by the publication, inside the part the page labels as supplied material."
+
+    def test_only_images_after_the_pages_supplied_marker_are_called_developer_supplied(self):
+        rules = [{"match": "^gnn129234:0001345632$", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]},
+                 {"match": "^gnn129234:0001345595$", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"],
+                  "quality": {"notes": "Curated note of this rule."}},
+                 {"match": "^gnn129234:\\d+$", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}]
+        seed = self.seed(rules)
+        seed["quality"] = {**QUALITY, "notes": self.DEFAULT_NOTE}
+        seed["params"]["article_images"][0].update({"supplied_marker": "【以下內容為廠商提供資料原文】",
+                                                    "supplied_note": self.SUPPLIED_NOTE})
+        routes = self.routes()
+        routes[self.PAGE] = {"text": routes[self.PAGE]["text"].replace(
+            '<ul class="thumbs"><li><div class="thumb">\n<img alt="image" data-orig-size',
+            '<p>【以下內容為廠商提供資料原文】</p><ul class="thumbs"><li><div class="thumb">\n<img alt="image" data-orig-size')}
         for index, name in enumerate(("95/0001345595", "92/0001345692", "32/0001345632")):
             routes[self.IMG.format(name, "PNG" if name.startswith("92") else "JPG")] = {
                 "bytes": image_bytes("JPEG", (30, 31 + index)), "content_type": "image/jpeg"}
         self.run_family([seed], FakeNetwork(routes))
         notes = {a["candidate_id"].split(":", 2)[2]: a["quality"]["notes"] for a in self.manifest()["assets"]}
-        self.assertIn("developer supplied", notes["gnn129234:0001345608"])
-        self.assertIn("developer supplied", notes["gnn129234:0001345595"])
-        self.assertNotIn("developer", notes["gnn129234:0001345596"])  # before the marker
-        self.assertNotIn("developer", notes["gnn129234:0001345632"])  # og:image only
+        label = "The page places this image after its label '【以下內容為廠商提供資料原文】'."
+        self.assertEqual(notes["gnn129234:0001345608"], f"{self.SUPPLIED_NOTE} {label}")  # replaces the default note
+        self.assertEqual(notes["gnn129234:0001345692"], f"{self.SUPPLIED_NOTE} {label}")
+        self.assertEqual(notes["gnn129234:0001345595"], f"Curated note of this rule. {label}")  # a rule's note stays
+        for key in ("gnn129234:0001345596", "gnn129234:0001345632"):  # before the marker; og:image only
+            self.assertEqual(notes[key], self.DEFAULT_NOTE)
+        for key, text in notes.items():  # never both "not stated" and "supplied" on one record
+            self.assertFalse("does not state who supplied" in text and "label" in text, (key, text))
+        self.verify()
+        del seed["params"]["article_images"][0]["supplied_note"]
+        with self.assertRaises(ValueError):  # the marker needs the note that replaces the default
+            direct_adapter.check_seed(seed, "test")
 
     def test_urls_in_named_attributes_are_enumerated(self):
         seed = self.seed([{"match": "^gnn129234:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}],
@@ -489,9 +601,12 @@ class PressArticleTests(ArchivesTestCase):
         self.run_family([seed], network, metadata_only=True)
         snapshot = manifest.load_discovery(self.root, "archives:press")
         titles = {c["upstream_key"]: c["title"] for c in snapshot["candidates"]}
+        thumbs = {f"gnn129234:other:news.example.org/TN/{n}.jpg":
+                  f"Dynamix column #862 (long headline) — thumb (other image {i}/3)"
+                  for i, n in enumerate(("003", "012", "011"), start=1)}
         self.assertEqual(titles, {"gnn129234:003": "Dynamix column #862 (long headline) (1/3)",
                                   "gnn129234:012": "Dynamix column #862 (long headline) (2/3)",
-                                  "gnn129234:011": "Dynamix column #862 (long headline) (3/3)"})
+                                  "gnn129234:011": "Dynamix column #862 (long headline) (3/3)", **thumbs})
         self.assertTrue(snapshot["discovery_complete"])
 
     def test_an_unreadable_article_page_keeps_both_lists_open(self):
@@ -724,6 +839,94 @@ class RunnerStateTests(ArchivesTestCase):
         [asset] = manifest.load_manifest(Path(fresh.name), "archives")["assets"]
         self.assertTrue(asset["candidate_id"].endswith("img/b.png"))
         self.assertNotIn("archive_under", asset.get("notes") or "")  # nothing was taken over
+
+    TAKE_OVER_RULES = [{"match": "^img/a\\.png$", "role": "promotional", "game": "dynamix", "archive_under": "img/b.png"},
+                       {"match": "^img/", "role": "promotional", "game": "dynamix"}]
+
+    def test_archive_under_supersedes_the_target_candidates_own_earlier_file(self):
+        # img/b.png already holds its own earlier bytes, then serves img/a.png's bytes: b takes the record over, its own
+        # earlier record is superseded (bytes kept), a's old file leaves only after the new manifest is written.
+        a_url, b_url = "https://press.example.org/img/a.png", "https://press.example.org/img/b.png"
+        routes = {self.PAGE: self.page("a.png", "b.png"), a_url: self.file((5, 6, 7)), b_url: self.file((1, 1, 1))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        before = self.assets()
+        old_a, old_b = before["img/a.png"], before["img/b.png"]
+        routes[b_url] = self.file((5, 6, 7))
+        acquisition = runner.Runner(self.root, "archives", [self.seed(rules=self.TAKE_OVER_RULES)],
+                                    client_factory=FakeNetwork(routes).factory, now=lambda: FIXED_NOW,
+                                    sleep=lambda s: None)
+        acquisition.run()
+        self.assertEqual(acquisition.source_errors, {})
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual((assets[old_b["id"]]["upstream_status"], assets[old_b["id"]]["superseded_by"]),
+                         ("superseded", old_a["id"]))
+        self.assertTrue(paths.safe_path(self.root, old_b["path"]).is_file())  # earlier bytes kept
+        taken = assets[old_a["id"]]
+        self.assertTrue(taken["candidate_id"].endswith("img/b.png"))
+        self.assertFalse(paths.safe_path(self.root, old_a["path"]).exists())
+        found = self.candidates("archives:press")
+        self.assertEqual((found["img/a.png"]["disposition"], found["img/b.png"]["disposition"]),
+                         ("duplicate_bytes", "downloaded"))
+        self.verify()
+
+    def test_archive_under_clears_the_target_candidates_earlier_failure(self):
+        a_url, b_url = "https://press.example.org/img/a.png", "https://press.example.org/img/b.png"
+        routes = {self.PAGE: self.page("a.png", "b.png"), a_url: self.file((5, 6, 7)),
+                  b_url: {"error": net.HttpError("HTTP 503", url=b_url, http_status=503)}}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        self.assertEqual([f["candidate_id"] for f in self.manifest()["failures"]], ["archives:press:img/b.png"])
+        routes[b_url] = self.file((5, 6, 7))
+        self.run_family([self.seed(rules=self.TAKE_OVER_RULES)], FakeNetwork(routes), resume=True)
+        self.assertEqual(self.manifest()["failures"], [])
+        self.assertEqual(self.candidates("archives:press")["img/b.png"]["disposition"], "downloaded")
+        self.verify()
+
+    def test_a_failed_write_after_a_take_over_keeps_the_previous_file(self):
+        routes = {self.PAGE: self.page("a.png", "b.png"), "https://press.example.org/img/a.png": self.file((5, 6, 7)),
+                  "https://press.example.org/img/b.png": self.file((5, 6, 7))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        [old] = self.manifest()["assets"]
+        original = runner.manifest.write_json_atomic
+
+        def refuse(path, data):
+            if Path(path).name == "archives.json":
+                raise OSError("disk full (test)")
+            return original(path, data)
+        runner.manifest.write_json_atomic = refuse
+        try:
+            acquisition = runner.Runner(self.root, "archives", [self.seed(rules=self.TAKE_OVER_RULES)],
+                                        client_factory=FakeNetwork(routes).factory, now=lambda: FIXED_NOW,
+                                        sleep=lambda s: None)
+            acquisition.run()
+        finally:
+            runner.manifest.write_json_atomic = original
+        self.assertIn("archives:press", acquisition.source_errors)
+        self.assertEqual(self.manifest()["assets"], [old])  # the written manifest still names the old file ...
+        self.assertTrue(paths.safe_path(self.root, old["path"]).is_file())  # ... which is still there
+
+    def test_an_archive_under_target_that_is_not_listed_is_reported(self):
+        routes = {self.PAGE: self.page("a.png"), "https://press.example.org/img/a.png": self.file((5, 6, 7))}
+        rules = [{"match": "^img/a\\.png$", "role": "promotional", "game": "dynamix", "archive_under": "img/typo.png"},
+                 {"match": "^img/", "role": "promotional", "game": "dynamix"}]
+        self.run_family([self.seed(rules=rules)], FakeNetwork(routes))
+        self.assertEqual(self.candidates("archives:press")["img/a.png"]["disposition"], "downloaded")
+        errors = manifest.load_discovery(self.root, "archives:press")["errors"]
+        self.assertTrue(any(runner.UNMATCHED_ARCHIVE_UNDER in error["message"] and "'img/typo.png'" in error["message"]
+                            for error in errors), errors)
+        warnings = self.verify()
+        self.assertTrue(any(runner.UNMATCHED_ARCHIVE_UNDER in warning for warning in warnings), warnings)
+
+    def test_one_file_has_one_kind_within_a_source(self):
+        # Two listings with identical bytes, classified differently: --verify reports the duplicate whose role
+        # disagrees with the kind of the record of its bytes.
+        routes = {self.PAGE: self.page("a.png", "b.png"), "https://press.example.org/img/a.png": self.file((5, 6, 7)),
+                  "https://press.example.org/img/b.png": self.file((5, 6, 7))}
+        rules = [{"match": "^img/b\\.png$", "role": "reference", "game": "dynamix"},
+                 {"match": "^img/", "role": "promotional", "game": "dynamix"}]
+        self.run_family([self.seed(rules=rules)], FakeNetwork(routes))
+        errors, _, _ = runner.verify_family(self.root, "archives")
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("archives:press:img/b.png: role 'reference' differs from the kind 'promotional'", errors[0])
 
     def test_bytes_that_revert_supersede_the_newer_record(self):
         url = "https://press.example.org/img/a.png"

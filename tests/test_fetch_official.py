@@ -434,6 +434,40 @@ class XTimelineTests(OfficialTestCase):
         self.assertEqual(self.manifest()["assets"], [])
 
 
+class ClassificationSeedTests(unittest.TestCase):
+    """The committed seeds cite the coordinator's classification decisions (09-frozen-contracts.md) only where they
+    apply: D1 covers graphics that display chart levels, D2 graphics whose primary content is a list of songs or
+    charts (lineup cards printing several titled jackets)."""
+
+    CITATION = re.compile(r"kind reference \(coordinator decisions? (D\d)(?: and (D\d))?")
+
+    def rules(self):
+        for family in ("artists", "official", "archives"):
+            for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json", family):
+                for rule in seed.get("rules", []):
+                    yield seed["id"], rule
+
+    def test_a_cited_decision_matches_the_rule(self):
+        cited = 0
+        for source_id, rule in self.rules():
+            notes = " ".join(filter(None, [rule.get("candidate_notes"), rule.get("notes")]))
+            for match in self.CITATION.finditer(notes):
+                cited += 1
+                where = f"{source_id} {rule.get('match')}"
+                self.assertEqual(rule.get("role"), "reference", where)
+                if "D2" in match.groups():  # a list graphic: several titled songs, all mapped
+                    self.assertGreaterEqual(len(rule.get("song_titles", [])), 2, where)
+        self.assertGreater(cited, 10)
+
+    def test_the_package_lovely_lineup_card_is_a_mapped_reference(self):
+        rule = next(rule for source_id, rule in self.rules()
+                    if source_id == "official:youtube" and rule.get("match") == "^Q4A5Wg5CViM$")
+        self.assertEqual((rule["role"], rule["mapping_status"]), ("reference", "inferred"))
+        self.assertEqual(rule["song_titles"], ["Crystal Ribbon", "Heart Eyes", "Super Macaron",
+                                               "White Chocolate (dynamix edit)"])
+        self.assertTrue(all(entry["note"].startswith("visual_inspection") for entry in rule["mapping_evidence"]))
+
+
 class YouTubeTests(OfficialTestCase):
     CHANNEL = "https://www.youtube.com/@C4CatEntertainment"
     VIDEO = "FInFw2lVz_I"

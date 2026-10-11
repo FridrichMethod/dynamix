@@ -6,24 +6,35 @@ evidence that seed rules quote; otherwise rules cannot claim ``confirmed_primary
 
 Article pages (``params.article_images``): every image of a read page's article body is accounted for, not only the
 named files. Each entry ``{"page_url", "key_prefix", "select", "pattern", "og_image"?, "rewrite"?, "attr_urls"?,
-"embedded_json"?, "supplied_marker"?}`` reads the page once and collects, in page order, the image URLs inside the CSS
-selection ``select`` (``img`` ``src``/``data-src``/``data-original``/``data-lazy-src``/``srcset`` and ``a`` ``href``;
-quoted URLs in the attributes named by ``attr_urls``, e.g. an ``onclick`` overlay opener), the images of an embedded
-JSON article model (``embedded_json``, below) and, with ``og_image``, the page's ``og:image``. Each URL is normalized
-to the uploaded file (query and fragment dropped, then the ordered ``rewrite`` regex substitutions, e.g. a WordPress
-``-1024x576`` size suffix) and kept when it fully matches ``pattern``; its key is ``key_prefix`` plus the pattern's
-``key`` group (default: the file name without extension); a ``name`` group names the upload's file name when the URL
-does not end with it (a signed CDN path), else the last path segment is the ``original_filename``. A named seed item with that key or that normalized URL
-stands for it; every other image becomes a candidate of its own, classified by the seed rules (unclassified images
-stay ``pending``). The URLs the page itself lists for an image are kept as download fallbacks: when the normalized URL
-answers HTTP 404 (a rewrite of ours, not an upstream failure) the advertised URL is downloaded instead and the record
-says so.
+"embedded_json"?, "supplied_marker"?, "supplied_note"?}`` reads the page once and collects, in page order, the image
+URLs inside the CSS selection ``select`` (``img`` ``src``/``data-src``/``data-original``/``data-lazy-src``/``srcset``,
+and ``a`` ``href`` and the quoted URLs in the attributes named by ``attr_urls`` (e.g. an ``onclick`` overlay opener) that
+name an image file), the images of an embedded JSON article model (``embedded_json``, below) and, with ``og_image``,
+the page's ``og:image``. Each URL is normalized to the uploaded file (query and fragment dropped, then the ordered
+``rewrite`` regex substitutions, e.g. a WordPress ``-1024x576`` size suffix) and, when it fully matches ``pattern``, is
+an article image: its key is ``key_prefix`` plus the pattern's ``key`` group (default: the file name without extension);
+a ``name`` group names the upload's file name when the URL does not end with it (a signed CDN path), else the last path
+segment is the ``original_filename``. Every other image URL of the selection (an app-card icon, a lazy-load
+placeholder, a comment avatar, a footer widget) is an *other* image keyed ``<key_prefix>other:<host><path>`` and is
+classified by the seed rules like any candidate, so nothing inside the selection is dropped unaccounted. A named seed
+item with an image's key or normalized URL stands for it; every other image becomes a candidate of its own, classified
+by the seed rules (unclassified images stay ``pending``).
+
+The URLs the page itself lists for an image are kept as download fallbacks: when the normalized URL answers HTTP 404 (a
+rewrite of ours, not an upstream failure) the listed URL is downloaded instead and the record says so: its
+``source_reported.url`` is the listed URL, a rendition keeps its own file name, and the quality is ``unknown`` (a URL
+the page lists is not established as the upload). A listed URL on a host the seed does not allow is not tried.
+
+Advertised sizes become ``source_reported.width``/``height`` of the upload they describe: ``og:image:width``/``height``
+of an ``og:image`` listed as the upload URL itself, a WordPress attachment's ``data-orig-size`` (its original upload),
+and ``embedded_json`` ``width_field``/``height_field`` (e.g. HK01's ``originalWidth``/``originalHeight``).
 
 ``embedded_json`` reads article bodies that a client-side app renders from a JSON payload (e.g. Next.js
 ``__NEXT_DATA__``): ``{"script_id", "blocks": "dotted.path", "type_field", "images": {block type: field holding one
-image object or a list of them}, "url_field", "caption_field"?, "count": "dotted.path"?}``. Blocks of other types (text,
-video, related articles) are ignored; ``count`` names the article's own image count, which must equal the number of
-images read.
+image object or a list of them}, "url_field", "caption_field"?, "width_field"?, "height_field"?, "count": "dotted.path"?,
+"extra_images": ["dotted.path", ...]?}``. Blocks of other types (text, video, related articles) are ignored; ``count``
+names the article's own image count, which must equal the number of block images read; ``extra_images`` are image
+objects outside the blocks (e.g. the article's main image), read for their URL and size but not counted.
 
 The list ``article-images`` is complete only when every configured page was read and enumerated: a missing selection
 (``selection-not-found``), a selection that holds no matching body image (``selection-empty``; an empty response is
@@ -32,21 +43,24 @@ disagrees with the article's own (``image-count-mismatch``) keeps it open. A com
 ``Discovery.coverage``) only the candidates it produces: keys under the page's ``key_prefix``.
 
 ``supplied_marker``: text with which the page itself labels what follows as material supplied by the developer (e.g.
-GNN's ``【以下內容為廠商提供資料原文】``). Images after the marker in the selection carry a quality note quoting it;
-nothing else is described as developer-supplied.
+GNN's ``【以下內容為廠商提供資料原文】``); ``supplied_note`` (required with it) is the quality note that replaces the source's
+default note (which says the page does not state who supplied an image) for the images after the marker, followed by
+a sentence quoting the label. A rule's own quality note is kept and only the label sentence is added. Nothing else is
+described as developer-supplied.
 
 Titles (``title`` of a seed item or rule first): an image on a read page is titled with the article's headline (``h1``,
 else ``og:title``, else ``<title>``), its caption when the page gives one (``figcaption``, ``.wp-caption-text``,
 ``.pic-desc``, a non-generic ``img`` ``title``/``alt``, the embedded caption), and its position among the page's
-article images ``(n/N)``; a named file the article does not show is ``linked file k/K`` of the page. The file name stays
-in ``original_filename``.
+article images ``(n/N)``; a named file the article does not show is ``linked file k/K`` of the page and an other image
+``other image k/K``. The file name stays in ``original_filename``.
 """
 
 from __future__ import annotations
 
+import copy
 import json
 import re
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 from urllib.parse import urlsplit, urlunsplit
 
 from bs4 import NavigableString
@@ -59,12 +73,18 @@ from . import base
 HOSTS: list[str] = []  # per seed
 ARTICLE_LIST = "article-images"
 IMAGE_ATTRS = ("src", "data-src", "data-original", "data-lazy-src")
+IMAGE_FILE_RE = re.compile(r"\.(?:jpe?g|png|gif|webp|avif|bmp|svg)$", re.IGNORECASE)  # a link or quoted URL to an image
+OTHER = "other:"  # key infix of a selection image that is not an article upload: ``<key_prefix>other:<host><path>``
 GENERIC_ALT = {"", "image", "img", "photo", "picture", "圖片", "图片"}
 CONFIG_FIELDS = {"page_url", "key_prefix", "select", "pattern", "og_image", "rewrite", "attr_urls", "embedded_json",
-                 "supplied_marker"}
-EMBEDDED_FIELDS = {"script_id", "blocks", "type_field", "images", "url_field", "caption_field", "count"}
+                 "supplied_marker", "supplied_note"}
+EMBEDDED_FIELDS = {"script_id", "blocks", "type_field", "images", "url_field", "caption_field", "count", "width_field",
+                   "height_field", "extra_images"}
 FALLBACK_NOTE = ("Archived from {url}, the URL the page lists for this image: the normalized upload URL {file_url} "
                  "answered HTTP 404.")
+FALLBACK_QUALITY_NOTE = ("Not established as the upload: archived from the URL the page lists ({how}) because the "
+                         "upload URL {file_url} answered HTTP 404.")
+SUPPLIED_LABEL = "The page places this image after its label '{marker}'."
 
 
 def _check_embedded(spec: Any, label: str) -> None:
@@ -77,9 +97,14 @@ def _check_embedded(spec: Any, label: str) -> None:
     if not isinstance(images, dict) or not images or not all(
             isinstance(k, str) and isinstance(v, str) and k and v for k, v in images.items()):
         raise ValueError(f"{label}.embedded_json.images maps block types to image fields")
-    for name in ("caption_field", "count"):
+    for name in ("caption_field", "count", "width_field", "height_field"):
         if name in spec and (not isinstance(spec[name], str) or not spec[name].strip()):
             raise ValueError(f"{label}.embedded_json.{name} must be a non-empty string")
+    if ("width_field" in spec) != ("height_field" in spec):
+        raise ValueError(f"{label}.embedded_json.width_field and height_field go together")
+    extra = spec.get("extra_images", [])
+    if not isinstance(extra, list) or not all(isinstance(path, str) and path.strip() for path in extra):
+        raise ValueError(f"{label}.embedded_json.extra_images must be a list of dotted paths")
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -115,9 +140,12 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             raise ValueError(f"{label}.attr_urls must be a list of attribute names")
         if "embedded_json" in page:
             _check_embedded(page["embedded_json"], label)
-        if "supplied_marker" in page and (not isinstance(page["supplied_marker"], str)
-                                          or not page["supplied_marker"].strip()):
-            raise ValueError(f"{label}.supplied_marker must be a non-empty string")
+        for name in ("supplied_marker", "supplied_note"):
+            if name in page and (not isinstance(page[name], str) or not page[name].strip()):
+                raise ValueError(f"{label}.{name} must be a non-empty string")
+        if ("supplied_marker" in page) != ("supplied_note" in page):
+            raise ValueError(f"{label}: supplied_marker and supplied_note go together (the note replaces the source's "
+                             "default quality note for the images after the marker)")
 
 
 def normalized(url: str, rewrite: list[list[str]]) -> str:
@@ -160,9 +188,21 @@ def _path(data: Any, dotted: str) -> Any:
     return data
 
 
-def _embedded_images(document: Any, spec: Mapping[str, Any]) -> tuple[list[tuple[str, str]], int | None] | None:
-    """([(url, caption)] in block order, the article's own image count or None) from the embedded JSON payload; None
-    when the script or the blocks list is missing or unreadable."""
+def _size(width: Any, height: Any) -> tuple[int, int] | None:
+    """(width, height) when both are positive integers (or digit strings), else None."""
+    def number(value: Any) -> int | None:
+        if isinstance(value, str) and value.strip().isdigit():
+            value = int(value.strip())
+        return value if isinstance(value, int) and not isinstance(value, bool) and value > 0 else None
+    pair = (number(width), number(height))
+    return pair if None not in pair else None
+
+
+def _embedded_images(document: Any, spec: Mapping[str, Any]) -> tuple[list[tuple[str, str, Any]], int | None,
+                                                                       list[tuple[str, str, Any]]] | None:
+    """([(url, caption, size)] in block order, the article's own image count or None, [(url, caption, size)] of the
+    ``extra_images``) from the embedded JSON payload; None when the script or the blocks list is missing or
+    unreadable. ``size`` is the advertised (width, height) of the upload, or None."""
     script = document.find("script", id=spec["script_id"])
     if script is None:
         return None
@@ -173,17 +213,24 @@ def _embedded_images(document: Any, spec: Mapping[str, Any]) -> tuple[list[tuple
     blocks = _path(data, spec["blocks"])
     if not isinstance(blocks, list):
         return None
+
+    def read(image: Any) -> tuple[str, str, Any] | None:
+        if not isinstance(image, dict) or not isinstance(image.get(spec["url_field"]), str):
+            return None
+        caption = image.get(spec.get("caption_field") or "")
+        size = (_size(image.get(spec["width_field"]), image.get(spec["height_field"]))
+                if spec.get("width_field") else None)
+        return image[spec["url_field"]], " ".join(caption.split()) if isinstance(caption, str) else "", size
+
     found = []
     for block in blocks:
         if not isinstance(block, dict) or block.get(spec["type_field"]) not in spec["images"]:
             continue
         value = block.get(spec["images"][block[spec["type_field"]]])
-        for image in value if isinstance(value, list) else [value]:
-            if isinstance(image, dict) and isinstance(image.get(spec["url_field"]), str):
-                caption = image.get(spec.get("caption_field") or "")
-                found.append((image[spec["url_field"]], " ".join(caption.split()) if isinstance(caption, str) else ""))
+        found.extend(entry for entry in map(read, value if isinstance(value, list) else [value]) if entry)
+    extra = [entry for entry in (read(_path(data, path)) for path in spec.get("extra_images", [])) if entry]
     count = _path(data, spec["count"]) if spec.get("count") else None
-    return found, count if isinstance(count, int) and not isinstance(count, bool) else None
+    return found, count if isinstance(count, int) and not isinstance(count, bool) else None, extra
 
 
 def _after_marker(roots: list[Any], marker: str | None) -> set[int]:
@@ -201,33 +248,70 @@ def _after_marker(roots: list[Any], marker: str | None) -> set[int]:
     return flagged
 
 
-def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple[list[dict], str | None]:
-    """([{key, url, advertised, caption, supplied}] in page order, None when the enumeration is complete or the open
-    continuation token) for one configured article page."""
+def _og_images(document: Any) -> list[tuple[str, Any]]:
+    """[(og:image URL, its advertised (width, height) or None)] in page order; ``og:image:width``/``height`` belong to
+    the ``og:image`` they follow."""
+    found: list[list[Any]] = []
+    sizes: dict[int, dict[str, Any]] = {}
+    for tag in document.find_all("meta", attrs={"property": True}):
+        name = str(tag.get("property"))
+        if name == "og:image":
+            found.append([tag.get("content"), None])
+        elif found and name in ("og:image:width", "og:image:height"):
+            sizes.setdefault(len(found) - 1, {})[name] = tag.get("content")
+    for index, entry in enumerate(found):
+        given = sizes.get(index, {})
+        entry[1] = _size(given.get("og:image:width"), given.get("og:image:height"))
+    return [(url, size) for url, size in found]
+
+
+def _orig_size(element: Any) -> tuple[int, int] | None:
+    """The original upload's (width, height) a WordPress attachment ``img`` advertises (``data-orig-size="W,H"``)."""
+    parts = str(element.get("data-orig-size") or "").split(",")
+    return _size(*parts) if len(parts) == 2 else None
+
+
+def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple[list[dict], list[dict], str | None]:
+    """([article image], [other image], None when the enumeration is complete or the open continuation token) for one
+    configured article page; each image is ``{key, url, advertised, caption, supplied, name, size}`` in page order."""
     document = base.soup(html)
     pattern = re.compile(config["pattern"])
     rewrite = config.get("rewrite", [])
     found: dict[str, dict] = {}
+    others: dict[str, dict] = {}
     body: set[str] = set()
     title = base.headline(document)
 
-    def add(raw: str | None, caption: str = "", *, supplied: bool = False, in_body: bool = True) -> str | None:
-        """Record one listed URL; returns its key, or None when it is not an article image."""
+    def add(raw: str | None, caption: str = "", *, supplied: bool = False, in_body: bool = True,
+            size: tuple[int, int] | None = None, size_of_listed: bool = False, image_link: bool = True) -> str | None:
+        """Record one listed URL; returns its key, or None when it names no image. ``size`` is advertised for the
+        upload (``size_of_listed``: only for the URL exactly as listed). Outside the article's uploads, an ``a`` link
+        or a quoted URL (``image_link`` False) counts only when it names an image file."""
         if not raw or not raw.strip():
             return None
         absolute = _without_fragment(base.absolute(page_url, raw))
+        if urlsplit(absolute).scheme not in ("http", "https"):  # data: placeholders, javascript: links
+            return None
         url = normalized(absolute, rewrite)
         match = pattern.fullmatch(url)
-        if not match:
+        if match:
+            stem = base.last_segment(url).rsplit(".", 1)[0]
+            key, bucket = config["key_prefix"] + (match.groupdict().get("key") or stem), found
+            name = match.groupdict().get("name") or base.last_segment(url)
+        elif in_body and (image_link or IMAGE_FILE_RE.search(urlsplit(url).path)):
+            parts = urlsplit(url)
+            stem, name = base.last_segment(url).rsplit(".", 1)[0], base.last_segment(url)
+            key, bucket = f"{config['key_prefix']}{OTHER}{parts.netloc}{parts.path}", others
+        else:
             return None
-        stem = base.last_segment(url).rsplit(".", 1)[0]
-        key = config["key_prefix"] + (match.groupdict().get("key") or stem)
-        entry = found.setdefault(key, {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False,
-                                       "name": match.groupdict().get("name") or base.last_segment(url)})
+        entry = bucket.setdefault(key, {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False,
+                                        "name": name, "size": None})
         if absolute != url and absolute not in entry["advertised"]:
             entry["advertised"].append(absolute)
         entry["supplied"] = entry["supplied"] or supplied
-        if in_body:
+        if size and entry["size"] is None and (absolute == url or not size_of_listed):
+            entry["size"] = size
+        if in_body and bucket is found:
             body.add(key)
         # A caption that only repeats the headline or the file name says nothing about the image.
         if caption and not (title and caption.startswith(title)) and not stem.lower().startswith(caption.lower()):
@@ -235,8 +319,8 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
         return key
 
     if config.get("og_image"):  # every og:image the page lists (some CMSs list all of the post's images there)
-        for tag in document.find_all("meta", attrs={"property": "og:image"}):
-            add(tag.get("content"), in_body=False)
+        for url, size in _og_images(document):
+            add(url, in_body=False, size=size, size_of_listed=True)
     roots = document.select(config["select"])
     supplied = _after_marker(roots, config.get("supplied_marker"))
     for root in roots:
@@ -244,15 +328,16 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
             flag = id(element) in supplied
             for name in config.get("attr_urls", []):
                 for quoted in re.findall(r"""["']([^"'\s]+)["']""", str(element.get(name) or "")):
-                    add(quoted, supplied=flag)
+                    add(quoted, supplied=flag, image_link=False)
             if element.name == "a":
-                add(element.get("href"), supplied=flag)
+                add(element.get("href"), supplied=flag, image_link=False)
             elif element.name in ("img", "source"):
                 caption = _caption(element) if element.name == "img" else ""
+                size = _orig_size(element)
                 for name in IMAGE_ATTRS:
-                    add(element.get(name), caption, supplied=flag)
+                    add(element.get(name), caption, supplied=flag, size=size)
                 for candidate in str(element.get("srcset") or "").split(","):
-                    add(candidate.strip().split(" ")[0], caption, supplied=flag)
+                    add(candidate.strip().split(" ")[0], caption, supplied=flag, size=size)
     state = None
     spec = config.get("embedded_json")
     if spec:
@@ -260,25 +345,29 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
         if embedded is None:
             state = "embedded-json-not-found"
         else:
-            images, count = embedded
-            keys = {key for key in (add(url, caption) for url, caption in images) if key}
+            images, count, extra = embedded
+            keys = {key for key in (add(url, caption, size=size) for url, caption, size in images) if key}
+            for url, caption, size in extra:
+                add(url, caption, in_body=False, size=size)
             if count is not None and count != len(keys):
                 state = f"image-count-mismatch:{len(keys)}/{count}"
     if not roots:
         state = "selection-not-found"
     elif not body and state is None:
         state = "selection-empty"
-    return list(found.values()), state
+    return list(found.values()), list(others.values()), state
 
 
 def _title(item_title: str | None, page_headline: str, caption: str, position: tuple[int, int] | None,
-           fallback: str, linked: tuple[int, int] | None = None) -> str:
+           fallback: str, linked: tuple[int, int] | None = None, other: tuple[int, int] | None = None) -> str:
     if item_title:
         return item_title
     if not page_headline:
         return fallback
     text = f"{page_headline} — {caption}" if caption and caption not in page_headline else page_headline
-    if position is None:  # a named file the article body does not show
+    if other is not None:  # an image of the selection that is not one of the article's uploads
+        suffix = f" (other image {other[0]}/{other[1]})" if other[1] > 1 else " (other image)"
+    elif position is None:  # a named file the article body does not show
         index, total = linked or (1, 1)
         suffix = f" (linked file {index}/{total})" if total > 1 else " (linked file)"
     else:
@@ -324,11 +413,12 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         return pages[page_url]
 
     enumerated: dict[str, list[dict]] = {}
+    others: dict[str, list[dict]] = {}
     for page_url, config in configs.items():
         page = read(page_url)
         if page["html"] is None:
             continue
-        images, state = article_images(page["html"], page_url, config)
+        images, others[page_url], state = article_images(page["html"], page_url, config)
         enumerated[page_url] = images
         if state is None:
             read_complete.add(page_url)
@@ -380,6 +470,17 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 ctx, seed, item, key=image["key"], page_url=page_url, file_url=image["url"], texts=page["texts"],
                 title=_title(None, page["headline"], image["caption"], (index, len(images)), name), image=image,
                 config=configs[page_url]))
+    named = {(item["page_url"], item["file_url"]) for item in seed["items"]}
+    for page_url, images in others.items():  # selection images that are not the article's uploads
+        page = pages[page_url]
+        listed = [image for image in images if (page_url, image["url"]) not in named]
+        for index, image in enumerate(listed, start=1):
+            name = base.last_segment(image["url"])
+            item = {"key": image["key"], "page_url": page_url, "file_url": image["url"]}
+            discovery.candidates.append(_draft(
+                ctx, seed, item, key=image["key"], page_url=page_url, file_url=image["url"], texts=page["texts"],
+                title=_title(None, page["headline"], image["caption"], None, name, other=(index, len(listed))),
+                image=image, config=configs[page_url]))
     return discovery
 
 
@@ -388,19 +489,58 @@ def _draft(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], *, key: s
            config: Mapping[str, Any] | None = None) -> model.Draft:
     name = image["name"] if image is not None else base.last_segment(file_url)
     ext = name.rsplit(".", 1)[-1] if "." in name else None
+    size = image["size"] if image is not None and image["url"] == file_url and image["size"] else (None, None)
     draft = model.apply_rule(
         model.find_rule(base.rules(seed), key), key=key, page_url=page_url, texts=texts,
         file_url=base.stored(file_url), default_title=title, default_quality=ctx.quality,
         default_rights=ctx.rights, original_filename=item.get("original_filename") or name,
-        base_evidence=[page_url], source_reported=base.reported(url=file_url, mime=base.mime_for(ext)))
+        base_evidence=[page_url], source_reported=base.reported(url=file_url, mime=base.mime_for(ext), width=size[0],
+                                                                height=size[1]))
     if item.get("notes") and "notes" not in draft.candidate_extra:
         draft.candidate_extra["notes"] = item["notes"]
-    if image is not None:
-        draft.fallback_urls = [url for url in image["advertised"] if url != file_url][:3]
-        draft.fallback_note = FALLBACK_NOTE
-        if image["supplied"] and draft.action == "download" and config and config.get("supplied_marker"):
-            quality = draft.meta["quality"]
-            quality["notes"] = " ".join(filter(None, [quality.get("notes"), (
-                "The page places this image after its label "
-                f"'{config['supplied_marker']}', i.e. within material it states the developer supplied.")]))
+    if image is None:
+        return draft
+    if image["supplied"] and draft.action == "download" and config and config.get("supplied_marker"):
+        draft.meta = {**draft.meta, "quality": _supplied_quality(draft.meta["quality"], ctx.quality, config)}
+    draft.fallback_urls = [url for url in image["advertised"] if url != file_url][:3]
+    draft.fallback_note = FALLBACK_NOTE
+    draft.fallback_adjust = _fallback_adjust(image, file_url, item.get("original_filename"))
     return draft
+
+
+def _supplied_quality(quality: Mapping[str, Any], default: Mapping[str, Any], config: Mapping[str, Any]) -> dict:
+    """Quality of an image the page places after its developer-supplied label: the source's default note (which says
+    the page does not state who supplied the image) is replaced by the configured ``supplied_note``; a rule's own note
+    is kept. Either way a sentence quotes the label."""
+    notes = quality.get("notes") or ""
+    if notes == (default.get("notes") or ""):
+        notes = config["supplied_note"]
+    label = SUPPLIED_LABEL.format(marker=config["supplied_marker"])
+    return {**quality, "notes": " ".join(filter(None, [notes, label]))}
+
+
+def _fallback_adjust(image: Mapping[str, Any], file_url: str, named: str | None) -> Callable[[model.Draft, str],
+                                                                                          model.Draft]:
+    """The ``fallback_adjust`` hook of an article image: archived from ``url``, a URL the page lists, the record names
+    that URL as advertised (sizes advertised for the upload do not describe it), keeps a rendition's own file name
+    (unless the seed or the pattern names the upload's) and is not called the upload (``source_variant: unknown``)."""
+    def adjust(draft: model.Draft, url: str) -> model.Draft:
+        parts = urlsplit(url)
+        plain = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
+        rendition = plain != image["url"]  # the seed's rewrite, not only the query, maps it to the upload
+        used = copy.copy(draft)
+        own_name = not named and image["name"] == base.last_segment(image["url"])
+        if rendition and own_name:
+            used.original_filename = base.last_segment(plain)
+        ext = used.original_filename.rsplit(".", 1)[-1] if "." in (used.original_filename or "") else None
+        used.source_reported = {**draft.source_reported, "url": base.stored(url), "width": None, "height": None,
+                                "mime": base.mime_for(ext)}
+        if draft.action == "download":
+            how = ("a rendition or proxy copy that the seed's rewrite maps to the upload" if rendition
+                   else "the upload URL with the page's query")
+            note = FALLBACK_QUALITY_NOTE.format(how=how, file_url=base.stored(file_url))
+            quality = {**draft.meta["quality"], "source_variant": "unknown"}
+            quality["notes"] = " ".join(filter(None, [quality.get("notes"), note]))
+            used.meta = {**draft.meta, "quality": quality}
+        return used
+    return adjust

@@ -119,7 +119,7 @@
         {
           "match": "/20150617094/TN/002\\.jpg$",
           "action": "exclude",
-          "reason": "out_of_scope_other: 240x180 article thumbnail cropped from a song illustration (song not identified)"
+          "reason": "out_of_scope_other: article thumbnail (og:image) cropped from the Wonderful Days song-select screenshot SS/014, archived in archives:press as 4gamer862:SS/014"
         },
         {
           "match": "/20150617094/TN/[0-9]+\\.jpg$",
@@ -2015,11 +2015,11 @@
         },
         {
           "match": "^gnn132827:0001386275$",
-          "role": "gameplay_screenshot",
+          "role": "promotional",
           "evidence_quotes": [
             "Dynamix"
           ],
-          "candidate_notes": "3.0 'Outer Space' pack screen (2016).",
+          "candidate_notes": "3.0 'Outer Space' announcement card (2016): the 'Exchange Songs List: Loading… Pre-view Available' card template, a designed pack/update announcement, not an in-game screen. visual_inspection 2026-10-10: the same template as the official 3.0 news banner (Wayback thumbnail Dynamix_Website3_0-199x128.png, the same 'Outer Space' card) and the OverRapid collaboration video thumbnail shbCnvJovcE ('WAH!'), both promotional, so the three share one kind.",
           "allow_universe_mention": true,
           "game_evidence": [
             "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
@@ -2244,7 +2244,7 @@
           "candidate_notes": "Main image (og:image, mainImage) of HK01's 2018 Dynamix feature; visual_inspection 2026-10-10: the Dynamix wordmark over a colour waveform (logo key art)."
         },
         {
-          "match": "^hk01-175169:",
+          "match": "^hk01-175169:\\d+$",
           "role": "gameplay_screenshot",
           "evidence_quotes": [
             "Dynamix"
@@ -3014,6 +3014,51 @@
           "match": "^ifanr543028:MUG\\-Feature1$",
           "action": "exclude",
           "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+        },
+        {
+          "match": "^qoo(?:52753|77295):other:o\\.qoo-img\\.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE$",
+          "action": "exclude",
+          "reason": "game_ui: store app icon of Dynamix in QooApp's app card at the end of the article (branding, not artwork)"
+        },
+        {
+          "match": "^qoo77295:other:o\\.qoo-img\\.com/storage\\.qoo-img\\.com/game/880/yN0SsuRVE8KIPNUbHQmfTKiCOlIxon9I\\.png$",
+          "action": "exclude",
+          "reason": "site_ui: app icon of the QooApp store app in the publication's own app card (QooApp promoting itself)"
+        },
+        {
+          "match": "^unwire20(?:14|16):other:cdn\\.unwire\\.hk/wp-content/uploads/20(?:1[7-9]|[2-9][0-9])/",
+          "action": "exclude",
+          "reason": "site_ui: thumbnail in the publication's 'latest video' footer block inside the article container (a later, unrelated video; 2026-10-10: 'MATELASER W1 REGEN ULTRA 香港開箱評測'), not an image of this article"
+        },
+        {
+          "match": "^techbang20767:other:cdn0\\.techbang\\.com/images/lazyload/loading\\.gif$",
+          "action": "exclude",
+          "reason": "site_ui: lazy-load placeholder (the article image itself is in data-original)"
+        },
+        {
+          "match": "^ifanr543028:other:images\\.ifanr\\.cn/wp-content/themes/ifanr/static/images/default-avatar\\.jpg$",
+          "action": "exclude",
+          "reason": "site_ui: default avatar of the site theme's comment form"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/images/qrcode_00[01]\\.png$",
+          "action": "exclude",
+          "reason": "site_ui: QR code of the iOS/Android download page"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/TN/001\\.jpg$",
+          "action": "exclude",
+          "reason": "site_ui: banner of the column (ほぼ)日刊スマホゲーム通信 (also recorded by archives:4gamer)"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/TN/002\\.jpg$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: article thumbnail (og:image) cropped from the Wonderful Days song-select screenshot SS/014, archived as 4gamer862:SS/014"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/TN/[0-9]+\\.jpg$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
         }
       ],
       "params": {
@@ -3030,7 +3075,8 @@
               ]
             ],
             "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
-            "supplied_marker": "【以下內容為廠商提供資料原文】"
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
           },
           {
             "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
@@ -3044,7 +3090,8 @@
               ]
             ],
             "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
-            "supplied_marker": "【以下內容為廠商提供資料原文】"
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
           },
           {
             "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
@@ -3058,7 +3105,8 @@
               ]
             ],
             "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
-            "supplied_marker": "【以下內容為廠商提供資料原文】"
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
           },
           {
             "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
@@ -3072,7 +3120,8 @@
               ]
             ],
             "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
-            "supplied_marker": "【以下內容為廠商提供資料原文】"
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
           },
           {
             "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
@@ -3086,7 +3135,8 @@
               ]
             ],
             "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
-            "supplied_marker": "【以下內容為廠商提供資料原文】"
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
           },
           {
             "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
@@ -3100,7 +3150,8 @@
               ]
             ],
             "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
-            "supplied_marker": "【以下內容為廠商提供資料原文】"
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
           },
           {
             "page_url": "https://news.qoo-app.com/post/52753",
@@ -3207,7 +3258,12 @@
               },
               "url_field": "cdnUrl",
               "caption_field": "caption",
-              "count": "props.initialProps.pageProps.article.imageCount"
+              "count": "props.initialProps.pageProps.article.imageCount",
+              "width_field": "originalWidth",
+              "height_field": "originalHeight",
+              "extra_images": [
+                "props.initialProps.pageProps.article.mainImage"
+              ]
             },
             "pattern": "https://cdn\\.hk01\\.com/di/media/images/(?P<key>\\d+)/org/(?P<name>[0-9a-f]+\\.(?:jpe?g|JPE?G|png|PNG))/[A-Za-z0-9_-]+"
           },

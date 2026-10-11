@@ -2521,7 +2521,7 @@
         },
         {
           "match": "^1427842694999527428:",
-          "role": "reference",
+          "role": "promotional",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -2537,11 +2537,11 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "Collaboration pack lineup card printing 1 titled jacket ('White : Revolve') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "candidate_notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('White : Revolve') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped.",
           "mapping_evidence": [
             {
               "url": "https://x.com/c4c4cat/status/1427842694999527428",
-              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve'"
+              "note": "visual_inspection 2026-10-10: the card prints one titled jacket 'White : Revolve' and three '?' slots"
             }
           ]
         },
@@ -2690,7 +2690,7 @@
         },
         {
           "match": "^1434365675686879233:",
-          "role": "reference",
+          "role": "promotional",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -2706,7 +2706,7 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "Collaboration pack lineup card printing 1 titled jacket ('Rave! and Get on it!') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "candidate_notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('Rave! and Get on it!') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped.",
           "title_aliases": {
             "Rave! and Get On It!": [
               "Rave! and Get on it!"
@@ -2715,7 +2715,7 @@
           "mapping_evidence": [
             {
               "url": "https://x.com/c4c4cat/status/1434365675686879233",
-              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!'"
+              "note": "visual_inspection 2026-10-10: the card prints one titled jacket 'Rave! and Get on it!' and three '?' slots"
             }
           ]
         },
@@ -3294,7 +3294,7 @@
           "collections": [
             "Event"
           ],
-          "role": "promotional",
+          "role": "reference",
           "composers": [
             "adaptor"
           ],
@@ -3302,7 +3302,7 @@
             "url": "https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51263)"
           },
-          "candidate_notes": "Official single-song comeback card for Black：Magnam."
+          "candidate_notes": "Official single-song comeback card for Black：Magnam, re-posted in 2022 (the same file as post 1325407725623283712). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^819433943690670080:",
@@ -3654,7 +3654,7 @@
       "owner_evidence": "channel 'C 4 Cat' (UCWGypDMEwUTCkwmUR0pq0lA), keywords 'Game Mobile C4Cat Dynamix zoldout'; video descriptions link dl.dnx.c4-cat.com and facebook.com/c4cat.dynamix",
       "notes": "Official channel: 61 uploads, 3 streams and 1 playlist-only video (research enumeration 2026-10-10); the 28 Dynamix-related videos are seeded explicitly (Project W / Zold:out videos are another game).",
       "unenumerated_lists": {
-        "channel-videos": "the channel's video list is not re-enumerated (no Data API); video IDs come from the 2026-10-10 research enumeration"
+        "channel-videos": "the channel's video list is not re-enumerated (no Data API): the channel header showed 64 videos and the 2026-10-10 research enumeration read 61 uploads, 3 streams and 1 playlist-only video; only the 28 Dynamix-related videos are seeded, and the other 37 uploads are not recorded as candidates (23 Zold:out trailer, PV, OST and Kickstarter videos, 13 character skill-demo or introduction videos whose titles name no game, and the Project W teaser)"
       },
       "quality": {
         "source_variant": "preview",
@@ -3909,14 +3909,27 @@
         },
         {
           "match": "^Q4A5Wg5CViM$",
-          "role": "promotional",
+          "role": "reference",
           "evidence_quotes": [
             "Package Lovely"
           ],
           "collections": [
             "Package Lovely"
           ],
-          "candidate_notes": "Thumbnail: Package Lovely card with four jacket thumbnails."
+          "song_titles": [
+            "Crystal Ribbon",
+            "Heart Eyes",
+            "Super Macaron",
+            "White Chocolate (dynamix edit)"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
+              "note": "visual_inspection 2026-10-10: the thumbnail prints four titled jackets, each with its composer and chart-level diamonds: 'Crystal Ribbon' / Cosine (3, 5, 8), 'Heart Eyes' / M-O-T-U (2, 5, 10, 13), 'Super Macaron' / Sobrem (1, 6, 8, 11, 14), 'White Chocolate (dynamix edit)' / Cashew (1, 5, 10); the oEmbed title names only the package"
+            }
+          ],
+          "candidate_notes": "Thumbnail: Package Lovely lineup card printing 4 titled jackets ('Crystal Ribbon', 'Heart Eyes', 'Super Macaron', 'White Chocolate (dynamix edit)'), each with its chart levels: a pack lineup and chart-level graphic, kind reference (coordinator decisions D1 and D2, visual_inspection 2026-10-10); every printed title is mapped."
         },
         {
           "match": "^ohZma5VGdmo$",
