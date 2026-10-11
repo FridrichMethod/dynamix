@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-10T22:45:28Z",
-  "finished_at": "2026-10-10T22:48:20Z",
+  "started_at": "2026-10-11T00:11:47Z",
+  "finished_at": "2026-10-11T00:14:44Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -91,7 +91,7 @@
       "page_url": "https://x.com/c4c4cat/status/1156172591872167937",
       "file_url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @logical_kRM @3ps708 #Dynamix",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1156172591872167937",
@@ -119,7 +119,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for オレンジ."
+      "notes": "Official event announcement image for オレンジ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1178640887355719681:1",
@@ -353,7 +353,7 @@
       "page_url": "https://x.com/c4c4cat/status/1239884186070265856",
       "file_url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はSe-U-Raさんが作った「終の舞姫」。 開催期間は3月20日13時から3月24日21時（UTC+9）まで！ @SeURa_Nue #Dynamix #OS2019G…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1239884186070265856",
@@ -381,7 +381,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for 終の舞姫."
+      "notes": "Official event announcement image for 終の舞姫. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1247131946095972353:1",
@@ -886,7 +886,7 @@
       "page_url": "https://x.com/c4c4cat/status/1305114005191757824",
       "file_url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk?format=jpg&name=orig",
       "title": "[Event] 次の火曜日は復刻曲「Destruction」が帰ってくるよ！ 開催期間は9月15日13時から9月19日21時（UTC+9）まで！ #Dynamix",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1305114005191757824",
@@ -913,7 +913,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official single-song comeback card for Destruction."
+      "notes": "Official single-song comeback card for Destruction. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1305838780729917441:1",
@@ -922,7 +922,7 @@
       "page_url": "https://x.com/c4c4cat/status/1305838780729917441",
       "file_url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はCROWLIAさんが作った「Moving On」。 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ #Dynamix #OS2019Silver",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1305838780729917441",
@@ -949,7 +949,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for Moving On."
+      "notes": "Official event announcement image for Moving On. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1306201168503332870:1",
@@ -958,7 +958,7 @@
       "page_url": "https://x.com/c4c4cat/status/1306201168503332870",
       "file_url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5?format=jpg&name=orig",
       "title": "[Event] 今週の金曜日は復刻曲「Cryonix」が帰ってくるよ！ 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ @sky_delta #Dynamix",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1306201168503332870",
@@ -985,7 +985,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official single-song comeback card for Cryonix."
+      "notes": "Official single-song comeback card for Cryonix. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1308737882526425088:1",
@@ -1286,7 +1286,7 @@
       "page_url": "https://x.com/c4c4cat/status/1325407725623283712",
       "file_url": "https://pbs.twimg.com/media/El-TYtJVoAcIT1L?format=jpg&name=orig",
       "title": "[Event] 次の火曜日は復刻曲「Black：Magnam」が帰ってくるよ！ 開催期間は11月10日13時から11月14日21時（UTC+9）まで！ @adaptor166 #Dynamix",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1325407725623283712",
@@ -1313,7 +1313,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official single-song comeback card for Black：Magnam."
+      "notes": "Official single-song comeback card for Black：Magnam. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1331568315706142723:1",
@@ -1689,7 +1689,7 @@
       "page_url": "https://x.com/c4c4cat/status/1361646516008443909",
       "file_url": "https://pbs.twimg.com/media/EuUhfVSVoAMk5x5?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はLinne X SCTL(Illust.Keiyuu&RED-FOX)さんが作った「WHIRLWIND」。 開催期間は2月19日13時から2月23日21時（UTC+9…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1361646516008443909",
@@ -1716,7 +1716,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for WHIRLWIND."
+      "notes": "Official event announcement image for WHIRLWIND. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1364545616563507202:1",
@@ -2358,7 +2358,7 @@
       "page_url": "https://x.com/c4c4cat/status/1427842694999527428",
       "file_url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 8月21日より、『RAVONコラボPack1』が「Dynamix」に登場！ 待望の一曲目はこちら！ 【White：Revolve】by adaptor…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1427842694999527428",
@@ -2379,13 +2379,10 @@
       "song_titles": [
         "White：Revolve"
       ],
-      "composers": [
-        "adaptor"
-      ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 1 titled jacket ('White : Revolve') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1428205081292251137:1",
@@ -2394,7 +2391,7 @@
       "page_url": "https://x.com/c4c4cat/status/1428205081292251137",
       "file_url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 新進気鋭のアプリ音ゲーRAVONより、『RAVONコラボPack1』に合計4曲追加！ 二曲目はこちら！ 【Astral】by Titan Chaos …",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1428205081292251137",
@@ -2413,15 +2410,13 @@
       "disposition": "downloaded",
       "asset_id": "official:x:9ae51520ad1e1bb5",
       "song_titles": [
+        "White：Revolve",
         "Astral"
-      ],
-      "composers": [
-        "Titan Chaos"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 2 titled jackets ('White : Revolve', 'Astral') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1428567468444950530:1",
@@ -2430,7 +2425,7 @@
       "page_url": "https://x.com/c4c4cat/status/1428567468444950530",
       "file_url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack1』三曲目、 RAVONではお馴染みのあの難関曲ーー 【Mitochondria】by 5argon 一体どんな譜…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1428567468444950530",
@@ -2449,15 +2444,14 @@
       "disposition": "downloaded",
       "asset_id": "official:x:7d9659da9017b37f",
       "song_titles": [
+        "White：Revolve",
+        "Astral",
         "Mitochondria"
-      ],
-      "composers": [
-        "5argon"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 3 titled jackets ('White : Revolve', 'Astral', 'Mitochondria') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1428839259532836867:1",
@@ -2502,7 +2496,7 @@
       "page_url": "https://x.com/c4c4cat/status/1428960055492321284",
       "file_url": "https://pbs.twimg.com/media/E9END1JVIAk8djf?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack1』好評発売中🎉 【White：Revolve】by adaptor 【Astral】by Titan Chaos 【Mi…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1428960055492321284",
@@ -2529,7 +2523,7 @@
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration pack visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 4 titled jackets ('White : Revolve', 'Astral', 'Mitochondria', 'ReLyna') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1430500213030936583:1",
@@ -2606,7 +2600,7 @@
       "page_url": "https://x.com/c4c4cat/status/1434365675686879233",
       "file_url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 9月8日より、『RAVONコラボPack2』が「Dynamix」に登場！ 一曲目はこちら！ 【Rave! and Get on it!】by Woof…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1434365675686879233",
@@ -2627,13 +2621,10 @@
       "song_titles": [
         "Rave! and Get On It!"
       ],
-      "composers": [
-        "Woof"
-      ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 1 titled jacket ('Rave! and Get on it!') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1434728063649079298:1",
@@ -2642,7 +2633,7 @@
       "page_url": "https://x.com/c4c4cat/status/1434728063649079298",
       "file_url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 『RAVONコラボPack2』二曲目、公開！ 【Totally bounded】by 影虎。 イケイケの本格PsytranceがDynamixに登場😎…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1434728063649079298",
@@ -2661,15 +2652,13 @@
       "disposition": "downloaded",
       "asset_id": "official:x:15d01e5a7debd02a",
       "song_titles": [
+        "Rave! and Get On It!",
         "Totally bounded"
-      ],
-      "composers": [
-        "影虎。"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 2 titled jackets ('Rave! and Get on it!', 'Totally bounded') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1435090451833315331:1",
@@ -2678,7 +2667,7 @@
       "page_url": "https://x.com/c4c4cat/status/1435090451833315331",
       "file_url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack2』三曲目、 RAVONといえばーー 【Euouae】by Spyro Kong BPMは驚異の410！Dynam…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1435090451833315331",
@@ -2697,15 +2686,14 @@
       "disposition": "downloaded",
       "asset_id": "official:x:a751b31e7ba30526",
       "song_titles": [
+        "Rave! and Get On It!",
+        "Totally bounded",
         "Euouae"
-      ],
-      "composers": [
-        "Spyro Kong"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 3 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1435452837211803651:1",
@@ -2750,7 +2738,7 @@
       "page_url": "https://x.com/c4c4cat/status/1435483036779483139",
       "file_url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack2』好評発売中🎉 【Rave! and Get on it!】by Woof 【Totally bounded】by 影虎…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1435483036779483139",
@@ -2777,7 +2765,7 @@
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "RAVON collaboration pack visual (3840x2160)."
+      "notes": "Collaboration pack lineup card printing 4 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1437430883837956097:1",
@@ -2816,7 +2804,7 @@
       "page_url": "https://x.com/c4c4cat/status/1437747970875674626",
       "file_url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はReku Mochizukiさんが作った「玲瓏メテオ」。 開催期間は9月17日13時から9月21日21時（UTC+9）まで！ @RekuMczk #Dynamix #…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1437747970875674626",
@@ -2844,7 +2832,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for 玲瓏メテオ."
+      "notes": "Official event announcement image for 玲瓏メテオ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1440662164495237120:1",
@@ -3167,7 +3155,8 @@
         "timestamp": "2021-12-22T12:00:02.000Z",
         "revision": null
       },
-      "disposition": "downloaded",
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1475073909376618498:1",
       "asset_id": "official:x:44f2c56eae77adb4",
       "song_titles": [
         "Unshakable",
@@ -3176,7 +3165,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official comeback card listing two songs (list graphic). The post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card."
+      "notes": "Official comeback card listing two songs (list graphic). This post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card, which is recorded under post 1475073909376618498 (whose text names those songs); this candidate is duplicate_bytes of it."
     },
     {
       "id": "official:x:1475073909376618498:1",
@@ -3201,8 +3190,7 @@
         "timestamp": "2021-12-26T12:00:00.000Z",
         "revision": null
       },
-      "disposition": "duplicate_bytes",
-      "reason": "duplicate_bytes: identical bytes already archived for official:x:1473624368869748740:1",
+      "disposition": "downloaded",
       "asset_id": "official:x:44f2c56eae77adb4",
       "song_titles": [
         "Unshakable",
@@ -3211,7 +3199,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+      "notes": "Official comeback announcement listing 2 songs (list graphic). The same card is also attached to post 1473624368869748740, which announces another comeback."
     },
     {
       "id": "official:x:1476161072998453249:1",
@@ -3492,7 +3480,7 @@
       "page_url": "https://x.com/c4c4cat/status/1498629128467197954",
       "file_url": "https://pbs.twimg.com/media/FMwrI-BWQAM46-W?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はStreet (jacket : Sin:cK)さんが作った「Φ」。 開催期間は3月4日13時から3月8日21時（UTC+9）まで！ #Dynamix #OS2019…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1498629128467197954",
@@ -3519,7 +3507,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for Φ."
+      "notes": "Official event announcement image for Φ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1506601655986388992:1",
@@ -3943,7 +3931,7 @@
       "page_url": "https://x.com/c4c4cat/status/1818255227595743610",
       "file_url": "https://pbs.twimg.com/media/GTbltElaMAAOT25?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はAoiさんが作った「scualee」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @BLUEnoup #Dynamix #OS2023Regul…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1818255227595743610",
@@ -3971,7 +3959,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733)."
+      "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1833837896794792179:1",
@@ -4088,7 +4076,7 @@
       "page_url": "https://x.com/c4c4cat/status/1868989522002018708",
       "file_url": "https://pbs.twimg.com/media/GeichmVbIAA9x34?format=jpg&name=orig",
       "title": "[Event] 次のイベント曲はYukikurageさんが作った「Curtainfall!」。 開催期間は12月20日13時から12月24日21時（UTC+9）まで！ @yukikurage_201…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1868989522002018708",
@@ -4116,7 +4104,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for Curtainfall!."
+      "notes": "Official event announcement image for Curtainfall!. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1870076698345287834:1",
@@ -4151,7 +4139,7 @@
       "page_url": "https://x.com/c4c4cat/status/1889645633545613724",
       "file_url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
       "title": "[Dynamix X Berry Melody コラボレーション予告] Dynamix X Berry Melody のコラボレーションパッケージの内容予告。 第三曲はxLさんが作った「horlog…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1889645633545613724",
@@ -4171,15 +4159,14 @@
       "disposition": "downloaded",
       "asset_id": "official:x:c18773b8b5555b0a",
       "song_titles": [
+        "Grayscale Tragedy",
+        "ネーヴェの紋様",
         "Horloge"
-      ],
-      "composers": [
-        "xL"
       ],
       "collections": [
         "Berry Melody Collaboration"
       ],
-      "notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge."
+      "notes": "Collaboration pack lineup card printing 3 titled jackets ('Grayscale Tragedy', 'ネーヴェの紋様', 'horloge') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1901242039800299634:1",
@@ -4188,7 +4175,7 @@
       "page_url": "https://x.com/c4c4cat/status/1901242039800299634",
       "file_url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC?format=jpg&name=orig",
       "title": "[Dynamix X シノビスラッシュ コラボレーション予告] Dynamix X シノビスラッシュ のコラボレーションパッケージの内容予告。 第二曲はK-forestさんが作った「流麗凛舞」！",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1901242039800299634",
@@ -4207,15 +4194,13 @@
       "disposition": "downloaded",
       "asset_id": "official:x:379a6800dcbd1cce",
       "song_titles": [
+        "Luna Rossa",
         "流麗凛舞"
-      ],
-      "composers": [
-        "K-forest"
       ],
       "collections": [
         "Shinobi Slash Collaboration"
       ],
-      "notes": "Official event announcement image for 流麗凛舞."
+      "notes": "Collaboration pack lineup card printing 2 titled jackets ('Luna Rossa', '流麗凛舞') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:809670504449572864:1",
@@ -4224,7 +4209,7 @@
       "page_url": "https://x.com/c4c4cat/status/809670504449572864",
       "file_url": "https://pbs.twimg.com/media/CzyHBXQUUAAy95S?format=jpg&name=orig",
       "title": "今週のイベントソング「紅」は初めてのLv.15のGigaです。日本の作曲家モリモリあつしが作りました；他にドラマで狂ってるドS女子高生Zakuroが登場します。#dynamix @ats024",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/809670504449572864",
@@ -4251,7 +4236,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for 紅."
+      "notes": "Official event announcement image for 紅. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:811543501733101568:1",
@@ -4260,7 +4245,7 @@
       "page_url": "https://x.com/c4c4cat/status/811543501733101568",
       "file_url": "https://pbs.twimg.com/media/C0MubPsUsAAuF-Z?format=jpg&name=orig",
       "title": "今週のイベントソングは@EBICOさんが作成されたソングですよ～内容は地下暗殺集団のストーリーです。今週のクリスマスを迎えるために、イベントは二日間、金曜日12時から来週火曜日8時まで延長することに…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/811543501733101568",
@@ -4288,7 +4273,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image (COMING SOON card) for Persephone."
+      "notes": "Official event announcement image (COMING SOON card) for Persephone. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:819433943690670080:1",
@@ -4297,7 +4282,7 @@
       "page_url": "https://x.com/c4c4cat/status/819433943690670080",
       "file_url": "https://pbs.twimg.com/media/C182w-fUkAAMa1B?format=jpg&name=orig",
       "title": "イベントの時間です！@stereoberry さんの Vanilla Skyです！",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/819433943690670080",
@@ -4324,7 +4309,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for Vanilla_Sky."
+      "notes": "Official event announcement image for Vanilla_Sky. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:831877510870601728:1",
@@ -4333,7 +4318,7 @@
       "page_url": "https://x.com/c4c4cat/status/831877510870601728",
       "file_url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8?format=jpg&name=orig",
       "title": "今週のイベントはRabi-Ribiとコラボした曲Theme of @RabiRibiGame で、@3R2 さんの作ったものです。Rabi-RibiのキャラErina & Ribbonも登場しますよ！",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/831877510870601728",
@@ -4360,7 +4345,7 @@
       "collections": [
         "Rabi-Ribi Collaboration"
       ],
-      "notes": "Official event announcement image for Theme of Rabi-Ribi."
+      "notes": "Official event announcement image for Theme of Rabi-Ribi. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:834312940610220032:1",
@@ -4369,7 +4354,7 @@
       "page_url": "https://x.com/c4c4cat/status/834312940610220032",
       "file_url": "https://pbs.twimg.com/media/C5QTJnJUkAAmXV_?format=jpg&name=orig",
       "title": "[Event]今週のイベントはコメントでよく言及された、待望の@BLUEnoup さんの作ったαterlβusです。内容は善と悪の対決(♯｀∧´) で、そしてDynamixの中で2曲目のGiga 1…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/834312940610220032",
@@ -4396,7 +4381,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for αterlβus."
+      "notes": "Official event announcement image for αterlβus. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:835073424917577728:1",
@@ -4525,7 +4510,7 @@
       "page_url": "https://x.com/c4c4cat/status/842671176669323264",
       "file_url": "https://pbs.twimg.com/media/C7HEkCSU8AIXjNf?format=jpg&name=orig",
       "title": "One of the song in our latest package, Package Lovely! Crystal Ribbon Composed by @966__P !!",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/842671176669323264",
@@ -4552,7 +4537,7 @@
       "collections": [
         "Package Lovely"
       ],
-      "notes": "Official preview image for Crystal Ribbon of Package Lovely."
+      "notes": "Official preview image for Crystal Ribbon of Package Lovely. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:870277523724132352:1",
@@ -4591,7 +4576,7 @@
       "page_url": "https://x.com/c4c4cat/status/877170201267023872",
       "file_url": "https://pbs.twimg.com/media/DCxVkdcVoAEBoiA?format=jpg&name=orig",
       "title": "次のイベントソングは @akqmusic さん作った, @arcaea_jp 収録の Vexaria です。イベントの開催時間は 6月23日12時 (UTC+8) から 6月27日 20時まで (U…",
-      "role": "promotional",
+      "role": "reference",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/877170201267023872",
@@ -4618,7 +4603,7 @@
       "collections": [
         "Arcaea Collaboration"
       ],
-      "notes": "Official event announcement image for Vexaria."
+      "notes": "Official event announcement image for Vexaria. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:880003300275347458:1",
@@ -4627,7 +4612,7 @@
       "page_url": "https://x.com/c4c4cat/status/880003300275347458",
       "file_url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl?format=jpg&name=orig",
       "title": "次のイベントソングは @BLUEnoupさん with @mAoA9_com さん作った To soar です。イベントの開催時間は 6月30日12時 (UTC+8) から 7月4日 20時まで (…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/880003300275347458",
@@ -4654,7 +4639,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for to soar."
+      "notes": "Official event announcement image for to soar. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:900634708517593089:1",
@@ -4663,7 +4648,7 @@
       "page_url": "https://x.com/c4c4cat/status/900634708517593089",
       "file_url": "https://pbs.twimg.com/media/DH-yb22UMAAZhwY?format=jpg&name=orig",
       "title": "『自然界の神秘を刻み、指し示すもの』 次のイベントソングは @nixets さん作った Arcana Idola です。イベントの開催時間は 8月25日12時 (UTC+8) から 8月29日 20…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/900634708517593089",
@@ -4690,7 +4675,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for Arcana Idola."
+      "notes": "Official event announcement image for Arcana Idola. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:920935237567201281:1",
@@ -4769,7 +4754,7 @@
       "page_url": "https://x.com/c4c4cat/status/981147690795900928",
       "file_url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
       "title": "[Event] 次のイベントソングは @Tang0Juanさんvs Black Boxさん作った Xetta。 開催期間は4月6日12時（UTC+8）から4月10日20時（UTC+8）まで！ #Dy…",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/981147690795900928",
@@ -4797,7 +4782,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official event announcement image for Xetta."
+      "notes": "Official event announcement image for Xetta. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     }
   ],
   "errors": [

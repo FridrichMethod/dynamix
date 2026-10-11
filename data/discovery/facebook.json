@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:facebook",
-  "started_at": "2026-10-10T22:28:18Z",
-  "finished_at": "2026-10-10T22:29:12Z",
+  "started_at": "2026-10-11T00:18:53Z",
+  "finished_at": "2026-10-11T00:19:47Z",
   "scope": {
     "lists": [
       "seed-permalinks",
@@ -534,7 +534,7 @@
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/",
       "file_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/469446976_2636232839896878_8110049444913293675_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x628&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=caqkchYl0jIQ7kNvwGfzWQi&_nc_oc=AdrCLak-ccc8vudS7MalawtIKkpF6bK3ua77gDGHsSzqV_CZ7u5tXXgKIp_eAej4jsM&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=GqcaUJdo5hlZITjXbvRJAQ&_nc_ss=7b20f&oh=00_AQMx6tRGi72hUag_mRuLXOBr6gtN18B-R31tTDVvb3tDGg&oe=6AD06C2D",
       "title": "Dynamix - [Upcoming Event 活動預告] The Event track of this...",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/",
@@ -561,7 +561,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Upcoming event card for Shinobi (Original Short Mix)."
+      "notes": "Upcoming event card for Shinobi (Original Short Mix). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:facebook:1807859599400877",
@@ -783,14 +783,14 @@
       },
       "disposition": "excluded",
       "reason": "out_of_scope_other: Facebook link-preview rendition (815x792, darkened) of the official website's song-art collage new32.png, which is archived from its own capture as archives:wayback:77957c0d9f1b5ff4",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/we-are-calling-for-music-submissionhttpdynamixc4-catcommusic_submissionrulesarti/429940337192817/ as served logged out on 2026-10-10."
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/we-are-calling-for-music-submissionhttpdynamixc4-catcommusic_submissionrulesarti/429940337192817/ as served to a logged-out reader."
     },
     {
       "id": "official:facebook:452110388309145",
       "source_id": "official:facebook",
       "upstream_key": "452110388309145",
       "page_url": "https://www.facebook.com/c4cat.dynamix/videos/452110388309145/",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ZUJs8GtUQnNCh3jUZwC6YA&_nc_ss=7b20f&oh=00_AQP4WHRT2PAxH6oh9lJbdNoPtN5GbPvsOgCyeDjrFJNtCQ&oe=6AD09AF1",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=-rg9IAQEZabuiJpEI2aeoA&_nc_ss=7b20f&oh=00_AQOAnatUGEiwx8A5XbsNPhw8e-uJPCzcyCSqamFrK0aubA&oe=6AD09AF1",
       "title": "[更新預告] 音樂遊戲「Dynamix」預定於1月(Android)/2月(iOS)推出版本2.6的更新 - 下載: http://dl.dnx.c4-cat.com/ (･∀･)曲包增加 - 鋼琴電音為主題的曲包－<<Piano>> D…",
       "role": null,
       "game": "unknown",
@@ -798,7 +798,7 @@
         "https://www.facebook.com/c4cat.dynamix/videos/452110388309145/"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ZUJs8GtUQnNCh3jUZwC6YA&_nc_ss=7b20f&oh=00_AQP4WHRT2PAxH6oh9lJbdNoPtN5GbPvsOgCyeDjrFJNtCQ&oe=6AD09AF1",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t15.5256-10/12365630_1666695936936096_2138713830_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a27664&_nc_ohc=wfFQJ_ekpN8Q7kNvwHnLa4T&_nc_oc=AdoCHgtq5lyh2EhSkDEDc_Z251Oz4wBeRpKBtHdEE6oQtD5yyD1fwEUF6Z-TwGuK74Q&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=-rg9IAQEZabuiJpEI2aeoA&_nc_ss=7b20f&oh=00_AQOAnatUGEiwx8A5XbsNPhw8e-uJPCzcyCSqamFrK0aubA&oe=6AD09AF1",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -809,7 +809,7 @@
       },
       "disposition": "excluded",
       "reason": "video_placeholder: poster frame of the v2.6 update preview video (abstract light streaks, no artwork or UI)",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/452110388309145/ as served logged out on 2026-10-10. Withdrawn 2026-10-10 by a curated seed rule (video_placeholder: poster frame of the v2.6 update preview video (abstract light streaks, no artwork or UI)): archived record(s) official:facebook:8182dca1ed8abc45 (sha256 8182dca1ed8abc45efe793110544e9fe4677780ce98a7dd1e65fd189aaa684f4) removed from the manifest and asset tree; the bytes remain in the Git history."
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/452110388309145/ as served to a logged-out reader. Withdrawn 2026-10-10 by a curated seed rule (video_placeholder: poster frame of the v2.6 update preview video (abstract light streaks, no artwork or UI)): archived record(s) official:facebook:8182dca1ed8abc45 (sha256 8182dca1ed8abc45efe793110544e9fe4677780ce98a7dd1e65fd189aaa684f4) removed from the manifest and asset tree; the bytes remain in the Git history."
     },
     {
       "id": "official:facebook:620178154835700",
@@ -843,11 +843,11 @@
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/693933942734314",
       "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5hRMx7hNlw2lSc8VcrkkCg&_nc_ss=7b20f&oh=00_AQO9qApiYt6Y8ysMzQ6KfgfTCJ1xofvMLhUIbsb8KUQe4g&oe=6AD06CD4",
       "title": "Dynamix - 睽違2年, Dynamix 公開徵曲活動在2023年的今天!!又双叒再次與大家見面了!...",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "https://www.facebook.com/c4cat.dynamix/posts/693933942734314",
-        "og:description: ubmission"
+        "og:description: 公開徵曲活動在2023年的今天"
       ],
       "source_reported": {
         "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5hRMx7hNlw2lSc8VcrkkCg&_nc_ss=7b20f&oh=00_AQO9qApiYt6Y8ysMzQ6KfgfTCJ1xofvMLhUIbsb8KUQe4g&oe=6AD06CD4",
@@ -861,7 +861,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:facebook:a3a73b6a2c3268df",
-      "notes": "Open Submission 2023 poster: informational graphic stating the submission rules and cover-art format."
+      "notes": "Open Submission 2023 key visual; visual_inspection 2026-10-10 of the 600x600 Open Graph crop: the mascot with the title 'DYNAMIX 2023 OPEN SUBMISSION' (no rules text is visible in this crop), an event key visual (promotional)."
     },
     {
       "id": "official:facebook:768368460016668",
@@ -870,7 +870,7 @@
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/768368460016668",
       "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/500761749_2791910740995753_5619784954166562840_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1152&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=7BR3msp11qYQ7kNvwGGmPh7&_nc_oc=AdqG5qOavPH7BQ4PeDHj14b4dPd5G0m6NJcbX1Z79c9Ovaa3bP3jl-b_4cTswoZ4KMc&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=XUUFsQiHBCDYQ7sh432pdw&_nc_ss=7b20f&oh=00_AQPOKBw1kqAWSsOVcj_IKJ7CzR3oui43CHUkfvS5UfHf3A&oe=6AD0769D",
       "title": "Dynamix - [Event] The Event track of the week is...",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://www.facebook.com/c4cat.dynamix/posts/768368460016668",
@@ -894,7 +894,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Event 'coming soon' card (Hyphen)."
+      "notes": "Event 'coming soon' card (Hyphen). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:facebook:787584971428350",
@@ -982,7 +982,7 @@
       "source_id": "official:facebook",
       "upstream_key": "page",
       "page_url": "https://www.facebook.com/c4cat.dynamix/",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5TVW1aH0dK0vHV4UXp8F8A&_nc_ss=7b20f&oh=00_AQPPJGriuwgHv18sMC4ba5FG_F1ePcDaNmxfTdCGOwdLIA&oe=6AD08B4B",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ujH2kK90OGA161391c1aOQ&_nc_ss=7b20f&oh=00_AQO3o8g8cPzCx90mUVspCnr14bWOc9SMRHD_QpqmHviNvA&oe=6AD0C38B",
       "title": "Dynamix",
       "role": null,
       "game": "unknown",
@@ -990,7 +990,7 @@
         "https://www.facebook.com/c4cat.dynamix/"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5TVW1aH0dK0vHV4UXp8F8A&_nc_ss=7b20f&oh=00_AQPPJGriuwgHv18sMC4ba5FG_F1ePcDaNmxfTdCGOwdLIA&oe=6AD08B4B",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-1/294666567_474539334673777_4200809782973341363_n.png?stp=dst-png&cstp=mx1024x1024&ctp=s720x720&_nc_cat=101&ccb=1-7&_nc_sid=3ab345&_nc_ohc=dedAkUBDungQ7kNvwGYk5W4&_nc_oc=AdppWNYhLyhuDE_lqLj3C_RZ72ETj6Y7BVaZWDW0xTZfcY3c32qpbNB5d_ZQbMp-ye0&_nc_zt=24&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ujH2kK90OGA161391c1aOQ&_nc_ss=7b20f&oh=00_AQO3o8g8cPzCx90mUVspCnr14bWOc9SMRHD_QpqmHviNvA&oe=6AD0C38B",
         "mime": "image/png",
         "bytes": null,
         "width": null,
@@ -1001,23 +1001,23 @@
       },
       "disposition": "excluded",
       "reason": "game_ui: app icon used as the page's profile picture",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size s720x720, source bound mx1024x1024)."
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/ as served to a logged-out reader (Facebook rendition parameters: display size s720x720, source bound mx1024x1024)."
     },
     {
       "id": "official:facebook:pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl",
       "source_id": "official:facebook",
       "upstream_key": "pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl",
-      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=4-CONCVjvjd2jGxX12pXAQ&_nc_ss=7b20f&oh=00_AQNtJad-MlxnhYeiYPnHaEWYWa9bp4r4Ya3__NvYvSKKqw&oe=6AD0A514",
+      "file_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ajeUjZM9rVUYLC34PoZoNA&_nc_ss=7b20f&oh=00_AQMDTQ6GOTf4EL-1qTyEWJsE0rsq-VcSE2BVMkHxx0JbJQ&oe=6AD0A514",
       "title": "Dynamix - 睽違2年, Dynamix 公開徵曲活動在2023年的今天!!又双叒再次與大家見面了!...",
-      "role": "reference",
+      "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
         "https://www.facebook.com/c4cat.dynamix/posts/pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl",
-        "og:description: ubmission"
+        "og:description: 公開徵曲活動在2023年的今天"
       ],
       "source_reported": {
-        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=4-CONCVjvjd2jGxX12pXAQ&_nc_ss=7b20f&oh=00_AQNtJad-MlxnhYeiYPnHaEWYWa9bp4r4Ya3__NvYvSKKqw&oe=6AD0A514",
+        "url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=ajeUjZM9rVUYLC34PoZoNA&_nc_ss=7b20f&oh=00_AQMDTQ6GOTf4EL-1qTyEWJsE0rsq-VcSE2BVMkHxx0JbJQ&oe=6AD0A514",
         "mime": "image/jpeg",
         "bytes": null,
         "width": null,
@@ -1029,7 +1029,7 @@
       "disposition": "duplicate_bytes",
       "reason": "duplicate_bytes: identical bytes already archived for official:facebook:693933942734314",
       "asset_id": "official:facebook:a3a73b6a2c3268df",
-      "notes": "Open Submission 2023 poster (second post): informational graphic stating the submission rules and cover-art format."
+      "notes": "Open Submission 2023 key visual; visual_inspection 2026-10-10 of the 600x600 Open Graph crop: the mascot with the title 'DYNAMIX 2023 OPEN SUBMISSION' (no rules text is visible in this crop), an event key visual (promotional)."
     }
   ],
   "errors": []

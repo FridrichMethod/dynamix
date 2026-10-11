@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "official",
-  "fetched_at": "2026-10-10T22:48:19Z",
+  "fetched_at": "2026-10-11T00:14:38Z",
   "sources": [
     {
       "id": "official:apple-store",
@@ -42,7 +42,7 @@
       "url": "https://www.facebook.com/c4cat.dynamix/",
       "platform": "facebook",
       "status": "partially_available",
-      "checked_at": "2026-10-10T22:28:18Z",
+      "checked_at": "2026-10-11T00:18:53Z",
       "notes": "Original-game page (linked by the stores; 24,053 followers in research). Explicit permalinks cited by the Dynamix wiki or found by research, read logged out; the Open Graph image of each is archived as Facebook's rendition.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
@@ -154,7 +154,7 @@
       "url": "https://x.com/c4c4cat",
       "platform": "x",
       "status": "partially_available",
-      "checked_at": "2026-10-10T22:45:28Z",
+      "checked_at": "2026-10-11T00:11:47Z",
       "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -171,7 +171,7 @@
       "url": "https://www.youtube.com/@C4CatEntertainment",
       "platform": "youtube",
       "status": "partially_available",
-      "checked_at": "2026-10-10T22:32:26Z",
+      "checked_at": "2026-10-11T00:14:47Z",
       "notes": "Official channel: 61 uploads, 3 streams and 1 playlist-only video (research enumeration 2026-10-10); the 28 Dynamix-related videos are seeded explicitly (Project W / Zold:out videos are another game).",
       "api_url": "https://www.youtube.com/oembed",
       "owner_evidence": "channel 'C 4 Cat' (UCWGypDMEwUTCkwmUR0pq0lA), keywords 'Game Mobile C4Cat Dynamix zoldout'; video descriptions link dl.dnx.c4-cat.com and facebook.com/c4cat.dynamix",
@@ -2610,7 +2610,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1302443343275841 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official new character/parts poster (3.14.00 update post) (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1302443343275841 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official new character/parts poster (3.14.00 update post) (research og:image description).",
       "transformed": true
     },
     {
@@ -2685,7 +2685,7 @@
         "dynamix",
         "paradigm_reboot"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/258082247123314 as served logged out on 2026-10-10. Video poster: in-game UI with the Paradigm character Para (song Restricted Access).",
+      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/258082247123314 as served to a logged-out reader. Video poster: in-game UI with the Paradigm character Para (song Restricted Access).",
       "transformed": true
     },
     {
@@ -2754,7 +2754,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1038600566326788 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Lunar New Year event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1038600566326788 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x719). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Lunar New Year event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -2823,7 +2823,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1013660312154147 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2018 Christmas event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1013660312154147 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1000). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2018 Christmas event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -2892,7 +2892,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1528176000702573 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Halloween 2020 x 6th anniversary poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1528176000702573 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Halloween 2020 x 6th anniversary poster (research og:image description).",
       "transformed": true
     },
     {
@@ -2961,7 +2961,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1582732028580303 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Christmas 2020 event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1582732028580303 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Christmas 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3030,7 +3030,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1467743186745855 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Summer 2020 event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1467743186745855 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Summer 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3099,7 +3099,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1809409469245890 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Operation notice card (mascot).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1809409469245890 as served to a logged-out reader (Facebook rendition parameters: display size s600x600, source bound mx800x800). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Operation notice card (mascot).",
       "transformed": true
     },
     {
@@ -3168,7 +3168,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1369360063250835 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Easter 2020 event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1369360063250835 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Easter 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3237,7 +3237,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/979167482270097 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1000). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 4th anniversary x Halloween 2018 poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/979167482270097 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1000). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 4th anniversary x Halloween 2018 poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3306,7 +3306,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1268316040021905 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Christmas event poster (3.13.07 update post) (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1268316040021905 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Christmas event poster (3.13.07 update post) (research og:image description).",
       "transformed": true
     },
     {
@@ -3314,7 +3314,7 @@
       "source_id": "official:facebook",
       "candidate_id": "official:facebook:1788302508023253",
       "title": "Dynamix - [Upcoming Event 活動預告] The Event track of this...",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/",
       "download_url": "https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/469446976_2636232839896878_8110049444913293675_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x628&ctp=p600x600&_nc_cat=103&ccb=1-7&_nc_sid=cae128&_nc_ohc=caqkchYl0jIQ7kNvwGfzWQi&_nc_oc=AdrCLak-ccc8vudS7MalawtIKkpF6bK3ua77gDGHsSzqV_CZ7u5tXXgKIp_eAej4jsM&_nc_zt=23&_nc_ht=scontent-sjc3-1.xx&_nc_gid=GqcaUJdo5hlZITjXbvRJAQ&_nc_ss=7b20f&oh=00_AQMx6tRGi72hUag_mRuLXOBr6gtN18B-R31tTDVvb3tDGg&oe=6AD06C2D",
@@ -3403,7 +3403,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1200x628). Upcoming event card for Shinobi (Original Short Mix).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/ as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx1200x628). Upcoming event card for Shinobi (Original Short Mix). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
       "transformed": true
     },
     {
@@ -3472,7 +3472,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1427080310812143 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Dragon Boat Festival 2020 event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1427080310812143 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). Official Dragon Boat Festival 2020 event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3480,7 +3480,7 @@
       "source_id": "official:facebook",
       "candidate_id": "official:facebook:693933942734314",
       "title": "Dynamix - 睽違2年, Dynamix 公開徵曲活動在2023年的今天!!又双叒再次與大家見面了!...",
-      "kind": "reference",
+      "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/693933942734314",
       "download_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/487091128_1213140294147007_3208062692508274888_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s600x600&_nc_cat=100&ccb=1-7&_nc_sid=cae128&_nc_ohc=SSkZrmXe6loQ7kNvwHa4c9_&_nc_oc=AdqHP2yoPBMAAxSOnwCTS2TkXJb6yjEesynHaYkDqS_EdPReVED_oN3MOnuA-7rjF5U&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5hRMx7hNlw2lSc8VcrkkCg&_nc_ss=7b20f&oh=00_AQO9qApiYt6Y8ysMzQ6KfgfTCJ1xofvMLhUIbsb8KUQe4g&oe=6AD06CD4",
@@ -3541,7 +3541,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/693933942734314 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s600x600, source bound mx800x800). Open Submission 2023 poster: informational graphic stating the submission rules and cover-art format.",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/693933942734314 as served to a logged-out reader (Facebook rendition parameters: display size s600x600, source bound mx800x800). Open Submission 2023 key visual; visual_inspection 2026-10-10 of the 600x600 Open Graph crop: the mascot with the title 'DYNAMIX 2023 OPEN SUBMISSION' (no rules text is visible in this crop), an event key visual (promotional).",
       "transformed": true
     },
     {
@@ -3549,7 +3549,7 @@
       "source_id": "official:facebook",
       "candidate_id": "official:facebook:768368460016668",
       "title": "Dynamix - [Event] The Event track of the week is...",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://www.facebook.com/c4cat.dynamix/posts/768368460016668",
       "download_url": "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/500761749_2791910740995753_5619784954166562840_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1152&ctp=p600x600&_nc_cat=107&ccb=1-7&_nc_sid=cae128&_nc_ohc=7BR3msp11qYQ7kNvwGGmPh7&_nc_oc=AdqG5qOavPH7BQ4PeDHj14b4dPd5G0m6NJcbX1Z79c9Ovaa3bP3jl-b_4cTswoZ4KMc&_nc_zt=23&_nc_ht=scontent-sjc6-1.xx&_nc_gid=XUUFsQiHBCDYQ7sh432pdw&_nc_ss=7b20f&oh=00_AQPOKBw1kqAWSsOVcj_IKJ7CzR3oui43CHUkfvS5UfHf3A&oe=6AD0769D",
@@ -3627,7 +3627,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/768368460016668 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx2048x1152). Event 'coming soon' card (Hyphen).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/768368460016668 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx2048x1152). Event 'coming soon' card (Hyphen). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
       "transformed": true
     },
     {
@@ -3702,7 +3702,7 @@
         "dynamix",
         "paradigm_reboot"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/1286313065321666 as served logged out on 2026-10-10. Video poster: in-game UI with the Paradigm character Alkaid (song Marsh Winds).",
+      "notes": "Rights holder not recorded: the art is also associated with paradigm_reboot and no cited source names its holder, so the C4Cat default is not applied. Open Graph image of https://www.facebook.com/c4cat.dynamix/videos/1286313065321666 as served to a logged-out reader. Video poster: in-game UI with the Paradigm character Alkaid (song Marsh Winds).",
       "transformed": true
     },
     {
@@ -3771,7 +3771,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/901693993350780 as served logged out on 2026-10-10 (Facebook rendition parameters: display size s1000x200, source bound mx1000x200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Summer 2018 event banner (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/901693993350780 as served to a logged-out reader (Facebook rendition parameters: display size s1000x200, source bound mx1000x200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official Summer 2018 event banner (research og:image description).",
       "transformed": true
     },
     {
@@ -3840,7 +3840,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1205047386348771 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 5th anniversary x Halloween 2019 poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1205047386348771 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 5th anniversary x Halloween 2019 poster (research og:image description).",
       "transformed": true
     },
     {
@@ -3909,7 +3909,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/787584971428350 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Player ID instruction card.",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/787584971428350 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Player ID instruction card.",
       "transformed": true
     },
     {
@@ -3978,7 +3978,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1160648210788689 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Summer event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1160648210788689 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x1200). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Summer event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -4047,7 +4047,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1087145688138942 as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx820x719). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Easter event poster (research og:image description).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1087145688138942 as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx820x719). The upload's file name ends in .png (its uploaded format); the URL's stp parameter requests a JPEG rendition, which is what source_reported.mime records. Official 2019 Easter event poster (research og:image description).",
       "transformed": true
     },
     {
@@ -4145,7 +4145,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/ as served logged out on 2026-10-10 (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Comeback announcement card listing two songs (list graphic).",
+      "notes": "Open Graph image of https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/ as served to a logged-out reader (Facebook rendition parameters: display size p600x600, source bound mx1920x1080). Comeback announcement card listing two songs (list graphic).",
       "transformed": true
     },
     {
@@ -6015,7 +6015,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1427842694999527428:1",
       "title": "【#RAVON × #Dynamix コラボ】 8月21日より、『RAVONコラボPack1』が「Dynamix」に登場！ 待望の一曲目はこちら！ 【White：Revolve】by adaptor…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1427842694999527428",
       "download_url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
@@ -6031,9 +6031,7 @@
       "height": 2160,
       "fetched_at": "2026-10-10T20:52:57Z",
       "illustrators": [],
-      "composers": [
-        "adaptor"
-      ],
+      "composers": [],
       "song_titles": [
         "White：Revolve"
       ],
@@ -6054,6 +6052,10 @@
           "url": "https://x.com/c4c4cat/status/1427842694999527428",
           "field": "text",
           "quote": "…ONコラボPack1』が「Dynamix」に登場! 待望の一曲目はこちら! 【White:Revolve】by adaptor なんと、Black:Magnamの続編曲です✨ 配信日…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1427842694999527428",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve'"
         }
       ],
       "quality": {
@@ -6094,21 +6096,12 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "adaptor",
-          "url": "https://dynamix.miraheze.org/wiki/White%EF%BC%9ARevolve",
-          "field": null,
-          "quote": null
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50978) https://dynamix.miraheze.org/wiki/White%EF%BC%9ARevolve: adaptor (composer). RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 1 titled jacket ('White : Revolve') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:07c3385bc6631c2d",
@@ -6207,7 +6200,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:831877510870601728:1",
       "title": "今週のイベントはRabi-Ribiとコラボした曲Theme of @RabiRibiGame で、@3R2 さんの作ったものです。Rabi-RibiのキャラErina & Ribbonも登場しますよ！",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/831877510870601728",
       "download_url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8?format=jpg&name=orig",
@@ -6300,14 +6293,14 @@
         "dynamix",
         "rabi_ribi"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with rabi_ribi and no cited source names its holder, so the C4Cat default is not applied. Official event announcement image for Theme of Rabi-Ribi."
+      "notes": "Rights holder not recorded: the art is also associated with rabi_ribi and no cited source names its holder, so the C4Cat default is not applied. Official event announcement image for Theme of Rabi-Ribi. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:0977a070859fd5c0",
       "source_id": "official:x",
       "candidate_id": "official:x:1435483036779483139:1",
       "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack2』好評発売中🎉 【Rave! and Get on it!】by Woof 【Totally bounded】by 影虎…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1435483036779483139",
       "download_url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO?format=jpg&name=orig",
@@ -6365,6 +6358,10 @@
           "url": "https://x.com/c4c4cat/status/1435483036779483139",
           "field": "text",
           "quote": "…y bounded】by 影虎。 【Euouae】by Spyro Kong 【MassacrE || 3rc4224M】by Spiegel vs Yukino https://t.co/QIVLz…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1435483036779483139",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M'"
         }
       ],
       "quality": {
@@ -6410,7 +6407,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. RAVON collaboration pack visual (3840x2160)."
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 4 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:0ad190bb8a37ca09",
@@ -6899,7 +6896,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1428960055492321284:1",
       "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack1』好評発売中🎉 【White：Revolve】by adaptor 【Astral】by Titan Chaos 【Mi…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1428960055492321284",
       "download_url": "https://pbs.twimg.com/media/E9END1JVIAk8djf?format=jpg&name=orig",
@@ -6957,6 +6954,10 @@
           "url": "https://x.com/c4c4cat/status/1428960055492321284",
           "field": "text",
           "quote": "…by Titan Chaos 【Mitochondria】by 5argon 【ReLyna】by Se-U-Ra https://t.co/ZZWaOikA2V"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1428960055492321284",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral', 'Mitochondria', 'ReLyna'"
         }
       ],
       "quality": {
@@ -7002,7 +7003,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. RAVON collaboration pack visual (3840x2160)."
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 4 titled jackets ('White : Revolve', 'Astral', 'Mitochondria', 'ReLyna') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:14c5034f27731c91",
@@ -7101,7 +7102,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1434728063649079298:1",
       "title": "【#RAVON × #Dynamix コラボ】 『RAVONコラボPack2』二曲目、公開！ 【Totally bounded】by 影虎。 イケイケの本格PsytranceがDynamixに登場😎…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1434728063649079298",
       "download_url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw?format=jpg&name=orig",
@@ -7117,19 +7118,19 @@
       "height": 2160,
       "fetched_at": "2026-10-10T20:53:05Z",
       "illustrators": [],
-      "composers": [
-        "影虎。"
-      ],
+      "composers": [],
       "song_titles": [
+        "Rave! and Get On It!",
         "Totally bounded"
       ],
       "song_ids": [
+        "song:rave-and-get-on-it",
         "song:totally-bounded"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://x.com/c4c4cat/status/1434728063649079298",
@@ -7140,6 +7141,10 @@
           "url": "https://x.com/c4c4cat/status/1434728063649079298",
           "field": "text",
           "quote": "…#Dynamix コラボ】 『RAVONコラボPack2』二曲目、公開! 【Totally bounded】by 影虎。 イケイケの本格PsytranceがDynamixに登場😎 明日…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1434728063649079298",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded'"
         }
       ],
       "quality": {
@@ -7180,21 +7185,12 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "影虎。",
-          "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
-          "field": null,
-          "quote": null
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715) https://dynamix.miraheze.org/wiki/Totally_bounded: 影虎。 (composer). RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Rave! and Get On It!”. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 2 titled jackets ('Rave! and Get on it!', 'Totally bounded') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:1936c6b809397971",
@@ -7660,7 +7656,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1868989522002018708:1",
       "title": "[Event] 次のイベント曲はYukikurageさんが作った「Curtainfall!」。 開催期間は12月20日13時から12月24日21時（UTC+9）まで！ @yukikurage_201…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1868989522002018708",
       "download_url": "https://pbs.twimg.com/media/GeichmVbIAA9x34?format=jpg&name=orig",
@@ -7754,7 +7750,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official event announcement image for Curtainfall!."
+      "notes": "Official event announcement image for Curtainfall!. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:256c9272a0c39014",
@@ -7989,7 +7985,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:981147690795900928:1",
       "title": "[Event] 次のイベントソングは @Tang0Juanさんvs Black Boxさん作った Xetta。 開催期間は4月6日12時（UTC+8）から4月10日20時（UTC+8）まで！ #Dy…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/981147690795900928",
       "download_url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
@@ -8083,7 +8079,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box; the credit follows the wiki. Credits the fetched text does not state with their role, cited from the Dynamix wiki song page https://dynamix.miraheze.org/wiki/Xetta: TangJuan vs Black Box (composer). Official event announcement image for Xetta."
+      "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box; the credit follows the wiki. Credits the fetched text does not state with their role, cited from the Dynamix wiki song page https://dynamix.miraheze.org/wiki/Xetta: TangJuan vs Black Box (composer). Official event announcement image for Xetta. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:32bbf0b058d37739",
@@ -8252,7 +8248,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1901242039800299634:1",
       "title": "[Dynamix X シノビスラッシュ コラボレーション予告] Dynamix X シノビスラッシュ のコラボレーションパッケージの内容予告。 第二曲はK-forestさんが作った「流麗凛舞」！",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1901242039800299634",
       "download_url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC?format=jpg&name=orig",
@@ -8268,19 +8264,19 @@
       "height": 1080,
       "fetched_at": "2026-10-10T20:53:48Z",
       "illustrators": [],
-      "composers": [
-        "K-forest"
-      ],
+      "composers": [],
       "song_titles": [
+        "Luna Rossa",
         "流麗凛舞"
       ],
       "song_ids": [
+        "song:luna-rossa",
         "song:file-08c857c6"
       ],
       "collections": [
         "Shinobi Slash Collaboration"
       ],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://x.com/c4c4cat/status/1901242039800299634",
@@ -8291,6 +8287,10 @@
           "url": "https://x.com/c4c4cat/status/1901242039800299634",
           "field": "text",
           "quote": "…のコラボレーションパッケージの内容予告。 第二曲はK-forestさんが作った「流麗凛舞」! https://t.co/fQebCxZMtQ"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1901242039800299634",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Luna Rossa', '流麗凛舞'"
         }
       ],
       "quality": {
@@ -8331,21 +8331,12 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "K-forest",
-          "url": "https://x.com/c4c4cat/status/1901242039800299634",
-          "field": "text",
-          "quote": "…mix X シノビスラッシュ のコラボレーションパッケージの内容予告。 第二曲はK-forestさんが作った「流麗凛舞」! https://t.co/fQebCxZMtQ"
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "shinobi_slash"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with shinobi_slash and no cited source names its holder, so the C4Cat default is not applied. Official event announcement image for 流麗凛舞."
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Luna Rossa”. Rights holder not recorded: the art is also associated with shinobi_slash and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 2 titled jackets ('Luna Rossa', '流麗凛舞') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:37d974533599e8a7",
@@ -8928,15 +8919,15 @@
     {
       "id": "official:x:44f2c56eae77adb4",
       "source_id": "official:x",
-      "candidate_id": "official:x:1473624368869748740:1",
-      "title": "[Event] 今週の金曜日は復刻曲「Own The Night」、「Arty Party」が帰ってくるよ！ 開催期間は12月24日13時から12月28日21時（UTC+9）まで！ @riranof…",
+      "candidate_id": "official:x:1475073909376618498:1",
+      "title": "[Event] 次の火曜日は復刻曲「Unshakable」、「Ice Chandelier」が帰ってくるよ！ 開催期間は12月28日13時から1月1日21時（UTC+9）まで！ @riranoffi…",
       "kind": "reference",
       "game": "dynamix",
-      "page_url": "https://x.com/c4c4cat/status/1473624368869748740",
-      "download_url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq?format=jpg&name=orig",
-      "resolved_url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq?format=jpg&name=orig",
-      "path": "assets/public/official/x/FHNCsQiakAod9sq--44f2c56eae77.jpg",
-      "original_filename": "FHNCsQiakAod9sq.jpg",
+      "page_url": "https://x.com/c4c4cat/status/1475073909376618498",
+      "download_url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk?format=jpg&name=orig",
+      "resolved_url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk?format=jpg&name=orig",
+      "path": "assets/public/official/x/FHNDEuxaMAII9Bk--44f2c56eae77.jpg",
+      "original_filename": "FHNDEuxaMAII9Bk.jpg",
       "bytes": 406029,
       "sha256": "44f2c56eae77adb455953942c4d820134a049755c8b7aebaeccee90ae2a80de4",
       "sha1": "4753d8e79758df94a6505156c7d1d8765c1b68dc",
@@ -8944,7 +8935,7 @@
       "mime": "image/jpeg",
       "width": 1920,
       "height": 1080,
-      "fetched_at": "2026-10-10T20:53:20Z",
+      "fetched_at": "2026-10-11T00:14:38Z",
       "illustrators": [],
       "composers": [],
       "song_titles": [
@@ -8958,16 +8949,22 @@
       "collections": [
         "Event"
       ],
-      "mapping_status": "inferred",
+      "mapping_status": "confirmed_primary",
       "mapping_evidence": [
         {
-          "url": "https://x.com/c4c4cat/status/1473624368869748740",
+          "url": "https://x.com/c4c4cat/status/1475073909376618498",
           "field": "text",
           "quote": "復刻曲"
         },
         {
-          "url": "https://x.com/c4c4cat/status/1473624368869748740",
-          "note": "visual_inspection 2026-10-10: the attached card prints 'Unshakable / RiraN' and 'Ice Chandelier / pan', not the Own The Night / Arty Party comeback the post text announces; the same bytes are attached to 1475073909376618498, whose text names Unshakable and Ice Chandelier"
+          "url": "https://x.com/c4c4cat/status/1475073909376618498",
+          "field": "text",
+          "quote": "[Event] 次の火曜日は復刻曲「Unshakable」、「Ice Chandelier」が帰ってくるよ! 開催期間は12月28日13…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1475073909376618498",
+          "field": "text",
+          "quote": "[Event] 次の火曜日は復刻曲「Unshakable」、「Ice Chandelier」が帰ってくるよ! 開催期間は12月28日13時から1月1日21時(UTC+9)…"
         }
       ],
       "quality": {
@@ -8979,18 +8976,18 @@
       "rights": {
         "holder": "C4Cat Entertainment Limited",
         "creator": null,
-        "url": "https://x.com/c4c4cat/status/1473624368869748740",
+        "url": "https://x.com/c4c4cat/status/1475073909376618498",
         "license": null,
         "restrictions": null
       },
       "source_reported": {
-        "url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq.jpg",
+        "url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk.jpg",
         "mime": "image/jpeg",
         "bytes": null,
         "width": 1920,
         "height": 1080,
         "sha1": null,
-        "timestamp": "2021-12-22T12:00:02.000Z",
+        "timestamp": "2021-12-26T12:00:00.000Z",
         "revision": null
       },
       "download_observed": {
@@ -9009,7 +9006,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Official comeback card listing two songs (list graphic). The post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card."
+      "notes": "Official comeback announcement listing 2 songs (list graphic). The same card is also attached to post 1473624368869748740, which announces another comeback. Recorded under this candidate by a curated seed rule (archive_under): the same bytes, archived earlier for official:x:1473624368869748740:1, are attached to that candidate too, whose text does not name what they show."
     },
     {
       "id": "official:x:466cd8972fe67172",
@@ -9306,7 +9303,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1156172591872167937:1",
       "title": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @logical_kRM @3ps708 #Dynamix",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1156172591872167937",
       "download_url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
@@ -9400,7 +9397,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Composer credit as the official post writes it; the wiki credits Dragon_Klub & 残響P. Official event announcement image for オレンジ."
+      "notes": "Composer credit as the official post writes it; the wiki credits Dragon_Klub & 残響P. Official event announcement image for オレンジ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:513b4049cb28f65e",
@@ -9499,7 +9496,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1361646516008443909:1",
       "title": "[Event] 次のイベント曲はLinne X SCTL(Illust.Keiyuu&RED-FOX)さんが作った「WHIRLWIND」。 開催期間は2月19日13時から2月23日21時（UTC+9…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1361646516008443909",
       "download_url": "https://pbs.twimg.com/media/EuUhfVSVoAMk5x5?format=jpg&name=orig",
@@ -9588,7 +9585,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official event announcement image for WHIRLWIND."
+      "notes": "Official event announcement image for WHIRLWIND. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:53e071564c028260",
@@ -9665,7 +9662,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1498629128467197954:1",
       "title": "[Event] 次のイベント曲はStreet (jacket : Sin:cK)さんが作った「Φ」。 開催期間は3月4日13時から3月8日21時（UTC+9）まで！ #Dynamix #OS2019…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1498629128467197954",
       "download_url": "https://pbs.twimg.com/media/FMwrI-BWQAM46-W?format=jpg&name=orig",
@@ -9754,14 +9751,14 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official event announcement image for Φ."
+      "notes": "Official event announcement image for Φ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:58d5475d92d245db",
       "source_id": "official:x",
       "candidate_id": "official:x:1325407725623283712:1",
       "title": "[Event] 次の火曜日は復刻曲「Black：Magnam」が帰ってくるよ！ 開催期間は11月10日13時から11月14日21時（UTC+9）まで！ @adaptor166 #Dynamix",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1325407725623283712",
       "download_url": "https://pbs.twimg.com/media/El-TYtJVoAcIT1L?format=jpg&name=orig",
@@ -9850,7 +9847,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51263) https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam: adaptor (composer). Official single-song comeback card for Black：Magnam."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51263) https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam: adaptor (composer). Official single-song comeback card for Black：Magnam. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:5940aaf11f99f5e3",
@@ -11141,7 +11138,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1306201168503332870:1",
       "title": "[Event] 今週の金曜日は復刻曲「Cryonix」が帰ってくるよ！ 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ @sky_delta #Dynamix",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1306201168503332870",
       "download_url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5?format=jpg&name=orig",
@@ -11230,7 +11227,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50189) https://dynamix.miraheze.org/wiki/Cryonix: sky_delta (composer). Official single-song comeback card for Cryonix."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50189) https://dynamix.miraheze.org/wiki/Cryonix: sky_delta (composer). Official single-song comeback card for Cryonix. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:6cfb382422cfce6e",
@@ -11329,7 +11326,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:811543501733101568:1",
       "title": "今週のイベントソングは@EBICOさんが作成されたソングですよ～内容は地下暗殺集団のストーリーです。今週のクリスマスを迎えるために、イベントは二日間、金曜日12時から来週火曜日8時まで延長することに…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/811543501733101568",
       "download_url": "https://pbs.twimg.com/media/C0MubPsUsAAuF-Z?format=jpg&name=orig",
@@ -11422,7 +11419,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50306) https://dynamix.miraheze.org/wiki/Persephone: EBICO (composer). Official event announcement image (COMING SOON card) for Persephone."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50306) https://dynamix.miraheze.org/wiki/Persephone: EBICO (composer). Official event announcement image (COMING SOON card) for Persephone. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:6df76a69cf796cdc",
@@ -11913,7 +11910,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1428567468444950530:1",
       "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack1』三曲目、 RAVONではお馴染みのあの難関曲ーー 【Mitochondria】by 5argon 一体どんな譜…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1428567468444950530",
       "download_url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi?format=jpg&name=orig",
@@ -11929,19 +11926,21 @@
       "height": 2160,
       "fetched_at": "2026-10-10T20:52:59Z",
       "illustrators": [],
-      "composers": [
-        "5argon"
-      ],
+      "composers": [],
       "song_titles": [
+        "White：Revolve",
+        "Astral",
         "Mitochondria"
       ],
       "song_ids": [
+        "song:white-revolve",
+        "song:astral",
         "song:mitochondria"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://x.com/c4c4cat/status/1428567468444950530",
@@ -11952,6 +11951,10 @@
           "url": "https://x.com/c4c4cat/status/1428567468444950530",
           "field": "text",
           "quote": "…AVONコラボPack1』三曲目、 RAVONではお馴染みのあの難関曲ーー 【Mitochondria】by 5argon 一体どんな譜面になるのかな!? 明日リリースです! ht…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1428567468444950530",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral', 'Mitochondria'"
         }
       ],
       "quality": {
@@ -11992,28 +11995,19 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "5argon",
-          "url": "https://dynamix.miraheze.org/wiki/Mitochondria",
-          "field": null,
-          "quote": null
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51118) https://dynamix.miraheze.org/wiki/Mitochondria: 5argon (composer). RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “White：Revolve”, “Astral”. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 3 titled jackets ('White : Revolve', 'Astral', 'Mitochondria') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:802ede5c76c2a296",
       "source_id": "official:x",
       "candidate_id": "official:x:1818255227595743610:1",
       "title": "[Event] 次のイベント曲はAoiさんが作った「scualee」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @BLUEnoup #Dynamix #OS2023Regul…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1818255227595743610",
       "download_url": "https://pbs.twimg.com/media/GTbltElaMAAOT25?format=jpg&name=orig",
@@ -12107,7 +12101,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733)."
+      "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:83399a2aee3264c4",
@@ -12626,7 +12620,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1305114005191757824:1",
       "title": "[Event] 次の火曜日は復刻曲「Destruction」が帰ってくるよ！ 開催期間は9月15日13時から9月19日21時（UTC+9）まで！ #Dynamix",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1305114005191757824",
       "download_url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk?format=jpg&name=orig",
@@ -12715,7 +12709,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 31856) https://dynamix.miraheze.org/wiki/Destruction: 桃源郷華 (composer). Official single-song comeback card for Destruction."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 31856) https://dynamix.miraheze.org/wiki/Destruction: 桃源郷華 (composer). Official single-song comeback card for Destruction. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:8ca5d1910a19f236",
@@ -12884,7 +12878,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:880003300275347458:1",
       "title": "次のイベントソングは @BLUEnoupさん with @mAoA9_com さん作った To soar です。イベントの開催時間は 6月30日12時 (UTC+8) から 7月4日 20時まで (…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/880003300275347458",
       "download_url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl?format=jpg&name=orig",
@@ -12973,14 +12967,14 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50360) https://dynamix.miraheze.org/wiki/To_soar: Aoi with mAoA9 (composer). Official event announcement image for to soar."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50360) https://dynamix.miraheze.org/wiki/To_soar: Aoi with mAoA9 (composer). Official event announcement image for to soar. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:8fcd0f4cb5b2200a",
       "source_id": "official:x",
       "candidate_id": "official:x:877170201267023872:1",
       "title": "次のイベントソングは @akqmusic さん作った, @arcaea_jp 収録の Vexaria です。イベントの開催時間は 6月23日12時 (UTC+8) から 6月27日 20時まで (U…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/877170201267023872",
       "download_url": "https://pbs.twimg.com/media/DCxVkdcVoAEBoiA?format=jpg&name=orig",
@@ -13073,7 +13067,7 @@
         "dynamix",
         "arcaea"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with arcaea and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49740) https://dynamix.miraheze.org/wiki/Vexaria: ak+q (composer). Official event announcement image for Vexaria."
+      "notes": "Rights holder not recorded: the art is also associated with arcaea and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49740) https://dynamix.miraheze.org/wiki/Vexaria: ak+q (composer). Official event announcement image for Vexaria. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:94c999c6934b47df",
@@ -13349,7 +13343,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1428205081292251137:1",
       "title": "【#RAVON × #Dynamix コラボ】 新進気鋭のアプリ音ゲーRAVONより、『RAVONコラボPack1』に合計4曲追加！ 二曲目はこちら！ 【Astral】by Titan Chaos …",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1428205081292251137",
       "download_url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH?format=jpg&name=orig",
@@ -13365,19 +13359,19 @@
       "height": 2160,
       "fetched_at": "2026-10-10T20:52:58Z",
       "illustrators": [],
-      "composers": [
-        "Titan Chaos"
-      ],
+      "composers": [],
       "song_titles": [
+        "White：Revolve",
         "Astral"
       ],
       "song_ids": [
+        "song:white-revolve",
         "song:astral"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://x.com/c4c4cat/status/1428205081292251137",
@@ -13388,6 +13382,10 @@
           "url": "https://x.com/c4c4cat/status/1428205081292251137",
           "field": "text",
           "quote": "…ONより、『RAVONコラボPack1』に合計4曲追加! 二曲目はこちら! 【Astral】by Titan Chaos 噂の人気曲が登場✨ 明日も新曲情報解禁あります…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1428205081292251137",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral'"
         }
       ],
       "quality": {
@@ -13428,21 +13426,12 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "Titan Chaos",
-          "url": "https://dynamix.miraheze.org/wiki/Astral",
-          "field": null,
-          "quote": null
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51828) https://dynamix.miraheze.org/wiki/Astral: Titan Chaos (composer). RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “White：Revolve”. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 2 titled jackets ('White : Revolve', 'Astral') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:9d34f76cb6f75ee0",
@@ -13701,7 +13690,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:834312940610220032:1",
       "title": "[Event]今週のイベントはコメントでよく言及された、待望の@BLUEnoup さんの作ったαterlβusです。内容は善と悪の対決(♯｀∧´) で、そしてDynamixの中で2曲目のGiga 1…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/834312940610220032",
       "download_url": "https://pbs.twimg.com/media/C5QTJnJUkAAmXV_?format=jpg&name=orig",
@@ -13790,7 +13779,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51738) https://dynamix.miraheze.org/wiki/%CE%91terl%CE%B2us: Aoi (composer). Official event announcement image for αterlβus."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51738) https://dynamix.miraheze.org/wiki/%CE%91terl%CE%B2us: Aoi (composer). Official event announcement image for αterlβus. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:a30057e56cf68068",
@@ -13959,7 +13948,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:819433943690670080:1",
       "title": "イベントの時間です！@stereoberry さんの Vanilla Skyです！",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/819433943690670080",
       "download_url": "https://pbs.twimg.com/media/C182w-fUkAAMa1B?format=jpg&name=orig",
@@ -14048,14 +14037,14 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51742) https://dynamix.miraheze.org/wiki/Vanilla_Sky: stereoberry (composer). Official event announcement image for Vanilla_Sky."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51742) https://dynamix.miraheze.org/wiki/Vanilla_Sky: stereoberry (composer). Official event announcement image for Vanilla_Sky. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:a5e46e7793cbe06e",
       "source_id": "official:x",
       "candidate_id": "official:x:1305838780729917441:1",
       "title": "[Event] 次のイベント曲はCROWLIAさんが作った「Moving On」。 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ #Dynamix #OS2019Silver",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1305838780729917441",
       "download_url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64?format=jpg&name=orig",
@@ -14144,14 +14133,14 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official event announcement image for Moving On."
+      "notes": "Official event announcement image for Moving On. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:a6578f3007402cfb",
       "source_id": "official:x",
       "candidate_id": "official:x:900634708517593089:1",
       "title": "『自然界の神秘を刻み、指し示すもの』 次のイベントソングは @nixets さん作った Arcana Idola です。イベントの開催時間は 8月25日12時 (UTC+8) から 8月29日 20…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/900634708517593089",
       "download_url": "https://pbs.twimg.com/media/DH-yb22UMAAZhwY?format=jpg&name=orig",
@@ -14240,14 +14229,14 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50161) https://dynamix.miraheze.org/wiki/Arcana_Idola: 紅葉月梛葉 a.k.a. Aine (composer). Official event announcement image for Arcana Idola."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50161) https://dynamix.miraheze.org/wiki/Arcana_Idola: 紅葉月梛葉 a.k.a. Aine (composer). Official event announcement image for Arcana Idola. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:a751b31e7ba30526",
       "source_id": "official:x",
       "candidate_id": "official:x:1435090451833315331:1",
       "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack2』三曲目、 RAVONといえばーー 【Euouae】by Spyro Kong BPMは驚異の410！Dynam…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1435090451833315331",
       "download_url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS?format=jpg&name=orig",
@@ -14263,19 +14252,21 @@
       "height": 2160,
       "fetched_at": "2026-10-10T20:53:06Z",
       "illustrators": [],
-      "composers": [
-        "Spyro Kong"
-      ],
+      "composers": [],
       "song_titles": [
+        "Rave! and Get On It!",
+        "Totally bounded",
         "Euouae"
       ],
       "song_ids": [
+        "song:rave-and-get-on-it",
+        "song:totally-bounded",
         "song:euouae"
       ],
       "collections": [
         "RAVON Collaboration"
       ],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://x.com/c4c4cat/status/1435090451833315331",
@@ -14286,6 +14277,10 @@
           "url": "https://x.com/c4c4cat/status/1435090451833315331",
           "field": "text",
           "quote": "… 引き続いて『RAVONコラボPack2』三曲目、 RAVONといえばーー 【Euouae】by Spyro Kong BPMは驚異の410!Dynamix過去最高記録…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1435090451833315331",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded', 'Euouae'"
         }
       ],
       "quality": {
@@ -14326,21 +14321,12 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "Spyro Kong",
-          "url": "https://dynamix.miraheze.org/wiki/Euouae",
-          "field": null,
-          "quote": null
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51119) https://dynamix.miraheze.org/wiki/Euouae: Spyro Kong (composer). RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Rave! and Get On It!”, “Totally bounded”. Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 3 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:a82b78412cb97420",
@@ -14770,7 +14756,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1434365675686879233:1",
       "title": "【#RAVON × #Dynamix コラボ】 9月8日より、『RAVONコラボPack2』が「Dynamix」に登場！ 一曲目はこちら！ 【Rave! and Get on it!】by Woof…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1434365675686879233",
       "download_url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
@@ -14786,9 +14772,7 @@
       "height": 2160,
       "fetched_at": "2026-10-10T20:53:04Z",
       "illustrators": [],
-      "composers": [
-        "Woof"
-      ],
+      "composers": [],
       "song_titles": [
         "Rave! and Get On It!"
       ],
@@ -14809,6 +14793,10 @@
           "url": "https://x.com/c4c4cat/status/1434365675686879233",
           "field": "text",
           "quote": "…RAVONコラボPack2』が「Dynamix」に登場! 一曲目はこちら! 【Rave! and Get on it!】by Woof RAVONでは初期解禁の代表的な楽曲だそうです✨ 配信日まで…"
+        },
+        {
+          "url": "https://x.com/c4c4cat/status/1434365675686879233",
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!'"
         }
       ],
       "quality": {
@@ -14849,21 +14837,12 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "Woof",
-          "url": "https://dynamix.miraheze.org/wiki/Rave!_and_Get_on_it!",
-          "field": null,
-          "quote": null
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49713) https://dynamix.miraheze.org/wiki/Rave!_and_Get_on_it!: Woof (composer). RAVON collaboration per-song announcement visual (3840x2160)."
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 1 titled jacket ('Rave! and Get on it!') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:ad6b57d1b1bed2e7",
@@ -15743,7 +15722,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1889645633545613724:1",
       "title": "[Dynamix X Berry Melody コラボレーション予告] Dynamix X Berry Melody のコラボレーションパッケージの内容予告。 第三曲はxLさんが作った「horlog…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1889645633545613724",
       "download_url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
@@ -15759,19 +15738,21 @@
       "height": 1080,
       "fetched_at": "2026-10-10T14:01:21Z",
       "illustrators": [],
-      "composers": [
-        "xL"
-      ],
+      "composers": [],
       "song_titles": [
+        "Grayscale Tragedy",
+        "ネーヴェの紋様",
         "Horloge"
       ],
       "song_ids": [
+        "song:grayscale-tragedy",
+        "song:file-7631f521",
         "song:horloge"
       ],
       "collections": [
         "Berry Melody Collaboration"
       ],
-      "mapping_status": "confirmed_primary",
+      "mapping_status": "inferred",
       "mapping_evidence": [
         {
           "url": "https://x.com/c4c4cat/status/1889645633545613724",
@@ -15790,7 +15771,7 @@
         },
         {
           "url": "https://x.com/c4c4cat/status/1889645633545613724",
-          "note": "visual_inspection 2026-10-10: the image shows the jackets of Grayscale Tragedy (Polysha), ネーヴェの紋様 (R.Solidor) and horloge (xL) of the Berry Melody collaboration package plus a hidden fourth song; the post text announces only horloge"
+          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Grayscale Tragedy', 'ネーヴェの紋様', 'horloge'"
         }
       ],
       "quality": {
@@ -15831,21 +15812,12 @@
         "dimensions_match": true,
         "format_match": true
       },
-      "credit_evidence": [
-        {
-          "role": "composer",
-          "name": "xL",
-          "url": "https://x.com/c4c4cat/status/1889645633545613724",
-          "field": "text",
-          "quote": "…X Berry Melody のコラボレーションパッケージの内容予告。 第三曲はxLさんが作った「horloge」! #Dynamix https://t.co/…"
-        }
-      ],
       "upstream_status": "current",
       "game_associations": [
         "dynamix",
         "berry_melody"
       ],
-      "notes": "Collaboration preview, not a single-song visual: it also shows the Grayscale Tragedy and ネーヴェの紋様 jackets. Rights holders as printed on the image itself (visual_inspection: '©Sky Way Studio ©C4Cat Entertainment Limited', bottom centre). Official Dynamix x Berry Melody collaboration preview image for Horloge."
+      "notes": "Rights holders as printed on the image itself (visual_inspection: '©Sky Way Studio ©C4Cat Entertainment Limited', bottom centre). Mapping recorded as inferred, not confirmed_primary: the primary text does not name “Grayscale Tragedy”, “ネーヴェの紋様”. Collaboration pack lineup card printing 3 titled jackets ('Grayscale Tragedy', 'ネーヴェの紋様', 'horloge') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
     },
     {
       "id": "official:x:c28cc335048e6f53",
@@ -16312,7 +16284,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:809670504449572864:1",
       "title": "今週のイベントソング「紅」は初めてのLv.15のGigaです。日本の作曲家モリモリあつしが作りました；他にドラマで狂ってるドS女子高生Zakuroが登場します。#dynamix @ats024",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/809670504449572864",
       "download_url": "https://pbs.twimg.com/media/CzyHBXQUUAAy95S?format=jpg&name=orig",
@@ -16401,7 +16373,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45228) https://dynamix.miraheze.org/wiki/%E7%B4%85_(Kurenai): モリモリあつし (composer). Official event announcement image for 紅."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45228) https://dynamix.miraheze.org/wiki/%E7%B4%85_(Kurenai): モリモリあつし (composer). Official event announcement image for 紅. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:c9c0c6b072e79188",
@@ -17333,7 +17305,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1239884186070265856:1",
       "title": "[Event] 次のイベント曲はSe-U-Raさんが作った「終の舞姫」。 開催期間は3月20日13時から3月24日21時（UTC+9）まで！ @SeURa_Nue #Dynamix #OS2019G…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1239884186070265856",
       "download_url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
@@ -17427,14 +17399,14 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official event announcement image for 終の舞姫."
+      "notes": "Official event announcement image for 終の舞姫. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:e4d903cf52257716",
       "source_id": "official:x",
       "candidate_id": "official:x:842671176669323264:1",
       "title": "One of the song in our latest package, Package Lovely! Crystal Ribbon Composed by @966__P !!",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/842671176669323264",
       "download_url": "https://pbs.twimg.com/media/C7HEkCSU8AIXjNf?format=jpg&name=orig",
@@ -17523,7 +17495,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49673) https://dynamix.miraheze.org/wiki/Crystal_Ribbon: Cosine (composer). Official preview image for Crystal Ribbon of Package Lovely."
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49673) https://dynamix.miraheze.org/wiki/Crystal_Ribbon: Cosine (composer). Official preview image for Crystal Ribbon of Package Lovely. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:e928c1c6a613941e",
@@ -17598,7 +17570,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1437747970875674626:1",
       "title": "[Event] 次のイベント曲はReku Mochizukiさんが作った「玲瓏メテオ」。 開催期間は9月17日13時から9月21日21時（UTC+9）まで！ @RekuMczk #Dynamix #…",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1437747970875674626",
       "download_url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
@@ -17692,7 +17664,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Official event announcement image for 玲瓏メテオ."
+      "notes": "Official event announcement image for 玲瓏メテオ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:ee6d74d870f0aa73",
@@ -18062,7 +18034,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Dr6Ox38bgTc/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18083,7 +18055,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "game_associations": [
@@ -18137,7 +18109,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/QT1XYRD8T4k/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18158,7 +18130,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "game_associations": [
@@ -18212,7 +18184,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/FInFw2lVz_I/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18233,7 +18205,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “Dynamix《Package Vocal》” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/FInFw2lVz_I/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Vocal Collection package collage of four jackets.",
@@ -18283,7 +18255,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/ElhnpfB8Stw/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18304,7 +18276,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "game_associations": [
@@ -18356,7 +18328,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Dph6gHJB7SI/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18377,7 +18349,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “Dynamix 遊戲試玩 2017 [Mega & Giga]” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/Dph6gHJB7SI/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: mascot card 'Now Available in Apple App Store & Google Play Store'.",
@@ -18425,7 +18397,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/ohZma5VGdmo/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18446,7 +18418,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “[Dynamix][v.3.2]Event Full combo + Lucky Draw” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/ohZma5VGdmo/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. visual_inspection: thumbnail is a photo of hands playing on a tablet.",
@@ -18494,7 +18466,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/dE-ywtFYswU/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18515,7 +18487,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “【Dynamix】trailer” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/dE-ywtFYswU/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Dynamix logo key visual (2014 trailer).",
@@ -18565,7 +18537,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/XXCJb_eFVGA/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18586,7 +18558,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "game_associations": [
@@ -18640,7 +18612,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/J0nQeDQGYxk/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18661,7 +18633,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “[Dynamix] Package Ace Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/J0nQeDQGYxk/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Package Ace card with four jacket thumbnails.",
@@ -18709,7 +18681,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/ooGWwVICuIE/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18730,7 +18702,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “【Dynamix 2.3 】Song Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/ooGWwVICuIE/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: 'Version 2.3' title card.",
@@ -18780,7 +18752,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/WeFoz6KSouM/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18801,7 +18773,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “Dynamix Event Bundle #1” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/WeFoz6KSouM/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: 'NOW PLAYING Sakura Fubuki' music-preview frame with the jacket.",
@@ -18851,7 +18823,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/shbCnvJovcE/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18872,7 +18844,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "game_associations": [
@@ -18926,7 +18898,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/FIAt9YBEh1E/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -18947,7 +18919,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “[Dynamix] Package TwoSquare: The Old Year #1” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/FIAt9YBEh1E/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Package TwoSquare: The Old Year #1 card with four jacket thumbnails.",
@@ -18995,7 +18967,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Ss-l68rOuno/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19016,7 +18988,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “[Dynamix] Character Eluva Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/Ss-l68rOuno/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. visual_inspection: thumbnail is the in-game player-info screen (Evoltex (poppi'n mix)).",
@@ -19064,7 +19036,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/HV1ZP3jsdh0/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19085,7 +19057,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “Dynamix 3.0 Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/HV1ZP3jsdh0/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. visual_inspection: thumbnail is the 3.0 song-select screen (Set Free -KIVA Edition-).",
@@ -19135,7 +19107,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Q4A5Wg5CViM/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19156,7 +19128,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “[Package] Package Lovely Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/Q4A5Wg5CViM/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Package Lovely card with four jacket thumbnails.",
@@ -19206,7 +19178,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/rvwP4eY-owg/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19227,7 +19199,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "game_associations": [
@@ -19281,7 +19253,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/2yp09foNv10/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19302,7 +19274,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "game_associations": [
@@ -19385,7 +19357,7 @@
       "source_id": "official:youtube",
       "candidate_id": "official:youtube:zCzjrrbmFy8",
       "title": "[Dynamix]You Spin Me Around Preview",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://www.youtube.com/watch?v=zCzjrrbmFy8",
       "download_url": "https://i.ytimg.com/vi/zCzjrrbmFy8/maxresdefault.jpg",
@@ -19441,7 +19413,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/zCzjrrbmFy8/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19462,7 +19434,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "credit_evidence": [
         {
@@ -19474,7 +19446,7 @@
         }
       ],
       "upstream_status": "current",
-      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50391) https://dynamix.miraheze.org/wiki/You_Spin_Me_Around: RiraN (composer). oEmbed names the video “[Dynamix]You Spin Me Around Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/zCzjrrbmFy8/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN).",
+      "notes": "Credits the fetched text does not state with their role, cited from the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50391) https://dynamix.miraheze.org/wiki/You_Spin_Me_Around: RiraN (composer). oEmbed names the video “[Dynamix]You Spin Me Around Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/zCzjrrbmFy8/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
       "transformed": true
     },
     {
@@ -19533,7 +19505,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/IOt4k5RBtcw/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19554,7 +19526,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “【Dynamix 2.0 】trailer” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/IOt4k5RBtcw/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: ACTINIUM / Mimi title card of the 2.0 trailer.",
@@ -19604,7 +19576,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/V9b2am5u4wM/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19625,7 +19597,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “[Dynamix]Package Piano-manic” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/V9b2am5u4wM/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Package Piano-manic card with four jacket thumbnails.",
@@ -19675,7 +19647,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/VgQ9Hf4MEA4/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19696,7 +19668,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “Dynamix Event Bundle #2” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/VgQ9Hf4MEA4/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: 'NOW PLAYING OCCHOCO-REST-LESS' music-preview frame with the jacket.",
@@ -19744,7 +19716,7 @@
       },
       "source_reported": {
         "url": "https://i.ytimg.com/vi/D09PQg7mTpw/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -19765,7 +19737,7 @@
         "sha1_match": null,
         "bytes_match": null,
         "dimensions_match": null,
-        "format_match": true
+        "format_match": null
       },
       "upstream_status": "current",
       "notes": "oEmbed names the video “Dynamix遊戲試玩” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/D09PQg7mTpw/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. visual_inspection: thumbnail is a photo of a hand playing Dynamix on a phone.",

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:youtube",
-  "started_at": "2026-10-10T22:32:26Z",
-  "finished_at": "2026-10-10T22:32:57Z",
+  "started_at": "2026-10-11T00:14:47Z",
+  "finished_at": "2026-10-11T00:15:19Z",
   "scope": {
     "lists": [
       "seed-videos",
@@ -35,7 +35,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/2yp09foNv10/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -66,7 +66,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/D09PQg7mTpw/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -94,7 +94,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Dph6gHJB7SI/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -122,7 +122,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Dr6Ox38bgTc/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -153,7 +153,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/ElhnpfB8Stw/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -184,7 +184,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/FIAt9YBEh1E/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -215,7 +215,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/FInFw2lVz_I/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -246,7 +246,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/HV1ZP3jsdh0/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -273,7 +273,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/HaSzSxTdWUs/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -301,7 +301,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/IOt4k5RBtcw/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -332,7 +332,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/J0nQeDQGYxk/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -363,7 +363,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/OddLD4cKYvE/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -392,7 +392,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Q4A5Wg5CViM/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -423,7 +423,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/QT1XYRD8T4k/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -454,7 +454,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/Ss-l68rOuno/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -482,7 +482,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/V9b2am5u4wM/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -513,7 +513,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/VgQ9Hf4MEA4/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -544,7 +544,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/WeFoz6KSouM/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -575,7 +575,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/XXCJb_eFVGA/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -605,7 +605,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/_jERP3ePo1w/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -686,7 +686,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/dE-ywtFYswU/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -713,7 +713,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/dhgR1g--SkM/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -741,7 +741,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/ohZma5VGdmo/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -769,7 +769,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/ooGWwVICuIE/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -796,7 +796,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/qjv2dFKaUkg/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -824,7 +824,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/rvwP4eY-owg/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -855,7 +855,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/shbCnvJovcE/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -877,7 +877,7 @@
       "page_url": "https://www.youtube.com/watch?v=zCzjrrbmFy8",
       "file_url": "https://i.ytimg.com/vi/zCzjrrbmFy8/maxresdefault.jpg",
       "title": "[Dynamix]You Spin Me Around Preview",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://www.youtube.com/watch?v=zCzjrrbmFy8",
@@ -886,7 +886,7 @@
       ],
       "source_reported": {
         "url": "https://i.ytimg.com/vi/zCzjrrbmFy8/hqdefault.jpg",
-        "mime": "image/jpeg",
+        "mime": null,
         "bytes": null,
         "width": null,
         "height": null,
@@ -905,7 +905,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN)."
+      "notes": "Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     }
   ],
   "errors": []
