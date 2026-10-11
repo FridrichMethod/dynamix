@@ -1,6 +1,7 @@
 """The committed contract fixture (tests/fixtures/contract) validates, reconciles, matches its bytes, covers every
-required scenario and is reproduced byte-for-byte by its generator."""
+required scenario and is reproduced byte-for-byte by its generator, whichever zlib the interpreter loads."""
 
+import io
 import subprocess
 import sys
 import tempfile
@@ -9,8 +10,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "tests/fixtures"))
+
+from PIL import Image  # noqa: E402
 
 from lib import manifest, media, paths, schema  # noqa: E402
+from pinned_png import PinnedPNG  # noqa: E402
 
 FIXTURE = ROOT / "tests/fixtures/contract"
 GENERATOR = FIXTURE / "make_fixture.py"
@@ -243,6 +248,49 @@ class FixtureContractTests(unittest.TestCase):
             changed = sorted(rel for rel in generated if generated[rel] != committed[rel])
             self.assertEqual(changed, [], "regenerate with tests/fixtures/contract/make_fixture.py")
             self.assertEqual(sorted(result.stdout.split()), sorted(committed))
+
+
+class PinnedPNGTests(unittest.TestCase):
+    """Fixture PNGs keep their committed bytes across zlib builds (stock zlib and zlib-ng compress differently)."""
+
+    @staticmethod
+    def picture(shade=0):
+        image = Image.new("RGB", (96, 64))
+        image.putdata([((x * 7 + shade) % 256, (y * 5) % 256, (x * y + shade) % 256)
+                       for y in range(64) for x in range(96)])
+        return image
+
+    @staticmethod
+    def png(image, **options):
+        buffer = io.BytesIO()
+        image.save(buffer, "PNG", **options)
+        return buffer.getvalue()
+
+    def test_the_identical_image_keeps_the_committed_bytes(self):
+        image = self.picture()
+        committed, fresh = self.png(image, compress_level=1), self.png(image, compress_level=9)
+        self.assertNotEqual(committed, fresh)  # a different compressor setting stands in for a different zlib
+        with tempfile.TemporaryDirectory() as temp:
+            (Path(temp) / "nested").mkdir()
+            (Path(temp) / "nested/picture.png").write_bytes(committed)
+            self.assertEqual(PinnedPNG(Path(temp)).encode(image, compress_level=9), committed)
+
+    def test_a_changed_drawing_is_encoded_afresh(self):
+        with tempfile.TemporaryDirectory() as temp:
+            (Path(temp) / "picture.png").write_bytes(self.png(self.picture(), compress_level=1))
+            changed = self.picture(shade=1)
+            data = PinnedPNG(Path(temp)).encode(changed, compress_level=9)
+        self.assertEqual(data, self.png(changed, compress_level=9))
+        with Image.open(io.BytesIO(data)) as decoded:
+            self.assertEqual(decoded.tobytes(), changed.tobytes())
+
+    def test_two_committed_encodings_of_one_image_are_refused(self):
+        image = self.picture()
+        with tempfile.TemporaryDirectory() as temp:
+            (Path(temp) / "a.png").write_bytes(self.png(image, compress_level=1))
+            (Path(temp) / "b.png").write_bytes(self.png(image, compress_level=9))
+            with self.assertRaisesRegex(ValueError, "same image with different bytes"):
+                PinnedPNG(Path(temp)).encode(image)
 
 
 if __name__ == "__main__":

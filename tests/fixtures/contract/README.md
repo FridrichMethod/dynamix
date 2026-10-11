@@ -4,6 +4,8 @@ A tiny repository-shaped tree for offline tests and for builders run with `--roo
 **Everything here is synthetic**: images are generated patterns, post IDs and URLs are placeholders, and no record
 is evidence about real Dynamix artwork, credits or availability. `make_fixture.py` writes `data/` and `assets/`
 deterministically; `tests/test_fixtures_contract.py` regenerates into a temporary directory and compares bytes.
+A PNG keeps its committed bytes while it decodes to exactly the drawn image (`../pinned_png.py`), because stock zlib
+and zlib-ng compress the same pixels differently.
 
 ```sh
 python -I -B tests/fixtures/contract/make_fixture.py            # rewrite in place after a contract change

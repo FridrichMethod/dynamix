@@ -4,7 +4,8 @@
     python -I tests/fixtures/contract/make_fixture.py [--output DIR]
 
 Writes ``data/`` and ``assets/`` under DIR (default: this directory). Every byte is deterministic for the pinned
-Pillow (requirements.txt); tests/test_fixtures_contract.py regenerates into a temporary directory and compares.
+Pillow (requirements.txt): a PNG keeps the committed bytes of the identical image (tests/fixtures/pinned_png.py), so the
+zlib build cannot change them. tests/test_fixtures_contract.py regenerates into a temporary directory and compares.
 All records are SYNTHETIC test data: images are generated patterns, post IDs/URLs are placeholders and nothing here
 is evidence about real Dynamix artwork. Scenario letters (a)-(o) are listed in README.md.
 """
@@ -21,8 +22,12 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[2] / "scripts"))
+sys.path.insert(0, str(HERE.parent))
 
 from lib import manifest, paths, schema  # noqa: E402
+from pinned_png import PinnedPNG  # noqa: E402
+
+PINNED = PinnedPNG(HERE / "assets")
 
 FETCHED = "2026-10-10T12:00:00Z"
 STARTED, FINISHED = "2026-10-10T11:00:00Z", "2026-10-10T11:30:00Z"
@@ -55,7 +60,7 @@ def _encode(image: Image.Image, fmt: str, **options: object) -> bytes:
 
 
 def _png(image: Image.Image) -> bytes:
-    return _encode(image, "PNG", compress_level=9)
+    return PINNED.encode(image, compress_level=9)
 
 
 def _bands(width: int, height: int, offset: int = 0) -> Image.Image:
