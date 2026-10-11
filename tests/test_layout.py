@@ -100,6 +100,13 @@ class LayoutTests(unittest.TestCase):
     def test_archive_loads_the_catalog_script_by_relative_path(self):
         self.assertIn("data/catalog.js", parse("archive.html").loads)
 
+    def test_archive_links_the_manifest_it_ships_by_relative_path(self):
+        """The full manifest is linked next to the page, as in DEEMO, so the link works offline and always names the
+        deployed copy rather than the branch tip."""
+        anchors = parse("archive.html").anchors
+        self.assertGreaterEqual(anchors.count("data/catalog.json"), 2)  # noscript notice and footer
+        self.assertFalse([href for href in anchors if href.endswith("catalog.json") and href != "data/catalog.json"])
+
     def test_anchors_are_relative_or_https(self):
         for relative in PAGES:
             for href in parse(relative).anchors:

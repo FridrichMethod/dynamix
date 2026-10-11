@@ -17,12 +17,12 @@ Scripts, tests, workflows, templates, discovery snapshots and source manifests a
 unmerged entries and unsafe paths are refused, as is an existing output directory or one inside the checkout. Before
 anything is copied the payload must fit the 950,000,000-byte budget (no single file above 100 MiB). When it does not,
 the explicit rule of 09-frozen-contracts.md (Catalog presentation rules) applies first: ``data/catalog.json``, which
-the pages never load (they read ``data/catalog.js``; their links to the manifest name the repository copy), is left
-out of the payload and the summary records it under ``omitted_over_budget``; only a payload that still does not fit is
-refused. Originals are never dropped or recompressed to fit. ``data/catalog.js``
-must encode the same catalog as ``data/catalog.json``, and every staged original must hash to its catalog SHA-256 and
-size; after copying, every staged file is hashed again and must still be the bytes that were checked. Any failure
-removes the partial output.
+the pages never load (they read ``data/catalog.js``), is left out of the payload and the summary records it under
+``omitted_over_budget``; the archive page's manifest link then has no target on the site, while the repository copy
+remains. Only a payload that still does not fit is refused. Originals are never dropped or recompressed to fit.
+``data/catalog.js`` must encode the same catalog as ``data/catalog.json``, and every staged original must hash to its
+catalog SHA-256 and size; after copying, every staged file is hashed again and must still be the bytes that were
+checked. Any failure removes the partial output.
 
 The staged bytes are compared with ``HEAD`` itself, not with ``git status``: the Git blob ID of every file to stage is
 computed from the bytes that are copied and must equal the blob ``git ls-tree -r HEAD`` records at that path, and every
