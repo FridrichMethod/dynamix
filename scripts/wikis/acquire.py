@@ -41,7 +41,7 @@ from typing import Any, Callable, Mapping
 
 from lib import manifest, media, net, paths, schema
 
-from . import config, discover
+from . import config, discover, variants
 from .workdir import (STATE_DIR, Journal, LockHeld, UnsafeWorkDir, claim_work_dir,  # noqa: F401 (re-exported)
                       default_work_dir, exclusive_lock, prepare_state_dir, prepare_work_dir, root_lock_path)
 
@@ -218,7 +218,7 @@ class State:
 
     def manifest(self) -> dict:
         data = {"schema_version": schema.SCHEMA_VERSION, "family": FAMILY, "fetched_at": self.fetched_at,
-                "sources": list(self.sources.values()), "assets": list(self.assets.values()),
+                "sources": list(self.sources.values()), "assets": variants.link(self.assets.values()),
                 "failures": list(self.failures.values())}
         return manifest.sort_manifest(data)
 

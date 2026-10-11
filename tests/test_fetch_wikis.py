@@ -318,7 +318,24 @@ class AcquisitionTests(WikiRun):
         self.assertNotIn("cause not established", fandom.get("notes", ""))
         self.assertNotIn("transformed", mira)
         self.assertNotIn("transformed", self.asset("fandom", "File:CosmicPulseDynamix.png"))  # APIs disagree there
+        # Both records stay and link to each other as variants of the title (the catalog lists the other one).
+        group = "wiki-file:File:Pair_Comeback_Chart_List.jpg"
+        self.assertEqual((fandom["variant_group"], mira["variant_group"]), (group, group))
+        self.assertTrue(fandom["variant_role"].startswith("platform transform of the upload, served by Dynamix Wiki "
+                                                          "(Fandom, legacy)"))
+        self.assertTrue(mira["variant_role"].startswith("the upload, served by Dynamix Wiki (Miraheze)"))
+        self.assertNotIn("variant_group", self.asset("miraheze", "File:CosmicPulseDynamix.png"))  # same bytes
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        # --verify checks the links: a record that lost its link is reported.
+        path = self.root / "data/sources/wikis.json"
+        data = manifest.load_json(path)
+        for asset in data["assets"]:
+            if asset["id"] == mira["id"]:
+                asset.pop("variant_group")
+                asset.pop("variant_role")
+        manifest.write_json_atomic(path, data)
+        self.assertEqual(self.verify(), 1)
+        self.assertTrue(any("variant_group/variant_role do not match" in line for line in self.logs), self.logs)
 
     def test_include_animated(self) -> None:
         self.assertEqual(self.run_cli("--include-animated", "--source", "miraheze", "--only",

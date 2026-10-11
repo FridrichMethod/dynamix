@@ -4,7 +4,8 @@ Checks: the family manifest and every wiki discovery snapshot validate; :func:`l
 candidate <-> asset links, failures, removed/superseded revisions); each asset file exists inside
 ``assets/public/wikis`` with the recorded bytes, SHA-256/SHA-1, sniffed format/MIME and decoded dimensions; no file
 under ``assets/public/wikis`` lacks a record (leftover ``*.part`` temp files are reported separately); the song index
-proposal validates and every asset ``song_id`` names an index song whose title is among the asset's ``song_titles``.
+proposal validates and every asset ``song_id`` names an index song whose title is among the asset's ``song_titles``;
+the variant links between the two wikis' records of a title (:mod:`wikis.variants`) are the ones the records imply.
 """
 
 from __future__ import annotations
@@ -14,7 +15,7 @@ from typing import Callable
 
 from lib import manifest, media, paths, schema
 
-from . import config, outputs
+from . import config, outputs, variants
 
 FAMILY = "wikis"
 
@@ -50,6 +51,11 @@ def run(root: Path, *, log: Callable[[str], None] = print) -> int:
             media.verify_asset_file(root, asset)
         except media.MediaError as error:
             problems.append(f"file: {error}")
+    linked = {asset["id"]: asset for asset in variants.link(data["assets"])}
+    for asset in data["assets"]:
+        if {name: asset.get(name) for name in variants.FIELDS} != {
+                name: linked[asset["id"]].get(name) for name in variants.FIELDS}:
+            problems.append(f"asset {asset['id']}: variant_group/variant_role do not match the wiki variant links")
     problems.extend(_orphans(root, data["assets"], log))
     problems.extend(_song_index(root, data["assets"]))
     for source_id, value in sorted(counts.items()):
