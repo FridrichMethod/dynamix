@@ -1017,6 +1017,116 @@ class PressArticleTests(ArchivesTestCase):
         self.assertNotIn("host_not_allowed", candidate["reason"])
         self.verify()
 
+    WP = "https://img.example.org/up/{}.jpg"
+
+    def wp_seed(self):
+        seed = self.seed([{"match": "^wp:", "role": "gameplay_screenshot", "evidence_quotes": ["Dynamix"]}], items=[])
+        seed["params"]["article_images"][0].update(
+            {
+                "key_prefix": "wp:",
+                "og_image": False,
+                "rewrite": [["-\\d+x\\d+(\\.\\w+)$", "\\1"]],
+                "pattern": "https://img\\.example\\.org/up/[^/]+\\.jpg",
+            }
+        )
+        return seed
+
+    def wp_page(self, *images):
+        body = "".join(images)
+        return {
+            "text": "<html><head><title>Dynamix review</title></head><body><h1>A long Dynamix review headline</h1>"
+            f"<div class='article-body'>{body}</div></body></html>"
+        }
+
+    def wp_file(self, width):
+        return {"bytes": image_bytes("JPEG", (width, 18)), "content_type": "image/jpeg"}
+
+    def test_a_401_or_403_of_our_normalized_url_falls_back_like_a_404(self):
+        """09 (owner decision on DX3-02): an object store answers 403 for a missing key, so a plain 401/403 for the URL
+        our rewrite derived is treated like its 404. The URL the page lists is archived for that item only, the host
+        is not marked blocked (the next image on it is downloaded), no Failure is recorded and the notes name the
+        status that was answered; --resume and a re-download keep the status of the acquisition."""
+        listed, upload, other = self.WP.format("shot-1024x576"), self.WP.format("shot"), self.WP.format("zzz")
+        for status, error in (
+            (404, net.HttpError("HTTP 404", url=upload, http_status=404)),
+            (403, net.BlockedError("access refused (HTTP 403)", url=upload, http_status=403)),
+            (401, net.BlockedError("access refused (HTTP 401)", url=upload, http_status=401)),
+        ):
+            with self.subTest(status=status):
+                self.root = Path(self.temp.name) / str(status)
+                self.root.mkdir()
+                routes = {
+                    self.PAGE: self.wp_page(f"<img src='{listed}'>", f"<img src='{other}'>"),
+                    upload: {"error": error},
+                    listed: self.wp_file(32),
+                    other: self.wp_file(33),
+                }
+                network = FakeNetwork(routes)
+                self.run_family([self.wp_seed()], network)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE, upload, listed, other])
+                found = self.candidates("archives:press")
+                self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
+                self.assertEqual(self.manifest()["failures"], [])
+                asset = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith("wp:shot"))
+                self.assertEqual((asset["download_url"], asset["source_reported"]["url"]), (listed, listed))
+                self.assertEqual(asset["quality"]["source_variant"], "unknown")
+                answered = f"{upload} answered HTTP {status}."
+                self.assertIn(answered, asset["notes"])
+                self.assertIn(answered, asset["quality"]["notes"])
+                self.assertIn(answered, found["wp:shot"]["notes"])
+                self.verify()
+                network = FakeNetwork(routes)
+                self.run_family([self.wp_seed()], network, resume=True)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE])
+                self.assertIn(asset, self.manifest()["assets"])  # the refresh names the acquisition's status
+                routes[upload] = {"error": net.HttpError("HTTP 404", url=upload, http_status=404)}
+                self.run_family([self.wp_seed()], FakeNetwork(routes))  # the same bytes again, now after a 404
+                self.assertIn(asset, self.manifest()["assets"])
+                self.assertIn(answered, self.candidates("archives:press")["wp:shot"]["notes"])
+                self.verify()
+
+    def test_a_401_or_403_of_a_url_the_page_lists_or_a_challenge_still_blocks(self):
+        """Only a plain 401/403 for a URL our rewrite derived falls back. A refusal of a URL the page lists itself
+        (with or without other listed renditions) and a bot challenge are blocked as before: no fallback is tried and
+        the host is not contacted again in the run."""
+        first, second = self.WP.format("a1"), self.WP.format("b2")
+        refused = net.BlockedError("access refused (HTTP 403)", url=first, http_status=403)
+        challenge = net.ChallengeError("challenge page (HTTP 403)", url=first, http_status=403)
+        for label, image, error, error_class in (
+            ("listed, no fallback", f"<img src='{first}'>", refused, "blocked"),
+            (
+                "listed, with fallbacks",
+                f"<img src='{first}' srcset='{self.WP.format('a1-1024x576')} 1024w'>",
+                refused,
+                "blocked",
+            ),
+            ("derived, challenge", f"<img src='{self.WP.format('a1-1024x576')}'>", challenge, "challenge"),
+        ):
+            with self.subTest(label):
+                self.root = Path(self.temp.name) / label.replace(" ", "-").replace(",", "")
+                self.root.mkdir()
+                routes = {
+                    self.PAGE: self.wp_page(image, f"<img src='{second}'>"),
+                    first: {"error": error},
+                    self.WP.format("a1-1024x576"): self.wp_file(32),
+                    second: self.wp_file(33),
+                }
+                network = FakeNetwork(routes)
+                self.run_family([self.wp_seed()], network)
+                self.assertEqual([url for _, url in network.calls], [self.PAGE, first])
+                found = self.candidates("archives:press")
+                self.assertEqual(
+                    {key: c["disposition"] for key, c in found.items()}, {"wp:a1": "blocked", "wp:b2": "blocked"}
+                )
+                self.assertIn("refused an earlier request in this run", found["wp:b2"]["reason"])
+                [failure] = self.manifest()["failures"]
+                self.assertEqual(
+                    (failure["candidate_id"], failure["error_class"], failure["http_status"], failure["manual"]),
+                    ("archives:press:wp:a1", error_class, 403, True),
+                )
+                self.assertEqual(self.manifest()["assets"], [])
+                self.verify()
+
     DEFAULT_NOTE = "Press copy as served by the publication; the page does not state who supplied the image."
     SUPPLIED_NOTE = "Press copy as served by the publication, inside the part the page labels as supplied material."
 

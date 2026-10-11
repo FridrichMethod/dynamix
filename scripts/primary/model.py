@@ -116,13 +116,20 @@ class Draft:
     meta: dict = field(default_factory=dict)  # asset metadata (see Rule.asset_meta)
     candidate_extra: dict = field(default_factory=dict)  # song_titles, illustrators, composers, collections, notes
     md5_token: str | None = None  # upstream name that is expected to equal the file's MD5 (TapTap), evidence only
-    fallback_urls: list[str] = field(default_factory=list)  # tried in order when file_url answers HTTP 404
-    # Note recorded when a fallback URL was archived (``{url}``: the URL used, ``{file_url}``: the 404 one).
+    fallback_urls: list[str] = field(default_factory=list)  # tried in order when file_url answers HTTP 404 (or below)
+    # ``file_url`` is the fetcher's own derivation (a rewrite, a larger rendition) and ``fallback_urls`` are URLs the
+    # source itself lists for the file: a plain HTTP 401/403 for ``file_url`` then falls back like its 404 (object
+    # stores answer 403 for a missing key) and does not block the host. A bot challenge, or a 401/403 for any other
+    # URL, still blocks (09, archived fallback renditions: owner decision 2026-10-11).
+    derived_file_url: bool = False
+    # Note recorded when a fallback URL was archived (``{url}``: the URL used, ``{file_url}``: the drafted one,
+    # ``{status}``: the HTTP status the drafted one answered).
     fallback_note: str | None = None
-    # Adapter hook: the draft describing the bytes of an archived fallback URL (``(draft, url) -> draft``), e.g. the
-    # URL the page advertised as ``source_reported.url``, that rendition's file name and a quality that does not call
-    # it the upload. Applied on the acquisition that archives the fallback and on every later refresh of that record.
-    fallback_adjust: Callable[[Draft, str], Draft] | None = None
+    # Adapter hook: the draft describing the bytes of an archived fallback URL (``(draft, url, status) -> draft``,
+    # ``status`` as in ``fallback_note``), e.g. the URL the page advertised as ``source_reported.url``, that rendition's
+    # file name and a quality that does not call it the upload. Applied on the acquisition that archives the fallback
+    # and on every later refresh of that record.
+    fallback_adjust: Callable[[Draft, str, int], Draft] | None = None
     # Curated download rule: the same file is attached to the candidate with this upstream key of the same source,
     # whose text names what the file shows; that candidate holds the record and this one is ``duplicate_bytes``.
     archive_under: str | None = None

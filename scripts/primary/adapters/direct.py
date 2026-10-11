@@ -27,8 +27,11 @@ notes it on the enumerated candidates (:func:`base.resolution_note`); their ``pa
 
 The URLs the page itself lists for an image are kept as download fallbacks: when the normalized URL answers HTTP 404 (a
 rewrite of ours, not an upstream failure) the listed URL is downloaded instead and the record says so: its
-``source_reported.url`` is the listed URL, a rendition keeps its own file name, and the quality is ``unknown`` (a URL
-the page lists is not established as the upload). A listed URL on a host the seed does not allow is not tried.
+``source_reported.url`` is the listed URL, a rendition keeps its own file name, the quality is ``unknown`` (a URL the
+page lists is not established as the upload), and the notes name the status the normalized URL answered. When the page
+does not list the normalized URL itself, a plain HTTP 401/403 for it falls back the same way (object stores answer 403
+for a missing key; 09, owner decision 2026-10-11) and does not block the image host; a bot challenge, or a refusal of a
+URL the page lists, is ``blocked`` as anywhere else. A listed URL on a host the seed does not allow is not tried.
 
 Advertised sizes become ``source_reported.width``/``height`` of the upload they describe: ``og:image:width``/``height``
 of an ``og:image`` listed as the upload URL itself, a WordPress attachment's ``data-orig-size`` (its original upload),
@@ -109,11 +112,11 @@ EMBEDDED_FIELDS = {
 }
 FALLBACK_NOTE = (
     "Archived from {url}, the URL the page lists for this image: the normalized upload URL {file_url} "
-    "answered HTTP 404."
+    "answered HTTP {status}."
 )
 FALLBACK_QUALITY_NOTE = (
     "Not established as the upload: archived from the URL the page lists ({how}) because the "
-    "upload URL {file_url} answered HTTP 404."
+    "upload URL {file_url} answered HTTP {status}."
 )
 SUPPLIED_LABEL = "The page places this image after its label '{marker}'."
 
@@ -379,8 +382,18 @@ def article_images(
             return None
         entry = bucket.setdefault(
             key,
-            {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False, "name": name, "size": None},
+            {
+                "key": key,
+                "url": url,
+                "advertised": [],
+                "listed": False,
+                "caption": "",
+                "supplied": False,
+                "name": name,
+                "size": None,
+            },
         )
+        entry["listed"] = entry["listed"] or absolute == url  # the page lists the normalized URL itself
         if absolute != url and absolute not in entry["advertised"] and not checks.url_problem(absolute):
             entry["advertised"].append(absolute)
         entry["supplied"] = entry["supplied"] or supplied
@@ -717,6 +730,9 @@ def _draft(
     if image["supplied"] and draft.action == "download" and config and config.get("supplied_marker"):
         draft.meta = {**draft.meta, "quality": _supplied_quality(draft.meta["quality"], ctx.quality, config)}
     draft.fallback_urls = [url for url in image["advertised"] if url != file_url][:3]
+    # A URL of our own (the normalized upload, or a URL the seed names) that the page does not list itself.
+    listed = {*image["advertised"], *([image["url"]] if image["listed"] else [])}
+    draft.derived_file_url = file_url not in listed
     draft.fallback_note = FALLBACK_NOTE
     draft.fallback_adjust = _fallback_adjust(image, file_url, item.get("original_filename"))
     return draft
@@ -735,12 +751,13 @@ def _supplied_quality(quality: Mapping[str, Any], default: Mapping[str, Any], co
 
 def _fallback_adjust(
     image: Mapping[str, Any], file_url: str, named: str | None
-) -> Callable[[model.Draft, str], model.Draft]:
-    """The ``fallback_adjust`` hook of an article image: archived from ``url``, a URL the page lists, the record names
-    that URL as advertised (sizes advertised for the upload do not describe it), keeps a rendition's own file name
-    (unless the seed or the pattern names the upload's) and is not called the upload (``source_variant: unknown``)."""
+) -> Callable[[model.Draft, str, int], model.Draft]:
+    """The ``fallback_adjust`` hook of an article image: archived from ``url``, a URL the page lists, after the upload
+    URL answered HTTP ``status``, the record names that URL as advertised (sizes advertised for the upload do not
+    describe it), keeps a rendition's own file name (unless the seed or the pattern names the upload's) and is not
+    called the upload (``source_variant: unknown``)."""
 
-    def adjust(draft: model.Draft, url: str) -> model.Draft:
+    def adjust(draft: model.Draft, url: str, status: int) -> model.Draft:
         parts = urlsplit(url)
         plain = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
         rendition = plain != file_url  # the seed's rewrite, not only the query, maps it to the upload
@@ -762,7 +779,7 @@ def _fallback_adjust(
                 if rendition
                 else "the upload URL with the page's query"
             )
-            note = FALLBACK_QUALITY_NOTE.format(how=how, file_url=base.stored(file_url))
+            note = FALLBACK_QUALITY_NOTE.format(how=how, file_url=base.stored(file_url), status=status)
             quality = {**draft.meta["quality"], "source_variant": "unknown"}
             quality["notes"] = " ".join(filter(None, [quality.get("notes"), note]))
             used.meta = {**draft.meta, "quality": quality}

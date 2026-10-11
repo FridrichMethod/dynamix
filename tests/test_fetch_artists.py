@@ -1158,6 +1158,48 @@ class ArtStationTests(ArtistsTestCase):
         self.assertIn(f"Archived from {large}", found["6baqbW:101"]["notes"])
         self.verify()
 
+    def test_a_plain_401_or_403_of_the_4k_rendition_falls_back_to_the_listed_one(self):
+        # 09 (owner decision on DX3-02): the 4k URL is our derivation, so a plain refusal is taken as a missing key; a
+        # bot challenge of it still blocks the CDN host.
+        data = fixture_json("artstation_project.json")
+        large = data["assets"][0]["image_url"]
+        four_k = large.replace("/large/", "/4k/")
+        for status in (401, 403):
+            with self.subTest(status=status):
+                self.root = Path(self.temp.name) / str(status)
+                self.root.mkdir()
+                network = FakeNetwork(
+                    {
+                        "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                        four_k: {"error": net.BlockedError(f"HTTP {status}", url=four_k, http_status=status)},
+                        large: {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"},
+                    }
+                )
+                acquisition, _ = self.run_family([self.seed()], network)
+                self.assertEqual(acquisition.blocked_hosts, {})
+                [asset] = self.manifest()["assets"]
+                self.assertEqual(asset["download_url"], large)
+                self.assertEqual(asset["quality"]["source_variant"], "unknown")
+                self.assertIn(f"4k rendition {four_k} answered HTTP {status}.", asset["quality"]["notes"])
+                self.assertIn(f"{four_k} answered HTTP {status}.", asset["notes"])
+                self.assertEqual(self.manifest()["failures"], [])
+                self.verify()
+        self.root = Path(self.temp.name) / "challenge"
+        self.root.mkdir()
+        challenge = net.ChallengeError("challenge page (HTTP 403)", url=four_k, http_status=403)
+        network = FakeNetwork(
+            {
+                "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                four_k: {"error": challenge},
+                large: {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"},
+            }
+        )
+        acquisition, _ = self.run_family([self.seed()], network)
+        self.assertIn("cdna.artstation.com", acquisition.blocked_hosts)
+        self.assertEqual(network.count("cdna.artstation.com"), 1)
+        self.assertEqual(self.candidates("artists:artstation:sandgodoven")["6baqbW:101"]["disposition"], "blocked")
+        self.verify()
+
     def test_the_4k_rendition_keeps_the_seed_quality(self):
         data = fixture_json("artstation_project.json")
         large = data["assets"][0]["image_url"]
