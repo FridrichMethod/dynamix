@@ -69,6 +69,10 @@ _SHA1 = re.compile(r"^[0-9a-f]{40}$")
 _ASSOCIATION = re.compile(r"^[a-z0-9_]+$")
 
 
+class ReviewSongError(ValueError):
+    """A review names a song that is not an exact song-index title (see ``wikis.discover.check_review_songs``)."""
+
+
 @dataclass(frozen=True)
 class Review:
     title: str  # canonical "File:..." title (spaces, not underscores)

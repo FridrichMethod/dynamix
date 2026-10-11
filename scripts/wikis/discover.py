@@ -269,6 +269,8 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
     if review_table is None:
         review_table = reviews.load()
     note_table = reviews.load_notes() if note_table is None else note_table
+    if inventories and all(inv.complete for inv in inventories.values()):
+        check_review_songs(review_table, song_index)
     wikis = {key: classify.collect(inv.source, inv.files, inv.usage, inv.pages, inv.gif_frames, inv.filepages)
              for key, inv in inventories.items()}
     threshold = classify.universe_threshold(wikis.values())
@@ -312,6 +314,23 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
             result.append(plan)
         plans[key] = result
     return plans
+
+
+def check_review_songs(review_table: Mapping[str, reviews.Review], song_index: Any) -> None:
+    """Every song an archivist review names is an exact song-index title (raises ``reviews.ReviewSongError``).
+
+    Review songs are compared with list subjects by exact title and attached through the index, so a misspelled one
+    would silently drop a correctly captioned song. Checked when the index comes from a complete discovery (a partial
+    one may lack songs)."""
+    entries = getattr(song_index, "entries", None)
+    if not entries:
+        return
+    titles = {entry.title for entry in entries.values()}
+    unknown = [f"{review.title}: {song!r}" for review in review_table.values() for song in review.songs
+               if song not in titles]
+    if unknown:
+        raise reviews.ReviewSongError("archivist reviews name songs that are not exact song-index titles (fix "
+                                      "scripts/wikis/reviews.json): " + "; ".join(sorted(unknown)))
 
 
 def record_title(plan: Plan, items: list[classify.Evidence]) -> str:

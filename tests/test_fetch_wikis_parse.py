@@ -265,6 +265,26 @@ class ReviewTests(unittest.TestCase):
         for review in table.values():
             self.assertTrue(review.evidence.split(":", 1)[0].isidentifier(), review.title)
 
+    def test_committed_review_songs_are_song_index_titles(self) -> None:
+        """Review songs are compared with list subjects by exact title and attached through the index: each one is an
+        exact title of the committed song index proposal (a misspelling would silently drop a captioned song)."""
+        import json
+        index = json.loads((ROOT / "data/discovery/song-index.wikis.json").read_text(encoding="utf-8"))
+        titles = {song["title"] for song in index["songs"]}
+        unknown = [(review.title, song) for review in reviews.load().values() for song in review.songs
+                   if song not in titles]
+        self.assertEqual(unknown, [])
+
+    def test_review_naming_an_unknown_song_is_refused(self) -> None:
+        entry = songindex.SongEntry("cosmic pulse", "Cosmic Pulse", aliases=["Cosmic pulse"], in_original_game=True)
+        index = songindex.SongIndex({"cosmic pulse": entry}, [])
+        discover.check_review_songs({"File:X.png": _review(songs=["Cosmic Pulse"])}, index)
+        for spelling in ("Cosmic pulse", "PUPA!"):  # an alias is not the exact title either
+            with self.assertRaises(reviews.ReviewSongError) as caught:
+                discover.check_review_songs({"File:X.png": _review(songs=["Cosmic Pulse", spelling])}, index)
+            self.assertIn(f"File:X.png: {spelling!r}", str(caught.exception))
+        discover.check_review_songs({"File:X.png": _review(songs=["PUPA!"])}, None)  # no index: nothing to check
+
     def test_find_pins_the_reviewed_revision(self) -> None:
         table = {"File:X.png": _review()}
         self.assertEqual(reviews.find(table, "File:X.png", "A" * 40), (table["File:X.png"], False))

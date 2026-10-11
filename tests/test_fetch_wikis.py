@@ -202,6 +202,15 @@ class MetadataOnlyTests(WikiRun):
         candidate = self.candidate("miraheze", "File:Package Vocal.jpg")
         self.assertEqual((candidate["role"], candidate["title"]), ("pack_cover", "Package Vocal #1"))
 
+    def test_review_naming_an_unknown_song_stops_the_run(self) -> None:
+        """A misspelled review song (not an exact song-index title) stops a complete run before anything is written,
+        instead of silently dropping the song it was meant to name."""
+        table = self.scenario.reviews_json()
+        table["reviews"][0]["songs"] = ["Cosmic pulse"]
+        self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
+        self.assertEqual(self.run_cli("--metadata-only"), 5)
+        self.assertFalse((self.root / "data/sources/wikis.json").exists())
+
     def test_lock_prevents_second_writer(self) -> None:
         with acquire.exclusive_lock(self.work / "lock"):
             self.assertEqual(self.run_cli("--metadata-only"), 3)
