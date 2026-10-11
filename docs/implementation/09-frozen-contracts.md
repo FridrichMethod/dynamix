@@ -59,6 +59,7 @@ Measured site-tier estimate before this revision: wikis 944,412,040 B (2,971 uni
 - Asset ID: `<source_id>:<sha256[:16]>`; stable across title edits and refreshes.
 - Asset path: `assets/public/<family>/<source-slug>/<slug(original-name-stem)>--<sha256[:12]>.<ext>` where `<ext>` comes from the **sniffed** format (`png`, `jpg`, `webp`, `gif`, `pdf`). The upstream filename is kept verbatim in `original_filename`. Slugs are NFKC, ASCII-transliteration not required: allowed characters `[A-Za-z0-9._-]` plus a hash suffix; empty slugs become `file`. Paths are checked for case-fold collisions.
 - Song ID: `song:<slug(exact title)>` with `-2`, `-3` suffixes on collision, assigned deterministically by sorted exact title.
+  Coordinator decision (2026-10-11, review finding DX2-09): `schema.validate_song_index` checks that assignment. Songs with an identical exact title (two wiki pages giving the same title; `wikis/songindex.py` breaks the tie by page key) take the IDs their group is assigned in any order, because the order inside the tie cannot be checked; the set of IDs does not depend on it.
 
 ## Family manifest `data/sources/<family>.json`
 
