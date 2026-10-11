@@ -131,6 +131,25 @@ def pixiv_routes(original_error=None):
 
 
 class PixivTests(ArtistsTestCase):
+    def test_separate_tags_never_read_as_a_credit_line(self):
+        # Tags are separate labels (often added by other users): '曲絵' next to 'Yunosuke' states no credit.
+        source = "https://dynamix.miraheze.org/wiki/Cosmic_Pulse"
+        page = "https://www.pixiv.net/artworks/1"
+        rule = {"illustrators": ["Yunosuke"], "credit_source": {"url": source}}
+        tags = {"tags": [{"tag": "Dynamix"}, {"tag": "曲絵"}, {"tag": "Yunosuke"}, {"tag": "Cosmic Pulse"}]}
+        texts = pixiv_adapter.texts_of({"illustTitle": "Cosmic Pulse", "tags": tags})
+        entries, notes = model.credit_fields(rule, page, texts)
+        self.assertEqual(
+            entries, [{"role": "illustrator", "name": "Yunosuke", "url": source, "field": None, "quote": None}]
+        )
+        self.assertIn("Yunosuke (illustrator)", notes[0])
+        # Each tag is still found on its own, and a caption that states the role is still a credit line.
+        found, missing = model.find_quotes(["Dynamix", "Cosmic Pulse"], {"tags": texts["tags"]}, page)
+        self.assertEqual(([item["field"] for item in found], missing), (["tags", "tags"], []))
+        texts = pixiv_adapter.texts_of({"illustComment": "曲絵: Yunosuke", "tags": tags})
+        entries, _ = model.credit_fields(rule, page, texts)
+        self.assertEqual(entries[0]["field"], "caption")
+
     def test_multipage_pages_are_separate_candidates_with_their_own_rules(self):
         network = FakeNetwork(pixiv_routes())
         self.run_family([pixiv_seed()], network)

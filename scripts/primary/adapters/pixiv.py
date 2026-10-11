@@ -93,12 +93,14 @@ def body(data: Any, url: str) -> Any:
 
 
 def texts_of(info: Mapping[str, Any]) -> dict[str, str]:
+    """Title, caption, tags and user of an artwork. Tags are joined with `` | ``, a segment break of
+    :func:`model.locate_credit`: separate tags (``曲絵``, ``Yunosuke``) never read as one ``label name`` credit line."""
     tags = info.get("tags") or {}
     tag_names = [entry.get("tag", "") for entry in tags.get("tags") or [] if isinstance(entry, dict)]
     return {
         "title": str(info.get("illustTitle") or info.get("title") or ""),
         "caption": caption_text(info.get("illustComment") or info.get("description")),
-        "tags": " ".join(name for name in tag_names if name),
+        "tags": " | ".join(name for name in tag_names if name),
         "user": f"{info.get('userName') or ''} {info.get('userId') or ''}".strip(),
     }
 
