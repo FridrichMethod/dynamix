@@ -1,8 +1,10 @@
-"""Offline tests for scripts/fetch_artists.py and the artist adapters (pixiv, X, SoundCloud/Bandcamp, ArtStation).
+"""Offline tests for scripts/fetch_artists.py and the artist adapters (pixiv, X, SoundCloud/Bandcamp, ArtStation,
+Bilibili).
 
-Covers multi-page/multi-image posts mapped per image, blocked access without a retry storm, rejected submissions,
-unrelated portfolio entries, uploader identity checks, misleading advertised dimensions, interrupted runs and
-idempotent ``--resume``. Run: ``python -I tests/test_fetch_artists.py``.
+Covers multi-page/multi-image posts mapped per image, blocked access without a retry storm, risk-control and captcha
+answers, rejected submissions, unrelated portfolio entries, uploader identity checks, misleading advertised
+dimensions, archived fallback renditions, interrupted runs and idempotent ``--resume``.
+Run: ``python -I tests/test_fetch_artists.py``.
 """
 
 import base64
@@ -19,8 +21,10 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import model, runner  # noqa: E402
-from primary.adapters import pixiv as pixiv_adapter, x as x_adapter  # noqa: E402
-from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
+from primary.adapters import bilibili as bilibili_adapter  # noqa: E402
+from primary.adapters import pixiv as pixiv_adapter  # noqa: E402
+from primary.adapters import x as x_adapter  # noqa: E402
+from primary.testing import FIXED_NOW, FakeClient, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/artists"
 QUALITY = {
@@ -129,6 +133,25 @@ def pixiv_routes(original_error=None):
 
 
 class PixivTests(ArtistsTestCase):
+    def test_separate_tags_never_read_as_a_credit_line(self):
+        # Tags are separate labels (often added by other users): '曲絵' next to 'Yunosuke' states no credit.
+        source = "https://dynamix.miraheze.org/wiki/Cosmic_Pulse"
+        page = "https://www.pixiv.net/artworks/1"
+        rule = {"illustrators": ["Yunosuke"], "credit_source": {"url": source}}
+        tags = {"tags": [{"tag": "Dynamix"}, {"tag": "曲絵"}, {"tag": "Yunosuke"}, {"tag": "Cosmic Pulse"}]}
+        texts = pixiv_adapter.texts_of({"illustTitle": "Cosmic Pulse", "tags": tags})
+        entries, notes = model.credit_fields(rule, page, texts)
+        self.assertEqual(
+            entries, [{"role": "illustrator", "name": "Yunosuke", "url": source, "field": None, "quote": None}]
+        )
+        self.assertIn("Yunosuke (illustrator)", notes[0])
+        # Each tag is still found on its own, and a caption that states the role is still a credit line.
+        found, missing = model.find_quotes(["Dynamix", "Cosmic Pulse"], {"tags": texts["tags"]}, page)
+        self.assertEqual(([item["field"] for item in found], missing), (["tags", "tags"], []))
+        texts = pixiv_adapter.texts_of({"illustComment": "曲絵: Yunosuke", "tags": tags})
+        entries, _ = model.credit_fields(rule, page, texts)
+        self.assertEqual(entries[0]["field"], "caption")
+
     def test_multipage_pages_are_separate_candidates_with_their_own_rules(self):
         network = FakeNetwork(pixiv_routes())
         self.run_family([pixiv_seed()], network)
@@ -1102,7 +1125,52 @@ class ArtStationTests(ArtistsTestCase):
         self.assertEqual(found["6baqbW:103"]["disposition"], "pending")
         asset = self.manifest()["assets"][0]
         self.assertEqual(asset["download_url"], large)  # 4k missing -> advertised rendition
+        # 09 (archived fallback renditions): the listed rendition is not called the upload, and a note says why.
+        four_k = large.replace("/large/", "/4k/")
+        self.assertEqual(asset["source_reported"]["url"], large)
+        self.assertEqual(asset["quality"]["source_variant"], "unknown")
+        self.assertIn(f"4k rendition {four_k} answered HTTP 404", asset["quality"]["notes"])
+        self.assertIn(f"Archived from {large}", asset["notes"])
+        self.assertIn(f"Archived from {large}", found["6baqbW:101"]["notes"])
         self.verify()
+
+    def test_the_4k_rendition_keeps_the_seed_quality(self):
+        data = fixture_json("artstation_project.json")
+        large = data["assets"][0]["image_url"]
+        network = FakeNetwork(
+            {
+                "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                large.replace("/large/", "/4k/"): {
+                    "bytes": image_bytes("JPEG", (60, 60)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
+        self.run_family([self.seed()], network)
+        asset = self.manifest()["assets"][0]
+        self.assertEqual(asset["download_url"], large.replace("/large/", "/4k/"))
+        self.assertEqual(asset["quality"]["source_variant"], "site_original")
+        self.assertNotIn("answered HTTP 404", asset.get("notes") or "")
+        self.verify()
+
+    def test_project_is_held_while_the_account_is_not_established(self):
+        data = fixture_json("artstation_project.json")
+        large = data["assets"][0]["image_url"]
+        network = FakeNetwork(
+            {
+                "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                large: {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"},
+            }
+        )
+        seed = self.seed()
+        del seed["params"]
+        self.run_family([seed], network)
+        held = self.candidates("artists:artstation:sandgodoven")["6baqbW:101"]
+        self.assertEqual((held["disposition"], held["game"]), ("pending", "unknown"))
+        self.assertTrue(held["reason"].startswith("unresolved_game: project owner not verified"))
+        self.assertIn("sandgodoven", held["reason"])
+        self.assertEqual(self.manifest()["assets"], [])
+        self.assertEqual(network.count("cdna.artstation.com"), 0)
 
     def test_unexpected_json_shape_is_a_failure_not_a_crash(self):
         network = FakeNetwork({"https://www.artstation.com/projects/6baqbW.json": {"json": ["not", "an", "object"]}})
@@ -1131,6 +1199,183 @@ class ArtStationTests(ArtistsTestCase):
         failure = self.manifest()["failures"][0]
         self.assertEqual((failure["phase"], failure["error_class"]), ("discover", "challenge"))
         self.verify()
+
+
+# --- Bilibili: opus posts, author check, risk-control answers ---------------------------------------------------------
+
+
+class TextJsonClient(FakeClient):
+    """A fake client whose ``get_json`` parses a text route like ``lib.net.PoliteClient.get_json``: a body that is not
+    JSON raises the same ``FetchError`` (HTTP 200), so the body itself is only available through ``get_text``."""
+
+    def get_json(self, url, params=None, **_):
+        target = full_url(url, params)
+        self._check(target)
+        response = self.network.respond("get_json", target)
+        try:
+            return json.loads(response["text"]), target
+        except ValueError as error:
+            raise net.FetchError(f"response is not valid JSON: {error}", url=target, http_status=200) from None
+
+
+class TextJsonNetwork(FakeNetwork):
+    def factory(self, hosts, min_interval):
+        self.factories.append(list(hosts))
+        return TextJsonClient(self, hosts)
+
+
+BILI_OPUS = "1022295438715256855"
+BILI_PICS = [
+    ("http://i0.hdslb.com/bfs/new_dyn/aaa111.png@1192w.webp", 2048, 1152),
+    ("//i0.hdslb.com/bfs/new_dyn/bbb222.jpg@1192w.webp", 1920, 1080),
+]
+
+
+def bilibili_payload(mid, name, words="Dynamix Cosmic Pulse 曲绘", pics=BILI_PICS):
+    """An ``opus/detail`` answer shaped like the observed one: author, text and picture modules."""
+    pictures = [{"url": url, "width": width, "height": height, "size": 1000.0} for url, width, height in pics]
+    return {
+        "code": 0,
+        "message": "0",
+        "data": {
+            "item": {
+                "id_str": BILI_OPUS,
+                "modules": [
+                    {"module_type": "MODULE_TYPE_AUTHOR", "module_author": {"mid": mid, "name": name}},
+                    {
+                        "module_type": "MODULE_TYPE_CONTENT",
+                        "module_content": {
+                            "paragraphs": [
+                                {"para_type": 1, "text": {"nodes": [{"word": {"words": words}}]}},
+                                {"para_type": 2, "pic": {"pics": pictures}},
+                            ]
+                        },
+                    },
+                ],
+            }
+        },
+    }
+
+
+def bilibili_seed(params=None, items=None):
+    seed = {
+        "id": "artists:bilibili:ariiol",
+        "name": "Bilibili ariiol",
+        "url": f"https://www.bilibili.com/opus/{BILI_OPUS}",
+        "platform": "bilibili",
+        "adapter": "bilibili_opus",
+        "quality": QUALITY,
+        "items": items or [{"opus_id": BILI_OPUS}],
+        "rules": [
+            {
+                "match": f"^{BILI_OPUS}:",
+                "role": "song_art",
+                "song_titles": ["Cosmic Pulse"],
+                "mapping_status": "confirmed_primary",
+                "evidence_quotes": ["Cosmic Pulse"],
+            }
+        ],
+    }
+    if params is not None:
+        seed["params"] = params
+    return seed
+
+
+def bilibili_api(opus_id=BILI_OPUS):
+    return full_url(bilibili_adapter.API, {"id": opus_id})
+
+
+def bilibili_routes(payload):
+    routes = {bilibili_api(): {"text": json.dumps(payload, ensure_ascii=False)}}
+    for index, (url, _, _) in enumerate(BILI_PICS):
+        routes[bilibili_adapter.original_picture_url(url)] = {
+            "bytes": image_bytes("PNG", (40 + index, 24)),
+            "content_type": "image/png",
+        }
+    return routes
+
+
+class BilibiliTests(ArtistsTestCase):
+    SOURCE = "artists:bilibili:ariiol"
+
+    def test_post_of_the_seeded_account_is_downloaded_per_picture(self):
+        network = TextJsonNetwork(bilibili_routes(bilibili_payload(12345, "ariiol")))
+        self.run_family([bilibili_seed({"mid": "12345"})], network)
+        found = self.candidates(self.SOURCE)
+        self.assertEqual(sorted(found), [f"{BILI_OPUS}:1", f"{BILI_OPUS}:2"])
+        self.assertEqual({c["disposition"] for c in found.values()}, {"downloaded"})
+        # The '@1192w.webp' resize suffix is dropped and protocol-relative/http URLs become https.
+        self.assertEqual(found[f"{BILI_OPUS}:1"]["file_url"], "https://i0.hdslb.com/bfs/new_dyn/aaa111.png")
+        self.assertEqual(found[f"{BILI_OPUS}:2"]["file_url"], "https://i0.hdslb.com/bfs/new_dyn/bbb222.jpg")
+        self.assertEqual(found[f"{BILI_OPUS}:1"]["source_reported"]["width"], 2048)
+        self.assertIn("author: ariiol (mid 12345)", found[f"{BILI_OPUS}:1"]["game_evidence"])
+        self.assertEqual(len(self.manifest()["assets"]), 2)
+        self.verify()
+
+    def test_post_of_another_account_is_held(self):
+        network = TextJsonNetwork(bilibili_routes(bilibili_payload(999, "fan_reposter")))
+        self.run_family([bilibili_seed({"mid": "12345"})], network)
+        held = self.candidates(self.SOURCE)[f"{BILI_OPUS}:1"]
+        self.assertEqual((held["disposition"], held["game"]), ("pending", "unknown"))
+        self.assertIn("post author mid 999 is not this source's account 12345", held["reason"])
+        self.assertEqual(network.count("i0.hdslb.com"), 0)
+        self.assertEqual(self.manifest()["assets"], [])
+
+    def test_post_is_held_while_the_account_id_is_not_established(self):
+        # The committed seed has no params.mid: the author check cannot run, so no post is admitted as the artist's own.
+        network = TextJsonNetwork(bilibili_routes(bilibili_payload(999, "fan_reposter")))
+        self.run_family([bilibili_seed()], network)
+        found = self.candidates(self.SOURCE)
+        for key in (f"{BILI_OPUS}:1", f"{BILI_OPUS}:2"):
+            self.assertEqual((found[key]["disposition"], found[key]["game"]), ("pending", "unknown"))
+            self.assertTrue(found[key]["reason"].startswith("unresolved_game: post author not verified"))
+            self.assertIn("fan_reposter", found[key]["reason"])
+            self.assertIn("author: fan_reposter (mid 999)", found[key]["game_evidence"])
+            self.assertEqual(found[key]["song_titles"], ["Cosmic Pulse"])  # the rule's fields stay visible
+        self.assertEqual(network.count("i0.hdslb.com"), 0)
+        self.assertEqual(self.manifest()["assets"], [])
+        self.verify()
+
+    CAPTCHA = '<!DOCTYPE html><html><head><title>验证码_哔哩哔哩</title></head><body><div id="risk-captcha"></div>'
+
+    def assert_refusal_blocks_the_host(self, answer):
+        """Two seed posts: the first answer is a risk-control refusal, so the second post is never requested."""
+        second = "1022295438715256856"
+        network = TextJsonNetwork({bilibili_api(): answer, bilibili_api(second): answer})
+        self.run_family([bilibili_seed({"mid": "12345"}, [{"opus_id": BILI_OPUS}, {"opus_id": second}])], network)
+        found = self.candidates(self.SOURCE)
+        self.assertEqual(found[BILI_OPUS]["disposition"], "blocked")
+        self.assertTrue(found[BILI_OPUS]["reason"].startswith("challenge: "), found[BILI_OPUS]["reason"])
+        self.assertIn("manual access required", found[BILI_OPUS]["reason"])
+        self.assertEqual(found[second]["disposition"], "blocked")  # host refused earlier in the run: not contacted
+        self.assertEqual(network.count("api.bilibili.com"), 1)
+        self.assertEqual(self.manifest()["sources"][0]["status"], "manual_access")
+        self.verify()
+        return found
+
+    def test_risk_control_code_is_a_challenge(self):
+        found = self.assert_refusal_blocks_the_host({"text": json.dumps({"code": -352, "message": "-352"})})
+        self.assertIn("risk control (code -352)", found[BILI_OPUS]["reason"])
+
+    def test_captcha_page_is_a_challenge(self):
+        found = self.assert_refusal_blocks_the_host({"text": self.CAPTCHA})
+        self.assertIn("captcha", found[BILI_OPUS]["reason"])
+
+    def test_http_412_is_a_challenge(self):
+        error = net.HttpError("HTTP 412", url=bilibili_api(), http_status=412)
+        found = self.assert_refusal_blocks_the_host({"error": error})
+        self.assertIn("HTTP 412", found[BILI_OPUS]["reason"])
+
+    def test_other_non_json_answer_is_a_failure_that_keeps_the_list_open(self):
+        second = "1022295438715256856"
+        answer = {"text": "<html><body>maintenance</body></html>"}
+        network = TextJsonNetwork({bilibili_api(): answer, bilibili_api(second): answer})
+        self.run_family([bilibili_seed({"mid": "12345"}, [{"opus_id": BILI_OPUS}, {"opus_id": second}])], network)
+        found = self.candidates(self.SOURCE)
+        self.assertEqual({found[BILI_OPUS]["disposition"], found[second]["disposition"]}, {"failed"})
+        self.assertIn("response is not valid JSON", found[BILI_OPUS]["reason"])
+        self.assertEqual(network.count("api.bilibili.com"), 2)  # not a refusal: the host is not blocked
+        self.assertEqual(self.snapshot(self.SOURCE)["continuation"]["seed-posts"], "not-read:other")
 
 
 # --- Interrupted runs and idempotent resume ---------------------------------------------------------------------------

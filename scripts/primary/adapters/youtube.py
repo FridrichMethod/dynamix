@@ -22,7 +22,8 @@ once: the image ID must occur in it (identity), and the ``=s0`` (full-size) rend
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 

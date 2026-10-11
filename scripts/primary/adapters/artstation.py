@@ -4,17 +4,22 @@
 bot check that often answers automated clients with HTTP 403 and a challenge page; that is recorded as ``blocked``
 (manual access) and never bypassed. When the JSON is available, each image asset is its own candidate
 ``<hash>:<asset id>``; a project may mix the Dynamix composition with other commissions (e.g. the same artwork made for
-another game), so every asset needs its own seed rule and unclassified assets stay ``pending``.
+another game), so every asset needs its own seed rule and unclassified assets stay ``pending``. A project is the
+artist's own only when its owner equals the seed's ``params.username``; without that account every asset is held as
+``pending`` (``unresolved_game``).
 
 Image URLs (``cdn*.artstation.com/p/assets/images/.../large/<name>``) are requested in the ``4k`` rendition first and
 fall back to the advertised ``large`` one when ``4k`` does not exist; the stored ``download_url`` is the one that
-delivered the bytes.
+delivered the bytes. An archived fallback is not called the upload (09, archived fallback renditions):
+``quality.source_variant`` becomes ``unknown`` and the notes name the 4k URL that answered HTTP 404.
 """
 
 from __future__ import annotations
 
+import copy
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 
@@ -23,6 +28,13 @@ from . import base
 
 HOSTS = ["www.artstation.com", ".artstation.com"]
 _SIZE_SEGMENT = re.compile(r"/(large|medium|small|smaller_square|micro_square|4k|original)/")
+FALLBACK_NOTE = (
+    "Archived from {url}, the rendition the project JSON lists: the 4k rendition {file_url} answered HTTP 404."
+)
+FALLBACK_QUALITY_NOTE = (
+    "Not established as the upload: ArtStation's listed rendition {url}, archived because the 4k rendition "
+    "{file_url} answered HTTP 404. The advertised width and height describe the upload, not this rendition."
+)
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -36,6 +48,18 @@ def rendition_urls(image_url: str) -> list[str]:
     if _SIZE_SEGMENT.search(image_url) and "/4k/" not in image_url:
         return [_SIZE_SEGMENT.sub("/4k/", image_url, count=1), image_url]
     return [image_url]
+
+
+def fallback_adjust(draft: model.Draft, url: str) -> model.Draft:
+    """``Draft.fallback_adjust``: archived from the listed rendition ``url`` (``source_reported.url`` already names it),
+    the record is not called the upload (``source_variant: unknown``, with a note)."""
+    used = copy.copy(draft)
+    if draft.action == "download":
+        note = FALLBACK_QUALITY_NOTE.format(url=base.stored(url), file_url=base.stored(draft.file_url))
+        quality = {**draft.meta["quality"], "source_variant": "unknown"}
+        quality["notes"] = " ".join(filter(None, [quality.get("notes"), note]))
+        used.meta = {**draft.meta, "quality": quality}
+    return used
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
@@ -88,7 +112,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         for position, asset in enumerate(images, start=1):
             key = f"{project}:{asset.get('id', position)}"
             rule = model.find_rule(base.rules(seed), key)
-            if username and owner != username:
+            if not username:
+                # Without the seed's account the project cannot be attributed to the artist: never admitted as theirs.
+                rule = model.hold(
+                    rule,
+                    "unresolved_game: project owner not verified (params.username not established); "
+                    f"owner {owner or '?'}",
+                )
+            elif owner != username:
                 rule = model.hold(
                     rule, f"unresolved_game: project owner {owner or '?'} is not this source's account {username}"
                 )
@@ -110,5 +141,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 ),
             )
             draft.fallback_urls = urls[1:]
+            draft.fallback_note = FALLBACK_NOTE
+            draft.fallback_adjust = fallback_adjust
             discovery.candidates.append(draft)
     return discovery

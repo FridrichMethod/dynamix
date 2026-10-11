@@ -12,7 +12,8 @@ listing per locale) may list the same image; it stays one candidate whose notes 
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 

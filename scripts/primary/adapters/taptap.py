@@ -7,14 +7,17 @@ previews. ``original_url`` is downloaded, the advertised size/bytes are kept as 
 name token is compared with the file's MD5 as extra evidence of an untouched upload. The banner, when it is the trailer
 thumbnail, is a ``video_placeholder`` and the icon a ``game_ui`` exclusion; every other trailer poster frame of
 ``app_videos`` (``thumbnail``, and ``raw_cover``: the video's first frame, ``video-picture/<id>/first.jpg``) is a
-``video_placeholder`` exclusion too, so each image of the payload is accounted for.
+``video_placeholder`` exclusion too, so each image of the payload is accounted for. A screenshot entry without a
+readable ``original_url`` is a ``pending`` candidate and a discovery error, and it keeps ``app-screenshots`` open, so a
+payload change never marks archived screenshots as removed upstream.
 """
 
 from __future__ import annotations
 
 import json
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 
@@ -266,6 +269,21 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         for index, shot in enumerate(app.get("screenshots") or [], start=1):
             image = _image(shot)
             if image is None:
+                # A listed entry the parser cannot read is accounted for, and it keeps the list open: an unread entry
+                # is no evidence that an archived screenshot was removed upstream (07: never infer completeness).
+                discovery.errors.append(
+                    model.discovery_error("discover", page_url, f"screenshot entry {index} has no original_url string")
+                )
+                discovery.continuation["app-screenshots"] = "structure-not-recognized"
+                discovery.candidates.append(
+                    model.Draft(
+                        upstream_key=f"screenshot:unparsed-{index}",
+                        page_url=page_url,
+                        title=f"TapTap screenshot {index}",
+                        action="pending",
+                        reason="unresolved_role: unrecognized screenshot entry (no original_url string)",
+                    )
+                )
                 continue
             url = image["original_url"]
             token = _TOKEN.search(url)

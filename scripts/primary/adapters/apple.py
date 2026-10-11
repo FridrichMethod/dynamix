@@ -18,14 +18,16 @@ page no longer shows. Those URLs (``.../mzl.xxxx.png/406x228bb.png``) are small 
 ``4000x4000bb`` bounding box in the upload's format (PNG for a ``.png`` upload), which Apple serves at the image's
 native size (it does not enlarge); the stored size is decoded from the bytes and ``source_reported`` keeps the
 advertised URL (and its format only when the requested rendition has the same one). A screenshot listed by several
-storefronts is one candidate whose notes name every storefront.
+storefronts is one candidate whose notes name every storefront. A listed URL of another shape is a discovery error and
+keeps ``itunes-lookup`` open, so it never marks an archived screenshot as removed upstream.
 """
 
 from __future__ import annotations
 
 import json
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 
@@ -87,7 +89,7 @@ def rendition_note(requested: str, upload: str | None) -> str:
         return f"Apple's {fmt} rendition at native size (the upload's own format is not stated)."
     if requested == "png" and upload == "png":
         return (
-            f"Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy "
+            "Apple's PNG rendition of the PNG upload at native size (lossless; requested instead of the lossy "
             "variant the page or API advertises)."
         )
     lossy = (
@@ -161,6 +163,16 @@ def discover_lookup(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], 
             for index, url in enumerate(app.get(field) or [], start=1):
                 native = native_lookup_url(url) if isinstance(url, str) else None
                 if native is None:
+                    # An unrecognized entry is no evidence that an archived screenshot was removed: the list stays open.
+                    discovery.errors.append(
+                        model.discovery_error(
+                            "discover",
+                            LOOKUP,
+                            f"lookup {country}: unrecognized {field}[{index - 1}] {model.clip(str(url), 200)}",
+                        )
+                    )
+                    if discovery.continuation.get("itunes-lookup") is None:
+                        discovery.continuation["itunes-lookup"] = f"unrecognized-url-{country}"
                     continue
                 key = lookup_key(url)
                 entry = found.setdefault(

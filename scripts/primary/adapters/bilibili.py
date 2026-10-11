@@ -1,16 +1,22 @@
 """Bilibili opus/dynamic posts through the public web API, one explicit opus ID at a time.
 
 ``api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail?id=<id>`` returns the post's modules (author, text, pictures).
-Bilibili answers anonymous clients with risk-control code ``-352``/``-412`` or a captcha page (``验证码``,
-``risk-captcha``); both are recorded as a ``challenge`` (blocked, manual access) and never worked around: no cookie
-farming, request signing or captcha solving. Picture URLs on ``*.hdslb.com`` are stored without their ``@...`` resize
-suffix, which is the original upload as served.
+Bilibili answers anonymous clients with risk-control code ``-352``/``-412``, HTTP 412 or a captcha page (``验证码``,
+``risk-captcha``); each is recorded as a ``challenge`` (blocked, manual access; the API host is not contacted again
+in the run) and never worked around: no cookie farming, request signing or captcha solving. Picture URLs on
+``*.hdslb.com`` are stored without their ``@...`` resize suffix, which is the original upload as served.
+
+A post is the artist's own only when its author ``mid`` equals the seed's ``params.mid``; while that numeric account ID
+is not established, every picture is held as ``pending`` (``unresolved_game``). The observed author (name and mid) is
+recorded in each candidate's ``game_evidence``.
 """
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Mapping
-from urllib.parse import urlsplit
+import json
+from collections.abc import Iterable, Mapping
+from typing import Any
+from urllib.parse import urlencode, urlsplit
 
 from lib import net
 
@@ -31,6 +37,29 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
 
 def is_captcha_page(text: str) -> bool:
     return any(marker in text for marker in CAPTCHA_MARKERS)
+
+
+def opus_detail(ctx: Any, opus_id: str, page_url: str) -> Any:
+    """The parsed ``opus/detail`` answer, read as text so that a captcha page in place of the JSON is recognized: it
+    and Bilibili's anti-crawler HTTP 412 raise :class:`lib.net.ChallengeError` after the API host is marked blocked."""
+    try:
+        body, _, _ = ctx.client.get_text(f"{API}?{urlencode({'id': opus_id})}", headers={"Accept": "application/json"})
+    except net.HttpError as error:
+        if error.http_status != 412:
+            raise
+        ctx.client.mark_blocked(API, "HTTP 412")
+        raise net.ChallengeError(
+            f"Bilibili {RISK_CODES[-412]} (HTTP 412) for an anonymous client", url=page_url, http_status=412
+        ) from None
+    try:
+        return json.loads(body)
+    except ValueError as error:
+        if is_captcha_page(body):
+            ctx.client.mark_blocked(API, "captcha page")
+            raise net.ChallengeError(
+                "Bilibili captcha page for an anonymous client", url=page_url, http_status=200
+            ) from None
+        raise net.FetchError(f"response is not valid JSON: {error}", url=page_url, http_status=200) from None
 
 
 def _walk(value: Any) -> Iterable[Any]:
@@ -94,7 +123,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         page_url = f"https://www.bilibili.com/opus/{opus_id}"
         title = f"Bilibili opus {opus_id}"
         try:
-            data, _ = ctx.client.get_json(API, {"id": opus_id})
+            data = opus_detail(ctx, opus_id, page_url)
             code = data.get("code") if isinstance(data, dict) else None
             if code in RISK_CODES:
                 ctx.client.mark_blocked(API, f"code {code}")
@@ -110,7 +139,18 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             base.mark_unread(discovery, "seed-posts", error)
             continue
         author, pictures, texts = extract(data.get("data") or {})
-        if expected_mid and author.get("mid") != expected_mid:
+        observed = (
+            f"author: {model.clip(author['name'], 80)} (mid {author['mid']})"
+            if author
+            else "author: not stated in the API answer"
+        )
+        if not expected_mid:
+            # Without the account's numeric ID the post cannot be attributed to the artist: never admitted as theirs.
+            override = {
+                "action": "pending",
+                "reason": f"unresolved_game: post author not verified (params.mid not established); {observed}",
+            }
+        elif author.get("mid") != expected_mid:
             override = {
                 "action": "pending",
                 "reason": f"unresolved_game: post author mid {author.get('mid')} is not "
@@ -146,7 +186,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                     default_quality=ctx.quality,
                     default_rights=ctx.rights,
                     original_filename=name,
-                    base_evidence=[page_url],
+                    base_evidence=[page_url, observed],
                     source_reported=base.reported(
                         url=picture["url"],
                         mime=base.mime_for(name.rsplit(".", 1)[-1]),

@@ -21,7 +21,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths  # noqa: E402
 from primary import cli, model, runner  # noqa: E402
-from primary.adapters import apple, facebook, probe, registry as registry_adapter, x as x_adapter, youtube  # noqa: E402,E501
+from primary.adapters import apple, facebook, probe, youtube  # noqa: E402
+from primary.adapters import registry as registry_adapter  # noqa: E402
+from primary.adapters import x as x_adapter  # noqa: E402
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/official"
@@ -221,6 +223,95 @@ class AppleTests(OfficialTestCase):
         self.assertEqual(snapshot["continuation"]["itunes-lookup"], "no-result-hk")
         self.assertFalse(snapshot["discovery_complete"])
 
+    LOOKUP_SIZED = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
+
+    def lookup_rerun(self, second_urls):
+        """Archive two iTunes lookup screenshots, then rerun with the lookup listing ``second_urls``."""
+        sized = self.LOOKUP_SIZED
+        lookup_url = full_url(apple.LOOKUP, {"id": "945955095", "country": "hk", "entity": "software"})
+
+        def answer(urls):
+            app = {"trackId": 945955095, "trackName": "Dynamix", "sellerName": "C4Cat", "screenshotUrls": urls}
+            return {"json": {"resultCount": 1, "results": [app]}}
+
+        files = {
+            sized + "mzl.aaaa.png/4000x4000bb.png": {
+                "bytes": image_bytes("PNG", (40, 30)),
+                "content_type": "image/png",
+            },
+            sized + "mzl.bbbb.png/4000x4000bb.png": {
+                "bytes": image_bytes("PNG", (40, 31)),
+                "content_type": "image/png",
+            },
+        }
+        seed = self.seed([{"lookup_id": "945955095", "countries": ["hk"]}])
+        first = [sized + "mzl.aaaa.png/406x228bb.png", sized + "mzl.bbbb.png/406x228bb.png"]
+        self.run_family([seed], FakeNetwork({lookup_url: answer(first), **files}))
+        self.assertEqual({a["upstream_status"] for a in self.manifest()["assets"]}, {"current"})
+        runner.Runner(
+            self.root,
+            "official",
+            [seed],
+            client_factory=FakeNetwork({lookup_url: answer(second_urls), **files}).factory,
+            now=lambda: "2026-10-11T12:00:00Z",
+            sleep=lambda s: None,
+        ).run()
+        statuses = {a["candidate_id"].rsplit(":", 1)[1]: a["upstream_status"] for a in self.manifest()["assets"]}
+        return manifest.load_discovery(self.root, "official:apple-store"), statuses
+
+    def test_an_unrecognized_lookup_url_keeps_the_list_open(self):
+        # An entry the parser cannot read is no evidence that the upload is gone: nothing is marked removed.
+        sized = self.LOOKUP_SIZED
+        snapshot, statuses = self.lookup_rerun(
+            [sized + "mzl.aaaa.png/406x228bb.png", sized + "mzl.bbbb.png/406x228bb-60.png"]
+        )
+        self.assertIsNotNone(snapshot["continuation"]["itunes-lookup"])
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertTrue(any("406x228bb-60.png" in error["message"] for error in snapshot["errors"]))
+        self.assertEqual(statuses, {"mzl.aaaa.png": "current", "mzl.bbbb.png": "current"})
+        self.verify()
+
+    def test_a_lookup_screenshot_no_longer_listed_is_removed(self):
+        snapshot, statuses = self.lookup_rerun([self.LOOKUP_SIZED + "mzl.aaaa.png/406x228bb.png"])
+        self.assertTrue(snapshot["discovery_complete"])
+        self.assertEqual(statuses, {"mzl.aaaa.png": "current", "mzl.bbbb.png": "removed"})
+        self.verify()
+
+    def test_product_page_failures_keep_the_shelves_open(self):
+        for answer, token in (
+            ({"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}, "not-read:http_5xx"),
+            ({"text": "<html><body>new layout</body></html>"}, "structure-not-recognized"),
+        ):
+            with self.subTest(token=token), tempfile.TemporaryDirectory() as temp:
+                self.root = Path(temp)
+                self.run_family([self.seed([{"url": self.PAGE}])], FakeNetwork({self.PAGE: answer}))
+                snapshot = manifest.load_discovery(self.root, "official:apple-store")
+                self.assertEqual(snapshot["continuation"]["product-media-shelves"], token)
+                self.assertFalse(snapshot["discovery_complete"])
+                self.assertEqual(self.manifest()["assets"], [])
+
+    def test_a_failed_lookup_keeps_the_list_open_and_other_storefronts_still_run(self):
+        def lookup(country):
+            return full_url(apple.LOOKUP, {"id": "945955095", "country": country, "entity": "software"})
+
+        routes = {
+            lookup("us"): {"error": net.HttpError("HTTP 503", url=lookup("us"), http_status=503)},
+            lookup("jp"): {"json": json.loads(text("itunes_lookup_jp.json"))},
+        }
+        app = json.loads(text("itunes_lookup_jp.json"))["results"][0]
+        for index, url in enumerate(app["screenshotUrls"] + app["ipadScreenshotUrls"]):
+            routes[apple.native_lookup_url(url)] = {
+                "bytes": image_bytes("PNG", (60 + index, 34)),
+                "content_type": "image/png",
+            }
+        self.run_family([self.seed([{"lookup_id": "945955095", "countries": ["us", "jp"]}])], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "official:apple-store")
+        self.assertEqual(snapshot["continuation"]["itunes-lookup"], "incomplete-us")
+        self.assertTrue(any(error["message"].startswith("lookup us:") for error in snapshot["errors"]))
+        self.assertTrue(snapshot["candidates"])
+        self.assertEqual({c["disposition"] for c in snapshot["candidates"]}, {"downloaded"})  # the JP set
+        self.verify()
+
     def test_lossless_rendition_follows_the_upload_format(self):
         sized = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
         self.assertEqual(
@@ -415,7 +506,7 @@ class TapTapTests(OfficialTestCase):
             "https://img-tc.tapimg.com/video-picture/1001/first.jpg",
             "https://img-tc.tapimg.com/video-picture/1002/first.jpg",
         ]
-        for url, field in zip(posters, ("thumbnail", "raw_cover")):  # raw_cover: the video's first frame
+        for url, field in zip(posters, ("thumbnail", "raw_cover"), strict=True):  # raw_cover: the video's first frame
             base_index = len(payload)
             payload += [{"video": base_index + 1}, {field: base_index + 2}, {"original_url": base_index + 3}, url]
             payload[app["app_videos"]].append(base_index)
@@ -491,6 +582,113 @@ class TapTapTests(OfficialTestCase):
         copy = next(a for a in assets if a["candidate_id"] == f"official:taptap:screenshot:{token}")
         self.assertIs(copy["transformed"], True)
         self.assertIn(f"archived as {exact['id']}", copy["quality"]["notes"])
+        self.verify()
+
+    def screenshot_rerun(self, change=None, answer=None):
+        """Archive both fixture screenshots, then rerun with ``change(payload)`` applied to the page's devalue array
+        (or with the page route ``answer``)."""
+        page = text("taptap_app.html")
+        head, rest = page.split('data-ssr="true">', 1)
+        body, tail = rest.split("</script>", 1)
+        payload = json.loads(body)
+        if change:
+            change(payload)
+        changed = head + 'data-ssr="true">' + json.dumps(payload) + "</script>" + tail
+        base = "https://img-tc.tapimg.com/market/images/"
+        files = {
+            f"{base}0f46c7d8f23cfefc08f151e5de5f02ee.png": {
+                "bytes": image_bytes("PNG", (22, 12)),
+                "content_type": "image/png",
+            },
+            f"{base}1111c7d8f23cfefc08f151e5de5f0222.jpg": {
+                "bytes": image_bytes("JPEG", (13, 7)),
+                "content_type": "image/jpeg",
+            },
+        }
+        seed = {
+            "id": "official:taptap",
+            "name": "TapTap",
+            "url": "https://www.taptap.cn/app/7082",
+            "platform": "taptap",
+            "adapter": "taptap_app",
+            "params": {"identifier": "com.c4cat.dynamix"},
+            "quality": QUALITY,
+            "items": [{"url": "https://www.taptap.cn/app/7082"}],
+            "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+        }
+        self.run_family([seed], FakeNetwork({seed["url"]: {"text": page}, **files}))
+        self.assertEqual({a["upstream_status"] for a in self.manifest()["assets"]}, {"current"})
+        runner.Runner(
+            self.root,
+            "official",
+            [seed],
+            client_factory=FakeNetwork({seed["url"]: answer or {"text": changed}, **files}).factory,
+            now=lambda: "2026-10-11T12:00:00Z",
+            sleep=lambda s: None,
+        ).run()
+        statuses = {a["candidate_id"].rsplit(":", 1)[1]: a["upstream_status"] for a in self.manifest()["assets"]}
+        return manifest.load_discovery(self.root, "official:taptap"), statuses
+
+    @staticmethod
+    def screenshot_entries(payload):
+        app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
+        return payload[app["screenshots"]]
+
+    def test_an_unparseable_screenshot_entry_keeps_the_list_open(self):
+        def undefined_url(payload):
+            entry = payload[self.screenshot_entries(payload)[1]]
+            entry["original_url"] = -1  # devalue's undefined: the entry is listed but its URL cannot be read
+
+        snapshot, statuses = self.screenshot_rerun(undefined_url)
+        self.assertEqual(snapshot["continuation"]["app-screenshots"], "structure-not-recognized")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertTrue(any("screenshot entry 2" in error["message"] for error in snapshot["errors"]))
+        held = {c["upstream_key"]: c for c in snapshot["candidates"]}["screenshot:unparsed-2"]
+        self.assertEqual(held["disposition"], "pending")
+        self.assertTrue(held["reason"].startswith("unresolved_role: unrecognized screenshot entry"))
+        self.assertEqual(
+            statuses, {"0f46c7d8f23cfefc08f151e5de5f02ee": "current", "1111c7d8f23cfefc08f151e5de5f0222": "current"}
+        )
+        self.verify()
+
+    def assert_unread_page_keeps_screenshots_current(self, token, **rerun):
+        snapshot, statuses = self.screenshot_rerun(**rerun)
+        self.assertEqual(snapshot["continuation"]["app-screenshots"], token)
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(set(statuses.values()), {"current"})  # an unread page is no observation
+        self.verify()
+        return snapshot
+
+    def test_a_failed_page_read_is_a_failure_and_changes_no_status(self):
+        url = "https://www.taptap.cn/app/7082"
+        error = net.HttpError("HTTP 503", url=url, http_status=503)
+        snapshot = self.assert_unread_page_keeps_screenshots_current("not-read:http_5xx", answer={"error": error})
+        page = {c["upstream_key"]: c for c in snapshot["candidates"]}[f"page:{url}"]
+        self.assertEqual(page["disposition"], "failed")
+
+    def test_a_page_without_the_payload_keeps_the_list_open(self):
+        snapshot = self.assert_unread_page_keeps_screenshots_current(
+            "structure-not-recognized", answer={"text": "<html><body>new layout</body></html>"}
+        )
+        self.assertTrue(any("page structure changed" in error["message"] for error in snapshot["errors"]))
+
+    def test_a_payload_of_another_app_keeps_the_list_open(self):
+        def other_app(payload):
+            app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
+            payload[app["identifier"]] = "com.example.other"
+
+        snapshot = self.assert_unread_page_keeps_screenshots_current("app-not-found", change=other_app)
+        self.assertTrue(any("com.c4cat.dynamix" in error["message"] for error in snapshot["errors"]))
+
+    def test_a_screenshot_no_longer_listed_is_removed(self):
+        def drop_second(payload):
+            del self.screenshot_entries(payload)[1]
+
+        snapshot, statuses = self.screenshot_rerun(drop_second)
+        self.assertTrue(snapshot["discovery_complete"])
+        self.assertEqual(
+            statuses, {"0f46c7d8f23cfefc08f151e5de5f02ee": "current", "1111c7d8f23cfefc08f151e5de5f0222": "removed"}
+        )
         self.verify()
 
     def test_banner_rendition_used_as_trailer_poster_still_yields_the_upload(self):
@@ -599,6 +797,66 @@ class XTimelineTests(OfficialTestCase):
         self.assertIn("Dynamix Universe", held["reason"])  # the guard holds even a per-post rule
         self.assertEqual(held["game"], "dynamix_universe")  # not recorded as an original-game candidate
         self.assertEqual(network.count("pbs.twimg.com"), 1)
+        self.verify()
+
+    def test_an_explicit_post_in_the_timeline_sample_is_read_from_tweet_result(self):
+        # The explicit item names the post: it is classified from its own tweet-result read, with its own notes, even
+        # when the timeline sample lists it too (the timeline object lacks the quoted tweet, and its date format
+        # differs).
+        post = "1913000000000000001"
+        result = {
+            "__typename": "Tweet",
+            "id_str": post,
+            "text": "Event song coming soon! #Dynamix",
+            "created_at": "2025-04-18T10:00:00.000Z",
+            "user": {"screen_name": "c4c4cat", "name": "c4c4cat"},
+            "quoted_tweet": {"text": "Cosmic Pulse jacket by ariiol", "user": {"screen_name": "ariiol_"}},
+            "mediaDetails": [
+                {
+                    "type": "photo",
+                    "media_url_https": "https://pbs.twimg.com/media/GoqoEkJW4AA5saO.jpg",
+                    "original_info": {"width": 1200, "height": 628},
+                }
+            ],
+        }
+        network = FakeNetwork(
+            {
+                x_adapter.TIMELINE + "c4c4cat": {"text": text("x_timeline.html")},
+                full_url(x_adapter.API, {"id": post, "lang": "en", "token": x_adapter.syndication_token(post)}): {
+                    "json": result
+                },
+                self.MEDIA: {"bytes": image_bytes("JPEG", (120, 63)), "content_type": "image/jpeg"},
+            }
+        )
+        rules = [{"match": f"^{post}:1$", "role": "promotional", "evidence_quotes": ["Cosmic Pulse jacket"]}]
+        items = [{"timeline": "c4c4cat"}, {"post_id": post, "notes": "Curator note."}]
+        self.run_family([self.seed(rules, items)], network)
+        found = self.candidates("official:x")
+        self.assertEqual(network.count("cdn.syndication.twimg.com"), 1)
+        self.assertEqual(found[f"{post}:1"]["disposition"], "downloaded")
+        self.assertEqual(found[f"{post}:1"]["notes"], "Curator note.")
+        self.assertEqual(found[f"{post}:1"]["source_reported"]["timestamp"], "2025-04-18T10:00:00.000Z")
+        self.assertEqual(found["1913000000000000002:1"]["disposition"], "pending")  # other sample posts still listed
+        self.verify()
+
+    def test_read_failures_keep_both_lists_open(self):
+        post = "981147690795900928"
+        post_url = full_url(x_adapter.API, {"id": post, "lang": "en", "token": x_adapter.syndication_token(post)})
+        timeline = x_adapter.TIMELINE + "c4c4cat"
+        network = FakeNetwork(
+            {
+                timeline: {"error": net.HttpError("HTTP 429", url=timeline, http_status=429)},
+                post_url: {"error": net.HttpError("HTTP 404", url=post_url, http_status=404)},
+            }
+        )
+        self.run_family([self.seed([])], network)
+        snapshot = manifest.load_discovery(self.root, "official:x")
+        self.assertEqual(snapshot["continuation"]["timeline:c4c4cat"], "not-read")
+        self.assertEqual(snapshot["continuation"]["seed-posts"], "not-read:http_4xx")
+        self.assertTrue(any("timeline:c4c4cat" in error["message"] for error in snapshot["errors"]))
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(list(found), [post])  # the explicit post is still read after the timeline failed
+        self.assertEqual(found[post]["disposition"], "failed")
         self.verify()
 
     def test_committed_official_x_rules_hold_a_sequel_post_from_the_timeline(self):
@@ -821,6 +1079,21 @@ class YouTubeTests(OfficialTestCase):
         self.assertIn("no longer shows", found["channel:avatar"]["reason"])
         self.assertTrue(found["channel:avatar"]["reason"].startswith("unresolved_game: "))  # the channel's claim
         self.assertEqual(network.count("www.youtube.com"), 1)  # the channel page is read once
+        self.verify()
+
+    def test_a_failed_channel_page_read_fails_each_channel_art_item(self):
+        error = net.HttpError("HTTP 503", url=self.CHANNEL, http_status=503)
+        network = FakeNetwork({self.CHANNEL: {"error": error}})
+        banner = "https://yt3.googleusercontent.com/" + "B" * 40
+        avatar = "https://yt3.googleusercontent.com/" + "A" * 40
+        self.run_family(
+            [self.seed([{"channel_art": "banner", "url": banner}, {"channel_art": "avatar", "url": avatar}])], network
+        )
+        snapshot = manifest.load_discovery(self.root, "official:youtube")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual({found["channel:banner"]["disposition"], found["channel:avatar"]["disposition"]}, {"failed"})
+        self.assertEqual(network.count("www.youtube.com"), 1)  # one failed read serves every channel-art item
+        self.assertEqual(snapshot["continuation"]["channel-art"], "not-read:http_5xx")
         self.verify()
 
     def test_seed_validation(self):
