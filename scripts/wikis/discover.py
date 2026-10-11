@@ -10,9 +10,10 @@ keeps the per-candidate result and its evidence strings.
 from __future__ import annotations
 
 import re
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 from lib import manifest, paths, schema
 
@@ -86,9 +87,9 @@ def fetch_inventory(
 
 
 def _utc(seconds: float) -> str:
-    from datetime import datetime, timezone
+    from datetime import UTC, datetime
 
-    return datetime.fromtimestamp(seconds, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.fromtimestamp(seconds, UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def templated_titles(pages: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:

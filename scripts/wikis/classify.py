@@ -19,7 +19,9 @@ covers of external releases). Everything else without both a role and an origina
 Game: the union of the games of the contexts that embed the file (song template, game tab, page category/suffix, or
 the reviewed original-game page table). A page about both games gives no game by itself. A file whose role comes from
 a song page and whose Fandom upload predates the wiki's first Universe-named upload is original-game material
-(``pre-Universe upload``).
+(``pre-Universe upload``). A caption naming the artwork of another game ("Artwork in RAVON") adds that game as an
+association and never supplies a game: with an original-game context the file is shared (``mixed``), with only
+Universe contexts it stays Universe-only, and without a game context it stays unresolved.
 
 File description pages: a description that redirects to another file with the same reported SHA-1 is an alias
 (``redirect_or_alias``); pages linking to the description page (``[[:File:X]]`` citations, talk threads) are recorded
@@ -50,8 +52,9 @@ titles do not resolve maps nothing.
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field, replace
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 from lib import paths, schema
 
@@ -374,20 +377,25 @@ def page_evidence(
                     # "Artwork in PABAT! 2017": the song's artwork for a separate (BMS) event release, not Dynamix's.
                     role, song = "external_release_art", None
                     detail += f", artwork of the song's release for {named} (an external release event)"
-                elif other is not None:
-                    game = "mixed"
-                    other_game = named
-                    detail += f", artwork of the song for {other_game} (another game/event)"
-                elif (
-                    game is None
-                    and info.game == "mixed"
-                    and region is None
-                    and ref.context == "gallery"
-                    and caption_role in config.MIXED_PAGE_GALLERY_ROLES
-                    and not re.search(r"universe|\bUV\b", ref.caption, re.I)
-                ):
-                    game = "dynamix"
-                    detail += ", page-level gallery of a two-game song page (original-game event items)"
+                else:
+                    if other is not None and config.DYNAMIX_OCCASION.search(named):
+                        detail += f", artwork for {named} (a Dynamix event, not another game)"
+                    elif other is not None:
+                        # Shared artwork: an association only. The page or tab keeps deciding the game (decide()
+                        # makes it "mixed" when an original-game context exists), so a Universe-only page stays
+                        # Universe-only and a page without game evidence gives none.
+                        other_game = named
+                        detail += f", artwork of the song for {other_game} (another game/event)"
+                    if (
+                        game is None
+                        and info.game == "mixed"
+                        and region is None
+                        and ref.context == "gallery"
+                        and caption_role in config.MIXED_PAGE_GALLERY_ROLES
+                        and not re.search(r"universe|\bUV\b", ref.caption, re.I)
+                    ):
+                        game = "dynamix"
+                        detail += ", page-level gallery of a two-game song page (original-game event items)"
             elif info.title in config.SITE_UI_PAGES:
                 role, strength = "site_ui", 2
             else:
@@ -502,7 +510,7 @@ class SongNames:
     loose: Mapping[str, str]
 
     @classmethod
-    def build(cls, songs: Iterable[tuple[str, Iterable[str]]]) -> "SongNames":
+    def build(cls, songs: Iterable[tuple[str, Iterable[str]]]) -> SongNames:
         """From ``(exact title, other spellings)`` pairs."""
         exact: dict[str, set[str]] = {}
         loose: dict[str, set[str]] = {}
@@ -584,7 +592,7 @@ class Subject:
     unread: str = ""  # no caption or file title gives a subject although song pages show the graphic (recorded)
     unread_pages: tuple[str, ...] = ()  # then: the songs of the original-game song pages showing it
 
-    def only(self, titles: Iterable[str]) -> "Subject":
+    def only(self, titles: Iterable[str]) -> Subject:
         """The subject restricted to ``titles`` (the songs an archivist review saw in the bytes)."""
         keep = set(titles)
         return replace(
@@ -1027,7 +1035,8 @@ def decide(
 
     ``review`` is an applicable :class:`wikis.reviews.Review` (its evidence items carry the context
     ``archivist review``); it supplies the role only when no page evidence of strength >= 1 does (or breaks a tie
-    between equally supported page roles) and the game only when no page context gives one; a ``mixed`` review adds
+    between equally supported page roles; a ``promotional`` review also decides against list evidence of any
+    strength, see ``kept_promotional``) and the game only when no page context gives one; a ``mixed`` review adds
     its shared-game associations to a game that page context gives. ``review_stale`` marks a review of an earlier
     revision. ``alias`` is ``(target title, same reported SHA-1)`` for a file whose description page redirects to
     another file. ``song_names`` (the original-game song titles) lets the subject of a list or chart-announcement
@@ -1051,7 +1060,8 @@ def decide(
         return Decision(None, "unknown", [], [note], [], [], "excluded", f"redirect_or_alias: {note}", "unmapped")
     page_items = [item for item in items if item.context != REVIEW_CONTEXT]
     games = {item.game for item in page_items if item.game}
-    game_items = [item.text() for item in page_items if item.game]
+    # A caption naming another game's artwork is game evidence too (the association), although it gives no game.
+    game_items = [item.text() for item in page_items if item.game or item.other_game]
     role_items = [item for item in page_items if item.role]
     top = max((item.strength for item in role_items), default=-1)
     leaders = _majority([item for item in role_items if item.strength == top])
@@ -1080,15 +1090,44 @@ def decide(
         and review.role == "gameplay_screenshot"
         and {item.role for item in role_items if item.strength >= 1} == {"game_ui"}
     )
+    # A review that saw neither a list nor level marks in the bytes (role promotional: key art, a first-reveal card)
+    # keeps the file promotional against list evidence of any strength, as a list review makes it a reference against
+    # promotional evidence (_list_rule); other page roles, such as an update-note reference, still win.
+    strong_items = [item for item in role_items if item.strength >= 1]
+    kept_promotional = (
+        review is not None
+        and review.role == "promotional"
+        and any(_page_list(item) for item in strong_items)
+        and all(item.role == "promotional" or _page_list(item) for item in strong_items)
+    )
     reviewed_role = (
         review is not None
         and review.role is not None
-        and (top < 1 or (len(leaders) > 1 and review.role in leaders) or refines or branding or screen)
+        and (
+            top < 1
+            or (len(leaders) > 1 and review.role in leaders)
+            or refines
+            or branding
+            or screen
+            or kept_promotional
+        )
     )
     rule_notes: list[str] = []
     if reviewed_role:
         leaders, top = [review.role], max(top, 0)
-        role_evidence = _short([f"{review.role} <- {review.role_text()}"] + role_evidence)
+        entry = f"{review.role} <- {review.role_text()}"
+        if kept_promotional:
+            entry += "; it overrides the list page evidence listed here"
+        role_evidence = _short([entry] + role_evidence)
+    if kept_promotional:
+        overridden = "; ".join(
+            _clip_text(text) for text in list(dict.fromkeys(i.text() for i in strong_items if _page_list(i)))[:3]
+        )
+        rule_notes.append(
+            f"Kind promotional by the archivist review ({review.title}), which saw neither a list of songs or charts "
+            f"nor chart level marks in the bytes, so the {LIST_RULE_NAME} does not make the file a reference. "
+            f"List page evidence it overrides: {overridden}."
+        )
     if branding:
         overridden = "; ".join(_clip_text(item.text()) for item in role_items if item.role == "site_ui")
         rule_notes.append(
@@ -1144,6 +1183,10 @@ def decide(
     if reviewed_game:
         games = {review.game}
         game_items.append(review.game_text())
+    # A caption "Artwork in <other game>" shares an original-game file with that game (mixed); with only Universe
+    # contexts the file stays Universe-only, and without any game context it stays unresolved.
+    if "dynamix" in games and any(item.other_game for item in page_items):
+        games = games | {"mixed"}
     # A review that saw another game's identity in the bytes (game "mixed" with associations) adds it to the original
     # game that page context gives: the file is shared, not moved to the other game.
     shared = (
@@ -1298,10 +1341,16 @@ def decide(
 
 
 RULE_TEXT_LIMIT = 400
+LIST_RULE_NAME = "list and chart-announcement rule (09-frozen-contracts.md, coordinator classification decisions)"
 
 
 def _clip_text(text: str) -> str:
     return text if len(text) <= RULE_TEXT_LIMIT else text[: RULE_TEXT_LIMIT - 3] + "..."
+
+
+def _page_list(item: Evidence) -> bool:
+    """Page evidence that files the graphic as a list or chart announcement (a list caption or chart-list category)."""
+    return item.role == "reference" and item.list_graphic and item.context != REVIEW_CONTEXT
 
 
 def _list_rule(

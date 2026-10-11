@@ -66,11 +66,8 @@ def _category(category: str, key: str = "miraheze") -> list[classify.Evidence]:
 
 def _caption(caption: str, page: str = "Cosmic Pulse", title: str = TITLE) -> classify.Evidence:
     """Evidence of a gallery caption on an original-game song page, as :func:`classify.page_evidence` builds it."""
-    text = "{{Song\n|Title = %s\n|Imgsuffix = Cover.png\n}}\n<gallery>\n%s|%s\n</gallery>" % (
-        page,
-        title.split(":", 1)[1],
-        caption,
-    )
+    name = title.split(":", 1)[1]
+    text = f"{{{{Song\n|Title = {page}\n|Imgsuffix = Cover.png\n}}}}\n<gallery>\n{name}|{caption}\n</gallery>"
     raw = {"title": page, "revision": {"content": text, "revid": 1}, "categories": ["Category:Songs"]}
     info = classify.analyze_page(config.MIRAHEZE, raw)
     files = {title: dict(INFO), "File:Cover.png": dict(INFO)}
@@ -214,7 +211,8 @@ class ListRuleTests(unittest.TestCase):
 
     def test_event_and_teaser_without_list_evidence_stay_promotional(self) -> None:
         """No list evidence: event categories, event/teaser captions and a list-like filename stay promotional; a
-        review that saw neither a list nor level marks keeps the file promotional even against a list caption."""
+        review that saw neither a list nor level marks keeps the file promotional even against a list caption (here
+        tied with an event category; test_promotional_review_wins_against_untied_list_evidence has untied ones)."""
         name = classify.filename_evidence(config.MIRAHEZE, "File:Helios Comeback.png")
         for items in (
             _category("Category:Event images"),
@@ -231,8 +229,48 @@ class ListRuleTests(unittest.TestCase):
         )
         listed = _caption("PUPA Chart List", "PUPA")
         decision = _decide([listed] + _category("Category:Event images"), teaser)
-        self.assertEqual((decision.role, decision.rule_notes), ("promotional", []))
+        self.assertEqual(decision.role, "promotional")
+        [note] = decision.rule_notes  # the review's override is recorded; the list rule is not applied
+        self.assertTrue(note.startswith(f"Kind promotional by the archivist review ({TITLE})"), note)
+        self.assertIn(f"List page evidence it overrides: {listed.text()}", note)
         self.assertTrue(decision.role_evidence[0].startswith("promotional <- archivist review"))
+
+    def test_promotional_review_wins_against_untied_list_evidence(self) -> None:
+        """DX1-02: a review that saw neither a list nor level marks (a first-reveal card: one titled jacket and '?'
+        slots, coordinator decision 2026-10-11) keeps the file promotional against list evidence of any strength --
+        one list caption, a chart-list category, list captions in the majority -- and records what it overrides; the
+        mapping rests on the review (inferred)."""
+        card = _review(
+            role="promotional",
+            list_graphic=None,
+            songs=["PUPA"],
+            evidence="visual_inspection: first-reveal card with one titled jacket and three '?' slots, no level marks",
+        )
+        comeback = _caption("PUPA Comeback", "PUPA")
+        for items, songs in (
+            ([comeback], ["PUPA"]),
+            (_category("Category:Chart list images"), ["PUPA"]),
+            # The event caption on song B's page names B, as promotional page evidence; the review adds PUPA.
+            ([comeback, _caption("Cosmic Pulse X PUPA Comeback", "A"), _caption("November Event", "B")], ["B", "PUPA"]),
+        ):
+            self.assertEqual(_decide(items).role, "reference")  # without the review the list evidence decides
+            decision = _decide(items, card)
+            self.assertEqual((decision.role, decision.disposition), ("promotional", "download"), items)
+            self.assertTrue(
+                decision.role_evidence[0].startswith(
+                    f"promotional <- archivist review ({TITLE}): visual_inspection: first-reveal card"
+                ),
+                decision.role_evidence,
+            )
+            self.assertIn("it overrides the list page evidence listed here", decision.role_evidence[0])
+            [note] = decision.rule_notes
+            self.assertTrue(note.startswith(f"Kind promotional by the archivist review ({TITLE})"), note)
+            self.assertIn(f"List page evidence it overrides: {items[0].text()}", note)
+            self.assertEqual((decision.songs, decision.mapping), (songs, "inferred"))
+        # Not a list question: an informational reference without list evidence keeps its page role.
+        for items in ([_caption("2.4 Version Update", "PUPA")], [comeback, _caption("2.4 Version Update", "A")]):
+            decision = _decide(items, card)
+            self.assertEqual((decision.role, decision.rule_notes), ("reference", []), items)
 
     def test_rule_replaces_only_a_promotional_role(self) -> None:
         cover = classify.Evidence(
@@ -459,7 +497,8 @@ class ChartAnnouncementTests(unittest.TestCase):
 
     def test_review_without_list_or_levels_keeps_it_promotional(self) -> None:
         """A review that saw neither a list nor level marks (a pack card with one titled jacket under a caption
-        that calls it a comeback) keeps the graphic promotional: the rule is not applied."""
+        that calls it a comeback, tied here with an event category) keeps the graphic promotional: the rule is not
+        applied, and the overridden list caption is recorded."""
         card = _review(
             role="promotional",
             list_graphic=None,
@@ -467,7 +506,12 @@ class ChartAnnouncementTests(unittest.TestCase):
             evidence="visual_inspection: pack card with one titled jacket and three '?' slots, no level marks",
         )
         decision = _decide([_caption("PUPA Comeback", "PUPA")] + _category("Category:Event images"), card)
-        self.assertEqual((decision.role, decision.rule_notes), ("promotional", []))
+        self.assertEqual(decision.role, "promotional")
+        self.assertFalse(any(note.startswith("Kind reference") for note in decision.rule_notes))
+        self.assertEqual(
+            [note.split(",")[0] for note in decision.rule_notes],
+            [f"Kind promotional by the archivist review ({TITLE})"],
+        )
         self.assertEqual(decision.songs, ["PUPA"])
 
     def test_host_page_alone_names_no_subject(self) -> None:

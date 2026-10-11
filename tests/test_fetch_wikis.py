@@ -6,7 +6,9 @@ The real CLI (``wikis.cli.main``) runs with ``--root`` in a temporary directory 
 
 from __future__ import annotations
 
+import contextlib
 import hashlib
+import io
 import json
 import shutil
 import subprocess
@@ -19,11 +21,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "tests" / "fixtures" / "wikis"))
 
-from lib import manifest, net, schema  # noqa: E402
-from wikis import acquire, cli, config, reviews  # noqa: E402
-
 from fakewiki import image_bytes  # noqa: E402
 from scenario import Scenario  # noqa: E402
+
+from lib import manifest, net, schema  # noqa: E402
+from wikis import acquire, cli, config, reviews  # noqa: E402
 
 NOW = "2026-10-10T12:00:00Z"
 
@@ -34,6 +36,10 @@ class WikiRun(unittest.TestCase):
         self.root = self.tmp / "repo"
         self.root.mkdir()
         self.work = self.tmp / "work"
+        # Private, as the CLI creates it (mode 0700 whatever the umask): a test that plants a journal or holds the lock
+        # before the first run must reach the check it names, not the refusal of a group-writable work directory.
+        self.work.mkdir()
+        self.work.chmod(0o700)
         self.scenario = Scenario()
         self.logs: list[str] = []
         # Hermetic archivist reviews: the scenario's own table instead of scripts/wikis/reviews.json.
@@ -55,6 +61,13 @@ class WikiRun(unittest.TestCase):
             now=lambda: NOW,
             log=self.logs.append,
         )
+
+    def run_cli_stderr(self, *args: str) -> tuple[int, str]:
+        """:meth:`run_cli` and what it printed to stderr (where the lock and work-directory refusals go)."""
+        stderr = io.StringIO()
+        with contextlib.redirect_stderr(stderr):
+            code = self.run_cli(*args)
+        return code, stderr.getvalue()
 
     def verify(self) -> int:
         return cli.main(["--root", str(self.root), "--verify"], log=self.logs.append)
@@ -283,7 +296,9 @@ class MetadataOnlyTests(WikiRun):
 
     def test_lock_prevents_second_writer(self) -> None:
         with acquire.exclusive_lock(self.work / "lock"):
-            self.assertEqual(self.run_cli("--metadata-only"), 3)
+            code, stderr = self.run_cli_stderr("--metadata-only")
+        self.assertEqual(code, 3)
+        self.assertIn(f"another fetch_wikis.py run holds {self.work / 'lock'}", stderr)
 
 
 class AcquisitionTests(WikiRun):
@@ -684,6 +699,18 @@ class ArchiveIntegrityTests(WikiRun):
             )
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0)  # nothing left to replay
+
+    def test_plain_run_repairs_a_truncated_file(self) -> None:
+        """DX6-10: a normal run checks presence and size (cli.py), so it downloads a truncated archived file again;
+        a same-size change is found only by --resume, which re-hashes."""
+        self.assertEqual(self.run_cli("--source", "miraheze"), 0)
+        truncated = self.damage("File:(XD)Dynamix.png", "truncate")
+        flipped = self.damage("File:Emi-Raw.png", "flip")
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 0, "\n".join(self.logs))
+        self.assertEqual(len(client.downloads), 1)
+        self.assertEqual(hashlib.sha256((self.root / truncated["path"]).read_bytes()).hexdigest(), truncated["sha256"])
+        self.assertNotEqual(hashlib.sha256((self.root / flipped["path"]).read_bytes()).hexdigest(), flipped["sha256"])
 
     def test_failed_repair_keeps_the_record(self) -> None:
         self.assertEqual(self.run_cli("--source", "miraheze"), 0)

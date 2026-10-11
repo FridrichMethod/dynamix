@@ -25,11 +25,15 @@ _TABBEREX_OPEN = re.compile(r"<div\b[^>]*class\s*=\s*[\"'][^\"']*\btabberex-tab\
 _TAB_HEADER = re.compile(r"data-tab-header\s*=\s*[\"']([^\"']*)[\"']", re.IGNORECASE)
 _DIV_TOKEN = re.compile(r"<div\b[^>]*>|</div\s*>", re.IGNORECASE)
 _TABBER = re.compile(r"<tabber\b[^>]*>(.*?)</tabber\s*>", re.IGNORECASE | re.DOTALL)
-_REF = re.compile(r"<ref\b[^>/]*/>|<ref\b[^>]*>.*?</ref\s*>", re.IGNORECASE | re.DOTALL)
+# As in MediaWiki's preprocessor, a tag ends at its first ">" and is self-closing when "/" precedes it, whatever its
+# attribute values hold (<ref name="a/b"/>).
+_REF = re.compile(r"<ref\b[^>]*/>|<ref\b[^>]*(?<!/)>.*?</ref\s*>", re.IGNORECASE | re.DOTALL)
 _TAG = re.compile(r"<[^<>]+>")
 _NOWIKI_OPEN = re.compile(r"<nowiki\s*>", re.IGNORECASE)
 _NOWIKI_CLOSE = re.compile(r"</nowiki\s*>", re.IGNORECASE)
-_NOWIKI = re.compile(r"<nowiki\s*>(.*?)(?:</nowiki\s*>|\Z)|<nowiki\s*/>", re.IGNORECASE | re.DOTALL)
+# Text held literally by clean_markup: a <nowiki> span, or a private-use character of the placeholder (page text is
+# untrusted), so that every placeholder in the text afterwards is one clean_markup made.
+_HELD = re.compile(r"<nowiki\s*>(.*?)(?:</nowiki\s*>|\Z)|<nowiki\s*/>|" + "([\ue000\ue001])", re.IGNORECASE | re.DOTALL)
 _LITERAL = re.compile("\ue000(\\d+)\ue001")
 # Whitespace runs that collapse to one space inside a line: ASCII only. Other spaces are part of the text (the
 # ideographic space U+3000 in the exact title "MEGA\u3000POP").
@@ -48,6 +52,9 @@ _LINK_OPTION = re.compile(
     r"thumbtime|start|end)\s*=.*)$",
     re.IGNORECASE | re.DOTALL,
 )
+# A gallery line recognizes only these options besides link= (MediaWiki's Parser::renderImageGallery: alt, class,
+# link and the media handler's parameters without the width); every other part, "left" or "200px" included, is caption.
+_GALLERY_OPTION = re.compile(r"^(?:alt|class|lang|page)\s*=", re.IGNORECASE)
 UNKNOWN_CREDITS = frozenset(
     {"", "-", "–", "—", "?", "??", "???", "n/a", "na", "none", "unknown", "tba", "tbd", "not credited", "uncredited"}
 )
@@ -56,7 +63,7 @@ UNKNOWN_CREDITS = frozenset(
 @dataclass(frozen=True)
 class Template:
     name: str  # canonical: underscores as spaces, first letter upper-case
-    params: dict[str, str]  # named and positional ("1", "2", ...) parameters, raw values stripped
+    params: dict[str, str]  # named and positional ("1", "2", ...) parameters, raw values without comments, stripped
     start: int
     end: int
 
@@ -91,7 +98,7 @@ def canonical_file_name(raw: str | None) -> str | None:
     underscores as spaces, whitespace collapsed, first letter upper-case. None unless it names an image file."""
     if not raw:
         return None
-    value = html.unescape(raw).strip()
+    value = html.unescape(_COMMENT.sub("", raw)).strip()
     value = _FILE_PREFIX.sub("", value)
     if _PERCENT.search(value):
         value = unquote(value)
@@ -177,15 +184,20 @@ def _template_name(raw: str) -> str:
 
 
 def find_templates(text: str, names: set[str] | None = None) -> list[Template]:
-    """Every ``{{Name|...}}`` (nested ones included) in comment-masked ``text``; ``names`` filters canonical names.
-    Parser functions (``{{#if:``) and magic words (``{{PAGENAME}}``-like, containing ``:``) are skipped."""
-    masked = mask_comments(text)
+    """Every ``{{Name|...}}`` (nested ones included) in ``text``; ``names`` filters canonical names. Parser functions
+    (``{{#if:``) and magic words (``{{PAGENAME}}``-like, containing ``:``) are skipped.
+
+    The template spans and their top-level ``|`` and ``=`` come from the comment-masked text (a delimiter inside a
+    comment separates nothing); keys and values are the original text at the same offsets with comments removed, as
+    MediaWiki removes them without inserting anything (``Cosmic<!--x-->Pulse`` is ``CosmicPulse``)."""
+    text = text or ""
+    masked = mask_comments(text)  # same length as text: offsets into one are offsets into the other
     result = []
     for match in re.finditer(r"\{\{(?!\{)", masked):
         start = match.start()
         end = _matching(masked, start, "{{", "}}")
-        inner = masked[start + 2 : max(start + 2, end - 2)]
-        pieces = split_top_level(inner)
+        inner_start = start + 2
+        pieces = split_top_level(masked[inner_start : max(inner_start, end - 2)])
         name = _template_name(pieces[0])
         if not name or name.startswith("#") or ":" in name:
             continue
@@ -193,15 +205,24 @@ def find_templates(text: str, names: set[str] | None = None) -> list[Template]:
             continue
         params: dict[str, str] = {}
         position = 0
+        offset = inner_start + len(pieces[0]) + 1  # split_top_level keeps every character except the separators
         for piece in pieces[1:]:
-            key, equals, value = piece.partition("=")
+            original = text[offset : offset + len(piece)]
+            offset += len(piece) + 1
+            key, equals, _value = piece.partition("=")
             if equals and "{{" not in key and "[[" not in key and key.strip():
-                params[" ".join(key.split())] = value.strip()
+                params[" ".join(_COMMENT.sub("", original[: len(key)]).split())] = _uncommented(
+                    original[len(key) + 1 :]
+                )
             else:
                 position += 1
-                params[str(position)] = piece.strip()
+                params[str(position)] = _uncommented(original)
         result.append(Template(name, params, start, end))
     return result
+
+
+def _uncommented(value: str) -> str:
+    return _COMMENT.sub("", value).strip()
 
 
 def regions(text: str) -> list[Region]:
@@ -284,10 +305,10 @@ def clean_markup(value: str | None) -> str:
     literals: list[str] = []
 
     def hold(match: re.Match) -> str:
-        literals.append(match.group(1) or "")
+        literals.append(match.group(1) or match.group(2) or "")
         return f"\ue000{len(literals) - 1}\ue001"
 
-    text = _NOWIKI.sub(hold, text)
+    text = _HELD.sub(hold, text)
     text = _REF.sub("", text)
     text = _BR.sub("\n", text)
     for _ in range(5):  # innermost templates first; {{color|#hex|Text}} keeps its text
@@ -331,15 +352,18 @@ def credit_names(value: str | None, *, strip_illustrator_notes: bool = False) ->
     return names
 
 
-def _caption_and_link(parts: list[str]) -> tuple[str, str | None]:
+def _caption_and_link(parts: list[str], *, gallery: bool = False) -> tuple[str, str | None]:
+    """``(caption, link= target)`` of the parts after a file name: ``[[File:]]`` link options or, for a gallery line,
+    gallery options are skipped."""
     caption, link = "", None
+    options = _GALLERY_OPTION if gallery else _LINK_OPTION
     for part in parts:
         stripped = part.strip()
         key, equals, value = stripped.partition("=")
         if equals and key.strip().casefold() == "link":
             link = value.strip() or None
             continue
-        if _LINK_OPTION.match(stripped):
+        if options.match(stripped):
             continue
         caption = stripped  # MediaWiki uses the last unrecognized part as the caption
     return clean_markup(caption), link
@@ -362,7 +386,7 @@ def file_refs(text: str) -> list[FileRef]:
             name = canonical_file_name(parts[0])
             if name is None:
                 continue
-            caption, link = _caption_and_link(parts[1:])
+            caption, link = _caption_and_link(parts[1:], gallery=True)
             refs.append(
                 FileRef(
                     name,
@@ -407,7 +431,10 @@ def normalize_key(value: str) -> str:
 
 
 # Upside-down ("turned") spellings: each turned letter and the letter it reads as when the text is rotated 180°.
-_TURNED = dict(zip("ɐqɔpǝɟƃɥᴉıɾʞןɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲ⅁ſꓘ˥WԀᴚ⊥∩ΛMX⅄", "abcdefghiijklmnopqrstuvwxyzABCDEFGJKLMPRTUVWXY"))
+# strict: the two strings pair up character by character (46 each); a mismatch fails at import, not silently.
+_TURNED = dict(
+    zip("ɐqɔpǝɟƃɥᴉıɾʞןɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲ⅁ſꓘ˥WԀᴚ⊥∩ΛMX⅄", "abcdefghiijklmnopqrstuvwxyzABCDEFGJKLMPRTUVWXY", strict=True)
+)
 _TURNED_ONLY = set("ɐɔǝɟƃɥᴉɾʞɯɹʇʌʍʎ∀ꓭƆᗡƎℲ⅁ꓘ˥ԀᴚΛ⅄")  # characters that occur only in turned text
 
 

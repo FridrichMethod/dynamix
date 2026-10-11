@@ -35,8 +35,9 @@ import signal
 import sys
 import threading
 import traceback
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from lib import manifest, net, paths, schema
 
@@ -309,8 +310,10 @@ class Runner:
             # at most once per run after them; otherwise strongest evidence first, so that among same-wiki byte
             # duplicates the template/caption-named file becomes the record and the others point at it
             # (duplicate_bytes); then by candidate ID.
+            # strict: acquire.resolve() returns exactly one candidate per plan, in plan order (withdraw() replaces
+            # candidates in place), so the two lists are parallel.
             order = sorted(
-                zip(self.plans[key], self.candidates[key]),
+                zip(self.plans[key], self.candidates[key], strict=True),
                 key=lambda pair: (pair[1]["disposition"] == "failed", -pair[0].decision.strength, pair[0].candidate_id),
             )
             try:

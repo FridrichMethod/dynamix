@@ -12,7 +12,18 @@ sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "tests" / "fixtures" / "wikis"))
 
 from lib import net  # noqa: E402
-from wikis import acquire, classify, config, discover, jawikis, mediawiki, reviews, songindex, wikitext  # noqa: E402
+from wikis import (  # noqa: E402
+    acquire,
+    classify,
+    config,
+    discover,
+    jawikis,
+    mediawiki,
+    outputs,
+    reviews,
+    songindex,
+    wikitext,
+)
 
 
 class WikitextTests(unittest.TestCase):
@@ -22,6 +33,55 @@ class WikitextTests(unittest.TestCase):
         self.assertEqual(song.params["Imgsuffix"], "A_B.png")
         self.assertEqual(song.params["1"], "x")
         self.assertEqual(wikitext.clean_markup(song.params["Title"]), "A B")
+
+    def test_template_values_drop_comments(self) -> None:
+        """DX2-02: MediaWiki removes a comment without inserting anything, so a comment inside a value joins its
+        neighbours ('CosmicPulse'); delimiters inside a comment still separate nothing, and a value holding only a
+        comment is empty."""
+        text = (
+            "{{Song|Title=Cosmic<!--x-->Pulse|Cover Artist=ari<!--?-->iol|Imgsuffix=Cos<!--c-->mic.png"
+            "|Artist=<!-- none -->|Number=1<!-- |Update=hidden -->}}"
+        )
+        [song] = wikitext.find_templates(text, {"Song"})
+        self.assertEqual(
+            song.params,
+            {"Title": "CosmicPulse", "Cover Artist": "ariiol", "Imgsuffix": "Cosmic.png", "Artist": "", "Number": "1"},
+        )
+        self.assertEqual(wikitext.credit_names(song.params["Cover Artist"]), ["ariiol"])
+        page = {"title": "Cosmic Pulse", "revision": {"content": text, "revid": 1}, "categories": []}
+        [record] = classify.song_records("wikis:miraheze", page, "https://dynamix.miraheze.org/wiki/Cosmic_Pulse")
+        self.assertEqual(
+            (record.title, record.illustrators, record.imgsuffix), ("CosmicPulse", ["ariiol"], "Cosmic.png")
+        )
+        [ref] = [ref for ref in wikitext.file_refs(text) if ref.context == "template"]
+        self.assertEqual((ref.name, ref.param), ("Cosmic.png", "Imgsuffix"))
+        self.assertEqual(wikitext.canonical_file_name("Cos<!--c-->mic.png"), "Cosmic.png")
+
+    def test_self_closing_ref_with_a_slash_in_its_attributes(self) -> None:
+        """DX2-03: a tag ends at its first '>' and is self-closing when '/' precedes it, whatever its attribute
+        values hold: <ref name="a/b"/> removes itself only, never the text up to a later </ref>."""
+        self.assertEqual(
+            wikitext.credit_names('ariiol<ref name="a/b"/><br>Yunosuke<ref>cite</ref>'), ["ariiol", "Yunosuke"]
+        )
+        self.assertEqual(wikitext.clean_markup('A<ref name="x/y" /> B<ref>c</ref>'), "A B")
+        self.assertEqual(
+            wikitext.clean_markup('ariiol<ref name="a/b"/> & Yunosuke<ref>cite</ref>'), "ariiol & Yunosuke"
+        )
+        self.assertEqual(wikitext.clean_markup('A<ref name="a/b">cite / more</ref> B'), "A B")  # a paired ref
+        self.assertEqual(wikitext.clean_markup("A<ref name=x/> B<ref name=y>c</ref> C"), "A B C")
+
+    def test_private_use_characters_are_plain_text(self) -> None:
+        """DX2-04: page text is untrusted; private-use characters that look like the internal nowiki placeholder are
+        kept as text, never crash the parser or pull in another nowiki's content."""
+        held = "\ue0005\ue001"
+        self.assertEqual(wikitext.clean_markup(f"A {held} B"), f"A {held} B")
+        self.assertEqual(wikitext.clean_markup("<nowiki>A</nowiki> \ue0000\ue001"), "A \ue0000\ue001")
+        self.assertEqual(wikitext.clean_markup("<nowiki>\ue000|\ue001</nowiki>"), "\ue000|\ue001")
+        self.assertEqual(wikitext.credit_names("x\ue0009\ue001"), ["x\ue0009\ue001"])
+        self.assertEqual(wikitext.headings("== H\ue0003\ue001 ==\n"), [(0, 2, "H\ue0003\ue001")])
+        page = {"title": "P", "revision": {"content": "{{Song|Title=T\ue0001\ue001}}", "revid": 1}, "categories": []}
+        [record] = classify.song_records("wikis:miraheze", page, "https://dynamix.miraheze.org/wiki/P")
+        self.assertEqual(record.title, "T\ue0001\ue001")
 
     def test_credit_names_unknown_and_refs(self) -> None:
         self.assertEqual(wikitext.credit_names("ariiol<ref>[https://x.com/a The post]</ref>"), ["ariiol"])
@@ -75,6 +135,21 @@ class WikitextTests(unittest.TestCase):
         heads = wikitext.headings(text)
         self.assertEqual(wikitext.section_path(heads, refs[0].offset), ["Trivia"])
 
+    def test_gallery_captions_are_not_link_options(self) -> None:
+        """DX2-05: a gallery line knows only alt=, link=, class=, lang= and page=; every other part is caption text
+        (the last one wins), including words that are options of a [[File:]] link."""
+        text = (
+            "<gallery>\nX.png|Left\nY.png|200px\nZ.png|alt=Alt text|link=Cosmic Pulse|thumb\n"
+            "W.png|page=2|Cover art\n</gallery>"
+        )
+        self.assertEqual(
+            [(ref.caption, ref.link) for ref in wikitext.file_refs(text)],
+            [("Left", None), ("200px", None), ("thumb", "Cosmic Pulse"), ("Cover art", None)],
+        )
+        [link] = wikitext.file_refs("[[File:X.png|Left]] [[File:Y.png|200px|thumb|first|last]]")[:1]
+        self.assertEqual(link.caption, "")  # in a link these are options
+        self.assertEqual(wikitext.file_refs("[[File:Y.png|200px|thumb|first|last]]")[0].caption, "last")
+
     def test_link_display_text_with_brackets(self) -> None:
         """[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]] shows "[sound shinobi]" (a credited name in brackets)."""
         self.assertEqual(wikitext.credit_names("[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"), ["[sound shinobi]"])
@@ -111,6 +186,79 @@ class WikitextTests(unittest.TestCase):
         )
         regions = wikitext.regions(text)
         self.assertEqual([wikitext.region_game(r.label) for r in regions], ["dynamix", "dynamix_universe"])
+
+
+class WikitextRuleTests(unittest.TestCase):
+    """DX2-11: every parsing rule that classification relies on (game tabs, comments, parser functions, captions,
+    credits, titles, sections) has a test that fails when the rule is removed."""
+
+    def test_tabber_tabs_name_their_games(self) -> None:
+        text = "<tabber>\nDynamix=\n[[File:A.png]]\n|-|\nUV=\n[[File:B.png]]\n</tabber>"
+        regions = wikitext.regions(text)
+        self.assertEqual([region.label for region in regions], ["Dynamix", "UV"])
+        games = [
+            wikitext.region_game(wikitext.regions_at(regions, ref.offset)[-1].label) for ref in wikitext.file_refs(text)
+        ]
+        self.assertEqual(games, ["dynamix", "dynamix_universe"])
+        self.assertEqual(wikitext.region_game("Dynamix UV"), "dynamix_universe")  # the UV word wins over "Dynamix"
+        self.assertEqual(wikitext.region_game("Dynamix Universe"), "dynamix_universe")
+        self.assertIsNone(wikitext.region_game("Gallery"))
+
+    def test_a_tab_ends_at_the_next_tab(self) -> None:
+        """Tabs are siblings: an unclosed <div> inside one tab does not nest the next tab in it."""
+        text = (
+            '<div class="tabberex-tab" data-tab-header="Dynamix"><div>[[File:A.png]]'
+            '<div class="tabberex-tab" data-tab-header="Dynamix Universe">[[File:B.png]]</div></div>'
+        )
+        first, second = wikitext.regions(text)
+        self.assertEqual(first.end, second.start)
+        [_, b] = wikitext.file_refs(text)
+        self.assertEqual(wikitext.regions_at([first, second], b.offset), [second])
+
+    def test_unclosed_comment_hides_the_rest(self) -> None:
+        text = "{{Song|Title=A}}[[File:A.png]]<!-- {{Song|Title=B}} [[File:B.png]]"
+        self.assertEqual([t.params["Title"] for t in wikitext.find_templates(text, {"Song"})], ["A"])
+        self.assertEqual([ref.name for ref in wikitext.file_refs(text)], ["A.png"])
+        self.assertEqual(wikitext.mask_comments("a<!--b\nc"), "a" + " " * 5 + "\n ")  # same length, newline kept
+
+    def test_parser_functions_and_colon_magic_words_are_skipped(self) -> None:
+        text = "{{#if:x|y}}{{lc:ABC}}{{DISPLAYTITLE:x}}{{Song|Title=A}}"
+        self.assertEqual([t.name for t in wikitext.find_templates(text)], ["Song"])
+
+    def test_keys_with_links_or_templates_are_positional(self) -> None:
+        [song] = wikitext.find_templates("{{Song|[[A|b]]=c|{{x|y}}=z|Title=T}}", {"Song"})
+        self.assertEqual(song.params, {"1": "[[A|b]]=c", "2": "{{x|y}}=z", "Title": "T"})
+
+    def test_gallery_links_are_not_counted_twice(self) -> None:
+        refs = wikitext.file_refs("<gallery>\nX.png|caption with [[File:Y.png]]\n</gallery>\n[[File:Z.png|z]]")
+        self.assertEqual([(ref.name, ref.context) for ref in refs], [("X.png", "gallery"), ("Z.png", "link")])
+
+    def test_last_caption_part_wins(self) -> None:
+        self.assertEqual(wikitext.file_refs("<gallery>\nX.png|first|last\n</gallery>")[0].caption, "last")
+        self.assertEqual(wikitext.file_refs("[[File:X.png|first|thumb|last]]")[0].caption, "last")
+
+    def test_illustrator_notes_and_duplicate_credits(self) -> None:
+        """docs/sources-wikis.md: an explicitly labeled illustrator note in a composer credit is removed (it is the
+        illustrator's credit, stated separately); names are verbatim otherwise, each once."""
+        for raw, name in (
+            ("Linne X SCTL(Illust.Keiyuu&RED-FOX)", "Linne X SCTL"),
+            ("Street (jacket : Sin:cK)", "Street"),
+        ):
+            self.assertEqual(wikitext.credit_names(raw, strip_illustrator_notes=True), [name])
+            self.assertEqual(wikitext.credit_names(raw), [raw])
+        self.assertEqual(wikitext.credit_names("A<br>B<br>A"), ["A", "B"])
+
+    def test_page_titles_drop_the_fragment(self) -> None:
+        self.assertEqual(wikitext.canonical_page_title("a_b#c"), "A b")
+        self.assertEqual(wikitext.canonical_page_title("Artists#.5Bsound_shinobi.5D"), "Artists")
+
+    def test_heading_levels_and_sections_since_a_tab(self) -> None:
+        text = "==Outer==\n<div>\n===Inner===\n[[File:X.png]]\n"
+        heads = wikitext.headings(text)
+        self.assertEqual([(level, title) for _, level, title in heads], [(2, "Outer"), (3, "Inner")])
+        offset = wikitext.file_refs(text)[0].offset
+        self.assertEqual(wikitext.section_path(heads, offset), ["Outer", "Inner"])
+        self.assertEqual(wikitext.section_path(heads, offset, since=text.index("<div>")), ["Inner"])
 
 
 def _evidence(role, strength, game, page="P", context="gallery", song=None):
@@ -329,6 +477,108 @@ class DecideTests(unittest.TestCase):
         self.assertFalse(classify._universe_category("Category:Dynamix"))
 
 
+class OtherGameCaptionTests(unittest.TestCase):
+    """DX1-01: a caption "<song> Artwork in <other game>" adds a shared-game association; it never supplies the
+    original game itself, so the page or tab game (and the pre-Universe rule) still decide."""
+
+    THRESHOLD = "2023-08-18T00:00:00Z"  # the wiki's first Universe-named Fandom upload
+
+    def found(self, title: str, text: str, categories: list[str], names: list[str]) -> dict:
+        page = {"title": title, "revision": {"content": text, "revid": 1}, "categories": categories}
+        info = classify.analyze_page(config.MIRAHEZE, page)
+        files = {"File:" + name: {"mime": "image/png", "width": 10, "height": 10} for name in names}
+        return dict(classify.page_evidence(config.MIRAHEZE, page, info, files, {}))
+
+    def decide(self, items, fandom_timestamp=None):
+        return classify.decide(
+            "File:X.png",
+            items,
+            {"mime": "image/png", "width": 10, "height": 10},
+            frames=None,
+            include_animated=False,
+            fandom_timestamp=fandom_timestamp,
+            threshold=self.THRESHOLD,
+        )
+
+    def test_original_game_page_keeps_its_game_and_adds_the_association(self) -> None:
+        text = "{{Song\n|Title = WHIRLWIND\n|Imgsuffix = WHIRLWINDDynamix.png\n}}\n<gallery>\n"
+        text += "WHIRLWIND Squared.png|WHIRLWIND Artwork in RAVON\n</gallery>"
+        found = self.found("WHIRLWIND", text, ["Category:Songs"], ["WHIRLWINDDynamix.png", "WHIRLWIND Squared.png"])
+        item = found["File:WHIRLWIND Squared.png"]
+        self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", "RAVON"))
+        decision = self.decide([item])
+        self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "mixed", ["ravon"]))
+        self.assertTrue(any("another game/event" in entry for entry in decision.game_evidence))
+
+    def test_universe_only_page_stays_universe_only(self) -> None:
+        """A Template:SongUV page (Category:Songs (Dynamix Universe)) captioning its square art 'Artwork in RAVON':
+        Universe art shared with RAVON, not original-game art."""
+        text = "{{SongUV\n|Title = UVSong\n|Imgsuffix = UVSong cover.png\n}}\n<gallery>\n"
+        text += "UVSong RAVON.png|UVSong Artwork in RAVON\n</gallery>"
+        found = self.found(
+            "UVSong", text, ["Category:Songs (Dynamix Universe)"], ["UVSong cover.png", "UVSong RAVON.png"]
+        )
+        item = found["File:UVSong RAVON.png"]
+        self.assertEqual((item.game, item.other_game), ("dynamix_universe", "RAVON"))
+        decision = self.decide([item])
+        self.assertEqual(
+            (decision.disposition, decision.reason.split(":")[0], decision.game),
+            ("excluded", "universe_only", "dynamix_universe"),
+        )
+        self.assertEqual(decision.associations, ["dynamix_universe", "ravon"])
+
+    def test_page_without_game_evidence_stays_pending(self) -> None:
+        """The same caption on a page that names no game ('Songs', a neutral list page): no original-game context."""
+        text = "<gallery>\nSome Song Arcaea.png|Some song Artwork in Arcaea\n</gallery>"
+        item = self.found("Songs", text, [], ["Some Song Arcaea.png"])["File:Some Song Arcaea.png"]
+        self.assertEqual((item.game, item.other_game), (None, "Arcaea"))
+        decision = self.decide([item])
+        self.assertEqual((decision.disposition, decision.reason.split(":")[0]), ("pending", "unresolved_game"))
+        self.assertEqual((decision.game, decision.associations), ("unknown", ["arcaea"]))
+
+    def test_two_game_page_gallery_rests_on_the_pre_universe_rule(self) -> None:
+        """The page-level gallery of a two-game song page (Black：Magnam's layout): the item gives no game, so a
+        pre-Universe upload establishes the original game and the caption the shared association."""
+        text = (
+            '<div class="tabberex-tab" data-tab-header="Dynamix">{{Song\n|Title = B\n|Imgsuffix = B.png\n}}</div>'
+            '<div class="tabberex-tab" data-tab-header="Dynamix Universe">{{SongUV\n|Title = B\n'
+            "|Imgsuffix = B cover.png\n}}</div>\n<gallery>\nB Squared.png|B Artwork in RAVON\n"
+            "B Chart List.png|B Chart List cover for RAVON\n</gallery>"
+        )
+        names = ["B.png", "B cover.png", "B Squared.png", "B Chart List.png"]
+        found = self.found("B", text, ["Category:Songs"], names)
+        item = found["File:B Squared.png"]
+        self.assertEqual((item.game, item.other_game), (None, "RAVON"))
+        decision = self.decide([item], fandom_timestamp="2021-08-22T00:00:00Z")
+        self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "mixed", ["ravon"]))
+        self.assertTrue(any(entry.startswith("pre-Universe upload") for entry in decision.game_evidence))
+        self.assertTrue(any("another game/event" in entry for entry in decision.game_evidence))
+        later = self.decide([item], fandom_timestamp="2024-01-01T00:00:00Z")  # no original-game basis at all
+        self.assertEqual((later.disposition, later.reason.split(":")[0]), ("pending", "unresolved_game"))
+        # A page-level gallery role of such a page is original-game evidence; the caption still adds the association.
+        listed = found["File:B Chart List.png"]
+        self.assertEqual((listed.role, listed.game, listed.other_game), ("reference", "dynamix", "RAVON"))
+        self.assertEqual((self.decide([listed]).game, self.decide([listed]).associations), ("mixed", ["ravon"]))
+
+    def test_dynamix_events_are_not_another_game(self) -> None:
+        """DX1-04: artwork captioned for one of Dynamix's own events or anniversaries is original-game art: no
+        association (which would also drop the default C4Cat rights holder), the page game stays."""
+        captions = {
+            "Jacket for the Halloween Event": "the Halloween Event",
+            "Artwork from the 2nd Anniversary": "the 2nd Anniversary",
+            "Artwork for Christmas Event 2021": "Christmas Event 2021",
+            "Illustration in Event 23 June to 27 June": "Event 23 June to 27 June",
+            "Artwork for the New Year Festival": "the New Year Festival",
+        }
+        for caption, occasion in captions.items():
+            text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
+            item = self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
+            self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", None), caption)
+            self.assertIn(f"artwork for {occasion} (a Dynamix event, not another game)", item.detail)
+            decision = self.decide([item])
+            self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "dynamix", []))
+
+
 def _review(**fields):
     entry = {
         "title": "File:X.png",
@@ -377,6 +627,51 @@ class ReviewTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             reviews.parse({"format": "other", "reviews": []})
         self.assertEqual(_review(role=None, game=None, game_evidence="", pending="role not identifiable").role, None)
+
+    def test_titles_must_be_canonical(self) -> None:
+        """DX1-03: reviews, notes and withdrawals are looked up by the API's canonical title (spaces, first letter
+        upper-case); a hand-edited spelling would parse but never apply, so it is refused."""
+        base = {"format": reviews.FORMAT, "reviews": []}
+        review = {
+            "title": "File:A b.png",
+            "sha1": ["a" * 40],
+            "role": "promotional",
+            "game": "dynamix",
+            "evidence": "visual_inspection: event key art",
+            "game_evidence": "visual_inspection: original logo",
+        }
+        note = {"title": "File:A b.png", "sha1": ["a" * 40], "note": "visual_inspection: same picture as File:B.png"}
+        withdrawal = {
+            "title": "File:A b.png",
+            "sha256": ["b" * 64],
+            "reason": "fanart",
+            "evidence": "visual_inspection: x",
+        }
+        self.assertIn("File:A b.png", reviews.parse(dict(base, reviews=[review])))
+        self.assertIn("File:A b.png", reviews.parse_notes(dict(base, notes=[note])))
+        self.assertIn("File:A b.png", reviews.parse_withdrawals(dict(base, withdrawals=[withdrawal])))
+        for title in ("File:Unused_Event.png", "File:unused Event.png", "File:Unused  Event.png", "File: Unused.png"):
+            with self.assertRaises(ValueError, msg=title) as caught:
+                reviews.parse(dict(base, reviews=[dict(review, title=title)]))
+            self.assertIn("canonical", str(caught.exception))
+            with self.assertRaises(ValueError, msg=title):
+                reviews.parse_notes(dict(base, notes=[dict(note, title=title)]))
+            with self.assertRaises(ValueError, msg=title):
+                reviews.parse_withdrawals(dict(base, withdrawals=[dict(withdrawal, title=title)]))
+
+    def test_committed_review_titles_are_discovered_files(self) -> None:
+        """Every committed review, note and withdrawal names a file that a committed wiki discovery snapshot lists,
+        so none of them is silently inert."""
+        import json
+
+        discovered = set()
+        for slug in ("miraheze", "fandom"):
+            snapshot = json.loads((ROOT / f"data/discovery/{slug}.json").read_text(encoding="utf-8"))
+            # upstream_key is the File: title with spaces as underscores (discover.upstream_key)
+            discovered |= {candidate["upstream_key"].replace("_", " ") for candidate in snapshot["candidates"]}
+        titles = set(reviews.load()) | set(reviews.load_notes()) | set(reviews.load_withdrawals())
+        self.assertTrue(titles)
+        self.assertEqual(sorted(titles - discovered), [])
 
     def test_committed_reviews_parse(self) -> None:
         table = reviews.load()
@@ -694,6 +989,47 @@ class SmallHelperTests(unittest.TestCase):
             ("File:Hope!!", "Hope!!"),
         ):
             self.assertEqual(discover.display_title(title), expected, title)
+
+    def test_flusher_writes_every_n_downloads_and_every_few_minutes(self) -> None:
+        """DX6-10: outputs are rewritten periodically during a run (acquire module docstring), not only at the end."""
+        now = [0.0]
+        writes: list[float] = []
+        flusher = acquire.Flusher(lambda: writes.append(now[0]), every=3, seconds=300.0, clock=lambda: now[0])
+        for _ in range(7):
+            flusher.tick()
+        self.assertEqual(len(writes), 2)  # after the third and the sixth download
+        now[0] = 301.0
+        flusher.tick()  # the eighth: only two since the last write, but five minutes have passed
+        self.assertEqual(writes, [0.0, 0.0, 301.0])
+
+    def test_snapshot_errors_have_a_stable_order(self) -> None:
+        """DX6-10: discovery errors are written in a stable order, so snapshot bytes do not depend on the order in
+        which the lists failed."""
+        errors = [
+            {
+                "phase": "discover",
+                "url": "https://dynamix.miraheze.org/w/api.php?list=allimages",
+                "message": "HTTP 503",
+            },
+            {
+                "phase": "discover",
+                "url": "https://dynamix.miraheze.org/w/api.php?generator=allpages",
+                "message": "HTTP 503",
+            },
+            {"phase": "discover", "url": None, "message": "timeout"},
+        ]
+        snapshots = []
+        for ordered in (errors, errors[::-1]):
+            inventory = discover.Inventory(
+                config.MIRAHEZE,
+                "2026-10-10T12:00:00Z",
+                "2026-10-10T12:00:01Z",
+                continuation={name: {"continue": "x"} for name in discover.LISTS},
+                errors=list(ordered),
+            )
+            snapshots.append(outputs.mediawiki_snapshot(inventory, [], pooled_with=["wikis:fandom"]))
+        self.assertEqual(snapshots[0], snapshots[1])
+        self.assertEqual([error["url"] for error in snapshots[0]["errors"]], [None, errors[1]["url"], errors[0]["url"]])
 
     def test_fandom_download_url_requests_original(self) -> None:
         url = "https://static.wikia.nocookie.net/d/images/9/9b/A.png/revision/latest?cb=20210409081347"
