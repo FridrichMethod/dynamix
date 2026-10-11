@@ -395,9 +395,17 @@ class AttributionTests(unittest.TestCase):
                       and name.endswith((".py", ".js", ".css", ".html", ".xml", ".yml")))
 
 
-class ReleaseHoldTests(unittest.TestCase):
-    def test_no_claim_that_anything_is_deployed_or_released(self):
+class ReleaseStateTests(unittest.TestCase):
+    """The READMEs, which are staged with the website, describe the release and the Pages guard; every other document
+    still describes deployment and release only as held, future or conditional."""
+
+    READMES = ("README.md", "README.zh-CN.md")
+    PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
+
+    def test_no_deployment_claims_outside_the_readmes(self):
         for relative in (*DOCUMENTS, "NOTICE"):
+            if relative in self.READMES:
+                continue
             text = read(relative)
             with self.subTest(document=relative):
                 self.assertIsNone(FLAT_CLAIMS.search(text), "no deployment or live-site claims")
@@ -407,13 +415,16 @@ class ReleaseHoldTests(unittest.TestCase):
                         self.assertRegex(sentence, GUARDS,
                                          "deployment and release may only be described as held, future or conditional")
 
-    def test_readme_states_the_release_hold(self):
-        for relative, not_deployed in (("README.md", "the website is not deployed"), ("README.zh-CN.md", "网站尚未部署")):
+    def test_readmes_describe_the_release_and_its_guard(self):
+        for relative in self.READMES:
             text = read(relative).replace("**", "")
-            for phrase in (not_deployed, "RELEASE_APPROVED_SHA", "(.github/workflows/pages.yml)",
+            for phrase in (self.PAGES_URL, "/releases/tag/v", "RELEASE_APPROVED_SHA", "(.github/workflows/pages.yml)",
                            "(.github/workflows/check-sources.yml)"):
                 with self.subTest(document=relative, phrase=phrase):
-                    self.assertTrue(phrase.lower() in text.lower(), f"{relative} must say {phrase!r}")
+                    self.assertIn(phrase, text, f"{relative} must say {phrase!r}")
+            for stale in ("the website is not deployed", "nothing has been released", "网站尚未部署", "目前没有任何发布"):
+                with self.subTest(document=relative, stale=stale):
+                    self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold")
 
 
 class CommandTests(unittest.TestCase):

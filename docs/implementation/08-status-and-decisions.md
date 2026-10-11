@@ -2,7 +2,7 @@
 
 ## Implementation status — 2026-10-11
 
-**Implemented and validated** at `effc4be6c6fad521d1cd4fcc77fbf2b5980812fe` (code and data reviewed in full at `db88679`; the later merges fix the CI fixture tests and name the DEEMO reference publicly). The evidence, reviews, measured counts and limitations are in [10-validation-report.md](10-validation-report.md). Publication, CI on the final `main` SHA and cleanup are recorded in the coordinator's final response. The release hold is in force: Pages is not deployed, no approval SHA is set, and no tag or GitHub Release exists.
+**Implemented and validated** at `effc4be6c6fad521d1cd4fcc77fbf2b5980812fe` (code and data reviewed in full at `db88679`; the later merges fix the CI fixture tests and name the DEEMO reference publicly). The evidence, reviews, measured counts and limitations are in [10-validation-report.md](10-validation-report.md). Publication, CI on the final `main` SHA and cleanup are recorded in the coordinator's final response. **Released** on 2026-10-11 as `v1.0.0` on the owner's explicit instruction: GitHub Pages deployed from the release commit through the guarded Pages workflow, and a GitHub Release with the complete archive; see the README's Releases section.
 
 ## Planning status — 2026-10-10
 

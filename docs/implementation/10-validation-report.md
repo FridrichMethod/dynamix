@@ -4,6 +4,8 @@ Coordinator's record for the implementation requested on 2026-10-10. It describe
 
 **State: READY_FOR_RELEASE once the push and CI listed under [Remaining release-ready steps](#remaining-release-ready-steps) succeed. Release hold in force: Pages not deployed, no approval SHA, no tags, no GitHub Release.**
 
+**Update 2026-10-11:** the push and CI succeeded, and on the owner's explicit instruction the hold was lifted: release `v1.0.0` was deployed to GitHub Pages and published as a GitHub Release. The README's Releases section describes it. This report otherwise records the state before that release.
+
 ## Identity
 
 | Item | Value |

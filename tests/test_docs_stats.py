@@ -149,7 +149,9 @@ class RenderTests(Base):
             for relative in (english, chinese):
                 text = self.read(relative)
                 with self.subTest(document=relative):
-                    self.assertIsNone(rules.FLAT_CLAIMS.search(text))
+                    # The READMEs describe the release in their own prose; their generated block never does.
+                    scope = block_of(text) if relative in rules.ReleaseStateTests.READMES else text
+                    self.assertIsNone(rules.FLAT_CLAIMS.search(scope))
                     for sentence in rules.sentences(rules.prose_lines(block_of(text))):
                         if rules.RELEASE_WORDS.search(sentence):
                             self.assertRegex(sentence, rules.GUARDS)

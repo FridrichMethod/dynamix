@@ -10,7 +10,7 @@ C4Cat Entertainment Limited 出品的节奏游戏 **Dynamix**（原版）的个�
 
 界面和构建工具改编自 DEEMO 曲绘档案（[FridrichMethod/deemo](https://github.com/FridrichMethod/deemo)，提交 `b14bf0d5f5a05e5382c319f3fd5019a4936820b8`），后者又源自 Mashiro 的 [mashirozx/deemo](https://github.com/mashirozx/deemo)；没有复制该 DEEMO 档案的任何曲绘、音频、字体或数据（只改编了代码，见 [NOTICE](NOTICE)）。
 
-**状态**：网站尚未部署。GitHub Pages 部署处于冻结状态，须等待之后明确的发布决定；见[发布冻结](#发布冻结)。
+**状态**：已发布 [v1.0.0](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0)。网站通过 GitHub Pages 发布在 <https://fridrichmethod.github.io/dynamix/>（[可搜索图库](https://fridrichmethod.github.io/dynamix/archive.html) · [幻灯片](https://fridrichmethod.github.io/dynamix/)）；见[发布](#发布)。
 
 ## 浏览
 
@@ -216,15 +216,15 @@ out="$(mktemp -d)"
 
 根据报告采取行动，意味着在本地运行抓取脚本、审阅差异，并像其他改动一样提交。
 
-## 发布冻结
+## 发布
 
-目前没有任何发布。网站尚未部署，没有版本标签，也没有发布 GitHub Release。
+`v1.0.0`（2026-10-11）是首个版本。上面的网站由该提交部署，其 [GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0) 以一个下载包提供完整存档：每个原文件一份，放在其目录路径下（包括 `archive` 层级的文件；同一字节在其他记录路径下的副本不重复收录，目录按 SHA-256 对应到文件），另附 `data/`（目录、覆盖率、来源清单与发现快照）、公开文档、`LICENSE`、`NOTICE`、`licenses/` 和 `SHA256SUMS` 校验清单。
 
-- [Pages 工作流](.github/workflows/pages.yml)从不在推送、PR 或定时任务上运行。它只能手动触发，并且只有同时满足以下条件才会部署：触发目标是 `main`，输入的 `release_sha` 是被触发提交的完整 SHA，且仓库变量 `RELEASE_APPROVED_SHA` 指向同一个提交。
-- `RELEASE_APPROVED_SHA` 未设置，因此每次触发都会停在批准任务：不运行测试，不生成 artifact，不部署。
+- [Pages 工作流](.github/workflows/pages.yml)从不在推送、PR 或定时任务上运行。它只能手动触发，并且只有同时满足以下条件才会部署：触发目标是 `main`，输入的 `release_sha` 是被触发提交的完整 SHA，且仓库变量 `RELEASE_APPROVED_SHA` 指向同一个提交。这样的运行会检查批准、在该提交上重新运行全部测试、用 `prepare_pages.py` 暂存网站并部署。
+- `RELEASE_APPROVED_SHA` 指向已发布的提交。之后推送到 `main` 的提交会被测试但不会部署，因此网站显示的是最近一次发布的提交，可能比 `main` 旧。
 - Tests 工作流在每次推送时准备并检查网站，但只上传 CI artifact，不能部署。
 
-将来的发布需要仓库所有者的明确指示，然后：一个经过审阅且 CI 通过的 `main` 提交，并且该提交同时更新两份 README 中的状态一行和本节（它们会随网站一起暂存，因此部署后的副本不能再写网站尚未部署）；检查仓库设置，确认不存在基于分支的 Pages 发布、Pages 使用 GitHub Actions；把 `RELEASE_APPROVED_SHA` 设为该提交的完整 SHA；并在 `main` 上手动触发 Pages 工作流，`release_sha` 填同一个 SHA。届时该运行会再次检查批准、在同一提交上重新运行全部测试、用 `prepare_pages.py` 暂存网站并部署。标签和 GitHub Release 是另外的决定，目前尚未做出。
+之后的发布需要：一个经过审阅且 CI 通过的 `main` 提交，并同时更新两份 README 中的状态一行和本节（它们会随网站一起暂存）；把 `RELEASE_APPROVED_SHA` 设为该提交的完整 SHA；在 `main` 上手动触发 Pages 工作流，`release_sha` 填同一个 SHA；以及新的版本标签和 GitHub Release。
 
 ## 来源
 

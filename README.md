@@ -10,7 +10,7 @@ Every archived file keeps the exact bytes its source served, together with a pro
 
 The interface and build tooling are adapted from the DEEMO artwork archive ([FridrichMethod/deemo](https://github.com/FridrichMethod/deemo) at commit `b14bf0d5f5a05e5382c319f3fd5019a4936820b8`), which is itself derived from Mashiro's [mashirozx/deemo](https://github.com/mashirozx/deemo); no artwork, audio, fonts or data of that DEEMO archive were copied (adapted code only, see [NOTICE](NOTICE)).
 
-**Status:** the website is not deployed. GitHub Pages deployment is held until a later, explicit release decision; see [Release hold](#release-hold).
+**Status:** released as [v1.0.0](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0). The website is published with GitHub Pages at <https://fridrichmethod.github.io/dynamix/> ([searchable gallery](https://fridrichmethod.github.io/dynamix/archive.html) · [slideshow](https://fridrichmethod.github.io/dynamix/)); see [Releases](#releases).
 
 ## Browsing
 
@@ -216,15 +216,15 @@ The workflow has a read-only token: it never commits, pushes, creates branches o
 
 Acting on a report means running the fetchers locally, reviewing the diff and committing it like any other change.
 
-## Release hold
+## Releases
 
-Nothing has been released. The website is not deployed, no version tag exists and no GitHub Release has been published.
+Version `v1.0.0` (2026-10-11) is the first release. The website above was deployed from that commit, and its [GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0) carries the complete archive as one download: every original once, at its catalog path (archive-tier files included; copies of the same bytes under other record paths are left out, since the catalog maps each SHA-256 to its file), with `data/` (catalog, coverage, source manifests and discovery snapshots), the public documentation, `LICENSE`, `NOTICE`, `licenses/` and a `SHA256SUMS` list.
 
-- The [Pages workflow](.github/workflows/pages.yml) never runs on push, pull request or a schedule. It runs only from a manual dispatch, and it deploys only when the dispatch targets `main`, its `release_sha` input is the full SHA of the dispatched commit, and the repository variable `RELEASE_APPROVED_SHA` names that same commit.
-- `RELEASE_APPROVED_SHA` is unset, so every dispatch stops at the approval job: no tests, no artifact, no deployment.
+- The [Pages workflow](.github/workflows/pages.yml) never runs on push, pull request or a schedule. It runs only from a manual dispatch, and it deploys only when the dispatch targets `main`, its `release_sha` input is the full SHA of the dispatched commit, and the repository variable `RELEASE_APPROVED_SHA` names that same commit. Such a run checks the approval, reruns every test on that commit, stages the site with `prepare_pages.py` and deploys it.
+- `RELEASE_APPROVED_SHA` names the released commit. Later pushes to `main` are tested but not deployed, so the website shows the last released commit, which can be older than `main`.
 - The Tests workflow prepares and checks the website on every push but only uploads a CI artifact; it cannot deploy.
 
-A future release would require an explicit instruction from the repository owner, and then: a reviewed `main` commit whose CI passed and which also updates the Status line and this section in both READMEs (they are staged with the website, so a deployed copy must not say that it is not deployed); repository settings checked so that no branch-based Pages publishing exists and Pages uses GitHub Actions; `RELEASE_APPROVED_SHA` set to that commit's full SHA; and the Pages workflow dispatched on `main` with the same SHA as `release_sha`. That run would check the approval again, rerun every test on the same commit, stage the site with `prepare_pages.py` and deploy it. Tags and GitHub Releases are separate decisions that have not been made.
+A later release needs a reviewed `main` commit whose CI passed and which updates the Status line and this section in both READMEs (they are staged with the website); `RELEASE_APPROVED_SHA` set to that commit's full SHA; the Pages workflow dispatched on `main` with the same SHA as `release_sha`; and a new version tag and GitHub Release.
 
 ## Sources
 
