@@ -1347,7 +1347,7 @@
           "page_url": "https://archive.org/details/wiki-dynamixc4cat.fandom.com-20260807",
           "title": "WikiTeam3 dump of the legacy Fandom wiki",
           "disposition": "pending",
-          "reason": "awaiting_download: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here",
+          "reason": "unresolved_role: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; not fetched in this release (coordinator decision: one archive of many files, none of whose roles is established yet)",
           "file_url": "https://archive.org/download/wiki-dynamixc4cat.fandom.com-20260807/dynamixc4cat.fandom.com-20260807-images.7z"
         },
         {

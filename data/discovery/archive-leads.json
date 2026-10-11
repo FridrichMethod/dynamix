@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:archive-leads",
-  "started_at": "2026-10-11T05:42:36Z",
-  "finished_at": "2026-10-11T05:42:36Z",
+  "started_at": "2026-10-11T06:16:08Z",
+  "finished_at": "2026-10-11T06:16:08Z",
   "scope": {
     "lists": [
       "registry"
@@ -105,7 +105,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "awaiting_download: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here"
+      "reason": "unresolved_role: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; not fetched in this release (coordinator decision: one archive of many files, none of whose roles is established yet)"
     },
     {
       "id": "archives:archive-leads:atwiki:dynamix2ch",
