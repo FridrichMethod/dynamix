@@ -52,10 +52,11 @@ ATTRIBUTION = re.compile(
     r"byte-identical|改编|派生|源自|逐字节相同",
     re.IGNORECASE,
 )
-# A flat claim that something is deployed or live, in any tense that states it as done.
+# A flat claim that something is deployed, live or published as the site, in any tense that states it as done.
 FLAT_CLAIMS = re.compile(
     r"github\.io|\b(?:is|was|has been|have been|are|were) (?:now )?(?:deployed|live)\b|"
-    r"\bwent live\b|\blive (?:site|website)\b|GitHub Pages site at|已(?:经)?部署|已上线|已经上线",
+    r"\bwent live\b|\blive (?:site|website)\b|GitHub Pages site at|\bpublished (?:on|with|to|at|by) GitHub Pages\b|"
+    r"\breleased as v\d|已(?:经)?部署|已上线|已经上线|(?:网站|站点|GitHub Pages|v\d+\.\d+\.\d+)[^。；，\n]{0,20}?已(?:经)?发布",
     re.IGNORECASE,
 )
 # Words that state deployment or release; such a sentence must be negated, conditional, future or restricted.
@@ -86,9 +87,11 @@ HOLD_MARKERS = re.compile(
     r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still)?(?: not|n['’]t)"
     r"(?: yet)?(?: been)? (?:deployed|published|released|live)\b|"
     r"\b(?:release|deployment|publication)s? (?:is |are |stays? |remains? )?(?:on )?(?:hold|held)\b|\brelease hold\b|"
-    r"\b(?:is|stays|remains) unset\b|\bno version tag\b|\bno GitHub Release\b|\bnothing has been released\b|"
+    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains) unset\b|"
+    r"\bno version tag\b|\bno GitHub Release\b|\bnothing has been released\b|"
     r"\bha(?:s|ve) not been (?:made|published|released|created)\b|"
-    r"未设置|(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|网站(?:未|没有)(?:被)?(?:部署|发布|上线)|"
+    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:仍|还|尚)?未设置|(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|"
+    r"网站(?:未|没有)(?:被)?(?:部署|发布|上线)|"
     r"没有版本标签|没有任何发布|冻结",
     re.IGNORECASE,
 )
@@ -195,9 +198,29 @@ def unrendered_bold(line: str) -> list[int]:
     return sorted(problems)
 
 
-def sentences(lines: list[str]) -> list[str]:
-    text = "\n".join(INLINE_CODE.sub(" ", line) for line in lines)
-    return [part.strip() for part in re.split(r"(?<=[.!?。；;])\s+|\n", text) if part.strip()]
+def sentences(lines: list[str], keep_code: bool = False) -> list[str]:
+    """Sentences of the prose, code spans blanked (or, with keep_code, kept as their text). Chinese text puts no space
+    after 。！？；, so those end a sentence by themselves; . ! ? ; end one when whitespace follows."""
+    code = (lambda match: match.group().strip("`")) if keep_code else " "
+    text = "\n".join(INLINE_CODE.sub(code, line) for line in lines)
+    return [part.strip() for part in re.split(r"(?<=[。！？；])|(?<=[.!?;])\s+|\n", text) if part.strip()]
+
+
+def release_wording_problems(text: str) -> list[str]:
+    """Statements about the site's release state in a document other than the READMEs, which alone describe it: a flat
+    deployment or publication claim anywhere, hold wording in any sentence, and a sentence about deployment or release
+    that is not negated, conditional, future or restricted (how the guard works, not what happened). Claims and hold
+    wording are matched in the raw and the rendered text (see plain())."""
+    claims = {match.group() for source in (text, plain(text)) for match in FLAT_CLAIMS.finditer(source)}
+    problems = [f"flat claim: {claim!r}" for claim in sorted(claims)]
+    for sentence in sentences(prose_lines(text), keep_code=True):
+        problems.extend(
+            f"hold wording {m.group()!r}: {sentence[:80]!r}" for m in HOLD_MARKERS.finditer(plain(sentence))
+        )
+    for sentence in sentences(prose_lines(text)):
+        if RELEASE_WORDS.search(sentence) and not GUARDS.search(sentence):
+            problems.append(f"unguarded release statement: {sentence[:80]!r}")
+    return problems
 
 
 def plain(text: str) -> str:
@@ -572,8 +595,9 @@ class AttributionTests(unittest.TestCase):
 
 
 class ReleaseStateTests(unittest.TestCase):
-    """The READMEs, which are staged with the website, describe the release and the Pages guard; every other document
-    still describes deployment and release only as held, future or conditional."""
+    """The READMEs, which are staged with the website, describe the release and the Pages guard. Every other document
+    leaves the release state to them: no deployment or publication claim and no hold wording; a sentence about
+    deployment or release is negated, conditional, future or restricted (how the guard works, not what happened)."""
 
     READMES = ("README.md", "README.zh-CN.md")
     PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
@@ -582,17 +606,38 @@ class ReleaseStateTests(unittest.TestCase):
         for relative in (*DOCUMENTS, "NOTICE"):
             if relative in self.READMES:
                 continue
-            text = read(relative)
             with self.subTest(document=relative):
-                self.assertIsNone(FLAT_CLAIMS.search(text), "no deployment or live-site claims")
-            for sentence in sentences(prose_lines(text)):
-                if RELEASE_WORDS.search(sentence):
-                    with self.subTest(document=relative, sentence=sentence[:80]):
-                        self.assertRegex(
-                            sentence,
-                            GUARDS,
-                            "deployment and release may only be described as held, future or conditional",
-                        )
+                self.assertEqual(release_wording_problems(read(relative)), [])
+
+    # Statements about the site's release state that a document other than the READMEs must not make, and statements
+    # about deployment or release that it may make (how the guard works, or unrelated uses of the words).
+    OUTSIDE_REFUSED = (
+        "GitHub Pages deployment is held until a later release decision, so the website is not deployed.",
+        "GitHub Pages 部署处于冻结状态，网站尚未部署。",
+        "The website is published on GitHub Pages and the v1.0.0 release is out.",
+        "网站已发布在 GitHub Pages 上，v1.0.0 已发布。",
+        "网站在 2026-10-11 部署到 GitHub Pages。原文件不会被修改。",
+        "The website was put on GitHub Pages by a deployment on 2026-10-11. Originals are not modified.",
+        "`RELEASE_APPROVED_SHA` is unset, so nothing is released.",
+        "The website is *not* deployed yet.",
+    )
+    OUTSIDE_ALLOWED = (
+        "A push to `main` never deploys the website.",
+        "推送到 `main` 不会部署网站。",
+        "| `official:c4cat` | [C4Cat](https://c4-cat.com/) | 读取一次页面 | 即将上线/联系方式的占位页面，没有游戏目录；仅作身份证据。 |",
+        "Catalog entries held by two or more sources of this family: 0.",
+        "| `upstream_status` | Records that are removed or unset upstream. |",
+        "| `upstream_status` | 上游状态为 `removed` 或未设置的记录。 |",
+        "A composer's release cover is not the illustrator's original.",
+    )
+
+    def test_release_wording_rule_outside_the_readmes(self):
+        for text in self.OUTSIDE_REFUSED:
+            with self.subTest(refused=text):
+                self.assertNotEqual(release_wording_problems(text + "\n"), [])
+        for text in self.OUTSIDE_ALLOWED:
+            with self.subTest(allowed=text):
+                self.assertEqual(release_wording_problems(text + "\n"), [])
 
     def test_readmes_describe_the_release_and_its_guard(self):
         for relative in self.READMES:
