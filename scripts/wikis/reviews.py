@@ -80,7 +80,7 @@ class ReviewSongError(ValueError):
 
 @dataclass(frozen=True)
 class Review:
-    title: str  # canonical "File:..." title (spaces, not underscores)
+    title: str  # canonical "File:..." title (spaces, not underscores; see canonical_title)
     sha1: tuple[str, ...]  # API SHA-1 values (any wiki) of the reviewed revision(s)
     role: str | None  # a kind, an exclusion reason, or None (role not established)
     game: str | None  # "dynamix", "mixed", "dynamix_universe", "not_dynamix" or None (not established)
@@ -120,6 +120,27 @@ def _string(entry: Mapping[str, Any], name: str, label: str, *, required: bool =
     return value.strip()
 
 
+def canonical_title(title: str) -> str:
+    """The canonical spelling of a ``File:`` title, as the API reports it and as reviews, notes and withdrawals are
+    looked up: underscores as spaces, whitespace runs collapsed, the first letter of the name upper-case."""
+    name = " ".join(title.removeprefix("File:").replace("_", " ").split())
+    return "File:" + name[:1].upper() + name[1:]
+
+
+def _title(entry: Mapping[str, Any], label: str) -> str:
+    """The entry's ``File:`` title; any other spelling than the canonical one could never match a file, so it is
+    refused instead of being silently inert."""
+    title = _string(entry, "title", label, required=True)
+    if not title.startswith("File:"):
+        raise ValueError(f"{label}: title must start with 'File:'")
+    if title != canonical_title(title):
+        raise ValueError(
+            f"{label}: title {title!r} is not the canonical File: title {canonical_title(title)!r} "
+            "(spaces, not underscores; first letter upper-case)"
+        )
+    return title
+
+
 def _strings(entry: Mapping[str, Any], name: str, label: str) -> tuple[str, ...]:
     values = entry.get(name, [])
     if not isinstance(values, list) or not all(isinstance(value, str) and value.strip() for value in values):
@@ -153,10 +174,8 @@ def parse(data: Any) -> dict[str, Review]:
         }
         if unknown:
             raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
-        title = _string(entry, "title", label, required=True)
+        title = _title(entry, label)
         label = f"review {title!r}"
-        if not title.startswith("File:"):
-            raise ValueError(f"{label}: title must start with 'File:'")
         if title in result:
             raise ValueError(f"{label}: duplicate review")
         sha1 = tuple(value.lower() for value in _strings(entry, "sha1", label))
@@ -282,9 +301,7 @@ def _entry(entry: Any, number: int, name: str, fields: set[str]) -> tuple[str, s
     unknown = set(entry) - fields
     if unknown:
         raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
-    title = _string(entry, "title", label, required=True)
-    if not title.startswith("File:"):
-        raise ValueError(f"{label}: title must start with 'File:'")
+    title = _title(entry, label)
     return title, f"{name} {title!r}"
 
 

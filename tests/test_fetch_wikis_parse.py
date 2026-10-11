@@ -462,6 +462,51 @@ class ReviewTests(unittest.TestCase):
             reviews.parse({"format": "other", "reviews": []})
         self.assertEqual(_review(role=None, game=None, game_evidence="", pending="role not identifiable").role, None)
 
+    def test_titles_must_be_canonical(self) -> None:
+        """DX1-03: reviews, notes and withdrawals are looked up by the API's canonical title (spaces, first letter
+        upper-case); a hand-edited spelling would parse but never apply, so it is refused."""
+        base = {"format": reviews.FORMAT, "reviews": []}
+        review = {
+            "title": "File:A b.png",
+            "sha1": ["a" * 40],
+            "role": "promotional",
+            "game": "dynamix",
+            "evidence": "visual_inspection: event key art",
+            "game_evidence": "visual_inspection: original logo",
+        }
+        note = {"title": "File:A b.png", "sha1": ["a" * 40], "note": "visual_inspection: same picture as File:B.png"}
+        withdrawal = {
+            "title": "File:A b.png",
+            "sha256": ["b" * 64],
+            "reason": "fanart",
+            "evidence": "visual_inspection: x",
+        }
+        self.assertIn("File:A b.png", reviews.parse(dict(base, reviews=[review])))
+        self.assertIn("File:A b.png", reviews.parse_notes(dict(base, notes=[note])))
+        self.assertIn("File:A b.png", reviews.parse_withdrawals(dict(base, withdrawals=[withdrawal])))
+        for title in ("File:Unused_Event.png", "File:unused Event.png", "File:Unused  Event.png", "File: Unused.png"):
+            with self.assertRaises(ValueError, msg=title) as caught:
+                reviews.parse(dict(base, reviews=[dict(review, title=title)]))
+            self.assertIn("canonical", str(caught.exception))
+            with self.assertRaises(ValueError, msg=title):
+                reviews.parse_notes(dict(base, notes=[dict(note, title=title)]))
+            with self.assertRaises(ValueError, msg=title):
+                reviews.parse_withdrawals(dict(base, withdrawals=[dict(withdrawal, title=title)]))
+
+    def test_committed_review_titles_are_discovered_files(self) -> None:
+        """Every committed review, note and withdrawal names a file that a committed wiki discovery snapshot lists,
+        so none of them is silently inert."""
+        import json
+
+        discovered = set()
+        for slug in ("miraheze", "fandom"):
+            snapshot = json.loads((ROOT / f"data/discovery/{slug}.json").read_text(encoding="utf-8"))
+            # upstream_key is the File: title with spaces as underscores (discover.upstream_key)
+            discovered |= {candidate["upstream_key"].replace("_", " ") for candidate in snapshot["candidates"]}
+        titles = set(reviews.load()) | set(reviews.load_notes()) | set(reviews.load_withdrawals())
+        self.assertTrue(titles)
+        self.assertEqual(sorted(titles - discovered), [])
+
     def test_committed_reviews_parse(self) -> None:
         table = reviews.load()
         for review in table.values():
