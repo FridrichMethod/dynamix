@@ -15,7 +15,7 @@ import time
 import types
 import unittest
 from contextlib import contextmanager
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -231,7 +231,7 @@ class RetryTests(NetTestCase):
         self.assertEqual(self.sleeps, [2.0])
 
     def test_retry_after_http_date(self):
-        when = email.utils.format_datetime(datetime.now(timezone.utc) + timedelta(seconds=10), usegmt=True)
+        when = email.utils.format_datetime(datetime.now(UTC) + timedelta(seconds=10), usegmt=True)
         self.script.add("/api", {"status": 503, "headers": {"Retry-After": when}}, json_body(1))
         self.client().get_json(self.url("/api"))
         self.assertEqual(len(self.sleeps), 1)
@@ -287,7 +287,7 @@ class RetryTests(NetTestCase):
         self.assertEqual((caught.exception.error_class, self.script.hits["/api"]), ("other", 1))
 
     def test_parse_retry_after(self):
-        now = datetime(2026, 10, 10, 12, 0, 0, tzinfo=timezone.utc)
+        now = datetime(2026, 10, 10, 12, 0, 0, tzinfo=UTC)
         self.assertEqual(net.parse_retry_after(" 2.5 ", now=now), 2.5)
         self.assertEqual(net.parse_retry_after("Sat, 10 Oct 2026 12:00:30 GMT", now=now), 30.0)
         self.assertEqual(net.parse_retry_after("Sat, 10 Oct 2026 11:00:00 GMT", now=now), 0.0)

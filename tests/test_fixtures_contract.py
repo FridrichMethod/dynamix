@@ -13,9 +13,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "tests/fixtures"))
 
 from PIL import Image  # noqa: E402
+from pinned_png import PinnedPNG, pixel_key  # noqa: E402
 
 from lib import manifest, media, paths, schema  # noqa: E402
-from pinned_png import PinnedPNG, pixel_key  # noqa: E402
 
 FIXTURE = ROOT / "tests/fixtures/contract"
 GENERATOR = FIXTURE / "make_fixture.py"

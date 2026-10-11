@@ -18,8 +18,8 @@ import re
 import stat
 import unicodedata
 from collections import defaultdict
+from collections.abc import Iterable
 from pathlib import Path, PurePosixPath
-from typing import Iterable
 
 SLUG_MAX_LENGTH = 80
 SLUG_FALLBACK = "file"

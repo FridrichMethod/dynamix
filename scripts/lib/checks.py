@@ -9,8 +9,9 @@ from __future__ import annotations
 import ipaddress
 import re
 import unicodedata
+from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 from urllib.parse import unquote, urlsplit
 
 TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")

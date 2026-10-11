@@ -44,12 +44,13 @@ import socket
 import tempfile
 import threading
 import time
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
-from typing import Any, Callable, Iterable, Iterator, Mapping
+from typing import Any
 from urllib.parse import urljoin, urlsplit
 
 import requests
@@ -236,8 +237,8 @@ def parse_retry_after(value: str | None, *, now: datetime | None = None) -> floa
         if when is None:
             return None
         if when.tzinfo is None:
-            when = when.replace(tzinfo=timezone.utc)
-        seconds = (when - (now or datetime.now(timezone.utc))).total_seconds()
+            when = when.replace(tzinfo=UTC)
+        seconds = (when - (now or datetime.now(UTC))).total_seconds()
     return None if math.isnan(seconds) else max(seconds, 0.0)
 
 
@@ -769,7 +770,7 @@ class PoliteClient:
                 )
             try:
                 chunk = response.raw.read1(CHUNK_BYTES, decode_content=True)
-            except (ReadTimeoutError, Urllib3TimeoutError, socket.timeout, TimeoutError) as error:
+            except (ReadTimeoutError, Urllib3TimeoutError, TimeoutError) as error:
                 raise TimeoutFetchError(
                     f"timed out reading the body ({_cause_summary(error)})", url=url, http_status=response.status_code
                 ) from None

@@ -6,7 +6,8 @@ Use :func:`lib.schema.validate_catalog`; this module holds its implementation.
 from __future__ import annotations
 
 from collections import Counter
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from .schema import (
     ARCHIVE_URL_PREFIX,

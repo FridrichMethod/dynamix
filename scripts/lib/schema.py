@@ -13,20 +13,19 @@ from __future__ import annotations
 import re
 import unicodedata
 from collections import Counter
-from typing import Any, Iterable, Mapping
+from collections.abc import Iterable, Mapping
+from typing import Any
 from urllib.parse import quote
 
 from . import checks, paths
-from .checks import (
-    CREDENTIAL_QUERY_KEYS,
-    DATE_RE,
-    REDACTED,
-    SENSITIVE_QUERY_KEYS,  # noqa: F401
-    TIMESTAMP_RE,
-    contains_credentials,
-    redact_text,
-    redact_url,
-)
+
+# Explicit re-exports: callers use them as ``schema.<name>`` (scripts/lib/README.md lists the schema constants).
+from .checks import CREDENTIAL_QUERY_KEYS as CREDENTIAL_QUERY_KEYS
+from .checks import DATE_RE as DATE_RE
+from .checks import REDACTED as REDACTED
+from .checks import SENSITIVE_QUERY_KEYS as SENSITIVE_QUERY_KEYS
+from .checks import TIMESTAMP_RE as TIMESTAMP_RE
+from .checks import contains_credentials, redact_text, redact_url
 
 Checker = checks.Checker
 _nonempty, _text, _boolean, _tristate = checks.nonempty, checks.text, checks.boolean, checks.tristate
