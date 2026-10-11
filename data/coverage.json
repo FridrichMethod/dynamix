@@ -27284,7 +27284,6 @@
         ]
       }
     ],
-    "duplicate_bytes_other_source": [],
     "successor_not_primary": []
   },
   "bytes": {
@@ -27309,8 +27308,8 @@
     "catalog_json": 40196128,
     "catalog_script": 29349818,
     "index_html": 533984,
-    "coverage_json": 833027,
-    "staged_site_estimate": 929909433,
+    "coverage_json": 832987,
+    "staged_site_estimate": 929909393,
     "pages_budget": 950000000,
     "within_pages_budget": true
   }

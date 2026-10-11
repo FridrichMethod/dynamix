@@ -436,10 +436,9 @@ def asset_gaps(catalog: Mapping[str, Any], snapshots: Mapping[str, dict]) -> dic
     }
 
 
-def mismatches(
-    index: Mapping[str, Any], records: list[dict], snapshots: Mapping[str, dict], catalog: Mapping[str, Any]
-) -> dict:
-    by_id = {record["id"]: record for record in records}
+def mismatches(index: Mapping[str, Any], records: list[dict], catalog: Mapping[str, Any]) -> dict:
+    """Cross-checks that may list entries. A duplicate_bytes candidate naming another source's asset is not one of
+    them: reconcile() refuses it (09: duplicate_bytes names identical bytes of the same source)."""
     entry_of = {entry["asset_id"]: asset["id"] for asset in catalog["assets"] for entry in asset["provenance"]}
     successors = [
         {
@@ -476,14 +475,6 @@ def mismatches(
                     "records_only": sorted(set(linked) - set(listed)),
                 }
             )
-    other_source = [
-        candidate["id"]
-        for source_id in sorted(snapshots)
-        for candidate in snapshots[source_id]["candidates"]
-        if candidate["disposition"] == "duplicate_bytes"
-        and candidate.get("asset_id") in by_id
-        and by_id[candidate["asset_id"]]["source_id"] != source_id
-    ]
     return {
         "source_reported": reported,
         "transformed_records": sorted(record["id"] for record in records if record.get("transformed") is True),
@@ -492,7 +483,6 @@ def mismatches(
             {"song_id": item["song_id"], "field": item["field"]} for item in index["disagreements"]
         ],
         "song_index_artwork": artwork,
-        "duplicate_bytes_other_source": other_source,
         "successor_not_primary": successors,
     }
 
@@ -609,7 +599,7 @@ def build(root: Path) -> dict:
         "assets": asset_metrics(catalog, records, thumbs is not None),
         "songs": songs,
         "gaps": {**song_gaps, **asset_gaps(catalog, snapshots)},
-        "mismatches": mismatches(index, records, snapshots, catalog),
+        "mismatches": mismatches(index, records, catalog),
     }
     return with_byte_metrics(report, lambda size: byte_metrics(catalog, records, thumbs, generated, size))
 

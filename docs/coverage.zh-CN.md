@@ -169,7 +169,6 @@
 | `mismatches.record_disagreements` | 1 |
 | `mismatches.song_index_disagreements` | 46 |
 | `mismatches.song_index_artwork` | 430 |
-| `mismatches.duplicate_bytes_other_source` | 0 |
 | `mismatches.successor_not_primary` | 0 |
 
 **字节**。
@@ -191,8 +190,8 @@
 | `catalog_json` | 40,196,128 字节（40.2 MB） |
 | `catalog_script` | 29,349,818 字节（29.3 MB） |
 | `index_html` | 533,984 字节（0.5 MB） |
-| `coverage_json` | 833,027 字节（0.8 MB） |
-| `staged_site_estimate` | 929,909,433 字节（929.9 MB） |
+| `coverage_json` | 832,987 字节（0.8 MB） |
+| `staged_site_estimate` | 929,909,393 字节（929.9 MB） |
 | `pages_budget` | 950,000,000 字节（950.0 MB） |
 | `within_pages_budget` | 是 |
 
@@ -222,7 +221,7 @@
 | 处置 | 含义 |
 | --- | --- |
 | `downloaded` | 该来源为它保存了自己的资产记录和文件。 |
-| `duplicate_bytes` | 同一来源已在另一个候选下存档了相同的字节；它指向那条记录，不再写入文件。 |
+| `duplicate_bytes` | 同一来源已在另一个候选下存档了相同的字节；它指向那条记录，不再写入文件。另一个来源存档的相同字节是那个来源自己的记录，因此指向另一个来源记录的候选会使构建失败。 |
 | `excluded` | 超出范围，原因取自固定词表（见下文）。 |
 | `failed` | 下载或检查失败；清单的 `failures` 记录阶段、错误类别、HTTP 状态和尝试次数。 |
 | `blocked` | 访问被拒绝（401、403、登录、Referer 检查或机器人验证），且不重试。 |
@@ -302,6 +301,6 @@
 - **来源声明不一致。** `mismatches.source_reported` 列出来源声明的值（SHA-1、字节数、尺寸或 MIME 类型）与保存的字节不一致的每条记录。来源没有声明的值无法比较，从不算作不一致。
 - **记录之间的分歧。** `mismatches.record_disagreements` 列出字节相同、但不同来源的记录对类型或版本组意见不一的文件。
 - **曲目索引与记录的对照。** `mismatches.song_index_artwork` 列出曲目索引中的 `artwork_asset_ids` 与写明该曲目的记录不一致的曲目。
-- **其他交叉检查。** `mismatches.transformed_records` 列出已知的平台重新编码；`duplicate_bytes_other_source` 列出相同字节已由另一个来源存档的候选；`successor_not_primary` 列出继任记录不是其目录条目主记录的被替换记录。
+- **其他交叉检查。** `mismatches.transformed_records` 列出已知的平台重新编码；`successor_not_primary` 列出继任记录不是其目录条目主记录的被替换记录。
 
 分歧是待复核的事项。只有凭证据、通过修改来源规则或整合后的索引并重新构建来解决，绝不通过删除持不同意见的记录来解决。
