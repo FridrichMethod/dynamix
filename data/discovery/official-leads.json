@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:official-leads",
-  "started_at": "2026-10-11T04:44:02Z",
-  "finished_at": "2026-10-11T04:44:02Z",
+  "started_at": "2026-10-11T05:42:30Z",
+  "finished_at": "2026-10-11T05:42:30Z",
   "scope": {
     "lists": [
       "registry"
@@ -36,7 +36,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "awaiting_download: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
+      "reason": "unresolved_role: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
     },
     {
       "id": "official:official-leads:bilibili:search-c4cat",
@@ -327,7 +327,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "awaiting_download: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+      "reason": "unresolved_role: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
     },
     {
       "id": "official:official-leads:x:c4c4cat:wayback-media",
@@ -350,7 +350,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
+      "reason": "unresolved_role: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
     },
     {
       "id": "official:official-leads:x:liq_mmry:880267173574262784",

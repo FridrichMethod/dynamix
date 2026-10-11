@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-11T04:47:47Z",
+      "checked_at": "2026-10-11T05:42:36Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -74,7 +74,7 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "available",
-      "checked_at": "2026-10-11T04:48:04Z",
+      "checked_at": "2026-10-11T05:42:47Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -6373,7 +6373,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20200622223319 of http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png (CDX mimetype image/png, status 200, WARC record length 85932). The original DynAMIX wordmark (white letters on black, 600x188 PNG) that the official website (/img/dynamix.png) and the official MyCard top-up page (/mycard/img/DNXtypo.png) served as their logo image. The CDX digest is the SHA-1 of the wikis' File:Dynamix.png (wikis:miraheze:2df4a20f78495731, promotional), so one file has one kind: a logo or wordmark without chart-level information is promotional (coordinator decision of 2026-10-10; wave-4 decision 'one file, one kind').",
+      "notes": "Wayback capture 20200622223319 of http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png (CDX mimetype image/png, status 200, WARC record length 85932). The original DynAMIX wordmark (as archived: a 1003x319 RGBA PNG, white letters with a soft black outline on a transparent background) that the official website (/img/dynamix.png) and the official MyCard top-up page (/mycard/img/DNXtypo.png) served as their logo image. The CDX digest is the SHA-1 of the wikis' File:Dynamix.png (wikis:miraheze:2df4a20f78495731, promotional), so one file has one kind: a logo or wordmark without chart-level information is promotional (coordinator decision of 2026-10-10; wave-4 decision 'one file, one kind').",
       "upstream_revision": "20200622223319"
     },
     {

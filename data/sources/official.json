@@ -90,7 +90,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-11T04:44:02Z",
+      "checked_at": "2026-10-11T05:42:30Z",
       "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
