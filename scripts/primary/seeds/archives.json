@@ -1245,7 +1245,7 @@
             "notes": "Internet Archive raw capture (id_) of a file served by the official site."
           },
           "candidate_notes": "Header banner (planet) of the official MyCard top-up page. Title from the cited page https://web.archive.org/web/20190119063302/http://dynamix-server.c4-cat.com:80/mycard/login (page heading 'MyCard Dynamix線上商店'; read 2026-10-10).",
-          "title": "MyCard Dynamix線上商店 (page header image)"
+          "title": "MyCard Dynamix線上商店 — page banner"
         },
         {
           "match": "appendix3\\.pdf@",
@@ -3209,7 +3209,7 @@
               "caption_field": "caption",
               "count": "props.initialProps.pageProps.article.imageCount"
             },
-            "pattern": "https://cdn\\.hk01\\.com/di/media/images/(?P<key>\\d+)/org/[0-9a-f]+\\.(?:jpe?g|JPE?G|png|PNG)/[A-Za-z0-9_-]+"
+            "pattern": "https://cdn\\.hk01\\.com/di/media/images/(?P<key>\\d+)/org/(?P<name>[0-9a-f]+\\.(?:jpe?g|JPE?G|png|PNG))/[A-Za-z0-9_-]+"
           },
           {
             "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
