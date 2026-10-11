@@ -19,9 +19,9 @@ import fcntl
 import json
 import os
 import stat
+from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterator
 
 STATE_DIR = ".cache/fetch_wikis"  # git-ignored, inside --root: the root lock, the registry and the default work dir
 JOURNAL_FORMAT = "dynamix-fetch-wikis-journal/1"

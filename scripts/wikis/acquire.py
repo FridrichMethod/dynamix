@@ -35,25 +35,25 @@ from __future__ import annotations
 import os
 import threading
 import time
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any
 from urllib.parse import urlsplit
 
 from lib import manifest, media, net, paths, schema
 
 from . import classify, config, discover, variants
 from .workdir import (
-    STATE_DIR,
     Journal,
-    LockHeld,
+    LockHeld,  # noqa: F401 (re-exported)
     UnsafeWorkDir,
     claim_work_dir,  # noqa: F401 (re-exported)
-    default_work_dir,
-    exclusive_lock,
-    prepare_state_dir,
-    prepare_work_dir,
-    root_lock_path,
+    default_work_dir,  # noqa: F401 (re-exported)
+    exclusive_lock,  # noqa: F401 (re-exported)
+    prepare_state_dir,  # noqa: F401 (re-exported)
+    prepare_work_dir,  # noqa: F401 (re-exported)
+    root_lock_path,  # noqa: F401 (re-exported)
 )
 
 FAMILY = "wikis"
@@ -149,7 +149,7 @@ class State:
     attempts: dict[str, str] = field(default_factory=dict)  # source_id -> latest download attempt (this run/journal)
 
     @classmethod
-    def load(cls, root: Path, journal: Journal | None = None) -> "State":
+    def load(cls, root: Path, journal: Journal | None = None) -> State:
         data = manifest.load_manifest(root, FAMILY)
         previous = {}
         for source in config.SOURCES.values():

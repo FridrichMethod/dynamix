@@ -52,8 +52,9 @@ titles do not resolve maps nothing.
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field, replace
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 from lib import paths, schema
 
@@ -507,7 +508,7 @@ class SongNames:
     loose: Mapping[str, str]
 
     @classmethod
-    def build(cls, songs: Iterable[tuple[str, Iterable[str]]]) -> "SongNames":
+    def build(cls, songs: Iterable[tuple[str, Iterable[str]]]) -> SongNames:
         """From ``(exact title, other spellings)`` pairs."""
         exact: dict[str, set[str]] = {}
         loose: dict[str, set[str]] = {}
@@ -589,7 +590,7 @@ class Subject:
     unread: str = ""  # no caption or file title gives a subject although song pages show the graphic (recorded)
     unread_pages: tuple[str, ...] = ()  # then: the songs of the original-game song pages showing it
 
-    def only(self, titles: Iterable[str]) -> "Subject":
+    def only(self, titles: Iterable[str]) -> Subject:
         """The subject restricted to ``titles`` (the songs an archivist review saw in the bytes)."""
         keep = set(titles)
         return replace(

@@ -10,8 +10,8 @@ the variant links between the two wikis' records of a title (:mod:`wikis.variant
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 from lib import manifest, media, paths, schema
 

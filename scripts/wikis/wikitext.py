@@ -407,7 +407,10 @@ def normalize_key(value: str) -> str:
 
 
 # Upside-down ("turned") spellings: each turned letter and the letter it reads as when the text is rotated 180°.
-_TURNED = dict(zip("ɐqɔpǝɟƃɥᴉıɾʞןɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲ⅁ſꓘ˥WԀᴚ⊥∩ΛMX⅄", "abcdefghiijklmnopqrstuvwxyzABCDEFGJKLMPRTUVWXY"))
+# strict: the two strings pair up character by character (46 each); a mismatch fails at import, not silently.
+_TURNED = dict(
+    zip("ɐqɔpǝɟƃɥᴉıɾʞןɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲ⅁ſꓘ˥WԀᴚ⊥∩ΛMX⅄", "abcdefghiijklmnopqrstuvwxyzABCDEFGJKLMPRTUVWXY", strict=True)
+)
 _TURNED_ONLY = set("ɐɔǝɟƃɥᴉɾʞɯɹʇʌʍʎ∀ꓭƆᗡƎℲ⅁ꓘ˥ԀᴚΛ⅄")  # characters that occur only in turned text
 
 

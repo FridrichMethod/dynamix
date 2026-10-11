@@ -16,8 +16,9 @@ Unmatched rows become their own entries and disagreements.
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 from lib import manifest, paths, schema
 
@@ -435,7 +436,7 @@ def _finish(entries: dict[str, SongEntry], disagreements: list) -> SongIndex:
     ordered = sorted(entries.values(), key=lambda entry: (entry.title, entry.key))
     ids = paths.assign_song_ids([entry.title for entry in ordered])
     by_title: dict[str, SongEntry] = {}
-    for entry, song_id in zip(ordered, ids):
+    for entry, song_id in zip(ordered, ids, strict=True):  # assign_song_ids returns one ID per title, in order
         entry.id = song_id
         for credit in entry.credits:
             credit.song_id = song_id
