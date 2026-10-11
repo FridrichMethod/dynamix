@@ -21,7 +21,9 @@ the reviewed original-game page table). A page about both games gives no game by
 a song page and whose Fandom upload predates the wiki's first Universe-named upload is original-game material
 (``pre-Universe upload``). A caption naming the artwork of another game ("Artwork in RAVON") adds that game as an
 association and never supplies a game: with an original-game context the file is shared (``mixed``), with only
-Universe contexts it stays Universe-only, and without a game context it stays unresolved.
+Universe contexts it stays Universe-only, and without a game context it stays unresolved. Only a game on the reviewed
+list :data:`config.OTHER_GAMES` is another game (owner decision 2026-10-11, :func:`listed_games`); any other name in such
+a caption records no association, and the evidence asks a curator to review it (:data:`config.OTHER_GAME_REVIEW`).
 
 File description pages: a description that redirects to another file with the same reported SHA-1 is an alias
 (``redirect_or_alias``); pages linking to the description page (``[[:File:X]]`` citations, talk threads) are recorded
@@ -98,7 +100,7 @@ class Evidence:
     song: str | None = None  # exact song title the context associates with the file
     song_page: str | None = None
     detail: str = ""
-    other_game: str | None = None  # "RAVON" for a caption "<song> Artwork in RAVON" (shared artwork)
+    other_games: tuple[str, ...] = ()  # ("RAVON",) for a caption "<song> Artwork in RAVON": listed games (shared)
     list_graphic: bool = False  # the context files it as a list or chart announcement (config.LIST_GRAPHIC_RULE)
     caption: str = ""  # the cleaned gallery/link caption, verbatim (subject of a list graphic, display title)
 
@@ -300,25 +302,17 @@ def _caption_role(caption: str) -> str | None:
     return None
 
 
-def _bare_words(text: str) -> list[str]:
-    """The words of ``text`` without a possessive ending them (config.POSSESSIVE); a word that was only a
-    possessive is dropped: "Arcaea's 3rd" -> ["Arcaea", "3rd"]."""
-    return [word for word in (config.POSSESSIVE.sub("", word) for word in text.split()) if word]
+def listed_games(named: str) -> tuple[config.OtherGame, ...]:
+    """The games of the reviewed list (config.OTHER_GAMES) that the name in an "artwork in/for/from <name>" caption
+    names, in the order it names them: "RAVON" and "the RAVON Collaboration Event" -> RAVON, "Arcaea's 3rd
+    Anniversary" -> Arcaea, "the Arcaea x Lanota Collaboration Event" -> Arcaea, Lanota; "the 2nd Anniversary",
+    "the New Year's Event" or an unlisted game -> none (config.OTHER_GAME_NAMES: whole words, any letter case, the
+    longest spelling first, a possessive after a name allowed)."""
+    found = (config.OTHER_GAME_GROUPS[match.lastgroup or ""] for match in config.OTHER_GAME_NAMES.finditer(named))
+    return tuple(dict.fromkeys(found))
 
 
-def occasion_game(named: str) -> str | None:
-    """The other game that the name in an "artwork in/for/from <name>" caption gives, or None for one of Dynamix's own
-    occasions: "RAVON" -> "RAVON", "the RAVON Collaboration Event" -> "RAVON", "Arcaea's 3rd Anniversary" -> "Arcaea",
-    "the 2nd Anniversary" and "the New Year's Event" -> None. A name without occasion words (config.DYNAMIX_OCCASION)
-    is the game's name as it stands, less a possessive that ends it ("RAVON's" -> "RAVON"); otherwise the possessives
-    ending its words (config.POSSESSIVE) and the words that describe an occasion (config.OCCASION_WORDS, which also
-    hold the numbers, ordinals, articles and prepositions that name nothing) are removed, and what is left names the
-    game if it holds a letter."""
-    if not config.DYNAMIX_OCCASION.search(named):
-        return config.POSSESSIVE.sub("", named) or named
-    words = config.OCCASION_WORDS.sub(" ", " ".join(_bare_words(named)))
-    rest = " ".join(_bare_words(words)).strip(" !?.,:;&/+'\"’-–—×")
-    return rest if re.search(r"[^\W\d_]", rest) else None
+_OTHER_GAME_SLUGS = {game.name: game.slug for game in config.OTHER_GAMES}
 
 
 def page_evidence(
@@ -356,7 +350,8 @@ def page_evidence(
         if ref.link:
             where.append(f"link={ref.link[:120]}")
         detail = ", ".join(where)
-        role, strength, song, song_page, context, other_game = None, 0, None, None, ref.context, None
+        role, strength, song, song_page, context = None, 0, None, None, ref.context
+        other_games: tuple[str, ...] = ()
         listed = False
         if ref.context == "template" and ref.template in SONG_TEMPLATES and ref.param == "Imgsuffix":
             record = imgsuffix.get((ref.template, ref.name))
@@ -399,16 +394,18 @@ def page_evidence(
                     role, song = "external_release_art", None
                     detail += f", artwork of the song's release for {named} (an external release event)"
                 else:
-                    partner = occasion_game(named) if other is not None else None
-                    if other is not None and partner is None:
-                        detail += f", artwork for {named} (a Dynamix event, not another game)"
-                    elif partner is not None:
+                    other_games = tuple(game.name for game in listed_games(named)) if other is not None else ()
+                    if other_games:
                         # Shared artwork: an association only. The page or tab keeps deciding the game (decide()
                         # makes it "mixed" when an original-game context exists), so a Universe-only page stays
                         # Universe-only and a page without game evidence gives none.
-                        other_game = partner
-                        game_note = f": {other_game}" if other_game != named else ""
+                        games_named = ", ".join(other_games)
+                        game_note = f": {games_named}" if games_named != named else ""
                         detail += f", artwork of the song for {named} (another game/event{game_note})"
+                    elif named:
+                        # Owner decision 2026-10-11: a name that is not on the reviewed list (an unlisted event,
+                        # holiday or game) records no association; the evidence asks a curator to review it.
+                        detail += f", the caption names {named}, {config.OTHER_GAME_REVIEW}"
                     if (
                         game is None
                         and info.game == "mixed"
@@ -461,8 +458,8 @@ def page_evidence(
                     song,
                     song_page,
                     detail,
-                    other_game,
-                    listed and role == "reference",
+                    other_games=other_games,
+                    list_graphic=listed and role == "reference",
                     caption=ref.caption,
                 ),
             )
@@ -1084,7 +1081,7 @@ def decide(
     page_items = [item for item in items if item.context != REVIEW_CONTEXT]
     games = {item.game for item in page_items if item.game}
     # A caption naming another game's artwork is game evidence too (the association), although it gives no game.
-    game_items = [item.text() for item in page_items if item.game or item.other_game]
+    game_items = [item.text() for item in page_items if item.game or item.other_games]
     role_items = [item for item in page_items if item.role]
     top = max((item.strength for item in role_items), default=-1)
     leaders = _majority([item for item in role_items if item.strength == top])
@@ -1206,9 +1203,9 @@ def decide(
     if reviewed_game:
         games = {review.game}
         game_items.append(review.game_text())
-    # A caption "Artwork in <other game>" shares an original-game file with that game (mixed); with only Universe
+    # A caption "Artwork in <listed game>" shares an original-game file with that game (mixed); with only Universe
     # contexts the file stays Universe-only, and without any game context it stays unresolved.
-    if "dynamix" in games and any(item.other_game for item in page_items):
+    if "dynamix" in games and any(item.other_games for item in page_items):
         games = games | {"mixed"}
     # A review that saw another game's identity in the bytes (game "mixed" with associations) adds it to the original
     # game that page context gives: the file is shared, not moved to the other game.
@@ -1261,9 +1258,7 @@ def decide(
         if placed and mapping == "confirmed_wiki":
             mapping = "inferred"
     associations = {"dynamix_universe" for item in page_items if item.game == "dynamix_universe"} | {
-        re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")
-        for item in page_items
-        if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")
+        _OTHER_GAME_SLUGS[name] for item in page_items for name in item.other_games
     }
     if (reviewed_game or shared) and game == "mixed":
         associations |= set(review.associations)

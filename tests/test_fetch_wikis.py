@@ -494,6 +494,33 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(self.verify(), 1)
         self.assertTrue(any("variant_group/variant_role do not match" in line for line in self.logs), self.logs)
 
+    def test_caption_naming_an_unlisted_game_keeps_the_default_rights(self) -> None:
+        """Owner decision 2026-10-11: "<song> Artwork for <name>" records another game only for a name on the
+        reviewed list (config.OTHER_GAMES). With a name that is not on it (here one without Latin letters, which the
+        occasion heuristic made a 'mixed' file with the association 'unknown_other' and no rights holder), the shared
+        file stays original-game art with the default holder, and its game evidence asks a curator to review the
+        name."""
+        for pages in (self.scenario.miraheze_pages, self.scenario.fandom_pages):
+            page = pages["Cosmic Pulse"]
+            text = page["wikitext"].replace("Cosmic Pulse Artwork in RAVON", "Cosmic Pulse Artwork for 春节活动")
+            self.assertNotEqual(text, page["wikitext"])
+            pages["Cosmic Pulse"] = {**page, "wikitext": text}
+        title = "File:Cosmic Pulse Squared.png"
+        self.assertEqual(self.run_cli("--source", "miraheze", "--only", title), 0, "\n".join(self.logs))
+        squared = self.asset("miraheze", title)
+        self.assertNotIn("game_associations", squared)
+        self.assertEqual(squared["rights"]["holder"], schema.DEFAULT_RIGHTS_HOLDER)
+        self.assertNotIn("Rights holder not recorded", squared.get("notes", ""))
+        candidate = self.candidate("miraheze", title)
+        self.assertEqual(candidate["game"], "dynamix")
+        self.assertTrue(
+            any(
+                "the caption names 春节活动, which is not on the reviewed game list" in entry
+                for entry in candidate["game_evidence"]
+            ),
+            candidate["game_evidence"],
+        )
+
     def test_include_animated(self) -> None:
         self.assertEqual(
             self.run_cli("--include-animated", "--source", "miraheze", "--only", "File:Emi-Animated.gif"), 0
