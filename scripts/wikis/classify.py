@@ -300,14 +300,24 @@ def _caption_role(caption: str) -> str | None:
     return None
 
 
+def _bare_words(text: str) -> list[str]:
+    """The words of ``text`` without a possessive ending them (config.POSSESSIVE); a word that was only a
+    possessive is dropped: "Arcaea's 3rd" -> ["Arcaea", "3rd"]."""
+    return [word for word in (config.POSSESSIVE.sub("", word) for word in text.split()) if word]
+
+
 def occasion_game(named: str) -> str | None:
     """The other game that the name in an "artwork in/for/from <name>" caption gives, or None for one of Dynamix's own
-    occasions: "RAVON" -> "RAVON", "the RAVON Collaboration Event" -> "RAVON", "the 2nd Anniversary" -> None. A name
-    without occasion words (config.DYNAMIX_OCCASION) is the game's name as it stands; otherwise what is left once the
-    words that describe an occasion (config.OCCASION_WORDS) are removed names the game, if anything is left."""
+    occasions: "RAVON" -> "RAVON", "the RAVON Collaboration Event" -> "RAVON", "Arcaea's 3rd Anniversary" -> "Arcaea",
+    "the 2nd Anniversary" and "the New Year's Event" -> None. A name without occasion words (config.DYNAMIX_OCCASION)
+    is the game's name as it stands, less a possessive that ends it ("RAVON's" -> "RAVON"); otherwise the possessives
+    ending its words (config.POSSESSIVE) and the words that describe an occasion (config.OCCASION_WORDS, which also
+    hold the numbers, ordinals, articles and prepositions that name nothing) are removed, and what is left names the
+    game if it holds a letter."""
     if not config.DYNAMIX_OCCASION.search(named):
-        return named
-    rest = " ".join(config.OCCASION_WORDS.sub(" ", named).split()).strip(" !?.,:;&/+'\"’-–—×")
+        return config.POSSESSIVE.sub("", named) or named
+    words = config.OCCASION_WORDS.sub(" ", " ".join(_bare_words(named)))
+    rest = " ".join(_bare_words(words)).strip(" !?.,:;&/+'\"’-–—×")
     return rest if re.search(r"[^\W\d_]", rest) else None
 
 

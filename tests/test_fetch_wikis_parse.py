@@ -604,6 +604,76 @@ class OtherGameCaptionTests(unittest.TestCase):
                     ("download", "mixed", [other.casefold()]),
                 )
 
+    def test_possessive_occasions_of_dynamix_record_no_game(self) -> None:
+        """A possessive in an occasion name belongs to the occasion, never to a game: "the New Year's Event", "New
+        Year's Eve" and "April Fool's Day" are Dynamix's own occasions like their non-possessive controls (no
+        association, the page game stays), with a typographic apostrophe or a plural possessive as well."""
+        captions = (
+            "S Jacket for the New Year's Event",
+            "S Jacket for the New Year Event",  # control
+            "S Jacket for the New Year’s Event",
+            "S Artwork for New Year's Eve",
+            "S Artwork for New Year Eve",  # control
+            "S Artwork for April Fool's Day",
+            "S Artwork for April Fools Day",  # control
+            "S Artwork for April Fools' Day",
+        )
+        for caption in captions:
+            with self.subTest(caption=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", None))
+                self.assertIn("(a Dynamix event, not another game)", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+
+    def test_possessive_occasions_of_another_game_name_that_game(self) -> None:
+        """An occasion of another game named with a possessive is that game's, as its non-possessive control:
+        "Arcaea's 3rd Anniversary" gives the association 'arcaea', never 'arcaea_s', and the ordinals, numbers and
+        connecting words beside the name name nothing."""
+        captions = {
+            "S Artwork for Arcaea's 3rd Anniversary": "Arcaea",
+            "S Artwork for Arcaea 3rd Anniversary": "Arcaea",  # control
+            "S Artwork for Arcaea’s 10th Anniversary": "Arcaea",
+            "S Artwork for the 10th Anniversary of Arcaea": "Arcaea",
+            "S Jacket for RAVON's Collaboration Event 2024": "RAVON",
+            "S Artwork in RAVON's": "RAVON",  # a name without occasion words loses only the possessive ending it
+        }
+        for caption, other in captions.items():
+            with self.subTest(caption=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", other))
+                self.assertIn("(another game/event", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations),
+                    ("download", "mixed", [other.casefold()]),
+                )
+
+    def test_occasion_game_strips_possessives_only(self) -> None:
+        """classify.occasion_game on the name alone: a possessive ending a word of an occasion name is dropped
+        before the occasion words are removed and before the rest is decided; a name without occasion words stands
+        as it is apart from a possessive that ends it."""
+        cases = {
+            "the New Year's Event": None,
+            "New Year’s Eve": None,
+            "April Fool's Day": None,
+            "April Fools' Day": None,
+            "Dynamix's 10th Anniversary": None,
+            "the 3rd Anniversary – 2024": None,
+            "Arcaea's 3rd Anniversary": "Arcaea",
+            "ARCAEA'S 3RD ANNIVERSARY": "ARCAEA",
+            "Lanota’s 2nd Anniversary Event!": "Lanota",
+            "the RAVON Collaboration Event": "RAVON",
+            "RAVON's": "RAVON",
+            "RAVON": "RAVON",
+            "Assassin's Creed": "Assassin's Creed",
+        }
+        for named, expected in cases.items():
+            with self.subTest(named=named):
+                self.assertEqual(classify.occasion_game(named), expected)
+
     def gallery_item(self, caption: str):
         """The evidence of a gallery image captioned ``caption`` on an original-game song page."""
         text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
@@ -611,12 +681,15 @@ class OtherGameCaptionTests(unittest.TestCase):
 
     def test_the_documented_caption_examples_behave_as_documented(self) -> None:
         """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: another game's
-        artwork or event records an association, Dynamix's own events do not, and a BMS release event is the song's
-        separate release (external_release_art). The stale 'another game or event' wording is gone."""
+        artwork or event records an association (with a possessive too), Dynamix's own occasions do not, and a BMS
+        release event is the song's separate release (external_release_art). The paragraph names the two word lists
+        that decide a Dynamix occasion. The stale 'another game or event' wording is gone."""
         expected = {
             "Artwork in RAVON": ("download", ["ravon"]),
             "Artwork for the RAVON Collaboration Event": ("download", ["ravon"]),
+            "Artwork for Arcaea's 3rd Anniversary": ("download", ["arcaea"]),
             "Jacket for the Halloween Event": ("download", []),
+            "Artwork for New Year's Eve": ("download", []),
             "Artwork in PABAT! 2017": ("excluded", []),
         }
         for relative, stale in (
@@ -628,6 +701,10 @@ class OtherGameCaptionTests(unittest.TestCase):
             with self.subTest(document=relative):
                 self.assertNotIn(stale, paragraph)
                 self.assertIn("`external_release_art`", paragraph)
+                self.assertIn("`scripts/wikis/config.py`", paragraph)
+                for name in ("DYNAMIX_OCCASION", "OCCASION_WORDS"):
+                    self.assertIn(f"`{name}`", paragraph)
+                    self.assertTrue(hasattr(config, name), name)
                 for caption in expected:
                     self.assertIn(caption, paragraph)
         for caption, (disposition, associations) in expected.items():
