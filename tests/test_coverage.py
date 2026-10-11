@@ -163,6 +163,21 @@ class FixtureCoverageTests(Base):
         )
         self.assertEqual(report["mismatches"]["song_index_artwork"], [])
 
+    def test_every_mismatch_list_is_one_the_inputs_can_fill(self):
+        """No list that the reconciliation already rules out: a duplicate_bytes candidate naming another source's
+        asset fails the build (09; test_a_duplicate_bytes_candidate_of_another_source_fails), so none is listed."""
+        self.assertEqual(
+            list(coverage.build(self.root)["mismatches"]),
+            [
+                "source_reported",
+                "transformed_records",
+                "record_disagreements",
+                "song_index_disagreements",
+                "song_index_artwork",
+                "successor_not_primary",
+            ],
+        )
+
     def test_a_successor_merged_under_another_primary_is_reported(self):
         self.assertEqual(coverage.build(self.root)["mismatches"]["successor_not_primary"], [])
         current = fx.find_record(self.root, title="Dynamix background 03", upstream_status="current")
@@ -548,6 +563,16 @@ class ReconciliationFailureTests(Base):
                 candidate.update(disposition="pending", reason="unresolved_role: re-review", asset_id=None)
         self.save_snapshot(value)
         self.assert_fails("does not reconcile")
+
+    def test_a_duplicate_bytes_candidate_of_another_source_fails(self):
+        """duplicate_bytes names identical bytes the same source archived; identical bytes of another source are that
+        source's own record (09), so the report never has to list such a candidate."""
+        value = self.snapshot("wikis:miraheze")
+        fandom = fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")
+        duplicate = next(c for c in value["candidates"] if c["disposition"] == "duplicate_bytes")
+        duplicate["asset_id"] = fandom["id"]
+        self.save_snapshot(value)
+        self.assert_fails("same source")
 
     def test_a_wrong_candidate_count_fails(self):
         value = fx.load_manifest(self.root, "wikis")

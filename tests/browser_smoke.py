@@ -1470,11 +1470,42 @@ def check_edges(smoke, base, catalog, names, small_id):
 
 UNSAFE_LINKS = """() => [...document.querySelectorAll('[href], [src]')].map((node) => node.href || node.src || '')
     .filter((url) => url && !/^(https?:|file:|#)/i.test(url))"""
+# Installed before the page's own scripts (page.add_init_script): records, resolved, every src of an <img> and href of
+# an <a> that the page puts into the document, including values it replaces later, such as a card's first preview
+# before its error handler falls back to the original.
+SET_URLS = """(() => {
+    const seen = window.__smokeSetUrls = [];
+    const resolve = (value) => { try { return new URL(value, document.baseURI).href; } catch { return value; } };
+    const note = (node, value) => {
+        if (value !== null && value !== undefined && value !== '') seen.push([node.localName, resolve(value)]);
+    };
+    const attribute = {img: 'src', a: 'href'};
+    const added = (node) => {
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        for (const element of [node, ...node.querySelectorAll('img, a')]) {
+            if (element.localName in attribute) note(element, element.getAttribute(attribute[element.localName]));
+        }
+    };
+    new MutationObserver((records) => {
+        for (const record of records) {
+            if (record.type === 'childList') record.addedNodes.forEach(added);
+            else if (attribute[record.target.localName] === record.attributeName) {
+                note(record.target, record.oldValue);
+                note(record.target, record.target.getAttribute(record.attributeName));
+            }
+        }
+    }).observe(document, {childList: true, subtree: true, attributes: true, attributeOldValue: true,
+        attributeFilter: ['src', 'href']});
+})();"""
 # Images that load from outside the site's mount (another host, or the server root above it), and links to the same
-# host that leave the mount. Links to other hosts (sources, the repository) are allowed.
-OFF_MOUNT = """(base) => [...document.querySelectorAll('img[src], a[href]')]
+# host that leave the mount, in the document now or set by the page earlier (SET_URLS, when installed): a preview that
+# the request monitor blocked and the card then replaced still counts. Links to other hosts (sources, the repository)
+# are allowed.
+OFF_MOUNT = """(base) => [...new Set([...document.querySelectorAll('img[src], a[href]')]
     .map((node) => [node.localName, node.localName === 'img' ? node.src : node.href])
-    .filter(([tag, url]) => (tag === 'img' || new URL(url).origin === new URL(base).origin) && !url.startsWith(base))"""
+    .concat(window.__smokeSetUrls || [])
+    .filter(([tag, url]) => (tag === 'img' || new URL(url, base).origin === new URL(base).origin) && !url.startsWith(base))
+    .map((entry) => JSON.stringify(entry)))].map((entry) => JSON.parse(entry))"""
 
 
 def refused_site_url(value):
@@ -1483,9 +1514,14 @@ def refused_site_url(value):
 
 
 def check_hostile(smoke, base):
+    """No unsafe link and nothing loaded or linked off the mount: in the document, and among the URLs the page set
+    (SET_URLS), checked after the cards' loads settled, so a preview that failed and fell back is still seen."""
     page = smoke.page(base)
+    page.add_init_script(SET_URLS)
     open_archive(smoke, page, base)
     assert count(page) > 0
+    smoke.monitor.settle(page)
+    assert page.evaluate("Array.isArray(window.__smokeSetUrls) && window.__smokeSetUrls.length > 0"), "SET_URLS runs"
     assert page.evaluate(UNSAFE_LINKS) == [], page.evaluate(UNSAFE_LINKS)
     assert page.evaluate(OFF_MOUNT, base) == [], page.evaluate(OFF_MOUNT, base)
     catalog = page.evaluate("window.DYNAMIX_CATALOG")

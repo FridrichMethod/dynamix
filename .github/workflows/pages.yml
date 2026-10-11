@@ -43,7 +43,7 @@ jobs:
           [ "$REF" = "refs/heads/main" ] || fail "Dispatch this workflow on main, not $REF."
           [[ "$RELEASE_SHA" =~ ^[0-9a-f]{40}$ ]] || fail "release_sha must be a full 40-character lowercase commit SHA."
           [ "$RELEASE_SHA" = "$SHA" ] || fail "release_sha $RELEASE_SHA is not the dispatched main commit $SHA."
-          [ -n "$APPROVED_SHA" ] || fail "Release hold: repository variable RELEASE_APPROVED_SHA is unset."
+          [ -n "$APPROVED_SHA" ] || fail "No approved SHA: RELEASE_APPROVED_SHA is not set; the dispatch fails closed."
           [ "$APPROVED_SHA" = "$SHA" ] || fail "RELEASE_APPROVED_SHA does not name the dispatched commit $SHA."
           echo "Release of $SHA approved."
 
@@ -75,7 +75,7 @@ jobs:
           [ "$REF" = "refs/heads/main" ] || fail "Dispatch this workflow on main, not $REF."
           [[ "$RELEASE_SHA" =~ ^[0-9a-f]{40}$ ]] || fail "release_sha must be a full 40-character lowercase commit SHA."
           [ "$RELEASE_SHA" = "$SHA" ] || fail "release_sha $RELEASE_SHA is not the dispatched main commit $SHA."
-          [ -n "$APPROVED_SHA" ] || fail "Release hold: repository variable RELEASE_APPROVED_SHA is unset."
+          [ -n "$APPROVED_SHA" ] || fail "No approved SHA: RELEASE_APPROVED_SHA is not set; the dispatch fails closed."
           [ "$APPROVED_SHA" = "$SHA" ] || fail "RELEASE_APPROVED_SHA does not name the dispatched commit $SHA."
           echo "Release of $SHA approved."
       - name: Checkout

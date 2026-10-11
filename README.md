@@ -118,7 +118,7 @@ Song index of 2026-10-10. Latest acquisition per family (manifest `fetched_at`):
 | Artwork entries without a credited illustrator | 2,055 |
 | Original bytes, site tier (the website serves the original) | 801,936,070 B (801.9 MB) |
 | Original bytes, archive tier (original in the repository, preview on the website) | 542,108,765 B (542.1 MB) |
-| Staged website estimate | 929,909,433 B (929.9 MB) of the 950,000,000 B budget (97.9%, within the budget) |
+| Staged website estimate | 929,909,393 B (929.9 MB) of the 950,000,000 B budget (97.9%, within the budget) |
 
 <!-- STATS:END -->
 
