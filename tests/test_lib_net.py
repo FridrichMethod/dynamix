@@ -536,6 +536,39 @@ class UrlBoundaryTests(NetTestCase):
         self.assertTrue(client._address_allowed("::ffff:127.0.0.1"))  # real loopback, allowed only in tests
         self.assertFalse(self.client(hosts=["a.example"], allow_loopback=False)._address_allowed("::ffff:127.0.0.1"))
 
+    def test_non_public_address_classes_are_refused(self):
+        """One example per non-public class, so that weakening the policy (e.g. ``not is_private`` instead of
+        ``is_global``, which admits RFC 6598 shared space) fails here. None of them is loopback, so allow_loopback
+        changes nothing."""
+        refused = {
+            "100.64.0.1": "RFC 6598 shared address space (carrier-grade NAT)",
+            "100.100.100.200": "RFC 6598 space: Alibaba Cloud instance metadata",
+            "169.254.169.254": "IPv4 link-local: cloud instance metadata",
+            "::ffff:169.254.169.254": "IPv4-mapped link-local metadata address",
+            "fd00:ec2::254": "IPv6 unique local: AWS instance metadata",
+            "fe80::1": "IPv6 link-local",
+            "10.1.2.3": "RFC 1918",
+            "172.16.0.1": "RFC 1918",
+            "192.168.0.1": "RFC 1918",
+            "192.0.0.8": "IETF protocol assignments",
+            "192.0.2.1": "documentation (TEST-NET-1)",
+            "198.18.0.1": "benchmarking",
+            "0.0.0.0": "this host",
+            "255.255.255.255": "limited broadcast",
+            "240.0.0.1": "reserved (class E)",
+            "224.0.0.1": "IPv4 multicast",
+            "ff02::1": "IPv6 multicast",
+            "::": "IPv6 unspecified",
+        }
+        for allow_loopback in (False, True):
+            client = self.client(hosts=["a.example"], allow_loopback=allow_loopback)
+            for address, kind in refused.items():
+                with self.subTest(address=address, kind=kind, allow_loopback=allow_loopback):
+                    self.assertFalse(client._address_allowed(address))
+            for address in ("93.184.216.34", "1.1.1.1", "2606:2800:220:1:248:1893:25c8:1946", "2a00:1450:4001::1"):
+                with self.subTest(address=address, allow_loopback=allow_loopback):
+                    self.assertTrue(client._address_allowed(address))
+
 
 class ChallengeDetectionTests(NetTestCase):
     def test_javascript_detections_page_is_not_a_challenge(self):
