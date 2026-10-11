@@ -369,6 +369,21 @@ class RecordValidationTests(unittest.TestCase):
             self.assertEqual(sum(counts.values()), len(snapshot["candidates"]))
         schema.validate_song_index(self.song_index)
 
+    def test_timestamps_and_dates_take_ascii_digits_only(self):
+        """``\\d`` and strptime accept every Unicode decimal digit, but the validators order timestamps as strings:
+        fullwidth digits sort after all ASCII ones, so a year-2000 fetched_at would pass the 'latest' check."""
+        for value in ("２０２６-10-10T12:00:00Z", "٢٠٢٦-10-10T12:00:00Z", "2026-1０-10T12:00:00Z"):
+            with self.subTest(timestamp=value):
+                self.assertIsNotNone(checks.timestamp(value))
+        for value in ("٢٠٢٦-10-10", "２０２６-10-10"):
+            with self.subTest(date=value):
+                self.assertIsNotNone(checks.date(value))
+        self.assertIsNone(checks.timestamp("2026-10-10T12:00:00Z"))
+        self.assertIsNone(checks.date("2026-10-10"))
+        wikis = copy.deepcopy(self.manifests["wikis"])
+        wikis["fetched_at"] = "２０００-01-01T00:00:00Z"
+        self.assertInvalid(schema.validate_manifest, wikis, "fetched_at")
+
     def test_asset_field_errors_name_record_and_field(self):
         base = asset_by_title(self.manifests, "Cosmic Pulse (crop)")
         label = f"asset {base['id']!r}"

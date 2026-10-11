@@ -14,8 +14,10 @@ from datetime import datetime
 from typing import Any
 from urllib.parse import unquote, urlsplit
 
-TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
-DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# re.ASCII: ``\d`` would also match fullwidth or Arabic-Indic digits (which strptime accepts too), and the
+# validators compare timestamps as strings.
+TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$", re.ASCII)
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$", re.ASCII)
 
 # --- Credential hygiene -----------------------------------------------------------------------------------------------
 
