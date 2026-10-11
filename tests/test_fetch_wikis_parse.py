@@ -718,6 +718,43 @@ class ReviewTests(unittest.TestCase):
             with self.assertRaises(ValueError, msg=title):
                 reviews.parse_withdrawals(dict(base, withdrawals=[dict(withdrawal, title=title)]))
 
+    def test_first_letter_is_capitalized_as_mediawiki_does(self) -> None:
+        """MediaWiki upper-cases the first letter one character for one character: ß (whose upper case is "SS")
+        stays, and a lowercase digraph takes its titlecase form (ǆ -> ǅ, not Ǆ). Titles, file references and page
+        links are canonicalized alike, so a review of such a file is accepted and matches its references."""
+        cases = {
+            "ß.png": "ß.png",
+            "ǆungla.png": "ǅungla.png",
+            "ǅungla.png": "ǅungla.png",
+            "Ǆ.png": "Ǆ.png",
+            "ŉ.png": "ŉ.png",
+            "ﬁle.png": "ﬁle.png",
+            "é b.png": "É b.png",
+            "a_b.png": "A b.png",
+            "日本.png": "日本.png",
+            "1st.png": "1st.png",
+        }
+        for name, canonical in cases.items():
+            with self.subTest(name=name):
+                self.assertEqual(reviews.canonical_title("File:" + name), "File:" + canonical)
+                self.assertEqual(wikitext.canonical_file_name(name), canonical)
+                self.assertEqual(wikitext.canonical_page_title(name.removesuffix(".png")), canonical[:-4])
+        review = {
+            "title": "File:ß.png",
+            "sha1": ["a" * 40],
+            "role": "promotional",
+            "game": "dynamix",
+            "evidence": "visual_inspection: event key art",
+            "game_evidence": "visual_inspection: original logo",
+        }
+        base = {"format": reviews.FORMAT, "reviews": []}
+        for title in ("File:ß.png", "File:ǅ.png", "File:SS.png"):
+            with self.subTest(title=title):
+                self.assertIn(title, reviews.parse(dict(base, reviews=[dict(review, title=title)])))
+        with self.assertRaises(ValueError) as caught:
+            reviews.parse(dict(base, reviews=[dict(review, title="File:ǆ.png")]))
+        self.assertIn("'File:ǅ.png'", str(caught.exception))
+
     def test_committed_review_titles_are_discovered_files(self) -> None:
         """Every committed review, note and withdrawal names a file that a committed wiki discovery snapshot lists,
         so none of them is silently inert."""
