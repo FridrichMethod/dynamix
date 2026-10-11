@@ -1,6 +1,6 @@
 name: Check sources (manual, read-only)
 
-# Manual only and read-only during the release hold: compares live wiki metadata (no file downloads) with the
+# Manual only and read-only: compares live wiki metadata (no file downloads) with the
 # committed discovery snapshots and uploads the report as a run artifact. It never commits, pushes, creates branches
 # or pull requests, or changes data, and it has no schedule. Reviewing the report and refreshing snapshots or
 # downloads happen locally through the fetchers and an ordinary reviewed commit.
