@@ -5,10 +5,10 @@
   "inputs": {
     "song_index": "data/sources/song-index.json",
     "manifests": {
-      "wikis": "2026-10-11T02:42:56Z",
+      "wikis": "2026-10-11T04:27:27Z",
       "artists": "2026-10-10T21:00:40Z",
       "official": "2026-10-11T00:14:38Z",
-      "archives": "2026-10-11T00:19:24Z"
+      "archives": "2026-10-11T04:50:56Z"
     },
     "discovery": {
       "archives:4gamer": {
@@ -17,7 +17,7 @@
       },
       "archives:archive-leads": {
         "path": "data/discovery/archive-leads.json",
-        "finished_at": "2026-10-11T00:18:53Z"
+        "finished_at": "2026-10-11T06:16:08Z"
       },
       "archives:hkstp": {
         "path": "data/discovery/hkstp.json",
@@ -25,11 +25,11 @@
       },
       "archives:press": {
         "path": "data/discovery/press.json",
-        "finished_at": "2026-10-11T01:20:30Z"
+        "finished_at": "2026-10-11T04:48:03Z"
       },
       "archives:wayback": {
         "path": "data/discovery/wayback.json",
-        "finished_at": "2026-10-11T00:24:04Z"
+        "finished_at": "2026-10-11T05:45:12Z"
       },
       "artists:artstation:sandgodoven": {
         "path": "data/discovery/artstation-sandgodoven.json",
@@ -41,7 +41,7 @@
       },
       "artists:bandcamp:ha1uday0": {
         "path": "data/discovery/bandcamp-ha1uday0.json",
-        "finished_at": "2026-10-10T22:33:03Z"
+        "finished_at": "2026-10-11T04:40:05Z"
       },
       "artists:bandcamp:lixion": {
         "path": "data/discovery/bandcamp-lixion.json",
@@ -49,7 +49,7 @@
       },
       "artists:bandcamp:vauboy": {
         "path": "data/discovery/bandcamp-vauboy.json",
-        "finished_at": "2026-10-10T22:33:05Z"
+        "finished_at": "2026-10-11T04:40:07Z"
       },
       "artists:bandcamp:veirtunes": {
         "path": "data/discovery/bandcamp-veirtunes.json",
@@ -65,15 +65,15 @@
       },
       "artists:pixiv:17081698": {
         "path": "data/discovery/pixiv-17081698.json",
-        "finished_at": "2026-10-10T22:33:13Z"
+        "finished_at": "2026-10-11T04:40:09Z"
       },
       "artists:pixiv:1840049": {
         "path": "data/discovery/pixiv-1840049.json",
-        "finished_at": "2026-10-10T22:33:20Z"
+        "finished_at": "2026-10-11T04:40:20Z"
       },
       "artists:pixiv:19451821": {
         "path": "data/discovery/pixiv-19451821.json",
-        "finished_at": "2026-10-10T22:33:29Z"
+        "finished_at": "2026-10-11T04:40:32Z"
       },
       "artists:pixiv:2624455": {
         "path": "data/discovery/pixiv-2624455.json",
@@ -85,35 +85,35 @@
       },
       "artists:pixiv:3381542": {
         "path": "data/discovery/pixiv-3381542.json",
-        "finished_at": "2026-10-10T22:33:43Z"
+        "finished_at": "2026-10-11T04:41:12Z"
       },
       "artists:pixiv:407585": {
         "path": "data/discovery/pixiv-407585.json",
-        "finished_at": "2026-10-10T22:33:49Z"
+        "finished_at": "2026-10-11T04:41:22Z"
       },
       "artists:pixiv:4349073": {
         "path": "data/discovery/pixiv-4349073.json",
-        "finished_at": "2026-10-10T22:33:57Z"
+        "finished_at": "2026-10-11T04:41:30Z"
       },
       "artists:pixiv:5401047": {
         "path": "data/discovery/pixiv-5401047.json",
-        "finished_at": "2026-10-10T22:34:19Z"
+        "finished_at": "2026-10-11T04:42:07Z"
       },
       "artists:pixiv:548320": {
         "path": "data/discovery/pixiv-548320.json",
-        "finished_at": "2026-10-10T22:34:26Z"
+        "finished_at": "2026-10-11T04:42:11Z"
       },
       "artists:pixiv:74278": {
         "path": "data/discovery/pixiv-74278.json",
-        "finished_at": "2026-10-10T22:34:43Z"
+        "finished_at": "2026-10-11T04:42:19Z"
       },
       "artists:pixiv:760598": {
         "path": "data/discovery/pixiv-760598.json",
-        "finished_at": "2026-10-10T22:34:50Z"
+        "finished_at": "2026-10-11T04:42:24Z"
       },
       "artists:pixiv:779504": {
         "path": "data/discovery/pixiv-779504.json",
-        "finished_at": "2026-10-10T22:34:59Z"
+        "finished_at": "2026-10-11T04:42:28Z"
       },
       "artists:pixiv:89112381": {
         "path": "data/discovery/pixiv-89112381.json",
@@ -121,19 +121,19 @@
       },
       "artists:research:leads": {
         "path": "data/discovery/research-leads.json",
-        "finished_at": "2026-10-10T22:48:27Z"
+        "finished_at": "2026-10-11T05:42:26Z"
       },
       "artists:soundcloud:3t1a": {
         "path": "data/discovery/soundcloud-3t1a.json",
-        "finished_at": "2026-10-10T22:35:02Z"
+        "finished_at": "2026-10-11T04:42:28Z"
       },
       "artists:soundcloud:aboutlogic": {
         "path": "data/discovery/soundcloud-aboutlogic.json",
-        "finished_at": "2026-10-10T22:35:04Z"
+        "finished_at": "2026-10-11T04:42:29Z"
       },
       "artists:soundcloud:airlemonex": {
         "path": "data/discovery/soundcloud-airlemonex.json",
-        "finished_at": "2026-10-10T22:35:05Z"
+        "finished_at": "2026-10-11T04:42:31Z"
       },
       "artists:soundcloud:aoisoundsystem": {
         "path": "data/discovery/soundcloud-aoisoundsystem.json",
@@ -149,11 +149,11 @@
       },
       "artists:soundcloud:cashewnuts": {
         "path": "data/discovery/soundcloud-cashewnuts.json",
-        "finished_at": "2026-10-10T22:35:12Z"
+        "finished_at": "2026-10-11T04:42:32Z"
       },
       "artists:soundcloud:circle2": {
         "path": "data/discovery/soundcloud-circle2.json",
-        "finished_at": "2026-10-10T22:35:16Z"
+        "finished_at": "2026-10-11T04:42:36Z"
       },
       "artists:soundcloud:cordantia": {
         "path": "data/discovery/soundcloud-cordantia.json",
@@ -161,7 +161,7 @@
       },
       "artists:soundcloud:cosmogrph": {
         "path": "data/discovery/soundcloud-cosmogrph.json",
-        "finished_at": "2026-10-10T22:35:19Z"
+        "finished_at": "2026-10-11T04:42:37Z"
       },
       "artists:soundcloud:dice-dd": {
         "path": "data/discovery/soundcloud-dice-dd.json",
@@ -169,23 +169,23 @@
       },
       "artists:soundcloud:ebico": {
         "path": "data/discovery/soundcloud-ebico.json",
-        "finished_at": "2026-10-10T22:35:22Z"
+        "finished_at": "2026-10-11T04:42:39Z"
       },
       "artists:soundcloud:espidev": {
         "path": "data/discovery/soundcloud-espidev.json",
-        "finished_at": "2026-10-10T22:35:23Z"
+        "finished_at": "2026-10-11T04:42:40Z"
       },
       "artists:soundcloud:felix1213tw": {
         "path": "data/discovery/soundcloud-felix1213tw.json",
-        "finished_at": "2026-10-10T22:35:25Z"
+        "finished_at": "2026-10-11T04:42:41Z"
       },
       "artists:soundcloud:halvsan": {
         "path": "data/discovery/soundcloud-halvsan.json",
-        "finished_at": "2026-10-10T22:35:27Z"
+        "finished_at": "2026-10-11T04:42:44Z"
       },
       "artists:soundcloud:hino-isuka": {
         "path": "data/discovery/soundcloud-hino-isuka.json",
-        "finished_at": "2026-10-10T22:35:29Z"
+        "finished_at": "2026-10-11T04:42:45Z"
       },
       "artists:soundcloud:ianmirror": {
         "path": "data/discovery/soundcloud-ianmirror.json",
@@ -193,7 +193,7 @@
       },
       "artists:soundcloud:jehezukiel": {
         "path": "data/discovery/soundcloud-jehezukiel.json",
-        "finished_at": "2026-10-10T22:35:33Z"
+        "finished_at": "2026-10-11T04:42:48Z"
       },
       "artists:soundcloud:jun_kuroda": {
         "path": "data/discovery/soundcloud-jun_kuroda.json",
@@ -201,27 +201,27 @@
       },
       "artists:soundcloud:kanon092": {
         "path": "data/discovery/soundcloud-kanon092.json",
-        "finished_at": "2026-10-10T22:35:37Z"
+        "finished_at": "2026-10-11T04:42:51Z"
       },
       "artists:soundcloud:keshiks": {
         "path": "data/discovery/soundcloud-keshiks.json",
-        "finished_at": "2026-10-10T22:35:38Z"
+        "finished_at": "2026-10-11T04:42:52Z"
       },
       "artists:soundcloud:kforest": {
         "path": "data/discovery/soundcloud-kforest.json",
-        "finished_at": "2026-10-10T22:35:39Z"
+        "finished_at": "2026-10-11T04:42:53Z"
       },
       "artists:soundcloud:kurorak": {
         "path": "data/discovery/soundcloud-kurorak.json",
-        "finished_at": "2026-10-10T22:35:41Z"
+        "finished_at": "2026-10-11T04:42:55Z"
       },
       "artists:soundcloud:kuske-kuonrecords": {
         "path": "data/discovery/soundcloud-kuske-kuonrecords.json",
-        "finished_at": "2026-10-10T22:35:45Z"
+        "finished_at": "2026-10-11T04:42:58Z"
       },
       "artists:soundcloud:linne_ennil": {
         "path": "data/discovery/soundcloud-linne_ennil.json",
-        "finished_at": "2026-10-10T22:35:46Z"
+        "finished_at": "2026-10-11T04:43:00Z"
       },
       "artists:soundcloud:misomyl": {
         "path": "data/discovery/soundcloud-misomyl.json",
@@ -229,19 +229,19 @@
       },
       "artists:soundcloud:missionary_music": {
         "path": "data/discovery/soundcloud-missionary_music.json",
-        "finished_at": "2026-10-10T22:35:49Z"
+        "finished_at": "2026-10-11T04:43:01Z"
       },
       "artists:soundcloud:myukke": {
         "path": "data/discovery/soundcloud-myukke.json",
-        "finished_at": "2026-10-10T22:35:52Z"
+        "finished_at": "2026-10-11T04:43:04Z"
       },
       "artists:soundcloud:nordysantrophy": {
         "path": "data/discovery/soundcloud-nordysantrophy.json",
-        "finished_at": "2026-10-10T22:35:53Z"
+        "finished_at": "2026-10-11T04:43:05Z"
       },
       "artists:soundcloud:nuunu5": {
         "path": "data/discovery/soundcloud-nuunu5.json",
-        "finished_at": "2026-10-10T22:35:54Z"
+        "finished_at": "2026-10-11T04:43:07Z"
       },
       "artists:soundcloud:omocha1019": {
         "path": "data/discovery/soundcloud-omocha1019.json",
@@ -249,23 +249,23 @@
       },
       "artists:soundcloud:panbanana0729": {
         "path": "data/discovery/soundcloud-panbanana0729.json",
-        "finished_at": "2026-10-10T22:35:57Z"
+        "finished_at": "2026-10-11T04:43:08Z"
       },
       "artists:soundcloud:r_solidor": {
         "path": "data/discovery/soundcloud-r_solidor.json",
-        "finished_at": "2026-10-10T22:35:58Z"
+        "finished_at": "2026-10-11T04:43:09Z"
       },
       "artists:soundcloud:re94c": {
         "path": "data/discovery/soundcloud-re94c.json",
-        "finished_at": "2026-10-10T22:36:00Z"
+        "finished_at": "2026-10-11T04:43:11Z"
       },
       "artists:soundcloud:riranofficial": {
         "path": "data/discovery/soundcloud-riranofficial.json",
-        "finished_at": "2026-10-10T22:36:02Z"
+        "finished_at": "2026-10-11T04:43:13Z"
       },
       "artists:soundcloud:ryokmbk": {
         "path": "data/discovery/soundcloud-ryokmbk.json",
-        "finished_at": "2026-10-10T22:36:04Z"
+        "finished_at": "2026-10-11T04:43:15Z"
       },
       "artists:soundcloud:sctl_shin": {
         "path": "data/discovery/soundcloud-sctl_shin.json",
@@ -273,39 +273,39 @@
       },
       "artists:soundcloud:se-u-ra": {
         "path": "data/discovery/soundcloud-se-u-ra.json",
-        "finished_at": "2026-10-10T22:36:07Z"
+        "finished_at": "2026-10-11T04:43:18Z"
       },
       "artists:soundcloud:soundperemotion": {
         "path": "data/discovery/soundcloud-soundperemotion.json",
-        "finished_at": "2026-10-10T22:36:09Z"
+        "finished_at": "2026-10-11T04:43:19Z"
       },
       "artists:soundcloud:street": {
         "path": "data/discovery/soundcloud-street.json",
-        "finished_at": "2026-10-10T22:36:10Z"
+        "finished_at": "2026-10-11T04:43:20Z"
       },
       "artists:soundcloud:trialsuperbeats": {
         "path": "data/discovery/soundcloud-trialsuperbeats.json",
-        "finished_at": "2026-10-10T22:36:14Z"
+        "finished_at": "2026-10-11T04:43:24Z"
       },
       "artists:soundcloud:vauboy": {
         "path": "data/discovery/soundcloud-vauboy.json",
-        "finished_at": "2026-10-10T22:36:17Z"
+        "finished_at": "2026-10-11T04:43:27Z"
       },
       "artists:soundcloud:whos-raphiiel": {
         "path": "data/discovery/soundcloud-whos-raphiiel.json",
-        "finished_at": "2026-10-10T22:36:18Z"
+        "finished_at": "2026-10-11T04:43:28Z"
       },
       "artists:soundcloud:woof-owo": {
         "path": "data/discovery/soundcloud-woof-owo.json",
-        "finished_at": "2026-10-10T22:36:19Z"
+        "finished_at": "2026-10-11T04:43:30Z"
       },
       "artists:wix:lalaluhat": {
         "path": "data/discovery/wix-lalaluhat.json",
-        "finished_at": "2026-10-10T22:36:19Z"
+        "finished_at": "2026-10-11T04:43:30Z"
       },
       "artists:x:ariiol_": {
         "path": "data/discovery/x-ariiol_.json",
-        "finished_at": "2026-10-10T22:36:20Z"
+        "finished_at": "2026-10-11T04:43:30Z"
       },
       "artists:x:bluenoup": {
         "path": "data/discovery/x-bluenoup.json",
@@ -313,11 +313,11 @@
       },
       "artists:x:flan_0207": {
         "path": "data/discovery/x-flan_0207.json",
-        "finished_at": "2026-10-10T22:36:26Z"
+        "finished_at": "2026-10-11T04:43:35Z"
       },
       "artists:x:hyou_haku": {
         "path": "data/discovery/x-hyou_haku.json",
-        "finished_at": "2026-10-10T22:36:27Z"
+        "finished_at": "2026-10-11T04:43:36Z"
       },
       "artists:x:hyourinakamoto2": {
         "path": "data/discovery/x-hyourinakamoto2.json",
@@ -325,15 +325,15 @@
       },
       "artists:x:kumeki_3": {
         "path": "data/discovery/x-kumeki_3.json",
-        "finished_at": "2026-10-10T22:36:33Z"
+        "finished_at": "2026-10-11T04:43:39Z"
       },
       "artists:x:kuskekplecraft": {
         "path": "data/discovery/x-kuskekplecraft.json",
-        "finished_at": "2026-10-10T22:36:38Z"
+        "finished_at": "2026-10-11T04:43:44Z"
       },
       "artists:x:lalaluhat": {
         "path": "data/discovery/x-lalaluhat.json",
-        "finished_at": "2026-10-10T22:36:44Z"
+        "finished_at": "2026-10-11T04:43:49Z"
       },
       "artists:x:matagi_14": {
         "path": "data/discovery/x-matagi_14.json",
@@ -341,11 +341,11 @@
       },
       "artists:x:meganegirai": {
         "path": "data/discovery/x-meganegirai.json",
-        "finished_at": "2026-10-10T22:36:49Z"
+        "finished_at": "2026-10-11T04:43:53Z"
       },
       "artists:x:r_solidor": {
         "path": "data/discovery/x-r_solidor.json",
-        "finished_at": "2026-10-10T22:36:50Z"
+        "finished_at": "2026-10-11T04:43:54Z"
       },
       "artists:x:serolerr": {
         "path": "data/discovery/x-serolerr.json",
@@ -353,7 +353,7 @@
       },
       "artists:x:seura_nue": {
         "path": "data/discovery/x-seura_nue.json",
-        "finished_at": "2026-10-10T22:36:55Z"
+        "finished_at": "2026-10-11T04:43:58Z"
       },
       "artists:x:sojyiqui": {
         "path": "data/discovery/x-sojyiqui.json",
@@ -389,11 +389,11 @@
       },
       "official:official-leads": {
         "path": "data/discovery/official-leads.json",
-        "finished_at": "2026-10-10T22:45:28Z"
+        "finished_at": "2026-10-11T05:42:30Z"
       },
       "official:soundcloud-c4cat": {
         "path": "data/discovery/soundcloud-c4cat.json",
-        "finished_at": "2026-10-10T22:29:26Z"
+        "finished_at": "2026-10-11T04:44:12Z"
       },
       "official:taptap": {
         "path": "data/discovery/taptap.json",
@@ -405,11 +405,11 @@
       },
       "official:x": {
         "path": "data/discovery/x.json",
-        "finished_at": "2026-10-11T01:18:24Z"
+        "finished_at": "2026-10-11T04:47:06Z"
       },
       "official:youtube": {
         "path": "data/discovery/youtube.json",
-        "finished_at": "2026-10-11T01:18:59Z"
+        "finished_at": "2026-10-11T04:47:41Z"
       },
       "wikis:atwiki-ja": {
         "path": "data/discovery/atwiki-ja.json",
@@ -718,9 +718,9 @@
         "discovery_errors": 0,
         "candidates": 75,
         "by_disposition": {
-          "downloaded": 38,
-          "duplicate_bytes": 0,
-          "excluded": 37,
+          "downloaded": 39,
+          "duplicate_bytes": 1,
+          "excluded": 35,
           "failed": 0,
           "blocked": 0,
           "pending": 0
@@ -729,9 +729,9 @@
           "game_ui": 2,
           "not_dynamix": 2,
           "out_of_scope_other": 6,
-          "site_ui": 27
+          "site_ui": 25
         },
-        "asset_records": 38,
+        "asset_records": 39,
         "primary_unique_files": 21,
         "failures": 0,
         "failures_by_class": {}
@@ -3255,9 +3255,9 @@
         "discovery_errors": 0,
         "candidates": 4924,
         "by_disposition": {
-          "downloaded": 3335,
+          "downloaded": 3339,
           "duplicate_bytes": 13,
-          "excluded": 1550,
+          "excluded": 1546,
           "failed": 1,
           "blocked": 0,
           "pending": 25
@@ -3265,7 +3265,7 @@
         "exclusion_reasons": {
           "animated_capture": 144,
           "external_release_art": 11,
-          "game_ui": 143,
+          "game_ui": 139,
           "not_dynamix": 11,
           "out_of_scope_other": 19,
           "person_photo": 437,
@@ -3275,7 +3275,7 @@
           "upscaled": 1,
           "video_placeholder": 569
         },
-        "asset_records": 3335,
+        "asset_records": 3339,
         "primary_unique_files": 2,
         "failures": 1,
         "failures_by_class": {
@@ -3294,9 +3294,9 @@
         "discovery_errors": 0,
         "candidates": 4469,
         "by_disposition": {
-          "downloaded": 3358,
+          "downloaded": 3362,
           "duplicate_bytes": 13,
-          "excluded": 1071,
+          "excluded": 1067,
           "failed": 0,
           "blocked": 0,
           "pending": 27
@@ -3304,7 +3304,7 @@
         "exclusion_reasons": {
           "animated_capture": 144,
           "external_release_art": 11,
-          "game_ui": 143,
+          "game_ui": 139,
           "not_dynamix": 11,
           "out_of_scope_other": 20,
           "person_photo": 438,
@@ -3313,8 +3313,8 @@
           "universe_only": 213,
           "upscaled": 1
         },
-        "asset_records": 3358,
-        "primary_unique_files": 3348,
+        "asset_records": 3362,
+        "primary_unique_files": 3352,
         "failures": 0,
         "failures_by_class": {}
       },
@@ -3348,9 +3348,9 @@
   "candidates": {
     "total": 10183,
     "by_disposition": {
-      "downloaded": 7129,
-      "duplicate_bytes": 32,
-      "excluded": 2890,
+      "downloaded": 7138,
+      "duplicate_bytes": 33,
+      "excluded": 2880,
       "failed": 7,
       "blocked": 35,
       "pending": 90
@@ -3360,8 +3360,8 @@
       "not_dynamix": 45,
       "animated_capture": 288,
       "person_photo": 885,
-      "site_ui": 179,
-      "game_ui": 299,
+      "site_ui": 177,
+      "game_ui": 291,
       "video_placeholder": 572,
       "external_release_art": 40,
       "fanart": 3,
@@ -3371,18 +3371,18 @@
       "out_of_scope_other": 185
     },
     "by_game": {
-      "dynamix": 7835,
+      "dynamix": 7837,
       "dynamix_universe": 387,
       "mixed": 136,
-      "unknown": 1779,
+      "unknown": 1777,
       "not_dynamix": 46
     }
   },
   "assets": {
-    "source_asset_records": 7129,
-    "unique_files": 3769,
-    "exact_duplicate_records": 3360,
-    "gallery_images": 2680,
+    "source_asset_records": 7138,
+    "unique_files": 3773,
+    "exact_duplicate_records": 3365,
+    "gallery_images": 2684,
     "slideshow_images": 715,
     "by_kind": {
       "song_art": 632,
@@ -3392,26 +3392,26 @@
       "part": 318,
       "promotional": 160,
       "store_screenshot": 58,
-      "gameplay_screenshot": 219,
+      "gameplay_screenshot": 223,
       "process": 1,
       "reference": 1089
     },
     "by_format": {
       "PNG": 2404,
-      "JPEG": 1363,
+      "JPEG": 1367,
       "WEBP": 0,
       "GIF": 1,
       "PDF": 1
     },
     "by_tier": {
       "site": 2403,
-      "archive": 1366
+      "archive": 1370
     },
     "variant_groups": 71,
     "entries_in_variant_groups": 92,
     "entries_with_variants": 38,
     "records_by_upstream_status": {
-      "current": 7129,
+      "current": 7138,
       "removed": 0,
       "superseded": 0,
       "unknown": 0,
@@ -3419,11 +3419,11 @@
     },
     "transformed_records": 101,
     "gallery_long_edge": {
-      "lt_1000": 1721,
+      "lt_1000": 1725,
       "lt_1920": 724,
       "ge_1920": 235
     },
-    "entries_with_preview": 2394
+    "entries_with_preview": 2398
   },
   "songs": {
     "index_as_of": "2026-10-10",
@@ -9816,6 +9816,14 @@
         ]
       },
       {
+        "asset_id": "wikis:fandom:402886f85a6c3c8f",
+        "source_id": "wikis:fandom",
+        "fields": [
+          "sha1_match",
+          "bytes_match"
+        ]
+      },
+      {
         "asset_id": "wikis:fandom:4066c1f0ba912ee6",
         "source_id": "wikis:fandom",
         "fields": [
@@ -13984,6 +13992,14 @@
         ]
       },
       {
+        "asset_id": "wikis:fandom:976b7e77cf996ef6",
+        "source_id": "wikis:fandom",
+        "fields": [
+          "sha1_match",
+          "bytes_match"
+        ]
+      },
+      {
         "asset_id": "wikis:fandom:976f91328817cf07",
         "source_id": "wikis:fandom",
         "fields": [
@@ -14889,6 +14905,14 @@
       },
       {
         "asset_id": "wikis:fandom:abd0c5437d087960",
+        "source_id": "wikis:fandom",
+        "fields": [
+          "sha1_match",
+          "bytes_match"
+        ]
+      },
+      {
+        "asset_id": "wikis:fandom:abf56fd0965505ba",
         "source_id": "wikis:fandom",
         "fields": [
           "sha1_match",
@@ -17921,6 +17945,14 @@
       },
       {
         "asset_id": "wikis:fandom:f49b25564fb361f6",
+        "source_id": "wikis:fandom",
+        "fields": [
+          "sha1_match",
+          "bytes_match"
+        ]
+      },
+      {
+        "asset_id": "wikis:fandom:f4b9e7a4b832257e",
         "source_id": "wikis:fandom",
         "fields": [
           "sha1_match",
@@ -27257,28 +27289,28 @@
   },
   "bytes": {
     "records_by_family": {
-      "wikis": 2225688775,
+      "wikis": 2226855913,
       "artists": 53895082,
       "official": 160675095,
-      "archives": 59966308
+      "archives": 60053432
     },
     "unique_by_primary_family": {
-      "wikis": 1103018727,
+      "wikis": 1103602296,
       "artists": 53895082,
       "official": 160675095,
       "archives": 25872362
     },
-    "unique_total": 1343461266,
+    "unique_total": 1344044835,
     "by_tier": {
       "site": 801936070,
-      "archive": 541525196
+      "archive": 542108765
     },
-    "previews": 56999820,
-    "catalog_json": 40142117,
-    "catalog_script": 29303207,
-    "index_html": 532063,
-    "coverage_json": 832287,
-    "staged_site_estimate": 929745564,
+    "previews": 57060406,
+    "catalog_json": 40196128,
+    "catalog_script": 29349818,
+    "index_html": 533984,
+    "coverage_json": 833027,
+    "staged_site_estimate": 929909433,
     "pages_budget": 950000000,
     "within_pages_budget": true
   }
