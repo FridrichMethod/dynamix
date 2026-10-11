@@ -2,8 +2,9 @@
 
 For pages whose gallery is rendered by JavaScript (Wix pro-gallery, Tumblr themes) the seed names each file directly:
 ``{"key", "page_url", "file_url"}``. With ``"read_page": true`` the page is fetched once and its title/text become the
-evidence that seed rules quote (an item whose page cannot be read is ``failed``/``blocked`` with that read's error and a
-Failure record); otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
+evidence that seed rules quote (an item whose download rule needs a page that cannot be read is ``failed``/``blocked``
+with that read's error and a Failure record; a curated exclude or pending rule decides without the page text and keeps
+its decision); otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
 
 Article pages (``params.article_images``): every image of a read page's article body is accounted for, not only the
 named files. Each entry ``{"page_url", "key_prefix", "select", "pattern", "og_image"?, "rewrite"?, "attr_urls"?,
@@ -605,9 +606,10 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         page_url, file_url, key = item["page_url"], item["file_url"], item["key"]
         page = read(page_url) if item.get("read_page") else {"texts": {}, "headline": ""}
         name = base.last_segment(file_url)
-        if page.get("error") is not None:
+        if page.get("error") is not None and _needs_page(model.find_rule(base.rules(seed), key)):
             # The page whose text the seed rule quotes could not be read: the item fails (or is blocked) with that
-            # error and a Failure record, instead of a rule check against text that was never fetched.
+            # error and a Failure record, instead of a rule check against text that was never fetched. A curated
+            # exclude/pending rule (or no rule: unclassified) decides without the page text and keeps its decision.
             discovery.candidates.append(
                 model.error_draft(
                     key,
@@ -685,6 +687,12 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 )
             )
     return discovery
+
+
+def _needs_page(rule: Mapping[str, Any] | None) -> bool:
+    """Whether the seed rule's decision depends on the read page's text: a download rule (its evidence quotes, mapping
+    and Universe guard check the page). Curated exclude/pending decisions apply without it (:func:`model.apply_rule`)."""
+    return rule is not None and rule.get("action", "download") == "download"
 
 
 def _draft(

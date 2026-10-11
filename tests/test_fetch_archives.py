@@ -1169,6 +1169,48 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(found["gnn129234:0001345693"]["disposition"], "pending")
         self.verify()
 
+    def test_an_unreadable_page_fails_only_the_items_whose_decision_needs_its_text(self):
+        """A curated exclude or pending rule decides without the page text: on an unreadable page such an item keeps
+        its curated decision (no Failure, no manual-access claim). A download rule quotes the page, so its item fails
+        (503) or is blocked (403) with the read's error."""
+        items = [
+            {"key": key, "page_url": self.PAGE, "read_page": True, "file_url": self.IMG.format(name, "JPG")}
+            for key, name in (("named:x", "92/0001345692"), ("named:p", "95/0001345595"), ("named:d", "96/0001345596"))
+        ]
+        rules = [
+            {"match": "^named:x$", "action": "exclude", "reason": "site_ui: QR code"},
+            {"match": "^named:p$", "action": "pending", "reason": "unresolved_role: curator check pending"},
+            {"match": "^named:d$", "role": "reference", "evidence_quotes": ["Dynamix"]},
+        ]
+        curated = {"named:x": ("excluded", "site_ui: QR code"), "named:p": ("pending", rules[1]["reason"])}
+
+        def seed(chosen):
+            source = self.seed(rules, items=chosen)
+            del source["params"]  # named files only
+            return source
+
+        for error, disposition, status in (
+            (net.HttpError("HTTP 503", url=self.PAGE, http_status=503), "failed", "temporarily_unavailable"),
+            (net.BlockedError("HTTP 403", url=self.PAGE, http_status=403), "blocked", "manual_access"),
+        ):
+            with self.subTest(error=type(error).__name__):
+                self.run_family([seed(items)], FakeNetwork({self.PAGE: {"error": error}}))
+                found = self.candidates("archives:press")
+                self.assertEqual({key: (found[key]["disposition"], found[key]["reason"]) for key in curated}, curated)
+                self.assertEqual(found["named:d"]["disposition"], disposition)
+                self.assertEqual(
+                    [f["id"] for f in self.manifest()["failures"]], ["archives:press:named:d:discover"]
+                )  # only the item whose rule needed the page
+                self.assertEqual(self.manifest()["sources"][0]["status"], status)
+                snapshot = manifest.load_discovery(self.root, "archives:press")
+                self.assertTrue(snapshot["continuation"]["seed-files"].startswith("not-read:"))  # still not complete
+                self.verify()
+                self.run_family([seed(items[:1])], FakeNetwork({self.PAGE: {"error": error}}))  # exclusions only
+                self.assertEqual(self.candidates("archives:press")["named:x"]["disposition"], "excluded")
+                self.assertEqual(self.manifest()["failures"], [])
+                self.assertEqual(self.manifest()["sources"][0]["status"], "excluded")
+                self.verify()
+
     def test_an_unreadable_page_changes_no_status_of_an_archived_named_item(self):
         item = {
             "key": "named:a",
