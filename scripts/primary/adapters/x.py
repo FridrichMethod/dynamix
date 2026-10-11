@@ -18,6 +18,10 @@ whose image posts become candidates like explicit ones. Retweets and other autho
 every timeline post that no per-post rule (one whose ``match`` names the post ID, or that needs ``evidence_quotes``)
 classifies: a catch-all rule never admits a timeline post. A post that an explicit item names is always classified
 from its own ``tweet-result`` read, with that item's notes; the timeline sample only adds the posts no item names.
+When the timeline cannot be read or recognized, or lists no post, the open list holds the posts of its earlier samples
+(``Discovery.holds``: earlier candidates of the account's posts that no explicit item names), so their dispositions
+stay until a sample is read again. A sample that lists posts holds nothing: an earlier timeline post without archived
+bytes that it no longer lists leaves the snapshot.
 """
 
 from __future__ import annotations
@@ -26,7 +30,7 @@ import html
 import json
 import math
 import re
-from collections.abc import Mapping
+from collections.abc import Callable, Iterable, Mapping
 from typing import Any
 
 from lib import net
@@ -179,6 +183,20 @@ def post_title(text: str, fallback: str, index: int, count: int, links: Mapping[
     return f"{title} ({index}/{count})" if count > 1 and words else title
 
 
+def timeline_posts(handle: str, explicit: Iterable[str]) -> Callable[[Mapping[str, Any]], bool]:
+    """Hold predicate (``Discovery.holds``) of a ``timeline:<name>`` list whose read listed no post: a previous
+    candidate of a post of the source's account (``x.com/<handle>/status/<id>``) that the timeline added. A post that
+    an ``explicit`` item names is never held: it is read from its own ``tweet-result`` in every run."""
+    prefix, named = f"https://x.com/{handle}/status/", set(explicit)
+
+    def holds(candidate: Mapping[str, Any]) -> bool:
+        page = str(candidate.get("page_url") or "")
+        post_id = page[len(prefix) :]
+        return page.startswith(prefix) and post_id.isdigit() and post_id not in named
+
+    return holds
+
+
 def per_post_rule(rule: Mapping[str, Any] | None, post_id: str) -> bool:
     """True when ``rule`` was written for this post: its ``match`` names the post ID or it needs evidence quotes."""
     return rule is not None and (post_id in str(rule.get("match", "")) or bool(rule.get("evidence_quotes")))
@@ -307,7 +325,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     )
     # Explicitly seeded posts are read from tweet-result below (with their item notes), never classified from the
     # timeline sample, whose tweet objects lack fields such as the quoted tweet.
-    seen: set[str] = {str(item["post_id"]) for item in seed["items"] if "timeline" not in item}
+    explicit = frozenset(str(item["post_id"]) for item in seed["items"] if "timeline" not in item)
+    seen: set[str] = set(explicit)
     for item in timelines:
         name = f"timeline:{item['timeline']}"
         url = TIMELINE + item["timeline"]
@@ -317,9 +336,12 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         except (net.FetchError, ValueError) as error:
             discovery.errors.append(model.discovery_error("discover", url, f"{name}: {error}"))
             discovery.continuation[name] = "not-read"
+            discovery.holds[name] = timeline_posts(handle, explicit)
             continue
         # The embed timeline is a recent sample: the list stays open because older posts are not reachable here.
         discovery.continuation[name] = f"sample-of-{len(tweets)}-recent-posts"
+        if not tweets:  # an empty sample is no observation of the posts earlier samples listed
+            discovery.holds[name] = timeline_posts(handle, explicit)
         for tweet in tweets:
             post_id = str(tweet["id_str"])
             if post_id in seen:

@@ -14,9 +14,13 @@ Robustness rules (07 §Integrity):
   keeps the previous record and logs a discovery error; new bytes for the same candidate supersede the old record
   (``upstream_status: superseded``) instead of replacing it; a previous candidate that a run no longer discovers is
   carried over unchanged (with a note) so that its asset stays reconciled.
-* An incomplete read drops nothing: a previous candidate without archived bytes (excluded, pending, failed, blocked)
-  that the run did not list again because the read that lists it failed or stayed incomplete keeps its disposition
-  until a complete read of that list or page says otherwise.
+* A previous candidate without archived bytes (excluded, pending, failed, blocked) that the run did not list again
+  keeps its disposition only while its page failed to read in this run (a discovery error draft names it) or a list
+  that holds it is open (``Discovery.holds``: each Wayback CDX query, the iTunes lookup list, the seed and article
+  pages of a few adapters that were not read completely, and a SoundCloud ``tracks:<handle>`` list or X embed timeline
+  whose read failed or listed nothing; ``scripts/primary/README.md`` gives each condition). Otherwise it leaves the
+  snapshot, also while the read that listed it is open: a partly rendered ``/tracks`` page, a timeline sample that was
+  read and a TapTap page read with an unparsed screenshot entry hold nothing.
 * ``--metadata-only`` never downloads and never changes archived records; not-yet-archived candidates are ``pending``.
 """
 
@@ -1523,9 +1527,10 @@ class Runner:
         longer name it), its current asset becomes ``unknown``. A failed or partial read is no observation and changes
         no status; neither does ``--metadata-only``.
 
-        A candidate without archived bytes is carried over unchanged while the read that lists it did not complete
-        (:meth:`_held`; ``unread_pages``: the pages of this run's discovery error drafts); otherwise it leaves the
-        snapshot (a complete read no longer lists it, or the seeds no longer name it)."""
+        A candidate without archived bytes is carried over unchanged while :meth:`_held` holds it (its page is one of
+        ``unread_pages``, the pages of this run's discovery error drafts, or an open list's ``Discovery.holds``
+        predicate names it); otherwise it leaves the snapshot (a read that holds nothing no longer lists it, or the
+        seeds no longer name it)."""
         if not state.previous:
             return
         asset_candidates = {asset["candidate_id"] for asset in state.assets.values()}
