@@ -68,6 +68,7 @@ TAKEN_OVER_NOTE = ("Recorded under this candidate by a curated seed rule (archiv
 TAKEN_OVER_NOTE_RE = re.compile(r"Recorded under this candidate by a curated seed rule \(archive_under\): the same bytes, "
                                 r"archived earlier for \S+, are attached to that candidate too, whose text does not name "
                                 r"what they show\.")
+SONG_INDEX = "data/sources/song-index.json"  # coordinator-reconciled; song IDs of mapped titles come from it
 SOURCE_SEED_FIELDS = {
     "id", "name", "url", "platform", "adapter", "notes", "api_url", "owner_evidence", "crawl_scope", "items",
     "hosts", "min_interval", "quality", "rights", "rules", "identity_quotes", "lists", "status_on_success",
@@ -259,6 +260,42 @@ def adapter_hosts(seed: Mapping[str, Any]) -> list[str]:
     if not hosts and not getattr(ADAPTERS[seed["adapter"]], "OFFLINE", False):
         raise ValueError(f"source {seed['id']}: adapter declares no hosts")
     return sorted(dict.fromkeys(hosts))
+
+
+# --- Song index -------------------------------------------------------------------------------------------------------
+
+def load_song_index(root: str | os.PathLike[str]) -> dict | None:
+    """The reconciled song index under ``root`` (None when the root has none, e.g. a test fixture); ValueError when
+    it exists but is unreadable or not a song index."""
+    target = paths.safe_path(root, SONG_INDEX)
+    if not target.is_file():
+        return None
+    data = manifest.load_json(target)
+    if not isinstance(data, dict) or not isinstance(data.get("songs"), list):
+        raise ValueError(f"{SONG_INDEX}: not a song index")
+    return data
+
+
+def song_lookup(index: Mapping[str, Any] | None) -> dict[str, list[str]]:
+    """Exact title or alias -> the song IDs of the index that carry it (an exact title before an alias)."""
+    by_title: dict[str, list[str]] = {}
+    by_alias: dict[str, list[str]] = {}
+    for song in (index or {}).get("songs", []):
+        by_title.setdefault(song["title"], []).append(song["id"])
+        for alias in song.get("aliases", []):
+            by_alias.setdefault(alias, []).append(song["id"])
+    return {**{alias: ids for alias, ids in by_alias.items() if alias not in by_title}, **by_title}
+
+
+def resolve_song_ids(titles: Iterable[str], lookup: Mapping[str, list[str]]) -> list[str]:
+    """Song IDs of mapped exact ``titles``: the index's own ID when exactly one song carries the title or alias (an
+    ASCII collision such as ``HOPE``/``Hope!!`` gets its numeric suffix there), otherwise the derived base ID, which
+    ``--verify`` then reports against the index."""
+    result = []
+    for title in titles:
+        ids = lookup.get(title, [])
+        result.append(ids[0] if len(ids) == 1 else paths.song_id_base(title))
+    return result
 
 
 # --- Record builders --------------------------------------------------------------------------------------------------
@@ -458,6 +495,7 @@ class Runner:
         self.interrupt_after = interrupt_after  # tests: raise KeyboardInterrupt after N downloads
         self.source_errors: dict[str, str] = {}  # source ID -> unexpected error that ended its run early
         self._md5_index: dict[str, str] | None = None  # MD5 -> asset ID of this family's archived files (lazy)
+        self._songs = song_lookup(load_song_index(self.root))  # title/alias -> song IDs of the reconciled index
         self._pixels: dict[str, str | None] = {}  # file SHA-256 -> decoded-pixel digest (pixel twins)
 
     # -- public --
@@ -539,6 +577,10 @@ class Runner:
                 "discover", stored_url(state.seed["url"]), f"adapter produced duplicate candidate keys "
                 f"{sorted(set(duplicates))[:5]}; only the first draft of each was recorded"))
             state.discovery.continuation["duplicate-keys"] = f"dropped-{len(duplicates)}"
+        if self._songs:
+            for draft in drafts:  # song IDs come from the reconciled index, not from the title alone
+                if draft.meta and draft.meta.get("song_titles"):
+                    draft.meta["song_ids"] = resolve_song_ids(draft.meta["song_titles"], self._songs)
         keys = [draft.upstream_key for draft in drafts]
         for draft in drafts:  # first pass: everything not needing a download, and placeholders
             cid = schema.candidate_id(state.source_id, draft.upstream_key)
@@ -1408,6 +1450,32 @@ def credit_problems(asset: Mapping[str, Any]) -> list[str]:
             for entry in asset.get("credit_evidence") or [] if not entry.get("url")]
 
 
+def kind_conflicts(assets: Iterable[Mapping[str, Any]],
+                   others: Iterable[Mapping[str, Any]] | None = None) -> list[str]:
+    """One file, one kind (09, wave-4 decisions): the SHA-256s whose records disagree on ``kind``. Without
+    ``others``, among ``assets`` (the family's own records); with ``others``, between ``assets`` and the records of
+    the other families (reported as warnings: the catalog build refuses such groups)."""
+    own: dict[str, dict[str, set[str]]] = {}
+    for asset in assets:
+        own.setdefault(asset["sha256"], {}).setdefault(asset["kind"], set()).add(asset["id"])
+    if others is None:
+        groups = own
+    else:
+        groups = {}
+        for asset in others:
+            if asset.get("sha256") in own:
+                kinds = groups.setdefault(asset["sha256"],
+                                          {kind: set(ids) for kind, ids in own[asset["sha256"]].items()})
+                kinds.setdefault(asset["kind"], set()).add(asset["id"])
+    problems = []
+    for sha256, kinds in sorted(groups.items()):
+        if len(kinds) > 1:
+            listed = "; ".join(f"{kind}: {', '.join(sorted(ids))}" for kind, ids in sorted(kinds.items()))
+            problems.append(f"sha256 {sha256[:16]}: records of the same bytes have different kinds ({listed}); one "
+                            "file, one kind")
+    return problems
+
+
 def verify_family(root: str | os.PathLike[str], family: str,
                   seed_ids: Iterable[str] | None = None) -> tuple[list[str], list[str], dict]:
     """Offline ``--verify``: (errors, warnings, per-source disposition counts). Never touches the network.
@@ -1453,6 +1521,13 @@ def verify_family(root: str | os.PathLike[str], family: str,
                     and candidate.get("role") != target["kind"]):  # one file, one kind within a source
                 errors.append(f"{candidate['id']}: role {candidate.get('role')!r} differs from the kind "
                               f"{target['kind']!r} of {target['id']}, the record of its bytes")
+    errors.extend(kind_conflicts(current["assets"]))
+    warnings.extend(kind_conflicts(current["assets"], others))
+    try:
+        index = load_song_index(root)
+    except (ValueError, OSError) as error:
+        errors.append(f"{SONG_INDEX}: {error}")
+        index = None
     artists = artist_candidates(root)
     for asset in current["assets"]:
         try:
@@ -1462,6 +1537,11 @@ def verify_family(root: str | os.PathLike[str], family: str,
         for title, song_id in zip(asset["song_titles"], asset["song_ids"]):
             if not song_id.startswith(paths.song_id_base(title)):
                 warnings.append(f"{asset['id']}: song ID {song_id} does not derive from title {title!r}")
+        if index is not None:
+            try:
+                schema.validate_song_links(index, [asset])
+            except (ValueError, KeyError, TypeError) as error:
+                errors.append(f"song index: {error}")
         errors.extend(primary_evidence_problems(root, asset, artists))
         errors.extend(credit_problems(asset))
     recorded ={asset["path"] for asset in current["assets"]}

@@ -1208,6 +1208,49 @@ class VerifySnapshotTests(ArchivesTestCase):
         self.assertFalse(any("song-index" in line for line in errors + warnings))
 
 
+class FamilyConsistencyTests(ArchivesTestCase):
+    """--verify within a primary family: one file, one kind, and song IDs that the reconciled song index gives."""
+
+    @staticmethod
+    def source(source_id, host, rule):
+        return {"id": source_id, "name": source_id, "url": f"https://{host}/", "platform": "web",
+                "adapter": "direct_files", "hosts": [host], "quality": QUALITY,
+                "items": [{"key": "k1", "page_url": f"https://{host}/a", "file_url": f"https://{host}/1.png"}],
+                "rules": [{"match": "^k1$", **rule}]}
+
+    def network(self):
+        png = image_bytes("PNG")
+        return FakeNetwork({f"https://{host}/1.png": {"bytes": png, "content_type": "image/png"}
+                            for host in ("a.example.org", "b.example.org")})
+
+    def test_one_sha256_with_two_kinds_fails_verify(self):
+        seeds = [self.source("archives:press", "a.example.org", {"role": "promotional"}),
+                 self.source("archives:mag", "b.example.org", {"role": "reference"})]
+        self.run_family(seeds, self.network())
+        errors, _warnings, _ = runner.verify_family(self.root, "archives")
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("records of the same bytes have different kinds (promotional: archives:press:", errors[0])
+        self.assertIn("reference: archives:mag:", errors[0])
+
+    def test_song_ids_come_from_the_song_index(self):
+        index = {"schema_version": 1, "generated_from": [], "as_of": "2026-10-10", "disagreements": [], "songs": [
+            {"id": song_id, "title": title, "aliases": [], "composers": [], "illustrators": [], "collections": [],
+             "in_original_game": True, "inclusion_evidence": ["test"], "universe_also": False, "removed": False,
+             "evidence": [], "artwork_asset_ids": []}
+            for song_id, title in (("song:hope", "HOPE"), ("song:hope-2", "Hope!!"))]}
+        manifest.write_json_atomic(self.root / "data/sources/song-index.json", index)
+        rule = {"role": "song_art", "song_titles": ["Hope!!"], "mapping_status": "inferred"}
+        self.run_family([self.source("archives:press", "a.example.org", rule)], self.network())
+        asset = self.manifest()["assets"][0]
+        self.assertEqual((asset["song_titles"], asset["song_ids"]), (["Hope!!"], ["song:hope-2"]))  # not song:hope
+        self.verify()
+        data = self.manifest()
+        data["assets"][0]["song_ids"] = ["song:hope"]  # the title-derived base ID names the other song
+        manifest.write_json_atomic(self.root / "data/sources/archives.json", data)
+        errors, _warnings, _ = runner.verify_family(self.root, "archives")
+        self.assertTrue(any("'song:hope' is the song 'HOPE'" in error for error in errors), errors)
+
+
 class GuardedSpacingTests(unittest.TestCase):
     """GuardedClient spaces requests per host across the per-source clients of a run (frozen >= 1.0 s default),
     including a host that answered only after a redirect."""
