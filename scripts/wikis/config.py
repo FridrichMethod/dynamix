@@ -287,10 +287,24 @@ OTHER_GAME_ARTWORK = re.compile(
 )
 # Dynamix's own occasions are not another game: artwork "for the Halloween Event", "from the 2nd Anniversary" or "for
 # Christmas Event 2021" is original-game art and creates no game association (an association would also drop the
-# default rights holder). Names of other games and collaborations (RAVON, ...) do not contain these words.
+# default rights holder). An occasion name that also names another game or collaboration partner ("the RAVON
+# Collaboration Event", "Arcaea Event", "Lanota Anniversary") is that game's: the name minus the words that describe
+# an occasion (OCCASION_WORDS: occasion and collaboration words, Dynamix's own name, numbers, ordinals, months,
+# seasons and connecting words) names the other game, and only a name with nothing left is a Dynamix occasion. A word
+# missing from the list is read as a game name, the cautious side (no default rights holder; the evidence names it).
 DYNAMIX_OCCASION = re.compile(
     r"\b(?:events?|anniversary|festival|christmas|x'?mas|halloween|new\s+year|valentine'?s?|april\s+fools?|"
     r"birthday)\b",
+    re.I,
+)
+OCCASION_WORDS = re.compile(
+    r"\b(?:events?|anniversary|anniversaries|festivals?|christmas|x['’]?mas|halloween|new\s+year|"
+    r"valentine(?:['’]?s)?|april\s+fools?|birthday|easter|lunar|chinese|mid|spring|summer|autumn|fall|winter|"
+    r"season(?:al)?|holidays?|celebrations?|party|day|eve|week(?:end)?|limited|special|login|comeback|re-?runs?|"
+    r"collab(?:oration)?s?|dynamix(?:['’]s)?|c4cat(?:['’]s)?|the|a|an|of|and|to|in|on|at|for|from|with|x|"
+    r"vs|\d+(?:st|nd|rd|th)?|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|"
+    r"jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|"
+    r"nov(?:ember)?|dec(?:ember)?)\b",
     re.I,
 )
 # Observed layout of all song pages with both Template:Song and Template:SongUV (2026-10-10, 20 pages on Miraheze):

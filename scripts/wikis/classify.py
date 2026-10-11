@@ -300,6 +300,17 @@ def _caption_role(caption: str) -> str | None:
     return None
 
 
+def occasion_game(named: str) -> str | None:
+    """The other game that the name in an "artwork in/for/from <name>" caption gives, or None for one of Dynamix's own
+    occasions: "RAVON" -> "RAVON", "the RAVON Collaboration Event" -> "RAVON", "the 2nd Anniversary" -> None. A name
+    without occasion words (config.DYNAMIX_OCCASION) is the game's name as it stands; otherwise what is left once the
+    words that describe an occasion (config.OCCASION_WORDS) are removed names the game, if anything is left."""
+    if not config.DYNAMIX_OCCASION.search(named):
+        return named
+    rest = " ".join(config.OCCASION_WORDS.sub(" ", named).split()).strip(" !?.,:;&/+'\"’-–—×")
+    return rest if re.search(r"[^\W\d_]", rest) else None
+
+
 def page_evidence(
     source: config.WikiSource,
     page: Mapping[str, Any],
@@ -378,14 +389,16 @@ def page_evidence(
                     role, song = "external_release_art", None
                     detail += f", artwork of the song's release for {named} (an external release event)"
                 else:
-                    if other is not None and config.DYNAMIX_OCCASION.search(named):
+                    partner = occasion_game(named) if other is not None else None
+                    if other is not None and partner is None:
                         detail += f", artwork for {named} (a Dynamix event, not another game)"
-                    elif other is not None:
+                    elif partner is not None:
                         # Shared artwork: an association only. The page or tab keeps deciding the game (decide()
                         # makes it "mixed" when an original-game context exists), so a Universe-only page stays
                         # Universe-only and a page without game evidence gives none.
-                        other_game = named
-                        detail += f", artwork of the song for {other_game} (another game/event)"
+                        other_game = partner
+                        game_note = f": {other_game}" if other_game != named else ""
+                        detail += f", artwork of the song for {named} (another game/event{game_note})"
                     if (
                         game is None
                         and info.game == "mixed"

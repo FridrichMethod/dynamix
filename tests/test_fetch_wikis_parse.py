@@ -569,14 +569,45 @@ class OtherGameCaptionTests(unittest.TestCase):
             "Artwork for Christmas Event 2021": "Christmas Event 2021",
             "Illustration in Event 23 June to 27 June": "Event 23 June to 27 June",
             "Artwork for the New Year Festival": "the New Year Festival",
+            "Artwork for the 9th Anniversary x Halloween Event 2023": "the 9th Anniversary x Halloween Event 2023",
+            "Jacket for the Mid-Autumn Festival": "the Mid-Autumn Festival",
+            "Artwork for the Collaboration Event": "the Collaboration Event",
         }
         for caption, occasion in captions.items():
-            text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
-            item = self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
+            item = self.gallery_item(caption)
             self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", None), caption)
             self.assertIn(f"artwork for {occasion} (a Dynamix event, not another game)", item.detail)
             decision = self.decide([item])
             self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "dynamix", []))
+
+    def test_events_of_another_game_are_that_games(self) -> None:
+        """Only Dynamix's own occasions are suppressed: an event or anniversary name that also names another game or
+        collaboration partner is that game's, a shared artwork with the same association as 'Artwork in <game>' (so
+        the default C4Cat rights holder is not applied)."""
+        captions = {
+            "S Artwork for the RAVON Collaboration Event": "RAVON",
+            "S Jacket in Arcaea Event": "Arcaea",
+            "S Artwork for Lanota Anniversary": "Lanota",
+            "S Artwork for the Dynamix X Rotaeno Collaboration Event": "Rotaeno",
+            "S Artwork in RAVON": "RAVON",  # controls: a plain other-game caption, as before
+            "S Artwork in Rotaeno": "Rotaeno",
+        }
+        for caption, other in captions.items():
+            with self.subTest(caption=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", other))
+                self.assertNotIn("a Dynamix event", item.detail)
+                self.assertIn("(another game/event", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations),
+                    ("download", "mixed", [other.casefold()]),
+                )
+
+    def gallery_item(self, caption: str):
+        """The evidence of a gallery image captioned ``caption`` on an original-game song page."""
+        text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
+        return self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
 
 
 def _review(**fields):
