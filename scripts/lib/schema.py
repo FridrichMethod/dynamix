@@ -852,8 +852,8 @@ def validate_candidate(candidate: Any, source_id: str | None = None) -> None:
             _fail(label, "asset_id", f"is required for disposition {disposition!r}")
         if candidate["game"] not in ("dynamix", "mixed"):
             _fail(label, "game", f"must be 'dynamix' or 'mixed' for disposition {disposition!r}")
-        if disposition == "downloaded" and not target.startswith(candidate["source_id"] + ":"):
-            _fail(label, "asset_id", "a downloaded candidate's asset belongs to the same source")
+        if not target.startswith(candidate["source_id"] + ":"):  # 09: duplicate_bytes means the *same source*
+            _fail(label, "asset_id", f"a {disposition} candidate's asset belongs to the same source")
     elif target is not None:
         _fail(label, "asset_id", f"must be absent or null for disposition {disposition!r}")
     if disposition == "pending" and reason.split(":", 1)[0].strip() not in PENDING_REASONS:
@@ -949,7 +949,8 @@ def reconcile(
     """Cross-check a validated family manifest with its validated discovery snapshots (``{source_id: snapshot}``).
 
     Checks source counts, candidate <-> asset links, failure <-> candidate links and that a complete discovery accounts
-    for every current asset. ``other_assets`` are records of other manifests that ``duplicate_bytes`` may name.
+    for every current asset. A ``duplicate_bytes`` candidate names an asset of its own source recorded under another
+    candidate (09); ``other_assets`` (records of other manifests) only sharpen the error when it names one of those.
     Returns ``{source_id: disposition counts}``.
     """
     label = f"manifest {manifest['family']!r}"
@@ -1072,8 +1073,19 @@ def _reconcile_candidate(
             _fail(label, "asset_id", f"{target!r} is not an asset recorded for this candidate")
         if candidate["role"] != asset["kind"]:
             _fail(label, "role", f"{candidate['role']!r} differs from the asset kind {asset['kind']!r}")
-    elif candidate["disposition"] == "duplicate_bytes" and target not in known:
-        _fail(label, "asset_id", f"{target!r} names no recorded asset")
+    elif candidate["disposition"] == "duplicate_bytes":
+        asset = assets.get(target) if isinstance(target, str) else None
+        if asset is None and target not in known:
+            _fail(label, "asset_id", f"{target!r} names no recorded asset")
+        if asset is None or asset["source_id"] != candidate["source_id"]:
+            _fail(
+                label,
+                "asset_id",
+                f"{target!r} is an asset of another source; a duplicate_bytes candidate names identical bytes the "
+                "same source archived (identical bytes of another source are that source's own record)",
+            )
+        if asset["candidate_id"] == candidate["id"]:
+            _fail(label, "asset_id", f"{target!r} is this candidate's own record, not one of another candidate")
 
 
 def validate_song_index(index: Any, known_asset_ids: Iterable[str] | None = None) -> None:

@@ -602,6 +602,44 @@ class RecordValidationTests(unittest.TestCase):
     def wiki_snapshots(self):
         return {sid: copy.deepcopy(snap) for sid, snap in self.discoveries.items() if sid.startswith("wikis:")}
 
+    def test_duplicate_bytes_names_another_candidate_of_the_same_source(self):
+        """09: ``duplicate_bytes`` means the *same source* already archived identical bytes under another candidate.
+        Identical bytes from another source are that source's own ``downloaded`` record, so the catalog keeps every
+        provenance record; a cross-source target would silently drop one."""
+        all_assets = [asset for value in self.manifests.values() for asset in value["assets"]]
+        schema.reconcile(self.manifests["wikis"], self.wiki_snapshots(), other_assets=all_assets)  # same-source copy
+
+        def cross_source(target_of):
+            wikis, snaps = copy.deepcopy(self.manifests["wikis"]), self.wiki_snapshots()
+            fandom = next(c for c in snaps["wikis:fandom"]["candidates"] if c["id"].endswith(":File:Cosmic_Pulse.png"))
+            own = fandom["asset_id"]
+            fandom.update(disposition="duplicate_bytes", asset_id=target_of(own), reason="identical SHA-256")
+            wikis["assets"] = [asset for asset in wikis["assets"] if asset["id"] != own]
+            next(s for s in wikis["sources"] if s["id"] == "wikis:fandom")["asset_count"] -= 1
+            schema.validate_manifest(wikis, "wikis")  # the manifest alone stays valid
+            return wikis, snaps, fandom
+
+        miraheze_copy = cross_source(lambda own: own.replace("wikis:fandom:", "wikis:miraheze:"))
+        other_family = cross_source(
+            lambda own: next(a["id"] for a in all_assets if a["source_id"].startswith("artists:"))
+        )
+        for name, (wikis, snaps, fandom) in {"miraheze": miraheze_copy, "artists": other_family}.items():
+            with self.subTest(target=name):
+                self.assertInvalid(schema.validate_candidate, fandom, "asset_id", "same source")
+                for others in (all_assets, ()):
+                    with self.assertRaises(ValueError) as caught:
+                        schema.reconcile(wikis, snaps, other_assets=others)
+                    self.assertIn("wikis:fandom:File:Cosmic_Pulse.png", str(caught.exception))
+                    self.assertIn("asset_id", str(caught.exception))
+
+        snaps = self.wiki_snapshots()  # a candidate cannot be a duplicate of its own record
+        own = next(c for c in snaps["wikis:miraheze"]["candidates"] if c["id"].endswith(":File:Cosmic_Pulse.png"))
+        own.update(disposition="duplicate_bytes", reason="identical SHA-256")
+        schema.validate_candidate(own, "wikis:miraheze")
+        with self.assertRaises(ValueError) as caught:
+            schema.reconcile(self.manifests["wikis"], snaps, other_assets=all_assets)
+        self.assertIn("another candidate", str(caught.exception))
+
     def test_superseded_revision_shares_the_current_candidate(self):
         """MediaWiki re-uploads keep the File: title, so the older archived revision keeps the candidate ID."""
         wikis = self.manifests["wikis"]
