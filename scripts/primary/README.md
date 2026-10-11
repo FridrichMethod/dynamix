@@ -58,7 +58,9 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
   Play (not read, or no screenshot found), the App Store (not read, or shelves not recognized) or TapTap (not read,
   payload not recognized, or no app object of the identifier), with the earlier candidates of that page (for
   `page_links` also a file that another seed page linked first: the candidate's `Also linked from <url>.` notes name
-  every other page that links it); a configured `direct_files` article page not enumerated completely (the keys under
+  the other seed pages that link it, and keep naming one that linked it earlier while that page is not read
+  completely, also when another page lists the file again (a page read completely without the file is no longer
+  named); a configured `direct_files` article page not enumerated completely (the keys under
   its prefix); a `direct_files` `read_page` item that an earlier read excluded as a rejected submission, while its page
   cannot be read (that guard reads the page before any curated rule; an item with a download rule fails instead); and a
   SoundCloud `tracks:<handle>` list or an X embed timeline whose read failed or listed nothing (the earlier candidates

@@ -1980,6 +1980,53 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertNotIn("img/x.png", self.candidates("archives:press"))  # both pages read, neither links it
         self.verify()
 
+    def test_the_hold_of_an_unread_linking_page_outlasts_the_run_that_lists_the_file_again(self):
+        """The hold above lasts across runs. When one seed page lists the file again while another page that linked it
+        cannot be read, the re-emitted candidate still names the unread page, so a later run in which the listing page
+        no longer links the file, while the other page is still unread, keeps its earlier disposition. A page read
+        completely without the file is no longer named: it no longer links the file."""
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+
+        def unread(url):
+            return {"error": net.HttpError("HTTP 503", url=url, http_status=503)}
+
+        both = {self.PAGE: self.page("x.png", "y.png"), other: self.page("x.png")}
+        for label, lister, silent in (
+            ("first page lists it", self.PAGE, other),
+            ("other page lists it", other, self.PAGE),
+        ):
+            with self.subTest(label):
+                self.root = Path(self.temp.name) / label.replace(" ", "-")
+                self.root.mkdir()
+                self.run_family([seed], FakeNetwork(both))
+                self.run_family([seed], FakeNetwork({lister: self.page("x.png", "y.png"), silent: unread(silent)}))
+                again = self.candidates("archives:press")["img/x.png"]
+                self.assertEqual((again["disposition"], again["page_url"]), ("excluded", lister))
+                self.assertIn(f"Also linked from {silent}.", again["notes"])
+                self.assertNotIn(runner.HELD_NOTE, again["notes"])  # listed again, not held
+                self.verify()
+                for _ in range(2):  # the listing page no longer links it and the other page is still unread
+                    self.run_family([seed], FakeNetwork({lister: self.page("y.png"), silent: unread(silent)}))
+                    held = self.candidates("archives:press")["img/x.png"]
+                    self.assertEqual((held["disposition"], held["reason"]), ("excluded", "site_ui: logo"))
+                    self.assertIn(runner.HELD_NOTE, held["notes"])
+                    self.verify()
+                self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: self.page("y.png")}))
+                self.assertNotIn("img/x.png", self.candidates("archives:press"))  # both pages read, neither links it
+                self.verify()
+        with self.subTest("a page read completely without it"):
+            self.root = Path(self.temp.name) / "read-without-it"
+            self.root.mkdir()
+            self.run_family([seed], FakeNetwork(both))
+            self.run_family([seed], FakeNetwork({self.PAGE: self.page("x.png", "y.png"), other: self.page("y.png")}))
+            self.assertNotIn("Also linked from", self.candidates("archives:press")["img/x.png"].get("notes") or "")
+            self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: unread(other)}))
+            self.assertNotIn("img/x.png", self.candidates("archives:press"))  # its only linking page dropped it
+            self.verify()
+
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
         other = "https://press.example.org/other"
         seed = self.seed()
