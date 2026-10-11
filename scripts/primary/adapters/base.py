@@ -160,6 +160,24 @@ def document_base(document: BeautifulSoup, url: str) -> str:
     return url
 
 
+def resolution_note(document: BeautifulSoup, page_url: str, final_url: str | None) -> str | None:
+    """Provenance note for the candidates whose links a read page resolves against another URL than the seed
+    ``page_url`` (which stays their ``page_url``): the URL it was served from after redirects (``final_url``) and/or its
+    ``<base href>`` (:func:`document_base`). None when links resolve against ``page_url`` itself."""
+    served = final_url or page_url
+    resolved = document_base(document, served)
+    shown_served, shown_resolved = stored(served), stored(resolved)
+    if served != page_url and shown_served:
+        against = f"its <base href> {shown_resolved}" if resolved != served and shown_resolved else "that URL"
+        return (
+            f"The page was served from {shown_served} after redirects from the seed URL; its links resolve against "
+            f"{against}."
+        )
+    if resolved != page_url and shown_resolved:
+        return f"The page's <base href> {shown_resolved} is the URL its links resolve against."
+    return None
+
+
 _LINK_DROPPED = str.maketrans("", "", "\t\n\r")  # removed from a link before parsing (WHATWG URL)
 _LINK_ESCAPED = frozenset(' "<>^`{|}')  # ASCII a URL cannot carry literally (lib.checks URL_FORBIDDEN_ASCII, not \)
 

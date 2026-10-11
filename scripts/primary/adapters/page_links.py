@@ -7,6 +7,8 @@ hosts); a file that several seed pages link is one candidate, the first page's, 
 classification comes from the source's seed rules, unclassified links stay ``pending``.
 Links are resolved as a browser requests them (a literal space is percent-encoded, :func:`base.link_url`); a matching
 link that is still no valid http(s) URL is reported as a discovery error and keeps the list open (``links-skipped-N``).
+A page served from another URL (redirects) or with a ``<base href>`` notes that URL on its candidates
+(:func:`base.resolution_note`); their ``page_url`` stays the seed page.
 Used for the HKSTP press release (appendix PDFs, press photo) and the 4Gamer screenshot gallery.
 """
 
@@ -132,6 +134,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         elif not skipped:  # every link of the page was read: a link it no longer has is gone from the page
             pages_read.add(page_url)
         title = base.headline(document)
+        resolved = base.resolution_note(document, page_url, final_url if final_url else None)
         for position, (key, url) in enumerate(found, start=1):
             first = emitted.get(key)
             if first is not None and first.file_url == base.stored(url):
@@ -165,6 +168,8 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 base_evidence=evidence,
                 source_reported=base.reported(url=url, mime=base.mime_for(ext)),
             )
+            if resolved:
+                draft.candidate_extra["notes"] = " ".join(filter(None, [draft.candidate_extra.get("notes"), resolved]))
             emitted.setdefault(key, draft)
             discovery.candidates.append(draft)
     if skipped_links and discovery.continuation.get("seed-pages") is None:

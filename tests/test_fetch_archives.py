@@ -2129,6 +2129,81 @@ class RunnerStateTests(ArchivesTestCase):
             ([image["url"] for image in images], others, state), (["https://press.example.org/cdn/img/e.png"], [], None)
         )
 
+    def test_the_url_links_resolve_against_is_noted_on_their_candidates(self):
+        """A page served from another URL (a redirect) or with a ``<base href>`` resolves its links against that URL:
+        the candidates (and their asset records) say so; ``page_url`` stays the seed page. A page served from its own
+        URL without a base adds no note."""
+        page = "https://press.example.org/news/item"
+        seed = self.seed(rules=[{"match": "/img/", "role": "promotional", "game": "dynamix"}])
+        seed["items"] = [{"url": page, "link_rules": [{"attr": "src", "pattern": "/img/"}]}]
+        body = "<html><title>Dynamix news</title>{head}<body><img src='img/a.png'></body></html>"
+        for answer, file_url, expected in (
+            (
+                {"text": body.format(head=""), "final_url": f"{page}/"},
+                f"{page}/img/a.png",
+                f"The page was served from {page}/ after redirects from the seed URL; its links resolve against that "
+                "URL.",
+            ),
+            (
+                {"text": body.format(head="<head><base href='https://press.example.org/cdn/'></head>")},
+                "https://press.example.org/cdn/img/a.png",
+                "The page's <base href> https://press.example.org/cdn/ is the URL its links resolve against.",
+            ),
+            (
+                {
+                    "text": body.format(head="<head><base href='/cdn/'></head>"),
+                    "final_url": "https://press.example.org/news/item/",
+                },
+                "https://press.example.org/cdn/img/a.png",
+                f"The page was served from {page}/ after redirects from the seed URL; its links resolve against its "
+                "<base href> https://press.example.org/cdn/.",
+            ),
+            ({"text": body.format(head="")}, "https://press.example.org/news/img/a.png", None),
+        ):
+            with self.subTest(expected=expected):
+                self.tearDown()
+                self.setUp()
+                self.run_family([seed], FakeNetwork({page: answer, file_url: self.file((1, 2, 3))}))
+                [candidate] = manifest.load_discovery(self.root, "archives:press")["candidates"]
+                self.assertEqual((candidate["file_url"], candidate["page_url"]), (file_url, page))
+                [asset] = self.manifest()["assets"]
+                if expected is None:
+                    self.assertNotIn("resolve against", candidate.get("notes") or "")
+                    self.assertNotIn("resolve against", asset.get("notes") or "")
+                else:
+                    self.assertIn(expected, candidate.get("notes") or "")
+                    self.assertIn(expected, asset.get("notes") or "")
+                self.verify()
+        # An article page answered from another URL: its enumerated images carry the same note.
+        config = {
+            "page_url": page,
+            "key_prefix": "p:",
+            "select": "div.post",
+            "pattern": "https://press\\.example\\.org/news/item/img/[^/]+\\.png",
+        }
+        article = {
+            "id": "archives:press",
+            "name": "Press",
+            "url": page,
+            "platform": "web",
+            "adapter": "direct_files",
+            "hosts": ["press.example.org"],
+            "quality": QUALITY,
+            "params": {"article_images": [config]},
+            "items": [],
+            "rules": [],
+        }
+        self.tearDown()
+        self.setUp()
+        routes = {page: {"text": "<div class='post'><img src='img/e.png'></div>", "final_url": f"{page}/"}}
+        self.run_family([article], FakeNetwork(routes))
+        [candidate] = manifest.load_discovery(self.root, "archives:press")["candidates"]
+        self.assertEqual((candidate["upstream_key"], candidate["disposition"]), ("p:e", "pending"))
+        self.assertIn(
+            f"The page was served from {page}/ after redirects from the seed URL", candidate.get("notes") or ""
+        )
+        self.verify()
+
     def test_links_of_other_hosts_keep_their_host_in_the_key(self):
         from primary.adapters import page_links
 

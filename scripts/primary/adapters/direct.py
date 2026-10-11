@@ -22,6 +22,9 @@ classified by the seed rules like any candidate, so nothing inside the selection
 item with an image's key or normalized URL stands for it; every other image becomes a candidate of its own, classified
 by the seed rules (unclassified images stay ``pending``).
 
+A page served from another URL (redirects) or with a ``<base href>`` resolves its image URLs against that URL and
+notes it on the enumerated candidates (:func:`base.resolution_note`); their ``page_url`` stays the seed page.
+
 The URLs the page itself lists for an image are kept as download fallbacks: when the normalized URL answers HTTP 404 (a
 rewrite of ours, not an upstream failure) the listed URL is downloaded instead and the record says so: its
 ``source_reported.url`` is the listed URL, a rendition keeps its own file name, and the quality is ``unknown`` (a URL
@@ -508,6 +511,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 pages[page_url] = {
                     "html": html,
                     "final_url": final_url if final_url else None,
+                    "resolved": base.resolution_note(document, page_url, final_url if final_url else None),
                     "texts": {
                         "title": document.title.get_text(" ", strip=True) if document.title else "",
                         "body": base.page_text(base.soup(html)),
@@ -620,17 +624,20 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             name = base.last_segment(image["url"])
             item = {"key": image["key"], "page_url": page_url, "file_url": image["url"]}
             discovery.candidates.append(
-                _draft(
-                    ctx,
-                    seed,
-                    item,
-                    key=image["key"],
-                    page_url=page_url,
-                    file_url=image["url"],
-                    texts=page["texts"],
-                    title=_title(None, page["headline"], image["caption"], (index, len(images)), name),
-                    image=image,
-                    config=configs[page_url],
+                _noted(
+                    _draft(
+                        ctx,
+                        seed,
+                        item,
+                        key=image["key"],
+                        page_url=page_url,
+                        file_url=image["url"],
+                        texts=page["texts"],
+                        title=_title(None, page["headline"], image["caption"], (index, len(images)), name),
+                        image=image,
+                        config=configs[page_url],
+                    ),
+                    page.get("resolved"),
                 )
             )
     named = {(item["page_url"], item["file_url"]) for item in seed["items"]}
@@ -641,25 +648,36 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             name = base.last_segment(image["url"])
             item = {"key": image["key"], "page_url": page_url, "file_url": image["url"]}
             discovery.candidates.append(
-                _draft(
-                    ctx,
-                    seed,
-                    item,
-                    key=image["key"],
-                    page_url=page_url,
-                    file_url=image["url"],
-                    texts=page["texts"],
-                    title=_title(None, page["headline"], image["caption"], None, name, other=(index, len(listed))),
-                    image=image,
-                    config=configs[page_url],
+                _noted(
+                    _draft(
+                        ctx,
+                        seed,
+                        item,
+                        key=image["key"],
+                        page_url=page_url,
+                        file_url=image["url"],
+                        texts=page["texts"],
+                        title=_title(None, page["headline"], image["caption"], None, name, other=(index, len(listed))),
+                        image=image,
+                        config=configs[page_url],
+                    ),
+                    page.get("resolved"),
                 )
             )
     return discovery
 
 
+def _noted(draft: model.Draft, note: str | None) -> model.Draft:
+    """``draft`` with ``note`` (the page's :func:`base.resolution_note`) added to its candidate notes."""
+    if note:
+        draft.candidate_extra["notes"] = " ".join(filter(None, [draft.candidate_extra.get("notes"), note]))
+    return draft
+
+
 def _needs_page(rule: Mapping[str, Any] | None) -> bool:
     """Whether the seed rule's decision depends on the read page's text: a download rule (its evidence quotes, mapping
-    and Universe guard check the page). Curated exclude/pending decisions apply without it (:func:`model.apply_rule`)."""
+    and Universe guard check the page). Curated exclude/pending decisions apply without it
+    (:func:`model.apply_rule`)."""
     return rule is not None and rule.get("action", "download") == "download"
 
 
