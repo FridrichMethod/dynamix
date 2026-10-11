@@ -1,12 +1,14 @@
-"""Static and behavioral checks of .github/workflows: triggers, release hold, permissions, pinning, no write paths.
+"""Static and behavioral checks of .github/workflows: triggers, release gate, permissions, pinning, no write paths.
 
-The release hold (06-validation-and-release.md, Gate 5) must hold by construction: ordinary pushes and pull requests
-only test and upload CI artifacts; Pages deploys only from a manual dispatch of main whose release_sha input and the
-repository variable RELEASE_APPROVED_SHA both name the dispatched commit (unset variable = closed); no workflow has a
-schedule, pushes, tags, releases or opens pull requests. Workflows are parsed with the stdlib YAML-subset reader in
-tests/test_workflows_yaml.py; the deploy guard is also evaluated, and the shell guard executed, for each scenario.
-The lint job runs every pre-commit hook read-only and never fixes; the checks job runs the unit tests under coverage
-and enforces fail_under. Their shell steps are executed with stand-ins (a fake Node.js, a stand-in test suite).
+The release gate (owner decision of 2026-10-11, superseding the manual-dispatch design of 06-validation-and-release.md
+Gate 5) must hold by construction: ordinary pushes and pull requests only test and upload CI artifacts; Pages deploys
+only a published, non-prerelease GitHub Release whose tag is vX.Y.Z, or a manual dispatch on such a tag, and only when
+the tag's commit is on main and the full Tests workflow passed on it; no workflow has a schedule, pushes, tags, creates
+releases or opens pull requests. Workflows are parsed with the stdlib YAML-subset reader in
+tests/test_workflows_yaml.py. The deploy job's condition is evaluated with GitHub's expression semantics, and both shell
+guards are executed (the main-ancestry guard in temporary Git repositories), for each scenario. The lint job runs every
+pre-commit hook read-only and never fixes; the checks job runs the unit tests under coverage and enforces fail_under.
+Their shell steps are executed with stand-ins (a fake Node.js, a stand-in test suite).
 """
 
 import importlib.util
@@ -27,17 +29,23 @@ from test_workflows_yaml import parse_yaml  # noqa: E402
 
 WORKFLOWS = ROOT / ".github/workflows"
 EXPECTED_WORKFLOWS = {"tests.yml", "pages.yml", "check-sources.yml"}
-GUARD = (
-    "github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && "
-    "inputs.release_sha == github.sha && vars.RELEASE_APPROVED_SHA == github.sha"
+# The deploy job's condition: a tag ref, and a dispatch or a published release that is not a prerelease. It cannot tell
+# a malformed tag or a commit off main (EXPRESSION_BLIND); the shell guards before it refuse those.
+DEPLOY_IF = (
+    "startsWith(github.ref, 'refs/tags/v') && (github.event_name == 'workflow_dispatch' || "
+    "(github.event_name == 'release' && github.event.action == 'published' && "
+    "github.event.release.prerelease == false))"
 )
-GUARD_ENV = {
+EVENT_GUARD_ENV = {
     "EVENT_NAME": "${{ github.event_name }}",
+    "ACTION": "${{ github.event.action }}",
     "REF": "${{ github.ref }}",
-    "SHA": "${{ github.sha }}",
-    "RELEASE_SHA": "${{ inputs.release_sha }}",
-    "APPROVED_SHA": "${{ vars.RELEASE_APPROVED_SHA }}",
+    "TAG": "${{ github.event.release.tag_name }}",
+    "DRAFT": "${{ github.event.release.draft }}",
+    "PRERELEASE": "${{ github.event.release.prerelease }}",
 }
+MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}"}
+RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
 ALLOWED_ACTIONS = {
     "actions/checkout",
     "actions/setup-python",
@@ -64,30 +72,72 @@ AFTER_INSTALL = "${{ !cancelled() && steps.install.outcome == 'success' }}"
 COVERAGE_FILE = "${{ runner.temp }}/coverage/.coverage"  # outside the checkout
 VENV_PYTHON = '"$RUNNER_TEMP/venv/bin/python"'
 SHA = "0123456789abcdef0123456789abcdef01234567"
-OTHER = "fedcba9876543210fedcba9876543210fedcba98"
-APPROVED = {
-    "github.event_name": "workflow_dispatch",
-    "github.ref": "refs/heads/main",
-    "github.sha": SHA,
-    "inputs.release_sha": SHA,
-    "vars.RELEASE_APPROVED_SHA": SHA,
+
+
+def released(tag: str, **release: object) -> dict:
+    """The context of a published GitHub Release of ``tag`` (``release`` overrides fields of the event's release)."""
+    fields = {"tag_name": tag, "prerelease": False, "draft": False, **release}
+    return {
+        "github.event_name": "release",
+        "github.event.action": "published",
+        "github.ref": f"refs/tags/{tag}",
+        "github.sha": SHA,
+        **{f"github.event.release.{name}": value for name, value in fields.items() if value is not None},
+    }
+
+
+def dispatched(ref: str) -> dict:
+    return {"github.event_name": "workflow_dispatch", "github.ref": ref, "github.sha": SHA}
+
+
+def triggered(event: str, ref: str) -> dict:
+    return {"github.event_name": event, "github.ref": ref, "github.sha": SHA}
+
+
+ACCEPTED = {  # each must satisfy the deploy condition and pass the event guard
+    "release v1.1.0 published": released("v1.1.0"),
+    "dispatch on the tag v1.1.0": dispatched("refs/tags/v1.1.0"),
+    "release v10.20.30 published": released("v10.20.30"),
 }
-DENIED = {  # each must neither satisfy the deploy condition nor pass the shell guard
-    "push to main": {**APPROVED, "github.event_name": "push", "inputs.release_sha": ""},
-    "pull request": {
-        **APPROVED,
-        "github.event_name": "pull_request",
-        "github.ref": "refs/pull/1/merge",
-        "inputs.release_sha": "",
-    },
-    "schedule": {**APPROVED, "github.event_name": "schedule", "inputs.release_sha": ""},
-    "dispatch on another branch": {**APPROVED, "github.ref": "refs/heads/feature"},
-    "dispatch on a tag": {**APPROVED, "github.ref": "refs/tags/v1.0.0"},
-    "wrong release_sha": {**APPROVED, "inputs.release_sha": OTHER},
-    "variable unset (release hold)": {k: v for k, v in APPROVED.items() if k != "vars.RELEASE_APPROVED_SHA"},
-    "variable empty": {**APPROVED, "vars.RELEASE_APPROVED_SHA": ""},
-    "variable names another commit": {**APPROVED, "vars.RELEASE_APPROVED_SHA": OTHER},
-    "short SHAs": {**APPROVED, "inputs.release_sha": SHA[:7], "vars.RELEASE_APPROVED_SHA": SHA[:7]},
+DENIED = {  # each must fail the event guard; the deploy condition refuses all but EXPRESSION_BLIND
+    "push to main": triggered("push", "refs/heads/main"),
+    "push of the tag v1.1.0": triggered("push", "refs/tags/v1.1.0"),
+    "pull request": triggered("pull_request", "refs/pull/1/merge"),
+    "pull request from a tag-named branch": triggered("pull_request", "refs/tags/v1.1.0"),
+    "schedule": triggered("schedule", "refs/heads/main"),
+    "dispatch on main": dispatched("refs/heads/main"),
+    "dispatch on the branch v1.1.0": dispatched("refs/heads/v1.1.0"),
+    "dispatch on the tag v1.1": dispatched("refs/tags/v1.1"),
+    "dispatch on the tag 1.1.0": dispatched("refs/tags/1.1.0"),
+    "dispatch on the tag v1.1.0-rc1": dispatched("refs/tags/v1.1.0-rc1"),
+    "dispatch on the tag v1.1.0.1": dispatched("refs/tags/v1.1.0.1"),
+    "dispatch on the tag V1.1.0": dispatched("refs/tags/V1.1.0"),
+    "dispatch on a ref with a second line": dispatched("refs/tags/v1.1.0\nrefs/heads/main"),
+    "release v1.1": released("v1.1"),
+    "release 1.1.0": released("1.1.0"),
+    "release v1.1.0-rc1 marked as a prerelease": released("v1.1.0-rc1", prerelease=True),
+    "release v1.1.0-rc1 not marked as a prerelease": released("v1.1.0-rc1"),
+    "prerelease v1.1.0": released("v1.1.0", prerelease=True),
+    "release without a prerelease flag": released("v1.1.0", prerelease=None),
+    "draft release": released("v1.1.0", draft=True),
+    "release edited, not published": {**released("v1.1.0"), "github.event.action": "edited"},
+    "release whose tag is not the ref": released("v1.1.0", tag_name="v1.2.0"),
+}
+# Scenarios that the deploy condition alone accepts (GitHub expressions have no regular expressions, startsWith()
+# ignores case, null == false, and the condition does not compare the release's draft flag or tag name): the event guard
+# refuses them in the approval and the build job, and the deploy job needs the build job. A stricter condition shrinks
+# this set.
+EXPRESSION_BLIND = {
+    "dispatch on the tag v1.1",
+    "dispatch on the tag v1.1.0-rc1",
+    "dispatch on the tag v1.1.0.1",
+    "dispatch on the tag V1.1.0",
+    "dispatch on a ref with a second line",
+    "release v1.1",
+    "release v1.1.0-rc1 not marked as a prerelease",
+    "release without a prerelease flag",
+    "draft release",
+    "release whose tag is not the ref",
 }
 
 
@@ -121,45 +171,198 @@ def action_name(uses: str) -> str:
     return uses.split("@", 1)[0]
 
 
+class ExpressionError(ValueError):
+    """An expression outside the grammar that :func:`evaluate` implements."""
+
+
+EXPRESSION_TOKEN = re.compile(
+    r"\s*(?:(?P<string>'(?:[^']|'')*')|(?P<op>==|!=|&&|\|\||[()!,])|(?P<number>-?\d+(?:\.\d+)?)|"
+    r"(?P<name>[A-Za-z_][\w-]*(?:\.[A-Za-z_][\w-]*)*))"
+)
+EXPRESSION_LITERALS = {"true": True, "false": False, "null": None}
+EXPRESSION_FUNCTIONS = {  # arguments cast to strings, compared ignoring case
+    "startsWith": str.startswith,
+    "endsWith": str.endswith,
+    "contains": lambda text, part: part in text,
+}
+JSON_NUMBER = re.compile(r"-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?")
+
+
+def expression_kind(value: object) -> str:
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "boolean"
+    if isinstance(value, int | float):
+        return "number"
+    if isinstance(value, str):
+        return "string"
+    raise ExpressionError(f"unsupported value {value!r}")
+
+
+def as_number(value: object) -> float:
+    """GitHub's coercion to a number: null 0, booleans 1/0, a string by JSON number syntax ('' is 0), otherwise NaN."""
+    if isinstance(value, str):
+        return 0.0 if value == "" else float(value) if JSON_NUMBER.fullmatch(value) else float("nan")
+    if isinstance(value, int | float):  # booleans included
+        return float(value)
+    expression_kind(value)  # null, or an unsupported value that raises
+    return 0.0
+
+
+def as_text(value: object) -> str:
+    """GitHub's cast to a string: null '', booleans 'true'/'false', integral numbers without a fraction."""
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, int | float):
+        number = float(value)
+        return "NaN" if number != number else str(int(number)) if number.is_integer() else repr(number)
+    return "" if expression_kind(value) == "null" else str(value)
+
+
+def truthy(value: object) -> bool:
+    """False, 0, NaN, '' and null are falsy; everything else is truthy."""
+    kind = expression_kind(value)
+    if kind == "number":
+        return value == value and value != 0
+    return bool(value) if kind != "string" else value != ""
+
+
+def loosely_equal(left: object, right: object) -> bool:
+    """GitHub's ==: values of one type compare directly (strings ignoring case); otherwise both become numbers."""
+    if expression_kind(left) == expression_kind(right):
+        if isinstance(left, str) and isinstance(right, str):
+            return left.casefold() == right.casefold()
+        return left == right
+    return as_number(left) == as_number(right)
+
+
+class _Expression:
+    """Recursive descent over GitHub's precedence: ``( )``, ``!``, ``== !=``, ``&&``, ``||``. ``&&`` and ``||``
+    return an operand (the first falsy one, the first truthy one), as GitHub does. Indexing, the ordering operators,
+    status functions and every other function raise :class:`ExpressionError` instead of being guessed."""
+
+    def __init__(self, expression: str, context: dict):
+        self.tokens: list[tuple[str, str]] = []
+        position = 0
+        while expression[position:].strip():
+            match = EXPRESSION_TOKEN.match(expression, position)
+            if not match:
+                raise ExpressionError(f"unsupported syntax at {expression[position:]!r}")
+            assert match.lastgroup is not None
+            self.tokens.append((match.lastgroup, match.group(match.lastgroup)))
+            position = match.end()
+        self.position = 0
+        self.context = context
+
+    def peek(self) -> tuple[str, str] | None:
+        return self.tokens[self.position] if self.position < len(self.tokens) else None
+
+    def take(self, operator: str | None = None) -> tuple[str, str]:
+        token = self.peek()
+        if token is None or (operator is not None and token != ("op", operator)):
+            raise ExpressionError(f"expected {operator or 'an operand'}, got {token!r}")
+        self.position += 1
+        return token
+
+    def parse(self) -> object:
+        value = self.disjunction()
+        if self.peek() is not None:
+            raise ExpressionError(f"unexpected {self.peek()!r}")
+        return value
+
+    def disjunction(self) -> object:
+        value = self.conjunction()
+        while self.peek() == ("op", "||"):
+            self.take()
+            right = self.conjunction()
+            value = value if truthy(value) else right
+        return value
+
+    def conjunction(self) -> object:
+        value = self.equality()
+        while self.peek() == ("op", "&&"):
+            self.take()
+            right = self.equality()
+            value = right if truthy(value) else value
+        return value
+
+    def equality(self) -> object:
+        value = self.unary()
+        while self.peek() in (("op", "=="), ("op", "!=")):
+            operator = self.take()[1]
+            value = loosely_equal(value, self.unary()) == (operator == "==")
+        return value
+
+    def unary(self) -> object:
+        if self.peek() == ("op", "!"):
+            self.take()
+            return not truthy(self.unary())
+        return self.primary()
+
+    def primary(self) -> object:
+        kind, text = self.take()
+        if (kind, text) == ("op", "("):
+            value = self.disjunction()
+            self.take(")")
+            return value
+        if kind == "string":
+            return text[1:-1].replace("''", "'")
+        if kind == "number":
+            return float(text)
+        if kind != "name":
+            raise ExpressionError(f"unexpected {text!r}")
+        if text in EXPRESSION_LITERALS:
+            return EXPRESSION_LITERALS[text]
+        if self.peek() == ("op", "("):
+            return self.call(text)
+        return self.context.get(text)  # a missing context value is null
+
+    def call(self, name: str) -> bool:
+        if name not in EXPRESSION_FUNCTIONS:
+            raise ExpressionError(f"unsupported function {name}()")
+        self.take("(")
+        arguments = [self.disjunction()]
+        while self.peek() == ("op", ","):
+            self.take()
+            arguments.append(self.disjunction())
+        self.take(")")
+        if len(arguments) != 2:
+            raise ExpressionError(f"{name}() takes two arguments")
+        return EXPRESSION_FUNCTIONS[name](*(as_text(argument).casefold() for argument in arguments))
+
+
 def evaluate(expression: str, context: dict) -> bool:
-    """GitHub expression semantics for the guard's grammar: ``&&`` of ``==`` terms comparing context values or
-    single-quoted literals. A missing value is ``''``; string comparison ignores case, as in GitHub Actions."""
-
-    def operand(text: str) -> str:
-        text = text.strip()
-        literal = re.fullmatch(r"'([^']*)'", text)
-        if literal:
-            return literal.group(1)
-        if not re.fullmatch(r"[A-Za-z_][\w.]*", text):
-            raise ValueError(f"unsupported operand {text!r}")
-        return context.get(text, "")
-
-    terms = expression.split("&&")
-    for term in terms:
-        left, operator, right = term.partition("==")
-        if not operator or "!" in term or "||" in term:
-            raise ValueError(f"unsupported term {term!r}")
-        if operand(left).casefold() != operand(right).casefold():
-            return False
-    return True
+    """Whether a job ``if:`` holds, with GitHub's expression semantics for the subset in :class:`_Expression`.
+    ``context`` maps dotted names (``github.event.release.prerelease``) to strings, booleans, numbers or None."""
+    return truthy(_Expression(expression, context).parse())
 
 
 def resolve_env(env: dict, context: dict) -> dict:
+    """``${{ name }}`` env values as GitHub renders them: null as '', booleans as 'true'/'false'."""
     resolved = {}
     for name, value in env.items():
         match = re.fullmatch(r"\$\{\{\s*([\w.]+)\s*\}\}", value)
         if not match:
             raise ValueError(f"unexpected env value {value!r}")
-        resolved[name] = context.get(match.group(1), "")
+        resolved[name] = as_text(context.get(match.group(1)))
     return resolved
 
 
-def run_guard(step: dict, context: dict) -> subprocess.CompletedProcess:
-    """Execute a shell guard step with bash -eo pipefail, its env resolved from ``context``."""
-    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), **resolve_env(step["env"], context)}
+def run_guard(step: dict, context: dict, cwd: Path | None = None, **extra: str) -> subprocess.CompletedProcess:
+    """Execute a shell guard step with bash -eo pipefail, its env resolved from ``context`` (plus ``extra``)."""
+    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), **GIT_ENV, **extra, **resolve_env(step["env"], context)}
     return subprocess.run(
-        ["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", step["run"]], env=env, capture_output=True, text=True
+        ["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", step["run"]],
+        cwd=cwd,
+        env=env,
+        capture_output=True,
+        text=True,
     )
+
+
+def error_lines(result: subprocess.CompletedProcess) -> list[str]:
+    return [line for line in result.stdout.splitlines() if line.startswith("::error::")]
 
 
 class InventoryAndTriggerTests(unittest.TestCase):
@@ -171,20 +374,8 @@ class InventoryAndTriggerTests(unittest.TestCase):
         workflows = all_workflows()
         self.assertEqual(workflows["tests.yml"]["on"], {"push": None, "pull_request": None, "workflow_call": None})
         self.assertEqual(workflows["check-sources.yml"]["on"], {"workflow_dispatch": None})
-        pages_on = workflows["pages.yml"]["on"]
-        self.assertEqual(list(pages_on), ["workflow_dispatch"])
-        self.assertEqual(
-            pages_on["workflow_dispatch"],
-            {
-                "inputs": {
-                    "release_sha": {
-                        "description": pages_on["workflow_dispatch"]["inputs"]["release_sha"]["description"],
-                        "required": "true",
-                        "type": "string",
-                    }
-                }
-            },
-        )
+        # A published release, or a manual dispatch (on a release tag, which the guards check), without inputs.
+        self.assertEqual(workflows["pages.yml"]["on"], {"release": {"types": ["published"]}, "workflow_dispatch": None})
 
     def test_no_schedule_or_privileged_triggers_anywhere(self):
         for name, workflow in all_workflows().items():
@@ -196,10 +387,13 @@ class InventoryAndTriggerTests(unittest.TestCase):
                         "pull_request_target",
                         "workflow_run",
                         "repository_dispatch",
-                        "release",
                         "issue_comment",
                     }
                 )
+                if name == "pages.yml":  # pushes, pull requests and schedules never deploy
+                    self.assertFalse(set(workflow["on"]) & {"push", "pull_request", "workflow_call"})
+                else:  # only the Pages workflow reacts to a release
+                    self.assertNotIn("release", workflow["on"])
                 text = (WORKFLOWS / name).read_text(encoding="utf-8")
                 self.assertIsNone(re.search(r"^\s*(?:schedule|cron)\s*:", text, re.MULTILINE))
 
@@ -218,9 +412,7 @@ class PermissionTests(unittest.TestCase):
                     self.assertIn("permissions", job)
                     if (name, job_id) == ("pages.yml", "deploy"):
                         self.assertEqual(job["permissions"], {"pages": "write", "id-token": "write"})
-                    elif (name, job_id) == ("pages.yml", "approval"):
-                        self.assertEqual(job["permissions"], {})
-                    else:
+                    else:  # the approval job reads the history to find the tag's commit on main
                         self.assertEqual(job["permissions"], {"contents": "read"})
 
     def test_write_scopes_appear_only_in_the_guarded_deploy_job(self):
@@ -232,23 +424,23 @@ class PermissionTests(unittest.TestCase):
                 self.assertNotRegex(text, r"write-all|read-all")
 
 
-class ReleaseHoldTests(unittest.TestCase):
+class ReleaseGateTests(unittest.TestCase):
     pages = load("pages.yml")
 
-    def test_deploy_condition_is_exactly_the_guard(self):
-        deploy = self.pages["jobs"]["deploy"]
-        self.assertEqual(deploy["if"], GUARD)
-        self.assertNotRegex(deploy["if"], r"always\(|failure\(|cancelled\(|success\(")
-        self.assertEqual(deploy["needs"], "build")
-        self.assertEqual(deploy["environment"]["name"], "github-pages")
-        self.assertEqual([action_name(step["uses"]) for step in steps_of(deploy)], ["actions/deploy-pages"])
+    def guard_steps(self, job_id: str) -> tuple[dict, dict]:
+        """The event guard (before any checkout) and the main-ancestry guard (after it) of one job."""
+        steps = steps_of(self.pages["jobs"][job_id])
+        return steps[0], steps[2]
 
-    def test_build_runs_the_reusable_tests_after_approval(self):
+    def test_jobs_run_the_reusable_tests_between_approval_and_build(self):
         jobs = self.pages["jobs"]
         self.assertEqual(list(jobs), ["approval", "tests", "build", "deploy"])
         self.assertEqual(jobs["tests"]["uses"], "./.github/workflows/tests.yml")
         self.assertEqual(jobs["tests"]["needs"], "approval")
         self.assertEqual(jobs["build"]["needs"], ["approval", "tests"])
+        for job_id in ("approval", "tests", "build"):
+            with self.subTest(job=job_id):
+                self.assertNotIn("if", jobs[job_id], "a job condition could run it after a failed guard or skip it")
         build_runs = "\n".join(step.get("run", "") for step in steps_of(jobs["build"]))
         self.assertIn("scripts/prepare_pages.py --output", build_runs)
         self.assertIn("git rev-parse HEAD", build_runs)
@@ -256,13 +448,155 @@ class ReleaseHoldTests(unittest.TestCase):
             "actions/upload-pages-artifact", [action_name(s.get("uses", "")) for s in steps_of(jobs["build"])]
         )
 
-    def test_approval_job_and_first_build_step_are_the_shell_guard(self):
+    def test_deploy_condition_is_exactly_the_gate(self):
+        deploy = self.pages["jobs"]["deploy"]
+        self.assertEqual(deploy["if"], DEPLOY_IF)
+        self.assertNotRegex(deploy["if"], r"always\(|failure\(|cancelled\(|success\(")
+        self.assertEqual(deploy["needs"], "build")
+        self.assertEqual(deploy["environment"]["name"], "github-pages")
+        self.assertEqual([action_name(step["uses"]) for step in steps_of(deploy)], ["actions/deploy-pages"])
+
+    def test_approval_and_build_start_with_the_same_guards(self):
+        jobs = self.pages["jobs"]
+        approval = steps_of(jobs["approval"])
+        self.assertEqual(len(approval), 3, "the approval job is the event guard, a checkout and the main guard")
+        self.assertEqual(steps_of(jobs["build"])[:3], approval, "the build job repeats the approval job's guards")
+        event, checkout, main = approval
+        self.assertNotIn("uses", event)
+        self.assertEqual(event["env"], EVENT_GUARD_ENV)
+        self.assertEqual(action_name(checkout["uses"]), "actions/checkout")
+        # The full history, so that origin/main is there to compare with; credentials are never kept.
+        self.assertEqual(checkout["with"], {"fetch-depth": "0", "persist-credentials": "false"})
+        self.assertNotIn("uses", main)
+        self.assertEqual(main["env"], MAIN_GUARD_ENV)
+        self.assertIn('git merge-base --is-ancestor "$SHA" refs/remotes/origin/main', main["run"])
+        for step in (event, main):
+            with self.subTest(step=step["name"]):
+                self.assertTrue(step["run"].startswith('fail() { echo "::error::$1"; exit 1; }\n'))
+
+    def test_the_retired_dispatch_gate_is_gone(self):
+        text = (WORKFLOWS / "pages.yml").read_text(encoding="utf-8")
+        for retired in RETIRED_GATE:
+            with self.subTest(retired=retired):
+                self.assertNotIn(retired, text)
+
+    def test_header_comment_describes_the_release_gate(self):
+        """A maintainer reads this comment when releasing: it says what deploys and what fails closed."""
+        header = []
+        for line in (WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines():
+            if line.startswith("on:"):
+                break
+            if line.startswith("#"):
+                header.append(line.lstrip("#").strip())
+        text = " ".join(header)
+        for stale in ("RELEASE_APPROVED_SHA", "release_sha", "hold", "approved sha", "on main, not"):
+            with self.subTest(stale=stale):
+                self.assertNotIn(stale.lower(), text.lower())
+        for required in (
+            "published",
+            "vX.Y.Z",
+            "prerelease",
+            "on main",
+            "Tests workflow",
+            "fails closed",
+            "gh workflow run pages.yml --ref v",
+            "v*",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(required, text)
+
+    def test_deploy_condition_semantics(self):
+        self.assertLessEqual(EXPRESSION_BLIND, set(DENIED))
+        for scenario, context in ACCEPTED.items():
+            with self.subTest(accepted=scenario):
+                self.assertTrue(evaluate(DEPLOY_IF, context))
+        for scenario, context in DENIED.items():
+            with self.subTest(denied=scenario):
+                self.assertEqual(evaluate(DEPLOY_IF, context), scenario in EXPRESSION_BLIND)
+
+    @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
+    def test_event_guard_fails_closed(self):
         for job_id in ("approval", "build"):
-            with self.subTest(job=job_id):
-                first = steps_of(self.pages["jobs"][job_id])[0]
-                self.assertNotIn("uses", first)
-                self.assertEqual(first["env"], GUARD_ENV)
-                self.assertIn('[ -n "$APPROVED_SHA" ]', first["run"])
+            step = self.guard_steps(job_id)[0]
+            for scenario, context, allowed in [(name, ctx, True) for name, ctx in ACCEPTED.items()] + [
+                (name, ctx, False) for name, ctx in DENIED.items()
+            ]:
+                with self.subTest(job=job_id, scenario=scenario):
+                    result = run_guard(step, context)
+                    self.assertEqual(result.returncode == 0, allowed, result.stdout + result.stderr)
+                    self.assertEqual(len(error_lines(result)), 0 if allowed else 1, result.stdout)
+
+    @unittest.skipUnless(shutil.which("bash") and shutil.which("git"), "needs bash and git to execute the guard step")
+    def test_main_guard_deploys_only_a_commit_on_main(self):
+        """The main guard as it runs after actions/checkout with fetch-depth 0: the tag ref, the remote-tracking
+        origin/main and a detached HEAD. The local branch main, which that checkout does not create, holds a commit off
+        origin/main here: only origin/main counts."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root, commits = release_repository(Path(temporary))
+            first, second, side = commits["first"], commits["second"], commits["side"]
+            scenarios = {
+                "the tip of main": ("refs/tags/v1.1.0", second, second, True),
+                "an older commit of main": ("refs/tags/v1.0.0", first, first, True),
+                "a commit off main (on the local branch main only)": ("refs/tags/v1.2.0", side, side, False),
+                "a checkout of another commit": ("refs/tags/v1.1.0", second, first, False),
+                "a tag that names another commit": ("refs/tags/v1.0.0", second, second, False),
+                "a tag missing from the checkout": ("refs/tags/v2.0.0", second, second, False),
+                "a short SHA": ("refs/tags/v1.1.0", second[:12], second, False),
+                "an upper-case SHA": ("refs/tags/v1.1.0", second.upper(), second, False),
+            }
+            for job_id in ("approval", "build"):
+                step = self.guard_steps(job_id)[1]
+                for scenario, (ref, sha, head, allowed) in scenarios.items():
+                    with self.subTest(job=job_id, scenario=scenario):
+                        git(root, "checkout", "-q", "--detach", head)
+                        result = run_guard(step, {"github.ref": ref, "github.sha": sha}, cwd=root)
+                        self.assertEqual(result.returncode == 0, allowed, result.stdout + result.stderr)
+                        self.assertEqual(len(error_lines(result)), 0 if allowed else 1, result.stdout)
+                with self.subTest(job=job_id, scenario="no origin/main in the checkout (a shallow or branch fetch)"):
+                    git(root, "checkout", "-q", "--detach", second)
+                    git(root, "update-ref", "-d", "refs/remotes/origin/main")
+                    result = run_guard(step, {"github.ref": "refs/tags/v1.1.0", "github.sha": second}, cwd=root)
+                    git(root, "update-ref", "refs/remotes/origin/main", second)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertEqual(len(error_lines(result)), 1, result.stdout)
+                    self.assertIn("origin/main", error_lines(result)[0])
+                with self.subTest(job=job_id, scenario="outside a Git checkout"):
+                    outside = Path(temporary) / "empty"
+                    outside.mkdir(exist_ok=True)
+                    context = {"github.ref": "refs/tags/v1.1.0", "github.sha": second}
+                    # GIT_CEILING_DIRECTORIES keeps git from finding a repository above the temporary directory.
+                    result = run_guard(step, context, cwd=outside, GIT_CEILING_DIRECTORIES=temporary)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertEqual(len(error_lines(result)), 1, result.stdout)
+
+    def test_guard_messages_describe_the_gate_not_a_hold(self):
+        for job_id in ("approval", "build"):
+            for step in self.guard_steps(job_id):
+                messages = re.findall(r'\bfail "([^"]*)"', step["run"])
+                self.assertTrue(messages)
+                for message in messages:
+                    with self.subTest(job=job_id, message=message):
+                        self.assertNotRegex(message, re.compile(r"\bhold\b|\bheld\b|approved sha", re.IGNORECASE))
+                        self.assertNotIn("RELEASE_APPROVED_SHA", message)
+
+    @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
+    def test_event_guard_names_the_reason(self):
+        expected = {
+            "push to main": "not push",
+            "dispatch on main": "not refs/heads/main",
+            "dispatch on the tag v1.1.0-rc1": "vX.Y.Z",
+            "prerelease v1.1.0": "prerelease",
+            "release without a prerelease flag": "prerelease",
+            "draft release": "draft",
+            "release edited, not published": "edited",
+            "release whose tag is not the ref": "v1.2.0",
+        }
+        step = self.guard_steps("approval")[0]
+        for scenario, phrase in expected.items():
+            with self.subTest(scenario=scenario):
+                errors = error_lines(run_guard(step, DENIED[scenario]))
+                self.assertEqual(len(errors), 1)
+                self.assertIn(phrase, errors[0])
 
     def test_deployment_actions_only_in_pages_build_and_deploy(self):
         for name, workflow in all_workflows().items():
@@ -275,70 +609,151 @@ class ReleaseHoldTests(unittest.TestCase):
                     if action == "actions/upload-pages-artifact":
                         self.assertEqual((name, job_id), ("pages.yml", "build"))
 
-    def test_header_comment_describes_the_guard_not_a_hold(self):
-        """A maintainer reads this comment at dispatch time: it describes the guard as it works after a release (the
-        variable names the released commit), not a hold during which the variable stays unset."""
-        header = []
-        for line in (WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines():
-            if line.startswith("on:"):
-                break
-            if line.startswith("#"):
-                header.append(line.lstrip("#").strip())
-        text = " ".join(header)
-        for stale in ("stays unset", "during the hold", "release hold", "every dispatch fails closed"):
-            with self.subTest(stale=stale):
-                self.assertNotIn(stale, text.lower())
-        for required in (
-            "RELEASE_APPROVED_SHA",
-            "release_sha",
-            "main",
-            "last released commit",
-            "unset",
-            "fails closed",
+
+def git(cwd: Path, *arguments: str) -> str:
+    environment = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": str(cwd), **GIT_ENV}
+    result = subprocess.run(["git", *arguments], cwd=cwd, env=environment, capture_output=True, text=True, check=True)
+    return result.stdout.strip()
+
+
+def release_repository(base: Path) -> tuple[Path, dict[str, str]]:
+    """A checkout as actions/checkout leaves it with fetch-depth 0: commits first <- second on origin/main, side off
+    it; tags v1.0.0 (lightweight) on first, v1.1.0 (annotated) on second and v1.2.0 on side; the local branch main at
+    side, unlike origin/main."""
+    root = base / "checkout"
+    root.mkdir()
+    git(root, "init", "-q", "-b", "main")
+    commits = {}
+    for name, parent in (("first", None), ("second", "first"), ("side", "first")):
+        if parent:
+            git(root, "checkout", "-q", "--detach", commits[parent])
+        (root / "file.txt").write_text(f"{name}\n", encoding="utf-8")
+        git(root, "add", "file.txt")
+        git(root, "commit", "-q", "-m", name)
+        commits[name] = git(root, "rev-parse", "HEAD")
+    git(root, "update-ref", "refs/remotes/origin/main", commits["second"])
+    git(root, "update-ref", "refs/heads/main", commits["side"])
+    git(root, "tag", "v1.0.0", commits["first"])
+    git(root, "tag", "-a", "-m", "v1.1.0", "v1.1.0", commits["second"])
+    git(root, "tag", "v1.2.0", commits["side"])
+    return root, commits
+
+
+class ExpressionEvaluatorTests(unittest.TestCase):
+    """evaluate() must agree with GitHub's documented expression semantics, or the deploy-condition test proves
+    nothing: operator precedence, loose equality with coercion to numbers, strings compared ignoring case, falsy
+    values, ``&&``/``||`` returning operands, and string functions that cast and ignore case."""
+
+    def check(self, cases: dict[str, bool], context: dict | None = None) -> None:
+        for expression, expected in cases.items():
+            with self.subTest(expression=expression):
+                self.assertIs(evaluate(expression, context or {}), expected)
+
+    def test_operators_and_precedence(self):
+        self.check(
+            {
+                "true || false && false": True,  # && binds tighter than ||
+                "(true || false) && false": False,
+                "!false && true": True,
+                "!(true && false)": True,
+                "!true == false": True,  # ! binds tighter than ==
+                "'a' != 'b'": True,
+                "'a' != 'A'": False,
+                "1 == 1.0": True,
+                "true && 'x' == 'X'": True,
+            }
+        )
+
+    def test_loose_equality_and_truthiness(self):
+        self.check(
+            {
+                "null == false": True,
+                "null == 0": True,
+                "'' == 0": True,
+                "'' == false": True,
+                "'1' == 1": True,
+                "'false' == false": False,
+                "true == 1": True,
+                "true == 'true'": False,
+                "'abc' == 0": False,
+                "''": False,
+                "'0'": True,
+                "'false'": True,
+                "0": False,
+                "null": False,
+                "missing.value == null": True,
+                "missing.value": False,
+            }
+        )
+
+    def test_and_and_or_return_an_operand(self):
+        for expression, expected in (
+            ("'' || 'x'", "x"),
+            ("'a' || ''", "a"),
+            ("'a' && ''", ""),
+            ("'a' && 'b'", "b"),
+            ("null && 'x'", None),
         ):
-            with self.subTest(required=required):
-                self.assertIn(required, text)
+            with self.subTest(expression=expression):
+                self.assertEqual(_Expression(expression, {}).parse(), expected)
 
-    def test_guard_expression_semantics(self):
-        self.assertTrue(evaluate(GUARD, APPROVED))
-        for scenario, context in DENIED.items():
-            with self.subTest(scenario=scenario):
-                self.assertFalse(evaluate(GUARD, context))
+    def test_functions_cast_to_strings_and_ignore_case(self):
+        context = {"github.ref": "refs/tags/v1.1.0", "flag": True, "count": 12.0}
+        self.check(
+            {
+                "startsWith(github.ref, 'refs/tags/v')": True,
+                "startsWith(github.ref, 'REFS/TAGS/V')": True,
+                "startsWith(github.ref, 'refs/heads/')": False,
+                "startsWith(missing, '')": True,
+                "startsWith(missing, 'r')": False,
+                "endsWith(github.ref, '.0')": True,
+                "contains(github.ref, 'TAGS')": True,
+                "startsWith(flag, 'tr')": True,
+                "startsWith(count, '12')": True,
+                "endsWith(count, '.0')": False,
+            },
+            context,
+        )
 
-    @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
-    def test_shell_guard_fails_closed(self):
-        uppercase = {**APPROVED, "inputs.release_sha": SHA.upper()}  # equal for the expression, refused by the shell
-        for job_id in ("approval", "build"):
-            step = steps_of(self.pages["jobs"][job_id])[0]
-            for scenario, context, allowed in [("approved", APPROVED, True), ("upper-case SHA", uppercase, False)] + [
-                (name, ctx, False) for name, ctx in DENIED.items()
-            ]:
-                with self.subTest(job=job_id, scenario=scenario):
-                    result = run_guard(step, context)
-                    self.assertEqual(result.returncode == 0, allowed, result.stdout + result.stderr)
+    def test_context_values_and_quoted_literals(self):
+        context = {"github.event.release.prerelease": False, "github.event_name": "release", "name": "it's"}
+        self.check(
+            {
+                "github.event.release.prerelease == false": True,
+                "github.event.release.prerelease": False,
+                "github.event_name == 'RELEASE'": True,
+                "name == 'IT''S'": True,
+            },
+            context,
+        )
 
-    @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
-    def test_guard_messages_describe_the_guard_not_a_hold(self):
-        """The variable names the last released commit; when it is unset or empty at dispatch time, the message says
-        that no commit is approved and the dispatch fails closed, not that a release hold is in force. Both guard steps
-        are the same script."""
-        steps = [steps_of(self.pages["jobs"][job_id])[0] for job_id in ("approval", "build")]
-        self.assertEqual(steps[0]["run"], steps[1]["run"])
-        messages = re.findall(r'\bfail "([^"]*)"', steps[0]["run"])
-        self.assertEqual(len(messages), 6, messages)
-        for message in messages:
-            with self.subTest(message=message):
-                self.assertNotRegex(message, re.compile(r"\bhold\b|\bheld\b", re.IGNORECASE))
-        for scenario in ("variable unset (release hold)", "variable empty"):
-            for job_id, step in zip(("approval", "build"), steps, strict=True):
-                with self.subTest(job=job_id, scenario=scenario):
-                    result = run_guard(step, DENIED[scenario])
-                    self.assertNotEqual(result.returncode, 0)
-                    error = [line for line in result.stdout.splitlines() if line.startswith("::error::")]
-                    self.assertEqual(len(error), 1, result.stdout)
-                    for phrase in ("RELEASE_APPROVED_SHA", "no approved sha", "fails closed"):
-                        self.assertIn(phrase.casefold(), error[0].casefold())
-                    self.assertNotRegex(error[0], re.compile(r"\bhold\b", re.IGNORECASE))
+    def test_unsupported_syntax_is_refused(self):
+        for expression in (
+            "",
+            "always()",
+            "success() && true",
+            "fromJSON('1')",
+            "format('{0}', a)",
+            "startsWith(a)",
+            "github.ref =~ 'x'",
+            "a < b",
+            "a[0]",
+            "(true",
+            "true)",
+            "a ==",
+            "'open",
+            "a b",
+            "true && && false",
+        ):
+            with self.subTest(expression=expression), self.assertRaises(ExpressionError):
+                evaluate(expression, {})
+
+    def test_env_values_render_as_github_does(self):
+        env = {"A": "${{ a }}", "B": "${{ b }}", "C": "${{ c }}", "D": "${{ d }}", "E": "${{ e }}"}
+        context = {"a": False, "b": None, "c": "x", "d": True}
+        self.assertEqual(resolve_env(env, context), {"A": "false", "B": "", "C": "x", "D": "true", "E": ""})
+        with self.assertRaises(ValueError):
+            resolve_env({"A": "prefix ${{ a }}"}, context)
 
 
 class PinningAndCommandTests(unittest.TestCase):
