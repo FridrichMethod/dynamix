@@ -206,3 +206,24 @@ These steps are recorded in the final response, not in this file:
 - confirm that the local and remote `main` SHAs match and that CI passes on that SHA;
 - confirm the hold state (Pages API 404, no variables, tags or releases);
 - remove this task's clean, merged worktrees and branches.
+
+## Code-quality tooling and independent review (2026-10-11)
+
+A later task added code-quality tooling and an independent, adversarially verified review. This section describes its reviewed content commit **`7babef7ab0b0cb0be2f851242ab84fa7cbd463ff`** (`quality/integration`, base `93d1d13` = release v1.0.0). The push, CI run and cleanup receipts are kept in the coordinator's final response, not here. The release state is unchanged: no Pages dispatch, no change to `RELEASE_APPROVED_SHA`, no tag and no GitHub Release; a push to `main` still only runs the tests workflow.
+
+**Tooling** (contract in [09](09-frozen-contracts.md#tooling-contract-2026-10-11-code-quality-task)):
+
+| Check | Baseline at `93d1d13` | At the content commit |
+| --- | --- | --- |
+| ruff lint, stage-1 rules `E4 E7 E9 F W I B UP PLE` | 106 findings (112 after formatting) | 0 |
+| ruff format, line length 120 | 84 files to reformat | formatted; the mechanical commit `cedea23` is in `.git-blame-ignore-revs` |
+| mypy stage 1 (`scripts/lib`, non-strict, Python 3.10) | 15 errors | 0 |
+| ESLint (check only) on `src/*.js`, `src/*.css` | 1 error (a CSS parse error) | 0 |
+| actionlint with shellcheck on the workflows | 0 | 0 |
+| Branch coverage of `scripts/` by the unit tests, every `-I` subprocess measured | 90.5 % | 92.4 % (`fail_under` 92) |
+
+The formatting commit changes no AST under Python 3.14. The final review found that the `py314` target had let ruff write Python 3.14-only `except A, B:` clauses and pyupgrade use `datetime.UTC`, so the scripts no longer imported on Python 3.13 or older; both were reverted (`3e12dc8`), ruff and mypy now check against Python 3.10, and the full suite and every `--verify`/`--check` pass on Python 3.10, 3.11, 3.12, 3.13 and 3.14.
+
+**Review.** Seven independent read-only reviewers covered `scripts/wikis/{classify,wikitext,reviews,variants}.py`, `scripts/lib/schema.py`, the platform adapters in `scripts/primary/adapters/`, the release commit `93d1d13` with `tests/test_docs*.py`, and a lens sweep with mutation probes of `lib/net.py`, `lib/paths.py`, `lib/manifest.py`, `wikis/acquire.py`, `wikis/workdir.py`, `primary/runner.py` and `src/archive.js`; a final reviewer read the whole integrated change set. Every finding was checked by a separate verifier told to refute it, and only confirmed findings were acted on: 51 reported, 10 confirmed major, 37 confirmed minor, 2 plausible, 2 refuted; none blocking. Every confirmed major finding is fixed, each with a regression test that a separate re-verifier saw fail without the fix and pass with it. Among them: the DNS-rebinding check on `https://` connections (`lib/net.py`), pixel identity over every frame with EXIF orientation (`primary/runner.py`), Universe-only and promotional-review classification (`wikis/classify.py`), Wayback and unread-list candidates that are no longer dropped while a list is incomplete, a failed page read no longer turning direct seeds into pending, link keys with spaces, the Bilibili account check and silently dropped TapTap entries. Minor findings were fixed where the fix was small and safe; the rest are open and listed in the coordinator's report.
+
+**Exact-head checks at the content commit**, with Pillow 12.3.0 / libwebp 1.6.0, under both zlib-ng and the stock zlib that CI uses: `tests/run_all.py` (34 modules, also under coverage), the four `fetch_*.py --verify`, `build_catalog.py --verify --check`, `build_thumbnails.py --check` and `--verify` (all 2,398 previews re-encoded byte-identically), `build_coverage.py --check`, `update_docs_stats.py --check`, both `git diff --check` forms, `pre-commit run --all-files`, `browser_smoke.py --fixture` and `--base` on the served checkout and the staged site under `/dynamix/`. Nothing under `data/`, `assets/`, `index.html`, `tests/fixtures/`, `src/vendor/` or `licenses/` changed. The staged Pages payload (`manifest_sha256` `36ea2d1da5c2a56bc553e1388967ab9088a8eae317d6af729aceec8bc6fa7a74`, 4,849 files, 930,407,965 bytes) differs from the v1.0.0 payload only in `README.md`, `README.zh-CN.md`, `docs/sources-wikis.md`, `docs/sources-wikis.zh-CN.md` (development and caption documentation) and `src/slideshow.css` (an invalid declaration that browsers already dropped was removed; rendering is unchanged). Those files reach the website only with a later approved release.
