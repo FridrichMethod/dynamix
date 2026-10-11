@@ -5,8 +5,12 @@ only test and upload CI artifacts; Pages deploys only from a manual dispatch of 
 repository variable RELEASE_APPROVED_SHA both name the dispatched commit (unset variable = closed); no workflow has a
 schedule, pushes, tags, releases or opens pull requests. Workflows are parsed with the stdlib YAML-subset reader in
 tests/test_workflows_yaml.py; the deploy guard is also evaluated, and the shell guard executed, for each scenario.
+The lint job runs every pre-commit hook read-only and never fixes; the checks job runs the unit tests under coverage
+and enforces fail_under. Their shell steps are executed with stand-ins (a fake Node.js, a stand-in test suite).
 """
 
+import importlib.util
+import json
 import os
 import re
 import shutil
@@ -40,6 +44,9 @@ FORBIDDEN_COMMANDS = {
     "swallowed failure": r"\|\|\s*(?:true\b|:(?![^\s;)])|echo\b|exit\s+0\b)|\bset\s+\+e\b",
     "token": r"GITHUB_TOKEN|GH_TOKEN|github\.token|secrets\.",
 }
+AFTER_INSTALL = "${{ !cancelled() && steps.install.outcome == 'success' }}"
+COVERAGE_FILE = "${{ runner.temp }}/coverage/.coverage"  # outside the checkout
+VENV_PYTHON = '"$RUNNER_TEMP/venv/bin/python"'
 SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER = "fedcba9876543210fedcba9876543210fedcba98"
 APPROVED = {"github.event_name": "workflow_dispatch", "github.ref": "refs/heads/main", "github.sha": SHA,
@@ -347,6 +354,76 @@ class TestsWorkflowContentTests(unittest.TestCase):
         actions = [action_name(uses) for _, uses in uses_in(workflow)]
         self.assertEqual(actions, ["actions/checkout", "actions/setup-python", "actions/upload-artifact"])
 
+    def step(self, job_id: str, prefix: str) -> dict:
+        steps = [step for step in steps_of(self.workflow["jobs"][job_id]) if step.get("name", "").startswith(prefix)]
+        self.assertEqual(len(steps), 1, f"{job_id}: {prefix}")
+        return steps[0]
+
+    def test_lint_job_runs_every_hook_read_only_and_never_fixes(self):
+        job = self.workflow["jobs"]["lint"]
+        self.assertEqual(job["name"], "Lint, format and type checks")
+        self.assertEqual(job["permissions"], {"contents": "read"})
+        self.assertNotIn("if", job, "a job condition could skip the lint job, also in the pages.yml call")
+        actions = [action_name(step["uses"]) for step in steps_of(job) if "uses" in step]
+        self.assertEqual(actions, ["actions/checkout", "actions/setup-python"])
+        install = steps_of(job)[2]
+        self.assertEqual(install["id"], "install")
+        self.assertIn(f"{VENV_PYTHON} -m pip install --quiet -r requirements-lint.txt", install["run"].splitlines())
+        self.assertRegex(install["run"], r"(?m)^npm ci --ignore-scripts\b")
+        engines = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["engines"]["node"]
+        self.assertIn(engines, install["run"], "the Node.js check names the range of package.json")
+        hooks = self.step("lint", "Every pre-commit hook on every file")
+        self.assertEqual(hooks["if"], AFTER_INSTALL)
+        self.assertEqual(hooks["env"], {"PRE_COMMIT_HOME": "${{ runner.temp }}/pre-commit"})
+        self.assertEqual(hooks["run"], f"{VENV_PYTHON} -I -m pre_commit run --all-files --show-diff-on-failure")
+        unchanged = steps_of(job)[-1]
+        self.assertEqual(unchanged["name"], "Lint left the checkout unchanged")
+        self.assertIn("git status --porcelain --untracked-files=all", unchanged["run"])
+        for step in steps_of(job)[3:]:
+            with self.subTest(step=step["name"]):
+                self.assertIn("!cancelled()", step["if"])
+        runs = self.runs("lint")
+        self.assertNotRegex(runs, r"--(?:fix|write|unsafe-fixes)\b", "the lint job checks; it never rewrites files")
+        self.assertNotRegex(runs, r"\bpre[-_]commit\s+(?:install|autoupdate)\b")
+        self.assertNotRegex(runs, r"\bnpm\s+(?:install|i|update|exec)\b|\bnpx\b", "only `npm ci` from the lockfile")
+
+    def test_unit_tests_run_under_coverage_with_data_outside_the_checkout(self):
+        job = self.workflow["jobs"]["checks"]
+        self.assertIn(f"{VENV_PYTHON} -m pip install --quiet -r requirements.txt -r requirements-lint.txt",
+                      steps_of(job)[2]["run"].splitlines())
+        unit = [step for step in steps_of(job) if "tests/run_all.py" in step.get("run", "")]
+        self.assertEqual(len(unit), 1)
+        self.assertEqual(unit[0]["if"], AFTER_INSTALL)
+        self.assertEqual(unit[0]["env"], {"COVERAGE_FILE": COVERAGE_FILE})
+        self.assertEqual(unit[0]["run"].splitlines(), ['mkdir -p "$RUNNER_TEMP/coverage"',
+                                                       f"{VENV_PYTHON} -I -m coverage run tests/run_all.py"])
+
+    def test_coverage_step_publishes_the_table_and_enforces_fail_under(self):
+        steps = steps_of(self.workflow["jobs"]["checks"])
+        report = self.step("checks", "Coverage of scripts/ by the unit tests")
+        unit = next(n for n, step in enumerate(steps) if "tests/run_all.py" in step.get("run", ""))
+        self.assertIs(steps[unit + 1], report, "the report follows the unit tests")
+        self.assertEqual(report["if"], AFTER_INSTALL)
+        self.assertEqual(report["env"], {"COVERAGE_FILE": COVERAGE_FILE})
+        commands = [line.strip() for line in report["run"].splitlines() if line.strip()]
+        self.assertEqual(commands[0], f'{VENV_PYTHON} -I -m coverage combine --quiet "$RUNNER_TEMP/coverage"')
+        self.assertEqual(commands[-1], f"{VENV_PYTHON} -I -m coverage report", "the last command enforces fail_under")
+        self.assertIn(f"{VENV_PYTHON} -I -m coverage report --format=markdown --fail-under=0", commands)
+        self.assertIn('} >> "$GITHUB_STEP_SUMMARY"', commands)
+        self.assertEqual(re.findall(r"--fail-under\S*", report["run"]), ["--fail-under=0"],
+                         "only the summary table may ignore fail_under")
+
+    def test_pages_reaches_lint_and_coverage_through_the_reusable_workflow(self):
+        pages = load("pages.yml")
+        self.assertEqual(pages["jobs"]["tests"]["uses"], "./.github/workflows/tests.yml")
+        self.assertIn("tests", pages["jobs"]["build"]["needs"])
+        self.assertIn("workflow_call", self.workflow["on"])
+        for job_id in ("lint", "checks"):
+            with self.subTest(job=job_id):
+                self.assertNotIn("if", self.workflow["jobs"][job_id], "a job condition could skip it in a release")
+        self.assertIn("coverage report", self.runs("checks"))
+        self.assertIn("pre_commit run --all-files", self.runs("lint"))
+
 
 GIT_ENV = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@example.invalid", "GIT_COMMITTER_NAME": "t",
            "GIT_COMMITTER_EMAIL": "t@example.invalid", "GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": os.devnull}
@@ -358,8 +435,8 @@ class StepBehaviorTests(unittest.TestCase):
 
     workflow = load("tests.yml")
 
-    def script(self, prefix: str) -> str:
-        steps = [step for step in steps_of(self.workflow["jobs"]["checks"]) if step["name"].startswith(prefix)]
+    def script(self, prefix: str, job_id: str = "checks") -> str:
+        steps = [step for step in steps_of(self.workflow["jobs"][job_id]) if step["name"].startswith(prefix)]
         self.assertEqual(len(steps), 1, prefix)
         return steps[0]["run"]
 
@@ -464,6 +541,99 @@ class StepBehaviorTests(unittest.TestCase):
                     self.assertNotEqual(result.returncode, 0)
                     self.assertIn(change, result.stdout)
                     self.bash("git checkout -q -- . && git clean -q -f -- data", root)
+
+    def test_lint_byproducts_do_not_trip_the_unchanged_checkout_step(self):
+        script = self.script("Lint left the checkout unchanged", "lint")
+        with tempfile.TemporaryDirectory() as temporary:
+            files = {".gitignore": (ROOT / ".gitignore").read_bytes(), "src/archive.js": b"'use strict';\n"}
+            root = self.repository(Path(temporary), files)
+            for byproduct in ("node_modules/eslint/package.json", ".ruff_cache/0.17.0/12345", ".mypy_cache/3.14/x.json",
+                              ".coverage", ".coverage.runner.1234.XaBc"):
+                (root / byproduct).parent.mkdir(parents=True, exist_ok=True)
+                (root / byproduct).write_bytes(b"{}\n")
+            clean = self.bash(script, root)
+            self.assertEqual(clean.returncode, 0, clean.stdout + clean.stderr)
+            (root / "src/archive.js").write_bytes(b'"use strict";\n')  # what a formatter or --fix would do
+            changed = self.bash(script, root)
+            self.assertNotEqual(changed.returncode, 0)
+            self.assertIn("::error::a lint hook modified the checkout", changed.stdout)
+            self.assertIn("src/archive.js", changed.stdout)
+
+    def test_lint_install_step_requires_a_supported_node(self):
+        script = self.script("Install the pinned lint tools", "lint")
+        versions = {"v20.19.0": True, "v20.20.2": True, "v22.13.0": True, "v22.21.1": True, "v24.0.0": True,
+                    "v25.1.0": True, "v18.20.8": False, "v20.18.3": False, "v21.7.3": False, "v22.12.0": False,
+                    "v23.11.1": False, "unknown": False}
+        stubs = {"python": '[ "$1 $2" = "-m venv" ] || exit 97\nmkdir -p "$3/bin"\n'
+                           'printf \'#!/bin/sh\\necho "venv-python $*" >> "$CALLS"\\n\' > "$3/bin/python"\n'
+                           'chmod +x "$3/bin/python"\n',
+                 "node": '[ "$1" = "--version" ] || exit 97\necho "$FAKE_NODE"\n',
+                 "npm": 'echo "npm $*" >> "$CALLS"\n'}
+        for version, supported in versions.items():
+            with self.subTest(node=version), tempfile.TemporaryDirectory() as temporary:
+                base = Path(temporary)
+                (base / "bin").mkdir()
+                for name, body in stubs.items():
+                    (base / "bin" / name).write_text("#!/bin/sh\n" + body, encoding="utf-8")
+                    (base / "bin" / name).chmod(0o755)
+                calls = base / "calls.log"
+                result = self.bash(script, base, PATH=f"{base / 'bin'}:/usr/bin:/bin", RUNNER_TEMP=str(base / "runner"),
+                                   CALLS=str(calls), FAKE_NODE=version)
+                logged = calls.read_text(encoding="utf-8").splitlines() if calls.exists() else []
+                self.assertIn("venv-python -m pip install --quiet -r requirements-lint.txt", logged)
+                self.assertIn(f"Node.js {version}", result.stdout)
+                if supported:
+                    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                    self.assertEqual(logged[-1], "npm ci --ignore-scripts --no-audit --no-fund")
+                else:
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn(f"::error::Node.js {version} does not satisfy", result.stdout)
+                    self.assertFalse([line for line in logged if line.startswith("npm")], "no npm ci after a refusal")
+
+    @unittest.skipUnless(importlib.util.find_spec("coverage"), "needs coverage.py from requirements-lint.txt")
+    def test_coverage_steps_measure_isolated_subprocesses_and_enforce_fail_under(self):
+        """The unit-test and coverage steps as written, with the real pyproject.toml, on a stand-in suite whose
+        tests/run_all.py starts ``python -I scripts/child.py``: the child must be measured (or the report would fall
+        below fail_under), the data stays outside the checkout, and an unexecuted script makes the report fail."""
+        unit = next(step for step in steps_of(self.workflow["jobs"]["checks"]) if "run_all.py" in step.get("run", ""))
+        report = self.script("Coverage of scripts/ by the unit tests")
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            runner = base / "runner"
+            (runner / "venv/bin").mkdir(parents=True)
+            (runner / "venv/bin/python").write_text(f'#!/bin/sh\nexec "{sys.executable}" "$@"\n', encoding="utf-8")
+            (runner / "venv/bin/python").chmod(0o755)
+            root = base / "checkout"
+            (root / "scripts").mkdir(parents=True)
+            (root / "tests").mkdir()
+            shutil.copyfile(ROOT / "pyproject.toml", root / "pyproject.toml")
+            (root / "scripts/child.py").write_text('print("measured in an isolated subprocess")\n', encoding="utf-8")
+            (root / "tests/run_all.py").write_text(
+                "import subprocess, sys\nsubprocess.run([sys.executable, '-I', 'scripts/child.py'], check=True)\n",
+                encoding="utf-8")
+            summary = base / "step-summary.md"
+            env = {"RUNNER_TEMP": str(runner), "COVERAGE_FILE": str(runner / "coverage/.coverage"),
+                   "GITHUB_STEP_SUMMARY": str(summary)}
+            tests = self.bash(unit["run"], root, **env)
+            self.assertEqual(tests.returncode, 0, tests.stdout + tests.stderr)
+            self.assertIn("measured in an isolated subprocess", tests.stdout)
+            self.assertTrue(list((runner / "coverage").glob(".coverage.*")), "one data file per measured process")
+            self.assertEqual(sorted(path.name for path in root.rglob(".coverage*")), [], "no data in the checkout")
+            passing = self.bash(report, root, **env)
+            self.assertEqual(passing.returncode, 0, passing.stdout + passing.stderr)
+            self.assertRegex(passing.stdout, r"scripts/child\.py\s.*\b100(?:\.0)?%")
+            self.assertIn("### Coverage of scripts/ by the unit tests", summary.read_text(encoding="utf-8"))
+            self.assertIn("scripts/child.py", summary.read_text(encoding="utf-8"))
+            # An unexecuted script lowers the total below fail_under: the step fails, the table is still published.
+            (root / "scripts/unexecuted.py").write_text("".join(f"value_{n} = {n}\n" for n in range(60)),
+                                                        encoding="utf-8")
+            shutil.rmtree(runner / "coverage")
+            summary.unlink()
+            self.assertEqual(self.bash(unit["run"], root, **env).returncode, 0)
+            failing = self.bash(report, root, **env)
+            self.assertEqual(failing.returncode, 2, failing.stdout + failing.stderr)
+            self.assertIn("is less than fail-under", failing.stdout)
+            self.assertIn("scripts/unexecuted.py", summary.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

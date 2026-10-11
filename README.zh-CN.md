@@ -133,7 +133,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-dev.txt
 ```
 
-`requirements.txt` 固定了 Pillow 12.3.0、requests 2.34.2 和 beautifulsoup4 4.15.0；`requirements-dev.txt` 另外加入 Playwright 1.62.0，用来驱动已安装的 Google Chrome（不会下载浏览器）。CI 使用 Python 3.14。预览图用 Pillow 12.3.0 和 libwebp 1.6.0 编码，`data/thumbs.json` 记录这两个版本；版本相同时重新生成的字节完全一致。所有脚本都以隔离模式（`python -I`）运行。
+`requirements.txt` 固定了 Pillow 12.3.0、requests 2.34.2 和 beautifulsoup4 4.15.0；`requirements-dev.txt` 另外加入 Playwright 1.62.0，用来驱动已安装的 Google Chrome（不会下载浏览器）；`requirements-lint.txt` 固定代码质量工具 ruff、mypy、coverage.py 和 pre-commit（见[开发](#开发)）。CI 使用 Python 3.14。预览图用 Pillow 12.3.0 和 libwebp 1.6.0 编码，`data/thumbs.json` 记录这两个版本；版本相同时重新生成的字节完全一致。所有脚本都以隔离模式（`python -I`）运行。
 
 ### 获取（联网）
 
@@ -202,7 +202,41 @@ out="$(mktemp -d)"
 
 `--fixture` 根据 `tests/fixtures/ui/` 构建并自行提供多个站点（HTTP 根目录、`/dynamix/` 子路径、`file://`、空目录和恶意内容目录）；`--base` 检查按[浏览](#浏览)一节方式在本机提供的检出目录。两种运行在出现控制台错误、请求失败或任何离开本地服务器的请求时都会失败。
 
-[Tests 工作流](.github/workflows/tests.yml)在每次推送和每个 PR 上以只读权限运行。离线任务运行 `tests/run_all.py`、`build_catalog.py --verify --check`、`build_thumbnails.py --check`、`build_coverage.py --check`、`update_docs_stats.py --check`（文档中生成的统计区块是最新的）、对每个已有类别清单运行 `fetch_<family>.py --verify`，以及 `git diff --check`，最后如果任何检查改动了检出目录则失败。浏览器任务检查测试站点和本机提供的检出目录。站点任务用 `prepare_pages.py` 暂存网站，在 `/dynamix/` 下做冒烟测试，并作为普通 CI artifact 上传，保留七天；这不是 Pages 部署。所有 Action 都固定到完整的提交 SHA。
+[Tests 工作流](.github/workflows/tests.yml)在每次推送和每个 PR 上以只读权限运行。lint 任务对每个文件运行全部 pre-commit 钩子（见[开发](#开发)）；任何钩子报告问题或会改动文件时它就失败，它不修复任何内容。离线任务在 coverage.py 下运行 `tests/run_all.py`，并运行 `build_catalog.py --verify --check`、`build_thumbnails.py --check`、`build_coverage.py --check`、`update_docs_stats.py --check`（文档中生成的统计区块是最新的）、对每个已有类别清单运行 `fetch_<family>.py --verify`，以及 `git diff --check`。它在运行摘要中公布 `scripts/` 的覆盖率，覆盖率低于 `pyproject.toml` 中的 `fail_under` 时失败，最后如果任何检查改动了检出目录也会失败。浏览器任务检查测试站点和本机提供的检出目录。站点任务用 `prepare_pages.py` 暂存网站，在 `/dynamix/` 下做冒烟测试，并作为普通 CI artifact 上传，保留七天；这不是 Pages 部署。所有 Action 都固定到完整的提交 SHA。
+
+## 开发
+
+代码质量工具和其他依赖一样固定版本：`requirements-lint.txt` 固定 ruff、mypy、coverage.py 和 pre-commit，`package.json` 与 `package-lock.json` 固定 ESLint 及其插件。ESLint 需要满足 `^20.19.0 || ^22.13.0 || >=24` 的 Node.js（`package.json` 中的 `engines`）；`npm ci --ignore-scripts` 把锁定的软件包原样安装到被 Git 忽略的 `node_modules/`，并且不运行它们的任何安装脚本。
+
+```sh
+.venv/bin/python -m pip install -r requirements-lint.txt
+npm ci --ignore-scripts
+.venv/bin/python -I -m pre_commit run --all-files
+```
+
+`pre-commit run --all-files` 对每个已跟踪文件运行 `.pre-commit-config.yaml` 中的全部钩子：ruff、ruff format、mypy、ESLint、actionlint，以及文件卫生检查（行尾空白、文件末尾换行、混合换行符、YAML/JSON/TOML 语法、合并冲突标记、大文件、私钥）。Tests 工作流的 lint 任务运行的正是这条命令。如果想在自己的克隆中每次提交时自动运行这些钩子，执行一次 `.venv/bin/python -I -m pre_commit install` 即可。每个工具也可以单独运行：
+
+```sh
+.venv/bin/python -I -m ruff check
+.venv/bin/python -I -m ruff format --check
+.venv/bin/python -I -m ruff format
+.venv/bin/python -I -m mypy
+npx --no-install eslint --max-warnings=0 src
+```
+
+`ruff check` 和 `ruff format --check` 只报告问题；`ruff format` 会应用格式化（行宽 120，Python 3.14）。mypy 检查 `scripts/lib`（第一阶段，不启用 strict 模式）；分阶段扩大检查范围的计划见 `docs/implementation/09-frozen-contracts.md`。ESLint 检查 `src/**/*.js` 和 `src/**/*.css`，从不使用 `--fix` 运行：`src/` 按提交时的原样发布，因此发现的问题要在经过审阅的改动中手动修复；本项目也没有 JavaScript 或 CSS 格式化工具。
+
+单元测试对 `scripts/` 的覆盖率，包括测试以子进程方式启动的每个脚本：
+
+```sh
+.venv/bin/python -I -m coverage run tests/run_all.py
+.venv/bin/python -I -m coverage combine
+.venv/bin/python -I -m coverage report
+```
+
+`coverage combine` 合并每个被测量进程的数据文件；总覆盖率低于 `pyproject.toml` 中的 `fail_under` 时，`coverage report` 失败。`fail_under` 是实测的基线，只能提高，不能降低。机械格式化提交列在 `.git-blame-ignore-revs` 中；执行 `git config blame.ignoreRevsFile .git-blame-ignore-revs` 之后，`git blame` 会跳过该提交。
+
+任何代码质量工具或钩子都不读取也不改写 `assets/`、`data/`、`index.html`、`LICENSE`、`licenses/*.txt`、`src/vendor/` 和 `tests/fixtures/`。它们是按字节固定的文件（`.gitattributes` 中标为 `-text`；清单和测试数据记录其 SHA-256）以及生成的输出（`--check` 命令逐字节比较它们），格式化或修复工具只会破坏它们。
 
 ## 来源检查（手动、只读）
 

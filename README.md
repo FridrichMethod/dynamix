@@ -133,7 +133,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-dev.txt
 ```
 
-`requirements.txt` pins Pillow 12.3.0, requests 2.34.2 and beautifulsoup4 4.15.0; `requirements-dev.txt` adds Playwright 1.62.0, which drives an installed Google Chrome (it downloads no browser). CI uses Python 3.14. The previews are encoded with Pillow 12.3.0 and libwebp 1.6.0, and `data/thumbs.json` records both versions; with the same versions a rebuild produces identical bytes. Every script runs in isolated mode (`python -I`).
+`requirements.txt` pins Pillow 12.3.0, requests 2.34.2 and beautifulsoup4 4.15.0; `requirements-dev.txt` adds Playwright 1.62.0, which drives an installed Google Chrome (it downloads no browser); `requirements-lint.txt` pins the code-quality tools ruff, mypy, coverage.py and pre-commit (see [Development](#development)). CI uses Python 3.14. The previews are encoded with Pillow 12.3.0 and libwebp 1.6.0, and `data/thumbs.json` records both versions; with the same versions a rebuild produces identical bytes. Every script runs in isolated mode (`python -I`).
 
 ### Acquisition (network)
 
@@ -202,7 +202,41 @@ The browser acceptance test drives an installed Google Chrome:
 
 `--fixture` builds sites from `tests/fixtures/ui/` and serves them itself (HTTP root, a `/dynamix/` subpath, `file://`, empty and hostile catalogs); `--base` checks a checkout that you serve on loopback as shown in [Browsing](#browsing). Either run fails on a console error, a failed request or any request that leaves the local server.
 
-The [Tests workflow](.github/workflows/tests.yml) runs on every push and pull request with read-only permissions. Its offline job runs `tests/run_all.py`, `build_catalog.py --verify --check`, `build_thumbnails.py --check`, `build_coverage.py --check`, `update_docs_stats.py --check` (the generated statistics blocks of the documents are current), `fetch_<family>.py --verify` for every family manifest present, and `git diff --check`, then fails if any check changed the checkout. A browser job runs the fixture sites and the served checkout. A site job stages the website with `prepare_pages.py`, smoke-tests it under `/dynamix/` and uploads it as an ordinary CI artifact kept for seven days; this is not a Pages deployment. Actions are pinned to full commit SHAs.
+The [Tests workflow](.github/workflows/tests.yml) runs on every push and pull request with read-only permissions. A lint job runs every pre-commit hook on every file (see [Development](#development)); it fails when a hook reports a problem or would change a file, and it fixes nothing. The offline job runs `tests/run_all.py` under coverage.py, `build_catalog.py --verify --check`, `build_thumbnails.py --check`, `build_coverage.py --check`, `update_docs_stats.py --check` (the generated statistics blocks of the documents are current), `fetch_<family>.py --verify` for every family manifest present, and `git diff --check`. It publishes the coverage of `scripts/` in the run summary, fails when that coverage is below `fail_under` in `pyproject.toml`, and fails if any check changed the checkout. A browser job runs the fixture sites and the served checkout. A site job stages the website with `prepare_pages.py`, smoke-tests it under `/dynamix/` and uploads it as an ordinary CI artifact kept for seven days; this is not a Pages deployment. Actions are pinned to full commit SHAs.
+
+## Development
+
+The code-quality tools are pinned like the other dependencies: `requirements-lint.txt` holds ruff, mypy, coverage.py and pre-commit, and `package.json` with `package-lock.json` holds ESLint and its plugins. ESLint needs a Node.js that satisfies `^20.19.0 || ^22.13.0 || >=24` (`engines` in `package.json`); `npm ci --ignore-scripts` installs exactly the locked packages into the git-ignored `node_modules/` and runs none of their install scripts.
+
+```sh
+.venv/bin/python -m pip install -r requirements-lint.txt
+npm ci --ignore-scripts
+.venv/bin/python -I -m pre_commit run --all-files
+```
+
+`pre-commit run --all-files` runs every hook of `.pre-commit-config.yaml` on every tracked file: ruff, ruff format, mypy, ESLint, actionlint and the file-hygiene checks (trailing whitespace, final newlines, mixed line endings, YAML, JSON and TOML syntax, merge-conflict markers, large files, private keys). The lint job of the Tests workflow runs the same command. To run the hooks on every commit in your own clone, install them once with `.venv/bin/python -I -m pre_commit install`. Each tool also runs on its own:
+
+```sh
+.venv/bin/python -I -m ruff check
+.venv/bin/python -I -m ruff format --check
+.venv/bin/python -I -m ruff format
+.venv/bin/python -I -m mypy
+npx --no-install eslint --max-warnings=0 src
+```
+
+`ruff check` and `ruff format --check` only report; `ruff format` applies the formatting (line length 120, Python 3.14). mypy checks `scripts/lib` (stage 1, without strict mode); the plan for widening it in stages is in `docs/implementation/09-frozen-contracts.md`. ESLint checks `src/**/*.js` and `src/**/*.css` and is never run with `--fix`: `src/` is published as committed, so its findings are fixed by hand in a reviewed change, and there is no JavaScript or CSS formatter.
+
+Coverage of `scripts/` by the unit tests, including every script that the tests start as a subprocess:
+
+```sh
+.venv/bin/python -I -m coverage run tests/run_all.py
+.venv/bin/python -I -m coverage combine
+.venv/bin/python -I -m coverage report
+```
+
+`coverage combine` merges the data file of each measured process, and `coverage report` fails when the total is below `fail_under` in `pyproject.toml`: the measured baseline, which may be raised but never lowered. The mechanical formatting commit is listed in `.git-blame-ignore-revs`; after `git config blame.ignoreRevsFile .git-blame-ignore-revs`, `git blame` looks past it.
+
+No code-quality tool or hook reads or rewrites `assets/`, `data/`, `index.html`, `LICENSE`, `licenses/*.txt`, `src/vendor/` or `tests/fixtures/`. These are the byte-pinned files (`-text` in `.gitattributes`; the manifests and fixtures record their SHA-256) and the generated outputs (the `--check` commands compare them byte for byte), so a formatter or fixer could only break them.
 
 ## Source check (manual, read-only)
 
