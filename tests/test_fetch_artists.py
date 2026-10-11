@@ -1123,6 +1123,32 @@ class ArtStationTests(ArtistsTestCase):
         self.assertEqual(found["6baqbW:103"]["disposition"], "pending")
         asset = self.manifest()["assets"][0]
         self.assertEqual(asset["download_url"], large)  # 4k missing -> advertised rendition
+        # 09 (archived fallback renditions): the listed rendition is not called the upload, and a note says why.
+        four_k = large.replace("/large/", "/4k/")
+        self.assertEqual(asset["source_reported"]["url"], large)
+        self.assertEqual(asset["quality"]["source_variant"], "unknown")
+        self.assertIn(f"4k rendition {four_k} answered HTTP 404", asset["quality"]["notes"])
+        self.assertIn(f"Archived from {large}", asset["notes"])
+        self.assertIn(f"Archived from {large}", found["6baqbW:101"]["notes"])
+        self.verify()
+
+    def test_the_4k_rendition_keeps_the_seed_quality(self):
+        data = fixture_json("artstation_project.json")
+        large = data["assets"][0]["image_url"]
+        network = FakeNetwork(
+            {
+                "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                large.replace("/large/", "/4k/"): {
+                    "bytes": image_bytes("JPEG", (60, 60)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
+        self.run_family([self.seed()], network)
+        asset = self.manifest()["assets"][0]
+        self.assertEqual(asset["download_url"], large.replace("/large/", "/4k/"))
+        self.assertEqual(asset["quality"]["source_variant"], "site_original")
+        self.assertNotIn("answered HTTP 404", asset.get("notes") or "")
         self.verify()
 
     def test_project_is_held_while_the_account_is_not_established(self):
