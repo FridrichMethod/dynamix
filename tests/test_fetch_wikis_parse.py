@@ -46,6 +46,19 @@ class WikitextTests(unittest.TestCase):
         self.assertEqual((ref.name, ref.param), ("Cosmic.png", "Imgsuffix"))
         self.assertEqual(wikitext.canonical_file_name("Cos<!--c-->mic.png"), "Cosmic.png")
 
+    def test_self_closing_ref_with_a_slash_in_its_attributes(self) -> None:
+        """DX2-03: a tag ends at its first '>' and is self-closing when '/' precedes it, whatever its attribute
+        values hold: <ref name="a/b"/> removes itself only, never the text up to a later </ref>."""
+        self.assertEqual(
+            wikitext.credit_names('ariiol<ref name="a/b"/><br>Yunosuke<ref>cite</ref>'), ["ariiol", "Yunosuke"]
+        )
+        self.assertEqual(wikitext.clean_markup('A<ref name="x/y" /> B<ref>c</ref>'), "A B")
+        self.assertEqual(
+            wikitext.clean_markup('ariiol<ref name="a/b"/> & Yunosuke<ref>cite</ref>'), "ariiol & Yunosuke"
+        )
+        self.assertEqual(wikitext.clean_markup('A<ref name="a/b">cite / more</ref> B'), "A B")  # a paired ref
+        self.assertEqual(wikitext.clean_markup("A<ref name=x/> B<ref name=y>c</ref> C"), "A B C")
+
     def test_credit_names_unknown_and_refs(self) -> None:
         self.assertEqual(wikitext.credit_names("ariiol<ref>[https://x.com/a The post]</ref>"), ["ariiol"])
         self.assertEqual(wikitext.credit_names("[[Artists#雄之助|Yunosuke]]"), ["Yunosuke"])

@@ -25,7 +25,9 @@ _TABBEREX_OPEN = re.compile(r"<div\b[^>]*class\s*=\s*[\"'][^\"']*\btabberex-tab\
 _TAB_HEADER = re.compile(r"data-tab-header\s*=\s*[\"']([^\"']*)[\"']", re.IGNORECASE)
 _DIV_TOKEN = re.compile(r"<div\b[^>]*>|</div\s*>", re.IGNORECASE)
 _TABBER = re.compile(r"<tabber\b[^>]*>(.*?)</tabber\s*>", re.IGNORECASE | re.DOTALL)
-_REF = re.compile(r"<ref\b[^>/]*/>|<ref\b[^>]*>.*?</ref\s*>", re.IGNORECASE | re.DOTALL)
+# As in MediaWiki's preprocessor, a tag ends at its first ">" and is self-closing when "/" precedes it, whatever its
+# attribute values hold (<ref name="a/b"/>).
+_REF = re.compile(r"<ref\b[^>]*/>|<ref\b[^>]*(?<!/)>.*?</ref\s*>", re.IGNORECASE | re.DOTALL)
 _TAG = re.compile(r"<[^<>]+>")
 _NOWIKI_OPEN = re.compile(r"<nowiki\s*>", re.IGNORECASE)
 _NOWIKI_CLOSE = re.compile(r"</nowiki\s*>", re.IGNORECASE)
