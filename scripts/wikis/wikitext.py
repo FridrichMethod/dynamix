@@ -31,7 +31,9 @@ _REF = re.compile(r"<ref\b[^>]*/>|<ref\b[^>]*(?<!/)>.*?</ref\s*>", re.IGNORECASE
 _TAG = re.compile(r"<[^<>]+>")
 _NOWIKI_OPEN = re.compile(r"<nowiki\s*>", re.IGNORECASE)
 _NOWIKI_CLOSE = re.compile(r"</nowiki\s*>", re.IGNORECASE)
-_NOWIKI = re.compile(r"<nowiki\s*>(.*?)(?:</nowiki\s*>|\Z)|<nowiki\s*/>", re.IGNORECASE | re.DOTALL)
+# Text held literally by clean_markup: a <nowiki> span, or a private-use character of the placeholder (page text is
+# untrusted), so that every placeholder in the text afterwards is one clean_markup made.
+_HELD = re.compile(r"<nowiki\s*>(.*?)(?:</nowiki\s*>|\Z)|<nowiki\s*/>|" + "([\ue000\ue001])", re.IGNORECASE | re.DOTALL)
 _LITERAL = re.compile("\ue000(\\d+)\ue001")
 # Whitespace runs that collapse to one space inside a line: ASCII only. Other spaces are part of the text (the
 # ideographic space U+3000 in the exact title "MEGA\u3000POP").
@@ -300,10 +302,10 @@ def clean_markup(value: str | None) -> str:
     literals: list[str] = []
 
     def hold(match: re.Match) -> str:
-        literals.append(match.group(1) or "")
+        literals.append(match.group(1) or match.group(2) or "")
         return f"\ue000{len(literals) - 1}\ue001"
 
-    text = _NOWIKI.sub(hold, text)
+    text = _HELD.sub(hold, text)
     text = _REF.sub("", text)
     text = _BR.sub("\n", text)
     for _ in range(5):  # innermost templates first; {{color|#hex|Text}} keeps its text

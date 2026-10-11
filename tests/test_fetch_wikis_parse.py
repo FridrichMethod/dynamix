@@ -59,6 +59,19 @@ class WikitextTests(unittest.TestCase):
         self.assertEqual(wikitext.clean_markup('A<ref name="a/b">cite / more</ref> B'), "A B")  # a paired ref
         self.assertEqual(wikitext.clean_markup("A<ref name=x/> B<ref name=y>c</ref> C"), "A B C")
 
+    def test_private_use_characters_are_plain_text(self) -> None:
+        """DX2-04: page text is untrusted; private-use characters that look like the internal nowiki placeholder are
+        kept as text, never crash the parser or pull in another nowiki's content."""
+        held = "\ue0005\ue001"
+        self.assertEqual(wikitext.clean_markup(f"A {held} B"), f"A {held} B")
+        self.assertEqual(wikitext.clean_markup("<nowiki>A</nowiki> \ue0000\ue001"), "A \ue0000\ue001")
+        self.assertEqual(wikitext.clean_markup("<nowiki>\ue000|\ue001</nowiki>"), "\ue000|\ue001")
+        self.assertEqual(wikitext.credit_names("x\ue0009\ue001"), ["x\ue0009\ue001"])
+        self.assertEqual(wikitext.headings("== H\ue0003\ue001 ==\n"), [(0, 2, "H\ue0003\ue001")])
+        page = {"title": "P", "revision": {"content": "{{Song|Title=T\ue0001\ue001}}", "revid": 1}, "categories": []}
+        [record] = classify.song_records("wikis:miraheze", page, "https://dynamix.miraheze.org/wiki/P")
+        self.assertEqual(record.title, "T\ue0001\ue001")
+
     def test_credit_names_unknown_and_refs(self) -> None:
         self.assertEqual(wikitext.credit_names("ariiol<ref>[https://x.com/a The post]</ref>"), ["ariiol"])
         self.assertEqual(wikitext.credit_names("[[Artists#雄之助|Yunosuke]]"), ["Yunosuke"])
