@@ -307,6 +307,12 @@ OCCASION_WORDS = re.compile(
     r"nov(?:ember)?|dec(?:ember)?)\b",
     re.I,
 )
+# A possessive ending a word ("Arcaea's", "New Year’s", "April Fools'"), followed by nothing but punctuation: it ties
+# a name to the occasion and is never part of the name, so classify.occasion_game drops it from every word of an
+# occasion name before OCCASION_WORDS are removed and again from the words left, and from the end of a name without
+# occasion words. Kept, "the New Year's Event" would leave a game "s" and "Arcaea's 3rd Anniversary" the association
+# "arcaea_s".
+POSSESSIVE = re.compile(r"(?:['’]s|(?<=s)['’])(?=\W*$)", re.I)
 # Observed layout of all song pages with both Template:Song and Template:SongUV (2026-10-10, 20 pages on Miraheze):
 # each game's template and notes sit in its own tab, and the page-level gallery after the tabs lists the original
 # game's event items (characters, parts, backgrounds, chart lists, comeback announcements). A page-level gallery
