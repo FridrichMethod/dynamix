@@ -114,6 +114,7 @@ body {
     min-width: 0;
     margin: 0;
     /* The base size scales the whole card: the name is 2em, the lines under it a fraction of that. */
+    /* eslint-disable-next-line css/no-invalid-properties -- valid: @eslint/css 2.0.0 misreads var() in parentheses */
     font-size: clamp(16px, (40vw - var(--gutter) - 32px) / 12.6, 46px);
     color: var(--ink);
 }
@@ -397,6 +398,8 @@ img:not([src]) {
     mask-repeat: no-repeat;
 }
 
+/* eslint-disable css/no-invalid-properties -- valid CSS: @eslint/css 2.0.0 substitutes --mask-x and --mask-y into
+   mask-image and then cannot read their gradients, which hold var() themselves. */
 .dynamix-draw:is([data-bleed~="left"], [data-bleed~="right"]) {
     -webkit-mask-image: var(--mask-x);
     mask-image: var(--mask-x);
@@ -416,6 +419,7 @@ img:not([src]) {
     -webkit-mask-composite: source-in;
     mask-composite: intersect;
 }
+/* eslint-enable css/no-invalid-properties */
 
 .dynamix-draw[data-bleed~="left"] {
     --left: transparent;
@@ -888,6 +892,7 @@ canvas {
         top: max(50%, 112px);
     }
     .intro {
+        /* eslint-disable-next-line css/no-invalid-properties -- valid: @eslint/css 2.0.0 misreads var() in parentheses */
         font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.6vh);
     }
     /* The title card keeps the name and the archive's name; its description does not fit above the control row. */
@@ -964,6 +969,7 @@ canvas {
    the title, then drop the eyebrow (data-fit, above). */
 @media screen and (orientation: landscape) and (max-height: 430px) {
     .intro {
+        /* eslint-disable-next-line css/no-invalid-properties -- valid: @eslint/css 2.0.0 misreads var() in parentheses */
         font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.2vh);
     }
     .notes-title[data-length="file"] {
@@ -1050,6 +1056,7 @@ canvas {
         left: calc(100% + 2px);
     }
     .liner {
+        /* eslint-disable-next-line css/no-invalid-properties -- valid: @eslint/css 2.0.0 misreads var() in parentheses */
         padding: 0 calc((100vw - var(--label-width)) / 2);
     }
     .liner::before {
@@ -1122,6 +1129,7 @@ canvas {
         margin-top: -18px;
     }
     .liner {
+        /* eslint-disable-next-line css/no-invalid-properties -- valid: @eslint/css 2.0.0 misreads var() in parentheses */
         padding: 0 calc((100vw - var(--label-width)) / 2);
     }
     .asset-caption {
