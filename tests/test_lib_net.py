@@ -416,13 +416,27 @@ class BoundaryTests(NetTestCase):
             client.get_json("http://internal.invalid/x")
 
     def test_connected_address_is_checked_against_rebinding(self):
-        """The resolver claims a public address, but the connection actually reaches 127.0.0.1."""
+        """The resolver claims a public address, but the connection actually reaches 127.0.0.1. Every configured
+        production host is https, so both schemes are checked; the check runs as soon as the TCP connection exists,
+        before any TLS handshake, so the plain loopback listener needs no certificate."""
         self.script.add("/api", json_body(1))
-        client = self.client(hosts=["localhost"], allow_loopback=False, resolver=lambda host: ["93.184.216.34"])
-        with self.assertRaises(net.HostNotAllowedError) as caught:
-            client.get_json(self.url("/api", host="localhost"))
-        self.assertIn("non-public address", caught.exception.message)
+        client = self.client(
+            hosts=["localhost"], allow_loopback=False, resolver=lambda host: ["93.184.216.34"], max_attempts=1
+        )
+        for scheme in ("http", "https"):
+            with self.subTest(scheme=scheme):
+                with self.assertRaises(net.HostNotAllowedError) as caught:
+                    client.get_json(f"{scheme}://localhost:{self.port}/api")
+                self.assertIn("non-public address", caught.exception.message)
         self.assertEqual(self.script.hits, {})
+
+    def test_both_schemes_use_the_peer_checking_connection(self):
+        client = self.client()
+        for scheme in ("http", "https"):
+            with self.subTest(scheme=scheme):
+                adapter = client._session.get_adapter(f"{scheme}://127.0.0.1/")
+                pool = adapter.poolmanager.pool_classes_by_scheme[scheme]
+                self.assertTrue(issubclass(pool.ConnectionCls, net._PeerCheckMixin), pool.ConnectionCls)
 
     def test_size_limit_by_content_length_and_by_stream(self):
         self.script.add("/big", {"status": 200, "body": b"x" * 4096})
