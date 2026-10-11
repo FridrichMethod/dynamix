@@ -5,6 +5,10 @@ Bilibili answers anonymous clients with risk-control code ``-352``/``-412`` or a
 ``risk-captcha``); both are recorded as a ``challenge`` (blocked, manual access) and never worked around: no cookie
 farming, request signing or captcha solving. Picture URLs on ``*.hdslb.com`` are stored without their ``@...`` resize
 suffix, which is the original upload as served.
+
+A post is the artist's own only when its author ``mid`` equals the seed's ``params.mid``; while that numeric account ID
+is not established, every picture is held as ``pending`` (``unresolved_game``). The observed author (name and mid) is
+recorded in each candidate's ``game_evidence``.
 """
 
 from __future__ import annotations
@@ -110,7 +114,18 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             base.mark_unread(discovery, "seed-posts", error)
             continue
         author, pictures, texts = extract(data.get("data") or {})
-        if expected_mid and author.get("mid") != expected_mid:
+        observed = (
+            f"author: {model.clip(author['name'], 80)} (mid {author['mid']})"
+            if author
+            else "author: not stated in the API answer"
+        )
+        if not expected_mid:
+            # Without the account's numeric ID the post cannot be attributed to the artist: never admitted as theirs.
+            override = {
+                "action": "pending",
+                "reason": f"unresolved_game: post author not verified (params.mid not established); {observed}",
+            }
+        elif author.get("mid") != expected_mid:
             override = {
                 "action": "pending",
                 "reason": f"unresolved_game: post author mid {author.get('mid')} is not "
@@ -146,7 +161,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                     default_quality=ctx.quality,
                     default_rights=ctx.rights,
                     original_filename=name,
-                    base_evidence=[page_url],
+                    base_evidence=[page_url, observed],
                     source_reported=base.reported(
                         url=picture["url"],
                         mime=base.mime_for(name.rsplit(".", 1)[-1]),

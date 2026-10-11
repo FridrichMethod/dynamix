@@ -4,7 +4,9 @@
 bot check that often answers automated clients with HTTP 403 and a challenge page; that is recorded as ``blocked``
 (manual access) and never bypassed. When the JSON is available, each image asset is its own candidate
 ``<hash>:<asset id>``; a project may mix the Dynamix composition with other commissions (e.g. the same artwork made for
-another game), so every asset needs its own seed rule and unclassified assets stay ``pending``.
+another game), so every asset needs its own seed rule and unclassified assets stay ``pending``. A project is the
+artist's own only when its owner equals the seed's ``params.username``; without that account every asset is held as
+``pending`` (``unresolved_game``).
 
 Image URLs (``cdn*.artstation.com/p/assets/images/.../large/<name>``) are requested in the ``4k`` rendition first and
 fall back to the advertised ``large`` one when ``4k`` does not exist; the stored ``download_url`` is the one that
@@ -88,7 +90,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         for position, asset in enumerate(images, start=1):
             key = f"{project}:{asset.get('id', position)}"
             rule = model.find_rule(base.rules(seed), key)
-            if username and owner != username:
+            if not username:
+                # Without the seed's account the project cannot be attributed to the artist: never admitted as theirs.
+                rule = model.hold(
+                    rule,
+                    "unresolved_game: project owner not verified (params.username not established); "
+                    f"owner {owner or '?'}",
+                )
+            elif owner != username:
                 rule = model.hold(
                     rule, f"unresolved_game: project owner {owner or '?'} is not this source's account {username}"
                 )
