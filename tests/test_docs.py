@@ -85,18 +85,48 @@ PUBLISHED_URL = re.compile(
 # Each README's Status line prefix and the title of its Releases section.
 README_RELEASE_PARTS = {"README.md": ("**Status:**", "Releases"), "README.zh-CN.md": ("**状态**：", "发布")}
 # Wording of the release hold that ended with v1.0.0, in either language, matched in rendered text (see plain()).
-# A website or Pages that is not deployed counts; "later pushes are tested but not deployed" (true after a
-# release) does not.
+# A website or Pages that is not deployed counts, also with words between ("网站目前未部署"), and so does a release or
+# deployment that is held, paused or suspended; "later pushes are tested but not deployed" (true after a release) does
+# not.
 HOLD_MARKERS = re.compile(
-    r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still)?(?: not|n['’]t)"
-    r"(?: yet)?(?: been)? (?:deployed|published|released|live)\b|"
-    r"\b(?:release|deployment|publication)s? (?:is |are |stays? |remains? )?(?:on )?(?:hold|held)\b|\brelease hold\b|"
-    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains) unset\b|"
+    r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still| currently| now)?(?: not|n['’]t)"
+    r"(?: yet| currently)?(?: been)? (?:deployed|published|released|live)\b|"
+    r"\b(?:release|deployment|publication)s?\b(?: (?:to|of|on) [^.;:,]{0,30}?)? "
+    r"(?:(?:is|are|stays?|remains?|was|were|has been|have been)(?: still| currently| now)? )?"
+    r"(?:on )?(?:hold|held|paused|suspended|frozen|halted)\b|\brelease hold\b|"
     r"\bno version tag\b|\bno GitHub Release\b|\bnothing has been released\b|"
     r"\bha(?:s|ve) not been (?:made|published|released|created)\b|"
-    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:仍|还|尚)?未设置|(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|"
-    r"网站(?:未|没有)(?:被)?(?:部署|发布|上线)|"
+    r"(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|"
+    r"(?:网站|站点)[^。；，：、,;:]{0,8}?(?:未|没有)(?:被)?(?:部署|发布|上线)|"
+    r"(?:部署|发布|上线)[^。；，：、,;:]{0,6}?暂停|暂停[^。；，：、,;:]{0,4}?(?:部署|发布|上线)|"
     r"没有版本标签|没有任何发布|冻结",
+    re.IGNORECASE,
+)
+# The release variable stated as unset. It is hold wording as a statement ("`RELEASE_APPROVED_SHA` is unset, so ..."),
+# not as the condition of the guard ("If the variable is unset, the dispatch fails closed", "变量未设置时……").
+UNSET_WORDING = re.compile(
+    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains) unset\b|"
+    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:仍|还|尚)?未设置",
+    re.IGNORECASE,
+)
+# A condition opening the clause (当 but not 当前 "currently"; 若 but not 若干), or one right after the words.
+CONDITION_BEFORE = re.compile(
+    r"\b(?:if|when|whenever|while|unless|as long as|in case)\b|如果|假如|倘若|要是|一旦|只要|若(?!干)|当(?![前然中天日时])",
+    re.IGNORECASE,
+)
+CONDITION_AFTER = re.compile(
+    r"\s*(?:if|when|whenever|unless)\b|[^。；，：、,;:.!?]*?(?:(?<![暂及同当])时(?![间刻])|的话)", re.IGNORECASE
+)
+CLAUSE_BREAK = re.compile(r"[,;:.!?，；：、。！？]")
+# A deployment or release told as an event that happened (a date or a past-tense event verb), which is what happened,
+# not how the guard works, whatever guard word the sentence also has ("... happened on 2026-10-11 when the owner
+# approved it").
+RELEASE_EVENTS = re.compile(
+    r"\b\d{4}-\d{2}-\d{2}\b|"
+    r"(?-i:\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}\b)|"
+    r"\d{4} ?年|\d{1,2} ?月 ?\d{1,2} ?日|"
+    r"\b(?:happened|took place|occurred|ran|succeeded|completed|finished|went (?:out|ahead|through))\b|"
+    r"(?:部署|上线|发布)(?:了|过)|已于",
     re.IGNORECASE,
 )
 MARKDOWN_LINK = re.compile(r"!?\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)]*\)")
@@ -214,19 +244,33 @@ def sentences(lines: list[str], keep_code: bool = False) -> list[str]:
     return [part.strip() for part in re.split(r"(?<=[。！？；])|(?<=[.!?;])\s+|\n", text) if part.strip()]
 
 
+def hold_wording(text: str) -> list[str]:
+    """Hold wording in rendered text: every HOLD_MARKERS match, and the release variable stated as unset unless a
+    condition opens its clause or follows it (then the text describes the guard, not the site's state)."""
+    found = [match.group() for match in HOLD_MARKERS.finditer(text)]
+    for match in UNSET_WORDING.finditer(text):
+        clause = CLAUSE_BREAK.split(text[: match.start()])[-1] + match.group()
+        if not (CONDITION_BEFORE.search(clause) or CONDITION_AFTER.match(text, match.end())):
+            found.append(match.group())
+    return found
+
+
 def release_wording_problems(text: str) -> list[str]:
     """Statements about the site's release state in a document other than the READMEs, which alone describe it: a flat
-    deployment or publication claim anywhere, hold wording in any sentence, and a sentence about deployment or release
-    that is not negated, conditional, future or restricted (how the guard works, not what happened). Claims and hold
-    wording are matched in the raw and the rendered text (see plain())."""
+    deployment or publication claim anywhere, hold wording in any sentence, a sentence about deployment or release that
+    tells it as an event (a date, a past-tense event verb) and one that is not negated, conditional, future or
+    restricted (how the guard works, not what happened). Claims and hold wording are matched in the raw and the
+    rendered text (see plain())."""
     claims = {match.group() for source in (text, plain(text)) for match in FLAT_CLAIMS.finditer(source)}
     problems = [f"flat claim: {claim!r}" for claim in sorted(claims)]
     for sentence in sentences(prose_lines(text), keep_code=True):
-        problems.extend(
-            f"hold wording {m.group()!r}: {sentence[:80]!r}" for m in HOLD_MARKERS.finditer(plain(sentence))
-        )
+        problems.extend(f"hold wording {found!r}: {sentence[:80]!r}" for found in hold_wording(plain(sentence)))
     for sentence in sentences(prose_lines(text)):
-        if RELEASE_WORDS.search(sentence) and not GUARDS.search(sentence):
+        if not RELEASE_WORDS.search(sentence):
+            continue
+        if RELEASE_EVENTS.search(sentence):
+            problems.append(f"release told as an event: {sentence[:80]!r}")
+        elif not GUARDS.search(sentence):
             problems.append(f"unguarded release statement: {sentence[:80]!r}")
     return problems
 
@@ -281,9 +325,7 @@ def release_problems(relative: str, text: str) -> tuple[str | None, list[str]]:
     if named[:1] != [version]:
         problems.append(f"{relative}: the Releases section names {named[:1]} first, not {version}")
     for place, part in (("Status line", status), ("Releases section", section)):
-        problems.extend(
-            f"{relative}: hold wording in the {place}: {m.group()!r}" for m in HOLD_MARKERS.finditer(plain(part))
-        )
+        problems.extend(f"{relative}: hold wording in the {place}: {found!r}" for found in hold_wording(plain(part)))
     return version, problems
 
 
@@ -655,10 +697,34 @@ class ReleaseStateTests(unittest.TestCase):
         "The website was put on GitHub Pages by a deployment on 2026-10-11. Originals are not modified.",
         "`RELEASE_APPROVED_SHA` is unset, so nothing is released.",
         "The website is *not* deployed yet.",
+        # The variable stated as unset, not as a condition of the guard.
+        "Because `RELEASE_APPROVED_SHA` is unset, every dispatch fails closed.",
+        "The variable remains unset; if it is set, the dispatch deploys.",
+        "当前 `RELEASE_APPROVED_SHA` 仍未设置，如果设置了才会部署。",
+        "`RELEASE_APPROVED_SHA` 未设置，因此每次触发都会停在批准任务。",
+        # A website that is not deployed with other words between, and deployment that is paused or suspended.
+        "网站目前未部署。",
+        "站点目前仍未部署到 GitHub Pages。",
+        "Pages deployment is paused.",
+        "Deployment to GitHub Pages is currently suspended.",
+        "The website is currently not deployed.",
+        "GitHub Pages 部署已暂停。",
+        # A deployment told as something that happened, which a guard word ("when", 才) does not turn into a rule.
+        "The deployment to GitHub Pages happened on 2026-10-11 when the owner approved it.",
+        "The deployment ran when the owner approved the release.",
+        "网站在 2026-10-11 所有者批准后才部署到 GitHub Pages。",
     )
     OUTSIDE_ALLOWED = (
         "A push to `main` never deploys the website.",
         "推送到 `main` 不会部署网站。",
+        # How the guard works: the unset variable is a condition, not the state of the site.
+        "If the variable is unset or names any other commit, the dispatch fails closed at the approval job.",
+        "If `RELEASE_APPROVED_SHA` is unset or names another commit, the dispatch fails closed.",
+        "A dispatch fails closed when `RELEASE_APPROVED_SHA` is unset.",
+        "The variable, if it is unset, makes every dispatch fail closed.",
+        "如果 `RELEASE_APPROVED_SHA` 未设置或指向其他提交，触发会在批准任务处失败关闭。",
+        "`RELEASE_APPROVED_SHA` 未设置时，触发不会部署任何内容。",
+        "A deployment runs only when the approval job passes.",
         "| `official:c4cat` | [C4Cat](https://c4-cat.com/) | 读取一次页面 | 即将上线/联系方式的占位页面，没有游戏目录；仅作身份证据。 |",
         "Catalog entries held by two or more sources of this family: 0.",
         "| `upstream_status` | Records that are removed or unset upstream. |",
@@ -730,6 +796,9 @@ class ReleaseStateTests(unittest.TestCase):
             "The website isn't deployed yet; deployment is held.",
             "[The website](archive.html) is not deployed.",
             "GitHub Pages deployment is held until a later, explicit release decision.",
+            "Pages deployment is paused.",
+            "The website is currently not deployed.",
+            "Because `RELEASE_APPROVED_SHA` is unset, every dispatch fails closed.",
         ),
         "README.zh-CN.md": (
             "目前没有任何发布。",
@@ -739,6 +808,20 @@ class ReleaseStateTests(unittest.TestCase):
             "网站还没有部署。",
             "GitHub Pages 部署处于冻结状态。",
             "[网站](archive.html)还未部署。",
+            "网站目前未部署。",
+            "GitHub Pages 部署已暂停。",
+            "当前 `RELEASE_APPROVED_SHA` 仍未设置。",
+        ),
+    }
+    # Sentences that describe the guard: the unset variable is a condition of the dispatch, not the site's state.
+    GUARD_WORDING = {
+        "README.md": (
+            "If `RELEASE_APPROVED_SHA` is unset or names another commit, the dispatch fails closed.",
+            "A dispatch fails closed when the variable is unset.",
+        ),
+        "README.zh-CN.md": (
+            "如果 `RELEASE_APPROVED_SHA` 未设置或指向其他提交，触发会在批准任务处失败关闭。",
+            "`RELEASE_APPROVED_SHA` 未设置时，触发会失败关闭。",
         ),
     }
 
@@ -792,17 +875,26 @@ class ReleaseStateTests(unittest.TestCase):
             with self.subTest(case=case):
                 self.assertNotEqual(release_state_problems(readmes), [])
 
+    ANCHORS = {
+        "README.md": ("see [Releases](#releases).", "is the latest release."),
+        "README.zh-CN.md": ("见[发布](#发布)。", "是最新版本。"),
+    }
+
     def test_release_check_refuses_hold_wording(self):
-        anchors = {
-            "README.md": ("see [Releases](#releases).", "is the latest release."),
-            "README.zh-CN.md": ("见[发布](#发布)。", "是最新版本。"),
-        }
         for relative, wording in self.HOLD_WORDING.items():
             for sentence in wording:
-                for place, anchor in zip(("Status line", "Releases section"), anchors[relative], strict=True):
+                for place, anchor in zip(("Status line", "Releases section"), self.ANCHORS[relative], strict=True):
                     with self.subTest(document=relative, place=place, sentence=sentence):
                         readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
                         self.assertNotEqual(release_state_problems(readmes), [])
+
+    def test_release_check_accepts_a_description_of_the_guard(self):
+        for relative, wording in self.GUARD_WORDING.items():
+            for sentence in wording:
+                for place, anchor in zip(("Status line", "Releases section"), self.ANCHORS[relative], strict=True):
+                    with self.subTest(document=relative, place=place, sentence=sentence):
+                        readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
+                        self.assertEqual(release_state_problems(readmes), [])
 
 
 class CommandTests(unittest.TestCase):
