@@ -56,7 +56,7 @@ UNKNOWN_CREDITS = frozenset(
 @dataclass(frozen=True)
 class Template:
     name: str  # canonical: underscores as spaces, first letter upper-case
-    params: dict[str, str]  # named and positional ("1", "2", ...) parameters, raw values stripped
+    params: dict[str, str]  # named and positional ("1", "2", ...) parameters, raw values without comments, stripped
     start: int
     end: int
 
@@ -91,7 +91,7 @@ def canonical_file_name(raw: str | None) -> str | None:
     underscores as spaces, whitespace collapsed, first letter upper-case. None unless it names an image file."""
     if not raw:
         return None
-    value = html.unescape(raw).strip()
+    value = html.unescape(_COMMENT.sub("", raw)).strip()
     value = _FILE_PREFIX.sub("", value)
     if _PERCENT.search(value):
         value = unquote(value)
@@ -177,15 +177,20 @@ def _template_name(raw: str) -> str:
 
 
 def find_templates(text: str, names: set[str] | None = None) -> list[Template]:
-    """Every ``{{Name|...}}`` (nested ones included) in comment-masked ``text``; ``names`` filters canonical names.
-    Parser functions (``{{#if:``) and magic words (``{{PAGENAME}}``-like, containing ``:``) are skipped."""
-    masked = mask_comments(text)
+    """Every ``{{Name|...}}`` (nested ones included) in ``text``; ``names`` filters canonical names. Parser functions
+    (``{{#if:``) and magic words (``{{PAGENAME}}``-like, containing ``:``) are skipped.
+
+    The template spans and their top-level ``|`` and ``=`` come from the comment-masked text (a delimiter inside a
+    comment separates nothing); keys and values are the original text at the same offsets with comments removed, as
+    MediaWiki removes them without inserting anything (``Cosmic<!--x-->Pulse`` is ``CosmicPulse``)."""
+    text = text or ""
+    masked = mask_comments(text)  # same length as text: offsets into one are offsets into the other
     result = []
     for match in re.finditer(r"\{\{(?!\{)", masked):
         start = match.start()
         end = _matching(masked, start, "{{", "}}")
-        inner = masked[start + 2 : max(start + 2, end - 2)]
-        pieces = split_top_level(inner)
+        inner_start = start + 2
+        pieces = split_top_level(masked[inner_start : max(inner_start, end - 2)])
         name = _template_name(pieces[0])
         if not name or name.startswith("#") or ":" in name:
             continue
@@ -193,15 +198,24 @@ def find_templates(text: str, names: set[str] | None = None) -> list[Template]:
             continue
         params: dict[str, str] = {}
         position = 0
+        offset = inner_start + len(pieces[0]) + 1  # split_top_level keeps every character except the separators
         for piece in pieces[1:]:
-            key, equals, value = piece.partition("=")
+            original = text[offset : offset + len(piece)]
+            offset += len(piece) + 1
+            key, equals, _value = piece.partition("=")
             if equals and "{{" not in key and "[[" not in key and key.strip():
-                params[" ".join(key.split())] = value.strip()
+                params[" ".join(_COMMENT.sub("", original[: len(key)]).split())] = _uncommented(
+                    original[len(key) + 1 :]
+                )
             else:
                 position += 1
-                params[str(position)] = piece.strip()
+                params[str(position)] = _uncommented(original)
         result.append(Template(name, params, start, end))
     return result
+
+
+def _uncommented(value: str) -> str:
+    return _COMMENT.sub("", value).strip()
 
 
 def regions(text: str) -> list[Region]:

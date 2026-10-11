@@ -23,6 +23,29 @@ class WikitextTests(unittest.TestCase):
         self.assertEqual(song.params["1"], "x")
         self.assertEqual(wikitext.clean_markup(song.params["Title"]), "A B")
 
+    def test_template_values_drop_comments(self) -> None:
+        """DX2-02: MediaWiki removes a comment without inserting anything, so a comment inside a value joins its
+        neighbours ('CosmicPulse'); delimiters inside a comment still separate nothing, and a value holding only a
+        comment is empty."""
+        text = (
+            "{{Song|Title=Cosmic<!--x-->Pulse|Cover Artist=ari<!--?-->iol|Imgsuffix=Cos<!--c-->mic.png"
+            "|Artist=<!-- none -->|Number=1<!-- |Update=hidden -->}}"
+        )
+        [song] = wikitext.find_templates(text, {"Song"})
+        self.assertEqual(
+            song.params,
+            {"Title": "CosmicPulse", "Cover Artist": "ariiol", "Imgsuffix": "Cosmic.png", "Artist": "", "Number": "1"},
+        )
+        self.assertEqual(wikitext.credit_names(song.params["Cover Artist"]), ["ariiol"])
+        page = {"title": "Cosmic Pulse", "revision": {"content": text, "revid": 1}, "categories": []}
+        [record] = classify.song_records("wikis:miraheze", page, "https://dynamix.miraheze.org/wiki/Cosmic_Pulse")
+        self.assertEqual(
+            (record.title, record.illustrators, record.imgsuffix), ("CosmicPulse", ["ariiol"], "Cosmic.png")
+        )
+        [ref] = [ref for ref in wikitext.file_refs(text) if ref.context == "template"]
+        self.assertEqual((ref.name, ref.param), ("Cosmic.png", "Imgsuffix"))
+        self.assertEqual(wikitext.canonical_file_name("Cos<!--c-->mic.png"), "Cosmic.png")
+
     def test_credit_names_unknown_and_refs(self) -> None:
         self.assertEqual(wikitext.credit_names("ariiol<ref>[https://x.com/a The post]</ref>"), ["ariiol"])
         self.assertEqual(wikitext.credit_names("[[Artists#雄之助|Yunosuke]]"), ["Yunosuke"])
