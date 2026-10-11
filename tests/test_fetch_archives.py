@@ -2134,6 +2134,49 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertIn("First archived for candidate archives:press:img/a.png", self.manifest()["assets"][0]["notes"])
         self.verify()
 
+    def test_a_record_that_ends_a_supersession_chain_is_kept_for_review(self):
+        # A0 -> A (removed); a new key then lists A's bytes. Adopting A would cut A0's chain: the run keeps b.png as
+        # duplicate_bytes and records the review error in the written snapshot.
+        a, b, c = (f"https://press.example.org/img/{name}" for name in ("a.png", "b.png", "c.png"))
+        routes = {self.PAGE: self.page("a.png"), a: self.file((1, 1, 1))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        first = self.manifest()["assets"][0]["id"]
+        routes[a] = self.file((2, 2, 2))
+        self.run_family([self.seed()], FakeNetwork(routes))
+        second = self.candidates("archives:press")["img/a.png"]["asset_id"]
+        routes = {self.PAGE: self.page("c.png"), c: self.file((3, 3, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))  # a complete listing without a.png: A is removed
+        self.assertEqual(self.assets()["img/a.png"]["upstream_status"], "superseded")  # A0 (the first file)
+        routes = {self.PAGE: self.page("b.png", "c.png"), b: self.file((2, 2, 2)), c: self.file((3, 3, 3))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual(assets[second]["upstream_status"], "removed")
+        self.assertEqual((assets[first]["upstream_status"], assets[first]["superseded_by"]), ("superseded", second))
+        found = self.candidates("archives:press")
+        self.assertEqual(
+            (found["img/b.png"]["disposition"], found["img/b.png"]["asset_id"]), ("duplicate_bytes", second)
+        )
+        messages = [e["message"] for e in manifest.load_discovery(self.root, "archives:press")["errors"]]
+        self.assertTrue(any("ends the supersession chain" in m for m in messages), messages)
+        warnings = self.verify()
+        self.assertTrue(any("a listed file is represented only by that record" in w for w in warnings), warnings)
+
+    def test_a_superseded_record_is_no_pixel_twin(self):
+        a, b = "https://press.example.org/img/a.png", "https://press.example.org/img/b.png"
+        routes = {self.PAGE: self.page("a.png"), a: self.tagged_png("TOKENAAAA")}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        old = self.manifest()["assets"][0]["id"]
+        # a.png gets other pixels (old is superseded); b.png lists other bytes with old's pixels.
+        routes = {self.PAGE: self.page("a.png", "b.png"), a: self.file((1, 2, 3)), b: self.tagged_png("TOKENBBBB")}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual(assets[old]["upstream_status"], "superseded")
+        self.assertEqual(len(assets), 3)
+        for asset in assets.values():
+            self.assertNotIn("variant_group", asset)
+            self.assertNotIn("pixels identical", asset.get("notes") or "")
+        self.verify()
+
     def test_bytes_of_another_candidates_earlier_revision_are_adopted(self):
         a, b = "https://press.example.org/img/a.png", "https://press.example.org/img/b.png"
         routes = {self.PAGE: self.page("a.png"), a: self.file((1, 2, 3))}

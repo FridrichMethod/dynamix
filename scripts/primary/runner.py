@@ -891,8 +891,9 @@ class Runner:
         key, e.g. a renamed page link, or a candidate now serves another candidate's earlier revision) either restores
         the record (still named by its own candidate: ``current`` again, noting the other listing) or adopts it: the
         record becomes the candidate's current asset (same asset ID and file, ``upstream_status: current``) with a note
-        naming the candidate it was first archived for, and the candidate is ``downloaded``. Returns whether a record
-        changed."""
+        naming the candidate it was first archived for, and the candidate is ``downloaded``. Returns whether the snapshot
+        must be written again: a record changed, or a review error was recorded for a record that ends another
+        candidate's supersession chain (kept ``duplicate_bytes``)."""
         changed = False
         for cid in sorted(state.candidates):
             candidate, draft = state.candidates[cid], drafts.get(cid)
@@ -929,6 +930,7 @@ class Runner:
                         + "; kept as duplicate_bytes for review",
                     )
                 )
+                changed = True  # no record changes, but the snapshot must be written with this review error
                 continue
             for asset in pointing:  # the adopted record leaves its former candidate's revision chain
                 relinked = dict(asset)
