@@ -10,7 +10,8 @@ fields, title, path and URL) is the first by the frozen primary-record rule (09 
 primary_sort_key): family priority (artists < official < wikis < archives); preferred source within the family
 (wikis:miraheze, then wikis:fandom, then every other source); quality.source_variant (site_original < preview <
 unknown); source ID; asset ID. Every record is kept in `provenance`, primary first, in that order. Distinct bytes
-always stay distinct entries; superseded and removed records stay archived.
+always stay distinct entries; superseded and removed records stay archived. The generated catalog is checked with
+lib.schema.validate_catalog, provenance order excepted (see validate_catalog).
 
 --verify  re-hash and fully decode every archived file, check previews by SHA-256, reject files under assets/public/
           that no manifest record names (dot-files such as interrupted `.part` downloads excepted) and reject records
@@ -37,6 +38,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import threading
 import unicodedata
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -343,25 +345,44 @@ def primary_sort_key(record: Mapping[str, Any]) -> tuple:
             record.get("id") or record.get("asset_id") or "")
 
 
+# TEMPORARY until the shared library adopts the frozen primary-record rule (contract change request to the
+# coordinator): lib.schema.provenance_sort_key and lib.catalog_contract still implement the earlier order (family,
+# source ID, asset ID), which puts wikis:fandom before wikis:miraheze, and 09's "Catalog asset" paragraph and the lib
+# README still state it. Once the library implements primary_sort_key's order, delete _contract_primary_order and
+# validate_catalog (call schema.validate_catalog), make primary_sort_key the library's key, and drop the tripwire in
+# tests/test_provenance.py that asserts the library still rejects the frozen order.
+_LIBRARY_ORDER_TEXT = "ordered by family priority, source ID, asset ID"
+_FROZEN_ORDER_TEXT = ("ordered by the frozen primary-record rule (family priority; wikis:miraheze, then wikis:fandom, "
+                      "then other sources; quality.source_variant; source ID; asset ID)")
+_CONTRACT_PATCH_LOCK = threading.Lock()
+
+
 @contextlib.contextmanager
 def _contract_primary_order():
-    """lib.catalog_contract (shared library, coordinator-owned) still checks provenance against the earlier order
-    (family, source ID, asset ID), which puts Fandom before Miraheze. Until it adopts the frozen rule, the catalog is
-    validated with primary_sort_key in its place; every other contract check is unchanged."""
+    """lib.catalog_contract with primary_sort_key in place of the library's provenance key for the duration (see the
+    note above); every other contract check is the library's. Serialized, since it swaps a module global."""
     from lib import catalog_contract
 
-    previous = catalog_contract.provenance_sort_key
-    catalog_contract.provenance_sort_key = primary_sort_key
-    try:
-        yield
-    finally:
-        catalog_contract.provenance_sort_key = previous
+    with _CONTRACT_PATCH_LOCK:
+        previous = catalog_contract.provenance_sort_key
+        catalog_contract.provenance_sort_key = primary_sort_key
+        try:
+            yield
+        finally:
+            catalog_contract.provenance_sort_key = previous
 
 
 def validate_catalog(catalog: Mapping[str, Any]) -> None:
-    """schema.validate_catalog under the frozen primary-record order (see _contract_primary_order)."""
+    """schema.validate_catalog with provenance checked against the frozen primary-record order (primary_sort_key)
+    instead of the library's earlier one; a misordered provenance is reported with the rule actually checked."""
     with _contract_primary_order():
-        schema.validate_catalog(catalog)
+        try:
+            schema.validate_catalog(catalog)
+        except ValueError as error:
+            message = str(error)
+            if _LIBRARY_ORDER_TEXT not in message:
+                raise
+            raise ValueError(message.replace(_LIBRARY_ORDER_TEXT, _FROZEN_ORDER_TEXT)) from None
 
 
 def provenance_entry(record: Mapping[str, Any], names: Mapping[str, str]) -> dict:

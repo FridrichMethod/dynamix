@@ -75,10 +75,43 @@ class ProvenanceTests(unittest.TestCase):
         self.assertEqual((entry["id"], entry["title"], entry["path"], entry["url"]),
                          (cosmic["id"], "Cosmic Pulse", cosmic["path"], schema.catalog_url(cosmic["path"])))
         self.assertEqual(entry["provenance"][-1]["asset_id"], atwiki["id"])
-        # The shared library still checks the earlier order (family, source ID, asset ID) and therefore rejects the
-        # frozen one; build_catalog validates with primary_sort_key until the library adopts the rule.
-        with self.assertRaisesRegex(ValueError, "provenance.*ordered"):
+        # TRIPWIRE: the shared library still checks the earlier order (family, source ID, asset ID) and therefore
+        # rejects the frozen one; build_catalog validates with primary_sort_key until the library adopts the rule.
+        with self.assertRaisesRegex(ValueError, "provenance.*ordered by family priority, source ID, asset ID",
+                                    msg="lib.schema now accepts the frozen primary-record order: delete "
+                                        "build_catalog._contract_primary_order and build_catalog.validate_catalog, "
+                                        "use schema.provenance_sort_key and schema.validate_catalog, and remove this "
+                                        "assertion"):
             schema.validate_catalog(catalog)
+
+    def test_a_misordered_provenance_is_reported_with_the_rule_actually_checked(self):
+        """build_catalog.validate_catalog names the frozen rule (not the library's earlier wording), passes every
+        other contract error through unchanged and always restores the library's key."""
+        from lib import catalog_contract
+
+        library_key = catalog_contract.provenance_sort_key
+        catalog = build.combine(self.root)
+        cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        entry = self.entry(catalog, cosmic["sha256"])
+        index = catalog["assets"].index(entry)
+        swapped = {**entry, "provenance": entry["provenance"][::-1]}
+        broken = {**catalog, "assets": [*catalog["assets"][:index], swapped, *catalog["assets"][index + 1:]]}
+        with self.assertRaises(ValueError) as caught:
+            build.validate_catalog(broken)
+        message = str(caught.exception)
+        self.assertIn("provenance: must be unique and ordered by the frozen primary-record rule", message)
+        self.assertIn("wikis:miraheze, then wikis:fandom", message)
+        self.assertNotIn("ordered by family priority, source ID, asset ID", message)
+        self.assertIs(catalog_contract.provenance_sort_key, library_key)
+        other = {**catalog, "owner": "someone-else"}
+        with self.assertRaisesRegex(ValueError, "owner") as caught:
+            build.validate_catalog(other)
+        with self.assertRaises(ValueError) as direct:
+            schema.validate_catalog(other)
+        self.assertEqual(str(caught.exception), str(direct.exception))
+        self.assertIs(catalog_contract.provenance_sort_key, library_key)
+        build.validate_catalog(catalog)
+        self.assertIs(catalog_contract.provenance_sort_key, library_key)
 
     def test_an_artist_record_is_primary_over_every_wiki_copy(self):
         cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
