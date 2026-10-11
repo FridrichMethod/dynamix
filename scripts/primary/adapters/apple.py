@@ -301,10 +301,15 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     discovery.coverage["product-media-shelves"] = lambda c: (
         not str(c.get("upstream_key", "")).startswith("lookup:") and shelves_cover(c)
     )
+    shelves_hold = base.held_on((item["url"] for item in seed["items"] if "lookup_id" not in item), pages_read)
+    discovery.holds["product-media-shelves"] = lambda c: (
+        not str(c.get("upstream_key", "")).startswith("lookup:") and shelves_hold(c)
+    )
     if lookups:
         discovery.coverage["itunes-lookup"] = lambda c: (
             str(c.get("upstream_key", "")).startswith("lookup:") and c.get("page_url") in lookup_pages
         )
+        discovery.holds["itunes-lookup"] = discovery.coverage["itunes-lookup"]  # while the lookup list is open
     for item in lookups:
         discover_lookup(ctx, seed, item, discovery)
     for item in seed["items"]:

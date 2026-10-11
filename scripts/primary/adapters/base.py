@@ -60,19 +60,37 @@ def mark_unread(discovery: model.Discovery, list_name: str, error: Any) -> None:
         discovery.continuation[list_name] = f"not-read:{getattr(error, 'error_class', None) or type(error).__name__}"
 
 
+PAGE_KEY_PREFIX = "page:"  # key of a seed page whose read failed (:func:`page_key`)
+
+
 def listed_on(pages: set[str]) -> Any:
     """Coverage predicate (``Discovery.coverage``): a previous candidate is covered by a list when its page is one of
     the ``pages`` this run read completely (a page-read failure candidate ``page:<url>`` never is)."""
 
     def covers(candidate: Mapping[str, Any]) -> bool:
-        return candidate.get("page_url") in pages and not str(candidate.get("upstream_key", "")).startswith("page:")
+        return candidate.get("page_url") in pages and not str(candidate.get("upstream_key", "")).startswith(
+            PAGE_KEY_PREFIX
+        )
 
     return covers
 
 
+def held_on(pages: Iterable[str], complete: set[str]) -> Any:
+    """Hold predicate (``Discovery.holds``): a previous candidate is held by a list while its page is one of the list's
+    seeded ``pages`` that this run did not read completely (``complete``, filled during discovery: the pages whose
+    :func:`listed_on` coverage applies). A candidate of a page the seeds no longer name is not held."""
+    seeded = set(pages)
+
+    def holds(candidate: Mapping[str, Any]) -> bool:
+        page = candidate.get("page_url")
+        return page in seeded and page not in complete
+
+    return holds
+
+
 def page_key(url: str) -> str:
     """Candidate key of a seed page whose read failed (one per page, so several failed pages never collide)."""
-    return f"page:{url}"
+    return f"{PAGE_KEY_PREFIX}{url}"
 
 
 def rules(seed: Mapping[str, Any]) -> list[dict]:

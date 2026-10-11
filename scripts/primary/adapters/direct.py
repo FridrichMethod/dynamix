@@ -41,7 +41,8 @@ The list ``article-images`` is complete only when every configured page was read
 (``selection-not-found``), a selection that holds no matching body image (``selection-empty``; an empty response is
 never taken as a complete one), a missing embedded payload (``embedded-json-not-found``) or an image count that
 disagrees with the article's own (``image-count-mismatch``) keeps it open. A complete enumeration covers (for
-``Discovery.coverage``) only the candidates it produces: keys under the page's ``key_prefix``.
+``Discovery.coverage``) only the candidates it produces: keys under the page's ``key_prefix``; a page that was not
+enumerated completely holds those keys (``Discovery.holds``), so their earlier dispositions stay until it is.
 
 ``supplied_marker``: text with which the page itself labels what follows as material supplied by the developer (e.g.
 GNN's ``【以下內容為廠商提供資料原文】``); ``supplied_note`` (required with it) is the quality note that replaces the source's
@@ -497,6 +498,21 @@ def _covering(configs: Mapping[str, Mapping[str, Any]], complete: set[str]) -> A
     return covers
 
 
+def _holding(configs: Mapping[str, Mapping[str, Any]], complete: set[str]) -> Any:
+    """Hold predicate: a previous candidate under a configured page's ``key_prefix`` while that page was not
+    enumerated completely (unread, or an open state such as ``selection-not-found``)."""
+
+    def holds(candidate: Mapping[str, Any]) -> bool:
+        page = candidate.get("page_url")
+        return (
+            page in configs
+            and page not in complete
+            and str(candidate.get("upstream_key", "")).startswith(configs[page]["key_prefix"])
+        )
+
+    return holds
+
+
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     configs = {page["page_url"]: page for page in (seed.get("params") or {}).get("article_images", [])}
     discovery = base.new_discovery(
@@ -513,6 +529,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     read_complete: set[str] = set()
     if configs:
         discovery.coverage[ARTICLE_LIST] = _covering(configs, read_complete)
+        discovery.holds[ARTICLE_LIST] = _holding(configs, read_complete)
 
     def read(page_url: str) -> dict:
         if page_url not in pages:

@@ -6,8 +6,10 @@ discovery stays incomplete. Paging is bounded: a resume key returned twice or mo
 200) stop the listing with the pending key kept open. Captures are grouped by (URL key, content digest): the earliest
 capture of each distinct payload is one candidate ``<host/path>@<timestamp>``. A query that lists no capture although the
 previous snapshot holds captures it matched is not a complete listing: its list stays open (``empty-answer``) with a
-discovery error, so no archived capture changes status on an empty response (07 §Integrity). The state persists over
-further empty answers (the excluded or pending captures are no longer in the snapshot by then) until a listing is read.
+discovery error, so no archived capture changes status on an empty response (07 §Integrity). Each query holds the
+captures it matches (``Discovery.holds``): while its listing is open (interrupted, or an empty answer) the runner keeps
+the earlier excluded, pending and failed captures in the snapshot, so a later empty answer is recognized again; an
+earlier ``empty-answer`` state also keeps the list open on its own. Only a listing read again decides.
 ``web.archive.org/web/<ts>id_/<original>`` returns the archived bytes without replay rewriting; the replay page is the
 ``page_url``.
 
@@ -184,6 +186,16 @@ def previously_listed(previous: Mapping[str, Any] | None, item: Mapping[str, Any
     return count
 
 
+def holds_captures(item: Mapping[str, Any]) -> Callable[[Mapping[str, Any]], bool]:
+    """Hold predicate (``Discovery.holds``) of the CDX query ``item``: a previous candidate is a capture it matches."""
+
+    def holds(candidate: Mapping[str, Any]) -> bool:
+        original = (candidate.get("source_reported") or {}).get("url")
+        return isinstance(original, str) and matches_item(item, original)
+
+    return holds
+
+
 def unique_captures(rows: list[dict]) -> list[dict]:
     """Earliest capture of every (urlkey, digest), ordered by key."""
     best: dict[tuple[str, str], dict] = {}
@@ -205,6 +217,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         "(earliest capture). Pages linking elsewhere are not followed.",
     )
     for item in items:
+        discovery.holds[item["name"]] = holds_captures(item)
         rows: list[dict] = []
         malformed = 0  # rows of unexpected shape: listed, but no capture can be read from them
         resume: str | None = None  # the key of the page being requested; kept open when paging stops early
@@ -235,9 +248,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         else:
             previous = getattr(ctx, "previous", None)
             listed_before = previously_listed(previous, item) if not rows else 0
-            # Captures without archived bytes (excluded, pending, failed) are not carried into the snapshot of a run
-            # whose listing was empty, so an earlier empty answer keeps the list open on its own: it stays open until
-            # a listing is read again (07 §Integrity: never infer completeness from an empty response).
+            # The runner keeps the captures of an open query in the snapshot (``holds``); an earlier empty answer also
+            # keeps the list open on its own (a snapshot that holds none of its captures): it stays open until a
+            # listing is read again (07 §Integrity: never infer completeness from an empty response).
             empty_before = not rows and ((previous or {}).get("continuation") or {}).get(item["name"]) == "empty-answer"
             if listed_before or empty_before:
                 held = (

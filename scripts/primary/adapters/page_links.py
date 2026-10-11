@@ -90,6 +90,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     )
     pages_read: set[str] = set()
     discovery.coverage["seed-pages"] = base.listed_on(pages_read)
+    discovery.holds["seed-pages"] = base.held_on((item["url"] for item in seed["items"]), pages_read)
     skipped_links = 0
     emitted: dict[str, model.Draft] = {}  # key -> the draft of the first page that links it
     for item in seed["items"]:

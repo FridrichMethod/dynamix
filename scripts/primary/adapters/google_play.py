@@ -73,6 +73,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     by_key: dict[str, model.Draft] = {}
     pages_read: set[str] = set()
     discovery.coverage["listing-screenshots"] = base.listed_on(pages_read)
+    discovery.holds["listing-screenshots"] = base.held_on((item["url"] for item in seed["items"]), pages_read)
     for item in seed["items"]:
         page_url = item["url"]
         try:

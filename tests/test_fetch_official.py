@@ -290,6 +290,33 @@ class AppleTests(OfficialTestCase):
                 self.assertFalse(snapshot["discovery_complete"])
                 self.assertEqual(self.manifest()["assets"], [])
 
+    def test_an_unread_product_page_keeps_its_earlier_candidates(self):
+        """A trailer placeholder (excluded) and a screenshot whose download failed have no archived bytes: an unread or
+        unrecognized product page keeps them, and the failure record, instead of dropping them."""
+        routes = {self.PAGE: {"text": text("apple_page.html")}}
+        self.run_family([self.seed([{"url": self.PAGE}])], FakeNetwork(routes))
+        failed = "phone:1a2b3c4d-0000-1111-2222-333344445555"
+        before = self.candidates("official:apple-store")
+        self.assertEqual(
+            (before["phone:video-2"]["disposition"], before[failed]["disposition"]), ("excluded", "failed")
+        )
+        failures = self.manifest()["failures"]
+        for answer, token in (
+            ({"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}, "not-read:http_5xx"),
+            ({"text": "<html><body>new layout</body></html>"}, "structure-not-recognized"),
+        ):
+            with self.subTest(token=token):
+                self.run_family([self.seed([{"url": self.PAGE}])], FakeNetwork({self.PAGE: answer}))
+                snapshot = manifest.load_discovery(self.root, "official:apple-store")
+                self.assertEqual(snapshot["continuation"]["product-media-shelves"], token)
+                found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+                self.assertLessEqual({"phone:video-2", failed}, set(found))
+                for key in ("phone:video-2", failed):
+                    self.assertEqual(found[key]["disposition"], before[key]["disposition"])
+                    self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+                self.assertTrue(all(f in self.manifest()["failures"] for f in failures))
+                self.verify()
+
     def test_a_failed_lookup_keeps_the_list_open_and_other_storefronts_still_run(self):
         def lookup(country):
             return full_url(apple.LOOKUP, {"id": "945955095", "country": country, "entity": "software"})
@@ -380,6 +407,42 @@ class GooglePlayTests(OfficialTestCase):
         # The page advertises a resize rendition; the derived =s0 URL is only the download URL.
         self.assertTrue(asset["source_reported"]["url"].startswith(f"{self.P}=w"), asset["source_reported"]["url"])
         self.assertEqual(network.count("play-lh.googleusercontent.com"), 2)
+        self.verify()
+
+    def test_an_unread_listing_keeps_its_earlier_candidates(self):
+        """The excluded icon was listed on the English page: while that page shows no screenshots (and the Japanese
+        one is unreadable) the icon stays in the snapshot and the archived screenshots stay current."""
+        routes = {
+            self.EN: {"text": text("google_play_en.html")},
+            self.JA: {"text": text("google_play_ja.html")},
+            f"{self.P}=s0": {"bytes": image_bytes("PNG", (1052, 591)), "content_type": "image/png"},
+            f"{self.Q}=s0": {"bytes": image_bytes("PNG", (128, 72), (1, 2, 3)), "content_type": "image/png"},
+        }
+        seed = {
+            "id": "official:google-play",
+            "name": "Google Play",
+            "platform": "google-play",
+            "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
+            "adapter": "google_play",
+            "quality": QUALITY,
+            "items": [{"url": self.EN}, {"url": self.JA}],
+            "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+        }
+        self.run_family([seed], FakeNetwork(routes))
+        icon = "icon:IconTokenAbcdef0123456789"
+        before = self.candidates("official:google-play")[icon]
+        self.assertEqual((before["disposition"], before["page_url"]), ("excluded", self.EN))
+        routes[self.EN] = {"text": "<html><title>Dynamix</title><body>new layout</body></html>"}
+        routes[self.JA] = {"error": net.HttpError("HTTP 503", url=self.JA, http_status=503)}
+        self.run_family([seed], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "official:google-play")
+        self.assertEqual(snapshot["continuation"]["listing-screenshots"], "structure-not-recognized")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertIn(icon, found)
+        held = found[icon]
+        self.assertEqual((held["disposition"], held["reason"]), (before["disposition"], before["reason"]))
+        self.assertIn(runner.HELD_NOTE, held["notes"])
+        self.assertEqual({a["upstream_status"] for a in self.manifest()["assets"]}, {"current"})
         self.verify()
 
     def test_refused_listing_pages_are_one_candidate_each_and_later_sources_still_run(self):
@@ -665,6 +728,48 @@ class TapTapTests(OfficialTestCase):
         snapshot = self.assert_unread_page_keeps_screenshots_current("not-read:http_5xx", answer={"error": error})
         page = {c["upstream_key"]: c for c in snapshot["candidates"]}[f"page:{url}"]
         self.assertEqual(page["disposition"], "failed")
+
+    def test_an_unread_page_keeps_its_earlier_candidates(self):
+        """Every candidate without archived bytes (the excluded icon and poster frames, the screenshots a metadata-only
+        run leaves pending) of a page that could not be read or recognized stays in the snapshot unchanged."""
+        url = "https://www.taptap.cn/app/7082"
+        seed = {
+            "id": "official:taptap",
+            "name": "TapTap",
+            "url": url,
+            "platform": "taptap",
+            "adapter": "taptap_app",
+            "params": {"identifier": "com.c4cat.dynamix"},
+            "quality": QUALITY,
+            "items": [{"url": url}],
+            "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+        }
+        head, rest = text("taptap_app.html").split('data-ssr="true">', 1)
+        payload, tail = rest.split("</script>", 1)
+        other = json.loads(payload)
+        app = next(v for v in other if isinstance(v, dict) and "screenshots" in v)
+        other[app["identifier"]] = "com.example.other"
+        for token, answer in (
+            ("not-read:http_5xx", {"error": net.HttpError("HTTP 503", url=url, http_status=503)}),
+            ("structure-not-recognized", {"text": "<html><body>new layout</body></html>"}),
+            ("app-not-found", {"text": head + 'data-ssr="true">' + json.dumps(other) + "</script>" + tail}),
+        ):
+            with self.subTest(token=token):
+                self.run_family([seed], FakeNetwork({url: {"text": text("taptap_app.html")}}), metadata_only=True)
+                before = self.candidates("official:taptap")
+                self.assertEqual(before["icon:23c51666ae309b07d5f4fe5d888157e5.png"]["disposition"], "excluded")
+                self.run_family([seed], FakeNetwork({url: answer}), metadata_only=True)
+                snapshot = manifest.load_discovery(self.root, "official:taptap")
+                self.assertEqual(snapshot["continuation"]["app-screenshots"], token)
+                found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+                self.assertLessEqual(set(before), set(found))
+                for key, candidate in before.items():
+                    self.assertEqual(
+                        (found[key]["disposition"], found[key]["reason"]),
+                        (candidate["disposition"], candidate["reason"]),
+                    )
+                    self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+                self.verify()
 
     def test_a_page_without_the_payload_keeps_the_list_open(self):
         snapshot = self.assert_unread_page_keeps_screenshots_current(
