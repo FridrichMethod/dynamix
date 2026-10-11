@@ -22,7 +22,9 @@ from __future__ import annotations
 import argparse
 import functools
 import http.server
+import itertools
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -33,7 +35,6 @@ from collections import Counter
 from pathlib import Path
 from urllib.parse import quote, urljoin, urlparse
 
-from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,6 +54,10 @@ IMAGE_SHOWN = (
 )
 SLIDE_SHOWN = "imgTargets[slideIndex - 1].naturalWidth > 0 && imgTargets[slideIndex - 1].closest('.mySlides').classList.contains('is-current')"
 SHOWN_ID = "imgTargets[slideIndex - 1].dataset.id"
+# Every link that opens a new tab, with whether it carries rel noopener and noreferrer and lies in a provenance block.
+NEW_TAB_LINKS = """() => [...document.querySelectorAll('a[target="_blank"]')].map((node) => ({href: node.href,
+    safe: node.relList.contains('noopener') && node.relList.contains('noreferrer'),
+    provenance: Boolean(node.closest('#provenance'))}))"""
 STATUS_ORDER = [
     "available",
     "partially_available",
@@ -130,11 +135,20 @@ def build_site(destination: Path, catalog: dict):
 
 
 def hostile(catalog: dict) -> dict:
-    """A catalog the builder would never write: script and data URLs where files and pages belong. The page must still
-    render, link nothing unsafe and run nothing. (No slideshow entries: the renderer rejects such paths outright.)"""
+    """A catalog the builder would never write: script and data URLs where files and pages belong, and a
+    protocol-relative preview and a root-relative file that would load from another host or outside the site's mount.
+    The page must still render, link and load nothing unsafe and run nothing. (No slideshow entries: the renderer
+    rejects such paths outright.)"""
     bad = json.loads(json.dumps(catalog))
-    site = next(asset for asset in bad["assets"] if asset["gallery"] and asset["site_original"] and asset["thumb"])
+    published = [
+        asset
+        for asset in bad["assets"]
+        if asset["gallery"] and asset["site_original"] and asset["thumb"] and asset["format"] != "PDF"
+    ]
+    site, other_host, root_relative = published[:3]
     site.update({"url": "javascript:alert(7)", "thumb": "java\tscript:alert(8)"})
+    other_host["thumb"] = "//127.0.0.2/x.png"
+    root_relative["url"] = "/x.png"
     archived = next(asset for asset in bad["assets"] if asset["gallery"] and not asset["site_original"])
     archived["archive_url"] = "javascript:alert(9)"
     for asset in bad["assets"]:
@@ -395,6 +409,11 @@ def translator(page):
     return lambda key, **values: page.evaluate("([key, values]) => DYNAMIX_I18N.t(key, values)", [key, values])
 
 
+def path_recorder(paths):
+    """A request handler that appends each request's URL path to ``paths``."""
+    return lambda request: paths.append(urlparse(request.url).path)
+
+
 def find(catalog, predicate):
     for asset in catalog["assets"]:
         if predicate(asset):
@@ -559,6 +578,7 @@ def check_viewer(smoke, base, catalog, fixture):
     assert page.evaluate("getComputedStyle(document.activeElement).outlineStyle") != "none", "keyboard focus is visible"
     page.wait_for_function("location.hash === ''", timeout=3000)  # the close event, which clears it, is asynchronous
     # Deep link: archive.html#<id> opens that file, for every catalog entry (gallery or not).
+    provenance_links = 0
     for asset in catalog["assets"][: (None if fixture else 5)]:
         smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
@@ -590,12 +610,17 @@ def check_viewer(smoke, base, catalog, fixture):
             page.wait_for_function(IMAGE_SHOWN, timeout=5000)
         blocks = page.locator("#provenance .provenance-item").count()
         assert blocks == len(asset["provenance"]), (asset["id"], blocks)
+        # A new tab never gets a handle on this page (noopener) or the archive URL as Referer (noreferrer).
+        links = page.evaluate(NEW_TAB_LINKS)
+        assert all(link["safe"] for link in links), (asset["id"], [link["href"] for link in links if not link["safe"]])
+        provenance_links += sum(link["provenance"] for link in links)
         credits = page.locator("#viewer-credits").inner_text()
         for role in ("illustrators", "composers"):
             names = asset[role]
             assert all(name in credits for name in names), (role, names, credits)
         if not asset["illustrators"]:
             assert page.evaluate("DYNAMIX_I18N.t('credit.unknown')") in credits
+    assert provenance_links, "no provenance link opens a new tab, so their rel was never checked"
     smoke.finish(page)
 
 
@@ -609,7 +634,7 @@ def check_provenance_text(smoke, base, catalog):
         smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(duplicate["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open")
         text = page.locator("#provenance").inner_text()
-        t = lambda key, **values: page.evaluate("([key, values]) => DYNAMIX_I18N.t(key, values)", [key, values])
+        t = translator(page)
         field = t("comparison.sha1_match")
         assert t("comparison.matched", field=field) in text, (lang, "matched")
         mismatch = next(p for p in duplicate["provenance"] if p["comparisons"]["sha1_match"] is False)
@@ -708,7 +733,7 @@ def check_previews(smoke, base, catalog, fixture):
         raise Skip("the catalog has no gallery images")
     page = smoke.page(base)
     requested = []
-    page.on("request", lambda request: requested.append(urlparse(request.url).path))
+    page.on("request", path_recorder(requested))
     open_archive(smoke, page, base)
     smoke.monitor.settle(page)
     cards = page.evaluate("""() => [...document.querySelectorAll('.card')].map((card) => {
@@ -732,7 +757,7 @@ def check_previews(smoke, base, catalog, fixture):
     for asset, fallback in ((site_thumb, site_thumb["url"]), (archive_thumb, None)):
         page = smoke.page(base)
         requested = []
-        page.on("request", lambda request: requested.append(urlparse(request.url).path))
+        page.on("request", path_recorder(requested))
         preview = urljoin(base, asset["thumb"])
         smoke.monitor.expect(preview)
         page.route(preview, lambda route: route.abort())
@@ -878,7 +903,10 @@ def check_inventory(smoke, base, catalog):
     first; failure lines count attempts in the language's plural form."""
     tally = Counter(source["status"] for source in catalog["sources"])
     totals = catalog.get("summary") or {}
-    pick = lambda key, fallback: fallback if totals.get(key) is None else totals[key]  # the page's `??`
+
+    def pick(key, fallback):
+        return fallback if totals.get(key) is None else totals[key]  # the page's `??`
+
     counts = {
         "sources": pick("source_count", len(catalog["sources"])),
         "records": pick("source_asset_records", 0),
@@ -1012,7 +1040,7 @@ def check_layout(smoke, base, catalog, lang, size):
                 box,
             )
         boxes = [page.locator(f".{name}").first.bounding_box() for name in BOTTOM_ROW]
-        assert all(left["x"] + left["width"] <= right["x"] for left, right in zip(boxes, boxes[1:])), boxes
+        assert all(left["x"] + left["width"] <= right["x"] for left, right in itertools.pairwise(boxes)), boxes
         for arrow in (".prev", ".next"):
             assert page.locator(
                 arrow
@@ -1442,6 +1470,16 @@ def check_edges(smoke, base, catalog, names, small_id):
 
 UNSAFE_LINKS = """() => [...document.querySelectorAll('[href], [src]')].map((node) => node.href || node.src || '')
     .filter((url) => url && !/^(https?:|file:|#)/i.test(url))"""
+# Images that load from outside the site's mount (another host, or the server root above it), and links to the same
+# host that leave the mount. Links to other hosts (sources, the repository) are allowed.
+OFF_MOUNT = """(base) => [...document.querySelectorAll('img[src], a[href]')]
+    .map((node) => [node.localName, node.localName === 'img' ? node.src : node.href])
+    .filter(([tag, url]) => (tag === 'img' || new URL(url).origin === new URL(base).origin) && !url.startsWith(base))"""
+
+
+def refused_site_url(value):
+    """Values src/archive.js never uses as a site file: a scheme, a leading slash or backslash, a space or control."""
+    return bool(re.match(r"^(?:[a-z][a-z\d+.-]*:|[\\/])", value, re.IGNORECASE) or re.search(r"[\x00-\x20\x7f]", value))
 
 
 def check_hostile(smoke, base):
@@ -1449,13 +1487,20 @@ def check_hostile(smoke, base):
     open_archive(smoke, page, base)
     assert count(page) > 0
     assert page.evaluate(UNSAFE_LINKS) == [], page.evaluate(UNSAFE_LINKS)
+    assert page.evaluate(OFF_MOUNT, base) == [], page.evaluate(OFF_MOUNT, base)
     catalog = page.evaluate("window.DYNAMIX_CATALOG")
+    refused = [
+        asset for asset in catalog["assets"] if refused_site_url(asset["url"]) or refused_site_url(asset["thumb"] or "")
+    ]
+    assert {"/x.png", "javascript:alert(7)"} <= {asset["url"] for asset in refused}, "the hostile catalog is in place"
+    assert "//127.0.0.2/x.png" in {asset["thumb"] for asset in refused}, "the hostile catalog is in place"
     for asset in catalog["assets"]:
         smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open")
         page.locator(".source-inventory summary").first.evaluate("(node) => node.parentElement.open = true")
         assert page.evaluate(UNSAFE_LINKS) == [], (asset["id"], page.evaluate(UNSAFE_LINKS))
-        if asset["url"].startswith("javascript:"):
+        assert page.evaluate(OFF_MOUNT, base) == [], (asset["id"], page.evaluate(OFF_MOUNT, base))
+        if asset["site_original"] and refused_site_url(asset["url"]):
             assert page.locator("#download").is_hidden() and page.locator("#original").is_hidden()
         if asset["archive_url"].startswith("javascript:"):
             assert page.locator("#download").is_hidden() and page.locator("#archive-note").is_visible()

@@ -8,6 +8,7 @@ an empty-show state, and font stacks the screenshot renderer can draw. They read
 
 Adapted from FridrichMethod/deemo tests/test_slideshow.py (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8)."""
 
+import itertools
 import json
 import re
 import unittest
@@ -235,9 +236,9 @@ class SlideshowTemplateTests(unittest.TestCase):
                 self.assertNotIn(marker.lstrip("."), self.css.replace("mySlides", ""))
 
     def test_only_the_current_slide_takes_hits_and_reaches_assistive_tech(self):
-        rule = lambda selector: re.search(r"(?m)^" + re.escape(selector) + r" \{(.*?)\n\}", self.css, re.DOTALL).group(
-            1
-        )
+        def rule(selector):
+            return re.search(r"(?m)^" + re.escape(selector) + r" \{(.*?)\n\}", self.css, re.DOTALL).group(1)
+
         self.assertRegex(rule(".mySlides"), r"pointer-events:\s*none")
         self.assertRegex(rule(".mySlides"), r"visibility:\s*hidden")
         self.assertRegex(rule(".mySlides.is-current"), r"pointer-events:\s*auto")
@@ -346,7 +347,7 @@ class SlideshowTemplateTests(unittest.TestCase):
         )
         lefts = [px(css_value(narrow, [name], "left")) for name in (".github", ".archive-link", ".random")]
         self.assertEqual(lefts, sorted(lefts))
-        self.assertTrue(all(b - a >= small for a, b in zip(lefts, lefts[1:])), "The compact discs do not overlap")
+        self.assertTrue(all(b - a >= small for a, b in itertools.pairwise(lefts)), "The compact discs do not overlap")
         self.assertGreater(px(css_value(narrow, [".asset-caption"], "left")), lefts[-1] + small / 2 + small)
         self.assertLessEqual(small * 1.5, int(stage.group(1)))
         # The clamped notes show a cut text's full wording in a tooltip.

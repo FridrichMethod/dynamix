@@ -246,7 +246,10 @@ class RenderTests(unittest.TestCase):
         image.save(path)
         opaque = self.root / "assets/public/wikis/miraheze/full--000000000002.png"
         Image.new("RGBA", (100, 100), (1, 2, 3, 255)).save(opaque)
-        rel = lambda p: p.relative_to(self.root).as_posix()
+
+        def rel(p):
+            return p.relative_to(self.root).as_posix()
+
         slides = slides_of(
             self.render(
                 [
@@ -280,7 +283,7 @@ class FixtureRenderTests(unittest.TestCase):
         expected = [entry for entry in catalog["assets"] if entry["slideshow"]]
         self.assertEqual(len(slides), catalog["summary"]["slideshow_images"])
         self.assertEqual([slide["data-id"] for slide in slides], [entry["id"] for entry in expected])
-        for slide, entry in zip(slides, expected):
+        for slide, entry in zip(slides, expected, strict=True):
             with self.subTest(asset=entry["title"]):
                 self.assertEqual(slide["data-title"], entry["title"])
                 self.assertEqual(slide["data-size"], f"{entry['width']} × {entry['height']}")

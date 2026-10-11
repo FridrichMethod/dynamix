@@ -10,6 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent / "fixtures/catalog"))
 
 import catalog_fixture as fx  # noqa: E402
+
 import build_catalog as build  # noqa: E402
 from lib import schema  # noqa: E402
 

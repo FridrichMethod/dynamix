@@ -72,7 +72,7 @@ def in_git_checkout() -> bool:
 def attributes(paths: list[str], *names: str) -> dict[str, dict[str, str]]:
     fields = git("check-attr", "-z", "--stdin", *names, stdin="\0".join(paths).encode()).split(b"\0")[:-1]
     result: dict[str, dict[str, str]] = {path: {} for path in paths}
-    for path, name, value in zip(fields[::3], fields[1::3], fields[2::3]):
+    for path, name, value in zip(fields[::3], fields[1::3], fields[2::3], strict=True):
         result[path.decode()][name.decode()] = value.decode()
     return result
 
@@ -94,9 +94,9 @@ def tracked() -> list[tuple[str, str, int]]:
             stdin="".join(f"{blob}\n" for _, blob, _ in rows).encode(),
         )
         .decode()
-        .split("\n")
+        .splitlines()
     )
-    return [(path, blob, int(line.split()[1])) for (path, blob, _), line in zip(rows, sizes)]
+    return [(path, blob, int(line.split()[1])) for (path, blob, _), line in zip(rows, sizes, strict=True)]
 
 
 def raw_contents(blobs: list[str]) -> list[bytes]:
@@ -172,7 +172,9 @@ class ContentTests(unittest.TestCase):
         for settings in CRLF_CHECKOUTS:
             with self.subTest(settings=settings):
                 changed = [
-                    path for (path, blob), before in zip(pinned, raw) if checkout_bytes(path, blob, *settings) != before
+                    path
+                    for (path, blob), before in zip(pinned, raw, strict=True)
+                    if checkout_bytes(path, blob, *settings) != before
                 ]
                 self.assertEqual(changed, [])
 

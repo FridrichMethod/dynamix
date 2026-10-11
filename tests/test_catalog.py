@@ -22,6 +22,7 @@ from unittest import mock
 sys.path.insert(0, str(Path(__file__).resolve().parent / "fixtures/catalog"))
 
 import catalog_fixture as fx  # noqa: E402
+
 import build_catalog as build  # noqa: E402
 import build_thumbnails as thumbs  # noqa: E402
 from lib import manifest, schema  # noqa: E402
@@ -230,7 +231,7 @@ class TitleTests(Base):
     RULE = "break the title rule"
 
     def add(self, source_id, filename, title, **fields):
-        seed = zlib.crc32(f"{source_id}/{filename}".encode("utf-8"))
+        seed = zlib.crc32(f"{source_id}/{filename}".encode())
         data = fx.solid_png((30, 20), (seed & 255, (seed >> 8) & 255, (seed >> 16) & 255))
         return fx.add_record(self.root, fx.make_record(self.root, source_id, data, filename, title=title, **fields))
 

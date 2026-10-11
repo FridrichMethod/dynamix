@@ -32,8 +32,9 @@ import re
 import stat
 import sys
 import tempfile
+from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 COVERAGE_JSON = "data/coverage.json"

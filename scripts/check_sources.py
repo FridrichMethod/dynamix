@@ -36,10 +36,11 @@ import argparse
 import json
 import re
 import sys
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 from urllib.parse import quote, urlsplit
 
 SCRIPTS = Path(__file__).resolve().parent
@@ -215,7 +216,7 @@ def _normalize(field_name: str, value: Any) -> Any:
     if field_name == "timestamp":
         try:
             parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-            return parsed.astimezone(timezone.utc).isoformat() if parsed.tzinfo else value
+            return parsed.astimezone(UTC).isoformat() if parsed.tzinfo else value
         except ValueError:
             return value
     return value

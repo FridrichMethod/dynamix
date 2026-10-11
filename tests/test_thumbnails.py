@@ -23,6 +23,7 @@ from PIL import Image, ImageCms, ImageStat
 sys.path.insert(0, str(Path(__file__).resolve().parent / "fixtures/catalog"))
 
 import catalog_fixture as fx  # noqa: E402
+
 import build_catalog  # noqa: E402
 import build_coverage  # noqa: E402
 import build_thumbnails as thumbs  # noqa: E402

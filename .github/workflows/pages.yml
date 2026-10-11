@@ -1,9 +1,10 @@
 name: Deploy GitHub Pages (approved release only)
 
-# Release hold. This workflow never runs on push, pull request or a schedule. A manual dispatch deploys only when it
-# targets main, its release_sha input is the dispatched commit, and the repository variable RELEASE_APPROVED_SHA names
-# that same commit. The variable stays unset during the hold, so every dispatch fails closed at the approval check:
-# no tests, no artifact, no deployment. Approving a release is a later, explicit owner action (set the variable).
+# Approved releases only. This workflow never runs on push, pull request or a schedule. A manual dispatch deploys only
+# when it targets main, its release_sha input is the full SHA of the dispatched commit, and the repository variable
+# RELEASE_APPROVED_SHA names that same commit; the variable names the last released commit. If the variable is unset or
+# names any other commit, the dispatch fails closed at the approval job: no tests, no artifact, no deployment.
+# Releasing another commit is an owner action: set the variable to its full SHA, then dispatch with it as release_sha.
 on:
   workflow_dispatch:
     inputs:

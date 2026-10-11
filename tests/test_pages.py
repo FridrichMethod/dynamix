@@ -151,7 +151,7 @@ class Checkout:
         self.write("data/catalog.json", (json.dumps(self.catalog, ensure_ascii=False, indent=2) + "\n").encode())
         self.write("data/catalog.js", catalog_js(js_catalog or self.catalog).encode())
 
-    def commit(self) -> "pages.Commit":
+    def commit(self) -> pages.Commit:
         """A commit holding exactly the current bytes of every tracked regular file (as if committed just now)."""
         blobs = {
             rel: git_blob((self.root / rel).read_bytes())

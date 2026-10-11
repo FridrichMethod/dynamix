@@ -36,9 +36,10 @@ import os
 import re
 import sys
 import tempfile
+from collections.abc import Mapping
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 SCRIPTS = Path(__file__).resolve().parent
 if str(SCRIPTS) not in sys.path:  # `python -I` does not put the script's directory on sys.path
