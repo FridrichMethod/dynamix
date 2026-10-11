@@ -713,12 +713,14 @@ class OtherGameCaptionTests(unittest.TestCase):
         curator note): a listed partner of a collaboration records its association ("Dynamix x RAVON Collaboration"),
         and an unlisted partner records none and asks a curator to review it. Dynamix's own occasions keep their
         classification (no association, the page game stays) and, like every unlisted name, carry the curator note.
-        The original game's own name alone ("Artwork in Dynamix") names no other game and needs no review."""
+        The original game's own name alone ("Artwork in Dynamix") names no other game and needs no review. A
+        possessive is read the same with a straight or a typographic apostrophe ("Dynamix's", "Dynamix’s")."""
         listed = {
             "S Artwork for Dynamix x RAVON Collaboration": "RAVON",
             "S Artwork for Dynamix X Rotaeno Collaboration": "Rotaeno",
             "S Jacket for Dynamix×Lanota Event": "Lanota",
             "S Artwork for Dynamix's Arcaea Collaboration Event": "Arcaea",
+            "S Artwork for Dynamix’s Arcaea Collaboration Event": "Arcaea",  # a typographic apostrophe
         }
         for caption, other in listed.items():
             with self.subTest(caption=caption):
@@ -731,7 +733,12 @@ class OtherGameCaptionTests(unittest.TestCase):
                     (decision.disposition, decision.game, decision.associations),
                     ("download", "mixed", [other.casefold()]),
                 )
-        for named in ("Dynamix x Foo Collaboration", "Dynamix's 5th Anniversary", "Dynamix Halloween Event 2020"):
+        for named in (
+            "Dynamix x Foo Collaboration",
+            "Dynamix's 5th Anniversary",
+            "Dynamix’s 5th Anniversary",
+            "Dynamix Halloween Event 2020",
+        ):
             with self.subTest(named=named):
                 item = self.gallery_item(f"S Artwork for {named}")
                 self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
@@ -740,7 +747,14 @@ class OtherGameCaptionTests(unittest.TestCase):
                 self.assertEqual(
                     (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
                 )
-        for caption in ("S Artwork in Dynamix", "S Artwork for Dynamix's", "S Jacket from Dynamix (2016)"):
+        for caption in (
+            "S Artwork in Dynamix",
+            "S Artwork for Dynamix's",
+            "S Artwork for Dynamix’s",
+            "S Artwork for Dynamix’s, by HAT",
+            "S Artwork for Dynamix'",
+            "S Jacket from Dynamix (2016)",
+        ):
             with self.subTest(caption=caption):
                 item = self.gallery_item(caption)
                 self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))

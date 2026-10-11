@@ -2027,6 +2027,62 @@ class RunnerStateTests(ArchivesTestCase):
             self.assertNotIn("img/x.png", self.candidates("archives:press"))  # its only linking page dropped it
             self.verify()
 
+    def test_only_the_unread_linking_pages_are_carried_over(self):
+        """keep_unread_links carries over only the earlier linking pages that this run did not read completely and
+        that the seeds still name: with three seed pages that link the file, a page read completely without the file
+        is no longer named even while another page is unread, so the file is dropped once the only page still named
+        drops it; a page removed from the seeds is never carried over."""
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        second, third = "https://press.example.org/second", "https://press.example.org/third"
+
+        def unread(url):
+            return {"error": net.HttpError("HTTP 503", url=url, http_status=503)}
+
+        def seed_with(*pages):
+            seed = self.seed(rules=rules)
+            seed["items"] += [{"url": url, "link_rules": [{"attr": "src", "pattern": "^/img/"}]} for url in pages]
+            return seed
+
+        def notes():
+            return self.candidates("archives:press")["img/x.png"].get("notes") or ""
+
+        with self.subTest("a page read completely without the file while another is unread"):
+            self.root = Path(self.temp.name) / "three-pages"
+            self.root.mkdir()
+            seed = seed_with(second, third)
+            listing = self.page("x.png", "y.png")
+            self.run_family([seed], FakeNetwork({self.PAGE: listing, second: listing, third: listing}))
+            self.assertIn(f"Also linked from {third}.", notes())
+            self.run_family(
+                [seed], FakeNetwork({self.PAGE: listing, second: unread(second), third: self.page("y.png")})
+            )
+            self.assertIn(f"Also linked from {second}.", notes())  # unread: still named
+            self.assertNotIn(f"Also linked from {third}.", notes())  # read completely without it: no longer named
+            self.verify()
+            self.run_family(
+                [seed], FakeNetwork({self.PAGE: self.page("y.png"), second: unread(second), third: self.page("y.png")})
+            )
+            held = self.candidates("archives:press")["img/x.png"]
+            self.assertEqual((held["disposition"], held["reason"]), ("excluded", "site_ui: logo"))
+            self.assertIn(runner.HELD_NOTE, held["notes"])
+            self.verify()
+            # The page still named is read without the file; the one dropped from the notes is now unread.
+            self.run_family(
+                [seed], FakeNetwork({self.PAGE: self.page("y.png"), second: self.page("y.png"), third: unread(third)})
+            )
+            self.assertNotIn("img/x.png", self.candidates("archives:press"))
+            self.verify()
+        with self.subTest("a page the seeds no longer name"):
+            self.root = Path(self.temp.name) / "unseeded-page"
+            self.root.mkdir()
+            listing = self.page("x.png", "y.png")
+            self.run_family([seed_with(second)], FakeNetwork({self.PAGE: listing, second: listing}))
+            self.assertIn(f"Also linked from {second}.", notes())
+            self.run_family([seed_with(third)], FakeNetwork({self.PAGE: listing, third: unread(third)}))
+            self.assertNotIn(f"Also linked from {second}.", notes())  # not a seed page any more: never carried
+            self.assertNotIn(f"Also linked from {third}.", notes())  # unread, but it never linked the file
+            self.verify()
+
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
         other = "https://press.example.org/other"
         seed = self.seed()
