@@ -17,6 +17,10 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from lib import schema  # noqa: E402 - the Pages budget, a constant the documents quote
+
 SOURCE_DOCS = tuple(f"docs/sources-{family}" for family in ("wikis", "artists", "official", "archives"))
 STEMS = ("README", *SOURCE_DOCS, "docs/coverage", "licenses/README")
 PAIRS = tuple((f"{stem}.md", f"{stem}.zh-CN.md") for stem in STEMS)
@@ -97,17 +101,21 @@ HOLD_MARKERS = re.compile(
 )
 MARKDOWN_LINK = re.compile(r"!?\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)]*\)")
 # Collection counts belong between the STATS markers (generated), never in the prose. A number counts a collection
-# when a counted noun follows it, also behind up to three words ("3,337 accepted file titles") or, in Chinese, behind a
-# classifier and a few characters ("3,337 个已接受文件名"). Digits inside names (SHA-1, 2.0, H5) are not numbers here,
-# and a number followed by "a"/"an" does not count the noun ("4 an archived file", an exit status).
+# when a counted noun follows it, also behind up to three words ("3,337 accepted file titles", "3,773 SHA-256-distinct
+# files") or, in Chinese, behind a classifier and a few characters ("3,337 个已接受文件名"), or when it follows the noun
+# with a classifier ("曲绘共 3,773 张"). Digits inside names (SHA-1, 2.0, H5) are not numbers here, and a number
+# followed by "a"/"an" does not count the noun ("4 an archived file", an exit status). Lines are matched as rendered
+# (count_claims()), so "**3,773** files" counts too.
 _COUNTED_EN = (
-    r"files?|images?|songs?|records?|assets?|candidates?|artworks?|covers?|jackets?|screenshots?|sources?|"
-    r"titles?|entry|entries|uploads?"
+    r"files?|images?|songs?|tracks?|records?|assets?|candidates?|artworks?|covers?|jackets?|screenshots?|sources?|"
+    r"titles?|entry|entries|uploads?|originals?|bytes"
 )
-_COUNTED_ZH = r"文件|图片|曲目|记录|候选|曲绘|资产|封面|截图|来源|标题|条目"
+_COUNTED_ZH = r"原文件|文件|图片|曲目|记录|候选|曲绘|资产|封面|截图|来源|标题|条目|字节"
+_CLASSIFIERS_ZH = r"个|张|首|条|项|份|幅|件|部"
 COUNT_CLAIMS = re.compile(
-    rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s+(?:(?!an?\s)[A-Za-z'-]+\s+){{0,3}}(?:{_COUNTED_EN})\b|"
-    rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s*(?:(?:个|张|首|条|项|份)[^\s，。；：、]{{0,8}}?)?(?:{_COUNTED_ZH})",
+    rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s+(?:(?!an?\s)[A-Za-z0-9'-]*[A-Za-z][A-Za-z0-9'-]*\s+){{0,3}}(?:{_COUNTED_EN})\b|"
+    rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s*(?:(?:{_CLASSIFIERS_ZH})[^\s，。；：、]{{0,8}}?)?(?:{_COUNTED_ZH})|"
+    rf"(?:{_COUNTED_ZH})[^\s\d，。；：、]{{0,4}}?\s*(?<![A-Za-z0-9_.-])\d[\d,]*\s*(?:{_CLASSIFIERS_ZH})",
     re.IGNORECASE,
 )
 # A "**" pair renders as bold only when the opening run is left-flanking and the closing run right-flanking
@@ -221,6 +229,17 @@ def release_wording_problems(text: str) -> list[str]:
         if RELEASE_WORDS.search(sentence) and not GUARDS.search(sentence):
             problems.append(f"unguarded release statement: {sentence[:80]!r}")
     return problems
+
+
+def count_claims(line: str) -> list[str]:
+    """Collection counts in one prose line as it reads rendered (code spans blanked, emphasis and link syntax
+    dropped). The Pages budget is a constant of the build, not a count of the collection, so it is exempt by value."""
+    claims = COUNT_CLAIMS.finditer(plain(INLINE_CODE.sub(" ", line)))
+    return [
+        claim.group()
+        for claim in claims
+        if int(re.search(r"\d[\d,]*", claim.group()).group().replace(",", "")) != schema.PAGES_BUDGET_BYTES
+    ]
 
 
 def plain(text: str) -> str:
@@ -479,6 +498,18 @@ class StatisticsMarkerTests(unittest.TestCase):
             "有 42 张图片",
             "3,331 条目",
             "5 archived press screenshots",
+            "every one of the 3,773 originals",
+            "3,773 archived originals",
+            "once (**3,773** files)",
+            "[3,773 files](docs/coverage.md)",
+            "1,354,109,068 bytes of originals",
+            "537 tracks",
+            "3,773 SHA-256-distinct files",
+            "537 幅曲绘",
+            "曲绘共 3,773 张",
+            "3,773 件原文件",
+            "**3,773** 个文件",
+            "1,354,109,068 字节的原文件",
         )
         not_claims = (
             "SHA-1 of the files",
@@ -489,13 +520,18 @@ class StatisticsMarkerTests(unittest.TestCase):
             "HTTP 404 and is recorded",
             "长边 480 px",
             "以状态码 4 退出",
+            "more than 950,000,000 bytes in total",  # the Pages budget, a constant
+            "超过 950,000,000 字节的总量",
+            "any file over 100 MiB",
+            "a 64 MiB response limit",
+            "previews 480 px on the long edge",
         )
         for text in claims:
             with self.subTest(claim=text):
-                self.assertIsNotNone(COUNT_CLAIMS.search(text))
+                self.assertNotEqual(count_claims(text), [])
         for text in not_claims:
             with self.subTest(text=text):
-                self.assertIsNone(COUNT_CLAIMS.search(text))
+                self.assertEqual(count_claims(text), [])
 
     def test_no_collection_counts_outside_the_markers(self):
         for relative in DOCUMENTS:
@@ -504,9 +540,8 @@ class StatisticsMarkerTests(unittest.TestCase):
                 text = text[: text.index(STATS_BEGIN)] + text[text.index(STATS_END) :]
             for line in prose_lines(text):
                 with self.subTest(document=relative, line=line[:60]):
-                    self.assertIsNone(
-                        COUNT_CLAIMS.search(INLINE_CODE.sub(" ", line)),
-                        "collection counts are generated between the STATS markers",
+                    self.assertEqual(
+                        count_claims(line), [], "collection counts are generated between the STATS markers"
                     )
 
 
