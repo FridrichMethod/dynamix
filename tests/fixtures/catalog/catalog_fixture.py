@@ -213,18 +213,19 @@ def run_script(name: str, *args: str) -> subprocess.CompletedProcess:
 
 
 def git_environment() -> dict[str, str]:
-    """clean_environment() isolated from the user's and the system's Git configuration (hooks, templates, signing,
-    identity), so a fixture repository behaves the same on every machine."""
+    """clean_environment() without the user's and the system's Git configuration (a global core.hooksPath or
+    init.templateDir, signing, identity), so a throwaway fixture repository behaves the same on every machine. A fresh
+    fixture repository has no hooks of its own (GIT_TEMPLATE_DIR is dropped with the other GIT_* variables)."""
     return {**clean_environment(), "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
 
 
 def git(root: Path, *args: str) -> None:
-    """Run git in ``root``, isolated from user/system configuration and with hooks disabled. The test is skipped only
-    when the git executable is missing; any failing git command fails the test with git's own message."""
+    """Run git in the fixture repository ``root`` with git_environment(). The test is skipped only when the git
+    executable is missing; any failing git command fails the test with git's own message."""
     executable = shutil.which("git")
     if executable is None:
         raise unittest.SkipTest("git is not installed")
-    command = [executable, "-c", f"core.hooksPath={os.devnull}", "-C", str(root), *args]
+    command = [executable, "-C", str(root), *args]
     try:
         result = subprocess.run(command, capture_output=True, text=True, timeout=120, env=git_environment())
     except FileNotFoundError:
