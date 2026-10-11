@@ -181,6 +181,36 @@ class MetadataOnlyTests(WikiRun):
         self.assertEqual((source["status"], source["discovery_complete"]), ("partially_available", False))
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
+    def test_empty_answers_are_not_a_complete_enumeration(self) -> None:
+        """A 200 answer without a ``query`` object (MediaWiki's empty generator) or with an empty list is recorded as
+        an incomplete list (error, open continuation, exit 2), never as the whole wiki: the archive, its records and
+        the song index proposal stay as the complete run left them."""
+        self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
+        index_path = self.root / "data/discovery/song-index.wikis.json"
+        index_before = index_path.read_text(encoding="utf-8")
+        assets_before = self.manifest()["assets"]
+        for name, answer, expected in (
+                ("pages", lambda p: p.get("generator") == "allpages", "no query object"),
+                ("allimages", lambda p: p.get("list") == "allimages", "listed no entry")):
+            with self.subTest(list=name):
+                wikis = self.scenario.wikis()
+                api = wikis[config.MIRAHEZE.api_url]
+                original = api.query
+                empty = ({"batchcomplete": True} if name == "pages"
+                         else {"batchcomplete": True, "query": {"allimages": []}})
+                api.query = lambda params, original=original, answer=answer, empty=empty: (
+                    empty if answer(params) else original(params))
+                self.assertEqual(self.run_cli("--metadata-only", client=self.scenario.client(wikis)), 2)
+                snapshot = self.snapshot("miraheze")
+                self.assertFalse(snapshot["discovery_complete"])
+                self.assertEqual(snapshot["continuation"][next(k for k in snapshot["continuation"]
+                                                               if k.startswith(name))], {})
+                self.assertTrue(any(expected in error["message"] for error in snapshot["errors"]),
+                                snapshot["errors"])
+                self.assertEqual(index_path.read_text(encoding="utf-8"), index_before)
+                self.assertEqual(self.manifest()["assets"], assets_before)
+                self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
     def test_blocked_japanese_page_is_reported(self) -> None:
         client = self.scenario.client()
         client.errors["https://wikiwiki.jp/rhythmgame/Dynamix"] = net.ChallengeError(
