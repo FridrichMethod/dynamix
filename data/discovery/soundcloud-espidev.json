@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:espidev",
+  "started_at": "2026-10-10T22:35:22Z",
+  "finished_at": "2026-10-10T22:35:23Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:espidev:acrise",
+      "source_id": "artists:soundcloud:espidev",
+      "upstream_key": "acrise",
+      "page_url": "https://soundcloud.com/espidev/acrise",
+      "file_url": "https://i1.sndcdn.com/artworks-PicLJ0oS6GQH4DpI-8Mw8yQ-original.jpg",
+      "title": "Acrise (w/ L. Mity) 【Dynamix/ChainBeeT】",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/espidev/acrise",
+        "sc.title: dynamix",
+        "sc.description: Eproph_4"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-PicLJ0oS6GQH4DpI-8Mw8yQ-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2020-12-30T03:10:14Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:espidev:c13b7cb230fd3967",
+      "song_titles": [
+        "Acrise"
+      ],
+      "illustrators": [
+        "Ep_4"
+      ],
+      "composers": [
+        "L.Mity & EspiDev"
+      ]
+    }
+  ],
+  "errors": []
+}

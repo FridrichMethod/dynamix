@@ -5,9 +5,9 @@
 
 --fixture builds sites from tests/fixtures/ui (the frozen catalog shape, including injection strings, archive-only files,
 a PDF, unknown credits and an empty catalog) and serves them itself on 127.0.0.1: one at an HTTP root, others under
-/dynamix/, /empty/ and /many/ of a second server that has nothing at its root, so a root-relative URL fails. It also opens
-the site from file://. --base checks an already served checkout with the catalog it serves (fixture-only cases are
-skipped); --root additionally opens that checkout from file://.
+/dynamix/, /empty/, /many/, /hostile/ and /edges/ of a second server that has nothing at its root, so a root-relative URL
+fails. It also opens the site from file://. --base checks an already served checkout with the catalog it serves
+(fixture-only cases are skipped); --root additionally opens that checkout from file://.
 
 Besides its own assertions, a run fails on any uncaught exception, console error, HTTP error, failed request, request
 that leaves the local server or its mount path (each is blocked before it reaches the network), or JavaScript dialog,
@@ -144,6 +144,26 @@ def many(catalog: dict, copies: int = 13) -> dict:
     bulk["summary"]["gallery_images"] = sum(asset["gallery"] for asset in bulk["assets"])
     bulk["summary"]["unique_files"] = len(bulk["assets"])
     return bulk
+
+
+def edges(catalog: dict) -> tuple[dict, dict, str]:
+    """Rare records: titles the builder never leaves blank (an empty one on a slideshow file with linked songs, a blank
+    one on a slideshow file whose songs are removed too) and a small artwork kept only in the repository, without a
+    preview (its viewer note has two sentences). Returns the catalog, the name each untitled file should be shown under
+    (its songs, then its upstream file name, as scripts/render_slideshow.py and src/archive.js name it) and the small
+    archive-only file's ID."""
+    bare = json.loads(json.dumps(catalog))
+    shown = [asset for asset in bare["assets"] if asset["gallery"] and asset["slideshow"]]
+    with_songs = next(asset for asset in shown if [song for song in asset["song_titles"] if song.strip()])
+    with_file = next(asset for asset in shown if asset is not with_songs and asset["original_filename"])
+    names = {with_songs["id"]: " / ".join(song for song in with_songs["song_titles"] if song.strip()),
+             with_file["id"]: with_file["original_filename"]}
+    with_songs["title"] = ""
+    with_file.update({"title": "  ", "song_titles": []})
+    small = next(asset for asset in bare["assets"] if asset["gallery"] and asset["site_original"] and not asset["thumb"]
+                 and asset["kind"] == "song_art" and max(asset["width"], asset["height"]) < 1000)
+    small.update({"site_original": False, "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/" + small["path"]})
+    return bare, names, small["id"]
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -485,6 +505,10 @@ def check_viewer(smoke, base, catalog, fixture):
         smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
         assert page.locator("#viewer-title").inner_text() == asset["title"], asset["id"]
+        # The note under the image is composed of whole sentences: no separator before the first (as rendered text,
+        # which keeps the leading space innerText would hide).
+        note = page.locator("#archive-note").text_content()
+        assert note == note.strip(), (asset["id"], note)
         download, original, slideshow = page.locator("#download"), page.locator("#original"), page.locator("#slideshow")
         if asset["site_original"]:
             assert download.get_attribute("href") == asset["url"], (asset["id"], download.get_attribute("href"))
@@ -735,9 +759,10 @@ def check_viewer_failures(smoke, base, catalog):
             page.evaluate("(lang) => DYNAMIX_I18N.setLang(lang)", lang)
             assert page.locator("#full-image").is_hidden(), (asset["id"], "no broken-image glyph")
             assert page.locator("#image-error").inner_text() == t(key, link=t(link)), (lang, page.locator("#image-error").inner_text())
-            note = page.locator("#archive-note").inner_text()
+            note = page.locator("#archive-note").text_content()
             if not asset["site_original"]:
                 assert note.startswith(t("viewer.archive_only_no_preview")) and t("viewer.archive_only") not in note, (lang, note)
+            assert note == note.strip(), (lang, note)
         page.keyboard.press("ArrowRight")
         page.wait_for_function(IMAGE_SHOWN, timeout=5000)
         assert page.locator("#image-error").is_hidden() and page.locator("#full-image").is_visible()
@@ -745,18 +770,34 @@ def check_viewer_failures(smoke, base, catalog):
 
 
 def check_inventory(smoke, base, catalog):
-    """The inventory summary names only the source statuses the catalog's sources have, with counts; failure lines count
-    attempts in the language's plural form."""
+    """The inventory summary names only the source statuses the catalog's sources have, with counts, in the language's
+    punctuation (full-width colons and no space after a Chinese full stop), as whole sentences with nothing before the
+    first; failure lines count attempts in the language's plural form."""
     tally = Counter(source["status"] for source in catalog["sources"])
+    totals = catalog.get("summary") or {}
+    pick = lambda key, fallback: fallback if totals.get(key) is None else totals[key]  # the page's `??`
+    counts = {"sources": pick("source_count", len(catalog["sources"])), "records": pick("source_asset_records", 0),
+              "files": pick("unique_files", len(catalog["assets"])),
+              "gallery": pick("gallery_images", sum(bool(asset["gallery"]) for asset in catalog["assets"])),
+              "failures": pick("failure_count", 0)}
     for lang in ("en", "zh-CN"):
         page = smoke.page(base)
         open_archive(smoke, page, base, f"?lang={lang}")
         t = translator(page)
         page.locator(".source-inventory summary").first.click()
         summary = page.locator("#inventory-summary").inner_text()
+        # Compared as rendered text, which keeps a leading space that innerText would hide.
+        composed = t("inventory.summary", **counts)
         if tally:
-            statuses = " · ".join(f"{t('status.' + status)}: {tally[status]}" for status in STATUS_ORDER if tally[status])
+            statuses = " · ".join(t("inventory.status_count", status=t("status." + status), count=tally[status])
+                                  for status in STATUS_ORDER if tally[status])
             assert t("inventory.statuses", statuses=statuses) in summary, (lang, summary)
+            composed = t("text.sentences", first=composed, second=t("inventory.statuses", statuses=statuses))
+        assert page.locator("#inventory-summary").text_content() == composed, (lang, page.locator("#inventory-summary").text_content(), composed)
+        if lang == "zh-CN":
+            assert ":" not in summary and "。 " not in summary and "：" in summary, summary
+        else:
+            assert ". Source statuses: " in summary or not tally, summary
         for status in STATUS_ORDER:
             if not tally[status]:
                 assert t("status." + status) not in summary, (lang, status, summary)
@@ -928,29 +969,56 @@ def check_slideshow(smoke, base, catalog, fixture):
         smoke.finish(page)
 
 
-# Phones held sideways and short portrait phones (browser bars included), where the notes, the caption and the bottom
-# control row compete for height.
-SHORT_SCREENS = [(568, 320), (667, 375), (844, 390), (375, 553), (360, 568)]
-# The visible text blocks of the liner column that overlap a control of the bottom row, and whether the illustrator's
-# credit (when slide notes are up) lies on screen above that row.
+# Phones held sideways (533 x 320: the compact control row of windows under 600px wide), short narrow landscape windows
+# (560 x 440 to 700 x 560, where the text column is narrowest for its height), short portrait phones (browser bars
+# included) and short desktop windows, where the notes, the caption and the bottom control row compete for room.
+SHORT_SCREENS = [(533, 320), (568, 320), (640, 360), (667, 375), (812, 375), (844, 390), (560, 440), (600, 450), (700, 560),
+                 (960, 540), (320, 454), (375, 553), (360, 568), (360, 640)]
+# The visible text blocks of the liner column that overlap a control of the bottom row; what the caption's lines cross
+# besides (the stage, the arrows, the language toggle, the notes or the title card); the blocks not wholly on screen;
+# and whether the illustrator's whole credit (when slide notes are up) lies on screen above that row, every line of it
+# inside the credits' box (none hidden by a clamp). The caption is measured by its lines: on short landscape screens
+# its box is a fixed band beside the control row.
 CLEARANCE = """(names) => { const row = names.map((name) => document.querySelector('.' + name).getBoundingClientRect());
     const overlaps = (a, b) => a.top < b.bottom && a.bottom > b.top && a.left < b.right && a.right > b.left;
+    const extent = (node) => { const boxes = node.classList.contains('asset-caption')
+            ? [...node.children].filter((child) => child.getClientRects().length).map((child) => child.getBoundingClientRect())
+            : [node.getBoundingClientRect()];
+        return {top: Math.min(...boxes.map((box) => box.top)), bottom: Math.max(...boxes.map((box) => box.bottom)),
+                left: Math.min(...boxes.map((box) => box.left)), right: Math.max(...boxes.map((box) => box.right))}; };
     const blocks = [...document.querySelectorAll('.intro, .slide-notes, .asset-caption')]
         .filter((node) => getComputedStyle(node).visibility !== 'hidden' && node.getClientRects().length);
-    const hits = blocks.filter((node) => row.some((box) => overlaps(node.getBoundingClientRect(), box))).map((node) => node.className);
+    const hits = blocks.filter((node) => row.some((box) => overlaps(extent(node), box))).map((node) => node.className);
+    const caption = document.querySelector('.asset-caption');
+    const others = [...document.querySelectorAll('.slideshow-container, .prev, .next, .lang-toggle')].concat(blocks.filter((node) => node !== caption));
+    const crossed = blocks.includes(caption) ? others.filter((node) => overlaps(extent(caption), node.getBoundingClientRect())).map((node) => node.className) : [];
+    const offscreen = blocks.filter((node) => { const box = extent(node);
+        return box.top < 0 || box.left < 0 || box.bottom > innerHeight || box.right > innerWidth; }).map((node) => node.className);
     const credit = document.querySelector('.slide-notes dd.notes-artist'), notes = blocks.some((node) => node.classList.contains('slide-notes'));
-    const top = Math.min(...row.map((box) => box.top));
-    const creditShown = !notes || Boolean(credit && credit.getBoundingClientRect().top >= 0 && credit.getBoundingClientRect().bottom <= top);
-    return {hits, creditShown}; }"""
+    const top = Math.min(...row.map((box) => box.top)), lines = credit ? [...credit.getClientRects()] : [];
+    const meta = credit && credit.parentNode.getBoundingClientRect();
+    const creditShown = !notes || (lines.length > 0 && lines.every((line) => line.top >= 0 && line.bottom <= top && line.bottom <= meta.bottom + 1));
+    return {hits, crossed, offscreen, creditShown}; }"""
+CLEAR = {"hits": [], "crossed": [], "offscreen": [], "creditShown": True}
+# The notes' texts a short screen cut with an ellipsis, each with its tooltip (which must hold the full text).
+CUT = "[...document.querySelectorAll('.slide-notes [data-full][title]')].map((node) => [node.dataset.full, node.title])"
+# The parts notes too long for their screen give up, in this order (fitNotes() in templates/slideshow.html).
+FIT_STEPS = ["collection", "composer", "reference", "title", "eyebrow"]
+FIT = "document.querySelector('.slide-notes').dataset.fit || ''"
 
 
-def check_short_screens(smoke, base, catalog):
-    """On phones held sideways and short portrait phones, stepping through the whole show, the title card, every
-    slide's notes and the caption stay clear of the bottom control row, in both languages, and the illustrator's credit
-    is on screen."""
+def check_short_screens(smoke, base, catalog, fixture):
+    """On phones held sideways, short narrow landscape windows, short portrait phones and short desktop windows,
+    stepping through the whole show, the title card, every slide's notes and the caption stay on screen and clear of the
+    bottom control row, the caption clear of the stage, the arrows, the language toggle and the notes, in both
+    languages, and the illustrator's whole credit is on screen. Notes too long for their screen give up parts in the
+    fixed order, never the illustrator's credit; a text cut short shows its full wording in a tooltip (the fixture's
+    crowded slides give up parts on the narrow short windows, and the Latin one's file name is cut on a landscape
+    phone)."""
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
         raise Skip("the catalog has no slideshow images")
+    cut, fitted = set(), set()
     for lang in ("en", "zh-CN"):
         for width, height in SHORT_SCREENS:
             page = smoke.page(base, width, height, reduced_motion="reduce")
@@ -958,12 +1026,112 @@ def check_short_screens(smoke, base, catalog):
             page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
             page.evaluate("randomClick(); setIntro(true)")  # pause, with the title card up
             state = page.evaluate(CLEARANCE, BOTTOM_ROW)
-            assert state["hits"] == [], (lang, width, height, "title card", state)
+            assert state == CLEAR, (lang, width, height, "title card", page.evaluate(SHOWN_ID), state)
             for _ in slides:
                 page.evaluate("plusSlides(1)")
                 state = page.evaluate(CLEARANCE, BOTTOM_ROW)
-                assert state["hits"] == [] and state["creditShown"], (lang, width, height, page.evaluate(SHOWN_ID), state)
+                assert state == CLEAR, (lang, width, height, page.evaluate(SHOWN_ID), state)
+                steps = page.evaluate(FIT).split()
+                assert steps == FIT_STEPS[:len(steps)], (lang, width, height, page.evaluate(SHOWN_ID), steps)
+                if steps:
+                    fitted.add(page.evaluate(SHOWN_ID))
+                for full, tooltip in page.evaluate(CUT):
+                    assert tooltip == full, (lang, width, height, page.evaluate(SHOWN_ID), full, tooltip)
+                    cut.add((width, height, full))
             smoke.finish(page)
+    if fixture:
+        crowded = [asset for asset in slides if len(asset["collections"]) >= 5]
+        assert len(crowded) == 2 and {asset["id"] for asset in crowded} <= fitted, ("the crowded slides give up parts", sorted(fitted))
+        latin = next(asset for asset in crowded if asset["title"].isascii())
+        assert (568, 320, latin["title"]) in cut, ("the crowded slide's file name is cut on a landscape phone", sorted(cut))
+
+
+# The saved screenshot's copy of the page (html2canvas's clone, seen through markCuts()): each notes text with its full
+# wording, its text there and whether it is still cut; the illustrator's credit there, and whether all of it is drawn
+# (every line on screen and inside the credits' box). Null when the renderer never handed its copy to markCuts().
+CAPTURE = """() => new Promise((resolve) => {
+    window.setTimeout(() => resolve(null), 20000);
+    const mark = window.markCuts;
+    if (typeof mark !== 'function') return resolve(null);
+    window.markCuts = (doc) => {
+        window.markCuts = mark;
+        mark(doc);
+        const view = doc.defaultView;
+        const texts = [...doc.querySelectorAll('.slide-notes [data-full]')].map((node) => [node.dataset.full, node.textContent,
+            node.scrollHeight - node.clientHeight > parseFloat(view.getComputedStyle(node).lineHeight) / 2]);
+        const credit = doc.querySelector('.slide-notes dd.notes-artist');
+        const lines = [...credit.getClientRects()], meta = credit.parentNode.getBoundingClientRect();
+        resolve({texts, credit: [...credit.childNodes].map((node) => node.nodeName === 'BR' ? '\\n' : node.textContent).join(''),
+                 whole: lines.length > 0 && lines.every((line) => line.top >= 0 && line.bottom <= view.innerHeight && line.bottom <= meta.bottom + 1)});
+    };
+    screenshot();
+})"""
+OVERLAY_OPEN = "document.getElementById('screenshot').classList.contains('is-open')"
+
+
+def check_screenshot_notes(smoke, base, catalog, fixture):
+    """A saved screenshot never cuts a text silently: where the page cuts a title or file reference with an ellipsis
+    (which the screenshot renderer would not draw), its copy for the picture ends in a written one after a start of the
+    full text, and the illustrator's credit is drawn whole, on landscape phones and short narrow windows in both
+    languages (the fixture's crowded slides and its slide without credits; else the slides with the longest titles and
+    credits)."""
+    slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
+    if not slides:
+        raise Skip("the catalog has no slideshow images")
+    if fixture:
+        chosen = [asset for asset in slides if len(asset["collections"]) >= 5 or not asset["illustrators"]]
+    else:
+        chosen = sorted(slides, key=lambda asset: -len(asset["title"] + "".join(asset["illustrators"])))[:3]
+    shortened = []
+    for lang in ("en", "zh-CN"):
+        for width, height in ((533, 320), (568, 320), (600, 450), (700, 560)):
+            page = smoke.page(base, width, height, reduced_motion="reduce")
+            for asset in chosen:
+                smoke.goto(page, urljoin(base, f"index.html?lang={lang}&asset=" + quote(asset["id"], safe="")))
+                page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
+                page.wait_for_function(SLIDE_SHOWN, timeout=10_000)
+                credit = page.evaluate("imgTargets[slideIndex - 1].dataset.illustrators || DYNAMIX_I18N.t('credit.unknown')")
+                capture = page.evaluate(CAPTURE)
+                where = (lang, width, height, asset["id"])
+                assert capture, (where, "the screenshot is drawn from a copy that markCuts() has seen")
+                page.wait_for_function(OVERLAY_OPEN, timeout=20_000)
+                page.evaluate("closeScreenshot()")
+                assert capture["credit"] == credit and capture["whole"], (where, capture)
+                for full, text, still_cut in capture["texts"]:
+                    assert not still_cut, (where, full, text)
+                    if text.replace(" ", " ") != full:
+                        assert text.endswith("…") and full.startswith(text[:-1]), (where, full, text)
+                        shortened.append((where, text))
+            smoke.finish(page)
+    if fixture:
+        assert shortened, "the crowded slides' cut file names end in a written ellipsis in the screenshot"
+
+
+# Tab takes the slideshow as it is drawn (the caption stays with its notes, before the row, at every size).
+TAB_GROUPS = ["signature", "prev", "next", "asset-caption", *BOTTOM_ROW, "lang-toggle"]
+FOCUS_GROUP = """(names) => { const node = document.activeElement.closest(names.map((name) => '.' + name).join(', '));
+    return node ? names.find((name) => node.classList.contains(name)) : document.activeElement.tagName; }"""
+
+
+def check_tab_order(smoke, base, catalog):
+    """Tab runs through the signature, the stage's arrows, the caption's links, the bottom row from the left and the
+    language toggle, on a desktop, a landscape phone (where the caption is drawn right of the row) and a portrait one."""
+    slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
+    if not slides:
+        raise Skip("the catalog has no slideshow images")
+    for width, height in ((1440, 900), (568, 320), (375, 812)):
+        page = open_slideshow(smoke, base, f"?asset={quote(slides[0]['id'], safe='')}", width, height)
+        page.evaluate("document.activeElement.blur()")
+        groups = []
+        for _ in range(30):
+            page.keyboard.press("Tab")
+            group = page.evaluate(FOCUS_GROUP, TAB_GROUPS)
+            if not groups or groups[-1] != group:
+                groups.append(group)
+            if group == TAB_GROUPS[-1]:
+                break
+        assert groups == TAB_GROUPS, (width, height, groups)
+        smoke.finish(page)
 
 
 def check_screenshot_overlay(smoke, base, catalog):
@@ -971,18 +1139,17 @@ def check_screenshot_overlay(smoke, base, catalog):
     if not slides:
         raise Skip("the catalog has no slideshow images")
     page = open_slideshow(smoke, base, f"?asset={quote(slides[0]['id'], safe='')}#screenshot")
-    overlay_open = "document.getElementById('screenshot').classList.contains('is-open')"
-    assert not page.evaluate(overlay_open), "a #screenshot URL opens nothing"
+    assert not page.evaluate(OVERLAY_OPEN), "a #screenshot URL opens nothing"
     history = page.evaluate("[history.length, location.href]")
     page.locator(".photo button").click()
-    page.wait_for_function(overlay_open, timeout=20_000)
+    page.wait_for_function(OVERLAY_OPEN, timeout=20_000)
     assert page.evaluate("Boolean(document.activeElement.closest('#screenshot'))")
     assert page.evaluate("document.querySelector('#screenshot-content canvas') !== null")
     start = page.evaluate("slideIndex")
     page.keyboard.press("ArrowRight")
     assert page.evaluate("slideIndex") == start, "the arrow keys wait while the overlay is open"
     page.keyboard.press("Escape")
-    assert not page.evaluate(overlay_open)
+    assert not page.evaluate(OVERLAY_OPEN)
     assert page.evaluate("document.getElementById('screenshot-content').childElementCount") == 0
     assert page.evaluate("document.activeElement === document.querySelector('.photo button')")
     assert page.evaluate("[history.length, location.href]") == history
@@ -1005,6 +1172,41 @@ def check_empty(smoke, base):
     page.wait_for_timeout(200)
     assert page.evaluate("document.querySelectorAll('.mySlides').length") == 0
     smoke.finish(page)
+
+
+def check_edges(smoke, base, catalog, names, small_id):
+    """A file without a title is shown under its songs, then its upstream file name: on its card, in the title sort, in
+    the viewer and in the slideshow (slide, alt text, notes and caption). A viewer note of two sentences joins them in
+    each language's way, with nothing before the first. Texts are compared as rendered (textContent)."""
+    page = smoke.page(base)
+    open_archive(smoke, page, base, "?sort=title")
+    cards = page.evaluate("[...document.querySelectorAll('.card')].map((card) => [card.dataset.id, card.querySelector('h2').textContent])")
+    shown = dict(cards)
+    for asset_id, name in names.items():
+        assert shown.get(asset_id) == name, (asset_id, shown.get(asset_id), name)
+    order = [title for _, title in cards]
+    assert order == page.evaluate("(titles) => [...titles].sort(new Intl.Collator('en', {numeric: true}).compare)", order), order
+    for asset_id, name in names.items():
+        smoke.goto(page, urljoin(base, "archive.html#" + quote(asset_id, safe="")))
+        page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
+        assert [page.locator("#viewer-title").text_content(), page.locator("#full-image").get_attribute("alt")] == [name, name], asset_id
+    small = next(asset for asset in catalog["assets"] if asset["id"] == small_id)
+    t = translator(page)
+    for lang in ("en", "zh-CN"):
+        smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(small_id, safe="")))
+        page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
+        expected = t("text.sentences", first=t("viewer.archive_only_no_preview"),
+                     second=t("viewer.low_resolution", size=max(small["width"], small["height"])))
+        note = page.locator("#archive-note").text_content()
+        assert note == expected, (lang, note, expected)
+    smoke.finish(page)
+    for asset_id, name in names.items():
+        page = open_slideshow(smoke, base, "#" + quote(asset_id, safe=""))
+        slide = page.evaluate("[imgTargets[slideIndex - 1].dataset.title, imgTargets[slideIndex - 1].alt]")
+        assert slide == [name, name], (asset_id, slide)
+        assert page.locator("#asset-title").text_content() == name
+        assert page.locator(".slide-notes .notes-title").first.get_attribute("data-full") == name
+        smoke.finish(page)
 
 
 UNSAFE_LINKS = """() => [...document.querySelectorAll('[href], [src]')].map((node) => node.href || node.src || '')
@@ -1098,7 +1300,9 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: catalog strings render as text", check_injection, base, catalog)
     smoke.run(f"{label}: slideshow deep links, controls and names", check_slideshow, base, catalog, fixture)
     smoke.run(f"{label}: screenshot overlay", check_screenshot_overlay, base, catalog)
-    smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog)
+    smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog, fixture)
+    smoke.run(f"{label}: screenshots cut no notes text silently", check_screenshot_notes, base, catalog, fixture)
+    smoke.run(f"{label}: Tab follows the drawing", check_tab_order, base, catalog)
     smoke.run(f"{label}: notice without JavaScript", check_without_javascript, base)
     for lang in ("en", "zh-CN"):
         for size in VIEWPORTS:
@@ -1138,6 +1342,8 @@ def main(argv=None):
                 build_site(work / "mounted/empty", empty)
                 build_site(work / "mounted/many", many(catalog))
                 build_site(work / "mounted/hostile", hostile(catalog))
+                edge_catalog, edge_names, edge_small = edges(catalog)
+                build_site(work / "mounted/edges", edge_catalog)
                 servers = [serve(work / "root"), serve(work / "mounted")]
                 root_base = f"http://127.0.0.1:{servers[0].server_port}/"
                 mounted = f"http://127.0.0.1:{servers[1].server_port}/"
@@ -1153,8 +1359,10 @@ def main(argv=None):
                 smoke.run("/empty/: an empty catalog is consistent when allowed", check_served_catalog, mounted + "empty/", empty, True)
                 smoke.run("/many/: 60 per page and focus after paging", check_pagination, mounted + "many/")
                 smoke.run("/hostile/: script URLs in a catalog are never linked or loaded", check_hostile, mounted + "hostile/")
-                smoke.run("subpath server: every request under /dynamix/, /empty/ or /many/", check_subpath_requests, mounted,
-                          ("/dynamix/", "/empty/", "/many/", "/hostile/"))
+                smoke.run("/edges/: untitled files and a two-sentence viewer note", check_edges, mounted + "edges/", edge_catalog,
+                          edge_names, edge_small)
+                smoke.run("subpath server: every request under /dynamix/, /empty/, /many/, /hostile/ or /edges/", check_subpath_requests,
+                          mounted, ("/dynamix/", "/empty/", "/many/", "/hostile/", "/edges/"))
                 smoke.run("file://: archive and slideshow from disk", check_file_url, work / "root", catalog)
                 base = root_base
             else:

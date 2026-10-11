@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:89112381",
+  "started_at": "2026-10-10T22:34:59Z",
+  "finished_at": "2026-10-10T22:35:02Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:89112381:122251308:p0",
+      "source_id": "artists:pixiv:89112381",
+      "upstream_key": "122251308:p0",
+      "page_url": "https://www.pixiv.net/artworks/122251308",
+      "file_url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p0.png",
+      "title": "シノビスラッシュ「流麗凛舞」 (p0)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/122251308",
+        "title: 流麗凛舞"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1028,
+        "height": 1028,
+        "sha1": null,
+        "timestamp": "2024-09-08T08:28:00+00:00",
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "song_titles": [
+        "流麗凛舞"
+      ],
+      "illustrators": [
+        "中本ひょうり"
+      ],
+      "composers": [
+        "K-forest"
+      ]
+    },
+    {
+      "id": "artists:pixiv:89112381:122251308:p1",
+      "source_id": "artists:pixiv:89112381",
+      "upstream_key": "122251308:p1",
+      "page_url": "https://www.pixiv.net/artworks/122251308",
+      "file_url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p1.png",
+      "title": "シノビスラッシュ「流麗凛舞」 (p1)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/122251308",
+        "title: 流麗凛舞"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p1.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1024,
+        "height": 1024,
+        "sha1": null,
+        "timestamp": "2024-09-08T08:28:00+00:00",
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "song_titles": [
+        "流麗凛舞"
+      ],
+      "illustrators": [
+        "中本ひょうり"
+      ],
+      "composers": [
+        "K-forest"
+      ]
+    },
+    {
+      "id": "artists:pixiv:89112381:129309072:p0",
+      "source_id": "artists:pixiv:89112381",
+      "upstream_key": "129309072:p0",
+      "page_url": "https://www.pixiv.net/artworks/129309072",
+      "file_url": "https://i.pximg.net/img-original/img/2025/04/14/21/02/39/129309072_p0.jpg",
+      "title": "Dynamix ✕ シノビスラッシュ コラボイラスト (p0)",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/129309072",
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2025/04/14/21/02/39/129309072_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 929,
+        "sha1": null,
+        "timestamp": "2025-04-14T12:02:00+00:00",
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: host i.pximg.net refused an earlier request in this run (blocked, HTTP 403); not contacted again; manual access required, not retried",
+      "illustrators": [
+        "中本ひょうり"
+      ],
+      "notes": "Dynamix x Shinobi Slash collaboration key art (Sapphire and スズネ)."
+    }
+  ],
+  "errors": []
+}

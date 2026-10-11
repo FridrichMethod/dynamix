@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:aoisoundsystem",
+  "started_at": "2026-10-10T22:35:05Z",
+  "finished_at": "2026-10-10T22:35:08Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:aoisoundsystem:soar-to-oremaster-ver",
+      "source_id": "artists:soundcloud:aoisoundsystem",
+      "upstream_key": "soar-to-oremaster-ver",
+      "page_url": "https://soundcloud.com/aoisoundsystem/soar-to-oremaster-ver",
+      "file_url": "https://i1.sndcdn.com/artworks-000592869923-wgkax4-original.jpg",
+      "title": "【Dynamix】soar to Ø(Remaster ver.)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/aoisoundsystem/soar-to-oremaster-ver",
+        "sc.title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000592869923-wgkax4-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-09-19T12:29:10Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:aoisoundsystem:2e88dadb896b5442",
+      "song_titles": [
+        "soar to Ø"
+      ],
+      "illustrators": [
+        "ケシksくん"
+      ],
+      "composers": [
+        "Aoi"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:aoisoundsystem:soartophi",
+      "source_id": "artists:soundcloud:aoisoundsystem",
+      "upstream_key": "soartophi",
+      "page_url": "https://soundcloud.com/aoisoundsystem/soartophi",
+      "file_url": "https://i1.sndcdn.com/artworks-000175257359-zajlfr-original.jpg",
+      "title": "【SF2016】soar to Ø",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/aoisoundsystem/soartophi"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000175257359-zajlfr-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-08-07T13:17:48Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: earlier SF2016 BMS-event illustration, not the Dynamix jacket",
+      "notes": "Credit evidence only (Illustration: ケシksくん)."
+    }
+  ],
+  "errors": []
+}

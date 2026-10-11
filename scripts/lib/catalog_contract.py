@@ -42,7 +42,8 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
             _fail(label, "provenance", f"source_name of {record['source_id']!r} differs from its source")
     keys = [provenance_sort_key(record) for record in provenance]
     if keys != sorted(keys) or len(set(keys)) != len(keys):
-        _fail(label, "provenance", "must be unique and ordered by family priority, source ID, asset ID")
+        _fail(label, "provenance", "must be unique and ordered by the primary-record rule (family priority; "
+              "wikis:miraheze, then wikis:fandom, then other sources; quality.source_variant; source ID; asset ID)")
     if provenance[0]["source_id"] != asset["source_id"]:
         _fail(label, "provenance", "the first entry must be the primary record")
     for field in MERGED_FIELDS:

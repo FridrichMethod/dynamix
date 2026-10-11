@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "source_id": "official:website",
+  "started_at": "2026-10-10T22:29:29Z",
+  "finished_at": "2026-10-10T22:29:32Z",
+  "scope": {
+    "lists": [
+      "probe"
+    ],
+    "api": null,
+    "notes": "Availability probe only; no candidates are enumerated."
+  },
+  "continuation": {
+    "probe": "not-read:other"
+  },
+  "discovery_complete": false,
+  "candidates": [],
+  "errors": [
+    {
+      "phase": "discover",
+      "url": "https://dynamix.c4-cat.com/",
+      "message": "cannot resolve dynamix.c4-cat.com: [Errno -5] No address associated with hostname [https://dynamix.c4-cat.com/]"
+    }
+  ]
+}

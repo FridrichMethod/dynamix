@@ -8,6 +8,7 @@ import json
 import re
 import subprocess
 import sys
+import unicodedata
 import unittest
 from pathlib import Path
 from urllib.parse import quote
@@ -44,7 +45,6 @@ OBSERVED = {"content_type", "sniffed_format", "bytes", "width", "height", "sha1"
 COMPARISONS = {"sha1_match", "bytes_match", "dimensions_match", "format_match"}
 KINDS = ["song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot", "gameplay_screenshot", "process", "reference"]
 SITE_KINDS = {"song_art", "pack_cover", "character", "background", "part", "promotional", "process"}
-FAMILY_PRIORITY = ["artists", "official", "wikis", "archives"]
 PATH = re.compile(r"assets/public/(artists|official|wikis|archives)/[a-z0-9-]+/[A-Za-z0-9._-]+--[0-9a-f]{12}\.(png|jpg|webp|gif|pdf)")
 
 
@@ -72,7 +72,7 @@ class FixtureContractTests(unittest.TestCase):
 
     def test_fixture_stays_small(self):
         total = sum(path.stat().st_size for path in FIXTURE.rglob("*") if path.is_file() and "__pycache__" not in path.parts)
-        self.assertLess(total, 300_000)
+        self.assertLess(total, 350_000)
 
     def test_catalog_js_is_the_frozen_reference_encoding(self):
         for name in ("catalog", "catalog-empty"):
@@ -134,8 +134,8 @@ class FixtureContractTests(unittest.TestCase):
                     self.assertTrue(PROVENANCE <= set(record) <= PROVENANCE | PROVENANCE_OPTIONAL, "provenance records carry the contract's fields")
                     self.assertEqual(record["asset_id"], f"{record['source_id']}:{asset['sha256'][:16]}")
                 self.assertEqual(asset["provenance"][0]["source_id"], asset["source_id"], "the primary record comes first")
-                keys = [(FAMILY_PRIORITY.index(record["family"]), record["source_id"], record["asset_id"]) for record in asset["provenance"]]
-                self.assertEqual(keys, sorted(keys), "provenance is ordered by family priority, source ID, asset ID")
+                keys = [schema.provenance_sort_key(record) for record in asset["provenance"]]
+                self.assertEqual(keys, sorted(keys), "provenance follows the primary-record rule (schema.provenance_sort_key)")
 
     def test_files_match_their_records(self):
         for asset in self.catalog["assets"]:
@@ -205,6 +205,12 @@ class FixtureContractTests(unittest.TestCase):
                         "credit evidence with the role 'other'")
         self.assertTrue(any(len({tuple(record["collections"]) for record in asset["provenance"]}) > 1 for asset in assets),
                         "records of one file that name different packs")
+        # The most text a slide carries, in Latin and in CJK script (tests/browser_smoke.py, check_short_screens).
+        crowded = [asset for asset in assets if asset["slideshow"] and len(asset["collections"]) >= 5 and len(asset["illustrators"]) >= 2
+                   and asset["composers"] and asset["song_titles"] and asset["title"] not in asset["song_titles"]
+                   and sum(2 if unicodedata.east_asian_width(char) in "WF" else 1 for char in asset["source_name"]) >= 45]
+        self.assertEqual(sorted(bool(re.search(r"[぀-ヿ一-鿿]", asset["title"])) for asset in crowded), [False, True],
+                         "one crowded slide in Latin and one in CJK script")
 
     def test_contract_library_accepts_the_fixture(self):
         for name in ("catalog.json", "catalog-empty.json"):

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:779504",
+  "started_at": "2026-10-10T22:34:50Z",
+  "finished_at": "2026-10-10T22:34:59Z",
+  "scope": {
+    "lists": [
+      "seed-artworks",
+      "wayback-captures"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
+  },
+  "continuation": {
+    "seed-artworks": null,
+    "wayback-captures": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:779504:91845485:p0",
+      "source_id": "artists:pixiv:779504",
+      "upstream_key": "91845485:p0",
+      "page_url": "https://www.pixiv.net/artworks/91845485",
+      "file_url": "https://web.archive.org/web/20221220121848id_/https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+      "title": "Party Vinyl (p0)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/91845485",
+        "title: Party Vinyl"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1000,
+        "height": 1000,
+        "sha1": "aa6ad09253013d448e2c87c6378012778a99e14e",
+        "timestamp": "2021-08-09T08:53:00+00:00",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:779504:73d278d124f29ed8",
+      "song_titles": [
+        "Party Vinyl"
+      ],
+      "illustrators": [
+        "アサヤ"
+      ],
+      "composers": [
+        "モリモリあつし"
+      ]
+    }
+  ],
+  "errors": []
+}

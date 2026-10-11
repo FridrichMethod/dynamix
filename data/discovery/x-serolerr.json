@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:serolerr",
+  "started_at": "2026-10-10T22:36:50Z",
+  "finished_at": "2026-10-10T22:36:51Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:serolerr:1869236616776343997",
+      "source_id": "artists:x:serolerr",
+      "upstream_key": "1869236616776343997",
+      "page_url": "https://x.com/serolerr/status/1869236616776343997",
+      "file_url": null,
+      "title": "@serolerr post 1869236616776343997",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: cover image for Curtainfall! in Dynamix."
+    }
+  ],
+  "errors": []
+}

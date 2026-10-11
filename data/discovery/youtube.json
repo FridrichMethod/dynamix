@@ -1,0 +1,918 @@
+{
+  "schema_version": 1,
+  "source_id": "official:youtube",
+  "started_at": "2026-10-11T01:18:27Z",
+  "finished_at": "2026-10-11T01:18:59Z",
+  "scope": {
+    "lists": [
+      "seed-videos",
+      "channel-art",
+      "channel-videos"
+    ],
+    "api": "https://www.youtube.com/oembed",
+    "notes": "Explicit video IDs via YouTube's public oEmbed endpoint and the thumbnail renditions YouTube generates; no video, audio or Data API."
+  },
+  "continuation": {
+    "seed-videos": null,
+    "channel-art": null,
+    "channel-videos": "the channel's video list is not re-enumerated (no Data API): the channel header showed 64 videos and the 2026-10-10 research enumeration read 61 uploads, 3 streams and 1 playlist-only video; only the 28 Dynamix-related videos are seeded, and the other 37 uploads are not recorded as candidates (23 Zold:out trailer, PV, OST and Kickstarter videos, 13 character skill-demo or introduction videos whose titles name no game, and the Project W teaser)"
+  },
+  "discovery_complete": false,
+  "candidates": [
+    {
+      "id": "official:youtube:2yp09foNv10",
+      "source_id": "official:youtube",
+      "upstream_key": "2yp09foNv10",
+      "page_url": "https://www.youtube.com/watch?v=2yp09foNv10",
+      "file_url": "https://i.ytimg.com/vi/2yp09foNv10/maxresdefault.jpg",
+      "title": "20170217 Rabi Ribi game play only",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=2yp09foNv10",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Rabi Ribi"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/2yp09foNv10/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:baa7b33be25e7ffe",
+      "collections": [
+        "Rabi-Ribi Collaboration"
+      ],
+      "notes": "Thumbnail: Dynamix x Rabi-Ribi title visual."
+    },
+    {
+      "id": "official:youtube:D09PQg7mTpw",
+      "source_id": "official:youtube",
+      "upstream_key": "D09PQg7mTpw",
+      "page_url": "https://www.youtube.com/watch?v=D09PQg7mTpw",
+      "file_url": "https://i.ytimg.com/vi/D09PQg7mTpw/maxresdefault.jpg",
+      "title": "Dynamix遊戲試玩",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=D09PQg7mTpw",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Dynamix遊戲試玩"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/D09PQg7mTpw/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:e3b8678d522b53a6",
+      "notes": "visual_inspection: thumbnail is a photo of a hand playing Dynamix on a phone."
+    },
+    {
+      "id": "official:youtube:Dph6gHJB7SI",
+      "source_id": "official:youtube",
+      "upstream_key": "Dph6gHJB7SI",
+      "page_url": "https://www.youtube.com/watch?v=Dph6gHJB7SI",
+      "file_url": "https://i.ytimg.com/vi/Dph6gHJB7SI/maxresdefault.jpg",
+      "title": "Dynamix 遊戲試玩 2017 [Mega & Giga]",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=Dph6gHJB7SI",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Dynamix 遊戲試玩 2017"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/Dph6gHJB7SI/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:15e08e5ddb6ab14f",
+      "notes": "Thumbnail: mascot card 'Now Available in Apple App Store & Google Play Store'."
+    },
+    {
+      "id": "official:youtube:Dr6Ox38bgTc",
+      "source_id": "official:youtube",
+      "upstream_key": "Dr6Ox38bgTc",
+      "page_url": "https://www.youtube.com/watch?v=Dr6Ox38bgTc",
+      "file_url": "https://i.ytimg.com/vi/Dr6Ox38bgTc/maxresdefault.jpg",
+      "title": "Dynamix Hachi Hachi 台北比賽2017",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=Dr6Ox38bgTc",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Hachi Hachi"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/Dr6Ox38bgTc/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:08994019b15f3bfa",
+      "collections": [
+        "Hachi Hachi Collaboration"
+      ],
+      "notes": "Thumbnail: Dynamix x Hachi Hachi Taipei 2017 tournament stream layout."
+    },
+    {
+      "id": "official:youtube:ElhnpfB8Stw",
+      "source_id": "official:youtube",
+      "upstream_key": "ElhnpfB8Stw",
+      "page_url": "https://www.youtube.com/watch?v=ElhnpfB8Stw",
+      "file_url": "https://i.ytimg.com/vi/ElhnpfB8Stw/maxresdefault.jpg",
+      "title": "Dynamix X Paradigm: Reboot Collaboration 2",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=ElhnpfB8Stw",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Paradigm: Reboot"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/ElhnpfB8Stw/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:0e4a2704c2e5eca2",
+      "collections": [
+        "Paradigm: Reboot Collaboration"
+      ],
+      "notes": "Thumbnail: 'AVAILABLE ON 2023.12.30' card with three collaboration jackets."
+    },
+    {
+      "id": "official:youtube:FIAt9YBEh1E",
+      "source_id": "official:youtube",
+      "upstream_key": "FIAt9YBEh1E",
+      "page_url": "https://www.youtube.com/watch?v=FIAt9YBEh1E",
+      "file_url": "https://i.ytimg.com/vi/FIAt9YBEh1E/hqdefault.jpg",
+      "title": "[Dynamix] Package TwoSquare: The Old Year #1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=FIAt9YBEh1E",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Package TwoSquare"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/FIAt9YBEh1E/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:734e63072019d9a5",
+      "collections": [
+        "TwoSquare: The Old Year #1"
+      ],
+      "notes": "Thumbnail: Package TwoSquare: The Old Year #1 card with four jacket thumbnails."
+    },
+    {
+      "id": "official:youtube:FInFw2lVz_I",
+      "source_id": "official:youtube",
+      "upstream_key": "FInFw2lVz_I",
+      "page_url": "https://www.youtube.com/watch?v=FInFw2lVz_I",
+      "file_url": "https://i.ytimg.com/vi/FInFw2lVz_I/maxresdefault.jpg",
+      "title": "Dynamix《Package Vocal》",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=FInFw2lVz_I",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Package Vocal"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/FInFw2lVz_I/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:0d609b83121f9f4b",
+      "collections": [
+        "Package Vocal"
+      ],
+      "notes": "Thumbnail: Vocal Collection package collage of four jackets."
+    },
+    {
+      "id": "official:youtube:HV1ZP3jsdh0",
+      "source_id": "official:youtube",
+      "upstream_key": "HV1ZP3jsdh0",
+      "page_url": "https://www.youtube.com/watch?v=HV1ZP3jsdh0",
+      "file_url": "https://i.ytimg.com/vi/HV1ZP3jsdh0/maxresdefault.jpg",
+      "title": "Dynamix 3.0 Preview",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=HV1ZP3jsdh0",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Dynamix 3.0"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/HV1ZP3jsdh0/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:7b5ffe2953e62746",
+      "notes": "visual_inspection: thumbnail is the 3.0 song-select screen (Set Free -KIVA Edition-)."
+    },
+    {
+      "id": "official:youtube:HaSzSxTdWUs",
+      "source_id": "official:youtube",
+      "upstream_key": "HaSzSxTdWUs",
+      "page_url": "https://www.youtube.com/watch?v=HaSzSxTdWUs",
+      "file_url": "https://i.ytimg.com/vi/HaSzSxTdWUs/maxresdefault.jpg",
+      "title": "[Dynamix] Wave Test實測",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=HaSzSxTdWUs",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/HaSzSxTdWUs/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: thumbnail is a photo of three people with plush mascots",
+      "notes": "oEmbed names the video “[Dynamix] Wave Test實測” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/HaSzSxTdWUs/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead."
+    },
+    {
+      "id": "official:youtube:IOt4k5RBtcw",
+      "source_id": "official:youtube",
+      "upstream_key": "IOt4k5RBtcw",
+      "page_url": "https://www.youtube.com/watch?v=IOt4k5RBtcw",
+      "file_url": "https://i.ytimg.com/vi/IOt4k5RBtcw/maxresdefault.jpg",
+      "title": "【Dynamix 2.0 】trailer",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=IOt4k5RBtcw",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Dynamix 2.0"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/IOt4k5RBtcw/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:c27c014ea0c56771",
+      "song_titles": [
+        "Actinium"
+      ],
+      "notes": "Thumbnail: ACTINIUM / Mimi title card of the 2.0 trailer."
+    },
+    {
+      "id": "official:youtube:J0nQeDQGYxk",
+      "source_id": "official:youtube",
+      "upstream_key": "J0nQeDQGYxk",
+      "page_url": "https://www.youtube.com/watch?v=J0nQeDQGYxk",
+      "file_url": "https://i.ytimg.com/vi/J0nQeDQGYxk/hqdefault.jpg",
+      "title": "[Dynamix] Package Ace Preview",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=J0nQeDQGYxk",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Package Ace"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/J0nQeDQGYxk/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:46cc997619bf804f",
+      "collections": [
+        "Package Ace"
+      ],
+      "notes": "Thumbnail: Package Ace card with four jacket thumbnails."
+    },
+    {
+      "id": "official:youtube:OddLD4cKYvE",
+      "source_id": "official:youtube",
+      "upstream_key": "OddLD4cKYvE",
+      "page_url": "https://www.youtube.com/watch?v=OddLD4cKYvE",
+      "file_url": "https://i.ytimg.com/vi/OddLD4cKYvE/maxresdefault.jpg",
+      "title": "Dynamix遊戲試玩 2017 [Causal, Normal & Hard]",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=OddLD4cKYvE",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Dynamix遊戲試玩 2017"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/OddLD4cKYvE/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:youtube:Dph6gHJB7SI",
+      "asset_id": "official:youtube:15e08e5ddb6ab14f",
+      "notes": "Thumbnail: mascot card 'Now Available in Apple App Store & Google Play Store' (same custom thumbnail as Dph6gHJB7SI)."
+    },
+    {
+      "id": "official:youtube:Q4A5Wg5CViM",
+      "source_id": "official:youtube",
+      "upstream_key": "Q4A5Wg5CViM",
+      "page_url": "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
+      "file_url": "https://i.ytimg.com/vi/Q4A5Wg5CViM/maxresdefault.jpg",
+      "title": "[Package] Package Lovely Preview",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Package Lovely"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/Q4A5Wg5CViM/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:8c3eb810b85dc7e8",
+      "song_titles": [
+        "Crystal Ribbon",
+        "Heart Eyes",
+        "Super Macaron",
+        "White Chocolate (dynamix edit)"
+      ],
+      "collections": [
+        "Package Lovely"
+      ],
+      "notes": "Thumbnail: Package Lovely lineup card printing 4 titled jackets ('Crystal Ribbon', 'Heart Eyes', 'Super Macaron', 'White Chocolate (dynamix edit)'), each with its chart levels: a pack lineup and chart-level graphic, kind reference (coordinator decisions D1 and D2, visual_inspection 2026-10-10); every printed title is mapped."
+    },
+    {
+      "id": "official:youtube:QT1XYRD8T4k",
+      "source_id": "official:youtube",
+      "upstream_key": "QT1XYRD8T4k",
+      "page_url": "https://www.youtube.com/watch?v=QT1XYRD8T4k",
+      "file_url": "https://i.ytimg.com/vi/QT1XYRD8T4k/maxresdefault.jpg",
+      "title": "Dynamix x Rabi-Ribi Collaboration Package Now available!",
+      "role": "gameplay_screenshot",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=QT1XYRD8T4k",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Rabi-Ribi"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/QT1XYRD8T4k/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:0c4b6edd76fa4c8f",
+      "collections": [
+        "Rabi-Ribi Collaboration"
+      ],
+      "notes": "visual_inspection: thumbnail is a gameplay frame of System Interior (pixel-art animated background)."
+    },
+    {
+      "id": "official:youtube:Ss-l68rOuno",
+      "source_id": "official:youtube",
+      "upstream_key": "Ss-l68rOuno",
+      "page_url": "https://www.youtube.com/watch?v=Ss-l68rOuno",
+      "file_url": "https://i.ytimg.com/vi/Ss-l68rOuno/maxresdefault.jpg",
+      "title": "[Dynamix] Character Eluva Preview",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=Ss-l68rOuno",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Character Eluva Preview"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/Ss-l68rOuno/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:785e851e41d2f495",
+      "notes": "visual_inspection: thumbnail is the in-game player-info screen (Evoltex (poppi'n mix))."
+    },
+    {
+      "id": "official:youtube:V9b2am5u4wM",
+      "source_id": "official:youtube",
+      "upstream_key": "V9b2am5u4wM",
+      "page_url": "https://www.youtube.com/watch?v=V9b2am5u4wM",
+      "file_url": "https://i.ytimg.com/vi/V9b2am5u4wM/hqdefault.jpg",
+      "title": "[Dynamix]Package Piano-manic",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=V9b2am5u4wM",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Package Piano-manic"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/V9b2am5u4wM/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:cc62aa9b7153a480",
+      "collections": [
+        "Package Piano-manic"
+      ],
+      "notes": "Thumbnail: Package Piano-manic card with four jacket thumbnails."
+    },
+    {
+      "id": "official:youtube:VgQ9Hf4MEA4",
+      "source_id": "official:youtube",
+      "upstream_key": "VgQ9Hf4MEA4",
+      "page_url": "https://www.youtube.com/watch?v=VgQ9Hf4MEA4",
+      "file_url": "https://i.ytimg.com/vi/VgQ9Hf4MEA4/hqdefault.jpg",
+      "title": "Dynamix Event Bundle #2",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=VgQ9Hf4MEA4",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Event Bundle #2"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/VgQ9Hf4MEA4/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:d4e4184e869570af",
+      "collections": [
+        "Event Bundle #2"
+      ],
+      "notes": "Thumbnail: 'NOW PLAYING OCCHOCO-REST-LESS' music-preview frame with the jacket."
+    },
+    {
+      "id": "official:youtube:WeFoz6KSouM",
+      "source_id": "official:youtube",
+      "upstream_key": "WeFoz6KSouM",
+      "page_url": "https://www.youtube.com/watch?v=WeFoz6KSouM",
+      "file_url": "https://i.ytimg.com/vi/WeFoz6KSouM/maxresdefault.jpg",
+      "title": "Dynamix Event Bundle #1",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=WeFoz6KSouM",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Event Bundle #1"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/WeFoz6KSouM/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:5c77a8c33a6363ad",
+      "collections": [
+        "Event Bundle #1"
+      ],
+      "notes": "Thumbnail: 'NOW PLAYING Sakura Fubuki' music-preview frame with the jacket."
+    },
+    {
+      "id": "official:youtube:XXCJb_eFVGA",
+      "source_id": "official:youtube",
+      "upstream_key": "XXCJb_eFVGA",
+      "page_url": "https://www.youtube.com/watch?v=XXCJb_eFVGA",
+      "file_url": "https://i.ytimg.com/vi/XXCJb_eFVGA/maxresdefault.jpg",
+      "title": "Dynamix vs Arcaea Collaboration Package Preview",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=XXCJb_eFVGA",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Arcaea"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/XXCJb_eFVGA/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:4052e3572f6a4ea2",
+      "collections": [
+        "Arcaea Collaboration"
+      ],
+      "notes": "Thumbnail: Dynamix x Arcaea collaboration package card with four jackets."
+    },
+    {
+      "id": "official:youtube:_jERP3ePo1w",
+      "source_id": "official:youtube",
+      "upstream_key": "_jERP3ePo1w",
+      "page_url": "https://www.youtube.com/watch?v=_jERP3ePo1w",
+      "file_url": "https://i.ytimg.com/vi/_jERP3ePo1w/maxresdefault.jpg",
+      "title": "\"Area TA\" is now live!",
+      "role": null,
+      "game": "dynamix_universe",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=_jERP3ePo1w",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/_jERP3ePo1w/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "universe_only: 'Area TA' is a Dynamix Universe update",
+      "notes": "oEmbed names the video “\"Area TA\" is now live!” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/_jERP3ePo1w/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead."
+    },
+    {
+      "id": "official:youtube:channel:avatar",
+      "source_id": "official:youtube",
+      "upstream_key": "channel:avatar",
+      "page_url": "https://www.youtube.com/@C4CatEntertainment",
+      "file_url": "https://yt3.googleusercontent.com/nH67SMoTva9-Qzaw9nSxI7wVXoL0OlWoZFSfdjqNA6YCvPVj_itCLYm5L2tDIouzHVUjsx5-=s0",
+      "title": "C4 Cat - YouTube avatar",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.youtube.com/@C4CatEntertainment",
+        "channel page lists image nH67SMoTva9-Qzaw9nSxI7wV…"
+      ],
+      "source_reported": {
+        "url": "https://yt3.googleusercontent.com/nH67SMoTva9-Qzaw9nSxI7wVXoL0OlWoZFSfdjqNA6YCvPVj_itCLYm5L2tDIouzHVUjsx5-=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: C4Cat company logo used as the channel avatar"
+    },
+    {
+      "id": "official:youtube:channel:banner",
+      "source_id": "official:youtube",
+      "upstream_key": "channel:banner",
+      "page_url": "https://www.youtube.com/@C4CatEntertainment",
+      "file_url": "https://yt3.googleusercontent.com/zY0EA2BKMRzJ9VjCCEsJtIA_e_qaRwO5ld_-CrzyWRQbX1Br_c4XQLZNPBxViKKmWqR4xiwi=s0",
+      "title": "C4 Cat - YouTube banner",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/@C4CatEntertainment",
+        "channel page lists image zY0EA2BKMRzJ9VjCCEsJtIA_…"
+      ],
+      "source_reported": {
+        "url": "https://yt3.googleusercontent.com/zY0EA2BKMRzJ9VjCCEsJtIA_e_qaRwO5ld_-CrzyWRQbX1Br_c4XQLZNPBxViKKmWqR4xiwi=s0",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:bae4e3eaed7c4914",
+      "notes": "Channel banner: the original Dynamix wordmark."
+    },
+    {
+      "id": "official:youtube:dE-ywtFYswU",
+      "source_id": "official:youtube",
+      "upstream_key": "dE-ywtFYswU",
+      "page_url": "https://www.youtube.com/watch?v=dE-ywtFYswU",
+      "file_url": "https://i.ytimg.com/vi/dE-ywtFYswU/maxresdefault.jpg",
+      "title": "【Dynamix】trailer",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=dE-ywtFYswU",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: 【Dynamix】trailer"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/dE-ywtFYswU/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:25fd245c68124d03",
+      "notes": "Thumbnail: Dynamix logo key visual (2014 trailer)."
+    },
+    {
+      "id": "official:youtube:dhgR1g--SkM",
+      "source_id": "official:youtube",
+      "upstream_key": "dhgR1g--SkM",
+      "page_url": "https://www.youtube.com/watch?v=dhgR1g--SkM",
+      "file_url": "https://i.ytimg.com/vi/dhgR1g--SkM/maxresdefault.jpg",
+      "title": "TGS Tokyo Dynamix Party",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=dhgR1g--SkM",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/dhgR1g--SkM/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: thumbnail is a photo of people at the TGS party",
+      "notes": "oEmbed names the video “TGS Tokyo Dynamix Party” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/dhgR1g--SkM/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead."
+    },
+    {
+      "id": "official:youtube:ohZma5VGdmo",
+      "source_id": "official:youtube",
+      "upstream_key": "ohZma5VGdmo",
+      "page_url": "https://www.youtube.com/watch?v=ohZma5VGdmo",
+      "file_url": "https://i.ytimg.com/vi/ohZma5VGdmo/maxresdefault.jpg",
+      "title": "[Dynamix][v.3.2]Event Full combo + Lucky Draw",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=ohZma5VGdmo",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Event Full combo"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/ohZma5VGdmo/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:19c551f22593c04a",
+      "notes": "visual_inspection: thumbnail is a photo of hands playing on a tablet."
+    },
+    {
+      "id": "official:youtube:ooGWwVICuIE",
+      "source_id": "official:youtube",
+      "upstream_key": "ooGWwVICuIE",
+      "page_url": "https://www.youtube.com/watch?v=ooGWwVICuIE",
+      "file_url": "https://i.ytimg.com/vi/ooGWwVICuIE/maxresdefault.jpg",
+      "title": "【Dynamix 2.3 】Song Preview",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=ooGWwVICuIE",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Dynamix 2.3"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/ooGWwVICuIE/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:5c33abf4385c4957",
+      "notes": "Thumbnail: 'Version 2.3' title card."
+    },
+    {
+      "id": "official:youtube:qjv2dFKaUkg",
+      "source_id": "official:youtube",
+      "upstream_key": "qjv2dFKaUkg",
+      "page_url": "https://www.youtube.com/watch?v=qjv2dFKaUkg",
+      "file_url": "https://i.ytimg.com/vi/qjv2dFKaUkg/maxresdefault.jpg",
+      "title": "TGS Day3",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=qjv2dFKaUkg",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/qjv2dFKaUkg/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved_game: 'TGS Day3' booth video (Tokyo Game Show 2017 showed Dynamix and Zold:out); the thumbnail shows hands on a tablet, the title names no game",
+      "notes": "oEmbed names the video “TGS Day3” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/qjv2dFKaUkg/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead."
+    },
+    {
+      "id": "official:youtube:rvwP4eY-owg",
+      "source_id": "official:youtube",
+      "upstream_key": "rvwP4eY-owg",
+      "page_url": "https://www.youtube.com/watch?v=rvwP4eY-owg",
+      "file_url": "https://i.ytimg.com/vi/rvwP4eY-owg/hqdefault.jpg",
+      "title": "[Dynamix] Package  Stellights collection",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=rvwP4eY-owg",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: Stellights"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/rvwP4eY-owg/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:a94951616e4ab90e",
+      "collections": [
+        "Stellights Collaboration"
+      ],
+      "notes": "Thumbnail: Package Stellights Collection card with four jacket thumbnails."
+    },
+    {
+      "id": "official:youtube:shbCnvJovcE",
+      "source_id": "official:youtube",
+      "upstream_key": "shbCnvJovcE",
+      "page_url": "https://www.youtube.com/watch?v=shbCnvJovcE",
+      "file_url": "https://i.ytimg.com/vi/shbCnvJovcE/maxresdefault.jpg",
+      "title": "Dynamix X OverRapid collaboration",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=shbCnvJovcE",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: OverRapid"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/shbCnvJovcE/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:6b4c1cad59873d5c",
+      "collections": [
+        "OverRapid Collaboration"
+      ],
+      "notes": "Thumbnail: Dynamix X OverRapid collaboration card."
+    },
+    {
+      "id": "official:youtube:zCzjrrbmFy8",
+      "source_id": "official:youtube",
+      "upstream_key": "zCzjrrbmFy8",
+      "page_url": "https://www.youtube.com/watch?v=zCzjrrbmFy8",
+      "file_url": "https://i.ytimg.com/vi/zCzjrrbmFy8/maxresdefault.jpg",
+      "title": "[Dynamix]You Spin Me Around Preview",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.youtube.com/watch?v=zCzjrrbmFy8",
+        "oEmbed author: C4 Cat https://www.youtube.com/@C4CatEntertainment",
+        "title: You Spin Me Around"
+      ],
+      "source_reported": {
+        "url": "https://i.ytimg.com/vi/zCzjrrbmFy8/hqdefault.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:youtube:c272dcfbfe3011f7",
+      "song_titles": [
+        "You Spin Me Around"
+      ],
+      "composers": [
+        "RiraN"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    }
+  ],
+  "errors": []
+}

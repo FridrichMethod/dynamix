@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:meganegirai",
+  "started_at": "2026-10-10T22:36:45Z",
+  "finished_at": "2026-10-10T22:36:49Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:meganegirai:1399342027800649734",
+      "source_id": "artists:x:meganegirai",
+      "upstream_key": "1399342027800649734",
+      "page_url": "https://x.com/meganegirai/status/1399342027800649734",
+      "file_url": null,
+      "title": "@meganegirai post 1399342027800649734",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: '今回もジャケットイラストを描かせていただいております' for 天照, quoting the June 2021 preview."
+    },
+    {
+      "id": "artists:x:meganegirai:1402963067852390412",
+      "source_id": "artists:x:meganegirai",
+      "upstream_key": "1402963067852390412",
+      "page_url": "https://x.com/meganegirai/status/1402963067852390412",
+      "file_url": null,
+      "title": "@meganegirai post 1402963067852390412",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Comment on the Amaterasu character preview (quoted official post); no image of its own."
+    },
+    {
+      "id": "artists:x:meganegirai:1536401093894189056:1",
+      "source_id": "artists:x:meganegirai",
+      "upstream_key": "1536401093894189056:1",
+      "page_url": "https://x.com/meganegirai/status/1536401093894189056",
+      "file_url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym?format=jpg&name=orig",
+      "title": "#Dynamix 今モリモリあつし氏のPUPAがアツいらしいので是非Dynamixでも遊んでください～🦋キャラクターも入手できます！ I hope you play a lot of PUPA🦋",
+      "role": "character",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/meganegirai/status/1536401093894189056",
+        "text: PUPA",
+        "text: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FVJkAAiUsAERsym.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1556,
+        "height": 1926,
+        "sha1": null,
+        "timestamp": "2022-06-13T17:32:20.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:meganegirai:12eb1a4449191fdf",
+      "song_titles": [
+        "PUPA"
+      ],
+      "illustrators": [
+        "ANT(蟻)"
+      ],
+      "composers": [
+        "モリモリあつし"
+      ]
+    }
+  ],
+  "errors": []
+}

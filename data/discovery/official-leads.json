@@ -1,0 +1,416 @@
+{
+  "schema_version": 1,
+  "source_id": "official:official-leads",
+  "started_at": "2026-10-10T22:45:28Z",
+  "finished_at": "2026-10-10T22:45:28Z",
+  "scope": {
+    "lists": [
+      "registry"
+    ],
+    "api": null,
+    "notes": "Curated research-sweep leads recorded without a request (no file to acquire, or access already observed as limited)."
+  },
+  "continuation": {
+    "registry": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "official:official-leads:amazon:appstore-search",
+      "source_id": "official:official-leads",
+      "upstream_key": "amazon:appstore-search",
+      "page_url": "https://www.amazon.com/s?k=Dynamix+C4Cat&i=mobile-apps",
+      "file_url": null,
+      "title": "Amazon Appstore / Huawei AppGallery",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
+    },
+    {
+      "id": "official:official-leads:bilibili:search-c4cat",
+      "source_id": "official:official-leads",
+      "upstream_key": "bilibili:search-c4cat",
+      "page_url": "https://search.bilibili.com/upuser?keyword=C4Cat",
+      "file_url": null,
+      "title": "Bilibili user search for an official account",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: the user-search API answered a captcha page; no official space found by web search"
+    },
+    {
+      "id": "official:official-leads:discord:qEyt97pQTv",
+      "source_id": "official:official-leads",
+      "upstream_key": "discord:qEyt97pQTv",
+      "page_url": "https://discord.com/invite/qEyt97pQTv",
+      "file_url": null,
+      "title": "Dynamix community Discord (now named 'Dynamix Universe')",
+      "role": null,
+      "game": "mixed",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: reading channels requires joining the server (account); no art library inspected"
+    },
+    {
+      "id": "official:official-leads:facebook:c4cat.dynamix:feed-2026-10",
+      "source_id": "official:official-leads",
+      "upstream_key": "facebook:c4cat.dynamix:feed-2026-10",
+      "page_url": "https://www.facebook.com/c4cat.dynamix/",
+      "file_url": null,
+      "title": "Comeback Track Event banners on the page feed (9-13 Oct 2026)",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: the page timeline is not served to a logged-out non-browser client (only the profile picture is); the nine 1200x628 'I'm back!' banners (assets 831280678, 833326134, 835120269, 836744843, 836959221, 837775304, 840005048, 840071367, 840643335) need manual access",
+      "song_titles": [
+        "scualee",
+        "BIT TECH COMPUTER",
+        "To Drop We Ride",
+        "Mamba",
+        "Supernova",
+        "Amphisbaena",
+        "Mithridates",
+        "LOVE",
+        "The Defiant's Anthem"
+      ]
+    },
+    {
+      "id": "official:official-leads:instagram:c4cat",
+      "source_id": "official:official-leads",
+      "upstream_key": "instagram:c4cat",
+      "page_url": "https://www.instagram.com/c4cat/",
+      "file_url": null,
+      "title": "Instagram c4cat / c4cats",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: logged-out app shell without profile data (login wall); no official account found"
+    },
+    {
+      "id": "official:official-leads:linktree:c4cat",
+      "source_id": "official:official-leads",
+      "upstream_key": "linktree:c4cat",
+      "page_url": "https://linktr.ee/c4cat",
+      "file_url": null,
+      "title": "Linktree c4cat / c4cats / dynamix",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: linktr.ee/c4cat and /c4cats do not exist; linktr.ee/dynamix belongs to an unrelated group"
+    },
+    {
+      "id": "official:official-leads:plurk:c4cat",
+      "source_id": "official:official-leads",
+      "upstream_key": "plurk:c4cat",
+      "page_url": "https://www.plurk.com/c4cat",
+      "file_url": null,
+      "title": "Plurk c4cat / c4cats / dynamix",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: plurk.com/c4cat and /c4cats do not exist; plurk.com/dynamix is an unrelated personal account"
+    },
+    {
+      "id": "official:official-leads:priroll:ct12529",
+      "source_id": "official:official-leads",
+      "upstream_key": "priroll:ct12529",
+      "page_url": "https://priroll.jp/shopbrand/ct12529/",
+      "file_url": null,
+      "title": "PRIROLL collaboration shop",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: merchandise shop page; the official announcement post is recorded under official:x"
+    },
+    {
+      "id": "official:official-leads:qooapp:237",
+      "source_id": "official:official-leads",
+      "upstream_key": "qooapp:237",
+      "page_url": "https://apps.qoo-app.com/en/app/237",
+      "file_url": null,
+      "title": "QooApp listing",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: mirrors Google Play images; distributes APKs, which this project does not use"
+    },
+    {
+      "id": "official:official-leads:weibo:search-c4cat",
+      "source_id": "official:official-leads",
+      "upstream_key": "weibo:search-c4cat",
+      "page_url": "https://s.weibo.com/weibo?q=C4Cat%20Dynamix",
+      "file_url": null,
+      "title": "Weibo search for an official account",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "blocked: 'Sina Visitor System' challenge for logged-out requests; no official Weibo account found by web search"
+    },
+    {
+      "id": "official:official-leads:x:SHINOBI_SLASH:1900879824065097867",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:SHINOBI_SLASH:1900879824065097867",
+      "page_url": "https://x.com/SHINOBI_SLASH/status/1900879824065097867",
+      "file_url": null,
+      "title": "Shinobi Slash announcement of Dynamix songs (partner account)",
+      "role": null,
+      "game": "mixed",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner game Shinobi Slash's announcement of five Dynamix songs coming into Shinobi Slash (collaboration key art with the partner's song list); the key art itself is tracked as artists:pixiv:89112381 129309072",
+      "illustrators": [
+        "中本ひょうり"
+      ],
+      "notes": "Quoted by the illustrator's post https://x.com/hyourinakamoto2/status/1902220775538753786."
+    },
+    {
+      "id": "official:official-leads:x:SHINOBI_SLASH:1902697909684179446",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:SHINOBI_SLASH:1902697909684179446",
+      "page_url": "https://x.com/SHINOBI_SLASH/status/1902697909684179446",
+      "file_url": null,
+      "title": "Shinobi Slash collaboration banner (partner account)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
+    },
+    {
+      "id": "official:official-leads:x:c4c4cat:timeline-media",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:c4c4cat:timeline-media",
+      "page_url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/c4c4cat",
+      "file_url": null,
+      "title": "Embed-timeline media listed by research",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+    },
+    {
+      "id": "official:official-leads:x:c4c4cat:wayback-media",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:c4c4cat:wayback-media",
+      "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/c4c4cat/status/*",
+      "file_url": null,
+      "title": "Official X post images found through Wayback captures of the account's status pages",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
+    },
+    {
+      "id": "official:official-leads:x:liq_mmry:880267173574262784",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:liq_mmry:880267173574262784",
+      "page_url": "https://x.com/liq_mmry/status/880267173574262784",
+      "file_url": null,
+      "title": "@liq_mmry post crediting the To soar character design",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: credit evidence only, no image of its own ('This character is designed by ケシksくん @KeshiksExt'); the quoted official To soar banner is official:x 880003300275347458; the poster's staff identity is not established",
+      "song_titles": [
+        "to soar"
+      ]
+    },
+    {
+      "id": "official:official-leads:x:synthnova:ravon-dynamix-collab",
+      "source_id": "official:official-leads",
+      "upstream_key": "x:synthnova:ravon-dynamix-collab",
+      "page_url": "https://x.com/synthnova/status/1428960056024915979",
+      "file_url": null,
+      "title": "RAVON's own Dynamix collaboration pack announcements (@synthnova)",
+      "role": null,
+      "game": "mixed",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: partner game RAVON's announcement images (posts 1410901060084924416, 1427842942803214338, 1428960056024915979, 1431889356327776258, 1435483036368338946; 3840x2160) of Dynamix songs ported into RAVON; partner-game promotion, not original-Dynamix artwork",
+      "song_titles": [
+        "Black：Magnam",
+        "Perspicuus_Aestus",
+        "Jack Out KIllER",
+        "ReLyna",
+        "Caelus",
+        "OCCHOCO-REST-LESS",
+        "Between Boundaries",
+        "MassacrE || 3rc4224M"
+      ]
+    }
+  ],
+  "errors": []
+}

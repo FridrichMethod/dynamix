@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:soundperemotion",
+  "started_at": "2026-10-10T22:36:07Z",
+  "finished_at": "2026-10-10T22:36:09Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:soundperemotion:xetta",
+      "source_id": "artists:soundcloud:soundperemotion",
+      "upstream_key": "xetta",
+      "page_url": "https://soundcloud.com/soundperemotion/xetta",
+      "file_url": "https://i1.sndcdn.com/artworks-000310232751-3plpdo-original.jpg",
+      "title": "TangJuan vs Black Box - Xetta",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/soundperemotion/xetta",
+        "sc.description: Illustration by TangJuan"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000310232751-3plpdo-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2018-03-02T20:02:06Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:soundperemotion:82d13625b69bdd11",
+      "song_titles": [
+        "Xetta"
+      ],
+      "illustrators": [
+        "TangJuan"
+      ],
+      "composers": [
+        "TangJuan",
+        "Black Box"
+      ]
+    }
+  ],
+  "errors": []
+}

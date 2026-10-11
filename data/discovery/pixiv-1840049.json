@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:1840049",
+  "started_at": "2026-10-10T22:33:14Z",
+  "finished_at": "2026-10-10T22:33:20Z",
+  "scope": {
+    "lists": [
+      "seed-artworks",
+      "wayback-captures"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
+  },
+  "continuation": {
+    "seed-artworks": null,
+    "wayback-captures": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:1840049:63416349:p0",
+      "source_id": "artists:pixiv:1840049",
+      "upstream_key": "63416349:p0",
+      "page_url": "https://www.pixiv.net/artworks/63416349",
+      "file_url": "https://web.archive.org/web/20221215194007id_/https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+      "title": "ぺたるすてっぷ (p0)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/63416349",
+        "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (box 254.5,0-827.9,573.4; MAD 6.7, edge-only residual)",
+        "own check 2026-10-10 (Pillow box refinement): RGB MAD 6.3/255 for the box (254.5,0)-(827.9,573.4) of PetalstepDynamix.png against 62.1 for a mirrored control",
+        "title: ぺたるすてっぷ",
+        "caption: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 747,
+        "height": 747,
+        "sha1": "51cf08bb894e3308160392073ed3bd06418ea381",
+        "timestamp": "2017-06-16T14:29:00+00:00",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:1840049:67d39fd6aec05d6c",
+      "song_titles": [
+        "ぺたるすてっぷ"
+      ],
+      "illustrators": [
+        "clear"
+      ],
+      "composers": [
+        "dawn-system feat. 一之瀬りと"
+      ]
+    }
+  ],
+  "errors": []
+}

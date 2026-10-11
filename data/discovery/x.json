@@ -1,0 +1,4795 @@
+{
+  "schema_version": 1,
+  "source_id": "official:x",
+  "started_at": "2026-10-11T01:15:28Z",
+  "finished_at": "2026-10-11T01:18:24Z",
+  "scope": {
+    "lists": [
+      "seed-posts",
+      "timeline:c4c4cat",
+      "wayback-status-captures"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; plus the bounded public embed timeline sample (not the full history)"
+  },
+  "continuation": {
+    "seed-posts": null,
+    "timeline:c4c4cat": "not-read",
+    "wayback-status-captures": "research resolved about 840 archived @c4c4cat status IDs through the embed endpoint (2026-10-10); the posts whose images it measured are seeded explicitly, the remaining event-banner photos (about 350, mostly 1200x628) and about 1,250 unresolved archived status keys are not processed"
+  },
+  "discovery_complete": false,
+  "candidates": [
+    {
+      "id": "official:x:1060502195374714881:1",
+      "source_id": "official:x",
+      "upstream_key": "1060502195374714881:1",
+      "page_url": "https://x.com/c4c4cat/status/1060502195374714881",
+      "file_url": "https://pbs.twimg.com/media/DreYHaTV4AAfwm1?format=jpg&name=orig",
+      "title": "[Event] 今週は復刻曲「Soul Army」, 「Marion.net」, 「銀梅花」が帰ってくるよ！ 開催期間は11月9日12時（UTC+8）から11月13日20時（UTC+8）まで！ @M…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1060502195374714881",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DreYHaTV4AAfwm1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2018-11-08T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ced9f5b49ad20718",
+      "song_titles": [
+        "Soul Army",
+        "Marion.net",
+        "銀梅花"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1156165289907838977:1",
+      "source_id": "official:x",
+      "upstream_key": "1156165289907838977:1",
+      "page_url": "https://x.com/c4c4cat/status/1156165289907838977",
+      "file_url": "https://pbs.twimg.com/media/EAt84UoVAAAN2oQ?format=jpg&name=orig",
+      "title": "[Dynamix 2019夏祭] 詳細は、次のサイトを参照してください： facebook.com/29847671700584… #Dynamix #Dynamix_Event",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1156165289907838977",
+        "text: Dynamix 2019夏祭"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EAt84UoVAAAN2oQ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2019-07-30T11:31:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:382e1f759f67406b",
+      "collections": [
+        "Dynamix 2019夏祭"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2019夏祭 (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1156172591872167937:1",
+      "source_id": "official:x",
+      "upstream_key": "1156172591872167937:1",
+      "page_url": "https://x.com/c4c4cat/status/1156172591872167937",
+      "file_url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @logical_kRM @3ps708 #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1156172591872167937",
+        "text: [Event]",
+        "text: オレンジ"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EAtcGrPVUAEabqs.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2019-07-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:4dba259589ea4635",
+      "song_titles": [
+        "オレンジ"
+      ],
+      "composers": [
+        "kRM & 残響P"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for オレンジ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1178640887355719681:1",
+      "source_id": "official:x",
+      "upstream_key": "1178640887355719681:1",
+      "page_url": "https://x.com/c4c4cat/status/1178640887355719681",
+      "file_url": "https://pbs.twimg.com/media/EFtc1NUUUAEagmM?format=jpg&name=orig",
+      "title": "[5周年記念xハロウィーンイベント] 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1178640887355719681",
+        "text: 5周年記念xハロウィーンイベント"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EFtc1NUUUAEagmM.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2019-09-30T12:01:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6df76a69cf796cdc",
+      "collections": [
+        "5周年記念xハロウィーンイベント"
+      ],
+      "notes": "Official seasonal event poster: 5周年記念xハロウィーンイベント (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1186975557067653120:1",
+      "source_id": "official:x",
+      "upstream_key": "1186975557067653120:1",
+      "page_url": "https://x.com/c4c4cat/status/1186975557067653120",
+      "file_url": "https://pbs.twimg.com/media/EF3kK-aXoAE2YEH?format=jpg&name=orig",
+      "title": "[Event] 今週は復刻曲「Unshakable」、Own The Night」、Prismatic Flipper」が帰ってくるよ！ 開催期間は10月25日13時から10月29日21時（UTC+…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1186975557067653120",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EF3kK-aXoAE2YEH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-10-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:466cd8972fe67172",
+      "song_titles": [
+        "Unshakable",
+        "Own The Night",
+        "Prismatic Flipper"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1189512271703269376:1",
+      "source_id": "official:x",
+      "upstream_key": "1189512271703269376:1",
+      "page_url": "https://x.com/c4c4cat/status/1189512271703269376",
+      "file_url": "https://pbs.twimg.com/media/EIH7rtuU0AIB5LF?format=jpg&name=orig",
+      "title": "[Event] 今週は復刻曲「Pandemik」、Hopeful Warrior」、Black：Magnam」が帰ってくるよ！ 開催期間は11月1日13時から11月5日21時（UTC+9）まで！ @…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1189512271703269376",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EIH7rtuU0AIB5LF.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-10-30T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:abdd9e5610a93e71",
+      "song_titles": [
+        "Pandemik",
+        "Hopeful Warrior",
+        "Black：Magnam"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1192048987358019585:1",
+      "source_id": "official:x",
+      "upstream_key": "1192048987358019585:1",
+      "page_url": "https://x.com/c4c4cat/status/1192048987358019585",
+      "file_url": "https://pbs.twimg.com/media/EIrsqgQU4AYCcZ9?format=jpg&name=orig",
+      "title": "[Event] 今週は復刻曲「Rain」、Cross†Soul」、Nightmare Girl」が帰ってくるよ！ 開催期間は11月8日13時から11月12日21時（UTC+9）まで！ @hyunes…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1192048987358019585",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EIrsqgQU4AYCcZ9.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2019-11-06T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b825409f9b7f6916",
+      "song_titles": [
+        "Rain",
+        "Cross†Soul",
+        "Nightmare Girl"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 3 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1204007768987881472:1",
+      "source_id": "official:x",
+      "upstream_key": "1204007768987881472:1",
+      "page_url": "https://x.com/c4c4cat/status/1204007768987881472",
+      "file_url": "https://pbs.twimg.com/media/ELV-lIPUwAE0kdx?format=jpg&name=orig",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1204007768987881472",
+        "text: 運営とイベントのお知らせ"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ELV-lIPUwAE0kdx.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2019-12-09T11:59:56.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8d5a64128d00238a",
+      "collections": [
+        "運営とイベントのお知らせ"
+      ],
+      "notes": "Official seasonal event poster: 運営とイベントのお知らせ (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1216690549182230528:1",
+      "source_id": "official:x",
+      "upstream_key": "1216690549182230528:1",
+      "page_url": "https://x.com/c4c4cat/status/1216690549182230528",
+      "file_url": "https://pbs.twimg.com/media/EOKNFnnUYAEOm_R?format=jpg&name=orig",
+      "title": "<<運営とイベントのお知らせ>> 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1216690549182230528",
+        "text: 運営とイベントのお知らせ"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EOKNFnnUYAEOm_R.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-01-13T11:56:46.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6f87043564abaf40",
+      "collections": [
+        "運営とイベントのお知らせ"
+      ],
+      "notes": "Official seasonal event poster: 運営とイベントのお知らせ (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1217763427189309440:1",
+      "source_id": "official:x",
+      "upstream_key": "1217763427189309440:1",
+      "page_url": "https://x.com/c4c4cat/status/1217763427189309440",
+      "file_url": "https://pbs.twimg.com/media/EOZA6mlVAAEvSJj?format=jpg&name=orig",
+      "title": "[パッケージのリリース] 新しいパッケージ 「Intruders」 がリリースされました。 パッケージ内容： 「Impulse (Neutral Moon VIP Edit)」 - Daison 「…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1217763427189309440",
+        "text: 「Intruders」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EOZA6mlVAAEvSJj.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-01-16T11:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0b07b1a05992b561",
+      "collections": [
+        "Intruders"
+      ],
+      "notes": "Official package release visual for Intruders."
+    },
+    {
+      "id": "official:x:1239884186070265856:1",
+      "source_id": "official:x",
+      "upstream_key": "1239884186070265856:1",
+      "page_url": "https://x.com/c4c4cat/status/1239884186070265856",
+      "file_url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はSe-U-Raさんが作った「終の舞姫」。 開催期間は3月20日13時から3月24日21時（UTC+9）まで！ @SeURa_Nue #Dynamix #OS2019G…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1239884186070265856",
+        "text: [Event]",
+        "text: 終の舞姫"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ETToiEIUcAEpkug.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-03-17T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:de89cf99f475bcbc",
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for 終の舞姫. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1247131946095972353:1",
+      "source_id": "official:x",
+      "upstream_key": "1247131946095972353:1",
+      "page_url": "https://x.com/c4c4cat/status/1247131946095972353",
+      "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
+      "title": "《Dynamix Easter Event 2020》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1247131946095972353",
+        "text: Dynamix Easter Event 2020"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-04-06T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:3f69eb697c1a213e",
+      "collections": [
+        "Dynamix Easter Event 2020"
+      ],
+      "notes": "Official seasonal event poster: Dynamix Easter Event 2020 (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1250393437095911427:1",
+      "source_id": "official:x",
+      "upstream_key": "1250393437095911427:1",
+      "page_url": "https://x.com/c4c4cat/status/1250393437095911427",
+      "file_url": "https://pbs.twimg.com/media/EVpEHqTUYAIntSM?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Arcana Idola」、「Blue」が帰ってくるよ！ 開催期間は4月17日13時から4月21日21時（UTC+9）まで！ @riranofficial #D…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1250393437095911427",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EVpEHqTUYAIntSM.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-15T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b94303e3d3e5da81",
+      "song_titles": [
+        "Arcana Idola",
+        "Blue"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1251842986339598337:1",
+      "source_id": "official:x",
+      "upstream_key": "1251842986339598337:1",
+      "page_url": "https://x.com/c4c4cat/status/1251842986339598337",
+      "file_url": "https://pbs.twimg.com/media/EVpGq4oU4AEPnbq?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「ほしぞらトラベル」、「Peony」が帰ってくるよ！ 開催期間は4月21日13時から4月25日21時（UTC+9）まで！ @MJ_KANON #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1251842986339598337",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EVpGq4oU4AEPnbq.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-19T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:32bbf0b058d37739",
+      "song_titles": [
+        "ほしぞらトラベル",
+        "Peony"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1252930152625049603:1",
+      "source_id": "official:x",
+      "upstream_key": "1252930152625049603:1",
+      "page_url": "https://x.com/c4c4cat/status/1252930152625049603",
+      "file_url": "https://pbs.twimg.com/media/EWNBf3ZU8AEDzXs?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Soul fire lit」、「BLUFF」が帰ってくるよ！ 開催期間は4月24日13時から4月28日21時（UTC+9）まで！ @Ryo_Arue #Dyna…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1252930152625049603",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EWNBf3ZU8AEDzXs.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-22T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:625d1412186eb9c8",
+      "song_titles": [
+        "Soul fire lit",
+        "BLUFF"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1253292191897681920:1",
+      "source_id": "official:x",
+      "upstream_key": "1253292191897681920:1",
+      "page_url": "https://x.com/c4c4cat/status/1253292191897681920",
+      "file_url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_?format=jpg&name=orig",
+      "title": "パッケージセールが来ています!! 準備はできたか？ 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1253292191897681920",
+        "text: パッケージセール"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EU6sJuKU0AEiuu_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-04-23T11:58:38.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1247131946095972353:1",
+      "asset_id": "official:x:3f69eb697c1a213e",
+      "notes": "Package sale post re-using an earlier visual."
+    },
+    {
+      "id": "official:x:1254666590727155713:1",
+      "source_id": "official:x",
+      "upstream_key": "1254666590727155713:1",
+      "page_url": "https://x.com/c4c4cat/status/1254666590727155713",
+      "file_url": "https://pbs.twimg.com/media/EWlrkBwUYAATQWN?format=jpg&name=orig",
+      "title": "[Event] 火曜日は復刻曲「Defended」、「Justice Justice」が帰ってくるよ！ 開催期間は4月28日13時から5月2日21時（UTC+9）まで！ @stereoberry #…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1254666590727155713",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EWlrkBwUYAATQWN.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-04-27T07:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c42a467965c3cdf4",
+      "song_titles": [
+        "Defended",
+        "Justice Justice"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1272499095123267585:1",
+      "source_id": "official:x",
+      "upstream_key": "1272499095123267585:1",
+      "page_url": "https://x.com/c4c4cat/status/1272499095123267585",
+      "file_url": "https://pbs.twimg.com/media/EajQRVgUcAA4ukS?format=jpg&name=orig",
+      "title": "《Dynamix Dragon Boat Festival Event 2020》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1272499095123267585",
+        "text: Dynamix Dragon Boat Festival Event 2020"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EajQRVgUcAA4ukS.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-06-15T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:de364ac7ddd80ad7",
+      "collections": [
+        "Dynamix Dragon Boat Festival Event 2020"
+      ],
+      "notes": "Official seasonal event poster: Dynamix Dragon Boat Festival Event 2020 (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1275760589386776577:1",
+      "source_id": "official:x",
+      "upstream_key": "1275760589386776577:1",
+      "page_url": "https://x.com/c4c4cat/status/1275760589386776577",
+      "file_url": "https://pbs.twimg.com/media/EbRM1IXWAAEj46G?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Angel x Angel」、「Vanilla_Sky」が帰ってくるよ！ 開催期間は6月26日13時から6月30日21時（UTC+9）まで！ @t4k4h1r0…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1275760589386776577",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EbRM1IXWAAEj46G.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-06-24T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1d1b14a95d26c993",
+      "song_titles": [
+        "Angel x Angel",
+        "Vanilla_Sky"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1277210136273027073:1",
+      "source_id": "official:x",
+      "upstream_key": "1277210136273027073:1",
+      "page_url": "https://x.com/c4c4cat/status/1277210136273027073",
+      "file_url": "https://pbs.twimg.com/media/EbRSVn-U4AE7nfP?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「CORONA」、「交差して歪む過去と未来」が帰ってくるよ！ 開催期間は6月30日13時から7月4日21時（UTC+9）まで！ @Chicala_Lpis @kar…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1277210136273027073",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EbRSVn-U4AE7nfP.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-06-28T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:3ade0e637be0242a",
+      "song_titles": [
+        "CORONA",
+        "交差して歪む過去と未来"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1285907445466804224:1",
+      "source_id": "official:x",
+      "upstream_key": "1285907445466804224:1",
+      "page_url": "https://x.com/c4c4cat/status/1285907445466804224",
+      "file_url": "https://pbs.twimg.com/media/EdhX_DkUcAAO4x_?format=png&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「diSTractiOn PoInT」、「Frontline B-Side」が帰ってくるよ！ 開催期間は7月24日13時から7月28日21時（UTC+9）まで！ …",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1285907445466804224",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EdhX_DkUcAAO4x_.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-07-22T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5a728c2c415db1b8",
+      "song_titles": [
+        "diSTractiOn PoInT",
+        "Frontline B-Side"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1287357000016224260:1",
+      "source_id": "official:x",
+      "upstream_key": "1287357000016224260:1",
+      "page_url": "https://x.com/c4c4cat/status/1287357000016224260",
+      "file_url": "https://pbs.twimg.com/media/EdhY3GyU8AU8oUN?format=png&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「The Endless for Traveler」、「NOISIΛ」が帰ってくるよ！ 開催期間は7月28日13時から8月1日21時（UTC+9）まで！ @SeUR…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1287357000016224260",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EdhY3GyU8AU8oUN.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-07-26T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1936c6b809397971",
+      "song_titles": [
+        "The Endless for Traveler",
+        "NOISIΛ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1288444160018612224:1",
+      "source_id": "official:x",
+      "upstream_key": "1288444160018612224:1",
+      "page_url": "https://x.com/c4c4cat/status/1288444160018612224",
+      "file_url": "https://pbs.twimg.com/media/Ed7NC7MUYAI9LeO?format=png&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Nova Highway」、「soar to Ø」が帰ってくるよ！ 開催期間は7月31日13時から8月4日21時（UTC+9）まで！ @BLUEnoup #Dy…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1288444160018612224",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ed7NC7MUYAI9LeO.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-07-29T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:63d4c79dde31fb46",
+      "song_titles": [
+        "Nova Highway",
+        "soar to Ø"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1289893710214262786:1",
+      "source_id": "official:x",
+      "upstream_key": "1289893710214262786:1",
+      "page_url": "https://x.com/c4c4cat/status/1289893710214262786",
+      "file_url": "https://pbs.twimg.com/media/Ed7NchHUcAExQlq?format=png&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Lily」、「Sunset Road」が帰ってくるよ！ 開催期間は8月4日13時から8月8日21時（UTC+9）まで！ @_JunKuroda @panbanan…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1289893710214262786",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ed7NchHUcAExQlq.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-08-02T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:83c6cbbb32688e2d",
+      "song_titles": [
+        "Lily",
+        "Sunset Road"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1298591025418481664:1",
+      "source_id": "official:x",
+      "upstream_key": "1298591025418481664:1",
+      "page_url": "https://x.com/c4c4cat/status/1298591025418481664",
+      "file_url": "https://pbs.twimg.com/media/EgVD8tRUcAAqNor?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「to soar」、「哀しい竜とカイツール」が帰ってくるよ！ 開催期間は8月28日13時から9月1日21時（UTC+9）まで！ @BLUEnoup @mAoA9_…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1298591025418481664",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EgVD8tRUcAAqNor.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-08-26T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c9c0c6b072e79188",
+      "song_titles": [
+        "to soar",
+        "哀しい竜とカイツール"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1300040576968962048:1",
+      "source_id": "official:x",
+      "upstream_key": "1300040576968962048:1",
+      "page_url": "https://x.com/c4c4cat/status/1300040576968962048",
+      "file_url": "https://pbs.twimg.com/media/EgVEFIBUYAAp64w?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Dement ~After Legend~」、「Knight of Tripletz (for DNX Edit)」が帰ってくるよ！ 開催期間は9月1日13時から…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1300040576968962048",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EgVEFIBUYAAp64w.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-08-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:94c999c6934b47df",
+      "song_titles": [
+        "Dement ~After Legend~",
+        "Knight of Tripletz (for DNX Edit)"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1305114005191757824:1",
+      "source_id": "official:x",
+      "upstream_key": "1305114005191757824:1",
+      "page_url": "https://x.com/c4c4cat/status/1305114005191757824",
+      "file_url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Destruction」が帰ってくるよ！ 開催期間は9月15日13時から9月19日21時（UTC+9）まで！ #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1305114005191757824",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EhnMgmgU0AM3YKk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-09-13T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8a10ba24f26ac2bb",
+      "song_titles": [
+        "Destruction"
+      ],
+      "composers": [
+        "桃源郷華"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Destruction. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1305838780729917441:1",
+      "source_id": "official:x",
+      "upstream_key": "1305838780729917441:1",
+      "page_url": "https://x.com/c4c4cat/status/1305838780729917441",
+      "file_url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はCROWLIAさんが作った「Moving On」。 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ #Dynamix #OS2019Silver",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1305838780729917441",
+        "text: Moving On"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eh8YY-sUcAANI64.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-09-15T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a5e46e7793cbe06e",
+      "song_titles": [
+        "Moving On"
+      ],
+      "composers": [
+        "CROWLIA"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Moving On. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1306201168503332870:1",
+      "source_id": "official:x",
+      "upstream_key": "1306201168503332870:1",
+      "page_url": "https://x.com/c4c4cat/status/1306201168503332870",
+      "file_url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Cryonix」が帰ってくるよ！ 開催期間は9月18日13時から9月22日21時（UTC+9）まで！ @sky_delta #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1306201168503332870",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EiCFpxLU8AA78Y5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-09-16T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6cc91f344951b151",
+      "song_titles": [
+        "Cryonix"
+      ],
+      "composers": [
+        "sky_delta"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Cryonix. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1308737882526425088:1",
+      "source_id": "official:x",
+      "upstream_key": "1308737882526425088:1",
+      "page_url": "https://x.com/c4c4cat/status/1308737882526425088",
+      "file_url": "https://pbs.twimg.com/media/EimApnSVoAAcWIJ?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Triumph And Regret」、「Youth」が帰ってくるよ！ 開催期間は9月25日13時から9月29日21時（UTC+9）まで！ @typeMARS …",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1308737882526425088",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EimApnSVoAAcWIJ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-09-23T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ee6d74d870f0aa73",
+      "song_titles": [
+        "Triumph & Regret",
+        "Youth"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1310187433485504513:1",
+      "source_id": "official:x",
+      "upstream_key": "1310187433485504513:1",
+      "page_url": "https://x.com/c4c4cat/status/1310187433485504513",
+      "file_url": "https://pbs.twimg.com/media/EimCJjJVgAEhAcX?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「DeaDLiNE」、「夏色メランコリー」が帰ってくるよ！ 開催期間は9月29日13時から10月3日21時（UTC+9）まで！ @logical_kRM @MJ_K…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1310187433485504513",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EimCJjJVgAEhAcX.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-09-27T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:681eb6506120b95d",
+      "song_titles": [
+        "DeaDLiNE",
+        "夏色メランコリー"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1310910948119425025:1",
+      "source_id": "official:x",
+      "upstream_key": "1310910948119425025:1",
+      "page_url": "https://x.com/c4c4cat/status/1310910948119425025",
+      "file_url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U?format=jpg&name=orig",
+      "title": "[パッケージのリリース] 新しいパッケージ 「Crossing Delta」 がリリースされました。 パッケージ内容： FLUCTONが作った 「Paved Garden」、「Slapstick P…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1310910948119425025",
+        "text: 「Crossing Delta」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-09-29T11:55:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:3cd2433c5a65f04e",
+      "collections": [
+        "Crossing Delta"
+      ],
+      "notes": "Official package release visual for Crossing Delta."
+    },
+    {
+      "id": "official:x:1315623248558686209:1",
+      "source_id": "official:x",
+      "upstream_key": "1315623248558686209:1",
+      "page_url": "https://x.com/c4c4cat/status/1315623248558686209",
+      "file_url": "https://pbs.twimg.com/media/EkHxQefU0AA7NAF?format=jpg&name=orig",
+      "title": "《Dynamix Halloween Event 2020 x 6th Anniversary》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1315623248558686209",
+        "text: Dynamix Halloween Event 2020 x 6th Anniversary"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EkHxQefU0AA7NAF.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-10-12T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b0c9d1930e06d84b",
+      "collections": [
+        "Dynamix Halloween Event 2020 x 6th Anniversary"
+      ],
+      "notes": "Official seasonal event poster: Dynamix Halloween Event 2020 x 6th Anniversary (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1318884743513919490:1",
+      "source_id": "official:x",
+      "upstream_key": "1318884743513919490:1",
+      "page_url": "https://x.com/c4c4cat/status/1318884743513919490",
+      "file_url": "https://pbs.twimg.com/media/Ek2SC4TVgAMAlh6?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Link To Dungeons」、「Sultan Madness」が帰ってくるよ！ 開催期間は10月23日13時から10月27日21時（UTC+9）まで！ M…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1318884743513919490",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ek2SC4TVgAMAlh6.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-10-21T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:fccb7400f428c517",
+      "song_titles": [
+        "Link To Dungeons",
+        "Sultan Madness"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1320334293516709889:1",
+      "source_id": "official:x",
+      "upstream_key": "1320334293516709889:1",
+      "page_url": "https://x.com/c4c4cat/status/1320334293516709889",
+      "file_url": "https://pbs.twimg.com/media/Ek2SojJVcAE2Iec?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Arty Party」、「Ice Chandelier」が帰ってくるよ！ 開催期間は10月27日13時から10月31日21時（UTC+9）まで！ @yasetak…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1320334293516709889",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ek2SojJVcAE2Iec.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-10-25T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0dbd5dc516992e2f",
+      "song_titles": [
+        "Arty Party",
+        "Ice Chandelier"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1321421459638681601:1",
+      "source_id": "official:x",
+      "upstream_key": "1321421459638681601:1",
+      "page_url": "https://x.com/c4c4cat/status/1321421459638681601",
+      "file_url": "https://pbs.twimg.com/media/ElaYs8AUUAIDYVG?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Sky land」、「Rudy」が帰ってくるよ！ 開催期間は10月30日13時から11月3日21時（UTC+9）まで！ @Levaslater Dusk @wa…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1321421459638681601",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ElaYs8AUUAIDYVG.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-10-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:006b6c12164867ae",
+      "song_titles": [
+        "Sky land",
+        "Rudy"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1322871006357315585:1",
+      "source_id": "official:x",
+      "upstream_key": "1322871006357315585:1",
+      "page_url": "https://x.com/c4c4cat/status/1322871006357315585",
+      "file_url": "https://pbs.twimg.com/media/ElaahtdVMAE5RME?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Time & Space (Dynamix Edit)」、「16383」が帰ってくるよ！ 開催期間は11月3日13時から11月7日21時（UTC+9）まで！ #D…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1322871006357315585",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ElaahtdVMAE5RME.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-01T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:7bb8daeb73628f72",
+      "song_titles": [
+        "Time & Space (Dynamix Edit)",
+        "16383"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1323490087397658624:1",
+      "source_id": "official:x",
+      "upstream_key": "1323490087397658624:1",
+      "page_url": "https://x.com/c4c4cat/status/1323490087397658624",
+      "file_url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U?format=jpg&name=orig",
+      "title": "[Package Sale] As our new package 《Crossing Delta》finally released. We decided to start a Package S…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1323490087397658624",
+        "text: Package Sale"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EjEnxmVVkAAxZ4U.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-03T05:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1310910948119425025:1",
+      "asset_id": "official:x:3cd2433c5a65f04e",
+      "notes": "Package sale post re-using an earlier visual."
+    },
+    {
+      "id": "official:x:1325407725623283712:1",
+      "source_id": "official:x",
+      "upstream_key": "1325407725623283712:1",
+      "page_url": "https://x.com/c4c4cat/status/1325407725623283712",
+      "file_url": "https://pbs.twimg.com/media/El-TYtJVoAcIT1L?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Black：Magnam」が帰ってくるよ！ 開催期間は11月10日13時から11月14日21時（UTC+9）まで！ @adaptor166 #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1325407725623283712",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/El-TYtJVoAcIT1L.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2020-11-08T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:58d5475d92d245db",
+      "song_titles": [
+        "Black：Magnam"
+      ],
+      "composers": [
+        "adaptor"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Black：Magnam. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1331568315706142723:1",
+      "source_id": "official:x",
+      "upstream_key": "1331568315706142723:1",
+      "page_url": "https://x.com/c4c4cat/status/1331568315706142723",
+      "file_url": "https://pbs.twimg.com/media/EnBdyDZUUAETadH?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Hall of Fame」、「Glory of the Sacred Kingdom」が帰ってくるよ！ 開催期間は11月27日13時から12月1日21時（UTC…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1331568315706142723",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EnBdyDZUUAETadH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-25T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:47ae656af1faa96d",
+      "song_titles": [
+        "Hall of Fame",
+        "Glory of the Sacred Kingdom"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1333017872860213255:1",
+      "source_id": "official:x",
+      "upstream_key": "1333017872860213255:1",
+      "page_url": "https://x.com/c4c4cat/status/1333017872860213255",
+      "file_url": "https://pbs.twimg.com/media/EnBfi_ZVkAEQm63?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「BOUNCE THE TECH」、「Chrysoberyl」が帰ってくるよ！ 開催期間は12月1日13時から12月5日21時（UTC+9）まで！ @soundpi…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1333017872860213255",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EnBfi_ZVkAEQm63.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-11-29T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a82b78412cb97420",
+      "song_titles": [
+        "BOUNCE THE TECH",
+        "Chrysoberyl"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1338453689703555072:1",
+      "source_id": "official:x",
+      "upstream_key": "1338453689703555072:1",
+      "page_url": "https://x.com/c4c4cat/status/1338453689703555072",
+      "file_url": "https://pbs.twimg.com/media/EpMXSZrUwAAWUI8?format=jpg&name=orig",
+      "title": "《Dynamix 2020 Christmas Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1338453689703555072",
+        "text: Dynamix 2020 Christmas Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EpMXSZrUwAAWUI8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2020-12-14T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:f75528d1fbf516ad",
+      "collections": [
+        "Dynamix 2020 Christmas Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2020 Christmas Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1341715177331335169:1",
+      "source_id": "official:x",
+      "upstream_key": "1341715177331335169:1",
+      "page_url": "https://x.com/c4c4cat/status/1341715177331335169",
+      "file_url": "https://pbs.twimg.com/media/EoOdjO6VkAEg6RD?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Speedster, Trickster」、「Empty Stars」が帰ってくるよ！ 開催期間は12月25日13時から12月29日21時（UTC+9）まで！ …",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1341715177331335169",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EoOdjO6VkAEg6RD.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-12-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:87bc1655b3671ff9",
+      "song_titles": [
+        "Speedster, Trickster",
+        "Empty Stars"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1343164731750694917:1",
+      "source_id": "official:x",
+      "upstream_key": "1343164731750694917:1",
+      "page_url": "https://x.com/c4c4cat/status/1343164731750694917",
+      "file_url": "https://pbs.twimg.com/media/EoOelXgVcAEJLH9?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Anökumene」、「JOACHIM : D」が帰ってくるよ！ 開催期間は12月29日13時から1月2日21時（UTC+9）まで！ @_JunKuroda @s…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1343164731750694917",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EoOelXgVcAEJLH9.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2020-12-27T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c44206c899a67f6d",
+      "song_titles": [
+        "Anökumene",
+        "JOACHIM : D"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1351862036330905601:1",
+      "source_id": "official:x",
+      "upstream_key": "1351862036330905601:1",
+      "page_url": "https://x.com/c4c4cat/status/1351862036330905601",
+      "file_url": "https://pbs.twimg.com/media/Eqe07uhUwAELAuK?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「曇る鑑《かがみ》の霧を含みて」、「白色の夢で。」が帰ってくるよ！ 開催期間は1月22日13時から1月26日21時（UTC+9）まで！ @chronoize @N…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1351862036330905601",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe07uhUwAELAuK.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-20T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:720f71fe125951c8",
+      "song_titles": [
+        "曇る鑑《かがみ》の霧を含みて",
+        "白色の夢で。"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1353311589705854978:1",
+      "source_id": "official:x",
+      "upstream_key": "1353311589705854978:1",
+      "page_url": "https://x.com/c4c4cat/status/1353311589705854978",
+      "file_url": "https://pbs.twimg.com/media/Eqe1fYXUUAIZR4U?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Dead Master」、「Lumina」が帰ってくるよ！ 開催期間は1月26日13時から1月30日21時（UTC+9）まで！ @wispx #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1353311589705854978",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe1fYXUUAIZR4U.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-24T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5940aaf11f99f5e3",
+      "song_titles": [
+        "Dead Master",
+        "Lumina"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1354398754414051334:1",
+      "source_id": "official:x",
+      "upstream_key": "1354398754414051334:1",
+      "page_url": "https://x.com/c4c4cat/status/1354398754414051334",
+      "file_url": "https://pbs.twimg.com/media/Eqe13YHVQAAeBiu?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「声が届かないのなら」、「Marion.net」が帰ってくるよ！ 開催期間は1月29日13時から2月2日21時（UTC+9）まで！ @karato_P @kukk…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1354398754414051334",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe13YHVQAAeBiu.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-27T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1d2b4f1a806ad032",
+      "song_titles": [
+        "声が届かないのなら",
+        "Marion.net"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1355848303439581188:1",
+      "source_id": "official:x",
+      "upstream_key": "1355848303439581188:1",
+      "page_url": "https://x.com/c4c4cat/status/1355848303439581188",
+      "file_url": "https://pbs.twimg.com/media/Eqe2RpoVoAEsnQk?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「The Clockwork Doll」、「Wish」が帰ってくるよ！ 開催期間は2月2日13時から2月6日21時（UTC+9）まで！ @aboutlogic @o…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1355848303439581188",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Eqe2RpoVoAEsnQk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-01-31T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8ca5d1910a19f236",
+      "song_titles": [
+        "The Clockwork Doll",
+        "Wish"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1356210690101489665:1",
+      "source_id": "official:x",
+      "upstream_key": "1356210690101489665:1",
+      "page_url": "https://x.com/c4c4cat/status/1356210690101489665",
+      "file_url": "https://pbs.twimg.com/media/EtI5i4yUYAM7l-e?format=jpg&name=orig",
+      "title": "[Dynamix] 2月の3週のイベント曲を予告します：( ´ ▽ ` )ﾉ 1. Symphonian feat.kei_iwata が作った My life is mine 2. Eu が作った…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1356210690101489665",
+        "text: イベント曲を予告"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtI5i4yUYAM7l-e.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1500,
+        "height": 500,
+        "sha1": null,
+        "timestamp": "2021-02-01T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d6121546cd900c64",
+      "song_titles": [
+        "My life is mine",
+        "(XD)",
+        "WHIRLWIND"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Monthly upcoming-events lineup (list graphic)."
+    },
+    {
+      "id": "official:x:1358747410151870464:1",
+      "source_id": "official:x",
+      "upstream_key": "1358747410151870464:1",
+      "page_url": "https://x.com/c4c4cat/status/1358747410151870464",
+      "file_url": "https://pbs.twimg.com/media/EtsoXDrVoAAVULZ?format=jpg&name=orig",
+      "title": "《Dynamix 2021 Lunar New Year Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1358747410151870464",
+        "text: Dynamix 2021 Lunar New Year Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtsoXDrVoAAVULZ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2021-02-08T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:66f8c60a43a23cd9",
+      "collections": [
+        "Dynamix 2021 Lunar New Year Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Lunar New Year Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1361646516008443909:1",
+      "source_id": "official:x",
+      "upstream_key": "1361646516008443909:1",
+      "page_url": "https://x.com/c4c4cat/status/1361646516008443909",
+      "file_url": "https://pbs.twimg.com/media/EuUhfVSVoAMk5x5?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はLinne X SCTL(Illust.Keiyuu&RED-FOX)さんが作った「WHIRLWIND」。 開催期間は2月19日13時から2月23日21時（UTC+9…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1361646516008443909",
+        "text: WHIRLWIND"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EuUhfVSVoAMk5x5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2021-02-16T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:529235db7535a1bc",
+      "song_titles": [
+        "WHIRLWIND"
+      ],
+      "composers": [
+        "Linne X SCTL"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for WHIRLWIND. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1364545616563507202:1",
+      "source_id": "official:x",
+      "upstream_key": "1364545616563507202:1",
+      "page_url": "https://x.com/c4c4cat/status/1364545616563507202",
+      "file_url": "https://pbs.twimg.com/media/EtS6TO0U4AYmRLg?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Crank up」、「Aujourd'hui」が帰ってくるよ！ 開催期間は2月26日13時から3月2日21時（UTC+9）まで！ @litmus_music @…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1364545616563507202",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtS6TO0U4AYmRLg.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-02-24T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:37d974533599e8a7",
+      "song_titles": [
+        "Crank up",
+        "Aujourd'hui"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1365995165387792390:1",
+      "source_id": "official:x",
+      "upstream_key": "1365995165387792390:1",
+      "page_url": "https://x.com/c4c4cat/status/1365995165387792390",
+      "file_url": "https://pbs.twimg.com/media/EtS59PgU4AIZ2cW?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Evoltex (poppi'n mix)」、「Regenerate Violence」が帰ってくるよ！ 開催期間は3月2日13時から3月6日21時（UTC+9）…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1365995165387792390",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EtS59PgU4AIZ2cW.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-02-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5f9334357fe1449a",
+      "song_titles": [
+        "Evoltex (poppi'n mix)",
+        "Regenerate Violence"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1374692479027580930:1",
+      "source_id": "official:x",
+      "upstream_key": "1374692479027580930:1",
+      "page_url": "https://x.com/c4c4cat/status/1374692479027580930",
+      "file_url": "https://pbs.twimg.com/media/ExOFa9sVcAYlj6A?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Xetta」、「Oriental Landscape」が帰ってくるよ！ 開催期間は3月26日13時から3月30日21時（UTC+9）まで！ @Tang0Juan…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1374692479027580930",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ExOFa9sVcAYlj6A.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-03-24T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ac5bc1971fe2a62e",
+      "song_titles": [
+        "Xetta",
+        "Oriental Landscape"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1376142026622828546:1",
+      "source_id": "official:x",
+      "upstream_key": "1376142026622828546:1",
+      "page_url": "https://x.com/c4c4cat/status/1376142026622828546",
+      "file_url": "https://pbs.twimg.com/media/ExOIV54VkAAk06Q?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「終の舞姫」、「Kreuz」が帰ってくるよ！ 開催期間は3月30日13時から4月3日21時（UTC+9）まで！ @SeURa_Nue @sky_delta #Dyn…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1376142026622828546",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ExOIV54VkAAk06Q.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-03-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ad6b57d1b1bed2e7",
+      "song_titles": [
+        "終の舞姫",
+        "Kreuz"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1376504413452439553:1",
+      "source_id": "official:x",
+      "upstream_key": "1376504413452439553:1",
+      "page_url": "https://x.com/c4c4cat/status/1376504413452439553",
+      "file_url": "https://pbs.twimg.com/media/ExpKp94UYAAkb4e?format=jpg&name=orig",
+      "title": "《Dynamix 2021 Easter Event》 詳細は、次のサイトを参照してください： facebook.com/29847671700584…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1376504413452439553",
+        "text: Dynamix 2021 Easter Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/ExpKp94UYAAkb4e.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 821,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2021-03-29T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:fb25bfb3cf57354a",
+      "collections": [
+        "Dynamix 2021 Easter Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Easter Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1385201723678003201:1",
+      "source_id": "official:x",
+      "upstream_key": "1385201723678003201:1",
+      "page_url": "https://x.com/c4c4cat/status/1385201723678003201",
+      "file_url": "https://pbs.twimg.com/media/EzkTRRYUcAE3bwR?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Startail」、「Blue」が帰ってくるよ！ 開催期間は4月23日13時から4月27日21時（UTC+9）まで！ @_4rch @riranofficial…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1385201723678003201",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EzkTRRYUcAE3bwR.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-04-22T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c02eaaa198b196de",
+      "song_titles": [
+        "Startail",
+        "Blue"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1386288886435876868:1",
+      "source_id": "official:x",
+      "upstream_key": "1386288886435876868:1",
+      "page_url": "https://x.com/c4c4cat/status/1386288886435876868",
+      "file_url": "https://pbs.twimg.com/media/Ezkyos0VEAAsmGH?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Now Is The Time, Do It」、「Arcana Idola」が帰ってくるよ！ 開催期間は4月27日13時から5月1日21時（UTC+9）まで！ @…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1386288886435876868",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Ezkyos0VEAAsmGH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-04-25T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:ae90d497e74bfd38",
+      "song_titles": [
+        "Now Is The Time, Do It",
+        "Arcana Idola"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1387376051807047689:1",
+      "source_id": "official:x",
+      "upstream_key": "1387376051807047689:1",
+      "page_url": "https://x.com/c4c4cat/status/1387376051807047689",
+      "file_url": "https://pbs.twimg.com/media/E0DRsr8UUAAo2lx?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「月奏リバイバル」、「Mass Control」が帰ってくるよ！ 開催期間は4月30日13時から5月4日21時（UTC+9）まで！ 作者要求唔Tag @untit…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1387376051807047689",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E0DRsr8UUAAo2lx.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-04-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:2a6f000d28e0a1a7",
+      "song_titles": [
+        "月奏リバイバル",
+        "Mass Control"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1388825604774977538:1",
+      "source_id": "official:x",
+      "upstream_key": "1388825604774977538:1",
+      "page_url": "https://x.com/c4c4cat/status/1388825604774977538",
+      "file_url": "https://pbs.twimg.com/media/E0DVENlVEAYH_e3?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Fernand System Operating!!」、「ほしぞらトラベル」が帰ってくるよ！ 開催期間は5月4日13時から5月8日21時（UTC+9）まで！ @h…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1388825604774977538",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E0DVENlVEAYH_e3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-05-02T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9d34f76cb6f75ee0",
+      "song_titles": [
+        "Fernand System Operating!!",
+        "ほしぞらトラベル"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1397522911678840838:1",
+      "source_id": "official:x",
+      "upstream_key": "1397522911678840838:1",
+      "page_url": "https://x.com/c4c4cat/status/1397522911678840838",
+      "file_url": "https://pbs.twimg.com/media/E2T5jGJUcAErvEE?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「New Story」、「αterlβus」が帰ってくるよ！ 開催期間は5月28日13時から6月1日21時（UTC+9）まで！ @Leigendar @BLUEn…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1397522911678840838",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E2T5jGJUcAErvEE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-05-26T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b0b3af2d5e23b774",
+      "song_titles": [
+        "New Story",
+        "αterlβus"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1398972463879438337:1",
+      "source_id": "official:x",
+      "upstream_key": "1398972463879438337:1",
+      "page_url": "https://x.com/c4c4cat/status/1398972463879438337",
+      "file_url": "https://pbs.twimg.com/media/E2T6hMxVgAMOExz?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Forbidden Area」、「Snowy Light」が帰ってくるよ！ 開催期間は6月1日13時から6月5日21時（UTC+9）まで！ @vamp_kgrn …",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1398972463879438337",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E2T6hMxVgAMOExz.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-05-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0d8c9e9f7b8bf0fc",
+      "song_titles": [
+        "Forbidden Area",
+        "Snowy Light"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1407669775799623683:1",
+      "source_id": "official:x",
+      "upstream_key": "1407669775799623683:1",
+      "page_url": "https://x.com/c4c4cat/status/1407669775799623683",
+      "file_url": "https://pbs.twimg.com/media/E4kH7QdVgAIK-yq?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Flarebirds of Scarlet Prism」、「Sky Adventure!」が帰ってくるよ！ 開催期間は6月25日13時から6月29日21時（UT…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1407669775799623683",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E4kH7QdVgAIK-yq.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-06-23T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:01205e79b8d11c8a",
+      "song_titles": [
+        "Flarebirds of Scarlet Prism",
+        "Sky Adventure!"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1409116629825294344:1",
+      "source_id": "official:x",
+      "upstream_key": "1409116629825294344:1",
+      "page_url": "https://x.com/c4c4cat/status/1409116629825294344",
+      "file_url": "https://pbs.twimg.com/media/E44wDiZVkAMg9HG?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Starbirds of Zenith Blue」、「涅槃を灯すシャーデンフロイデ」が帰ってくるよ！ 開催期間は6月29日13時から7月3日21時（UTC+9）ま…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1409116629825294344",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E44wDiZVkAMg9HG.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-06-27T11:49:19.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d894e3a7684cf794",
+      "song_titles": [
+        "Starbirds of Zenith Blue",
+        "涅槃を灯すシャーデンフロイデ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1410901066380623872:1",
+      "source_id": "official:x",
+      "upstream_key": "1410901066380623872:1",
+      "page_url": "https://x.com/c4c4cat/status/1410901066380623872",
+      "file_url": "https://pbs.twimg.com/media/E5RlMB7VkAAqCzB?format=jpg&name=orig",
+      "title": "【重大告知】 アプリ音楽ゲーム『RAVON』とDynamixのコラボが決定🎉 8月中旬よりスタート。続報をお楽しみに！ テーマアート：@takelifesoul #RAVON #Dynamix",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1410901066380623872",
+        "text: RAVON",
+        "text: テーマアート"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5RlMB7VkAAqCzB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-07-02T10:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:97a9b4dd29646a8f",
+      "illustrators": [
+        "takelifesoul"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON x Dynamix collaboration announcement key art."
+    },
+    {
+      "id": "official:x:1417816629401030660:1",
+      "source_id": "official:x",
+      "upstream_key": "1417816629401030660:1",
+      "page_url": "https://x.com/c4c4cat/status/1417816629401030660",
+      "file_url": "https://pbs.twimg.com/media/E5HphI5VcAE28_1?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Angel x Angel」、「The Path」が帰ってくるよ！ 開催期間は7月23日13時から7月27日21時（UTC+9）まで！ @t4k4h1r0 #D…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1417816629401030660",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5HphI5VcAE28_1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-07-21T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a39148c9c240feb9",
+      "song_titles": [
+        "Angel x Angel",
+        "The Path"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1418541403244617732:1",
+      "source_id": "official:x",
+      "upstream_key": "1418541403244617732:1",
+      "page_url": "https://x.com/c4c4cat/status/1418541403244617732",
+      "file_url": "https://pbs.twimg.com/media/E69KT6rVkAYVLlF?format=jpg&name=orig",
+      "title": "[Artwork Submission] 作成者の名前: Yunana アートワークの名前: メイドさん メッセージ：Life flashes before weeb eyesのキャラクター名前は？…",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1418541403244617732"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E69KT6rVkAYVLlF.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1365,
+        "sha1": null,
+        "timestamp": "2021-07-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "fanart: weekly [Artwork Submission] repost of a player's drawing (メイドさん by Yunana), not game artwork"
+    },
+    {
+      "id": "official:x:1419266181224177668:1",
+      "source_id": "official:x",
+      "upstream_key": "1419266181224177668:1",
+      "page_url": "https://x.com/c4c4cat/status/1419266181224177668",
+      "file_url": "https://pbs.twimg.com/media/E5Hp6YbUYAQ-gAZ?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「RASeed」、「Dolqueen」が帰ってくるよ！ 開催期間は7月27日13時から7月31日21時（UTC+9）まで！ @TurretOmega @ax_ono…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1419266181224177668",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5Hp6YbUYAQ-gAZ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-07-25T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c28cc335048e6f53",
+      "song_titles": [
+        "RASeed",
+        "Dolqueen"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1420353347035582469:1",
+      "source_id": "official:x",
+      "upstream_key": "1420353347035582469:1",
+      "page_url": "https://x.com/c4c4cat/status/1420353347035582469",
+      "file_url": "https://pbs.twimg.com/media/E5HqUBJVkAYG1X3?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「交差して歪む過去と未来」、「Enhanced Lights」が帰ってくるよ！ 開催期間は7月30日13時から8月3日21時（UTC+9）まで！ @karato_…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1420353347035582469",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5HqUBJVkAYG1X3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-07-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:95336dd6981c898a",
+      "song_titles": [
+        "交差して歪む過去と未来",
+        "Enhanced Lights"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1421802897663139843:1",
+      "source_id": "official:x",
+      "upstream_key": "1421802897663139843:1",
+      "page_url": "https://x.com/c4c4cat/status/1421802897663139843",
+      "file_url": "https://pbs.twimg.com/media/E5HqpGoVUAMwWfU?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「CORONA」、「Between Boundaries」が帰ってくるよ！ 開催期間は8月3日13時から8月7日21時（UTC+9）まで！ @Chicala_Lpi…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1421802897663139843",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E5HqpGoVUAMwWfU.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-08-01T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:67faa2271adff3ea",
+      "song_titles": [
+        "CORONA",
+        "Between Boundaries"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1427842694999527428:1",
+      "source_id": "official:x",
+      "upstream_key": "1427842694999527428:1",
+      "page_url": "https://x.com/c4c4cat/status/1427842694999527428",
+      "file_url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 8月21日より、『RAVONコラボPack1』が「Dynamix」に登場！ 待望の一曲目はこちら！ 【White：Revolve】by adaptor…",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1427842694999527428",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-18T04:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:041252f0496cabc0",
+      "song_titles": [
+        "White：Revolve"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('White : Revolve') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped."
+    },
+    {
+      "id": "official:x:1428205081292251137:1",
+      "source_id": "official:x",
+      "upstream_key": "1428205081292251137:1",
+      "page_url": "https://x.com/c4c4cat/status/1428205081292251137",
+      "file_url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 新進気鋭のアプリ音ゲーRAVONより、『RAVONコラボPack1』に合計4曲追加！ 二曲目はこちら！ 【Astral】by Titan Chaos …",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428205081292251137",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9EMSkmVIAQU1bH.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-19T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9ae51520ad1e1bb5",
+      "song_titles": [
+        "White：Revolve",
+        "Astral"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 2 titled jackets ('White : Revolve', 'Astral') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:1428567468444950530:1",
+      "source_id": "official:x",
+      "upstream_key": "1428567468444950530:1",
+      "page_url": "https://x.com/c4c4cat/status/1428567468444950530",
+      "file_url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack1』三曲目、 RAVONではお馴染みのあの難関曲ーー 【Mitochondria】by 5argon 一体どんな譜…",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428567468444950530",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9EMryGUcAkpJRi.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-20T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:7d9659da9017b37f",
+      "song_titles": [
+        "White：Revolve",
+        "Astral",
+        "Mitochondria"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 3 titled jackets ('White : Revolve', 'Astral', 'Mitochondria') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:1428839259532836867:1",
+      "source_id": "official:x",
+      "upstream_key": "1428839259532836867:1",
+      "page_url": "https://x.com/c4c4cat/status/1428839259532836867",
+      "file_url": "https://pbs.twimg.com/media/E9EPwbSVoAQy4ZX?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 本日リリースの『RAVONコラボPack1』、隠された最後の曲は……なんと！ 《RAVON、Dynamix同時収録の書き下ろし新曲》 【ReLyna】…",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428839259532836867",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9EPwbSVoAQy4ZX.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-20T22:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b70d6c0362b2def2",
+      "song_titles": [
+        "ReLyna"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1428960055492321284:1",
+      "source_id": "official:x",
+      "upstream_key": "1428960055492321284:1",
+      "page_url": "https://x.com/c4c4cat/status/1428960055492321284",
+      "file_url": "https://pbs.twimg.com/media/E9END1JVIAk8djf?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack1』好評発売中🎉 【White：Revolve】by adaptor 【Astral】by Titan Chaos 【Mi…",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1428960055492321284",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E9END1JVIAk8djf.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-08-21T06:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:115ec68fc024f6a6",
+      "song_titles": [
+        "White：Revolve",
+        "Astral",
+        "Mitochondria",
+        "ReLyna"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 4 titled jackets ('White : Revolve', 'Astral', 'Mitochondria', 'ReLyna') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:1430500213030936583:1",
+      "source_id": "official:x",
+      "upstream_key": "1430500213030936583:1",
+      "page_url": "https://x.com/c4c4cat/status/1430500213030936583",
+      "file_url": "https://pbs.twimg.com/media/E78abygVcAUiCoE?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「diSTractiOn PoInT」、「The Endless for Traveler」が帰ってくるよ！ 開催期間は8月27日13時から8月31日21時（UT…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1430500213030936583",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E78abygVcAUiCoE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-08-25T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:14c5034f27731c91",
+      "song_titles": [
+        "diSTractiOn PoInT",
+        "The Endless for Traveler"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1431949753311432704:1",
+      "source_id": "official:x",
+      "upstream_key": "1431949753311432704:1",
+      "page_url": "https://x.com/c4c4cat/status/1431949753311432704",
+      "file_url": "https://pbs.twimg.com/media/E78cecNVIAMnStE?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Frontline B-Side」、「NOISIΛ」が帰ってくるよ！ 開催期間は8月31日13時から9月4日21時（UTC+9）まで！ @4nyuki @moti…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1431949753311432704",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E78cecNVIAMnStE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-08-29T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0bcbd9a63e447feb",
+      "song_titles": [
+        "Frontline B-Side",
+        "NOISIΛ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1434365675686879233:1",
+      "source_id": "official:x",
+      "upstream_key": "1434365675686879233:1",
+      "page_url": "https://x.com/c4c4cat/status/1434365675686879233",
+      "file_url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 9月8日より、『RAVONコラボPack2』が「Dynamix」に登場！ 一曲目はこちら！ 【Rave! and Get on it!】by Woof…",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1434365675686879233",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-05T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:aca9b669cb4310f2",
+      "song_titles": [
+        "Rave! and Get On It!"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('Rave! and Get on it!') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped."
+    },
+    {
+      "id": "official:x:1434728063649079298:1",
+      "source_id": "official:x",
+      "upstream_key": "1434728063649079298:1",
+      "page_url": "https://x.com/c4c4cat/status/1434728063649079298",
+      "file_url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 『RAVONコラボPack2』二曲目、公開！ 【Totally bounded】by 影虎。 イケイケの本格PsytranceがDynamixに登場😎…",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1434728063649079298",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cCwACVEAIiYdw.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-06T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:15d01e5a7debd02a",
+      "song_titles": [
+        "Rave! and Get On It!",
+        "Totally bounded"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 2 titled jackets ('Rave! and Get on it!', 'Totally bounded') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:1435090451833315331:1",
+      "source_id": "official:x",
+      "upstream_key": "1435090451833315331:1",
+      "page_url": "https://x.com/c4c4cat/status/1435090451833315331",
+      "file_url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 引き続いて『RAVONコラボPack2』三曲目、 RAVONといえばーー 【Euouae】by Spyro Kong BPMは驚異の410！Dynam…",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1435090451833315331",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cDEKeVEAgfCbS.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-07T04:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a751b31e7ba30526",
+      "song_titles": [
+        "Rave! and Get On It!",
+        "Totally bounded",
+        "Euouae"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 3 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:1435452837211803651:1",
+      "source_id": "official:x",
+      "upstream_key": "1435452837211803651:1",
+      "page_url": "https://x.com/c4c4cat/status/1435452837211803651",
+      "file_url": "https://pbs.twimg.com/media/E-cEBF4UUAI96Tk?format=jpg&name=orig",
+      "title": "全スマホ音ゲーマーへの挑戦状。 本日リリースの『RAVONコラボPack2』、最後の曲は……！ 《RAVON、Dynamix同時収録の書き下ろし新曲》 【MassacrE || 3rc4224M】b…",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1435452837211803651",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cEBF4UUAI96Tk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-08T04:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:842f07662ac8dd0c",
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "RAVON collaboration per-song announcement visual (3840x2160)."
+    },
+    {
+      "id": "official:x:1435483036779483139:1",
+      "source_id": "official:x",
+      "upstream_key": "1435483036779483139:1",
+      "page_url": "https://x.com/c4c4cat/status/1435483036779483139",
+      "file_url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO?format=jpg&name=orig",
+      "title": "【#RAVON × #Dynamix コラボ】 🎉『RAVONコラボPack2』好評発売中🎉 【Rave! and Get on it!】by Woof 【Totally bounded】by 影虎…",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1435483036779483139",
+        "text: RAVONコラボPack"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E-cEatGUUAYD4bO.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3840,
+        "height": 2160,
+        "sha1": null,
+        "timestamp": "2021-09-08T06:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0977a070859fd5c0",
+      "song_titles": [
+        "Rave! and Get On It!",
+        "Totally bounded",
+        "Euouae",
+        "MassacrE || 3rc4224M"
+      ],
+      "collections": [
+        "RAVON Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 4 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:1437430883837956097:1",
+      "source_id": "official:x",
+      "upstream_key": "1437430883837956097:1",
+      "page_url": "https://x.com/c4c4cat/status/1437430883837956097",
+      "file_url": "https://pbs.twimg.com/media/E_LApDjVgAcCD2o?format=jpg&name=orig",
+      "title": "《Dynamix 2021 Mid-Autumn Festival Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/… #Dynamix …",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1437430883837956097",
+        "text: Dynamix 2021 Mid-Autumn Festival Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E_LApDjVgAcCD2o.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1230,
+        "height": 1800,
+        "sha1": null,
+        "timestamp": "2021-09-13T15:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a923f203fc14f9e1",
+      "collections": [
+        "Dynamix 2021 Mid-Autumn Festival Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Mid-Autumn Festival Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1437747970875674626:1",
+      "source_id": "official:x",
+      "upstream_key": "1437747970875674626:1",
+      "page_url": "https://x.com/c4c4cat/status/1437747970875674626",
+      "file_url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はReku Mochizukiさんが作った「玲瓏メテオ」。 開催期間は9月17日13時から9月21日21時（UTC+9）まで！ @RekuMczk #Dynamix #…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1437747970875674626",
+        "text: [Event]",
+        "text: 玲瓏メテオ"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E_PeqKOUUAINRaQ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2021-09-14T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:e946e4ce416ca1aa",
+      "song_titles": [
+        "玲瓏メテオ"
+      ],
+      "composers": [
+        "Reku Mochizuki"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for 玲瓏メテオ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1440662164495237120:1",
+      "source_id": "official:x",
+      "upstream_key": "1440662164495237120:1",
+      "page_url": "https://x.com/c4c4cat/status/1440662164495237120",
+      "file_url": "https://pbs.twimg.com/media/E_46yojVEAMaNQG?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「MLG」、「おもひでファンタジア」が帰ってくるよ！ 開催期間は9月24日13時から9月28日21時（UTC+9）まで！ @umecha24909 #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1440662164495237120",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/E_46yojVEAMaNQG.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-09-22T13:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:85786f5af3f79955",
+      "song_titles": [
+        "MLG",
+        "おもひでファンタジア"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1450809024216059910:1",
+      "source_id": "official:x",
+      "upstream_key": "1450809024216059910:1",
+      "page_url": "https://x.com/c4c4cat/status/1450809024216059910",
+      "file_url": "https://pbs.twimg.com/media/FCJJmugVIAQGusP?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「^/7(L|?[_(L+#<>+&|^(o)」、「Knight of Tripletz (for DNX Edit)」が帰ってくるよ！ 開催期間は10月22日1…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1450809024216059910",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCJJmugVIAQGusP.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-20T13:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6c91e7383996eef4",
+      "song_titles": [
+        "^/7(L⎥?[_(L+#<>+&⎥^(o)",
+        "Knight of Tripletz (for DNX Edit)"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1452606530516230145:1",
+      "source_id": "official:x",
+      "upstream_key": "1452606530516230145:1",
+      "page_url": "https://x.com/c4c4cat/status/1452606530516230145",
+      "file_url": "https://pbs.twimg.com/media/FCix0aVVcAIoDEh?format=jpg&name=orig",
+      "title": "《Dynamix 2021 Halloween Event X 7th Anniversiry》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1452606530516230145",
+        "text: Dynamix 2021 Halloween Event X 7th Anniversiry"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCix0aVVcAIoDEh.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1244,
+        "height": 1766,
+        "sha1": null,
+        "timestamp": "2021-10-25T12:02:39.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:60a05fa769ac12ad",
+      "collections": [
+        "Dynamix 2021 Halloween Event X 7th Anniversiry"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Halloween Event X 7th Anniversiry (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1452615928441720832:1",
+      "source_id": "official:x",
+      "upstream_key": "1452615928441720832:1",
+      "page_url": "https://x.com/c4c4cat/status/1452615928441720832",
+      "file_url": "https://pbs.twimg.com/media/FCi0SbFUUAc3dku?format=jpg&name=orig",
+      "title": "[Event] 本週の火曜日は復刻曲「to soar」、「オレンジ」が帰ってくるよ！ 開催期間は10月26日13時から10月30日21時（UTC+9）まで！ @BLUEnoup @mAoA9_com…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1452615928441720832",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCi0SbFUUAc3dku.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-25T12:40:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1de3b7b2d75aa3ab",
+      "song_titles": [
+        "to soar",
+        "オレンジ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1453330641274097667:1",
+      "source_id": "official:x",
+      "upstream_key": "1453330641274097667:1",
+      "page_url": "https://x.com/c4c4cat/status/1453330641274097667",
+      "file_url": "https://pbs.twimg.com/media/FCs0G4jVIAIN2d0?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「哀しい竜とカイツール」、「Laivisca」が帰ってくるよ！ 開催期間は10月29日13時から11月2日21時（UTC+9）まで！ @SeURa_Nue @ni…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1453330641274097667",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCs0G4jVIAIN2d0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-27T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:43e9667e90a041f6",
+      "song_titles": [
+        "哀しい竜とカイツール",
+        "Laivisca"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1454780199988457480:1",
+      "source_id": "official:x",
+      "upstream_key": "1454780199988457480:1",
+      "page_url": "https://x.com/c4c4cat/status/1454780199988457480",
+      "file_url": "https://pbs.twimg.com/media/FCs4YN1VgAEW4Z3?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Dement ~After Legend~」、「紅」が帰ってくるよ！ 開催期間は11月2日13時から11月6日21時（UTC+9）まで！ @LunaticSoun…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1454780199988457480",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FCs4YN1VgAEW4Z3.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-10-31T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6cfb382422cfce6e",
+      "song_titles": [
+        "Dement ~After Legend~",
+        "紅"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1463477504123932673:1",
+      "source_id": "official:x",
+      "upstream_key": "1463477504123932673:1",
+      "page_url": "https://x.com/c4c4cat/status/1463477504123932673",
+      "file_url": "https://pbs.twimg.com/media/FE9LQMnVEAMY-Ie?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Daydream」、「Cervelle Connexion」が帰ってくるよ！ 開催期間は11月26日13時から11月30日21時（UTC+9）まで！ @EBIC…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1463477504123932673",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FE9LQMnVEAMY-Ie.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-11-24T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9f092faf4047c8fc",
+      "song_titles": [
+        "Daydream",
+        "Cervelle Connexion"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1464927056723156998:1",
+      "source_id": "official:x",
+      "upstream_key": "1464927056723156998:1",
+      "page_url": "https://x.com/c4c4cat/status/1464927056723156998",
+      "file_url": "https://pbs.twimg.com/media/FE9LJ54VIAQWSRR?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Nives Marinae」、「ROAD to 773H」が帰ってくるよ！ 開催期間は11月26日13時から11月30日21時（UTC+9）まで！ @dialg…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1464927056723156998",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FE9LJ54VIAQWSRR.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-11-28T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:513b4049cb28f65e",
+      "song_titles": [
+        "Nives Marinae",
+        "ROAD to 773H"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1472900045280190465:1",
+      "source_id": "official:x",
+      "upstream_key": "1472900045280190465:1",
+      "page_url": "https://x.com/c4c4cat/status/1472900045280190465",
+      "file_url": "https://pbs.twimg.com/media/FHDI1nHUcAAkBpK?format=jpg&name=orig",
+      "title": "《Dynamix 2021 Christmas X New Year's Eve Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1472900045280190465",
+        "text: Dynamix 2021 Christmas X New Year's Eve Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHDI1nHUcAAkBpK.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 821,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2021-12-20T12:01:50.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d5df9eb7965bbd72",
+      "collections": [
+        "Dynamix 2021 Christmas X New Year's Eve Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2021 Christmas X New Year's Eve Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1473624368869748740:1",
+      "source_id": "official:x",
+      "upstream_key": "1473624368869748740:1",
+      "page_url": "https://x.com/c4c4cat/status/1473624368869748740",
+      "file_url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Own The Night」、「Arty Party」が帰ってくるよ！ 開催期間は12月24日13時から12月28日21時（UTC+9）まで！ @riranof…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1473624368869748740",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNCsQiakAod9sq.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-12-22T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1475073909376618498:1",
+      "asset_id": "official:x:44f2c56eae77adb4",
+      "song_titles": [
+        "Unshakable",
+        "Ice Chandelier"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback card listing two songs (list graphic). This post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card, which is recorded under post 1475073909376618498 (whose text names those songs); this candidate is duplicate_bytes of it."
+    },
+    {
+      "id": "official:x:1475073909376618498:1",
+      "source_id": "official:x",
+      "upstream_key": "1475073909376618498:1",
+      "page_url": "https://x.com/c4c4cat/status/1475073909376618498",
+      "file_url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Unshakable」、「Ice Chandelier」が帰ってくるよ！ 開催期間は12月28日13時から1月1日21時（UTC+9）まで！ @riranoffi…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1475073909376618498",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNDEuxaMAII9Bk.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-12-26T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:44f2c56eae77adb4",
+      "song_titles": [
+        "Unshakable",
+        "Ice Chandelier"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic). The same card is also attached to post 1473624368869748740, which announces another comeback."
+    },
+    {
+      "id": "official:x:1476161072998453249:1",
+      "source_id": "official:x",
+      "upstream_key": "1476161072998453249:1",
+      "page_url": "https://x.com/c4c4cat/status/1476161072998453249",
+      "file_url": "https://pbs.twimg.com/media/FHNFf4TakAogkvB?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Link To Dungeons」、「Prismatic Flipper」が帰ってくるよ！ 開催期間は12月31日13時から1月4日21時（UTC+9）まで！ …",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1476161072998453249",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNFf4TakAogkvB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2021-12-29T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:394cb3bd62f2128d",
+      "song_titles": [
+        "Link To Dungeons",
+        "Prismatic Flipper"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1477610628621561858:1",
+      "source_id": "official:x",
+      "upstream_key": "1477610628621561858:1",
+      "page_url": "https://x.com/c4c4cat/status/1477610628621561858",
+      "file_url": "https://pbs.twimg.com/media/FHNL1phVkAMfs7K?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Sultan Madness」、「Sky land」が帰ってくるよ！ 開催期間は12月31日13時から1月4日21時（UTC+9）まで！ MonstDeath …",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1477610628621561858",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FHNL1phVkAMfs7K.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-01-02T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:7d00e404e045591f",
+      "song_titles": [
+        "Sultan Madness",
+        "Sky land"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1480156399204061186:1",
+      "source_id": "official:x",
+      "upstream_key": "1480156399204061186:1",
+      "page_url": "https://x.com/c4c4cat/status/1480156399204061186",
+      "file_url": "https://pbs.twimg.com/media/FIf6dFoXsAMh_3T?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Black：Magnam」が帰ってくるよ！ 開催期間は1月11日13時から1月15日21時（UTC+9）まで！ @adaptor166 #Dynamix",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1480156399204061186",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FIf6dFoXsAMh_3T.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2022-01-09T12:36:00.000Z",
+        "revision": null
+      },
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for official:x:1325407725623283712:1",
+      "asset_id": "official:x:58d5475d92d245db",
+      "song_titles": [
+        "Black：Magnam"
+      ],
+      "composers": [
+        "adaptor"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official single-song comeback card for Black：Magnam, re-posted in 2022 (the same file as post 1325407725623283712). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1485583166953779206:1",
+      "source_id": "official:x",
+      "upstream_key": "1485583166953779206:1",
+      "page_url": "https://x.com/c4c4cat/status/1485583166953779206",
+      "file_url": "https://pbs.twimg.com/media/FJ3O2gTWUAYRq08?format=jpg&name=orig",
+      "title": "《Dynamix 2022 Lunar New Year Event》 詳細は、次のサイトを参照してください： bit.ly/3fPkJE2",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1485583166953779206",
+        "text: Dynamix 2022 Lunar New Year Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FJ3O2gTWUAYRq08.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 821,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2022-01-24T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a9817d545656e1d7",
+      "collections": [
+        "Dynamix 2022 Lunar New Year Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2022 Lunar New Year Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1486307941267431426:1",
+      "source_id": "official:x",
+      "upstream_key": "1486307941267431426:1",
+      "page_url": "https://x.com/c4c4cat/status/1486307941267431426",
+      "file_url": "https://pbs.twimg.com/media/FKBghLwXMAE0Lty?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「strawberry*passion」、「Hall of Fame」が帰ってくるよ！ 開催期間は1月28日13時から2月1日21時（UTC+9）まで！ @n_n…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1486307941267431426",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FKBghLwXMAE0Lty.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-01-26T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:cef9daae491b0ea9",
+      "song_titles": [
+        "strawberry*passion",
+        "Hall of Fame"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1487757487981748224:1",
+      "source_id": "official:x",
+      "upstream_key": "1487757487981748224:1",
+      "page_url": "https://x.com/c4c4cat/status/1487757487981748224",
+      "file_url": "https://pbs.twimg.com/media/FKBi2y8XEAEYk0t?format=jpg&name=orig",
+      "title": "[Event] 次の火曜日は復刻曲「Rain」、「Glory of the Sacred Kingdom」が帰ってくるよ！ 開催期間は2月1日13時から2月5日21時（UTC+9）まで！ @forb…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1487757487981748224",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FKBi2y8XEAEYk0t.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-01-30T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:07c3385bc6631c2d",
+      "song_titles": [
+        "Rain",
+        "Glory of the Sacred Kingdom"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1496454806998814725:1",
+      "source_id": "official:x",
+      "upstream_key": "1496454806998814725:1",
+      "page_url": "https://x.com/c4c4cat/status/1496454806998814725",
+      "file_url": "https://pbs.twimg.com/media/FKaJZW4X0AEFJIB?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Partenza」、「Skrik (DNX edit)」が帰ってくるよ！ 開催期間は2月25日13時から3月1日21時（UTC+9）まで！ @y_shin_mu…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1496454806998814725",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FKaJZW4X0AEFJIB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-02-23T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c2d5aaa90f6beefc",
+      "song_titles": [
+        "Partenza",
+        "Skrik (DNX edit)"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1498266736608661505:1",
+      "source_id": "official:x",
+      "upstream_key": "1498266736608661505:1",
+      "page_url": "https://x.com/c4c4cat/status/1498266736608661505",
+      "file_url": "https://pbs.twimg.com/media/FMqisp-X0AEscgv?format=jpg&name=orig",
+      "title": "[Dynamix] 3月の3週のイベント曲を予告します：( ´ ▽ ` )ﾉ 1. Street (jacket : Sin:cK) が作った Φ 2. wotaku が作った アリス失格 3. L…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1498266736608661505",
+        "text: イベント曲を予告"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FMqisp-X0AEscgv.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1500,
+        "height": 500,
+        "sha1": null,
+        "timestamp": "2022-02-28T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:4760e1e88e9fe5a8",
+      "song_titles": [
+        "Φ",
+        "アリス失格",
+        "Fission"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Monthly upcoming-events lineup (list graphic)."
+    },
+    {
+      "id": "official:x:1498629128467197954:1",
+      "source_id": "official:x",
+      "upstream_key": "1498629128467197954:1",
+      "page_url": "https://x.com/c4c4cat/status/1498629128467197954",
+      "file_url": "https://pbs.twimg.com/media/FMwrI-BWQAM46-W?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はStreet (jacket : Sin:cK)さんが作った「Φ」。 開催期間は3月4日13時から3月8日21時（UTC+9）まで！ #Dynamix #OS2019…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1498629128467197954",
+        "text: 「Φ」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FMwrI-BWQAM46-W.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2022-03-01T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:54ecb715974044ef",
+      "song_titles": [
+        "Φ"
+      ],
+      "composers": [
+        "Street"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Φ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1506601655986388992:1",
+      "source_id": "official:x",
+      "upstream_key": "1506601655986388992:1",
+      "page_url": "https://x.com/c4c4cat/status/1506601655986388992",
+      "file_url": "https://pbs.twimg.com/media/FOhtI8raIAQT5UY?format=jpg&name=orig",
+      "title": "[Event] 今週の金曜日は復刻曲「Grenade」、「Future City Ⅵ」が帰ってくるよ！ 開催期間は3月25日13時から3月29日21時（UTC+9）まで！ @sky_delta @s…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1506601655986388992",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FOhtI8raIAQT5UY.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2022-03-23T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:1aea0bcd59063d57",
+      "song_titles": [
+        "Grenade",
+        "Future City Ⅵ"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:1513509675957841929:1",
+      "source_id": "official:x",
+      "upstream_key": "1513509675957841929:1",
+      "page_url": "https://x.com/c4c4cat/status/1513509675957841929",
+      "file_url": "https://pbs.twimg.com/media/FQEJleeacAAmUoV?format=jpg&name=orig",
+      "title": "《Dynamix 2022 Easter Event》 詳細は、次のサイトを参照してください： facebook.com/c4cat.dynamix/…",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1513509675957841929",
+        "text: Dynamix 2022 Easter Event"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FQEJleeacAAmUoV.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 820,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2022-04-11T13:30:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d7bf5061d7a7572d",
+      "collections": [
+        "Dynamix 2022 Easter Event"
+      ],
+      "notes": "Official seasonal event poster: Dynamix 2022 Easter Event (event key art with parts and title rewards)."
+    },
+    {
+      "id": "official:x:1748030616950734862:1",
+      "source_id": "official:x",
+      "upstream_key": "1748030616950734862:1",
+      "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
+      "file_url": "https://pbs.twimg.com/media/GEI_OyZbAAAkJEM?format=jpg&name=orig",
+      "title": "【イベントバンドル 予告】 待ち望んでいたあの曲の復刻はまだですか？ それなら、チャンス到来！複数のイベント曲とキャラクターが含まれた超お得な合集が登場します！ (1/3)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748030616950734862",
+        "text: イベントバンドル"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEI_OyZbAAAkJEM.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-01-18T17:12:30.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:29c79d9189fd280d",
+      "notes": "Event Bundle 001 title card."
+    },
+    {
+      "id": "official:x:1748030616950734862:2",
+      "source_id": "official:x",
+      "upstream_key": "1748030616950734862:2",
+      "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
+      "file_url": "https://pbs.twimg.com/media/GEI_OycakAEMOPt?format=jpg&name=orig",
+      "title": "【イベントバンドル 予告】 待ち望んでいたあの曲の復刻はまだですか？ それなら、チャンス到来！複数のイベント曲とキャラクターが含まれた超お得な合集が登場します！ (2/3)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748030616950734862",
+        "text: イベントバンドル"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEI_OycakAEMOPt.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-01-18T17:12:30.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:83399a2aee3264c4",
+      "notes": "Event Bundle 001 'PICK UP' jacket collage."
+    },
+    {
+      "id": "official:x:1748030616950734862:3",
+      "source_id": "official:x",
+      "upstream_key": "1748030616950734862:3",
+      "page_url": "https://x.com/c4c4cat/status/1748030616950734862",
+      "file_url": "https://pbs.twimg.com/media/GEI_OycbAAATaJB?format=jpg&name=orig",
+      "title": "【イベントバンドル 予告】 待ち望んでいたあの曲の復刻はまだですか？ それなら、チャンス到来！複数のイベント曲とキャラクターが含まれた超お得な合集が登場します！ (3/3)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748030616950734862",
+        "text: イベントバンドル"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEI_OycbAAATaJB.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-01-18T17:12:30.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:5df3b07ae75faaa0",
+      "notes": "Event Bundle 001 full track list (list graphic)."
+    },
+    {
+      "id": "official:x:1748178472759865377:1",
+      "source_id": "official:x",
+      "upstream_key": "1748178472759865377:1",
+      "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
+      "file_url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-?format=jpg&name=orig",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (1/4)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEDVhSAXQAANbb-.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 654,
+        "height": 653,
+        "sha1": null,
+        "timestamp": "2024-01-19T03:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:d752be74553686c2",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
+    },
+    {
+      "id": "official:x:1748178472759865377:2",
+      "source_id": "official:x",
+      "upstream_key": "1748178472759865377:2",
+      "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
+      "file_url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh?format=jpg&name=orig",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (2/4)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEDVpQ5W8AA3WUh.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 653,
+        "height": 653,
+        "sha1": null,
+        "timestamp": "2024-01-19T03:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:65e72f2d8e013e28",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
+    },
+    {
+      "id": "official:x:1748178472759865377:3",
+      "source_id": "official:x",
+      "upstream_key": "1748178472759865377:3",
+      "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
+      "file_url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL?format=jpg&name=orig",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (3/4)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEDVqA-XQAAb2EL.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 651,
+        "height": 650,
+        "sha1": null,
+        "timestamp": "2024-01-19T03:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6edc80f1d3abe83f",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
+    },
+    {
+      "id": "official:x:1748178472759865377:4",
+      "source_id": "official:x",
+      "upstream_key": "1748178472759865377:4",
+      "page_url": "https://x.com/c4c4cat/status/1748178472759865377",
+      "file_url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ?format=jpg&name=orig",
+      "title": "【 バレンタインイベント！ 】 今回、プリロールとのコラボで、人気曲のイラストやキャラクターをテーマにしたケーキとマカロンを発売します！ 期間限定で、2月20日までの販売です！ 詳細はこちら⇨ pr… (4/4)",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1748178472759865377",
+        "text: プリロール"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GEDVq-CXYAAr4UZ.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 653,
+        "height": 653,
+        "sha1": null,
+        "timestamp": "2024-01-19T03:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:256c9272a0c39014",
+      "notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
+    },
+    {
+      "id": "official:x:1797599111748731072:1",
+      "source_id": "official:x",
+      "upstream_key": "1797599111748731072:1",
+      "page_url": "https://x.com/c4c4cat/status/1797599111748731072",
+      "file_url": "https://pbs.twimg.com/media/GOat1kZbkAA4-yl?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1797599111748731072",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GOat1kZbkAA4-yl.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-06-03T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:67e82434773a1dd7",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1797599111748731072:2",
+      "source_id": "official:x",
+      "upstream_key": "1797599111748731072:2",
+      "page_url": "https://x.com/c4c4cat/status/1797599111748731072",
+      "file_url": "https://pbs.twimg.com/media/GOat1lEbIAAPJQU?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1797599111748731072",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GOat1lEbIAAPJQU.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-06-03T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0c9cf8bbdd53efd6",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1814225168224727044:1",
+      "source_id": "official:x",
+      "upstream_key": "1814225168224727044:1",
+      "page_url": "https://x.com/c4c4cat/status/1814225168224727044",
+      "file_url": "https://pbs.twimg.com/media/GS1r7O0bQAA2dA5?format=jpg&name=orig",
+      "title": "【難易度調整】 一部の楽曲のMegaまたはGiga難易度を調整しました。 詳細はゲーム内で確認してください。 (1/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1814225168224727044",
+        "text: 難易度調整"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GS1r7O0bQAA2dA5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-19T09:06:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:887ef70b198f309f",
+      "notes": "Difficulty-adjustment list (list graphic)."
+    },
+    {
+      "id": "official:x:1814225168224727044:2",
+      "source_id": "official:x",
+      "upstream_key": "1814225168224727044:2",
+      "page_url": "https://x.com/c4c4cat/status/1814225168224727044",
+      "file_url": "https://pbs.twimg.com/media/GS1r7PvagAAH43x?format=jpg&name=orig",
+      "title": "【難易度調整】 一部の楽曲のMegaまたはGiga難易度を調整しました。 詳細はゲーム内で確認してください。 (2/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1814225168224727044",
+        "text: 難易度調整"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GS1r7PvagAAH43x.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-19T09:06:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:65bd4399f02f499e",
+      "notes": "Difficulty-adjustment list (list graphic)."
+    },
+    {
+      "id": "official:x:1817892842204807209:1",
+      "source_id": "official:x",
+      "upstream_key": "1817892842204807209:1",
+      "page_url": "https://x.com/c4c4cat/status/1817892842204807209",
+      "file_url": "https://pbs.twimg.com/media/GTblk6pagAED15o?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1817892842204807209",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GTblk6pagAED15o.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-29T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:cd6f9f85eec898b7",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1817892842204807209:2",
+      "source_id": "official:x",
+      "upstream_key": "1817892842204807209:2",
+      "page_url": "https://x.com/c4c4cat/status/1817892842204807209",
+      "file_url": "https://pbs.twimg.com/media/GTbllrjaoAAOsRh?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1817892842204807209",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GTbllrjaoAAOsRh.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-07-29T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:691898412b824298",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1818255227595743610:1",
+      "source_id": "official:x",
+      "upstream_key": "1818255227595743610:1",
+      "page_url": "https://x.com/c4c4cat/status/1818255227595743610",
+      "file_url": "https://pbs.twimg.com/media/GTbltElaMAAOT25?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はAoiさんが作った「scualee」。 開催期間は8月2日13時から8月6日21時（UTC+9）まで！ @BLUEnoup #Dynamix #OS2023Regul…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1818255227595743610",
+        "text: [Event]",
+        "text: scualee"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GTbltElaMAAOT25.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2024-07-30T12:00:02.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:802ede5c76c2a296",
+      "song_titles": [
+        "scualee"
+      ],
+      "composers": [
+        "Aoi"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1833837896794792179:1",
+      "source_id": "official:x",
+      "upstream_key": "1833837896794792179:1",
+      "page_url": "https://x.com/c4c4cat/status/1833837896794792179",
+      "file_url": "https://pbs.twimg.com/media/GXLyPAhbkAANEF8?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1833837896794792179",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GXLyPAhbkAANEF8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-11T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:9ef443e233fb008e",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1833837896794792179:2",
+      "source_id": "official:x",
+      "upstream_key": "1833837896794792179:2",
+      "page_url": "https://x.com/c4c4cat/status/1833837896794792179",
+      "file_url": "https://pbs.twimg.com/media/GXLyPAVaIAE2OaV?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1833837896794792179",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GXLyPAVaIAE2OaV.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-11T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:0ad190bb8a37ca09",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1840723270796292551:1",
+      "source_id": "official:x",
+      "upstream_key": "1840723270796292551:1",
+      "page_url": "https://x.com/c4c4cat/status/1840723270796292551",
+      "file_url": "https://pbs.twimg.com/media/GYp0GwSbIAAxdjh?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (1/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1840723270796292551",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GYp0GwSbIAAxdjh.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:62f865cea5e3f3c5",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1840723270796292551:2",
+      "source_id": "official:x",
+      "upstream_key": "1840723270796292551:2",
+      "page_url": "https://x.com/c4c4cat/status/1840723270796292551",
+      "file_url": "https://pbs.twimg.com/media/GYt9iSeb0AA7dFE?format=jpg&name=orig",
+      "title": "[Comeback Track Preview] この月復刻予定の曲! (2/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1840723270796292551",
+        "text: [Comeback Track Preview]"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GYt9iSeb0AA7dFE.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2112,
+        "height": 1200,
+        "sha1": null,
+        "timestamp": "2024-09-30T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:e928c1c6a613941e",
+      "notes": "Monthly comeback-track list (list graphic)."
+    },
+    {
+      "id": "official:x:1868989522002018708:1",
+      "source_id": "official:x",
+      "upstream_key": "1868989522002018708:1",
+      "page_url": "https://x.com/c4c4cat/status/1868989522002018708",
+      "file_url": "https://pbs.twimg.com/media/GeichmVbIAA9x34?format=jpg&name=orig",
+      "title": "[Event] 次のイベント曲はYukikurageさんが作った「Curtainfall!」。 開催期間は12月20日13時から12月24日21時（UTC+9）まで！ @yukikurage_201…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1868989522002018708",
+        "text: [Event]",
+        "text: Curtainfall!"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GeichmVbIAA9x34.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2024-12-17T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:206c77eb4f923b43",
+      "song_titles": [
+        "Curtainfall!"
+      ],
+      "composers": [
+        "Yukikurage"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Curtainfall!. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:1870076698345287834:1",
+      "source_id": "official:x",
+      "upstream_key": "1870076698345287834:1",
+      "page_url": "https://x.com/c4c4cat/status/1870076698345287834",
+      "file_url": "https://pbs.twimg.com/media/GfPLwYUasAAVdJy?format=jpg&name=orig",
+      "title": "Dynamixの続編であるDynamix Universeがまもなくリリースされるのに伴い、2025年2月から、Dynamixの新曲の更新は従来の形式からパッケージ主体へと変わります。 今後のパッケ…",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1870076698345287834"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GfPLwYUasAAVdJy.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 750,
+        "height": 194,
+        "sha1": null,
+        "timestamp": "2024-12-20T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: decorative mascot-icon pattern strip attached to a text notice; no artwork or information",
+      "notes": "Withdrawn 2026-10-10 by a curated seed rule (site_ui: decorative mascot-icon pattern strip attached to a text notice; no artwork or information): archived record(s) official:x:1e74560694d8cbb2 (sha256 1e74560694d8cbb2a79d6b64b99cd71a457ced3b14b9fb4f40cd95b04df9b6b6) removed from the manifest and asset tree; the bytes remain in the Git history."
+    },
+    {
+      "id": "official:x:1889645633545613724:1",
+      "source_id": "official:x",
+      "upstream_key": "1889645633545613724:1",
+      "page_url": "https://x.com/c4c4cat/status/1889645633545613724",
+      "file_url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O?format=jpg&name=orig",
+      "title": "[Dynamix X Berry Melody コラボレーション予告] Dynamix X Berry Melody のコラボレーションパッケージの内容予告。 第三曲はxLさんが作った「horlog…",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1889645633545613724",
+        "text: Berry Melody",
+        "text: horloge"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/GjbVjecbIAECU5O.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2025-02-12T12:00:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c18773b8b5555b0a",
+      "song_titles": [
+        "Grayscale Tragedy",
+        "ネーヴェの紋様",
+        "Horloge"
+      ],
+      "collections": [
+        "Berry Melody Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 3 titled jackets ('Grayscale Tragedy', 'ネーヴェの紋様', 'horloge') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:1901242039800299634:1",
+      "source_id": "official:x",
+      "upstream_key": "1901242039800299634:1",
+      "page_url": "https://x.com/c4c4cat/status/1901242039800299634",
+      "file_url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC?format=jpg&name=orig",
+      "title": "[Dynamix X シノビスラッシュ コラボレーション予告] Dynamix X シノビスラッシュ のコラボレーションパッケージの内容予告。 第二曲はK-forestさんが作った「流麗凛舞」！",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/1901242039800299634",
+        "text: 流麗凛舞"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Gl_elZ1a0AEpcEC.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2025-03-16T12:00:00.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:379a6800dcbd1cce",
+      "song_titles": [
+        "Luna Rossa",
+        "流麗凛舞"
+      ],
+      "collections": [
+        "Shinobi Slash Collaboration"
+      ],
+      "notes": "Collaboration pack lineup card printing 2 titled jackets ('Luna Rossa', '流麗凛舞') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+    },
+    {
+      "id": "official:x:809670504449572864:1",
+      "source_id": "official:x",
+      "upstream_key": "809670504449572864:1",
+      "page_url": "https://x.com/c4c4cat/status/809670504449572864",
+      "file_url": "https://pbs.twimg.com/media/CzyHBXQUUAAy95S?format=jpg&name=orig",
+      "title": "今週のイベントソング「紅」は初めてのLv.15のGigaです。日本の作曲家モリモリあつしが作りました；他にドラマで狂ってるドS女子高生Zakuroが登場します。#dynamix @ats024",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/809670504449572864",
+        "text: 「紅」"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/CzyHBXQUUAAy95S.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2016-12-16T08:04:25.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c5b39cad759194d5",
+      "song_titles": [
+        "紅"
+      ],
+      "composers": [
+        "モリモリあつし"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for 紅. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:811543501733101568:1",
+      "source_id": "official:x",
+      "upstream_key": "811543501733101568:1",
+      "page_url": "https://x.com/c4c4cat/status/811543501733101568",
+      "file_url": "https://pbs.twimg.com/media/C0MubPsUsAAuF-Z?format=jpg&name=orig",
+      "title": "今週のイベントソングは@EBICOさんが作成されたソングですよ～内容は地下暗殺集団のストーリーです。今週のクリスマスを迎えるために、イベントは二日間、金曜日12時から来週火曜日8時まで延長することに…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/811543501733101568",
+        "text: イベントソング",
+        "text: @EBICO"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C0MubPsUsAAuF-Z.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2016-12-21T12:07:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:6db2d6d1e105fd07",
+      "song_titles": [
+        "Persephone"
+      ],
+      "composers": [
+        "EBICO"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image (COMING SOON card) for Persephone. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:819433943690670080:1",
+      "source_id": "official:x",
+      "upstream_key": "819433943690670080:1",
+      "page_url": "https://x.com/c4c4cat/status/819433943690670080",
+      "file_url": "https://pbs.twimg.com/media/C182w-fUkAAMa1B?format=jpg&name=orig",
+      "title": "イベントの時間です！@stereoberry さんの Vanilla Skyです！",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/819433943690670080",
+        "text: Vanilla Sky"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C182w-fUkAAMa1B.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-01-12T06:40:51.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a55371f01f4a5577",
+      "song_titles": [
+        "Vanilla_Sky"
+      ],
+      "composers": [
+        "stereoberry"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Vanilla_Sky. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:831877510870601728:1",
+      "source_id": "official:x",
+      "upstream_key": "831877510870601728:1",
+      "page_url": "https://x.com/c4c4cat/status/831877510870601728",
+      "file_url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8?format=jpg&name=orig",
+      "title": "今週のイベントはRabi-Ribiとコラボした曲Theme of @RabiRibiGame で、@3R2 さんの作ったものです。Rabi-RibiのキャラErina & Ribbonも登場しますよ！",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/831877510870601728",
+        "text: Theme of @RabiRibiGame"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C4tsFRNUYAI3vi8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-15T14:47:08.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:07c8412f0bfcfbdf",
+      "song_titles": [
+        "Theme of Rabi-Ribi"
+      ],
+      "composers": [
+        "3R2"
+      ],
+      "collections": [
+        "Rabi-Ribi Collaboration"
+      ],
+      "notes": "Official event announcement image for Theme of Rabi-Ribi. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:834312940610220032:1",
+      "source_id": "official:x",
+      "upstream_key": "834312940610220032:1",
+      "page_url": "https://x.com/c4c4cat/status/834312940610220032",
+      "file_url": "https://pbs.twimg.com/media/C5QTJnJUkAAmXV_?format=jpg&name=orig",
+      "title": "[Event]今週のイベントはコメントでよく言及された、待望の@BLUEnoup さんの作ったαterlβusです。内容は善と悪の対決(♯｀∧´) で、そしてDynamixの中で2曲目のGiga 1…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/834312940610220032",
+        "text: αterlβus"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5QTJnJUkAAmXV_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-22T08:04:40.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a0184f795a6e5da2",
+      "song_titles": [
+        "αterlβus"
+      ],
+      "composers": [
+        "Aoi"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for αterlβus. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:835073424917577728:1",
+      "source_id": "official:x",
+      "upstream_key": "835073424917577728:1",
+      "page_url": "https://x.com/c4c4cat/status/835073424917577728",
+      "file_url": "https://pbs.twimg.com/media/C5bGz1aUYAAXsIY?format=jpg&name=orig",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (1/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835073424917577728",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bGz1aUYAAXsIY.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:26:34.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:53e071564c028260",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:835073424917577728:2",
+      "source_id": "official:x",
+      "upstream_key": "835073424917577728:2",
+      "page_url": "https://x.com/c4c4cat/status/835073424917577728",
+      "file_url": "https://pbs.twimg.com/media/C5bG08xVMAADbAx?format=jpg&name=orig",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (2/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835073424917577728",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bG08xVMAADbAx.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:26:34.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b4ed17591aba2514",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:835081787436998656:1",
+      "source_id": "official:x",
+      "upstream_key": "835081787436998656:1",
+      "page_url": "https://x.com/c4c4cat/status/835081787436998656",
+      "file_url": "https://pbs.twimg.com/media/C5bOTayU8AMwYG_?format=jpg&name=orig",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (1/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835081787436998656",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bOTayU8AMwYG_.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:59:47.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:375b5975172d9527",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:835081787436998656:2",
+      "source_id": "official:x",
+      "upstream_key": "835081787436998656:2",
+      "page_url": "https://x.com/c4c4cat/status/835081787436998656",
+      "file_url": "https://pbs.twimg.com/media/C5bOUgkUYAA6WHW?format=jpg&name=orig",
+      "title": "あなたの曲をDynamixで披露するチャンスがやってきました！作品の提出をご希望の方は、次の要項をお読みになり、作品を準備して2017年5月31日までに提出してください。提出先アドレス: dynam… (2/2)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/835081787436998656",
+        "text: dynamix.submission.2017@gmail.com"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C5bOUgkUYAA6WHW.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-02-24T10:59:47.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a30057e56cf68068",
+      "collections": [
+        "Song Submission 2017"
+      ],
+      "notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+    },
+    {
+      "id": "official:x:842671176669323264:1",
+      "source_id": "official:x",
+      "upstream_key": "842671176669323264:1",
+      "page_url": "https://x.com/c4c4cat/status/842671176669323264",
+      "file_url": "https://pbs.twimg.com/media/C7HEkCSU8AIXjNf?format=jpg&name=orig",
+      "title": "One of the song in our latest package, Package Lovely! Crystal Ribbon Composed by @966__P !!",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/842671176669323264",
+        "text: Crystal Ribbon"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/C7HEkCSU8AIXjNf.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-03-17T09:37:19.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:e4d903cf52257716",
+      "song_titles": [
+        "Crystal Ribbon"
+      ],
+      "composers": [
+        "Cosine"
+      ],
+      "collections": [
+        "Package Lovely"
+      ],
+      "notes": "Official preview image for Crystal Ribbon of Package Lovely. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:870277523724132352:1",
+      "source_id": "official:x",
+      "upstream_key": "870277523724132352:1",
+      "page_url": "https://x.com/c4c4cat/status/870277523724132352",
+      "file_url": "https://pbs.twimg.com/media/DBPYksUUQAEVjQ1?format=png&name=orig",
+      "title": "6月より開始のコラボ企画にて、@arcaea_jp収録の5曲が@c4c4cat にやってきます！ #Dynamix #arcaea",
+      "role": "promotional",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/870277523724132352",
+        "text: arcaea"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DBPYksUUQAEVjQ1.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-06-01T13:55:05.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:b8d50090f000b918",
+      "collections": [
+        "Arcaea Collaboration"
+      ],
+      "notes": "Dynamix x Arcaea collaboration announcement visual."
+    },
+    {
+      "id": "official:x:877170201267023872:1",
+      "source_id": "official:x",
+      "upstream_key": "877170201267023872:1",
+      "page_url": "https://x.com/c4c4cat/status/877170201267023872",
+      "file_url": "https://pbs.twimg.com/media/DCxVkdcVoAEBoiA?format=jpg&name=orig",
+      "title": "次のイベントソングは @akqmusic さん作った, @arcaea_jp 収録の Vexaria です。イベントの開催時間は 6月23日12時 (UTC+8) から 6月27日 20時まで (U…",
+      "role": "reference",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/877170201267023872",
+        "text: Vexaria"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DCxVkdcVoAEBoiA.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-06-20T14:24:07.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8fcd0f4cb5b2200a",
+      "song_titles": [
+        "Vexaria"
+      ],
+      "composers": [
+        "ak+q"
+      ],
+      "collections": [
+        "Arcaea Collaboration"
+      ],
+      "notes": "Official event announcement image for Vexaria. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:880003300275347458:1",
+      "source_id": "official:x",
+      "upstream_key": "880003300275347458:1",
+      "page_url": "https://x.com/c4c4cat/status/880003300275347458",
+      "file_url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl?format=jpg&name=orig",
+      "title": "次のイベントソングは @BLUEnoupさん with @mAoA9_com さん作った To soar です。イベントの開催時間は 6月30日12時 (UTC+8) から 7月4日 20時まで (…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/880003300275347458",
+        "text: To soar"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DDZmLTZVoAA9qyl.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-06-28T10:01:51.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:8e6233feef0da525",
+      "song_titles": [
+        "to soar"
+      ],
+      "composers": [
+        "Aoi with mAoA9"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for to soar. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:900634708517593089:1",
+      "source_id": "official:x",
+      "upstream_key": "900634708517593089:1",
+      "page_url": "https://x.com/c4c4cat/status/900634708517593089",
+      "file_url": "https://pbs.twimg.com/media/DH-yb22UMAAZhwY?format=jpg&name=orig",
+      "title": "『自然界の神秘を刻み、指し示すもの』 次のイベントソングは @nixets さん作った Arcana Idola です。イベントの開催時間は 8月25日12時 (UTC+8) から 8月29日 20…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/900634708517593089",
+        "text: Arcana Idola"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DH-yb22UMAAZhwY.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-08-24T08:23:42.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:a6578f3007402cfb",
+      "song_titles": [
+        "Arcana Idola"
+      ],
+      "composers": [
+        "紅葉月梛葉 a.k.a. Aine"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Arcana Idola. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    },
+    {
+      "id": "official:x:920935237567201281:1",
+      "source_id": "official:x",
+      "upstream_key": "920935237567201281:1",
+      "page_url": "https://x.com/c4c4cat/status/920935237567201281",
+      "file_url": "https://pbs.twimg.com/media/DMfRnKqVwAEheW8?format=jpg&name=orig",
+      "title": "[Event] 今週は復刻曲「紅」と「Theme of Rabi-ribi」が帰ってくるよ！ イベントの開催時間は10月20日12時 (UTC+8) から 10月24日 20時まで (UTC+8) …",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/920935237567201281",
+        "text: 復刻曲"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DMfRnKqVwAEheW8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2017-10-19T08:50:45.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:c2c86148b3c988f4",
+      "song_titles": [
+        "紅",
+        "Theme of Rabi-Ribi"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official comeback announcement listing 2 songs (list graphic)."
+    },
+    {
+      "id": "official:x:957946437911941121:1",
+      "source_id": "official:x",
+      "upstream_key": "957946437911941121:1",
+      "page_url": "https://x.com/c4c4cat/status/957946437911941121",
+      "file_url": "https://pbs.twimg.com/media/DUN8og2VAAAO-is?format=jpg&name=orig",
+      "title": "二月の四週のイベント曲を予告します 由@soundpiercerさん作ったJOACHIM : D ； 由@Hidra_xjeilさん作った Emulisy ； 由@riranofficialさん作っ…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/957946437911941121",
+        "text: イベント曲を予告"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DUN8og2VAAAO-is.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": "2018-01-29T12:00:03.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:dabe5a6b33587113",
+      "song_titles": [
+        "JOACHIM : D",
+        "Emulisy",
+        "Own The Night",
+        "曇る鑑《かがみ》の霧を含みて"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Monthly upcoming-events lineup (list graphic)."
+    },
+    {
+      "id": "official:x:981147690795900928:1",
+      "source_id": "official:x",
+      "upstream_key": "981147690795900928:1",
+      "page_url": "https://x.com/c4c4cat/status/981147690795900928",
+      "file_url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8?format=jpg&name=orig",
+      "title": "[Event] 次のイベントソングは @Tang0Juanさんvs Black Boxさん作った Xetta。 開催期間は4月6日12時（UTC+8）から4月10日20時（UTC+8）まで！ #Dy…",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/c4c4cat/status/981147690795900928",
+        "text: [Event]",
+        "text: Xetta"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DZ28hevVQAE-3y8.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1200,
+        "height": 628,
+        "sha1": null,
+        "timestamp": "2018-04-03T12:33:32.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:x:2af98b637036de9c",
+      "song_titles": [
+        "Xetta"
+      ],
+      "composers": [
+        "TangJuan vs Black Box"
+      ],
+      "collections": [
+        "Event"
+      ],
+      "notes": "Official event announcement image for Xetta. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+    }
+  ],
+  "errors": [
+    {
+      "phase": "discover",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/c4c4cat",
+      "message": "timeline:c4c4cat: HTTP 429 [https://syndication.twitter.com/srv/timeline-profile/screen-name/c4c4cat]"
+    }
+  ]
+}

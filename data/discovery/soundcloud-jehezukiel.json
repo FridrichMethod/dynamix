@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:jehezukiel",
+  "started_at": "2026-10-10T22:35:30Z",
+  "finished_at": "2026-10-10T22:35:33Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:jehezukiel:angstlicher-vermeidender",
+      "source_id": "artists:soundcloud:jehezukiel",
+      "upstream_key": "angstlicher-vermeidender",
+      "page_url": "https://soundcloud.com/jehezukiel/angstlicher-vermeidender",
+      "file_url": "https://i1.sndcdn.com/artworks-t6iqaHmHa53ntXYy-OpDVhg-original.jpg",
+      "title": "【BOF:ET】 Ängstlicher Vermeidender",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/jehezukiel/angstlicher-vermeidender",
+        "sc.description: DCWH"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-t6iqaHmHa53ntXYy-OpDVhg-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2022-10-23T05:13:40Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:jehezukiel:607f53fef3fe6576",
+      "song_titles": [
+        "Ängstlicher Vermeidender"
+      ],
+      "illustrators": [
+        "DCWH",
+        "MimiChair"
+      ],
+      "composers": [
+        "Jehezukiel"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:jehezukiel:raving-in-halloween",
+      "source_id": "artists:soundcloud:jehezukiel",
+      "upstream_key": "raving-in-halloween",
+      "page_url": "https://soundcloud.com/jehezukiel/raving-in-halloween",
+      "file_url": "https://i1.sndcdn.com/artworks-GDhbYwTuokse1FUK-QL8tew-original.jpg",
+      "title": "【Dynamix】 Raving In Halloween",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/jehezukiel/raving-in-halloween",
+        "sc.title: Dynamix",
+        "sc.description: PeerPiperWorks"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-GDhbYwTuokse1FUK-QL8tew-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2021-06-30T14:21:56Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:jehezukiel:105b86b333779d9f",
+      "song_titles": [
+        "Raving in Halloween"
+      ],
+      "illustrators": [
+        "PeerPiperWorks"
+      ],
+      "composers": [
+        "Jehezukiel"
+      ]
+    }
+  ],
+  "errors": []
+}

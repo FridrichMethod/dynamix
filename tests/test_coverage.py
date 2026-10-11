@@ -4,6 +4,8 @@ size/originality buckets, explicit gap lists, byte totals, reconciliation failur
 import contextlib
 import io
 import json
+import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -16,6 +18,7 @@ import catalog_fixture as fx  # noqa: E402
 import build_catalog  # noqa: E402
 import build_coverage as coverage  # noqa: E402
 import build_thumbnails as thumbs  # noqa: E402
+import prepare_pages as pages  # noqa: E402  (CI-owned; imported read-only to check the staged-site estimate)
 from lib import manifest, paths, schema  # noqa: E402
 
 MISSING = "song:fixture-song-without-artwork"
@@ -175,6 +178,133 @@ class FixtureCoverageTests(Base):
         self.assertTrue(100_000 < over - 2 and over < 1_000_000, over)
         self.assertEqual(staged(over), (over - 1, True))  # "true" is one byte shorter than "false"
         self.assertEqual(staged(over - 2), (over, False))
+
+
+class PagesConsistencyTests(Base):
+    """The staged-site estimate counts what scripts/prepare_pages.py (CI-owned) really stages: one original per
+    SHA-256 at the primary record's url, each preview once and the generated page files. Only the static page files
+    (not part of the estimate by definition) separate the two totals."""
+
+    STATIC = {".nojekyll": b"", "LICENSE": b"Fixture license text\n", "NOTICE": b"Fixture notice\n",
+              "README.md": b"# Fixture\n", "README.zh-CN.md": "# 样例\n".encode("utf-8"),
+              "archive.html": b"<!doctype html>\n<title>Archive</title>\n", "src/app.js": b"\"use strict\";\n",
+              "assets/site/site.css": b"body { margin: 0; }\n"}
+
+    def stage_site(self):
+        fx.write_template(self.root)
+        thumbs.build(self.root)
+        build_catalog.build(self.root)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(coverage.main(["--root", str(self.root)]), 0)
+        for rel, data in self.STATIC.items():
+            (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (self.root / rel).write_bytes(data)
+        fx.git(self.root, "init", "-q")
+        fx.git(self.root, "add", "-A")
+        fx.git(self.root, "-c", "user.name=Fixture", "-c", "user.email=fixture@example.org", "commit", "-q",
+               "--no-gpg-sign", "-m", "fixture")
+        output = Path(self.temp.name) / "site"
+        with mock.patch.dict(os.environ, fx.clean_environment(), clear=True):
+            summary, _ = pages.prepare(self.root, output, pages.tracked_entries(self.root),
+                                       commit=pages.head_commit(self.root))
+        report = json.loads((self.root / coverage.COVERAGE_JSON).read_text(encoding="utf-8"))
+        return summary, report, output
+
+    def test_the_estimate_matches_what_prepare_pages_stages(self):
+        summary, report, output = self.stage_site()
+        catalog = manifest.load_json(self.root / build_catalog.CATALOG_JSON)
+        data = report["bytes"]
+        self.assertTrue(summary["matches_commit"])
+        originals = coverage.staged_originals(catalog)
+        self.assertEqual(summary["tiers"]["site_original"], {"files": len(originals), "bytes": data["by_tier"]["site"]})
+        previews = coverage.staged_previews(catalog, thumbs.read_manifest(self.root))
+        self.assertEqual(summary["tiers"]["preview"], {"files": len(previews), "bytes": data["previews"]})
+        generated = sum(data[key] for key in ("catalog_json", "catalog_script", "index_html", "coverage_json"))
+        static = sum(map(len, self.STATIC.values()))
+        self.assertEqual(summary["tiers"]["page"], {"files": len(self.STATIC) + 4, "bytes": generated + static})
+        self.assertEqual(summary["bytes"], data["staged_site_estimate"] + static)
+        staged = [path.relative_to(output).as_posix() for path in output.rglob("*") if path.is_file()]
+        self.assertEqual(sorted(rel for rel in staged if rel.startswith("assets/public/")), sorted(originals))
+
+    def test_identical_bytes_from_both_wikis_are_staged_and_counted_once(self):
+        summary, report, output = self.stage_site()
+        miraheze = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
+        fandom = fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")
+        self.assertEqual(miraheze["sha256"], fandom["sha256"])
+        self.assertTrue((output / miraheze["path"]).is_file(), "the primary (Miraheze) copy is the one published")
+        self.assertFalse((output / fandom["path"]).exists())
+        archive_only = summary["excluded"]["archive_only_originals"]
+        self.assertEqual(summary["excluded"]["unstaged_public_files"],
+                         {"files": archive_only["files"] + 1, "bytes": archive_only["bytes"] + fandom["bytes"]})
+        records = [r for family in schema.FAMILIES for r in fx.load_manifest(self.root, family)["assets"]]
+        site_records = sum(r["bytes"] for r in records if schema.tier_for(r["kind"], r["format"]) == "site")
+        self.assertEqual(report["bytes"]["by_tier"]["site"], site_records - fandom["bytes"])
+
+
+class FixtureGitTests(unittest.TestCase):
+    """The fixture's git helper (used to stage the site and to track manifests) skips only when git is missing: a
+    failing command fails the test, and the user's global hooks or templates cannot make a fixture commit fail."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.base = Path(self.temp.name)
+        if fx.shutil.which("git") is None:
+            self.skipTest("git is not installed")
+
+    def hostile_home(self):
+        """A HOME whose global config points hooksPath and init.templateDir at a pre-commit hook that always fails."""
+        home = self.base / "home"
+        hooks = home / "hooks"
+        hooks.mkdir(parents=True)
+        (hooks / "pre-commit").write_text("#!/bin/sh\nexit 1\n", encoding="utf-8")
+        (hooks / "pre-commit").chmod(0o755)
+        template = home / "template"
+        (template / "hooks").mkdir(parents=True)
+        (template / "hooks/pre-commit").write_bytes((hooks / "pre-commit").read_bytes())
+        (template / "hooks/pre-commit").chmod(0o755)
+        (home / ".gitconfig").write_text(f"[core]\n\thooksPath = {hooks}\n[init]\n\ttemplateDir = {template}\n"
+                                         "[user]\n\tname = Someone\n\temail = someone@example.org\n",
+                                         encoding="utf-8")
+        return home
+
+    def commit(self, root):
+        (root / "file.txt").write_text("fixture\n", encoding="utf-8")
+        fx.git(root, "init", "-q")
+        fx.git(root, "add", "-A")
+        fx.git(root, "-c", "user.name=Fixture", "-c", "user.email=fixture@example.org", "commit", "-q",
+               "--no-gpg-sign", "-m", "fixture")
+
+    def test_global_hooks_and_templates_cannot_fail_a_fixture_commit(self):
+        home = self.hostile_home()
+        control = self.base / "control"
+        control.mkdir()
+        (control / "file.txt").write_text("fixture\n", encoding="utf-8")
+        environment = {**fx.clean_environment(), "HOME": str(home), "XDG_CONFIG_HOME": str(home / ".config")}
+        for args in (["init", "-q"], ["add", "-A"]):
+            subprocess.run(["git", "-C", str(control), *args], check=True, capture_output=True, env=environment)
+        result = subprocess.run(["git", "-C", str(control), "commit", "-q", "-m", "x"], capture_output=True,
+                                env=environment)
+        self.assertNotEqual(result.returncode, 0, "the hostile configuration really blocks a plain commit")
+        root = self.base / "repo"
+        root.mkdir()
+        with mock.patch.dict(os.environ, {"HOME": str(home), "XDG_CONFIG_HOME": str(home / ".config")}):
+            self.commit(root)
+        self.assertFalse((root / ".git/hooks/pre-commit").exists(), "no template hook was copied")
+
+    def test_a_failing_git_command_fails_the_test_instead_of_skipping_it(self):
+        root = self.base / "repo"
+        root.mkdir()
+        self.commit(root)
+        with self.assertRaisesRegex(AssertionError, "rev-parse --verify no-such-ref failed with exit code"):
+            fx.git(root, "rev-parse", "--verify", "no-such-ref")
+
+    def test_only_a_missing_git_executable_skips(self):
+        with mock.patch.object(fx.shutil, "which", return_value=None), self.assertRaises(unittest.SkipTest):
+            fx.git(self.base, "status")
+        with mock.patch.object(fx.subprocess, "run", side_effect=FileNotFoundError("git")), \
+                self.assertRaises(unittest.SkipTest):
+            fx.git(self.base, "status")
 
 
 class SongCoverageTests(Base):

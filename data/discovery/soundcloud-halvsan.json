@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:halvsan",
+  "started_at": "2026-10-10T22:35:25Z",
+  "finished_at": "2026-10-10T22:35:27Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:halvsan:dynamixos2021-halv-sushi-tornado",
+      "source_id": "artists:soundcloud:halvsan",
+      "upstream_key": "dynamixos2021-halv-sushi-tornado",
+      "page_url": "https://soundcloud.com/halvsan/dynamixos2021-halv-sushi-tornado",
+      "file_url": "https://i1.sndcdn.com/artworks-7Yyke49SUs9f4SpL-wrzRzQ-original.jpg",
+      "title": "【#Dynamix】Halv - Sushi Tornado",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/halvsan/dynamixos2021-halv-sushi-tornado",
+        "sc.title: Sushi Tornado"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-7Yyke49SUs9f4SpL-wrzRzQ-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2022-01-03T07:27:42Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:halvsan:68108942a61e7d56",
+      "song_titles": [
+        "Sushi Tornado"
+      ],
+      "illustrators": [
+        "長井りく"
+      ],
+      "composers": [
+        "Halv"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:halvsan:halv-garyou-tensei",
+      "source_id": "artists:soundcloud:halvsan",
+      "upstream_key": "halv-garyou-tensei",
+      "page_url": "https://soundcloud.com/halvsan/halv-garyou-tensei",
+      "file_url": "https://i1.sndcdn.com/artworks-1EWCTCrdvd0PQ7ef-sFyvcw-original.jpg",
+      "title": "【#シノビスラッシュ】Halv - 画竜天晴",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/halvsan/halv-garyou-tensei",
+        "sc.title: 画竜天晴",
+        "sc.description: 原木シィタケ"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-1EWCTCrdvd0PQ7ef-sFyvcw-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2024-08-02T14:13:36Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:halvsan:16a88495811c04c6",
+      "song_titles": [
+        "画竜天晴"
+      ],
+      "illustrators": [
+        "原木シィタケ"
+      ],
+      "composers": [
+        "Halv"
+      ]
+    }
+  ],
+  "errors": []
+}

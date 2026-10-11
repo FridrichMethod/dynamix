@@ -312,6 +312,7 @@ class TestsWorkflowContentTests(unittest.TestCase):
         runs = self.runs("checks")
         for command in ("tests/run_all.py", "scripts/build_catalog.py --verify --check",
                         "scripts/build_thumbnails.py --check", "scripts/build_coverage.py --check",
+                        "scripts/update_docs_stats.py --check",
                         'scripts/fetch_$family.py" --verify', "for family in wikis artists official archives",
                         "git diff --check", "git status --porcelain"):
             with self.subTest(command=command):

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:kurorak",
+  "started_at": "2026-10-10T22:35:39Z",
+  "finished_at": "2026-10-10T22:35:41Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:kurorak:dynamix-tunnelling",
+      "source_id": "artists:soundcloud:kurorak",
+      "upstream_key": "dynamix-tunnelling",
+      "page_url": "https://soundcloud.com/kurorak/dynamix-tunnelling",
+      "file_url": "https://i1.sndcdn.com/artworks-000246939799-gq4bse-original.jpg",
+      "title": "[Dynamix] Tunnelling",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/kurorak/dynamix-tunnelling",
+        "sc.title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000246939799-gq4bse-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-10-13T01:40:54Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:kurorak:0fb5b8e4b821cd7f",
+      "song_titles": [
+        "Tunnelling"
+      ],
+      "illustrators": [
+        "Lunchwere"
+      ],
+      "composers": [
+        "Kurorak"
+      ]
+    }
+  ],
+  "errors": []
+}

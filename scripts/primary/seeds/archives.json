@@ -1,0 +1,3283 @@
+{
+  "family": "archives",
+  "sources": [
+    {
+      "id": "archives:hkstp",
+      "name": "HKSTP press release 2016-08-09",
+      "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+      "platform": "web",
+      "adapter": "page_links",
+      "hosts": [
+        "www.hkstp.org"
+      ],
+      "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
+      "identity_quotes": [
+        "Dynamix",
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "unknown",
+        "master_status": "unverified",
+        "notes": "Press-release file as served by HKSTP."
+      },
+      "rights": {
+        "holder": "Hong Kong Science and Technology Parks Corporation"
+      },
+      "items": [
+        {
+          "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+          "link_rules": [
+            {
+              "attr": "href",
+              "pattern": "^/media/[a-z0-9]+/appendix[0-9]+\\.pdf$"
+            },
+            {
+              "attr": "src",
+              "pattern": "^/-/media/corpsite/assets/news/img/20160809_[0-9]+\\.jpg$",
+              "strip_query": true
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": "appendix3\\.pdf$",
+          "role": "reference",
+          "candidate_notes": "Appendix 3: the C4Cat / Dynamix company profile."
+        },
+        {
+          "match": "appendix[12]\\.pdf$",
+          "action": "exclude",
+          "reason": "not_dynamix: appendix about another incubatee (Marlin / btw App)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "20160809_[0-9]+\\.jpg$",
+          "action": "exclude",
+          "reason": "person_photo: launch-event group photo"
+        }
+      ]
+    },
+    {
+      "id": "archives:4gamer",
+      "name": "4Gamer.net Dynamix screenshot gallery",
+      "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "platform": "web",
+      "adapter": "page_links",
+      "hosts": [
+        "www.4gamer.net"
+      ],
+      "identity_quotes": [
+        "Dynamix"
+      ],
+      "notes": "Historical press screenshots: the 2015-06-18 gallery and the 2015-06-17 column article (ほぼ)日刊スマホゲーム通信 #862; not jacket masters.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press gallery copy as served by 4Gamer.net; the gallery page does not state who supplied the screenshots."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "restrictions": "Press screenshot hosted by 4Gamer.net"
+      },
+      "items": [
+        {
+          "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+          "link_rules": [
+            {
+              "attr": "href",
+              "pattern": "^/games/306/G030626/SS/[0-9]+\\.jpg$"
+            },
+            {
+              "attr": "src",
+              "pattern": "^/games/306/G030626/SS/[0-9]+\\.jpg$"
+            }
+          ]
+        },
+        {
+          "url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "link_rules": [
+            {
+              "attr": "href",
+              "pattern": "^/games/306/G030626/20150617094/(SS|TN)/[0-9]+\\.jpg$"
+            },
+            {
+              "attr": "src",
+              "pattern": "^/games/306/G030626/20150617094/(SS|TN)/[0-9]+\\.jpg$"
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": "/20150617094/TN/001\\.jpg$",
+          "action": "exclude",
+          "reason": "site_ui: banner of the column (ほぼ)日刊スマホゲーム通信"
+        },
+        {
+          "match": "/20150617094/TN/002\\.jpg$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: article thumbnail (og:image) cropped from the Wonderful Days song-select screenshot SS/014, archived in archives:press as 4gamer862:SS/014"
+        },
+        {
+          "match": "/20150617094/TN/[0-9]+\\.jpg$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+        },
+        {
+          "match": "/SS/[0-9]+\\.jpg$",
+          "role": "gameplay_screenshot"
+        }
+      ]
+    },
+    {
+      "id": "archives:wayback",
+      "name": "Internet Archive Wayback Machine (CDX)",
+      "url": "https://web.archive.org/",
+      "platform": "wayback",
+      "adapter": "wayback_cdx",
+      "min_interval": 3.0,
+      "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "items": [
+        {
+          "name": "official-img",
+          "url": "dynamix.c4-cat.com/img/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "official-uploads",
+          "url": "dynamix.c4-cat.com/wp-content/uploads/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "official-ip-uploads",
+          "url": "188.166.254.2/wp-content/uploads/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "mycard",
+          "url": "dynamix-server.c4-cat.com/mycard/img/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "download-host",
+          "url": "dl.dnx.c4-cat.com/",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200",
+            "mimetype:image/.*"
+          ]
+        },
+        {
+          "name": "hkstp-appendix3",
+          "url": "www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+          "match_type": "exact",
+          "filters": [
+            "statuscode:200"
+          ]
+        },
+        {
+          "name": "pixiv-62913946",
+          "url": "i.pximg.net/img-original/img/2017/05/15/17/01/36/62913946_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-77296864",
+          "url": "i.pximg.net/img-original/img/2019/10/14/22/53/24/77296864_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-80195226",
+          "url": "i.pximg.net/img-original/img/2020/03/18/10/55/19/80195226_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-92594600",
+          "url": "i.pximg.net/img-original/img/2021/09/08/13/09/32/92594600_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-42973848",
+          "url": "i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-61859342",
+          "url": "i.pximg.net/img-original/img/2017/03/11/22/08/03/61859342_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-122251308",
+          "url": "i.pximg.net/img-original/img/2024/09/08/17/28/29/122251308_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-129309072",
+          "url": "i.pximg.net/img-original/img/2025/04/14/21/02/39/129309072_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-86481781",
+          "url": "i.pximg.net/img-original/img/2020/12/23/22/45/17/86481781_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-91845485",
+          "url": "i.pximg.net/img-original/img/2021/08/09/17/53/24/91845485_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-51262301",
+          "url": "i.pximg.net/img-original/img/2015/07/05/21/10/49/51262301_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-63416349",
+          "url": "i.pximg.net/img-original/img/2017/06/16/23/29/36/63416349_p",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        },
+        {
+          "name": "pixiv-46835674-thumb",
+          "url": "i3.pixiv.net/c/150x150/img-master/img/2014/10/31/23/22/12/46835674_p0_master1200.jpg",
+          "match_type": "exact",
+          "filters": [
+            "statuscode:200"
+          ]
+        },
+        {
+          "name": "facebook-rotaeno-kv",
+          "url": "scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg",
+          "match_type": "prefix",
+          "filters": [
+            "statuscode:200"
+          ],
+          "page_size": 50
+        }
+      ],
+      "rules": [
+        {
+          "match": "62913946_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Bluebell"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "キカンシャ"
+          ],
+          "composers": [
+            "5argon feat. imTiNEY"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/62913946",
+              "quote": "My work for Dynamix song"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/62913946",
+              "quote": "Bluebell"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Bluebell",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49734)"
+          },
+          "title": "【Dynamix】Bluebell (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "77296864_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Lumina"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Xomu"
+          ],
+          "composers": [
+            "Wisp X & Xomu"
+          ],
+          "variant_role": "full illustration made for the track; the Dynamix jacket is a 16:9 crop",
+          "variant_group": "jacket:lumina",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/77296864",
+              "quote": "Lumina"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Lumina",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49920)"
+          },
+          "title": "ルミナ (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "80195226_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "終の舞姫"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Se-U-Ra"
+          ],
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/80195226",
+              "quote": "終の舞姫"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50136)"
+          },
+          "title": "終の舞姫 (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "92594600_p0\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 1 of 3 (square composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "For Dynamix x RAVON collaboration event"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "MassacrE"
+            }
+          ],
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
+          },
+          "notes": "The primary post's caption says the art was commissioned by Spiegel for the Dynamix x RAVON collaboration event; a commission does not establish the rights holder.",
+          "title": "MassacrE || 3rc4224M (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "92594600_p1\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 2 of 3 (16:9 in-game composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "For Dynamix x RAVON collaboration event"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "MassacrE"
+            }
+          ],
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
+          },
+          "notes": "The primary post's caption says the art was commissioned by Spiegel for the Dynamix x RAVON collaboration event; a commission does not establish the rights holder.",
+          "title": "MassacrE || 3rc4224M (p1), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "92594600_p2\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Sand Suna"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "page 3 of 3 (original composition)",
+          "variant_group": "massacre-3rc4224m-sand-suna",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "For Dynamix x RAVON collaboration event"
+            },
+            {
+              "url": "https://www.pixiv.net/artworks/92594600",
+              "quote": "MassacrE"
+            }
+          ],
+          "title_aliases": {
+            "MassacrE || 3rc4224M": [
+              "MassacrE"
+            ]
+          },
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
+          },
+          "notes": "The primary post's caption says the art was commissioned by Spiegel for the Dynamix x RAVON collaboration event; a commission does not establish the rights holder.",
+          "title": "MassacrE || 3rc4224M (p2), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "42973848_p0\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "Aegis"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "AFZero"
+          ],
+          "composers": [
+            "mmry"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/42973848",
+              "quote": "Aegis"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Aegis",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50155)"
+          },
+          "title": "Dynamix「Aegis」用圖 (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "61859342_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Evoltex (poppi'n mix)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "Shionty"
+          ],
+          "composers": [
+            "Arch vs n3pu"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/61859342",
+              "quote": "Evoltex(poppin mix)"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50214)"
+          },
+          "title_aliases": {
+            "Evoltex (poppi'n mix)": [
+              "Evoltex(poppin mix)"
+            ]
+          },
+          "title": "8bit_girl (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "122251308_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "composers": [
+            "K-forest"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "Shinobi Slash square jacket with title",
+          "variant_group": "ryurei-rinbu-hyouri",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/122251308",
+              "quote": "流麗凛舞"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42188)"
+          },
+          "title": "シノビスラッシュ「流麗凛舞」 (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "122251308_p1\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "流麗凛舞"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "composers": [
+            "K-forest"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "variant_role": "Shinobi Slash square jacket without text",
+          "variant_group": "ryurei-rinbu-hyouri",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/122251308",
+              "quote": "流麗凛舞"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42188)"
+          },
+          "title": "シノビスラッシュ「流麗凛舞」 (p1), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "129309072_p0\\.jpg@",
+          "role": "promotional",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "credit_evidence": [
+            {
+              "role": "illustrator",
+              "name": "中本ひょうり",
+              "url": "https://www.pixiv.net/artworks/129309072",
+              "field": "caption",
+              "quote": "新感覚和風スマホ音ゲー / シノビスラッシュの【Dynamix ✕ シノビスラッシュ】コラボイラストを描かせていただきました"
+            }
+          ],
+          "notes": "Credit from the primary post's caption, a first-person statement by the posting account 中本ひょうり (pixiv user 89112381).",
+          "title": "Dynamix ✕ シノビスラッシュ コラボイラスト (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "86481781_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Totally bounded"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "LESYEF"
+          ],
+          "composers": [
+            "影虎。"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "variant_role": "RAVON square jacket; the Dynamix jacket is a different 16:9 crop",
+          "variant_group": "jacket:totally-bounded",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/86481781",
+              "quote": "totally bounded"
+            }
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+              "note": "wiki song page: Totally bounded (影虎。, illustration LESYEF) in the Dynamix RAVON collaboration pack; the Dynamix jacket is a 16:9 crop of this artwork (2026-10-10 research)"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+              "note": "research pixel comparison 2026-10-10: TotallyBoundedDynamix.png (805x453) is the top 1024x576 band of this square downscaled (MAD 2.87, edge-only residual, same 'totally bounded / 影虎。' title text)"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715)"
+          },
+          "rights": {
+            "holder": null,
+            "restrictions": null
+          },
+          "notes": "Coordinator review: the primary post presents this as RAVON jacket art; Dynamix lists the song in its RAVON collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post.",
+          "title": "totally bounded (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "91845485_p0\\.jpg@",
+          "role": "song_art",
+          "song_titles": [
+            "Party Vinyl"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "アサヤ"
+          ],
+          "composers": [
+            "モリモリあつし"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "arcaea"
+          ],
+          "variant_role": "square variant posted for the Arcaea release",
+          "variant_group": "jacket:party-vinyl",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/91845485",
+              "quote": "Party Vinyl"
+            }
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+              "note": "wiki song page: Party Vinyl (モリモリあつし, illustration アサヤ) in the Dynamix Arcaea collaboration pack; the jacket matches this artwork (2026-10-10 research)"
+            },
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+              "note": "research pixel comparison 2026-10-10: PartyVinylDynamix.png (1024x568) is the 1000x555 band at y 31-586 of this square, upscaled (MAD 8.7, edge-only residual, same 'Party Vinyl' title text)"
+            }
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50303)"
+          },
+          "rights": {
+            "holder": "lowiro and/or the credited artist (the artist's caption names lowiro's Arcaea release)",
+            "restrictions": null
+          },
+          "notes": "Coordinator review: the primary post presents this as Arcaea jacket art; Dynamix lists the song in its Arcaea collaboration pack (wiki), so the Dynamix use is inferred, not shown by the post.",
+          "title": "Party Vinyl (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "51262301_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "Creater S"
+          ],
+          "mapping_status": "inferred",
+          "illustrators": [
+            "123456蟹"
+          ],
+          "composers": [
+            "C.R.E"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Creater_S",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50185)"
+          },
+          "title": "無題 (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "63416349_p0\\.png@",
+          "role": "song_art",
+          "song_titles": [
+            "ぺたるすてっぷ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "clear"
+          ],
+          "composers": [
+            "dawn-system feat. 一之瀬りと"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of the artist's pixiv original (i.pximg.net img-original), captured by ArchiveTeam; bytes as pixiv served them."
+          },
+          "primary_evidence": [
+            {
+              "url": "https://www.pixiv.net/artworks/63416349",
+              "quote": "ぺたるすてっぷ"
+            }
+          ],
+          "game_evidence": [
+            "research pixel comparison 2026-10-10: this square equals the centre of the in-game jacket PetalstepDynamix.png (MAD 6.7, edge-only residual)",
+            "own check 2026-10-10 (Pillow box refinement): RGB MAD 6.3/255 for the box (254.5,0)-(827.9,573.4) of PetalstepDynamix.png against 62.1 for a mirrored control"
+          ],
+          "variant_group": "jacket:file-501df734",
+          "variant_role": "square artwork; the in-game 16:9 jacket shows this painting with extra canvas on both sides",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50399)"
+          },
+          "notes": "The artist's caption names the song and Dynamix but says the artwork's inclusion was still pending; the in-game jacket contains this painting (research pixel comparison).",
+          "title": "ぺたるすてっぷ (p0), pixiv original via the Internet Archive"
+        },
+        {
+          "match": "/img/cap1\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 1 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
+          "title": "Dynamix - Mobile Music Game — Media (1/6)"
+        },
+        {
+          "match": "/img/cap2\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 2 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
+          "title": "Dynamix - Mobile Music Game — Media (2/6)"
+        },
+        {
+          "match": "/img/cap3\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 3 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
+          "title": "Dynamix - Mobile Music Game — Media (3/6)"
+        },
+        {
+          "match": "/img/cap4\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 4 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
+          "title": "Dynamix - Mobile Music Game — Media (4/6)"
+        },
+        {
+          "match": "/img/cap5\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 5 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
+          "title": "Dynamix - Mobile Music Game — Media (5/6)"
+        },
+        {
+          "match": "/img/cap6\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 6 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
+          "title": "Dynamix - Mobile Music Game — Media (6/6)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TE1\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (English), image 1 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix Code Entry (1/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TE2\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (English), image 2 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix Code Entry (2/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TE3\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (English), image 3 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix Code Entry (3/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TE4\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (English), image 4 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix Code Entry (4/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TC1\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (Chinese), image 1 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix序號輸入說明 (1/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TC2\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (Chinese), image 2 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix序號輸入說明 (2/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TC3\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (Chinese), image 3 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix序號輸入說明 (3/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/11/TC4\\.jpg@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official code-entry tutorial screenshot (Chinese), image 4 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
+          "title": "Dynamix序號輸入說明 (4/4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/10/new5-700x365\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+          },
+          "candidate_notes": "Official news banner with the Dynamix logo. Title from the cited page https://web.archive.org/web/20160310180126/http://dynamix.c4-cat.com:80/2015/10/ (the post '2.4 update' (2015-10-31) shows this banner; read 2026-10-10).",
+          "title": "2.4 update"
+        },
+        {
+          "match": "/wp-content/uploads/2016/07/CP03-700x365\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+          },
+          "candidate_notes": "Official news banner: C4Cat character key art with the Dynamix logo. Title from the cited page https://web.archive.org/web/20170503024843/http://dynamix.c4-cat.com:80/2016/07/30/cp03-%E7%8F%BE%E5%A0%B4%E6%83%85%E5%A0%B1/ (the post 'CP03 現場情報' shows this banner; read 2026-10-10).",
+          "title": "CP03 現場情報"
+        },
+        {
+          "match": "/wp-content/uploads/2016/03/Untitled-1-700x365\\.png@",
+          "role": "reference",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 700x365 resize of an official news banner (the full-size upload was not captured)."
+          },
+          "candidate_notes": "Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1). Title from the cited page https://web.archive.org/web/20160522194054/http://dynamix.c4-cat.com:80/2016/03/ (the post 'Version 2.7 Updates' shows this banner; read 2026-10-10).",
+          "title": "Version 2.7 Updates"
+        },
+        {
+          "match": "/wp-content/uploads/2016/05/OverRapid_Col-199x128\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 199x128 thumbnail (no larger capture)."
+          },
+          "candidate_notes": "OverRapid collaboration news thumbnail showing the in-game store. Title from the cited page https://web.archive.org/web/20170524195829/http://dynamix.c4-cat.com:80/2016/05/25/overrapid-collaboration1/ (the post 'Overrapid collaboration#1' shows the full-size image of this thumbnail; read 2026-10-10).",
+          "title": "Overrapid collaboration#1 (news thumbnail)"
+        },
+        {
+          "match": "/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 199x128 thumbnail of a news banner (no larger capture)."
+          },
+          "candidate_notes": "Thumbnail of the Dynamix website 3.0 news banner. Title from the cited page https://web.archive.org/web/20170426015928/http://dynamix.c4-cat.com:80/2016/05/25/3-0-update/ (the post '3.0 Update' shows the full-size image of this thumbnail; read 2026-10-10).",
+          "title": "3.0 Update (news thumbnail)"
+        },
+        {
+          "match": "/wp-content/uploads/2016/03/3-199x128\\.png@",
+          "role": "reference",
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "WordPress 199x128 thumbnail of a news banner (no larger capture)."
+          },
+          "candidate_notes": "Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1). Title from the cited page https://web.archive.org/web/20160522194054/http://dynamix.c4-cat.com:80/2016/03/ (the post 'Version3.0 Preview' shows the full-size image of this thumbnail; read 2026-10-10).",
+          "title": "Version3.0 Preview (news thumbnail)"
+        },
+        {
+          "match": "/wp-content/uploads/.*-199x128\\.(png|jpg)@",
+          "action": "exclude",
+          "reason": "out_of_scope_other: WordPress 199x128 thumbnail of an image whose larger version is also archived (its 700x365 resize, or the full-size tutorial panels TC1-4/TE1-4)"
+        },
+        {
+          "match": "/wp-content/uploads/2015/10/(Zyon_ICON100)\\.png@",
+          "action": "exclude",
+          "reason": "out_of_scope_other: 100x100 character icon whose game identity is not established",
+          "game": "unknown"
+        },
+        {
+          "match": "OR_icon",
+          "action": "exclude",
+          "reason": "not_dynamix: OverRapid app icon (collaboration partner)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "(cropped-Apple_output|LOGOwhite|doujin-mark|map\\.png|/img/(a17|dynamix|title_up|title_down|fb|ios|menu|play|sprite|loading|bg_fade|bg_fade_up|favicon)\\.)",
+          "action": "exclude",
+          "reason": "site_ui: website logo, icon, sprite or decoration"
+        },
+        {
+          "match": "/img/icon_v2\\.png@",
+          "action": "exclude",
+          "reason": "game_ui: app icon"
+        },
+        {
+          "match": "dl\\.dnx\\.c4-cat\\.com/512512\\.png@",
+          "action": "exclude",
+          "reason": "game_ui: app icon on the download landing page"
+        },
+        {
+          "match": "/OR\\.png@",
+          "action": "exclude",
+          "reason": "not_dynamix: OverRapid app icon (collaboration partner)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "/new1\\.jpg@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365). Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 1 of 3 next to the heading 'Music game'; read 2026-10-10).",
+          "title": "Dynamix | Mobile Music Game — Music game (1/3)"
+        },
+        {
+          "match": "(/LOGO3\\.png@|dl\\.dnx\\.c4-cat\\.com/(as|gpg|title)\\.png@|/mycard/img/(DNXtypo|bg)\\.png@)",
+          "action": "exclude",
+          "reason": "site_ui: logo, store badge or spacer image of an official web page"
+        },
+        {
+          "match": "(/loadingimage\\.jpg@|/Comp-1-)",
+          "action": "exclude",
+          "reason": "site_ui: abstract website background (no artwork)"
+        },
+        {
+          "match": "/new32\\.png@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official home-page features collage of about twelve song jackets. Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 3 of 3 next to the heading 'Songs submission'; read 2026-10-10).",
+          "title": "Dynamix | Mobile Music Game — Songs submission (3/3)"
+        },
+        {
+          "match": "/new21\\.png@",
+          "role": "gameplay_screenshot",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Official home-page photo of the game being played on a phone (a photo of gameplay on a device: gameplay_screenshot, like the official YouTube thumbnails of hands playing on a phone or tablet). Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 2 of 3 next to the heading 'Playing style'; read 2026-10-10).",
+          "title": "Dynamix | Mobile Music Game — Playing style (2/3)"
+        },
+        {
+          "match": "/mycard/img/header\\.jpg@",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "Header banner (planet) of the official MyCard top-up page. Title from the cited page https://web.archive.org/web/20190119063302/http://dynamix-server.c4-cat.com:80/mycard/login (page heading 'MyCard Dynamix線上商店'; read 2026-10-10).",
+          "title": "MyCard Dynamix線上商店 — page banner"
+        },
+        {
+          "match": "appendix3\\.pdf@",
+          "role": "reference",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "unknown",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture of the HKSTP appendix PDF."
+          },
+          "candidate_notes": "HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404. Title from the cited page https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809 (press-release headline; the PDF is its link '附件三'; read 2026-10-10).",
+          "rights": {
+            "holder": "Hong Kong Science and Technology Parks Corporation"
+          },
+          "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 — 附件三"
+        },
+        {
+          "match": "46835674_p0_master1200\\.jpg@",
+          "role": "reference",
+          "game": "dynamix",
+          "game_evidence": [
+            "archived 2015 page https://web.archive.org/web/20151009050015/http://www.pixiv.net/member_illust.php?mode=medium&illust_id=46835674 (og:description '我們團隊的音樂遊戲《Dynamix》推出了~ 這些是我畫的小cover們~', research 2026-10-10)"
+          ],
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "artist_post",
+            "master_status": "unverified",
+            "notes": "pixiv 150x150 listing thumbnail of the deleted post, as archived by the Internet Archive."
+          },
+          "candidate_notes": "Only surviving image of Nano Kun's deleted 'Dynamix Music Cover小合集' (pixiv 46835674): a 150px listing thumbnail of its first page (a strip of small covers).",
+          "notes": "Evidence for the credit conflict noted on artists:pixiv:3315403: the post's pages were matched by SauceNAO to Actinium, Stardust, Lotus and 名無しの宣教師 (research); no original page is archived.",
+          "title": "Dynamix Music Cover小合集 (pixiv 46835674) listing thumbnail"
+        },
+        {
+          "match": "490801394_1381747516345539_1180893236473663295_n\\.jpg",
+          "role": "promotional",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "rotaeno"
+          ],
+          "collections": [
+            "Rotaeno Collaboration"
+          ],
+          "game_evidence": [
+            "poster of the c4cat.dynamix video 'Dynamix X Rotaeno Collaboration Announcement' (Wayback capture https://web.archive.org/web/20250517184208/https://www.facebook.com/c4cat.dynamix/videos/dynamix-x-rotaeno-collaboration-announcement/1122492832979982/)"
+          ],
+          "quality": {
+            "source_variant": "preview",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Facebook's Open Graph video poster as archived by the Internet Archive (2025-05-17)."
+          },
+          "transformed": true,
+          "candidate_notes": "Dynamix X Rotaeno collaboration key visual (video poster), 2025-04. Title from the cited Facebook video 'Dynamix X Rotaeno Collaboration Announcement' (game_evidence).",
+          "rights": {
+            "holder": "C4Cat Entertainment Limited and Dream Engine Games"
+          },
+          "notes": "Rights holders as printed on the image (visual_inspection 2026-10-10: '©C4Cat Entertainment Limited ©Dream Engine Games', bottom right); four collaboration jacket crops and 'AVAIABLE ON 2025.04.24'.",
+          "title": "Dynamix X Rotaeno Collaboration Announcement (video poster)"
+        }
+      ]
+    },
+    {
+      "id": "archives:archive-leads",
+      "name": "Historical/secondary research leads without an acquirable file",
+      "url": "https://web.archive.org/",
+      "platform": "registry",
+      "adapter": "lead_registry",
+      "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
+      "items": [
+        {
+          "key": "atwiki:dynamix2ch",
+          "page_url": "https://w.atwiki.jp/dynamix2ch/",
+          "title": "Japanese Dynamix atwiki (pages and attachments)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: community wiki page owned by the wikis family (wikis:atwiki-ja)"
+        },
+        {
+          "key": "miraheze:dynamix",
+          "page_url": "https://dynamix.miraheze.org/wiki/Main_Page",
+          "title": "Miraheze Dynamix Wiki pages",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: community wiki page owned by the wikis family (wikis:miraheze)"
+        },
+        {
+          "key": "archive.org:wiki-dynamixc4cat.fandom.com-20260807",
+          "page_url": "https://archive.org/details/wiki-dynamixc4cat.fandom.com-20260807",
+          "title": "WikiTeam3 dump of the legacy Fandom wiki",
+          "disposition": "pending",
+          "reason": "pending: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here",
+          "file_url": "https://archive.org/download/wiki-dynamixc4cat.fandom.com-20260807/dynamixc4cat.fandom.com-20260807-images.7z"
+        },
+        {
+          "key": "fandom:arcaea:Dynamix_Collaboration",
+          "page_url": "https://arcaea.fandom.com/wiki/Dynamix_Collaboration",
+          "title": "Arcaea wiki Dynamix Collaboration",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki; Arcaea-side jackets are not the Dynamix files (credit evidence only)"
+        },
+        {
+          "key": "fandom:paradigmreboot:Category:Dynamix_Songs",
+          "page_url": "https://paradigmreboot.fandom.com/wiki/Category:Dynamix_Songs",
+          "title": "Paradigm: Reboot wiki Dynamix songs",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki (512x512 partner jackets); credit evidence only"
+        },
+        {
+          "key": "wikiwiki:berrymelody:Hemisphere",
+          "page_url": "https://wikiwiki.jp/berrymelody/Hemisphere",
+          "title": "Berry Melody wiki",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki; credit evidence only"
+        },
+        {
+          "key": "fandom:overrapid:Riverside_Cafe",
+          "page_url": "https://overrapid.fandom.com/wiki/Riverside_Cafe",
+          "title": "OverRapid wiki",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki (partner-side jackets); comparison evidence only"
+        },
+        {
+          "key": "wikiwiki:arcaea:Moonlight_of_Sand_Castle",
+          "page_url": "https://wikiwiki.jp/arcaea/Moonlight%20of%20Sand%20Castle",
+          "title": "Arcaea wikiwiki Moonlight of Sand Castle",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: Arcaea collaboration jacket page; credit evidence only"
+        },
+        {
+          "key": "wikiwiki:ravon:Nyarlathotep",
+          "page_url": "https://wikiwiki.jp/ravon/Nyarlathotep",
+          "title": "RAVON wiki credits",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki (company credit for Dynamix-origin songs)"
+        },
+        {
+          "key": "moegirl:Dynamix",
+          "page_url": "https://zh.moegirl.org.cn/Dynamix/%E6%9B%B2%E7%9B%AE%E5%88%97%E8%A1%A8",
+          "title": "Moegirl Dynamix song list",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: metadata page without illustrator credits"
+        },
+        {
+          "key": "namu:Dynamix",
+          "page_url": "https://namu.wiki/w/Dynamix",
+          "title": "Namu wiki Dynamix",
+          "disposition": "blocked",
+          "reason": "challenge: Cloudflare 'Just a moment' with HTTP 403 (research sweep); not bypassed"
+        },
+        {
+          "key": "pixiv-dic:Dynamix",
+          "page_url": "https://dic.pixiv.net/a/Dynamix",
+          "title": "pixiv dictionary / giantbomb",
+          "disposition": "blocked",
+          "reason": "blocked: HTTP 403 to automated requests (research sweep); not retried"
+        },
+        {
+          "key": "github:phi-plugin",
+          "page_url": "https://github.com/Catrong/phi-plugin/blob/main/resources/info/DLC/dynamix.json",
+          "title": "Song-title lists in bot repositories",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: title-only lists; no covers or credits"
+        },
+        {
+          "key": "ziv:7111",
+          "page_url": "https://zenius-i-vanisher.com/v5.2/thread?threadid=7111",
+          "title": "ZIv forum thread",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: forum mention (graphics credit hypothesis); no artwork file"
+        },
+        {
+          "key": "wikipedia:zh:Dynamix",
+          "page_url": "https://zh.wikipedia.org/wiki/Dynamix",
+          "title": "Chinese Wikipedia Dynamix",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: encyclopedia infobox (art director credit); no artwork collection"
+        },
+        {
+          "key": "seesaa:dynamix-playing",
+          "page_url": "https://dynamix.playing.wiki/",
+          "title": "Japanese Seesaa Dynamix wiki",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: community wiki with developer account links; identity evidence only"
+        },
+        {
+          "key": "cuhk:newsletter-447",
+          "page_url": "https://www.iso.cuhk.edu.hk/images/publication/archive/newsletter/447/html5/8",
+          "title": "CUHK newsletter founder interview",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: interview text; no artwork"
+        },
+        {
+          "key": "duitang:1008753762",
+          "page_url": "https://api.duitang.com/blog/?id=1008753762",
+          "title": "Duitang collaboration repost",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: low-confidence repost; original source not traced (03-source-research §3)"
+        },
+        {
+          "key": "github:taskeren:dynamix-api-document",
+          "page_url": "https://github.com/Taskeren/dynamix-api-document",
+          "title": "Taskeren API notes",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: game-API research notes; private game services are not used"
+        },
+        {
+          "key": "github:dynode",
+          "page_url": "https://github.com/NordLandeW/DyNode",
+          "title": "DyNode chart tool",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: chart tool; not a validated artwork repository"
+        },
+        {
+          "key": "wayback:fb:c4cats-video-1695953050638792",
+          "page_url": "https://web.archive.org/web/20190908022321/https://www.facebook.com/c4cats/videos/1695953050638792/",
+          "title": "Archived c4cats video post 'Dynamix 2.4 PV1'",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: caption text only (2.4 update notice, TwoSquare packages); its poster image was not archived"
+        },
+        {
+          "key": "wayback:fb:c4cats-photo-1717719541795476",
+          "page_url": "https://web.archive.org/web/20190828202856/https://www.facebook.com/c4cats/photos/a.1380917062142394.1073741826.1377990032435097/1717719541795476/?type=3&theater",
+          "title": "Archived c4cats merchandise photo post",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: merchandise/event photo post (Little D goods); its image was not archived"
+        },
+        {
+          "key": "wayback:fb:c4cats-post-1554857341415031",
+          "page_url": "https://web.archive.org/web/20190215232406/https://www.facebook.com/c4cats/posts/1554857341415031",
+          "title": "Archived c4cats launch post",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: identity evidence only (the first C4Cat game releases tomorrow); the 2014 avatar was not archived"
+        },
+        {
+          "key": "wayback:fb:dnx-post-1773722579481246",
+          "page_url": "https://web.archive.org/web/20210908165510/https://m.facebook.com/c4cat.dynamix/posts/1773722579481246?_rdr",
+          "title": "Archived c4cat.dynamix feed (2021: Lily comeback, RAVON Collab Pack 2)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: feed text with composer credits only; its images were not archived",
+          "song_titles": [
+            "Lily",
+            "Rave! and Get On It!",
+            "Totally bounded",
+            "Euouae",
+            "MassacrE || 3rc4224M"
+          ]
+        },
+        {
+          "key": "wayback:fb:dnx-post-1784733831713454",
+          "page_url": "https://web.archive.org/web/20210924020553/https://www.facebook.com/c4cat.dynamix/posts/1784733831713454",
+          "title": "Archived c4cat.dynamix operational notice (2021)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: operational notice text; its image was not archived"
+        },
+        {
+          "key": "wayback:fb:c4cat.dynamix-cdx",
+          "page_url": "https://web.archive.org/cdx/search/cdx?url=facebook.com/c4cat.dynamix/*",
+          "title": "Wayback captures of the Facebook pages",
+          "disposition": "blocked",
+          "reason": "blocked: most captures are login redirects or JS shells without Open Graph data (research CDX review 2026-10-10)"
+        },
+        {
+          "key": "bahamut-acg:73365",
+          "page_url": "https://acg.gamer.com.tw/acgDetail.php?s=73365",
+          "title": "Bahamut ACG database entry",
+          "disposition": "excluded",
+          "reason": "game_ui: the entry's only image is the app icon (240x240)",
+          "game": "dynamix"
+        },
+        {
+          "key": "9game:1249193",
+          "page_url": "https://www.9game.cn/news/1249193.html",
+          "title": "9game 2016-10 news (syndicated)",
+          "disposition": "excluded",
+          "game": "dynamix",
+          "reason": "out_of_scope_other: watermarked 630px syndicated copies of the GNN 138982 screenshots archived in archives:press"
+        },
+        {
+          "key": "9game:1486863",
+          "page_url": "https://www.9game.cn/news/1486863.html",
+          "title": "9game 2017-01 news (syndicated)",
+          "disposition": "excluded",
+          "game": "dynamix",
+          "reason": "out_of_scope_other: watermarked 629x354 copies of the Vocal package promo and Sakura Fubuki card archived at 1920x1080 from GNN 141991"
+        },
+        {
+          "key": "gamersky:588979",
+          "page_url": "https://wap.gamersky.com/news/Content-588979.html",
+          "title": "Gamersky 2015 launch news (炫光动感)",
+          "disposition": "excluded",
+          "game": "dynamix",
+          "reason": "out_of_scope_other: 550px copies of 2015 App Store screenshots"
+        },
+        {
+          "key": "qooapp:tag-c4cat",
+          "page_url": "https://news.qoo-app.com/tag/c4cat",
+          "title": "QooApp C4Cat tag listing",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: article listing page (discovery index only)"
+        },
+        {
+          "key": "toucharcade:review-2015",
+          "page_url": "https://toucharcade.com/2015/05/28/dynamix-review/",
+          "title": "TouchArcade review 2015",
+          "disposition": "excluded",
+          "game": "dynamix",
+          "reason": "game_ui: the review's images are app icons only"
+        },
+        {
+          "key": "sspai:29117",
+          "page_url": "https://sspai.com/post/29117",
+          "title": "sspai review 2015",
+          "disposition": "blocked",
+          "reason": "blocked: the image CDN answers 403 to direct requests (hotlink protection); not bypassed",
+          "game": "dynamix"
+        },
+        {
+          "key": "yahoo-hk:singtao-20141126",
+          "page_url": "https://hk.news.yahoo.com/%E4%B8%AD%E5%A4%A7%E8%82%B2%E6%88%90%E4%B8%AD%E5%BF%83%E5%8A%A9%E5%AD%B8%E7%94%9F%E5%9C%93%E5%89%B5%E6%A5%AD%E5%A4%A2-222035112.html",
+          "title": "Sing Tao 2014 CUHK incubation article",
+          "disposition": "excluded",
+          "reason": "person_photo: the article's only image is a team photo"
+        },
+        {
+          "key": "cuhk-kto:c4cat-entertainment-limited",
+          "page_url": "https://kto.cuhk.edu.hk/en/testing/c4cat-entertainment-limited",
+          "title": "CUHK KTO company entry",
+          "disposition": "excluded",
+          "reason": "site_ui: the entry's image is the C4Cat company logo"
+        },
+        {
+          "key": "cuhk-kto:c4cat",
+          "page_url": "https://kto.cuhk.edu.hk/en/testing/c4cat",
+          "title": "CUHK KTO project entry",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: institutional identity evidence only (same company logo)"
+        },
+        {
+          "key": "apk-mirrors",
+          "page_url": "https://www.bufan.com/games/17909.html",
+          "title": "Third-party APK listings (炫光动感/Dynamix)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: unofficial APK mirror sites are not used by this project"
+        },
+        {
+          "key": "press:search-index-only",
+          "page_url": "https://appget.com/appli/view/66131/",
+          "title": "Press and reference pages seen only as search snippets",
+          "disposition": "pending",
+          "reason": "pending: not fetched (appget review, CUHK Newsletter 447, CUHK Pre-incubation Centre, Giant Bomb, Baidu Baike, Gcores); search-index snippets only"
+        },
+        {
+          "key": "wikiwiki:ravon",
+          "page_url": "https://wikiwiki.jp/ravon/",
+          "title": "RAVON wiki (wikiwiki.jp)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki pages; per-song jacket credits and Dynamix/UV origin notes are credit evidence only"
+        },
+        {
+          "key": "wikiwiki:ravon:chapters",
+          "page_url": "https://wikiwiki.jp/ravon/%E3%83%81%E3%83%A3%E3%83%97%E3%82%BF%E3%83%BC%E9%A0%86",
+          "title": "RAVON wiki chapter list",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game chapter list (Dynamix 1/2 and Dynamix UV 1/2 chapters); evidence only"
+        },
+        {
+          "key": "wikiwiki:paradigm",
+          "page_url": "https://wikiwiki.jp/paradigm_/",
+          "title": "Paradigm: Reboot wiki (wikiwiki.jp)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki pages ('Dynamic Dazzle' songs 「Dynamix」から移植); credit evidence only"
+        },
+        {
+          "key": "wikiwiki:paradigm:albums",
+          "page_url": "https://wikiwiki.jp/paradigm_/%E3%82%A2%E3%83%AB%E3%83%90%E3%83%A0%E9%A0%86",
+          "title": "Paradigm: Reboot wiki album list",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game album list (Dynamic Dazzle / Dynamic Dimension); evidence only"
+        },
+        {
+          "key": "fandom:arcaea:visual-artists",
+          "page_url": "https://arcaea.fandom.com/wiki/Visual_Artists",
+          "title": "Arcaea Fandom Visual Artists",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: roster identity evidence (Nano Kun, HenryTz); no Dynamix artwork files"
+        },
+        {
+          "key": "fandom:hachi-hachi",
+          "page_url": "https://hachi-hachi.fandom.com/wiki/L'AMITIE",
+          "title": "Hachi Hachi Fandom song pages",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner-game wiki without illustrator credits; its jackets are layered backgrounds"
+        },
+        {
+          "key": "wikipedia:zh:sickgame",
+          "page_url": "https://zh.wikipedia.org/zh-tw/%E6%9C%89%E7%97%85%E5%88%B6%E4%BD%9C",
+          "title": "Chinese Wikipedia: 有病制作 (SickGame)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner identity evidence for the Regenerate Violence jacket (mascot 兔兔)"
+        },
+        {
+          "key": "yande.re:349716",
+          "page_url": "https://yande.re/post/show/349716",
+          "title": "yande.re mirror of pixiv 45429113",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: booru repost of deme's illustration (different bytes, mismatched artist tag); the artist's original is archived from its Internet Archive capture (artists:pixiv:548320)",
+          "song_titles": [
+            "Regenerate Violence"
+          ]
+        },
+        {
+          "key": "danbooru:3193031",
+          "page_url": "https://danbooru.donmai.us/posts/3193031",
+          "title": "Danbooru repost of the Theme of Rabi-Ribi jacket",
+          "disposition": "excluded",
+          "song_titles": [
+            "Theme of Rabi-Ribi"
+          ],
+          "reason": "out_of_scope_other: booru repost (community tagging, sourced from an unofficial fan account); not a provenance root"
+        }
+      ]
+    },
+    {
+      "id": "archives:press",
+      "name": "Press articles about Dynamix (explicit images)",
+      "url": "https://gnn.gamer.com.tw/",
+      "platform": "web",
+      "adapter": "direct_files",
+      "hosts": [
+        "gnn.gamer.com.tw",
+        "p2.bahamut.com.tw",
+        "news.qoo-app.com",
+        "d27fq2mgp64qlg.cloudfront.net",
+        "unwire.hk",
+        "cdn.unwire.hk",
+        "www.techbang.com",
+        "cdn1.techbang.com",
+        "www.ifanr.com",
+        "s3.ifanr.com",
+        "www.hk01.com",
+        "cdn.hk01.com",
+        "www.4gamer.net"
+      ],
+      "notes": "Images of press articles found by the 2026-10-10 research (Bahamut GNN, QooApp, unwire.hk, T客邦, ifanr, HK01): the named files plus every article-body image of each read article page (params.article_images), each classified by a rule (downloaded, excluded with its reason, or pending); the 4Gamer #862 column page is enumerated by archives:4gamer. Lower-resolution syndicated copies (9game, Gamersky) are recorded in archives:archive-leads.",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "items": [
+        {
+          "key": "gnn275656:9c5b7911570626cff6690355b41rup55",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/13/9c5b7911570626cff6690355b41rup55.PNG",
+          "read_page": true
+        },
+        {
+          "key": "gnn115106:0001186000",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/00/0001186000.JPG",
+          "read_page": true
+        },
+        {
+          "key": "gnn115106:0001185987",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/87/0001185987.PNG",
+          "read_page": true
+        },
+        {
+          "key": "gnn129234:0001345596",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/96/0001345596.JPG",
+          "read_page": true
+        },
+        {
+          "key": "gnn132827:0001386276",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/76/0001386276.JPG",
+          "read_page": true
+        },
+        {
+          "key": "gnn132827:0001386275",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/75/0001386275.JPG",
+          "read_page": true
+        },
+        {
+          "key": "gnn138982:0001457652",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/52/0001457652.JPG",
+          "read_page": true
+        },
+        {
+          "key": "gnn138982:0001457651",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/51/0001457651.JPG",
+          "read_page": true
+        },
+        {
+          "key": "gnn141991:0001490820",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/20/0001490820.JPG",
+          "read_page": true
+        },
+        {
+          "key": "gnn141991:0001490819",
+          "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+          "file_url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
+          "read_page": true
+        },
+        {
+          "key": "qoo52753:16031706432894",
+          "page_url": "https://news.qoo-app.com/post/52753",
+          "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031706432894.jpg",
+          "read_page": true
+        },
+        {
+          "key": "qoo52753:16013016364422",
+          "page_url": "https://news.qoo-app.com/post/52753",
+          "file_url": "https://news.qoo-app.com/wp-content/uploads/2016/01/16013016364422.jpg",
+          "read_page": true
+        },
+        {
+          "key": "qoo77295:17072106445586",
+          "page_url": "https://news.qoo-app.com/post/77295",
+          "file_url": "https://d27fq2mgp64qlg.cloudfront.net/wp-content/uploads/2015/12/17072106445586.jpg",
+          "read_page": true
+        },
+        {
+          "key": "qoo77295:17072106450727",
+          "page_url": "https://news.qoo-app.com/post/77295",
+          "file_url": "https://d27fq2mgp64qlg.cloudfront.net/wp-content/uploads/2015/12/17072106450727.jpg",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm005",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm005.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm018",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm018.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm028",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm028.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm038",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm038.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm049",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm049.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm058",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm058.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm087",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm087.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2014:wm096",
+          "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2014/10/wm096.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2016:DSC03701",
+          "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/DSC03701.jpg",
+          "read_page": true
+        },
+        {
+          "key": "unwire2016:IMG_7688",
+          "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
+          "read_page": true
+        },
+        {
+          "key": "unwire2016:IMG_7693",
+          "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+          "file_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7693.png",
+          "read_page": true
+        },
+        {
+          "key": "techbang:20767",
+          "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+          "file_url": "https://cdn1.techbang.com/system/excerpt_images/20767/original/5fb4e78491a1dcb3ffd25360fda3421f.png",
+          "read_page": true
+        },
+        {
+          "key": "ifanr:543028",
+          "page_url": "https://www.ifanr.com/app/543028",
+          "file_url": "https://s3.ifanr.com/wp-content/uploads/2015/07/MUG-Dynamix.jpg",
+          "read_page": true
+        },
+        {
+          "key": "hk01:175169",
+          "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+          "file_url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg/_lRFrv0u7IvyWIOlFpbyxCKcor0yxRZGl4Ez25eBM9s",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/003",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/003.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/004",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/004.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/005",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/005.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/006",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/006.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/007",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/007.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/011",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/011.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/012",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/012.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/013",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/013.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/014",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/014.jpg",
+          "read_page": true
+        },
+        {
+          "key": "4gamer862:SS/015",
+          "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+          "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/SS/015.jpg",
+          "read_page": true
+        }
+      ],
+      "rules": [
+        {
+          "match": "^gnn275656:9c5b7911570626cff6690355b41rup55$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Dynamix 10th anniversary event poster (new character, special title, comeback event).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "visual_inspection: the poster carries the original Dynamix wordmark and '10TH ANNIVERSARY'; the article's other images are Dynamix Universe material (recorded in archives:archive-leads)"
+          ]
+        },
+        {
+          "match": "^gnn115106:0001186000$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official launch banner '香港制作 音樂遊戲 / 超本格音樂遊戲 三面落下' (2015-05 iOS launch).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ],
+          "variant_group": "press:gnn115106-launch-banner",
+          "variant_role": "800x448 copy (the article's og:image); the 1024x574 copy in the body is gnn115106:0001185999"
+        },
+        {
+          "match": "^gnn115106:0001185987$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "In-game song-pack store screenshot (2015).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345596$",
+          "role": "reference",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official milestone timeline graphic (releases and download counts, 2016).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn132827:0001386276$",
+          "role": "song_art",
+          "song_titles": [
+            "Hemisphere"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "ARForest"
+          ],
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Hemisphere jacket artwork (1920x1080) as GNN published it for the 3.0 update (2016-06), with a cooler colour grading than the in-game jacket.",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+              "note": "the page's img title for this image is 'Hemisphere'; visual_inspection 2026-10-10: same planet-and-butterflies composition as the wiki jacket HemisphereDynamix.png (1024x572) with a different colour grading (mean absolute pixel difference 29/255)"
+            }
+          ],
+          "variant_group": "jacket:hemisphere",
+          "variant_role": "1920x1080 press copy with a different colour grading than the in-game jacket",
+          "notes": "Illustrator not credited: the wiki song page names no cover artist.",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Hemisphere",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51825)"
+          },
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn132827:0001386275$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "3.0 'Outer Space' announcement card (2016): the 'Exchange Songs List: Loading… Pre-view Available' card template, a designed pack/update announcement, not an in-game screen. visual_inspection 2026-10-10: the same template as the official 3.0 news banner (Wayback thumbnail Dynamix_Website3_0-199x128.png, the same 'Outer Space' card) and the OverRapid collaboration video thumbnail shbCnvJovcE ('WAH!'), both promotional, so the three share one kind.",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn138982:0001457652$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen over the Oracle jacket (v3.2, 2016).",
+          "song_titles": [
+            "Oracle"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Oracle' and 'TQ☆'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn138982:0001457651$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "In-game store screen of the Z.H.D. pack (2016).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn141991:0001490820$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Vocal Collection package promo (1920x1080, 2017-01).",
+          "collections": [
+            "Package Vocal"
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn141991:0001490819$",
+          "role": "reference",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official event 'COMING SOON' card for Sakura Fubuki (1920x1080, 2017-01); it displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1).",
+          "song_titles": [
+            "Sakura Fubuki"
+          ],
+          "mapping_status": "inferred",
+          "collections": [
+            "Event"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+              "note": "visual_inspection 2026-10-10: the card prints 'Sakura Fubuki' and 'Street'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^qoo52753:16031706432894$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen over the Play A Day jacket (2016)."
+        },
+        {
+          "match": "^qoo52753:16013016364422$",
+          "action": "exclude",
+          "reason": "person_photo: booth photo with the two founders"
+        },
+        {
+          "match": "^qoo77295:17072106445586$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "In-game character screen with the QooApp collaboration character Elly (2017-07)."
+        },
+        {
+          "match": "^qoo77295:17072106450727$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "In-game character screen with the QooApp collaboration character Gilbert (2017-07)."
+        },
+        {
+          "match": "^unwire2014:wm005$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2014:wm018$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2014:wm028$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2014:wm038$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2014:wm049$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2014:wm058$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2014:wm087$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2014:wm096$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+        },
+        {
+          "match": "^unwire2016:DSC03701$",
+          "action": "exclude",
+          "reason": "person_photo: art director 江國機 and CEO 曾家俊 at HKSTP"
+        },
+        {
+          "match": "^unwire2016:IMG_7688$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "visual_inspection 2026-10-10: language-select screen (caption '語言有「正體中文」選擇。（遊戲畫面截圖）'); in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+        },
+        {
+          "match": "^unwire2016:IMG_7693$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen over the 香港ノ奇術師 jacket (2016)."
+        },
+        {
+          "match": "^techbang:20767$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Dynamix logo key visual (article excerpt image)."
+        },
+        {
+          "match": "^ifanr:543028$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Gameplay capture (Stardust) in a 2015 rhythm-game roundup."
+        },
+        {
+          "match": "^hk01:175169$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "repost",
+            "master_status": "unverified",
+            "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image."
+          },
+          "candidate_notes": "Main image (og:image, mainImage) of HK01's 2018 Dynamix feature; visual_inspection 2026-10-10: the Dynamix wordmark over a colour waveform (logo key art)."
+        },
+        {
+          "match": "^hk01-175169:\\d+$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "repost",
+            "master_status": "unverified",
+            "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+          },
+          "transformed": true,
+          "candidate_notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+        },
+        {
+          "match": "^4gamer862:SS/003$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/004$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/005$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/006$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/007$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/011$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/012$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/013$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/014$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^4gamer862:SS/015$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+        },
+        {
+          "match": "^gnn275656:b932c710f7a1e7073e1bcc22031rv5f5$",
+          "action": "exclude",
+          "reason": "universe_only: Dynamix Universe key art with the 'DYNAMIX UNIVERSE' logo (the article's header image)",
+          "game": "dynamix_universe"
+        },
+        {
+          "match": "^gnn275656:a3896962b806b37baed3993f501rup75$",
+          "action": "exclude",
+          "reason": "universe_only: Dynamix Universe key art with the 'DYNAMIX UNIVERSE' logo",
+          "game": "dynamix_universe"
+        },
+        {
+          "match": "^gnn275656:a68a7a7b0a10f82fe6f6fa5ae01rup85$",
+          "action": "exclude",
+          "reason": "universe_only: Dynamix Universe galaxy-map screen (caption '探索銀河系'; marked 開發中畫面)",
+          "game": "dynamix_universe"
+        },
+        {
+          "match": "^gnn275656:537955894d70bc7ad02e36db1a1rup95$",
+          "action": "exclude",
+          "reason": "universe_only: Dynamix Universe characters (caption '與隊員探索銀河系'; marked 開發中畫面)",
+          "game": "dynamix_universe"
+        },
+        {
+          "match": "^gnn275656:3715b65feae567f754d4af95781rupa5$",
+          "action": "exclude",
+          "reason": "universe_only: Dynamix Universe exploration screen (caption on data ruins and rhythm fragments; marked 開發中畫面)",
+          "game": "dynamix_universe"
+        },
+        {
+          "match": "^gnn275656:ea86b16f47048d3ead7c1e86891rupb5$",
+          "action": "exclude",
+          "reason": "universe_only: Dynamix Universe in-development gameplay (marked 開發中畫面)",
+          "game": "dynamix_universe"
+        },
+        {
+          "match": "^gnn275656:43c7d6d8b874dfad1f2ab42fdd1rupc5$",
+          "action": "exclude",
+          "reason": "universe_only: Dynamix Universe in-development gameplay with new notes (caption '其他新音符'; marked 開發中畫面)",
+          "game": "dynamix_universe"
+        },
+        {
+          "match": "^gnn115106:0001185988$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "In-game store screen of the Four Horsemen pack (2015).",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn115106:0001185989$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 'Get Actinium by 200 share.' event promo (1920x1080, 2015).",
+          "song_titles": [
+            "Actinium"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+              "note": "visual_inspection 2026-10-10: the image prints 'GET ACTINIUM BY 200 SHARE.'; the article describes the 特典曲「Actinium」 event"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn115106:0001185990$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen over the Actinium jacket (2015).",
+          "song_titles": [
+            "Actinium"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+              "note": "visual_inspection 2026-10-10: the screen prints 'ACTINIUM' and 'Mimi'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn115106:0001185999$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Larger copy (1024x574) of the launch banner shown in the article body.",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ],
+          "variant_group": "press:gnn115106-launch-banner",
+          "variant_role": "1024x574 copy in the article body (the 800x448 og:image copy is gnn115106:0001186000; mean absolute pixel difference 2.8/255 after resizing)"
+        },
+        {
+          "match": "^gnn115106:0001185992$",
+          "action": "exclude",
+          "reason": "site_ui: QR code of the iOS download link (caption 'iOS 版下載連結（免費）')"
+        },
+        {
+          "match": "^gnn129234:0001345632$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: GNN's 599x337 header rendition (og:image) of the article's 1920x1080 Moonlight of Sand Castle jacket gnn129234:0001345595 (mean absolute pixel difference 2.5/255 after resizing)"
+        },
+        {
+          "match": "^gnn129234:0001345608$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen of the GameParty 2016 event song Play A Day (caption).",
+          "song_titles": [
+            "Play A Day"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+              "note": "the caption reads 'GameParty2016 活動的來場特典曲，Play A Day'; the screen prints 'PLAY A DAY'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345609$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "visual_inspection 2026-10-10: v2.7.0 in-game download-progress screen; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345595$",
+          "role": "song_art",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Moonlight of Sand Castle jacket (1920x1080) shown with the article's note on new 2.7 songs.",
+          "song_titles": [
+            "Moonlight of Sand Castle"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
+              "note": "visual_inspection 2026-10-10: pixel comparison with the wiki jacket Moonlight_of_Sand_Castle.jpg (1920x1080): mean absolute difference 2.6/255 at the same size; the article names Moonlight of Sand Castle as a new 2.7 song right before the image"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ],
+          "illustrators": [
+            "NanoKun"
+          ],
+          "composers": [
+            "旅人E"
+          ],
+          "variant_group": "jacket:moonlight-of-sand-castle",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50282)"
+          }
+        },
+        {
+          "match": "^gnn129234:0001345597$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "3.0 interface preview: song-select over the Hemisphere jacket (2016-03).",
+          "song_titles": [
+            "Hemisphere"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Hemisphere' and 'ARForest'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345598$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "3.0 interface preview: song-select over the Invaded jacket (2016-03).",
+          "song_titles": [
+            "Invaded"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Invaded' and 'Spyro Kong'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345599$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "3.0 interface preview: song-select over the Set Free -KIVΛ Edition- jacket (2016-03).",
+          "song_titles": [
+            "Set Free -KIVΛ Edition-"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Set Free -KIVA Edition-' and 'KIVA'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345600$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "3.0 interface preview: song-select over the Creater S jacket (2016-03).",
+          "song_titles": [
+            "Creater S"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Creater S' and 'CRE'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345601$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "3.0 interface preview with the WILL, Decomposition and 流れ星に願うよいま... jackets (2016-03).",
+          "song_titles": [
+            "WILL",
+            "Decomposition",
+            "流れ星に願うよいま..."
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+              "note": "visual_inspection 2026-10-10: the panels print 'WILL', 'Decomposition' and '流れ星に願うよいま...'"
+            }
+          ],
+          "allow_universe_mention": true,
+          "game_evidence": [
+            "the page mentions Dynamix Universe only in GNN's related-articles sidebar (a 2024 article); this article and its images predate Universe (visual_inspection 2026-10-10: original Dynamix UI and art)"
+          ]
+        },
+        {
+          "match": "^gnn129234:0001345602$",
+          "action": "exclude",
+          "reason": "not_dynamix: Rabi-Ribi (reSpirit) title and gameplay screens shown for the announced collaboration; the partner game's material",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^gnn129234:0001345603$",
+          "action": "exclude",
+          "reason": "not_dynamix: Rabi-Ribi logo art with its characters (the partner game's key art)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^gnn129234:0001345604$",
+          "action": "exclude",
+          "reason": "not_dynamix: teaser of C4Cat's next project (Project W), letter frame 'To whom it may concern'",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^gnn129234:0001345605$",
+          "action": "exclude",
+          "reason": "not_dynamix: teaser of C4Cat's next project (Project W), character sketches",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^gnn129234:0001345606$",
+          "action": "exclude",
+          "reason": "not_dynamix: teaser of C4Cat's next project (Project W), character sketches",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^gnn129234:0001345607$",
+          "action": "exclude",
+          "reason": "not_dynamix: teaser of C4Cat's next project (Project W), frame 'Project W / Under development'",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^gnn138982:0001457683$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: GNN's 600x315 header crop (og:image) of the article's 1600x1200 Oracle song-select screenshot gnn138982:0001457652 (same screen and score 0942946)"
+        },
+        {
+          "match": "^gnn141991:0001490823$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: GNN's 599x337 header rendition (og:image) of the article's 1920x1080 Vocal Collection Package promo gnn141991:0001490820 (mean absolute pixel difference 3.3/255 after resizing)"
+        },
+        {
+          "match": "^qoo52753:16031706572675$",
+          "action": "exclude",
+          "reason": "not_dynamix: teaser frame of C4Cat's next project ('Project W / Under development')",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^qoo52753:16031608485930$",
+          "action": "exclude",
+          "reason": "not_dynamix: teaser frame of C4Cat's next project ('Project W / Under development'; same file as qoo52753:16031706572675)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^qoo52753:16031608485927$",
+          "action": "exclude",
+          "reason": "not_dynamix: character sketches of C4Cat's next project (Project W)",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^qoo52753:16031707051357$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "visual_inspection 2026-10-10: title-screen wordmark band, watermarked by QooApp; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+        },
+        {
+          "match": "^qoo52753:16031706195396$",
+          "action": "exclude",
+          "reason": "person_photo: the team at work in the office"
+        },
+        {
+          "match": "^qoo52753:16031707070483$",
+          "action": "exclude",
+          "reason": "person_photo: exhibition booth with visitors"
+        },
+        {
+          "match": "^qoo52753:1603170701198$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: QooApp-watermarked copy (815x792) of the official website song-art collage new32.png, archived from its own capture as archives:wayback:77957c0d9f1b5ff4 (mean absolute pixel difference 3.2/255)"
+        },
+        {
+          "match": "^qoo52753:16013015554246$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official poster 'Dynamix / Music Game on Mobile' with the characters, store badges and a QR code (720x960)."
+        },
+        {
+          "match": "^qoo52753:16031706514913$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen over the パントマイム feat. IA jacket (2016).",
+          "song_titles": [
+            "パントマイム feat. IA"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://news.qoo-app.com/post/52753",
+              "note": "visual_inspection 2026-10-10: the screen prints 'パントマイム feat. IA' and 'Utae'"
+            }
+          ]
+        },
+        {
+          "match": "^qoo77295:17072410251929$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "'QOOAPP x DYNAMIX コラボレーション' banner with the collaboration characters (1022x570; the article's og:image).",
+          "variant_group": "press:qoo77295-collab-banner",
+          "variant_role": "1022x570 version"
+        },
+        {
+          "match": "^qoo77295:17072410221141$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "'QOOAPP x DYNAMIX コラボレーション' banner, tighter 1024x461 crop.",
+          "variant_group": "press:qoo77295-collab-banner",
+          "variant_role": "1024x461 crop"
+        },
+        {
+          "match": "^qoo77295:17072409525150$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "visual_inspection 2026-10-10: player-profile screen marking where the collaboration code is entered; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+        },
+        {
+          "match": "^unwire2014:googleplay2$",
+          "action": "exclude",
+          "reason": "site_ui: 'Get it on Google play' store badge"
+        },
+        {
+          "match": "^unwire2014:chart3$",
+          "action": "exclude",
+          "reason": "site_ui: QR code (150x150)"
+        },
+        {
+          "match": "^unwire2016:IMG_7694$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen over the Variance jacket (EVAS pack; caption '畫風偏日系，迎合玩家偏好。').",
+          "song_titles": [
+            "Variance"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Variance' and 'mmry'"
+            }
+          ]
+        },
+        {
+          "match": "^unwire2016:IMG_7703$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Gameplay of Stardust (Hard).",
+          "song_titles": [
+            "Stardust"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Stardust' and 'HARD'"
+            }
+          ]
+        },
+        {
+          "match": "^unwire2016:IMG_7707$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Gameplay of Stardust (Hard) with side notes (caption on notes from three sides).",
+          "song_titles": [
+            "Stardust"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Stardust' and 'HARD'"
+            }
+          ]
+        },
+        {
+          "match": "^unwire2016:DSC03652a$",
+          "action": "exclude",
+          "reason": "person_photo: a founder presenting at the HKSTP event"
+        },
+        {
+          "match": "^unwire2016:DSC03639$",
+          "action": "exclude",
+          "reason": "person_photo: the founders demonstrating the game (caption '創辦人即場 demo 遊戲玩法。')"
+        },
+        {
+          "match": "^techbang20767:185818$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "visual_inspection 2026-10-10: title screen of v0.08.00 (logo, 'Tap to Start' and menu); in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+        },
+        {
+          "match": "^techbang20767:185825$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "visual_inspection 2026-10-10: song-list screen of the Missionary pack; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+        },
+        {
+          "match": "^techbang20767:185824$",
+          "action": "exclude",
+          "reason": "game_ui: app icon (150x150)"
+        },
+        {
+          "match": "^techbang20767:185819$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Song-select screen over the 春菊 jacket (2014).",
+          "song_titles": [
+            "春菊"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+              "note": "visual_inspection 2026-10-10: the screen prints '春菊' and 'SUWAKI'"
+            }
+          ]
+        },
+        {
+          "match": "^techbang20767:185820$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Play-settings screen over the 春菊 jacket (2014).",
+          "song_titles": [
+            "春菊"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+              "note": "visual_inspection 2026-10-10: the screen prints '春菊' and 'SUWAKI'"
+            }
+          ]
+        },
+        {
+          "match": "^techbang20767:185821$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Gameplay of Impromptu D899#3-Y over its character art (2014).",
+          "song_titles": [
+            "Impromptu D899#3-Y"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Impromptu D899#3-Y'"
+            }
+          ]
+        },
+        {
+          "match": "^techbang20767:185822$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Gameplay of Impromptu D899#3-Y over its character art (2014).",
+          "song_titles": [
+            "Impromptu D899#3-Y"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Impromptu D899#3-Y'"
+            }
+          ]
+        },
+        {
+          "match": "^techbang20767:185823$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Gameplay of Impromptu D899#3-Y over its character art (2014).",
+          "song_titles": [
+            "Impromptu D899#3-Y"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+              "note": "visual_inspection 2026-10-10: the screen prints 'Impromptu D899#3-Y'"
+            }
+          ]
+        },
+        {
+          "match": "^ifanr543028:MUG\\-Cytus$",
+          "action": "exclude",
+          "reason": "not_dynamix: Cytus capture in the roundup",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^ifanr543028:MUG\\-Deemo$",
+          "action": "exclude",
+          "reason": "not_dynamix: Deemo capture in the roundup",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^ifanr543028:MUG\\-Jukebeat$",
+          "action": "exclude",
+          "reason": "not_dynamix: jubeat capture in the roundup",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^ifanr543028:MUG\\-LoveLive$",
+          "action": "exclude",
+          "reason": "not_dynamix: Love Live! School idol festival capture in the roundup",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^ifanr543028:MUG\\-tgdr$",
+          "action": "exclude",
+          "reason": "not_dynamix: Taiko no Tatsujin capture in the roundup",
+          "game": "not_dynamix"
+        },
+        {
+          "match": "^ifanr543028:shutterstock_130039298$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+        },
+        {
+          "match": "^ifanr543028:shutterstock_262575536$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+        },
+        {
+          "match": "^ifanr543028:MUG\\-Feature$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+        },
+        {
+          "match": "^ifanr543028:MUG\\-Feature1$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: stock photograph illustrating the roundup (not game material)"
+        },
+        {
+          "match": "^qoo(?:52753|77295):other:o\\.qoo-img\\.com/ggpht/PmlNgEnpqpEQYHoDUfc_L-HDrxYnHCi1_Pg6X-GqMZaTPqvQVoijCmfxWDSl5fdoFdE$",
+          "action": "exclude",
+          "reason": "game_ui: store app icon of Dynamix in QooApp's app card at the end of the article (branding, not artwork)"
+        },
+        {
+          "match": "^qoo77295:other:o\\.qoo-img\\.com/storage\\.qoo-img\\.com/game/880/yN0SsuRVE8KIPNUbHQmfTKiCOlIxon9I\\.png$",
+          "action": "exclude",
+          "reason": "site_ui: app icon of the QooApp store app in the publication's own app card (QooApp promoting itself)"
+        },
+        {
+          "match": "^unwire20(?:14|16):other:cdn\\.unwire\\.hk/wp-content/uploads/20(?:1[7-9]|[2-9][0-9])/",
+          "action": "exclude",
+          "reason": "site_ui: thumbnail in the publication's 'latest video' footer block inside the article container (a later, unrelated video; 2026-10-10: 'MATELASER W1 REGEN ULTRA 香港開箱評測'), not an image of this article"
+        },
+        {
+          "match": "^techbang20767:other:cdn[0-9]\\.techbang\\.com/images/lazyload/loading\\.gif$",
+          "action": "exclude",
+          "reason": "site_ui: lazy-load placeholder (the article image itself is in data-original)"
+        },
+        {
+          "match": "^ifanr543028:other:images\\.ifanr\\.cn/wp-content/themes/ifanr/static/images/default-avatar\\.jpg$",
+          "action": "exclude",
+          "reason": "site_ui: default avatar of the site theme's comment form"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/images/qrcode_00[01]\\.png$",
+          "action": "exclude",
+          "reason": "site_ui: QR code of the iOS/Android download page"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/TN/001\\.jpg$",
+          "action": "exclude",
+          "reason": "site_ui: banner of the column (ほぼ)日刊スマホゲーム通信 (also recorded by archives:4gamer)"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/TN/002\\.jpg$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: article thumbnail (og:image) cropped from the Wonderful Days song-select screenshot SS/014, archived as 4gamer862:SS/014"
+        },
+        {
+          "match": "^4gamer862:SS/other:www\\.4gamer\\.net/games/306/G030626/20150617094/TN/[0-9]+\\.jpg$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: gallery thumbnail of the screenshot whose 1136x640 SS/ file of the same number is archived under 4gamer862:SS/"
+        }
+      ],
+      "params": {
+        "article_images": [
+          {
+            "page_url": "https://gnn.gamer.com.tw/detail.php?sn=275656",
+            "key_prefix": "gnn275656:",
+            "select": "div.GN-lbox3B",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://p2\\.bahamut\\.com\\.tw/[MS]/2KU/",
+                "https://p2.bahamut.com.tw/B/2KU/"
+              ]
+            ],
+            "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
+          },
+          {
+            "page_url": "https://gnn.gamer.com.tw/detail.php?sn=115106",
+            "key_prefix": "gnn115106:",
+            "select": "div.GN-lbox3B",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://p2\\.bahamut\\.com\\.tw/[MS]/2KU/",
+                "https://p2.bahamut.com.tw/B/2KU/"
+              ]
+            ],
+            "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
+          },
+          {
+            "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+            "key_prefix": "gnn129234:",
+            "select": "div.GN-lbox3B",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://p2\\.bahamut\\.com\\.tw/[MS]/2KU/",
+                "https://p2.bahamut.com.tw/B/2KU/"
+              ]
+            ],
+            "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
+          },
+          {
+            "page_url": "https://gnn.gamer.com.tw/detail.php?sn=132827",
+            "key_prefix": "gnn132827:",
+            "select": "div.GN-lbox3B",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://p2\\.bahamut\\.com\\.tw/[MS]/2KU/",
+                "https://p2.bahamut.com.tw/B/2KU/"
+              ]
+            ],
+            "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
+          },
+          {
+            "page_url": "https://gnn.gamer.com.tw/detail.php?sn=138982",
+            "key_prefix": "gnn138982:",
+            "select": "div.GN-lbox3B",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://p2\\.bahamut\\.com\\.tw/[MS]/2KU/",
+                "https://p2.bahamut.com.tw/B/2KU/"
+              ]
+            ],
+            "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
+          },
+          {
+            "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
+            "key_prefix": "gnn141991:",
+            "select": "div.GN-lbox3B",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://p2\\.bahamut\\.com\\.tw/[MS]/2KU/",
+                "https://p2.bahamut.com.tw/B/2KU/"
+              ]
+            ],
+            "pattern": "https://p2\\.bahamut\\.com\\.tw/B/2KU/\\d+/(?P<key>[0-9a-z]+)\\.(?:JPG|PNG|jpg|png)",
+            "supplied_marker": "【以下內容為廠商提供資料原文】",
+            "supplied_note": "Press copy as served by the publication, inside the part of the article that the page labels as material supplied by the developer."
+          },
+          {
+            "page_url": "https://news.qoo-app.com/post/52753",
+            "key_prefix": "qoo52753:",
+            "select": "div.entry-content",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://i\\d\\.wp\\.com/",
+                "https://"
+              ],
+              [
+                "-\\d+x\\d+(\\.\\w+)$",
+                "\\1"
+              ]
+            ],
+            "pattern": "https://news\\.qoo-app\\.com/wp-content/uploads/\\d{4}/\\d{2}/[^/]+\\.(?:jpe?g|png|gif|webp)"
+          },
+          {
+            "page_url": "https://news.qoo-app.com/post/77295",
+            "key_prefix": "qoo77295:",
+            "select": "div.entry-content",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://i\\d\\.wp\\.com/",
+                "https://"
+              ],
+              [
+                "-\\d+x\\d+(\\.\\w+)$",
+                "\\1"
+              ]
+            ],
+            "pattern": "https://news\\.qoo-app\\.com/wp-content/uploads/\\d{4}/\\d{2}/[^/]+\\.(?:jpe?g|png|gif|webp)"
+          },
+          {
+            "page_url": "https://unwire.hk/2014/10/30/dynamix/game-channel/",
+            "key_prefix": "unwire2014:",
+            "select": "div.entry-content",
+            "og_image": true,
+            "rewrite": [
+              [
+                "-\\d+x\\d+(\\.\\w+)$",
+                "\\1"
+              ]
+            ],
+            "pattern": "https://cdn\\.unwire\\.hk/wp-content/uploads/2014/10/[^/]+\\.(?:jpe?g|png|gif)"
+          },
+          {
+            "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+            "key_prefix": "unwire2016:",
+            "select": "div.entry-content",
+            "og_image": true,
+            "rewrite": [
+              [
+                "-\\d+x\\d+(\\.\\w+)$",
+                "\\1"
+              ]
+            ],
+            "pattern": "https://cdn\\.unwire\\.hk/wp-content/uploads/2016/08/[^/]+\\.(?:jpe?g|png|gif)"
+          },
+          {
+            "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+            "key_prefix": "techbang20767:",
+            "select": "article.article section.content",
+            "og_image": true,
+            "rewrite": [
+              [
+                "^https://cdn\\d\\.techbang\\.com/",
+                "https://cdn1.techbang.com/"
+              ]
+            ],
+            "pattern": "https://cdn1\\.techbang\\.com/system/(?:images/(?P<key>\\d+)|excerpt_images/20767)/original/[0-9a-f]+\\.(?:jpe?g|png)"
+          },
+          {
+            "page_url": "https://www.ifanr.com/app/543028",
+            "key_prefix": "ifanr543028:",
+            "select": "div.o-single-content",
+            "og_image": true,
+            "rewrite": [
+              [
+                "![0-9]+$",
+                ""
+              ],
+              [
+                "-\\d+x\\d+(\\.\\w+)$",
+                "\\1"
+              ]
+            ],
+            "pattern": "https://s3\\.ifanr\\.com/wp-content/uploads/2015/07/[^/]+\\.(?:jpe?g|png|gif)"
+          },
+          {
+            "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+            "key_prefix": "hk01-175169:",
+            "select": "article",
+            "og_image": true,
+            "embedded_json": {
+              "script_id": "__NEXT_DATA__",
+              "blocks": "props.initialProps.pageProps.article.blocks",
+              "type_field": "blockType",
+              "images": {
+                "image": "image",
+                "gallery": "images"
+              },
+              "url_field": "cdnUrl",
+              "caption_field": "caption",
+              "count": "props.initialProps.pageProps.article.imageCount",
+              "width_field": "originalWidth",
+              "height_field": "originalHeight",
+              "extra_images": [
+                "props.initialProps.pageProps.article.mainImage"
+              ]
+            },
+            "pattern": "https://cdn\\.hk01\\.com/di/media/images/(?P<key>\\d+)/org/(?P<name>[0-9a-f]+\\.(?:jpe?g|JPE?G|png|PNG))/[A-Za-z0-9_-]+"
+          },
+          {
+            "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+            "key_prefix": "4gamer862:SS/",
+            "select": "div.maintxt div.entry-content",
+            "attr_urls": [
+              "onclick"
+            ],
+            "pattern": "https://www\\.4gamer\\.net/games/306/G030626/20150617094/SS/(?P<key>\\d+)\\.jpg"
+          }
+        ]
+      }
+    }
+  ]
+}

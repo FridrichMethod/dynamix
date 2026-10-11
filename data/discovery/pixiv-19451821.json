@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:19451821",
+  "started_at": "2026-10-10T22:33:20Z",
+  "finished_at": "2026-10-10T22:33:29Z",
+  "scope": {
+    "lists": [
+      "seed-artworks",
+      "wayback-captures"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
+  },
+  "continuation": {
+    "seed-artworks": null,
+    "wayback-captures": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:19451821:62705530:p0",
+      "source_id": "artists:pixiv:19451821",
+      "upstream_key": "62705530:p0",
+      "page_url": "https://www.pixiv.net/artworks/62705530",
+      "file_url": "https://web.archive.org/web/20221219122635id_/https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg",
+      "title": "Between Boundaries (p0)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/62705530",
+        "title: Between Boundaries",
+        "caption: submission for Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2017/05/03/01/49/46/62705530_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 4092,
+        "height": 2305,
+        "sha1": "e1ba6a6376bafcbdf2b327f2b4d748e50a80390d",
+        "timestamp": "2017-05-02T16:49:00+00:00",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:19451821:b5c7808353b3e484",
+      "song_titles": [
+        "Between Boundaries"
+      ],
+      "illustrators": [
+        "Kyokaz"
+      ],
+      "composers": [
+        "DJ Counterforce"
+      ]
+    }
+  ],
+  "errors": []
+}

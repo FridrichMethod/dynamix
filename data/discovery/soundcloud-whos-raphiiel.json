@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:whos-raphiiel",
+  "started_at": "2026-10-10T22:36:17Z",
+  "finished_at": "2026-10-10T22:36:18Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:whos-raphiiel:tech-nique",
+      "source_id": "artists:soundcloud:whos-raphiiel",
+      "upstream_key": "tech-nique",
+      "page_url": "https://soundcloud.com/whos-raphiiel/tech-nique",
+      "file_url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-original.jpg",
+      "title": "Tech-Nique 【F/C LiNKED EMOTiONS】",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/whos-raphiiel/tech-nique",
+        "visual_inspection 2026-10-10: the cover's illustration is the in-game jacket File:TechNiqueDynamix.png"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-nGKK4GmOUFJihFLl-CQbJbg-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2021-06-12T14:50:26Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:whos-raphiiel:2145579cfb6383d8",
+      "song_titles": [
+        "Tech-Nique"
+      ],
+      "illustrators": [
+        "MayMiyuriAe"
+      ],
+      "composers": [
+        "Raphiiel"
+      ]
+    }
+  ],
+  "errors": []
+}

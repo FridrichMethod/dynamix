@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "source_id": "archives:4gamer",
+  "started_at": "2026-10-11T01:19:03Z",
+  "finished_at": "2026-10-11T01:19:05Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Links matching explicit patterns on explicit pages only."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/001.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/001.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (2/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/001.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "site_ui: banner of the column (ほぼ)日刊スマホゲーム通信"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/002.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/002.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/002.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (1/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/002.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail (og:image) cropped from the Wonderful Days song-select screenshot SS/014, archived in archives:press as 4gamer862:SS/014"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/003.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/003.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (3/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/004.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/004.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (4/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/005.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/005.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (5/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/006.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/006.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (6/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/006.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/007.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/007.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (7/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/007.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/011.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/011.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (12/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/011.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/012.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/012.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (8/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/012.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/013.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/013.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (10/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/013.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/014.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/014.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (9/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/014.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/20150617094/TN/015.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/20150617094/TN/015.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
+      "file_url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (11/12)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/20150617094/TN/015.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: article thumbnail of a screenshot whose 1136x640 SS/ file is archived in archives:press (the SS URL is only in the page's overlay script)"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/001.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/001.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/001.jpg",
+      "title": "画像ギャラリー | iPhone/iPad版 Dynamix (5/5)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/001.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:94ffd3b171e23bc6"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/002.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/002.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/002.jpg",
+      "title": "画像ギャラリー | iPhone/iPad版 Dynamix (4/5)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/002.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:0ef37b2796696701"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/003.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/003.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/003.jpg",
+      "title": "画像ギャラリー | iPhone/iPad版 Dynamix (3/5)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/003.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:c471bc8e18acaf6d"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/004.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/004.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/004.jpg",
+      "title": "画像ギャラリー | iPhone/iPad版 Dynamix (2/5)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/004.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:05da0cb8631abce2"
+    },
+    {
+      "id": "archives:4gamer:games/306/G030626/SS/005.jpg",
+      "source_id": "archives:4gamer",
+      "upstream_key": "games/306/G030626/SS/005.jpg",
+      "page_url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
+      "file_url": "https://www.4gamer.net/games/306/G030626/SS/005.jpg",
+      "title": "画像ギャラリー | iPhone/iPad版 Dynamix (1/5)",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://www.4gamer.net/games/306/G030626/SS/005.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "archives:4gamer:7121886afb701466"
+    }
+  ],
+  "errors": []
+}

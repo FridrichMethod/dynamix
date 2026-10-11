@@ -44,6 +44,9 @@ THUMB_DIR = "assets/thumbs"
 
 FAMILIES = paths.FAMILIES  # ("wikis", "artists", "official", "archives")
 FAMILY_PRIORITY = ("artists", "official", "wikis", "archives")  # catalog primary-record choice, first wins
+# Within a family these sources rank first, in this order (Miraheze is the current wiki and its stored bytes are the
+# bytes both English wikis serve; Fandom is the legacy copy); every other source follows them, tied.
+PREFERRED_SOURCES = ("wikis:miraheze", "wikis:fandom")
 REGISTERED_SOURCE_IDS = (
     "wikis:miraheze", "wikis:fandom", "wikis:atwiki-ja", "wikis:rhythmgame-ja",
     "official:apple-store", "official:google-play", "official:taptap", "official:website", "official:c4cat",
@@ -164,9 +167,15 @@ def catalog_sort_key(asset: Mapping[str, Any]) -> tuple:
 
 
 def provenance_sort_key(record: Mapping[str, Any]) -> tuple:
-    """Primary-record order for one SHA-256: family priority, source ID, asset ID (``id`` or ``asset_id``)."""
+    """Primary-record order for one SHA-256 (09 "Catalog presentation rules", Primary record); the minimum is the
+    primary: family priority (FAMILY_PRIORITY); PREFERRED_SOURCES within the family (wikis:miraheze, then wikis:fandom,
+    then every other source, tied); ``quality.source_variant`` (SOURCE_VARIANTS order: site_original < preview <
+    unknown); source ID; asset ID (``id`` or ``asset_id``). Total and deterministic, since an asset ID is unique."""
     family = record.get("family") or source_family(record["source_id"])
-    return FAMILY_PRIORITY.index(family), record["source_id"], record.get("id") or record.get("asset_id") or ""
+    source_id = record["source_id"]
+    preferred = PREFERRED_SOURCES.index(source_id) if source_id in PREFERRED_SOURCES else len(PREFERRED_SOURCES)
+    return (FAMILY_PRIORITY.index(family), preferred, SOURCE_VARIANTS.index(record["quality"]["source_variant"]),
+            source_id, record.get("id") or record.get("asset_id") or "")
 
 
 def ordered_union(lists: Iterable[Iterable[str]]) -> list[str]:

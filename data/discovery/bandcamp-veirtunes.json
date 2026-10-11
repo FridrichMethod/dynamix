@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:bandcamp:veirtunes",
+  "started_at": "2026-10-10T22:33:05Z",
+  "finished_at": "2026-10-10T22:33:05Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:bandcamp:veirtunes:track/beyond-ephemera",
+      "source_id": "artists:bandcamp:veirtunes",
+      "upstream_key": "track/beyond-ephemera",
+      "page_url": "https://veirtunes.bandcamp.com/track/beyond-ephemera",
+      "file_url": "https://f4.bcbits.com/img/a2011763979_0.jpg",
+      "title": "Beyond Ephemera, by VEiR",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "https://veirtunes.bandcamp.com/track/beyond-ephemera",
+        "upstream text: Dynamix [C4Cat Open Submission 2026] | Rejected Submission"
+      ],
+      "source_reported": {
+        "url": "https://f4.bcbits.com/img/a2011763979_5.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "rejected_submission: Dynamix [C4Cat Open Submission 2026] | Rejected Submission"
+    }
+  ],
+  "errors": []
+}

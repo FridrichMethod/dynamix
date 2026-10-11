@@ -1,0 +1,38 @@
+{
+ "title": "MassacrE || 3rc4224M",
+ "description": "Commission for RAVON and Dynamix (Square / 16:9 / Original)",
+ "user": {
+  "username": "sandgodoven"
+ },
+ "assets": [
+  {
+   "id": 101,
+   "has_image": true,
+   "title": "dynamix-16x9",
+   "width": 3840,
+   "height": 2160,
+   "image_url": "https://cdna.artstation.com/p/assets/images/images/041/000/101/large/sand-suna-dynamix-16x9.jpg?1631000000"
+  },
+  {
+   "id": 102,
+   "has_image": true,
+   "title": "ravon-square",
+   "width": 3840,
+   "height": 2160,
+   "image_url": "https://cdna.artstation.com/p/assets/images/images/041/000/102/large/sand-suna-ravon-square.jpg?1631000000"
+  },
+  {
+   "id": 103,
+   "has_image": true,
+   "title": "original",
+   "width": 3840,
+   "height": 2160,
+   "image_url": "https://cdna.artstation.com/p/assets/images/images/041/000/103/large/sand-suna-original.jpg?1631000000"
+  },
+  {
+   "id": 104,
+   "has_image": false,
+   "asset_type": "video"
+  }
+ ]
+}

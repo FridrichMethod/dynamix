@@ -15,7 +15,7 @@ Tests put `<repo>/scripts` on `sys.path` and import the same way. Dependencies a
 ## `schema` — enumerations, helpers, validators
 
 Constants: `SCHEMA_VERSION`, `GAME`, `OWNER`, `REPOSITORY`, `ARCHIVE_URL_PREFIX`, `USER_AGENT`, `DEFAULT_RIGHTS_HOLDER`,
-`PAGES_BUDGET_BYTES`, `MAX_FILE_BYTES`; `FAMILIES`, `FAMILY_PRIORITY`, `REGISTERED_SOURCE_IDS`, `KINDS` (catalog
+`PAGES_BUDGET_BYTES`, `MAX_FILE_BYTES`; `FAMILIES`, `FAMILY_PRIORITY`, `PREFERRED_SOURCES`, `REGISTERED_SOURCE_IDS`, `KINDS` (catalog
 order), `SITE_KINDS`, `ARCHIVE_KINDS`, `SLIDESHOW_KINDS`, `SLIDESHOW_MIN_LONG_EDGE`, `GAMES`, `SOURCE_STATUSES`,
 `EVIDENCE_LEVELS`, `DISPOSITIONS`, `EXCLUSION_REASONS`, `MAPPING_STATUSES`, `SOURCE_VARIANTS`, `ORIGIN_STATUSES`,
 `MASTER_STATUSES`, `UPSTREAM_STATUSES`, `FAILURE_PHASES`, `ERROR_CLASSES`, `CREDIT_ROLES`, `FORMATS`,
@@ -36,7 +36,7 @@ order), `SITE_KINDS`, `ARCHIVE_KINDS`, `SLIDESHOW_KINDS`, `SLIDESHOW_MIN_LONG_ED
 | `default_rights(creator=, url=, restrictions=, holder=, license=)` | rights object, `license` null unless established |
 | `failure_record(**fields)` | validated Failure; URL redacted with the stored-URL rule, message with the strict rule |
 | `canonical(record, kind)` | copy with keys in contract order (`source`, `asset`, `catalog_asset`, `failure`, `candidate`) |
-| `normalize_title`, `catalog_sort_key`, `provenance_sort_key`, `ordered_union`, `catalog_url`, `thumb_relpath` | catalog ordering/merging helpers exactly as the contract defines them |
+| `normalize_title`, `catalog_sort_key`, `provenance_sort_key`, `ordered_union`, `catalog_url`, `thumb_relpath` | catalog ordering/merging helpers exactly as the contract defines them; `provenance_sort_key` is the primary-record order: family priority, `PREFERRED_SOURCES` within the family (`wikis:miraheze`, then `wikis:fandom`, then every other source, tied), `quality.source_variant` (`site_original` < `preview` < `unknown`), source ID, asset ID |
 | `redact_url(url, *, strict=True)`, `redact_text(text, *, strict=True)`, `contains_credentials(text, *, strict=True)` | strip userinfo, credential `name=value` pairs (in URLs and anywhere in text: relative paths, bare queries), `Authorization`/`Cookie` values, bearer tokens. `strict=True` (logs, Failure/discovery messages) uses `SENSITIVE_QUERY_KEYS`; `strict=False` (stored URLs and evidence) only `CREDENTIAL_QUERY_KEYS` (`token`, `access_token`, `signature`, `x-amz-*`, `x-goog-*`, `password`, ...), so a public `image.php?key=12` is recorded exactly |
 | `check_source_slugs(source_ids)` | `ValueError` when two source IDs share a source slug (one flat `data/discovery/`); manifests and the catalog are checked automatically, fetchers registering new IDs call it with `REGISTERED_SOURCE_IDS` + their IDs |
 

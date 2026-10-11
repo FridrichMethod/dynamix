@@ -60,6 +60,12 @@ https://github.com/FridrichMethod/dynamix
 
 <body>
     <main class="dynamix-view">
+        <!-- Tab takes the page as it is drawn: the signature (top left), the stage's arrows, the notes' caption, the
+             bottom control row, then the language toggle (top right; last, see below). The caption stays with the notes it
+             describes, inside their "About this artwork" region, at every size: on short landscape screens, where it is
+             drawn in the band right of the control row, Tab still reaches it before the row, as on other screens. -->
+        <div class="signature">Dynamix · <a href="https://github.com/FridrichMethod" target="_blank" rel="noopener noreferrer">FridrichMethod</a> · <a href="https://github.com/FridrichMethod/dynamix/blob/main/NOTICE" target="_blank" rel="noopener noreferrer" data-i18n="slideshow.attribution">Attribution</a></div>
+
         <div class="slideshow-container">
             @python-work-area
 
@@ -80,11 +86,10 @@ https://github.com/FridrichMethod/dynamix
             <div class="asset-caption">
                 <div class="asset-heading"><span id="asset-title"></span><span class="asset-title-sep"> · </span><span id="asset-size"></span></div>
                 <!-- Each separator keeps to the end of its line (no-break space before it), so no line starts with a dot. -->
-                <a id="asset-source" target="_blank" rel="noopener noreferrer"><span data-i18n="slideshow.caption.source">Source</span></a><span id="asset-origin"></span>&nbsp;·
-                <a id="asset-original" download data-i18n="slideshow.caption.original">Original file</a>&nbsp;· <a href="archive.html" data-lang-link data-i18n="slideshow.caption.browse">Artwork Archive</a>
+                <div class="asset-links"><a id="asset-source" target="_blank" rel="noopener noreferrer"><span data-i18n="slideshow.caption.source">Source</span></a><span id="asset-origin"></span>&nbsp;·
+                <a id="asset-original" download data-i18n="slideshow.caption.original">Original file</a>&nbsp;· <a href="archive.html" data-lang-link data-i18n="slideshow.caption.browse">Artwork Archive</a></div>
             </div>
         </section>
-        <div class="signature">Dynamix · <a href="https://github.com/FridrichMethod" target="_blank" rel="noopener noreferrer">FridrichMethod</a> · <a href="https://github.com/FridrichMethod/dynamix/blob/main/NOTICE" target="_blank" rel="noopener noreferrer" data-i18n="slideshow.attribution">Attribution</a></div>
 
         <!-- The bottom control row in its on-screen order, left to right, so Tab follows it (see src/slideshow.css). -->
         <div class="photo bt">
@@ -349,11 +354,13 @@ https://github.com/FridrichMethod/dynamix
             return node;
         }
 
-        // A row of the notes, one value per line. With no value the row says "Unknown" when `always` is set.
-        function metaRow(list, label, value, always) {
+        // A row of the notes, one value per line, classed by its role: notes-composer, notes-artist (the illustrator's
+        // credit, the row that stays where short screens drop the others; see src/slideshow.css) or notes-collection.
+        // With no value the row says "Unknown" when `always` is set.
+        function metaRow(list, role, label, value, always) {
             if (!value && !always) return;
-            var dt = element("dt", null, label);
-            var dd = element("dd");
+            var dt = element("dt", "notes-" + role, label);
+            var dd = element("dd", "notes-" + role);
             if (value) {
                 value.split("\n").forEach(function(line, i) {
                     if (i) dd.append(document.createElement("br"));
@@ -362,11 +369,6 @@ https://github.com/FridrichMethod/dynamix
             } else {
                 dd.textContent = DYNAMIX_I18N.t("credit.unknown");
                 dd.classList.add("notes-unknown");
-            }
-            // The illustrator's credit is the row that stays where short screens drop the others (see src/slideshow.css).
-            if (label === DYNAMIX_I18N.t("credit.illustrator")) {
-                dt.classList.add("notes-artist");
-                dd.classList.add("notes-artist");
             }
             list.append(dt, dd);
         }
@@ -422,6 +424,7 @@ https://github.com/FridrichMethod/dynamix
             // A wrapping title breaks after its last spaced dash, never before a dash or a trailing number: each side of
             // that dash is kept whole where it fits (see src/slideshow.css).
             var title = element("p", "notes-title");
+            title.dataset.full = headline;
             var glued = headline.replace(/ — /g, "\u00a0— ").replace(/ (\d+)$/, "\u00a0$1");
             var dash = glued.lastIndexOf("\u00a0— ");
             if (dash > 0) title.append(element("span", "notes-title-part", glued.slice(0, dash + 2)), " ", element("span", "notes-title-part", glued.slice(dash + 3)));
@@ -436,20 +439,76 @@ https://github.com/FridrichMethod/dynamix
             var meta = element("dl", "notes-meta");
             // Separate roles: the composer row appears for song-related art (and says "Unknown" when no one is
             // credited); the illustrator row is always there, so no layout shows an artwork without its credit line.
-            metaRow(meta, DYNAMIX_I18N.t("credit.composer"), data.composers, Boolean(songs.length || data.kind === "song_art"));
-            metaRow(meta, DYNAMIX_I18N.t("credit.illustrator"), data.illustrators, true);
+            metaRow(meta, "composer", DYNAMIX_I18N.t("credit.composer"), data.composers, Boolean(songs.length || data.kind === "song_art"));
+            metaRow(meta, "artist", DYNAMIX_I18N.t("credit.illustrator"), data.illustrators, true);
             if (data.collections) {
-                metaRow(meta, data.collections.indexOf("\n") >= 0 ? DYNAMIX_I18N.t("slideshow.notes.collections") : DYNAMIX_I18N.t("slideshow.notes.collection"), data.collections, false);
+                metaRow(meta, "collection", data.collections.indexOf("\n") >= 0 ? DYNAMIX_I18N.t("slideshow.notes.collections") : DYNAMIX_I18N.t("slideshow.notes.collection"), data.collections, false);
             }
             notes.append(eyebrow, title);
             if (fileKey) {
                 var reference = element("p", "notes-title", fileKey);
                 reference.dataset.length = "file";
+                reference.dataset.full = fileKey;
                 notes.append(reference);
             }
             if (meta.childElementCount) notes.append(meta);
             return notes;
         }
+
+        // Whether a line clamp (see src/slideshow.css) cuts this title or file reference. Glyphs that merely overhang the
+        // tight title lines are not a cut: a cut hides at least half a line. `view` is the window the node lives in.
+        function isCut(node, view) {
+            var style = (view || window).getComputedStyle(node);
+            var clamped = (style.webkitLineClamp || "none") !== "none";
+            return clamped && node.scrollHeight - node.clientHeight > parseFloat(style.lineHeight) / 2;
+        }
+
+        // Short screens cut a long title or file reference with an ellipsis; the page keeps all of it (for screen
+        // readers too), and a cut one shows its full wording in a tooltip.
+        function markClipped() {
+            slideNotes.querySelectorAll("[data-full]").forEach(function(node) {
+                if (isCut(node)) node.title = node.dataset.full;
+                else node.removeAttribute("title");
+            });
+        }
+
+        // Notes that would reach the bottom control row (or push the caption under it) give up their least needed parts
+        // in turn until they clear it: the packs row, the composer's row, a file reference's extra lines, the title's
+        // second line, then the eyebrow (see src/slideshow.css; the archive viewer shows them all). The illustrator's
+        // credit is never cut or dropped. The notes are measured as laid out, not as they move while turning.
+        var FIT_STEPS = ["collection", "composer", "reference", "title", "eyebrow"];
+        var ROW_GAP = 4;
+        var controlRow = document.querySelectorAll(".photo, .github, .archive-link, .random");
+
+        function reachesRow() {
+            var boxes = [];
+            var view = slideNotes.offsetParent;
+            if (view) {
+                var origin = view.getBoundingClientRect();
+                var top = origin.top + slideNotes.offsetTop, left = origin.left + slideNotes.offsetLeft;
+                boxes.push({top: top, bottom: top + slideNotes.offsetHeight, left: left, right: left + slideNotes.offsetWidth});
+            }
+            Array.prototype.forEach.call(caption.children, function(line) {
+                if (line.getClientRects().length) boxes.push(line.getBoundingClientRect());
+            });
+            var discs = Array.prototype.map.call(controlRow, function(disc) { return disc.getBoundingClientRect(); });
+            return boxes.some(function(box) {
+                return discs.some(function(disc) {
+                    return box.left < disc.right && box.right > disc.left && box.top < disc.bottom && box.bottom > disc.top - ROW_GAP;
+                });
+            });
+        }
+
+        function fitNotes() {
+            var steps = [];
+            slideNotes.removeAttribute("data-fit");
+            for (var i = 0; i < FIT_STEPS.length && reachesRow(); i++) {
+                steps.push(FIT_STEPS[i]);
+                slideNotes.setAttribute("data-fit", steps.join(" "));
+            }
+            markClipped();
+        }
+        window.addEventListener("resize", fitNotes);
 
         function renderNotes() {
             window.clearTimeout(notesTimer);
@@ -457,6 +516,7 @@ https://github.com/FridrichMethod/dynamix
             slideNotes.classList.remove("is-turning");
             caption.classList.remove("is-turning");
             slideNotes.replaceChildren(notesFor(imgTargets[slideIndex - 1]));
+            fitNotes();
         }
 
         // Visible notes dip out, change and fade back in with the artwork; notes giving way to the title card change
@@ -595,13 +655,34 @@ https://github.com/FridrichMethod/dynamix
             plusSlides(step);
         });
 
+        // The saved picture is drawn from a copy of the page (html2canvas, given `doc`), which draws a text cut by a line
+        // clamp without its ellipsis. In that copy each cut text is shortened to the longest start that fits, ending in
+        // a written ellipsis, so the picture never shows a silent cut.
+        function markCuts(doc) {
+            var view = doc.defaultView;
+            doc.querySelectorAll(".slide-notes [data-full]").forEach(function(node) {
+                if (!isCut(node, view)) return;
+                var chars = Array.from(node.dataset.full);
+                var shorten = function(length) { node.textContent = chars.slice(0, length).join("").trimEnd() + "…"; };
+                var low = 0, high = chars.length - 1;
+                while (low < high) {
+                    var middle = Math.ceil((low + high) / 2);
+                    shorten(middle);
+                    if (isCut(node, view)) high = middle - 1;
+                    else low = middle;
+                }
+                shorten(low);
+            });
+        }
+
         function screenshot() {
             var shouldHide = ["photo", "random", "github", "archive-link", "lang-toggle", "asset-caption", "signature", "prev", "next"];
             for (var i = 0; i < shouldHide.length; i++) document.getElementsByClassName(shouldHide[i])[0].style.visibility = 'hidden';
 
             var opt = {
                 async: true,
-                useCORS: true
+                useCORS: true,
+                onclone: markCuts
             };
             html2canvas(document.body, opt).then(function(canvas) {
                 screenshotContent.replaceChildren(canvas);

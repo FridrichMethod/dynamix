@@ -50,6 +50,9 @@ jobs:
       - name: Coverage report is current
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: '"$RUNNER_TEMP/venv/bin/python" -I scripts/build_coverage.py --check'
+      - name: Generated documentation statistics are current
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -I scripts/update_docs_stats.py --check'
       - name: Every family manifest matches its archived bytes
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: |

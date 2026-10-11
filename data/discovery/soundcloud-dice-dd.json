@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:dice-dd",
+  "started_at": "2026-10-10T22:35:19Z",
+  "finished_at": "2026-10-10T22:35:20Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:dice-dd:abyss-breaker",
+      "source_id": "artists:soundcloud:dice-dd",
+      "upstream_key": "abyss-breaker",
+      "page_url": "https://soundcloud.com/dice-dd/abyss-breaker",
+      "file_url": "https://i1.sndcdn.com/artworks-I25aaV3g3bIRnsV2-jJchQg-original.jpg",
+      "title": "Abyss Breaker / 打打だいず(d-d-dice)",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/dice-dd/abyss-breaker",
+        "sc.description: 榊原またぎ"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-I25aaV3g3bIRnsV2-jJchQg-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2022-09-27T12:56:51Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:dice-dd:c87c4810f6ac4df1",
+      "song_titles": [
+        "Abyss Breaker"
+      ],
+      "illustrators": [
+        "榊原またぎ"
+      ],
+      "composers": [
+        "打打だいず"
+      ]
+    }
+  ],
+  "errors": []
+}

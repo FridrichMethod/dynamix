@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:panbanana0729",
+  "started_at": "2026-10-10T22:35:56Z",
+  "finished_at": "2026-10-10T22:35:57Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:panbanana0729:sunset-load-1",
+      "source_id": "artists:soundcloud:panbanana0729",
+      "upstream_key": "sunset-load-1",
+      "page_url": "https://soundcloud.com/panbanana0729/sunset-load-1",
+      "file_url": "https://i1.sndcdn.com/artworks-000232095644-i6efz5-original.jpg",
+      "title": "pan - Sunset Road【Dynamix 2017】",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/panbanana0729/sunset-load-1",
+        "sc.title: Dynamix",
+        "sc.description: よしもん"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000232095644-i6efz5-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-07-05T11:31:41Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:panbanana0729:92ae15ebcb4ea9ea",
+      "song_titles": [
+        "Sunset Road"
+      ],
+      "illustrators": [
+        "よしもん"
+      ],
+      "composers": [
+        "pan"
+      ]
+    }
+  ],
+  "errors": []
+}

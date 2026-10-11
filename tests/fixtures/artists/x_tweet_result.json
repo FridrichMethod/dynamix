@@ -1,0 +1,198 @@
+{
+ "__typename": "Tweet",
+ "favorite_count": 216,
+ "lang": "ja",
+ "possibly_sensitive": false,
+ "created_at": "2025-01-14T13:14:57.000Z",
+ "display_text_range": [
+  0,
+  67
+ ],
+ "entities": {
+  "media": [
+   {
+    "display_url": "pic.x.com/mziJGwAMZs",
+    "expanded_url": "https://x.com/ariiol_/status/1879155241788293570/photo/1",
+    "indices": [
+     68,
+     91
+    ],
+    "url": "https://t.co/mziJGwAMZs"
+   }
+  ]
+ },
+ "id_str": "1879155241788293570",
+ "text": "Made the cover for Yunosuke!\nHope everyone likes it! \nありがとうございます！❤️ https://t.co/mziJGwAMZs",
+ "user": {
+  "id_str": "1629720042287030272",
+  "name": "ariiol",
+  "screen_name": "ariiol_",
+  "is_blue_verified": false,
+  "profile_image_shape": "Circle",
+  "verified": false,
+  "profile_image_url_https": "https://pbs.twimg.com/profile_images/2090841634305187841/xURU8F-w_normal.jpg"
+ },
+ "edit_control": {
+  "edit_tweet_ids": [
+   "1879155241788293570"
+  ],
+  "editable_until_msecs": "1736864097000",
+  "edits_remaining": "5",
+  "is_edit_eligible": true
+ },
+ "mediaDetails": [
+  {
+   "display_url": "pic.x.com/mziJGwAMZs",
+   "expanded_url": "https://x.com/ariiol_/status/1879155241788293570/photo/1",
+   "ext_media_availability": {
+    "status": "Available"
+   },
+   "indices": [
+    68,
+    91
+   ],
+   "media_url_https": "https://pbs.twimg.com/media/GhQZt1eboAAs87K.jpg",
+   "original_info": {
+    "focus_rects": [
+     {
+      "h": 1147,
+      "w": 2048,
+      "x": 0,
+      "y": 5
+     },
+     {
+      "h": 1152,
+      "w": 1152,
+      "x": 396,
+      "y": 0
+     },
+     {
+      "h": 1152,
+      "w": 1011,
+      "x": 467,
+      "y": 0
+     },
+     {
+      "h": 1152,
+      "w": 576,
+      "x": 684,
+      "y": 0
+     },
+     {
+      "h": 1152,
+      "w": 2048,
+      "x": 0,
+      "y": 0
+     }
+    ],
+    "height": 1152,
+    "width": 2048
+   },
+   "sizes": {
+    "large": {
+     "h": 1152,
+     "resize": "fit",
+     "w": 2048
+    },
+    "medium": {
+     "h": 675,
+     "resize": "fit",
+     "w": 1200
+    },
+    "small": {
+     "h": 383,
+     "resize": "fit",
+     "w": 680
+    },
+    "thumb": {
+     "h": 150,
+     "resize": "crop",
+     "w": 150
+    }
+   },
+   "type": "photo",
+   "url": "https://t.co/mziJGwAMZs"
+  },
+  {
+   "display_url": "pic.x.com/mziJGwAMZs",
+   "expanded_url": "https://x.com/ariiol_/status/1879155241788293570/photo/1",
+   "ext_media_availability": {
+    "status": "Available"
+   },
+   "indices": [
+    68,
+    91
+   ],
+   "media_url_https": "https://pbs.twimg.com/media/GhQZt2xyzAAs87K.png",
+   "original_info": {
+    "width": 1024,
+    "height": 1024
+   },
+   "sizes": {
+    "large": {
+     "h": 1152,
+     "resize": "fit",
+     "w": 2048
+    },
+    "medium": {
+     "h": 675,
+     "resize": "fit",
+     "w": 1200
+    },
+    "small": {
+     "h": 383,
+     "resize": "fit",
+     "w": 680
+    },
+    "thumb": {
+     "h": 150,
+     "resize": "crop",
+     "w": 150
+    }
+   },
+   "type": "photo",
+   "url": "https://t.co/mziJGwAMZs"
+  },
+  {
+   "type": "video",
+   "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1/pu/img/abc.jpg"
+  }
+ ],
+ "conversation_count": 1,
+ "news_action_type": "conversation",
+ "quoted_tweet": {
+  "favorite_count": 697,
+  "lang": "ja",
+  "reply_count": 2,
+  "retweet_count": 168,
+  "created_at": "2025-01-14T12:53:32.000Z",
+  "display_text_range": [
+   0,
+   139
+  ],
+  "entities": {},
+  "id_str": "1879149853592473976",
+  "text": "スマホ音楽ゲーム『Dynamix』に、\n新曲「Cosmic Pulse」が収録されます🪐\n\n元々は2015年のSubmissionの楽曲が収録予定でした。\n今、10年前の楽曲が突然リリースされることに違和感があり、現在のスキルで改めて楽曲を書かせてほしいと僕から提案しました。",
+  "user": {
+   "id_str": "2391319778",
+   "name": "雄之助/Yunosuke",
+   "screen_name": "bass_ynk",
+   "is_blue_verified": true,
+   "profile_image_shape": "Circle",
+   "verified": false,
+   "profile_image_url_https": "https://pbs.twimg.com/profile_images/1474734794475196419/NajWnn8B_normal.jpg"
+  },
+  "edit_control": {
+   "edit_tweet_ids": [
+    "1879149853592473976"
+   ],
+   "editable_until_msecs": "1736862812000",
+   "edits_remaining": "5",
+   "is_edit_eligible": false
+  },
+  "isEdited": false,
+  "isStaleEdit": false
+ },
+ "isEdited": false,
+ "isStaleEdit": false
+}

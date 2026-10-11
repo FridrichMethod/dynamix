@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:missionary_music",
+  "started_at": "2026-10-10T22:35:47Z",
+  "finished_at": "2026-10-10T22:35:49Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:missionary_music:yvvldpc55amz",
+      "source_id": "artists:soundcloud:missionary_music",
+      "upstream_key": "yvvldpc55amz",
+      "page_url": "https://soundcloud.com/missionary_music/yvvldpc55amz",
+      "file_url": "https://i1.sndcdn.com/artworks-000111054218-908n17-original.jpg",
+      "title": "名無しの宣教師 / Nameless Missionary",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/missionary_music/yvvldpc55amz"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000111054218-908n17-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2015-03-24T00:49:00Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:missionary_music:8f4bda1d43730cb1",
+      "song_titles": [
+        "名無しの宣教師"
+      ],
+      "illustrators": [
+        "NanoKun"
+      ],
+      "composers": [
+        "MIssionary"
+      ]
+    }
+  ],
+  "errors": []
+}

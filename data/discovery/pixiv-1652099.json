@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:1652099",
+  "started_at": "2026-10-10T22:33:06Z",
+  "finished_at": "2026-10-10T22:33:06Z",
+  "scope": {
+    "lists": [
+      "seed-artworks"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl)."
+  },
+  "continuation": {
+    "seed-artworks": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:1652099:73741044:p0",
+      "source_id": "artists:pixiv:1652099",
+      "upstream_key": "73741044:p0",
+      "page_url": "https://www.pixiv.net/artworks/73741044",
+      "file_url": "https://i.pximg.net/img-original/img/2019/03/18/00/53/09/73741044_p0.png",
+      "title": "誕生日おめでとうございます (p0)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/73741044",
+        "caption: お世話になった人へあげたイラスト"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2019/03/18/00/53/09/73741044_p0.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 800,
+        "height": 1000,
+        "sha1": null,
+        "timestamp": "2019-03-17T15:53:00+00:00",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: personal gift illustration tagged Dynamix, not game artwork"
+    }
+  ],
+  "errors": []
+}
