@@ -46,12 +46,34 @@ def css_urls(text):
     return [next(group for group in match.groups() if group is not None).strip() for match in CSS_URL.finditer(text)]
 
 
+CSS_STRING = re.compile(r""""(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'""")
+CSS_UNQUOTED_URL = re.compile(r"url\(\s*[^)\"']*\)", re.IGNORECASE)
+CSS_PROPERTY = re.compile(r"(?<![\w-])-{0,2}[A-Za-z][\w-]*\s*:")
+
+
+def css_declaration_errors(text):
+    """Declarations whose value holds a second "property:" token, as when a semicolon is missing between two of them.
+    Browsers drop such a declaration whole ("height: 100% position: relative" sets neither property). Comments,
+    strings and url() contents are blanked first; selectors and at-rule preludes (the text before "{") are skipped."""
+    text = re.sub(r"/\*.*?\*/", " ", text, flags=re.DOTALL)
+    text = CSS_UNQUOTED_URL.sub("url()", CSS_STRING.sub('""', text))
+    errors = []
+    for segment, end in re.findall(r"([^{};]*)([{};])", text):
+        declaration = " ".join(segment.split())
+        if end == "{" or not declaration or declaration.startswith("@"):
+            continue
+        _, colon, value = declaration.partition(":")
+        if colon and CSS_PROPERTY.search(value):
+            errors.append(declaration)
+    return errors
+
+
 class ResourceLinks(HTMLParser):
     """Every URL a page loads (scripts, stylesheets, icons, images, manifest) and every anchor it links to."""
 
     def __init__(self):
         super().__init__()
-        self.loads, self.anchors, self.inline = [], [], []
+        self.loads, self.anchors, self.inline, self.styles = [], [], [], []
         self.in_style = self.in_script = False
 
     def handle_starttag(self, tag, attrs):
@@ -76,6 +98,7 @@ class ResourceLinks(HTMLParser):
     def handle_data(self, data):
         if self.in_style:
             self.loads.extend(css_urls(data))
+            self.styles.append(data)
         if self.in_script:
             self.inline.append(data)
 
@@ -146,6 +169,34 @@ class LayoutTests(unittest.TestCase):
             ),
             ["../assets/a b.ttf", "../assets/c d.ttf", "../assets/e f.png"],
         )
+
+    def test_css_declarations_set_one_property_each(self):
+        """A missing semicolon joins two declarations into one invalid declaration that browsers drop silently."""
+        sheets = {relative: (ROOT / relative).read_text(encoding="utf-8-sig") for relative in STYLESHEETS}
+        sheets.update({f"{relative} <style>": "\n".join(parse(relative).styles) for relative in PAGES})
+        for relative, text in sheets.items():
+            with self.subTest(stylesheet=relative):
+                self.assertEqual(css_declaration_errors(text), [], "a declaration holds a second property")
+
+    def test_css_declaration_check_sees_joined_declarations_only(self):
+        joined = (
+            ".popup { width: 100%; height: 100% position: relative; transition: all 2s; }",
+            ".a { color: red }\n.b { margin: 0 padding: 0 }",
+            "@media (max-width: 480px) { .c { top: 0 --gap: 4px; } }",
+        )
+        valid = (
+            ".a:hover, .b::before { content: \"x: y\"; color: red }",
+            "select { background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E\"); }",
+            ".d { background: url(data:image/png;base64,AAA:B) no-repeat; }",
+            "@media (orientation: landscape) and (max-height: 560px) { .e { inset: 0; } }",
+            "/* height: 100% position: relative */ .f { --x: 1px; width: calc(var(--x) * 2) !important }",
+        )
+        for text in joined:
+            with self.subTest(joined=text):
+                self.assertNotEqual(css_declaration_errors(text), [])
+        for text in valid:
+            with self.subTest(valid=text):
+                self.assertEqual(css_declaration_errors(text), [])
 
     def test_no_fonts_imports_or_remote_requests_in_stylesheets(self):
         for relative in STYLESHEETS:
