@@ -178,6 +178,38 @@ def link_url(base: str, link: str) -> str:
     )
 
 
+_SRCSET_SPACE = "\t\n\f\r "  # ASCII whitespace (HTML)
+
+
+def srcset_urls(value: str) -> list[str]:
+    """The image URLs of a ``srcset`` attribute, parsed as HTML does: a candidate URL runs to whitespace (so it may
+    contain commas, e.g. Jetpack's ``?resize=300,169``) without its trailing commas, and its descriptors run to the next
+    comma outside parentheses. Shared by the adapters that read ``srcset`` (direct article images, Google Play)."""
+    urls: list[str] = []
+    position, end = 0, len(value)
+    while True:
+        while position < end and (value[position] in _SRCSET_SPACE or value[position] == ","):
+            position += 1
+        if position >= end:
+            return urls
+        start = position
+        while position < end and value[position] not in _SRCSET_SPACE:
+            position += 1
+        url = value[start:position]
+        if url.endswith(","):  # no descriptors: the comma ends the candidate
+            url = url.rstrip(",")
+        else:
+            in_parens = False
+            while position < end and (value[position] != "," or in_parens):
+                if value[position] == "(":
+                    in_parens = True
+                elif value[position] == ")":
+                    in_parens = False
+                position += 1
+        if url:
+            urls.append(url)
+
+
 def last_segment(url: str) -> str:
     path = urlsplit(url).path.rstrip("/")
     return path.rsplit("/", 1)[-1] or "file"

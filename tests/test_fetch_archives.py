@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import cli, model, runner  # noqa: E402
+from primary.adapters import base as base_adapter  # noqa: E402
 from primary.adapters import direct as direct_adapter  # noqa: E402
 from primary.adapters import wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
@@ -908,7 +909,7 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(([image["key"] for image in images], others, state), (["q:a"], [], None))
         self.assertEqual(images[0]["advertised"], [f"{upload}.jpg?resize=300,169&ssl=1", f"{upload}-1024x576.jpg"])
         self.assertEqual(
-            direct_adapter.srcset_urls(" a.jpg 1x,b.jpg 2x , c,d.jpg (x, y) 3x,, e.jpg,"),
+            base_adapter.srcset_urls(" a.jpg 1x,b.jpg 2x , c,d.jpg (x, y) 3x,, e.jpg,"),
             ["a.jpg", "b.jpg", "c,d.jpg", "e.jpg"],
         )
 

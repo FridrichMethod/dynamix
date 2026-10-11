@@ -51,7 +51,7 @@ def screenshots(html: str, page_url: str) -> list[dict]:
     )
     for image in images:
         urls = [image.get("src") or ""]
-        urls += [part.strip().split(" ")[0] for part in (image.get("srcset") or "").split(",") if part.strip()]
+        urls += base.srcset_urls(str(image.get("srcset") or ""))  # HTML srcset rules: a URL may hold a comma
         for url in urls:
             parsed = split_size(base.absolute(page_url, url)) if url else None
             if parsed is None:

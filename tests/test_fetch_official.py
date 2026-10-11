@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths  # noqa: E402
 from primary import cli, model, runner  # noqa: E402
-from primary.adapters import apple, facebook, probe, youtube  # noqa: E402
+from primary.adapters import apple, facebook, google_play, probe, youtube  # noqa: E402
 from primary.adapters import registry as registry_adapter  # noqa: E402
 from primary.adapters import x as x_adapter  # noqa: E402
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
@@ -408,6 +408,26 @@ class GooglePlayTests(OfficialTestCase):
         self.assertTrue(asset["source_reported"]["url"].startswith(f"{self.P}=w"), asset["source_reported"]["url"])
         self.assertEqual(network.count("play-lh.googleusercontent.com"), 2)
         self.verify()
+
+    def test_a_comma_inside_a_srcset_url_does_not_split_it(self):
+        """srcset is parsed as HTML parses it (``base.srcset_urls``, shared with the direct adapter): a candidate URL
+        runs to whitespace, so a comma inside it starts no other URL; only a comma after a descriptor separates them."""
+        lh = "https://play-lh.googleusercontent.com/"
+        page = (
+            "<html><body>"
+            f'<img data-screenshot-index="0" src="{lh}AAA=w526-h296" srcset="{lh}AAA=w10-h5,{lh}BBB=w20-h10 2x">'
+            f'<img data-screenshot-index="1" src="{lh}CCC=w526-h296" '
+            f'srcset="{lh}CCC=w1052-h592 2x,{lh}CCC=w1578-h888 3x">'
+            "</body></html>"
+        )
+        shots = google_play.screenshots(page, self.EN)
+        self.assertEqual(
+            [(shot["token"], shot["srcs"]) for shot in shots],
+            [
+                ("AAA", [f"{lh}AAA=w526-h296"]),  # the srcset holds one (unusable) URL, not a BBB screenshot
+                ("CCC", [f"{lh}CCC=w526-h296", f"{lh}CCC=w1052-h592", f"{lh}CCC=w1578-h888"]),
+            ],
+        )
 
     def test_an_unread_listing_keeps_its_earlier_candidates(self):
         """The excluded icon was listed on the English page: while that page shows no screenshots (and the Japanese

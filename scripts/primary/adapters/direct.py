@@ -304,38 +304,6 @@ def _og_images(document: Any) -> list[tuple[str, Any]]:
     return [(url, size) for url, size in found]
 
 
-_SRCSET_SPACE = "\t\n\f\r "  # ASCII whitespace (HTML)
-
-
-def srcset_urls(value: str) -> list[str]:
-    """The image URLs of a ``srcset`` attribute, parsed as HTML does: a candidate URL runs to whitespace (so it may
-    contain commas, e.g. Jetpack's ``?resize=300,169``) without its trailing commas, and its descriptors run to the next
-    comma outside parentheses."""
-    urls: list[str] = []
-    position, end = 0, len(value)
-    while True:
-        while position < end and (value[position] in _SRCSET_SPACE or value[position] == ","):
-            position += 1
-        if position >= end:
-            return urls
-        start = position
-        while position < end and value[position] not in _SRCSET_SPACE:
-            position += 1
-        url = value[start:position]
-        if url.endswith(","):  # no descriptors: the comma ends the candidate
-            url = url.rstrip(",")
-        else:
-            in_parens = False
-            while position < end and (value[position] != "," or in_parens):
-                if value[position] == "(":
-                    in_parens = True
-                elif value[position] == ")":
-                    in_parens = False
-                position += 1
-        if url:
-            urls.append(url)
-
-
 def _orig_size(element: Any) -> tuple[int, int] | None:
     """The original upload's (width, height) a WordPress attachment ``img`` advertises (``data-orig-size="W,H"``)."""
     parts = str(element.get("data-orig-size") or "").split(",")
@@ -440,7 +408,7 @@ def article_images(
                 size = _orig_size(element)
                 for name in IMAGE_ATTRS:
                     add(element.get(name), caption, supplied=flag, size=size)
-                for candidate in srcset_urls(str(element.get("srcset") or "")):
+                for candidate in base.srcset_urls(str(element.get("srcset") or "")):
                     add(candidate, caption, supplied=flag, size=size)
     state = None
     spec = config.get("embedded_json")
