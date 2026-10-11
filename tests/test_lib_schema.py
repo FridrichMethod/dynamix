@@ -843,10 +843,47 @@ class RecordValidationTests(unittest.TestCase):
         for name, record in cases.items():
             with self.subTest(case=name):
                 self.assertInvalid(schema.validate_song_index, record, "id: must be", "sorted exact-title order")
-        for second in ("song:cosmic-pulse-2", "song:cosmic-pulse-7"):  # identical exact titles cannot be ordered
-            with self.subTest(identical_title=second):
-                record = with_songs(cosmic, {**cosmic, "id": second})
-                self.assertInvalid(schema.validate_song_index, record, "title:", "more than one song")
+
+    def test_identical_exact_titles_take_their_ids_in_any_order(self):
+        """Two wiki pages can give the same exact title (wikis/songindex._finish breaks the tie by page key, which the
+        index does not show). Such a group may hold its IDs in any order, but as a set they are the IDs
+        paths.assign_song_ids gives it: the base ID (unless an earlier title took it) and the next free -N suffixes."""
+        cosmic = next(song for song in self.song_index["songs"] if song["title"] == "Cosmic Pulse")
+        upper = {**cosmic, "title": "COSMIC PULSE", "id": "song:cosmic-pulse"}
+        twin = {**cosmic, "composers": ["Another composer (synthetic)"]}  # a second page with the same title
+
+        def with_songs(*songs):
+            record = copy.deepcopy(self.song_index)
+            others = [song for song in record["songs"] if song["title"] != "Cosmic Pulse"]
+            record["songs"] = sorted(others + copy.deepcopy(list(songs)), key=lambda song: song["id"])
+            return record
+
+        many = [{**cosmic, "id": "song:cosmic-pulse"}] + [
+            {**cosmic, "id": f"song:cosmic-pulse-{number}", "aliases": [f"Twin {number}"]} for number in range(2, 12)
+        ]  # sorted by ID, -10 and -11 come before -2
+        valid = {
+            "base and -2": with_songs({**cosmic, "id": "song:cosmic-pulse"}, {**twin, "id": "song:cosmic-pulse-2"}),
+            "-2 and base": with_songs({**cosmic, "id": "song:cosmic-pulse-2"}, {**twin, "id": "song:cosmic-pulse"}),
+            "eleven pages": with_songs(*many),
+            "after a case variant": with_songs(
+                upper, {**cosmic, "id": "song:cosmic-pulse-3"}, {**twin, "id": "song:cosmic-pulse-2"}
+            ),
+        }
+        for name, record in valid.items():
+            with self.subTest(valid=name):
+                schema.validate_song_index(record)
+        invalid = {
+            "gap": with_songs({**cosmic, "id": "song:cosmic-pulse"}, {**twin, "id": "song:cosmic-pulse-7"}),
+            "no base": with_songs({**cosmic, "id": "song:cosmic-pulse-2"}, {**twin, "id": "song:cosmic-pulse-3"}),
+            "base taken by the case variant": with_songs(
+                {**upper, "id": "song:cosmic-pulse-3"},
+                {**cosmic, "id": "song:cosmic-pulse"},
+                {**twin, "id": "song:cosmic-pulse-2"},
+            ),
+        }
+        for name, record in invalid.items():
+            with self.subTest(invalid=name):
+                self.assertInvalid(schema.validate_song_index, record, "id: must be", "sorted exact-title order")
 
     def test_song_links(self):
         assets = [asset for value in self.manifests.values() for asset in value["assets"]]
