@@ -38,6 +38,8 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
           DRAFT: ${{ github.event.release.draft }}
           PRERELEASE: ${{ github.event.release.prerelease }}
+          # In the C locale [0-9] is the ASCII digits only; in others it can match other scripts' digits too.
+          LC_ALL: C
         run: |
           fail() { echo "::error::$1"; exit 1; }
           case "$EVENT_NAME" in
@@ -100,6 +102,8 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
           DRAFT: ${{ github.event.release.draft }}
           PRERELEASE: ${{ github.event.release.prerelease }}
+          # In the C locale [0-9] is the ASCII digits only; in others it can match other scripts' digits too.
+          LC_ALL: C
         run: |
           fail() { echo "::error::$1"; exit 1; }
           case "$EVENT_NAME" in
