@@ -8,7 +8,7 @@
 
 ## 当前数字
 
-下方标记之间的数字在构建目录时由 `data/coverage.json` 生成，不是手工填写的。
+下方标记之间的数字在每次构建后由 `scripts/update_docs_stats.py` 根据 `data/coverage.json` 和 `data/catalog.json` 生成，不是手工填写的。两者来自不同构建时脚本拒绝使用，`scripts/update_docs_stats.py --check` 会报告与它们不再一致的统计块。表中的指标名就是 `data/coverage.json` 的字段，定义见下文各节。
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->
@@ -55,7 +55,7 @@
 | `gallery_images` | 属于栅格图片且类型不是 `reference` 的目录条目。 |
 | `slideshow_images` | 类型为 `song_art`、`pack_cover`、`promotional` 或 `character`，且长边至少 1000 px 的图库条目。 |
 | `by_kind`、`by_format` | 按类型和按解码格式统计的目录条目。 |
-| `by_tier` | 网站提供原文件（`site`）或只提供预览图（`archive`）的目录条目。 |
+| `by_tier` | 网站提供原文件（`site`）或只提供预览图（`archive`；查看器通过条目的 `archive_url` 链接到仓库中的原文件）的目录条目。 |
 | `variant_groups`、`entries_in_variant_groups`、`entries_with_variants` | 相关裁切或版本组成的组，以及其中的条目。不同版本是不同的文件，从不让曲目数量翻倍。 |
 | `records_by_upstream_status` | 上游状态为 `current`、`removed`、`superseded`、`unknown` 或未设置的记录。 |
 | `transformed_records` | 存储的字节已知为平台重新编码结果的记录。 |

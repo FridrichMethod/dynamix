@@ -15,7 +15,7 @@
 | 平台 | 读取方式 | 记录内容 | 限制 |
 | --- | --- | --- | --- |
 | X | 对明确的帖子使用公开嵌入接口 `cdn.syndication.twimg.com/tweet-result`；图片取自 `pbs.twimg.com`，带 `name=orig` | 每张附图一个候选（`<post>:<n>`） | X 会重新编码上传的图片，因此 `name=orig` 是平台上最大的副本，而不是画师的文件。完整的账号历史需要登录，不读取。 |
-| pixiv | 公开 JSON `www.pixiv.net/ajax/illust/<id>`（多页作品另读 `/pages`） | 作品的每一页一个候选 | 图片主机 `i.pximg.net` 拒绝不带 pixiv Referer 的请求。从不伪造 Referer：一次被拒后，本次运行不再访问该主机，相关候选记为 `blocked`。pixiv 对未登录读者隐藏文件 URL 的作品，不发请求直接记为 `blocked`。如果 Wayback Machine 存有这类原图的存档，则在 `archives:wayback` 下存档（见 [sources-archives.zh-CN.md](sources-archives.zh-CN.md)）。 |
+| pixiv | 公开 JSON `www.pixiv.net/ajax/illust/<id>`（多页作品另读 `/pages`） | 作品的每一页一个候选 | 图片主机 `i.pximg.net` 拒绝不带 pixiv Referer 的请求。从不伪造 Referer：一次被拒后，本次运行不再访问该主机，相关候选记为 `blocked`。pixiv 对未登录读者隐藏文件 URL 的作品，不发请求直接记为 `blocked`。如果种子指定了 pixiv 为某一页列出的原图在 Wayback Machine 中的存档，记录保留 pixiv 帖子作为 `page_url`，并在一次精确的 CDX 检查之后下载原始存档（`web.archive.org/web/<timestamp>id_/<original>`）；CDX 摘要成为 `source_reported.sha1`，来自其他存档或字节不同的响应保持待定。这类原图的 ArchiveTeam 存档也列在 `archives:wayback` 下（见 [sources-archives.zh-CN.md](sources-archives.zh-CN.md)）。 |
 | SoundCloud | 曲目页面内嵌的 `__sc_hydration` 数据；封面请求其 `-original` 版本 | 明确的曲目页面，或 `/tracks` 页面渲染出的每首曲目（`tracks_of` 列表模式） | SoundCloud 只渲染长曲目列表的一部分；这样的列表保持未完成（`discovery_complete: false`）。平台可能重新编码上传的图片。 |
 | Bandcamp | 页面的 JSON-LD；封面请求其 `_0`（存储的最大）版本 | 明确的曲目或专辑页面 | 这是发行封面，从不默认等同于游戏曲绘。 |
 | Bilibili | 明确帖子的公开 JSON | 明确的帖子 | 匿名客户端会收到风控代码；记为 `blocked`（验证），需要人工访问。 |
@@ -35,6 +35,8 @@
 
 ## 署名与曲目对应
 
+记录以其引用的帖子或发行页面作为标题（pixiv 作品标题加页码、X 帖子的正文、曲目或专辑标题）；文件名保留在 `original_filename` 中。
+
 `confirmed_primary` 要求获取的页面本身写明曲目（`mapping_evidence` 中的引用字段）；每个对应的曲名都必须出现在获取的文本中，否则记录为 `inferred`。每个署名都有一条 `credit_evidence`，引用写明该名字的字段；页面没有写明时，则指向规则所引用的调研或 wiki 页面。画师和作曲者保存在不同的列表中。帖子的分组、多页作品或专辑标题不会被当作其中每张图的曲目。
 
 ## 排除
@@ -47,7 +49,7 @@
 
 ## 数量
 
-下方标记之间的数字在构建目录时由 `data/coverage.json`（`artists` 类别的 `sources.records`）生成，不是手工填写的。
+下方标记之间的数字在每次构建后由 `scripts/update_docs_stats.py` 根据 `data/coverage.json`（`artists` 类别的 `sources.records`）和 `data/catalog.json` 生成，不是手工填写的。
 
 <!-- STATS:BEGIN -->
 <!-- STATS:END -->
