@@ -527,7 +527,7 @@ def _fallback_adjust(image: Mapping[str, Any], file_url: str, named: str | None)
     def adjust(draft: model.Draft, url: str) -> model.Draft:
         parts = urlsplit(url)
         plain = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
-        rendition = plain != image["url"]  # the seed's rewrite, not only the query, maps it to the upload
+        rendition = plain != file_url  # the seed's rewrite, not only the query, maps it to the upload
         used = copy.copy(draft)
         own_name = not named and image["name"] == base.last_segment(image["url"])
         if rendition and own_name:
