@@ -77,7 +77,7 @@ with net.PoliteClient(["dynamix.miraheze.org", ".wikia.nocookie.net"]) as client
 
 `PoliteClient(allowed_hosts, *, min_interval=1.0, max_bytes=64 MiB, timeout=(10, 30), max_attempts=3,
 max_redirects=5, max_retry_after=60, max_duration=300, allow_loopback=False, user_agent=USER_AGENT, proxies=None,
-sleep, clock, resolver)`. Exact hosts or `.suffix` (subdomains only). Every URL (first and each redirect hop) must
+sleep, clock, resolver, schedule=None)`. Exact hosts or `.suffix` (subdomains only). Every URL (first and each redirect hop) must
 pass `checks.url_problem` (absolute http(s), no userinfo, no whitespace/control characters, none of the ASCII
 characters RFC 3986 forbids — notably `\` — and a host of `[a-z0-9_-]` labels or an IP literal; non-ASCII path
 characters are fine), and the host requests would actually contact (urllib3 `parse_url` of the prepared URL) must
@@ -85,7 +85,9 @@ equal the checked host. Fetchers must pass URLs as given by the API (percent-enc
 re-encoded like requests does. Manual redirects re-check scheme, allowlist, https→http downgrade and every resolved and
 connected address (private/loopback/link-local/reserved, NAT64-embedded non-public IPv4 and IPv4-compatible IPv6
 rejected; `allow_loopback` is for tests); a refused redirect is reported against the URL that sent it. One request in
-flight per host, `min_interval` from the end of one request to the next. `max_duration` bounds each attempt from
+flight per host, `min_interval` from the end of one request to the next, for every hop (a host reached only through a
+redirect included); clients given one `net.HostSchedule()` share these per-host locks and ready times (the primary
+runner passes one to the per-source clients of a run). `max_duration` bounds each attempt from
 request start to the end of the body (bodies are read with `read1`, so a trickling server is cut off within one read
 timeout of the deadline; `TimeoutFetchError`). Retries: 429/5xx/timeouts/connection errors, ≤ 3 attempts,
 `Retry-After` ≤ 60 s honored (longer stops retrying), otherwise 1 s, 2 s. No cookies are stored, environment

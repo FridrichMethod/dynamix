@@ -20,6 +20,7 @@ Robustness rules (07 §Integrity):
 from __future__ import annotations
 
 import copy
+import functools
 import hashlib
 import logging
 import math
@@ -86,7 +87,8 @@ class GuardedClient:
     * ``blocked_hosts`` (shared by all sources of a run): after a :class:`lib.net.BlockedError` from a host, further
       requests to it raise :class:`HostSkipped` without touching the network.
     * ``last_used`` (shared): at least ``min_interval`` seconds between the end of one request and the next to the same
-      host even across the per-source client instances.
+      host even across the per-source client instances. The host a response finally came from (after redirects) is
+      recorded too; the default clients of a run also share one :class:`lib.net.HostSchedule`, which spaces every hop.
     * ``calls`` counts requests per URL (diagnostics and tests).
     * ``per_item_refusal=True`` (an endpoint documented to answer 401/403 for one unavailable item, e.g. YouTube's oEmbed
       for a private or non-embeddable video): a plain 401/403 is that request's result and does not block the host,
@@ -118,23 +120,40 @@ class GuardedClient:
         if wait > 0:
             self._sleep(wait)
         self.calls[url] = self.calls.get(url, 0) + 1
+        contacted = {host}
         try:
             result = getattr(self._client, method)(url, *args, **kwargs)
+            contacted.add(self._host(self._final_url(result) or ""))
         except net.BlockedError as error:
+            contacted.add(self._host(error.url or ""))
             refusals = self._item_refusals.get(host, 0) + 1
             if (per_item_refusal and not isinstance(error, net.ChallengeError) and error.http_status in (401, 403)
                     and refusals < self.ITEM_REFUSAL_LIMIT):
                 self._item_refusals[host] = refusals
             else:
-                self._blocked.setdefault(host, f"{error.error_class}, HTTP {error.http_status}")
+                for name in (host, self._host(error.url or "")):  # the requested host and the hop that refused
+                    if name:
+                        self._blocked.setdefault(name, f"{error.error_class}, HTTP {error.http_status}")
             raise
-        except Exception:
+        except Exception as error:
+            contacted.add(self._host(getattr(error, "url", None) or ""))
             self._item_refusals.pop(host, None)
             raise
         finally:
-            self._last[host] = self._clock()
+            ended = self._clock()
+            for name in contacted - {""}:
+                self._last[name] = ended
         self._item_refusals.pop(host, None)
         return result
+
+    @staticmethod
+    def _final_url(result: Any) -> str | None:
+        """The URL a client result says the response came from: ``DownloadResult.final_url`` or the second item of
+        ``get_json``/``get_text`` tuples."""
+        final = getattr(result, "final_url", None)
+        if final is None and isinstance(result, tuple) and len(result) >= 2:
+            final = result[1]
+        return final if isinstance(final, str) else None
 
     def mark_blocked(self, url: str, reason: str) -> None:
         """Record a refusal an adapter detected in a 200 response (risk-control code, captcha page)."""
@@ -180,8 +199,9 @@ class AdapterContext:
                                         if key in schema.RIGHTS_FIELDS})
 
 
-def default_client_factory(hosts: list[str], min_interval: float) -> Any:
-    return net.PoliteClient(hosts, min_interval=min_interval)
+def default_client_factory(hosts: list[str], min_interval: float, *,
+                           schedule: net.HostSchedule | None = None) -> Any:
+    return net.PoliteClient(hosts, min_interval=min_interval, schedule=schedule)
 
 
 class OfflineClient:
@@ -425,6 +445,9 @@ class Runner:
         if family not in ("artists", "official", "archives"):
             raise ValueError(f"not a primary-source family: {family!r}")
         self.root, self.family, self.seeds = Path(root), family, seeds
+        self.host_schedule = net.HostSchedule()  # shared by the run's default clients: every hop is spaced run-wide
+        if client_factory is default_client_factory:
+            client_factory = functools.partial(default_client_factory, schedule=self.host_schedule)
         self.client_factory, self.metadata_only, self.resume, self.now = client_factory, metadata_only, resume, now
         self.sleep, self.clock = sleep, clock
         self.blocked_hosts: dict[str, str] = {}

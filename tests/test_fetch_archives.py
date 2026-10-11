@@ -1208,6 +1208,51 @@ class VerifySnapshotTests(ArchivesTestCase):
         self.assertFalse(any("song-index" in line for line in errors + warnings))
 
 
+class GuardedSpacingTests(unittest.TestCase):
+    """GuardedClient spaces requests per host across the per-source clients of a run (frozen >= 1.0 s default),
+    including a host that answered only after a redirect."""
+
+    def test_waits_are_kept_across_sources_and_redirect_hosts(self):
+        clock, sleeps = [100.0], []
+
+        def sleep(seconds):
+            sleeps.append(round(seconds, 3))
+            clock[0] += seconds
+
+        class Inner:
+            def get_text(self, url, **_):
+                clock[0] += 0.25
+                return "", url, {}
+
+            def download(self, url, dest, stem, **_):
+                clock[0] += 0.25
+                return net.DownloadResult(Path("unused.part"), "http://b.example/target", 200, "image/png", 1, "0" * 64,
+                                          "0" * 40, {})
+
+        shared = {"blocked_hosts": {}, "last_used": {}, "min_interval": 1.0, "sleep": sleep, "clock": lambda: clock[0]}
+        source_a = runner.GuardedClient(Inner(), **shared)
+        source_b = runner.GuardedClient(Inner(), **shared)
+        source_a.get_text("http://a.example/1")
+        source_a.get_text("http://a.example/2")  # same host: waits
+        self.assertEqual(sleeps, [1.0])
+        source_a.download("http://a.example/redirect", None, "x")  # a.example again, answered by b.example
+        self.assertEqual(sleeps, [1.0, 1.0])
+        source_b.get_text("http://b.example/other")  # another source, the redirect target: waits too
+        self.assertEqual(sleeps, [1.0, 1.0, 1.0])
+        source_b.get_text("http://c.example/fresh")  # an untouched host: no wait
+        self.assertEqual(sleeps, [1.0, 1.0, 1.0])
+
+    def test_default_clients_of_a_run_share_one_schedule(self):
+        with tempfile.TemporaryDirectory() as temp:
+            acquisition = runner.Runner(temp, "archives", [])
+        first = acquisition.client_factory(["a.example"], 1.0)
+        second = acquisition.client_factory(["a.example"], 1.0)
+        self.assertIs(first._schedule, acquisition.host_schedule)
+        self.assertIs(second._schedule, acquisition.host_schedule)
+        first.close()
+        second.close()
+
+
 class CliExitTests(ArchivesTestCase):
     """The shared primary CLI (fetch_artists/official/archives.py): exit status and the family lock."""
 

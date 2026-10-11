@@ -594,6 +594,25 @@ class PolitenessTests(NetTestCase):
         gaps = [later - earlier for earlier, later in zip(self.script.arrivals, self.script.arrivals[1:], strict=False)]
         self.assertTrue(all(gap >= 0.15 for gap in gaps), gaps)
 
+    def test_redirect_hops_are_spaced_across_clients_sharing_a_schedule(self):
+        """A host reached only through a redirect is spaced too, and clients sharing a HostSchedule (the per-source
+        clients of one run) see each other's requests: the next request to that host waits min_interval."""
+        self.script.add("/redir", {"status": 302, "headers": {"Location": self.url("/target")}})
+        self.script.add("/target", json_body(1))
+        self.script.add("/other", json_body(2))
+        clock = [100.0]
+        hosts = ["localhost", "127.0.0.1"]
+        for shared, expected in ((True, [1.0]), (False, [])):
+            with self.subTest(shared=shared):
+                self.sleeps.clear()
+                schedule = net.HostSchedule() if shared else None
+                first = self.client(hosts=hosts, min_interval=1.0, clock=lambda: clock[0], schedule=schedule)
+                second = self.client(hosts=hosts, min_interval=1.0, clock=lambda: clock[0], schedule=schedule)
+                _data, final = first.get_json(self.url("/redir", host="localhost"))
+                self.assertEqual(urlsplit(final).hostname, "127.0.0.1")
+                second.get_json(self.url("/other"))
+                self.assertEqual(self.sleeps, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
