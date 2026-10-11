@@ -329,6 +329,90 @@ class DecideTests(unittest.TestCase):
         self.assertFalse(classify._universe_category("Category:Dynamix"))
 
 
+class OtherGameCaptionTests(unittest.TestCase):
+    """DX1-01: a caption "<song> Artwork in <other game>" adds a shared-game association; it never supplies the
+    original game itself, so the page or tab game (and the pre-Universe rule) still decide."""
+
+    THRESHOLD = "2023-08-18T00:00:00Z"  # the wiki's first Universe-named Fandom upload
+
+    def found(self, title: str, text: str, categories: list[str], names: list[str]) -> dict:
+        page = {"title": title, "revision": {"content": text, "revid": 1}, "categories": categories}
+        info = classify.analyze_page(config.MIRAHEZE, page)
+        files = {"File:" + name: {"mime": "image/png", "width": 10, "height": 10} for name in names}
+        return dict(classify.page_evidence(config.MIRAHEZE, page, info, files, {}))
+
+    def decide(self, items, fandom_timestamp=None):
+        return classify.decide(
+            "File:X.png",
+            items,
+            {"mime": "image/png", "width": 10, "height": 10},
+            frames=None,
+            include_animated=False,
+            fandom_timestamp=fandom_timestamp,
+            threshold=self.THRESHOLD,
+        )
+
+    def test_original_game_page_keeps_its_game_and_adds_the_association(self) -> None:
+        text = "{{Song\n|Title = WHIRLWIND\n|Imgsuffix = WHIRLWINDDynamix.png\n}}\n<gallery>\n"
+        text += "WHIRLWIND Squared.png|WHIRLWIND Artwork in RAVON\n</gallery>"
+        found = self.found("WHIRLWIND", text, ["Category:Songs"], ["WHIRLWINDDynamix.png", "WHIRLWIND Squared.png"])
+        item = found["File:WHIRLWIND Squared.png"]
+        self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", "RAVON"))
+        decision = self.decide([item])
+        self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "mixed", ["ravon"]))
+        self.assertTrue(any("another game/event" in entry for entry in decision.game_evidence))
+
+    def test_universe_only_page_stays_universe_only(self) -> None:
+        """A Template:SongUV page (Category:Songs (Dynamix Universe)) captioning its square art 'Artwork in RAVON':
+        Universe art shared with RAVON, not original-game art."""
+        text = "{{SongUV\n|Title = UVSong\n|Imgsuffix = UVSong cover.png\n}}\n<gallery>\n"
+        text += "UVSong RAVON.png|UVSong Artwork in RAVON\n</gallery>"
+        found = self.found(
+            "UVSong", text, ["Category:Songs (Dynamix Universe)"], ["UVSong cover.png", "UVSong RAVON.png"]
+        )
+        item = found["File:UVSong RAVON.png"]
+        self.assertEqual((item.game, item.other_game), ("dynamix_universe", "RAVON"))
+        decision = self.decide([item])
+        self.assertEqual(
+            (decision.disposition, decision.reason.split(":")[0], decision.game),
+            ("excluded", "universe_only", "dynamix_universe"),
+        )
+        self.assertEqual(decision.associations, ["dynamix_universe", "ravon"])
+
+    def test_page_without_game_evidence_stays_pending(self) -> None:
+        """The same caption on a page that names no game ('Songs', a neutral list page): no original-game context."""
+        text = "<gallery>\nSome Song Arcaea.png|Some song Artwork in Arcaea\n</gallery>"
+        item = self.found("Songs", text, [], ["Some Song Arcaea.png"])["File:Some Song Arcaea.png"]
+        self.assertEqual((item.game, item.other_game), (None, "Arcaea"))
+        decision = self.decide([item])
+        self.assertEqual((decision.disposition, decision.reason.split(":")[0]), ("pending", "unresolved_game"))
+        self.assertEqual((decision.game, decision.associations), ("unknown", ["arcaea"]))
+
+    def test_two_game_page_gallery_rests_on_the_pre_universe_rule(self) -> None:
+        """The page-level gallery of a two-game song page (Black：Magnam's layout): the item gives no game, so a
+        pre-Universe upload establishes the original game and the caption the shared association."""
+        text = (
+            '<div class="tabberex-tab" data-tab-header="Dynamix">{{Song\n|Title = B\n|Imgsuffix = B.png\n}}</div>'
+            '<div class="tabberex-tab" data-tab-header="Dynamix Universe">{{SongUV\n|Title = B\n'
+            "|Imgsuffix = B cover.png\n}}</div>\n<gallery>\nB Squared.png|B Artwork in RAVON\n"
+            "B Chart List.png|B Chart List cover for RAVON\n</gallery>"
+        )
+        names = ["B.png", "B cover.png", "B Squared.png", "B Chart List.png"]
+        found = self.found("B", text, ["Category:Songs"], names)
+        item = found["File:B Squared.png"]
+        self.assertEqual((item.game, item.other_game), (None, "RAVON"))
+        decision = self.decide([item], fandom_timestamp="2021-08-22T00:00:00Z")
+        self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "mixed", ["ravon"]))
+        self.assertTrue(any(entry.startswith("pre-Universe upload") for entry in decision.game_evidence))
+        self.assertTrue(any("another game/event" in entry for entry in decision.game_evidence))
+        later = self.decide([item], fandom_timestamp="2024-01-01T00:00:00Z")  # no original-game basis at all
+        self.assertEqual((later.disposition, later.reason.split(":")[0]), ("pending", "unresolved_game"))
+        # A page-level gallery role of such a page is original-game evidence; the caption still adds the association.
+        listed = found["File:B Chart List.png"]
+        self.assertEqual((listed.role, listed.game, listed.other_game), ("reference", "dynamix", "RAVON"))
+        self.assertEqual((self.decide([listed]).game, self.decide([listed]).associations), ("mixed", ["ravon"]))
+
+
 def _review(**fields):
     entry = {
         "title": "File:X.png",

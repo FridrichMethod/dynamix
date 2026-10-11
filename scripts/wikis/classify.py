@@ -19,7 +19,9 @@ covers of external releases). Everything else without both a role and an origina
 Game: the union of the games of the contexts that embed the file (song template, game tab, page category/suffix, or
 the reviewed original-game page table). A page about both games gives no game by itself. A file whose role comes from
 a song page and whose Fandom upload predates the wiki's first Universe-named upload is original-game material
-(``pre-Universe upload``).
+(``pre-Universe upload``). A caption naming the artwork of another game ("Artwork in RAVON") adds that game as an
+association and never supplies a game: with an original-game context the file is shared (``mixed``), with only
+Universe contexts it stays Universe-only, and without a game context it stays unresolved.
 
 File description pages: a description that redirects to another file with the same reported SHA-1 is an alias
 (``redirect_or_alias``); pages linking to the description page (``[[:File:X]]`` citations, talk threads) are recorded
@@ -374,20 +376,23 @@ def page_evidence(
                     # "Artwork in PABAT! 2017": the song's artwork for a separate (BMS) event release, not Dynamix's.
                     role, song = "external_release_art", None
                     detail += f", artwork of the song's release for {named} (an external release event)"
-                elif other is not None:
-                    game = "mixed"
-                    other_game = named
-                    detail += f", artwork of the song for {other_game} (another game/event)"
-                elif (
-                    game is None
-                    and info.game == "mixed"
-                    and region is None
-                    and ref.context == "gallery"
-                    and caption_role in config.MIXED_PAGE_GALLERY_ROLES
-                    and not re.search(r"universe|\bUV\b", ref.caption, re.I)
-                ):
-                    game = "dynamix"
-                    detail += ", page-level gallery of a two-game song page (original-game event items)"
+                else:
+                    if other is not None:
+                        # Shared artwork: an association only. The page or tab keeps deciding the game (decide()
+                        # makes it "mixed" when an original-game context exists), so a Universe-only page stays
+                        # Universe-only and a page without game evidence gives none.
+                        other_game = named
+                        detail += f", artwork of the song for {other_game} (another game/event)"
+                    if (
+                        game is None
+                        and info.game == "mixed"
+                        and region is None
+                        and ref.context == "gallery"
+                        and caption_role in config.MIXED_PAGE_GALLERY_ROLES
+                        and not re.search(r"universe|\bUV\b", ref.caption, re.I)
+                    ):
+                        game = "dynamix"
+                        detail += ", page-level gallery of a two-game song page (original-game event items)"
             elif info.title in config.SITE_UI_PAGES:
                 role, strength = "site_ui", 2
             else:
@@ -1051,7 +1056,8 @@ def decide(
         return Decision(None, "unknown", [], [note], [], [], "excluded", f"redirect_or_alias: {note}", "unmapped")
     page_items = [item for item in items if item.context != REVIEW_CONTEXT]
     games = {item.game for item in page_items if item.game}
-    game_items = [item.text() for item in page_items if item.game]
+    # A caption naming another game's artwork is game evidence too (the association), although it gives no game.
+    game_items = [item.text() for item in page_items if item.game or item.other_game]
     role_items = [item for item in page_items if item.role]
     top = max((item.strength for item in role_items), default=-1)
     leaders = _majority([item for item in role_items if item.strength == top])
@@ -1144,6 +1150,10 @@ def decide(
     if reviewed_game:
         games = {review.game}
         game_items.append(review.game_text())
+    # A caption "Artwork in <other game>" shares an original-game file with that game (mixed); with only Universe
+    # contexts the file stays Universe-only, and without any game context it stays unresolved.
+    if "dynamix" in games and any(item.other_game for item in page_items):
+        games = games | {"mixed"}
     # A review that saw another game's identity in the bytes (game "mixed" with associations) adds it to the original
     # game that page context gives: the file is shared, not moved to the other game.
     shared = (

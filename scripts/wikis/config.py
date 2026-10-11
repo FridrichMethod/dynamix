@@ -274,8 +274,9 @@ CAPTION_ROLES = (
     ),
     (re.compile(r"\balbum\b", re.I), "external_release_art"),
 )
-# A caption naming artwork for another game ("Artwork in RAVON"): the file is a shared/variant artwork of the song,
-# so its game association is "mixed". Release events of the BMS (and similar doujin) scene are the exception:
+# A caption naming artwork for another game ("Artwork in RAVON"): the file is a shared/variant artwork of the song, so
+# that game becomes a game association; the page or tab still decides the original game (classify.decide makes a file
+# with an original-game context "mixed"). Release events of the BMS (and similar doujin) scene are the exception:
 # "Artwork in PABAT! 2017" is the artwork of the song's own release in that event (an eyecatch with the event title
 # and credits), a separate external release (external_release_art), not Dynamix artwork.
 EXTERNAL_RELEASE_EVENT = re.compile(r"\b(?:PABAT|BOF|BMS)\b", re.I)
