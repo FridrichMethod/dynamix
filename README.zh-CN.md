@@ -10,7 +10,7 @@ C4Cat Entertainment Limited 出品的节奏游戏 **Dynamix**（原版）的个�
 
 界面和构建工具改编自 DEEMO 曲绘档案（[FridrichMethod/deemo](https://github.com/FridrichMethod/deemo)，提交 `b14bf0d5f5a05e5382c319f3fd5019a4936820b8`），后者又源自 Mashiro 的 [mashirozx/deemo](https://github.com/mashirozx/deemo)；没有复制该 DEEMO 档案的任何曲绘、音频、字体或数据（只改编了代码，见 [NOTICE](NOTICE)）。
 
-**状态：**网站尚未部署。GitHub Pages 部署处于冻结状态，须等待之后明确的发布决定；见[发布冻结](#发布冻结)。
+**状态**：网站尚未部署。GitHub Pages 部署处于冻结状态，须等待之后明确的发布决定；见[发布冻结](#发布冻结)。
 
 ## 浏览
 
@@ -66,23 +66,23 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 
 ### Wiki 副本：Miraheze 与 Fandom
 
-当前的 Miraheze 英文 wiki 以相同的文件名从旧 Fandom wiki 导入了文件。两者作为独立来源分别存档，各有自己的记录。请求 Fandom 文件时带上 `format=original`，否则它的 CDN 会返回转换后的 WebP。根据 2026-10-10 wiki 获取过程中的实测，在两个 wiki 都有的 3,337 个已接受文件名中，有 3,336 个的这些字节与 Miraheze 上的文件完全相同；剩下的那个文件名，Fandom 返回的字节与两个 wiki 记录的上传文件不同，因此这条 Fandom 记录标为平台转换（`transformed: true`），并作为单独的文件保留。多个来源中字节完全相同的文件合并为一个目录条目，列出所有来源记录，网站也只暂存一份。详见 [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md)。
+当前的 Miraheze 英文 wiki 以相同的文件名从旧 Fandom wiki 导入了文件。两者作为独立来源分别存档，各有自己的记录。请求 Fandom 文件时带上 `format=original`，否则它的 CDN 会返回转换后的 WebP。在 `data/sources/wikis.json` 记录的获取中，除一个文件名外，两个 wiki 都有的每个已接受文件名，Fandom 返回的这些字节都与 Miraheze 上同名文件完全相同，包括 Fandom API 为上传文件记录了另一个 SHA-1 和字节数的文件；这种差异会被记录，其原因没有得到确认，两个副本都不被说成是 Fandom 所记录的上传文件。剩下的那个文件名，Fandom 返回的字节与两个 wiki 记录的上传文件不同，因此这条 Fandom 记录标为平台转换（`transformed: true`），并作为单独的文件保留。多个来源中字节完全相同的文件合并为一个目录条目，列出所有来源记录，网站也只暂存一份。详细说明以及两个或更多 wiki 来源持有的目录条目的生成数量见 [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md)。
 
 ## 来源记录模型
 
 `data/catalog.json` 中每个不同的 SHA-256 对应一个条目。它的 `provenance` 列表保留这些字节的每一条来源记录，每条记录包括：
 
-- **出处：**来源、来源页面、请求的下载地址和最终响应地址、原始文件名、获取时间，以及已知时的上游修订号。
+- **出处**：来源、来源页面、请求的下载地址和最终响应地址、原始文件名、获取时间，以及已知时的上游修订号。
 - **`source_reported`**（来源声明的信息：URL、MIME 类型、字节数、尺寸、SHA-1、时间戳、修订号）与 **`download_observed`**（保存下来的字节的实际情况：内容类型、嗅探格式、字节数、解码尺寸、SHA-1、SHA-256）并列。**`comparisons`** 分别对 SHA-1、字节数、尺寸和格式说明二者一致（`true`）、不一致（`false`）还是无法比较（`null`）；不存在笼统的“已验证”标记。`transformed: true` 表示这些字节已知是平台重新编码的结果。
-- **质量标签：**`source_variant`（`site_original`、`preview`、`unknown`）、`origin_status`（`artist_post`、`official`、`wiki_copy`、`repost`、`scan`、`unknown`）和 `master_status`（`confirmed` 或 `unverified`）。
-- **署名：**`illustrators`（画师）和 `composers`（作曲者）是两个独立的列表，按原文复制；空列表表示未知，界面显示为“未知”。`credit_evidence` 引用写明每个名字的字段。作曲者绝不会被当作画师。
-- **曲目对应：**`song_titles`、`song_ids` 和 `collections`，以及 `mapping_status`：`confirmed_primary`（画师本人或官方帖子写明了曲目）、`confirmed_wiki`（wiki 模板、图注或列表页写明了曲目）、`inferred`（证据较弱，需要复核）、`unmapped`（未对应）或 `conflict`（来源之间矛盾）。`mapping_evidence` 保存相应的 URL 和引用字段。
-- **权利：**权利人、创作者、权利信息 URL、许可证和限制。权利人默认为 “C4Cat Entertainment Limited and/or the credited artist”；只有确实确认了许可证时，`license` 才会填写。
-- **上游状态：**`current`、`removed`、`superseded`（较新的上传已存档时由 `superseded_by` 指向它）或 `unknown`；相关的裁切版本共享一个 `variant_group`。
+- **质量标签**：`source_variant`（`site_original`、`preview`、`unknown`）、`origin_status`（`artist_post`、`official`、`wiki_copy`、`repost`、`scan`、`unknown`）和 `master_status`（`confirmed` 或 `unverified`）。
+- **署名**：`illustrators`（画师）和 `composers`（作曲者）是两个独立的列表，按原文复制；空列表表示未知，界面显示为“未知”。`credit_evidence` 引用写明每个名字的字段。作曲者绝不会被当作画师。
+- **曲目对应**：`song_titles`、`song_ids` 和 `collections`，以及 `mapping_status`：`confirmed_primary`（画师本人或官方帖子写明了曲目）、`confirmed_wiki`（wiki 模板、图注或列表页写明了曲目）、`inferred`（证据较弱，需要复核）、`unmapped`（未对应）或 `conflict`（来源之间矛盾）。`mapping_evidence` 保存相应的 URL 和引用字段。
+- **权利**：权利人、创作者、权利信息 URL、许可证和限制。权利人默认为 “C4Cat Entertainment Limited and/or the credited artist”；只有确实确认了许可证时，`license` 才会填写。
+- **上游状态**：`current`、`removed`、`superseded`（较新的上传已存档时由 `superseded_by` 指向它）或 `unknown`；相关的裁切版本共享一个 `variant_group`。
 
-**主记录。**条目自身的字段（标题、类型、文件、质量标签）取自其中一条记录，按固定规则选出：先看类别（`artists`、`official`、`wikis`、`archives` 依次优先）；同一类别内看来源，当前的 Miraheze wiki 排在旧 Fandom wiki 之前，因为 Miraheze 保存的正是两个英文 wiki 提供的字节，其他来源按 ID 排序；然后依次看版本（`site_original`、`preview`、`unknown`）、来源 ID 和资产 ID。因此即使 wiki 上有相同的字节，画师或官方的副本也会作为条目的主记录，其他记录保留在 `provenance` 中。
+**主记录**。条目自身的字段（标题、类型、文件、质量标签）取自其中一条记录，按固定规则选出：先看类别（`artists`、`official`、`wikis`、`archives` 依次优先）；同一类别内看来源，当前的 Miraheze wiki 排在旧 Fandom wiki 之前，因为 Miraheze 保存的正是两个英文 wiki 提供的字节，其他来源按 ID 排序；然后依次看版本（`site_original`、`preview`、`unknown`）、来源 ID 和资产 ID。因此即使 wiki 上有相同的字节，画师或官方的副本也会作为条目的主记录，其他记录保留在 `provenance` 中。
 
-**标题。**标题是可读的名称，绝不是单纯的文件名。若 wiki 曲绘文件以 `confirmed_wiki` 或更强的证据只对应一首曲目，就使用该曲目的确切曲名；其他 wiki 文件使用 wiki 自己的图注，没有图注时使用去掉扩展名、下划线显示为空格的 `File:` 标题。其他类别的记录以其引用的帖子或页面文字作为标题。上游文件名始终保留在 `original_filename` 中。
+**标题**。标题是可读的名称，绝不是单纯的文件名。若 wiki 曲绘文件以 `confirmed_wiki` 或更强的证据只对应一首曲目，就使用该曲目的确切曲名；其他 wiki 文件使用 wiki 自己的图注，没有图注时使用去掉扩展名、下划线显示为空格的 `File:` 标题。其他类别的记录以其引用的帖子或页面文字作为标题。上游文件名始终保留在 `original_filename` 中。
 
 曲目 ID 来自 `data/sources/song-index.json`，即注明日期的原版曲目列表。只有存在属于原版游戏的正面证据时，曲目才会进入该列表；各项指标的定义见 [docs/coverage.zh-CN.md](docs/coverage.zh-CN.md)。
 
@@ -135,7 +135,7 @@ python3 -m venv .venv
 .venv/bin/python -I scripts/update_docs_stats.py
 ```
 
-`--verify` 完全离线地重新计算并解码每个存档文件，并核对每份清单与其发现快照。`build_thumbnails.py` 生成预览图（`--prune` 还会删除它自己列出、但原文件已不再需要的预览图；它从不改动原文件）。`build_catalog.py` 生成 `data/catalog.json`、`data/catalog.js` 和 `index.html`。`build_coverage.py` 生成 `data/coverage.json`，输入无法对账时拒绝写入。随后 `update_docs_stats.py` 重写本 README、`docs/coverage.md` 和 `docs/sources-*.md` 两种语言版本中的统计块；它只读取 `data/coverage.json` 和 `data/catalog.json`，两者来自不同构建时拒绝使用，并且从不改动标记之外的文字。这些输出都不依赖当前时间，同样的输入重新构建得到完全相同的字节。只检查已提交的输出是否最新、不写入任何文件：
+`--verify` 完全离线地重新计算并解码每个存档文件，并核对每份清单与其发现快照。`build_thumbnails.py` 生成预览图（`--prune` 还会删除它自己列出、但原文件已不再需要的预览图；它从不改动原文件）。`build_catalog.py` 生成 `data/catalog.json`、`data/catalog.js` 和 `index.html`。`build_coverage.py` 生成 `data/coverage.json`，输入无法对账时拒绝写入。随后 `update_docs_stats.py` 重写本 README、`docs/coverage.md` 和 `docs/sources-*.md` 两种语言版本中的统计块；它只读取 `data/coverage.json` 和 `data/catalog.json`，两者的共同总数、各来源计数、字节总和、来源状态或获取快照不一致时拒绝使用（见 [docs/coverage.zh-CN.md](docs/coverage.zh-CN.md)），并且从不改动标记之外的文字。这些输出都不依赖当前时间，同样的输入重新构建得到完全相同的字节。只检查已提交的输出是否最新、不写入任何文件：
 
 ```sh
 .venv/bin/python -I scripts/build_thumbnails.py --check

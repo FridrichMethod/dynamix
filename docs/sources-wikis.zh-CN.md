@@ -33,9 +33,9 @@ Miraheze 从 `static.wikitide.net` 原样提供文件；对抽样文件而言，
 
 ### Fandom 的 CDN 与 `format=original`
 
-Fandom 的 CDN（`static.wikia.nocookie.net`）默认对 `/revision/latest` 地址返回转换后的 WebP，即使路径以 `.png` 结尾。因此每次从 Fandom 下载都会附加 `format=original`，以取得存储的原文件。保存的文件按其字节解码出的格式命名，从不依据 URL 后缀。
+Fandom 的 CDN（`static.wikia.nocookie.net`）默认对 `/revision/latest` 地址返回转换后的 WebP，即使路径以 `.png` 结尾。因此每次从 Fandom 下载都会附加 `format=original`，以取得 Fandom 的 CDN 所存储的文件，而不是那个 WebP；该文件是否就是上传文件，要与 API 的值核对，而不是默认如此。保存的文件按其字节解码出的格式命名，从不依据 URL 后缀。
 
-对于许多 Fandom 文件，Fandom API 报告的大小和 SHA-1 与 `format=original` 返回的字节不同。但这些字节仍然是存储的上传文件：根据 2026-10-10 wiki 获取过程中的实测，在两个 wiki 都有的 3,337 个已接受文件名中，有 3,336 个的这些字节与 Miraheze 的文件逐字节相同。这种差异按实际情况记录：API 的值保留在 `source_reported`，实测值保留在 `download_observed`，`comparisons` 把不一致的字段标为 `false`。这不被视为文件的第二个版本。
+对于许多 Fandom 文件，Fandom API 为上传文件记录的字节数和 SHA-1 与 `format=original` 返回的字节不同。实测得到的只有以下内容：在 `data/sources/wikis.json` 记录的获取中，除一个文件名外，两个 wiki 都有的每个已接受文件名，Fandom 返回的字节都与 Miraheze 上同名副本逐字节相同，并且这些 Miraheze 副本与 Miraheze API 报告的 SHA-1 一致。因此对这些文件名而言，两个副本都不具有 Fandom API 为上传文件记录的字节数和 SHA-1；差异的原因没有得到确认，两个副本也都不被说成是那个上传文件。记录中写的也是这些：API 的值保留在 `source_reported`，实测值保留在 `download_observed`，`comparisons` 把不一致的字段标为 `false`，Fandom 记录的质量备注说明其字节不是 Fandom API 所记录的上传文件，Miraheze 记录的 `notes` 说明其副本与那个上传文件并非逐字节相同。这种差异不被视为文件的第二个版本。由两个或更多 wiki 来源持有的目录条目数量在[数量](#数量)中生成。
 
 剩下的那个文件名是 `File:Dangerous_Insanity_Comeback_Chart_List.jpg`。对它而言，Fandom API 和 Miraheze API 报告的上传文件 SHA-1 和大小相同，但 Fandom 的 CDN 返回了别的字节，因此可以确定这些字节是存储的上传文件经平台转换的结果：这条 Fandom 记录带有 `transformed: true` 和说明这一点的质量备注，并作为单独的文件与 Miraheze 副本并存。如果某个 Fandom 文件的 API 值与 Miraheze 的也不一致，则不标为转换，因为原因没有得到确认。
 

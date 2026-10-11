@@ -155,6 +155,8 @@ class RenderTests(Base):
                             self.assertRegex(sentence, rules.GUARDS)
                     self.assertEqual(text.count("STATS:"), 2)
                     self.assertIsNone(re.search(r"^#{1,6} ", block_of(text), re.M), "no headings in a block")
+                    for line in block_of(text).splitlines():
+                        self.assertEqual(rules.unrendered_bold(line), [], f"bold that prints literally: {line}")
             en, zh = self.read(english), self.read(chinese)
             with self.subTest(pair=english):
                 self.assertEqual([level for level, _ in rules.headings(en)],

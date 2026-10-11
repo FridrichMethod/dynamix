@@ -8,8 +8,10 @@ quote (a script that is not in this tree yet must be a name of the frozen CLI co
 from __future__ import annotations
 
 import re
+import string
 import subprocess
 import sys
+import unicodedata
 import unittest
 from pathlib import Path
 from urllib.parse import unquote
@@ -45,10 +47,19 @@ RELEASE_WORDS = re.compile(r"\bdeploy(?:s|ed|ing|ment|ments)?\b|\breleased\b|\bG
 GUARDS = re.compile(r"\b(?:not|no|never|nothing|none|until|unless|would|will|only|cannot|held|hold|future|later|"
                     r"requires?|before|if|when)\b|n't|不|未|没有|尚未|只有|只能|之前|将来|以后|如果|才|须|需要|冻结|手动|届时|会",
                     re.IGNORECASE)
-# Collection counts belong between the STATS markers (generated), never in the prose.
-COUNT_CLAIMS = re.compile(r"\b\d[\d,]*\s+(?:files?|images?|songs?|records?|assets?|candidates?|artworks?|covers?|"
-                          r"jackets?|screenshots?|sources?)\b|\d[\d,]*\s*(?:个|张|首|条)\s*(?:文件|图片|曲目|记录|候选|曲绘|"
-                          r"资产|封面|截图|来源)", re.IGNORECASE)
+# Collection counts belong between the STATS markers (generated), never in the prose. A number counts a collection
+# when a counted noun follows it, also behind up to three words ("3,337 accepted file titles") or, in Chinese, behind a
+# classifier and a few characters ("3,337 个已接受文件名"). Digits inside names (SHA-1, 2.0, H5) are not numbers here,
+# and a number followed by "a"/"an" does not count the noun ("4 an archived file", an exit status).
+_COUNTED_EN = (r"files?|images?|songs?|records?|assets?|candidates?|artworks?|covers?|jackets?|screenshots?|sources?|"
+               r"titles?|entry|entries|uploads?")
+_COUNTED_ZH = r"文件|图片|曲目|记录|候选|曲绘|资产|封面|截图|来源|标题|条目"
+COUNT_CLAIMS = re.compile(rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s+(?:(?!an?\s)[A-Za-z'-]+\s+){{0,3}}(?:{_COUNTED_EN})\b|"
+                          rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s*(?:(?:个|张|首|条|项|份)[^\s，。；：、]{{0,8}}?)?(?:{_COUNTED_ZH})",
+                          re.IGNORECASE)
+# A "**" pair renders as bold only when the opening run is left-flanking and the closing run right-flanking
+# (CommonMark/GFM). "**日期。**曲目" fails: the closing run follows punctuation and precedes a letter.
+BOLD_RUN = re.compile(r"(?<!\*)\*\*(?!\*)")
 LINK = re.compile(r"(?<!!)\[(?:[^\[\]]|\[[^\]]*\])*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
 INLINE_CODE = re.compile(r"`[^`]*`")
@@ -102,6 +113,34 @@ def anchors(text: str) -> set[str]:
         seen[base] = count + 1
         result.add(base if count == 0 else f"{base}-{count}")
     return result
+
+
+def _punctuation(char: str, symbols: bool) -> bool:
+    """ASCII punctuation or Unicode P* (GFM); with ``symbols`` also Unicode S* (CommonMark 0.31)."""
+    category = unicodedata.category(char)
+    return char in string.punctuation or category.startswith("P") or (symbols and category.startswith("S"))
+
+
+def unrendered_bold(line: str) -> list[int]:
+    """Columns of "**" runs in one Markdown line that would print literally instead of opening or closing bold, under
+    both the GFM and the CommonMark 0.31 definition of punctuation. Runs pair in order; code spans are masked."""
+    text = INLINE_CODE.sub(lambda match: "`" + "x" * (len(match.group()) - 2) + "`", line)
+    runs = [match.start() for match in BOLD_RUN.finditer(text)]
+    problems = [runs[-1]] if len(runs) % 2 else []
+    for n, column in enumerate(runs[:len(runs) - len(runs) % 2]):
+        before = text[column - 1] if column else " "
+        after = text[column + 2] if column + 2 < len(text) else " "
+        for symbols in (False, True):
+            if n % 2 == 0:  # opening: left-flanking
+                ok = not after.isspace() and (not _punctuation(after, symbols) or before.isspace()
+                                              or _punctuation(before, symbols))
+            else:  # closing: right-flanking
+                ok = not before.isspace() and (not _punctuation(before, symbols) or after.isspace()
+                                               or _punctuation(after, symbols))
+            if not ok:
+                problems.append(column)
+                break
+    return sorted(problems)
 
 
 def sentences(lines: list[str]) -> list[str]:
@@ -178,6 +217,27 @@ class TranslationParityTests(unittest.TestCase):
                 self.assertEqual(en, zh, "the two languages must document the same commands")
 
 
+class EmphasisTests(unittest.TestCase):
+    def test_bold_labels_render(self):
+        for relative in DOCUMENTS:
+            for number, line in enumerate(prose_lines(read(relative)), 1):
+                with self.subTest(document=relative, line=line[:60]):
+                    self.assertEqual(unrendered_bold(line), [],
+                                     "a '**' that Markdown prints literally; keep full-width punctuation outside it")
+
+    def test_the_check_matches_commonmark(self):
+        rendered = ("**Dates.** Song index", "**日期**。曲目索引日期", "**`source_reported`**（来源", "- **质量标签：**`x`",
+                    "**缺口与交叉检查**（每个列表）", "**状态**：网站", "a **b** c", "**排除原因。**")
+        literal = ("**日期。**曲目索引日期", "**状态：**网站", "- **出处：**来源", "**主记录。**条目", "a** b**",
+                   "**open only")
+        for line in rendered:
+            with self.subTest(line=line):
+                self.assertEqual(unrendered_bold(line), [])
+        for line in literal:
+            with self.subTest(line=line):
+                self.assertNotEqual(unrendered_bold(line), [])
+
+
 class LinkTests(unittest.TestCase):
     def test_relative_links_and_anchors_resolve(self):
         for relative in DOCUMENTS:
@@ -245,6 +305,20 @@ class StatisticsMarkerTests(unittest.TestCase):
                 self.assertEqual(len(re.findall(r"[.。!?！？]", INLINE_CODE.sub("", prose[0]))), 1,
                                  "a single sentence")
                 self.assertIsNone(re.search(r"\d", prose[0]), "no hand-written numbers in the statistics section")
+
+    def test_count_pattern_sees_counts_behind_adjectives(self):
+        claims = ("for 3,336 of the 3,337 accepted file titles", "3,337 个已接受文件名", "3,337 file titles",
+                  "3,337 个文件名", "12 new uploads", "3516 catalog entries", "有 42 张图片", "3,331 条目",
+                  "5 archived press screenshots")
+        not_claims = ("SHA-1 of the files", "Apache License 2.0 for the files", "long edge 480 px, which",
+                      "on 2026-10-10 the host", "4 an archived file is no longer accepted", "HTTP 404 and is recorded",
+                      "长边 480 px", "以状态码 4 退出")
+        for text in claims:
+            with self.subTest(claim=text):
+                self.assertIsNotNone(COUNT_CLAIMS.search(text))
+        for text in not_claims:
+            with self.subTest(text=text):
+                self.assertIsNone(COUNT_CLAIMS.search(text))
 
     def test_no_collection_counts_outside_the_markers(self):
         for relative in DOCUMENTS:
