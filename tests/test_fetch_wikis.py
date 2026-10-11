@@ -221,6 +221,27 @@ class MetadataOnlyTests(WikiRun):
         source = next(s for s in self.manifest()["sources"] if s["id"] == "wikis:rhythmgame-ja")
         self.assertEqual((source["status"], source["evidence_level"]), ("manual_access", "blocked"))
 
+    def test_list_page_without_recognized_rows_is_a_page_error(self) -> None:
+        """A Japanese list page that is read but whose layout yields no song row (no recognizable table header) is a
+        page error: the HTML source's discovery is incomplete (exit 2) and the song index proposal is not rewritten
+        from the emptied list evidence."""
+        self.assertEqual(self.run_cli("--metadata-only"), 0, "\n".join(self.logs))
+        index_path = self.root / "data/discovery/song-index.wikis.json"
+        index_before = index_path.read_text(encoding="utf-8")
+        client = self.scenario.client()
+        url = "https://wikiwiki.jp/rhythmgame/Dynamix"
+        self.assertIn(url, client.texts)
+        client.texts[url] = ("<html><body><h2>Dynamix</h2><p>レイアウト変更</p><table><tr><td>Cosmic Pulse</td>"
+                             "<td>Yunosuke</td></tr></table></body></html>")
+        self.assertEqual(self.run_cli("--metadata-only", client=client), 2)
+        snapshot = self.snapshot("rhythmgame-ja")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertTrue(any("no song rows recognized" in error["message"] for error in snapshot["errors"]),
+                        snapshot["errors"])
+        self.assertEqual(index_path.read_text(encoding="utf-8"), index_before)
+        self.assertIn("song index proposal not rewritten", "\n".join(self.logs))
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
     def test_pack_cover_is_titled_with_its_caption(self) -> None:
         """A package page's cover takes the wiki's caption as its title (Titles rule), not the file name."""
         vocal = dict(self.scenario.miraheze_pages["Vocal"])
