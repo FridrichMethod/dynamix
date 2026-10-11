@@ -2,7 +2,7 @@
 
 ## Start here
 
-Read `docs/implementation/README.md`, then the plan and your assigned handoff. This repository begins as a planning package; implement only when the user starts implementation. The intended reference is `/home/fridrichmethod/data/repos/deemo` at commit `b14bf0d5f5a05e5382c319f3fd5019a4936820b8`. Treat that repository as read-only.
+Read `docs/implementation/README.md`, then the plan and your assigned handoff. This repository begins as a planning package; implement only when the user starts implementation. The intended reference is `https://github.com/FridrichMethod/deemo` at commit `b14bf0d5f5a05e5382c319f3fd5019a4936820b8` (use a local clone at that commit). Treat that repository as read-only.
 
 ## Product and data
 

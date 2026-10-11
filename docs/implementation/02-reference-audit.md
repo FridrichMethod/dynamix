@@ -1,6 +1,6 @@
 # DEEMO reference audit
 
-Inspected read-only on **2026-10-10**. Repository: `/home/fridrichmethod/data/repos/deemo`; remote `https://github.com/FridrichMethod/deemo.git`; clean `main` tracking `origin/main`; commit `b14bf0d5f5a05e5382c319f3fd5019a4936820b8`. No repository instruction files were found in the inspected tree. Source inspection only: this planning session did not run DEEMO fetchers, builds, or tests.
+Inspected read-only on **2026-10-10**. Repository: a local clone of `https://github.com/FridrichMethod/deemo.git`; clean `main` tracking `origin/main`; commit `b14bf0d5f5a05e5382c319f3fd5019a4936820b8`. No repository instruction files were found in the inspected tree. Source inspection only: this planning session did not run DEEMO fetchers, builds, or tests.
 
 ## Reuse and parity map
 

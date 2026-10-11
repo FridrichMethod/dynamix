@@ -31,8 +31,12 @@ from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[2] / "scripts"))
+sys.path.insert(0, str(HERE.parent))
 
 from lib import paths, schema  # noqa: E402 - the contract library lives in scripts/lib
+from pinned_png import PinnedPNG  # noqa: E402 - committed PNG bytes, independent of the zlib build
+
+PINNED = PinnedPNG(HERE / "assets")
 OWNER, GAME, REPOSITORY = "FridrichMethod", "Dynamix", "https://github.com/FridrichMethod/dynamix"
 KIND_ORDER = ["song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot",
               "gameplay_screenshot", "process", "reference"]
@@ -88,6 +92,8 @@ def draw(size, background, shapes, mode="RGB"):
 
 
 def encode(image, fmt, **options):
+    if fmt == "PNG":
+        return PINNED.encode(image, **options)
     buffer = io.BytesIO()
     image.save(buffer, fmt, **options)
     return buffer.getvalue()

@@ -16,3 +16,6 @@ fictional. Nothing here is evidence about real Dynamix artwork, artists or sourc
 - `assets/public/...`: originals; `assets/thumbs/...`: WebP previews (long edge 480, quality 75, method 6).
 
 Regenerate with `python -I tests/fixtures/ui/build_fixture.py`; `--check` exits 1 when the committed files differ.
+A PNG keeps its committed bytes while it decodes to exactly the drawn image (`../pinned_png.py`), so the zlib build
+(stock zlib or zlib-ng) does not change them. To change only the encode options or metadata of an existing picture,
+delete its committed PNG first.
