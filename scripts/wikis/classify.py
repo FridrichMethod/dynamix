@@ -494,6 +494,7 @@ class Subject:
     page_named: frozenset[str]  # songs named by page evidence: a caption naming the whole title, or a host song page
     named: tuple[tuple[str, str, str, str, str], ...]  # (song, url, field, quote, source_id) for mapping evidence
     unread: str = ""  # no caption or file title gives a subject although song pages show the graphic (recorded)
+    unread_pages: tuple[str, ...] = ()  # then: the songs of the original-game song pages showing it
 
     def only(self, titles: Iterable[str]) -> "Subject":
         """The subject restricted to ``titles`` (the songs an archivist review saw in the bytes)."""
@@ -548,24 +549,38 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
                 page_named.add(title)
             named.append((title, url, field_name, f"{label} names the song {title!r}", item.source_id))
     hosts = [item for item in listed if item.song and item.song_page and item.game != "dynamix_universe"]
-    unread = ""
+    unread, unread_pages = "", ()
     if not sources and hosts:
         captions = list(dict.fromkeys(item.caption for item in listed if item.caption))
-        pages = list(dict.fromkeys(item.song for item in hosts))
+        unread_pages = tuple(dict.fromkeys(item.song for item in hosts))
         quoted = ", ".join(repr(text[:80]) for text in captions[:2])
         listed_text = f"caption {quoted}" if captions else "the list evidence"
-        shown = ", ".join(pages[:3]) + (f" and {len(pages) - 3} more" if len(pages) > 3 else "")
-        unread = (f"{listed_text} and the file title name no subject before their list words; the original-game song "
-                  + (f"pages showing it ({shown}) are" if len(pages) > 1 else f"page showing it ({shown}) is")
-                  + " not taken as its subject")
-        hosts = []
+        unread = f"{listed_text} and the file title name no subject before their list words"
+        hosts = []  # the host pages are not its subject; see unread_note() for how their songs are mapped
     for item in hosts:
         if item.song not in songs:
             songs.append(item.song)
         page_named.add(item.song)
         named.append((item.song, item.url, item.context, (f"{item.detail}; " if item.detail else "")
                       + f"shown on the page of the original-game song {item.song!r}", item.source_id))
-    return Subject(tuple(songs), frozenset(page_named), tuple(named), unread)
+    return Subject(tuple(songs), frozenset(page_named), tuple(named), unread, unread_pages)
+
+
+def unread_note(subject: Subject, songs: Iterable[str]) -> tuple[str, bool]:
+    """``(asset note, mapping rests on placement)`` of a list graphic whose subject was not read
+    (``subject.unread``): the songs of the host song pages that the mapping still contains come from that gallery
+    placement alone -- no caption or title names them -- so the mapping is at most ``inferred``."""
+    placed = [song for song in songs if song in subject.unread_pages]
+    pages = list(subject.unread_pages)
+    shown = ", ".join(pages[:3]) + (f" and {len(pages) - 3} more" if len(pages) > 3 else "")
+    plural = len(pages) > 1
+    where = f"the original-game song {'pages' if plural else 'page'} showing it ({shown})"
+    if placed:
+        text = (f"{where} {'map their songs' if plural else 'maps its song'} by that gallery placement alone "
+                f"(mapping inferred), not because a caption or the file title names {'them' if plural else 'it'}")
+    else:
+        text = f"{where} {'are' if plural else 'is'} not taken as its subject"
+    return f"List subject not read: {subject.unread}; {text}.", bool(placed)
 
 
 def _source_key(source_id: str) -> str:
@@ -840,9 +855,16 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         role_evidence = _short([f"reference <- {entry}"] + role_evidence)
         rule_notes.append(note)
     role = leaders[0] if len(leaders) == 1 else None
-    if subject is not None and subject.unread and role == "reference":
-        rule_notes.append(f"List subject not read: {subject.unread}.")
-    songs, mapping, mapping_evidence = _song_mapping(items, role, reviewed_role=reviewed_role)
+    # An archivist review that saw the list or chart announcement in the bytes and names its songs transcribes them
+    # (see wikis.reviews): the mapping holds exactly its songs. A song that page evidence names (a caption's subject, a
+    # host song page, a gallery item) but the review does not is left out and recorded -- a caption may name the pair
+    # of a two-song comeback whose halves are separate images -- and a song it names that no page evidence maps is
+    # added; either change rests on the review (inferred).
+    transcribed = (review is not None and review.list_graphic and review.role == role == "reference"
+                   and bool(review.songs))
+    mapped_items, unseen = _transcription(items, role, review.songs if transcribed else None)
+    mapped_page_items = [item for item in mapped_items if item.context != REVIEW_CONTEXT]
+    songs, mapping, mapping_evidence = _song_mapping(mapped_items, role, reviewed_role=reviewed_role)
     song_pages = list(dict.fromkeys(item.song_page for item in items if item.song_page))
     song_page_roles = any(item.song_page for item in role_items)
     unreleased = any(item.context == "Template:SongOther|Imgsuffix" for item in items)
@@ -873,24 +895,29 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     else:
         game = "unknown"
     if role == "song_art" and not songs:
-        songs, mapping, mapping_evidence = _embedding_song(page_items, songs, mapping, mapping_evidence)
+        songs, mapping, mapping_evidence = _embedding_song(mapped_page_items, songs, mapping, mapping_evidence)
     if role in KINDS and not songs:
-        songs, mapping, mapping_evidence = _gallery_song(page_items, songs, mapping, mapping_evidence)
-    # The songs a list subject names join the mapping, one song or several. An archivist review that saw the list or
-    # chart announcement in the bytes and names its songs transcribes them: a subject song it does not name is left
-    # out (a caption may name the pair of a two-song comeback whose halves are separate images) and a song it names
-    # that no page evidence maps is added; either change rests on the review (inferred).
-    transcribed = (review is not None and review.list_graphic and review.role == role == "reference"
-                   and bool(review.songs))
+        songs, mapping, mapping_evidence = _gallery_song(mapped_page_items, songs, mapping, mapping_evidence)
+    # The songs a list subject names join the mapping, one song or several (a transcription keeps only its own).
     if subject is not None and role == "reference" and subject.songs:
         wanted = subject.only(review.songs) if transcribed else subject
         songs, mapping, mapping_evidence = _subject_songs(wanted, songs, mapping, mapping_evidence,
                                                           reviewed_role=reviewed_role)
-        if wanted.songs != subject.songs:
-            mapping, mapping_evidence = _with_review_evidence(items, mapping_evidence)
+        unseen += [song for song in subject.songs if song not in wanted.songs and song not in unseen]
+    if unseen:
+        mapping, mapping_evidence = _with_review_evidence(items, mapping_evidence)
+        them = "them" if len(unseen) > 1 else "it"
+        rule_notes.append(f"Not mapped although page evidence names {them}: {', '.join(map(repr, unseen))}; the "
+                          f"archivist review ({review.title}) transcribes the songs the bytes show and does not list "
+                          f"{them}.")
     if transcribed and any(song not in songs for song in review.songs):
         songs = songs + [song for song in review.songs if song not in songs]
         mapping, mapping_evidence = _with_review_evidence(items, mapping_evidence)
+    if subject is not None and subject.unread and role == "reference":
+        note, placed = unread_note(subject, songs)
+        rule_notes.append(note)
+        if placed and mapping == "confirmed_wiki":
+            mapping = "inferred"
     associations = {"dynamix_universe" for item in page_items if item.game == "dynamix_universe"} | {
         re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_") for item in page_items
         if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")}
@@ -996,6 +1023,21 @@ def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, revi
         entry += "; it overrides the promotional page evidence listed here"
         note += f" Promotional page evidence it overrides: {overridden_text}."
     return entry, note, not page_lists
+
+
+def _transcription(items: list[Evidence], role: str | None, transcribed: Iterable[str] | None
+                   ) -> tuple[list[Evidence], list[str]]:
+    """``(items for the song mapping, songs left out)``: without a transcription (``transcribed`` None) every item;
+    with one (the songs a list review saw in the bytes), the page items naming another song are dropped, and the
+    songs they would have mapped for ``role`` are returned so that the decision records them."""
+    if transcribed is None:
+        return items, []
+    keep = set(transcribed)
+
+    def other(item: Evidence) -> bool:
+        return bool(item.song) and item.context != REVIEW_CONTEXT and item.song not in keep
+    unseen = [item.song for item in items if other(item) and item.role == role and item.context != "embedded"]
+    return [item for item in items if not other(item)], list(dict.fromkeys(unseen))
 
 
 def _subject_songs(subject: Subject, songs: list[str], mapping: str, evidence: list[Any], *, reviewed_role: bool

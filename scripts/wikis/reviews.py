@@ -30,8 +30,9 @@ displays chart difficulty levels, for one song or several (a "COMING SOON" or "i
 Giga chart unlock), or a list of songs or charts (an event lineup, a "Comeback Tracks" list, a pack/collaboration
 lineup card printing several titled jackets). Such a review makes the file ``reference`` even where page evidence of
 any strength files it as promotional (a category, or captions on several pages), and that page evidence and the rule
-are recorded with the decision; the songs it names are its transcription of the bytes (a song a caption names but the
-bytes do not show is not mapped). Conversely a review with role ``promotional`` saw neither a list nor level marks in
+are recorded with the decision; the songs it names are its transcription of the bytes and the whole song mapping (a
+song that page evidence names -- a caption, a host song page -- but the bytes do not show is not mapped, and the
+decision records it). Conversely a review with role ``promotional`` saw neither a list nor level marks in
 the bytes (key art, an event poster, a single collaboration key visual, a pack card with one titled jacket) and keeps
 the file promotional against list captions.
 A review whose role is null and whose evidence is a ``download_probe:`` (the host refused the bytes, so they could

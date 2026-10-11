@@ -267,9 +267,42 @@ class ChartAnnouncementTests(unittest.TestCase):
                          ("reference", ["diSTractiOn PoInT"], "inferred"))
         self.assertEqual(decision.mapping_evidence[-1]["field"], "archivist review")
         self.assertTrue(decision.mapping_evidence[-1]["quote"].startswith("visual_inspection: one song's"))
+        self.assertIn("Not mapped although page evidence names it: 'Frontline B-Side'; the archivist review "
+                      f"({TITLE}) transcribes the songs the bytes show", " ".join(decision.rule_notes))
         unreviewed = _decide([_caption("diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1",
                                        "diSTractiOn PoInT")])
         self.assertEqual(unreviewed.songs, ["diSTractiOn PoInT", "Frontline B-Side"])
+        self.assertFalse(any(note.startswith("Not mapped") for note in unreviewed.rule_notes))
+
+    def test_transcription_limits_every_mapped_song(self) -> None:
+        """A list review's songs are the whole mapping, whatever named the others: a host song page whose gallery
+        shows the half, or the page of a song the caption does not name, maps nothing the review did not see."""
+        caption = "diSTractiOn PoInT X Frontline B-Side Comeback Chart List 1"
+        half = _review(songs=["diSTractiOn PoInT"], evidence="visual_inspection: one song's card with level marks")
+        for pages in (["Frontline B-Side"], ["diSTractiOn PoInT", "Frontline B-Side"]):
+            decision = _decide([_caption(caption, page) for page in pages], half)
+            self.assertEqual((decision.role, decision.songs, decision.mapping),
+                             ("reference", ["diSTractiOn PoInT"], "inferred"), pages)
+            self.assertEqual(decision.mapping_evidence[-1]["field"], "archivist review")
+            self.assertFalse(any(entry["url"].endswith("/Frontline_B-Side") for entry in decision.mapping_evidence),
+                             pages)  # that page's placement is no mapping evidence
+            self.assertIn("names it: 'Frontline B-Side'", " ".join(decision.rule_notes))
+        lineup = _review(songs=["Cosmic Pulse", "PUPA"])
+        decision = _decide([_caption("Cosmic Pulse X PUPA Comeback Chart List", "A")], lineup)
+        self.assertEqual((decision.songs, decision.mapping), (["Cosmic Pulse", "PUPA"], "inferred"))
+        self.assertIn("names it: 'A'", " ".join(decision.rule_notes))
+
+    def test_reference_review_without_list_graphic_is_no_transcription(self) -> None:
+        """Only a review flagged list_graphic transcribes a list: a plain reference review neither removes the songs
+        page evidence maps nor adds its own."""
+        plain = _review(list_graphic=None, songs=["PUPA"], evidence="visual_inspection: chart list card")
+        self.assertFalse(plain.list_graphic)
+        items = [_caption("Cosmic Pulse X 16383 Comeback Chart List", "Cosmic Pulse")]
+        decision, unreviewed = _decide(items, plain), _decide(items)
+        self.assertEqual((decision.role, decision.songs, decision.mapping),
+                         ("reference", unreviewed.songs, unreviewed.mapping))
+        self.assertEqual(decision.songs, ["Cosmic Pulse", "16383"])
+        self.assertFalse(any(note.startswith("Not mapped") for note in decision.rule_notes))
 
     def test_list_review_adds_the_songs_it_transcribed(self) -> None:
         """A list review names a song that no page evidence maps: it joins the mapping, which is then inferred."""
@@ -305,6 +338,21 @@ class ChartAnnouncementTests(unittest.TestCase):
             self.assertEqual(decision.role, "reference", caption)
             self.assertTrue(any(note.startswith("List subject not read") and "name no subject" in note
                                 for note in decision.rule_notes), caption)
+            # The host page's song is still mapped, by gallery placement alone: inferred, and the note says so.
+            self.assertEqual((decision.songs, decision.mapping), (["Cosmic Pulse"], "inferred"), caption)
+            note = next(note for note in decision.rule_notes if note.startswith("List subject not read"))
+            self.assertIn("the original-game song page showing it (Cosmic Pulse) maps its song by that gallery "
+                          "placement alone (mapping inferred), not because a caption or the file title names it",
+                          note)
+            self.assertNotIn("not taken as its subject", note)
+        several = _decide([_caption("Comeback tracks polling", page) for page in ("Cosmic Pulse", "PUPA")])
+        self.assertEqual((several.songs, several.mapping), (["Cosmic Pulse", "PUPA"], "inferred"))
+        self.assertIn("pages showing it (Cosmic Pulse, PUPA) map their songs by that gallery placement alone",
+                      " ".join(several.rule_notes))
+        # A transcription that leaves the host song out: the page is then not taken as the subject at all.
+        other = _decide([_caption("Upcoming Events", "Cosmic Pulse")], _review(songs=["PUPA"]))
+        self.assertEqual((other.songs, other.mapping), (["PUPA"], "inferred"))
+        self.assertIn("page showing it (Cosmic Pulse) is not taken as its subject", " ".join(other.rule_notes))
         variant = _decide([_caption("Cosmic Pulse Remastered Chart List", "Cosmic Pulse")])
         self.assertEqual((variant.role, variant.songs), ("reference", ["Cosmic Pulse"]))
 
