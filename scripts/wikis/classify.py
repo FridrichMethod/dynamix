@@ -1032,7 +1032,8 @@ def decide(
 
     ``review`` is an applicable :class:`wikis.reviews.Review` (its evidence items carry the context
     ``archivist review``); it supplies the role only when no page evidence of strength >= 1 does (or breaks a tie
-    between equally supported page roles) and the game only when no page context gives one; a ``mixed`` review adds
+    between equally supported page roles; a ``promotional`` review also decides against list evidence of any
+    strength, see ``kept_promotional``) and the game only when no page context gives one; a ``mixed`` review adds
     its shared-game associations to a game that page context gives. ``review_stale`` marks a review of an earlier
     revision. ``alias`` is ``(target title, same reported SHA-1)`` for a file whose description page redirects to
     another file. ``song_names`` (the original-game song titles) lets the subject of a list or chart-announcement
@@ -1086,15 +1087,44 @@ def decide(
         and review.role == "gameplay_screenshot"
         and {item.role for item in role_items if item.strength >= 1} == {"game_ui"}
     )
+    # A review that saw neither a list nor level marks in the bytes (role promotional: key art, a first-reveal card)
+    # keeps the file promotional against list evidence of any strength, as a list review makes it a reference against
+    # promotional evidence (_list_rule); other page roles, such as an update-note reference, still win.
+    strong_items = [item for item in role_items if item.strength >= 1]
+    kept_promotional = (
+        review is not None
+        and review.role == "promotional"
+        and any(_page_list(item) for item in strong_items)
+        and all(item.role == "promotional" or _page_list(item) for item in strong_items)
+    )
     reviewed_role = (
         review is not None
         and review.role is not None
-        and (top < 1 or (len(leaders) > 1 and review.role in leaders) or refines or branding or screen)
+        and (
+            top < 1
+            or (len(leaders) > 1 and review.role in leaders)
+            or refines
+            or branding
+            or screen
+            or kept_promotional
+        )
     )
     rule_notes: list[str] = []
     if reviewed_role:
         leaders, top = [review.role], max(top, 0)
-        role_evidence = _short([f"{review.role} <- {review.role_text()}"] + role_evidence)
+        entry = f"{review.role} <- {review.role_text()}"
+        if kept_promotional:
+            entry += "; it overrides the list page evidence listed here"
+        role_evidence = _short([entry] + role_evidence)
+    if kept_promotional:
+        overridden = "; ".join(
+            _clip_text(text) for text in list(dict.fromkeys(i.text() for i in strong_items if _page_list(i)))[:3]
+        )
+        rule_notes.append(
+            f"Kind promotional by the archivist review ({review.title}), which saw neither a list of songs or charts "
+            f"nor chart level marks in the bytes, so the {LIST_RULE_NAME} does not make the file a reference. "
+            f"List page evidence it overrides: {overridden}."
+        )
     if branding:
         overridden = "; ".join(_clip_text(item.text()) for item in role_items if item.role == "site_ui")
         rule_notes.append(
@@ -1308,10 +1338,16 @@ def decide(
 
 
 RULE_TEXT_LIMIT = 400
+LIST_RULE_NAME = "list and chart-announcement rule (09-frozen-contracts.md, coordinator classification decisions)"
 
 
 def _clip_text(text: str) -> str:
     return text if len(text) <= RULE_TEXT_LIMIT else text[: RULE_TEXT_LIMIT - 3] + "..."
+
+
+def _page_list(item: Evidence) -> bool:
+    """Page evidence that files the graphic as a list or chart announcement (a list caption or chart-list category)."""
+    return item.role == "reference" and item.list_graphic and item.context != REVIEW_CONTEXT
 
 
 def _list_rule(
