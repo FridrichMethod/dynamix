@@ -13,12 +13,14 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tests"))
-
-from test_fetch_wikis import NOW, WikiRun  # noqa: E402  (also puts scripts/ and the fixtures on sys.path)
+# The same import paths as test_fetch_wikis (scripts/ and the fake wikis), so that no import depends on another.
+for path in (ROOT / "tests", ROOT / "scripts", ROOT / "tests" / "fixtures" / "wikis"):
+    sys.path.insert(0, str(path))
 
 from fakewiki import image_bytes  # noqa: E402
+
 from lib import net  # noqa: E402
+from test_fetch_wikis import NOW, WikiRun  # noqa: E402
 from wikis import acquire, cli, config, variants  # noqa: E402
 
 

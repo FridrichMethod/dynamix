@@ -66,11 +66,8 @@ def _category(category: str, key: str = "miraheze") -> list[classify.Evidence]:
 
 def _caption(caption: str, page: str = "Cosmic Pulse", title: str = TITLE) -> classify.Evidence:
     """Evidence of a gallery caption on an original-game song page, as :func:`classify.page_evidence` builds it."""
-    text = "{{Song\n|Title = %s\n|Imgsuffix = Cover.png\n}}\n<gallery>\n%s|%s\n</gallery>" % (
-        page,
-        title.split(":", 1)[1],
-        caption,
-    )
+    name = title.split(":", 1)[1]
+    text = f"{{{{Song\n|Title = {page}\n|Imgsuffix = Cover.png\n}}}}\n<gallery>\n{name}|{caption}\n</gallery>"
     raw = {"title": page, "revision": {"content": text, "revid": 1}, "categories": ["Category:Songs"]}
     info = classify.analyze_page(config.MIRAHEZE, raw)
     files = {title: dict(INFO), "File:Cover.png": dict(INFO)}

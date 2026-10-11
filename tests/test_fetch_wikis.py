@@ -19,11 +19,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "tests" / "fixtures" / "wikis"))
 
-from lib import manifest, net, schema  # noqa: E402
-from wikis import acquire, cli, config, reviews  # noqa: E402
-
 from fakewiki import image_bytes  # noqa: E402
 from scenario import Scenario  # noqa: E402
+
+from lib import manifest, net, schema  # noqa: E402
+from wikis import acquire, cli, config, reviews  # noqa: E402
 
 NOW = "2026-10-10T12:00:00Z"
 
