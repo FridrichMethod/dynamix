@@ -1322,6 +1322,75 @@ class PressArticleTests(ArchivesTestCase):
                 self.assertEqual(self.manifest()["sources"][0]["status"], "excluded")
                 self.verify()
 
+    def test_an_unreadable_page_keeps_an_earlier_rejected_submission_exclusion(self):
+        """model.apply_rule's rejected-submission guard reads the page before any curated decision. An item that a
+        readable page excluded as a rejected submission keeps that exclusion while the page cannot be read (an unread
+        page is no observation), whatever its curated rule or none; an item whose download rule needs the page fails
+        as before. A readable page decides again."""
+        items = [
+            {"key": key, "page_url": self.PAGE, "read_page": True, "file_url": self.IMG.format(name, "JPG")}
+            for key, name in (
+                ("named:p", "95/0001345595"),
+                ("named:n", "96/0001345596"),
+                ("named:x", "92/0001345692"),
+                ("named:d", "08/0001345608"),
+            )
+        ]
+        rules = [
+            {"match": "^named:p$", "action": "pending", "reason": "unresolved_role: curator check pending"},
+            {"match": "^named:x$", "action": "exclude", "reason": "site_ui: QR code"},
+            {"match": "^named:d$", "role": "reference", "evidence_quotes": ["Dynamix"]},
+        ]  # named:n has no rule
+        seed = self.seed(rules, items=items)
+        del seed["params"]  # named files only
+        page = "<html><head><title>Dynamix fan art</title></head><body><p>{}</p></body></html>"
+        rejected = {"text": page.format("This is a rejected submission for Dynamix.")}
+        unread = {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}
+        self.run_family([seed], FakeNetwork({self.PAGE: rejected}))
+        before = self.candidates("archives:press")
+        for key in ("named:p", "named:n", "named:x", "named:d"):
+            self.assertEqual(before[key]["disposition"], "excluded")
+            self.assertTrue(before[key]["reason"].startswith("rejected_submission: "), before[key]["reason"])
+        for run, chosen in ((1, items), (2, items), (3, items[:3])):  # sticky while the page stays unreadable
+            with self.subTest(run=run):
+                # Without named:d (run 3) no error draft names the page: the seed-files hold alone keeps them.
+                source = {**seed, "items": chosen}
+                self.run_family([source], FakeNetwork({self.PAGE: unread}))
+                found = self.candidates("archives:press")
+                for key in ("named:p", "named:n", "named:x"):
+                    self.assertEqual(
+                        (found[key]["disposition"], found[key]["reason"], found[key]["game"]),
+                        (before[key]["disposition"], before[key]["reason"], before[key]["game"]),
+                    )
+                    self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+                failures = [f["id"] for f in self.manifest()["failures"]]
+                if chosen is items:
+                    self.assertEqual(found["named:d"]["disposition"], "failed")  # its download rule needs the page
+                    self.assertEqual(failures, ["archives:press:named:d:discover"])
+                else:
+                    self.assertEqual((sorted(found), failures), (["named:n", "named:p", "named:x"], []))
+                self.assertTrue(
+                    manifest.load_discovery(self.root, "archives:press")["continuation"]["seed-files"].startswith(
+                        "not-read:"
+                    )
+                )
+                self.verify()
+        self.run_family([seed], FakeNetwork({self.PAGE: {"text": page.format("Dynamix fan art.")}}))
+        found = self.candidates("archives:press")
+        self.assertEqual(
+            {key: (found[key]["disposition"], found[key]["reason"]) for key in ("named:p", "named:n", "named:x")},
+            {
+                "named:p": ("pending", "unresolved_role: curator check pending"),
+                "named:n": ("pending", "unresolved_role: no seed rule for this item; needs review"),
+                "named:x": ("excluded", "site_ui: QR code"),
+            },
+        )
+        self.run_family([seed], FakeNetwork({self.PAGE: unread}))  # not rejected before: the curated decisions apply
+        found = self.candidates("archives:press")
+        self.assertEqual(found["named:p"]["reason"], "unresolved_role: curator check pending")
+        self.assertNotIn(runner.HELD_NOTE, found["named:p"].get("notes") or "")
+        self.verify()
+
     def test_an_unreadable_page_changes_no_status_of_an_archived_named_item(self):
         item = {
             "key": "named:a",
