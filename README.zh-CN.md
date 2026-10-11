@@ -203,8 +203,8 @@ out="$(mktemp -d)"
 | --- | --- | --- |
 | Wiki | [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md) | 当前的 Miraheze 英文 wiki、旧 Fandom wiki，以及两个只读取曲目列表的日文 wiki。 |
 | 画师 | [docs/sources-artists.zh-CN.md](docs/sources-artists.zh-CN.md) | 署名画师与作曲者明确指定的帖子和发行页面（X、pixiv、SoundCloud、Bandcamp、Bilibili、ArtStation、一个作品集网站），以及调研线索。 |
-| 官方 | [docs/sources-official.zh-CN.md](docs/sources-official.zh-CN.md) | App Store、Google Play 和 TapTap 页面，官方 X、SoundCloud 和 Facebook 账号，以及游戏官网和公司网站。 |
-| 档案 | [docs/sources-archives.zh-CN.md](docs/sources-archives.zh-CN.md) | Wayback Machine 存档、一个媒体截图图集、一篇机构新闻稿，以及历史调研线索。 |
+| 官方 | [docs/sources-official.zh-CN.md](docs/sources-official.zh-CN.md) | App Store、Google Play 和 TapTap 页面，官方 X、SoundCloud、Facebook 和 YouTube 账号，C4Cat 公司的 Facebook 页面，以及游戏官网和公司网站。 |
+| 档案 | [docs/sources-archives.zh-CN.md](docs/sources-archives.zh-CN.md) | Wayback Machine 存档、一个媒体截图图集、媒体文章、一篇机构新闻稿，以及历史调研线索。 |
 
 覆盖率指标及其定义：[docs/coverage.zh-CN.md](docs/coverage.zh-CN.md)。
 

@@ -203,8 +203,8 @@ A future release would require an explicit instruction from the repository owner
 | --- | --- | --- |
 | Wikis | [docs/sources-wikis.md](docs/sources-wikis.md) | The current English wiki on Miraheze, the legacy Fandom wiki, and two Japanese wikis read for song lists only. |
 | Artists | [docs/sources-artists.md](docs/sources-artists.md) | Explicit posts and releases by credited illustrators and composers (X, pixiv, SoundCloud, Bandcamp, Bilibili, ArtStation, a portfolio site), plus research leads. |
-| Official | [docs/sources-official.md](docs/sources-official.md) | App Store, Google Play and TapTap listings, the official X, SoundCloud and Facebook accounts, and the official and company websites. |
-| Archives | [docs/sources-archives.md](docs/sources-archives.md) | Wayback Machine captures, a press screenshot gallery, an institutional press release, and historical research leads. |
+| Official | [docs/sources-official.md](docs/sources-official.md) | App Store, Google Play and TapTap listings, the official X, SoundCloud, Facebook and YouTube accounts, C4Cat's corporate Facebook page, and the official and company websites. |
+| Archives | [docs/sources-archives.md](docs/sources-archives.md) | Wayback Machine captures, a press screenshot gallery, press articles, an institutional press release, and historical research leads. |
 
 Coverage metrics and their definitions: [docs/coverage.md](docs/coverage.md).
 
