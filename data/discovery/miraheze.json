@@ -37909,9 +37909,11 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Dynamix_Website.png",
       "file_url": "https://static.wikitide.net/dynamixwiki/6/67/Dynamix_Website.png",
       "title": "Dynamix Website",
-      "role": null,
-      "game": "unknown",
-      "game_evidence": [],
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "archivist review (File:Dynamix Website.png): visual_inspection: the original game's DynAMIX wordmark; Fandom upload 2017-08-01 precedes the wiki's first Universe-named upload (2023-08-18)"
+      ],
       "source_reported": {
         "url": "https://static.wikitide.net/dynamixwiki/6/67/Dynamix_Website.png",
         "mime": "image/png",
@@ -37922,9 +37924,9 @@
         "timestamp": "2026-08-09T08:53:06Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "site_ui: archivist review (File:Dynamix Website.png): visual_inspection: DynAMIX wordmark link button for the official website",
-      "notes": "role evidence: site_ui <- archivist review (File:Dynamix Website.png): visual_inspection: DynAMIX wordmark link button for the official website"
+      "disposition": "pending",
+      "reason": "awaiting_download: accepted promotional (dynamix) candidate; not downloaded yet (metadata-only discovery, incomplete discovery or acquisition limit)",
+      "notes": "role evidence: promotional <- archivist review (File:Dynamix Website.png): visual_inspection: the original DynAMIX wordmark of File:Dynamix.png (same letterforms, white on an opaque black ground without its drop shadow, 600x188 RGBA) and nothing else; Fandom created its file page on 2017-08-01 right after File:Dynamix Facebook.png and File:Dynamix Twitter.png (revisions 13084, 13086, 13087), the wiki's link buttons that add social-network icons and stay site_ui, and no page embeds it now; the name describes a link-button use, not the bytes: a logo/wordmark without chart-level information, promotional under the amended coordinator decision of 2026-10-10, like the three other wordmark files"
     },
     {
       "id": "wikis:miraheze:File:Dynamix_X_...._Collaboration_Decision.jpg",
@@ -86562,6 +86564,18 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:d1a2e19ff5b78970",
+      "song_titles": [
+        "MassacrE || 3rc4224M"
+      ],
+      "composers": [
+        "Spiegel vs Yukino"
+      ],
+      "collections": [
+        "Collaboration",
+        "Song packs (IAP)",
+        "Collaboration: RAVON",
+        "RAVON Collaboration"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:MassacrE 3rc4224M RAVON.jpg): visual_inspection: RAVON-side collaboration announcement 'DynAMIX x RAVON' announcement of 'MassacrE || 3rc4224M (Spiegel vs Yukino)' 書き下ろし新曲/同時収録"
     },
     {
@@ -99193,7 +99207,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:01471922f75efa00",
-      "notes": "role evidence: reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:One Extra Day Event.jpg); reference <- archivist review (File:One Extra Day Event.jpg): visual_inspection: 'DynAMIX Comeback Tracks' (One Extra Day event) listing five comeback jackets: a 'Comeback Tracks' list, reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the jackets carry no titles (identifying them would rest on recognizing artwork, not on text)"
+      "notes": "role evidence: reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:One Extra Day Event.jpg); reference <- archivist review (File:One Extra Day Event.jpg): visual_inspection: 'DynAMIX Comeback Tracks' (One Extra Day event) listing five comeback jackets: a 'Comeback Tracks' list, reference under clause (b) of the amended coordinator decision of 2026-10-10 (a graphic whose primary content is a list of songs; 'Comeback Tracks' lists are named there), not under the titled-jacket reading of pack/collaboration lineup cards (D2): no song is mapped because the jackets carry no titles (identifying them would rest on recognizing artwork, not on text)"
     },
     {
       "id": "wikis:miraheze:File:Onoken.png",
@@ -101023,7 +101037,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Package_BilliumMoto.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/4/42/Package_BilliumMoto.jpg",
       "title": "Package BilliumMoto",
-      "role": "promotional",
+      "role": "pack_cover",
       "game": "dynamix",
       "game_evidence": [
         "archivist review (File:Package BilliumMoto.jpg): visual_inspection: original-game DynAMIX wordmark / original-game announcement: 'BilliumMoto Collection Package OUT NOW!' announcement collage of four jackets (cf. the BilliumMoto package page); Fandom upload 2019-05-17 precedes the wiki's first Universe-named upload (2023-08-18)"
@@ -101040,7 +101054,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:28140d2fef89dc7a",
-      "notes": "role evidence: promotional <- archivist review (File:Package BilliumMoto.jpg): visual_inspection: 'BilliumMoto Collection Package OUT NOW!' collage of four untitled jackets (cf. the BilliumMoto package page): the pack's own key visual; no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10"
+      "notes": "role evidence: pack_cover <- archivist review (File:Package BilliumMoto.jpg): visual_inspection: 'BilliumMoto Collection Package OUT NOW!' key visual (four untitled jackets around the Dynamix icon), the same picture as File:Package BilliumMoto Collection.jpg, the BilliumMoto package page's own cover: same 1920x1080 layout and text; 16x16 dHash distance 1/256 and mean absolute pixel difference 3.4-4.0/255 per channel, i.e. another JPEG encoding of that cover; pack_cover like it (no chart difficulty levels and no titled jackets, so not a reference)"
     },
     {
       "id": "wikis:miraheze:File:Package_BilliumMoto_Collection.jpg",
@@ -119326,6 +119340,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:6fc6c848111d0ed6",
+      "song_titles": [
+        "Dream Starter"
+      ],
+      "composers": [
+        "VelecTi"
+      ],
+      "collections": [
+        "Song packs (IAP)",
+        "VelecTi"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:Screen Shot 2016-08-01 at 11.36.59 AM.png): visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Dream Starter COMING SOON teaser (no level marks); no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10"
     },
     {
@@ -119352,6 +119376,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:030832ff7c19f2c7",
+      "song_titles": [
+        "Meteor Hope"
+      ],
+      "composers": [
+        "VelecTi"
+      ],
+      "collections": [
+        "Song packs (IAP)",
+        "VelecTi"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:Screen Shot 2016-08-10 at 6.41.30 PM.png): visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: Coming soon in the next version.' with the Meteor Hope COMING SOON teaser (no level marks); no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10"
     },
     {
@@ -119378,6 +119412,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:d175e068b8aa76b8",
+      "song_titles": [
+        "刻み付け、散華の名を"
+      ],
+      "composers": [
+        "VelecTi"
+      ],
+      "collections": [
+        "Song packs (IAP)",
+        "VelecTi"
+      ],
       "notes": "role evidence: promotional <- archivist review (File:Screen Shot 2016-08-10 at 6.41.36 PM.png): visual_inspection: screenshot of an official tweet 'Dynamix Official @c4c4cat: 3.1 is going to update soon.' with the 刻み付け、散華の名を COMING SOON teaser (no level marks); no chart difficulty levels and not a lineup card printing several titled jackets: promotional under the amended coordinator decision of 2026-10-10"
     },
     {
@@ -144121,7 +144165,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:d70e6c26fe279c0e",
-      "notes": "role evidence: reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Vote Comeback Tracks via FB.jpg); reference <- archivist review (File:Vote Comeback Tracks via FB.jpg): visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with four candidate jackets and Facebook reactions: a comeback-tracks list, reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the jackets carry no titles (identifying them would rest on recognizing artwork, not on text); reference <- https://dynamix.miraheze.org/wiki/File:Vote_Comeback_Tracks_via_FB.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Vote_Comeback_Tracks_via_FB.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
+      "notes": "role evidence: reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Vote Comeback Tracks via FB.jpg); reference <- archivist review (File:Vote Comeback Tracks via FB.jpg): visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with four candidate jackets and Facebook reactions: a comeback-tracks list, reference under clause (b) of the amended coordinator decision of 2026-10-10 (a graphic whose primary content is a list of songs; 'Comeback Tracks' lists are named there), not under the titled-jacket reading of pack/collaboration lineup cards (D2): no song is mapped because the jackets carry no titles (identifying them would rest on recognizing artwork, not on text); reference <- https://dynamix.miraheze.org/wiki/File:Vote_Comeback_Tracks_via_FB.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Vote_Comeback_Tracks_via_FB.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ ..."
     },
     {
       "id": "wikis:miraheze:File:Vote_Comeback_Tracks_via_Twitter.jpg",
@@ -144147,7 +144191,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "wikis:miraheze:fac3569a5652abae",
-      "notes": "role evidence: reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Vote Comeback Tracks via Twitter.jpg); reference <- archivist review (File:Vote Comeback Tracks via Twitter.jpg): visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with candidate jackets (Twitter): a comeback-tracks list, reference under the amended coordinator decision of 2026-10-10 (D2); no song is mapped: the jackets carry no titles (identifying them would rest on recognizing artwork, not on text); reference <- https://dynamix.miraheze.org/wiki/File:Vote_Comeback_Tracks_via_Twitter.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Vote_Comeback_Tracks_via_Twitter.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/)"
+      "notes": "role evidence: reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional; list evidence: the archivist review (File:Vote Comeback Tracks via Twitter.jpg); reference <- archivist review (File:Vote Comeback Tracks via Twitter.jpg): visual_inspection: comeback vote 'DynAMIX Vote till 18 Oct 11pm (UTC+8)' with candidate jackets (Twitter): a comeback-tracks list, reference under clause (b) of the amended coordinator decision of 2026-10-10 (a graphic whose primary content is a list of songs; 'Comeback Tracks' lists are named there), not under the titled-jacket reading of pack/collaboration lineup cards (D2): no song is mapped because the jackets carry no titles (identifying them would rest on recognizing artwork, not on text); reference <- https://dynamix.miraheze.org/wiki/File:Vote_Comeback_Tracks_via_Twitter.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update[ _]log/); reference <- https://dynamixc4cat.fandom.com/wiki/File:Vote_Comeback_Tracks_via_Twitter.jpg (filename; filename convention /chart[ _]*list|(?:^|[ _])(?:comeback|new[ _]charts?)(?:[ _.(]|$)|version[ _]update|update..."
     },
     {
       "id": "wikis:miraheze:File:Voyager_-_Cover_Art.png",
