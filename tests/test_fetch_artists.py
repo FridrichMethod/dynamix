@@ -1289,6 +1289,47 @@ class BilibiliTests(ArtistsTestCase):
         self.assertEqual(self.manifest()["assets"], [])
         self.verify()
 
+    CAPTCHA = '<!DOCTYPE html><html><head><title>验证码_哔哩哔哩</title></head><body><div id="risk-captcha"></div>'
+
+    def assert_refusal_blocks_the_host(self, answer):
+        """Two seed posts: the first answer is a risk-control refusal, so the second post is never requested."""
+        second = "1022295438715256856"
+        network = TextJsonNetwork({bilibili_api(): answer, bilibili_api(second): answer})
+        self.run_family([bilibili_seed({"mid": "12345"}, [{"opus_id": BILI_OPUS}, {"opus_id": second}])], network)
+        found = self.candidates(self.SOURCE)
+        self.assertEqual(found[BILI_OPUS]["disposition"], "blocked")
+        self.assertTrue(found[BILI_OPUS]["reason"].startswith("challenge: "), found[BILI_OPUS]["reason"])
+        self.assertIn("manual access required", found[BILI_OPUS]["reason"])
+        self.assertEqual(found[second]["disposition"], "blocked")  # host refused earlier in the run: not contacted
+        self.assertEqual(network.count("api.bilibili.com"), 1)
+        self.assertEqual(self.manifest()["sources"][0]["status"], "manual_access")
+        self.verify()
+        return found
+
+    def test_risk_control_code_is_a_challenge(self):
+        found = self.assert_refusal_blocks_the_host({"text": json.dumps({"code": -352, "message": "-352"})})
+        self.assertIn("risk control (code -352)", found[BILI_OPUS]["reason"])
+
+    def test_captcha_page_is_a_challenge(self):
+        found = self.assert_refusal_blocks_the_host({"text": self.CAPTCHA})
+        self.assertIn("captcha", found[BILI_OPUS]["reason"])
+
+    def test_http_412_is_a_challenge(self):
+        error = net.HttpError("HTTP 412", url=bilibili_api(), http_status=412)
+        found = self.assert_refusal_blocks_the_host({"error": error})
+        self.assertIn("HTTP 412", found[BILI_OPUS]["reason"])
+
+    def test_other_non_json_answer_is_a_failure_that_keeps_the_list_open(self):
+        second = "1022295438715256856"
+        answer = {"text": "<html><body>maintenance</body></html>"}
+        network = TextJsonNetwork({bilibili_api(): answer, bilibili_api(second): answer})
+        self.run_family([bilibili_seed({"mid": "12345"}, [{"opus_id": BILI_OPUS}, {"opus_id": second}])], network)
+        found = self.candidates(self.SOURCE)
+        self.assertEqual({found[BILI_OPUS]["disposition"], found[second]["disposition"]}, {"failed"})
+        self.assertIn("response is not valid JSON", found[BILI_OPUS]["reason"])
+        self.assertEqual(network.count("api.bilibili.com"), 2)  # not a refusal: the host is not blocked
+        self.assertEqual(self.snapshot(self.SOURCE)["continuation"]["seed-posts"], "not-read:other")
+
 
 # --- Interrupted runs and idempotent resume ---------------------------------------------------------------------------
 
