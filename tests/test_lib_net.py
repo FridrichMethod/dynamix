@@ -7,6 +7,7 @@ uses real time with short intervals. No test resolves or contacts a non-loopback
 import email.utils
 import hashlib
 import json
+import os
 import socket
 import sys
 import tempfile
@@ -18,6 +19,7 @@ from contextlib import contextmanager
 from datetime import UTC, datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from unittest import mock
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -455,6 +457,39 @@ class BoundaryTests(NetTestCase):
             self.client().get_json(self.url("/api") + "?token=topsecret&format=original")
         self.assertNotIn("topsecret", str(caught.exception))
         self.assertIn("format=original", caught.exception.url)
+
+    def test_environment_proxies_and_netrc_are_ignored(self):
+        """trust_env is off: a proxy from the environment would route around the connected-address check (urllib3's
+        ProxyManager does not use the guarded pool classes), and a .netrc entry would send credentials."""
+        self.script.add("/api", json_body(1))
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            dead_proxy = f"http://127.0.0.1:{probe.getsockname()[1]}"
+        netrc = Path(self.temp.name) / "netrc"
+        netrc.write_text("machine 127.0.0.1 login archivist password secretpw\n", encoding="utf-8")
+        proxy_names = ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy")
+        cases = {"proxy": dict.fromkeys(proxy_names, dead_proxy), "netrc": {"NETRC": str(netrc)}}
+        for case, values in cases.items():
+            with self.subTest(case=case), mock.patch.dict(os.environ):
+                for name in (*proxy_names, "NO_PROXY", "no_proxy", "NETRC"):
+                    os.environ.pop(name, None)
+                os.environ.update(values)
+                hits = self.script.hits.get("/api", 0)
+                data, _ = self.client(max_attempts=1).get_json(self.url("/api"))
+                self.assertEqual((data, self.script.hits["/api"]), (1, hits + 1))  # direct, not through the proxy
+                self.assertNotIn("authorization", self.script.requests[-1][1])
+
+    def test_only_http_200_counts_as_a_complete_body(self):
+        """The client sends no Range header, so a 206 (or a 203 transformed body) comes from a misbehaving server
+        and is never archived as the complete file."""
+        for status in (206, 203):
+            with self.subTest(status=status):
+                self.script.add(f"/{status}.png", {"status": status, "body": b"\x89PNG\r\n\x1a\n partial"})
+                with self.assertRaises(net.HttpError) as caught:
+                    self.client().download(self.url(f"/{status}.png"), self.dest, "x")
+                self.assertEqual((caught.exception.http_status, caught.exception.retriable), (status, False))
+                self.assertEqual(self.script.hits[f"/{status}.png"], 1)
+                self.assertEqual(self.dest_files(), [])
 
 
 class UrlBoundaryTests(NetTestCase):
