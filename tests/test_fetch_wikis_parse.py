@@ -708,6 +708,49 @@ class OtherGameCaptionTests(unittest.TestCase):
         control = self.decide([self.gallery_item(f"S Artwork for {names[-1]}")])
         self.assertEqual((control.game, control.associations), ("mixed", ["arcaea", "lanota"]))
 
+    def test_names_that_start_with_dynamix_go_through_the_reviewed_list(self) -> None:
+        """A name that starts with "Dynamix" is read like any other name (before, it skipped the reviewed list and the
+        curator note): a listed partner of a collaboration records its association ("Dynamix x RAVON Collaboration"),
+        and an unlisted partner records none and asks a curator to review it. Dynamix's own occasions keep their
+        classification (no association, the page game stays) and, like every unlisted name, carry the curator note.
+        The original game's own name alone ("Artwork in Dynamix") names no other game and needs no review."""
+        listed = {
+            "S Artwork for Dynamix x RAVON Collaboration": "RAVON",
+            "S Artwork for Dynamix X Rotaeno Collaboration": "Rotaeno",
+            "S Jacket for Dynamix×Lanota Event": "Lanota",
+            "S Artwork for Dynamix's Arcaea Collaboration Event": "Arcaea",
+        }
+        for caption, other in listed.items():
+            with self.subTest(caption=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", (other,)))
+                self.assertIn(f"(another game/event: {other})", item.detail)
+                self.assertNotIn(self.REVIEW, item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations),
+                    ("download", "mixed", [other.casefold()]),
+                )
+        for named in ("Dynamix x Foo Collaboration", "Dynamix's 5th Anniversary", "Dynamix Halloween Event 2020"):
+            with self.subTest(named=named):
+                item = self.gallery_item(f"S Artwork for {named}")
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+        for caption in ("S Artwork in Dynamix", "S Artwork for Dynamix's", "S Jacket from Dynamix (2016)"):
+            with self.subTest(caption=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertNotIn("the caption names", item.detail)
+                self.assertNotIn("another game/event", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+
     def test_listed_names_match_whole_words_longest_first(self) -> None:
         """A listed spelling matches only as whole words, the longest first ("Cytus II" before "Cytus"); a name that
         names several listed games records each; a plural possessive ("Phigros'") is read as its game."""
