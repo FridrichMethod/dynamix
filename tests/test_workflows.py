@@ -154,6 +154,14 @@ def resolve_env(env: dict, context: dict) -> dict:
     return resolved
 
 
+def run_guard(step: dict, context: dict) -> subprocess.CompletedProcess:
+    """Execute a shell guard step with bash -eo pipefail, its env resolved from ``context``."""
+    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), **resolve_env(step["env"], context)}
+    return subprocess.run(
+        ["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", step["run"]], env=env, capture_output=True, text=True
+    )
+
+
 class InventoryAndTriggerTests(unittest.TestCase):
     def test_only_reviewed_workflows_exist(self):
         files = {path.name for path in WORKFLOWS.iterdir() if path.suffix in (".yml", ".yaml")}
@@ -306,14 +314,31 @@ class ReleaseHoldTests(unittest.TestCase):
                 (name, ctx, False) for name, ctx in DENIED.items()
             ]:
                 with self.subTest(job=job_id, scenario=scenario):
-                    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), **resolve_env(step["env"], context)}
-                    result = subprocess.run(
-                        ["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", step["run"]],
-                        env=env,
-                        capture_output=True,
-                        text=True,
-                    )
+                    result = run_guard(step, context)
                     self.assertEqual(result.returncode == 0, allowed, result.stdout + result.stderr)
+
+    @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
+    def test_guard_messages_describe_the_guard_not_a_hold(self):
+        """The variable names the last released commit; when it is unset or empty at dispatch time, the message says
+        that no commit is approved and the dispatch fails closed, not that a release hold is in force. Both guard steps
+        are the same script."""
+        steps = [steps_of(self.pages["jobs"][job_id])[0] for job_id in ("approval", "build")]
+        self.assertEqual(steps[0]["run"], steps[1]["run"])
+        messages = re.findall(r'\bfail "([^"]*)"', steps[0]["run"])
+        self.assertEqual(len(messages), 6, messages)
+        for message in messages:
+            with self.subTest(message=message):
+                self.assertNotRegex(message, re.compile(r"\bhold\b|\bheld\b", re.IGNORECASE))
+        for scenario in ("variable unset (release hold)", "variable empty"):
+            for job_id, step in zip(("approval", "build"), steps, strict=True):
+                with self.subTest(job=job_id, scenario=scenario):
+                    result = run_guard(step, DENIED[scenario])
+                    self.assertNotEqual(result.returncode, 0)
+                    error = [line for line in result.stdout.splitlines() if line.startswith("::error::")]
+                    self.assertEqual(len(error), 1, result.stdout)
+                    for phrase in ("RELEASE_APPROVED_SHA", "no approved sha", "fails closed"):
+                        self.assertIn(phrase.casefold(), error[0].casefold())
+                    self.assertNotRegex(error[0], re.compile(r"\bhold\b", re.IGNORECASE))
 
 
 class PinningAndCommandTests(unittest.TestCase):
