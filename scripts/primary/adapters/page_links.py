@@ -3,7 +3,8 @@
 Each seed item names a page and ``link_rules``: which attribute to read (``href``/``src``), a regex the absolute URL's
 path must match, and whether to drop the query (CMS resize parameters such as ``?mw=1980``). Every matching link is a
 candidate keyed by its path (``<host>/<path>`` under a rule with ``same_host: false``, whose links may sit on several
-hosts); a file that several seed pages link is one candidate, the first page's, whose notes name the other pages. Its
+hosts); a file that several seed pages link is one candidate, the first page's, whose notes name the other pages; while
+any of those pages is not read completely, the candidate's earlier disposition is held (:func:`base.held_on`). Its
 classification comes from the source's seed rules, unclassified links stay ``pending``.
 Links are resolved as a browser requests them (a literal space is percent-encoded, :func:`base.link_url`); a matching
 link that is still no valid http(s) URL is reported as a discovery error and keeps the list open (``links-skipped-N``).
@@ -138,8 +139,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         for position, (key, url) in enumerate(found, start=1):
             first = emitted.get(key)
             if first is not None and first.file_url == base.stored(url):
-                # The same file linked from another seed page: one candidate (the first page's) that names this page.
-                note = f"Also linked from {page_url}."
+                # The same file linked from another seed page: one candidate (the first page's) that names this page,
+                # so that this page's unread state holds it too (base.held_on).
+                note = base.ALSO_LINKED_NOTE.format(url=page_url)
                 notes = first.candidate_extra.get("notes") or ""
                 if note not in notes:
                     first.candidate_extra["notes"] = f"{notes} {note}".strip()

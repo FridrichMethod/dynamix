@@ -75,15 +75,27 @@ def listed_on(pages: set[str]) -> Any:
     return covers
 
 
+# Candidate note naming another seed page that links the same file (``page_links``: one candidate, the first page's).
+ALSO_LINKED_NOTE = "Also linked from {url}."
+_ALSO_LINKED_RE = re.compile(r"Also linked from (\S+)\.(?=\s|$)")
+
+
+def linking_pages(candidate: Mapping[str, Any]) -> list[str]:
+    """Every page a candidate record says links its file: its ``page_url`` and each page an :data:`ALSO_LINKED_NOTE`
+    in its notes names."""
+    page = candidate.get("page_url")
+    return [*([page] if page else []), *_ALSO_LINKED_RE.findall(str(candidate.get("notes") or ""))]
+
+
 def held_on(pages: Iterable[str], complete: set[str]) -> Any:
-    """Hold predicate (``Discovery.holds``): a previous candidate is held by a list while its page is one of the list's
-    seeded ``pages`` that this run did not read completely (``complete``, filled during discovery: the pages whose
-    :func:`listed_on` coverage applies). A candidate of a page the seeds no longer name is not held."""
+    """Hold predicate (``Discovery.holds``): a previous candidate is held by a list while one of the pages that linked
+    it (:func:`linking_pages`: its page and the other pages its notes name) is one of the list's seeded ``pages`` that
+    this run did not read completely (``complete``, filled during discovery: the pages whose :func:`listed_on`
+    coverage applies). A page the seeds no longer name holds nothing."""
     seeded = set(pages)
 
     def holds(candidate: Mapping[str, Any]) -> bool:
-        page = candidate.get("page_url")
-        return page in seeded and page not in complete
+        return any(page in seeded and page not in complete for page in linking_pages(candidate))
 
     return holds
 

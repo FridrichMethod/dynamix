@@ -1745,6 +1745,30 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(sorted(self.candidates("archives:press")), ["img/x.png"])
         self.verify()
 
+    def test_a_file_two_seed_pages_link_is_held_while_either_page_is_unread(self):
+        """A file that two seed pages link is one candidate, the first page's, whose notes name the other page. When
+        the first page is read completely without it while the other page, which linked it too, cannot be read, its
+        earlier disposition stays (an incomplete read is no observation); complete reads of both pages drop it."""
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("x.png", "y.png"), other: self.page("x.png")}))
+        before = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual((before["disposition"], before["page_url"]), ("excluded", self.PAGE))
+        self.assertIn(f"Also linked from {other}.", before["notes"])
+        unread = {"error": net.HttpError("HTTP 503", url=other, http_status=503)}
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: unread}))
+        held = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual((held["disposition"], held["reason"]), ("excluded", "site_ui: logo"))
+        self.assertIn(runner.HELD_NOTE, held["notes"])
+        self.verify()
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: unread}))  # still unread: kept
+        self.assertIn("img/x.png", self.candidates("archives:press"))
+        self.run_family([seed], FakeNetwork({self.PAGE: self.page("y.png"), other: self.page("y.png")}))
+        self.assertNotIn("img/x.png", self.candidates("archives:press"))  # both pages read, neither links it
+        self.verify()
+
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
         other = "https://press.example.org/other"
         seed = self.seed()
