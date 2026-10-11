@@ -3,8 +3,8 @@
 ``api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail?id=<id>`` returns the post's modules (author, text, pictures).
 Bilibili answers anonymous clients with risk-control code ``-352``/``-412``, HTTP 412 or a captcha page (``验证码``,
 ``risk-captcha``); each is recorded as a ``challenge`` (blocked, manual access; the API host is not contacted again
-in the run) and never worked around: no cookie farming, request signing or captcha solving. Picture URLs on ``*.hdslb.com`` are stored without their ``@...`` resize
-suffix, which is the original upload as served.
+in the run) and never worked around: no cookie farming, request signing or captcha solving. Picture URLs on
+``*.hdslb.com`` are stored without their ``@...`` resize suffix, which is the original upload as served.
 
 A post is the artist's own only when its author ``mid`` equals the seed's ``params.mid``; while that numeric account ID
 is not established, every picture is held as ``pending`` (``unresolved_game``). The observed author (name and mid) is
@@ -40,8 +40,8 @@ def is_captcha_page(text: str) -> bool:
 
 
 def opus_detail(ctx: Any, opus_id: str, page_url: str) -> Any:
-    """The parsed ``opus/detail`` answer. Read as text, so that a captcha page in place of the JSON is recognized: it and
-    Bilibili's anti-crawler HTTP 412 raise :class:`lib.net.ChallengeError` after the API host is marked blocked."""
+    """The parsed ``opus/detail`` answer, read as text so that a captcha page in place of the JSON is recognized: it
+    and Bilibili's anti-crawler HTTP 412 raise :class:`lib.net.ChallengeError` after the API host is marked blocked."""
     try:
         body, _, _ = ctx.client.get_text(f"{API}?{urlencode({'id': opus_id})}", headers={"Accept": "application/json"})
     except net.HttpError as error:
