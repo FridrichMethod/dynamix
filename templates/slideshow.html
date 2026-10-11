@@ -80,8 +80,8 @@ https://github.com/FridrichMethod/dynamix
             <div class="asset-caption">
                 <div class="asset-heading"><span id="asset-title"></span><span class="asset-title-sep"> · </span><span id="asset-size"></span></div>
                 <!-- Each separator keeps to the end of its line (no-break space before it), so no line starts with a dot. -->
-                <a id="asset-source" target="_blank" rel="noopener noreferrer"><span data-i18n="slideshow.caption.source">Source</span></a><span id="asset-origin"></span>&nbsp;·
-                <a id="asset-original" download data-i18n="slideshow.caption.original">Original file</a>&nbsp;· <a href="archive.html" data-lang-link data-i18n="slideshow.caption.browse">Artwork Archive</a>
+                <div class="asset-links"><a id="asset-source" target="_blank" rel="noopener noreferrer"><span data-i18n="slideshow.caption.source">Source</span></a><span id="asset-origin"></span>&nbsp;·
+                <a id="asset-original" download data-i18n="slideshow.caption.original">Original file</a>&nbsp;· <a href="archive.html" data-lang-link data-i18n="slideshow.caption.browse">Artwork Archive</a></div>
             </div>
         </section>
         <div class="signature">Dynamix · <a href="https://github.com/FridrichMethod" target="_blank" rel="noopener noreferrer">FridrichMethod</a> · <a href="https://github.com/FridrichMethod/dynamix/blob/main/NOTICE" target="_blank" rel="noopener noreferrer" data-i18n="slideshow.attribution">Attribution</a></div>
@@ -422,6 +422,7 @@ https://github.com/FridrichMethod/dynamix
             // A wrapping title breaks after its last spaced dash, never before a dash or a trailing number: each side of
             // that dash is kept whole where it fits (see src/slideshow.css).
             var title = element("p", "notes-title");
+            title.dataset.full = headline;
             var glued = headline.replace(/ — /g, "\u00a0— ").replace(/ (\d+)$/, "\u00a0$1");
             var dash = glued.lastIndexOf("\u00a0— ");
             if (dash > 0) title.append(element("span", "notes-title-part", glued.slice(0, dash + 2)), " ", element("span", "notes-title-part", glued.slice(dash + 3)));
@@ -441,15 +442,28 @@ https://github.com/FridrichMethod/dynamix
             if (data.collections) {
                 metaRow(meta, data.collections.indexOf("\n") >= 0 ? DYNAMIX_I18N.t("slideshow.notes.collections") : DYNAMIX_I18N.t("slideshow.notes.collection"), data.collections, false);
             }
+            // Where the credits are cut short, only the illustrator's run is left (see src/slideshow.css).
+            meta.dataset.full = data.illustrators || DYNAMIX_I18N.t("credit.unknown");
             notes.append(eyebrow, title);
             if (fileKey) {
                 var reference = element("p", "notes-title", fileKey);
                 reference.dataset.length = "file";
+                reference.dataset.full = fileKey;
                 notes.append(reference);
             }
             if (meta.childElementCount) notes.append(meta);
             return notes;
         }
+
+        // Short screens cut a long title, file name or credit run with an ellipsis (see src/slideshow.css); the page
+        // keeps all of it (for screen readers too), and a cut one shows its full wording in a tooltip.
+        function markClipped() {
+            slideNotes.querySelectorAll("[data-full]").forEach(function(node) {
+                if (node.scrollHeight > node.clientHeight + 1) node.title = node.dataset.full;
+                else node.removeAttribute("title");
+            });
+        }
+        window.addEventListener("resize", markClipped);
 
         function renderNotes() {
             window.clearTimeout(notesTimer);
@@ -457,6 +471,7 @@ https://github.com/FridrichMethod/dynamix
             slideNotes.classList.remove("is-turning");
             caption.classList.remove("is-turning");
             slideNotes.replaceChildren(notesFor(imgTargets[slideIndex - 1]));
+            markClipped();
         }
 
         // Visible notes dip out, change and fade back in with the artwork; notes giving way to the title card change

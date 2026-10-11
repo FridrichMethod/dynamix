@@ -928,25 +928,40 @@ def check_slideshow(smoke, base, catalog, fixture):
         smoke.finish(page)
 
 
-# Phones held sideways and short portrait phones (browser bars included), where the notes, the caption and the bottom
-# control row compete for height.
-SHORT_SCREENS = [(568, 320), (667, 375), (844, 390), (375, 553), (360, 568)]
-# The visible text blocks of the liner column that overlap a control of the bottom row, and whether the illustrator's
-# credit (when slide notes are up) lies on screen above that row.
+# Phones held sideways, short portrait phones (browser bars included) and a short desktop window, where the notes, the
+# caption and the bottom control row compete for room.
+SHORT_SCREENS = [(568, 320), (640, 360), (667, 375), (812, 375), (844, 390), (960, 540), (320, 454), (375, 553), (360, 568),
+                 (360, 640)]
+# The visible text blocks of the liner column that overlap a control of the bottom row; what the caption's lines cross
+# besides (the stage, the arrows, the language toggle, the notes or the title card); the blocks not wholly on screen;
+# and whether the first line of the illustrator's credit (when slide notes are up) lies on screen above that row. The
+# caption is measured by its lines: on short landscape screens its box is a fixed band beside the control row.
 CLEARANCE = """(names) => { const row = names.map((name) => document.querySelector('.' + name).getBoundingClientRect());
     const overlaps = (a, b) => a.top < b.bottom && a.bottom > b.top && a.left < b.right && a.right > b.left;
+    const extent = (node) => { const boxes = node.classList.contains('asset-caption')
+            ? [...node.children].filter((child) => child.getClientRects().length).map((child) => child.getBoundingClientRect())
+            : [node.getBoundingClientRect()];
+        return {top: Math.min(...boxes.map((box) => box.top)), bottom: Math.max(...boxes.map((box) => box.bottom)),
+                left: Math.min(...boxes.map((box) => box.left)), right: Math.max(...boxes.map((box) => box.right))}; };
     const blocks = [...document.querySelectorAll('.intro, .slide-notes, .asset-caption')]
         .filter((node) => getComputedStyle(node).visibility !== 'hidden' && node.getClientRects().length);
-    const hits = blocks.filter((node) => row.some((box) => overlaps(node.getBoundingClientRect(), box))).map((node) => node.className);
+    const hits = blocks.filter((node) => row.some((box) => overlaps(extent(node), box))).map((node) => node.className);
+    const caption = document.querySelector('.asset-caption');
+    const others = [...document.querySelectorAll('.slideshow-container, .prev, .next, .lang-toggle')].concat(blocks.filter((node) => node !== caption));
+    const crossed = blocks.includes(caption) ? others.filter((node) => overlaps(extent(caption), node.getBoundingClientRect())).map((node) => node.className) : [];
+    const offscreen = blocks.filter((node) => { const box = extent(node);
+        return box.top < 0 || box.left < 0 || box.bottom > innerHeight || box.right > innerWidth; }).map((node) => node.className);
     const credit = document.querySelector('.slide-notes dd.notes-artist'), notes = blocks.some((node) => node.classList.contains('slide-notes'));
-    const top = Math.min(...row.map((box) => box.top));
-    const creditShown = !notes || Boolean(credit && credit.getBoundingClientRect().top >= 0 && credit.getBoundingClientRect().bottom <= top);
-    return {hits, creditShown}; }"""
+    const top = Math.min(...row.map((box) => box.top)), line = credit && credit.getClientRects()[0];
+    const creditShown = !notes || Boolean(line && line.top >= 0 && line.bottom <= top);
+    return {hits, crossed, offscreen, creditShown}; }"""
+CLEAR = {"hits": [], "crossed": [], "offscreen": [], "creditShown": True}
 
 
 def check_short_screens(smoke, base, catalog):
-    """On phones held sideways and short portrait phones, stepping through the whole show, the title card, every
-    slide's notes and the caption stay clear of the bottom control row, in both languages, and the illustrator's credit
+    """On phones held sideways, short portrait phones and a short desktop window, stepping through the whole show, the
+    title card, every slide's notes and the caption stay on screen and clear of the bottom control row, the caption
+    clear of the stage, the arrows, the language toggle and the notes, in both languages, and the illustrator's credit
     is on screen."""
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
@@ -958,11 +973,11 @@ def check_short_screens(smoke, base, catalog):
             page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
             page.evaluate("randomClick(); setIntro(true)")  # pause, with the title card up
             state = page.evaluate(CLEARANCE, BOTTOM_ROW)
-            assert state["hits"] == [], (lang, width, height, "title card", state)
+            assert state == CLEAR, (lang, width, height, "title card", page.evaluate(SHOWN_ID), state)
             for _ in slides:
                 page.evaluate("plusSlides(1)")
                 state = page.evaluate(CLEARANCE, BOTTOM_ROW)
-                assert state["hits"] == [] and state["creditShown"], (lang, width, height, page.evaluate(SHOWN_ID), state)
+                assert state == CLEAR, (lang, width, height, page.evaluate(SHOWN_ID), state)
             smoke.finish(page)
 
 

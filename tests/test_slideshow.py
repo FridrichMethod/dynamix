@@ -1,7 +1,7 @@
 """Offline guards for the slideshow template and stylesheet: named, keyboard-operable controls in both languages, a
 bottom row whose DOM order follows its layout, a screenshot overlay that does not live in the URL, slides that
 crossfade without a keyframe fade and take no hits while hidden, an illustrator credit that no tier drops, arrows kept
-below the language toggle on short landscape screens, a signature whose box leaves the toggle its taps, the visible
+below the language toggle and a caption beside the control row on short landscape screens, a signature whose box leaves the toggle its taps, the visible
 attribution link, no music player and no DEEMO dedication, an empty-show state, and font stacks the screenshot
 renderer can draw. They read the sources only; real hit-testing, focus, keyboard handling and layout need a browser
 (tests/browser_smoke.py).
@@ -271,6 +271,23 @@ class SlideshowTemplateTests(unittest.TestCase):
         arrow_top = lengths["stage margin-top"] + int(clamp.group(1)) + lengths["arrow margin-top"]
         toggle_bottom = lengths["toggle top"] + lengths["toggle height"] + 2 * lengths["toggle padding"]
         self.assertGreaterEqual(arrow_top, toggle_bottom)
+
+    def test_short_landscape_caption_sits_beside_the_control_row(self):
+        """On short landscape screens the caption leaves the text column for the band right of the bottom row and below
+        the stage, so neither a long source name nor the notes can push it under the controls."""
+        base = top_level_css(self.css)
+        block = media_block(self.css, "(orientation: landscape) and (max-height: 560px)")
+        self.assertEqual(css_value(block, [".asset-caption"], "position"), "fixed")
+        disc = px(css_value(base, [".bt"], "width")) + 2 * px(css_value(base, [".bt"], "padding"))
+        row_right = px(css_value(base, [".random"], "left")) + disc / 2 + disc  # .bt is shifted right by half its size
+        self.assertGreater(px(css_value(block, [".asset-caption"], "left")), row_right)
+        band_top = px(css_value(block, [".asset-caption"], "bottom")) + px(css_value(block, [".asset-caption"], "height"))
+        stage = re.fullmatch(r"max\(8vh,\s*(\d+)px\)", css_value(block, [".slideshow-container"], "margin-bottom") or "")
+        self.assertTrue(stage, "The stage keeps clear of the band at every width: margin-bottom: max(8vh, <n>px)")
+        self.assertLess(band_top, int(stage.group(1)), "The caption's band ends below the stage")
+        self.assertGreaterEqual(int(stage.group(1)), disc * 1.5, "The stage clears the control row (bottom: 0, shifted up by half)")
+        # The clamped notes show a cut text's full wording in a tooltip.
+        self.assertIn("node.title = node.dataset.full", self.code)
 
     def test_the_wrapped_signature_leaves_the_language_toggle_its_taps(self):
         base = top_level_css(self.css)

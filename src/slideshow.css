@@ -696,8 +696,9 @@ canvas {
     visibility: hidden !important;
 }
 
-/* File details as the sleeve's fine print, at the foot of the text column. Three lines are reserved so a
-   longer source name does not shift the notes or the stage between slides. */
+/* File details as the sleeve's fine print, at the foot of the text column (on short landscape screens, in the band
+   beside the control row instead; see below). Three lines are reserved so a longer source name does not shift the
+   notes or the stage between slides. */
 .asset-caption { flex: none; box-sizing: content-box; min-height: 4.8em; margin-top: 28px; padding-top: 12px; border-top: 1px solid var(--rule); max-width: 36em; font: 13px/1.6 var(--small-caps); color: #4a5262; user-select: text; }
 .asset-caption a { color: #20242c; }
 /* On a turn it already holds the new slide's details, so it is hidden at once (not faded, which would show them
@@ -856,8 +857,11 @@ canvas {
     .liner::before {
         flex-basis: max(0px, 50vh - 118px);
     }
+    /* The stage keeps clear of the control row's height (105px) at every width here, leaving the band beside the row
+       free for the caption (below). */
     .slideshow-container {
         margin-top: 24px;
+        margin-bottom: max(8vh, 121px);
     }
     /* The next arrow shares its column with the language toggle (35-105px from the top); below about 345px of
        height the stage's centre comes within its reach, so the arrows stop where the toggle ends. */
@@ -907,19 +911,39 @@ canvas {
     .notes-meta::before {
         margin-bottom: .4em;
     }
+    /* The caption leaves the text column for the free band beside the control row, under the stage: 16px right of the
+       row's last disc (it ends at 270px + 35px + 70px = 375px) and centred in the 105px between the stage and 8px above
+       the screen's foot. The notes then have the column to themselves, so a long source name or many credits never
+       push the caption, or the notes, under the controls; nothing is cut, the caption only wraps in its band. */
     .asset-caption {
+        position: fixed;
+        left: 391px;
+        right: 16px;
+        bottom: 8px;
+        box-sizing: border-box;
+        height: 105px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         min-height: 0;
-        margin-top: 10px;
-        padding-top: 6px;
+        margin: 0;
+        padding: 0;
+        border-top: 0;
         font-size: 11px;
         line-height: 1.45;
     }
+    .asset-caption > * {
+        padding-left: 12px;
+        border-left: 1px solid var(--rule);
+    }
 }
 
-/* Phones held sideways: of the credits only the illustrator's stays, as one run of text without the rule above it, a
-   file reference takes the credits' size and keeps a long key ("Rac01rethefullmoonworld") on one line, and the
-   caption leaves out the image size while the notes are up, so the title and the caption stay clear of the control
-   row and the artwork is never shown without its artist (screenshots too). */
+/* Phones held sideways: of the credits only the illustrator's stays, as one run of text without the rule above it; a
+   file reference takes the credits' size and keeps to one line, and the illustrator's run to four, each cut with an
+   ellipsis only when longer (the page keeps the full text for screen readers and in a tooltip, and the archive viewer
+   shows it); the caption leaves out the image size while the notes are up. With the title's two lines this bounds the
+   notes at about 182px on a 320px-tall screen (the column has 185px above the control row), so the notes stay clear
+   of the row and the artwork is never shown without its artist (screenshots too). */
 @media screen and (orientation: landscape) and (max-height: 430px) {
     .intro {
         font-size: min((40vw - var(--gutter) - 24px) / 12.6, 4.2vh);
@@ -927,9 +951,15 @@ canvas {
     .notes-title[data-length="file"] {
         font-size: 13px;
         letter-spacing: .04em;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
     }
     .notes-meta {
-        display: block;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        overflow: hidden;
         margin-top: .5em;
     }
     .notes-meta::before,
