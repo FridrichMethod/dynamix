@@ -3,8 +3,9 @@
 ``api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail?id=<id>`` returns the post's modules (author, text, pictures).
 Bilibili answers anonymous clients with risk-control code ``-352``/``-412``, HTTP 412 or a captcha page (``验证码``,
 ``risk-captcha``); each is recorded as a ``challenge`` (blocked, manual access; the API host is not contacted again
-in the run) and never worked around: no cookie farming, request signing or captcha solving. Picture URLs on
-``*.hdslb.com`` are stored without their ``@...`` resize suffix, which is the original upload as served.
+in the run) and never worked around: no cookie farming, request signing or captcha solving. Cloudflare's interstitial
+markers (``lib.net``) count only in an answer that is markup, never in a JSON answer whose post text quotes one.
+Picture URLs on ``*.hdslb.com`` are stored without their ``@...`` resize suffix, which is the original upload as served.
 
 A post is the artist's own only when its author ``mid`` equals the seed's ``params.mid``; while that numeric account ID
 is not established, every picture is held as ``pending`` (``unresolved_game``). The observed author (name and mid) is
@@ -14,7 +15,10 @@ recorded in each candidate's ``game_evidence``.
 from __future__ import annotations
 
 import json
+import re
+import tempfile
 from collections.abc import Iterable, Mapping
+from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode, urlsplit
 
@@ -27,6 +31,7 @@ HOSTS = ["api.bilibili.com", ".hdslb.com"]
 API = "https://api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail"
 RISK_CODES = {-352: "risk control", -412: "request intercepted", -401: "unauthorized", -403: "access denied"}
 CAPTCHA_MARKERS = ("risk-captcha", "验证码_哔哩哔哩", "_riskdata_")
+_CHARSET = re.compile(r"charset=[\"']?([A-Za-z0-9._:-]+)", re.IGNORECASE)
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -39,11 +44,27 @@ def is_captcha_page(text: str) -> bool:
     return any(marker in text for marker in CAPTCHA_MARKERS)
 
 
-def opus_detail(ctx: Any, opus_id: str, page_url: str) -> Any:
-    """The parsed ``opus/detail`` answer, read as text so that a captcha page in place of the JSON is recognized: it
-    and Bilibili's anti-crawler HTTP 412 raise :class:`lib.net.ChallengeError` after the API host is marked blocked."""
+def read_answer(ctx: Any, url: str) -> str:
+    """The body of ``url`` as text (its declared charset, else UTF-8), read through ``download`` into a temporary
+    directory: ``lib.net`` checks a downloaded 200 body for Cloudflare's interstitial markers only when the body is
+    markup (it starts with ``<``), while ``get_text`` checks every body and so would take a JSON answer whose post text
+    quotes such a token (e.g. ``cf_chl``) for a challenge."""
+    with tempfile.TemporaryDirectory(prefix="dynamix-bilibili-") as directory:
+        result = ctx.client.download(url, directory, "opus-detail", headers={"Accept": "application/json"})
+        data = Path(result.temp_path).read_bytes()
+    declared = _CHARSET.search(result.content_type or "")
     try:
-        body, _, _ = ctx.client.get_text(f"{API}?{urlencode({'id': opus_id})}", headers={"Accept": "application/json"})
+        return data.decode(declared.group(1) if declared else "utf-8", errors="replace")
+    except LookupError:
+        return data.decode("utf-8", errors="replace")
+
+
+def opus_detail(ctx: Any, opus_id: str, page_url: str) -> Any:
+    """The parsed ``opus/detail`` answer, read as text (:func:`read_answer`) so that a captcha page in place of the JSON
+    is recognized: it and Bilibili's anti-crawler HTTP 412 raise :class:`lib.net.ChallengeError` after the API host is
+    marked blocked. The errors raised here name ``page_url``, the post's page, as the committed records do."""
+    try:
+        body = read_answer(ctx, f"{API}?{urlencode({'id': opus_id})}")
     except net.HttpError as error:
         if error.http_status != 412:
             raise
