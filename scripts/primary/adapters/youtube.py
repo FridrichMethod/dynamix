@@ -136,7 +136,7 @@ def _channel_art(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, 
     texts = {"title": document.title.get_text(" ", strip=True) if document.title else ""}
     rule = model.find_rule(base.rules(seed), key)
     if image_id not in page["html"]:
-        rule = model.hold(rule, f"awaiting_download: the channel page no longer shows this {item['channel_art']} image")
+        rule = model.hold(rule, f"unresolved_game: the channel page no longer shows this {item['channel_art']} image")
     discovery.candidates.append(model.apply_rule(
         rule, key=key, page_url=channel, texts=texts, file_url=f"{item['url']}=s0",
         default_title=f"{texts['title'] or 'YouTube channel'} {item['channel_art']}", default_quality=ctx.quality,

@@ -19,8 +19,8 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from lib import manifest, net  # noqa: E402
-from primary import cli, runner  # noqa: E402
+from lib import manifest, net, paths  # noqa: E402
+from primary import cli, model, runner  # noqa: E402
 from primary.adapters import apple, facebook, probe, registry as registry_adapter, x as x_adapter, youtube  # noqa: E402,E501
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
@@ -591,6 +591,7 @@ class YouTubeTests(OfficialTestCase):
         self.assertEqual(found["channel:banner"]["disposition"], "downloaded")
         self.assertEqual(found["channel:avatar"]["disposition"], "pending")  # not on the page: never admitted
         self.assertIn("no longer shows", found["channel:avatar"]["reason"])
+        self.assertTrue(found["channel:avatar"]["reason"].startswith("unresolved_game: "))  # the channel's claim
         self.assertEqual(network.count("www.youtube.com"), 1)  # the channel page is read once
         self.verify()
 
@@ -819,6 +820,38 @@ class ProbeAndRegistryTests(OfficialTestCase):
         self.assertEqual(self.manifest()["sources"][0]["status"], "metadata_only")
         self.assertEqual(self.manifest()["failures"], [])
         self.verify()
+
+
+    def test_awaiting_download_needs_a_file_url(self):
+        # 09: awaiting_download is an admitted candidate with a known file URL; a lead with nothing to fetch is
+        # unresolved_role. The registry rejects such a seed item, and --verify rejects such a candidate.
+        lead = {"key": "x:gone", "page_url": "https://x.com/gone", "title": "Deleted account",
+                "disposition": "pending", "reason": "unresolved_role: every archived status is a TweetTombstone"}
+        upload = {"key": "file:known", "page_url": "https://example.org/page", "title": "Known file",
+                  "file_url": "https://example.org/a.png", "disposition": "pending",
+                  "reason": "awaiting_download: not fetched yet"}
+        seed = {"id": "official:official-leads", "name": "Leads", "url": "https://dynamix.c4-cat.com/",
+                "platform": "registry", "adapter": "lead_registry", "items": [lead, upload]}
+        with self.assertRaisesRegex(ValueError, "needs its file_url"):
+            registry_adapter.check_seed({**seed, "items": [{**lead, "reason": "awaiting_download: nothing"}]}, "s")
+        self.run_family([seed], FakeNetwork({}))
+        self.verify()  # a known file URL may await its download
+        path = self.root / paths.discovery_relpath("official:official-leads")
+        snapshot = json.loads(path.read_text(encoding="utf-8"))
+        for candidate in snapshot["candidates"]:
+            if candidate["upstream_key"] == "x:gone":
+                candidate["reason"] = "awaiting_download: every archived status is a TweetTombstone"
+        path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        errors, _warnings, _counts = runner.verify_family(self.root, "official")
+        self.assertEqual(errors, ["official:official-leads:x:gone: pending 'awaiting_download' without a file URL "
+                                  "(awaiting_download is an admitted candidate with a known file URL; a lead with no "
+                                  "file to fetch is unresolved_role)"])
+        # An admitted rule whose item has no file URL is held as unresolved_role, never awaiting_download.
+        draft = model.apply_rule({"match": ".*", "role": "promotional"}, key="k", page_url="https://example.org/",
+                                 texts={}, file_url=None, default_title="t", default_quality=QUALITY,
+                                 default_rights={})
+        self.assertEqual((draft.action, draft.reason), ("pending", model.NO_FILE_REASON))
+        self.assertTrue(draft.reason.startswith("unresolved_role: "))
 
 
 class SoundCloudListTests(OfficialTestCase):

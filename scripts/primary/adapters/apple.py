@@ -282,7 +282,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if rendition is None:
                 discovery.candidates.append(model.Draft(
                     upstream_key=key, page_url=page_url, title=f"App Store {device} screenshot {index}",
-                    action="pending", reason="awaiting_download: unusable artwork template"))
+                    action="pending", reason="unresolved_role: unusable artwork template"))
                 continue
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             url = rendition["url"]

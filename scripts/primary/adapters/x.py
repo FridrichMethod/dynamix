@@ -217,7 +217,7 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
         if not match:
             discovery.candidates.append(model.Draft(
                 upstream_key=key, page_url=status_url, title=title, action="pending",
-                reason="awaiting_download: unrecognized X media URL"))
+                reason="unresolved_role: unrecognized X media URL"))
             continue
         media_key, ext = match.groups()
         file_url = f"https://pbs.twimg.com/media/{media_key}?format={ext}&name=orig"

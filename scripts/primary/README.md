@@ -18,7 +18,10 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
   candidate admitted for Dynamix (not excluded, not held) corroborates for the same file, an archived candidate
   that a later run now *excludes* (kept for review; a now pending/failed one is a warning), and a downloaded or
   `duplicate_bytes` candidate whose role differs from the kind of the record of its bytes (one file, one kind within
-  a source). An `archive_under` rule whose target the run did not list as a download candidate is a warning.
+  a source), and a `pending` candidate whose reason is `awaiting_download` but that names no file URL (that prefix is
+  for an admitted candidate with a known file URL not archived yet; a lead with nothing to fetch is `unresolved_role`;
+  `lead_registry` seeds reject such an item). An `archive_under` rule whose target the run did not list as a download
+  candidate is a warning.
 - `--resume` re-hashes archived files instead of downloading them again (an archived fallback URL of the draft is its
   file, and an adapter may identify an archived URL with this run's, e.g. a re-signed Facebook CDN URL);
   `--metadata-only` never downloads and never changes archived records. A record's `download_url`, `resolved_url` and

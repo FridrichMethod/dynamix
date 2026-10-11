@@ -44,6 +44,15 @@ UNIVERSE_RE = re.compile(r"dynamix\s*universe", re.IGNORECASE)
 COLLABORATION_RE = re.compile(r"collab|コラボ|联动|聯動", re.IGNORECASE)
 QUOTE_MAX = 300
 EXCERPT_CONTEXT = 40
+# 09 (CLI notes): ``awaiting_download`` is an admitted candidate with a known file URL that is not archived yet; an
+# item with no file to fetch is ``unresolved_role`` (no file establishes what it shows).
+NO_FILE_REASON = "unresolved_role: no downloadable file URL was found for this item"
+
+
+def awaiting_without_file(candidate: Mapping[str, Any]) -> bool:
+    """Whether a ``pending`` candidate says ``awaiting_download`` although it names no file URL to fetch."""
+    return (candidate.get("disposition") == "pending" and not candidate.get("file_url")
+            and str(candidate.get("reason") or "").split(":", 1)[0].strip() == "awaiting_download")
 
 
 def normalize_text(text: str) -> str:
@@ -443,7 +452,7 @@ def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts
         return draft
     draft.game = rule.get("game", schema.GAME)  # check_rule allows only dynamix/mixed on a download rule
     if not file_url:
-        draft.reason = "awaiting_download: no downloadable file URL was found for this item"
+        draft.reason = NO_FILE_REASON
         return draft
     draft.action = "download"
     draft.archive_under = rule.get("archive_under")

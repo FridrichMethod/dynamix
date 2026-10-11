@@ -210,6 +210,8 @@ class PixivWaybackTests(ArtistsTestCase):
         p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
         self.assertEqual(p1["disposition"], "pending")
         self.assertIn("lists no HTTP 200 capture", p1["reason"])
+        self.assertTrue(p1["reason"].startswith("unresolved_role: "), p1["reason"])  # no file to fetch (09)
+        self.assertIsNone(p1["file_url"])
         self.assertEqual(p1["game"], "unknown")
         self.assertEqual(network.count("web.archive.org"), 1)  # the CDX check only
         self.verify()

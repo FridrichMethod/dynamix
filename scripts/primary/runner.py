@@ -1515,8 +1515,10 @@ def verify_family(root: str | os.PathLike[str], family: str,
                   seed_ids: Iterable[str] | None = None) -> tuple[list[str], list[str], dict]:
     """Offline ``--verify``: (errors, warnings, per-source disposition counts). Never touches the network.
 
-    With ``seed_ids`` (the family's seed registry) a seed source without a source record is an error (a run that
-    stopped before reaching it) and a source record without a seed a warning."""
+    A ``pending`` candidate whose reason says ``awaiting_download`` but that names no file URL is an error (09: that
+    prefix is for an admitted candidate with a known file URL). With ``seed_ids`` (the family's seed registry) a seed
+    source without a source record is an error (a run that stopped before reaching it) and a source record without a
+    seed a warning."""
     root = Path(root)
     errors: list[str] = []
     warnings: list[str] = []
@@ -1547,6 +1549,10 @@ def verify_family(root: str | os.PathLike[str], family: str,
     own = {asset["id"]: asset for asset in current["assets"]}
     for snapshot in snapshots.values():
         for candidate in snapshot["candidates"]:
+            if model.awaiting_without_file(candidate):  # 09: a lead with no file to fetch is unresolved_role
+                errors.append(f"{candidate['id']}: pending 'awaiting_download' without a file URL (awaiting_download "
+                              "is an admitted candidate with a known file URL; a lead with no file to fetch is "
+                              "unresolved_role)")
             target = own.get(candidate.get("asset_id") or "")
             if (candidate["disposition"] == "duplicate_bytes" and target is not None
                     and target.get("upstream_status") not in (None, "current")):

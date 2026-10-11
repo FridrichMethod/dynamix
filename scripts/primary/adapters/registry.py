@@ -43,6 +43,9 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             prefix = item["reason"].split(":", 1)[0].strip()
             if prefix not in schema.EXCLUSION_REASONS:
                 raise ValueError(f"{label}: exclusion reason must start with one of {schema.EXCLUSION_REASONS}")
+        if model.awaiting_without_file(item):
+            raise ValueError(f"{label}: an awaiting_download item needs its file_url (a lead with no file to fetch "
+                             "is unresolved_role)")
         if item.get("game", "unknown") not in schema.GAMES:
             raise ValueError(f"{label}: game must be one of {schema.GAMES}")
         if item.get("role") is not None and item["role"] not in schema.KINDS:
