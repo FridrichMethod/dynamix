@@ -540,10 +540,23 @@ class CatalogValidationTests(unittest.TestCase):
         summary = self.catalog["summary"]
         self.assertEqual(summary["exact_duplicate_records"], 1)  # Miraheze and Fandom share the Cosmic Pulse bytes
         self.assertEqual(summary["slideshow_images"], 1)  # only the 1200 px artist original
-        cosmic = next(a for a in self.catalog["assets"] if a["source_id"] == "wikis:fandom" and a["kind"] == "song_art"
-                      and a["title"] == "Cosmic Pulse")
-        self.assertEqual([p["source_id"] for p in cosmic["provenance"]], ["wikis:fandom", "wikis:miraheze"])
+        cosmic = next(a for a in self.catalog["assets"] if a["source_id"] == "wikis:miraheze"
+                      and a["kind"] == "song_art" and a["title"] == "Cosmic Pulse")
+        self.assertEqual([p["source_id"] for p in cosmic["provenance"]], ["wikis:miraheze", "wikis:fandom"])
         self.assertEqual(len(cosmic["variants"]), 2)
+
+    def test_provenance_sort_key_follows_the_frozen_primary_rule(self):
+        """09 "Catalog presentation rules", Primary record: family priority; wikis:miraheze, then wikis:fandom, then
+        every other source, tied; quality.source_variant; source ID; asset ID."""
+        def record(source_id, variant="site_original", asset_id="x"):
+            return {"source_id": source_id, "asset_id": f"{source_id}:{asset_id}",
+                    "quality": {"source_variant": variant}}
+
+        ordered = [record("artists:x:painter", "preview"), record("official:x"), record("official:facebook", "preview"),
+                   record("official:c4cat", "unknown"), record("wikis:miraheze", "unknown"), record("wikis:fandom"),
+                   record("wikis:atwiki-ja"), record("wikis:rhythmgame-ja"), record("wikis:atwiki-ja", "preview"),
+                   record("archives:wayback")]
+        self.assertEqual(sorted(reversed(ordered), key=schema.provenance_sort_key), ordered)
 
     def test_catalog_mutations_are_rejected(self):
         def first(catalog, **match):
@@ -557,14 +570,15 @@ class CatalogValidationTests(unittest.TestCase):
             (lambda c: first(c, kind="reference").update(site_original=True), "site_original"),
             (lambda c: first(c, kind="reference").update(thumb="assets/thumbs/x.webp"), "thumb"),
             (lambda c: first(c, kind="background").update(archive_url="https://example.com/x"), "archive_url"),
-            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse").update(variants=[]), "variants"),
-            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse")["provenance"].reverse(), "provenance"),
+            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(variants=[]), "variants"),
+            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"].reverse(),
+             "provenance"),
             (lambda c: first(c, kind="background").update(illustrators=["someone"]), "ordered union"),
-            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse").update(song_ids=[]),
+            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(song_ids=[]),
              "song_ids: must be the ordered union"),
-            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse").update(collections=[]),
+            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(collections=[]),
              "collections: must be the ordered union"),
-            (lambda c: first(c, source_id="wikis:fandom", title="Cosmic Pulse")["provenance"][0].pop("song_ids"),
+            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"][0].pop("song_ids"),
              "missing key 'song_ids'"),
             (lambda c: c["sources"].append({**c["sources"][0], "id": "archives:miraheze", "family": "archives"}),
              "share the source slug"),

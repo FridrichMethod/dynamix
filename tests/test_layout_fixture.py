@@ -45,7 +45,6 @@ OBSERVED = {"content_type", "sniffed_format", "bytes", "width", "height", "sha1"
 COMPARISONS = {"sha1_match", "bytes_match", "dimensions_match", "format_match"}
 KINDS = ["song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot", "gameplay_screenshot", "process", "reference"]
 SITE_KINDS = {"song_art", "pack_cover", "character", "background", "part", "promotional", "process"}
-FAMILY_PRIORITY = ["artists", "official", "wikis", "archives"]
 PATH = re.compile(r"assets/public/(artists|official|wikis|archives)/[a-z0-9-]+/[A-Za-z0-9._-]+--[0-9a-f]{12}\.(png|jpg|webp|gif|pdf)")
 
 
@@ -135,8 +134,8 @@ class FixtureContractTests(unittest.TestCase):
                     self.assertTrue(PROVENANCE <= set(record) <= PROVENANCE | PROVENANCE_OPTIONAL, "provenance records carry the contract's fields")
                     self.assertEqual(record["asset_id"], f"{record['source_id']}:{asset['sha256'][:16]}")
                 self.assertEqual(asset["provenance"][0]["source_id"], asset["source_id"], "the primary record comes first")
-                keys = [(FAMILY_PRIORITY.index(record["family"]), record["source_id"], record["asset_id"]) for record in asset["provenance"]]
-                self.assertEqual(keys, sorted(keys), "provenance is ordered by family priority, source ID, asset ID")
+                keys = [schema.provenance_sort_key(record) for record in asset["provenance"]]
+                self.assertEqual(keys, sorted(keys), "provenance follows the primary-record rule (schema.provenance_sort_key)")
 
     def test_files_match_their_records(self):
         for asset in self.catalog["assets"]:

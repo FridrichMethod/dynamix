@@ -72,7 +72,7 @@ class Base(unittest.TestCase):
 class ContractFixtureTests(Base):
     def test_contract_fixture_builds_a_valid_deduplicated_catalog(self):
         catalog = build.combine(self.root, verify=True)
-        build.validate_catalog(catalog)
+        schema.validate_catalog(catalog)
         summary = catalog["summary"]
         self.assertEqual((summary["source_asset_records"], summary["unique_files"], summary["exact_duplicate_records"]),
                          (11, 10, 1))
@@ -115,7 +115,7 @@ class DedupTests(Base):
         official = fx.add_record(self.root, fx.copy_record(self.root, background, "official:website",
                                                            composers=["Not A Painter"]))
         catalog = build.combine(self.root, verify=True)
-        build.validate_catalog(catalog)
+        schema.validate_catalog(catalog)
         entry = self.entries(catalog, sha256=background["sha256"])
         self.assertEqual(len(entry), 1)
         entry = entry[0]
@@ -470,7 +470,7 @@ class OutputTests(Base):
         self.assertEqual(self.run_main("--verify")[0], 0)
         self.assertEqual(sorted(self.outputs()), sorted(OUTPUTS))
         catalog = manifest.load_json(self.root / build.CATALOG_JSON)
-        build.validate_catalog(catalog)
+        schema.validate_catalog(catalog)
         self.assertEqual([a["id"] for a in catalog["assets"] if a["thumb"]],
                          [a["id"] for a in catalog["assets"] if build.needs_preview(a)])
         self.assertEqual(self.run_main("--verify", "--check")[0], 0)

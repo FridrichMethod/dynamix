@@ -283,6 +283,68 @@
           "notes": null
         },
         {
+          "asset_id": "wikis:miraheze:af96aae516e8e476",
+          "source_id": "wikis:miraheze",
+          "source_name": "Fixture Wiki (MediaWiki A)",
+          "family": "wikis",
+          "page_url": "https://example.org/wiki-a/File:Aurora_Lattice.png",
+          "download_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
+          "resolved_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "wiki_copy",
+            "master_status": "unverified",
+            "notes": ""
+          },
+          "rights": {
+            "holder": "C4Cat Entertainment Limited and/or the credited artist",
+            "creator": null,
+            "url": null,
+            "license": null,
+            "restrictions": null
+          },
+          "mapping_status": "confirmed_wiki",
+          "mapping_evidence": [
+            "https://example.org/wiki-a/Aurora_Lattice",
+            "Template:Song image field names this file"
+          ],
+          "credit_evidence": [],
+          "illustrators": [
+            "Fixture Artist A"
+          ],
+          "composers": [
+            "Fixture Composer"
+          ],
+          "song_titles": [
+            "Aurora Lattice"
+          ],
+          "song_ids": [
+            "song:aurora-lattice"
+          ],
+          "collections": [
+            "Fixture Pack Vol. 1"
+          ],
+          "source_reported": {
+            "url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
+            "mime": "image/png",
+            "bytes": 17098,
+            "width": 1600,
+            "height": 1600,
+            "sha1": "33d3f739dcb34a68bb1018bfbaebd1301c862c4e",
+            "timestamp": "2024-05-01T00:00:00Z",
+            "revision": null
+          },
+          "comparisons": {
+            "sha1_match": true,
+            "bytes_match": true,
+            "dimensions_match": true,
+            "format_match": true
+          },
+          "upstream_status": "current",
+          "superseded_by": null,
+          "notes": null
+        },
+        {
           "asset_id": "wikis:fandom:af96aae516e8e476",
           "source_id": "wikis:fandom",
           "source_name": "Fixture Wiki (MediaWiki B, legacy read-only mirror)",
@@ -339,68 +401,6 @@
           "comparisons": {
             "sha1_match": false,
             "bytes_match": false,
-            "dimensions_match": true,
-            "format_match": true
-          },
-          "upstream_status": "current",
-          "superseded_by": null,
-          "notes": null
-        },
-        {
-          "asset_id": "wikis:miraheze:af96aae516e8e476",
-          "source_id": "wikis:miraheze",
-          "source_name": "Fixture Wiki (MediaWiki A)",
-          "family": "wikis",
-          "page_url": "https://example.org/wiki-a/File:Aurora_Lattice.png",
-          "download_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
-          "resolved_url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
-          "quality": {
-            "source_variant": "site_original",
-            "origin_status": "wiki_copy",
-            "master_status": "unverified",
-            "notes": ""
-          },
-          "rights": {
-            "holder": "C4Cat Entertainment Limited and/or the credited artist",
-            "creator": null,
-            "url": null,
-            "license": null,
-            "restrictions": null
-          },
-          "mapping_status": "confirmed_wiki",
-          "mapping_evidence": [
-            "https://example.org/wiki-a/Aurora_Lattice",
-            "Template:Song image field names this file"
-          ],
-          "credit_evidence": [],
-          "illustrators": [
-            "Fixture Artist A"
-          ],
-          "composers": [
-            "Fixture Composer"
-          ],
-          "song_titles": [
-            "Aurora Lattice"
-          ],
-          "song_ids": [
-            "song:aurora-lattice"
-          ],
-          "collections": [
-            "Fixture Pack Vol. 1"
-          ],
-          "source_reported": {
-            "url": "https://example.org/wiki-a/images/a/a1/Aurora_Lattice.png",
-            "mime": "image/png",
-            "bytes": 17098,
-            "width": 1600,
-            "height": 1600,
-            "sha1": "33d3f739dcb34a68bb1018bfbaebd1301c862c4e",
-            "timestamp": "2024-05-01T00:00:00Z",
-            "revision": null
-          },
-          "comparisons": {
-            "sha1_match": true,
-            "bytes_match": true,
             "dimensions_match": true,
             "format_match": true
           },

@@ -6,12 +6,12 @@
 Inputs: data/sources/{artists,official,wikis,archives}.json (schema v1, validated with lib.schema), the media they
 name under assets/public/, data/thumbs.json (scripts/build_thumbnails.py) and templates/slideshow.html rendered by
 scripts/render_slideshow.py (UI-owned). Records with equal SHA-256 become one catalog entry whose primary record (its
-fields, title, path and URL) is the first by the frozen primary-record rule (09 "Catalog presentation rules"; see
-primary_sort_key): family priority (artists < official < wikis < archives); preferred source within the family
+fields, title, path and URL) is the first by the frozen primary-record rule (09 "Catalog presentation rules";
+lib.schema.provenance_sort_key): family priority (artists < official < wikis < archives); preferred source within the family
 (wikis:miraheze, then wikis:fandom, then every other source); quality.source_variant (site_original < preview <
 unknown); source ID; asset ID. Every record is kept in `provenance`, primary first, in that order. Distinct bytes
 always stay distinct entries; superseded and removed records stay archived. The generated catalog is checked with
-lib.schema.validate_catalog, provenance order excepted (see validate_catalog).
+lib.schema.validate_catalog.
 
 --verify  re-hash and fully decode every archived file, check previews by SHA-256, reject files under assets/public/
           that no manifest record names (dot-files such as interrupted `.part` downloads excepted) and reject records
@@ -38,7 +38,6 @@ import re
 import subprocess
 import sys
 import tempfile
-import threading
 import unicodedata
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -63,11 +62,6 @@ MERGED_FIELDS = ("illustrators", "composers", "song_titles", "song_ids", "collec
 THUMB_ENTRY_FIELDS = ("path", "width", "height", "bytes", "sha256")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
 MAX_REPORTED = 20
-# Frozen primary-record rule (09 "Catalog presentation rules"). Within a family the listed sources come first in this
-# order: Miraheze is the current wiki and its stored bytes are the bytes both English wikis serve; Fandom is the legacy
-# copy. Every other source ranks after them and, after the rendition, by ID.
-PREFERRED_SOURCES = ("wikis:miraheze", "wikis:fandom")
-VARIANT_PRIORITY = ("site_original", "preview", "unknown")  # quality.source_variant, best first
 # Families whose titles come from the post or page text a record cites, never from its file name (09 "Titles").
 TEXT_TITLED_FAMILIES = ("artists", "official", "archives")
 # Wiki song art confirmed to show exactly one song with this evidence (confirmed_wiki or stronger) carries that song's
@@ -331,60 +325,6 @@ def needs_preview(asset: Mapping[str, Any]) -> bool:
     return schema.is_gallery(asset) and max(asset["width"], asset["height"]) > PREVIEW_LONG_EDGE
 
 
-def primary_sort_key(record: Mapping[str, Any]) -> tuple:
-    """Order of the records sharing one SHA-256; the minimum is the primary record (09 "Catalog presentation
-    rules"): family priority (artists < official < wikis < archives); PREFERRED_SOURCES within the family (Miraheze
-    before Fandom, every other source after them); quality.source_variant (site_original < preview < unknown); source
-    ID; asset ID. Takes a manifest record (``id``) or a catalog provenance entry (``asset_id``); total and
-    deterministic, since an asset ID is unique."""
-    family = record.get("family") or schema.source_family(record["source_id"])
-    source_id = record["source_id"]
-    preferred = PREFERRED_SOURCES.index(source_id) if source_id in PREFERRED_SOURCES else len(PREFERRED_SOURCES)
-    return (schema.FAMILY_PRIORITY.index(family), preferred,
-            VARIANT_PRIORITY.index(record["quality"]["source_variant"]), source_id,
-            record.get("id") or record.get("asset_id") or "")
-
-
-# TEMPORARY until the shared library adopts the frozen primary-record rule (contract change request to the
-# coordinator): lib.schema.provenance_sort_key and lib.catalog_contract still implement the earlier order (family,
-# source ID, asset ID), which puts wikis:fandom before wikis:miraheze, and 09's "Catalog asset" paragraph and the lib
-# README still state it. Once the library implements primary_sort_key's order, delete _contract_primary_order and
-# validate_catalog (call schema.validate_catalog), make primary_sort_key the library's key, and drop the tripwire in
-# tests/test_provenance.py that asserts the library still rejects the frozen order.
-_LIBRARY_ORDER_TEXT = "ordered by family priority, source ID, asset ID"
-_FROZEN_ORDER_TEXT = ("ordered by the frozen primary-record rule (family priority; wikis:miraheze, then wikis:fandom, "
-                      "then other sources; quality.source_variant; source ID; asset ID)")
-_CONTRACT_PATCH_LOCK = threading.Lock()
-
-
-@contextlib.contextmanager
-def _contract_primary_order():
-    """lib.catalog_contract with primary_sort_key in place of the library's provenance key for the duration (see the
-    note above); every other contract check is the library's. Serialized, since it swaps a module global."""
-    from lib import catalog_contract
-
-    with _CONTRACT_PATCH_LOCK:
-        previous = catalog_contract.provenance_sort_key
-        catalog_contract.provenance_sort_key = primary_sort_key
-        try:
-            yield
-        finally:
-            catalog_contract.provenance_sort_key = previous
-
-
-def validate_catalog(catalog: Mapping[str, Any]) -> None:
-    """schema.validate_catalog with provenance checked against the frozen primary-record order (primary_sort_key)
-    instead of the library's earlier one; a misordered provenance is reported with the rule actually checked."""
-    with _contract_primary_order():
-        try:
-            schema.validate_catalog(catalog)
-        except ValueError as error:
-            message = str(error)
-            if _LIBRARY_ORDER_TEXT not in message:
-                raise
-            raise ValueError(message.replace(_LIBRARY_ORDER_TEXT, _FROZEN_ORDER_TEXT)) from None
-
-
 def provenance_entry(record: Mapping[str, Any], names: Mapping[str, str]) -> dict:
     """One source record as a catalog provenance entry (contract fields; absent optional fields are null)."""
     entry = {"asset_id": record["id"], "source_id": record["source_id"], "source_name": names[record["source_id"]],
@@ -409,8 +349,8 @@ def _group_by_sha(records: list[dict]) -> dict[str, list[dict]]:
 
 def catalog_entry(group: list[dict], names: Mapping[str, str]) -> dict:
     """One deduplicated catalog asset from the records sharing a SHA-256: the primary record's fields (title, path,
-    URL included) plus every record as provenance, primary first (primary_sort_key)."""
-    ordered = sorted(group, key=primary_sort_key)
+    URL included) plus every record as provenance, primary first (schema.provenance_sort_key)."""
+    ordered = sorted(group, key=schema.provenance_sort_key)
     primary = ordered[0]
     entry = {key: value for key, value in primary.items() if key != "family"}
     for field in MERGED_FIELDS:
@@ -654,7 +594,7 @@ def build(root: Path, *, verify: bool = False, check: bool = False, workers: int
     catalog = combine(root, verify=verify, workers=workers)
     catalog = attach_thumbnails(root, catalog, verify=verify, required=strict)
     try:
-        validate_catalog(catalog)
+        schema.validate_catalog(catalog)
     except ValueError as error:
         raise CatalogError(f"generated catalog violates the contract: {error}") from None
     outputs = render_outputs(root, catalog, index_required=strict)
