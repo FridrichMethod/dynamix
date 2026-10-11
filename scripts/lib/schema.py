@@ -14,7 +14,7 @@ import re
 import unicodedata
 from collections import Counter
 from collections.abc import Iterable, Mapping
-from typing import Any
+from typing import Any, NoReturn
 from urllib.parse import quote
 
 from . import checks, paths
@@ -675,7 +675,7 @@ def _label(kind: str, record: Any) -> str:
     return kind
 
 
-def _fail(label: str, field: str, problem: str) -> None:
+def _fail(label: str, field: str, problem: str) -> NoReturn:
     raise ValueError(f"{label}: {field}: {problem}")
 
 
@@ -1067,7 +1067,7 @@ def _reconcile_candidate(
     label = _label("candidate", candidate)
     target = candidate.get("asset_id")
     if candidate["disposition"] == "downloaded":
-        asset = assets.get(target)
+        asset = assets.get(target) if isinstance(target, str) else None
         if asset is None or asset["candidate_id"] != candidate["id"]:
             _fail(label, "asset_id", f"{target!r} is not an asset recorded for this candidate")
         if candidate["role"] != asset["kind"]:

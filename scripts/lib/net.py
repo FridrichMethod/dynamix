@@ -50,7 +50,7 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from urllib.parse import urljoin, urlsplit
 
 import requests
@@ -285,7 +285,7 @@ def _redirect_target(current: str, location: str) -> str:
 
 
 def _system_resolver(host: str) -> list[str]:
-    return sorted({info[4][0] for info in socket.getaddrinfo(host, None, type=socket.SOCK_STREAM)})
+    return sorted({str(info[4][0]) for info in socket.getaddrinfo(host, None, type=socket.SOCK_STREAM)})
 
 
 def _public_headers(headers: Mapping[str, str]) -> dict[str, str]:
@@ -356,7 +356,7 @@ class _PeerCheckMixin:
 
     peer_check: Callable[[str, str], None] | None = None
 
-    def _new_conn(self):  # type: ignore[no-untyped-def]
+    def _new_conn(self) -> socket.socket:
         sock = super()._new_conn()  # type: ignore[misc]
         check = type(self).peer_check
         if check is not None:
@@ -638,7 +638,7 @@ class PoliteClient:
                     response = self._session.get(
                         url, headers=dict(headers), allow_redirects=False, stream=True, timeout=self._timeout
                     )
-                    response.dynamix_deadline = deadline  # read by _body_chunks
+                    cast(Any, response).dynamix_deadline = deadline  # read by _body_chunks
                 except requests.RequestException as error:
                     raise self._transport_error(error, url) from None
                 except HostNotAllowedError as error:  # raised by the connected-address check inside urllib3
@@ -689,7 +689,7 @@ class PoliteClient:
 
     def _address_allowed(self, address: str) -> bool:
         ip = ipaddress.ip_address(address.split("%", 1)[0])
-        if ip.version == 6:
+        if isinstance(ip, ipaddress.IPv6Address):
             if ip.ipv4_mapped is not None:
                 ip = ip.ipv4_mapped
             elif _is_ipv4_compatible(ip):
