@@ -1169,7 +1169,18 @@
           "game": "not_dynamix"
         },
         {
-          "match": "(cropped-Apple_output|LOGOwhite|doujin-mark|map\\.png|/img/(a17|dynamix|title_up|title_down|fb|ios|menu|play|sprite|loading|bg_fade|bg_fade_up|favicon)\\.)",
+          "match": "(dynamix\\.c4-cat\\.com/img/dynamix\\.png@|/mycard/img/DNXtypo\\.png@)",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "site_original",
+            "origin_status": "official",
+            "master_status": "unverified",
+            "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+          },
+          "candidate_notes": "The original DynAMIX wordmark (white letters on black, 600x188 PNG) that the official website (/img/dynamix.png) and the official MyCard top-up page (/mycard/img/DNXtypo.png) served as their logo image. The CDX digest is the SHA-1 of the wikis' File:Dynamix.png (wikis:miraheze:2df4a20f78495731, promotional), so one file has one kind: a logo or wordmark without chart-level information is promotional (coordinator decision of 2026-10-10; wave-4 decision 'one file, one kind')."
+        },
+        {
+          "match": "(cropped-Apple_output|LOGOwhite|doujin-mark|map\\.png|/img/(a17|title_up|title_down|fb|ios|menu|play|sprite|loading|bg_fade|bg_fade_up|favicon)\\.)",
           "action": "exclude",
           "reason": "site_ui: website logo, icon, sprite or decoration"
         },
@@ -1202,7 +1213,7 @@
           "title": "Dynamix | Mobile Music Game — Music game (1/3)"
         },
         {
-          "match": "(/LOGO3\\.png@|dl\\.dnx\\.c4-cat\\.com/(as|gpg|title)\\.png@|/mycard/img/(DNXtypo|bg)\\.png@)",
+          "match": "(/LOGO3\\.png@|dl\\.dnx\\.c4-cat\\.com/(as|gpg|title)\\.png@|/mycard/img/bg\\.png@)",
           "action": "exclude",
           "reason": "site_ui: logo, store badge or spacer image of an official web page"
         },
