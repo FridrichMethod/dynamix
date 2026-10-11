@@ -724,6 +724,34 @@ class RecordValidationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             schema.validate_song_index(broken, known)
 
+    def test_song_ids_follow_the_deterministic_assignment(self):
+        """09: -2, -3 suffixes go to colliding slugs in sorted exact-title order (paths.assign_song_ids), so the IDs
+        are a function of the titles; a gap, a gratuitous suffix or swapped IDs would renumber linked songs."""
+        cosmic = next(song for song in self.song_index["songs"] if song["title"] == "Cosmic Pulse")
+        upper = {**cosmic, "title": "COSMIC PULSE"}  # sorts before "Cosmic Pulse", so it takes the base ID
+
+        def with_songs(*songs):
+            record = copy.deepcopy(self.song_index)
+            others = [song for song in record["songs"] if song["title"] != "Cosmic Pulse"]
+            record["songs"] = sorted(others + copy.deepcopy(list(songs)), key=lambda song: song["id"])
+            return record
+
+        schema.validate_song_index(
+            with_songs({**upper, "id": "song:cosmic-pulse"}, {**cosmic, "id": "song:cosmic-pulse-2"})
+        )
+        cases = {
+            "swapped": with_songs({**upper, "id": "song:cosmic-pulse-2"}, {**cosmic, "id": "song:cosmic-pulse"}),
+            "gap": with_songs({**upper, "id": "song:cosmic-pulse"}, {**cosmic, "id": "song:cosmic-pulse-7"}),
+            "gratuitous suffix": with_songs({**cosmic, "id": "song:cosmic-pulse-3"}),
+        }
+        for name, record in cases.items():
+            with self.subTest(case=name):
+                self.assertInvalid(schema.validate_song_index, record, "id: must be", "sorted exact-title order")
+        for second in ("song:cosmic-pulse-2", "song:cosmic-pulse-7"):  # identical exact titles cannot be ordered
+            with self.subTest(identical_title=second):
+                record = with_songs(cosmic, {**cosmic, "id": second})
+                self.assertInvalid(schema.validate_song_index, record, "title:", "more than one song")
+
     def test_song_links(self):
         assets = [asset for value in self.manifests.values() for asset in value["assets"]]
         schema.validate_song_links(self.song_index, assets)

@@ -1105,10 +1105,33 @@ def validate_song_index(index: Any, known_asset_ids: Iterable[str] | None = None
             if missing:
                 _fail(label, "artwork_asset_ids", f"unknown asset {missing[0]!r}")
     _check_unique_sorted("song index", "songs", index["songs"])
+    _check_song_id_assignment(index["songs"])
     song_ids = {song["id"] for song in index["songs"]}
     for disagreement in index["disagreements"]:
         if disagreement["song_id"] not in song_ids:
             _fail("song index", "disagreements", f"unknown song {disagreement['song_id']!r}")
+
+
+def _check_song_id_assignment(songs: list[dict]) -> None:
+    """09: song IDs get their -2, -3 suffixes deterministically by sorted exact title, i.e. they equal
+    :func:`paths.assign_song_ids` over the index's titles. Identical exact titles have no such order."""
+    counts = Counter(song["title"] for song in songs)
+    for song in songs:
+        if counts[song["title"]] > 1:
+            _fail(
+                _label("song", song),
+                "title",
+                f"{song['title']!r} is the exact title of more than one song; song IDs are assigned by sorted exact "
+                "title, so identical titles have no deterministic ID",
+            )
+    expected = paths.assign_song_ids([song["title"] for song in songs])
+    for song, want in zip(songs, expected, strict=True):  # assign_song_ids returns one ID per title, in order
+        if song["id"] != want:
+            _fail(
+                _label("song", song),
+                "id",
+                f"must be {want!r} (paths.assign_song_ids: -N suffixes in sorted exact-title order over the index)",
+            )
 
 
 def validate_song_links(index: Mapping[str, Any], assets: Iterable[Mapping[str, Any]]) -> None:
