@@ -366,6 +366,11 @@ class AcquisitionTests(WikiRun):
         squared = self.asset("miraheze", "File:Cosmic Pulse Squared.png")
         self.assertEqual(squared["game_associations"], ["dynamix", "ravon"])
         self.assertEqual(squared["illustrators"], [])  # not the template's cover: no illustrator inferred
+        # Art also tied to another game: no C4Cat default holder without a source naming one (as in every family).
+        self.assertIsNone(squared["rights"]["holder"])
+        self.assertIn("Rights holder not recorded: the art is also associated with ravon", squared["notes"])
+        self.assertEqual(self.asset("miraheze", "File:CosmicPulseDynamix.png")["rights"]["holder"],
+                         schema.DEFAULT_RIGHTS_HOLDER)
         # Excluded and pending candidates are never downloaded.
         downloaded = " ".join(self.client.downloads)
         for name in ("Emi-Animated.gif", "Universe_Song_cover.png", "Composer_Photo.jpg", "Lonely_BG-HQ.png",

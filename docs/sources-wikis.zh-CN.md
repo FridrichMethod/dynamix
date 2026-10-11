@@ -124,7 +124,7 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 ## 权利
 
-wiki 上传的是游戏美术的副本，标为 `origin_status: wiki_copy` 和 `master_status: unverified`：即使是找到的最大副本，wiki 文件也不是画师原稿。权利仍属于 C4Cat Entertainment Limited 和/或署名画师；曲目模板写明画师时，记录的 `rights.creator` 为该画师，`rights.license` 保持为空，因为没有确认任何许可证。wiki 的内容许可并不能为其托管的游戏美术确立许可。
+wiki 上传的是游戏美术的副本，标为 `origin_status: wiki_copy` 和 `master_status: unverified`：即使是找到的最大副本，wiki 文件也不是画师原稿。权利仍属于 C4Cat Entertainment Limited 和/或署名画师；文件同时关联 Dynamix Universe 以外的其他游戏时（其 `game_associations`，例如 RAVON），记录与其他类别一样把 `rights.holder` 留空，因为没有引用的来源写明该美术的权利人。曲目模板写明画师时，记录的 `rights.creator` 为该画师，`rights.license` 保持为空，因为没有确认任何许可证。wiki 的内容许可并不能为其托管的游戏美术确立许可。
 
 ## 命令
 

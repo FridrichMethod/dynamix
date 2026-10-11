@@ -627,8 +627,14 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
     if plan.credit_evidence:
         fields["credit_evidence"] = [dict(item) for item in plan.credit_evidence]
     associations = [name for name in plan.decision.associations if name != schema.GAME]
+    partners: list[str] = []
     if plan.decision.game == "mixed":
         fields["game_associations"] = [schema.GAME] + (associations or ["unknown_other"])
+        # Art also tied to another game (not the sequel): the C4Cat default holder is not applied without a source that
+        # names the holder (the rule the artists, official and archives families follow).
+        partners = [name for name in fields["game_associations"] if name not in (schema.GAME, "dynamix_universe")]
+        if partners:
+            fields["rights"]["holder"] = None
     notes = []
     mismatched = [name for name in ("sha1", "bytes") if comparisons[f"{name}_match"] is False]
     if mismatched and not transformed:
@@ -647,6 +653,9 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
     if plan.decision.game == "mixed":
         notes.append("Shared artwork: this file is also associated with " + (", ".join(associations) or
                                                                              "another game") + " (see game evidence).")
+    if partners:
+        notes.append("Rights holder not recorded: the art is also associated with " + ", ".join(partners)
+                     + " and no cited source names its holder, so the C4Cat default is not applied.")
     notes.extend(plan.decision.rule_notes)
     if plan.description:
         description = plan.description.replace(HISTORY_MARK.strip(), "Upstream history -")

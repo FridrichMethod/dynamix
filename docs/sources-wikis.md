@@ -124,7 +124,7 @@ Exclusion reasons in this family: `person_photo` 875, `video_placeholder` 569, `
 
 ## Rights
 
-Wiki uploads are copies of game artwork, labelled `origin_status: wiki_copy` and `master_status: unverified`: a wiki file is not the artist's master, even when it is the largest copy found. Rights stay with C4Cat Entertainment Limited and/or the credited artist; the record's `rights.creator` names the credited illustrator when the song template states one, and `rights.license` stays empty because no license is established. A wiki's content license does not establish a license for the game artwork it hosts.
+Wiki uploads are copies of game artwork, labelled `origin_status: wiki_copy` and `master_status: unverified`: a wiki file is not the artist's master, even when it is the largest copy found. Rights stay with C4Cat Entertainment Limited and/or the credited artist; when the file is also tied to another game than Dynamix Universe (its `game_associations`, for example RAVON), the record leaves `rights.holder` empty, as the other families do, because no cited source names that art's holder. The record's `rights.creator` names the credited illustrator when the song template states one, and `rights.license` stays empty because no license is established. A wiki's content license does not establish a license for the game artwork it hosts.
 
 ## Commands
 
