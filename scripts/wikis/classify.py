@@ -835,8 +835,11 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     # The game's own branding that the wiki shows as interface (Main Page header): site_ui describes the wiki's use.
     branding = (review is not None and review.official_branding and review.role in KINDS
                 and {item.role for item in role_items if item.strength >= 1} == {"site_ui"})
+    # A whole game screen that a page about a game feature shows: game_ui describes the page's topic, not the file.
+    screen = (review is not None and review.whole_screen and review.role == "gameplay_screenshot"
+              and {item.role for item in role_items if item.strength >= 1} == {"game_ui"})
     reviewed_role = review is not None and review.role is not None and (
-        top < 1 or (len(leaders) > 1 and review.role in leaders) or refines or branding)
+        top < 1 or (len(leaders) > 1 and review.role in leaders) or refines or branding or screen)
     rule_notes: list[str] = []
     if reviewed_role:
         leaders, top = [review.role], max(top, 0)
@@ -846,6 +849,11 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         rule_notes.append(f"Kind {review.role} by the archivist review: official branding (the game's own wordmark) "
                           f"that the wiki reuses as an interface image; the site_ui page evidence describes that use, "
                           f"not the file: {overridden}.")
+    if screen:
+        overridden = "; ".join(_clip_text(item.text()) for item in role_items if item.role == "game_ui")
+        rule_notes.append(f"Kind {review.role} by the archivist review: a whole game screen that a page about a game "
+                          f"feature shows; the game_ui page evidence describes the page's topic, not the file: "
+                          f"{overridden}.")
     subject = list_subject(file_title, page_items, song_names)
     listed = _list_rule(page_items, leaders, review, reviewed_role)
     if listed is not None:

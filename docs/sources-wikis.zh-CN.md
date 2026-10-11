@@ -78,7 +78,7 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 ### 排除与待定候选
 
-每个候选恰好有一个处置结果：`downloaded`、`duplicate_bytes`、`excluded`、`failed`、`blocked` 或 `pending`。wiki 使用的排除原因包括 `universe_only`、`animated_capture`、`person_photo`（作曲者、艺术家和谱师的个人资料图片）、`site_ui`（wiki 皮肤、标志、导航模板）、`game_ui`（图标、按钮、评级徽章、商店中的 bits）、`external_release_art`（独立音乐发行物的封面）、`video_placeholder`（`video/*` 条目，它们是嵌入的视频而不是文件）和 `out_of_scope_other`。
+每个候选恰好有一个处置结果：`downloaded`、`duplicate_bytes`、`excluded`、`failed`、`blocked` 或 `pending`。wiki 使用的排除原因包括 `universe_only`、`animated_capture`、`person_photo`（作曲者、艺术家和谱师的个人资料图片）、`site_ui`（wiki 皮肤、标志、导航模板）、`game_ui`（图标、按钮、评级徽章、商店中的 bits；介绍游戏功能的页面所展示的完整游戏画面，经存档者复核确认是完整画面后为 `gameplay_screenshot`，例如兑换码教程截图）、`external_release_art`（独立音乐发行物的封面）、`video_placeholder`（`video/*` 条目，它们是嵌入的视频而不是文件）和 `out_of_scope_other`。
 
 动态 GIF 录屏默认排除：它们作为候选连同元数据一起记录，但不下载。更大的静态版本（例如角色的 `-Raw.png`）是独立的候选，在其自身证据被接受时存档。`--include-animated` 会把动态文件也一并接受并下载，因此这一排除可以撤销。待定候选的原因为 `awaiting_download`、`unresolved_role` 或 `unresolved_game`，覆盖率报告会列出它们。
 
