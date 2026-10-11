@@ -124,6 +124,21 @@ class WikitextTests(unittest.TestCase):
         heads = wikitext.headings(text)
         self.assertEqual(wikitext.section_path(heads, refs[0].offset), ["Trivia"])
 
+    def test_gallery_captions_are_not_link_options(self) -> None:
+        """DX2-05: a gallery line knows only alt=, link=, class=, lang= and page=; every other part is caption text
+        (the last one wins), including words that are options of a [[File:]] link."""
+        text = (
+            "<gallery>\nX.png|Left\nY.png|200px\nZ.png|alt=Alt text|link=Cosmic Pulse|thumb\n"
+            "W.png|page=2|Cover art\n</gallery>"
+        )
+        self.assertEqual(
+            [(ref.caption, ref.link) for ref in wikitext.file_refs(text)],
+            [("Left", None), ("200px", None), ("thumb", "Cosmic Pulse"), ("Cover art", None)],
+        )
+        [link] = wikitext.file_refs("[[File:X.png|Left]] [[File:Y.png|200px|thumb|first|last]]")[:1]
+        self.assertEqual(link.caption, "")  # in a link these are options
+        self.assertEqual(wikitext.file_refs("[[File:Y.png|200px|thumb|first|last]]")[0].caption, "last")
+
     def test_link_display_text_with_brackets(self) -> None:
         """[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]] shows "[sound shinobi]" (a credited name in brackets)."""
         self.assertEqual(wikitext.credit_names("[[Artists#.5Bsound_shinobi.5D|[sound shinobi]]]"), ["[sound shinobi]"])

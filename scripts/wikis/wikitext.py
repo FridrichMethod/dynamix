@@ -52,6 +52,9 @@ _LINK_OPTION = re.compile(
     r"thumbtime|start|end)\s*=.*)$",
     re.IGNORECASE | re.DOTALL,
 )
+# A gallery line recognizes only these options besides link= (MediaWiki's Parser::renderImageGallery: alt, class,
+# link and the media handler's parameters without the width); every other part, "left" or "200px" included, is caption.
+_GALLERY_OPTION = re.compile(r"^(?:alt|class|lang|page)\s*=", re.IGNORECASE)
 UNKNOWN_CREDITS = frozenset(
     {"", "-", "–", "—", "?", "??", "???", "n/a", "na", "none", "unknown", "tba", "tbd", "not credited", "uncredited"}
 )
@@ -349,15 +352,18 @@ def credit_names(value: str | None, *, strip_illustrator_notes: bool = False) ->
     return names
 
 
-def _caption_and_link(parts: list[str]) -> tuple[str, str | None]:
+def _caption_and_link(parts: list[str], *, gallery: bool = False) -> tuple[str, str | None]:
+    """``(caption, link= target)`` of the parts after a file name: ``[[File:]]`` link options or, for a gallery line,
+    gallery options are skipped."""
     caption, link = "", None
+    options = _GALLERY_OPTION if gallery else _LINK_OPTION
     for part in parts:
         stripped = part.strip()
         key, equals, value = stripped.partition("=")
         if equals and key.strip().casefold() == "link":
             link = value.strip() or None
             continue
-        if _LINK_OPTION.match(stripped):
+        if options.match(stripped):
             continue
         caption = stripped  # MediaWiki uses the last unrecognized part as the caption
     return clean_markup(caption), link
@@ -380,7 +386,7 @@ def file_refs(text: str) -> list[FileRef]:
             name = canonical_file_name(parts[0])
             if name is None:
                 continue
-            caption, link = _caption_and_link(parts[1:])
+            caption, link = _caption_and_link(parts[1:], gallery=True)
             refs.append(
                 FileRef(
                     name,
