@@ -2,7 +2,9 @@
 
 Each seed item names a page and ``link_rules``: which attribute to read (``href``/``src``), a regex the absolute URL's
 path must match, and whether to drop the query (CMS resize parameters such as ``?mw=1980``). Every matching link is a
-candidate keyed by its path; its classification comes from the source's seed rules, unclassified links stay ``pending``.
+candidate keyed by its path (``<host>/<path>`` under a rule with ``same_host: false``, whose links may sit on several
+hosts); a file that several seed pages link is one candidate, the first page's, whose notes name the other pages. Its
+classification comes from the source's seed rules, unclassified links stay ``pending``.
 Links are resolved as a browser requests them (a literal space is percent-encoded, :func:`base.link_url`); a matching
 link that is still no valid http(s) URL is reported as a discovery error and keeps the list open (``links-skipped-N``).
 Used for the HKSTP press release (appendix PDFs, press photo) and the 4Gamer screenshot gallery.
@@ -33,6 +35,9 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             if not isinstance(rule, dict) or rule.get("attr") not in ("href", "src"):
                 raise ValueError(f"{label} needs attr href/src and a pattern")
             model.check_regex(rule.get("pattern"), f"{label}.pattern")
+            for name in ("same_host", "strip_query"):
+                if name in rule and not isinstance(rule[name], bool):
+                    raise ValueError(f"{label}.{name} must be true or false")
     if not seed.get("hosts"):
         raise ValueError(f"{where}: hosts are required")
 
@@ -66,6 +71,8 @@ def links(html: str, page_url: str, link_rules: list[Mapping[str, Any]]) -> tupl
             if rule.get("strip_query"):
                 url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
             key = parts.path.lstrip("/") + ("" if rule.get("strip_query") or not parts.query else f"?{parts.query}")
+            if not rule.get("same_host", True):  # links on several hosts: the same path on two hosts is two files
+                key = f"{parts.netloc.lower()}/{key}"
             found.setdefault(key, url)
     return list(found.items()), skipped
 
@@ -77,6 +84,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     pages_read: set[str] = set()
     discovery.coverage["seed-pages"] = base.listed_on(pages_read)
     skipped_links = 0
+    emitted: dict[str, model.Draft] = {}  # key -> the draft of the first page that links it
     for item in seed["items"]:
         page_url = item["url"]
         try:
@@ -117,6 +125,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             pages_read.add(page_url)
         title = base.headline(document)
         for position, (key, url) in enumerate(found, start=1):
+            first = emitted.get(key)
+            if first is not None and first.file_url == base.stored(url):
+                # The same file linked from another seed page: one candidate (the first page's) that names this page.
+                note = f"Also linked from {page_url}."
+                notes = first.candidate_extra.get("notes") or ""
+                if note not in notes:
+                    first.candidate_extra["notes"] = f"{notes} {note}".strip()
+                continue
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             name = base.last_segment(url)
             ext = name.rsplit(".", 1)[-1] if "." in name else None
@@ -128,21 +144,21 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 if title and len(found) > 1
                 else title or name
             )
-            discovery.candidates.append(
-                model.apply_rule(
-                    rule,
-                    key=key,
-                    page_url=page_url,
-                    texts=texts,
-                    file_url=base.stored(url),
-                    default_title=default,
-                    default_quality=ctx.quality,
-                    default_rights=ctx.rights,
-                    original_filename=name,
-                    base_evidence=evidence,
-                    source_reported=base.reported(url=url, mime=base.mime_for(ext)),
-                )
+            draft = model.apply_rule(
+                rule,
+                key=key,
+                page_url=page_url,
+                texts=texts,
+                file_url=base.stored(url),
+                default_title=default,
+                default_quality=ctx.quality,
+                default_rights=ctx.rights,
+                original_filename=name,
+                base_evidence=evidence,
+                source_reported=base.reported(url=url, mime=base.mime_for(ext)),
             )
+            emitted.setdefault(key, draft)
+            discovery.candidates.append(draft)
     if skipped_links and discovery.continuation.get("seed-pages") is None:
         # A matching link without a candidate: the pages' links are not fully accounted for.
         discovery.continuation["seed-pages"] = f"links-skipped-{skipped_links}"

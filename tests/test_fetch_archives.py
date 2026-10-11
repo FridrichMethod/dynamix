@@ -1813,6 +1813,52 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(statuses[first["id"]], "superseded")
         self.verify()
 
+    def test_a_file_linked_from_two_seed_pages_is_one_candidate(self):
+        other = "https://press.example.org/other"
+        seed = self.seed()
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        routes = {
+            self.PAGE: self.page("a.png"),
+            other: self.page("a.png", "b.png"),
+            "https://press.example.org/img/a.png": self.file((1, 2, 3)),
+            "https://press.example.org/img/b.png": self.file((4, 5, 6)),
+        }
+        for resume in (False, True):  # stable on a refresh
+            self.run_family([seed], FakeNetwork(routes), resume=resume)
+            snapshot = manifest.load_discovery(self.root, "archives:press")
+            self.assertTrue(snapshot["discovery_complete"], snapshot["continuation"])
+            self.assertEqual(snapshot["continuation"], {"seed-pages": None})
+            found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+            self.assertEqual(sorted(found), ["img/a.png", "img/b.png"])
+            self.assertEqual(found["img/a.png"]["page_url"], self.PAGE)  # the first page wins ...
+            self.assertIn(f"Also linked from {other}.", found["img/a.png"]["notes"])  # ... and the other is noted
+            self.assertEqual(self.manifest()["sources"][0]["status"], "available")
+            self.verify()
+
+    def test_links_of_other_hosts_keep_their_host_in_the_key(self):
+        from primary.adapters import page_links
+
+        html = (
+            "<img src='https://cdn1.example.org/img/a.png'><img src='https://cdn2.example.org/img/a.png'>"
+            "<img src='/img/a.png'>"
+        )
+        rules = [{"attr": "src", "pattern": "^/img/", "same_host": False}]
+        self.assertEqual(
+            page_links.links(html, self.PAGE, rules),
+            (
+                [
+                    ("cdn1.example.org/img/a.png", "https://cdn1.example.org/img/a.png"),
+                    ("cdn2.example.org/img/a.png", "https://cdn2.example.org/img/a.png"),
+                    ("press.example.org/img/a.png", "https://press.example.org/img/a.png"),
+                ],
+                [],
+            ),
+        )
+        seed = self.seed()
+        seed["items"][0]["link_rules"][0]["same_host"] = "no"
+        with self.assertRaisesRegex(ValueError, r"link_rules\[0\]\.same_host must be true or false"):
+            page_links.check_seed(seed, "test")
+
     def test_a_link_with_a_literal_space_is_requested_as_a_browser_requests_it(self):
         # html.parser keeps the space a browser percent-encodes; it must not abort the source (a key with whitespace
         # fails candidate validation). A link that is still no valid URL is skipped and keeps the list open.
