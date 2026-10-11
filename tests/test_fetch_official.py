@@ -221,6 +221,60 @@ class AppleTests(OfficialTestCase):
         self.assertEqual(snapshot["continuation"]["itunes-lookup"], "no-result-hk")
         self.assertFalse(snapshot["discovery_complete"])
 
+    LOOKUP_SIZED = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
+
+    def lookup_rerun(self, second_urls):
+        """Archive two iTunes lookup screenshots, then rerun with the lookup listing ``second_urls``."""
+        sized = self.LOOKUP_SIZED
+        lookup_url = full_url(apple.LOOKUP, {"id": "945955095", "country": "hk", "entity": "software"})
+
+        def answer(urls):
+            app = {"trackId": 945955095, "trackName": "Dynamix", "sellerName": "C4Cat", "screenshotUrls": urls}
+            return {"json": {"resultCount": 1, "results": [app]}}
+
+        files = {
+            sized + "mzl.aaaa.png/4000x4000bb.png": {
+                "bytes": image_bytes("PNG", (40, 30)),
+                "content_type": "image/png",
+            },
+            sized + "mzl.bbbb.png/4000x4000bb.png": {
+                "bytes": image_bytes("PNG", (40, 31)),
+                "content_type": "image/png",
+            },
+        }
+        seed = self.seed([{"lookup_id": "945955095", "countries": ["hk"]}])
+        first = [sized + "mzl.aaaa.png/406x228bb.png", sized + "mzl.bbbb.png/406x228bb.png"]
+        self.run_family([seed], FakeNetwork({lookup_url: answer(first), **files}))
+        self.assertEqual({a["upstream_status"] for a in self.manifest()["assets"]}, {"current"})
+        runner.Runner(
+            self.root,
+            "official",
+            [seed],
+            client_factory=FakeNetwork({lookup_url: answer(second_urls), **files}).factory,
+            now=lambda: "2026-10-11T12:00:00Z",
+            sleep=lambda s: None,
+        ).run()
+        statuses = {a["candidate_id"].rsplit(":", 1)[1]: a["upstream_status"] for a in self.manifest()["assets"]}
+        return manifest.load_discovery(self.root, "official:apple-store"), statuses
+
+    def test_an_unrecognized_lookup_url_keeps_the_list_open(self):
+        # An entry the parser cannot read is no evidence that the upload is gone: nothing is marked removed.
+        sized = self.LOOKUP_SIZED
+        snapshot, statuses = self.lookup_rerun(
+            [sized + "mzl.aaaa.png/406x228bb.png", sized + "mzl.bbbb.png/406x228bb-60.png"]
+        )
+        self.assertIsNotNone(snapshot["continuation"]["itunes-lookup"])
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertTrue(any("406x228bb-60.png" in error["message"] for error in snapshot["errors"]))
+        self.assertEqual(statuses, {"mzl.aaaa.png": "current", "mzl.bbbb.png": "current"})
+        self.verify()
+
+    def test_a_lookup_screenshot_no_longer_listed_is_removed(self):
+        snapshot, statuses = self.lookup_rerun([self.LOOKUP_SIZED + "mzl.aaaa.png/406x228bb.png"])
+        self.assertTrue(snapshot["discovery_complete"])
+        self.assertEqual(statuses, {"mzl.aaaa.png": "current", "mzl.bbbb.png": "removed"})
+        self.verify()
+
     def test_lossless_rendition_follows_the_upload_format(self):
         sized = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
         self.assertEqual(
@@ -491,6 +545,82 @@ class TapTapTests(OfficialTestCase):
         copy = next(a for a in assets if a["candidate_id"] == f"official:taptap:screenshot:{token}")
         self.assertIs(copy["transformed"], True)
         self.assertIn(f"archived as {exact['id']}", copy["quality"]["notes"])
+        self.verify()
+
+    def screenshot_rerun(self, change):
+        """Archive both fixture screenshots, then rerun with ``change(payload)`` applied to the page's devalue array."""
+        page = text("taptap_app.html")
+        head, rest = page.split('data-ssr="true">', 1)
+        body, tail = rest.split("</script>", 1)
+        payload = json.loads(body)
+        change(payload)
+        changed = head + 'data-ssr="true">' + json.dumps(payload) + "</script>" + tail
+        base = "https://img-tc.tapimg.com/market/images/"
+        files = {
+            f"{base}0f46c7d8f23cfefc08f151e5de5f02ee.png": {
+                "bytes": image_bytes("PNG", (22, 12)),
+                "content_type": "image/png",
+            },
+            f"{base}1111c7d8f23cfefc08f151e5de5f0222.jpg": {
+                "bytes": image_bytes("JPEG", (13, 7)),
+                "content_type": "image/jpeg",
+            },
+        }
+        seed = {
+            "id": "official:taptap",
+            "name": "TapTap",
+            "url": "https://www.taptap.cn/app/7082",
+            "platform": "taptap",
+            "adapter": "taptap_app",
+            "params": {"identifier": "com.c4cat.dynamix"},
+            "quality": QUALITY,
+            "items": [{"url": "https://www.taptap.cn/app/7082"}],
+            "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+        }
+        self.run_family([seed], FakeNetwork({seed["url"]: {"text": page}, **files}))
+        self.assertEqual({a["upstream_status"] for a in self.manifest()["assets"]}, {"current"})
+        runner.Runner(
+            self.root,
+            "official",
+            [seed],
+            client_factory=FakeNetwork({seed["url"]: {"text": changed}, **files}).factory,
+            now=lambda: "2026-10-11T12:00:00Z",
+            sleep=lambda s: None,
+        ).run()
+        statuses = {a["candidate_id"].rsplit(":", 1)[1]: a["upstream_status"] for a in self.manifest()["assets"]}
+        return manifest.load_discovery(self.root, "official:taptap"), statuses
+
+    @staticmethod
+    def screenshot_entries(payload):
+        app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
+        return payload[app["screenshots"]]
+
+    def test_an_unparseable_screenshot_entry_keeps_the_list_open(self):
+        def undefined_url(payload):
+            entry = payload[self.screenshot_entries(payload)[1]]
+            entry["original_url"] = -1  # devalue's undefined: the entry is listed but its URL cannot be read
+
+        snapshot, statuses = self.screenshot_rerun(undefined_url)
+        self.assertEqual(snapshot["continuation"]["app-screenshots"], "structure-not-recognized")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertTrue(any("screenshot entry 2" in error["message"] for error in snapshot["errors"]))
+        held = {c["upstream_key"]: c for c in snapshot["candidates"]}["screenshot:unparsed-2"]
+        self.assertEqual(held["disposition"], "pending")
+        self.assertTrue(held["reason"].startswith("unresolved_role: unrecognized screenshot entry"))
+        self.assertEqual(
+            statuses, {"0f46c7d8f23cfefc08f151e5de5f02ee": "current", "1111c7d8f23cfefc08f151e5de5f0222": "current"}
+        )
+        self.verify()
+
+    def test_a_screenshot_no_longer_listed_is_removed(self):
+        def drop_second(payload):
+            del self.screenshot_entries(payload)[1]
+
+        snapshot, statuses = self.screenshot_rerun(drop_second)
+        self.assertTrue(snapshot["discovery_complete"])
+        self.assertEqual(
+            statuses, {"0f46c7d8f23cfefc08f151e5de5f02ee": "current", "1111c7d8f23cfefc08f151e5de5f0222": "removed"}
+        )
         self.verify()
 
     def test_banner_rendition_used_as_trailer_poster_still_yields_the_upload(self):
