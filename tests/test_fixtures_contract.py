@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT / "tests/fixtures"))
 from PIL import Image  # noqa: E402
 
 from lib import manifest, media, paths, schema  # noqa: E402
-from pinned_png import PinnedPNG  # noqa: E402
+from pinned_png import PinnedPNG, pixel_key  # noqa: E402
 
 FIXTURE = ROOT / "tests/fixtures/contract"
 GENERATOR = FIXTURE / "make_fixture.py"
@@ -291,6 +291,19 @@ class PinnedPNGTests(unittest.TestCase):
         with Image.open(io.BytesIO(data)) as decoded:
             self.assertEqual(decoded.tobytes(), changed.tobytes())
 
+    def test_a_palette_colour_change_is_never_taken_for_the_committed_image(self):
+        # Same mode, size and index data; only the colour of a used index differs (the RGBA part of the key).
+        committed_image, drawn = Image.new("P", (4, 4), 0), Image.new("P", (4, 4), 0)
+        committed_image.putpalette([16, 24, 48, 230, 80, 160])
+        drawn.putpalette([200, 24, 48, 230, 80, 160])
+        self.assertEqual(committed_image.tobytes(), drawn.tobytes())
+        with tempfile.TemporaryDirectory() as temp:
+            (Path(temp) / "picture.png").write_bytes(self.png(committed_image, compress_level=1))
+            data = PinnedPNG(Path(temp)).encode(drawn, compress_level=9)
+        self.assertEqual(data, self.png(drawn, compress_level=9))
+        with Image.open(io.BytesIO(data)) as decoded:
+            self.assertEqual(decoded.convert("RGB").getpixel((0, 0)), (200, 24, 48))
+
     def test_a_different_shape_or_mode_is_never_taken_for_the_committed_image(self):
         cases = [(Image.new("RGB", (2, 3), (40, 90, 200)), Image.new("RGB", (3, 2), (40, 90, 200))),  # transposed
                  (Image.new("L", (4, 4), 128), Image.new("RGB", (4, 4), (128, 128, 128))),  # same grey, other mode
@@ -305,7 +318,6 @@ class PinnedPNGTests(unittest.TestCase):
                     self.assertEqual((decoded.mode, decoded.size), (drawn.mode, drawn.size))
 
     def test_values_above_eight_bits_are_not_clipped_into_one_key(self):
-        from pinned_png import pixel_key
         self.assertNotEqual(pixel_key(Image.new("I;16", (2, 2), 300)), pixel_key(Image.new("I;16", (2, 2), 400)))
 
     def test_two_committed_encodings_of_one_image_are_refused(self):
@@ -313,7 +325,7 @@ class PinnedPNGTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             (Path(temp) / "a.png").write_bytes(self.png(image, compress_level=1))
             (Path(temp) / "b.png").write_bytes(self.png(image, compress_level=9))
-            with self.assertRaisesRegex(ValueError, "same image with different bytes"):
+            with self.assertRaisesRegex(ValueError, r"same image with different bytes: .*a\.png and .*b\.png"):
                 PinnedPNG(Path(temp)).encode(image)
 
 
