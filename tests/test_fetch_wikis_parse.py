@@ -460,6 +460,14 @@ class SectionRoleTests(unittest.TestCase):
 
 
 class SmallHelperTests(unittest.TestCase):
+    def test_display_title_drops_a_repeated_extension(self) -> None:
+        """Fallback titles carry no file extension, also where an upload repeated it ("... March.jpg.jpg")."""
+        for title, expected in (("File:Coming Events in 2018 March.jpg.jpg", "Coming Events in 2018 March"),
+                                ("File:Cosmic Pulse Chart List.jpg", "Cosmic Pulse Chart List"),
+                                ("File:Ver.2.5 Update.PNG", "Ver.2.5 Update"), ("File:.jpg.png", ".jpg"),
+                                ("File:Hope!!", "Hope!!")):
+            self.assertEqual(discover.display_title(title), expected, title)
+
     def test_fandom_download_url_requests_original(self) -> None:
         url = "https://static.wikia.nocookie.net/d/images/9/9b/A.png/revision/latest?cb=20210409081347"
         self.assertEqual(discover.download_url(config.FANDOM, url), url + "&format=original")

@@ -9,6 +9,7 @@ keeps the per-candidate result and its evidence strings.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
@@ -156,9 +157,16 @@ def file_name(title: str) -> str:
     return title.split(":", 1)[1] if ":" in title else title
 
 
+_IMAGE_EXTENSION = re.compile(r"\.(?:png|jpe?g|gif|webp)$", re.I)
+
+
 def display_title(title: str) -> str:
-    """``File:Cosmic Pulse Chart List.jpg`` -> ``Cosmic Pulse Chart List`` (verbatim otherwise)."""
-    return paths.filename_stem(file_name(title))
+    """``File:Cosmic Pulse Chart List.jpg`` -> ``Cosmic Pulse Chart List`` (verbatim otherwise). An upload whose name
+    repeats the image extension (``File:Coming Events in 2018 March.jpg.jpg``) loses all of it."""
+    stem = paths.filename_stem(file_name(title))
+    while _IMAGE_EXTENSION.search(stem) and _IMAGE_EXTENSION.sub("", stem).strip():
+        stem = _IMAGE_EXTENSION.sub("", stem)
+    return stem
 
 
 def download_url(source: config.WikiSource, url: str) -> str:
