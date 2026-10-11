@@ -1608,6 +1608,107 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(statuses[first["id"]], "superseded")
         self.verify()
 
+    @staticmethod
+    def gif(*colours, duration=200):
+        """An animated GIF with one 16x16 frame per colour."""
+        from PIL import Image
+
+        frames = [Image.new("RGB", (16, 16), colour) for colour in colours]
+        buffer = io.BytesIO()
+        frames[0].save(buffer, "GIF", save_all=True, append_images=frames[1:], duration=duration, loop=0)
+        return {"bytes": buffer.getvalue(), "content_type": "image/gif"}
+
+    @staticmethod
+    def jpeg(orientation=None):
+        """The same JPEG pixels, optionally with an EXIF Orientation tag (the image then displays rotated)."""
+        from PIL import Image
+
+        image = Image.new("RGB", (24, 12), (10, 20, 30))
+        image.paste((250, 0, 0), (0, 0, 8, 12))
+        exif = Image.Exif()
+        if orientation is not None:
+            exif[0x0112] = orientation
+        buffer = io.BytesIO()
+        image.save(buffer, "JPEG", quality=95, exif=exif.tobytes())
+        return {"bytes": buffer.getvalue(), "content_type": "image/jpeg"}
+
+    def test_animations_that_share_only_their_first_frame_are_distinct(self):
+        routes = {
+            self.PAGE: self.page("a.gif", "b.gif"),
+            "https://press.example.org/img/a.gif": self.gif((255, 255, 255), (200, 0, 0)),
+            "https://press.example.org/img/b.gif": self.gif((255, 255, 255), (0, 0, 200)),
+        }
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = self.assets()
+        for key in ("img/a.gif", "img/b.gif"):
+            self.assertNotIn("variant_group", assets[key])
+            self.assertNotIn("pixels identical", assets[key].get("notes") or "")
+        self.verify()
+
+    def test_a_refetch_whose_later_frames_changed_is_a_new_revision(self):
+        url = "https://press.example.org/img/a.gif"
+        routes = {self.PAGE: self.page("a.gif"), url: self.gif((255, 255, 255), (200, 0, 0))}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        [first] = self.manifest()["assets"]
+        routes[url] = self.gif((255, 255, 255), (0, 200, 0))
+        self.run_family([self.seed()], FakeNetwork(routes))
+        assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
+        self.assertEqual(len(assets), 2)
+        newer = self.candidates("archives:press")["img/a.gif"]["asset_id"]
+        self.assertNotEqual(newer, first["id"])
+        self.assertEqual(
+            (assets[first["id"]]["upstream_status"], assets[first["id"]]["superseded_by"]), ("superseded", newer)
+        )
+        self.assertNotRegex(assets[first["id"]].get("notes") or "", runner.REFETCH_NOTE_RE)
+        self.verify()
+
+    def test_a_reencode_that_only_adds_an_exif_orientation_is_a_new_revision(self):
+        url = "https://press.example.org/img/a.jpg"
+        routes = {self.PAGE: self.page("a.jpg"), url: self.jpeg()}
+        self.run_family([self.seed()], FakeNetwork(routes))
+        [first] = self.manifest()["assets"]
+        routes[url] = self.jpeg(orientation=6)
+        self.run_family([self.seed()], FakeNetwork(routes))
+        statuses = {asset["id"]: asset["upstream_status"] for asset in self.manifest()["assets"]}
+        self.assertEqual(statuses[first["id"]], "superseded")
+        self.assertEqual(sorted(statuses.values()), ["current", "superseded"])
+        self.verify()
+
+    def test_pixel_digest_covers_frames_orientation_and_colour_profile(self):
+        import hashlib as hashes
+
+        from PIL import Image, ImageCms
+
+        def digest(name, payload):
+            path = self.root / name
+            path.write_bytes(payload)
+            with Image.open(path) as image:
+                fmt = image.format
+            return runner.pixel_digest(path, fmt)
+
+        self.assertNotEqual(
+            digest("a.gif", self.gif((255, 255, 255), (200, 0, 0))["bytes"]),
+            digest("b.gif", self.gif((255, 255, 255), (0, 0, 200))["bytes"]),
+        )
+        self.assertNotEqual(  # the same frames shown for other durations
+            digest("c.gif", self.gif((255, 255, 255), (200, 0, 0))["bytes"]),
+            digest("d.gif", self.gif((255, 255, 255), (200, 0, 0), duration=900)["bytes"]),
+        )
+        self.assertNotEqual(digest("a.jpg", self.jpeg()["bytes"]), digest("b.jpg", self.jpeg(6)["bytes"]))
+        self.assertEqual(digest("c.jpg", self.jpeg(1)["bytes"]), digest("d.jpg", self.jpeg()["bytes"]))  # 1: as stored
+        image = Image.new("RGB", (8, 8), (10, 20, 30))
+        profiles = {}
+        for name in ("sRGB", "LAB"):
+            buffer = io.BytesIO()
+            image.save(buffer, "PNG", icc_profile=ImageCms.ImageCmsProfile(ImageCms.createProfile(name)).tobytes())
+            profiles[name] = digest(f"{name}.png", buffer.getvalue())
+        self.assertNotEqual(profiles["sRGB"], profiles["LAB"])
+        # A static image without orientation or profile keeps the digest of earlier runs (existing pixels: groups).
+        buffer = io.BytesIO()
+        image.save(buffer, "PNG")
+        rgba = image.convert("RGBA")
+        self.assertEqual(digest("plain.png", buffer.getvalue()), hashes.sha256(b"8x8:" + rgba.tobytes()).hexdigest())
+
     def test_a_file_moved_to_a_new_key_is_adopted_not_left_removed(self):
         data = self.file((1, 2, 3))
         routes = {self.PAGE: self.page("a.png"), "https://press.example.org/img/a.png": data}

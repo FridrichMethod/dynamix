@@ -51,7 +51,9 @@ python -I scripts/fetch_<family>.py [--metadata-only] [--resume] [--verify] [--r
   and notes the re-fetched SHA-256 instead of archiving a copy and superseding. A file that a run lists under a new
   key with the bytes of a removed, superseded or unknown record of the same source is never represented only by that
   record: the record is adopted by the new candidate (`current`, note naming the first candidate) or, when its own
-  candidate still names it, restored to `current`.
+  candidate still names it, restored to `current`. Identical pixels means that every frame (and an animation's frame
+  count and frame durations), the EXIF orientation and the embedded ICC profile agree; an animation whose later frames
+  changed, or a re-encode that only rotates the image or changes its profile, is a new revision.
 - One source's unexpected adapter error does not stop the run: its snapshot keeps the previous candidates, an open
   `adapter` continuation and the error, the remaining sources run, and the CLI exits 1. The CLI also exits 1 when the
   run leaves candidates `failed` or `blocked` (an incomplete acquisition, as `fetch_wikis.py` reports failed or blocked

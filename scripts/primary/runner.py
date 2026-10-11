@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urlsplit
 
-from PIL import Image
+from PIL import Image, ImageSequence
 
 from lib import checks, manifest, media, net, paths, schema
 
@@ -834,7 +834,8 @@ class Runner:
             self._persist(state)
 
     def _pixel_digest(self, asset: Mapping[str, Any]) -> str | None:
-        """SHA-256 of the decoded first frame (RGBA) of a raster asset; None for a PDF or an unreadable file."""
+        """:func:`pixel_digest` of a raster asset's file (every frame, orientation, profile); None for a PDF or an
+        unreadable file."""
         if asset["format"] not in schema.RASTER_FORMATS:
             return None
         if asset["sha256"] not in self._pixels:
@@ -1658,15 +1659,40 @@ class Runner:
         state.obsolete_paths.clear()
 
 
+EXIF_ORIENTATION = 0x0112
+
+
 def pixel_digest(path: Path, fmt: str) -> str | None:
-    """SHA-256 of the decoded first frame of a raster file as RGBA (with its size), None when it cannot be decoded."""
+    """SHA-256 of what a raster file displays, None when it cannot be decoded: every frame decoded as RGBA (with its
+    size), and, where they apply, an animation's frame count and frame durations, the EXIF orientation (other than 1,
+    "as stored") and the embedded ICC profile. Two files have one digest only when all of these agree, so two
+    animations that share a first frame, or a re-encode that only rotates the image or changes its colour profile, are
+    never "pixel-identical". A static image without orientation tag or profile hashes as before (``<w>x<h>:`` and its
+    RGBA bytes), so existing ``pixels:`` groups keep their digest."""
     try:
         with Image.open(path, formats=["JPEG", "MPO"] if fmt == "JPEG" else [fmt]) as image:
-            image.seek(0)
-            frame = image.convert("RGBA")
-            return hashlib.sha256(f"{frame.width}x{frame.height}:".encode() + frame.tobytes()).hexdigest()
+            profile = image.info.get("icc_profile")
+            orientation = image.getexif().get(EXIF_ORIENTATION)
+            digest = hashlib.sha256()
+            durations = []
+            for index, frame in enumerate(ImageSequence.Iterator(image)):
+                rgba = frame.convert("RGBA")
+                label = f"{rgba.width}x{rgba.height}:" if index == 0 else f"|frame {index} {rgba.width}x{rgba.height}:"
+                digest.update(label.encode())
+                digest.update(rgba.tobytes())
+                durations.append(frame.info.get("duration"))
     except OSError, ValueError, SyntaxError, EOFError, Image.DecompressionBombError:
         return None
+    extra = []
+    if len(durations) > 1:
+        extra.append(f"frames {len(durations)} durations {durations}")
+    if orientation not in (None, 1):
+        extra.append(f"orientation {orientation}")
+    if profile:
+        extra.append(f"icc {hashlib.sha256(profile).hexdigest()}")
+    if extra:
+        digest.update(("|" + "; ".join(extra)).encode())
+    return digest.hexdigest()
 
 
 def compute_status(counts: Mapping[str, int], complete: bool, has_assets: bool, failures: list[dict]) -> str:
