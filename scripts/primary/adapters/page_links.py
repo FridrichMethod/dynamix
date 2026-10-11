@@ -42,20 +42,27 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
         raise ValueError(f"{where}: hosts are required")
 
 
-def links(html: str, page_url: str, link_rules: list[Mapping[str, Any]]) -> tuple[list[tuple[str, str]], list[str]]:
+def links(
+    html: str, page_url: str, link_rules: list[Mapping[str, Any]], *, final_url: str | None = None
+) -> tuple[list[tuple[str, str]], list[str]]:
     """([(key, absolute URL)] for every link matching a rule, first occurrence wins, in page order; [matching links
     that are no valid http(s) URL even after browser-style encoding (:func:`base.link_url`)], which the caller
-    reports instead of keying them)."""
+    reports instead of keying them).
+
+    Links resolve against the document base: ``<base href>``, else ``final_url`` (the URL the page was served from
+    after redirects), else ``page_url``. ``same_host`` accepts the requested and the final host."""
     document = base.soup(html)
     found: dict[str, str] = {}
     skipped: list[str] = []
-    page_host = urlsplit(page_url).hostname
+    served = final_url or page_url
+    resolve = base.document_base(document, served)
+    page_hosts = {urlsplit(page_url).hostname, urlsplit(served).hostname}
     for rule in link_rules:
         pattern = re.compile(rule["pattern"])
         for element in document.find_all(attrs={rule["attr"]: True}):
             raw = element.get(rule["attr"])
             try:
-                url = base.link_url(page_url, raw)
+                url = base.link_url(resolve, raw)
                 parts = urlsplit(url)
             except ValueError:  # unparseable, e.g. an unbalanced IPv6 bracket: reported, never keyed
                 skipped.append(raw)
@@ -66,7 +73,7 @@ def links(html: str, page_url: str, link_rules: list[Mapping[str, Any]]) -> tupl
                 if url not in skipped:
                     skipped.append(url)
                 continue
-            if rule.get("same_host", True) and parts.hostname != page_host:
+            if rule.get("same_host", True) and parts.hostname not in page_hosts:
                 continue
             if rule.get("strip_query"):
                 url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
@@ -88,7 +95,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     for item in seed["items"]:
         page_url = item["url"]
         try:
-            html, _, _ = ctx.client.get_text(page_url)
+            html, final_url, _ = ctx.client.get_text(page_url)
         except net.FetchError as error:
             discovery.candidates.append(
                 model.error_draft(
@@ -107,7 +114,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             "body": base.page_text(base.soup(html)),
         }
         evidence, missing = base.identity(seed, texts, page_url)
-        found, skipped = links(html, page_url, item["link_rules"])
+        found, skipped = links(html, page_url, item["link_rules"], final_url=final_url if final_url else None)
         for url in skipped:
             discovery.errors.append(
                 model.discovery_error(

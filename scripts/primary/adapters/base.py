@@ -127,6 +127,21 @@ def absolute(base: str, link: str) -> str:
     return urljoin(base, link.strip())
 
 
+def document_base(document: BeautifulSoup, url: str) -> str:
+    """The URL relative links of ``document`` resolve against: its first ``<base href>`` (resolved against ``url``)
+    when that is an http(s) URL, else ``url``, the URL the page was served from (after redirects; HTML base URL)."""
+    tag = document.find("base", href=True)
+    href = str(tag.get("href") or "").strip() if tag is not None else ""
+    if href:
+        try:
+            resolved = urljoin(url, href)
+            if urlsplit(resolved).scheme in ("http", "https"):
+                return resolved
+        except ValueError:
+            pass
+    return url
+
+
 _LINK_DROPPED = str.maketrans("", "", "\t\n\r")  # removed from a link before parsing (WHATWG URL)
 _LINK_ESCAPED = frozenset(' "<>^`{|}')  # ASCII a URL cannot carry literally (lib.checks URL_FORBIDDEN_ASCII, not \)
 

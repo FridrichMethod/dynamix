@@ -1835,6 +1835,62 @@ class RunnerStateTests(ArchivesTestCase):
             self.assertEqual(self.manifest()["sources"][0]["status"], "available")
             self.verify()
 
+    def test_relative_links_resolve_against_the_document_base(self):
+        # The page answers from /news/item/ (a redirect): its relative links name files below that directory.
+        page = "https://press.example.org/news/item"
+        seed = self.seed(rules=[{"match": "/img/", "role": "promotional", "game": "dynamix"}])
+        seed["items"] = [{"url": page, "link_rules": [{"attr": "src", "pattern": "/img/"}]}]
+        routes = {
+            page: {
+                "text": "<html><title>Dynamix news</title><body><img src='img/a.png'></body></html>",
+                "final_url": f"{page}/",
+            },
+            f"{page}/img/a.png": self.file((1, 2, 3)),
+        }
+        self.run_family([seed], FakeNetwork(routes))
+        [candidate] = manifest.load_discovery(self.root, "archives:press")["candidates"]
+        self.assertEqual(
+            (candidate["upstream_key"], candidate["file_url"], candidate["disposition"]),
+            ("news/item/img/a.png", f"{page}/img/a.png", "downloaded"),
+        )
+        self.assertEqual(candidate["page_url"], page)  # the seed page stays the candidate's page
+        self.verify()
+
+    def test_links_honour_base_href_and_the_final_host(self):
+        from primary.adapters import page_links
+
+        rules = [{"attr": "src", "pattern": "/img/"}]
+        html = "<head><base href='/cdn/'></head><img src='img/b.png'><img src='https://press.example.org/img/c.png'>"
+        self.assertEqual(
+            page_links.links(html, self.PAGE, rules),
+            (
+                [
+                    ("cdn/img/b.png", "https://press.example.org/cdn/img/b.png"),
+                    ("img/c.png", "https://press.example.org/img/c.png"),
+                ],
+                [],
+            ),
+        )
+        # Requested on one host, answered from another: links on the answering host are the page's own.
+        moved = page_links.links(
+            "<img src='/img/d.png'>", "https://old.example.org/p", rules, final_url="https://press.example.org/p"
+        )
+        self.assertEqual(moved, ([("img/d.png", "https://press.example.org/img/d.png")], []))
+        config = {
+            "page_url": self.PAGE,
+            "key_prefix": "p:",
+            "select": "div.post",
+            "pattern": "https://press\\.example\\.org/cdn/img/[^/]+\\.png",
+        }
+        images, others, state = direct_adapter.article_images(
+            "<head><base href='https://press.example.org/cdn/'></head><div class='post'><img src='img/e.png'></div>",
+            self.PAGE,
+            config,
+        )
+        self.assertEqual(
+            ([image["url"] for image in images], others, state), (["https://press.example.org/cdn/img/e.png"], [], None)
+        )
+
     def test_links_of_other_hosts_keep_their_host_in_the_key(self):
         from primary.adapters import page_links
 

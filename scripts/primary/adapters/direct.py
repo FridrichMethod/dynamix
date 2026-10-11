@@ -341,14 +341,20 @@ def _orig_size(element: Any) -> tuple[int, int] | None:
 
 
 def article_images(
-    html: str, page_url: str, config: Mapping[str, Any], *, skipped: list[str] | None = None
+    html: str,
+    page_url: str,
+    config: Mapping[str, Any],
+    *,
+    skipped: list[str] | None = None,
+    final_url: str | None = None,
 ) -> tuple[list[dict], list[dict], str | None]:
     """([article image], [other image], None when the enumeration is complete or the open continuation token) for one
     configured article page; each image is ``{key, url, advertised, caption, supplied, name, size}`` in page order.
 
-    Links are resolved as a browser requests them (:func:`base.link_url`, e.g. a literal space percent-encoded). An
-    image URL that is still no valid http(s) URL is not keyed: it is appended to ``skipped`` and keeps the enumeration
-    open (``urls-skipped-<n>``)."""
+    Links are resolved as a browser requests them: against the document base (``<base href>``, else ``final_url``, the
+    URL the page was served from after redirects, else ``page_url``) and encoded by :func:`base.link_url` (e.g. a
+    literal space percent-encoded). An image URL that is still no valid http(s) URL is not keyed: it is appended to
+    ``skipped`` and keeps the enumeration open (``urls-skipped-<n>``)."""
     document = base.soup(html)
     pattern = re.compile(config["pattern"])
     rewrite = config.get("rewrite", [])
@@ -357,6 +363,7 @@ def article_images(
     body: set[str] = set()
     unusable: list[str] = skipped if skipped is not None else []
     title = base.headline(document)
+    resolve = base.document_base(document, final_url or page_url)
 
     def add(
         raw: str | None,
@@ -374,7 +381,7 @@ def article_images(
         if not raw or not raw.strip():
             return None
         try:
-            absolute = _without_fragment(base.link_url(page_url, raw))
+            absolute = _without_fragment(base.link_url(resolve, raw))
             scheme = urlsplit(absolute).scheme
         except ValueError:  # unparseable, e.g. an unbalanced IPv6 bracket
             unusable.append(raw)
@@ -510,10 +517,11 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     def read(page_url: str) -> dict:
         if page_url not in pages:
             try:
-                html, _, _ = ctx.client.get_text(page_url)
+                html, final_url, _ = ctx.client.get_text(page_url)
                 document = base.soup(html)
                 pages[page_url] = {
                     "html": html,
+                    "final_url": final_url if final_url else None,
                     "texts": {
                         "title": document.title.get_text(" ", strip=True) if document.title else "",
                         "body": base.page_text(base.soup(html)),
@@ -535,7 +543,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         if page["html"] is None:
             continue
         skipped: list[str] = []
-        images, others[page_url], state = article_images(page["html"], page_url, config, skipped=skipped)
+        images, others[page_url], state = article_images(
+            page["html"], page_url, config, skipped=skipped, final_url=page["final_url"]
+        )
         enumerated[page_url] = images
         for url in skipped:
             discovery.errors.append(
