@@ -186,7 +186,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         cover = original_cover(advertised)
         rule = model.find_rule(base.rules(seed), key)
         if "sc.uploader_mismatch" in texts:
-            rule = model.hold(rule, f"pending: uploader {texts['sc.uploader_mismatch']} is not this source's "
+            rule = model.hold(rule, f"unresolved_game: uploader {texts['sc.uploader_mismatch']} is not this source's "
                                     f"account {seed['params']['handle']}")
         draft = model.apply_rule(
             rule, key=key, page_url=page_url, texts=texts, file_url=base.stored(cover),

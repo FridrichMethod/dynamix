@@ -95,7 +95,7 @@ def _video(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: 
     texts = {"title": data["title"], "author": f"{data.get('author_name') or ''} {data.get('author_url') or ''}".strip()}
     rule = model.find_rule(base.rules(seed), video_id)
     if not same_channel(data.get("author_url"), channel):
-        rule = model.hold(rule, f"pending: the video's channel {data.get('author_url')!r} is not {channel}")
+        rule = model.hold(rule, f"unresolved_game: the video's channel {data.get('author_url')!r} is not {channel}")
     advertised = data.get("thumbnail_url") if isinstance(data.get("thumbnail_url"), str) else None
     draft = model.apply_rule(
         rule, key=video_id, page_url=watch, texts=texts, file_url=thumbnail(video_id, RENDITIONS[0]),
@@ -136,7 +136,7 @@ def _channel_art(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, 
     texts = {"title": document.title.get_text(" ", strip=True) if document.title else ""}
     rule = model.find_rule(base.rules(seed), key)
     if image_id not in page["html"]:
-        rule = model.hold(rule, f"pending: the channel page no longer shows this {item['channel_art']} image")
+        rule = model.hold(rule, f"unresolved_game: the channel page no longer shows this {item['channel_art']} image")
     discovery.candidates.append(model.apply_rule(
         rule, key=key, page_url=channel, texts=texts, file_url=f"{item['url']}=s0",
         default_title=f"{texts['title'] or 'YouTube channel'} {item['channel_art']}", default_quality=ctx.quality,

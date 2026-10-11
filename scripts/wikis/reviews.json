@@ -1035,6 +1035,54 @@
       ]
     },
     {
+      "title": "File:Code 1.jpg",
+      "sha1": [
+        "70b319235c581bb15b0b6b8a016c9f343bfb5308",
+        "1baca8df1a07ec76dec7a1523ba04c423d17b437"
+      ],
+      "role": "gameplay_screenshot",
+      "evidence": "visual_inspection: annotated in-game screenshot, step 1, 'Click and open the player information' on the song-select screen: image 1 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE1.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:2e1d86734926b2fc (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the original Dynamix interface (song select with Stardust by mmry, player information and code entry screens); the official site's post 'Dynamix Code Entry' (2015-11-19)",
+      "whole_screen": true
+    },
+    {
+      "title": "File:Code 2.jpg",
+      "sha1": [
+        "cedabc04bd168690974f6d2eb77bc658a2c1910d",
+        "6dcef4be9006c46fc12b18c860ca3e494002aa34"
+      ],
+      "role": "gameplay_screenshot",
+      "evidence": "visual_inspection: annotated in-game screenshot, step 2, the player-information panel with 'Click the \"+\"symbol': image 2 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE2.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:f7587fb5c1e5de43 (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the original Dynamix interface (song select with Stardust by mmry, player information and code entry screens); the official site's post 'Dynamix Code Entry' (2015-11-19)",
+      "whole_screen": true
+    },
+    {
+      "title": "File:Code 3.jpg",
+      "sha1": [
+        "c1b26ca4c4b82ce2439a7233f42dab9b7a8f92eb",
+        "f0c8458b5e782c4a9e2b76591b839e00b80c8bd1"
+      ],
+      "role": "gameplay_screenshot",
+      "evidence": "visual_inspection: annotated in-game screenshot, step 3, the STAT screen with 'Click \"CODE\"': image 3 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE3.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:9afbfe33465a99ab (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the original Dynamix interface (song select with Stardust by mmry, player information and code entry screens); the official site's post 'Dynamix Code Entry' (2015-11-19)",
+      "whole_screen": true
+    },
+    {
+      "title": "File:Code 4.jpg",
+      "sha1": [
+        "4751b1df3265f635c35320692e6b927b9b11117a",
+        "a54e6fbc1bd921368ece39751eec689d57733144"
+      ],
+      "role": "gameplay_screenshot",
+      "evidence": "visual_inspection: annotated in-game screenshot, step 4, the code entry box with 'Enter the code to the box and click \"CODE ENTRY\"': image 4 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE4.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:da488040ca54cf9a (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title",
+      "game": "dynamix",
+      "game_evidence": "visual_inspection: the original Dynamix interface (song select with Stardust by mmry, player information and code entry screens); the official site's post 'Dynamix Code Entry' (2015-11-19)",
+      "whole_screen": true
+    },
+    {
       "title": "File:Coming Events in 2018 April.jpg.jpg",
       "sha1": [
         "96404f1460ea87bb75608f0a3a7c80a8f0232c83",

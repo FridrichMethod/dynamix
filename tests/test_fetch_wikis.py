@@ -181,6 +181,36 @@ class MetadataOnlyTests(WikiRun):
         self.assertEqual((source["status"], source["discovery_complete"]), ("partially_available", False))
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
+    def test_empty_answers_are_not_a_complete_enumeration(self) -> None:
+        """A 200 answer without a ``query`` object (MediaWiki's empty generator) or with an empty list is recorded as
+        an incomplete list (error, open continuation, exit 2), never as the whole wiki: the archive, its records and
+        the song index proposal stay as the complete run left them."""
+        self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
+        index_path = self.root / "data/discovery/song-index.wikis.json"
+        index_before = index_path.read_text(encoding="utf-8")
+        assets_before = self.manifest()["assets"]
+        for name, answer, expected in (
+                ("pages", lambda p: p.get("generator") == "allpages", "no query object"),
+                ("allimages", lambda p: p.get("list") == "allimages", "listed no entry")):
+            with self.subTest(list=name):
+                wikis = self.scenario.wikis()
+                api = wikis[config.MIRAHEZE.api_url]
+                original = api.query
+                empty = ({"batchcomplete": True} if name == "pages"
+                         else {"batchcomplete": True, "query": {"allimages": []}})
+                api.query = lambda params, original=original, answer=answer, empty=empty: (
+                    empty if answer(params) else original(params))
+                self.assertEqual(self.run_cli("--metadata-only", client=self.scenario.client(wikis)), 2)
+                snapshot = self.snapshot("miraheze")
+                self.assertFalse(snapshot["discovery_complete"])
+                self.assertEqual(snapshot["continuation"][next(k for k in snapshot["continuation"]
+                                                               if k.startswith(name))], {})
+                self.assertTrue(any(expected in error["message"] for error in snapshot["errors"]),
+                                snapshot["errors"])
+                self.assertEqual(index_path.read_text(encoding="utf-8"), index_before)
+                self.assertEqual(self.manifest()["assets"], assets_before)
+                self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
     def test_blocked_japanese_page_is_reported(self) -> None:
         client = self.scenario.client()
         client.errors["https://wikiwiki.jp/rhythmgame/Dynamix"] = net.ChallengeError(
@@ -190,6 +220,27 @@ class MetadataOnlyTests(WikiRun):
         self.assertIn("challenge", snapshot["errors"][0]["message"])
         source = next(s for s in self.manifest()["sources"] if s["id"] == "wikis:rhythmgame-ja")
         self.assertEqual((source["status"], source["evidence_level"]), ("manual_access", "blocked"))
+
+    def test_list_page_without_recognized_rows_is_a_page_error(self) -> None:
+        """A Japanese list page that is read but whose layout yields no song row (no recognizable table header) is a
+        page error: the HTML source's discovery is incomplete (exit 2) and the song index proposal is not rewritten
+        from the emptied list evidence."""
+        self.assertEqual(self.run_cli("--metadata-only"), 0, "\n".join(self.logs))
+        index_path = self.root / "data/discovery/song-index.wikis.json"
+        index_before = index_path.read_text(encoding="utf-8")
+        client = self.scenario.client()
+        url = "https://wikiwiki.jp/rhythmgame/Dynamix"
+        self.assertIn(url, client.texts)
+        client.texts[url] = ("<html><body><h2>Dynamix</h2><p>レイアウト変更</p><table><tr><td>Cosmic Pulse</td>"
+                             "<td>Yunosuke</td></tr></table></body></html>")
+        self.assertEqual(self.run_cli("--metadata-only", client=client), 2)
+        snapshot = self.snapshot("rhythmgame-ja")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertTrue(any("no song rows recognized" in error["message"] for error in snapshot["errors"]),
+                        snapshot["errors"])
+        self.assertEqual(index_path.read_text(encoding="utf-8"), index_before)
+        self.assertIn("song index proposal not rewritten", "\n".join(self.logs))
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
     def test_pack_cover_is_titled_with_its_caption(self) -> None:
         """A package page's cover takes the wiki's caption as its title (Titles rule), not the file name."""
@@ -315,6 +366,11 @@ class AcquisitionTests(WikiRun):
         squared = self.asset("miraheze", "File:Cosmic Pulse Squared.png")
         self.assertEqual(squared["game_associations"], ["dynamix", "ravon"])
         self.assertEqual(squared["illustrators"], [])  # not the template's cover: no illustrator inferred
+        # Art also tied to another game: no C4Cat default holder without a source naming one (as in every family).
+        self.assertIsNone(squared["rights"]["holder"])
+        self.assertIn("Rights holder not recorded: the art is also associated with ravon", squared["notes"])
+        self.assertEqual(self.asset("miraheze", "File:CosmicPulseDynamix.png")["rights"]["holder"],
+                         schema.DEFAULT_RIGHTS_HOLDER)
         # Excluded and pending candidates are never downloaded.
         downloaded = " ".join(self.client.downloads)
         for name in ("Emi-Animated.gif", "Universe_Song_cover.png", "Composer_Photo.jpg", "Lonely_BG-HQ.png",
@@ -442,6 +498,57 @@ class AcquisitionTests(WikiRun):
         self.assertNotIn("TwinDynamix", " ".join(client.downloads))
         self.assertEqual(self.candidate("miraheze", "File:TwinDynamix.png")["disposition"], "blocked")
 
+
+    def test_refusing_file_host_is_not_contacted_again(self) -> None:
+        """After a challenge/403 from a file host, no further request goes to it in the run (07 §Network): its other
+        candidates are recorded blocked without a request or Failure record, and the next run tries them again."""
+        client = self.scenario.client()
+        challenged = []
+        original = client.download
+
+        def download(url, dest, stem):
+            if url.startswith("https://static.wikitide.net/"):
+                challenged.append(url)
+                raise net.ChallengeError("challenge page served with HTTP 403", url=url, http_status=403)
+            return original(url, dest, stem)
+
+        client.download = download
+        self.assertEqual(self.run_cli("--source", "miraheze", "--limit", "2", client=client), 1)
+        self.assertEqual(len(challenged), 1, challenged)
+        failures = [f for f in self.manifest()["failures"] if f["source_id"] == "wikis:miraheze"]
+        self.assertEqual([(f["error_class"], f["url"]) for f in failures], [("challenge", challenged[0])])
+        snapshot = self.snapshot("miraheze")
+        skipped = [c for c in snapshot["candidates"] if c["disposition"] == "blocked"
+                   and c["id"] != failures[0]["candidate_id"]]
+        self.assertGreater(len(skipped), 2)  # skips are not attempts: --limit 2 does not stop them
+        self.assertTrue(all("host static.wikitide.net refused an earlier request in this run (challenge, HTTP 403)"
+                            in c["reason"] for c in skipped))
+        self.assertFalse([c for c in snapshot["candidates"] if c["disposition"] == "downloaded"])
+        self.assertIn("[skip] blocked", "\n".join(self.logs))
+        source = next(s for s in self.manifest()["sources"] if s["id"] == "wikis:miraheze")
+        self.assertEqual(source["checked_at"], NOW)
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+        # The next run downloads the skipped files; the challenged one stays blocked (its Failure is manual).
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 1)
+        self.assertNotIn(challenged[0], client.downloads)
+        now = {c["id"]: c["disposition"] for c in self.snapshot("miraheze")["candidates"]}
+        self.assertLessEqual({now[c["id"]] for c in skipped}, {"downloaded", "duplicate_bytes"})
+        self.assertEqual(now[failures[0]["candidate_id"]], "blocked")
+        self.assertEqual(self.verify(), 0, "\n".join(self.logs))
+
+    def test_symlinked_asset_directory_is_refused(self) -> None:
+        """A wiki asset directory that is a symlink is refused before any download (exit 3): no temp file is ever
+        written through it outside the root."""
+        outside = self.tmp / "outside"
+        outside.mkdir()
+        (self.root / "assets/public/wikis").mkdir(parents=True)
+        (self.root / "assets/public/wikis/miraheze").symlink_to(outside, target_is_directory=True)
+        client = self.scenario.client()
+        self.assertEqual(self.run_cli("--source", "miraheze", client=client), 3)
+        self.assertEqual(client.downloads, [])
+        self.assertEqual(list(outside.iterdir()), [])
+        self.assertTrue(all(c["disposition"] != "downloaded" for c in self.snapshot("miraheze")["candidates"]))
 
     def test_failed_files_are_retried_after_new_files(self) -> None:
         """A --limit batch spends its attempts on new files first; an earlier failure is retried once, last."""

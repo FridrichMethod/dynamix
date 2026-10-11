@@ -25,6 +25,9 @@ report shows each one as an inline code span and links only https file pages on 
 Exit status: 0 when the report was written and every selected source was enumerated completely (whatever it found);
 3 when the report was written but a live check was incomplete or its saved snapshot unusable, so the run is not
 mistaken for a clean check; 1 (or argparse's 2) for invalid arguments, with no report.
+
+The report helpers ``code()`` and ``safe_link()`` are adapted from FridrichMethod/deemo scripts/check_sources.py
+(Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8); the rest of this script was written for this project.
 """
 
 from __future__ import annotations

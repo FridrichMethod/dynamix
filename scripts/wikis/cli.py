@@ -16,10 +16,13 @@ file, its record and classification. Every run on a ``--root`` takes ``<root>/.c
 for that root holds an interrupted run's journal. The default work directory is ``<root>/.cache/fetch_wikis/work``
 (private, mode 0700); see :mod:`wikis.acquire` for the checks on work directories, lock files and journals.
 
+A file host that answers 401/403 or a bot challenge is not contacted again in the run: its remaining candidates are
+recorded ``blocked`` without a request (and are tried again by the next run).
+
 Exit codes: 0 done; 1 failed/blocked downloads, or an archived file that could not be repaired; 2 incomplete
 discovery; 3 another run holds a lock, an interrupted run's journal is in another work directory, or the work
-directory, a lock file or the journal cannot be used safely (another owner, a symlink, a journal of another root, a
-corrupt or contradictory journal); 4 an archived file is no longer accepted by complete evidence and no reviewed
+directory, a lock file, the journal or a wiki asset directory cannot be used safely (another owner, a symlink, a
+journal of another root, a corrupt or contradictory journal); 4 an archived file is no longer accepted by complete evidence and no reviewed
 withdrawal covers it (nothing written; review needed); 5 internal error (an unexpected exception; traceback on stderr,
 outputs written only up to the last completed write); 130 interrupted (outputs written up to the last completed
 download).
@@ -231,6 +234,8 @@ class Runner:
         """One worker thread per selected wiki; ``--limit`` bounds the attempts of all workers together. A worker
         error or an interrupt (SIGTERM/^C in the main thread) stops every worker after its current file; the outputs
         are written before the error propagates."""
+        for key in self.mediawiki_selected:  # before any request: never download through a planted link
+            acquire.asset_dir(self.root, config.SOURCES[key])
         acquirer = acquire.Acquirer(self.root, self.state, self.journal, client, now=self.now, log=self.log,
                                     lock=self.lock)
         flusher = acquire.Flusher(self.write, lock=self.lock)
@@ -263,14 +268,15 @@ class Runner:
                         continue
                     if not acquirer.needs_download(plan, candidate, resume=self.args.resume, retry_failed=True):
                         continue
-                    number = take_attempt()
-                    if number is None:
+                    outcome = acquirer.refused_host(plan)  # a refusing host: recorded without a request or attempt
+                    number = None if outcome is not None else take_attempt()
+                    if outcome is None and number is None:
                         return
-                    outcome = acquirer.download(plan)
+                    outcome = outcome or acquirer.download(plan)
                     with self.lock:
                         totals[outcome.disposition] = totals.get(outcome.disposition, 0) + 1
-                    self.log(f"  [{number}] {outcome.disposition:15} {plan.candidate_id}"
-                             + (f" -> {outcome.asset_id}" if outcome.asset_id else "")
+                    self.log(f"  [{number if number is not None else 'skip'}] {outcome.disposition:15} "
+                             f"{plan.candidate_id}" + (f" -> {outcome.asset_id}" if outcome.asset_id else "")
                              + (f" ({outcome.message})" if outcome.message else ""))
                     flusher.tick()
             except BaseException as error:  # noqa: BLE001 - re-raised in the main thread

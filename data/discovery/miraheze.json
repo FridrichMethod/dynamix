@@ -24495,7 +24495,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Code_1.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/0/00/Code_1.jpg",
       "title": "Code 1",
-      "role": null,
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Code (link)",
@@ -24511,9 +24511,9 @@
         "timestamp": "2026-08-09T09:06:36Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "game_ui: game interface element (icon, button, grade, badge)",
-      "notes": "role evidence: game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:f4b9e7a4b832257e",
+      "notes": "role evidence: gameplay_screenshot <- archivist review (File:Code 1.jpg): visual_inspection: annotated in-game screenshot, step 1, 'Click and open the player information' on the song-select screen: image 1 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE1.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:2e1d86734926b2fc (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title; game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
     },
     {
       "id": "wikis:miraheze:File:Code_2.jpg",
@@ -24522,7 +24522,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Code_2.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/0/08/Code_2.jpg",
       "title": "Code 2",
-      "role": null,
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Code (link)",
@@ -24538,9 +24538,9 @@
         "timestamp": "2026-08-09T09:02:32Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "game_ui: game interface element (icon, button, grade, badge)",
-      "notes": "role evidence: game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:402886f85a6c3c8f",
+      "notes": "role evidence: gameplay_screenshot <- archivist review (File:Code 2.jpg): visual_inspection: annotated in-game screenshot, step 2, the player-information panel with 'Click the \"+\"symbol': image 2 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE2.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:f7587fb5c1e5de43 (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title; game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
     },
     {
       "id": "wikis:miraheze:File:Code_3.jpg",
@@ -24549,7 +24549,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Code_3.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/3/32/Code_3.jpg",
       "title": "Code 3",
-      "role": null,
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Code (link)",
@@ -24565,9 +24565,9 @@
         "timestamp": "2026-08-09T10:01:53Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "game_ui: game interface element (icon, button, grade, badge)",
-      "notes": "role evidence: game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:abf56fd0965505ba",
+      "notes": "role evidence: gameplay_screenshot <- archivist review (File:Code 3.jpg): visual_inspection: annotated in-game screenshot, step 3, the STAT screen with 'Click \"CODE\"': image 3 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE3.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:9afbfe33465a99ab (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title; game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
     },
     {
       "id": "wikis:miraheze:File:Code_4.jpg",
@@ -24576,7 +24576,7 @@
       "page_url": "https://dynamix.miraheze.org/wiki/File:Code_4.jpg",
       "file_url": "https://static.wikitide.net/dynamixwiki/7/74/Code_4.jpg",
       "title": "Code 4",
-      "role": null,
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "https://dynamix.miraheze.org/wiki/Code (link)",
@@ -24592,9 +24592,9 @@
         "timestamp": "2026-08-09T09:15:50Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "game_ui: game interface element (icon, button, grade, badge)",
-      "notes": "role evidence: game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
+      "disposition": "downloaded",
+      "asset_id": "wikis:miraheze:976b7e77cf996ef6",
+      "notes": "role evidence: gameplay_screenshot <- archivist review (File:Code 4.jpg): visual_inspection: annotated in-game screenshot, step 4, the code entry box with 'Enter the code to the box and click \"CODE ENTRY\"': image 4 of 4 of the official code-entry tutorial, not an interface element; the file both wikis serve decodes to pixels identical to the official site's TE4.jpg of the post 'Dynamix Code Entry' (2015-11-19), archived as archives:wayback:da488040ca54cf9a (gameplay_screenshot), and Fandom's API records that file's SHA-1 for this title; game_ui <- https://dynamix.miraheze.org/wiki/Code (link); game_ui <- https://dynamixc4cat.fandom.com/wiki/Code (link)"
     },
     {
       "id": "wikis:miraheze:File:Codey-Raw.png",

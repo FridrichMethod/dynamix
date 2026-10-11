@@ -64,6 +64,9 @@ SOURCE_STATUSES = ("available", "partially_available", "temporarily_unavailable"
                    "excluded")
 EVIDENCE_LEVELS = ("live_api", "page_read", "search_index", "blocked", "not_established")
 DISPOSITIONS = ("downloaded", "duplicate_bytes", "excluded", "failed", "blocked", "pending")
+# Prefixes of a ``pending`` candidate's reason (09, CLI notes): accepted but not archived yet, or its role or game
+# not established.
+PENDING_REASONS = ("awaiting_download", "unresolved_role", "unresolved_game")
 EXCLUSION_REASONS = ("universe_only", "not_dynamix", "animated_capture", "person_photo", "site_ui", "game_ui",
                      "video_placeholder", "external_release_art", "fanart", "upscaled", "rejected_submission",
                      "redirect_or_alias", "out_of_scope_other")
@@ -581,6 +584,8 @@ def validate_candidate(candidate: Any, source_id: str | None = None) -> None:
             _fail(label, "asset_id", "a downloaded candidate's asset belongs to the same source")
     elif target is not None:
         _fail(label, "asset_id", f"must be absent or null for disposition {disposition!r}")
+    if disposition == "pending" and reason.split(":", 1)[0].strip() not in PENDING_REASONS:
+        _fail(label, "reason", f"must start with a pending reason ({', '.join(PENDING_REASONS)})")
     if disposition == "excluded":
         prefix = reason.split(":", 1)[0].strip()
         if prefix not in EXCLUSION_REASONS:

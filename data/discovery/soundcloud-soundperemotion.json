@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:soundperemotion",
-  "started_at": "2026-10-10T22:36:07Z",
-  "finished_at": "2026-10-10T22:36:09Z",
+  "started_at": "2026-10-11T04:43:18Z",
+  "finished_at": "2026-10-11T04:43:19Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -47,8 +47,7 @@
         "TangJuan"
       ],
       "composers": [
-        "TangJuan",
-        "Black Box"
+        "TangJuan and Black Box"
       ]
     }
   ],

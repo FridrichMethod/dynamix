@@ -19,7 +19,10 @@ recorded; a review never turns a file that page evidence excludes into a downloa
 ``official_branding: true`` (a kind as role, an original-game or shared game) records that the bytes are the game's own
 branding (its wordmark) that the wiki reuses as an interface image. Page evidence whose only role is ``site_ui`` (the
 Main Page header) describes the wiki's use, not the file, so such a review decides the role (mapping ``inferred`` at
-most) and the overridden page evidence is recorded. ``animated: "official"`` marks a
+most) and the overridden page evidence is recorded. ``whole_screen: true`` (role ``gameplay_screenshot`` only, an
+original-game or shared game) is the same exception for a whole game screen that a page about a game feature shows
+(the code-entry tutorial screenshots on the wiki's Code page): page evidence whose only role is ``game_ui`` describes
+the page's topic, not the file, so the review decides. ``animated: "official"`` marks a
 GIF the review established as an official animation (not a wiki capture with a larger still), so the default
 ``animated_capture`` exclusion does not apply.
 
@@ -87,6 +90,7 @@ class Review:
     official_animation: bool = False  # an official animation: animated_capture does not apply
     list_graphic: bool = False  # the bytes show a list or a chart announcement (config.LIST_GRAPHIC_RULE; reference)
     official_branding: bool = False  # the game's own branding reused by the wiki as an interface image (see above)
+    whole_screen: bool = False  # a whole game screen that a game-feature page shows (game_ui page evidence; above)
 
     @property
     def probe(self) -> bool:
@@ -131,7 +135,8 @@ def parse(data: Any) -> dict[str, Review]:
         if not isinstance(entry, dict):
             raise ValueError(f"{label}: must be an object")
         unknown = set(entry) - {"title", "sha1", "role", "game", "evidence", "game_evidence", "songs",
-                                "associations", "pending", "animated", "list_graphic", "official_branding"}
+                                "associations", "pending", "animated", "list_graphic", "official_branding",
+                                "whole_screen"}
         if unknown:
             raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
         title = _string(entry, "title", label, required=True)
@@ -182,12 +187,18 @@ def parse(data: Any) -> dict[str, Review]:
             raise ValueError(f"{label}: official_branding must be true or false")
         if branding and (role not in schema.KINDS or game not in ("dynamix", "mixed")):
             raise ValueError(f"{label}: official_branding needs a kind as role and an original-game or shared game")
+        whole_screen = entry.get("whole_screen", False)
+        if not isinstance(whole_screen, bool):
+            raise ValueError(f"{label}: whole_screen must be true or false")
+        if whole_screen and (role != "gameplay_screenshot" or game not in ("dynamix", "mixed")):
+            raise ValueError(f"{label}: whole_screen needs role 'gameplay_screenshot' and an original-game or shared "
+                             "game")
         for text in (evidence, game_evidence, pending):
             if schema.contains_credentials(text, strict=False):
                 raise ValueError(f"{label}: evidence must not contain credentials")
         result[title] = Review(title, sha1, role, game, evidence, game_evidence, _strings(entry, "songs", label),
                                associations, pending, official_animation=animated == "official",
-                               list_graphic=list_graphic, official_branding=branding)
+                               list_graphic=list_graphic, official_branding=branding, whole_screen=whole_screen)
     return result
 
 

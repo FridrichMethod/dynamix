@@ -25,11 +25,16 @@ Files adapted in 2026 say so in a notice at their top:
   mashirozx/deemo style.css);
   scripts/build_catalog.py, scripts/build_thumbnails.py and
   scripts/prepare_pages.py (from the same scripts of the DEEMO archive);
+  scripts/check_sources.py (its report helpers code() and safe_link(), from
+  the same script of the DEEMO archive);
   scripts/render_slideshow.py (from the slideshow rendering helpers of the
   DEEMO archive's scripts/build_catalog.py);
   tests/browser_smoke.py, tests/test_archive_labels.py, tests/test_catalog.py,
   tests/test_i18n.py, tests/test_layout.py, tests/test_slideshow.py and
-  tests/test_thumbnails.py (from the same tests of the DEEMO archive).
+  tests/test_thumbnails.py (from the same tests of the DEEMO archive);
+  tests/test_line_endings.py (its CRLF-checkout test and Git helpers) and
+  .github/workflows/tests.yml (parts of its job layout and step wording),
+  partly adapted from the same files of the DEEMO archive.
 site.webmanifest (JSON, which allows no comments) follows the structure of
 the DEEMO archive's manifest with this project's names and icons. Everything
 else was written for this project.

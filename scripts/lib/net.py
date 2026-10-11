@@ -10,7 +10,9 @@
   DNS answer that changes between the check and the connection cannot reach a local service. ``allow_loopback=True``
   (tests only) admits loopback addresses and nothing else.
 * One request in flight per host and at least ``min_interval`` seconds (default 1.0) between the end of one request
-  and the start of the next to the same host.
+  and the start of the next to the same host. Every hop counts, so a host reached only through a redirect is spaced
+  too; clients that share a :class:`HostSchedule` (e.g. the per-source clients of one fetcher run) share these per-host
+  locks and ready times.
 * At most 3 attempts for 429, 5xx, timeouts and connection errors, with exponential backoff or the server's
   ``Retry-After`` (seconds or HTTP date) when it is at most 60 s; a longer ``Retry-After`` stops retrying.
   401/403 and challenge pages are never retried: they raise :class:`BlockedError` / :class:`ChallengeError`.
@@ -342,6 +344,20 @@ class _HostState:
         self.ready_at = float("-inf")
 
 
+class HostSchedule:
+    """Per-host request locks and ready times. A client has its own unless one is passed: clients that share a
+    schedule keep one request in flight per host and the minimum spacing across all of them, for every host any of
+    them contacted (redirect hops included)."""
+
+    def __init__(self) -> None:
+        self._hosts: dict[str, _HostState] = {}
+        self._lock = threading.Lock()
+
+    def state(self, host: str) -> _HostState:
+        with self._lock:
+            return self._hosts.setdefault(host, _HostState())
+
+
 # --- Client -----------------------------------------------------------------------------------------------------------
 
 class PoliteClient:
@@ -353,7 +369,7 @@ class PoliteClient:
                  max_retry_after: float = MAX_RETRY_AFTER, max_duration: float = DEFAULT_MAX_DURATION,
                  allow_loopback: bool = False, user_agent: str = USER_AGENT, proxies: Mapping[str, str] | None = None,
                  sleep: Callable[[float], None] = time.sleep, clock: Callable[[], float] = time.monotonic,
-                 resolver: Callable[[str], list[str]] | None = None):
+                 resolver: Callable[[str], list[str]] | None = None, schedule: HostSchedule | None = None):
         entries = [normalize_host(host) for host in allowed_hosts]
         if not entries:
             raise ValueError("allowed_hosts must name at least one host")
@@ -364,8 +380,7 @@ class PoliteClient:
         self._max_retry_after, self._allow_loopback = float(max_retry_after), bool(allow_loopback)
         self._max_duration = float(max_duration)
         self._sleep, self._clock, self._resolver = sleep, clock, resolver or _system_resolver
-        self._hosts: dict[str, _HostState] = {}
-        self._hosts_lock = threading.Lock()
+        self._schedule = schedule if schedule is not None else HostSchedule()
         session = requests.Session()
         session.trust_env = False  # no environment proxies or .netrc credentials
         session.cookies.set_policy(http.cookiejar.DefaultCookiePolicy(allowed_domains=[]))  # store no cookies
@@ -550,8 +565,7 @@ class PoliteClient:
                 state.ready_at = self._clock() + self._min_interval
 
     def _state(self, host: str) -> _HostState:
-        with self._hosts_lock:
-            return self._hosts.setdefault(host, _HostState())
+        return self._schedule.state(host)
 
     def _check_url(self, url: str) -> str:
         """Normalized host of an acceptable URL; HostNotAllowedError otherwise (before any DNS lookup or request).

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:lalaluhat",
-  "started_at": "2026-10-10T22:36:38Z",
-  "finished_at": "2026-10-10T22:36:44Z",
+  "started_at": "2026-10-11T04:43:44Z",
+  "finished_at": "2026-10-11T04:43:49Z",
   "scope": {
     "lists": [
       "seed-posts"
@@ -38,7 +38,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
@@ -67,7 +67,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
@@ -96,7 +96,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
@@ -125,7 +125,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
@@ -154,7 +154,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],

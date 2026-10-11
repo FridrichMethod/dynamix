@@ -3,6 +3,8 @@ name: Tests
 # Every push and pull request (any branch, stacked pull requests included), and pages.yml before it builds a release
 # artifact. Read-only: nothing here deploys Pages, pushes, tags or publishes a release. The site job only uploads an
 # ordinary CI artifact of the staged website for inspection.
+# Parts of the job layout and step wording are adapted from FridrichMethod/deemo .github/workflows/tests.yml
+# (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8).
 on:
   push:
   pull_request:

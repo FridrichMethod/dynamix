@@ -318,9 +318,25 @@ class BudgetTests(PagesTestCase):
 
     def test_budget_is_inclusive_and_overflow_fails_before_copying(self):
         total = self.payload_bytes()
-        self.assertRefused("exceeds the [0-9]+-byte budget", budget=total - 1)
+        manifest_bytes = (self.checkout.root / "data/catalog.json").stat().st_size
+        self.assertRefused("exceeds the [0-9]+-byte budget even without data/catalog.json",
+                           budget=total - manifest_bytes - 1)
         summary, _ = self.prepare(budget=total)
         self.assertEqual(summary["budget_remaining_bytes"], 0)
+        self.assertEqual(summary["omitted_over_budget"], [])
+
+    def test_catalog_json_is_left_out_first_when_over_budget(self):
+        """09 (Catalog presentation rules): over budget, data/catalog.json (never loaded by the pages) is left out
+        before anything else, recorded in the summary, and the run is not a difference from the commit."""
+        total = self.payload_bytes()
+        manifest_bytes = (self.checkout.root / "data/catalog.json").stat().st_size
+        summary, _ = self.prepare(budget=total - 1)
+        self.assertNotIn("data/catalog.json", staged_files(self.output))
+        self.assertEqual(staged_files(self.output), [rel for rel in EXPECTED if rel != "data/catalog.json"])
+        self.assertEqual([(item["path"], item["bytes"]) for item in summary["omitted_over_budget"]],
+                         [("data/catalog.json", manifest_bytes)])
+        self.assertEqual(summary["bytes"], total - manifest_bytes)
+        self.assertTrue(summary["matches_commit"], summary["differs_from_commit"])
 
     def test_default_budget_is_the_contract_value(self):
         self.assertEqual(pages.BUDGET_BYTES, 950_000_000)

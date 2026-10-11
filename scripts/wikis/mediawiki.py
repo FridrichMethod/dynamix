@@ -3,7 +3,9 @@
 Every list follows the server's ``continue`` object verbatim until it is absent (MediaWiki's documented protocol, which
 also covers generator + prop continuation). A failed request ends the list as *incomplete*: the result keeps the
 continuation that was being requested and the error, so a snapshot can record ``discovery_complete: false`` instead of
-treating a partial inventory as the whole wiki.
+treating a partial inventory as the whole wiki. So does an answer that carries no ``query`` object or no list under it
+(MediaWiki's form of an empty generator), and a list that ends without a single entry: an empty answer is never taken
+as the complete enumeration of a wiki (AGENTS.md, 07 §Integrity).
 """
 
 from __future__ import annotations
@@ -96,8 +98,11 @@ class MediaWikiAPI:
 
     def enumerate(self, name: str, params: Mapping[str, Any],
                   merge: Callable[[dict[str, Any], dict], None], *,
-                  start: Mapping[str, Any] | None = None) -> ListResult:
-        """Follow ``continue`` from ``start`` (default: the beginning) and ``merge`` each response into ``items``."""
+                  start: Mapping[str, Any] | None = None, list_key: str | None = None) -> ListResult:
+        """Follow ``continue`` from ``start`` (default: the beginning) and ``merge`` each response into ``items``.
+
+        With ``list_key`` (``allimages`` or ``pages``) every response must carry ``query.<list_key>`` as a list, and
+        the finished list must hold at least one entry; otherwise the list stays incomplete with an error."""
         result = ListResult(name)
         continuation: dict | None = dict(start) if start else {}
         seen: set[str] = set()
@@ -118,6 +123,12 @@ class MediaWikiAPI:
                 result.continuation = continuation  # {} = the list failed before its first page
                 return result
             result.requests += 1
+            problem = query_problem(data, list_key)
+            if problem:
+                result.errors.append({"phase": "discover", "url": self.request_url({**params, **continuation}),
+                                      "message": f"{name}: {problem}; not taken as a complete page"})
+                result.continuation = continuation
+                return result
             merge(result.items, data)
             next_continuation = data.get("continue")
             if next_continuation is not None and not isinstance(next_continuation, dict):
@@ -126,9 +137,28 @@ class MediaWikiAPI:
                 result.continuation = continuation
                 return result
             continuation = dict(next_continuation) if next_continuation else None
+        if list_key is not None and not result.items:
+            result.errors.append({"phase": "discover", "url": self.request_url({**params, **(start or {})}),
+                                  "message": f"{name}: the API listed no entry at all; an empty answer is not taken as "
+                                             "the complete enumeration of the wiki"})
+            result.continuation = dict(start) if start else {}
+            return result
         result.complete = True
         result.continuation = None
         return result
+
+
+def query_problem(data: Mapping[str, Any], list_key: str | None) -> str | None:
+    """Why a 200 JSON answer is not a usable page of the list ``list_key`` (None when it is, or when no key is
+    required): MediaWiki omits ``query`` for an empty generator, and a list query always names its list."""
+    if list_key is None:
+        return None
+    query = data.get("query")
+    if not isinstance(query, dict):
+        return "the answer carries no query object (an empty or failed listing)"
+    if not isinstance(query.get(list_key), list):
+        return f"the answer's query object has no {list_key} list"
+    return None
 
 
 # --- Concrete lists ---------------------------------------------------------------------------------------------------
@@ -178,22 +208,24 @@ def _merge_pages_lists(fields: Iterable[str]) -> Callable[[dict[str, Any], dict]
 
 def allimages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
     """Every file of the wiki with its current revision's metadata, keyed by ``File:`` title."""
-    return api.enumerate("allimages", ALLIMAGES_PARAMS, _merge_allimages, start=start)
+    return api.enumerate("allimages", ALLIMAGES_PARAMS, _merge_allimages, start=start, list_key="allimages")
 
 
 def file_usage(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
     """``prop=fileusage|categories`` for every file (generator=allimages), keyed by ``File:`` title."""
-    return api.enumerate("fileusage", FILE_USAGE_PARAMS, _merge_pages_lists(("fileusage", "categories")), start=start)
+    return api.enumerate("fileusage", FILE_USAGE_PARAMS, _merge_pages_lists(("fileusage", "categories")), start=start,
+                         list_key="pages")
 
 
 def file_pages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
     """Every file description page (generator=allimages) with its current wikitext and the pages linking to it."""
-    return api.enumerate("filepages", FILE_PAGES_PARAMS, _merge_pages_lists(("linkshere",)), start=start)
+    return api.enumerate("filepages", FILE_PAGES_PARAMS, _merge_pages_lists(("linkshere",)), start=start,
+                         list_key="pages")
 
 
 def content_pages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
     """Every non-redirect article (namespace 0) with its current wikitext, revision ID and categories."""
-    return api.enumerate("pages", PAGES_PARAMS, _merge_pages_lists(("categories",)), start=start)
+    return api.enumerate("pages", PAGES_PARAMS, _merge_pages_lists(("categories",)), start=start, list_key="pages")
 
 
 def gif_frames(api: MediaWikiAPI, titles: list[str]) -> ListResult:
@@ -202,7 +234,7 @@ def gif_frames(api: MediaWikiAPI, titles: list[str]) -> ListResult:
     for start in range(0, len(titles), TITLE_BATCH):
         batch = titles[start:start + TITLE_BATCH]
         params = {"action": "query", "prop": "imageinfo", "iiprop": "metadata", "titles": "|".join(batch)}
-        part = api.enumerate("gifmetadata", params, _merge_gif_metadata)
+        part = api.enumerate("gifmetadata", params, _merge_gif_metadata, list_key="pages")
         result.items.update(part.items)
         result.requests += part.requests
         result.errors.extend(part.errors)

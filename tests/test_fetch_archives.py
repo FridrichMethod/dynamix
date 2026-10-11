@@ -4,18 +4,21 @@ misleading extensions, press-release PDFs (archive tier), live 404s, primary-pos
 """
 
 import base64
+import io
 import json
 import hashlib
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
-from primary import model, runner  # noqa: E402
+from primary import cli, model, runner  # noqa: E402
 from primary.adapters import direct as direct_adapter, wayback  # noqa: E402
 from primary.testing import FIXED_NOW, MINIMAL_PDF, FakeNetwork, full_url, image_bytes  # noqa: E402
 
@@ -123,6 +126,38 @@ class WaybackTests(ArchivesTestCase):
         self.assertIsNone(cap["comparisons"]["bytes_match"])  # CDX length is the WARC record, not compared
         self.assertIn("WARC record length 1160031", cap["notes"])
         self.verify()
+
+    def test_an_empty_answer_after_listed_captures_keeps_the_list_open(self):
+        """A CDX query that listed captures before and now answers [] is an incomplete listing (07 §Integrity): the
+        archived captures keep their status and the snapshot is not complete. A query that never listed a capture
+        may stay empty and complete."""
+        self.run_family([self.seed(self.RULES)], FakeNetwork(self.routes()))
+        before = {a["id"]: a["upstream_status"] for a in self.manifest()["assets"]}
+        self.assertEqual(set(before.values()), {"current"})
+        empty_item = {"name": "never-archived", "url": "dynamix.c4-cat.com/none/", "match_type": "prefix"}
+        routes = {cdx_url(self.ITEM): {"json": []}, cdx_url(empty_item): {"json": []}}
+        self.run_family([self.seed(self.RULES, items=[self.ITEM, empty_item])], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")
+        self.assertFalse(snapshot["discovery_complete"])
+        self.assertEqual(snapshot["continuation"], {"official-img": "empty-answer", "never-archived": None})
+        self.assertTrue(any("listed no capture, although the previous snapshot holds 3 capture(s)" in e["message"]
+                            for e in snapshot["errors"]), snapshot["errors"])
+        self.assertEqual({a["id"]: a["upstream_status"] for a in self.manifest()["assets"]}, before)
+        self.assertFalse(any(runner.UNKNOWN_NOTE in (a.get("notes") or "") for a in self.manifest()["assets"]))
+        self.assertNotEqual(self.manifest()["sources"][0]["status"], "available")
+        self.verify()
+
+    def test_cdx_item_matching_follows_the_query(self):
+        prefix = {"url": "dynamix.c4-cat.com/img/", "match_type": "prefix"}
+        self.assertTrue(wayback.matches_item(prefix, "http://www.dynamix.c4-cat.com:80/IMG/cap1.png"))
+        self.assertFalse(wayback.matches_item(prefix, "http://dynamix.c4-cat.com/image/cap1.png"))
+        exact = {"url": "www.hkstp.org/media/a.pdf"}
+        self.assertTrue(wayback.matches_item(exact, "https://www.hkstp.org/media/a.pdf"))
+        self.assertFalse(wayback.matches_item(exact, "https://www.hkstp.org/media/a.pdf2"))
+        self.assertTrue(wayback.matches_item({"url": "c4-cat.com", "match_type": "domain"},
+                                             "http://dl.dnx.c4-cat.com/x.png"))
+        self.assertFalse(wayback.matches_item({"url": "c4-cat.com", "match_type": "host"},
+                                              "http://dl.dnx.c4-cat.com/x.png"))
 
     def test_a_capture_served_from_another_timestamp_or_with_other_bytes_is_held(self):
         routes = self.routes()
@@ -735,7 +770,7 @@ class PrimaryEvidenceTests(ArchivesTestCase):
         snapshot = manifest.load_json(path)
         for change in ({"disposition": "excluded", "game": "not_dynamix",
                         "reason": "rejected_submission: unused image for Dynamix Submission 2019"},
-                       {"disposition": "pending", "game": "unknown", "reason": "pending: artwork owner 1 is not ..."}):
+                       {"disposition": "pending", "game": "unknown", "reason": "unresolved_game: artwork owner 1 is not ..."}):
             snapshot["candidates"][0].update(change)
             manifest.write_json_atomic(path, snapshot)
             problems = self.problems()
@@ -1171,6 +1206,198 @@ class VerifySnapshotTests(ArchivesTestCase):
         self.assertTrue(any(e.startswith("data/discovery/wayback.json: not a discovery snapshot") for e in errors))
         self.assertTrue(any(w.startswith("data/discovery/stray.json: not a discovery snapshot") for w in warnings))
         self.assertFalse(any("song-index" in line for line in errors + warnings))
+
+
+class FamilyConsistencyTests(ArchivesTestCase):
+    """--verify within a primary family: one file, one kind, and song IDs that the reconciled song index gives."""
+
+    @staticmethod
+    def source(source_id, host, rule):
+        return {"id": source_id, "name": source_id, "url": f"https://{host}/", "platform": "web",
+                "adapter": "direct_files", "hosts": [host], "quality": QUALITY,
+                "items": [{"key": "k1", "page_url": f"https://{host}/a", "file_url": f"https://{host}/1.png"}],
+                "rules": [{"match": "^k1$", **rule}]}
+
+    def network(self):
+        png = image_bytes("PNG")
+        return FakeNetwork({f"https://{host}/1.png": {"bytes": png, "content_type": "image/png"}
+                            for host in ("a.example.org", "b.example.org")})
+
+    def test_one_sha256_with_two_kinds_fails_verify(self):
+        seeds = [self.source("archives:press", "a.example.org", {"role": "promotional"}),
+                 self.source("archives:mag", "b.example.org", {"role": "reference"})]
+        self.run_family(seeds, self.network())
+        errors, _warnings, _ = runner.verify_family(self.root, "archives")
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("records of the same bytes have different kinds (promotional: archives:press:", errors[0])
+        self.assertIn("reference: archives:mag:", errors[0])
+
+    def test_song_ids_come_from_the_song_index(self):
+        index = {"schema_version": 1, "generated_from": [], "as_of": "2026-10-10", "disagreements": [], "songs": [
+            {"id": song_id, "title": title, "aliases": [], "composers": [], "illustrators": [], "collections": [],
+             "in_original_game": True, "inclusion_evidence": ["test"], "universe_also": False, "removed": False,
+             "evidence": [], "artwork_asset_ids": []}
+            for song_id, title in (("song:hope", "HOPE"), ("song:hope-2", "Hope!!"))]}
+        manifest.write_json_atomic(self.root / "data/sources/song-index.json", index)
+        rule = {"role": "song_art", "song_titles": ["Hope!!"], "mapping_status": "inferred"}
+        self.run_family([self.source("archives:press", "a.example.org", rule)], self.network())
+        asset = self.manifest()["assets"][0]
+        self.assertEqual((asset["song_titles"], asset["song_ids"]), (["Hope!!"], ["song:hope-2"]))  # not song:hope
+        self.verify()
+        data = self.manifest()
+        data["assets"][0]["song_ids"] = ["song:hope"]  # the title-derived base ID names the other song
+        manifest.write_json_atomic(self.root / "data/sources/archives.json", data)
+        errors, _warnings, _ = runner.verify_family(self.root, "archives")
+        self.assertTrue(any("'song:hope' is the song 'HOPE'" in error for error in errors), errors)
+
+    def test_a_credit_cited_from_a_wiki_song_page_gets_the_wiki_field_and_quote(self):
+        """A credit the fetched text does not state, cited from a wiki song page (credit_source), takes the
+        Template:Song field and quote that the wikis family records for that page, role and name."""
+        page = "https://dynamix.miraheze.org/wiki/Hope!!"
+        lookup = {(page, "illustrator", "HAT"): ("Template:Song|Cover Artist", "HAT")}
+        meta = {"credit_evidence": [{"role": "illustrator", "name": "HAT", "url": page.replace("!!", "%21%21"),
+                                     "field": None, "quote": None},
+                                    {"role": "composer", "name": "Takahiro Aoki", "url": page, "field": None,
+                                     "quote": None},
+                                    {"role": "illustrator", "name": "HAT", "url": "https://a.example.org/post",
+                                     "field": "caption", "quote": "illust: HAT"}]}
+        runner.fill_cited_credits(meta, lookup)
+        self.assertEqual([(entry["field"], entry["quote"]) for entry in meta["credit_evidence"]],
+                         [("Template:Song|Cover Artist", "HAT"), (None, None), ("caption", "illust: HAT")])
+        with mock.patch.object(runner.manifest, "load_manifest", return_value={"assets": [
+                {"credit_evidence": [{"role": "illustrator", "name": "HAT", "url": page,
+                                      "field": "Template:Song|Cover Artist", "quote": "HAT"}]},
+                {"credit_evidence": [{"role": "composer", "name": "X", "url": page, "field": "Template:Song|Artist",
+                                      "quote": "X"},
+                                     {"role": "composer", "name": "X", "url": page,
+                                      "field": "Template:Song|Compound Artist Link", "quote": "[[X]]"}]}]}):
+            self.assertEqual(runner.wiki_credit_fields(self.root),
+                             {(page, "illustrator", "HAT"): ("Template:Song|Cover Artist", "HAT")})  # X: ambiguous
+
+    def test_a_run_fills_a_cited_credit_from_the_wikis_manifest(self):
+        """The acquisition itself (not only the helper) gives a credit cited from a wiki song page the field and quote
+        of the wikis manifest's Template:Song credit; a credit the wikis family does not record stays quote-less."""
+        page = "https://dynamix.miraheze.org/wiki/Hope!!"
+        wikis = manifest.load_json(ROOT / "tests/fixtures/contract/data/sources/wikis.json")
+        wikis["assets"][0]["credit_evidence"] = [{"role": "illustrator", "name": "HAT", "url": page,
+                                                  "field": "Template:Song|Cover Artist", "quote": "HAT"}]
+        manifest.write_json_atomic(self.root / "data/sources/wikis.json", wikis)
+        rule = {"role": "song_art", "song_titles": ["Hope!!"], "mapping_status": "inferred",
+                "illustrators": ["HAT"], "composers": ["Takahiro Aoki"],
+                "credit_source": {"url": page, "note": "the wiki song page, Template:Song"}}
+        self.run_family([self.source("archives:press", "a.example.org", rule)], self.network())
+        asset = self.manifest()["assets"][0]
+        self.assertEqual(asset["credit_evidence"], [
+            {"role": "illustrator", "name": "HAT", "url": page, "field": "Template:Song|Cover Artist", "quote": "HAT"},
+            {"role": "composer", "name": "Takahiro Aoki", "url": page, "field": None, "quote": None}])
+        self.verify()
+
+
+class GuardedSpacingTests(unittest.TestCase):
+    """GuardedClient spaces requests per host across the per-source clients of a run (frozen >= 1.0 s default),
+    including a host that answered only after a redirect."""
+
+    def test_waits_are_kept_across_sources_and_redirect_hosts(self):
+        clock, sleeps = [100.0], []
+
+        def sleep(seconds):
+            sleeps.append(round(seconds, 3))
+            clock[0] += seconds
+
+        class Inner:
+            def get_text(self, url, **_):
+                clock[0] += 0.25
+                return "", url, {}
+
+            def download(self, url, dest, stem, **_):
+                clock[0] += 0.25
+                return net.DownloadResult(Path("unused.part"), "http://b.example/target", 200, "image/png", 1, "0" * 64,
+                                          "0" * 40, {})
+
+        shared = {"blocked_hosts": {}, "last_used": {}, "min_interval": 1.0, "sleep": sleep, "clock": lambda: clock[0]}
+        source_a = runner.GuardedClient(Inner(), **shared)
+        source_b = runner.GuardedClient(Inner(), **shared)
+        source_a.get_text("http://a.example/1")
+        source_a.get_text("http://a.example/2")  # same host: waits
+        self.assertEqual(sleeps, [1.0])
+        source_a.download("http://a.example/redirect", None, "x")  # a.example again, answered by b.example
+        self.assertEqual(sleeps, [1.0, 1.0])
+        source_b.get_text("http://b.example/other")  # another source, the redirect target: waits too
+        self.assertEqual(sleeps, [1.0, 1.0, 1.0])
+        source_b.get_text("http://c.example/fresh")  # an untouched host: no wait
+        self.assertEqual(sleeps, [1.0, 1.0, 1.0])
+
+    def test_default_clients_of_a_run_share_one_schedule(self):
+        with tempfile.TemporaryDirectory() as temp:
+            acquisition = runner.Runner(temp, "archives", [])
+        first = acquisition.client_factory(["a.example"], 1.0)
+        second = acquisition.client_factory(["a.example"], 1.0)
+        self.assertIs(first._schedule, acquisition.host_schedule)
+        self.assertIs(second._schedule, acquisition.host_schedule)
+        first.close()
+        second.close()
+
+
+class CliExitTests(ArchivesTestCase):
+    """The shared primary CLI (fetch_artists/official/archives.py): exit status and the family lock."""
+
+    def write_seeds(self):
+        path = self.root / "seeds.json"
+        path.write_text(json.dumps({"family": "archives", "sources": [{
+            "id": "archives:press", "name": "Press", "url": "https://news.example.org/", "platform": "web",
+            "adapter": "direct_files", "hosts": ["news.example.org", "img.example.org"], "quality": QUALITY,
+            "items": [{"key": "k1", "page_url": "https://news.example.org/a", "file_url": "https://img.example.org/1.png"},
+                      {"key": "k2", "page_url": "https://news.example.org/a",
+                       "file_url": "https://img.example.org/2.png"}],
+            "rules": [{"match": "^k[12]$", "role": "promotional"}]}]}), encoding="utf-8")
+        return path
+
+    def main(self, routes, *extra):
+        network = FakeNetwork(routes)
+        err = io.StringIO()
+        with mock.patch.object(net, "PoliteClient", lambda hosts, **kw: network.factory(hosts, kw.get("min_interval",
+                                                                                                         1.0))), \
+                redirect_stdout(io.StringIO()), redirect_stderr(err):
+            code = cli.main("archives", ["--root", str(self.root), "--seeds", str(self.write_seeds()), *extra])
+        return code, err.getvalue()
+
+    def routes(self, error=None):
+        ok = {"bytes": image_bytes("PNG"), "content_type": "image/png"}
+        return {"https://img.example.org/1.png": {"error": error} if error else ok,
+                "https://img.example.org/2.png": {"bytes": image_bytes("PNG", (9, 9)), "content_type": "image/png"}}
+
+    def test_failed_or_blocked_candidates_exit_one(self):
+        url = "https://img.example.org/1.png"
+        for error, disposition in ((net.HttpError("HTTP 500", url=url, http_status=500, retriable=True), "failed"),
+                                   (net.TimeoutFetchError("timed out", url=url), "failed"),
+                                   (net.BlockedError("access refused (HTTP 403)", url=url, http_status=403), "blocked")):
+            with self.subTest(error=type(error).__name__):
+                code, err = self.main(self.routes(error))
+                self.assertEqual(code, 1, err)
+                self.assertEqual(self.candidates("archives:press")["k1"]["disposition"], disposition)
+                self.assertIn(f"archives:press left 1 {disposition}", err)
+        code, err = self.main(self.routes())
+        self.assertEqual(code, 0, err)
+        self.assertEqual({c["disposition"] for c in self.candidates("archives:press").values()}, {"downloaded"})
+
+    def test_explicit_lock_does_not_replace_the_family_lock(self):
+        held = cli.acquire_lock(cli.default_lock_path(self.root, "archives"))
+        try:
+            code, err = self.main(self.routes(), "--lock", str(self.root / "other.lock"))
+            self.assertEqual(code, 3)
+            self.assertIn("another acquisition holds the lock", err)
+            self.assertFalse((self.root / "data/sources/archives.json").exists())
+        finally:
+            held.close()
+        other = cli.acquire_lock(self.root / "other.lock")  # the additional lock was released (or never taken)
+        self.assertIsNotNone(other)
+        try:
+            code, err = self.main(self.routes(), "--lock", str(self.root / "other.lock"))
+            self.assertEqual(code, 3)  # the additional lock is honoured too
+        finally:
+            other.close()
+        code, err = self.main(self.routes(), "--lock", str(self.root / "other.lock"))
+        self.assertEqual(code, 0, err)
 
 
 if __name__ == "__main__":

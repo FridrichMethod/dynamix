@@ -962,12 +962,10 @@
           ],
           "mapping_status": "confirmed_primary",
           "illustrators": [
-            "Keiyuu",
-            "RED-FOX"
+            "Keiyuu & RED-FOX"
           ],
           "composers": [
-            "Linne",
-            "SCTL"
+            "Linne X SCTL"
           ],
           "evidence_quotes": [
             "Dynamix",
@@ -1034,8 +1032,7 @@
           ],
           "mapping_status": "inferred",
           "illustrators": [
-            "DCWH",
-            "MimiChair"
+            "DCWH & MimiChair"
           ],
           "composers": [
             "Jehezukiel"
@@ -1121,7 +1118,7 @@
         {
           "match": "^you\\-were\\-with\\-a\\-boy$",
           "action": "pending",
-          "reason": "pending: label single cover (HPTG#033) sharing the jacket's photo collage in a different composition with logos; needs review",
+          "reason": "unresolved_role: label single cover (HPTG#033) sharing the jacket's photo collage in a different composition with logos; needs review",
           "role": "song_art",
           "song_titles": [
             "You Were With A Boy"
@@ -2567,7 +2564,7 @@
         {
           "match": "^hauynite$",
           "action": "pending",
-          "reason": "pending: single cover that shows the in-game jacket's shattered-glass artwork cropped to a vertical layout and framed with typography and a QR code; a different composition of shared imagery, needs review",
+          "reason": "unresolved_role: single cover that shows the in-game jacket's shattered-glass artwork cropped to a vertical layout and framed with typography and a QR code; a different composition of shared imagery, needs review",
           "role": "song_art",
           "song_titles": [
             "Hauynite"
@@ -2619,8 +2616,7 @@
             "TangJuan"
           ],
           "composers": [
-            "TangJuan",
-            "Black Box"
+            "TangJuan and Black Box"
           ],
           "evidence_quotes": [
             "Illustration by TangJuan"
@@ -3584,7 +3580,7 @@
           ],
           "candidate_notes": "Wiki Encore trivia: cover character Moru (cites this post).",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         },
@@ -3596,7 +3592,7 @@
           ],
           "candidate_notes": "New-year group illustration of Dynamix jacket characters.",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         },
@@ -3608,7 +3604,7 @@
           ],
           "candidate_notes": "Halloween illustration; LionCubs (Lionhearted) per the post text.",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         },
@@ -3620,7 +3616,7 @@
           ],
           "candidate_notes": "Halloween zombie Renko (Rocket Lanterns character per wiki trivia).",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         },
@@ -3632,7 +3628,7 @@
           ],
           "candidate_notes": "Summer Alice (Frontline B-Side character per wiki trivia); a lossless PNG twin is on the artist's Wix portfolio.",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         }
@@ -4581,7 +4577,7 @@
         {
           "match": "^6baqbW:",
           "action": "pending",
-          "reason": "pending: per-asset classification needed (the project mixes RAVON and Dynamix compositions)",
+          "reason": "unresolved_game: per-asset classification needed (the project mixes RAVON and Dynamix compositions)",
           "role": "song_art",
           "song_titles": [
             "MassacrE || 3rc4224M"
@@ -4647,7 +4643,7 @@
           ],
           "candidate_notes": "Image text 'DYNAMIX ALICE SUMMER VER 2018' (Alice: Frontline B-Side character per wiki trivia); lossless twin of X post 1001435080936472576.",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         },
@@ -4659,7 +4655,7 @@
           ],
           "candidate_notes": "Signed 'RENKO & TSUKIYO 2018-6-1 BH!' (Rocket Lanterns / 月奏リバイバル characters per wiki trivia).",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         },
@@ -4671,14 +4667,14 @@
           ],
           "candidate_notes": "Written 'ANGLE x ANGLE BH! 2018-5-23' (Angel x Angel jacket characters).",
           "action": "pending",
-          "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+          "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
           "withdraw_archived": true,
           "game": "dynamix"
         },
         {
           "match": "^5a0163_459a3dbbd87f46d58630ec52f0d06601$",
           "action": "pending",
-          "reason": "pending: unidentified character; only the upload name 'Dynamix.png' links it to the game",
+          "reason": "unresolved_game: unidentified character; only the upload name 'Dynamix.png' links it to the game",
           "role": "character"
         }
       ]
@@ -4832,7 +4828,7 @@
           "page_url": "https://www.behance.net/tobysatria",
           "title": "Behance Toby Satria Yudha",
           "disposition": "pending",
-          "reason": "unresolved: name-only match to the LIXION jacket's credited designer; pages not read (search snippets only)"
+          "reason": "unresolved_role: name-only match to the LIXION jacket's credited designer; pages not read (search snippets only)"
         },
         {
           "key": "x:orihi_",
@@ -4904,7 +4900,7 @@
           "page_url": "https://linkco.re/pPnEBvf5",
           "title": "恋スル:Rabi-Love single (TuneCore)",
           "disposition": "pending",
-          "reason": "pending: 400px presigned store rendition of the titled cover; credit conflict (Hotta Ryo vs 48OKU) needs review",
+          "reason": "unresolved_role: 400px presigned store rendition of the titled cover; credit conflict (Hotta Ryo vs 48OKU) needs review",
           "song_titles": [
             "恋スル:Rabi-Love"
           ]
@@ -5029,7 +5025,7 @@
           "page_url": "https://skima.jp/profile?id=296360",
           "title": "Skima Youki",
           "disposition": "pending",
-          "reason": "pending: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
+          "reason": "unresolved_role: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
           "observed": "2026-10-10: HTTP 503 with the page 'SKIMAは現在メンテナンス中です' (an infrastructure outage), so the profile was not read"
         },
         {
@@ -5072,7 +5068,7 @@
           "page_url": "https://velecti.com/work/historica-of-faraway",
           "title": "VelecTi 悠遠のヒストリカ",
           "disposition": "pending",
-          "reason": "pending: 300x300 circle-site thumbnail; identity with the game jacket not verified; illustrator credit conflicts with the wiki (veilrain vs mat)",
+          "reason": "unresolved_role: 300x300 circle-site thumbnail; identity with the game jacket not verified; illustrator credit conflicts with the wiki (veilrain vs mat)",
           "file_url": "https://velecti.com/assets/original/1805_historica-1.jpg"
         },
         {
@@ -5080,7 +5076,7 @@
           "page_url": "https://velecti.com/work/dream-starter",
           "title": "VelecTi Dream Starter / Meteor Hope",
           "disposition": "pending",
-          "reason": "pending: 300x300 circle-site thumbnails; identity with the game jackets not verified",
+          "reason": "unresolved_role: 300x300 circle-site thumbnails; identity with the game jackets not verified",
           "file_url": "https://velecti.com/assets/original/1806a_dream.jpg"
         },
         {
@@ -5132,21 +5128,21 @@
           "page_url": "https://linkaryze.bandcamp.com/album/linked-emotions",
           "title": "LiNKARYZE Linked Emotions album",
           "disposition": "pending",
-          "reason": "pending: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
+          "reason": "unresolved_role: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
         },
         {
           "key": "wayback:soundcloud.com/mmry",
           "page_url": "https://web.archive.org/web/20190806071613/https://soundcloud.com/mmry",
           "title": "Wayback MMRY SoundCloud profile (Aegis sketch lead)",
           "disposition": "pending",
-          "reason": "pending: the deleted Aegis 'sketch version' upload was not located in captures"
+          "reason": "unresolved_role: the deleted Aegis 'sketch version' upload was not located in captures"
         },
         {
           "key": "soundcloud:ingolk:xetta-piano",
           "page_url": "https://soundcloud.com/soundperemotion/xetta",
           "title": "Ingolk Xetta Piano Ver. cover",
           "disposition": "pending",
-          "reason": "pending: grayscale variant cover named by research; its track URL was not recorded",
+          "reason": "awaiting_download: grayscale variant cover named by research; its track URL was not recorded",
           "file_url": "https://i1.sndcdn.com/artworks-000330727488-0bk0dp-original.jpg"
         },
         {
@@ -5161,14 +5157,14 @@
           "page_url": "https://dorakura.bandcamp.com/album/deadline",
           "title": "Dragon_Klub DeaDLiNE",
           "disposition": "pending",
-          "reason": "pending: composer album cover; not shown to be the game jacket (03-source-research §2)"
+          "reason": "unresolved_role: composer album cover; not shown to be the game jacket (03-source-research §2)"
         },
         {
           "key": "bandcamp:drive-5:creigis",
           "page_url": "https://drive-5.bandcamp.com/track/creigis-long-ver",
           "title": "OVERDRIVE. Creigis",
           "disposition": "pending",
-          "reason": "pending: composer release cover; not shown to be the game jacket (03-source-research §2)"
+          "reason": "unresolved_role: composer release cover; not shown to be the game jacket (03-source-research §2)"
         },
         {
           "key": "foriio:rekumczk",
@@ -5196,7 +5192,7 @@
           "page_url": "https://soundcloud.com/synthtonixmusic/supernova-dynamix-open-submission-2023",
           "title": "Synthtonix Supernova",
           "disposition": "pending",
-          "reason": "pending: successful-inclusion lead from 03-source-research §2; image not yet compared with the jacket"
+          "reason": "unresolved_role: successful-inclusion lead from 03-source-research §2; image not yet compared with the jacket"
         },
         {
           "key": "instagram:maymiyuriae12",
@@ -5225,7 +5221,7 @@
           "page_url": "https://x.com/KeshiksExt",
           "title": "X @KeshiksExt (ケシksくん)",
           "disposition": "pending",
-          "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "reason": "unresolved_role: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
           "song_titles": [
             "The Clockwork Doll",
             "soar to Ø",
@@ -5240,7 +5236,7 @@
           "page_url": "https://x.com/LESYEF103",
           "title": "X @LESYEF103 (LESYEF)",
           "disposition": "pending",
-          "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "reason": "unresolved_role: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
           "song_titles": [
             "Totally bounded",
             "Beyond the Rainbow"
@@ -5254,7 +5250,7 @@
           "page_url": "https://x.com/gfcv0709",
           "title": "X @gfcv0709 (Irelriser)",
           "disposition": "pending",
-          "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+          "reason": "unresolved_role: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
           "song_titles": [
             "Daydream",
             "Own The Night",
@@ -5313,7 +5309,7 @@
           "song_titles": [
             "Aegis"
           ],
-          "reason": "unresolved: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)"
+          "reason": "unresolved_role: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)"
         },
         {
           "key": "wix:stellights",
@@ -5328,7 +5324,7 @@
           "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/RabiRibiGame&from=2016&to=2017",
           "title": "Rabi-Ribi official X captures (Feb 2017 collaboration)",
           "disposition": "pending",
-          "reason": "unresolved: no archived Rabi-Ribi post from the February 2017 collaboration window"
+          "reason": "unresolved_role: no archived Rabi-Ribi post from the February 2017 collaboration window"
         },
         {
           "key": "pixiv:users:1038265",
@@ -5975,7 +5971,7 @@
           "song_titles": [
             "You Were With A Boy"
           ],
-          "reason": "pending: label single cover (HPTG#033) sharing the jacket's photo collage in a different square composition with logo and title; the jacket is a textless 16:9 recomposition; needs review"
+          "reason": "unresolved_role: label single cover (HPTG#033) sharing the jacket's photo collage in a different square composition with logo and title; the jacket is a textless 16:9 recomposition; needs review"
         },
         {
           "match": "^album/pettifog-ep$",

@@ -4,6 +4,9 @@ Archived media, previews, license texts, vendored code and test fixtures are pin
 are compared byte-for-byte by ``--check``. With ``core.autocrlf=true`` (the Git for Windows default) or ``core.eol=crlf``
 Git rewrites LF as CRLF in files it treats as text, so ``.gitattributes`` must exempt pinned files (``-text``/``binary``)
 and pin generated text to ``eol=lf``. These tests ask Git itself, for representative paths and for every tracked file.
+
+The CRLF-checkout test and its Git helpers are adapted from FridrichMethod/deemo tests/test_line_endings.py
+(Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8).
 """
 
 import shutil

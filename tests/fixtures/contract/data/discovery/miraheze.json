@@ -194,7 +194,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "classification pending manual review"
+      "reason": "unresolved_role: classification pending manual review"
     },
     {
       "id": "wikis:miraheze:File:交差して歪む過去と未来.jpg",

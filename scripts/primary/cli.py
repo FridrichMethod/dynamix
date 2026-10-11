@@ -1,4 +1,10 @@
-"""Command line shared by ``fetch_artists.py``, ``fetch_official.py`` and ``fetch_archives.py`` (09 §CLI contract)."""
+"""Command line shared by ``fetch_artists.py``, ``fetch_official.py`` and ``fetch_archives.py`` (09 §CLI contract).
+
+Every acquisition holds the family lock on ``<root>/assets/public/<family>`` (``--lock`` adds a second lock, it never
+replaces this one), so two writers of the same manifest cannot run at once. Exit status: 0 done; 1 ``--verify`` errors,
+a source that stopped on an unexpected error, or candidates left ``failed`` or ``blocked`` (incomplete acquisition, as
+``fetch_wikis.py`` reports failed/blocked downloads); 2 invalid option combination; 3 a lock is held; 130 interrupted.
+"""
 
 from __future__ import annotations
 
@@ -33,9 +39,9 @@ def build_parser(family: str) -> argparse.ArgumentParser:
     parser.add_argument("--source", action="append", default=[], metavar="ID",
                         help="only this source ID (repeatable); other sources' records are left as they are")
     parser.add_argument("--lock", type=Path, default=None,
-                        help="exclusive lock file or directory (default: the family's asset directory under the "
-                             "root, independent of TMPDIR); a second acquisition of the same family exits instead of "
-                             "writing the same manifest")
+                        help="an additional exclusive lock file or directory; the family lock on its asset "
+                             "directory under the root (independent of TMPDIR) is always held, so a second "
+                             "acquisition of the same family exits instead of writing the same manifest")
     parser.add_argument("-v", "--verbose", action="store_true", help="log every request decision")
     return parser
 
@@ -138,13 +144,19 @@ def main(family: str, argv: Sequence[str] | None = None) -> int:
         return verify(root, family, registry_ids(args.seeds, root, family))
     seeds_path = args.seeds or runner.SEEDS_DIR / f"{family}.json"
     seeds = runner.load_seeds(seeds_path, family)
-    lock_path = (args.lock or default_lock_path(root, family)).resolve()
-    lock = acquire_lock(lock_path)
-    if lock is None:
-        print(f"fetch_{family}.py: another acquisition holds the lock on {lock_path} (pid {lock_holder(lock_path)}); "
-              "not starting a second writer of the same manifest", file=sys.stderr)
-        return 3
+    lock_paths = [default_lock_path(root, family).resolve()]  # always: the root-anchored family lock
+    if args.lock is not None and args.lock.resolve() not in lock_paths:
+        lock_paths.append(args.lock.resolve())
+    locks = []
     try:
+        for lock_path in lock_paths:
+            lock = acquire_lock(lock_path)
+            if lock is None:
+                print(f"fetch_{family}.py: another acquisition holds the lock on {lock_path} "
+                      f"(pid {lock_holder(lock_path)}); not starting a second writer of the same manifest",
+                      file=sys.stderr)
+                return 3
+            locks.append(lock)
         acquisition = runner.Runner(root, family, seeds, metadata_only=args.metadata_only, resume=args.resume)
         try:
             counts = acquisition.run(args.source)
@@ -152,11 +164,26 @@ def main(family: str, argv: Sequence[str] | None = None) -> int:
             print("interrupted: completed candidates are saved; rerun with --resume", file=sys.stderr)
             return 130
     finally:
-        lock.close()
+        for lock in reversed(locks):
+            lock.close()
     print(f"fetch {family}: {acquisition.downloads} download(s)")
     print_counts(counts)
     code = verify(root, family, [seed["id"] for seed in seeds])
     for source_id, problem in sorted(acquisition.source_errors.items()):
         print(f"fetch_{family}.py: {source_id} stopped early ({problem}); recorded in its snapshot",
               file=sys.stderr)
-    return code or (1 if acquisition.source_errors else 0)
+    unfinished = unfinished_counts(counts)
+    for source_id, left in sorted(unfinished.items()):
+        print(f"fetch_{family}.py: {source_id} left " + ", ".join(f"{count} {name}" for name, count in left.items())
+              + " candidate(s); acquisition incomplete", file=sys.stderr)
+    return code or (1 if acquisition.source_errors or unfinished else 0)
+
+
+def unfinished_counts(counts: dict[str, dict[str, int]]) -> dict[str, dict[str, int]]:
+    """Per source, the candidates a run leaves ``failed`` or ``blocked`` (only sources that have any)."""
+    result = {}
+    for source_id, values in counts.items():
+        left = {name: values[name] for name in ("failed", "blocked") if values.get(name)}
+        if left:
+            result[source_id] = left
+    return result

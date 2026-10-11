@@ -44,7 +44,7 @@ CDX = "https://web.archive.org/cdx/search/cdx"
 CDX_FIELDS = "timestamp,original,mimetype,statuscode,digest,length"
 _ORIGINAL = re.compile(r"^https://i\.pximg\.net/img-original/img/[0-9/]+/(\d+)_p(\d+)\.(png|jpg|jpeg|gif)$")
 _TAGS = re.compile(r"<[^>]+>")
-NO_FILE = "pending: no downloadable file URL was found for this item"
+NO_FILE = model.NO_FILE_REASON
 WAYBACK_LIST = "wayback-captures"
 WAYBACK_QUALITY = ("pixiv original upload (i.pximg.net img-original) as archived by the Internet Archive (raw id_ "
                    "capture); bytes as pixiv served them at capture time. No request was sent to i.pximg.net.")
@@ -139,8 +139,8 @@ def wayback_page(ctx: Any, discovery: model.Discovery, capture: Mapping[str, Any
     """(file URL, hold reason, CDX row) for a page archived by the Internet Archive."""
     original = capture["original"]
     if listed_url and listed_url != original:
-        return None, (f"pending: pixiv now lists {listed_url} for this page, not the archived original {original} "
-                      "(re-upload?); the capture needs review"), None
+        return None, (f"unresolved_role: pixiv now lists {listed_url} for this page, not the archived original "
+                      f"{original} (re-upload?); the capture needs review"), None
     try:
         row = cdx_capture(ctx, capture)
     except (net.FetchError, ValueError) as error:
@@ -151,7 +151,7 @@ def wayback_page(ctx: Any, discovery: model.Discovery, capture: Mapping[str, Any
         base.mark_unread(discovery, WAYBACK_LIST, error)
         return capture_url(capture), None, None
     if row is None:
-        return None, (f"pending: the Wayback CDX API lists no HTTP 200 capture of {original} at "
+        return None, (f"unresolved_role: the Wayback CDX API lists no HTTP 200 capture of {original} at "
                       f"{capture['timestamp']}"), None
     return capture_url(capture), None, row
 
@@ -193,7 +193,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             key = f"{illust}:p{page['index']}"
             rule = model.find_rule(base.rules(seed), key)
             if not owner_ok:
-                rule = model.hold(rule, f"pending: artwork owner {info.get('userId')} is not this source's "
+                rule = model.hold(rule, f"unresolved_game: artwork owner {info.get('userId')} is not this source's "
                                         f"account {user_id}")
             capture = captures.get(page["index"])
             file_url, row = page["url"], None

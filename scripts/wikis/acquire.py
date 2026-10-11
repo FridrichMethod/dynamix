@@ -38,6 +38,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Mapping
+from urllib.parse import urlsplit
 
 from lib import manifest, media, net, paths, schema
 
@@ -59,8 +60,34 @@ ANIMATED_NOTE = ("archived by an earlier --include-animated run and kept: the an
 WITHDRAWAL_PENDING_NOTE = ("a reviewed withdrawal covers this archived file; a metadata-only run keeps the file, "
                            "record and classification, and the next acquiring run carries the withdrawal out")
 NO_URL_MESSAGE = "the wiki API reported no usable file URL for this file; no request was sent"
+HOST_REFUSED_REASON = ("download not attempted: host {host} refused an earlier request in this run ({cause}); a host "
+                       "that answers 401/403 or a bot challenge is not contacted again in the same run")
 CLASSIFICATION_FIELDS = ("role", "game", "game_evidence", "song_titles", "illustrators", "composers", "collections",
                          "notes")
+
+
+class UnsafeAssetDir(UnsafeWorkDir):
+    """A wiki asset directory (``assets/public/wikis/<slug>``) is not a safe destination (a symlinked component, or
+    a path that leaves the root): nothing is downloaded into it (exit 3, like an unsafe work directory)."""
+
+
+def url_host(url: str) -> str:
+    """Lower-case host of ``url`` ('' when it has none or cannot be parsed)."""
+    try:
+        return (urlsplit(url).hostname or "").lower()
+    except ValueError:
+        return ""
+
+
+def asset_dir(root: Path, source: config.WikiSource) -> Path:
+    """``<root>/assets/public/wikis/<slug>`` after :func:`lib.paths.safe_path` (no symlinked component, inside the
+    root); :class:`UnsafeAssetDir` otherwise. Checked before every download, so a temp file is never written through a
+    planted link."""
+    rel = f"{paths.ASSET_ROOT}/{FAMILY}/{paths.source_slug(source.source_id)}"
+    try:
+        return paths.safe_path(root, rel, under=f"{paths.ASSET_ROOT}/{FAMILY}")
+    except ValueError as error:
+        raise UnsafeAssetDir(f"{rel}: {error}; nothing is downloaded into it") from None
 
 
 class ReclassifiedError(RuntimeError):
@@ -600,8 +627,14 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
     if plan.credit_evidence:
         fields["credit_evidence"] = [dict(item) for item in plan.credit_evidence]
     associations = [name for name in plan.decision.associations if name != schema.GAME]
+    partners: list[str] = []
     if plan.decision.game == "mixed":
         fields["game_associations"] = [schema.GAME] + (associations or ["unknown_other"])
+        # Art also tied to another game (not the sequel): the C4Cat default holder is not applied without a source that
+        # names the holder (the rule the artists, official and archives families follow).
+        partners = [name for name in fields["game_associations"] if name not in (schema.GAME, "dynamix_universe")]
+        if partners:
+            fields["rights"]["holder"] = None
     notes = []
     mismatched = [name for name in ("sha1", "bytes") if comparisons[f"{name}_match"] is False]
     if mismatched and not transformed:
@@ -620,6 +653,9 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
     if plan.decision.game == "mixed":
         notes.append("Shared artwork: this file is also associated with " + (", ".join(associations) or
                                                                              "another game") + " (see game evidence).")
+    if partners:
+        notes.append("Rights holder not recorded: the art is also associated with " + ", ".join(partners)
+                     + " and no cited source names its holder, so the C4Cat default is not applied.")
     notes.extend(plan.decision.rule_notes)
     if plan.description:
         description = plan.description.replace(HISTORY_MARK.strip(), "Upstream history -")
@@ -729,7 +765,12 @@ class Acquirer:
 
     Thread-safe for one worker per source (different hosts may download concurrently): ``lock`` guards the journal and
     every read or write of the shared ``state``; network transfers and file decoding run outside it. Each source writes
-    only its own asset directory, records and candidates, so workers never contend for the same file."""
+    only its own asset directory, records and candidates, so workers never contend for the same file.
+
+    A host that answers 401/403 or a bot challenge (:class:`lib.net.BlockedError`) is not contacted again in the run
+    (07 §Network: a reported block, not a retry storm): ``blocked_hosts`` remembers it, and every later candidate on it
+    is recorded ``blocked`` without a request and without a Failure record (no attempt was made), so the next run
+    tries it again while the refusing file keeps its own Failure record."""
 
     def __init__(self, root: Path, state: State, journal: Journal, client: Any, *,
                  now: Callable[[], str] = manifest.now_utc, log: Callable[[str], None] = print,
@@ -738,6 +779,7 @@ class Acquirer:
         self.now, self.log = now, log
         self.lock = lock if lock is not None else threading.RLock()
         self.repair_failures: list[str] = []  # archived files that could not be re-downloaded (record kept)
+        self.blocked_hosts: dict[str, str] = {}  # host -> cause of its refusal (no further request this run)
 
     def record(self, event: dict) -> None:
         with self.lock:
@@ -775,9 +817,41 @@ class Acquirer:
                                             for f in self.state.failures.values())
         return False
 
+    def refused_host(self, plan: discover.Plan) -> Outcome | None:
+        """The outcome of a candidate whose file host refused an earlier request in this run (recorded without a
+        request), or None when its host may be contacted. Called before a download is counted as an attempt."""
+        file_url = plan.candidate.get("file_url")
+        if not file_url:
+            return None
+        host = url_host(discover.download_url(plan.source, file_url))
+        with self.lock:
+            cause = self.blocked_hosts.get(host)
+            if cause is None:
+                return None
+            archived = self.state.current_asset(plan.candidate_id)
+        reason = HOST_REFUSED_REASON.format(host=host, cause=cause)
+        if archived is not None:  # a damaged archived file: the record stays, the problem is reported (exit 1)
+            return self._repair_failed(plan, reason)
+        with self.lock:  # no attempt was made: the source's checked_at (last access attempt) stays
+            self.record({"event": "candidate", "id": plan.candidate_id, "disposition": "blocked", "reason": reason,
+                         "asset_id": None, "source_reported": plan.candidate["source_reported"],
+                         "source_id": plan.source.source_id, "attempted_at": None})
+        return Outcome(plan.candidate_id, "blocked", None, reason)
+
+    def _note_refusal(self, url: str, error: net.FetchError) -> None:
+        """Remember the host of ``url`` (and of the hop that refused, after a redirect) as refusing this run."""
+        cause = f"{error.error_class}, HTTP {error.http_status}" if error.http_status else error.error_class
+        with self.lock:
+            for host in (url_host(url), url_host(error.url or "")):
+                if host:
+                    self.blocked_hosts.setdefault(host, cause)
+
     def download(self, plan: discover.Plan) -> Outcome:
         source = plan.source
         cid = plan.candidate_id
+        refused = self.refused_host(plan)
+        if refused is not None:
+            return refused
         attempted = self.now()
         with self.lock:
             archived = self.state.current_asset(cid)  # a damaged archived file is being re-downloaded
@@ -789,15 +863,17 @@ class Acquirer:
                 manual=False, message=NO_URL_MESSAGE)
             return self._failed(plan, failure, "failed", attempted, archived)
         url = discover.download_url(source, file_url)
-        dest = self.root / paths.ASSET_ROOT / FAMILY / paths.source_slug(source.source_id)
+        dest = asset_dir(self.root, source)  # raises UnsafeAssetDir (exit 3) before any request
         name = str(plan.info.get("name") or discover.file_name(plan.title))
         try:
             result = self.client.download(url, dest, paths.filename_stem(name))
         except net.FetchError as error:
+            blocked = isinstance(error, net.BlockedError)
+            if blocked:
+                self._note_refusal(url, error)
             failure = error.failure(source_id=source.source_id, candidate_id=cid, phase="download",
                                     attempted_at=attempted, url=None if error.url else url)
-            return self._failed(plan, failure, "blocked" if error.error_class in ("blocked", "challenge") else "failed",
-                                attempted, archived)
+            return self._failed(plan, failure, "blocked" if blocked else "failed", attempted, archived)
         if plan.probe:
             Path(result.temp_path).unlink(missing_ok=True)
             reason = (f"{plan.candidate['reason']}; an inspection download on {attempted} succeeded (SHA-256 "

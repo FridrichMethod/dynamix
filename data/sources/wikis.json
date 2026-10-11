@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "wikis",
-  "fetched_at": "2026-10-11T02:42:56Z",
+  "fetched_at": "2026-10-11T04:27:27Z",
   "sources": [
     {
       "id": "wikis:atwiki-ja",
@@ -27,14 +27,14 @@
       "url": "https://dynamixc4cat.fandom.com/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-11T02:42:56Z",
-      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3335, duplicate_bytes 13, excluded 1550, failed 1, pending 25); enumeration complete. Pending: 25 unresolved (role or game not established).",
+      "checked_at": "2026-10-11T04:27:25Z",
+      "notes": "Legacy English wiki (dynamixc4cat.fandom.com; dynamix.fandom.com is an unrelated game). Its CDN serves a transformed WEBP for /revision/latest unless format=original is requested; files are downloaded with format=original. The API size/SHA-1 of many files differ from the bytes format=original returns; that is recorded as source_reported versus download_observed, not as a second version. YouTube entries (video/youtube) are placeholders, not files. Last discovery: 4924 files (downloaded 3339, duplicate_bytes 13, excluded 1546, failed 1, pending 25); enumeration complete. Pending: 25 unresolved (role or game not established).",
       "api_url": "https://dynamixc4cat.fandom.com/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4924,
-      "asset_count": 3335,
+      "asset_count": 3339,
       "failure_count": 1,
       "evidence_level": "live_api"
     },
@@ -45,14 +45,14 @@
       "url": "https://dynamix.miraheze.org/wiki/Main_Page",
       "platform": "mediawiki",
       "status": "available",
-      "checked_at": "2026-10-11T02:42:56Z",
-      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3358, duplicate_bytes 13, excluded 1071, pending 27); enumeration complete. Pending: 27 unresolved (role or game not established).",
+      "checked_at": "2026-10-11T04:27:27Z",
+      "notes": "Current English community wiki (moved from Fandom in 2026; most files were imported by a maintenance script on 2026-08-09, so their upload timestamps are import times). Files are served unmodified from static.wikitide.net; the API SHA-1 equals the served bytes for sampled files. Last discovery: 4469 files (downloaded 3362, duplicate_bytes 13, excluded 1067, pending 27); enumeration complete. Pending: 27 unresolved (role or game not established).",
       "api_url": "https://dynamix.miraheze.org/w/api.php",
       "crawl_scope": "every file of list=allimages; namespace-0 articles; file usage",
       "rate_policy": "one request at a time per host, at least 1 s between requests, Retry-After honored up to 60 s, at most 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenges (project defaults, not provider limits)",
       "discovery_complete": true,
       "candidate_count": 4469,
-      "asset_count": 3358,
+      "asset_count": 3362,
       "failure_count": 0,
       "evidence_level": "live_api"
     },
@@ -25730,7 +25730,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Astral_Squared.png",
         "license": null,
@@ -25775,7 +25775,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). archivist note (File:Astral Squared.png): visual_inspection: the same picture as File:Astral_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 24/256"
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. archivist note (File:Astral Squared.png): visual_inspection: the same picture as File:Astral_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 24/256"
     },
     {
       "id": "wikis:fandom:158a27b332a60619",
@@ -60609,7 +60609,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:IMG_20190708_173023.jpg",
         "license": null,
@@ -60645,7 +60645,7 @@
         "dynamix",
         "stellights"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with stellights (see game evidence)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with stellights (see game evidence). Rights holder not recorded: the art is also associated with stellights and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:325122f86e38bf1e",
@@ -68898,7 +68898,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Mitochondria_Squared.png",
         "license": null,
@@ -68943,7 +68943,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). archivist note (File:Mitochondria Squared.png): visual_inspection: the same picture as File:Mitochondria_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 4/256"
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. archivist note (File:Mitochondria Squared.png): visual_inspection: the same picture as File:Mitochondria_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 4/256"
     },
     {
       "id": "wikis:fandom:3ab3f6d495b93b9e",
@@ -77027,6 +77027,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:fandom:402886f85a6c3c8f",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Code_2.jpg",
+      "title": "Code 2",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Code_2.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/0/08/Code_2.jpg/revision/latest?cb=20170731181107&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/0/08/Code_2.jpg/revision/latest?cb=20170731181107&format=original",
+      "path": "assets/public/wikis/fandom/Code_2--402886f85a6c.jpg",
+      "original_filename": "Code_2.jpg",
+      "bytes": 164896,
+      "sha256": "402886f85a6c3c8f0821ce593b322b0b1ca7446aa4f80513f16d3f1cb3d6aa7f",
+      "sha1": "cedabc04bd168690974f6d2eb77bc658a2c1910d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:23Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Code_2.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/0/08/Code_2.jpg/revision/latest?cb=20170731181107",
+        "mime": "image/jpeg",
+        "bytes": 187657,
+        "width": 600,
+        "height": 338,
+        "sha1": "6dcef4be9006c46fc12b18c860ca3e494002aa34",
+        "timestamp": "2017-07-31T18:11:07Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 164896,
+        "width": 600,
+        "height": 338,
+        "sha1": "cedabc04bd168690974f6d2eb77bc658a2c1910d",
+        "sha256": "402886f85a6c3c8f0821ce593b322b0b1ca7446aa4f80513f16d3f1cb3d6aa7f"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 22761 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
+    },
+    {
       "id": "wikis:fandom:4049e8a78543defd",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:Caissa-Effect1.png",
@@ -78052,7 +78120,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Perspicuus_Aestus_Squared.png",
         "license": null,
@@ -78097,7 +78165,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:40bf93931cf5aa16",
@@ -96277,7 +96345,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Jack_Out_KIllER_RAVON.jpg",
         "license": null,
@@ -96336,7 +96404,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Jack Out KIllER RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with three titled jackets and one '?' slot (titles as printed: Black：Magnam; Perspicuus_Aestus; Jack Out KIllER); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the m...."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Jack Out KIllER RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with three titled jackets and one '?' slot (titles as printed: Black：Magnam; Perspicuus_Aestus; Jack Out KIllER); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the m...."
     },
     {
       "id": "wikis:fandom:4e0618ce20c06d57",
@@ -108557,7 +108625,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Jack_Out_KIllER_Squared.png",
         "license": null,
@@ -108602,7 +108670,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:56e22f113640aff2",
@@ -122759,7 +122827,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Rave!_and_Get_on_it!_Squared.png",
         "license": null,
@@ -122804,7 +122872,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:6182e8127acb1a2c",
@@ -127199,7 +127267,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Totally_bounded_Squared.png",
         "license": null,
@@ -127244,7 +127312,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:6435ad9e566cd1c4",
@@ -142708,7 +142776,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Between_Boundaries_RAVON.jpg",
         "license": null,
@@ -142767,7 +142835,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Between Boundaries RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with three titled jackets and one '?' slot (titles as printed: Caelus; OCCHOCO-REST-LESS; Between Boundaries); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the mo...."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Between Boundaries RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with three titled jackets and one '?' slot (titles as printed: Caelus; OCCHOCO-REST-LESS; Between Boundaries); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the mo...."
     },
     {
       "id": "wikis:fandom:6f4cf29aad2899f4",
@@ -195033,7 +195101,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:MassacrE_RAVON.jpg",
         "license": null,
@@ -195078,7 +195146,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:95dd613c4925663d",
@@ -196979,6 +197047,74 @@
       ],
       "upstream_status": "current",
       "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 357 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version."
+    },
+    {
+      "id": "wikis:fandom:976b7e77cf996ef6",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Code_4.jpg",
+      "title": "Code 4",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Code_4.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/74/Code_4.jpg/revision/latest?cb=20170731181149&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/74/Code_4.jpg/revision/latest?cb=20170731181149&format=original",
+      "path": "assets/public/wikis/fandom/Code_4--976b7e77cf99.jpg",
+      "original_filename": "Code_4.jpg",
+      "bytes": 121254,
+      "sha256": "976b7e77cf996ef6d83ca2c88ba00d6f96f14349a16cd63bf5c1d8b01195f869",
+      "sha1": "4751b1df3265f635c35320692e6b927b9b11117a",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:25Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Code_4.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/7/74/Code_4.jpg/revision/latest?cb=20170731181149",
+        "mime": "image/jpeg",
+        "bytes": 136933,
+        "width": 600,
+        "height": 338,
+        "sha1": "a54e6fbc1bd921368ece39751eec689d57733144",
+        "timestamp": "2017-07-31T18:11:49Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 121254,
+        "width": 600,
+        "height": 338,
+        "sha1": "4751b1df3265f635c35320692e6b927b9b11117a",
+        "sha256": "976b7e77cf996ef6d83ca2c88ba00d6f96f14349a16cd63bf5c1d8b01195f869"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 15679 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
     },
     {
       "id": "wikis:fandom:976f91328817cf07",
@@ -221812,6 +221948,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:fandom:abf56fd0965505ba",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Code_3.jpg",
+      "title": "Code 3",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Code_3.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/3/32/Code_3.jpg/revision/latest?cb=20170731181126&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/3/32/Code_3.jpg/revision/latest?cb=20170731181126&format=original",
+      "path": "assets/public/wikis/fandom/Code_3--abf56fd09655.jpg",
+      "original_filename": "Code_3.jpg",
+      "bytes": 140883,
+      "sha256": "abf56fd0965505bae96c56f5556873393e30d0125331eeacfaa6c024730b5393",
+      "sha1": "c1b26ca4c4b82ce2439a7233f42dab9b7a8f92eb",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:24Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Code_3.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/3/32/Code_3.jpg/revision/latest?cb=20170731181126",
+        "mime": "image/jpeg",
+        "bytes": 157116,
+        "width": 600,
+        "height": 338,
+        "sha1": "f0c8458b5e782c4a9e2b76591b839e00b80c8bd1",
+        "timestamp": "2017-07-31T18:11:26Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 140883,
+        "width": 600,
+        "height": 338,
+        "sha1": "c1b26ca4c4b82ce2439a7233f42dab9b7a8f92eb",
+        "sha256": "abf56fd0965505bae96c56f5556873393e30d0125331eeacfaa6c024730b5393"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 16233 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
+    },
+    {
       "id": "wikis:fandom:abfb517751d8c682",
       "source_id": "wikis:fandom",
       "candidate_id": "wikis:fandom:File:UCHOUTENHighwayDynamix.png",
@@ -236800,7 +237004,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:OCCHOCO-REST-LESS_RAVON.jpg",
         "license": null,
@@ -236852,7 +237056,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:OCCHOCO-REST-LESS RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with two titled jackets and two '?' slots (titles as printed: Caelus; OCCHOCO-REST-LESS); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (s...."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:OCCHOCO-REST-LESS RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with two titled jackets and two '?' slots (titles as printed: Caelus; OCCHOCO-REST-LESS); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (s...."
     },
     {
       "id": "wikis:fandom:b7e94bc32f541083",
@@ -253607,7 +253811,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Euouae_Squared.png",
         "license": null,
@@ -253652,7 +253856,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). archivist note (File:Euouae Squared.png): visual_inspection: the same picture as File:Euouae_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 3/256"
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. archivist note (File:Euouae Squared.png): visual_inspection: the same picture as File:Euouae_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 3/256"
     },
     {
       "id": "wikis:fandom:c7aabfae44f42fa3",
@@ -256461,7 +256665,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:ReLyna_Squared.png",
         "license": null,
@@ -256506,7 +256710,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:c974b59d184c5ca2",
@@ -265889,7 +266093,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:MassacrE_3rc4224M_RAVON.jpg",
         "license": null,
@@ -265934,7 +266138,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:d1a768b866b4a217",
@@ -268534,7 +268738,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:MassacrE_Squared.png",
         "license": null,
@@ -268579,7 +268783,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:d3fdec8b5798ad23",
@@ -288344,7 +288548,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Caelus_RAVON.jpg",
         "license": null,
@@ -288389,7 +288593,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 152 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:e3c5324bae405694",
@@ -290968,7 +291172,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Black_Magnam_RAVON.jpg",
         "license": null,
@@ -291013,7 +291217,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:e577231b7c43daa2",
@@ -291602,7 +291806,7 @@
         "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Perspicuus_Aestus_RAVON.jpg",
         "license": null,
@@ -291654,7 +291858,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Perspicuus Aestus RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with two titled jackets and two '?' slots (titles as printed: Black：Magnam; Perspicuus_Aestus); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lin...."
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 18 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Perspicuus Aestus RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with two titled jackets and two '?' slots (titles as printed: Black：Magnam; Perspicuus_Aestus); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lin...."
     },
     {
       "id": "wikis:fandom:e6244220aa34a65a",
@@ -307277,7 +307481,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:Black_Magnam_Squared.png",
         "license": null,
@@ -307322,7 +307526,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:f18adb7f2aa2bcb6",
@@ -310553,6 +310757,74 @@
         }
       ],
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:fandom:f4b9e7a4b832257e",
+      "source_id": "wikis:fandom",
+      "candidate_id": "wikis:fandom:File:Code_1.jpg",
+      "title": "Code 1",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamixc4cat.fandom.com/wiki/File:Code_1.jpg",
+      "download_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/0/00/Code_1.jpg/revision/latest?cb=20170731181041&format=original",
+      "resolved_url": "https://static.wikia.nocookie.net/dynamixc4cat/images/0/00/Code_1.jpg/revision/latest?cb=20170731181041&format=original",
+      "path": "assets/public/wikis/fandom/Code_1--f4b9e7a4b832.jpg",
+      "original_filename": "Code_1.jpg",
+      "bytes": 156536,
+      "sha256": "f4b9e7a4b832257e991be98404d7973c7f82781d9000636c2235f1d1e03e5de0",
+      "sha1": "70b319235c581bb15b0b6b8a016c9f343bfb5308",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:23Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "unknown",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "Fandom's CDN response to format=original differs from the upload recorded by Fandom's API (SHA-1 and size); not the uploaded bytes byte for byte. Pixels were not compared."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamixc4cat.fandom.com/wiki/File:Code_1.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/0/00/Code_1.jpg/revision/latest?cb=20170731181041",
+        "mime": "image/jpeg",
+        "bytes": 171993,
+        "width": 600,
+        "height": 338,
+        "sha1": "1baca8df1a07ec76dec7a1523ba04c423d17b437",
+        "timestamp": "2017-07-31T18:10:41Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 156536,
+        "width": 600,
+        "height": 338,
+        "sha1": "70b319235c581bb15b0b6b8a016c9f343bfb5308",
+        "sha256": "f4b9e7a4b832257e991be98404d7973c7f82781d9000636c2235f1d1e03e5de0"
+      },
+      "comparisons": {
+        "sha1_match": false,
+        "bytes_match": false,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "The wiki API reports different sha1 and bytes than the served bytes (the API reports 15457 more bytes than were served; cause not established); recorded as source_reported versus download_observed, not as a second version. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
     },
     {
       "id": "wikis:fandom:f4d1c9c1401571ed",
@@ -319497,7 +319769,7 @@
         "notes": "Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamixc4cat.fandom.com/wiki/File:White_Revolve_Squared.png",
         "license": null,
@@ -319542,7 +319814,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:fandom:fb73936e28f136dc",
@@ -351137,7 +351409,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T10:14:10Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Astral_Squared.png",
         "license": null,
@@ -351182,7 +351454,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). archivist note (File:Astral Squared.png): visual_inspection: the same picture as File:Astral_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 24/256"
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. archivist note (File:Astral Squared.png): visual_inspection: the same picture as File:Astral_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 24/256"
     },
     {
       "id": "wikis:miraheze:158a27b332a60619",
@@ -386303,7 +386575,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T10:05:10Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2019-07-08T09:30:53Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:IMG_20190708_173023.jpg",
         "license": null,
@@ -386339,7 +386611,7 @@
         "dynamix",
         "stellights"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2019-07-08T09:30:53Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with stellights (see game evidence)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2019-07-08T09:30:53Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with stellights (see game evidence). Rights holder not recorded: the art is also associated with stellights and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:325122f86e38bf1e",
@@ -394795,7 +395067,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T10:09:12Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Mitochondria_Squared.png",
         "license": null,
@@ -394840,7 +395112,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). archivist note (File:Mitochondria Squared.png): visual_inspection: the same picture as File:Mitochondria_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 4/256"
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. archivist note (File:Mitochondria Squared.png): visual_inspection: the same picture as File:Mitochondria_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 4/256"
     },
     {
       "id": "wikis:miraheze:3ab3f6d495b93b9e",
@@ -402924,6 +403196,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:miraheze:402886f85a6c3c8f",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Code_2.jpg",
+      "title": "Code 2",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Code_2.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/0/08/Code_2.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/0/08/Code_2.jpg",
+      "path": "assets/public/wikis/miraheze/Code_2--402886f85a6c.jpg",
+      "original_filename": "Code_2.jpg",
+      "bytes": 164896,
+      "sha256": "402886f85a6c3c8f0821ce593b322b0b1ca7446aa4f80513f16d3f1cb3d6aa7f",
+      "sha1": "cedabc04bd168690974f6d2eb77bc658a2c1910d",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:25Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:02:32Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2017-07-31T18:11:07Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Code_2.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/0/08/Code_2.jpg",
+        "mime": "image/jpeg",
+        "bytes": 164896,
+        "width": 600,
+        "height": 338,
+        "sha1": "cedabc04bd168690974f6d2eb77bc658a2c1910d",
+        "timestamp": "2026-08-09T09:02:32Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 164896,
+        "width": 600,
+        "height": 338,
+        "sha1": "cedabc04bd168690974f6d2eb77bc658a2c1910d",
+        "sha256": "402886f85a6c3c8f0821ce593b322b0b1ca7446aa4f80513f16d3f1cb3d6aa7f"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +22761 bytes (Fandom upload 2017-07-31T18:11:07Z); this Miraheze copy is not byte-identical to that upload. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
+    },
+    {
       "id": "wikis:miraheze:4049e8a78543defd",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:Caissa-Effect1.png",
@@ -403949,7 +404289,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T08:46:27Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Perspicuus_Aestus_Squared.png",
         "license": null,
@@ -403994,7 +404334,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:40bf93931cf5aa16",
@@ -422402,7 +422742,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:18:48Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-08-20T06:04:18Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Jack_Out_KIllER_RAVON.jpg",
         "license": null,
@@ -422461,7 +422801,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-08-20T06:04:18Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Jack Out KIllER RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with three titled jackets and one '?' slot (titles as printed: Black：Magnam; Perspicuus_Aestus; Jack Out KIllER); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the m...."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-08-20T06:04:18Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Jack Out KIllER RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with three titled jackets and one '?' slot (titles as printed: Black：Magnam; Perspicuus_Aestus; Jack Out KIllER); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the m...."
     },
     {
       "id": "wikis:miraheze:4e0618ce20c06d57",
@@ -434614,7 +434954,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:35:53Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Jack_Out_KIllER_Squared.png",
         "license": null,
@@ -434659,7 +434999,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:56e22f113640aff2",
@@ -448816,7 +449156,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:23:39Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Rave!_and_Get_on_it!_Squared.png",
         "license": null,
@@ -448861,7 +449201,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:6182e8127acb1a2c",
@@ -453256,7 +453596,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T10:04:38Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Totally_bounded_Squared.png",
         "license": null,
@@ -453301,7 +453641,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:6435ad9e566cd1c4",
@@ -468858,7 +469198,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T08:57:33Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-09-07T07:04:18Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Between_Boundaries_RAVON.jpg",
         "license": null,
@@ -468917,7 +469257,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-07T07:04:18Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Between Boundaries RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with three titled jackets and one '?' slot (titles as printed: Caelus; OCCHOCO-REST-LESS; Between Boundaries); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the mo...."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-07T07:04:18Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Between Boundaries RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with three titled jackets and one '?' slot (titles as printed: Caelus; OCCHOCO-REST-LESS; Between Boundaries); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the mo...."
     },
     {
       "id": "wikis:miraheze:6f4cf29aad2899f4",
@@ -521664,7 +522004,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:44:31Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-09-09T05:48:05Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:MassacrE_RAVON.jpg",
         "license": null,
@@ -521709,7 +522049,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-09T05:48:05Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-09T05:48:05Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:95dd613c4925663d",
@@ -523610,6 +523950,74 @@
       ],
       "upstream_status": "current",
       "notes": "Fandom's API records this title's upload with another SHA-1 and +357 bytes (Fandom upload 2017-06-04T14:16:24Z); this Miraheze copy is not byte-identical to that upload."
+    },
+    {
+      "id": "wikis:miraheze:976b7e77cf996ef6",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Code_4.jpg",
+      "title": "Code 4",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Code_4.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/7/74/Code_4.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/7/74/Code_4.jpg",
+      "path": "assets/public/wikis/miraheze/Code_4--976b7e77cf99.jpg",
+      "original_filename": "Code_4.jpg",
+      "bytes": 121254,
+      "sha256": "976b7e77cf996ef6d83ca2c88ba00d6f96f14349a16cd63bf5c1d8b01195f869",
+      "sha1": "4751b1df3265f635c35320692e6b927b9b11117a",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:27Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:15:50Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2017-07-31T18:11:49Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Code_4.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/7/74/Code_4.jpg",
+        "mime": "image/jpeg",
+        "bytes": 121254,
+        "width": 600,
+        "height": 338,
+        "sha1": "4751b1df3265f635c35320692e6b927b9b11117a",
+        "timestamp": "2026-08-09T09:15:50Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 121254,
+        "width": 600,
+        "height": 338,
+        "sha1": "4751b1df3265f635c35320692e6b927b9b11117a",
+        "sha256": "976b7e77cf996ef6d83ca2c88ba00d6f96f14349a16cd63bf5c1d8b01195f869"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +15679 bytes (Fandom upload 2017-07-31T18:11:49Z); this Miraheze copy is not byte-identical to that upload. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
     },
     {
       "id": "wikis:miraheze:976f91328817cf07",
@@ -548665,6 +549073,74 @@
       "upstream_status": "current"
     },
     {
+      "id": "wikis:miraheze:abf56fd0965505ba",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Code_3.jpg",
+      "title": "Code 3",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Code_3.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/3/32/Code_3.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/3/32/Code_3.jpg",
+      "path": "assets/public/wikis/miraheze/Code_3--abf56fd09655.jpg",
+      "original_filename": "Code_3.jpg",
+      "bytes": 140883,
+      "sha256": "abf56fd0965505bae96c56f5556873393e30d0125331eeacfaa6c024730b5393",
+      "sha1": "c1b26ca4c4b82ce2439a7233f42dab9b7a8f92eb",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:26Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T10:01:53Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2017-07-31T18:11:26Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Code_3.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/3/32/Code_3.jpg",
+        "mime": "image/jpeg",
+        "bytes": 140883,
+        "width": 600,
+        "height": 338,
+        "sha1": "c1b26ca4c4b82ce2439a7233f42dab9b7a8f92eb",
+        "timestamp": "2026-08-09T10:01:53Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 140883,
+        "width": 600,
+        "height": 338,
+        "sha1": "c1b26ca4c4b82ce2439a7233f42dab9b7a8f92eb",
+        "sha256": "abf56fd0965505bae96c56f5556873393e30d0125331eeacfaa6c024730b5393"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +16233 bytes (Fandom upload 2017-07-31T18:11:26Z); this Miraheze copy is not byte-identical to that upload. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
+    },
+    {
       "id": "wikis:miraheze:abfb517751d8c682",
       "source_id": "wikis:miraheze",
       "candidate_id": "wikis:miraheze:File:UCHOUTENHighwayDynamix.png",
@@ -563652,7 +564128,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T08:49:00Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-09-06T14:24:02Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:OCCHOCO-REST-LESS_RAVON.jpg",
         "license": null,
@@ -563704,7 +564180,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-06T14:24:02Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:OCCHOCO-REST-LESS RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with two titled jackets and two '?' slots (titles as printed: Caelus; OCCHOCO-REST-LESS); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (s...."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-06T14:24:02Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:OCCHOCO-REST-LESS RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 2 9月8日より配信!' with two titled jackets and two '?' slots (titles as printed: Caelus; OCCHOCO-REST-LESS); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lineups (s...."
     },
     {
       "id": "wikis:miraheze:b7e94bc32f541083",
@@ -580900,7 +581376,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:53:46Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Euouae_Squared.png",
         "license": null,
@@ -580945,7 +581421,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). archivist note (File:Euouae Squared.png): visual_inspection: the same picture as File:Euouae_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 3/256"
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. archivist note (File:Euouae Squared.png): visual_inspection: the same picture as File:Euouae_cover.png (1024x1024, the Dynamix Universe cover, excluded universe_only); compared side by side, dHash 16x16 distance 3/256"
     },
     {
       "id": "wikis:miraheze:c7aabfae44f42fa3",
@@ -583754,7 +584230,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:39:31Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:ReLyna_Squared.png",
         "license": null,
@@ -583799,7 +584275,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:c974b59d184c5ca2",
@@ -593274,7 +593750,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:00:11Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-09-08T14:52:22Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:MassacrE_3rc4224M_RAVON.jpg",
         "license": null,
@@ -593319,7 +593795,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-09-08T14:52:22Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-09-08T14:52:22Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:d1a768b866b4a217",
@@ -596012,7 +596488,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:04:07Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:MassacrE_Squared.png",
         "license": null,
@@ -596057,7 +596533,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:d3fdec8b5798ad23",
@@ -615932,7 +616408,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T08:46:26Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-09-05T09:17:07Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Caelus_RAVON.jpg",
         "license": null,
@@ -615977,7 +616453,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-05T09:17:07Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +152 bytes (Fandom upload 2021-09-05T09:17:07Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:e3c5324bae405694",
@@ -618556,7 +619032,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T10:08:39Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-08-19T06:20:47Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Black_Magnam_RAVON.jpg",
         "license": null,
@@ -618601,7 +619077,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-08-19T06:20:47Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-08-19T06:20:47Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:e577231b7c43daa2",
@@ -619190,7 +619666,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:31:44Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2021-08-19T06:21:00Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Perspicuus_Aestus_RAVON.jpg",
         "license": null,
@@ -619242,7 +619718,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-08-19T06:21:00Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Perspicuus Aestus RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with two titled jackets and two '?' slots (titles as printed: Black：Magnam; Perspicuus_Aestus); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lin...."
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +18 bytes (Fandom upload 2021-08-19T06:21:00Z); this Miraheze copy is not byte-identical to that upload. Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended): an announcement graphic that displays chart difficulty levels, for one song or several, or whose primary content is a list of songs or charts (lineups; pack/collaboration cards printing several titled jackets) is kind reference regardless of the wiki category or caption that files it as promotional (09-frozen-contracts.md, coordinator classification decisions). List evidence: archivist review (File:Perspicuus Aestus RAVON.jpg): visual_inspection: RAVON-side 'DynAMIX Pack 1 8月21日より配信!' with two titled jackets and two '?' slots (titles as printed: Black：Magnam; Perspicuus_Aestus); a pack/collaboration lineup whose primary content is the titled jackets of several songs is a list of songs (reference) under the coordinator decision of 2026-10-10, as the monthly event lin...."
     },
     {
       "id": "wikis:miraheze:e6244220aa34a65a",
@@ -634865,7 +635341,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:59:17Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:Black_Magnam_Squared.png",
         "license": null,
@@ -634910,7 +635386,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:f18adb7f2aa2bcb6",
@@ -638141,6 +638617,74 @@
         }
       ],
       "upstream_status": "current"
+    },
+    {
+      "id": "wikis:miraheze:f4b9e7a4b832257e",
+      "source_id": "wikis:miraheze",
+      "candidate_id": "wikis:miraheze:File:Code_1.jpg",
+      "title": "Code 1",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://dynamix.miraheze.org/wiki/File:Code_1.jpg",
+      "download_url": "https://static.wikitide.net/dynamixwiki/0/00/Code_1.jpg",
+      "resolved_url": "https://static.wikitide.net/dynamixwiki/0/00/Code_1.jpg",
+      "path": "assets/public/wikis/miraheze/Code_1--f4b9e7a4b832.jpg",
+      "original_filename": "Code_1.jpg",
+      "bytes": 156536,
+      "sha256": "f4b9e7a4b832257e991be98404d7973c7f82781d9000636c2235f1d1e03e5de0",
+      "sha1": "70b319235c581bb15b0b6b8a016c9f343bfb5308",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 600,
+      "height": 338,
+      "fetched_at": "2026-10-11T04:27:23Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "wiki_copy",
+        "master_status": "unverified",
+        "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:06:36Z), whose upload comment records an import from the Fandom wiki. Fandom's API records an earlier upload of the title (2017-07-31T18:10:41Z) with another SHA-1, so these bytes are not byte-identical to that upload. A wiki copy, not an artist master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://dynamix.miraheze.org/wiki/File:Code_1.jpg",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "https://static.wikitide.net/dynamixwiki/0/00/Code_1.jpg",
+        "mime": "image/jpeg",
+        "bytes": 156536,
+        "width": 600,
+        "height": 338,
+        "sha1": "70b319235c581bb15b0b6b8a016c9f343bfb5308",
+        "timestamp": "2026-08-09T09:06:36Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 156536,
+        "width": 600,
+        "height": 338,
+        "sha1": "70b319235c581bb15b0b6b8a016c9f343bfb5308",
+        "sha256": "f4b9e7a4b832257e991be98404d7973c7f82781d9000636c2235f1d1e03e5de0"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": true,
+        "dimensions_match": true,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Fandom's API records this title's upload with another SHA-1 and +15457 bytes (Fandom upload 2017-07-31T18:10:41Z); this Miraheze copy is not byte-identical to that upload. Kind gameplay_screenshot by the archivist review: a whole game screen that a page about a game feature shows; the game_ui page evidence describes the page's topic, not the file: https://dynamix.miraheze.org/wiki/Code (link); https://dynamixc4cat.fandom.com/wiki/Code (link)."
     },
     {
       "id": "wikis:miraheze:f4d1c9c1401571ed",
@@ -647195,7 +647739,7 @@
         "notes": "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API records for the title's current revision (2026-08-09T09:17:58Z), whose upload comment records an import from the Fandom wiki. Fandom's API records the same SHA-1 for the title. A wiki copy, not an artist master."
       },
       "rights": {
-        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "holder": null,
         "creator": null,
         "url": "https://dynamix.miraheze.org/wiki/File:White_Revolve_Squared.png",
         "license": null,
@@ -647240,7 +647784,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Shared artwork: this file is also associated with ravon (see game evidence)."
+      "notes": "Shared artwork: this file is also associated with ravon (see game evidence). Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied."
     },
     {
       "id": "wikis:miraheze:fb73936e28f136dc",

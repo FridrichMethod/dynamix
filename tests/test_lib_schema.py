@@ -342,7 +342,12 @@ class RecordValidationTests(unittest.TestCase):
             ({**excluded, "asset_id": downloaded["asset_id"]}, "asset_id: must be absent"),
             ({**downloaded, "disposition": "pending", "reason": "x"}, "asset_id: must be absent"),
             ({**downloaded, "role": "fanart"}, "role:"),
+            ({**excluded, "disposition": "pending", "reason": "pending: review"},
+             "reason: must start with a pending reason"),
+            ({**excluded, "disposition": "pending", "reason": "needs review"}, "reason: must start with a pending reason"),
         ]
+        for prefix in schema.PENDING_REASONS:
+            schema.validate_candidate({**excluded, "disposition": "pending", "reason": f"{prefix}: detail"})
         universe = next(c for c in snapshot["candidates"] if (c.get("reason") or "").startswith("universe_only"))
         cases.append(({**universe, "game": "dynamix"}, "game: must be 'dynamix_universe'"))
         for record, fragment in cases:

@@ -74,7 +74,7 @@ Wayback CDX API 为 `live_api`；媒体页面和文章为 `page_read`；线索�
 
 ## 权利
 
-存档副本不会改变归属。权利人默认为 “C4Cat Entertainment Limited and/or the credited artist”。证据写明其他权利人时，记录会写该权利人（香港科技园附录写明 Hong Kong Science and Technology Parks Corporation；画师的说明可能写明合作游戏的发行方），没有确认权利人时则留空。这些文件都没有确认任何许可证，因此 `rights.license` 保持为空；被网页档案收录并不构成作品的许可。
+存档副本不会改变归属。Wayback 存档使用默认权利人 “C4Cat Entertainment Limited and/or the credited artist”。媒体报道和 4Gamer 的副本（游戏的游玩截图、宣传图片及其他媒体资料图）以游戏开发者 C4Cat Entertainment Limited 为权利人，并以一条限制说明写明托管该副本的媒体；这些报道页面本身并未写明权利人。证据写明其他权利人时，记录会写该权利人（香港科技园附录写明 Hong Kong Science and Technology Parks Corporation；画师的说明可能写明合作游戏的发行方），没有确认权利人时则留空。这些文件都没有确认任何许可证，因此 `rights.license` 保持为空；被网页档案收录并不构成作品的许可。
 
 ## 命令
 
@@ -85,4 +85,4 @@ Wayback CDX API 为 `live_api`；媒体页面和文章为 `page_read`；线索�
 .venv/bin/python -I scripts/fetch_archives.py --verify            # 离线
 ```
 
-参数、锁、原子写入、错误处理和退出状态与 `fetch_artists.py` 相同（见 [sources-artists.zh-CN.md](sources-artists.zh-CN.md#命令)）。锁默认位于本类别的 `assets/public/archives/` 目录上。
+参数、锁、原子写入、错误处理和退出状态与 `fetch_artists.py` 相同（见 [sources-artists.zh-CN.md](sources-artists.zh-CN.md#命令)）。锁始终持有在本类别的 `assets/public/archives/` 目录上；`--lock` 另加一把锁。

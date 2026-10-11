@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:youtube",
-  "started_at": "2026-10-11T01:18:27Z",
-  "finished_at": "2026-10-11T01:18:59Z",
+  "started_at": "2026-10-11T04:47:10Z",
+  "finished_at": "2026-10-11T04:47:41Z",
   "scope": {
     "lists": [
       "seed-videos",

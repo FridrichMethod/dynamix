@@ -90,7 +90,7 @@
       "url": "https://dynamix.c4-cat.com/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T22:45:28Z",
+      "checked_at": "2026-10-11T05:42:30Z",
       "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -106,8 +106,8 @@
       "url": "https://soundcloud.com/c4cat",
       "platform": "soundcloud",
       "status": "partially_available",
-      "checked_at": "2026-10-10T22:29:16Z",
-      "notes": "Official C4Cat account (11 tracks 2016-2017); every track its /tracks page renders is recorded (SoundCloud server-renders only part of the list). https://soundcloud.com/c4cat/tracks rendered 7 of 11 tracks on 2026-10-10; the others are not enumerated.",
+      "checked_at": "2026-10-11T04:44:02Z",
+      "notes": "Official C4Cat account (11 tracks 2016-2017); every track its /tracks page renders is recorded (SoundCloud server-renders only part of the list). https://soundcloud.com/c4cat/tracks rendered 7 of 11 tracks on 2026-10-11; the others are not enumerated.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": false,
       "candidate_count": 7,
@@ -154,7 +154,7 @@
       "url": "https://x.com/c4c4cat",
       "platform": "x",
       "status": "partially_available",
-      "checked_at": "2026-10-11T01:15:28Z",
+      "checked_at": "2026-10-11T04:44:12Z",
       "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -171,7 +171,7 @@
       "url": "https://www.youtube.com/@C4CatEntertainment",
       "platform": "youtube",
       "status": "partially_available",
-      "checked_at": "2026-10-11T01:18:27Z",
+      "checked_at": "2026-10-11T04:47:10Z",
       "notes": "Official channel: 61 uploads, 3 streams and 1 playlist-only video (research enumeration 2026-10-10); the 28 Dynamix-related videos are seeded explicitly (Project W / Zold:out videos are another game).",
       "api_url": "https://www.youtube.com/oembed",
       "owner_evidence": "channel 'C 4 Cat' (UCWGypDMEwUTCkwmUR0pq0lA), keywords 'Game Mobile C4Cat Dynamix zoldout'; video descriptions link dl.dnx.c4-cat.com and facebook.com/c4cat.dynamix",
@@ -5125,15 +5125,15 @@
           "role": "illustrator",
           "name": "NanoKun",
           "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "NanoKun"
         },
         {
           "role": "composer",
           "name": "P4koo",
           "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "P4koo"
         }
       ],
       "variant_group": "jacket:le-ciel-heureux",
@@ -8074,8 +8074,8 @@
           "role": "composer",
           "name": "TangJuan vs Black Box",
           "url": "https://dynamix.miraheze.org/wiki/Xetta",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#TangJuan|TangJuan]] vs [[Artists#Black_Box|Black Box]]"
         }
       ],
       "upstream_status": "current",
@@ -9842,8 +9842,8 @@
           "role": "composer",
           "name": "adaptor",
           "url": "https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "adaptor"
         }
       ],
       "upstream_status": "current",
@@ -11222,8 +11222,8 @@
           "role": "composer",
           "name": "sky_delta",
           "url": "https://dynamix.miraheze.org/wiki/Cryonix",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "sky_delta"
         }
       ],
       "upstream_status": "current",
@@ -11414,8 +11414,8 @@
           "role": "composer",
           "name": "EBICO",
           "url": "https://dynamix.miraheze.org/wiki/Persephone",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#EBICO_.2F_.E6.97.85.E4.BA.BAE_.2F_ICBM|EBICO]]"
         }
       ],
       "upstream_status": "current",
@@ -12352,8 +12352,8 @@
           "role": "composer",
           "name": "Spiegel vs Yukino",
           "url": "https://dynamix.miraheze.org/wiki/MassacrE",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Spiegel|Spiegel]] vs [[Artists#Yukino|Yukino]]"
         }
       ],
       "upstream_status": "current",
@@ -12704,8 +12704,8 @@
           "role": "composer",
           "name": "桃源郷華",
           "url": "https://dynamix.miraheze.org/wiki/Destruction",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#.E6.A1.83.E6.BA.90.E9.83.B7.E8.8F.AF_.28TGKK.29|桃源郷華]]"
         }
       ],
       "upstream_status": "current",
@@ -12962,8 +12962,8 @@
           "role": "composer",
           "name": "Aoi with mAoA9",
           "url": "https://dynamix.miraheze.org/wiki/To_soar",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Aoi|Aoi]] with [[Artists#mAoA9|mAoA9]]"
         }
       ],
       "upstream_status": "current",
@@ -13058,8 +13058,8 @@
           "role": "composer",
           "name": "ak+q",
           "url": "https://dynamix.miraheze.org/wiki/Vexaria",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "ak+q"
         }
       ],
       "upstream_status": "current",
@@ -13774,8 +13774,8 @@
           "role": "composer",
           "name": "Aoi",
           "url": "https://dynamix.miraheze.org/wiki/%CE%91terl%CE%B2us",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "Aoi"
         }
       ],
       "upstream_status": "current",
@@ -14032,8 +14032,8 @@
           "role": "composer",
           "name": "stereoberry",
           "url": "https://dynamix.miraheze.org/wiki/Vanilla_Sky",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "stereoberry"
         }
       ],
       "upstream_status": "current",
@@ -14224,8 +14224,8 @@
           "role": "composer",
           "name": "紅葉月梛葉 a.k.a. Aine",
           "url": "https://dynamix.miraheze.org/wiki/Arcana_Idola",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Nagiha|紅葉月梛葉 a.k.a. Aine]]"
         }
       ],
       "upstream_status": "current",
@@ -15349,8 +15349,8 @@
           "role": "composer",
           "name": "Se-U-Ra",
           "url": "https://dynamix.miraheze.org/wiki/ReLyna",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "Se-U-Ra"
         }
       ],
       "upstream_status": "current",
@@ -16368,8 +16368,8 @@
           "role": "composer",
           "name": "モリモリあつし",
           "url": "https://dynamix.miraheze.org/wiki/%E7%B4%85_(Kurenai)",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "モリモリあつし"
         }
       ],
       "upstream_status": "current",
@@ -17490,8 +17490,8 @@
           "role": "composer",
           "name": "Cosine",
           "url": "https://dynamix.miraheze.org/wiki/Crystal_Ribbon",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Cosine_.28EmoCosine.29|Cosine]]"
         }
       ],
       "upstream_status": "current",
@@ -19461,8 +19461,8 @@
           "role": "composer",
           "name": "RiraN",
           "url": "https://dynamix.miraheze.org/wiki/You_Spin_Me_Around",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "RiraN"
         }
       ],
       "upstream_status": "current",

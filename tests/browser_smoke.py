@@ -862,6 +862,9 @@ def check_layout(smoke, base, catalog, lang, size):
     page = smoke.page(base, width, height)
     open_archive(smoke, page, base, f"?lang={lang}")
     assert no_horizontal_scroll(page), (lang, size, "archive")
+    if size == "phone" and page.locator(".card").count():  # the first phone screen reaches the artwork
+        top = page.locator(".card").first.bounding_box()["y"]
+        assert top < height - 24, (lang, size, "the first row of cards starts below the first screen", top)
     page.locator(".source-inventory summary").first.click()
     assert no_horizontal_scroll(page), (lang, size, "inventory")
     if page.locator(".card-image").count():
@@ -1107,6 +1110,50 @@ def check_screenshot_notes(smoke, base, catalog, fixture):
         assert shortened, "the crowded slides' cut file names end in a written ellipsis in the screenshot"
 
 
+# A word the page breaks inside (overflow-wrap) keeps that break in the saved picture. html2canvas 0.5 draws a text node
+# without characters beyond U+00FF word by word, at each word's range bounds, so in its copy of the page (seen through
+# markCuts()) every such word must lie on one line. The notes title gets one long Latin word that the page breaks.
+WRAPPED_WORDS = """(root) => { const doc = root.ownerDocument, range = doc.createRange(), spanning = [];
+    const walker = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) { const node = walker.currentNode;
+        if (/[^\\u0000-\\u00ff]/.test(node.data)) continue;
+        for (const match of node.data.matchAll(/[^ \\t\\r\\n-]+/g)) {
+            range.setStart(node, match.index); range.setEnd(node, match.index + match[0].length);
+            if (new Set([...range.getClientRects()].map((box) => Math.round(box.top))).size > 1) spanning.push(match[0]); } }
+    return spanning; }"""
+WRAP_CAPTURE = """(title) => new Promise((resolve) => {
+    window.setTimeout(() => resolve(null), 20000);
+    const spanning = WRAPPED_WORDS;""".replace("WRAPPED_WORDS", WRAPPED_WORDS) + """
+    const node = document.querySelector('.slide-notes .notes-title');
+    node.textContent = title;
+    node.dataset.full = title;
+    const page = spanning(document.querySelector('.slide-notes'));
+    const mark = window.markCuts;
+    if (typeof mark !== 'function') return resolve(null);
+    window.markCuts = (doc) => { window.markCuts = mark; mark(doc);
+        resolve({page, copy: spanning(doc.querySelector('.slide-notes'))}); };
+    screenshot();
+})"""
+
+
+def check_screenshot_line_breaks(smoke, base, catalog):
+    """A notes title that the page breaks inside a Latin word is drawn with the same line breaks in the saved
+    screenshot: in the renderer's copy no word it draws spans two lines (on a desktop and on a phone)."""
+    slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
+    if not slides:
+        raise Skip("the catalog has no slideshow images")
+    for width, height in ((1440, 900), (375, 812)):
+        page = open_slideshow(smoke, base, "?lang=en&asset=" + quote(slides[0]["id"], safe=""), width, height)
+        capture = page.evaluate(WRAP_CAPTURE, "Redhorsemassacreredhorsemassacre")
+        where = (width, height, slides[0]["id"])
+        assert capture, (where, "the screenshot is drawn from a copy that markCuts() has seen")
+        assert capture["page"], (where, "the page breaks the long title word inside (the check's precondition)")
+        assert capture["copy"] == [], (where, "words drawn over two lines in the screenshot", capture)
+        page.wait_for_function(OVERLAY_OPEN, timeout=20_000)
+        page.evaluate("closeScreenshot()")
+        smoke.finish(page)
+
+
 # Tab takes the slideshow as it is drawn (the caption stays with its notes, before the row, at every size).
 TAB_GROUPS = ["signature", "prev", "next", "asset-caption", *BOTTOM_ROW, "lang-toggle"]
 FOCUS_GROUP = """(names) => { const node = document.activeElement.closest(names.map((name) => '.' + name).join(', '));
@@ -1302,6 +1349,8 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: screenshot overlay", check_screenshot_overlay, base, catalog)
     smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog, fixture)
     smoke.run(f"{label}: screenshots cut no notes text silently", check_screenshot_notes, base, catalog, fixture)
+    smoke.run(f"{label}: screenshots keep the page's line breaks inside words", check_screenshot_line_breaks, base,
+              catalog)
     smoke.run(f"{label}: Tab follows the drawing", check_tab_order, base, catalog)
     smoke.run(f"{label}: notice without JavaScript", check_without_javascript, base)
     for lang in ("en", "zh-CN"):

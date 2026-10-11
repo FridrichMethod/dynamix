@@ -76,4 +76,4 @@ Official files are labelled `origin_status: official` and `master_status: unveri
 .venv/bin/python -I scripts/fetch_official.py --verify            # offline
 ```
 
-The options, locking, atomic writes, error handling and exit status are the same as for `fetch_artists.py` (see [sources-artists.md](sources-artists.md#commands)). The lock defaults to the family's `assets/public/official/` directory.
+The options, locking, atomic writes, error handling and exit status are the same as for `fetch_artists.py` (see [sources-artists.md](sources-artists.md#commands)). The lock is always held on the family's `assets/public/official/` directory; `--lock` adds a second one.

@@ -58,6 +58,8 @@ Candidates that are not archived are still recorded in the discovery snapshots w
 
 Paid or private material is never obtained, and logins, bot challenges and access controls are never bypassed: such sources are recorded as blocked or as needing manual access.
 
+"Not archived" describes the current tree and catalog. Git history is never rewritten, so the bytes of records that a reviewed decision later withdrew or reclassified stay reachable in earlier commits, although no current record, catalog entry or page presents them: a wiki photo that turned out to be an upscale (now `upscaled`), wiki eyecatch images that are the cover art of a separate release (now `external_release_art`), App Store JPEG re-encodes that Apple's PNG renditions of the same uploads replaced, artists' personal illustrations whose records were withdrawn while they await review (now `pending`), and an official X interface strip (now `site_ui`). The bytes first appear in these commits: the upscale in `a418229`, the eyecatches in `6beba72`, the App Store JPEGs in `21a8d7a`, the personal illustrations in `765b5aa` and the X strip in `74bf4e4`; the withdrawal mechanisms are described in [docs/sources-wikis.md](docs/sources-wikis.md#duplicates-revisions-and-the-two-english-wikis) and [docs/sources-artists.md](docs/sources-artists.md).
+
 ### Files are kept as published
 
 Nothing is upscaled, cropped, recompressed, colour-corrected, background-removed or watermark-removed. A file's extension comes from its decoded format, not from the URL. Different crops, revisions and versions of the same artwork are separate files; superseded and removed uploads stay archived and are marked as such. The only derived images are the WebP previews in `assets/thumbs/` (long edge 480 px), which are display copies listed in `data/thumbs.json`; the viewer, the download link and the repository link always point to the original.
@@ -84,7 +86,7 @@ The current English wiki on Miraheze imported its files from the legacy Fandom w
 
 **Titles.** A title is a readable name, never a bare file name. Wiki song art whose file maps to exactly one song with `confirmed_wiki` or stronger evidence carries that song's exact title; other wiki files use the wiki's own caption when there is one, otherwise the `File:` title without its extension and with underscores shown as spaces. Records of the other families are titled from the text of the post or page they cite. The upstream file name always stays in `original_filename`.
 
-Song IDs come from `data/sources/song-index.json`, the dated original-game song list. A song enters it only with positive evidence of being in the original game; metric definitions are in [docs/coverage.md](docs/coverage.md).
+Song IDs come from `data/sources/song-index.json`, the dated song index built from the wikis. It also lists songs that are not part of the original game, such as Dynamix Universe songs, with `in_original_game: false`; only songs with `in_original_game: true` need positive evidence of being in the original game, and only they form the coverage denominator. Metric definitions are in [docs/coverage.md](docs/coverage.md).
 
 ## Collection statistics
 
@@ -181,7 +183,7 @@ out="$(mktemp -d)"
 (cd "$out/dynamix" && sha256sum --check --quiet --strict ../manifest.sha256)
 ```
 
-`prepare_pages.py` copies into a new directory outside the checkout only Git-tracked public files: the page entry points and attribution files, `assets/site/`, `docs/` (without `docs/implementation/`), `licenses/`, `src/`, the generated catalog and coverage files, the site-tier originals named by the catalog (one copy per SHA-256) and the catalog's previews. Scripts, tests, workflows, templates, source manifests and discovery snapshots are never staged. It refuses symlinks and unsafe paths, files that differ from `HEAD` (unless `--allow-dirty`), any file over 100 MiB and a payload over 950,000,000 bytes, and it re-hashes every staged original against the catalog. If the site tier alone ever exceeds the budget, that is a reported blocker; it is never solved by recompressing or dropping originals. The allowlist limits what the website would publish; it is not a check for sensitive content, so review files before committing them.
+`prepare_pages.py` copies into a new directory outside the checkout only Git-tracked public files: the page entry points and attribution files, `assets/site/`, `docs/` (without `docs/implementation/`), `licenses/`, `src/`, the generated catalog and coverage files, the site-tier originals named by the catalog (one copy per SHA-256) and the catalog's previews. Scripts, tests, workflows, templates, source manifests and discovery snapshots are never staged. It refuses symlinks and unsafe paths, files that differ from `HEAD` (unless `--allow-dirty`), any file over 100 MiB and a payload over 950,000,000 bytes, and it re-hashes every staged original against the catalog. If the payload would exceed the budget, `data/catalog.json` is left out first (the pages never load it: they read `data/catalog.js`), and the summary records it; the archive page's link to the full manifest then has no target on the website, while the copy in this repository remains; only a payload that still does not fit is refused. If the site tier alone ever exceeds the budget, that is a reported blocker; it is never solved by recompressing or dropping originals. The allowlist limits what the website would publish; it is not a check for sensitive content, so review files before committing them.
 
 ## Tests and CI
 
@@ -200,7 +202,7 @@ The browser acceptance test drives an installed Google Chrome:
 
 `--fixture` builds sites from `tests/fixtures/ui/` and serves them itself (HTTP root, a `/dynamix/` subpath, `file://`, empty and hostile catalogs); `--base` checks a checkout that you serve on loopback as shown in [Browsing](#browsing). Either run fails on a console error, a failed request or any request that leaves the local server.
 
-The [Tests workflow](.github/workflows/tests.yml) runs on every push and pull request with read-only permissions. Its offline job runs `tests/run_all.py`, `build_catalog.py --verify --check`, `build_thumbnails.py --check`, `build_coverage.py --check`, `fetch_<family>.py --verify` for every family manifest present, and `git diff --check`, then fails if any check changed the checkout. A browser job runs the fixture sites and the served checkout. A site job stages the website with `prepare_pages.py`, smoke-tests it under `/dynamix/` and uploads it as an ordinary CI artifact kept for seven days; this is not a Pages deployment. Actions are pinned to full commit SHAs.
+The [Tests workflow](.github/workflows/tests.yml) runs on every push and pull request with read-only permissions. Its offline job runs `tests/run_all.py`, `build_catalog.py --verify --check`, `build_thumbnails.py --check`, `build_coverage.py --check`, `update_docs_stats.py --check` (the generated statistics blocks of the documents are current), `fetch_<family>.py --verify` for every family manifest present, and `git diff --check`, then fails if any check changed the checkout. A browser job runs the fixture sites and the served checkout. A site job stages the website with `prepare_pages.py`, smoke-tests it under `/dynamix/` and uploads it as an ordinary CI artifact kept for seven days; this is not a Pages deployment. Actions are pinned to full commit SHAs.
 
 ## Source check (manual, read-only)
 
@@ -222,7 +224,7 @@ Nothing has been released. The website is not deployed, no version tag exists an
 - `RELEASE_APPROVED_SHA` is unset, so every dispatch stops at the approval job: no tests, no artifact, no deployment.
 - The Tests workflow prepares and checks the website on every push but only uploads a CI artifact; it cannot deploy.
 
-A future release would require an explicit instruction from the repository owner, and then: a reviewed `main` commit whose CI passed; repository settings checked so that no branch-based Pages publishing exists and Pages uses GitHub Actions; `RELEASE_APPROVED_SHA` set to that commit's full SHA; and the Pages workflow dispatched on `main` with the same SHA as `release_sha`. That run would check the approval again, rerun every test on the same commit, stage the site with `prepare_pages.py` and deploy it. Tags and GitHub Releases are separate decisions that have not been made.
+A future release would require an explicit instruction from the repository owner, and then: a reviewed `main` commit whose CI passed and which also updates the Status line and this section in both READMEs (they are staged with the website, so a deployed copy must not say that it is not deployed); repository settings checked so that no branch-based Pages publishing exists and Pages uses GitHub Actions; `RELEASE_APPROVED_SHA` set to that commit's full SHA; and the Pages workflow dispatched on `main` with the same SHA as `release_sha`. That run would check the approval again, rerun every test on the same commit, stage the site with `prepare_pages.py` and deploy it. Tags and GitHub Releases are separate decisions that have not been made.
 
 ## Sources
 
@@ -242,7 +244,7 @@ assets/public/{wikis,artists,official,archives}/<source>/  archived files, named
 assets/thumbs/                         derived WebP previews (display copies, not archive files)
 assets/site/                           project-made icons (see assets/site/README.md)
 data/sources/<family>.json             family manifests: sources, asset records, failures
-data/sources/song-index.json           dated original-game song index (coverage denominator)
+data/sources/song-index.json           dated song index (in_original_game: true = coverage denominator)
 data/discovery/<source>.json           discovery snapshots: every candidate and its disposition
 data/catalog.json, data/catalog.js     deduplicated catalog with full provenance; offline browsing payload
 data/thumbs.json, data/coverage.json   preview manifest; coverage report

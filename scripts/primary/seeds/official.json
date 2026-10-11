@@ -3504,7 +3504,7 @@
           "page_url": "https://www.amazon.com/s?k=Dynamix+C4Cat&i=mobile-apps",
           "title": "Amazon Appstore / Huawei AppGallery",
           "disposition": "pending",
-          "reason": "pending: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
+          "reason": "unresolved_role: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
         },
         {
           "key": "priroll:ct12529",
@@ -3519,14 +3519,14 @@
           "page_url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/c4c4cat",
           "title": "Embed-timeline media listed by research",
           "disposition": "pending",
-          "reason": "pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+          "reason": "unresolved_role: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
         },
         {
           "key": "x:SHINOBI_SLASH:1902697909684179446",
           "page_url": "https://x.com/SHINOBI_SLASH/status/1902697909684179446",
           "title": "Shinobi Slash collaboration banner (partner account)",
           "disposition": "pending",
-          "reason": "pending: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
+          "reason": "unresolved_game: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
         },
         {
           "key": "x:synthnova:ravon-dynamix-collab",
@@ -3638,7 +3638,7 @@
           "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/c4c4cat/status/*",
           "title": "Official X post images found through Wayback captures of the account's status pages",
           "disposition": "pending",
-          "reason": "awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
+          "reason": "unresolved_role: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
         }
       ]
     },

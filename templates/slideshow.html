@@ -657,7 +657,8 @@ https://github.com/FridrichMethod/dynamix
 
         // The saved picture is drawn from a copy of the page (html2canvas, given `doc`), which draws a text cut by a line
         // clamp without its ellipsis. In that copy each cut text is shortened to the longest start that fits, ending in
-        // a written ellipsis, so the picture never shows a silent cut.
+        // a written ellipsis, so the picture never shows a silent cut. Then the words the page breaks across lines are
+        // split (splitWrappedWords), so the picture keeps the page's line breaks.
         function markCuts(doc) {
             var view = doc.defaultView;
             doc.querySelectorAll(".slide-notes [data-full]").forEach(function(node) {
@@ -672,6 +673,35 @@ https://github.com/FridrichMethod/dynamix
                     else low = middle;
                 }
                 shorten(low);
+            });
+            splitWrappedWords(doc);
+        }
+
+        // html2canvas 0.5 draws a text node that has no character beyond U+00FF word by word (words end at a space, a
+        // tab, a line break or a hyphen), each word at its range's bounds, so a word that the page breaks inside
+        // (overflow-wrap) would be drawn once, over both lines and the words after it. In the copy such a text node is
+        // split where a word changes line: every piece html2canvas draws then lies on one line, as on the page. Text
+        // with other characters is drawn letter by letter and needs nothing.
+        var WORD_END = /[ \t\r\n-]/;
+        function splitWrappedWords(doc) {
+            var range = doc.createRange();
+            doc.querySelectorAll(".slide-notes, .intro").forEach(function(block) {
+                var walker = doc.createTreeWalker(block, NodeFilter.SHOW_TEXT), nodes = [];
+                while (walker.nextNode()) nodes.push(walker.currentNode);
+                nodes.forEach(function(node) {
+                    var text = node.data, cuts = [], lastTop = null;
+                    if (/[^\u0000-\u00ff]/.test(text)) return;
+                    for (var i = 0; i < text.length; i++) {
+                        range.setStart(node, i);
+                        range.setEnd(node, i + 1);
+                        var box = range.getClientRects()[0];
+                        if (!box) continue;
+                        if (lastTop !== null && box.top - lastTop > box.height / 2 && !WORD_END.test(text[i - 1]) &&
+                                !WORD_END.test(text[i])) cuts.push(i);
+                        lastTop = box.top;
+                    }
+                    for (var j = cuts.length - 1; j >= 0; j--) node.splitText(cuts[j]);
+                });
             });
         }
 

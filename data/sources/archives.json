@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "archives",
-  "fetched_at": "2026-10-11T00:19:24Z",
+  "fetched_at": "2026-10-11T04:50:56Z",
   "sources": [
     {
       "id": "archives:4gamer",
@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-11T00:18:53Z",
+      "checked_at": "2026-10-11T06:16:08Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -58,7 +58,7 @@
       "url": "https://gnn.gamer.com.tw/",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-11T01:20:13Z",
+      "checked_at": "2026-10-11T04:47:47Z",
       "notes": "Images of press articles found by the 2026-10-10 research (Bahamut GNN, QooApp, unwire.hk, T客邦, ifanr, HK01): the named files plus every article-body image of each read article page (params.article_images), each classified by a rule (downloaded, excluded with its reason, or pending); the 4Gamer #862 column page is enumerated by archives:4gamer. Lower-resolution syndicated copies (9game, Gamersky) are recorded in archives:archive-leads.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -74,13 +74,13 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "available",
-      "checked_at": "2026-10-11T00:19:26Z",
+      "checked_at": "2026-10-11T05:42:47Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
       "candidate_count": 75,
-      "asset_count": 38,
+      "asset_count": 39,
       "failure_count": 0,
       "evidence_level": "live_api"
     }
@@ -1087,8 +1087,8 @@
           "role": "composer",
           "name": "旅人E",
           "url": "https://dynamix.miraheze.org/wiki/Moonlight_of_Sand_Castle",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#EBICO_.2F_.E6.97.85.E4.BA.BAE_.2F_ICBM|旅人E]]"
         }
       ],
       "variant_group": "jacket:moonlight-of-sand-castle",
@@ -4316,8 +4316,8 @@
           "role": "composer",
           "name": "ARForest",
           "url": "https://dynamix.miraheze.org/wiki/Hemisphere",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "ARForest"
         }
       ],
       "variant_group": "jacket:hemisphere",
@@ -6010,15 +6010,15 @@
           "role": "illustrator",
           "name": "Sand Suna",
           "url": "https://dynamix.miraheze.org/wiki/MassacrE",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "Sand Suna"
         },
         {
           "role": "composer",
           "name": "Spiegel vs Yukino",
           "url": "https://dynamix.miraheze.org/wiki/MassacrE",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Spiegel|Spiegel]] vs [[Artists#Yukino|Yukino]]"
         }
       ],
       "variant_group": "massacre-3rc4224m-sand-suna",
@@ -6308,6 +6308,75 @@
       "upstream_revision": "20150412124335"
     },
     {
+      "id": "archives:wayback:2df4a20f78495731",
+      "source_id": "archives:wayback",
+      "candidate_id": "archives:wayback:dynamix-server.c4-cat.com/mycard/img/DNXtypo.png@20200622223319",
+      "title": "DNXtypo.png (archived 20200622)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://web.archive.org/web/20200622223319/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+      "download_url": "https://web.archive.org/web/20200622223319id_/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+      "resolved_url": "https://web.archive.org/web/20200622223319id_/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+      "path": "assets/public/archives/wayback/DNXtypo--2df4a20f7849.png",
+      "original_filename": "DNXtypo.png",
+      "bytes": 87124,
+      "sha256": "2df4a20f78495731572ccd14995082b89898746ce7c771dc6b5855191df7155d",
+      "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1003,
+      "height": 319,
+      "fetched_at": "2026-10-11T04:50:56Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Internet Archive raw capture (id_) of a file served by the official site."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited and/or the credited artist",
+        "creator": null,
+        "url": "https://web.archive.org/web/20200622223319/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+        "license": null,
+        "restrictions": null
+      },
+      "source_reported": {
+        "url": "http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "timestamp": "2020-06-22T22:33:19Z",
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 87124,
+        "width": 1003,
+        "height": 319,
+        "sha1": "526bcb77d6db50b2a639f3ca09f62b64bcabf02c",
+        "sha256": "2df4a20f78495731572ccd14995082b89898746ce7c771dc6b5855191df7155d"
+      },
+      "comparisons": {
+        "sha1_match": true,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Wayback capture 20200622223319 of http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png (CDX mimetype image/png, status 200, WARC record length 85932). The original DynAMIX wordmark (as archived: a 1003x319 RGBA PNG, white letters with a soft black outline on a transparent background) that the official website (/img/dynamix.png) and the official MyCard top-up page (/mycard/img/DNXtypo.png) served as their logo image. The CDX digest is the SHA-1 of the wikis' File:Dynamix.png (wikis:miraheze:2df4a20f78495731, promotional), so one file has one kind: a logo or wordmark without chart-level information is promotional (coordinator decision of 2026-10-10; wave-4 decision 'one file, one kind').",
+      "upstream_revision": "20200622223319"
+    },
+    {
       "id": "archives:wayback:2e1d86734926b2fc",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
@@ -6465,15 +6534,15 @@
           "role": "illustrator",
           "name": "Sand Suna",
           "url": "https://dynamix.miraheze.org/wiki/MassacrE",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "Sand Suna"
         },
         {
           "role": "composer",
           "name": "Spiegel vs Yukino",
           "url": "https://dynamix.miraheze.org/wiki/MassacrE",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Spiegel|Spiegel]] vs [[Artists#Yukino|Yukino]]"
         }
       ],
       "variant_group": "massacre-3rc4224m-sand-suna",
@@ -6854,15 +6923,15 @@
           "role": "illustrator",
           "name": "LESYEF",
           "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "LESYEF"
         },
         {
           "role": "composer",
           "name": "影虎。",
           "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#影虎。|影虎。]]"
         }
       ],
       "variant_group": "jacket:totally-bounded",
@@ -6959,15 +7028,15 @@
           "role": "illustrator",
           "name": "Xomu",
           "url": "https://dynamix.miraheze.org/wiki/Lumina",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "Xomu"
         },
         {
           "role": "composer",
           "name": "Wisp X & Xomu",
           "url": "https://dynamix.miraheze.org/wiki/Lumina",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Wisp_X|Wisp X]] & [[Artists#Xomu|Xomu]]"
         }
       ],
       "variant_group": "jacket:lumina",
@@ -7065,15 +7134,15 @@
           "role": "illustrator",
           "name": "Sand Suna",
           "url": "https://dynamix.miraheze.org/wiki/MassacrE",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "Sand Suna"
         },
         {
           "role": "composer",
           "name": "Spiegel vs Yukino",
           "url": "https://dynamix.miraheze.org/wiki/MassacrE",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Spiegel|Spiegel]] vs [[Artists#Yukino|Yukino]]"
         }
       ],
       "variant_group": "massacre-3rc4224m-sand-suna",
@@ -7308,15 +7377,15 @@
           "role": "illustrator",
           "name": "Shionty",
           "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "Shionty"
         },
         {
           "role": "composer",
           "name": "Arch vs n3pu",
           "url": "https://dynamix.miraheze.org/wiki/Evoltex_(poppi%27n_mix)",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#Arch|Arch]] vs [[Artists#n3pu|n3pu]]"
         }
       ],
       "upstream_status": "current",
@@ -7476,15 +7545,15 @@
           "role": "illustrator",
           "name": "clear",
           "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "clear"
         },
         {
           "role": "composer",
           "name": "dawn-system feat. 一之瀬りと",
           "url": "https://dynamix.miraheze.org/wiki/%E3%81%BA%E3%81%9F%E3%82%8B%E3%81%99%E3%81%A6%E3%81%A3%E3%81%B7",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#dawn-system|dawn-system]] feat. [[Artists#.E4.B8.80.E4.B9.8B.E7.80.AC.E3.82.8A.E3.81.A8|一之瀬りと]]"
         }
       ],
       "variant_group": "jacket:file-501df734",
@@ -7730,15 +7799,15 @@
           "role": "illustrator",
           "name": "アサヤ",
           "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "アサヤ"
         },
         {
           "role": "composer",
           "name": "モリモリあつし",
           "url": "https://dynamix.miraheze.org/wiki/Party_Vinyl",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "モリモリあつし"
         }
       ],
       "variant_group": "jacket:party-vinyl",
@@ -8249,15 +8318,15 @@
           "role": "illustrator",
           "name": "AFZero",
           "url": "https://dynamix.miraheze.org/wiki/Aegis",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "AFZero"
         },
         {
           "role": "composer",
           "name": "mmry",
           "url": "https://dynamix.miraheze.org/wiki/Aegis",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "mmry"
         }
       ],
       "upstream_status": "current",
@@ -8353,15 +8422,15 @@
           "role": "illustrator",
           "name": "キカンシャ",
           "url": "https://dynamix.miraheze.org/wiki/Bluebell",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "キカンシャ"
         },
         {
           "role": "composer",
           "name": "5argon feat. imTiNEY",
           "url": "https://dynamix.miraheze.org/wiki/Bluebell",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Compound Artist Link",
+          "quote": "[[Artists#5argon|5argon]] feat. [[Artists#imTiNEY|imTiNEY]]"
         }
       ],
       "upstream_status": "current",
@@ -8728,15 +8797,15 @@
           "role": "illustrator",
           "name": "Se-U-Ra",
           "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Cover Artist",
+          "quote": "Se-U-Ra"
         },
         {
           "role": "composer",
           "name": "Se-U-Ra",
           "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
-          "field": null,
-          "quote": null
+          "field": "Template:Song|Artist",
+          "quote": "Se-U-Ra"
         }
       ],
       "upstream_status": "current",

@@ -103,13 +103,21 @@ dialog, .viewer-image, .viewer-info { overscroll-behavior: contain; }
   nav { margin-top: 15px; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; }
   .search { flex-basis: 100%; }
-  /* Two fields to a row, with the basis just under half so Reset still fits beside the last pair. A field is never
-     narrower than its longest option or its label: one that cannot share a row takes a row of its own instead of
-     clipping its text. The source list is the exception: its names can be long, so it takes a row and truncates. */
+  /* Two fields to a row, with the basis just under half. A field is never narrower than its longest option or its
+     label: one that cannot share a row takes a row of its own instead of clipping its text. Two exceptions keep the
+     first phone screen for artwork: the source list (long names) takes a row and truncates, and Type, whose longest
+     option ("References and documents") would otherwise stand alone, shares its row with Minimum at that field's
+     own width and cuts a long selected type with an ellipsis. Sort then fills the last row, Reset beside it. */
   .filters label:not(.search) { flex: 1 1 calc(50% - 48px); min-width: max-content; }
   .filters label:has(#source) { flex-basis: 100%; min-width: 0; }
-  #source { max-width: 100%; }
+  .filters label:has(#kind) { min-width: 0; }
+  .filters label:has(#minimum) { flex: 0 0 auto; }
+  #source, #kind { max-width: 100%; text-overflow: ellipsis; }
   .filters select { width: 100%; min-width: 0; }
+  /* Tighter rows (labels, row gaps, the result notes) so the first phone screen reaches the artwork. */
+  .filters { row-gap: 8px; }
+  .filters label { gap: 4px; line-height: 1.25; }
+  .result-row p { margin: 6px 0; }
   dialog[open] { grid-template-columns: 1fr; grid-template-rows: minmax(180px, 48vh) 1fr; }
   .viewer-info { padding: 20px; }
   /* The inventory's three columns share a phone's width by fixed shares, so the wrapping notes keep a readable measure

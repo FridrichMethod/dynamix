@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:flan_0207",
-  "started_at": "2026-10-10T22:36:21Z",
-  "finished_at": "2026-10-10T22:36:26Z",
+  "started_at": "2026-10-11T04:43:30Z",
+  "finished_at": "2026-10-11T04:43:35Z",
   "scope": {
     "lists": [
       "seed-posts"

@@ -74,7 +74,7 @@ Exclusion reasons in this family: `out_of_scope_other` 72, `site_ui` 40, `not_dy
 
 ## Rights
 
-An archived copy does not change ownership. The rights holder defaults to "C4Cat Entertainment Limited and/or the credited artist". A record names another holder when its evidence does (the HKSTP appendix names Hong Kong Science and Technology Parks Corporation; an artist's caption can name a partner game's publisher) and leaves the holder empty when none is established. No license is established for any of these files, so `rights.license` stays empty; being captured by a web archive does not license a work.
+An archived copy does not change ownership. Wayback captures use the default holder "C4Cat Entertainment Limited and/or the credited artist". The press and 4Gamer copies (gameplay screenshots, promotional images and other press-kit graphics of the game) are recorded with the holder C4Cat Entertainment Limited, as the game's developer, and with a restriction naming the publication that hosts the copy; the press pages themselves do not state a rights holder. A record names another holder when its evidence does (the HKSTP appendix names Hong Kong Science and Technology Parks Corporation; an artist's caption can name a partner game's publisher) and leaves the holder empty when none is established. No license is established for any of these files, so `rights.license` stays empty; being captured by a web archive does not license a work.
 
 ## Commands
 
@@ -85,4 +85,4 @@ An archived copy does not change ownership. The rights holder defaults to "C4Cat
 .venv/bin/python -I scripts/fetch_archives.py --verify            # offline
 ```
 
-The options, locking, atomic writes, error handling and exit status are the same as for `fetch_artists.py` (see [sources-artists.md](sources-artists.md#commands)). The lock defaults to the family's `assets/public/archives/` directory.
+The options, locking, atomic writes, error handling and exit status are the same as for `fetch_artists.py` (see [sources-artists.md](sources-artists.md#commands)). The lock is always held on the family's `assets/public/archives/` directory; `--lock` adds a second one.

@@ -58,6 +58,8 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 
 从不获取付费或私有资料，也从不绕过登录、机器人验证或访问控制：这类来源记录为被阻止或需要人工访问。
 
+“未存档”描述的是当前的文件树和目录。Git 历史从不改写，因此后来经复核撤回或重新分类的记录，其字节仍可在较早的提交中取得，尽管当前没有任何记录、目录条目或页面展示它们：一张后来查明是放大图的 wiki 照片（现为 `upscaled`）、属于独立发行物封面的 wiki eyecatch 图片（现为 `external_release_art`）、已被 Apple 对同一上传提供的 PNG 版本取代的 App Store JPEG 重新编码文件、记录在等待复核期间被撤回的画师个人插画（现为 `pending`），以及一张官方 X 的界面图条（现为 `site_ui`）。这些字节最早出现在以下提交中：放大图在 `a418229`，eyecatch 图片在 `6beba72`，App Store JPEG 在 `21a8d7a`，个人插画在 `765b5aa`，X 界面图条在 `74bf4e4`；撤回机制见 [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md#重复文件修订与两个英文-wiki) 和 [docs/sources-artists.zh-CN.md](docs/sources-artists.zh-CN.md)。
+
 ### 文件按发布原样保存
 
 不做任何放大、裁剪、重新压缩、调色、去背景或去水印。文件扩展名取自解码得到的实际格式，而不是 URL。同一作品的不同裁切、修订和版本是不同的文件；被替换或已从来源删除的上传仍然保留，并标明状态。唯一的派生图片是 `assets/thumbs/` 中的 WebP 预览图（长边 480 px），它们只是显示用副本，列在 `data/thumbs.json` 中；查看器、下载链接和仓库链接始终指向原文件。
@@ -84,7 +86,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 
 **标题**。标题是可读的名称，绝不是单纯的文件名。若 wiki 曲绘文件以 `confirmed_wiki` 或更强的证据只对应一首曲目，就使用该曲目的确切曲名；其他 wiki 文件使用 wiki 自己的图注，没有图注时使用去掉扩展名、下划线显示为空格的 `File:` 标题。其他类别的记录以其引用的帖子或页面文字作为标题。上游文件名始终保留在 `original_filename` 中。
 
-曲目 ID 来自 `data/sources/song-index.json`，即注明日期的原版曲目列表。只有存在属于原版游戏的正面证据时，曲目才会进入该列表；各项指标的定义见 [docs/coverage.zh-CN.md](docs/coverage.zh-CN.md)。
+曲目 ID 来自 `data/sources/song-index.json`，即根据各 wiki 整理、注明日期的曲目索引。它也列出不属于原版游戏的曲目（例如 Dynamix Universe 的曲目），这些曲目标为 `in_original_game: false`；只有 `in_original_game: true` 的曲目需要属于原版游戏的正面证据，也只有它们构成覆盖率分母。各项指标的定义见 [docs/coverage.zh-CN.md](docs/coverage.zh-CN.md)。
 
 ## 收藏统计
 
@@ -181,7 +183,7 @@ out="$(mktemp -d)"
 (cd "$out/dynamix" && sha256sum --check --quiet --strict ../manifest.sha256)
 ```
 
-`prepare_pages.py` 只把 Git 跟踪的公开文件复制到检出目录之外的新目录：页面入口和署名文件、`assets/site/`、`docs/`（不含 `docs/implementation/`）、`licenses/`、`src/`、生成的目录和覆盖率文件、目录中指定的 `site` 层级原文件（每个 SHA-256 一份）以及目录中的预览图。脚本、测试、工作流、模板、来源清单和发现快照从不暂存。它拒绝符号链接和不安全路径、与 `HEAD` 不一致的文件（除非使用 `--allow-dirty`）、任何超过 100 MiB 的文件以及超过 950,000,000 字节的总量，并根据目录重新校验每个暂存原文件的哈希。如果仅 `site` 层级就超出预算，这会作为阻塞问题报告，绝不通过重新压缩或删除原文件来解决。白名单只限定网站可能发布的范围，并不是敏感内容检测器；提交任何文件前仍需检查其内容。
+`prepare_pages.py` 只把 Git 跟踪的公开文件复制到检出目录之外的新目录：页面入口和署名文件、`assets/site/`、`docs/`（不含 `docs/implementation/`）、`licenses/`、`src/`、生成的目录和覆盖率文件、目录中指定的 `site` 层级原文件（每个 SHA-256 一份）以及目录中的预览图。脚本、测试、工作流、模板、来源清单和发现快照从不暂存。它拒绝符号链接和不安全路径、与 `HEAD` 不一致的文件（除非使用 `--allow-dirty`）、任何超过 100 MiB 的文件以及超过 950,000,000 字节的总量，并根据目录重新校验每个暂存原文件的哈希。如果总量会超出预算，首先不暂存 `data/catalog.json`（页面从不加载它：页面读取 `data/catalog.js`），并在摘要中记录；此时档案页指向完整清单的链接在网站上没有目标，但本仓库中的副本仍然保留；只有去掉它仍超出预算时才拒绝。如果仅 `site` 层级就超出预算，这会作为阻塞问题报告，绝不通过重新压缩或删除原文件来解决。白名单只限定网站可能发布的范围，并不是敏感内容检测器；提交任何文件前仍需检查其内容。
 
 ## 测试与 CI
 
@@ -200,7 +202,7 @@ out="$(mktemp -d)"
 
 `--fixture` 根据 `tests/fixtures/ui/` 构建并自行提供多个站点（HTTP 根目录、`/dynamix/` 子路径、`file://`、空目录和恶意内容目录）；`--base` 检查按[浏览](#浏览)一节方式在本机提供的检出目录。两种运行在出现控制台错误、请求失败或任何离开本地服务器的请求时都会失败。
 
-[Tests 工作流](.github/workflows/tests.yml)在每次推送和每个 PR 上以只读权限运行。离线任务运行 `tests/run_all.py`、`build_catalog.py --verify --check`、`build_thumbnails.py --check`、`build_coverage.py --check`、对每个已有类别清单运行 `fetch_<family>.py --verify`，以及 `git diff --check`，最后如果任何检查改动了检出目录则失败。浏览器任务检查测试站点和本机提供的检出目录。站点任务用 `prepare_pages.py` 暂存网站，在 `/dynamix/` 下做冒烟测试，并作为普通 CI artifact 上传，保留七天；这不是 Pages 部署。所有 Action 都固定到完整的提交 SHA。
+[Tests 工作流](.github/workflows/tests.yml)在每次推送和每个 PR 上以只读权限运行。离线任务运行 `tests/run_all.py`、`build_catalog.py --verify --check`、`build_thumbnails.py --check`、`build_coverage.py --check`、`update_docs_stats.py --check`（文档中生成的统计区块是最新的）、对每个已有类别清单运行 `fetch_<family>.py --verify`，以及 `git diff --check`，最后如果任何检查改动了检出目录则失败。浏览器任务检查测试站点和本机提供的检出目录。站点任务用 `prepare_pages.py` 暂存网站，在 `/dynamix/` 下做冒烟测试，并作为普通 CI artifact 上传，保留七天；这不是 Pages 部署。所有 Action 都固定到完整的提交 SHA。
 
 ## 来源检查（手动、只读）
 
@@ -222,7 +224,7 @@ out="$(mktemp -d)"
 - `RELEASE_APPROVED_SHA` 未设置，因此每次触发都会停在批准任务：不运行测试，不生成 artifact，不部署。
 - Tests 工作流在每次推送时准备并检查网站，但只上传 CI artifact，不能部署。
 
-将来的发布需要仓库所有者的明确指示，然后：一个经过审阅且 CI 通过的 `main` 提交；检查仓库设置，确认不存在基于分支的 Pages 发布、Pages 使用 GitHub Actions；把 `RELEASE_APPROVED_SHA` 设为该提交的完整 SHA；并在 `main` 上手动触发 Pages 工作流，`release_sha` 填同一个 SHA。届时该运行会再次检查批准、在同一提交上重新运行全部测试、用 `prepare_pages.py` 暂存网站并部署。标签和 GitHub Release 是另外的决定，目前尚未做出。
+将来的发布需要仓库所有者的明确指示，然后：一个经过审阅且 CI 通过的 `main` 提交，并且该提交同时更新两份 README 中的状态一行和本节（它们会随网站一起暂存，因此部署后的副本不能再写网站尚未部署）；检查仓库设置，确认不存在基于分支的 Pages 发布、Pages 使用 GitHub Actions；把 `RELEASE_APPROVED_SHA` 设为该提交的完整 SHA；并在 `main` 上手动触发 Pages 工作流，`release_sha` 填同一个 SHA。届时该运行会再次检查批准、在同一提交上重新运行全部测试、用 `prepare_pages.py` 暂存网站并部署。标签和 GitHub Release 是另外的决定，目前尚未做出。
 
 ## 来源
 
@@ -242,7 +244,7 @@ assets/public/{wikis,artists,official,archives}/<source>/  存档文件，命名
 assets/thumbs/                         派生的 WebP 预览图（显示用副本，不是存档文件）
 assets/site/                           本项目制作的图标（见 assets/site/README.md）
 data/sources/<family>.json             类别清单：来源、资产记录、失败记录
-data/sources/song-index.json           注明日期的原版曲目索引（覆盖率分母）
+data/sources/song-index.json           注明日期的曲目索引（in_original_game: true 的曲目构成覆盖率分母）
 data/discovery/<source>.json           发现快照：每个候选及其处置结果
 data/catalog.json, data/catalog.js     去重后带完整来源记录的目录；离线浏览数据
 data/thumbs.json, data/coverage.json   预览图清单；覆盖率报告

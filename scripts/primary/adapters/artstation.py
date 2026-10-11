@@ -76,7 +76,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             key = f"{project}:{asset.get('id', position)}"
             rule = model.find_rule(base.rules(seed), key)
             if username and owner != username:
-                rule = model.hold(rule, f"pending: project owner {owner or '?'} is not this source's account "
+                rule = model.hold(rule, f"unresolved_game: project owner {owner or '?'} is not this source's account "
                                         f"{username}")
             asset_texts = {**texts, "asset.title": asset.get("title") or ""}
             urls = rendition_urls(asset["image_url"])

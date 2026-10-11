@@ -78,7 +78,7 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 ### 排除与待定候选
 
-每个候选恰好有一个处置结果：`downloaded`、`duplicate_bytes`、`excluded`、`failed`、`blocked` 或 `pending`。wiki 使用的排除原因包括 `universe_only`、`animated_capture`、`person_photo`（作曲者、艺术家和谱师的个人资料图片）、`site_ui`（wiki 皮肤、标志、导航模板）、`game_ui`（图标、按钮、评级徽章、商店中的 bits）、`external_release_art`（独立音乐发行物的封面）、`video_placeholder`（`video/*` 条目，它们是嵌入的视频而不是文件）和 `out_of_scope_other`。
+每个候选恰好有一个处置结果：`downloaded`、`duplicate_bytes`、`excluded`、`failed`、`blocked` 或 `pending`。wiki 使用的排除原因包括 `universe_only`、`animated_capture`、`person_photo`（作曲者、艺术家和谱师的个人资料图片）、`site_ui`（wiki 皮肤、标志、导航模板）、`game_ui`（图标、按钮、评级徽章、商店中的 bits；介绍游戏功能的页面所展示的完整游戏画面，经存档者复核确认是完整画面后为 `gameplay_screenshot`，例如兑换码教程截图）、`external_release_art`（独立音乐发行物的封面）、`video_placeholder`（`video/*` 条目，它们是嵌入的视频而不是文件）和 `out_of_scope_other`。
 
 动态 GIF 录屏默认排除：它们作为候选连同元数据一起记录，但不下载。更大的静态版本（例如角色的 `-Raw.png`）是独立的候选，在其自身证据被接受时存档。`--include-animated` 会把动态文件也一并接受并下载，因此这一排除可以撤销。待定候选的原因为 `awaiting_download`、`unresolved_role` 或 `unresolved_game`，覆盖率报告会列出它们。
 
@@ -86,11 +86,13 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 每个 wiki 在自己的路径下保存自己的记录（`assets/public/wikis/miraheze/…` 和 `assets/public/wikis/fandom/…`）。两个 wiki 提供完全相同的字节时，Git 只存储一个 blob，目录把两条记录合并成一个条目，其来源记录列出两个来源；网站也只暂存一份。该条目的主记录是 Miraheze 的记录，因为 Miraheze 是当前的 wiki，保存的正是两个 wiki 提供的字节；除非画师或官方的记录持有相同的字节（见[主记录](../README.zh-CN.md#来源记录模型)）。在同一个 wiki 内，字节相同的第二个文件名记为 `duplicate_bytes`，指向已有记录，而不再写入另一个文件。字节不同的文件即使看起来相似，也始终作为不同文件保留。
 
-重新上传会保留文件名，因此保留同一个候选。新字节成为当前记录，旧字节继续存档并标为 `upstream_status: superseded`，较新的记录已存档时由 `superseded_by` 指向它。从 wiki 消失的文件保留其存档记录，标为 `removed`。如果当前证据不再接受某个已存档的文件，抓取脚本不写入任何内容，列出该文件供复核，并以状态码 4 退出。
+重新上传会保留文件名，因此保留同一个候选。新字节成为当前记录，旧字节继续存档并标为 `upstream_status: superseded`，较新的记录已存档时由 `superseded_by` 指向它。从 wiki 消失的文件保留其存档记录，标为 `removed`。如果当前证据不再接受某个已存档的文件，且没有经复核的撤回条目涵盖它，抓取脚本不写入任何内容，列出该文件供复核，并以状态码 4 退出。
+
+经复核的撤回是已存档 wiki 文件离开档案的唯一途径。它是 `scripts/wikis/reviews.json` 中 `withdrawals` 下的一条策展条目，写明 `File:` 标题、已存档字节的 SHA-256、排除原因和存档者的证据。当前证据以复核时的原因排除该文件时，进行获取的运行会删除该已存档记录及其文件；`--metadata-only` 运行只报告这一撤回（`WITHDRAWAL PENDING`），保留文件、记录和分类。该候选仍以 `excluded` 及其原因记录。被撤回的字节不再出现在文件树和目录中，但仍保留在 Git 历史中（见[不收录的内容](../README.zh-CN.md#不收录的内容)）；目前已执行的撤回在两个 wiki 上删除了一张放大图（`upscaled`）以及属于独立发行物美术的 eyecatch 图片（`external_release_art`）。
 
 ## 曲目索引
 
-`fetch_wikis.py` 提出 `data/discovery/song-index.wikis.json`，维护者把它整合进覆盖率分母 `data/sources/song-index.json`。曲目按英文页面标题分组，确切曲名取原版 `Template:Song` 的 `Title`（Miraheze 优先）；其他写法作为别名。在 `Template:Song` 中，`Artist`（或 `Compound Artist Link`）是作曲者，`Cover Artist`（或 `Cover Art`）是画师。两者分开按原文保存，`N/A` 等占位符表示未知，作曲者字段中明确标注的画师说明会从作曲署名中去掉，名字从不按 `&`、`,` 或 `x` 拆分。画师只关联到该曲目自己的封面文件，绝不关联到其页面上的每一张图。
+`fetch_wikis.py` 提出 `data/discovery/song-index.wikis.json`，维护者把它整合进 `data/sources/song-index.json`；其中 `in_original_game: true` 的曲目构成覆盖率分母，该文件也以 `in_original_game: false` 列出 Universe 曲目和已移除的曲目。曲目按英文页面标题分组，确切曲名取原版 `Template:Song` 的 `Title`（Miraheze 优先）；其他写法作为别名。在 `Template:Song` 中，`Artist`（或 `Compound Artist Link`）是作曲者，`Cover Artist`（或 `Cover Art`）是画师。两者分开按原文保存，`N/A` 等占位符表示未知，作曲者字段中明确标注的画师说明会从作曲署名中去掉，名字从不按 `&`、`,` 或 `x` 拆分。画师只关联到该曲目自己的封面文件，绝不关联到其页面上的每一张图。
 
 只有存在正面证据时，曲目才计为原版游戏的一部分（`in_original_game: true`）：位于非 `Category:Unreleased` 页面上的原版 `Template:Song`，或 atwiki 原版曲目列表中的一行。wikiwiki 的表格只作佐证，单凭它不会加入曲目。只有 `Template:SongUV` 的页面是 Universe 曲目，`Template:SongOther` 页面是未发布曲目；两者都不进入分母。atwiki 的删除曲目列表（“已删除或从未实装”）会把曲目标为 `removed`，但单凭它不会把曲目加入分母；只有原版曲目页同样确认时，这样的曲目才会计入。wiki 之间有分歧时，草案记录分歧而不是默默选择其一（见[元数据分歧](coverage.zh-CN.md#元数据分歧)）。
 
@@ -122,7 +124,7 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 ## 权利
 
-wiki 上传的是游戏美术的副本，标为 `origin_status: wiki_copy` 和 `master_status: unverified`：即使是找到的最大副本，wiki 文件也不是画师原稿。权利仍属于 C4Cat Entertainment Limited 和/或署名画师；曲目模板写明画师时，记录的 `rights.creator` 为该画师，`rights.license` 保持为空，因为没有确认任何许可证。wiki 的内容许可并不能为其托管的游戏美术确立许可。
+wiki 上传的是游戏美术的副本，标为 `origin_status: wiki_copy` 和 `master_status: unverified`：即使是找到的最大副本，wiki 文件也不是画师原稿。权利仍属于 C4Cat Entertainment Limited 和/或署名画师；文件同时关联 Dynamix Universe 以外的其他游戏时（其 `game_associations`，例如 RAVON），记录与其他类别一样把 `rights.holder` 留空，因为没有引用的来源写明该美术的权利人。曲目模板写明画师时，记录的 `rights.creator` 为该画师，`rights.license` 保持为空，因为没有确认任何许可证。wiki 的内容许可并不能为其托管的游戏美术确立许可。
 
 ## 命令
 
@@ -134,6 +136,6 @@ wiki 上传的是游戏美术的副本，标为 `origin_status: wiki_copy` 和 `
 .venv/bin/python -I scripts/fetch_wikis.py --verify                   # 离线
 ```
 
-每次运行都会枚举两个英文 wiki，因为分类需要合并两者的证据；`--source` 限定写入哪个来源的快照、下载哪个来源。不带 `--resume` 的运行检查已存档文件是否存在且大小与记录一致；`--resume` 会重新计算它们的哈希。`--limit` 限制一次运行的下载尝试次数，`--only` 只下载指定的候选。抓取脚本持有排他锁（`--lock-file`，默认位于仓库之外、按检出目录区分的工作目录中；可用 `--work-dir` 更改），在发出下一个请求之前先把每次下载写入日志，并每隔几分钟原子地重写清单和快照，因此中断的运行最多丢失正在下载的那个文件，下一次运行会先重放日志。`--verify` 离线运行：校验清单和每个快照、核对处置结果、重新计算并解码每个文件、报告没有记录的文件，并检查曲目索引草案。
+每次运行都会枚举两个英文 wiki，因为分类需要合并两者的证据；`--source` 限定写入哪个来源的快照、下载哪个来源。不带 `--resume` 的运行检查已存档文件是否存在且大小与记录一致；`--resume` 会重新计算它们的哈希。`--limit` 限制一次运行的下载尝试次数，`--only` 只下载指定的候选。抓取脚本持有根目录上的排他锁 `<root>/.cache/fetch_wikis/root.lock`，并在工作目录中再持有一把锁（`--lock-file`，默认 `<root>/.cache/fetch_wikis/work/lock`；`--work-dir` 可更改工作目录）。两者都在检出目录之内，但被 Git 忽略，且工作目录必须只属于当前用户。抓取脚本在发出下一个请求之前先把每次下载写入日志，并每隔几分钟原子地重写清单和快照，因此中断的运行最多丢失正在下载的那个文件，下一次运行会先重放日志。`--verify` 离线运行：校验清单和每个快照、核对处置结果、重新计算并解码每个文件、报告没有记录的文件，并检查曲目索引草案。
 
-退出状态：0 完成；1 有下载失败或被阻止；2 发现过程不完整；3 另一个运行持有锁；4 某个已存档文件不再被接受（未写入任何内容，需要复核）；130 被中断（输出已写到最后一次完成的下载为止）。
+退出状态：0 完成；1 有下载失败或被阻止，或某个损坏的已存档文件无法修复；2 发现过程不完整；3 另一个运行持有锁，或工作目录、锁文件、日志或某个 wiki 资源目录无法安全使用（属于其他用户、是符号链接、属于另一个根目录的日志，或另一个工作目录中被中断运行的日志）；4 某个已存档文件不再被接受且没有经复核的撤回条目涵盖它（未写入任何内容，需要复核）；5 内部错误（意外异常；输出只写到最后一次完成的写入为止）；130 被中断（输出已写到最后一次完成的下载为止）。对 401、403 或机器人验证作出回应的文件主机，在同一次运行中不再被访问：其余文件不发请求，记录为 `blocked`，由下一次运行再次尝试。

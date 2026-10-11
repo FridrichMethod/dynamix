@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:wix:lalaluhat",
-  "started_at": "2026-10-10T22:36:19Z",
-  "finished_at": "2026-10-10T22:36:19Z",
+  "started_at": "2026-10-11T04:43:30Z",
+  "finished_at": "2026-10-11T04:43:30Z",
   "scope": {
     "lists": [
       "seed-files"
@@ -38,7 +38,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: unidentified character; only the upload name 'Dynamix.png' links it to the game"
+      "reason": "unresolved_game: unidentified character; only the upload name 'Dynamix.png' links it to the game"
     },
     {
       "id": "artists:wix:lalaluhat:5a0163_81b513cc2f1644cc92c88ca2691a6745",
@@ -63,7 +63,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
@@ -92,7 +92,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],
@@ -121,7 +121,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
+      "reason": "unresolved_role: the artist's seasonal/personal illustration of a Dynamix jacket character (tagged #Dynamix), not the game's own artwork; whether such creator-original illustrations are in scope is a coordinator decision",
       "illustrators": [
         "B.H."
       ],

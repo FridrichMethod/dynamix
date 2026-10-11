@@ -377,6 +377,24 @@ class ReviewTests(unittest.TestCase):
             with self.assertRaises(ValueError, msg=fields):
                 _review(**fields)
 
+    def test_whole_screen_overrides_a_game_feature_page(self) -> None:
+        """The code-entry tutorial screenshots that the wiki's Code page links: game_ui page evidence describes the
+        page's topic, so a review that saw a whole game screen in the bytes decides; without the flag page evidence
+        wins, and the flag needs role gameplay_screenshot."""
+        code_page = [_evidence("game_ui", 1, "dynamix", "Code", context="link")]
+        screen = _review(role="gameplay_screenshot", whole_screen=True,
+                         evidence="visual_inspection: annotated in-game screenshot of the code entry screen")
+        decision = self.decide(code_page, screen)
+        self.assertEqual((decision.role, decision.game, decision.disposition, decision.mapping),
+                         ("gameplay_screenshot", "dynamix", "download", "unmapped"))
+        self.assertTrue(any("game_ui page evidence describes the page's topic" in note for note in decision.rule_notes))
+        self.assertEqual(self.decide(code_page, _review(role="gameplay_screenshot")).reason.split(":")[0], "game_ui")
+        self.assertEqual(self.decide([_evidence("site_ui", 2, None, "Main Page", context="embedded")],
+                                     screen).reason.split(":")[0], "site_ui")
+        for fields in (dict(whole_screen="yes"), dict(whole_screen=True, role="promotional")):
+            with self.assertRaises(ValueError, msg=fields):
+                _review(**fields)
+
     def test_official_animation_and_download_probe(self) -> None:
         gif = {"mime": "image/gif", "width": 480, "height": 270}
         official = classify.decide("File:X.png", [_evidence("character", 2, "dynamix")], gif, frames=2,

@@ -44,6 +44,15 @@ UNIVERSE_RE = re.compile(r"dynamix\s*universe", re.IGNORECASE)
 COLLABORATION_RE = re.compile(r"collab|コラボ|联动|聯動", re.IGNORECASE)
 QUOTE_MAX = 300
 EXCERPT_CONTEXT = 40
+# 09 (CLI notes): ``awaiting_download`` is an admitted candidate with a known file URL that is not archived yet; an
+# item with no file to fetch is ``unresolved_role`` (no file establishes what it shows).
+NO_FILE_REASON = "unresolved_role: no downloadable file URL was found for this item"
+
+
+def awaiting_without_file(candidate: Mapping[str, Any]) -> bool:
+    """Whether a ``pending`` candidate says ``awaiting_download`` although it names no file URL to fetch."""
+    return (candidate.get("disposition") == "pending" and not candidate.get("file_url")
+            and str(candidate.get("reason") or "").split(":", 1)[0].strip() == "awaiting_download")
 
 
 def normalize_text(text: str) -> str:
@@ -93,8 +102,8 @@ class Draft:
     # (a rotating signature of the same CDN file). ``--resume`` then reuses the archive. A ``fallback_urls`` entry always
     # names the draft's file (the runner checks those itself).
     same_file: Callable[[str], bool] | None = None
-    # Adapter hook: a ``pending: ...`` reason when a completed download is not the file the draft describes (e.g. the
-    # Internet Archive redirected a raw capture request to another capture); the bytes are then not archived.
+    # Adapter hook: an ``awaiting_download: ...`` reason when a completed download is not the file the draft describes
+    # (e.g. the Internet Archive redirected a raw capture request to another capture); the bytes are then not archived.
     check_download: Callable[[Any], str | None] | None = None
 
     def __post_init__(self) -> None:
@@ -199,6 +208,8 @@ def check_rule(rule: Mapping[str, Any], where: str) -> None:
         raise ValueError(f"{where}: title_aliases maps a song title of the rule to a list of alias strings")
     if action in ("exclude", "pending") and not rule.get("reason"):
         raise ValueError(f"{where}: an {action} rule needs a reason")
+    if action == "pending" and rule["reason"].split(":", 1)[0].strip() not in schema.PENDING_REASONS:
+        raise ValueError(f"{where}: a pending reason must start with one of {schema.PENDING_REASONS}")
     if action == "exclude" and rule["reason"].split(":", 1)[0].strip() not in schema.EXCLUSION_REASONS:
         raise ValueError(f"{where}: exclusion reason must start with one of {schema.EXCLUSION_REASONS}")
     if rule.get("role") is not None and rule["role"] not in schema.KINDS:
@@ -387,7 +398,7 @@ def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts
                file_url: str | None, default_title: str, default_quality: Mapping[str, Any],
                default_rights: Mapping[str, Any], source_reported: dict | None = None,
                original_filename: str | None = None, base_evidence: Iterable[str] = (),
-               unclassified_reason: str = "unclassified: no seed rule for this item; needs review") -> Draft:
+               unclassified_reason: str = "unresolved_role: no seed rule for this item; needs review") -> Draft:
     """A :class:`Draft` for one discovered item from its seed rule and the fetched ``texts``.
 
     No rule -> ``pending`` (never admitted on keywords alone). A download rule needs every ``evidence_quotes`` entry in
@@ -430,17 +441,18 @@ def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts
             draft.game = {"universe_only": "dynamix_universe", "not_dynamix": "not_dynamix"}.get(prefix, draft.game)
         return draft
     if missing:
-        draft.reason = "pending: seed evidence not found in the fetched content (" + "; ".join(
+        draft.reason = "unresolved_game: seed evidence not found in the fetched content (" + "; ".join(
             clip(quote, 80) for quote in missing) + ")"
         return draft
     if universe and not rule.get("allow_universe_mention"):
         # The fetched text names the sequel: original-game use is unconfirmed until a curator decides.
         draft.game = "mixed" if found else "dynamix_universe"
-        draft.reason = f"pending: upstream text mentions Dynamix Universe; confirm original-game use ({universe})"
+        draft.reason = (f"unresolved_game: upstream text mentions Dynamix Universe; confirm original-game use "
+                        f"({universe})")
         return draft
     draft.game = rule.get("game", schema.GAME)  # check_rule allows only dynamix/mixed on a download rule
     if not file_url:
-        draft.reason = "pending: no downloadable file URL was found for this item"
+        draft.reason = NO_FILE_REASON
         return draft
     draft.action = "download"
     draft.archive_under = rule.get("archive_under")

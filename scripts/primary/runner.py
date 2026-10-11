@@ -20,6 +20,7 @@ Robustness rules (07 §Integrity):
 from __future__ import annotations
 
 import copy
+import functools
 import hashlib
 import logging
 import math
@@ -29,7 +30,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 from PIL import Image
 
@@ -67,6 +68,7 @@ TAKEN_OVER_NOTE = ("Recorded under this candidate by a curated seed rule (archiv
 TAKEN_OVER_NOTE_RE = re.compile(r"Recorded under this candidate by a curated seed rule \(archive_under\): the same bytes, "
                                 r"archived earlier for \S+, are attached to that candidate too, whose text does not name "
                                 r"what they show\.")
+SONG_INDEX = "data/sources/song-index.json"  # coordinator-reconciled; song IDs of mapped titles come from it
 SOURCE_SEED_FIELDS = {
     "id", "name", "url", "platform", "adapter", "notes", "api_url", "owner_evidence", "crawl_scope", "items",
     "hosts", "min_interval", "quality", "rights", "rules", "identity_quotes", "lists", "status_on_success",
@@ -86,7 +88,8 @@ class GuardedClient:
     * ``blocked_hosts`` (shared by all sources of a run): after a :class:`lib.net.BlockedError` from a host, further
       requests to it raise :class:`HostSkipped` without touching the network.
     * ``last_used`` (shared): at least ``min_interval`` seconds between the end of one request and the next to the same
-      host even across the per-source client instances.
+      host even across the per-source client instances. The host a response finally came from (after redirects) is
+      recorded too; the default clients of a run also share one :class:`lib.net.HostSchedule`, which spaces every hop.
     * ``calls`` counts requests per URL (diagnostics and tests).
     * ``per_item_refusal=True`` (an endpoint documented to answer 401/403 for one unavailable item, e.g. YouTube's oEmbed
       for a private or non-embeddable video): a plain 401/403 is that request's result and does not block the host,
@@ -118,23 +121,40 @@ class GuardedClient:
         if wait > 0:
             self._sleep(wait)
         self.calls[url] = self.calls.get(url, 0) + 1
+        contacted = {host}
         try:
             result = getattr(self._client, method)(url, *args, **kwargs)
+            contacted.add(self._host(self._final_url(result) or ""))
         except net.BlockedError as error:
+            contacted.add(self._host(error.url or ""))
             refusals = self._item_refusals.get(host, 0) + 1
             if (per_item_refusal and not isinstance(error, net.ChallengeError) and error.http_status in (401, 403)
                     and refusals < self.ITEM_REFUSAL_LIMIT):
                 self._item_refusals[host] = refusals
             else:
-                self._blocked.setdefault(host, f"{error.error_class}, HTTP {error.http_status}")
+                for name in (host, self._host(error.url or "")):  # the requested host and the hop that refused
+                    if name:
+                        self._blocked.setdefault(name, f"{error.error_class}, HTTP {error.http_status}")
             raise
-        except Exception:
+        except Exception as error:
+            contacted.add(self._host(getattr(error, "url", None) or ""))
             self._item_refusals.pop(host, None)
             raise
         finally:
-            self._last[host] = self._clock()
+            ended = self._clock()
+            for name in contacted - {""}:
+                self._last[name] = ended
         self._item_refusals.pop(host, None)
         return result
+
+    @staticmethod
+    def _final_url(result: Any) -> str | None:
+        """The URL a client result says the response came from: ``DownloadResult.final_url`` or the second item of
+        ``get_json``/``get_text`` tuples."""
+        final = getattr(result, "final_url", None)
+        if final is None and isinstance(result, tuple) and len(result) >= 2:
+            final = result[1]
+        return final if isinstance(final, str) else None
 
     def mark_blocked(self, url: str, reason: str) -> None:
         """Record a refusal an adapter detected in a 200 response (risk-control code, captcha page)."""
@@ -160,12 +180,14 @@ class GuardedClient:
 
 @dataclass
 class AdapterContext:
-    """What an adapter may use: the guarded client and the source seed."""
+    """What an adapter may use: the guarded client, the source seed and the source's previous discovery snapshot
+    (read-only; e.g. to tell an empty answer from a listing that shrank)."""
 
     client: GuardedClient
     seed: Mapping[str, Any]
     source_id: str
     now: Callable[[], str] = manifest.now_utc
+    previous: Mapping[str, Any] | None = None
 
     @property
     def quality(self) -> dict:
@@ -178,8 +200,9 @@ class AdapterContext:
                                         if key in schema.RIGHTS_FIELDS})
 
 
-def default_client_factory(hosts: list[str], min_interval: float) -> Any:
-    return net.PoliteClient(hosts, min_interval=min_interval)
+def default_client_factory(hosts: list[str], min_interval: float, *,
+                           schedule: net.HostSchedule | None = None) -> Any:
+    return net.PoliteClient(hosts, min_interval=min_interval, schedule=schedule)
 
 
 class OfflineClient:
@@ -237,6 +260,73 @@ def adapter_hosts(seed: Mapping[str, Any]) -> list[str]:
     if not hosts and not getattr(ADAPTERS[seed["adapter"]], "OFFLINE", False):
         raise ValueError(f"source {seed['id']}: adapter declares no hosts")
     return sorted(dict.fromkeys(hosts))
+
+
+# --- Song index -------------------------------------------------------------------------------------------------------
+
+def load_song_index(root: str | os.PathLike[str]) -> dict | None:
+    """The reconciled song index under ``root`` (None when the root has none, e.g. a test fixture); ValueError when
+    it exists but is unreadable or not a song index."""
+    target = paths.safe_path(root, SONG_INDEX)
+    if not target.is_file():
+        return None
+    data = manifest.load_json(target)
+    if not isinstance(data, dict) or not isinstance(data.get("songs"), list):
+        raise ValueError(f"{SONG_INDEX}: not a song index")
+    return data
+
+
+def song_lookup(index: Mapping[str, Any] | None) -> dict[str, list[str]]:
+    """Exact title or alias -> the song IDs of the index that carry it (an exact title before an alias)."""
+    by_title: dict[str, list[str]] = {}
+    by_alias: dict[str, list[str]] = {}
+    for song in (index or {}).get("songs", []):
+        by_title.setdefault(song["title"], []).append(song["id"])
+        for alias in song.get("aliases", []):
+            by_alias.setdefault(alias, []).append(song["id"])
+    return {**{alias: ids for alias, ids in by_alias.items() if alias not in by_title}, **by_title}
+
+
+def resolve_song_ids(titles: Iterable[str], lookup: Mapping[str, list[str]]) -> list[str]:
+    """Song IDs of mapped exact ``titles``: the index's own ID when exactly one song carries the title or alias (an
+    ASCII collision such as ``HOPE``/``Hope!!`` gets its numeric suffix there), otherwise the derived base ID, which
+    ``--verify`` then reports against the index."""
+    result = []
+    for title in titles:
+        ids = lookup.get(title, [])
+        result.append(ids[0] if len(ids) == 1 else paths.song_id_base(title))
+    return result
+
+
+def wiki_credit_fields(root: str | os.PathLike[str]) -> dict[tuple[str, str, str], tuple[str, str]]:
+    """``(page URL, role, name) -> (field, quote)`` of the wikis family's credit evidence (each a ``Template:Song``
+    field quoted from that wiki song page), for the pairs that one field and quote state unambiguously.
+
+    A primary record that cites a wiki song page for a credit its own fetched text does not state (``credit_source``)
+    takes the field and quote from here, so the credit can be checked against the cited page like a wiki record's."""
+    try:
+        data = manifest.load_manifest(root, "wikis", missing_ok=True)
+    except (ValueError, OSError):
+        return {}
+    found: dict[tuple[str, str, str], set[tuple[str, str]]] = {}
+    for asset in data["assets"]:
+        for entry in asset.get("credit_evidence") or []:
+            if entry.get("url") and entry.get("field") and entry.get("quote"):
+                key = (unquote(entry["url"]), entry["role"], entry["name"])
+                found.setdefault(key, set()).add((entry["field"], entry["quote"]))
+    return {key: next(iter(values)) for key, values in found.items() if len(values) == 1}
+
+
+def fill_cited_credits(meta: dict, lookup: Mapping[tuple[str, str, str], tuple[str, str]]) -> None:
+    """Give the draft's quote-less credit entries that cite a wiki song page the field and quote the wikis family
+    records for that page, role and name (unchanged when it records none)."""
+    entries = meta.get("credit_evidence") or []
+    for index, entry in enumerate(entries):
+        if entry.get("field") or entry.get("quote") or not entry.get("url"):
+            continue
+        hit = lookup.get((unquote(entry["url"]), entry["role"], entry["name"]))
+        if hit:
+            entries[index] = {**entry, "field": hit[0], "quote": hit[1]}
 
 
 # --- Record builders --------------------------------------------------------------------------------------------------
@@ -423,6 +513,9 @@ class Runner:
         if family not in ("artists", "official", "archives"):
             raise ValueError(f"not a primary-source family: {family!r}")
         self.root, self.family, self.seeds = Path(root), family, seeds
+        self.host_schedule = net.HostSchedule()  # shared by the run's default clients: every hop is spaced run-wide
+        if client_factory is default_client_factory:
+            client_factory = functools.partial(default_client_factory, schedule=self.host_schedule)
         self.client_factory, self.metadata_only, self.resume, self.now = client_factory, metadata_only, resume, now
         self.sleep, self.clock = sleep, clock
         self.blocked_hosts: dict[str, str] = {}
@@ -433,6 +526,8 @@ class Runner:
         self.interrupt_after = interrupt_after  # tests: raise KeyboardInterrupt after N downloads
         self.source_errors: dict[str, str] = {}  # source ID -> unexpected error that ended its run early
         self._md5_index: dict[str, str] | None = None  # MD5 -> asset ID of this family's archived files (lazy)
+        self._songs = song_lookup(load_song_index(self.root))  # title/alias -> song IDs of the reconciled index
+        self._wiki_credits = wiki_credit_fields(self.root)  # (wiki page, role, name) -> Template:Song field, quote
         self._pixels: dict[str, str | None] = {}  # file SHA-256 -> decoded-pixel digest (pixel twins)
 
     # -- public --
@@ -464,7 +559,7 @@ class Runner:
         self.clients.append(client)
         crashed = False
         try:
-            context = AdapterContext(client=client, seed=seed, source_id=source_id, now=self.now)
+            context = AdapterContext(client=client, seed=seed, source_id=source_id, now=self.now, previous=previous)
             LOG.info("%s: discovering", source_id)
             try:
                 discovery = ADAPTERS[seed["adapter"]].discover(context, seed)
@@ -514,6 +609,12 @@ class Runner:
                 "discover", stored_url(state.seed["url"]), f"adapter produced duplicate candidate keys "
                 f"{sorted(set(duplicates))[:5]}; only the first draft of each was recorded"))
             state.discovery.continuation["duplicate-keys"] = f"dropped-{len(duplicates)}"
+        for draft in drafts:
+            if self._songs and draft.meta and draft.meta.get("song_titles"):
+                # song IDs come from the reconciled index, not from the title alone
+                draft.meta["song_ids"] = resolve_song_ids(draft.meta["song_titles"], self._songs)
+            if draft.meta and self._wiki_credits:
+                fill_cited_credits(draft.meta, self._wiki_credits)
         keys = [draft.upstream_key for draft in drafts]
         for draft in drafts:  # first pass: everything not needing a download, and placeholders
             cid = schema.candidate_id(state.source_id, draft.upstream_key)
@@ -523,8 +624,8 @@ class Runner:
                     state.candidates[cid] = self._previous_candidate(state, cid)
                 else:
                     state.candidates[cid] = candidate_record(
-                        state.source_id, draft, "pending", reason="pending: download not attempted yet (run in "
-                                                                  "progress or interrupted; rerun with --resume)")
+                        state.source_id, draft, "pending", reason="awaiting_download: download not attempted yet "
+                                                                  "(run in progress or interrupted; rerun with --resume)")
                     state.pending_ids.add(cid)
             else:
                 self._record_non_download(state, draft)
@@ -723,7 +824,8 @@ class Runner:
                     sid, draft, "downloaded", asset_id=previous_asset["id"])
             else:
                 state.candidates[cid] = candidate_record(sid, draft, "pending",
-                                                         reason="pending: not downloaded (--metadata-only run)")
+                                                         reason="awaiting_download: not downloaded "
+                                                                "(--metadata-only run)")
             return
         if self.resume and previous_asset is not None and self._reusable(previous_asset, draft):
             refreshed = self._refresh_record(previous_asset, draft)
@@ -1383,12 +1485,40 @@ def credit_problems(asset: Mapping[str, Any]) -> list[str]:
             for entry in asset.get("credit_evidence") or [] if not entry.get("url")]
 
 
+def kind_conflicts(assets: Iterable[Mapping[str, Any]],
+                   others: Iterable[Mapping[str, Any]] | None = None) -> list[str]:
+    """One file, one kind (09, wave-4 decisions): the SHA-256s whose records disagree on ``kind``. Without
+    ``others``, among ``assets`` (the family's own records); with ``others``, between ``assets`` and the records of
+    the other families (reported as warnings: the catalog build refuses such groups)."""
+    own: dict[str, dict[str, set[str]]] = {}
+    for asset in assets:
+        own.setdefault(asset["sha256"], {}).setdefault(asset["kind"], set()).add(asset["id"])
+    if others is None:
+        groups = own
+    else:
+        groups = {}
+        for asset in others:
+            if asset.get("sha256") in own:
+                kinds = groups.setdefault(asset["sha256"],
+                                          {kind: set(ids) for kind, ids in own[asset["sha256"]].items()})
+                kinds.setdefault(asset["kind"], set()).add(asset["id"])
+    problems = []
+    for sha256, kinds in sorted(groups.items()):
+        if len(kinds) > 1:
+            listed = "; ".join(f"{kind}: {', '.join(sorted(ids))}" for kind, ids in sorted(kinds.items()))
+            problems.append(f"sha256 {sha256[:16]}: records of the same bytes have different kinds ({listed}); one "
+                            "file, one kind")
+    return problems
+
+
 def verify_family(root: str | os.PathLike[str], family: str,
                   seed_ids: Iterable[str] | None = None) -> tuple[list[str], list[str], dict]:
     """Offline ``--verify``: (errors, warnings, per-source disposition counts). Never touches the network.
 
-    With ``seed_ids`` (the family's seed registry) a seed source without a source record is an error (a run that
-    stopped before reaching it) and a source record without a seed a warning."""
+    A ``pending`` candidate whose reason says ``awaiting_download`` but that names no file URL is an error (09: that
+    prefix is for an admitted candidate with a known file URL). With ``seed_ids`` (the family's seed registry) a seed
+    source without a source record is an error (a run that stopped before reaching it) and a source record without a
+    seed a warning."""
     root = Path(root)
     errors: list[str] = []
     warnings: list[str] = []
@@ -1419,6 +1549,10 @@ def verify_family(root: str | os.PathLike[str], family: str,
     own = {asset["id"]: asset for asset in current["assets"]}
     for snapshot in snapshots.values():
         for candidate in snapshot["candidates"]:
+            if model.awaiting_without_file(candidate):  # 09: a lead with no file to fetch is unresolved_role
+                errors.append(f"{candidate['id']}: pending 'awaiting_download' without a file URL (awaiting_download "
+                              "is an admitted candidate with a known file URL; a lead with no file to fetch is "
+                              "unresolved_role)")
             target = own.get(candidate.get("asset_id") or "")
             if (candidate["disposition"] == "duplicate_bytes" and target is not None
                     and target.get("upstream_status") not in (None, "current")):
@@ -1428,6 +1562,13 @@ def verify_family(root: str | os.PathLike[str], family: str,
                     and candidate.get("role") != target["kind"]):  # one file, one kind within a source
                 errors.append(f"{candidate['id']}: role {candidate.get('role')!r} differs from the kind "
                               f"{target['kind']!r} of {target['id']}, the record of its bytes")
+    errors.extend(kind_conflicts(current["assets"]))
+    warnings.extend(kind_conflicts(current["assets"], others))
+    try:
+        index = load_song_index(root)
+    except (ValueError, OSError) as error:
+        errors.append(f"{SONG_INDEX}: {error}")
+        index = None
     artists = artist_candidates(root)
     for asset in current["assets"]:
         try:
@@ -1437,6 +1578,11 @@ def verify_family(root: str | os.PathLike[str], family: str,
         for title, song_id in zip(asset["song_titles"], asset["song_ids"]):
             if not song_id.startswith(paths.song_id_base(title)):
                 warnings.append(f"{asset['id']}: song ID {song_id} does not derive from title {title!r}")
+        if index is not None:
+            try:
+                schema.validate_song_links(index, [asset])
+            except (ValueError, KeyError, TypeError) as error:
+                errors.append(f"song index: {error}")
         errors.extend(primary_evidence_problems(root, asset, artists))
         errors.extend(credit_problems(asset))
     recorded ={asset["path"] for asset in current["assets"]}

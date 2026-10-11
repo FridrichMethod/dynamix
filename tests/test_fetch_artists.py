@@ -210,6 +210,8 @@ class PixivWaybackTests(ArtistsTestCase):
         p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
         self.assertEqual(p1["disposition"], "pending")
         self.assertIn("lists no HTTP 200 capture", p1["reason"])
+        self.assertTrue(p1["reason"].startswith("unresolved_role: "), p1["reason"])  # no file to fetch (09)
+        self.assertIsNone(p1["file_url"])
         self.assertEqual(p1["game"], "unknown")
         self.assertEqual(network.count("web.archive.org"), 1)  # the CDX check only
         self.verify()
@@ -621,8 +623,8 @@ class MatchingTests(unittest.TestCase):
         model.check_rule({**rule, "credit_evidence": curated}, "rule")  # a curated, sourced entry per name
         with self.assertRaisesRegex(ValueError, "credit_evidence\\[1\\]"):
             model.check_rule({**rule, "credit_evidence": [curated[0], {"role": "composer", "name": "B"}]}, "rule")
-        model.check_rule({"match": "^a$", "action": "pending", "reason": "pending: review", "illustrators": ["A"]},
-                         "rule")  # only an admitted file's credits are recorded on an asset
+        model.check_rule({"match": "^a$", "action": "pending", "reason": "unresolved_role: review",
+                          "illustrators": ["A"]}, "rule")  # only an admitted file's credits are recorded on an asset
 
     def test_min_interval_cannot_undercut_the_network_policy(self):
         for bad in (0, 0.1, -1, "2", True, float("nan"), float("inf")):
@@ -666,7 +668,9 @@ class MatchingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "collaboration collection needs game_associations"):
             model.check_rule(rule, "rule")
         model.check_rule({**rule, "game_associations": ["dynamix", "berry_melody"]}, "rule")
-        model.check_rule({**rule, "action": "pending", "reason": "pending: review"}, "rule")  # nothing admitted
+        model.check_rule({**rule, "action": "pending", "reason": "unresolved_role: review"}, "rule")  # nothing admitted
+        with self.assertRaisesRegex(ValueError, "a pending reason must start with one of"):
+            model.check_rule({**rule, "action": "pending", "reason": "pending: review"}, "rule")
         model.check_rule({"match": "^a$", "role": "promotional", "collections": ["Event"]}, "rule")
 
     def test_committed_partner_art_names_its_partners(self):
@@ -769,7 +773,7 @@ class ReclassificationTests(ArtistsTestCase):
 
     def test_a_held_archived_candidate_is_a_warning_and_metadata_only_never_withdraws(self):
         self.run_family([direct_seed([{"match": "^a$", "role": "song_art"}])], direct_network())
-        hold = {"match": "^a$", "action": "pending", "reason": "pending: scope decision"}
+        hold = {"match": "^a$", "action": "pending", "reason": "unresolved_role: scope decision"}
         self.run_family([direct_seed([{**hold, "withdraw_archived": True}])], direct_network(), metadata_only=True)
         self.assertEqual(len(self.manifest()["assets"]), 1)  # --metadata-only never changes archived records
         self.run_family([direct_seed([hold])], direct_network())
