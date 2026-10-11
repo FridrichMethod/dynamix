@@ -158,10 +158,11 @@ class Discovery:
     # that every covering list, read completely, no longer lists as removed upstream.
     coverage: dict[str, Callable[[Mapping[str, Any]], bool]] = field(default_factory=dict)
     # List name -> predicate on a previous candidate record: whether this run's incomplete read of that list is why the
-    # candidate was not listed again (one CDX query, a seed page read without a complete enumeration). While the list
-    # is open, the runner keeps such a candidate without archived bytes in the snapshot with its earlier disposition
-    # instead of dropping it (07: never infer completeness from an empty or failed read). A page whose read failed
-    # with a discovery error draft holds the earlier candidates of that page without a predicate.
+    # candidate was not listed again (one CDX query, a seed page read without a complete enumeration, an account list
+    # whose read failed or listed nothing). While the list is open, the runner keeps such a candidate without archived
+    # bytes in the snapshot with its earlier disposition instead of dropping it (07: never infer completeness from an
+    # empty or failed read); a list without a predicate holds nothing, also while it is open (a sample that was read).
+    # A page whose read failed with a discovery error draft holds the earlier candidates of that page without one.
     holds: dict[str, Callable[[Mapping[str, Any]], bool]] = field(default_factory=dict)
 
     @property

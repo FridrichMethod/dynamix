@@ -13,13 +13,17 @@ A ``{"tracks_of": "<handle>"}`` item reads the account's ``soundcloud.com/<handl
 server-rendered track (``<article itemprop="track">`` links) as an item keyed by its permalink, so an official account's
 uploads are all accounted for; tracks without a seed rule stay ``pending``. SoundCloud renders only part of a longer
 list: when fewer tracks are listed than the hydrated user's ``track_count``, the ``tracks:<handle>`` list stays open.
+When the ``/tracks`` read fails or renders no track, the open list holds the tracks it listed before
+(``Discovery.holds``: earlier candidates on the account's track pages that no explicit item names), so their excluded or
+pending dispositions stay until the page is read again. A read that renders tracks holds nothing, also when it renders
+only part of the list: an earlier track without archived bytes that it no longer renders leaves the snapshot.
 """
 
 from __future__ import annotations
 
 import json
 import re
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from typing import Any
 
 from lib import net
@@ -110,10 +114,23 @@ def account_tracks(handle: str) -> Any:
     return covers
 
 
+def listed_tracks(handle: str, explicit: Iterable[str]) -> Any:
+    """Hold predicate (``Discovery.holds``) of a ``tracks:<handle>`` list whose read listed no track: a previous
+    candidate on one of the account's track pages that the list itself added. An ``explicit`` item URL is never held:
+    that item is read from its own page in every run."""
+    on_account, named = account_tracks(handle), set(explicit)
+
+    def holds(candidate: Mapping[str, Any]) -> bool:
+        return on_account(candidate) and candidate.get("page_url") not in named
+
+    return holds
+
+
 def listed_items(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery) -> list[dict]:
     """The seed's explicit items plus every track its ``tracks_of`` lists name (explicit items win)."""
     items = [item for item in seed["items"] if "tracks_of" not in item]
-    known = {item["url"] for item in items}
+    explicit = {item["url"] for item in items}
+    known = set(explicit)
     for item in seed["items"]:
         if "tracks_of" not in item:
             continue
@@ -125,10 +142,13 @@ def listed_items(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery) 
         except net.FetchError as error:
             discovery.errors.append(model.discovery_error("discover", url, f"{name}: {error}"))
             base.mark_unread(discovery, name, error)
+            discovery.holds[name] = listed_tracks(handle, explicit)
             continue
         tracks, total = soundcloud_tracks(html, handle)
         if not tracks:
+            # No track rendered is no observation of the earlier ones (an account with no tracks closes the list).
             discovery.errors.append(model.discovery_error("discover", url, f"{name}: no track links found"))
+            discovery.holds[name] = listed_tracks(handle, explicit)
         if total is None or len(tracks) < total:
             discovery.continuation[name] = f"listed-{len(tracks)}-of-{total if total is not None else 'unknown'}"
             discovery.notes.append(

@@ -984,6 +984,103 @@ class XTimelineTests(OfficialTestCase):
         self.assertEqual(found[post]["disposition"], "failed")
         self.verify()
 
+    @staticmethod
+    def timeline_with(keep):
+        """The fixture timeline page with only the entries whose post ID is in ``keep``."""
+        page = text("x_timeline.html")
+        match = re.search(r'(<script id="__NEXT_DATA__"[^>]*>)(.*?)(</script>)', page, re.S)
+        data = json.loads(match.group(2))
+        timeline = data["props"]["pageProps"]["timeline"]
+        timeline["entries"] = [e for e in timeline["entries"] if e["content"]["tweet"]["id_str"] in keep]
+        return page[: match.start(2)] + json.dumps(data) + page[match.end(2) :]
+
+    SAMPLE = ("1913000000000000001:1", "1913000000000000002:1", "1913000000000000003:1")
+
+    def test_an_unread_timeline_keeps_the_posts_it_listed(self):
+        """While the embed timeline cannot be read or recognized, or lists no post, the pending posts of its earlier
+        sample stay in the snapshot with their dispositions; the explicit post is read from tweet-result as before."""
+        timeline = x_adapter.TIMELINE + "c4c4cat"
+        for token, answer in (
+            ("not-read", {"error": net.HttpError("HTTP 429", url=timeline, http_status=429)}),
+            ("not-read", {"text": "<html><body>new layout</body></html>"}),
+            ("sample-of-0-recent-posts", {"text": self.timeline_with(())}),
+        ):
+            with self.subTest(continuation=token, answer=sorted(answer)):
+                network = self.network()
+                self.run_family([self.seed([])], network)
+                before = self.candidates("official:x")
+                self.assertEqual({before[key]["disposition"] for key in self.SAMPLE}, {"pending"})
+                network.routes[timeline] = answer
+                self.run_family([self.seed([])], network)
+                snapshot = manifest.load_discovery(self.root, "official:x")
+                self.assertEqual(snapshot["continuation"]["timeline:c4c4cat"], token)
+                found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+                self.assertEqual(sorted(found), sorted(before))
+                for key in self.SAMPLE:
+                    self.assertEqual(
+                        (found[key]["disposition"], found[key]["reason"], found[key]["game"]),
+                        (before[key]["disposition"], before[key]["reason"], before[key]["game"]),
+                    )
+                    self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+                self.assertEqual(found["981147690795900928"]["disposition"], "failed")  # read again: not held
+                self.assertNotIn(runner.HELD_NOTE, found["981147690795900928"].get("notes") or "")
+                self.verify()
+
+    def test_a_read_timeline_drops_a_post_it_no_longer_lists_and_holds_no_explicit_post(self):
+        """A read timeline sample is an observation: a pending post it no longer lists leaves the snapshot. An
+        explicit post is read from its own tweet-result, so an image it no longer has leaves the snapshot even while
+        the timeline is unread (only the posts the timeline listed are held)."""
+        timeline = x_adapter.TIMELINE + "c4c4cat"
+        network = self.network()
+        self.run_family([self.seed([])], network)
+        network.routes[timeline] = {"text": self.timeline_with(("1913000000000000001", "1913000000000000002"))}
+        self.run_family([self.seed([])], network)
+        snapshot = manifest.load_discovery(self.root, "official:x")
+        self.assertEqual(snapshot["continuation"]["timeline:c4c4cat"], "sample-of-2-recent-posts")
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(sorted(found), ["1913000000000000001:1", "1913000000000000002:1", "981147690795900928"])
+        self.assertFalse(any(runner.HELD_NOTE in (c.get("notes") or "") for c in found.values()))
+        self.verify()
+
+        post = "1913000000000000009"
+
+        def result(photos):
+            return {
+                "json": {
+                    "__typename": "Tweet",
+                    "id_str": post,
+                    "text": "Two new jackets",
+                    "created_at": "2025-04-20T10:00:00.000Z",
+                    "user": {"screen_name": "c4c4cat", "name": "c4c4cat"},
+                    "mediaDetails": [
+                        {
+                            "type": "photo",
+                            "media_url_https": f"https://pbs.twimg.com/media/JacketPhoto{n}.jpg",
+                            "original_info": {"width": 40, "height": 30},
+                        }
+                        for n in range(1, photos + 1)
+                    ],
+                }
+            }
+
+        post_url = full_url(x_adapter.API, {"id": post, "lang": "en", "token": x_adapter.syndication_token(post)})
+        items = [{"timeline": "c4c4cat"}, {"post_id": post}]
+        network = FakeNetwork({timeline: {"text": text("x_timeline.html")}, post_url: result(2)})
+        self.run_family([self.seed([], items)], network)
+        before = self.candidates("official:x")
+        self.assertEqual(before[f"{post}:2"]["disposition"], "pending")
+        network.routes[timeline] = {"error": net.HttpError("HTTP 429", url=timeline, http_status=429)}
+        network.routes[post_url] = result(1)
+        self.run_family([self.seed([], items)], network)
+        found = self.candidates("official:x")
+        self.assertNotIn(f"{post}:2", found)
+        self.assertEqual(found[f"{post}:1"]["disposition"], "pending")
+        self.assertNotIn(runner.HELD_NOTE, found[f"{post}:1"].get("notes") or "")
+        for key in self.SAMPLE:
+            self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+        self.assertEqual(network.count("pbs.twimg.com"), 0)
+        self.verify()
+
     def test_committed_official_x_rules_hold_a_sequel_post_from_the_timeline(self):
         page = text("x_timeline.html")
         match = re.search(r'(<script id="__NEXT_DATA__"[^>]*>)(.*?)(</script>)', page, re.S)
@@ -1630,6 +1727,11 @@ class ProbeAndRegistryTests(OfficialTestCase):
 
 
 class SoundCloudListTests(OfficialTestCase):
+    SOURCE = "official:soundcloud-c4cat"
+    TRACKS = "https://soundcloud.com/c4cat/tracks"
+    ART = "https://i1.sndcdn.com/artworks-000000000001-aaaaaa-large.jpg"
+    EXPLICIT = {"url": "https://soundcloud.com/c4cat/le-ciel-heureux-p", "key": "le-ciel-heureux-p"}
+
     def sound_page(self, title, artwork):
         sound = {
             "title": title,
@@ -1644,24 +1746,37 @@ class SoundCloudListTests(OfficialTestCase):
             + ";</script></body></html>"
         }
 
-    def test_every_listed_track_is_accounted_for_and_a_partial_list_stays_open(self):
-        art = "https://i1.sndcdn.com/artworks-000000000001-aaaaaa-large.jpg"
-        network = FakeNetwork(
-            {
-                "https://soundcloud.com/c4cat/tracks": {"text": text("soundcloud_tracks.html")},
-                "https://soundcloud.com/c4cat/le-ciel-heureux-p": self.sound_page(
-                    "P4koo - Le ciel heureux (Preview)", art
-                ),
-                "https://soundcloud.com/c4cat/packer-woo-meeting-in-sky": self.sound_page("Packer Woo - Meeting", art),
-                "https://soundcloud.com/c4cat/package-zhd": self.sound_page("Package ZHD", None),
-                art.replace("-large", "-original"): {
-                    "bytes": image_bytes("JPEG", (30, 30)),
-                    "content_type": "image/jpeg",
-                },
-            }
+    @staticmethod
+    def tracks_page(slugs, total):
+        """A ``/tracks`` page that renders the tracks ``slugs`` of an account with ``track_count`` ``total``."""
+        articles = "".join(
+            f'<article itemprop="track"><h2 itemprop="name"><a itemprop="url" href="/c4cat/{slug}">{slug}</a>'
+            "</h2></article>"
+            for slug in slugs
         )
-        seed = {
-            "id": "official:soundcloud-c4cat",
+        user = {"hydratable": "user", "data": {"permalink": "c4cat", "username": "C4Cat", "track_count": total}}
+        return {
+            "text": f"<html><body><noscript>{articles}</noscript><script>window.__sc_hydration = "
+            f"{json.dumps([user])};</script></body></html>"
+        }
+
+    def routes(self):
+        return {
+            self.TRACKS: {"text": text("soundcloud_tracks.html")},
+            "https://soundcloud.com/c4cat/le-ciel-heureux-p": self.sound_page(
+                "P4koo - Le ciel heureux (Preview)", self.ART
+            ),
+            "https://soundcloud.com/c4cat/packer-woo-meeting-in-sky": self.sound_page("Packer Woo - Meeting", self.ART),
+            "https://soundcloud.com/c4cat/package-zhd": self.sound_page("Package ZHD", None),
+            self.ART.replace("-large", "-original"): {
+                "bytes": image_bytes("JPEG", (30, 30)),
+                "content_type": "image/jpeg",
+            },
+        }
+
+    def seed(self, items=None):
+        return {
+            "id": self.SOURCE,
             "name": "C4Cat SoundCloud",
             "url": "https://soundcloud.com/c4cat",
             "platform": "soundcloud",
@@ -1669,10 +1784,7 @@ class SoundCloudListTests(OfficialTestCase):
             "hosts": ["soundcloud.com", ".sndcdn.com"],
             "params": {"handle": "c4cat"},
             "quality": QUALITY,
-            "items": [
-                {"url": "https://soundcloud.com/c4cat/le-ciel-heureux-p", "key": "le-ciel-heureux-p"},
-                {"tracks_of": "c4cat"},
-            ],
+            "items": items or [self.EXPLICIT, {"tracks_of": "c4cat"}],
             "rules": [
                 {
                     "match": "^le-ciel-heureux-p$",
@@ -1683,8 +1795,11 @@ class SoundCloudListTests(OfficialTestCase):
                 }
             ],
         }
-        self.run_family([seed], network)
-        snapshot = manifest.load_discovery(self.root, "official:soundcloud-c4cat")
+
+    def test_every_listed_track_is_accounted_for_and_a_partial_list_stays_open(self):
+        network = FakeNetwork(self.routes())
+        self.run_family([self.seed()], network)
+        snapshot = manifest.load_discovery(self.root, self.SOURCE)
         found = {c["upstream_key"]: c for c in snapshot["candidates"]}
         self.assertEqual(sorted(found), ["le-ciel-heureux-p", "package-zhd", "packer-woo-meeting-in-sky"])
         self.assertEqual(found["le-ciel-heureux-p"]["disposition"], "downloaded")
@@ -1694,6 +1809,74 @@ class SoundCloudListTests(OfficialTestCase):
         self.assertFalse(snapshot["discovery_complete"])
         self.assertEqual(network.count("soundcloud.com"), 4)  # the explicit item is not requested twice
         self.verify()
+
+    def test_an_unread_track_list_keeps_the_tracks_it_listed(self):
+        """While the /tracks page cannot be read, or renders no track, the excluded and pending tracks it listed
+        before stay in the snapshot with their dispositions; the explicit item is read from its own page as before."""
+        listed = {"package-zhd": "excluded", "packer-woo-meeting-in-sky": "pending"}
+        for token, answer in (
+            ("not-read:http_5xx", {"error": net.HttpError("HTTP 503", url=self.TRACKS, http_status=503)}),
+            ("listed-0-of-unknown", {"text": "<html><body>new layout</body></html>"}),
+            ("listed-0-of-5", self.tracks_page([], 5)),
+        ):
+            with self.subTest(continuation=token):
+                routes = self.routes()
+                self.run_family([self.seed()], FakeNetwork(routes))
+                before = self.candidates(self.SOURCE)
+                self.assertEqual({key: before[key]["disposition"] for key in listed}, listed)
+                routes[self.TRACKS] = answer
+                self.run_family([self.seed()], FakeNetwork(routes))
+                snapshot = manifest.load_discovery(self.root, self.SOURCE)
+                self.assertEqual(snapshot["continuation"]["tracks:c4cat"], token)
+                self.assertFalse(snapshot["discovery_complete"])
+                found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+                self.assertEqual(sorted(found), sorted(before))
+                for key in listed:
+                    self.assertEqual(
+                        (found[key]["disposition"], found[key]["reason"]),
+                        (before[key]["disposition"], before[key]["reason"]),
+                    )
+                    self.assertIn(runner.HELD_NOTE, found[key]["notes"])
+                self.assertEqual(found["le-ciel-heureux-p"]["disposition"], "downloaded")
+                self.assertNotIn(runner.HELD_NOTE, found["le-ciel-heureux-p"].get("notes") or "")
+                self.assertEqual({asset["upstream_status"] for asset in self.manifest()["assets"]}, {"current"})
+                self.verify()
+
+    def test_an_unread_track_list_holds_no_explicit_item(self):
+        """An explicit item is read from its own page, never held by the list: when the seed renames its key, the
+        candidate of the old key leaves the snapshot although /tracks is unread, while a track the list added stays."""
+        zhd = {"url": "https://soundcloud.com/c4cat/package-zhd", "key": "package-zhd"}
+        routes = self.routes()
+        self.run_family([self.seed([zhd, {"tracks_of": "c4cat"}])], FakeNetwork(routes))
+        before = self.candidates(self.SOURCE)
+        self.assertEqual(before["package-zhd"]["disposition"], "excluded")
+        self.assertEqual(before["packer-woo-meeting-in-sky"]["disposition"], "pending")
+        routes[self.TRACKS] = {"error": net.HttpError("HTTP 503", url=self.TRACKS, http_status=503)}
+        self.run_family([self.seed([{**zhd, "key": "zhd"}, {"tracks_of": "c4cat"}])], FakeNetwork(routes))
+        found = self.candidates(self.SOURCE)
+        self.assertNotIn("package-zhd", found)
+        self.assertEqual(found["zhd"]["disposition"], "excluded")
+        self.assertNotIn(runner.HELD_NOTE, found["zhd"].get("notes") or "")
+        self.assertEqual(found["packer-woo-meeting-in-sky"]["disposition"], "pending")
+        self.assertIn(runner.HELD_NOTE, found["packer-woo-meeting-in-sky"]["notes"])
+        self.verify()
+
+    def test_a_read_track_list_drops_a_track_it_no_longer_lists(self):
+        """A /tracks page that renders tracks is an observation, also when it renders only part of the list: an
+        excluded or pending track it no longer lists leaves the snapshot (nothing holds it)."""
+        for token, total in (("listed-2-of-4", 4), (None, 2)):
+            with self.subTest(continuation=token):
+                routes = self.routes()
+                self.run_family([self.seed()], FakeNetwork(routes))
+                self.assertEqual(self.candidates(self.SOURCE)["packer-woo-meeting-in-sky"]["disposition"], "pending")
+                routes[self.TRACKS] = self.tracks_page(["le-ciel-heureux-p", "package-zhd"], total)
+                self.run_family([self.seed()], FakeNetwork(routes))
+                snapshot = manifest.load_discovery(self.root, self.SOURCE)
+                self.assertEqual(snapshot["continuation"]["tracks:c4cat"], token)
+                found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+                self.assertEqual(sorted(found), ["le-ciel-heureux-p", "package-zhd"])
+                self.assertFalse(any(runner.HELD_NOTE in (c.get("notes") or "") for c in found.values()))
+                self.verify()
 
 
 class IsolationTests(OfficialTestCase):
