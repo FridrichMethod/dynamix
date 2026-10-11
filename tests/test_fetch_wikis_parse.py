@@ -609,6 +609,34 @@ class OtherGameCaptionTests(unittest.TestCase):
         text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
         return self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
 
+    def test_the_documented_caption_examples_behave_as_documented(self) -> None:
+        """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: another game's
+        artwork or event records an association, Dynamix's own events do not, and a BMS release event is the song's
+        separate release (external_release_art). The stale 'another game or event' wording is gone."""
+        expected = {
+            "Artwork in RAVON": ("download", ["ravon"]),
+            "Artwork for the RAVON Collaboration Event": ("download", ["ravon"]),
+            "Jacket for the Halloween Event": ("download", []),
+            "Artwork in PABAT! 2017": ("excluded", []),
+        }
+        for relative, stale in (
+            ("docs/sources-wikis.md", "another game or event"),
+            ("docs/sources-wikis.zh-CN.md", "其他游戏或活动"),
+        ):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            [paragraph] = [line for line in text.splitlines() if "`mixed`" in line and "`game_associations`" in line]
+            with self.subTest(document=relative):
+                self.assertNotIn(stale, paragraph)
+                self.assertIn("`external_release_art`", paragraph)
+                for caption in expected:
+                    self.assertIn(caption, paragraph)
+        for caption, (disposition, associations) in expected.items():
+            with self.subTest(caption=caption):
+                decision = self.decide([self.gallery_item("S " + caption)])
+                self.assertEqual((decision.disposition, decision.associations), (disposition, associations))
+                if disposition == "excluded":
+                    self.assertEqual(decision.reason.split(":")[0], "external_release_art")
+
 
 def _review(**fields):
     entry = {

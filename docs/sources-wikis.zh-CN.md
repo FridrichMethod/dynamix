@@ -74,7 +74,7 @@ wiki 的文件命名空间远不止美术：还有个人资料照片、界面图
 
 文件的游戏归属是使用它的各个上下文的游戏的并集：`Template:Song` 表示原版游戏，`Template:SongUV` 表示 Dynamix Universe，以某一作命名的页面和分类计入该作。同时讨论两作的页面、艺术家列表或首页本身不确定游戏，文件名也从不确定游戏。在同时带有两作模板的曲目页上，每一作的内容位于各自的标签页中，标签页之后的页面级图库列出原版游戏的活动物品。若文件的类型来自曲目页，且其 Fandom 上传时间早于该 wiki 第一个以 Universe 命名的上传，则计为原版游戏素材，证据字符串会写明这一点。未发布或已取消曲目的封面（`Template:SongOther`）保持待定，因为它们在游戏中的使用没有得到证实。
 
-两作共用的文件以 `mixed` 接受，并在 `game_associations` 中保留 `dynamix_universe`；指明为其他游戏或活动制作的图注（“Artwork in …”）同样会把该游戏记为关联。只有仅在 Universe 上下文中使用的文件才会被排除。
+两作共用的文件以 `mixed` 接受，并在 `game_associations` 中保留 `dynamix_universe`；指明为其他游戏（“Artwork in RAVON”）或其他游戏的活动、周年纪念（“Artwork for the RAVON Collaboration Event”）制作的图注同样会把该游戏记为关联。指明为 Dynamix 自身的活动、周年纪念或节日（“Jacket for the Halloween Event”）制作的图注不记录关联。按游戏归属，只有仅在 Universe 上下文中使用的文件才会被排除；为 PABAT 等 BMS 发布活动制作的曲绘（“Artwork in PABAT! 2017”）是该曲目另行发布的作品，以 `external_release_art` 排除。
 
 ### 排除与待定候选
 
