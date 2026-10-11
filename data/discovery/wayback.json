@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-10T22:37:52Z",
-  "finished_at": "2026-10-10T22:40:48Z",
+  "started_at": "2026-10-11T00:19:26Z",
+  "finished_at": "2026-10-11T00:24:04Z",
   "scope": {
     "lists": [
       "official-img",
@@ -189,7 +189,7 @@
       "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new1.jpg@20170719230328",
       "page_url": "https://web.archive.org/web/20170719230328/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
       "file_url": "https://web.archive.org/web/20170719230328id_/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
-      "title": "Official website news image: the Dynamix logo on white",
+      "title": "Dynamix | Mobile Music Game — Music game (1/3)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -207,7 +207,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:37b167ce476582c6",
-      "notes": "Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365)."
+      "notes": "Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365). Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 1 of 3 next to the heading 'Music game'; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
@@ -215,8 +215,8 @@
       "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
       "page_url": "https://web.archive.org/web/20160314012750/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
       "file_url": "https://web.archive.org/web/20160314012750id_/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
-      "title": "Official home page photo of the game played on a phone",
-      "role": "promotional",
+      "title": "Dynamix | Mobile Music Game — Playing style (2/3)",
+      "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
         "capture of http://188.166.254.2/wp-content/uploads/2015/10/new21.png"
@@ -233,7 +233,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:65e2fc2468b0eddb",
-      "notes": "Official home-page photo of the game being played on a phone."
+      "notes": "Official home-page photo of the game being played on a phone (a photo of gameplay on a device: gameplay_screenshot, like the official YouTube thumbnails of hands playing on a phone or tablet). Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 2 of 3 next to the heading 'Playing style'; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
@@ -241,7 +241,7 @@
       "upstream_key": "188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
       "page_url": "https://web.archive.org/web/20170720024322/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
       "file_url": "https://web.archive.org/web/20170720024322id_/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
-      "title": "Official home page features collage of song jackets",
+      "title": "Dynamix | Mobile Music Game — Songs submission (3/3)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -259,7 +259,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:77957c0d9f1b5ff4",
-      "notes": "Official home-page features collage of about twelve song jackets."
+      "notes": "Official home-page features collage of about twelve song jackets. Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 3 of 3 next to the heading 'Songs submission'; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dl.dnx.c4-cat.com/512512.png@20190330125323",
@@ -423,7 +423,7 @@
       "upstream_key": "dynamix-server.c4-cat.com/mycard/img/header.jpg@20200622223326",
       "page_url": "https://web.archive.org/web/20200622223326/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
       "file_url": "https://web.archive.org/web/20200622223326id_/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
-      "title": "MyCard top-up page header banner",
+      "title": "MyCard Dynamix線上商店 — page banner",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -441,7 +441,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:ffbb74bc2c7d3404",
-      "notes": "Header banner (planet) of the official MyCard top-up page."
+      "notes": "Header banner (planet) of the official MyCard top-up page. Title from the cited page https://web.archive.org/web/20190119063302/http://dynamix-server.c4-cat.com:80/mycard/login (page heading 'MyCard Dynamix線上商店'; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/a17.png@20150630041035",
@@ -527,7 +527,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap1.png@20150412124448",
       "page_url": "https://web.archive.org/web/20150412124448/http://dynamix.c4-cat.com/img/cap1.png",
       "file_url": "https://web.archive.org/web/20150412124448id_/http://dynamix.c4-cat.com/img/cap1.png",
-      "title": "Official website screenshot (cap1.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (1/6)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -545,7 +545,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:5dfc34aabbe587b5",
-      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 1 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/cap2.png@20150412125452",
@@ -553,7 +553,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap2.png@20150412125452",
       "page_url": "https://web.archive.org/web/20150412125452/http://dynamix.c4-cat.com/img/cap2.png",
       "file_url": "https://web.archive.org/web/20150412125452id_/http://dynamix.c4-cat.com/img/cap2.png",
-      "title": "Official website screenshot (cap2.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (2/6)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -571,7 +571,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:1e5222ccfcdc7d0c",
-      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 2 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/cap3.png@20150412125233",
@@ -579,7 +579,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap3.png@20150412125233",
       "page_url": "https://web.archive.org/web/20150412125233/http://dynamix.c4-cat.com/img/cap3.png",
       "file_url": "https://web.archive.org/web/20150412125233id_/http://dynamix.c4-cat.com/img/cap3.png",
-      "title": "Official website screenshot (cap3.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (3/6)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -597,7 +597,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:bda4de01f423cc49",
-      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 3 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/cap4.png@20150412125308",
@@ -605,7 +605,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap4.png@20150412125308",
       "page_url": "https://web.archive.org/web/20150412125308/http://dynamix.c4-cat.com/img/cap4.png",
       "file_url": "https://web.archive.org/web/20150412125308id_/http://dynamix.c4-cat.com/img/cap4.png",
-      "title": "Official website screenshot (cap4.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (4/6)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -623,7 +623,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:225baa3735776aff",
-      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 4 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/cap5.png@20150630034232",
@@ -631,7 +631,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap5.png@20150630034232",
       "page_url": "https://web.archive.org/web/20150630034232/http://dynamix.c4-cat.com/img/cap5.png",
       "file_url": "https://web.archive.org/web/20150630034232id_/http://dynamix.c4-cat.com/img/cap5.png",
-      "title": "Official website screenshot (cap5.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (5/6)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -649,7 +649,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:919f9ba3e02695e9",
-      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 5 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/cap6.png@20150412124335",
@@ -657,7 +657,7 @@
       "upstream_key": "dynamix.c4-cat.com/img/cap6.png@20150412124335",
       "page_url": "https://web.archive.org/web/20150412124335/http://dynamix.c4-cat.com/img/cap6.png",
       "file_url": "https://web.archive.org/web/20150412124335id_/http://dynamix.c4-cat.com/img/cap6.png",
-      "title": "Official website screenshot (cap6.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (6/6)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -675,7 +675,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:2c8339f2a3f1310d",
-      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI)."
+      "notes": "2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 6 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/dynamix.png@20150630045729",
@@ -1151,7 +1151,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
       "page_url": "https://web.archive.org/web/20160517032816/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
       "file_url": "https://web.archive.org/web/20160517032816id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
-      "title": "Official website news banner with the Dynamix logo",
+      "title": "2.4 update",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1169,7 +1169,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:a05e966293b8f4f7",
-      "notes": "Official news banner with the Dynamix logo."
+      "notes": "Official news banner with the Dynamix logo. Title from the cited page https://web.archive.org/web/20160310180126/http://dynamix.c4-cat.com:80/2015/10/ (the post '2.4 update' (2015-10-31) shows this banner; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/CodeEntry_tutorialC-199x128.jpg@20160119043806",
@@ -1229,7 +1229,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg@20160517082309",
       "page_url": "https://web.archive.org/web/20160517082309/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
       "file_url": "https://web.archive.org/web/20160517082309id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
-      "title": "Official code-entry tutorial (TC1.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (1/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1247,7 +1247,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:fa255ee778c01a50",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (Chinese), image 1 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg@20160517010305",
@@ -1255,7 +1255,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg@20160517010305",
       "page_url": "https://web.archive.org/web/20160517010305/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
       "file_url": "https://web.archive.org/web/20160517010305id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
-      "title": "Official code-entry tutorial (TC2.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (2/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1273,7 +1273,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:3ced66daba373e35",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (Chinese), image 2 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg@20160517065421",
@@ -1281,7 +1281,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg@20160517065421",
       "page_url": "https://web.archive.org/web/20160517065421/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
       "file_url": "https://web.archive.org/web/20160517065421id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
-      "title": "Official code-entry tutorial (TC3.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (3/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1299,7 +1299,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:42704074a74a6ea4",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (Chinese), image 3 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg@20160517032810",
@@ -1307,7 +1307,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg@20160517032810",
       "page_url": "https://web.archive.org/web/20160517032810/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
       "file_url": "https://web.archive.org/web/20160517032810id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
-      "title": "Official code-entry tutorial (TC4.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (4/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1325,7 +1325,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:3edb471466420017",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (Chinese), image 4 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
@@ -1333,7 +1333,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
       "page_url": "https://web.archive.org/web/20160516183525/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
       "file_url": "https://web.archive.org/web/20160516183525id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
-      "title": "Official code-entry tutorial (TE1.jpg, 2015)",
+      "title": "Dynamix Code Entry (1/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1351,7 +1351,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:2e1d86734926b2fc",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (English), image 1 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg@20160516153751",
@@ -1359,7 +1359,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg@20160516153751",
       "page_url": "https://web.archive.org/web/20160516153751/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
       "file_url": "https://web.archive.org/web/20160516153751id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
-      "title": "Official code-entry tutorial (TE2.jpg, 2015)",
+      "title": "Dynamix Code Entry (2/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1377,7 +1377,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:f7587fb5c1e5de43",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (English), image 2 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg@20160926180754",
@@ -1385,7 +1385,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg@20160926180754",
       "page_url": "https://web.archive.org/web/20160926180754/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
       "file_url": "https://web.archive.org/web/20160926180754id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
-      "title": "Official code-entry tutorial (TE3.jpg, 2015)",
+      "title": "Dynamix Code Entry (3/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1403,7 +1403,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:9afbfe33465a99ab",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (English), image 3 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg@20160516163207",
@@ -1411,7 +1411,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg@20160516163207",
       "page_url": "https://web.archive.org/web/20160516163207/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
       "file_url": "https://web.archive.org/web/20160516163207id_/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
-      "title": "Official code-entry tutorial (TE4.jpg, 2015)",
+      "title": "Dynamix Code Entry (4/4)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1429,7 +1429,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:da488040ca54cf9a",
-      "notes": "Official code-entry tutorial screenshot (Chinese/English)."
+      "notes": "Official code-entry tutorial screenshot (English), image 4 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/12/doujin-mark.png@20160119064719",
@@ -1463,7 +1463,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png@20170720125056",
       "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
       "file_url": "https://web.archive.org/web/20170720125056id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
-      "title": "Release-history timeline thumbnail",
+      "title": "Version3.0 Preview (news thumbnail)",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1481,7 +1481,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:2715479009f201a3",
-      "notes": "Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1)."
+      "notes": "Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1). Title from the cited page https://web.archive.org/web/20160522194054/http://dynamix.c4-cat.com:80/2016/03/ (the post 'Version3.0 Preview' shows the full-size image of this thumbnail; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
@@ -1489,7 +1489,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
       "page_url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
       "file_url": "https://web.archive.org/web/20160729214342id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
-      "title": "Version 2.7 update-note announcement banner",
+      "title": "Version 2.7 Updates",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -1507,7 +1507,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:f145b4af336c3feb",
-      "notes": "Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1)."
+      "notes": "Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1). Title from the cited page https://web.archive.org/web/20160522194054/http://dynamix.c4-cat.com:80/2016/03/ (the post 'Version 2.7 Updates' shows this banner; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/04/OR_icon_1000x1000-e1459851683184.png@20170720134107",
@@ -1541,7 +1541,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png@20170720125050",
       "page_url": "https://web.archive.org/web/20170720125050/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
       "file_url": "https://web.archive.org/web/20170720125050id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
-      "title": "Dynamix website 3.0 news thumbnail",
+      "title": "3.0 Update (news thumbnail)",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1559,7 +1559,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:5a334091a7a67952",
-      "notes": "Thumbnail of the Dynamix website 3.0 news banner."
+      "notes": "Thumbnail of the Dynamix website 3.0 news banner. Title from the cited page https://web.archive.org/web/20170426015928/http://dynamix.c4-cat.com:80/2016/05/25/3-0-update/ (the post '3.0 Update' shows the full-size image of this thumbnail; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
@@ -1567,7 +1567,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
       "page_url": "https://web.archive.org/web/20170720132226/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
       "file_url": "https://web.archive.org/web/20170720132226id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
-      "title": "OverRapid collaboration news thumbnail",
+      "title": "Overrapid collaboration#1 (news thumbnail)",
       "role": "gameplay_screenshot",
       "game": "dynamix",
       "game_evidence": [
@@ -1585,7 +1585,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:110c58ef490c6918",
-      "notes": "OverRapid collaboration news thumbnail showing the in-game store."
+      "notes": "OverRapid collaboration news thumbnail showing the in-game store. Title from the cited page https://web.archive.org/web/20170524195829/http://dynamix.c4-cat.com:80/2016/05/25/overrapid-collaboration1/ (the post 'Overrapid collaboration#1' shows the full-size image of this thumbnail; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-199x128.png@20170720125101",
@@ -1619,7 +1619,7 @@
       "upstream_key": "dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
       "page_url": "https://web.archive.org/web/20190925101806/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
       "file_url": "https://web.archive.org/web/20190925101806id_/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
-      "title": "Official website news banner: C4Cat character key art",
+      "title": "CP03 現場情報",
       "role": "promotional",
       "game": "dynamix",
       "game_evidence": [
@@ -1637,7 +1637,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:9040ed5440e36fce",
-      "notes": "Official news banner: C4Cat character key art with the Dynamix logo."
+      "notes": "Official news banner: C4Cat character key art with the Dynamix logo. Title from the cited page https://web.archive.org/web/20170503024843/http://dynamix.c4-cat.com:80/2016/07/30/cp03-%E7%8F%BE%E5%A0%B4%E6%83%85%E5%A0%B1/ (the post 'CP03 現場情報' shows this banner; read 2026-10-10)."
     },
     {
       "id": "archives:wayback:i.pximg.net/img-original/img/2014/04/19/14/40/16/42973848_p0.jpg@20221220032003",
@@ -2059,7 +2059,7 @@
       "upstream_key": "scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847@20250517214330",
       "page_url": "https://web.archive.org/web/20250517214330/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
       "file_url": "https://web.archive.org/web/20250517214330id_/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
-      "title": "Dynamix X Rotaeno collaboration key visual",
+      "title": "Dynamix X Rotaeno Collaboration Announcement (video poster)",
       "role": "promotional",
       "game": "mixed",
       "game_evidence": [
@@ -2081,7 +2081,7 @@
       "collections": [
         "Rotaeno Collaboration"
       ],
-      "notes": "Dynamix X Rotaeno collaboration key visual (video poster), 2025-04."
+      "notes": "Dynamix X Rotaeno collaboration key visual (video poster), 2025-04. Title from the cited Facebook video 'Dynamix X Rotaeno Collaboration Announcement' (game_evidence)."
     },
     {
       "id": "archives:wayback:www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
@@ -2089,7 +2089,7 @@
       "upstream_key": "www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
       "page_url": "https://web.archive.org/web/20240403110020/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
       "file_url": "https://web.archive.org/web/20240403110020id_/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "title": "HKSTP press release appendix 3: C4Cat / Dynamix profile",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 — 附件三",
       "role": "reference",
       "game": "dynamix",
       "game_evidence": [
@@ -2107,7 +2107,7 @@
       },
       "disposition": "downloaded",
       "asset_id": "archives:wayback:6e922fcfc86be714",
-      "notes": "HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404."
+      "notes": "HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404. Title from the cited page https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809 (press-release headline; the PDF is its link '附件三'; read 2026-10-10)."
     }
   ],
   "errors": []

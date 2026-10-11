@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family": "archives",
-  "fetched_at": "2026-10-10T22:37:50Z",
+  "fetched_at": "2026-10-11T00:19:24Z",
   "sources": [
     {
       "id": "archives:4gamer",
@@ -10,7 +10,7 @@
       "url": "https://www.4gamer.net/games/306/G030626/screenshot.html",
       "platform": "web",
       "status": "available",
-      "checked_at": "2026-10-10T22:42:48Z",
+      "checked_at": "2026-10-11T00:18:51Z",
       "notes": "Historical press screenshots: the 2015-06-18 gallery and the 2015-06-17 column article (ほぼ)日刊スマホゲーム通信 #862; not jacket masters.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -26,7 +26,7 @@
       "url": "https://web.archive.org/",
       "platform": "registry",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T22:37:08Z",
+      "checked_at": "2026-10-11T00:18:53Z",
       "notes": "Curated 2026-10-10 research-sweep leads about wikis, partner-game wikis, encyclopedias, press and repositories; recorded without requests.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -42,7 +42,7 @@
       "url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
       "platform": "web",
       "status": "metadata_only",
-      "checked_at": "2026-10-10T22:37:08Z",
+      "checked_at": "2026-10-11T00:18:53Z",
       "notes": "Institutional press release naming C4Cat's Dynamix; the appendix PDFs are also captured by archives:wayback.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
@@ -57,14 +57,14 @@
       "family": "archives",
       "url": "https://gnn.gamer.com.tw/",
       "platform": "web",
-      "status": "partially_available",
-      "checked_at": "2026-10-10T22:42:50Z",
+      "status": "available",
+      "checked_at": "2026-10-11T00:18:56Z",
       "notes": "Images of press articles found by the 2026-10-10 research (Bahamut GNN, QooApp, unwire.hk, T客邦, ifanr, HK01): the named files plus every article-body image of each read article page (params.article_images), each classified by a rule (downloaded, excluded with its reason, or pending); the 4Gamer #862 column page is enumerated by archives:4gamer. Lower-resolution syndicated copies (9game, Gamersky) are recorded in archives:archive-leads.",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
       "discovery_complete": true,
-      "candidate_count": 103,
-      "asset_count": 57,
-      "failure_count": 1,
+      "candidate_count": 113,
+      "asset_count": 74,
+      "failure_count": 0,
       "evidence_level": "page_read"
     },
     {
@@ -74,7 +74,7 @@
       "url": "https://web.archive.org/",
       "platform": "wayback",
       "status": "available",
-      "checked_at": "2026-10-10T22:37:52Z",
+      "checked_at": "2026-10-11T00:19:26Z",
       "notes": "Raw (id_) captures listed through explicit CDX queries: the dead official site's image paths, its raw-IP WordPress host, the MyCard and download hosts, the HKSTP appendix, and ArchiveTeam captures of artist pixiv originals. Theme/plugin assets of the WordPress site are outside the queried paths.",
       "api_url": "https://web.archive.org/cdx/search/cdx",
       "rate_policy": "one request at a time per host, >= 3 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -117,7 +117,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press gallery copy of developer-supplied screenshots."
+        "notes": "Press gallery copy as served by 4Gamer.net; the gallery page does not state who supplied the screenshots."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -184,7 +184,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press gallery copy of developer-supplied screenshots."
+        "notes": "Press gallery copy as served by 4Gamer.net; the gallery page does not state who supplied the screenshots."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -251,7 +251,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press gallery copy of developer-supplied screenshots."
+        "notes": "Press gallery copy as served by 4Gamer.net; the gallery page does not state who supplied the screenshots."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -318,7 +318,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press gallery copy of developer-supplied screenshots."
+        "notes": "Press gallery copy as served by 4Gamer.net; the gallery page does not state who supplied the screenshots."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -385,7 +385,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press gallery copy of developer-supplied screenshots."
+        "notes": "Press gallery copy as served by 4Gamer.net; the gallery page does not state who supplied the screenshots."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -471,7 +471,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -509,6 +509,74 @@
       "notes": "3.0 interface preview: song-select over the Hemisphere jacket (2016-03)."
     },
     {
+      "id": "archives:press:071b9bd0d78800ec",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:gnn129234:0001345609",
+      "title": "《Dynamix》近期更新內容預告 下一款企劃中的新作首度曝光 (4/16)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+      "download_url": "https://p2.bahamut.com.tw/B/2KU/09/0001345609.JPG",
+      "resolved_url": "https://p2.bahamut.com.tw/B/2KU/09/0001345609.JPG",
+      "path": "assets/public/archives/press/0001345609--071b9bd0d788.jpg",
+      "original_filename": "0001345609.JPG",
+      "bytes": 79105,
+      "sha256": "071b9bd0d78800ecfbce9d9c937d755d2afb6b6a8b0be6b9694e25417169ab0b",
+      "sha1": "5ea7809ea7d03e88a076d77a9f82ee7eee43b5e5",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "fetched_at": "2026-10-11T00:19:10Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://gnn.gamer.com.tw/detail.php?sn=129234",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://p2.bahamut.com.tw/B/2KU/09/0001345609.JPG",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 79105,
+        "width": 1920,
+        "height": 1080,
+        "sha1": "5ea7809ea7d03e88a076d77a9f82ee7eee43b5e5",
+        "sha256": "071b9bd0d78800ecfbce9d9c937d755d2afb6b6a8b0be6b9694e25417169ab0b"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "visual_inspection 2026-10-10: v2.7.0 in-game download-progress screen; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+    },
+    {
       "id": "archives:press:090696a1190f10ee",
       "source_id": "archives:press",
       "candidate_id": "archives:press:gnn129234:0001345596",
@@ -539,7 +607,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -607,7 +675,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -677,7 +745,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -715,6 +783,75 @@
       "notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
     },
     {
+      "id": "archives:press:0f7e59d90235bfb9",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334203",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 遊戲發展至今已有近200首樂曲，香港Composer的作品之中亦不乏佳作，可見香港實在不乏有才能的人，只是需要一個機遇。 (9/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334203/org/5015266b7456839f7f50267011a48bfc.PNG/qijGWQ74yenOd_-iZdZ78uTLdwKgI5HpaTOB4mkzgeI",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334203/org/5015266b7456839f7f50267011a48bfc.PNG/qijGWQ74yenOd_-iZdZ78uTLdwKgI5HpaTOB4mkzgeI",
+      "path": "assets/public/archives/press/5015266b7456839f7f50267011a48bfc--0f7e59d90235.jpg",
+      "original_filename": "5015266b7456839f7f50267011a48bfc.PNG",
+      "bytes": 184572,
+      "sha256": "0f7e59d90235bfb93faa64e300ab6e9d20eb6b1a870413dc2921b2b508e73f64",
+      "sha1": "2e611f121faf06424f10811447de35b87f9f2c3c",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:17Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334203/org/5015266b7456839f7f50267011a48bfc.PNG/qijGWQ74yenOd_-iZdZ78uTLdwKgI5HpaTOB4mkzgeI",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 184572,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "2e611f121faf06424f10811447de35b87f9f2c3c",
+        "sha256": "0f7e59d90235bfb93faa64e300ab6e9d20eb6b1a870413dc2921b2b508e73f64"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
+    },
+    {
       "id": "archives:press:0ff19d75d7a78805",
       "source_id": "archives:press",
       "candidate_id": "archives:press:gnn275656:9c5b7911570626cff6690355b41rup55",
@@ -745,7 +882,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -786,7 +923,7 @@
       "id": "archives:press:120b72aec06da88d",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/013",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (013)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (8/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -813,7 +950,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -904,7 +1041,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1008,7 +1145,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1076,7 +1213,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1114,6 +1251,75 @@
       "notes": "In-game character screen with the QooApp collaboration character Gilbert (2017-07)."
     },
     {
+      "id": "archives:press:16b24f291294093a",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334028",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 簡潔又帶科幻感的界面感覺舒服，splash art的水準亦出色。 (2/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334028/org/376815983551e819172ef93f225dcc4f.PNG/BJJmaPg17f1Mr-N4UdZOBij3JqruaziuMlUAtzJVALc",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334028/org/376815983551e819172ef93f225dcc4f.PNG/BJJmaPg17f1Mr-N4UdZOBij3JqruaziuMlUAtzJVALc",
+      "path": "assets/public/archives/press/376815983551e819172ef93f225dcc4f--16b24f291294.jpg",
+      "original_filename": "376815983551e819172ef93f225dcc4f.PNG",
+      "bytes": 397391,
+      "sha256": "16b24f291294093a2424e151c6b863f5685a3e149cff5aea3d30fa3c4161f13c",
+      "sha1": "16472c51ee6a6bba9abdb775643c2aca8af63a6f",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:10Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334028/org/376815983551e819172ef93f225dcc4f.PNG/BJJmaPg17f1Mr-N4UdZOBij3JqruaziuMlUAtzJVALc",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 397391,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "16472c51ee6a6bba9abdb775643c2aca8af63a6f",
+        "sha256": "16b24f291294093a2424e151c6b863f5685a3e149cff5aea3d30fa3c4161f13c"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
+    },
+    {
       "id": "archives:press:1894af5626214917",
       "source_id": "archives:press",
       "candidate_id": "archives:press:unwire2014:wm038",
@@ -1144,7 +1350,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1212,7 +1418,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1294,7 +1500,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1362,7 +1568,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1398,6 +1604,213 @@
       },
       "upstream_status": "current",
       "notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+    },
+    {
+      "id": "archives:press:2e7849084b70bf9a",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334210",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 樂譜分成Casual、Normal、Hard、Mega及Giga五個難度，是擅長音樂遊戲的朋友不愁沒有挑戰，不擅長的也可以低難度享受音樂。 (11/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334210/org/9716afa2fab9d3806048edb3c83b0561.PNG/G4NWiCK_Q7tdgqPLEaHEv3PGDGJxWDyJttcFFrbXBRY",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334210/org/9716afa2fab9d3806048edb3c83b0561.PNG/G4NWiCK_Q7tdgqPLEaHEv3PGDGJxWDyJttcFFrbXBRY",
+      "path": "assets/public/archives/press/9716afa2fab9d3806048edb3c83b0561--2e7849084b70.jpg",
+      "original_filename": "9716afa2fab9d3806048edb3c83b0561.PNG",
+      "bytes": 264612,
+      "sha256": "2e7849084b70bf9abc6aa40fd772e3553982f30601c3624696fa122cf5cbd5e5",
+      "sha1": "b9a1987a0ff23d2a942d500a39b5697161143f7e",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:19Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334210/org/9716afa2fab9d3806048edb3c83b0561.PNG/G4NWiCK_Q7tdgqPLEaHEv3PGDGJxWDyJttcFFrbXBRY",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 264612,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "b9a1987a0ff23d2a942d500a39b5697161143f7e",
+        "sha256": "2e7849084b70bf9abc6aa40fd772e3553982f30601c3624696fa122cf5cbd5e5"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
+    },
+    {
+      "id": "archives:press:30adc25594553036",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334136",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 黃色則是長按，如果途中不慎鬆了手會有非常短的緩衝時間，再次按實便不會版判定為失敗 (6/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334136/org/c599db175d2d88e38fefc8bed9cff8d5.PNG/kZm5NJlAgp8SoqQKu8nojBcoga1IH2NVMwsJOTMLCTk",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334136/org/c599db175d2d88e38fefc8bed9cff8d5.PNG/kZm5NJlAgp8SoqQKu8nojBcoga1IH2NVMwsJOTMLCTk",
+      "path": "assets/public/archives/press/c599db175d2d88e38fefc8bed9cff8d5--30adc2559455.jpg",
+      "original_filename": "c599db175d2d88e38fefc8bed9cff8d5.PNG",
+      "bytes": 157115,
+      "sha256": "30adc2559455303625b0449f1f3913f9529834606773b73af1e06c7640df0950",
+      "sha1": "ad64ff7baccf941fecdcc466dfd6895c183af7ef",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:12Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334136/org/c599db175d2d88e38fefc8bed9cff8d5.PNG/kZm5NJlAgp8SoqQKu8nojBcoga1IH2NVMwsJOTMLCTk",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 157115,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "ad64ff7baccf941fecdcc466dfd6895c183af7ef",
+        "sha256": "30adc2559455303625b0449f1f3913f9529834606773b73af1e06c7640df0950"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
+    },
+    {
+      "id": "archives:press:321142b6757979bb",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334175",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 雖然遊戲可以免費遊玩，不過會有廣告，也無法使用進階功能，如果覺得遊戲合心意，不妨以HKD28購入完整版。 (10/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334175/org/174a4743844b9d481e22db65e50d1626.PNG/iGMBrwetOHZIFi9lf0ByRy61Gq140iS8ow9wzaMPcM0",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334175/org/174a4743844b9d481e22db65e50d1626.PNG/iGMBrwetOHZIFi9lf0ByRy61Gq140iS8ow9wzaMPcM0",
+      "path": "assets/public/archives/press/174a4743844b9d481e22db65e50d1626--321142b67579.jpg",
+      "original_filename": "174a4743844b9d481e22db65e50d1626.PNG",
+      "bytes": 153117,
+      "sha256": "321142b6757979bb268a84f0174860b5fd8a0e9239b300993074d2a24923af86",
+      "sha1": "4d82acbc9dffbcf7f2ea750aa1f3806ff8a37d48",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:15Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334175/org/174a4743844b9d481e22db65e50d1626.PNG/iGMBrwetOHZIFi9lf0ByRy61Gq140iS8ow9wzaMPcM0",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 153117,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "4d82acbc9dffbcf7f2ea750aa1f3806ff8a37d48",
+        "sha256": "321142b6757979bb268a84f0174860b5fd8a0e9239b300993074d2a24923af86"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
     },
     {
       "id": "archives:press:38143ce32498b9e5",
@@ -1449,7 +1862,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1535,7 +1948,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1617,7 +2030,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1685,7 +2098,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1769,7 +2182,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1805,6 +2218,75 @@
       },
       "upstream_status": "current",
       "notes": "Gameplay of Impromptu D899#3-Y over its character art (2014)."
+    },
+    {
+      "id": "archives:press:4906d23824f46b1d",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334137",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 藍色是輕觸屏幕，當然要點擊判定線上相應的位置 (5/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334137/org/fe7f84156974cf525964486ce4c3297b.PNG/NLoeb7hj2xdU-87qOuBglr0QFHvQ1rll62uzdOtrs3Q",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334137/org/fe7f84156974cf525964486ce4c3297b.PNG/NLoeb7hj2xdU-87qOuBglr0QFHvQ1rll62uzdOtrs3Q",
+      "path": "assets/public/archives/press/fe7f84156974cf525964486ce4c3297b--4906d23824f4.jpg",
+      "original_filename": "fe7f84156974cf525964486ce4c3297b.PNG",
+      "bytes": 152641,
+      "sha256": "4906d23824f46b1d051ce945ca2d7fc2a635047b01c685c81112ffae21c13d01",
+      "sha1": "88872742b66c76668eef49d44eb6145def502022",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:13Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334137/org/fe7f84156974cf525964486ce4c3297b.PNG/NLoeb7hj2xdU-87qOuBglr0QFHvQ1rll62uzdOtrs3Q",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 152641,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "88872742b66c76668eef49d44eb6145def502022",
+        "sha256": "4906d23824f46b1d051ce945ca2d7fc2a635047b01c685c81112ffae21c13d01"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
     },
     {
       "id": "archives:press:4f0f814a2996ef9d",
@@ -1851,7 +2333,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1919,7 +2401,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -1957,11 +2439,80 @@
       "notes": "Gameplay capture (Stardust) in a 2015 rhythm-game roundup."
     },
     {
+      "id": "archives:press:579aaea1555df181",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334029",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 筆者自問玩音樂遊戲不是生手，但剛開始時也被三重落下的模式弄得手忙腳亂。 (3/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334029/org/5a917415c4ffb490e0185e699554bfd7.PNG/dt_HAdOYr8bvI0pXD-WoXmRIFP5ANHsVj53yM4-d8jM",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334029/org/5a917415c4ffb490e0185e699554bfd7.PNG/dt_HAdOYr8bvI0pXD-WoXmRIFP5ANHsVj53yM4-d8jM",
+      "path": "assets/public/archives/press/5a917415c4ffb490e0185e699554bfd7--579aaea1555d.jpg",
+      "original_filename": "5a917415c4ffb490e0185e699554bfd7.PNG",
+      "bytes": 253129,
+      "sha256": "579aaea1555df1810f536e3bef2b12275421b8b9606df004bc606265a7281f21",
+      "sha1": "befce6bc3ce841c3e6aa819c657ab98f3127cb6a",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:10Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334029/org/5a917415c4ffb490e0185e699554bfd7.PNG/dt_HAdOYr8bvI0pXD-WoXmRIFP5ANHsVj53yM4-d8jM",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 253129,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "befce6bc3ce841c3e6aa819c657ab98f3127cb6a",
+        "sha256": "579aaea1555df1810f536e3bef2b12275421b8b9606df004bc606265a7281f21"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
+    },
+    {
       "id": "archives:press:60fb696b18d2ccea",
       "source_id": "archives:press",
       "candidate_id": "archives:press:gnn141991:0001490819",
       "title": "手機音樂遊戲《Dynamix》推出新年三重賞 新曲新角舊復刻 (3/3)",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://gnn.gamer.com.tw/detail.php?sn=141991",
       "download_url": "https://p2.bahamut.com.tw/B/2KU/19/0001490819.JPG",
@@ -2008,7 +2559,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2043,13 +2594,13 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Official event 'COMING SOON' card for Sakura Fubuki (1920x1080, 2017-01)."
+      "notes": "Official event 'COMING SOON' card for Sakura Fubuki (1920x1080, 2017-01); it displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1)."
     },
     {
       "id": "archives:press:64833bd278b37dc5",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/012",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (012)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (6/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -2076,7 +2627,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2144,7 +2695,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2185,7 +2736,7 @@
       "id": "archives:press:69b272851b76dcf8",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/011",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (011)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (10/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -2212,7 +2763,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2294,7 +2845,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2332,10 +2883,78 @@
       "notes": "Song-select screen over the Oracle jacket (v3.2, 2016)."
     },
     {
+      "id": "archives:press:6f952e8f0a6ee59b",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01:175169",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 (1/11)",
+      "kind": "promotional",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg/_lRFrv0u7IvyWIOlFpbyxCKcor0yxRZGl4Ez25eBM9s",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg/_lRFrv0u7IvyWIOlFpbyxCKcor0yxRZGl4Ez25eBM9s",
+      "path": "assets/public/archives/press/35b572cff41474f8a14c0b1d26a9cd87--6f952e8f0a6e.jpg",
+      "original_filename": "35b572cff41474f8a14c0b1d26a9cd87.jpg",
+      "bytes": 75610,
+      "sha256": "6f952e8f0a6ee59b7269c5f8628910881536fd49445b7791173f0b8035b31c18",
+      "sha1": "94f04b643a5971005dc0f810d5dbd538a66e18db",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1280,
+      "height": 720,
+      "fetched_at": "2026-10-11T00:19:20Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg/_lRFrv0u7IvyWIOlFpbyxCKcor0yxRZGl4Ez25eBM9s",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 75610,
+        "width": 1280,
+        "height": 720,
+        "sha1": "94f04b643a5971005dc0f810d5dbd538a66e18db",
+        "sha256": "6f952e8f0a6ee59b7269c5f8628910881536fd49445b7791173f0b8035b31c18"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "Main image (og:image, mainImage) of HK01's 2018 Dynamix feature; visual_inspection 2026-10-10: the Dynamix wordmark over a colour waveform (logo key art)."
+    },
+    {
       "id": "archives:press:72c58059dd9ecedf",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/015",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (015)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (9/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -2362,7 +2981,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2444,7 +3063,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2485,7 +3104,7 @@
       "id": "archives:press:73d0ffc3fb56e699",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/007",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (007)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (5/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -2512,7 +3131,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2553,7 +3172,7 @@
       "id": "archives:press:7c699adba52ec3da",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/004",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (004)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (2/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -2580,7 +3199,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2616,6 +3235,143 @@
       },
       "upstream_status": "current",
       "notes": "1136x640 iPhone screenshot from 4Gamer's (ほぼ)日刊スマホゲーム通信 #862 (2015-06-17); linked from the page's overlay script."
+    },
+    {
+      "id": "archives:press:7eeceb9e9fe94e29",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:unwire2016:IMG_7688",
+      "title": "本地製作手機音樂遊戲《Dynamix》過百萬下載！創作人全為大專生 — 語言有「正體中文」選擇。（遊戲畫面截圖） (2/8)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+      "download_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
+      "resolved_url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
+      "path": "assets/public/archives/press/IMG_7688--7eeceb9e9fe9.png",
+      "original_filename": "IMG_7688.png",
+      "bytes": 44809,
+      "sha256": "7eeceb9e9fe94e29161e1490c96b1fdceb8a7cc7907955fd8a321de8a668234d",
+      "sha1": "3f5937574e26b4504de11e9e8da349d2c1a678d2",
+      "format": "PNG",
+      "mime": "image/png",
+      "width": 1334,
+      "height": 750,
+      "fetched_at": "2026-10-11T00:19:24Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://unwire.hk/2016/08/11/dynamix-2/game-channel/",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.unwire.hk/wp-content/uploads/2016/08/IMG_7688.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/png",
+        "sniffed_format": "PNG",
+        "bytes": 44809,
+        "width": 1334,
+        "height": 750,
+        "sha1": "3f5937574e26b4504de11e9e8da349d2c1a678d2",
+        "sha256": "7eeceb9e9fe94e29161e1490c96b1fdceb8a7cc7907955fd8a321de8a668234d"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "visual_inspection 2026-10-10: language-select screen (caption '語言有「正體中文」選擇。（遊戲畫面截圖）'); in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+    },
+    {
+      "id": "archives:press:82210b80fc71989d",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334043",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 想要解鎖活動限定的歌曲就要在期間內努力「煲歌」了。 (4/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334043/org/a0e4029e55efc4fcb6fdaa509aad4ee7.PNG/Dj2IPhUTExvwBf-sRBsq8Hb6nKEi4NV9hcwjWIXMI1g",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334043/org/a0e4029e55efc4fcb6fdaa509aad4ee7.PNG/Dj2IPhUTExvwBf-sRBsq8Hb6nKEi4NV9hcwjWIXMI1g",
+      "path": "assets/public/archives/press/a0e4029e55efc4fcb6fdaa509aad4ee7--82210b80fc71.jpg",
+      "original_filename": "a0e4029e55efc4fcb6fdaa509aad4ee7.PNG",
+      "bytes": 246625,
+      "sha256": "82210b80fc71989dead420d67b4d2aa42723eea4a93f276f4f6d9ef4d137343b",
+      "sha1": "31ce303cc964179e8f9c2632fe39654343263709",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:11Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334043/org/a0e4029e55efc4fcb6fdaa509aad4ee7.PNG/Dj2IPhUTExvwBf-sRBsq8Hb6nKEi4NV9hcwjWIXMI1g",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 246625,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "31ce303cc964179e8f9c2632fe39654343263709",
+        "sha256": "82210b80fc71989dead420d67b4d2aa42723eea4a93f276f4f6d9ef4d137343b"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
     },
     {
       "id": "archives:press:84acb9ab11cac054",
@@ -2662,7 +3418,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2703,7 +3459,7 @@
       "id": "archives:press:8605e47772ef8255",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/006",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (006)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (4/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -2730,7 +3486,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2771,7 +3527,7 @@
       "id": "archives:press:8f600b223c89a511",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/005",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (005)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (3/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -2798,7 +3554,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2866,7 +3622,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -2934,7 +3690,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3002,7 +3758,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3070,7 +3826,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3140,7 +3896,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3176,6 +3932,75 @@
       },
       "upstream_status": "current",
       "notes": "Official Vocal Collection package promo (1920x1080, 2017-01)."
+    },
+    {
+      "id": "archives:press:9ff98fd633bac3ea",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334138",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 紅色則是按實畫面滑動 (7/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334138/org/033405e537f7dde6076e9fbc240558c6.PNG/DeAqhmgg5bIb1UbA-IUq_kDVVlGlS19I6_HFBuvxxQY",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334138/org/033405e537f7dde6076e9fbc240558c6.PNG/DeAqhmgg5bIb1UbA-IUq_kDVVlGlS19I6_HFBuvxxQY",
+      "path": "assets/public/archives/press/033405e537f7dde6076e9fbc240558c6--9ff98fd633ba.jpg",
+      "original_filename": "033405e537f7dde6076e9fbc240558c6.PNG",
+      "bytes": 179400,
+      "sha256": "9ff98fd633bac3eae2ea10269eaee095329e626c852dc80e74ffe8c586fe9592",
+      "sha1": "4fc2a0b8faaef3943f6927761f601bd4a100ada4",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:14Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334138/org/033405e537f7dde6076e9fbc240558c6.PNG/DeAqhmgg5bIb1UbA-IUq_kDVVlGlS19I6_HFBuvxxQY",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 179400,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "4fc2a0b8faaef3943f6927761f601bd4a100ada4",
+        "sha256": "9ff98fd633bac3eae2ea10269eaee095329e626c852dc80e74ffe8c586fe9592"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
     },
     {
       "id": "archives:press:a20c19ee5d0fcf4f",
@@ -3227,7 +4052,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3295,7 +4120,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3336,7 +4161,7 @@
       "id": "archives:press:a7240971560bcd40",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/014",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (014)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (7/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -3363,7 +4188,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3452,7 +4277,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3550,7 +4375,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3618,7 +4443,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3656,6 +4481,74 @@
       "notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
     },
     {
+      "id": "archives:press:b4de89c7289c55ab",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:techbang20767:185825",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (3/9)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "download_url": "https://cdn1.techbang.com/system/images/185825/original/1c03818afe33f925607ed72e2e3a49d0.jpg",
+      "resolved_url": "https://cdn1.techbang.com/system/images/185825/original/1c03818afe33f925607ed72e2e3a49d0.jpg",
+      "path": "assets/public/archives/press/1c03818afe33f925607ed72e2e3a49d0--b4de89c7289c.jpg",
+      "original_filename": "1c03818afe33f925607ed72e2e3a49d0.jpg",
+      "bytes": 24013,
+      "sha256": "b4de89c7289c55abab789e6e81b72dfe61f5a726e8bfe5e7356e9cd7f14ffdb0",
+      "sha1": "159191be25e5e134aa1c158f888c38086d82c4a6",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 640,
+      "height": 400,
+      "fetched_at": "2026-10-11T00:19:23Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185825/original/1c03818afe33f925607ed72e2e3a49d0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 24013,
+        "width": 640,
+        "height": 400,
+        "sha1": "159191be25e5e134aa1c158f888c38086d82c4a6",
+        "sha256": "b4de89c7289c55abab789e6e81b72dfe61f5a726e8bfe5e7356e9cd7f14ffdb0"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "visual_inspection 2026-10-10: song-list screen of the Missionary pack; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+    },
+    {
       "id": "archives:press:b6345a53a8b06f52",
       "source_id": "archives:press",
       "candidate_id": "archives:press:unwire2014:wm005",
@@ -3686,7 +4579,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3754,7 +4647,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image. The page places this image after its label '【以下內容為廠商提供資料原文】', i.e. within material it states the developer supplied."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3792,6 +4685,143 @@
       "notes": "In-game store screen of the Z.H.D. pack (2016)."
     },
     {
+      "id": "archives:press:bb7ab8bb2e2b0fb8",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:hk01-175169:1334197",
+      "title": "本地獨立手機遊戲系列：《Dynamix》 — 歌曲可以逐首下載，不怕自己不喜歡的樂曲佔據手機空間。 (8/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+      "download_url": "https://cdn.hk01.com/di/media/images/1334197/org/3f108a35a223448d56ed46d6f916c290.PNG/fXjNEINvcTBTGCShMueFAxra2icd916OdFliEXRZYhE",
+      "resolved_url": "https://cdn.hk01.com/di/media/images/1334197/org/3f108a35a223448d56ed46d6f916c290.PNG/fXjNEINvcTBTGCShMueFAxra2icd916OdFliEXRZYhE",
+      "path": "assets/public/archives/press/3f108a35a223448d56ed46d6f916c290--bb7ab8bb2e2b.jpg",
+      "original_filename": "3f108a35a223448d56ed46d6f916c290.PNG",
+      "bytes": 277642,
+      "sha256": "bb7ab8bb2e2b0fb84aede0e44de89cdb1f34b8002835cadef601e8950678ef9e",
+      "sha1": "1be015b912c4fee4146afa1b45c96c8ee2844f9e",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1920,
+      "height": 1440,
+      "fetched_at": "2026-10-11T00:19:16Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by HK01's image CDN at the signed path the page lists (the unsigned path answers 404); the page does not state who supplied the image. The CDN serves JPEG bytes for these .PNG uploads (a platform re-encode)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.hk01.com/%E9%81%8A%E6%88%B2%E5%8B%95%E6%BC%AB/175169/%E6%9C%AC%E5%9C%B0%E7%8D%A8%E7%AB%8B%E6%89%8B%E6%A9%9F%E9%81%8A%E6%88%B2%E7%B3%BB%E5%88%97-dynamix",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn.hk01.com/di/media/images/1334197/org/3f108a35a223448d56ed46d6f916c290.PNG/fXjNEINvcTBTGCShMueFAxra2icd916OdFliEXRZYhE",
+        "mime": "image/png",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 277642,
+        "width": 1920,
+        "height": 1440,
+        "sha1": "1be015b912c4fee4146afa1b45c96c8ee2844f9e",
+        "sha256": "bb7ab8bb2e2b0fb84aede0e44de89cdb1f34b8002835cadef601e8950678ef9e"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": false
+      },
+      "upstream_status": "current",
+      "notes": "Body image of HK01's 2018 Dynamix feature (article.blocks of its __NEXT_DATA__); visual_inspection 2026-10-10: menu, play, tutorial, store and result screens — in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts.",
+      "transformed": true
+    },
+    {
+      "id": "archives:press:bc61a4b37f47a9e6",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:techbang20767:185818",
+      "title": "香港團隊開發！史上最觸手音樂遊戲《Dynamix》挑戰你的手速極限 (2/9)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+      "download_url": "https://cdn1.techbang.com/system/images/185818/original/80d65ec0aefa9d0c6505395b3924500c.jpg",
+      "resolved_url": "https://cdn1.techbang.com/system/images/185818/original/80d65ec0aefa9d0c6505395b3924500c.jpg",
+      "path": "assets/public/archives/press/80d65ec0aefa9d0c6505395b3924500c--bc61a4b37f47.jpg",
+      "original_filename": "80d65ec0aefa9d0c6505395b3924500c.jpg",
+      "bytes": 22204,
+      "sha256": "bc61a4b37f47a9e6b2fdaa33f23d64d86dc64bf8fe1179b12d482931796ec925",
+      "sha1": "381ded26ff64b03f5056c00eba4ab1b8af4bc4b0",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 640,
+      "height": 360,
+      "fetched_at": "2026-10-11T00:19:23Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://www.techbang.com/posts/20767-the-hong-kong-team-history-at-your-fingertips-of-the-dynamix-games-music-challenge-your-hand-speed-limit",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://cdn1.techbang.com/system/images/185818/original/80d65ec0aefa9d0c6505395b3924500c.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 22204,
+        "width": 640,
+        "height": 360,
+        "sha1": "381ded26ff64b03f5056c00eba4ab1b8af4bc4b0",
+        "sha256": "bc61a4b37f47a9e6b2fdaa33f23d64d86dc64bf8fe1179b12d482931796ec925"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "visual_inspection 2026-10-10: title screen of v0.08.00 (logo, 'Tap to Start' and menu); in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+    },
+    {
       "id": "archives:press:be39124eb2000dc8",
       "source_id": "archives:press",
       "candidate_id": "archives:press:techbang:20767",
@@ -3822,7 +4852,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3904,7 +4934,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -3972,7 +5002,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4054,7 +5084,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4122,7 +5152,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4209,7 +5239,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4250,7 +5280,7 @@
       "id": "archives:press:d4f0d420c0b6338c",
       "source_id": "archives:press",
       "candidate_id": "archives:press:4gamer862:SS/003",
-      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (003)",
+      "title": "3方向に流れるバーをタップしてメロディを奏でよう。リズムアクション「Dynamix」を紹介する「（ほぼ）日刊スマホゲーム通信」第862回 (1/10)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://www.4gamer.net/games/306/G030626/20150617094/",
@@ -4277,7 +5307,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4345,7 +5375,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4415,7 +5445,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4451,6 +5481,74 @@
       },
       "upstream_status": "current",
       "notes": "v1.0 gameplay/UI capture from the 2014 Android launch review (watermarked 'unwire.hk')."
+    },
+    {
+      "id": "archives:press:ee0daece9ab5e803",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:qoo52753:16031707051357",
+      "title": "【Qoo情報】專訪香港團隊C4Cat：「香港遊戲界缺了一個Signature」 (2/11)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://news.qoo-app.com/post/52753",
+      "download_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707051357.jpg",
+      "resolved_url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707051357.jpg",
+      "path": "assets/public/archives/press/16031707051357--ee0daece9ab5.jpg",
+      "original_filename": "16031707051357.jpg",
+      "bytes": 47177,
+      "sha256": "ee0daece9ab5e803204bcc7c3d963861dd7245a31fc0991fabcd3c8bae3ac9fc",
+      "sha1": "441c8607aed3b90289d26ddbca95afd680d72614",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 815,
+      "height": 401,
+      "fetched_at": "2026-10-11T00:19:21Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://news.qoo-app.com/post/52753",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2016/03/16031707051357.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 47177,
+        "width": 815,
+        "height": 401,
+        "sha1": "441c8607aed3b90289d26ddbca95afd680d72614",
+        "sha256": "ee0daece9ab5e803204bcc7c3d963861dd7245a31fc0991fabcd3c8bae3ac9fc"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "visual_inspection 2026-10-10: title-screen wordmark band, watermarked by QooApp; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
     },
     {
       "id": "archives:press:f233c572012b9f87",
@@ -4497,7 +5595,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4579,7 +5677,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4647,7 +5745,7 @@
         "source_variant": "site_original",
         "origin_status": "repost",
         "master_status": "unverified",
-        "notes": "Press copy of developer-supplied images as served by the publication."
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
       },
       "rights": {
         "holder": "C4Cat Entertainment Limited",
@@ -4687,10 +5785,78 @@
       "notes": "'QOOAPP x DYNAMIX コラボレーション' banner with the collaboration characters (1022x570; the article's og:image)."
     },
     {
+      "id": "archives:press:fce533bc02c9c0ee",
+      "source_id": "archives:press",
+      "candidate_id": "archives:press:qoo77295:17072409525150",
+      "title": "【Qoo獨家】音樂遊戲《Dynamix》x QooApp 聯乘活動！免費獲得艾莉與吉爾伯特角色 (5/5)",
+      "kind": "gameplay_screenshot",
+      "game": "dynamix",
+      "page_url": "https://news.qoo-app.com/post/77295",
+      "download_url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072409525150.jpg",
+      "resolved_url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072409525150.jpg",
+      "path": "assets/public/archives/press/17072409525150--fce533bc02c9.jpg",
+      "original_filename": "17072409525150.jpg",
+      "bytes": 166378,
+      "sha256": "fce533bc02c9c0ee4a1a7bab5f8dc3b19add526be5eda54d00325385300243ef",
+      "sha1": "e26c84f145cfbe40bfe410374a6e0d18ca82b8a3",
+      "format": "JPEG",
+      "mime": "image/jpeg",
+      "width": 1706,
+      "height": 960,
+      "fetched_at": "2026-10-11T00:19:21Z",
+      "illustrators": [],
+      "composers": [],
+      "song_titles": [],
+      "song_ids": [],
+      "collections": [],
+      "mapping_status": "unmapped",
+      "mapping_evidence": [],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "repost",
+        "master_status": "unverified",
+        "notes": "Press copy as served by the publication; the page does not state who supplied the image."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited",
+        "creator": null,
+        "url": "https://news.qoo-app.com/post/77295",
+        "license": null,
+        "restrictions": "Press copy hosted by the publication"
+      },
+      "source_reported": {
+        "url": "https://news.qoo-app.com/wp-content/uploads/2015/12/17072409525150.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "download_observed": {
+        "content_type": "image/jpeg",
+        "sniffed_format": "JPEG",
+        "bytes": 166378,
+        "width": 1706,
+        "height": 960,
+        "sha1": "e26c84f145cfbe40bfe410374a6e0d18ca82b8a3",
+        "sha256": "fce533bc02c9c0ee4a1a7bab5f8dc3b19add526be5eda54d00325385300243ef"
+      },
+      "comparisons": {
+        "sha1_match": null,
+        "bytes_match": null,
+        "dimensions_match": null,
+        "format_match": true
+      },
+      "upstream_status": "current",
+      "notes": "visual_inspection 2026-10-10: player-profile screen marking where the collaboration code is entered; in-game screen capture: one rule for title, menu, result, settings and other in-game screens (gameplay_screenshot, archive tier); game_ui is kept for app icons and interface parts."
+    },
+    {
       "id": "archives:wayback:110c58ef490c6918",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png@20170720132226",
-      "title": "OverRapid collaboration news thumbnail",
+      "title": "Overrapid collaboration#1 (news thumbnail)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20170720132226/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png",
@@ -4752,7 +5918,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170720132226 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png (CDX mimetype image/png, status 200, WARC record length 35853). OverRapid collaboration news thumbnail showing the in-game store.",
+      "notes": "Wayback capture 20170720132226 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/OverRapid_Col-199x128.png (CDX mimetype image/png, status 200, WARC record length 35853). OverRapid collaboration news thumbnail showing the in-game store. Title from the cited page https://web.archive.org/web/20170524195829/http://dynamix.c4-cat.com:80/2016/05/25/overrapid-collaboration1/ (the post 'Overrapid collaboration#1' shows the full-size image of this thumbnail; read 2026-10-10).",
       "upstream_revision": "20170720132226"
     },
     {
@@ -4869,7 +6035,7 @@
       "id": "archives:wayback:1e5222ccfcdc7d0c",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap2.png@20150412125452",
-      "title": "Official website screenshot (cap2.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (2/6)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20150412125452/http://dynamix.c4-cat.com/img/cap2.png",
@@ -4931,14 +6097,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412125452 of http://dynamix.c4-cat.com/img/cap2.png (CDX mimetype image/png, status 200, WARC record length 868707). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
+      "notes": "Wayback capture 20150412125452 of http://dynamix.c4-cat.com/img/cap2.png (CDX mimetype image/png, status 200, WARC record length 868707). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 2 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
       "upstream_revision": "20150412125452"
     },
     {
       "id": "archives:wayback:225baa3735776aff",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap4.png@20150412125308",
-      "title": "Official website screenshot (cap4.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (4/6)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20150412125308/http://dynamix.c4-cat.com/img/cap4.png",
@@ -5000,14 +6166,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412125308 of http://dynamix.c4-cat.com/img/cap4.png (CDX mimetype image/png, status 200, WARC record length 990078). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
+      "notes": "Wayback capture 20150412125308 of http://dynamix.c4-cat.com/img/cap4.png (CDX mimetype image/png, status 200, WARC record length 990078). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 4 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
       "upstream_revision": "20150412125308"
     },
     {
       "id": "archives:wayback:2715479009f201a3",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png@20170720125056",
-      "title": "Release-history timeline thumbnail",
+      "title": "Version3.0 Preview (news thumbnail)",
       "kind": "reference",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20170720125056/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png",
@@ -5069,14 +6235,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206). Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1).",
+      "notes": "Wayback capture 20170720125056 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/3-199x128.png (CDX mimetype image/png, status 200, WARC record length 41206). Thumbnail of a release-history timeline graphic ('Version 2.0 Release', 'iOS version Release', '500k Download', '1st Anniversary', 'HKGD x SG Game Competition'): an informational graphic, kind reference (tier revision 1.1). Title from the cited page https://web.archive.org/web/20160522194054/http://dynamix.c4-cat.com:80/2016/03/ (the post 'Version3.0 Preview' shows the full-size image of this thumbnail; read 2026-10-10).",
       "upstream_revision": "20170720125056"
     },
     {
       "id": "archives:wayback:2c8339f2a3f1310d",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap6.png@20150412124335",
-      "title": "Official website screenshot (cap6.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (6/6)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20150412124335/http://dynamix.c4-cat.com/img/cap6.png",
@@ -5138,14 +6304,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412124335 of http://dynamix.c4-cat.com/img/cap6.png (CDX mimetype image/png, status 200, WARC record length 513310). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
+      "notes": "Wayback capture 20150412124335 of http://dynamix.c4-cat.com/img/cap6.png (CDX mimetype image/png, status 200, WARC record length 513310). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 6 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
       "upstream_revision": "20150412124335"
     },
     {
       "id": "archives:wayback:2e1d86734926b2fc",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg@20160516183525",
-      "title": "Official code-entry tutorial (TE1.jpg, 2015)",
+      "title": "Dynamix Code Entry (1/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160516183525/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg",
@@ -5207,7 +6373,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160516183525 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 162306). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160516183525 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 162306). Official code-entry tutorial screenshot (English), image 1 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160516183525"
     },
     {
@@ -5324,7 +6490,7 @@
       "id": "archives:wayback:37b167ce476582c6",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new1.jpg@20170719230328",
-      "title": "Official website news image: the Dynamix logo on white",
+      "title": "Dynamix | Mobile Music Game — Music game (1/3)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20170719230328/http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg",
@@ -5386,14 +6552,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170719230328 of http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 96091). Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365).",
+      "notes": "Wayback capture 20170719230328 of http://188.166.254.2/wp-content/uploads/2015/10/new1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 96091). Official-site news image: the Dynamix logo on white (same treatment as the logo banner new5-700x365). Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 1 of 3 next to the heading 'Music game'; read 2026-10-10).",
       "upstream_revision": "20170719230328"
     },
     {
       "id": "archives:wayback:3ced66daba373e35",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg@20160517010305",
-      "title": "Official code-entry tutorial (TC2.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (2/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160517010305/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg",
@@ -5455,14 +6621,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517010305 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 130896). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160517010305 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 130896). Official code-entry tutorial screenshot (Chinese), image 2 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160517010305"
     },
     {
       "id": "archives:wayback:3edb471466420017",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg@20160517032810",
-      "title": "Official code-entry tutorial (TC4.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (4/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160517032810/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg",
@@ -5524,14 +6690,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517032810 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 102975). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160517032810 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 102975). Official code-entry tutorial screenshot (Chinese), image 4 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160517032810"
     },
     {
       "id": "archives:wayback:42704074a74a6ea4",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg@20160517065421",
-      "title": "Official code-entry tutorial (TC3.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (3/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160517065421/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg",
@@ -5593,7 +6759,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517065421 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113877). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160517065421 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113877). Official code-entry tutorial screenshot (Chinese), image 3 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160517065421"
     },
     {
@@ -5924,7 +7090,7 @@
       "id": "archives:wayback:5a334091a7a67952",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png@20170720125050",
-      "title": "Dynamix website 3.0 news thumbnail",
+      "title": "3.0 Update (news thumbnail)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20170720125050/http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png",
@@ -5986,14 +7152,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760). Thumbnail of the Dynamix website 3.0 news banner.",
+      "notes": "Wayback capture 20170720125050 of http://dynamix.c4-cat.com/wp-content/uploads/2016/05/Dynamix_Website3_0-199x128.png (CDX mimetype image/png, status 200, WARC record length 45760). Thumbnail of the Dynamix website 3.0 news banner. Title from the cited page https://web.archive.org/web/20170426015928/http://dynamix.c4-cat.com:80/2016/05/25/3-0-update/ (the post '3.0 Update' shows the full-size image of this thumbnail; read 2026-10-10).",
       "upstream_revision": "20170720125050"
     },
     {
       "id": "archives:wayback:5dfc34aabbe587b5",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap1.png@20150412124448",
-      "title": "Official website screenshot (cap1.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (1/6)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20150412124448/http://dynamix.c4-cat.com/img/cap1.png",
@@ -6055,7 +7221,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412124448 of http://dynamix.c4-cat.com/img/cap1.png (CDX mimetype image/png, status 200, WARC record length 1160031). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
+      "notes": "Wayback capture 20150412124448 of http://dynamix.c4-cat.com/img/cap1.png (CDX mimetype image/png, status 200, WARC record length 1160031). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 1 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
       "upstream_revision": "20150412124448"
     },
     {
@@ -6161,8 +7327,8 @@
       "id": "archives:wayback:65e2fc2468b0eddb",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new21.png@20160314012750",
-      "title": "Official home page photo of the game played on a phone",
-      "kind": "promotional",
+      "title": "Dynamix | Mobile Music Game — Playing style (2/3)",
+      "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160314012750/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
       "download_url": "https://web.archive.org/web/20160314012750id_/http://188.166.254.2/wp-content/uploads/2015/10/new21.png",
@@ -6223,7 +7389,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160314012750 of http://188.166.254.2/wp-content/uploads/2015/10/new21.png (CDX mimetype image/png, status 200, WARC record length 586399). Official home-page photo of the game being played on a phone.",
+      "notes": "Wayback capture 20160314012750 of http://188.166.254.2/wp-content/uploads/2015/10/new21.png (CDX mimetype image/png, status 200, WARC record length 586399). Official home-page photo of the game being played on a phone (a photo of gameplay on a device: gameplay_screenshot, like the official YouTube thumbnails of hands playing on a phone or tablet). Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 2 of 3 next to the heading 'Playing style'; read 2026-10-10).",
       "upstream_revision": "20160314012750"
     },
     {
@@ -6331,7 +7497,7 @@
       "id": "archives:wayback:6b9137d00ba715ef",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847@20250517214330",
-      "title": "Dynamix X Rotaeno collaboration key visual",
+      "title": "Dynamix X Rotaeno Collaboration Announcement (video poster)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20250517214330/https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847",
@@ -6399,7 +7565,7 @@
         "dynamix",
         "rotaeno"
       ],
-      "notes": "Rights holders as printed on the image (visual_inspection 2026-10-10: '©C4Cat Entertainment Limited ©Dream Engine Games', bottom right); four collaboration jacket crops and 'AVAIABLE ON 2025.04.24'. Wayback capture 20250517214330 of https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847 (CDX mimetype image/jpeg, status 200, WARC record length 314847). Dynamix X Rotaeno collaboration key visual (video poster), 2025-04.",
+      "notes": "Rights holders as printed on the image (visual_inspection 2026-10-10: '©C4Cat Entertainment Limited ©Dream Engine Games', bottom right); four collaboration jacket crops and 'AVAIABLE ON 2025.04.24'. Wayback capture 20250517214330 of https://scontent-waw2-2.xx.fbcdn.net/v/t15.5256-10/490801394_1381747516345539_1180893236473663295_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=596eb7&_nc_ohc=kYZnNpb-VQQQ7kNvwF1o9VG&_nc_oc=Adkw0gwIjOlo9BAK5eASIuFPjnRSSpQ783SOfTjO6R__mvNh_fepJKwDerTIDREcUjM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=52hpU_ksL9k_EjWHMyyqvw&oh=00_AfLMeXZdGMUHPOSkmiegcTXedgZJINX_1r3SHMQz4dnAdA&oe=682EB847 (CDX mimetype image/jpeg, status 200, WARC record length 314847). Dynamix X Rotaeno collaboration key visual (video poster), 2025-04. Title from the cited Facebook video 'Dynamix X Rotaeno Collaboration Announcement' (game_evidence).",
       "upstream_revision": "20250517214330",
       "transformed": true
     },
@@ -6407,7 +7573,7 @@
       "id": "archives:wayback:6e922fcfc86be714",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:www.hkstp.org/media/blqg5pwq/appendix3.pdf@20240403110020",
-      "title": "HKSTP press release appendix 3: C4Cat / Dynamix profile",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 — 附件三",
       "kind": "reference",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20240403110020/https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
@@ -6469,7 +7635,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20240403110020 of https://www.hkstp.org/media/blqg5pwq/appendix3.pdf (CDX mimetype application/pdf, status 200, WARC record length 326425). HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404.",
+      "notes": "Wayback capture 20240403110020 of https://www.hkstp.org/media/blqg5pwq/appendix3.pdf (CDX mimetype application/pdf, status 200, WARC record length 326425). HKSTP press-release appendix 3 (C4Cat / Dynamix profile); the live file now returns 404. Title from the cited page https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809 (press-release headline; the PDF is its link '附件三'; read 2026-10-10).",
       "upstream_revision": "20240403110020"
     },
     {
@@ -6589,7 +7755,7 @@
       "id": "archives:wayback:77957c0d9f1b5ff4",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:188.166.254.2/wp-content/uploads/2015/10/new32.png@20170720024322",
-      "title": "Official home page features collage of song jackets",
+      "title": "Dynamix | Mobile Music Game — Songs submission (3/3)",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20170720024322/http://188.166.254.2/wp-content/uploads/2015/10/new32.png",
@@ -6651,7 +7817,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20170720024322 of http://188.166.254.2/wp-content/uploads/2015/10/new32.png (CDX mimetype image/png, status 200, WARC record length 1116647). Official home-page features collage of about twelve song jackets.",
+      "notes": "Wayback capture 20170720024322 of http://188.166.254.2/wp-content/uploads/2015/10/new32.png (CDX mimetype image/png, status 200, WARC record length 1116647). Official home-page features collage of about twelve song jackets. Title from the cited page https://web.archive.org/web/20160305030849/http://dynamix.c4-cat.com/ (features carousel, slide 3 of 3 next to the heading 'Songs submission'; read 2026-10-10).",
       "upstream_revision": "20170720024322"
     },
     {
@@ -6727,7 +7893,7 @@
       "id": "archives:wayback:9040ed5440e36fce",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png@20190925101806",
-      "title": "Official website news banner: C4Cat character key art",
+      "title": "CP03 現場情報",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20190925101806/http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png",
@@ -6789,14 +7955,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20190925101806 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png (CDX mimetype image/png, status 200, WARC record length 392022). Official news banner: C4Cat character key art with the Dynamix logo.",
+      "notes": "Wayback capture 20190925101806 of http://dynamix.c4-cat.com/wp-content/uploads/2016/07/CP03-700x365.png (CDX mimetype image/png, status 200, WARC record length 392022). Official news banner: C4Cat character key art with the Dynamix logo. Title from the cited page https://web.archive.org/web/20170503024843/http://dynamix.c4-cat.com:80/2016/07/30/cp03-%E7%8F%BE%E5%A0%B4%E6%83%85%E5%A0%B1/ (the post 'CP03 現場情報' shows this banner; read 2026-10-10).",
       "upstream_revision": "20190925101806"
     },
     {
       "id": "archives:wayback:919f9ba3e02695e9",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap5.png@20150630034232",
-      "title": "Official website screenshot (cap5.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (5/6)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20150630034232/http://dynamix.c4-cat.com/img/cap5.png",
@@ -6858,14 +8024,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150630034232 of http://dynamix.c4-cat.com/img/cap5.png (CDX mimetype image/png, status 200, WARC record length 921781). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
+      "notes": "Wayback capture 20150630034232 of http://dynamix.c4-cat.com/img/cap5.png (CDX mimetype image/png, status 200, WARC record length 921781). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 5 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
       "upstream_revision": "20150630034232"
     },
     {
       "id": "archives:wayback:9afbfe33465a99ab",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg@20160926180754",
-      "title": "Official code-entry tutorial (TE3.jpg, 2015)",
+      "title": "Dynamix Code Entry (3/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160926180754/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg",
@@ -6927,14 +8093,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160926180754 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 146704). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160926180754 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE3.jpg (CDX mimetype image/jpeg, status 200, WARC record length 146704). Official code-entry tutorial screenshot (English), image 3 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160926180754"
     },
     {
       "id": "archives:wayback:a05e966293b8f4f7",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png@20160517032816",
-      "title": "Official website news banner with the Dynamix logo",
+      "title": "2.4 update",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160517032816/http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png",
@@ -6996,7 +8162,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517032816 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png (CDX mimetype image/png, status 200, WARC record length 248915). Official news banner with the Dynamix logo.",
+      "notes": "Wayback capture 20160517032816 of http://dynamix.c4-cat.com/wp-content/uploads/2015/10/new5-700x365.png (CDX mimetype image/png, status 200, WARC record length 248915). Official news banner with the Dynamix logo. Title from the cited page https://web.archive.org/web/20160310180126/http://dynamix.c4-cat.com:80/2015/10/ (the post '2.4 update' (2015-10-31) shows this banner; read 2026-10-10).",
       "upstream_revision": "20160517032816"
     },
     {
@@ -7206,7 +8372,7 @@
       "id": "archives:wayback:bda4de01f423cc49",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/img/cap3.png@20150412125233",
-      "title": "Official website screenshot (cap3.png, 2015)",
+      "title": "Dynamix - Mobile Music Game — Media (3/6)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20150412125233/http://dynamix.c4-cat.com/img/cap3.png",
@@ -7268,14 +8434,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20150412125233 of http://dynamix.c4-cat.com/img/cap3.png (CDX mimetype image/png, status 200, WARC record length 1328199). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI).",
+      "notes": "Wayback capture 20150412125233 of http://dynamix.c4-cat.com/img/cap3.png (CDX mimetype image/png, status 200, WARC record length 1328199). 2015 official-site gameplay/result screenshot (jacket art visible behind the UI), slide 3 of 6 of the home page's Media slider. Title from the cited page https://web.archive.org/web/20150329194858/http://dynamix.c4-cat.com/ (document title 'Dynamix - Mobile Music Game', section 'Media', slides cap1-cap6 in this order; read 2026-10-10).",
       "upstream_revision": "20150412125233"
     },
     {
       "id": "archives:wayback:da488040ca54cf9a",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg@20160516163207",
-      "title": "Official code-entry tutorial (TE4.jpg, 2015)",
+      "title": "Dynamix Code Entry (4/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160516163207/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg",
@@ -7337,14 +8503,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160516163207 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 125822). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160516163207 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE4.jpg (CDX mimetype image/jpeg, status 200, WARC record length 125822). Official code-entry tutorial screenshot (English), image 4 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160516163207"
     },
     {
       "id": "archives:wayback:f145b4af336c3feb",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png@20160729214342",
-      "title": "Version 2.7 update-note announcement banner",
+      "title": "Version 2.7 Updates",
       "kind": "reference",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160729214342/http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png",
@@ -7406,14 +8572,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160729214342 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png (CDX mimetype image/png, status 200, WARC record length 382839). Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1).",
+      "notes": "Wayback capture 20160729214342 of http://dynamix.c4-cat.com/wp-content/uploads/2016/03/Untitled-1-700x365.png (CDX mimetype image/png, status 200, WARC record length 382839). Version 2.7 update-note announcement banner ('Version 2.7 版本更新公告 / News in 2.7'): an informational graphic, kind reference (tier revision 1.1). Title from the cited page https://web.archive.org/web/20160522194054/http://dynamix.c4-cat.com:80/2016/03/ (the post 'Version 2.7 Updates' shows this banner; read 2026-10-10).",
       "upstream_revision": "20160729214342"
     },
     {
       "id": "archives:wayback:f7587fb5c1e5de43",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg@20160516153751",
-      "title": "Official code-entry tutorial (TE2.jpg, 2015)",
+      "title": "Dynamix Code Entry (2/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160516153751/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg",
@@ -7475,7 +8641,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160516153751 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 171269). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160516153751 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TE2.jpg (CDX mimetype image/jpeg, status 200, WARC record length 171269). Official code-entry tutorial screenshot (English), image 2 of 4 of the post 'Dynamix Code Entry' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix Code Entry' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160516153751"
     },
     {
@@ -7581,7 +8747,7 @@
       "id": "archives:wayback:fa255ee778c01a50",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg@20160517082309",
-      "title": "Official code-entry tutorial (TC1.jpg, 2015)",
+      "title": "Dynamix序號輸入說明 (1/4)",
       "kind": "gameplay_screenshot",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20160517082309/http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg",
@@ -7643,14 +8809,14 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20160517082309 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 119697). Official code-entry tutorial screenshot (Chinese/English).",
+      "notes": "Wayback capture 20160517082309 of http://dynamix.c4-cat.com/wp-content/uploads/2015/11/TC1.jpg (CDX mimetype image/jpeg, status 200, WARC record length 119697). Official code-entry tutorial screenshot (Chinese), image 1 of 4 of the post 'Dynamix序號輸入說明' (2015-11-19). Title from the cited page https://web.archive.org/web/20160310051856/http://dynamix.c4-cat.com:80/2015/11/ (monthly archive listing the post 'Dynamix序號輸入說明' with its four images in this order; read 2026-10-10).",
       "upstream_revision": "20160517082309"
     },
     {
       "id": "archives:wayback:ffbb74bc2c7d3404",
       "source_id": "archives:wayback",
       "candidate_id": "archives:wayback:dynamix-server.c4-cat.com/mycard/img/header.jpg@20200622223326",
-      "title": "MyCard top-up page header banner",
+      "title": "MyCard Dynamix線上商店 — page banner",
       "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://web.archive.org/web/20200622223326/http://dynamix-server.c4-cat.com/mycard/img/header.jpg",
@@ -7712,7 +8878,7 @@
         "format_match": true
       },
       "upstream_status": "current",
-      "notes": "Wayback capture 20200622223326 of http://dynamix-server.c4-cat.com/mycard/img/header.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113482). Header banner (planet) of the official MyCard top-up page.",
+      "notes": "Wayback capture 20200622223326 of http://dynamix-server.c4-cat.com/mycard/img/header.jpg (CDX mimetype image/jpeg, status 200, WARC record length 113482). Header banner (planet) of the official MyCard top-up page. Title from the cited page https://web.archive.org/web/20190119063302/http://dynamix-server.c4-cat.com:80/mycard/login (page heading 'MyCard Dynamix線上商店'; read 2026-10-10).",
       "upstream_revision": "20200622223326"
     }
   ],
@@ -7723,21 +8889,7 @@
       "candidate_id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
       "phase": "download",
       "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
-      "attempted_at": "2026-10-10T22:37:09Z",
-      "attempts": 1,
-      "error_class": "http_4xx",
-      "http_status": 404,
-      "retriable": false,
-      "manual": false,
-      "message": "HTTP 404"
-    },
-    {
-      "id": "archives:press:hk01:175169:download",
-      "source_id": "archives:press",
-      "candidate_id": "archives:press:hk01:175169",
-      "phase": "download",
-      "url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg",
-      "attempted_at": "2026-10-10T22:43:03Z",
+      "attempted_at": "2026-10-11T00:18:55Z",
       "attempts": 1,
       "error_class": "http_4xx",
       "http_status": 404,
