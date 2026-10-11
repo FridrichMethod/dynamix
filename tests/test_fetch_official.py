@@ -21,7 +21,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths  # noqa: E402
 from primary import cli, model, runner  # noqa: E402
-from primary.adapters import apple, facebook, probe, registry as registry_adapter, x as x_adapter, youtube  # noqa: E402,E501
+from primary.adapters import apple, facebook, probe, youtube  # noqa: E402
+from primary.adapters import registry as registry_adapter  # noqa: E402
+from primary.adapters import x as x_adapter  # noqa: E402
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/official"
@@ -469,7 +471,7 @@ class TapTapTests(OfficialTestCase):
             "https://img-tc.tapimg.com/video-picture/1001/first.jpg",
             "https://img-tc.tapimg.com/video-picture/1002/first.jpg",
         ]
-        for url, field in zip(posters, ("thumbnail", "raw_cover")):  # raw_cover: the video's first frame
+        for url, field in zip(posters, ("thumbnail", "raw_cover"), strict=True):  # raw_cover: the video's first frame
             base_index = len(payload)
             payload += [{"video": base_index + 1}, {field: base_index + 2}, {"original_url": base_index + 3}, url]
             payload[app["app_videos"]].append(base_index)

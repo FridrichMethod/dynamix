@@ -25,7 +25,8 @@ import html
 import json
 import math
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 

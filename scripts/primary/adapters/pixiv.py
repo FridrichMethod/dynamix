@@ -30,7 +30,8 @@ from __future__ import annotations
 
 import html
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from lib import net
 
@@ -145,7 +146,7 @@ def cdx_capture(ctx: Any, capture: Mapping[str, Any]) -> dict | None:
     header = data[0]
     for row in data[1:]:
         if isinstance(row, list) and len(row) == len(header):
-            entry = dict(zip(header, row))
+            entry = dict(zip(header, row, strict=True))  # equal lengths: checked on the line above
             if entry.get("timestamp") == stamp and entry.get("statuscode") == "200":
                 return entry
     return None

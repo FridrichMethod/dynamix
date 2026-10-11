@@ -13,7 +13,8 @@ recorded in each candidate's ``game_evidence``.
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Mapping
+from collections.abc import Iterable, Mapping
+from typing import Any
 from urllib.parse import urlsplit
 
 from lib import net

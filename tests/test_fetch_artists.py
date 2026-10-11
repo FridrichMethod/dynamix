@@ -19,7 +19,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib import manifest, net, paths, schema  # noqa: E402
 from primary import model, runner  # noqa: E402
-from primary.adapters import bilibili as bilibili_adapter, pixiv as pixiv_adapter, x as x_adapter  # noqa: E402
+from primary.adapters import bilibili as bilibili_adapter  # noqa: E402
+from primary.adapters import pixiv as pixiv_adapter  # noqa: E402
+from primary.adapters import x as x_adapter  # noqa: E402
 from primary.testing import FIXED_NOW, FakeClient, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/artists"

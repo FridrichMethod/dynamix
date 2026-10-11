@@ -18,7 +18,8 @@ of the fetch that archived its bytes. ``source_reported.mime`` follows the rendi
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 from urllib.parse import parse_qs, urlsplit
 
 from lib import checks, net
