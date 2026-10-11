@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:official-leads",
-  "started_at": "2026-10-10T22:45:28Z",
-  "finished_at": "2026-10-10T22:45:28Z",
+  "started_at": "2026-10-11T04:44:02Z",
+  "finished_at": "2026-10-11T04:44:02Z",
   "scope": {
     "lists": [
       "registry"
@@ -36,7 +36,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
+      "reason": "awaiting_download: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
     },
     {
       "id": "official:official-leads:bilibili:search-c4cat",
@@ -304,7 +304,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
+      "reason": "unresolved_game: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
     },
     {
       "id": "official:official-leads:x:c4c4cat:timeline-media",
@@ -327,7 +327,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+      "reason": "awaiting_download: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
     },
     {
       "id": "official:official-leads:x:c4c4cat:wayback-media",

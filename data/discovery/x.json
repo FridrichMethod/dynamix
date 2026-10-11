@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-11T01:15:28Z",
-  "finished_at": "2026-10-11T01:18:24Z",
+  "started_at": "2026-10-11T04:44:12Z",
+  "finished_at": "2026-10-11T04:47:06Z",
   "scope": {
     "lists": [
       "seed-posts",

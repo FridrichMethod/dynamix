@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:linne_ennil",
-  "started_at": "2026-10-10T22:35:45Z",
-  "finished_at": "2026-10-10T22:35:46Z",
+  "started_at": "2026-10-11T04:42:59Z",
+  "finished_at": "2026-10-11T04:43:00Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -46,12 +46,10 @@
         "WHIRLWIND"
       ],
       "illustrators": [
-        "Keiyuu",
-        "RED-FOX"
+        "Keiyuu & RED-FOX"
       ],
       "composers": [
-        "Linne",
-        "SCTL"
+        "Linne X SCTL"
       ]
     }
   ],

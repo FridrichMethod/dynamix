@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:ryokmbk",
-  "started_at": "2026-10-10T22:36:02Z",
-  "finished_at": "2026-10-10T22:36:04Z",
+  "started_at": "2026-10-11T04:43:13Z",
+  "finished_at": "2026-10-11T04:43:15Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -38,7 +38,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: single cover that shows the in-game jacket's shattered-glass artwork cropped to a vertical layout and framed with typography and a QR code; a different composition of shared imagery, needs review",
+      "reason": "unresolved_role: single cover that shows the in-game jacket's shattered-glass artwork cropped to a vertical layout and framed with typography and a QR code; a different composition of shared imagery, needs review",
       "song_titles": [
         "Hauynite"
       ]

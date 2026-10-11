@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:x:kumeki_3",
-  "started_at": "2026-10-10T22:36:31Z",
-  "finished_at": "2026-10-10T22:36:33Z",
+  "started_at": "2026-10-11T04:43:36Z",
+  "finished_at": "2026-10-11T04:43:39Z",
   "scope": {
     "lists": [
       "seed-posts"

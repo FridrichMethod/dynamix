@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "archives:wayback",
-  "started_at": "2026-10-11T00:19:26Z",
-  "finished_at": "2026-10-11T00:24:04Z",
+  "started_at": "2026-10-11T04:48:04Z",
+  "finished_at": "2026-10-11T04:51:05Z",
   "scope": {
     "lists": [
       "official-img",
@@ -372,8 +372,8 @@
       "page_url": "https://web.archive.org/web/20200622223319/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
       "file_url": "https://web.archive.org/web/20200622223319id_/http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png",
       "title": "DNXtypo.png (archived 20200622)",
-      "role": null,
-      "game": "unknown",
+      "role": "promotional",
+      "game": "dynamix",
       "game_evidence": [
         "capture of http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png"
       ],
@@ -387,9 +387,9 @@
         "timestamp": "2020-06-22T22:33:19Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "site_ui: logo, store badge or spacer image of an official web page",
-      "notes": "Wayback capture 20200622223319 of http://dynamix-server.c4-cat.com/mycard/img/DNXtypo.png (CDX mimetype image/png, status 200, WARC record length 85932)."
+      "disposition": "downloaded",
+      "asset_id": "archives:wayback:2df4a20f78495731",
+      "notes": "The original DynAMIX wordmark (white letters on black, 600x188 PNG) that the official website (/img/dynamix.png) and the official MyCard top-up page (/mycard/img/DNXtypo.png) served as their logo image. The CDX digest is the SHA-1 of the wikis' File:Dynamix.png (wikis:miraheze:2df4a20f78495731, promotional), so one file has one kind: a logo or wordmark without chart-level information is promotional (coordinator decision of 2026-10-10; wave-4 decision 'one file, one kind')."
     },
     {
       "id": "archives:wayback:dynamix-server.c4-cat.com/mycard/img/bg.png@20200622223326",
@@ -684,8 +684,8 @@
       "page_url": "https://web.archive.org/web/20150630045729/http://dynamix.c4-cat.com/img/dynamix.png",
       "file_url": "https://web.archive.org/web/20150630045729id_/http://dynamix.c4-cat.com/img/dynamix.png",
       "title": "dynamix.png (archived 20150630)",
-      "role": null,
-      "game": "unknown",
+      "role": "promotional",
+      "game": "dynamix",
       "game_evidence": [
         "capture of http://dynamix.c4-cat.com/img/dynamix.png"
       ],
@@ -699,9 +699,10 @@
         "timestamp": "2015-06-30T04:57:29Z",
         "revision": null
       },
-      "disposition": "excluded",
-      "reason": "site_ui: website logo, icon, sprite or decoration",
-      "notes": "Wayback capture 20150630045729 of http://dynamix.c4-cat.com/img/dynamix.png (CDX mimetype image/png, status 200, WARC record length 85945)."
+      "disposition": "duplicate_bytes",
+      "reason": "duplicate_bytes: identical bytes already archived for archives:wayback:dynamix-server.c4-cat.com/mycard/img/DNXtypo.png@20200622223319",
+      "asset_id": "archives:wayback:2df4a20f78495731",
+      "notes": "The original DynAMIX wordmark (white letters on black, 600x188 PNG) that the official website (/img/dynamix.png) and the official MyCard top-up page (/mycard/img/DNXtypo.png) served as their logo image. The CDX digest is the SHA-1 of the wikis' File:Dynamix.png (wikis:miraheze:2df4a20f78495731, promotional), so one file has one kind: a logo or wordmark without chart-level information is promotional (coordinator decision of 2026-10-10; wave-4 decision 'one file, one kind')."
     },
     {
       "id": "archives:wayback:dynamix.c4-cat.com/img/favicon.ico@20150412125153",

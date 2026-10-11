@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:halvsan",
-  "started_at": "2026-10-10T22:35:25Z",
-  "finished_at": "2026-10-10T22:35:27Z",
+  "started_at": "2026-10-11T04:42:41Z",
+  "finished_at": "2026-10-11T04:42:44Z",
   "scope": {
     "lists": [
       "seed-pages"

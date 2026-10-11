@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:research:leads",
-  "started_at": "2026-10-10T22:48:27Z",
-  "finished_at": "2026-10-10T22:48:27Z",
+  "started_at": "2026-10-11T04:42:28Z",
+  "finished_at": "2026-10-11T04:42:28Z",
   "scope": {
     "lists": [
       "registry"
@@ -36,7 +36,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: composer album cover; not shown to be the game jacket (03-source-research §2)"
+      "reason": "unresolved_role: composer album cover; not shown to be the game jacket (03-source-research §2)"
     },
     {
       "id": "artists:research:leads:bandcamp:drive-5:creigis",
@@ -59,7 +59,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: composer release cover; not shown to be the game jacket (03-source-research §2)"
+      "reason": "unresolved_role: composer release cover; not shown to be the game jacket (03-source-research §2)"
     },
     {
       "id": "artists:research:leads:bandcamp:linkaryze:linked-emotions",
@@ -82,7 +82,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
+      "reason": "awaiting_download: album page not fetched; the track's SoundCloud upload (artists:soundcloud:whos-raphiiel:tech-nique) carries the LiNKED EMOTiONS cover, whose illustration visual inspection shows to be the Tech-Nique jacket"
     },
     {
       "id": "artists:research:leads:bandcamp:lixion:unidentified-new-entry",
@@ -151,7 +151,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved: name-only match to the LIXION jacket's credited designer; pages not read (search snippets only)"
+      "reason": "unresolved_role: name-only match to the LIXION jacket's credited designer; pages not read (search snippets only)"
     },
     {
       "id": "artists:research:leads:bilibili:BV1Zp411d74c",
@@ -554,7 +554,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: 400px presigned store rendition of the titled cover; credit conflict (Hotta Ryo vs 48OKU) needs review",
+      "reason": "unresolved_role: 400px presigned store rendition of the titled cover; credit conflict (Hotta Ryo vs 48OKU) needs review",
       "song_titles": [
         "恋スル:Rabi-Love"
       ]
@@ -1003,7 +1003,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
+      "reason": "awaiting_download: HTTP 503 during the research sweep (SKIMA's maintenance page for an IDCF Cloud outage, not a bot check); retry",
       "notes": "Research observation: 2026-10-10: HTTP 503 with the page 'SKIMAは現在メンテナンス中です' (an infrastructure outage), so the profile was not read"
     },
     {
@@ -1050,7 +1050,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: grayscale variant cover named by research; its track URL was not recorded"
+      "reason": "awaiting_download: grayscale variant cover named by research; its track URL was not recorded"
     },
     {
       "id": "artists:research:leads:soundcloud:synthtonix:supernova",
@@ -1073,7 +1073,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: successful-inclusion lead from 03-source-research §2; image not yet compared with the jacket"
+      "reason": "unresolved_role: successful-inclusion lead from 03-source-research §2; image not yet compared with the jacket"
     },
     {
       "id": "artists:research:leads:strangebox:illustrion",
@@ -1234,7 +1234,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: 300x300 circle-site thumbnails; identity with the game jackets not verified"
+      "reason": "unresolved_role: 300x300 circle-site thumbnails; identity with the game jackets not verified"
     },
     {
       "id": "artists:research:leads:velecti:dynamix",
@@ -1280,7 +1280,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: 300x300 circle-site thumbnail; identity with the game jacket not verified; illustrator credit conflicts with the wiki (veilrain vs mat)"
+      "reason": "unresolved_role: 300x300 circle-site thumbnail; identity with the game jacket not verified; illustrator credit conflicts with the wiki (veilrain vs mat)"
     },
     {
       "id": "artists:research:leads:vocadb:Ar-41817",
@@ -1326,7 +1326,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: the deleted Aegis 'sketch version' upload was not located in captures"
+      "reason": "awaiting_download: the deleted Aegis 'sketch version' upload was not located in captures"
     },
     {
       "id": "artists:research:leads:wayback:soundcloud:mmry",
@@ -1349,7 +1349,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)",
+      "reason": "awaiting_download: the Aegis sketch version was not found in any archived mmry SoundCloud URL (105 CDX rows)",
       "song_titles": [
         "Aegis"
       ]
@@ -1493,7 +1493,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+      "reason": "awaiting_download: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 71/71 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
       "song_titles": [
         "The Clockwork Doll",
         "soar to Ø",
@@ -1524,7 +1524,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
+      "reason": "awaiting_download: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 155/155 resolved IDs of the 2021-09 window); deleted, suspended or protected (cause not established); no artist media recoverable",
       "song_titles": [
         "Totally bounded",
         "Beyond the Rainbow"
@@ -1554,7 +1554,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved: no archived Rabi-Ribi post from the February 2017 collaboration window"
+      "reason": "awaiting_download: no archived Rabi-Ribi post from the February 2017 collaboration window"
     },
     {
       "id": "artists:research:leads:x:ZingZyon:729345677545758721",
@@ -1603,7 +1603,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "unresolved: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
+      "reason": "awaiting_download: every archived status of this account resolves to TweetTombstone through X's public embed endpoint (research 2026-10-10: 49/49 archived IDs); deleted, suspended or protected (cause not established); no artist media recoverable",
       "song_titles": [
         "Daydream",
         "Own The Night",

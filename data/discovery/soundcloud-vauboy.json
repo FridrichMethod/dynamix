@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "artists:soundcloud:vauboy",
-  "started_at": "2026-10-10T22:36:14Z",
-  "finished_at": "2026-10-10T22:36:17Z",
+  "started_at": "2026-10-11T04:43:24Z",
+  "finished_at": "2026-10-11T04:43:27Z",
   "scope": {
     "lists": [
       "seed-pages"
@@ -73,7 +73,7 @@
         "revision": null
       },
       "disposition": "pending",
-      "reason": "pending: label single cover (HPTG#033) sharing the jacket's photo collage in a different composition with logos; needs review",
+      "reason": "unresolved_role: label single cover (HPTG#033) sharing the jacket's photo collage in a different composition with logos; needs review",
       "song_titles": [
         "You Were With A Boy"
       ]
