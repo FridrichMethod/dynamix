@@ -373,6 +373,21 @@ class InputTests(Base):
                 (self.root / stats.CATALOG_JSON).write_text(json.dumps(catalog), encoding="utf-8")
                 self.assertRefused(fragment)
 
+    def test_timestamps_and_dates_take_ascii_digits_only(self):
+        """``\\d`` matches every Unicode decimal digit: a fullwidth or Arabic-Indic date would be printed as the
+        acquisition date (scripts/lib/checks.py refuses them as well)."""
+        for value in ("２０２６-10-10T12:00:00Z", "٢٠٢٦-10-10T12:00:00Z", "2026-10-10T12:00:0０Z"):
+            with self.subTest(timestamp=value), self.assertRaises(stats.StatsError):
+                stats.timestamp(value, "checked_at")
+        self.assertEqual(stats.timestamp("2026-10-10T12:00:00Z", "checked_at"), "2026-10-10T12:00:00Z")
+        for value in ("٢٠٢٦-10-10", "２０２６-10-10"):
+            with self.subTest(date=value), self.assertRaises(stats.StatsError):
+                stats.as_of({"as_of": value})
+        self.assertEqual(stats.as_of({"as_of": "2026-10-10"}), "2026-10-10")
+        self.coverage["as_of"] = "２０２６-10-10"
+        self.save()
+        self.assertRefused("'as_of' is not a date")
+
     def test_snapshot_dates_must_agree(self):
         family = next(iter(self.catalog["snapshots"]))
         self.catalog["snapshots"][family] = "2000-01-01T00:00:00Z"
