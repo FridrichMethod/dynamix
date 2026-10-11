@@ -130,6 +130,10 @@ class ProvenanceTests(unittest.TestCase):
         self.assertEqual(entry["quality"]["source_variant"], "preview", "family priority comes before the rendition")
 
     def test_within_a_family_the_rendition_comes_before_the_source_id(self):
+        """09 Primary record, read as: Miraheze, then Fandom, then every other source tied; then source_variant; then
+        source ID; then asset ID (pending the coordinator's confirmation, CCR 2). A literal reading ("other sources
+        rank by ID" before the rendition) would make official:facebook's preview primary over official:x's original;
+        on the current manifests the two readings choose the same primary in every group."""
         cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
         quality = {"origin_status": "official", "master_status": "unverified", "notes": ""}
         preview = fx.add_record(self.root, fx.copy_record(self.root, cosmic, "official:facebook",
