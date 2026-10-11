@@ -70,6 +70,8 @@ If storage exceeds the selected delivery model, keep it a reported blocker with 
 
 ## Gate 5 — release hold design
 
+*Superseded on 2026-10-11 for `pages.yml`: item 3 and the guard shown below describe the original approval-variable design. The owner decision at the end of this gate replaced it with release-triggered deployment.*
+
 Use separate validation/artifact and deployment workflows:
 
 1. `tests.yml`: push, pull request and reusable call; read-only content permissions; full offline and browser acceptance; no deployment or tag/release commands.

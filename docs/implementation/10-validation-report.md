@@ -187,6 +187,8 @@ Fix (`impl/ci-zlib`, merged as `48be578` and `effc4be`): both fixture generators
 
 ## Release hold
 
+*Historical record of the v1.0.0 implementation. On 2026-10-11 the owner replaced the approval-variable gate described here with release-triggered deployment ([06, Gate 5](06-validation-and-release.md#gate-5--release-hold-design)); `RELEASE_APPROVED_SHA` is no longer used.*
+
 - `tests.yml` runs on push, pull request and reusable call with read-only contents permission. It tests and uploads an ordinary CI artifact of the staged site; it never deploys, tags or publishes.
 - `pages.yml` is manual dispatch only. Its deploy job requires the dispatch to target `main`, `inputs.release_sha == github.sha`, and `vars.RELEASE_APPROVED_SHA == github.sha`. The variable is unset, so the job fails closed. The release review's evaluator applies GitHub's expression rules and runs the real shell guard. Across 14 scenarios, only the approved dispatch on `main` deploys. Rejected: push, pull request, a feature branch, a tag ref, a `MAIN`-cased branch, a wrong, short or uppercase `release_sha`, an unset variable, a variable naming another SHA, an uppercase variable, and whitespace-padded values.
 - `check-sources.yml` is manual dispatch only, read-only, and has no schedule.
