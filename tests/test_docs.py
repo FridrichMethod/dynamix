@@ -69,6 +69,30 @@ GUARDS = re.compile(
     r"requires?|before|if|when)\b|n't|不|未|没有|尚未|只有|只能|之前|将来|以后|如果|才|须|需要|冻结|手动|届时|会",
     re.IGNORECASE,
 )
+GITHUB = "https://github.com/"
+REPOSITORY = GITHUB + "FridrichMethod/dynamix"
+RELEASE_LINK = re.compile(r"https://github\.com/([^/\s()<>\[\]]+/[^/\s()<>\[\]]+)/releases/tag/([^\s()<>\[\]]+)")
+VERSION = re.compile(r"v\d+\.\d+\.\d+")
+# Release and website URLs, which both READMEs link alike.
+PUBLISHED_URL = re.compile(
+    r"https://(?:fridrichmethod\.github\.io/|github\.com/FridrichMethod/dynamix/releases)[^\s()<>\[\]]*"
+)
+# Each README's Status line prefix and the title of its Releases section.
+README_RELEASE_PARTS = {"README.md": ("**Status:**", "Releases"), "README.zh-CN.md": ("**状态**：", "发布")}
+# Wording of the release hold that ended with v1.0.0, in either language, matched in rendered text (see plain()).
+# A website or Pages that is not deployed counts; "later pushes are tested but not deployed" (true after a
+# release) does not.
+HOLD_MARKERS = re.compile(
+    r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still)?(?: not|n['’]t)"
+    r"(?: yet)?(?: been)? (?:deployed|published|released|live)\b|"
+    r"\b(?:release|deployment|publication)s? (?:is |are |stays? |remains? )?(?:on )?(?:hold|held)\b|\brelease hold\b|"
+    r"\b(?:is|stays|remains) unset\b|\bno version tag\b|\bno GitHub Release\b|\bnothing has been released\b|"
+    r"\bha(?:s|ve) not been (?:made|published|released|created)\b|"
+    r"未设置|(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|网站(?:未|没有)(?:被)?(?:部署|发布|上线)|"
+    r"没有版本标签|没有任何发布|冻结",
+    re.IGNORECASE,
+)
+MARKDOWN_LINK = re.compile(r"!?\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)]*\)")
 # Collection counts belong between the STATS markers (generated), never in the prose. A number counts a collection
 # when a counted noun follows it, also behind up to three words ("3,337 accepted file titles") or, in Chinese, behind a
 # classifier and a few characters ("3,337 个已接受文件名"). Digits inside names (SHA-1, 2.0, H5) are not numbers here,
@@ -174,6 +198,67 @@ def unrendered_bold(line: str) -> list[int]:
 def sentences(lines: list[str]) -> list[str]:
     text = "\n".join(INLINE_CODE.sub(" ", line) for line in lines)
     return [part.strip() for part in re.split(r"(?<=[.!?。；;])\s+|\n", text) if part.strip()]
+
+
+def plain(text: str) -> str:
+    """Markdown as it reads when rendered: links reduced to their text, emphasis markers and code backticks dropped
+    ("[the website](archive.html) is *not* deployed" reads "the website is not deployed")."""
+    return re.sub(r"[*`]+|(?<!\w)_+|_+(?!\w)", "", MARKDOWN_LINK.sub(r"\1", text))
+
+
+def readme_release_text(relative: str, text: str) -> tuple[str, str] | None:
+    """The Status line and the Releases section of one README, or None when either is missing or not unique."""
+    prefix, title = README_RELEASE_PARTS[relative]
+    lines = text.splitlines()
+    status = [line for line in lines if line.startswith(prefix)]
+    if len(status) != 1 or lines.count(f"## {title}") != 1:
+        return None
+    start = lines.index(f"## {title}")
+    end = next((n for n in range(start + 1, len(lines)) if lines[n].startswith("## ")), len(lines))
+    return status[0], "\n".join(lines[start + 1 : end])
+
+
+def release_problems(relative: str, text: str) -> tuple[str | None, list[str]]:
+    """The release one README names and what is wrong with its description: it names exactly one vX.Y.Z release of
+    this repository, in its Status line and every release link, as the first version of its Releases section, and
+    neither part keeps wording of the former release hold."""
+    parts = readme_release_text(relative, text)
+    if parts is None:
+        return None, [f"{relative}: needs one {README_RELEASE_PARTS[relative][0]!r} line and one Releases section"]
+    status, section = parts
+    links = RELEASE_LINK.findall(text)
+    foreign = sorted({repository for repository, _ in links if GITHUB + repository != REPOSITORY})
+    problems = [f"{relative}: release links of other repositories: {foreign}"] if foreign else []
+    tags = sorted({tag for _, tag in links})
+    if len(tags) != 1 or not VERSION.fullmatch(tags[0]):
+        return None, [*problems, f"{relative}: release links name {tags}, not one vX.Y.Z release"]
+    version = tags[0]
+    if f"{REPOSITORY}/releases/tag/{version}" not in status:
+        problems.append(f"{relative}: the Status line does not link release {version}")
+    named = re.findall(r"`(v\d+\.\d+\.\d+)`", section)
+    if named[:1] != [version]:
+        problems.append(f"{relative}: the Releases section names {named[:1]} first, not {version}")
+    for place, part in (("Status line", status), ("Releases section", section)):
+        problems.extend(
+            f"{relative}: hold wording in the {place}: {m.group()!r}" for m in HOLD_MARKERS.finditer(plain(part))
+        )
+    return version, problems
+
+
+def release_state_problems(readmes: dict[str, str]) -> list[str]:
+    """Every problem of each README's release description (release_problems), plus disagreement between the languages:
+    both name the same release and link the same release and Pages URLs."""
+    problems, versions, urls = [], {}, {}
+    for relative, text in readmes.items():
+        version, found = release_problems(relative, text)
+        problems.extend(found)
+        versions[relative] = version
+        urls[relative] = sorted(set(PUBLISHED_URL.findall(text)))
+    if len(set(versions.values())) > 1:
+        problems.append(f"the READMEs name different releases: {versions}")
+    if len({tuple(found) for found in urls.values()}) > 1:
+        problems.append(f"the READMEs link different release or Pages URLs: {urls}")
+    return problems
 
 
 class DocumentPresenceTests(unittest.TestCase):
@@ -529,6 +614,95 @@ class ReleaseStateTests(unittest.TestCase):
             ):
                 with self.subTest(document=relative, stale=stale):
                     self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold")
+        self.assertEqual(release_state_problems({relative: read(relative) for relative in self.READMES}), [])
+
+    # A README pair in the shape of the real ones, which the release check accepts, and edits it must refuse.
+    SAMPLE = {
+        "README.md": "# Sample\n\n**English** · [简体中文](README.zh-CN.md)\n\n"
+        "**Status:** released as [v1.2.3](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3). The "
+        "website is published with GitHub Pages at <https://fridrichmethod.github.io/dynamix/>; see "
+        "[Releases](#releases).\n\n"
+        "## Releases\n\n"
+        "Version `v1.2.3` (2026-01-02) is the latest release. Its "
+        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) carries the archive.\n\n"
+        "- The [Pages workflow](.github/workflows/pages.yml) deploys only the commit `RELEASE_APPROVED_SHA` names.\n"
+        "- Later pushes to `main` are tested but not deployed.\n\n"
+        "## Sources\n",
+        "README.zh-CN.md": "# 样例\n\n[English](README.md) · **简体中文**\n\n"
+        "**状态**：已发布 [v1.2.3](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3)。网站通过 GitHub Pages "
+        "发布在 <https://fridrichmethod.github.io/dynamix/>；见[发布](#发布)。\n\n"
+        "## 发布\n\n"
+        "`v1.2.3`（2026-01-02）是最新版本。其 "
+        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) 提供完整存档。\n\n"
+        "- [Pages 工作流](.github/workflows/pages.yml)只部署 `RELEASE_APPROVED_SHA` 指向的提交。\n"
+        "- 之后推送到 `main` 的提交会被测试但不会部署。\n\n"
+        "## 来源\n",
+    }
+    TAG_LINK = "https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3"
+    # Sentences of the former release hold (verbatim from the READMEs before v1.0.0) and variants that dodge exact text.
+    HOLD_WORDING = {
+        "README.md": (
+            "Nothing has been released.",
+            "The website is not deployed, no version tag exists and no GitHub Release has been published.",
+            "`RELEASE_APPROVED_SHA` is unset, so every dispatch stops at the approval job.",
+            "Tags and GitHub Releases are separate decisions that have not been made.",
+            "The website is *not* deployed.",
+            "The website isn't deployed yet; deployment is held.",
+            "[The website](archive.html) is not deployed.",
+            "GitHub Pages deployment is held until a later, explicit release decision.",
+        ),
+        "README.zh-CN.md": (
+            "目前没有任何发布。",
+            "网站尚未部署，没有版本标签，也没有发布 GitHub Release。",
+            "`RELEASE_APPROVED_SHA` 未设置，因此每次触发都会停在批准任务。",
+            "标签和 GitHub Release 是另外的决定，目前尚未做出。",
+            "网站还没有部署。",
+            "GitHub Pages 部署处于冻结状态。",
+            "[网站](archive.html)还未部署。",
+        ),
+    }
+
+    def edited(self, relative: str, old: str, new: str, count: int = -1) -> dict[str, str]:
+        self.assertIn(old, self.SAMPLE[relative], "the sample edit must apply")
+        return {**self.SAMPLE, relative: self.SAMPLE[relative].replace(old, new, count)}
+
+    def test_release_check_accepts_the_sample(self):
+        self.assertEqual(release_state_problems(self.SAMPLE), [])
+
+    def test_release_check_refuses_mismatched_releases(self):
+        en, zh = "README.md", "README.zh-CN.md"
+        cases = {
+            "zh-only version bump": self.edited(zh, "v1.2.3", "v1.2.4"),
+            "en-only version bump": self.edited(en, "v1.2.3", "v1.3.0"),
+            "Status link bumped, Releases section not": self.edited(
+                en, "[v1.2.3](" + self.TAG_LINK, "[v1.3.0](" + self.TAG_LINK.replace("v1.2.3", "v1.3.0")
+            ),
+            "links bumped, the section's version not": self.edited(
+                zh, self.TAG_LINK, self.TAG_LINK.replace("v1.2.3", "v1.3.0")
+            ),
+            "release of another repository": self.edited(
+                en, self.TAG_LINK, "https://github.com/someone/else/releases/tag/v1.2.3", 1
+            ),
+            "Pages URL in one language only": self.edited(
+                zh, "https://fridrichmethod.github.io/dynamix/", "https://fridrichmethod.github.io/dynamix/archive.html"
+            ),
+            "no release link": self.edited(en, self.TAG_LINK, "https://github.com/FridrichMethod/dynamix/releases"),
+        }
+        for case, readmes in cases.items():
+            with self.subTest(case=case):
+                self.assertNotEqual(release_state_problems(readmes), [])
+
+    def test_release_check_refuses_hold_wording(self):
+        anchors = {
+            "README.md": ("see [Releases](#releases).", "is the latest release."),
+            "README.zh-CN.md": ("见[发布](#发布)。", "是最新版本。"),
+        }
+        for relative, wording in self.HOLD_WORDING.items():
+            for sentence in wording:
+                for place, anchor in zip(("Status line", "Releases section"), anchors[relative], strict=True):
+                    with self.subTest(document=relative, place=place, sentence=sentence):
+                        readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
+                        self.assertNotEqual(release_state_problems(readmes), [])
 
 
 class CommandTests(unittest.TestCase):
