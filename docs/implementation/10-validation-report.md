@@ -167,7 +167,7 @@ No image was upscaled, cropped, recompressed or re-encoded. Originals keep their
   - eight illustrations from lalaluhat's Wix and X sources, withdrawn while they await review, first in `765b5aa`;
   - one official X interface strip, first in `74bf4e4`.
   - History is not rewritten. Both READMEs disclose this.
-- **Local paths in the planning files.** The planning files written before implementation (`AGENTS.md` and `docs/implementation/02`, `04`, `05`) name the reference by its local path, `/home/fridrichmethod/data/repos/deemo`. They are in the base commit `828da4a`, so editing the tip would not remove the path from public history; they are left as written.
+- **Local paths in the planning files.** The planning files written before implementation (`AGENTS.md` and `docs/implementation/02`, `04`, `05`) name the reference by an absolute path on the maintainer's machine rather than by its public repository. They are in the base commit `828da4a`, so editing the tip would not remove the path from public history; they are left as written.
 - **Large data files.** `data/catalog.json` is 40.2 MB and `data/catalog.js` 29.3 MB; the pages load the script only. If a later payload exceeds the budget, `prepare_pages.py` leaves `catalog.json` out first and records it. The archive page's manifest link then has no target on the site, but the repository copy remains.
 - **Live sources were not rechecked at the reviewed head.** The offline `--verify` checks and the per-source snapshots are the evidence. `scripts/check_sources.py --report` is the manual, read-only way to compare live metadata later.
 - **Third-party artwork.** It is not covered by the code license. Attribution and source-specific notes are in `NOTICE` and the catalog.
