@@ -456,10 +456,13 @@ https://github.com/FridrichMethod/dynamix
         }
 
         // Short screens cut a long title, file name or credit run with an ellipsis (see src/slideshow.css); the page
-        // keeps all of it (for screen readers too), and a cut one shows its full wording in a tooltip.
+        // keeps all of it (for screen readers too), and a cut one shows its full wording in a tooltip. Glyphs that
+        // merely overhang the tight title lines are not a cut: a cut hides at least half a line.
         function markClipped() {
             slideNotes.querySelectorAll("[data-full]").forEach(function(node) {
-                if (node.scrollHeight > node.clientHeight + 1) node.title = node.dataset.full;
+                var style = getComputedStyle(node);
+                var clamped = (style.webkitLineClamp || "none") !== "none";
+                if (clamped && node.scrollHeight - node.clientHeight > parseFloat(style.lineHeight) / 2) node.title = node.dataset.full;
                 else node.removeAttribute("title");
             });
         }

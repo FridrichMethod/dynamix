@@ -962,16 +962,20 @@ CLEARANCE = """(names) => { const row = names.map((name) => document.querySelect
     const creditShown = !notes || Boolean(line && line.top >= 0 && line.bottom <= top);
     return {hits, crossed, offscreen, creditShown}; }"""
 CLEAR = {"hits": [], "crossed": [], "offscreen": [], "creditShown": True}
+# The notes' texts a short screen cut with an ellipsis, each with its tooltip (which must hold the full text).
+CUT = "[...document.querySelectorAll('.slide-notes [data-full][title]')].map((node) => [node.dataset.full, node.title])"
 
 
-def check_short_screens(smoke, base, catalog):
+def check_short_screens(smoke, base, catalog, fixture):
     """On phones held sideways, short portrait phones and a short desktop window, stepping through the whole show, the
     title card, every slide's notes and the caption stay on screen and clear of the bottom control row, the caption
     clear of the stage, the arrows, the language toggle and the notes, in both languages, and the illustrator's credit
-    is on screen."""
+    is on screen. A text cut short shows its full wording in a tooltip (the fixture's crowded slides are cut on the
+    smallest landscape phone)."""
     slides = [asset for asset in catalog["assets"] if asset["slideshow"]]
     if not slides:
         raise Skip("the catalog has no slideshow images")
+    cut = set()
     for lang in ("en", "zh-CN"):
         for width, height in SHORT_SCREENS:
             page = smoke.page(base, width, height, reduced_motion="reduce")
@@ -984,7 +988,13 @@ def check_short_screens(smoke, base, catalog):
                 page.evaluate("plusSlides(1)")
                 state = page.evaluate(CLEARANCE, BOTTOM_ROW)
                 assert state == CLEAR, (lang, width, height, page.evaluate(SHOWN_ID), state)
+                for full, tooltip in page.evaluate(CUT):
+                    assert tooltip == full, (lang, width, height, page.evaluate(SHOWN_ID), full, tooltip)
+                    cut.add((width, height, full))
             smoke.finish(page)
+    if fixture:
+        crowded = next(asset for asset in slides if len(asset["collections"]) >= 5 and asset["title"].isascii())
+        assert (568, 320, crowded["title"]) in cut, ("the crowded slide's file name is cut on the smallest phone", sorted(cut))
 
 
 def check_screenshot_overlay(smoke, base, catalog):
@@ -1119,7 +1129,7 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: catalog strings render as text", check_injection, base, catalog)
     smoke.run(f"{label}: slideshow deep links, controls and names", check_slideshow, base, catalog, fixture)
     smoke.run(f"{label}: screenshot overlay", check_screenshot_overlay, base, catalog)
-    smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog)
+    smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog, fixture)
     smoke.run(f"{label}: notice without JavaScript", check_without_javascript, base)
     for lang in ("en", "zh-CN"):
         for size in VIEWPORTS:
