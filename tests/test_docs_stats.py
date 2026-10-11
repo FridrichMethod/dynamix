@@ -47,11 +47,11 @@ def run(*argv: str) -> tuple[int, str, str]:
 
 
 def block_of(text: str) -> str:
-    return text[text.index(stats.BEGIN) + len(stats.BEGIN):text.index(stats.END)]
+    return text[text.index(stats.BEGIN) + len(stats.BEGIN) : text.index(stats.END)]
 
 
 def outside(text: str) -> str:
-    return text[:text.index(stats.BEGIN)] + text[text.index(stats.END):]
+    return text[: text.index(stats.BEGIN)] + text[text.index(stats.END) :]
 
 
 def setUpModule():
@@ -63,8 +63,10 @@ def setUpModule():
         shutil.copytree(CONTRACT / top, root / top)
     if quiet(build_catalog.main, ["--root", str(root)]) != 0 or quiet(build_coverage.main, ["--root", str(root)]) != 0:
         raise RuntimeError("the contract fixture did not build")
-    BUILD = {name: json.loads((root / name).read_text(encoding="utf-8"))
-             for name in (stats.COVERAGE_JSON, stats.CATALOG_JSON)}
+    BUILD = {
+        name: json.loads((root / name).read_text(encoding="utf-8"))
+        for name in (stats.COVERAGE_JSON, stats.CATALOG_JSON)
+    }
 
 
 def tearDownModule():
@@ -137,8 +139,10 @@ class RenderTests(Base):
             en, zh = block_of(self.read(english)), block_of(self.read(chinese))
             with self.subTest(pair=english):
                 self.assertEqual(TOKENS.findall(en), TOKENS.findall(zh), "the same numbers in the same order")
-                self.assertEqual([line.count("|") for line in en.splitlines() if line.startswith("|")],
-                                 [line.count("|") for line in zh.splitlines() if line.startswith("|")])
+                self.assertEqual(
+                    [line.count("|") for line in en.splitlines() if line.startswith("|")],
+                    [line.count("|") for line in zh.splitlines() if line.startswith("|")],
+                )
                 self.assertEqual(len(en.splitlines()), len(zh.splitlines()))
 
     def test_rendered_documents_still_follow_the_documentation_rules(self):
@@ -161,10 +165,11 @@ class RenderTests(Base):
                         self.assertEqual(rules.unrendered_bold(line), [], f"bold that prints literally: {line}")
             en, zh = self.read(english), self.read(chinese)
             with self.subTest(pair=english):
-                self.assertEqual([level for level, _ in rules.headings(en)],
-                                 [level for level, _ in rules.headings(zh)])
-                self.assertEqual(sum(line.startswith("|") for line in rules.prose_lines(en)),
-                                 sum(line.startswith("|") for line in rules.prose_lines(zh)))
+                self.assertEqual([level for level, _ in rules.headings(en)], [level for level, _ in rules.headings(zh)])
+                self.assertEqual(
+                    sum(line.startswith("|") for line in rules.prose_lines(en)),
+                    sum(line.startswith("|") for line in rules.prose_lines(zh)),
+                )
 
     def test_summary_reports_the_coverage_numbers(self):
         self.render()
@@ -178,8 +183,11 @@ class RenderTests(Base):
         ]
         for line in expected:
             self.assertIn(line, readme)
-        self.assertIn(f"{coverage['candidates']['total']:,}: {coverage['candidates']['by_disposition']['downloaded']:,}"
-                      " downloaded", readme)
+        self.assertIn(
+            f"{coverage['candidates']['total']:,}: {coverage['candidates']['by_disposition']['downloaded']:,}"
+            " downloaded",
+            readme,
+        )
         self.assertIn("within the budget", readme)
         self.assertIn("在预算之内", self.read("README.zh-CN.md"))
 
@@ -200,9 +208,17 @@ class RenderTests(Base):
     def test_family_blocks_count_entries_shared_by_sources_of_the_family(self):
         self.render()
         for family in stats.FAMILIES:
-            expected = sum(len({record["source_id"] for record in asset["provenance"]
-                                if record["source_id"].split(":", 1)[0] == family}) > 1
-                           for asset in self.catalog["assets"])
+            expected = sum(
+                len(
+                    {
+                        record["source_id"]
+                        for record in asset["provenance"]
+                        if record["source_id"].split(":", 1)[0] == family
+                    }
+                )
+                > 1
+                for asset in self.catalog["assets"]
+            )
             with self.subTest(family=family):
                 self.assertIn(f"source records): {expected:,}.", block_of(self.read(f"docs/sources-{family}.md")))
                 self.assertIn(f"多条来源记录）：{expected:,}。", block_of(self.read(f"docs/sources-{family}.zh-CN.md")))
@@ -211,9 +227,15 @@ class RenderTests(Base):
         def asset(*sources):
             return {"source_id": sources[0], "bytes": 1, "provenance": [{"source_id": s} for s in sources]}
 
-        catalog = {"assets": [asset("wikis:miraheze", "wikis:fandom"), asset("wikis:miraheze"),
-                              asset("artists:x:a", "wikis:fandom"), asset("official:x", "official:x"),
-                              asset("official:apple-store", "official:google-play", "wikis:fandom")]}
+        catalog = {
+            "assets": [
+                asset("wikis:miraheze", "wikis:fandom"),
+                asset("wikis:miraheze"),
+                asset("artists:x:a", "wikis:fandom"),
+                asset("official:x", "official:x"),
+                asset("official:apple-store", "official:google-play", "wikis:fandom"),
+            ]
+        }
         self.assertEqual([stats.shared_entries(catalog, family) for family in stats.FAMILIES], [1, 0, 1, 0])
 
     def test_coverage_totals_match_the_report(self):
@@ -244,20 +266,42 @@ class InputTests(Base):
 
     def test_no_network_clock_or_process_modules(self):
         tree = ast.parse((ROOT / "scripts/update_docs_stats.py").read_text(encoding="utf-8"))
-        imported = {alias.name.split(".")[0] for node in ast.walk(tree) if isinstance(node, ast.Import)
-                    for alias in node.names}
-        imported |= {node.module.split(".")[0] for node in ast.walk(tree)
-                     if isinstance(node, ast.ImportFrom) and node.module}
-        self.assertFalse(imported & {"socket", "urllib", "http", "requests", "ssl", "time", "datetime", "random",
-                                     "subprocess", "lib", "build_catalog", "build_coverage"}, imported)
+        imported = {
+            alias.name.split(".")[0] for node in ast.walk(tree) if isinstance(node, ast.Import) for alias in node.names
+        }
+        imported |= {
+            node.module.split(".")[0] for node in ast.walk(tree) if isinstance(node, ast.ImportFrom) and node.module
+        }
+        self.assertFalse(
+            imported
+            & {
+                "socket",
+                "urllib",
+                "http",
+                "requests",
+                "ssl",
+                "time",
+                "datetime",
+                "random",
+                "subprocess",
+                "lib",
+                "build_catalog",
+                "build_coverage",
+            },
+            imported,
+        )
 
     def test_missing_input(self):
         (self.root / stats.CATALOG_JSON).unlink()
         self.assertRefused("Missing required input: data/catalog.json")
 
     def test_malformed_json(self):
-        for text, fragment in (("{", "data/coverage.json"), ('{"a": NaN}', "NaN"), ('{"a": 1, "a": 2}', "duplicate"),
-                               ("[]", "top level")):
+        for text, fragment in (
+            ("{", "data/coverage.json"),
+            ('{"a": NaN}', "NaN"),
+            ('{"a": 1, "a": 2}', "duplicate"),
+            ("[]", "top level"),
+        ):
             with self.subTest(text=text):
                 (self.root / stats.COVERAGE_JSON).write_text(text, encoding="utf-8")
                 self.assertRefused(fragment)
@@ -292,10 +336,12 @@ class InputTests(Base):
             source = catalog["sources"][0]
             source["status"] = "excluded" if source["status"] != "excluded" else "available"
 
-        cases = ((changed_bytes, "bytes.unique_total"),
-                 (moved_record, "sources.records[].asset_records"),
-                 (moved_primary, "sources.records[].primary_unique_files"),
-                 (changed_status, "sources.records[].status"))
+        cases = (
+            (changed_bytes, "bytes.unique_total"),
+            (moved_record, "sources.records[].asset_records"),
+            (moved_primary, "sources.records[].primary_unique_files"),
+            (changed_status, "sources.records[].status"),
+        )
         for mutate, fragment in cases:
             with self.subTest(case=mutate.__name__):
                 catalog = copy.deepcopy(self.catalog)
@@ -314,10 +360,12 @@ class InputTests(Base):
             self.assertIn("`checked_at`", outside(self.read(relative)))
 
     def test_malformed_catalog_assets(self):
-        cases = ((lambda c: c.update(assets={}), "'assets' must be a list of objects"),
-                 (lambda c: c["assets"][0].update(bytes=-1), "assets[0].bytes must be a non-negative integer"),
-                 (lambda c: c["assets"][0].update(provenance=[]), "assets[0].provenance must be a non-empty list"),
-                 (lambda c: c["assets"][0]["provenance"][0].update(source_id="wikis:a|b"), "not a plain identifier"))
+        cases = (
+            (lambda c: c.update(assets={}), "'assets' must be a list of objects"),
+            (lambda c: c["assets"][0].update(bytes=-1), "assets[0].bytes must be a non-negative integer"),
+            (lambda c: c["assets"][0].update(provenance=[]), "assets[0].provenance must be a non-empty list"),
+            (lambda c: c["assets"][0]["provenance"][0].update(source_id="wikis:a|b"), "not a plain identifier"),
+        )
         for mutate, fragment in cases:
             with self.subTest(fragment=fragment):
                 catalog = copy.deepcopy(self.catalog)
@@ -340,9 +388,11 @@ class InputTests(Base):
                 self.assertRefused("not a plain identifier")
 
     def test_missing_or_wrongly_typed_field(self):
-        cases = (("assets", "unique_files", None, "must be a non-negative integer"),
-                 ("assets", "gallery_images", True, "must be a non-negative integer"),
-                 ("songs", "denominator", -1, "must be a non-negative integer"))
+        cases = (
+            ("assets", "unique_files", None, "must be a non-negative integer"),
+            ("assets", "gallery_images", True, "must be a non-negative integer"),
+            ("songs", "denominator", -1, "must be a non-negative integer"),
+        )
         for section, key, value, fragment in cases:
             with self.subTest(field=key):
                 coverage = copy.deepcopy(self.coverage)
@@ -380,8 +430,9 @@ class DocumentTests(Base):
     def test_hand_edited_block_is_stale(self):
         self.render()
         path = self.root / "docs/coverage.md"
-        path.write_text(path.read_text(encoding="utf-8").replace(stats.GENERATED, stats.GENERATED + "\nedited"),
-                        encoding="utf-8")
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(stats.GENERATED, stats.GENERATED + "\nedited"), encoding="utf-8"
+        )
         status, _, err = run("--root", str(self.root), "--check")
         self.assertEqual(status, 1)
         self.assertEqual(err.strip(), "Out-of-date statistics block: docs/coverage.md")
@@ -422,9 +473,18 @@ class DocumentTests(Base):
 
 class FormattingTests(unittest.TestCase):
     def test_percent_rounds_half_up_with_integers(self):
-        self.assertEqual([stats.percent(1, 3), stats.percent(2, 3), stats.percent(1, 8), stats.percent(1, 2000),
-                          stats.percent(0, 5), stats.percent(5, 5), stats.percent(1, 0)],
-                         ["33.3%", "66.7%", "12.5%", "0.1%", "0.0%", "100.0%", stats.DASH])
+        self.assertEqual(
+            [
+                stats.percent(1, 3),
+                stats.percent(2, 3),
+                stats.percent(1, 8),
+                stats.percent(1, 2000),
+                stats.percent(0, 5),
+                stats.percent(5, 5),
+                stats.percent(1, 0),
+            ],
+            ["33.3%", "66.7%", "12.5%", "0.1%", "0.0%", "100.0%", stats.DASH],
+        )
 
     def test_sizes_in_bytes_and_decimal_megabytes(self):
         self.assertEqual(stats.size("en", 950_000_000), "950,000,000 B (950.0 MB)")
@@ -438,8 +498,10 @@ class FormattingTests(unittest.TestCase):
         coverage["bytes"].update(staged_site_estimate=960_000_000, within_pages_budget=False)
         self.assertIn("over the budget", stats.staged_verdict("en", coverage))
         self.assertIn("超出预算", stats.staged_verdict("zh-CN", coverage))
-        coverage["songs"] = {key: (0 if isinstance(value, int) else {k: 0 for k in value})
-                             if not isinstance(value, str) else value for key, value in coverage["songs"].items()}
+        coverage["songs"] = {
+            key: (0 if isinstance(value, int) else {k: 0 for k in value}) if not isinstance(value, str) else value
+            for key, value in coverage["songs"].items()
+        }
         self.assertEqual(stats.song_share("en", coverage, "songs.with_any_artwork"), f"0 ({stats.DASH})")
 
     def test_reasons_rank_by_count_then_name_and_skip_zero(self):
@@ -449,8 +511,9 @@ class FormattingTests(unittest.TestCase):
         self.assertEqual(stats.reasons("en", {"z": 0}), "none")
 
     def test_unknown_enumeration_values_print_as_code(self):
-        self.assertEqual(stats.labelled("en", "status", {"available": 2, "new_status": 1}),
-                         "2 available, 1 `new_status`")
+        self.assertEqual(
+            stats.labelled("en", "status", {"available": 2, "new_status": 1}), "2 available, 1 `new_status`"
+        )
         self.assertEqual(stats.labelled("zh-CN", "status", {"available": 2}), "可获取 2")
 
     def test_document_list_matches_the_documentation_tests(self):
@@ -468,8 +531,11 @@ class FormattingTests(unittest.TestCase):
             if isinstance(value, dict):
                 self.assertEqual(set(value), set(zh[key]), key)
             else:
-                self.assertEqual(re.findall(r"\{\w+\}", value), re.findall(r"\{\w+\}", zh[key]),
-                                 f"{key}: the same placeholders in the same order")
+                self.assertEqual(
+                    re.findall(r"\{\w+\}", value),
+                    re.findall(r"\{\w+\}", zh[key]),
+                    f"{key}: the same placeholders in the same order",
+                )
 
 
 if __name__ == "__main__":

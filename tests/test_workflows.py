@@ -27,19 +27,35 @@ from test_workflows_yaml import parse_yaml  # noqa: E402
 
 WORKFLOWS = ROOT / ".github/workflows"
 EXPECTED_WORKFLOWS = {"tests.yml", "pages.yml", "check-sources.yml"}
-GUARD = ("github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && "
-         "inputs.release_sha == github.sha && vars.RELEASE_APPROVED_SHA == github.sha")
-GUARD_ENV = {"EVENT_NAME": "${{ github.event_name }}", "REF": "${{ github.ref }}", "SHA": "${{ github.sha }}",
-             "RELEASE_SHA": "${{ inputs.release_sha }}", "APPROVED_SHA": "${{ vars.RELEASE_APPROVED_SHA }}"}
-ALLOWED_ACTIONS = {"actions/checkout", "actions/setup-python", "actions/upload-artifact",
-                   "actions/upload-pages-artifact", "actions/deploy-pages"}
+GUARD = (
+    "github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && "
+    "inputs.release_sha == github.sha && vars.RELEASE_APPROVED_SHA == github.sha"
+)
+GUARD_ENV = {
+    "EVENT_NAME": "${{ github.event_name }}",
+    "REF": "${{ github.ref }}",
+    "SHA": "${{ github.sha }}",
+    "RELEASE_SHA": "${{ inputs.release_sha }}",
+    "APPROVED_SHA": "${{ vars.RELEASE_APPROVED_SHA }}",
+}
+ALLOWED_ACTIONS = {
+    "actions/checkout",
+    "actions/setup-python",
+    "actions/upload-artifact",
+    "actions/upload-pages-artifact",
+    "actions/deploy-pages",
+}
 PAGES_ONLY_ACTIONS = {"actions/upload-pages-artifact", "actions/deploy-pages", "actions/configure-pages"}
 USES_LINE = re.compile(r"^\s*(?:- )?uses:\s*(\S+)(.*)$")
 PINNED = re.compile(r"^([\w.-]+/[\w.-]+)@([0-9a-f]{40})$")
 VERSION_COMMENT = re.compile(r"^\s+# v\d+(?:\.\d+){1,2}\s*$")
 FORBIDDEN_COMMANDS = {
-    "git push": r"\bgit\s+push\b", "git tag": r"\bgit\s+tag\b", "git commit": r"\bgit\s+commit\b",
-    "git remote": r"\bgit\s+remote\b", "git config": r"\bgit\s+config\b", "gh (any GitHub CLI call)": r"\bgh\s+\w",
+    "git push": r"\bgit\s+push\b",
+    "git tag": r"\bgit\s+tag\b",
+    "git commit": r"\bgit\s+commit\b",
+    "git remote": r"\bgit\s+remote\b",
+    "git config": r"\bgit\s+config\b",
+    "gh (any GitHub CLI call)": r"\bgh\s+\w",
     "curl write method": r"\bcurl\b[^\n]*(?:-X|--request)\s*(?:POST|PUT|PATCH|DELETE)",
     "swallowed failure": r"\|\|\s*(?:true\b|:(?![^\s;)])|echo\b|exit\s+0\b)|\bset\s+\+e\b",
     "token": r"GITHUB_TOKEN|GH_TOKEN|github\.token|secrets\.",
@@ -49,12 +65,21 @@ COVERAGE_FILE = "${{ runner.temp }}/coverage/.coverage"  # outside the checkout
 VENV_PYTHON = '"$RUNNER_TEMP/venv/bin/python"'
 SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER = "fedcba9876543210fedcba9876543210fedcba98"
-APPROVED = {"github.event_name": "workflow_dispatch", "github.ref": "refs/heads/main", "github.sha": SHA,
-            "inputs.release_sha": SHA, "vars.RELEASE_APPROVED_SHA": SHA}
+APPROVED = {
+    "github.event_name": "workflow_dispatch",
+    "github.ref": "refs/heads/main",
+    "github.sha": SHA,
+    "inputs.release_sha": SHA,
+    "vars.RELEASE_APPROVED_SHA": SHA,
+}
 DENIED = {  # each must neither satisfy the deploy condition nor pass the shell guard
     "push to main": {**APPROVED, "github.event_name": "push", "inputs.release_sha": ""},
-    "pull request": {**APPROVED, "github.event_name": "pull_request", "github.ref": "refs/pull/1/merge",
-                     "inputs.release_sha": ""},
+    "pull request": {
+        **APPROVED,
+        "github.event_name": "pull_request",
+        "github.ref": "refs/pull/1/merge",
+        "inputs.release_sha": "",
+    },
     "schedule": {**APPROVED, "github.event_name": "schedule", "inputs.release_sha": ""},
     "dispatch on another branch": {**APPROVED, "github.ref": "refs/heads/feature"},
     "dispatch on a tag": {**APPROVED, "github.ref": "refs/tags/v1.0.0"},
@@ -99,6 +124,7 @@ def action_name(uses: str) -> str:
 def evaluate(expression: str, context: dict) -> bool:
     """GitHub expression semantics for the guard's grammar: ``&&`` of ``==`` terms comparing context values or
     single-quoted literals. A missing value is ``''``; string comparison ignores case, as in GitHub Actions."""
+
     def operand(text: str) -> str:
         text = text.strip()
         literal = re.fullmatch(r"'([^']*)'", text)
@@ -139,15 +165,33 @@ class InventoryAndTriggerTests(unittest.TestCase):
         self.assertEqual(workflows["check-sources.yml"]["on"], {"workflow_dispatch": None})
         pages_on = workflows["pages.yml"]["on"]
         self.assertEqual(list(pages_on), ["workflow_dispatch"])
-        self.assertEqual(pages_on["workflow_dispatch"],
-                         {"inputs": {"release_sha": {"description": pages_on["workflow_dispatch"]["inputs"][
-                             "release_sha"]["description"], "required": "true", "type": "string"}}})
+        self.assertEqual(
+            pages_on["workflow_dispatch"],
+            {
+                "inputs": {
+                    "release_sha": {
+                        "description": pages_on["workflow_dispatch"]["inputs"]["release_sha"]["description"],
+                        "required": "true",
+                        "type": "string",
+                    }
+                }
+            },
+        )
 
     def test_no_schedule_or_privileged_triggers_anywhere(self):
         for name, workflow in all_workflows().items():
             with self.subTest(workflow=name):
-                self.assertFalse(set(workflow["on"]) & {"schedule", "pull_request_target", "workflow_run",
-                                                        "repository_dispatch", "release", "issue_comment"})
+                self.assertFalse(
+                    set(workflow["on"])
+                    & {
+                        "schedule",
+                        "pull_request_target",
+                        "workflow_run",
+                        "repository_dispatch",
+                        "release",
+                        "issue_comment",
+                    }
+                )
                 text = (WORKFLOWS / name).read_text(encoding="utf-8")
                 self.assertIsNone(re.search(r"^\s*(?:schedule|cron)\s*:", text, re.MULTILINE))
 
@@ -200,7 +244,9 @@ class ReleaseHoldTests(unittest.TestCase):
         build_runs = "\n".join(step.get("run", "") for step in steps_of(jobs["build"]))
         self.assertIn("scripts/prepare_pages.py --output", build_runs)
         self.assertIn("git rev-parse HEAD", build_runs)
-        self.assertIn("actions/upload-pages-artifact", [action_name(s.get("uses", "")) for s in steps_of(jobs["build"])])
+        self.assertIn(
+            "actions/upload-pages-artifact", [action_name(s.get("uses", "")) for s in steps_of(jobs["build"])]
+        )
 
     def test_approval_job_and_first_build_step_are_the_shell_guard(self):
         for job_id in ("approval", "build"):
@@ -232,12 +278,17 @@ class ReleaseHoldTests(unittest.TestCase):
         uppercase = {**APPROVED, "inputs.release_sha": SHA.upper()}  # equal for the expression, refused by the shell
         for job_id in ("approval", "build"):
             step = steps_of(self.pages["jobs"][job_id])[0]
-            for scenario, context, allowed in ([("approved", APPROVED, True), ("upper-case SHA", uppercase, False)]
-                                               + [(name, ctx, False) for name, ctx in DENIED.items()]):
+            for scenario, context, allowed in [("approved", APPROVED, True), ("upper-case SHA", uppercase, False)] + [
+                (name, ctx, False) for name, ctx in DENIED.items()
+            ]:
                 with self.subTest(job=job_id, scenario=scenario):
                     env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), **resolve_env(step["env"], context)}
-                    result = subprocess.run(["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", step["run"]],
-                                            env=env, capture_output=True, text=True)
+                    result = subprocess.run(
+                        ["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", step["run"]],
+                        env=env,
+                        capture_output=True,
+                        text=True,
+                    )
                     self.assertEqual(result.returncode == 0, allowed, result.stdout + result.stderr)
 
 
@@ -284,17 +335,27 @@ class PinningAndCommandTests(unittest.TestCase):
 
     def test_forbidden_patterns_are_not_vacuous(self):
         samples = {
-            "git push": "git push origin HEAD:main", "git tag": "git tag v1.0.0", "git commit": "git commit -m x",
-            "git remote": "git remote set-url origin x", "git config": "git config user.name bot",
-            "gh (any GitHub CLI call)": "gh release create v1", "curl write method": "curl -X POST https://x",
+            "git push": "git push origin HEAD:main",
+            "git tag": "git tag v1.0.0",
+            "git commit": "git commit -m x",
+            "git remote": "git remote set-url origin x",
+            "git config": "git config user.name bot",
+            "gh (any GitHub CLI call)": "gh release create v1",
+            "curl write method": "curl -X POST https://x",
             "token": 'echo "$GITHUB_TOKEN"',
         }
         for label, sample in samples.items():
             with self.subTest(forbidden=label):
                 self.assertRegex(sample, FORBIDDEN_COMMANDS[label])
         self.assertRegex("gh pr create --fill", FORBIDDEN_COMMANDS["gh (any GitHub CLI call)"])
-        for swallowed in ("check || true", "check || :", "check ||:;", "check || echo failed", "check || exit 0",
-                          "set +e"):
+        for swallowed in (
+            "check || true",
+            "check || :",
+            "check ||:;",
+            "check || echo failed",
+            "check || exit 0",
+            "set +e",
+        ):
             with self.subTest(swallowed=swallowed):
                 self.assertRegex(swallowed, FORBIDDEN_COMMANDS["swallowed failure"])
         for fine in ('command -v x || { echo "::error::x"; exit 1; }', "[ -f a ] || { continue; }", "a::b"):
@@ -317,11 +378,17 @@ class TestsWorkflowContentTests(unittest.TestCase):
 
     def test_offline_checks(self):
         runs = self.runs("checks")
-        for command in ("tests/run_all.py", "scripts/build_catalog.py --verify --check",
-                        "scripts/build_thumbnails.py --check", "scripts/build_coverage.py --check",
-                        "scripts/update_docs_stats.py --check",
-                        'scripts/fetch_$family.py" --verify', "for family in wikis artists official archives",
-                        "git diff --check", "git status --porcelain"):
+        for command in (
+            "tests/run_all.py",
+            "scripts/build_catalog.py --verify --check",
+            "scripts/build_thumbnails.py --check",
+            "scripts/build_coverage.py --check",
+            "scripts/update_docs_stats.py --check",
+            'scripts/fetch_$family.py" --verify',
+            "for family in wikis artists official archives",
+            "git diff --check",
+            "git status --porcelain",
+        ):
             with self.subTest(command=command):
                 self.assertIn(command, runs)
         for step in steps_of(self.workflow["jobs"]["checks"])[3:]:
@@ -332,7 +399,7 @@ class TestsWorkflowContentTests(unittest.TestCase):
         runs = self.runs("browser")
         self.assertIn("pip install --quiet -r requirements-dev.txt", runs)
         self.assertIn("--bind 127.0.0.1", runs)
-        self.assertIn('tests/browser_smoke.py --base http://127.0.0.1:8765/', runs)
+        self.assertIn("tests/browser_smoke.py --base http://127.0.0.1:8765/", runs)
         self.assertIn('--browser "$(command -v google-chrome)"', runs)
 
     def test_site_artifact_is_a_ci_artifact_not_a_deployment(self):
@@ -342,8 +409,10 @@ class TestsWorkflowContentTests(unittest.TestCase):
         self.assertIn("sha256sum --check", runs)
         self.assertIn("tests/browser_smoke.py --base http://127.0.0.1:8766/dynamix/", runs)
         upload = [step for step in steps_of(job) if "uses" in step]
-        self.assertEqual([action_name(step["uses"]) for step in upload], ["actions/checkout", "actions/setup-python",
-                                                                          "actions/upload-artifact"])
+        self.assertEqual(
+            [action_name(step["uses"]) for step in upload],
+            ["actions/checkout", "actions/setup-python", "actions/upload-artifact"],
+        )
         self.assertEqual(upload[-1]["with"]["include-hidden-files"], "true")
 
     def test_check_sources_workflow_only_reports(self):
@@ -389,14 +458,18 @@ class TestsWorkflowContentTests(unittest.TestCase):
 
     def test_unit_tests_run_under_coverage_with_data_outside_the_checkout(self):
         job = self.workflow["jobs"]["checks"]
-        self.assertIn(f"{VENV_PYTHON} -m pip install --quiet -r requirements.txt -r requirements-lint.txt",
-                      steps_of(job)[2]["run"].splitlines())
+        self.assertIn(
+            f"{VENV_PYTHON} -m pip install --quiet -r requirements.txt -r requirements-lint.txt",
+            steps_of(job)[2]["run"].splitlines(),
+        )
         unit = [step for step in steps_of(job) if "tests/run_all.py" in step.get("run", "")]
         self.assertEqual(len(unit), 1)
         self.assertEqual(unit[0]["if"], AFTER_INSTALL)
         self.assertEqual(unit[0]["env"], {"COVERAGE_FILE": COVERAGE_FILE})
-        self.assertEqual(unit[0]["run"].splitlines(), ['mkdir -p "$RUNNER_TEMP/coverage"',
-                                                       f"{VENV_PYTHON} -I -m coverage run tests/run_all.py"])
+        self.assertEqual(
+            unit[0]["run"].splitlines(),
+            ['mkdir -p "$RUNNER_TEMP/coverage"', f"{VENV_PYTHON} -I -m coverage run tests/run_all.py"],
+        )
 
     def test_coverage_step_publishes_the_table_and_enforces_fail_under(self):
         steps = steps_of(self.workflow["jobs"]["checks"])
@@ -410,8 +483,11 @@ class TestsWorkflowContentTests(unittest.TestCase):
         self.assertEqual(commands[-1], f"{VENV_PYTHON} -I -m coverage report", "the last command enforces fail_under")
         self.assertIn(f"{VENV_PYTHON} -I -m coverage report --format=markdown --fail-under=0", commands)
         self.assertIn('} >> "$GITHUB_STEP_SUMMARY"', commands)
-        self.assertEqual(re.findall(r"--fail-under\S*", report["run"]), ["--fail-under=0"],
-                         "only the summary table may ignore fail_under")
+        self.assertEqual(
+            re.findall(r"--fail-under\S*", report["run"]),
+            ["--fail-under=0"],
+            "only the summary table may ignore fail_under",
+        )
 
     def test_pages_reaches_lint_and_coverage_through_the_reusable_workflow(self):
         pages = load("pages.yml")
@@ -425,8 +501,14 @@ class TestsWorkflowContentTests(unittest.TestCase):
         self.assertIn("pre_commit run --all-files", self.runs("lint"))
 
 
-GIT_ENV = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@example.invalid", "GIT_COMMITTER_NAME": "t",
-           "GIT_COMMITTER_EMAIL": "t@example.invalid", "GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": os.devnull}
+GIT_ENV = {
+    "GIT_AUTHOR_NAME": "t",
+    "GIT_AUTHOR_EMAIL": "t@example.invalid",
+    "GIT_COMMITTER_NAME": "t",
+    "GIT_COMMITTER_EMAIL": "t@example.invalid",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_GLOBAL": os.devnull,
+}
 
 
 @unittest.skipUnless(shutil.which("bash") and shutil.which("git"), "needs bash and git to execute workflow steps")
@@ -443,8 +525,13 @@ class StepBehaviorTests(unittest.TestCase):
     def bash(self, script: str, cwd: Path, **env: str) -> subprocess.CompletedProcess:
         environment = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": str(cwd), **GIT_ENV, **env}
         # GitHub Actions runs `shell: bash` steps as `bash --noprofile --norc -eo pipefail {0}`.
-        return subprocess.run(["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", script], cwd=cwd,
-                              env=environment, capture_output=True, text=True)
+        return subprocess.run(
+            ["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", script],
+            cwd=cwd,
+            env=environment,
+            capture_output=True,
+            text=True,
+        )
 
     def repository(self, base: Path, files: dict[str, bytes]) -> Path:
         root = base / "checkout"
@@ -465,12 +552,16 @@ class StepBehaviorTests(unittest.TestCase):
             (venv / "python").write_text(f'#!/bin/sh\nexec "{sys.executable}" "$@"\n', encoding="utf-8")
             (venv / "python").chmod(0o755)
             root = base / "checkout"
-            for family, body in (("wikis", "raise SystemExit(1)\n"), ("artists", "print('verified')\n"),
-                                 ("archives", "print('verified')\n")):
+            for family, body in (
+                ("wikis", "raise SystemExit(1)\n"),
+                ("artists", "print('verified')\n"),
+                ("archives", "print('verified')\n"),
+            ):
                 (root / "scripts").mkdir(parents=True, exist_ok=True)
                 (root / "data/sources").mkdir(parents=True, exist_ok=True)
                 (root / f"scripts/fetch_{family}.py").write_text(
-                    "import sys\nassert sys.argv[1:] == ['--verify'] and sys.flags.isolated\n" + body, encoding="utf-8")
+                    "import sys\nassert sys.argv[1:] == ['--verify'] and sys.flags.isolated\n" + body, encoding="utf-8"
+                )
                 (root / f"data/sources/{family}.json").write_text("{}\n", encoding="utf-8")
             failing = self.bash(script, root, RUNNER_TEMP=str(base / "runner"))
             self.assertNotEqual(failing.returncode, 0, failing.stdout + failing.stderr)
@@ -489,8 +580,11 @@ class StepBehaviorTests(unittest.TestCase):
     def test_whitespace_step_fails_on_committed_whitespace_errors_except_pinned_bytes(self):
         script = self.script("No whitespace errors")
         with tempfile.TemporaryDirectory() as temporary:
-            files = {".gitattributes": b"/assets/** -text\n", "README.md": b"# ok\n",
-                     "assets/public/x/sidecar.txt": b"pinned bytes with trailing space \n"}
+            files = {
+                ".gitattributes": b"/assets/** -text\n",
+                "README.md": b"# ok\n",
+                "assets/public/x/sidecar.txt": b"pinned bytes with trailing space \n",
+            }
             root = self.repository(Path(temporary), files)
             clean = self.bash(script, root)
             self.assertEqual(clean.returncode, 0, clean.stdout + clean.stderr)
@@ -502,16 +596,22 @@ class StepBehaviorTests(unittest.TestCase):
             self.assertIn("docs/notes.md:1: trailing whitespace", committed.stdout)
 
     def test_source_check_step_publishes_the_report_and_fails_when_incomplete(self):
-        steps = [step for step in steps_of(load("check-sources.yml")["jobs"]["report"])
-                 if step.get("name", "").startswith("Compare live metadata")]
+        steps = [
+            step
+            for step in steps_of(load("check-sources.yml")["jobs"]["report"])
+            if step.get("name", "").startswith("Compare live metadata")
+        ]
         self.assertEqual(len(steps), 1)
-        fake = ('#!/bin/sh\n[ "$1 $2 $3" = "-I scripts/check_sources.py --report" ] || exit 99\n'
-                'if [ -n "$WRITE_REPORT" ]; then printf "## Source metadata check\\n" > "$4"; fi\n'
-                'exit "$FAKE_STATUS"\n')
+        fake = (
+            '#!/bin/sh\n[ "$1 $2 $3" = "-I scripts/check_sources.py --report" ] || exit 99\n'
+            'if [ -n "$WRITE_REPORT" ]; then printf "## Source metadata check\\n" > "$4"; fi\n'
+            'exit "$FAKE_STATUS"\n'
+        )
         for status, write, expected, message in (
-                ("0", "1", 0, "listed completely"),
-                ("3", "1", 3, "::error::Live source check incomplete"),
-                ("1", "", 1, "::error::check_sources.py failed with exit status 1")):
+            ("0", "1", 0, "listed completely"),
+            ("3", "1", 3, "::error::Live source check incomplete"),
+            ("1", "", 1, "::error::check_sources.py failed with exit status 1"),
+        ):
             with self.subTest(status=status), tempfile.TemporaryDirectory() as temporary:
                 base = Path(temporary)
                 venv = base / "runner/venv/bin"
@@ -519,13 +619,22 @@ class StepBehaviorTests(unittest.TestCase):
                 (venv / "python").write_text(fake, encoding="utf-8")
                 (venv / "python").chmod(0o755)
                 summary = base / "step-summary.md"
-                result = self.bash(steps[0]["run"], base, RUNNER_TEMP=str(base / "runner"),
-                                   GITHUB_STEP_SUMMARY=str(summary), FAKE_STATUS=status, WRITE_REPORT=write)
+                result = self.bash(
+                    steps[0]["run"],
+                    base,
+                    RUNNER_TEMP=str(base / "runner"),
+                    GITHUB_STEP_SUMMARY=str(summary),
+                    FAKE_STATUS=status,
+                    WRITE_REPORT=write,
+                )
                 self.assertEqual(result.returncode, expected, result.stdout + result.stderr)
                 self.assertIn(message, result.stdout)
                 published = summary.read_text(encoding="utf-8") if summary.exists() else ""
-                self.assertEqual("## Source metadata check" in published, bool(write),
-                                 "a written report is published even when the check is incomplete")
+                self.assertEqual(
+                    "## Source metadata check" in published,
+                    bool(write),
+                    "a written report is published even when the check is incomplete",
+                )
 
     def test_unchanged_checkout_step_fails_on_any_modification(self):
         script = self.script("Checks left the checkout unchanged")
@@ -547,8 +656,13 @@ class StepBehaviorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             files = {".gitignore": (ROOT / ".gitignore").read_bytes(), "src/archive.js": b"'use strict';\n"}
             root = self.repository(Path(temporary), files)
-            for byproduct in ("node_modules/eslint/package.json", ".ruff_cache/0.17.0/12345", ".mypy_cache/3.14/x.json",
-                              ".coverage", ".coverage.runner.1234.XaBc"):
+            for byproduct in (
+                "node_modules/eslint/package.json",
+                ".ruff_cache/0.17.0/12345",
+                ".mypy_cache/3.14/x.json",
+                ".coverage",
+                ".coverage.runner.1234.XaBc",
+            ):
                 (root / byproduct).parent.mkdir(parents=True, exist_ok=True)
                 (root / byproduct).write_bytes(b"{}\n")
             clean = self.bash(script, root)
@@ -561,14 +675,27 @@ class StepBehaviorTests(unittest.TestCase):
 
     def test_lint_install_step_requires_a_supported_node(self):
         script = self.script("Install the pinned lint tools", "lint")
-        versions = {"v20.19.0": True, "v20.20.2": True, "v22.13.0": True, "v22.21.1": True, "v24.0.0": True,
-                    "v25.1.0": True, "v18.20.8": False, "v20.18.3": False, "v21.7.3": False, "v22.12.0": False,
-                    "v23.11.1": False, "unknown": False}
-        stubs = {"python": '[ "$1 $2" = "-m venv" ] || exit 97\nmkdir -p "$3/bin"\n'
-                           'printf \'#!/bin/sh\\necho "venv-python $*" >> "$CALLS"\\n\' > "$3/bin/python"\n'
-                           'chmod +x "$3/bin/python"\n',
-                 "node": '[ "$1" = "--version" ] || exit 97\necho "$FAKE_NODE"\n',
-                 "npm": 'echo "npm $*" >> "$CALLS"\n'}
+        versions = {
+            "v20.19.0": True,
+            "v20.20.2": True,
+            "v22.13.0": True,
+            "v22.21.1": True,
+            "v24.0.0": True,
+            "v25.1.0": True,
+            "v18.20.8": False,
+            "v20.18.3": False,
+            "v21.7.3": False,
+            "v22.12.0": False,
+            "v23.11.1": False,
+            "unknown": False,
+        }
+        stubs = {
+            "python": '[ "$1 $2" = "-m venv" ] || exit 97\nmkdir -p "$3/bin"\n'
+            'printf \'#!/bin/sh\\necho "venv-python $*" >> "$CALLS"\\n\' > "$3/bin/python"\n'
+            'chmod +x "$3/bin/python"\n',
+            "node": '[ "$1" = "--version" ] || exit 97\necho "$FAKE_NODE"\n',
+            "npm": 'echo "npm $*" >> "$CALLS"\n',
+        }
         for version, supported in versions.items():
             with self.subTest(node=version), tempfile.TemporaryDirectory() as temporary:
                 base = Path(temporary)
@@ -577,8 +704,14 @@ class StepBehaviorTests(unittest.TestCase):
                     (base / "bin" / name).write_text("#!/bin/sh\n" + body, encoding="utf-8")
                     (base / "bin" / name).chmod(0o755)
                 calls = base / "calls.log"
-                result = self.bash(script, base, PATH=f"{base / 'bin'}:/usr/bin:/bin", RUNNER_TEMP=str(base / "runner"),
-                                   CALLS=str(calls), FAKE_NODE=version)
+                result = self.bash(
+                    script,
+                    base,
+                    PATH=f"{base / 'bin'}:/usr/bin:/bin",
+                    RUNNER_TEMP=str(base / "runner"),
+                    CALLS=str(calls),
+                    FAKE_NODE=version,
+                )
                 logged = calls.read_text(encoding="utf-8").splitlines() if calls.exists() else []
                 self.assertIn("venv-python -m pip install --quiet -r requirements-lint.txt", logged)
                 self.assertIn(f"Node.js {version}", result.stdout)
@@ -610,10 +743,14 @@ class StepBehaviorTests(unittest.TestCase):
             (root / "scripts/child.py").write_text('print("measured in an isolated subprocess")\n', encoding="utf-8")
             (root / "tests/run_all.py").write_text(
                 "import subprocess, sys\nsubprocess.run([sys.executable, '-I', 'scripts/child.py'], check=True)\n",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             summary = base / "step-summary.md"
-            env = {"RUNNER_TEMP": str(runner), "COVERAGE_FILE": str(runner / "coverage/.coverage"),
-                   "GITHUB_STEP_SUMMARY": str(summary)}
+            env = {
+                "RUNNER_TEMP": str(runner),
+                "COVERAGE_FILE": str(runner / "coverage/.coverage"),
+                "GITHUB_STEP_SUMMARY": str(summary),
+            }
             tests = self.bash(unit["run"], root, **env)
             self.assertEqual(tests.returncode, 0, tests.stdout + tests.stderr)
             self.assertIn("measured in an isolated subprocess", tests.stdout)
@@ -625,8 +762,9 @@ class StepBehaviorTests(unittest.TestCase):
             self.assertIn("### Coverage of scripts/ by the unit tests", summary.read_text(encoding="utf-8"))
             self.assertIn("scripts/child.py", summary.read_text(encoding="utf-8"))
             # An unexecuted script lowers the total below fail_under: the step fails, the table is still published.
-            (root / "scripts/unexecuted.py").write_text("".join(f"value_{n} = {n}\n" for n in range(60)),
-                                                        encoding="utf-8")
+            (root / "scripts/unexecuted.py").write_text(
+                "".join(f"value_{n} = {n}\n" for n in range(60)), encoding="utf-8"
+            )
             shutil.rmtree(runner / "coverage")
             summary.unlink()
             self.assertEqual(self.bash(unit["run"], root, **env).returncode, 0)

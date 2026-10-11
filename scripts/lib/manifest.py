@@ -83,8 +83,16 @@ def compare_json(path: str | os.PathLike[str], obj: Any, *, context: int = 2, li
     actual = target.read_bytes().decode("utf-8", errors="replace")
     if actual == expected:
         return None
-    diff = list(difflib.unified_diff(actual.splitlines(), expected.splitlines(), f"{target} (on disk)",
-                                     f"{target} (regenerated)", n=context, lineterm=""))
+    diff = list(
+        difflib.unified_diff(
+            actual.splitlines(),
+            expected.splitlines(),
+            f"{target} (on disk)",
+            f"{target} (regenerated)",
+            n=context,
+            lineterm="",
+        )
+    )
     if not diff:  # only trailing-newline or line-ending differences
         diff = [f"{target}: differs in line endings or trailing newline"]
     return "\n".join(diff[:limit] + ([f"... {len(diff) - limit} more diff lines"] if len(diff) > limit else []))
@@ -94,8 +102,14 @@ def empty_manifest(family: str) -> dict:
     """A valid family manifest with no records and ``fetched_at`` null (no successful acquisition yet)."""
     if family not in schema.FAMILIES:
         raise ValueError(f"unknown family: {family!r}")
-    return {"schema_version": schema.SCHEMA_VERSION, "family": family, "fetched_at": None, "sources": [],
-            "assets": [], "failures": []}
+    return {
+        "schema_version": schema.SCHEMA_VERSION,
+        "family": family,
+        "fetched_at": None,
+        "sources": [],
+        "assets": [],
+        "failures": [],
+    }
 
 
 def sort_records(records: Iterable[Mapping[str, Any]], kind: str | None = None) -> list[dict]:
@@ -117,9 +131,10 @@ def sort_discovery(snapshot: Mapping[str, Any]) -> dict:
     """A copy with candidates sorted by ID (contract key order) and errors in a stable order."""
     result = dict(snapshot)
     result["candidates"] = sort_records(snapshot.get("candidates", []), "candidate")
-    result["errors"] = sorted(snapshot.get("errors", []),
-                              key=lambda error: (error.get("phase") or "", error.get("url") or "",
-                                                 error.get("message") or ""))
+    result["errors"] = sorted(
+        snapshot.get("errors", []),
+        key=lambda error: (error.get("phase") or "", error.get("url") or "", error.get("message") or ""),
+    )
     return result
 
 
@@ -127,8 +142,9 @@ def sort_song_index(index: Mapping[str, Any]) -> dict:
     """A copy with songs sorted by ID and disagreements by (song ID, field)."""
     result = dict(index)
     result["songs"] = sort_records(index.get("songs", []))
-    result["disagreements"] = sorted(index.get("disagreements", []),
-                                     key=lambda item: (item.get("song_id", ""), item.get("field", "")))
+    result["disagreements"] = sorted(
+        index.get("disagreements", []), key=lambda item: (item.get("song_id", ""), item.get("field", ""))
+    )
     return result
 
 

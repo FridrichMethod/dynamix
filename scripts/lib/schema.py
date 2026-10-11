@@ -17,8 +17,16 @@ from typing import Any, Iterable, Mapping
 from urllib.parse import quote
 
 from . import checks, paths
-from .checks import (CREDENTIAL_QUERY_KEYS, DATE_RE, REDACTED, SENSITIVE_QUERY_KEYS,  # noqa: F401
-                     TIMESTAMP_RE, contains_credentials, redact_text, redact_url)
+from .checks import (
+    CREDENTIAL_QUERY_KEYS,
+    DATE_RE,
+    REDACTED,
+    SENSITIVE_QUERY_KEYS,  # noqa: F401
+    TIMESTAMP_RE,
+    contains_credentials,
+    redact_text,
+    redact_url,
+)
 
 Checker = checks.Checker
 _nonempty, _text, _boolean, _tristate = checks.nonempty, checks.text, checks.boolean, checks.tristate
@@ -48,28 +56,67 @@ FAMILY_PRIORITY = ("artists", "official", "wikis", "archives")  # catalog primar
 # bytes both English wikis serve; Fandom is the legacy copy); every other source follows them, tied.
 PREFERRED_SOURCES = ("wikis:miraheze", "wikis:fandom")
 REGISTERED_SOURCE_IDS = (
-    "wikis:miraheze", "wikis:fandom", "wikis:atwiki-ja", "wikis:rhythmgame-ja",
-    "official:apple-store", "official:google-play", "official:taptap", "official:website", "official:c4cat",
-    "official:facebook", "official:x", "archives:hkstp", "archives:4gamer", "archives:wayback",
+    "wikis:miraheze",
+    "wikis:fandom",
+    "wikis:atwiki-ja",
+    "wikis:rhythmgame-ja",
+    "official:apple-store",
+    "official:google-play",
+    "official:taptap",
+    "official:website",
+    "official:c4cat",
+    "official:facebook",
+    "official:x",
+    "archives:hkstp",
+    "archives:4gamer",
+    "archives:wayback",
 )
-KINDS = ("song_art", "pack_cover", "character", "background", "part", "promotional",
-         "store_screenshot", "gameplay_screenshot", "process", "reference")  # catalog ordering
+KINDS = (
+    "song_art",
+    "pack_cover",
+    "character",
+    "background",
+    "part",
+    "promotional",
+    "store_screenshot",
+    "gameplay_screenshot",
+    "process",
+    "reference",
+)  # catalog ordering
 SITE_KINDS = ("song_art", "pack_cover", "character", "background", "part", "promotional", "process")
 ARCHIVE_KINDS = ("reference", "gameplay_screenshot", "store_screenshot")  # tier revision 1.1
 SLIDESHOW_KINDS = ("song_art", "pack_cover", "promotional", "character")
 SLIDESHOW_MIN_LONG_EDGE = 1000
 TIERS = ("site", "archive")
 GAMES = ("dynamix", "dynamix_universe", "mixed", "unknown", "not_dynamix")  # candidate game association
-SOURCE_STATUSES = ("available", "partially_available", "temporarily_unavailable", "manual_access", "metadata_only",
-                   "excluded")
+SOURCE_STATUSES = (
+    "available",
+    "partially_available",
+    "temporarily_unavailable",
+    "manual_access",
+    "metadata_only",
+    "excluded",
+)
 EVIDENCE_LEVELS = ("live_api", "page_read", "search_index", "blocked", "not_established")
 DISPOSITIONS = ("downloaded", "duplicate_bytes", "excluded", "failed", "blocked", "pending")
 # Prefixes of a ``pending`` candidate's reason (09, CLI notes): accepted but not archived yet, or its role or game
 # not established.
 PENDING_REASONS = ("awaiting_download", "unresolved_role", "unresolved_game")
-EXCLUSION_REASONS = ("universe_only", "not_dynamix", "animated_capture", "person_photo", "site_ui", "game_ui",
-                     "video_placeholder", "external_release_art", "fanart", "upscaled", "rejected_submission",
-                     "redirect_or_alias", "out_of_scope_other")
+EXCLUSION_REASONS = (
+    "universe_only",
+    "not_dynamix",
+    "animated_capture",
+    "person_photo",
+    "site_ui",
+    "game_ui",
+    "video_placeholder",
+    "external_release_art",
+    "fanart",
+    "upscaled",
+    "rejected_submission",
+    "redirect_or_alias",
+    "out_of_scope_other",
+)
 MAPPING_STATUSES = ("confirmed_primary", "confirmed_wiki", "inferred", "unmapped", "conflict")
 MAPPED_STATUSES = ("confirmed_primary", "confirmed_wiki", "inferred", "conflict")  # need mapping_evidence
 SOURCE_VARIANTS = ("site_original", "preview", "unknown")
@@ -77,17 +124,35 @@ ORIGIN_STATUSES = ("artist_post", "official", "wiki_copy", "repost", "scan", "un
 MASTER_STATUSES = ("confirmed", "unverified")
 UPSTREAM_STATUSES = ("current", "removed", "superseded", "unknown")
 FAILURE_PHASES = ("discover", "download", "decode", "verify")
-ERROR_CLASSES = ("http_4xx", "http_5xx", "timeout", "blocked", "challenge", "decode_error", "size_limit",
-                 "host_not_allowed", "other")
+ERROR_CLASSES = (
+    "http_4xx",
+    "http_5xx",
+    "timeout",
+    "blocked",
+    "challenge",
+    "decode_error",
+    "size_limit",
+    "host_not_allowed",
+    "other",
+)
 NON_RETRIABLE_ERROR_CLASSES = ("blocked", "challenge", "host_not_allowed")
 CREDIT_ROLES = ("illustrator", "composer", "other")
 FORMATS = ("PNG", "JPEG", "WEBP", "GIF", "PDF")
 RASTER_FORMATS = ("PNG", "JPEG", "WEBP", "GIF")
-FORMAT_MIME = {"PNG": "image/png", "JPEG": "image/jpeg", "WEBP": "image/webp", "GIF": "image/gif",
-               "PDF": "application/pdf"}
+FORMAT_MIME = {
+    "PNG": "image/png",
+    "JPEG": "image/jpeg",
+    "WEBP": "image/webp",
+    "GIF": "image/gif",
+    "PDF": "application/pdf",
+}
 FORMAT_EXT = {"PNG": "png", "JPEG": "jpg", "WEBP": "webp", "GIF": "gif", "PDF": "pdf"}
-MIME_ALIASES = {"image/jpg": "image/jpeg", "image/pjpeg": "image/jpeg", "image/x-png": "image/png",
-                "application/x-pdf": "application/pdf"}
+MIME_ALIASES = {
+    "image/jpg": "image/jpeg",
+    "image/pjpeg": "image/jpeg",
+    "image/x-png": "image/png",
+    "application/x-pdf": "application/pdf",
+}
 
 # --- Identifier patterns ----------------------------------------------------------------------------------------------
 
@@ -102,6 +167,7 @@ _HEX40 = re.compile(r"^[0-9a-f]{40}$")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
 # --- Small helpers shared by fetchers and builders --------------------------------------------------------------------
+
 
 def source_family(source_id: str) -> str:
     return paths.source_family(source_id)
@@ -128,8 +194,10 @@ def check_source_slugs(source_ids: Iterable[str]) -> None:
     collisions = paths.source_slug_collisions(source_ids)
     if collisions:
         group = collisions[0]
-        raise ValueError(f"source IDs {group} share the source slug {paths.source_slug(group[0])!r} "
-                         f"({paths.discovery_relpath(group[0])})")
+        raise ValueError(
+            f"source IDs {group} share the source slug {paths.source_slug(group[0])!r} "
+            f"({paths.discovery_relpath(group[0])})"
+        )
 
 
 def normalize_mime(mime: str | None) -> str | None:
@@ -155,8 +223,11 @@ def is_gallery(asset: Mapping[str, Any]) -> bool:
 
 def is_slideshow(asset: Mapping[str, Any]) -> bool:
     """Gallery image of a slideshow kind with a decoded long edge of at least 1000 px."""
-    return (is_gallery(asset) and asset["kind"] in SLIDESHOW_KINDS
-            and max(asset["width"], asset["height"]) >= SLIDESHOW_MIN_LONG_EDGE)
+    return (
+        is_gallery(asset)
+        and asset["kind"] in SLIDESHOW_KINDS
+        and max(asset["width"], asset["height"]) >= SLIDESHOW_MIN_LONG_EDGE
+    )
 
 
 def normalize_title(title: str) -> str:
@@ -177,8 +248,13 @@ def provenance_sort_key(record: Mapping[str, Any]) -> tuple:
     family = record.get("family") or source_family(record["source_id"])
     source_id = record["source_id"]
     preferred = PREFERRED_SOURCES.index(source_id) if source_id in PREFERRED_SOURCES else len(PREFERRED_SOURCES)
-    return (FAMILY_PRIORITY.index(family), preferred, SOURCE_VARIANTS.index(record["quality"]["source_variant"]),
-            source_id, record.get("id") or record.get("asset_id") or "")
+    return (
+        FAMILY_PRIORITY.index(family),
+        preferred,
+        SOURCE_VARIANTS.index(record["quality"]["source_variant"]),
+        source_id,
+        record.get("id") or record.get("asset_id") or "",
+    )
 
 
 def ordered_union(lists: Iterable[Iterable[str]]) -> list[str]:
@@ -208,8 +284,15 @@ def make_source_reported(**values: Any) -> dict:
 
 def make_download_observed(info: Mapping[str, Any], content_type: str | None) -> dict:
     """``download_observed`` from a :func:`lib.media.inspect` result and the response Content-Type."""
-    return {"content_type": content_type, "sniffed_format": info["format"], "bytes": info["bytes"],
-            "width": info["width"], "height": info["height"], "sha1": info["sha1"], "sha256": info["sha256"]}
+    return {
+        "content_type": content_type,
+        "sniffed_format": info["format"],
+        "bytes": info["bytes"],
+        "width": info["width"],
+        "height": info["height"],
+        "sha1": info["sha1"],
+        "sha256": info["sha256"],
+    }
 
 
 def compute_comparisons(source_reported: Mapping[str, Any], observed: Mapping[str, Any]) -> dict:
@@ -225,26 +308,55 @@ def compute_comparisons(source_reported: Mapping[str, Any], observed: Mapping[st
     return {
         "sha1_match": None if reported_sha1 is None else reported_sha1.lower() == observed["sha1"],
         "bytes_match": None if reported_bytes is None else reported_bytes == observed["bytes"],
-        "dimensions_match": (None if None in reported_size or None in observed_size
-                             else reported_size == observed_size),
+        "dimensions_match": (
+            None if None in reported_size or None in observed_size else reported_size == observed_size
+        ),
         "format_match": None if reported_mime is None else reported_mime == FORMAT_MIME[observed["sniffed_format"]],
     }
 
 
-def default_rights(*, creator: str | None = None, url: str | None = None, restrictions: str | None = None,
-                   holder: str | None = DEFAULT_RIGHTS_HOLDER, license: str | None = None) -> dict:
+def default_rights(
+    *,
+    creator: str | None = None,
+    url: str | None = None,
+    restrictions: str | None = None,
+    holder: str | None = DEFAULT_RIGHTS_HOLDER,
+    license: str | None = None,
+) -> dict:
     """Rights object; ``license`` stays null unless a license is actually established."""
     return {"holder": holder, "creator": creator, "url": url, "license": license, "restrictions": restrictions}
 
 
-def failure_record(*, source_id: str, candidate_id: str, phase: str, url: str, attempted_at: str, attempts: int,
-                   error_class: str, http_status: int | None, retriable: bool, manual: bool, message: str) -> dict:
+def failure_record(
+    *,
+    source_id: str,
+    candidate_id: str,
+    phase: str,
+    url: str,
+    attempted_at: str,
+    attempts: int,
+    error_class: str,
+    http_status: int | None,
+    retriable: bool,
+    manual: bool,
+    message: str,
+) -> dict:
     """A validated Failure record. The URL is redacted with the stored-URL rule (credential parameters only), the
     message with the strict log rule."""
-    record = {"id": failure_id(candidate_id, phase), "source_id": source_id, "candidate_id": candidate_id,
-              "phase": phase, "url": redact_url(url, strict=False), "attempted_at": attempted_at, "attempts": attempts,
-              "error_class": error_class, "http_status": http_status, "retriable": retriable, "manual": manual,
-              "message": redact_text(message) or error_class}
+    record = {
+        "id": failure_id(candidate_id, phase),
+        "source_id": source_id,
+        "candidate_id": candidate_id,
+        "phase": phase,
+        "url": redact_url(url, strict=False),
+        "attempted_at": attempted_at,
+        "attempts": attempts,
+        "error_class": error_class,
+        "http_status": http_status,
+        "retriable": retriable,
+        "manual": manual,
+        "message": redact_text(message) or error_class,
+    }
     validate_failure(record)
     return record
 
@@ -261,8 +373,13 @@ def canonical(record: Mapping[str, Any], kind: str) -> dict:
         "failure": FAILURE_FIELDS,
         "candidate": CANDIDATE_FIELDS + CANDIDATE_OPTIONAL_FIELDS,
     }
-    nested = {"quality": QUALITY_FIELDS, "rights": RIGHTS_FIELDS, "source_reported": SOURCE_REPORTED_FIELDS,
-              "download_observed": DOWNLOAD_OBSERVED_FIELDS, "comparisons": COMPARISON_FIELDS}
+    nested = {
+        "quality": QUALITY_FIELDS,
+        "rights": RIGHTS_FIELDS,
+        "source_reported": SOURCE_REPORTED_FIELDS,
+        "download_observed": DOWNLOAD_OBSERVED_FIELDS,
+        "comparisons": COMPARISON_FIELDS,
+    }
     order = orders[kind]
     result = {key: record[key] for key in order if key in record}
     result.update((key, value) for key, value in record.items() if key not in result)
@@ -279,8 +396,9 @@ def _evidence_item(value: Any) -> str | None:
         return _clean_text(value)
     if isinstance(value, dict) and value:
         for key, item in value.items():
-            if not isinstance(key, str) or not (item is None or isinstance(item, (str, int)) and not isinstance(
-                    item, bool)):
+            if not isinstance(key, str) or not (
+                item is None or isinstance(item, (str, int)) and not isinstance(item, bool)
+            ):
                 return "object values must be strings, integers or null"
             if isinstance(item, str) and contains_credentials(item, strict=False):
                 return "must not contain credentials"
@@ -303,96 +421,238 @@ _NULLABLE_URL = _nullable(_http_url)
 _NULLABLE_TEXT = _nullable(_nonempty)
 _ANY_JSON: Checker = lambda value: None  # noqa: E731 - free-form descriptive values
 
-QUALITY_SPEC = {"source_variant": _one_of(SOURCE_VARIANTS), "origin_status": _one_of(ORIGIN_STATUSES),
-                "master_status": _one_of(MASTER_STATUSES), "notes": _text}
-RIGHTS_SPEC = {"holder": _NULLABLE_TEXT, "creator": _NULLABLE_TEXT, "url": _NULLABLE_URL, "license": _NULLABLE_TEXT,
-               "restrictions": _NULLABLE_TEXT}
-SOURCE_REPORTED_SPEC = {"url": _NULLABLE_URL, "mime": _NULLABLE_TEXT, "bytes": _nullable(_integer(0)),
-                        "width": _nullable(_integer(0)), "height": _nullable(_integer(0)),
-                        "sha1": _nullable(_pattern(_HEX40, "40 lowercase hex digits")), "timestamp": _NULLABLE_TEXT,
-                        "revision": _revision}
-DOWNLOAD_OBSERVED_SPEC = {"content_type": _nullable(_text), "sniffed_format": _one_of(FORMATS), "bytes": _integer(1),
-                          "width": _nullable(_integer(1)), "height": _nullable(_integer(1)),
-                          "sha1": _pattern(_HEX40, "40 lowercase hex digits"),
-                          "sha256": _pattern(_HEX64, "64 lowercase hex digits")}
+QUALITY_SPEC = {
+    "source_variant": _one_of(SOURCE_VARIANTS),
+    "origin_status": _one_of(ORIGIN_STATUSES),
+    "master_status": _one_of(MASTER_STATUSES),
+    "notes": _text,
+}
+RIGHTS_SPEC = {
+    "holder": _NULLABLE_TEXT,
+    "creator": _NULLABLE_TEXT,
+    "url": _NULLABLE_URL,
+    "license": _NULLABLE_TEXT,
+    "restrictions": _NULLABLE_TEXT,
+}
+SOURCE_REPORTED_SPEC = {
+    "url": _NULLABLE_URL,
+    "mime": _NULLABLE_TEXT,
+    "bytes": _nullable(_integer(0)),
+    "width": _nullable(_integer(0)),
+    "height": _nullable(_integer(0)),
+    "sha1": _nullable(_pattern(_HEX40, "40 lowercase hex digits")),
+    "timestamp": _NULLABLE_TEXT,
+    "revision": _revision,
+}
+DOWNLOAD_OBSERVED_SPEC = {
+    "content_type": _nullable(_text),
+    "sniffed_format": _one_of(FORMATS),
+    "bytes": _integer(1),
+    "width": _nullable(_integer(1)),
+    "height": _nullable(_integer(1)),
+    "sha1": _pattern(_HEX40, "40 lowercase hex digits"),
+    "sha256": _pattern(_HEX64, "64 lowercase hex digits"),
+}
 COMPARISONS_SPEC = {key: _tristate for key in ("sha1_match", "bytes_match", "dimensions_match", "format_match")}
-CREDIT_EVIDENCE_SPEC = {"role": _one_of(CREDIT_ROLES), "name": _nonempty, "url": _NULLABLE_URL,
-                        "field": _nullable(_text), "quote": _nullable(_text)}
+CREDIT_EVIDENCE_SPEC = {
+    "role": _one_of(CREDIT_ROLES),
+    "name": _nonempty,
+    "url": _NULLABLE_URL,
+    "field": _nullable(_text),
+    "quote": _nullable(_text),
+}
 
-SOURCE_SPEC = {"id": _SOURCE_ID, "name": _nonempty, "family": _one_of(FAMILIES), "url": _URL, "platform": _nonempty,
-               "status": _one_of(SOURCE_STATUSES), "checked_at": _timestamp, "notes": _text}
-SOURCE_OPTIONAL_SPEC = {"api_url": _NULLABLE_URL, "owner_evidence": _ANY_JSON, "crawl_scope": _ANY_JSON,
-                        "rate_policy": _nullable(_text), "discovery_complete": _boolean,
-                        "candidate_count": _integer(0), "asset_count": _integer(0), "failure_count": _integer(0),
-                        "evidence_level": _one_of(EVIDENCE_LEVELS)}
+SOURCE_SPEC = {
+    "id": _SOURCE_ID,
+    "name": _nonempty,
+    "family": _one_of(FAMILIES),
+    "url": _URL,
+    "platform": _nonempty,
+    "status": _one_of(SOURCE_STATUSES),
+    "checked_at": _timestamp,
+    "notes": _text,
+}
+SOURCE_OPTIONAL_SPEC = {
+    "api_url": _NULLABLE_URL,
+    "owner_evidence": _ANY_JSON,
+    "crawl_scope": _ANY_JSON,
+    "rate_policy": _nullable(_text),
+    "discovery_complete": _boolean,
+    "candidate_count": _integer(0),
+    "asset_count": _integer(0),
+    "failure_count": _integer(0),
+    "evidence_level": _one_of(EVIDENCE_LEVELS),
+}
 ASSET_SPEC = {
-    "id": _ASSET_ID, "source_id": _SOURCE_ID, "candidate_id": _nonempty, "title": _nonempty, "kind": _one_of(KINDS),
-    "game": _const(GAME), "page_url": _URL, "download_url": _URL, "resolved_url": _URL, "path": _nonempty,
-    "original_filename": _nonempty, "bytes": _integer(1, MAX_FILE_BYTES),
-    "sha256": _pattern(_HEX64, "64 lowercase hex digits"), "sha1": _pattern(_HEX40, "40 lowercase hex digits"),
-    "format": _one_of(FORMATS), "mime": _nonempty, "width": _nullable(_integer(1)), "height": _nullable(_integer(1)),
-    "fetched_at": _timestamp, "illustrators": _STRINGS, "composers": _STRINGS, "song_titles": _STRINGS,
-    "song_ids": _list_of(_SONG_ID), "collections": _STRINGS, "mapping_status": _one_of(MAPPING_STATUSES),
-    "mapping_evidence": _list_of(_evidence_item), "quality": _object(QUALITY_SPEC), "rights": _object(RIGHTS_SPEC),
-    "source_reported": _object(SOURCE_REPORTED_SPEC), "download_observed": _object(DOWNLOAD_OBSERVED_SPEC),
+    "id": _ASSET_ID,
+    "source_id": _SOURCE_ID,
+    "candidate_id": _nonempty,
+    "title": _nonempty,
+    "kind": _one_of(KINDS),
+    "game": _const(GAME),
+    "page_url": _URL,
+    "download_url": _URL,
+    "resolved_url": _URL,
+    "path": _nonempty,
+    "original_filename": _nonempty,
+    "bytes": _integer(1, MAX_FILE_BYTES),
+    "sha256": _pattern(_HEX64, "64 lowercase hex digits"),
+    "sha1": _pattern(_HEX40, "40 lowercase hex digits"),
+    "format": _one_of(FORMATS),
+    "mime": _nonempty,
+    "width": _nullable(_integer(1)),
+    "height": _nullable(_integer(1)),
+    "fetched_at": _timestamp,
+    "illustrators": _STRINGS,
+    "composers": _STRINGS,
+    "song_titles": _STRINGS,
+    "song_ids": _list_of(_SONG_ID),
+    "collections": _STRINGS,
+    "mapping_status": _one_of(MAPPING_STATUSES),
+    "mapping_evidence": _list_of(_evidence_item),
+    "quality": _object(QUALITY_SPEC),
+    "rights": _object(RIGHTS_SPEC),
+    "source_reported": _object(SOURCE_REPORTED_SPEC),
+    "download_observed": _object(DOWNLOAD_OBSERVED_SPEC),
     "comparisons": _object(COMPARISONS_SPEC),
 }
 ASSET_OPTIONAL_SPEC = {
-    "credit_evidence": _list_of(_object(CREDIT_EVIDENCE_SPEC)), "variant_group": _nonempty,
-    "variant_role": _nonempty, "upstream_status": _one_of(UPSTREAM_STATUSES), "superseded_by": _ASSET_ID,
+    "credit_evidence": _list_of(_object(CREDIT_EVIDENCE_SPEC)),
+    "variant_group": _nonempty,
+    "variant_role": _nonempty,
+    "upstream_status": _one_of(UPSTREAM_STATUSES),
+    "superseded_by": _ASSET_ID,
     "game_associations": _list_of(_pattern(re.compile(r"^[a-z0-9_]+$"), "a lowercase game key")),
-    "notes": _text, "upstream_revision": _revision, "transformed": _boolean,
+    "notes": _text,
+    "upstream_revision": _revision,
+    "transformed": _boolean,
 }
 PROVENANCE_SPEC = {
-    "source_id": _SOURCE_ID, "source_name": _nonempty, "family": _one_of(FAMILIES), "page_url": _URL,
-    "download_url": _URL, "resolved_url": _URL, "quality": _object(QUALITY_SPEC), "rights": _object(RIGHTS_SPEC),
-    "mapping_status": _one_of(MAPPING_STATUSES), "mapping_evidence": _list_of(_evidence_item),
-    "credit_evidence": _nullable(_list_of(_object(CREDIT_EVIDENCE_SPEC))), "illustrators": _STRINGS,
-    "composers": _STRINGS, "song_titles": _STRINGS, "song_ids": _list_of(_SONG_ID), "collections": _STRINGS,
+    "source_id": _SOURCE_ID,
+    "source_name": _nonempty,
+    "family": _one_of(FAMILIES),
+    "page_url": _URL,
+    "download_url": _URL,
+    "resolved_url": _URL,
+    "quality": _object(QUALITY_SPEC),
+    "rights": _object(RIGHTS_SPEC),
+    "mapping_status": _one_of(MAPPING_STATUSES),
+    "mapping_evidence": _list_of(_evidence_item),
+    "credit_evidence": _nullable(_list_of(_object(CREDIT_EVIDENCE_SPEC))),
+    "illustrators": _STRINGS,
+    "composers": _STRINGS,
+    "song_titles": _STRINGS,
+    "song_ids": _list_of(_SONG_ID),
+    "collections": _STRINGS,
     "source_reported": _object(SOURCE_REPORTED_SPEC),
-    "comparisons": _object(COMPARISONS_SPEC), "upstream_status": _nullable(_one_of(UPSTREAM_STATUSES)),
-    "superseded_by": _nullable(_ASSET_ID), "notes": _nullable(_text),
+    "comparisons": _object(COMPARISONS_SPEC),
+    "upstream_status": _nullable(_one_of(UPSTREAM_STATUSES)),
+    "superseded_by": _nullable(_ASSET_ID),
+    "notes": _nullable(_text),
 }
 CATALOG_ASSET_SPEC = {
-    "family": _one_of(FAMILIES), "source_name": _nonempty, "url": _nonempty, "thumb": _nullable(_nonempty),
-    "gallery": _boolean, "slideshow": _boolean, "site_original": _boolean, "archive_url": _URL,
-    "provenance": _list_of(_object(PROVENANCE_SPEC, {"asset_id": _ASSET_ID})), "variants": _list_of(_ASSET_ID),
+    "family": _one_of(FAMILIES),
+    "source_name": _nonempty,
+    "url": _nonempty,
+    "thumb": _nullable(_nonempty),
+    "gallery": _boolean,
+    "slideshow": _boolean,
+    "site_original": _boolean,
+    "archive_url": _URL,
+    "provenance": _list_of(_object(PROVENANCE_SPEC, {"asset_id": _ASSET_ID})),
+    "variants": _list_of(_ASSET_ID),
 }
-FAILURE_SPEC = {"id": _nonempty, "source_id": _SOURCE_ID, "candidate_id": _nonempty, "phase": _one_of(FAILURE_PHASES),
-                "url": _URL, "attempted_at": _timestamp, "attempts": _integer(1), "error_class": _one_of(ERROR_CLASSES),
-                "http_status": _nullable(_integer(100, 599)), "retriable": _boolean, "manual": _boolean,
-                "message": _message_text}
-CANDIDATE_SPEC = {"id": _nonempty, "source_id": _SOURCE_ID, "upstream_key": _nonempty, "page_url": _URL,
-                  "file_url": _NULLABLE_URL, "title": _nonempty, "role": _nullable(_one_of(KINDS)),
-                  "game": _one_of(GAMES), "game_evidence": _list_of(_clean_text),
-                  "source_reported": _object(SOURCE_REPORTED_SPEC), "disposition": _one_of(DISPOSITIONS)}
-CANDIDATE_OPTIONAL_SPEC = {"reason": _nullable(_text), "asset_id": _nullable(_ASSET_ID), "song_titles": _STRINGS,
-                           "illustrators": _STRINGS, "composers": _STRINGS, "collections": _STRINGS, "notes": _text}
-MANIFEST_SPEC = {"schema_version": _const(SCHEMA_VERSION), "family": _one_of(FAMILIES),
-                 "fetched_at": _nullable(_timestamp), "sources": _list_of(_ANY_JSON, unique=False),
-                 "assets": _list_of(_ANY_JSON, unique=False), "failures": _list_of(_ANY_JSON, unique=False)}
+FAILURE_SPEC = {
+    "id": _nonempty,
+    "source_id": _SOURCE_ID,
+    "candidate_id": _nonempty,
+    "phase": _one_of(FAILURE_PHASES),
+    "url": _URL,
+    "attempted_at": _timestamp,
+    "attempts": _integer(1),
+    "error_class": _one_of(ERROR_CLASSES),
+    "http_status": _nullable(_integer(100, 599)),
+    "retriable": _boolean,
+    "manual": _boolean,
+    "message": _message_text,
+}
+CANDIDATE_SPEC = {
+    "id": _nonempty,
+    "source_id": _SOURCE_ID,
+    "upstream_key": _nonempty,
+    "page_url": _URL,
+    "file_url": _NULLABLE_URL,
+    "title": _nonempty,
+    "role": _nullable(_one_of(KINDS)),
+    "game": _one_of(GAMES),
+    "game_evidence": _list_of(_clean_text),
+    "source_reported": _object(SOURCE_REPORTED_SPEC),
+    "disposition": _one_of(DISPOSITIONS),
+}
+CANDIDATE_OPTIONAL_SPEC = {
+    "reason": _nullable(_text),
+    "asset_id": _nullable(_ASSET_ID),
+    "song_titles": _STRINGS,
+    "illustrators": _STRINGS,
+    "composers": _STRINGS,
+    "collections": _STRINGS,
+    "notes": _text,
+}
+MANIFEST_SPEC = {
+    "schema_version": _const(SCHEMA_VERSION),
+    "family": _one_of(FAMILIES),
+    "fetched_at": _nullable(_timestamp),
+    "sources": _list_of(_ANY_JSON, unique=False),
+    "assets": _list_of(_ANY_JSON, unique=False),
+    "failures": _list_of(_ANY_JSON, unique=False),
+}
 DISCOVERY_SPEC = {
-    "schema_version": _const(SCHEMA_VERSION), "source_id": _SOURCE_ID, "started_at": _timestamp,
+    "schema_version": _const(SCHEMA_VERSION),
+    "source_id": _SOURCE_ID,
+    "started_at": _timestamp,
     "finished_at": _timestamp,
     "scope": _object({"lists": _STRINGS}, {"api": _NULLABLE_URL, "notes": _text}, extra=True),
     "continuation": lambda value: None if isinstance(value, dict) else "must be an object",
-    "discovery_complete": _boolean, "candidates": _list_of(_ANY_JSON, unique=False),
-    "errors": _list_of(_object({"phase": _one_of(FAILURE_PHASES), "url": _NULLABLE_URL, "message": _message_text}),
-                       unique=False),
+    "discovery_complete": _boolean,
+    "candidates": _list_of(_ANY_JSON, unique=False),
+    "errors": _list_of(
+        _object({"phase": _one_of(FAILURE_PHASES), "url": _NULLABLE_URL, "message": _message_text}), unique=False
+    ),
 }
-SONG_SPEC = {"id": _SONG_ID, "title": _nonempty, "aliases": _STRINGS, "composers": _STRINGS, "illustrators": _STRINGS,
-             "collections": _STRINGS, "in_original_game": _boolean, "inclusion_evidence": _list_of(_clean_text),
-             "universe_also": _boolean, "removed": _boolean,
-             "evidence": _list_of(_object({"source_id": _SOURCE_ID, "url": _URL, "revision": _revision})),
-             "artwork_asset_ids": _list_of(_ASSET_ID)}
-SONG_INDEX_SPEC = {"schema_version": _const(SCHEMA_VERSION), "generated_from": _STRINGS, "as_of": _date,
-                   "songs": _list_of(_ANY_JSON, unique=False),
-                   "disagreements": _list_of(_object({"song_id": _SONG_ID, "field": _nonempty,
-                                                      "values": _object({}, extra=True)}), unique=False)}
-CATALOG_SPEC = {"schema_version": _const(SCHEMA_VERSION), "owner": _const(OWNER), "game": _const(CATALOG_GAME),
-                "repository": _const(REPOSITORY), "snapshots": _object({}, extra=True),
-                "sources": _list_of(_ANY_JSON, unique=False), "assets": _list_of(_ANY_JSON, unique=False),
-                "failures": _list_of(_ANY_JSON, unique=False), "summary": _ANY_JSON}
+SONG_SPEC = {
+    "id": _SONG_ID,
+    "title": _nonempty,
+    "aliases": _STRINGS,
+    "composers": _STRINGS,
+    "illustrators": _STRINGS,
+    "collections": _STRINGS,
+    "in_original_game": _boolean,
+    "inclusion_evidence": _list_of(_clean_text),
+    "universe_also": _boolean,
+    "removed": _boolean,
+    "evidence": _list_of(_object({"source_id": _SOURCE_ID, "url": _URL, "revision": _revision})),
+    "artwork_asset_ids": _list_of(_ASSET_ID),
+}
+SONG_INDEX_SPEC = {
+    "schema_version": _const(SCHEMA_VERSION),
+    "generated_from": _STRINGS,
+    "as_of": _date,
+    "songs": _list_of(_ANY_JSON, unique=False),
+    "disagreements": _list_of(
+        _object({"song_id": _SONG_ID, "field": _nonempty, "values": _object({}, extra=True)}), unique=False
+    ),
+}
+CATALOG_SPEC = {
+    "schema_version": _const(SCHEMA_VERSION),
+    "owner": _const(OWNER),
+    "game": _const(CATALOG_GAME),
+    "repository": _const(REPOSITORY),
+    "snapshots": _object({}, extra=True),
+    "sources": _list_of(_ANY_JSON, unique=False),
+    "assets": _list_of(_ANY_JSON, unique=False),
+    "failures": _list_of(_ANY_JSON, unique=False),
+    "summary": _ANY_JSON,
+}
 
 
 # Field order: the spec dicts above list fields in contract order, which canonical() and the docs reuse.
@@ -409,6 +669,7 @@ SONG_FIELDS = tuple(SONG_SPEC)
 
 # --- Record-level validation ------------------------------------------------------------------------------------------
 
+
 def _label(kind: str, record: Any) -> str:
     if isinstance(record, dict) and isinstance(record.get("id"), str):
         return f"{kind} {record['id']!r}"
@@ -419,8 +680,9 @@ def _fail(label: str, field: str, problem: str) -> None:
     raise ValueError(f"{label}: {field}: {problem}")
 
 
-def _check_fields(label: str, record: Any, required: Mapping[str, Checker],
-                  optional: Mapping[str, Checker] | None = None) -> None:
+def _check_fields(
+    label: str, record: Any, required: Mapping[str, Checker], optional: Mapping[str, Checker] | None = None
+) -> None:
     if not isinstance(record, dict):
         raise ValueError(f"{label}: must be an object")
     optional = optional or {}
@@ -484,11 +746,19 @@ def _check_media(label: str, asset: Mapping[str, Any]) -> None:
 
 
 def _check_path(label: str, asset: Mapping[str, Any], family: str) -> None:
-    expected = paths.asset_relpath(family, paths.source_slug(asset["source_id"]), asset["original_filename"],
-                                   asset["sha256"], FORMAT_EXT[asset["format"]])
+    expected = paths.asset_relpath(
+        family,
+        paths.source_slug(asset["source_id"]),
+        asset["original_filename"],
+        asset["sha256"],
+        FORMAT_EXT[asset["format"]],
+    )
     if asset["path"] != expected:
-        _fail(label, "path", f"must be {expected!r} (contract path from family, source, original_filename, "
-                             f"sha256 and sniffed format)")
+        _fail(
+            label,
+            "path",
+            f"must be {expected!r} (contract path from family, source, original_filename, sha256 and sniffed format)",
+        )
 
 
 def _check_observed(label: str, asset: Mapping[str, Any]) -> None:
@@ -500,8 +770,9 @@ def _check_observed(label: str, asset: Mapping[str, Any]) -> None:
         _fail(label, "download_observed.sniffed_format", f"differs from format {asset['format']!r}")
     expected = compute_comparisons(asset["source_reported"], observed)
     if asset["comparisons"] != expected:
-        _fail(label, "comparisons", f"must be {expected} (compute_comparisons of source_reported and "
-                                    f"download_observed)")
+        _fail(
+            label, "comparisons", f"must be {expected} (compute_comparisons of source_reported and download_observed)"
+        )
 
 
 def _check_relations(label: str, asset: Mapping[str, Any], *, merged: bool) -> None:
@@ -530,8 +801,10 @@ def validate_asset(asset: Any, family: str | None = None, *, catalog: bool = Fal
     actual = _check_family(label, asset["source_id"], family)
     if asset["id"] != asset_id(asset["source_id"], asset["sha256"]):
         _fail(label, "id", f"must be {asset_id(asset['source_id'], asset['sha256'])!r}")
-    if not asset["candidate_id"].startswith(asset["source_id"] + ":") or asset["candidate_id"] == asset[
-            "source_id"] + ":":
+    if (
+        not asset["candidate_id"].startswith(asset["source_id"] + ":")
+        or asset["candidate_id"] == asset["source_id"] + ":"
+    ):
         _fail(label, "candidate_id", f"must start with {asset['source_id'] + ':'!r}")
     _check_media(label, asset)
     _check_path(label, asset, actual)
@@ -615,8 +888,11 @@ def validate_discovery(snapshot: Any, source_id: str | None = None) -> dict[str,
     if snapshot["discovery_complete"]:
         open_lists = sorted(name for name, token in snapshot["continuation"].items() if token is not None)
         if open_lists:
-            _fail(label, "continuation", f"list {open_lists[0]!r} still has a continuation token, so discovery is "
-                                         "not complete")
+            _fail(
+                label,
+                "continuation",
+                f"list {open_lists[0]!r} still has a continuation token, so discovery is not complete",
+            )
     for candidate in snapshot["candidates"]:
         validate_candidate(candidate, snapshot["source_id"])
     _check_unique_sorted(label, "candidates", snapshot["candidates"])
@@ -665,8 +941,12 @@ def validate_manifest(manifest: Any, family: str | None = None) -> None:
             _fail(label, "fetched_at", f"must be the latest acquisition time (>= {latest})")
 
 
-def reconcile(manifest: Mapping[str, Any], snapshots: Mapping[str, Mapping[str, Any]], *,
-              other_assets: Iterable[Mapping[str, Any]] = ()) -> dict[str, dict[str, int]]:
+def reconcile(
+    manifest: Mapping[str, Any],
+    snapshots: Mapping[str, Mapping[str, Any]],
+    *,
+    other_assets: Iterable[Mapping[str, Any]] = (),
+) -> dict[str, dict[str, int]]:
     """Cross-check a validated family manifest with its validated discovery snapshots (``{source_id: snapshot}``).
 
     Checks source counts, candidate <-> asset links, failure <-> candidate links and that a complete discovery accounts
@@ -684,8 +964,12 @@ def reconcile(manifest: Mapping[str, Any], snapshots: Mapping[str, Mapping[str, 
         source, candidates = sources[source_id], {c["id"]: c for c in snapshot["candidates"]}
         own_assets = [asset for asset in manifest["assets"] if asset["source_id"] == source_id]
         own_failures = [failure for failure in manifest["failures"] if failure["source_id"] == source_id]
-        checks = (("candidate_count", len(candidates)), ("asset_count", len(own_assets)),
-                  ("failure_count", len(own_failures)), ("discovery_complete", snapshot["discovery_complete"]))
+        checks = (
+            ("candidate_count", len(candidates)),
+            ("asset_count", len(own_assets)),
+            ("failure_count", len(own_failures)),
+            ("discovery_complete", snapshot["discovery_complete"]),
+        )
         for field, actual in checks:
             if field in source and source[field] != actual:
                 _fail(_label("source", source), field, f"{source[field]!r} but the data has {actual!r}")
@@ -701,8 +985,11 @@ def reconcile(manifest: Mapping[str, Any], snapshots: Mapping[str, Mapping[str, 
             if candidate is None and snapshot["discovery_complete"]:
                 _fail(_label("failure", failure), "candidate_id", "missing from a complete discovery")
             if candidate is not None and candidate["disposition"] not in ("failed", "blocked"):
-                _fail(_label("failure", failure), "candidate_id", f"candidate disposition is "
-                                                                  f"{candidate['disposition']!r}, not failed/blocked")
+                _fail(
+                    _label("failure", failure),
+                    "candidate_id",
+                    f"candidate disposition is {candidate['disposition']!r}, not failed/blocked",
+                )
         for candidate in candidates.values():
             if candidate["disposition"] == "failed" and candidate["id"] not in failed:
                 _fail(_label("candidate", candidate), "disposition", "'failed' needs a Failure record")
@@ -725,8 +1012,12 @@ def _supersession_end(asset: Mapping[str, Any], by_id: Mapping[str, Mapping[str,
     return current
 
 
-def _reconcile_asset(asset: Mapping[str, Any], candidate: Mapping[str, Any] | None, complete: bool,
-                     assets: Mapping[str, Mapping[str, Any]]) -> None:
+def _reconcile_asset(
+    asset: Mapping[str, Any],
+    candidate: Mapping[str, Any] | None,
+    complete: bool,
+    assets: Mapping[str, Mapping[str, Any]],
+) -> None:
     """One archived asset against the candidate it was downloaded for.
 
     MediaWiki keeps the ``File:`` title (hence the candidate ID) across re-uploads, so earlier revisions share the
@@ -738,8 +1029,11 @@ def _reconcile_asset(asset: Mapping[str, Any], candidate: Mapping[str, Any] | No
     upstream = asset.get("upstream_status")
     if candidate is None:
         if complete and upstream not in ("removed", "superseded"):
-            _fail(label, "candidate_id", "missing from a complete discovery; mark the asset upstream_status "
-                                         "'removed' or 'superseded'")
+            _fail(
+                label,
+                "candidate_id",
+                "missing from a complete discovery; mark the asset upstream_status 'removed' or 'superseded'",
+            )
         return
     target, disposition = candidate.get("asset_id"), candidate["disposition"]
     if disposition == "downloaded" and target == asset["id"]:
@@ -754,14 +1048,23 @@ def _reconcile_asset(asset: Mapping[str, Any], candidate: Mapping[str, Any] | No
             return
         if end.get("upstream_status") == "superseded" and disposition not in ("downloaded", "duplicate_bytes"):
             return  # the newest archived revision is superseded by one that was not archived (failed/blocked/...)
-        _fail(label, "superseded_by", f"chain ends at {end['id']!r}, but its candidate {candidate['id']!r} is "
-                                      f"{disposition!r} with asset_id {target!r}")
-    _fail(label, "candidate_id", "its candidate is not 'downloaded' with this asset_id (an earlier revision kept "
-                                 "under the same candidate needs upstream_status 'superseded' or 'removed')")
+        _fail(
+            label,
+            "superseded_by",
+            f"chain ends at {end['id']!r}, but its candidate {candidate['id']!r} is "
+            f"{disposition!r} with asset_id {target!r}",
+        )
+    _fail(
+        label,
+        "candidate_id",
+        "its candidate is not 'downloaded' with this asset_id (an earlier revision kept "
+        "under the same candidate needs upstream_status 'superseded' or 'removed')",
+    )
 
 
-def _reconcile_candidate(candidate: Mapping[str, Any], assets: Mapping[str, Mapping[str, Any]],
-                         known: set[str]) -> None:
+def _reconcile_candidate(
+    candidate: Mapping[str, Any], assets: Mapping[str, Mapping[str, Any]], known: set[str]
+) -> None:
     label = _label("candidate", candidate)
     target = candidate.get("asset_id")
     if candidate["disposition"] == "downloaded":
@@ -809,11 +1112,16 @@ def validate_song_links(index: Mapping[str, Any], assets: Iterable[Mapping[str, 
             if song is None:
                 _fail(label, "song_ids", f"{song_id!r} is not in the song index")
             if not {song["title"], *song["aliases"]} & set(asset["song_titles"]):
-                _fail(label, "song_ids", f"{song_id!r} is the song {song['title']!r}, which is not among "
-                                         f"song_titles {asset['song_titles']!r}")
+                _fail(
+                    label,
+                    "song_ids",
+                    f"{song_id!r} is the song {song['title']!r}, which is not among "
+                    f"song_titles {asset['song_titles']!r}",
+                )
 
 
 # --- Catalog ----------------------------------------------------------------------------------------------------------
+
 
 def validate_catalog(catalog: Any) -> None:
     """``data/catalog.json``: top level, sources, failures, catalog assets, ordering, variants and summary arithmetic.

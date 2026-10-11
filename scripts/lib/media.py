@@ -31,12 +31,29 @@ class MediaError(ValueError):
     manual = False
     http_status = None
 
-    def failure(self, *, source_id: str, candidate_id: str, url: str, phase: str = "decode",
-                attempted_at: str | None = None, attempts: int = 1) -> dict:
-        return schema.failure_record(source_id=source_id, candidate_id=candidate_id, phase=phase, url=url,
-                                     attempted_at=attempted_at or manifest.now_utc(), attempts=attempts,
-                                     error_class=self.error_class, http_status=None, retriable=False, manual=False,
-                                     message=str(self))
+    def failure(
+        self,
+        *,
+        source_id: str,
+        candidate_id: str,
+        url: str,
+        phase: str = "decode",
+        attempted_at: str | None = None,
+        attempts: int = 1,
+    ) -> dict:
+        return schema.failure_record(
+            source_id=source_id,
+            candidate_id=candidate_id,
+            phase=phase,
+            url=url,
+            attempted_at=attempted_at or manifest.now_utc(),
+            attempts=attempts,
+            error_class=self.error_class,
+            http_status=None,
+            retriable=False,
+            manual=False,
+            message=str(self),
+        )
 
 
 def sniff(head: bytes) -> tuple[str, str | None, str | None]:
@@ -130,8 +147,9 @@ def inspect(path: str | os.PathLike[str]) -> dict[str, Any]:
     return {"format": fmt, "mime": mime, "ext": ext, **details, "bytes": size, "sha256": sha256, "sha1": sha1}
 
 
-def finalize_download(result: Any, root: str | os.PathLike[str],
-                      rel_path: str | Callable[[Mapping[str, Any]], str]) -> dict[str, Any]:
+def finalize_download(
+    result: Any, root: str | os.PathLike[str], rel_path: str | Callable[[Mapping[str, Any]], str]
+) -> dict[str, Any]:
     """Inspect a :class:`lib.net.DownloadResult` temp file and atomically ``os.replace`` it to ``rel_path``.
 
     ``rel_path`` may be a callable receiving the inspected dict (so the name can use the sniffed extension and

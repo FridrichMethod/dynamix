@@ -29,32 +29,73 @@ FANDOM = check_sources.MEDIAWIKI_SOURCES["wikis:fandom"]
 HOSTILE_TITLE = "File:Evil | `tick` <script>alert(1)</script> @here [x](https://evil.example)\n\u202eesrever.png"
 
 
-def image(title, sha1=None, size=None, width=None, height=None, mime="image/png", timestamp="2025-01-14T00:00:00Z",
-          host="dynamix.miraheze.org"):
+def image(
+    title,
+    sha1=None,
+    size=None,
+    width=None,
+    height=None,
+    mime="image/png",
+    timestamp="2025-01-14T00:00:00Z",
+    host="dynamix.miraheze.org",
+):
     page = title.replace(" ", "_")
-    return {"name": page[len("File:"):], "title": title, "timestamp": timestamp, "url": f"https://static.example/{page}",
-            "descriptionurl": f"https://{host}/wiki/{page}", "size": size, "width": width, "height": height,
-            "sha1": sha1, "mime": mime, "ns": 6}
+    return {
+        "name": page[len("File:") :],
+        "title": title,
+        "timestamp": timestamp,
+        "url": f"https://static.example/{page}",
+        "descriptionurl": f"https://{host}/wiki/{page}",
+        "size": size,
+        "width": width,
+        "height": height,
+        "sha1": sha1,
+        "mime": mime,
+        "ns": 6,
+    }
 
 
 # Recorded replies for the Miraheze fixture snapshot, keyed by the aicontinue token sent (None = first request).
 # Versus data/discovery/miraheze.json: Cosmic Pulse (crop) was re-uploaded (SHA-1/size/timestamp differ), "New cover"
 # is new, Cosmic_Pulse_UV_cover.png and Song_select_screen.png are gone; the rest match after normalization
 # (timestamp offset form, image/jpg alias, upper-case SHA-1) or have no saved metadata to compare.
-PAGE_1 = {"batchcomplete": True, "continue": {"aicontinue": "Cosmic_Pulse_copy.png", "continue": "-||"},
-          "query": {"allimages": [
-              image("File:Character idle.gif", "1" * 40, 9000, 250, 250, "image/gif"),
-              image("File:Cosmic Pulse.png", "155747e7f866176e7b567eaf88e3c9983fe18f9a", 943, 600, 600),
-              image("File:Cosmic Pulse (crop).png", "a" * 40, 999, 300, 300, timestamp="2026-09-01T10:00:00Z"),
-          ]}}
-PAGE_2 = {"batchcomplete": True, "query": {"allimages": [
-    image("File:Cosmic Pulse copy.png", "2" * 40, 943, 600, 600),
-    image("File:Dynamix background 03.png", "264AE36942E7D1553660F525F2F9A7978E8856E9", 525, 640, 360,
-          timestamp="2025-01-14T00:00:00+00:00"),
-    {**image(HOSTILE_TITLE, "3" * 40, 77, 10, 10), "descriptionurl": "https://evil.example/wiki/x"},
-    image("File:New cover.png", "4" * 40, 4096, 1920, 1080, timestamp="2026-10-01T00:00:00Z"),
-    image("File:交差して歪む過去と未来.jpg", "e02570b86336577ba18e514063a95f40e86a2135", 3395, 320, 180, "image/jpg"),
-]}}
+PAGE_1 = {
+    "batchcomplete": True,
+    "continue": {"aicontinue": "Cosmic_Pulse_copy.png", "continue": "-||"},
+    "query": {
+        "allimages": [
+            image("File:Character idle.gif", "1" * 40, 9000, 250, 250, "image/gif"),
+            image("File:Cosmic Pulse.png", "155747e7f866176e7b567eaf88e3c9983fe18f9a", 943, 600, 600),
+            image("File:Cosmic Pulse (crop).png", "a" * 40, 999, 300, 300, timestamp="2026-09-01T10:00:00Z"),
+        ]
+    },
+}
+PAGE_2 = {
+    "batchcomplete": True,
+    "query": {
+        "allimages": [
+            image("File:Cosmic Pulse copy.png", "2" * 40, 943, 600, 600),
+            image(
+                "File:Dynamix background 03.png",
+                "264AE36942E7D1553660F525F2F9A7978E8856E9",
+                525,
+                640,
+                360,
+                timestamp="2025-01-14T00:00:00+00:00",
+            ),
+            {**image(HOSTILE_TITLE, "3" * 40, 77, 10, 10), "descriptionurl": "https://evil.example/wiki/x"},
+            image("File:New cover.png", "4" * 40, 4096, 1920, 1080, timestamp="2026-10-01T00:00:00Z"),
+            image(
+                "File:交差して歪む過去と未来.jpg",
+                "e02570b86336577ba18e514063a95f40e86a2135",
+                3395,
+                320,
+                180,
+                "image/jpg",
+            ),
+        ]
+    },
+}
 RECORDED = {None: PAGE_1, "Cosmic_Pulse_copy.png": PAGE_2}
 
 
@@ -84,8 +125,11 @@ class FakeClient:
 
 
 def tree_digest(root: Path) -> dict:
-    return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in sorted(root.rglob("*")) if path.is_file()}
+    return {
+        path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(root.rglob("*"))
+        if path.is_file()
+    }
 
 
 def inside_code_span(line: str, start: int, length: int) -> bool:
@@ -123,9 +167,16 @@ def fixture_with_alias(base: Path) -> Path:
     path = root / "data/discovery/miraheze.json"
     snapshot = json.loads(path.read_text(encoding="utf-8"))
     template = next(c for c in snapshot["candidates"] if c["disposition"] == "excluded")
-    alias = {**template, "id": "wikis:miraheze:" + ALIAS_KEY, "upstream_key": ALIAS_KEY,
-             "page_url": "https://dynamix.miraheze.org/wiki/" + ALIAS_KEY, "title": "Cosmic_Pulse_alias",
-             "role": None, "game_evidence": [], "reason": "redirect_or_alias: redirect to File:Cosmic_Pulse.png"}
+    alias = {
+        **template,
+        "id": "wikis:miraheze:" + ALIAS_KEY,
+        "upstream_key": ALIAS_KEY,
+        "page_url": "https://dynamix.miraheze.org/wiki/" + ALIAS_KEY,
+        "title": "Cosmic_Pulse_alias",
+        "role": None,
+        "game_evidence": [],
+        "reason": "redirect_or_alias: redirect to File:Cosmic_Pulse.png",
+    }
     snapshot["candidates"] = sorted(snapshot["candidates"] + [alias], key=lambda c: c["id"])
     path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return root
@@ -145,13 +196,28 @@ class CompleteListingTests(CheckTestCase):
         self.assertEqual(entry["status"], "compared")
         self.assertTrue(entry["live"]["complete"])
         self.assertIsNone(entry["live"]["continuation"])
-        self.assertEqual(entry["counts"], {
-            "saved_candidates": 8, "saved_files": 8, "not_comparable": 0, "live_files": 8, "added": 2, "changed": 1,
-            "removed": 2, "not_seen": 0, "aliases_not_listed": 0, "unchanged": 5, "saved_without_metadata": 2})
-        self.assertEqual([row["key"] for row in entry["removed"]],
-                         ["File:Cosmic_Pulse_UV_cover.png", "File:Song_select_screen.png"])
-        self.assertEqual({row["key"] for row in entry["added"]},
-                         {"File:New_cover.png", HOSTILE_TITLE.replace(" ", "_")})
+        self.assertEqual(
+            entry["counts"],
+            {
+                "saved_candidates": 8,
+                "saved_files": 8,
+                "not_comparable": 0,
+                "live_files": 8,
+                "added": 2,
+                "changed": 1,
+                "removed": 2,
+                "not_seen": 0,
+                "aliases_not_listed": 0,
+                "unchanged": 5,
+                "saved_without_metadata": 2,
+            },
+        )
+        self.assertEqual(
+            [row["key"] for row in entry["removed"]], ["File:Cosmic_Pulse_UV_cover.png", "File:Song_select_screen.png"]
+        )
+        self.assertEqual(
+            {row["key"] for row in entry["added"]}, {"File:New_cover.png", HOSTILE_TITLE.replace(" ", "_")}
+        )
         changed = entry["changed"][0]
         self.assertEqual(changed["key"], "File:Cosmic_Pulse_(crop).png")
         self.assertEqual(set(changed["changes"]), {"sha1", "bytes", "timestamp"})
@@ -172,8 +238,9 @@ class CompleteListingTests(CheckTestCase):
             self.assertEqual(keys(entry["aliases_not_listed"]), [ALIAS_KEY])
             self.assertEqual(entry["counts"]["aliases_not_listed"], 1)
             self.assertEqual(report["totals"]["aliases_not_listed"], 1)
-            self.assertIn("#### Redirects and aliases not listed (expected; not a removal) (1)",
-                          check_sources.render(report))
+            self.assertIn(
+                "#### Redirects and aliases not listed (expected; not a removal) (1)", check_sources.render(report)
+            )
             pages = {**RECORDED, "Cosmic_Pulse_copy.png": net.TimeoutFetchError("timed out", url=MIRAHEZE.api)}
             entry = entry_for(self.check(pages, root=root)[0], "wikis:miraheze")
             self.assertEqual(keys(entry["aliases_not_listed"]), [ALIAS_KEY])
@@ -196,9 +263,13 @@ class CompleteListingTests(CheckTestCase):
         self.assertEqual(client.calls[1][1]["continue"], "-||")
 
     def test_equivalent_values_are_not_changes(self):
-        self.assertEqual(check_sources.differences(
-            {"sha1": "ABC", "mime": "image/jpg", "timestamp": "2025-01-14T00:00:00Z", "bytes": 5},
-            {"sha1": "abc", "mime": "image/jpeg", "timestamp": "2025-01-14T00:00:00+00:00", "bytes": 5}), {})
+        self.assertEqual(
+            check_sources.differences(
+                {"sha1": "ABC", "mime": "image/jpg", "timestamp": "2025-01-14T00:00:00Z", "bytes": 5},
+                {"sha1": "abc", "mime": "image/jpeg", "timestamp": "2025-01-14T00:00:00+00:00", "bytes": 5},
+            ),
+            {},
+        )
 
     def test_values_the_snapshot_did_not_record_are_not_changes(self):
         self.assertEqual(check_sources.differences({"sha1": None, "bytes": None}, {"sha1": "f" * 40, "bytes": 1}), {})
@@ -245,9 +316,11 @@ class IncompleteListingTests(CheckTestCase):
 
     def test_unreadable_entry_makes_the_listing_incomplete(self):
         """An entry without a usable title hides one file: no saved candidate may then be reported removed."""
-        for label, bad in (("no title or name", lambda e: {k: v for k, v in e.items() if k not in ("title", "name")}),
-                           ("not an object", lambda e: "garbage"),
-                           ("title outside the File namespace", lambda e: {**e, "title": "Dynamix", "name": ""})):
+        for label, bad in (
+            ("no title or name", lambda e: {k: v for k, v in e.items() if k not in ("title", "name")}),
+            ("not an object", lambda e: "garbage"),
+            ("title outside the File namespace", lambda e: {**e, "title": "Dynamix", "name": ""}),
+        ):
             with self.subTest(entry=label):
                 pages = copy.deepcopy(RECORDED)
                 images = pages["Cosmic_Pulse_copy.png"]["query"]["allimages"]
@@ -256,25 +329,30 @@ class IncompleteListingTests(CheckTestCase):
                 report, client = self.check(pages)
                 entry = entry_for(report, "wikis:miraheze")
                 self.assertNoRemovalConcluded(entry, 3)
-                self.assertEqual(keys(entry["not_seen"]), ["File:Cosmic_Pulse_UV_cover.png",
-                                                           "File:Dynamix_background_03.png",
-                                                           "File:Song_select_screen.png"])
+                self.assertEqual(
+                    keys(entry["not_seen"]),
+                    ["File:Cosmic_Pulse_UV_cover.png", "File:Dynamix_background_03.png", "File:Song_select_screen.png"],
+                )
                 self.assertEqual(len(client.calls), 2, "the rest of the listing is still read")
                 self.assertIsNone(entry["live"]["continuation"])
-                self.assertIn("page 2: 1 allimages entry has no usable title or name",
-                              entry["live"]["errors"][0]["message"])
+                self.assertIn(
+                    "page 2: 1 allimages entry has no usable title or name", entry["live"]["errors"][0]["message"]
+                )
                 self.assertEqual(entry["counts"]["added"], 2)  # what was read is still compared
                 self.assertEqual(entry["counts"]["changed"], 1)
                 self.assertFalse(report["complete"])
                 self.assertTrue(report["differences"])
 
     def test_server_error_and_api_error_and_malformed_replies(self):
-        for reply in (net.HttpError("HTTP 503", url=MIRAHEZE.api, http_status=503),
-                      net.FetchError("response is not valid JSON", url=MIRAHEZE.api, http_status=200),
-                      ValueError("URL contains a forbidden character"),
-                      {"error": {"code": "ratelimited", "info": "slow down <b>now</b>"}},
-                      {"query": {"pages": []}}, ["not", "an", "object"],
-                      {**PAGE_2, "continue": "not-an-object"}):
+        for reply in (
+            net.HttpError("HTTP 503", url=MIRAHEZE.api, http_status=503),
+            net.FetchError("response is not valid JSON", url=MIRAHEZE.api, http_status=200),
+            ValueError("URL contains a forbidden character"),
+            {"error": {"code": "ratelimited", "info": "slow down <b>now</b>"}},
+            {"query": {"pages": []}},
+            ["not", "an", "object"],
+            {**PAGE_2, "continue": "not-an-object"},
+        ):
             with self.subTest(reply=str(reply)[:40]):
                 report, _ = self.check({**RECORDED, "Cosmic_Pulse_copy.png": reply})
                 entry = entry_for(report, "wikis:miraheze")
@@ -301,10 +379,23 @@ class IncompleteListingTests(CheckTestCase):
 
 class BaselineTests(CheckTestCase):
     def test_incomplete_saved_snapshot_and_endpoint_mismatch_are_flagged(self):
-        pages = {None: {"query": {"allimages": [
-            image("File:Cosmic Pulse.png", "286d2f023dc45e14248aaf16401cf216f6514949", 1080, 600, 600,
-                  host="dynamixc4cat.fandom.com"),
-            image("File:Zeta file.png", "5" * 40, 10, 1, 1, host="dynamixc4cat.fandom.com")]}}}
+        pages = {
+            None: {
+                "query": {
+                    "allimages": [
+                        image(
+                            "File:Cosmic Pulse.png",
+                            "286d2f023dc45e14248aaf16401cf216f6514949",
+                            1080,
+                            600,
+                            600,
+                            host="dynamixc4cat.fandom.com",
+                        ),
+                        image("File:Zeta file.png", "5" * 40, 10, 1, 1, host="dynamixc4cat.fandom.com"),
+                    ]
+                }
+            }
+        }
         report, client = self.check(pages, sources=("wikis:fandom",))
         entry = entry_for(report, "wikis:fandom")
         self.assertEqual(client.hosts, ["dynamixc4cat.fandom.com"])
@@ -317,9 +408,16 @@ class BaselineTests(CheckTestCase):
     def test_other_snapshots_are_listed_but_not_checked_live(self):
         report, _ = self.check(RECORDED)
         statuses = {entry["source_id"]: entry["status"] for entry in report["sources"]}
-        self.assertEqual(statuses, {"wikis:miraheze": "compared", "wikis:fandom": "not_checked",
-                                    "official:facebook": "not_checked", "archives:hkstp": "not_checked",
-                                    "artists:x:ariiol_": "not_checked"})
+        self.assertEqual(
+            statuses,
+            {
+                "wikis:miraheze": "compared",
+                "wikis:fandom": "not_checked",
+                "official:facebook": "not_checked",
+                "archives:hkstp": "not_checked",
+                "artists:x:ariiol_": "not_checked",
+            },
+        )
         facebook = entry_for(report, "official:facebook")
         self.assertIn("no read-only live adapter", facebook["reason"])
         self.assertEqual(facebook["baseline"]["dispositions"]["blocked"], 1)
@@ -330,8 +428,9 @@ class BaselineTests(CheckTestCase):
             root = Path(temporary) / "checkout"
             shutil.copytree(FIXTURE, root)
             (root / "data/discovery/miraheze.json").unlink()
-            (root / "data/discovery/song-index.wikis.json").write_text('{"schema_version": 1, "songs": []}\n',
-                                                                         encoding="utf-8")
+            (root / "data/discovery/song-index.wikis.json").write_text(
+                '{"schema_version": 1, "songs": []}\n', encoding="utf-8"
+            )
             report, client = self.check(RECORDED, root=root)
             entry = entry_for(report, "wikis:miraheze")
             self.assertEqual(entry["status"], "baseline_error")
@@ -360,8 +459,16 @@ class ReadOnlyTests(unittest.TestCase):
             root = base / "checkout"
             shutil.copytree(FIXTURE, root)
             before = tree_digest(root)
-            status, out, _ = self.run_main("--root", str(root), "--report", str(base / "out/report.md"),
-                                           "--summary", str(base / "out/summary.json"), "--source", "wikis:miraheze")
+            status, out, _ = self.run_main(
+                "--root",
+                str(root),
+                "--report",
+                str(base / "out/report.md"),
+                "--summary",
+                str(base / "out/summary.json"),
+                "--source",
+                "wikis:miraheze",
+            )
             self.assertEqual(status, 0)
             self.assertEqual(tree_digest(root), before)
             summary = json.loads((base / "out/summary.json").read_text(encoding="utf-8"))
@@ -380,13 +487,21 @@ class ReadOnlyTests(unittest.TestCase):
         blocked = FakeClient({None: net.BlockedError("HTTP 403", url=MIRAHEZE.api, http_status=403)})
         with tempfile.TemporaryDirectory() as temporary:
             report, summary = Path(temporary) / "r.md", Path(temporary) / "s.json"
-            status, out, err = self.run_main("--root", str(FIXTURE), "--report", str(report), "--summary",
-                                             str(summary), client=blocked)
+            status, out, err = self.run_main(
+                "--root", str(FIXTURE), "--report", str(report), "--summary", str(summary), client=blocked
+            )
             self.assertEqual(status, check_sources.INCOMPLETE_STATUS)
             self.assertEqual(status, 3)
             self.assertIn("a live check was incomplete", err)
-            self.assertEqual(json.loads(out), {"complete": False, "differences": False, "not_seen": 11,
-                                               "totals": json.loads(summary.read_text(encoding="utf-8"))["totals"]})
+            self.assertEqual(
+                json.loads(out),
+                {
+                    "complete": False,
+                    "differences": False,
+                    "not_seen": 11,
+                    "totals": json.loads(summary.read_text(encoding="utf-8"))["totals"],
+                },
+            )
             text = report.read_text(encoding="utf-8")
             self.assertIn("Live checks complete: `False` (**incomplete**", text)
             self.assertIn("Upstream differences (added, changed or removed): `False`", text)
@@ -396,8 +511,9 @@ class ReadOnlyTests(unittest.TestCase):
             self.assertTrue(json.loads(out)["complete"])
 
     def test_script_runs_isolated_as_ci_invokes_it(self):
-        result = subprocess.run([sys.executable, "-I", str(ROOT / "scripts/check_sources.py"), "--help"],
-                                capture_output=True, text=True)
+        result = subprocess.run(
+            [sys.executable, "-I", str(ROOT / "scripts/check_sources.py"), "--help"], capture_output=True, text=True
+        )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--report", result.stdout)
 
@@ -423,8 +539,9 @@ class RenderingTests(CheckTestCase):
         for fragment in ("<script>", "@here", "[x](https://evil.example)"):
             for line in markdown.splitlines():
                 for start in (i for i in range(len(line)) if line.startswith(fragment, i)):
-                    self.assertTrue(inside_code_span(line, start, len(fragment)),
-                                    f"{fragment!r} must be inside a code span: {line}")
+                    self.assertTrue(
+                        inside_code_span(line, start, len(fragment)), f"{fragment!r} must be inside a code span: {line}"
+                    )
         self.assertIn("](<https://dynamix.miraheze.org/wiki/File:New_cover.png>)", markdown)
 
     def test_code_span_fences(self):
@@ -436,11 +553,20 @@ class RenderingTests(CheckTestCase):
 
     def test_links_only_to_https_pages_on_the_source_host(self):
         host = "dynamix.miraheze.org"
-        self.assertEqual(check_sources.safe_link("https://dynamix.miraheze.org/wiki/File:A B.png", host),
-                         "https://dynamix.miraheze.org/wiki/File:A%20B.png")
-        for url in ("http://dynamix.miraheze.org/wiki/x", "https://evil.example/wiki/x",
-                    "https://user@dynamix.miraheze.org/x", "https://dynamix.miraheze.org:8443/x",
-                    "javascript:alert(1)", "https://dynamix.miraheze.org.evil.example/x", None, 5):
+        self.assertEqual(
+            check_sources.safe_link("https://dynamix.miraheze.org/wiki/File:A B.png", host),
+            "https://dynamix.miraheze.org/wiki/File:A%20B.png",
+        )
+        for url in (
+            "http://dynamix.miraheze.org/wiki/x",
+            "https://evil.example/wiki/x",
+            "https://user@dynamix.miraheze.org/x",
+            "https://dynamix.miraheze.org:8443/x",
+            "javascript:alert(1)",
+            "https://dynamix.miraheze.org.evil.example/x",
+            None,
+            5,
+        ):
             with self.subTest(url=url):
                 self.assertIsNone(check_sources.safe_link(url, host))
 

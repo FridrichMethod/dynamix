@@ -45,9 +45,12 @@ _QUOTES = re.compile(r"'{2,}")
 _LINK_OPTION = re.compile(
     r"^(?:\d*x?\d+\s*px|thumb|thumbnail|frame|framed|frameless|border|left|right|center|centre|none|baseline|sub|"
     r"super|top|text-top|middle|bottom|text-bottom|upright(?:\s*=.*)?|(?:link|alt|page|class|lang|linktext|"
-    r"thumbtime|start|end)\s*=.*)$", re.IGNORECASE | re.DOTALL)
-UNKNOWN_CREDITS = frozenset({"", "-", "–", "—", "?", "??", "???", "n/a", "na", "none", "unknown", "tba", "tbd",
-                             "not credited", "uncredited"})
+    r"thumbtime|start|end)\s*=.*)$",
+    re.IGNORECASE | re.DOTALL,
+)
+UNKNOWN_CREDITS = frozenset(
+    {"", "-", "–", "—", "?", "??", "???", "n/a", "na", "none", "unknown", "tba", "tbd", "not credited", "uncredited"}
+)
 
 
 @dataclass(frozen=True)
@@ -135,7 +138,7 @@ def split_top_level(text: str, separator: str = "|") -> list[str]:
             current.append(text[index:end])
             index = end
             continue
-        two = text[index:index + 2]
+        two = text[index : index + 2]
         if two == "{{":
             depth_t += 1
             current.append(two)
@@ -181,7 +184,7 @@ def find_templates(text: str, names: set[str] | None = None) -> list[Template]:
     for match in re.finditer(r"\{\{(?!\{)", masked):
         start = match.start()
         end = _matching(masked, start, "{{", "}}")
-        inner = masked[start + 2:max(start + 2, end - 2)]
+        inner = masked[start + 2 : max(start + 2, end - 2)]
         pieces = split_top_level(inner)
         name = _template_name(pieces[0])
         if not name or name.startswith("#") or ":" in name:
@@ -250,8 +253,10 @@ def regions_at(found: list[Region], offset: int) -> list[Region]:
 def headings(text: str) -> list[tuple[int, int, str]]:
     """``(offset, level, clean title)`` of every section heading in comment-masked text."""
     masked = mask_comments(text)
-    return [(match.start(), len(match.group(1)), clean_markup(match.group(2)).strip())
-            for match in _HEADING.finditer(masked)]
+    return [
+        (match.start(), len(match.group(1)), clean_markup(match.group(2)).strip())
+        for match in _HEADING.finditer(masked)
+    ]
 
 
 def section_path(found: list[tuple[int, int, str]], offset: int, *, since: int = 0) -> list[str]:
@@ -281,6 +286,7 @@ def clean_markup(value: str | None) -> str:
     def hold(match: re.Match) -> str:
         literals.append(match.group(1) or "")
         return f"\ue000{len(literals) - 1}\ue001"
+
     text = _NOWIKI.sub(hold, text)
     text = _REF.sub("", text)
     text = _BR.sub("\n", text)
@@ -301,8 +307,11 @@ def clean_markup(value: str | None) -> str:
 
 
 # An illustrator note inside a composer credit: "Linne X SCTL(Illust.Keiyuu&RED-FOX)", "Street (jacket : Sin:cK)".
-ILLUSTRATOR_NOTE = re.compile(r"\s*[(（]\s*(?:illust(?:ration|rated)?\.?(?:\s*by)?|jacket|cover(?:\s*art)?)\s*[.:：]?\s*"
-                              r"[^()（）]*[)）]", re.IGNORECASE)
+ILLUSTRATOR_NOTE = re.compile(
+    r"\s*[(（]\s*(?:illust(?:ration|rated)?\.?(?:\s*by)?|jacket|cover(?:\s*art)?)\s*[.:：]?\s*"
+    r"[^()（）]*[)）]",
+    re.IGNORECASE,
+)
 
 
 def credit_names(value: str | None, *, strip_illustrator_notes: bool = False) -> list[str]:
@@ -354,13 +363,22 @@ def file_refs(text: str) -> list[FileRef]:
             if name is None:
                 continue
             caption, link = _caption_and_link(parts[1:])
-            refs.append(FileRef(name, parts[0].strip(), "gallery", body_offset + line_match.start(), caption, link,
-                                gallery_options=match.group(1).strip()))
+            refs.append(
+                FileRef(
+                    name,
+                    parts[0].strip(),
+                    "gallery",
+                    body_offset + line_match.start(),
+                    caption,
+                    link,
+                    gallery_options=match.group(1).strip(),
+                )
+            )
     for match in _LINK_START.finditer(masked):
         if any(start <= match.start() < end for start, end in gallery_spans):
             continue
         end = _matching(masked, match.start(), "[[", "]]")
-        parts = split_top_level(masked[match.start() + 2:max(match.start() + 2, end - 2)])
+        parts = split_top_level(masked[match.start() + 2 : max(match.start() + 2, end - 2)])
         name = canonical_file_name(parts[0])
         if name is None:
             continue
@@ -381,13 +399,15 @@ def normalize_key(value: str) -> str:
     """Loose comparison key (NFKC, casefold, alphanumerics only) used to match titles across sources; never stored
     as a display value. Spacing modifier letters (U+02B0-U+02FF, e.g. ``ˍ`` standing in for ``_``) count as
     punctuation, not letters."""
-    return "".join(char for char in unicodedata.normalize("NFKC", value).casefold()
-                   if char.isalnum() and not 0x02B0 <= ord(char) <= 0x02FF)
+    return "".join(
+        char
+        for char in unicodedata.normalize("NFKC", value).casefold()
+        if char.isalnum() and not 0x02B0 <= ord(char) <= 0x02FF
+    )
 
 
 # Upside-down ("turned") spellings: each turned letter and the letter it reads as when the text is rotated 180°.
-_TURNED = dict(zip("ɐqɔpǝɟƃɥᴉıɾʞןɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲ⅁ſꓘ˥WԀᴚ⊥∩ΛMX⅄",
-                   "abcdefghiijklmnopqrstuvwxyzABCDEFGJKLMPRTUVWXY"))
+_TURNED = dict(zip("ɐqɔpǝɟƃɥᴉıɾʞןɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲ⅁ſꓘ˥WԀᴚ⊥∩ΛMX⅄", "abcdefghiijklmnopqrstuvwxyzABCDEFGJKLMPRTUVWXY"))
 _TURNED_ONLY = set("ɐɔǝɟƃɥᴉɾʞɯɹʇʌʍʎ∀ꓭƆᗡƎℲ⅁ꓘ˥ԀᴚΛ⅄")  # characters that occur only in turned text
 
 

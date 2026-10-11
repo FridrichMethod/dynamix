@@ -39,10 +39,13 @@ def rendition_urls(image_url: str) -> list[str]:
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=["seed-projects"], api="https://www.artstation.com/projects/",
-                                   evidence_level="live_api",
-                                   scope_notes="Explicit seed project hashes via ArtStation project JSON; the "
-                                               "portfolio listing is not crawled.")
+    discovery = base.new_discovery(
+        seed,
+        lists=["seed-projects"],
+        api="https://www.artstation.com/projects/",
+        evidence_level="live_api",
+        scope_notes="Explicit seed project hashes via ArtStation project JSON; the portfolio listing is not crawled.",
+    )
     username = ((seed.get("params") or {}).get("username") or "").lower()
     for item in seed["items"]:
         project = item["project"]
@@ -63,30 +66,49 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             continue
         user = data.get("user") if isinstance(data.get("user"), dict) else {}
         owner = str(user.get("username") or "").lower()
-        texts = {"title": str(data.get("title") or ""), "description": str(data.get("description") or ""),
-                 "user": owner}
+        texts = {
+            "title": str(data.get("title") or ""),
+            "description": str(data.get("description") or ""),
+            "user": owner,
+        }
         listed = data.get("assets") if isinstance(data.get("assets"), list) else []
         assets = [asset for asset in listed if isinstance(asset, dict)]
         images = [asset for asset in assets if asset.get("has_image") and isinstance(asset.get("image_url"), str)]
         if not images:
-            discovery.candidates.append(model.Draft(upstream_key=project, page_url=page_url, title=title,
-                                                    action="excluded", reason="out_of_scope_other: no image assets"))
+            discovery.candidates.append(
+                model.Draft(
+                    upstream_key=project,
+                    page_url=page_url,
+                    title=title,
+                    action="excluded",
+                    reason="out_of_scope_other: no image assets",
+                )
+            )
             continue
         for position, asset in enumerate(images, start=1):
             key = f"{project}:{asset.get('id', position)}"
             rule = model.find_rule(base.rules(seed), key)
             if username and owner != username:
-                rule = model.hold(rule, f"unresolved_game: project owner {owner or '?'} is not this source's account "
-                                        f"{username}")
+                rule = model.hold(
+                    rule, f"unresolved_game: project owner {owner or '?'} is not this source's account {username}"
+                )
             asset_texts = {**texts, "asset.title": asset.get("title") or ""}
             urls = rendition_urls(asset["image_url"])
             draft = model.apply_rule(
-                rule, key=key, page_url=page_url, texts=asset_texts, file_url=urls[0],
+                rule,
+                key=key,
+                page_url=page_url,
+                texts=asset_texts,
+                file_url=urls[0],
                 default_title=f"{data.get('title') or title} ({position}/{len(images)})",
-                default_quality=ctx.quality, default_rights=ctx.rights,
-                original_filename=base.last_segment(asset["image_url"]), base_evidence=[page_url],
-                source_reported=base.reported(url=asset["image_url"], width=asset.get("width"),
-                                              height=asset.get("height")))
+                default_quality=ctx.quality,
+                default_rights=ctx.rights,
+                original_filename=base.last_segment(asset["image_url"]),
+                base_evidence=[page_url],
+                source_reported=base.reported(
+                    url=asset["image_url"], width=asset.get("width"), height=asset.get("height")
+                ),
+            )
             draft.fallback_urls = urls[1:]
             discovery.candidates.append(draft)
     return discovery

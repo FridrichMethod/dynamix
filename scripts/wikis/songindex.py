@@ -27,19 +27,22 @@ from .discover import Inventory, SongCredit
 UNRELEASED_CATEGORY = "Category:Unreleased"
 SUBMISSION_TRACK = re.compile(r"^Category:(.+?) Submission Track$")
 COLLAB_SONGS = re.compile(r"^Category:(.+?) Songs$")
-NOT_COLLAB = {"Submission", "Event", "Free", "Premium", "Collaboration", "Wave Test", "Special", "Vocaloid",
-              "Paid"}
+NOT_COLLAB = {"Submission", "Event", "Free", "Premium", "Collaboration", "Wave Test", "Special", "Vocaloid", "Paid"}
 REMOVED_LIST_LABEL = "削除曲"
 # A trailing edit/version label ("(DNX edit)", "-Dynamix Edition-", "(Dynamix Ver)"): the lists abbreviate it
 # differently, so a Japanese row without an exact match is matched to a unique English song ignoring it.
-EDIT_SUFFIX = re.compile(r"\s*(?:[(（\[][^)）\]]*\b(?:dnx|dynamix|edit|ver|version|edition)\b[^)）\]]*[)）\]]|"
-                         r"[-–~～]\s*[^-–~～]*\b(?:dnx|dynamix|edit|ver|version|edition)\b[^-–~～]*[-–~～])\s*$",
-                         re.IGNORECASE)
+EDIT_SUFFIX = re.compile(
+    r"\s*(?:[(（\[][^)）\]]*\b(?:dnx|dynamix|edit|ver|version|edition)\b[^)）\]]*[)）\]]|"
+    r"[-–~～]\s*[^-–~～]*\b(?:dnx|dynamix|edit|ver|version|edition)\b[^-–~～]*[-–~～])\s*$",
+    re.IGNORECASE,
+)
 
 
 def base_key(title: str) -> str:
     """Loose title key without a trailing edit/version label ("" when nothing else remains)."""
     return wikitext.normalize_key(EDIT_SUFFIX.sub("", title))
+
+
 ENGLISH_KEYS = ("miraheze", "fandom")
 
 
@@ -70,19 +73,32 @@ class SongIndex:
     def lookup(self, title: str | None) -> SongEntry | None:
         return self.by_title.get(title) if title else None
 
-    def to_json(self, *, as_of: str, generated_from: list[str],
-                artwork: Mapping[str, list[str]] | None = None) -> dict:
+    def to_json(self, *, as_of: str, generated_from: list[str], artwork: Mapping[str, list[str]] | None = None) -> dict:
         songs = []
         for entry in self.entries.values():
-            songs.append({
-                "id": entry.id, "title": entry.title, "aliases": entry.aliases, "composers": entry.composers,
-                "illustrators": entry.illustrators, "collections": entry.collections,
-                "in_original_game": entry.in_original_game, "inclusion_evidence": entry.inclusion_evidence,
-                "universe_also": entry.universe_also, "removed": entry.removed, "evidence": entry.evidence,
-                "artwork_asset_ids": sorted((artwork or {}).get(entry.id, [])),
-            })
-        index = {"schema_version": schema.SCHEMA_VERSION, "generated_from": generated_from, "as_of": as_of,
-                 "songs": songs, "disagreements": self.disagreements}
+            songs.append(
+                {
+                    "id": entry.id,
+                    "title": entry.title,
+                    "aliases": entry.aliases,
+                    "composers": entry.composers,
+                    "illustrators": entry.illustrators,
+                    "collections": entry.collections,
+                    "in_original_game": entry.in_original_game,
+                    "inclusion_evidence": entry.inclusion_evidence,
+                    "universe_also": entry.universe_also,
+                    "removed": entry.removed,
+                    "evidence": entry.evidence,
+                    "artwork_asset_ids": sorted((artwork or {}).get(entry.id, [])),
+                }
+            )
+        index = {
+            "schema_version": schema.SCHEMA_VERSION,
+            "generated_from": generated_from,
+            "as_of": as_of,
+            "songs": songs,
+            "disagreements": self.disagreements,
+        }
         return manifest.sort_song_index(index)
 
 
@@ -126,11 +142,20 @@ def package_members(inventory: Inventory, pages: Mapping[str, classify.PageInfo]
 
 
 def _credit(source: config.WikiSource, record: classify.SongRecord, collections: list[str]) -> SongCredit:
-    return SongCredit(title=record.title, song_id="", page_url=record.url, source_id=source.source_id,
-                      illustrators=list(record.illustrators), composers=list(record.composers),
-                      illustrator_field=record.illustrator_field, composer_field=record.composer_field,
-                      illustrator_raw=record.illustrator_raw, composer_raw=record.composer_raw,
-                      imgsuffix=record.imgsuffix, collections=list(collections))
+    return SongCredit(
+        title=record.title,
+        song_id="",
+        page_url=record.url,
+        source_id=source.source_id,
+        illustrators=list(record.illustrators),
+        composers=list(record.composers),
+        illustrator_field=record.illustrator_field,
+        composer_field=record.composer_field,
+        illustrator_raw=record.illustrator_raw,
+        composer_raw=record.composer_raw,
+        imgsuffix=record.imgsuffix,
+        collections=list(collections),
+    )
 
 
 def _joined(values: Iterable[str]) -> str:
@@ -161,17 +186,26 @@ def build(inventories: Mapping[str, Inventory], ja_lists: Mapping[str, list[jawi
                 main = (originals or others or universe)[0].title
                 entry = entries[title] = SongEntry(key=title, title=main)
             collections = category_collections(info.categories) + [
-                name for name in packages.get(title, []) if name not in category_collections(info.categories)]
-            per_wiki.setdefault(title, {})[key] = {"original": originals, "universe": universe, "other": others,
-                                                  "unreleased": unreleased, "url": info.url,
-                                                  "collections": collections}
+                name for name in packages.get(title, []) if name not in category_collections(info.categories)
+            ]
+            per_wiki.setdefault(title, {})[key] = {
+                "original": originals,
+                "universe": universe,
+                "other": others,
+                "unreleased": unreleased,
+                "url": info.url,
+                "collections": collections,
+            }
             _add(entry.titles, [song.title for song in originals + others + universe] + [title])
             entry.evidence.append({"source_id": source.source_id, "url": info.url, "revision": info.revision})
             for song in originals + others:
                 entry.credits.append(_credit(source, song, collections))
             if originals and not unreleased:
-                labels = ["Template:Song"] + [category for category in info.categories
-                                              if category in config.COLLECTION_CATEGORIES or category == "Category:Dynamix"]
+                labels = ["Template:Song"] + [
+                    category
+                    for category in info.categories
+                    if category in config.COLLECTION_CATEGORIES or category == "Category:Dynamix"
+                ]
                 _add(entry.inclusion_evidence, [f"{info.url} ({', '.join(labels)})"])
                 entry.in_original_game = True
             if universe or any(classify._universe_category(category) for category in info.categories):
@@ -203,9 +237,12 @@ def _reconcile_english(entry: SongEntry, wikis: Mapping[str, dict], disagreement
     entry.aliases = [title for title in entry.titles if title != entry.title]
     if all(key in wikis and wikis[key]["original"] for key in ENGLISH_KEYS):
         m, f = (wikis[key]["original"][0] for key in ENGLISH_KEYS)
-        for name, mv, fv in (("title", [m.title], [f.title]), ("composers", m.composers, f.composers),
-                             ("illustrators", m.illustrators, f.illustrators),
-                             ("imgsuffix", [m.imgsuffix or ""], [f.imgsuffix or ""])):
+        for name, mv, fv in (
+            ("title", [m.title], [f.title]),
+            ("composers", m.composers, f.composers),
+            ("illustrators", m.illustrators, f.illustrators),
+            ("imgsuffix", [m.imgsuffix or ""], [f.imgsuffix or ""]),
+        ):
             if mv != fv:
                 disagreements.append((entry.key, name, {"wikis:miraheze": _joined(mv), "wikis:fandom": _joined(fv)}))
     if any(wiki["original"] and wiki["unreleased"] for wiki in wikis.values()):
@@ -213,8 +250,9 @@ def _reconcile_english(entry: SongEntry, wikis: Mapping[str, dict], disagreement
         entry.in_original_game = False
 
 
-def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[jawikis.ListPage]],
-                    disagreements: list) -> None:
+def _match_japanese(
+    entries: dict[str, SongEntry], ja_lists: Mapping[str, list[jawikis.ListPage]], disagreements: list
+) -> None:
     """Match Japanese rows to songs. Only the atwiki original-game lists are positive inclusion evidence; the
     wikiwiki rhythm-game summary is a corroborating lead (its rows add evidence and disagreements, never
     ``in_original_game``)."""
@@ -244,37 +282,66 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                 if entry is None and len(candidates) == 1:
                     entry = candidates[0]
                 elif entry is None and len(candidates) > 1:
-                    folded = [item for item in candidates if any(t.casefold() == row.title.casefold()
-                                                                  for t in item.titles)]
+                    folded = [
+                        item for item in candidates if any(t.casefold() == row.title.casefold() for t in item.titles)
+                    ]
                     if len(folded) == 1:
                         entry = folded[0]
                     else:
                         for item in candidates:
-                            disagreements.append((item.key, "title", {
-                                source.source_id: f"{row.title} (ambiguous: also matches "
-                                                  + ", ".join(sorted(other.title for other in candidates
-                                                                     if other is not item)) + "; not matched)"}))
+                            disagreements.append(
+                                (
+                                    item.key,
+                                    "title",
+                                    {
+                                        source.source_id: f"{row.title} (ambiguous: also matches "
+                                        + ", ".join(sorted(other.title for other in candidates if other is not item))
+                                        + "; not matched)"
+                                    },
+                                )
+                            )
                         continue
                 if entry is None and len(bases.get(base_key(row.title), [])) == 1:
                     entry = bases[base_key(row.title)][0]
-                    disagreements.append((entry.key, "title", {
-                        "wikis:miraheze": entry.title,
-                        source.source_id: f"{row.title} (matched ignoring the edit/version label)"}))
+                    disagreements.append(
+                        (
+                            entry.key,
+                            "title",
+                            {
+                                "wikis:miraheze": entry.title,
+                                source.source_id: f"{row.title} (matched ignoring the edit/version label)",
+                            },
+                        )
+                    )
                 plain = wikitext.unturned(row.title) if entry is None else None
                 if plain and len(keys.get(wikitext.normalize_key(plain), [])) == 1:
                     # An upside-down spelling of a song's title (an April Fools chart name, e.g. ǝɹǝɥdsᴉɯǝH).
                     entry = keys[wikitext.normalize_key(plain)][0]
-                    disagreements.append((entry.key, "title", {
-                        "wikis:miraheze": entry.title,
-                        source.source_id: f"{row.title} (upside-down spelling of {plain}; matched to that song)"}))
+                    disagreements.append(
+                        (
+                            entry.key,
+                            "title",
+                            {
+                                "wikis:miraheze": entry.title,
+                                source.source_id: f"{row.title} (upside-down spelling of {plain}; matched to that song)",
+                            },
+                        )
+                    )
                 swapped = entry is None and _swapped(row, keys)
                 if swapped:
                     # Title and credit columns exchanged: the credit is a song title whose composer is the "title".
                     entry = keys[wikitext.normalize_key(row.credit)][0]
-                    disagreements.append((entry.key, "title", {
-                        "wikis:miraheze": entry.title,
-                        source.source_id: f"row with title {row.title!r} and credit {row.credit!r} (columns "
-                                          "swapped; matched to that song)"}))
+                    disagreements.append(
+                        (
+                            entry.key,
+                            "title",
+                            {
+                                "wikis:miraheze": entry.title,
+                                source.source_id: f"row with title {row.title!r} and credit {row.credit!r} (columns "
+                                "swapped; matched to that song)",
+                            },
+                        )
+                    )
                 created = entry is None
                 if created:
                     entry = entries[f"ja:{loose}"] = SongEntry(key=f"ja:{loose}", title=row.title)
@@ -282,12 +349,20 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                     entry.composers = wikitext.credit_names(row.credit)
                     keys[loose] = [entry]
                     exact.setdefault(row.title, entry)
-                    disagreements.append((entry.key, "presence", {
-                        source.source_id: f"listed in {page.label}",
-                        "wikis:miraheze": "no song page with Template:Song/SongUV found",
-                        "wikis:fandom": "no song page with Template:Song/SongUV found"}))
-                if not any(item["source_id"] == source.source_id and item["url"] == page.url
-                           for item in entry.evidence):
+                    disagreements.append(
+                        (
+                            entry.key,
+                            "presence",
+                            {
+                                source.source_id: f"listed in {page.label}",
+                                "wikis:miraheze": "no song page with Template:Song/SongUV found",
+                                "wikis:fandom": "no song page with Template:Song/SongUV found",
+                            },
+                        )
+                    )
+                if not any(
+                    item["source_id"] == source.source_id and item["url"] == page.url for item in entry.evidence
+                ):
                     entry.evidence.append({"source_id": source.source_id, "url": page.url, "revision": None})
                 if row.title not in entry.titles and not swapped:
                     entry.titles.append(row.title)
@@ -296,35 +371,64 @@ def _match_japanese(entries: dict[str, SongEntry], ja_lists: Mapping[str, list[j
                 if page.label == REMOVED_LIST_LABEL:
                     entry.removed = True
                     if not created:
-                        disagreements.append((entry.key, "release_status", {
-                            source.source_id: f"listed in {page.label} (removed or never implemented)",
-                            "wikis:miraheze": "Category:Unreleased / Template:SongOther"
-                            if not entry.in_original_game else "original-game song page"}))
+                        disagreements.append(
+                            (
+                                entry.key,
+                                "release_status",
+                                {
+                                    source.source_id: f"listed in {page.label} (removed or never implemented)",
+                                    "wikis:miraheze": "Category:Unreleased / Template:SongOther"
+                                    if not entry.in_original_game
+                                    else "original-game song page",
+                                },
+                            )
+                        )
                     continue
                 if not entry.in_original_game and not created and entry.universe_also:
-                    disagreements.append((entry.key, "in_original_game", {
-                        source.source_id: f"listed in {page.label}" + ("" if grants else " (lead only)"),
-                        "wikis:miraheze": "Template:SongUV only (Dynamix Universe)"}))
+                    disagreements.append(
+                        (
+                            entry.key,
+                            "in_original_game",
+                            {
+                                source.source_id: f"listed in {page.label}" + ("" if grants else " (lead only)"),
+                                "wikis:miraheze": "Template:SongUV only (Dynamix Universe)",
+                            },
+                        )
+                    )
                 if grants:
                     entry.in_original_game = True
                     _add(entry.inclusion_evidence, [label])
                 if not created and grants and not swapped:
                     names = wikitext.credit_names(row.credit)
-                    if names and entry.composers and {wikitext.normalize_key(n) for n in names} != {
-                            wikitext.normalize_key(n) for n in entry.composers}:
-                        disagreements.append((entry.key, "composers", {
-                            "wikis:miraheze": _joined(entry.composers), source.source_id: _joined(names)}))
+                    if (
+                        names
+                        and entry.composers
+                        and {wikitext.normalize_key(n) for n in names}
+                        != {wikitext.normalize_key(n) for n in entry.composers}
+                    ):
+                        disagreements.append(
+                            (
+                                entry.key,
+                                "composers",
+                                {"wikis:miraheze": _joined(entry.composers), source.source_id: _joined(names)},
+                            )
+                        )
                     if row.title != entry.title and wikitext.normalize_key(row.title) == wikitext.normalize_key(
-                            entry.title):
-                        disagreements.append((entry.key, "title", {"wikis:miraheze": entry.title,
-                                                                   source.source_id: row.title}))
+                        entry.title
+                    ):
+                        disagreements.append(
+                            (entry.key, "title", {"wikis:miraheze": entry.title, source.source_id: row.title})
+                        )
 
 
 def _swapped(row: jawikis.SongRow, keys: Mapping[str, list[SongEntry]]) -> bool:
     """The row's credit names exactly one song and the row's title is that song's composer."""
     songs = keys.get(wikitext.normalize_key(row.credit), []) if row.credit else []
-    return len(songs) == 1 and bool(wikitext.normalize_key(row.title)) and wikitext.normalize_key(row.title) in {
-        wikitext.normalize_key(name) for name in songs[0].composers}
+    return (
+        len(songs) == 1
+        and bool(wikitext.normalize_key(row.title))
+        and wikitext.normalize_key(row.title) in {wikitext.normalize_key(name) for name in songs[0].composers}
+    )
 
 
 def _finish(entries: dict[str, SongEntry], disagreements: list) -> SongIndex:

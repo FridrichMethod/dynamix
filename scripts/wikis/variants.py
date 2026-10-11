@@ -24,7 +24,7 @@ _NAMES = {source.source_id: source.name for source in config.SOURCES.values()}
 
 def file_title(asset: Mapping[str, Any]) -> str:
     """``File:...`` title of a wiki record (its candidate ID is ``<source_id>:<File: title>``)."""
-    return asset["candidate_id"][len(asset["source_id"]) + 1:]
+    return asset["candidate_id"][len(asset["source_id"]) + 1 :]
 
 
 def role(asset: Mapping[str, Any]) -> str:
@@ -45,9 +45,12 @@ def link(assets: Iterable[Mapping[str, Any]]) -> list[dict]:
     for record in records:
         if record.get("upstream_status") not in ("removed", "superseded"):
             by_title.setdefault(file_title(record), []).append(record)
-    linked = {record["id"]: title for title, group in by_title.items()
-              if len({item["sha256"] for item in group}) > 1 and len({item["source_id"] for item in group}) > 1
-              for record in group}
+    linked = {
+        record["id"]: title
+        for title, group in by_title.items()
+        if len({item["sha256"] for item in group}) > 1 and len({item["source_id"] for item in group}) > 1
+        for record in group
+    }
     result = []
     for record in records:
         for name in FIELDS:

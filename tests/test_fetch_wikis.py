@@ -49,8 +49,12 @@ class WikiRun(unittest.TestCase):
     def run_cli(self, *args: str, client=None) -> int:
         client = client or self.scenario.client()
         self.client = client
-        return cli.main(["--root", str(self.root), "--work-dir", str(self.work), *args],
-                        client_factory=lambda: client, now=lambda: NOW, log=self.logs.append)
+        return cli.main(
+            ["--root", str(self.root), "--work-dir", str(self.work), *args],
+            client_factory=lambda: client,
+            now=lambda: NOW,
+            log=self.logs.append,
+        )
 
     def verify(self) -> int:
         return cli.main(["--root", str(self.root), "--verify"], log=self.logs.append)
@@ -108,13 +112,16 @@ class MetadataOnlyTests(WikiRun):
         self.assertIn("linked from Cosmic Pulse, Talk:Cosmic Pulse", cited["reason"])
         self.assertEqual(cited["game"], "unknown")  # a link is not a use: no game from the linking page
         self.assertNotIn("Importing images", self.candidate("miraheze", "File:Cosmic Pulse Chart List.jpg")["notes"])
-        self.assertIn("file page text: 'The image is taken from the link below. https://x.com/ariiol_/status/1'",
-                      cosmic["notes"])
+        self.assertIn(
+            "file page text: 'The image is taken from the link below. https://x.com/ariiol_/status/1'", cosmic["notes"]
+        )
         # Archivist reviews: a current review supplies role, game and an inferred song; a review of other bytes
         # no longer applies; an exclusion review uses the frozen vocabulary and quotes its evidence.
         event = check("miraheze", "File:Unused Event.png", "pending", "promotional", acquire.AWAITING, "dynamix")
-        self.assertIn("archivist review (File:Unused Event.png): visual_inspection: event key art",
-                      event["game_evidence"][0] + event["notes"])
+        self.assertIn(
+            "archivist review (File:Unused Event.png): visual_inspection: event key art",
+            event["game_evidence"][0] + event["notes"],
+        )
         self.assertEqual(event["song_titles"], ["Cosmic Pulse"])
         stale = check("miraheze", "File:Stale Review.png", "pending", None, "unresolved_role")
         self.assertIn("review of an earlier revision no longer applies", stale["reason"])
@@ -124,8 +131,10 @@ class MetadataOnlyTests(WikiRun):
         # notes keep the overridden category evidence and name the rule.
         for key in ("miraheze", "fandom"):
             lineup = check(key, "File:Events Lineup.png", "pending", "reference", acquire.AWAITING, "dynamix")
-            self.assertIn("reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended)",
-                          lineup["notes"])
+            self.assertIn(
+                "reference <- list and chart-announcement rule (coordinator decision 2026-10-10, amended)",
+                lineup["notes"],
+            )
             self.assertIn("(file category; Category:Event images)", lineup["notes"])
         # (XD)_D.jpg: a large JPEG in the Trivia gallery is gameplay, not the song's artwork.
         xd_d = check("miraheze", "File:(XD) D.jpg", "pending", "gameplay_screenshot", acquire.AWAITING, "dynamix")
@@ -149,8 +158,9 @@ class MetadataOnlyTests(WikiRun):
         index = manifest.load_json(self.root / "data/discovery/song-index.wikis.json")
         schema.validate_song_index(index)
         songs = {song["title"]: song for song in index["songs"]}
-        self.assertEqual((songs["Cosmic Pulse"]["composers"], songs["Cosmic Pulse"]["illustrators"]),
-                         (["Yunosuke"], ["ariiol"]))
+        self.assertEqual(
+            (songs["Cosmic Pulse"]["composers"], songs["Cosmic Pulse"]["illustrators"]), (["Yunosuke"], ["ariiol"])
+        )
         self.assertTrue(songs["Cosmic Pulse"]["in_original_game"])
         self.assertFalse(songs["Universe Song"]["in_original_game"])  # SongUV only ...
         self.assertTrue(songs["Universe Song"]["universe_also"])
@@ -169,7 +179,8 @@ class MetadataOnlyTests(WikiRun):
     def test_incomplete_enumeration_is_recorded(self) -> None:
         wikis = self.scenario.wikis()
         wikis[config.MIRAHEZE.api_url].fail[("allimages", 2)] = net.HttpError(
-            "HTTP 503", url=config.MIRAHEZE.api_url, http_status=503)
+            "HTTP 503", url=config.MIRAHEZE.api_url, http_status=503
+        )
         client = self.scenario.client(wikis)
         self.assertEqual(self.run_cli("--metadata-only", client=client), 2)
         mira = self.snapshot("miraheze")
@@ -190,23 +201,26 @@ class MetadataOnlyTests(WikiRun):
         index_before = index_path.read_text(encoding="utf-8")
         assets_before = self.manifest()["assets"]
         for name, answer, expected in (
-                ("pages", lambda p: p.get("generator") == "allpages", "no query object"),
-                ("allimages", lambda p: p.get("list") == "allimages", "listed no entry")):
+            ("pages", lambda p: p.get("generator") == "allpages", "no query object"),
+            ("allimages", lambda p: p.get("list") == "allimages", "listed no entry"),
+        ):
             with self.subTest(list=name):
                 wikis = self.scenario.wikis()
                 api = wikis[config.MIRAHEZE.api_url]
                 original = api.query
-                empty = ({"batchcomplete": True} if name == "pages"
-                         else {"batchcomplete": True, "query": {"allimages": []}})
+                empty = (
+                    {"batchcomplete": True} if name == "pages" else {"batchcomplete": True, "query": {"allimages": []}}
+                )
                 api.query = lambda params, original=original, answer=answer, empty=empty: (
-                    empty if answer(params) else original(params))
+                    empty if answer(params) else original(params)
+                )
                 self.assertEqual(self.run_cli("--metadata-only", client=self.scenario.client(wikis)), 2)
                 snapshot = self.snapshot("miraheze")
                 self.assertFalse(snapshot["discovery_complete"])
-                self.assertEqual(snapshot["continuation"][next(k for k in snapshot["continuation"]
-                                                               if k.startswith(name))], {})
-                self.assertTrue(any(expected in error["message"] for error in snapshot["errors"]),
-                                snapshot["errors"])
+                self.assertEqual(
+                    snapshot["continuation"][next(k for k in snapshot["continuation"] if k.startswith(name))], {}
+                )
+                self.assertTrue(any(expected in error["message"] for error in snapshot["errors"]), snapshot["errors"])
                 self.assertEqual(index_path.read_text(encoding="utf-8"), index_before)
                 self.assertEqual(self.manifest()["assets"], assets_before)
                 self.assertEqual(self.verify(), 0, "\n".join(self.logs))
@@ -214,7 +228,8 @@ class MetadataOnlyTests(WikiRun):
     def test_blocked_japanese_page_is_reported(self) -> None:
         client = self.scenario.client()
         client.errors["https://wikiwiki.jp/rhythmgame/Dynamix"] = net.ChallengeError(
-            "challenge page served with HTTP 403", url="https://wikiwiki.jp/rhythmgame/Dynamix", http_status=403)
+            "challenge page served with HTTP 403", url="https://wikiwiki.jp/rhythmgame/Dynamix", http_status=403
+        )
         self.assertEqual(self.run_cli("--metadata-only", "--source", "rhythmgame-ja", client=client), 2)
         snapshot = self.snapshot("rhythmgame-ja")
         self.assertIn("challenge", snapshot["errors"][0]["message"])
@@ -231,13 +246,16 @@ class MetadataOnlyTests(WikiRun):
         client = self.scenario.client()
         url = "https://wikiwiki.jp/rhythmgame/Dynamix"
         self.assertIn(url, client.texts)
-        client.texts[url] = ("<html><body><h2>Dynamix</h2><p>レイアウト変更</p><table><tr><td>Cosmic Pulse</td>"
-                             "<td>Yunosuke</td></tr></table></body></html>")
+        client.texts[url] = (
+            "<html><body><h2>Dynamix</h2><p>レイアウト変更</p><table><tr><td>Cosmic Pulse</td>"
+            "<td>Yunosuke</td></tr></table></body></html>"
+        )
         self.assertEqual(self.run_cli("--metadata-only", client=client), 2)
         snapshot = self.snapshot("rhythmgame-ja")
         self.assertFalse(snapshot["discovery_complete"])
-        self.assertTrue(any("no song rows recognized" in error["message"] for error in snapshot["errors"]),
-                        snapshot["errors"])
+        self.assertTrue(
+            any("no song rows recognized" in error["message"] for error in snapshot["errors"]), snapshot["errors"]
+        )
         self.assertEqual(index_path.read_text(encoding="utf-8"), index_before)
         self.assertIn("song index proposal not rewritten", "\n".join(self.logs))
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
@@ -245,8 +263,9 @@ class MetadataOnlyTests(WikiRun):
     def test_pack_cover_is_titled_with_its_caption(self) -> None:
         """A package page's cover takes the wiki's caption as its title (Titles rule), not the file name."""
         vocal = dict(self.scenario.miraheze_pages["Vocal"])
-        vocal["wikitext"] = vocal["wikitext"].replace("File:Package Vocal.jpg|Package Vocal",
-                                                      "File:Package Vocal.jpg|Package Vocal #1")
+        vocal["wikitext"] = vocal["wikitext"].replace(
+            "File:Package Vocal.jpg|Package Vocal", "File:Package Vocal.jpg|Package Vocal #1"
+        )
         for pages in (self.scenario.miraheze_pages, self.scenario.fandom_pages):
             pages["Vocal"] = vocal
         self.assertEqual(self.run_cli("--metadata-only", "--source", "miraheze"), 0, "\n".join(self.logs))
@@ -270,24 +289,29 @@ class MetadataOnlyTests(WikiRun):
 class AcquisitionTests(WikiRun):
     def test_download_records_and_byte_rules(self) -> None:
         self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
-        self.assertTrue(all("format=original" in url for url in self.client.downloads
-                            if "wikia.nocookie.net" in url))
+        self.assertTrue(all("format=original" in url for url in self.client.downloads if "wikia.nocookie.net" in url))
         mira = self.asset("miraheze", "File:CosmicPulseDynamix.png")
         self.assertEqual((mira["illustrators"], mira["composers"]), (["ariiol"], ["Yunosuke"]))
         roles = {(item["role"], item["name"], item["field"]) for item in mira["credit_evidence"]}
-        self.assertEqual(roles, {("illustrator", "ariiol", "Template:Song|Cover Artist"),
-                                 ("composer", "Yunosuke", "Template:Song|Compound Artist Link")})
+        self.assertEqual(
+            roles,
+            {
+                ("illustrator", "ariiol", "Template:Song|Cover Artist"),
+                ("composer", "Yunosuke", "Template:Song|Compound Artist Link"),
+            },
+        )
         self.assertEqual(mira["mapping_status"], "confirmed_wiki")
         self.assertEqual(mira["song_ids"], ["song:cosmic-pulse"])
-        self.assertEqual(mira["comparisons"], {"sha1_match": True, "bytes_match": True, "dimensions_match": True,
-                                               "format_match": True})
+        self.assertEqual(
+            mira["comparisons"],
+            {"sha1_match": True, "bytes_match": True, "dimensions_match": True, "format_match": True},
+        )
         # Duplicate cross-wiki bytes: Fandom keeps its own record and path; its API size/SHA-1 disagree.
         fandom = self.asset("fandom", "File:CosmicPulseDynamix.png")
         self.assertEqual(fandom["sha256"], mira["sha256"])
         self.assertNotEqual(fandom["path"], mira["path"])
         self.assertTrue(fandom["path"].startswith("assets/public/wikis/fandom/"))
-        self.assertEqual((fandom["comparisons"]["sha1_match"], fandom["comparisons"]["bytes_match"]),
-                         (False, False))
+        self.assertEqual((fandom["comparisons"]["sha1_match"], fandom["comparisons"]["bytes_match"]), (False, False))
         self.assertIn("not as a second version", fandom["notes"])
         self.assertIn("(the API reports 18 more bytes than were served; cause not established)", fandom["notes"])
         self.assertEqual(fandom["quality"]["source_variant"], "unknown")  # not the upload byte for byte
@@ -296,19 +320,27 @@ class AcquisitionTests(WikiRun):
         # The quality note states what was measured and never calls the Miraheze copy the original upload: its
         # revision is the 2026 import (upload comment) and Fandom's API records an earlier upload with another SHA-1.
         self.assertNotIn("Original upload", mira["quality"]["notes"])
-        self.assertIn("its SHA-1 is the one Miraheze's API records for the title's current revision "
-                      "(2026-08-09T09:37:35Z), whose upload comment records an import from the Fandom wiki.",
-                      mira["quality"]["notes"])
-        self.assertIn("Fandom's API records an earlier upload of the title (2020-08-30T12:06:20Z) with another "
-                      "SHA-1, so these bytes are not byte-identical to that upload.", mira["quality"]["notes"])
+        self.assertIn(
+            "its SHA-1 is the one Miraheze's API records for the title's current revision "
+            "(2026-08-09T09:37:35Z), whose upload comment records an import from the Fandom wiki.",
+            mira["quality"]["notes"],
+        )
+        self.assertIn(
+            "Fandom's API records an earlier upload of the title (2020-08-30T12:06:20Z) with another "
+            "SHA-1, so these bytes are not byte-identical to that upload.",
+            mira["quality"]["notes"],
+        )
         same = self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")["quality"]
         self.assertEqual(same["source_variant"], "site_original")
         self.assertIn("Fandom's API records the same SHA-1 for the title.", same["notes"])
         self.assertNotIn("import", same["notes"])  # no upload comment recorded for that title
         only = acquire._stored_file_note({}, {}, {"timestamp": None}, "a" * 40)  # a title Fandom does not list
-        self.assertEqual(only, "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one "
-                               "Miraheze's API records for the title's current revision. A wiki copy, not an artist "
-                               "master.")
+        self.assertEqual(
+            only,
+            "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one "
+            "Miraheze's API records for the title's current revision. A wiki copy, not an artist "
+            "master.",
+        )
         self.assertNotIn("transformed", fandom)
         # Same-wiki duplicate: a second File: title with identical bytes points at the first record.
         copy = self.candidate("miraheze", "File:Cosmic Pulse copy.png")
@@ -333,19 +365,27 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(self.asset("miraheze", "File:(XD)BG-HQ.png")["illustrators"], [])
         # A reviewed file's song mapping is at most inferred and quotes the review.
         event = self.asset("miraheze", "File:Unused Event.png")
-        self.assertEqual((event["kind"], event["mapping_status"], event["song_ids"]),
-                         ("promotional", "inferred", ["song:cosmic-pulse"]))
+        self.assertEqual(
+            (event["kind"], event["mapping_status"], event["song_ids"]),
+            ("promotional", "inferred", ["song:cosmic-pulse"]),
+        )
         self.assertEqual(event["mapping_evidence"][0]["field"], "archivist review")
         self.assertTrue(event["mapping_evidence"][0]["quote"].startswith("visual_inspection:"))
         chart_list = self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")
-        self.assertEqual((chart_list["kind"], chart_list["mapping_status"], chart_list["song_ids"]),
-                         ("reference", "confirmed_wiki", ["song:cosmic-pulse"]))
+        self.assertEqual(
+            (chart_list["kind"], chart_list["mapping_status"], chart_list["song_ids"]),
+            ("reference", "confirmed_wiki", ["song:cosmic-pulse"]),
+        )
         self.assertNotIn("single-song", chart_list.get("notes", ""))
         pair = self.asset("miraheze", "File:Pair Comeback Chart List.jpg")
-        self.assertEqual((pair["kind"], pair["mapping_status"], pair["song_ids"]),
-                         ("reference", "confirmed_wiki", ["song:cosmic-pulse", "song:xd"]))
-        self.assertIn("caption 'Cosmic Pulse X (XD) Comeback Chart List' names the song '(XD)'",
-                      pair["mapping_evidence"][-1]["quote"])
+        self.assertEqual(
+            (pair["kind"], pair["mapping_status"], pair["song_ids"]),
+            ("reference", "confirmed_wiki", ["song:cosmic-pulse", "song:xd"]),
+        )
+        self.assertIn(
+            "caption 'Cosmic Pulse X (XD) Comeback Chart List' names the song '(XD)'",
+            pair["mapping_evidence"][-1]["quote"],
+        )
         # Titles (catalog presentation rules): confirmed single-song art takes the song's title; other files the
         # wiki's caption, else the file name without its extension.
         self.assertEqual(self.asset("miraheze", "File:CosmicPulseDynamix.png")["title"], "Cosmic Pulse")
@@ -355,26 +395,44 @@ class AcquisitionTests(WikiRun):
         # List-graphic rule: the asset notes name the rule, the list evidence and the overridden page evidence.
         lineup = self.asset("fandom", "File:Events Lineup.png")
         self.assertEqual((lineup["kind"], lineup["mapping_status"]), ("reference", "unmapped"))
-        self.assertIn("Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, "
-                      "amended)", lineup["notes"])
-        self.assertIn("List evidence: archivist review (File:Events Lineup.png): visual_inspection: monthly event "
-                      "lineup", lineup["notes"])
-        self.assertIn("Promotional page evidence it overrides: https://dynamix.miraheze.org/wiki/"
-                      "File:Events_Lineup.png (file category; Category:Event images)", lineup["notes"])
-        self.assertIn("File description page: 'The image is taken from the link below.",
-                      self.asset("miraheze", "File:CosmicPulseDynamix.png")["notes"])
+        self.assertIn(
+            "Kind reference by the list and chart-announcement rule (coordinator decision 2026-10-10, amended)",
+            lineup["notes"],
+        )
+        self.assertIn(
+            "List evidence: archivist review (File:Events Lineup.png): visual_inspection: monthly event lineup",
+            lineup["notes"],
+        )
+        self.assertIn(
+            "Promotional page evidence it overrides: https://dynamix.miraheze.org/wiki/"
+            "File:Events_Lineup.png (file category; Category:Event images)",
+            lineup["notes"],
+        )
+        self.assertIn(
+            "File description page: 'The image is taken from the link below.",
+            self.asset("miraheze", "File:CosmicPulseDynamix.png")["notes"],
+        )
         squared = self.asset("miraheze", "File:Cosmic Pulse Squared.png")
         self.assertEqual(squared["game_associations"], ["dynamix", "ravon"])
         self.assertEqual(squared["illustrators"], [])  # not the template's cover: no illustrator inferred
         # Art also tied to another game: no C4Cat default holder without a source naming one (as in every family).
         self.assertIsNone(squared["rights"]["holder"])
         self.assertIn("Rights holder not recorded: the art is also associated with ravon", squared["notes"])
-        self.assertEqual(self.asset("miraheze", "File:CosmicPulseDynamix.png")["rights"]["holder"],
-                         schema.DEFAULT_RIGHTS_HOLDER)
+        self.assertEqual(
+            self.asset("miraheze", "File:CosmicPulseDynamix.png")["rights"]["holder"], schema.DEFAULT_RIGHTS_HOLDER
+        )
         # Excluded and pending candidates are never downloaded.
         downloaded = " ".join(self.client.downloads)
-        for name in ("Emi-Animated.gif", "Universe_Song_cover.png", "Composer_Photo.jpg", "Lonely_BG-HQ.png",
-                     "Alias_Chart_List.jpg", "Cited_Screenshot.png", "Stale_Review.png", "Wiki_Button.png"):
+        for name in (
+            "Emi-Animated.gif",
+            "Universe_Song_cover.png",
+            "Composer_Photo.jpg",
+            "Lonely_BG-HQ.png",
+            "Alias_Chart_List.jpg",
+            "Cited_Screenshot.png",
+            "Stale_Review.png",
+            "Wiki_Button.png",
+        ):
             self.assertNotIn(name, downloaded)
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
         index = manifest.load_json(self.root / "data/discovery/song-index.wikis.json")
@@ -402,8 +460,11 @@ class AcquisitionTests(WikiRun):
         # Both records stay and link to each other as variants of the title (the catalog lists the other one).
         group = "wiki-file:File:Pair_Comeback_Chart_List.jpg"
         self.assertEqual((fandom["variant_group"], mira["variant_group"]), (group, group))
-        self.assertTrue(fandom["variant_role"].startswith("platform transform of the upload, served by Dynamix Wiki "
-                                                          "(Fandom, legacy)"))
+        self.assertTrue(
+            fandom["variant_role"].startswith(
+                "platform transform of the upload, served by Dynamix Wiki (Fandom, legacy)"
+            )
+        )
         self.assertTrue(mira["variant_role"].startswith("the upload, served by Dynamix Wiki (Miraheze)"))
         self.assertNotIn("variant_group", self.asset("miraheze", "File:CosmicPulseDynamix.png"))  # same bytes
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
@@ -419,8 +480,9 @@ class AcquisitionTests(WikiRun):
         self.assertTrue(any("variant_group/variant_role do not match" in line for line in self.logs), self.logs)
 
     def test_include_animated(self) -> None:
-        self.assertEqual(self.run_cli("--include-animated", "--source", "miraheze", "--only",
-                                      "File:Emi-Animated.gif"), 0)
+        self.assertEqual(
+            self.run_cli("--include-animated", "--source", "miraheze", "--only", "File:Emi-Animated.gif"), 0
+        )
         gif = self.asset("miraheze", "File:Emi-Animated.gif")
         self.assertEqual((gif["format"], gif["kind"]), ("GIF", "character"))
         # The option is reversible: later default runs keep the archived GIF instead of stopping for review.
@@ -429,23 +491,29 @@ class AcquisitionTests(WikiRun):
         candidate = self.candidate("miraheze", "File:Emi-Animated.gif")
         self.assertEqual((candidate["disposition"], candidate["asset_id"]), ("downloaded", gif["id"]))
         self.assertIn("--include-animated", candidate["notes"])
-        self.assertEqual(self.candidate("fandom", "File:Emi-Animated.gif")["reason"].split(":")[0],
-                         "animated_capture")  # never archived on Fandom: still excluded by default
+        self.assertEqual(
+            self.candidate("fandom", "File:Emi-Animated.gif")["reason"].split(":")[0], "animated_capture"
+        )  # never archived on Fandom: still excluded by default
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
     def test_metadata_refresh_without_download(self) -> None:
         """Better evidence on a later run updates an archived record's descriptive fields, never its bytes."""
         self.assertEqual(self.run_cli("--source", "miraheze", "--only", "File:CosmicPulseDynamix.png"), 0)
         before = self.asset("miraheze", "File:CosmicPulseDynamix.png")
-        self.scenario.miraheze_pages["Cosmic Pulse"] = dict(self.scenario.miraheze_pages["Cosmic Pulse"],
-                                                            categories=["Category:Songs", "Category:IAPs"])
+        self.scenario.miraheze_pages["Cosmic Pulse"] = dict(
+            self.scenario.miraheze_pages["Cosmic Pulse"], categories=["Category:Songs", "Category:IAPs"]
+        )
         client = self.scenario.client()
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only", client=client), 0)
         after = self.asset("miraheze", "File:CosmicPulseDynamix.png")
         self.assertEqual(client.downloads, [])
-        self.assertEqual((before["collections"], after["collections"]), (["Event", "Vocal"], ["Song packs (IAP)", "Vocal"]))
-        self.assertEqual({k: v for k, v in after.items() if k != "collections"},
-                         {k: v for k, v in before.items() if k != "collections"})
+        self.assertEqual(
+            (before["collections"], after["collections"]), (["Event", "Vocal"], ["Song packs (IAP)", "Vocal"])
+        )
+        self.assertEqual(
+            {k: v for k, v in after.items() if k != "collections"},
+            {k: v for k, v in before.items() if k != "collections"},
+        )
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
     def test_reclassified_archived_file_stops_for_review(self) -> None:
@@ -465,6 +533,7 @@ class AcquisitionTests(WikiRun):
         old_bg = self.asset("miraheze", "File:(XD)BG-HQ.png")
         old_emi = self.asset("miraheze", "File:Emi-Raw.png")
         from fakewiki import image_bytes
+
         self.scenario.data["(XD)BG-HQ.png"] = image_bytes("PNG", (49, 42), 99)
         self.scenario.overrides[("miraheze", "(XD)BG-HQ.png")] = {"timestamp": "2026-09-01T00:00:00Z"}
         self.scenario.miraheze_names.remove("Emi-Raw.png")
@@ -472,8 +541,10 @@ class AcquisitionTests(WikiRun):
         assets = {a["id"]: a for a in self.manifest()["assets"]}
         new_bg = self.asset("miraheze", "File:(XD)BG-HQ.png")
         self.assertNotEqual(new_bg["id"], old_bg["id"])
-        self.assertEqual((assets[old_bg["id"]]["upstream_status"], assets[old_bg["id"]]["superseded_by"]),
-                         ("superseded", new_bg["id"]))
+        self.assertEqual(
+            (assets[old_bg["id"]]["upstream_status"], assets[old_bg["id"]]["superseded_by"]),
+            ("superseded", new_bg["id"]),
+        )
         self.assertEqual(assets[old_emi["id"]]["upstream_status"], "removed")
         self.assertTrue((self.root / old_bg["path"]).is_file())
         self.assertTrue((self.root / old_emi["path"]).is_file())
@@ -498,7 +569,6 @@ class AcquisitionTests(WikiRun):
         self.assertNotIn("TwinDynamix", " ".join(client.downloads))
         self.assertEqual(self.candidate("miraheze", "File:TwinDynamix.png")["disposition"], "blocked")
 
-
     def test_refusing_file_host_is_not_contacted_again(self) -> None:
         """After a challenge/403 from a file host, no further request goes to it in the run (07 §Network): its other
         candidates are recorded blocked without a request or Failure record, and the next run tries them again."""
@@ -518,11 +588,18 @@ class AcquisitionTests(WikiRun):
         failures = [f for f in self.manifest()["failures"] if f["source_id"] == "wikis:miraheze"]
         self.assertEqual([(f["error_class"], f["url"]) for f in failures], [("challenge", challenged[0])])
         snapshot = self.snapshot("miraheze")
-        skipped = [c for c in snapshot["candidates"] if c["disposition"] == "blocked"
-                   and c["id"] != failures[0]["candidate_id"]]
+        skipped = [
+            c
+            for c in snapshot["candidates"]
+            if c["disposition"] == "blocked" and c["id"] != failures[0]["candidate_id"]
+        ]
         self.assertGreater(len(skipped), 2)  # skips are not attempts: --limit 2 does not stop them
-        self.assertTrue(all("host static.wikitide.net refused an earlier request in this run (challenge, HTTP 403)"
-                            in c["reason"] for c in skipped))
+        self.assertTrue(
+            all(
+                "host static.wikitide.net refused an earlier request in this run (challenge, HTTP 403)" in c["reason"]
+                for c in skipped
+            )
+        )
         self.assertFalse([c for c in snapshot["candidates"] if c["disposition"] == "downloaded"])
         self.assertIn("[skip] blocked", "\n".join(self.logs))
         source = next(s for s in self.manifest()["sources"] if s["id"] == "wikis:miraheze")
@@ -567,11 +644,12 @@ class AcquisitionTests(WikiRun):
 
 def clock():
     """Increasing UTC timestamps (one second per call)."""
-    count = iter(range(10 ** 6))
+    count = iter(range(10**6))
 
     def now() -> str:
         n = next(count)
         return f"2026-10-10T{12 + n // 3600:02d}:{n // 60 % 60:02d}:{n % 60:02d}Z"
+
     return now
 
 
@@ -601,8 +679,9 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertFalse((self.work / "journal.jsonl").exists())
         self.assertEqual(self.manifest()["failures"], [])
         for asset in (truncated, flipped):
-            self.assertEqual(self.asset("miraheze", "File:" + asset["original_filename"].replace("_", " "))["id"],
-                             asset["id"])
+            self.assertEqual(
+                self.asset("miraheze", "File:" + asset["original_filename"].replace("_", " "))["id"], asset["id"]
+            )
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0)  # nothing left to replay
 
@@ -610,8 +689,11 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertEqual(self.run_cli("--source", "miraheze"), 0)
         asset = self.damage("File:(XD)Dynamix.png", "truncate")
         client = self.scenario.client()
-        url = next(url for url in client.blobs if "(XD)Dynamix" in url.replace("%28", "(").replace("%29", ")")
-                   and "wikitide" in url)
+        url = next(
+            url
+            for url in client.blobs
+            if "(XD)Dynamix" in url.replace("%28", "(").replace("%29", ")") and "wikitide" in url
+        )
         client.errors[url] = net.HttpError("HTTP 503", url=url, http_status=503, retriable=True)
         self.assertEqual(self.run_cli("--source", "miraheze", "--resume", client=client), 1)
         self.assertTrue(any(line.startswith("REPAIR FAILED") for line in self.logs))
@@ -637,8 +719,10 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
         moved = self.asset("miraheze", "File:" + new)
         self.assertEqual((moved["id"], moved["path"], moved["upstream_status"]), (old["id"], old["path"], "current"))
-        self.assertEqual((moved["candidate_id"], moved["original_filename"]),
-                         ("wikis:miraheze:File:XD_cover_(moved).png", "(XD)Dynamix.png"))
+        self.assertEqual(
+            (moved["candidate_id"], moved["original_filename"]),
+            ("wikis:miraheze:File:XD_cover_(moved).png", "(XD)Dynamix.png"),
+        )
         self.assertIn("first archived as wikis:miraheze:File:(XD)Dynamix.png", moved["notes"])
         index = manifest.load_json(self.root / "data/discovery/song-index.wikis.json")
         xd = next(song for song in index["songs"] if song["title"] == "(XD)")
@@ -651,8 +735,9 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertEqual(self.candidate("miraheze", "File:Cosmic Pulse copy.png")["disposition"], "duplicate_bytes")
         self.scenario.miraheze_names.remove("CosmicPulseDynamix.png")
         client = self.scenario.client()
-        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only", client=client), 0,
-                         "\n".join(self.logs))
+        self.assertEqual(
+            self.run_cli("--source", "miraheze", "--metadata-only", client=client), 0, "\n".join(self.logs)
+        )
         copy = self.candidate("miraheze", "File:Cosmic Pulse copy.png")
         self.assertEqual((copy["disposition"], copy["asset_id"]), ("downloaded", record["id"]))
         assets = {a["id"]: a for a in self.manifest()["assets"]}
@@ -665,8 +750,10 @@ class ArchiveIntegrityTests(WikiRun):
         self.scenario.overrides[("miraheze", "(XD)BG-HQ.png")] = {"timestamp": "2026-09-01T00:00:00Z"}
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0)
         after = self.asset("miraheze", "File:(XD)BG-HQ.png")
-        self.assertEqual((after["id"], after["upstream_status"], after["source_reported"]["timestamp"]),
-                         (before["id"], "current", "2026-09-01T00:00:00Z"))
+        self.assertEqual(
+            (after["id"], after["upstream_status"], after["source_reported"]["timestamp"]),
+            (before["id"], "current", "2026-09-01T00:00:00Z"),
+        )
         self.assertIn("Upstream history: same bytes as the earlier upload 2021-02-11T14:41:30Z", after["notes"])
         client = self.scenario.client()
         self.assertEqual(self.run_cli("--source", "miraheze", client=client), 0)
@@ -676,6 +763,7 @@ class ArchiveIntegrityTests(WikiRun):
 
     def test_revert_restores_the_earlier_record(self) -> None:
         from fakewiki import image_bytes
+
         self.assertEqual(self.run_cli("--source", "miraheze"), 0)
         first = self.asset("miraheze", "File:(XD)BG-HQ.png")
         original = self.scenario.data["(XD)BG-HQ.png"]
@@ -690,8 +778,10 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertEqual(self.candidate("miraheze", "File:(XD)BG-HQ.png")["asset_id"], first["id"])
         self.assertEqual(assets[first["id"]]["upstream_status"], "current")
         self.assertNotIn("superseded_by", assets[first["id"]])
-        self.assertEqual((assets[second["id"]]["upstream_status"], assets[second["id"]]["superseded_by"]),
-                         ("superseded", first["id"]))
+        self.assertEqual(
+            (assets[second["id"]]["upstream_status"], assets[second["id"]]["superseded_by"]),
+            ("superseded", first["id"]),
+        )
         self.assertEqual(assets[first["id"]]["source_reported"]["timestamp"], "2026-09-02T00:00:00Z")
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
@@ -701,7 +791,8 @@ class ArchiveIntegrityTests(WikiRun):
         index = (self.root / "data/discovery/song-index.wikis.json").read_bytes()
         wikis = self.scenario.wikis()
         wikis[config.FANDOM.api_url].fail[("pages", 1)] = net.HttpError(
-            "HTTP 503", url=config.FANDOM.api_url, http_status=503)  # an outage on Fandom only
+            "HTTP 503", url=config.FANDOM.api_url, http_status=503
+        )  # an outage on Fandom only
         client = self.scenario.client(wikis)
         self.assertEqual(self.run_cli(client=client), 2, "\n".join(self.logs))
         self.assertEqual(client.downloads, [])
@@ -713,9 +804,14 @@ class ArchiveIntegrityTests(WikiRun):
             old = {c["id"]: c for c in before[key]["candidates"]}
             for candidate in snapshot["candidates"]:
                 if old[candidate["id"]]["disposition"] == "downloaded":
-                    self.assertEqual((candidate["disposition"], candidate["role"], candidate["asset_id"]),
-                                     (old[candidate["id"]]["disposition"], old[candidate["id"]]["role"],
-                                      old[candidate["id"]]["asset_id"]))
+                    self.assertEqual(
+                        (candidate["disposition"], candidate["role"], candidate["asset_id"]),
+                        (
+                            old[candidate["id"]]["disposition"],
+                            old[candidate["id"]]["role"],
+                            old[candidate["id"]]["asset_id"],
+                        ),
+                    )
                     self.assertIn("this discovery is incomplete", candidate["notes"])
         self.assertEqual((self.root / "data/discovery/song-index.wikis.json").read_bytes(), index)
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
@@ -734,8 +830,14 @@ class ArchiveIntegrityTests(WikiRun):
         before = (self.root / "data/sources/wikis.json").read_bytes()
         self.assertEqual(self.run_cli("--source", "miraheze"), 4)  # an unreviewed exclusion stops the run
         self.assertEqual((self.root / "data/sources/wikis.json").read_bytes(), before)
-        table["withdrawals"] = [{"title": "File:Unused Event.png", "sha256": [event["sha256"]], "reason": "fanart",
-                                 "evidence": "visual_inspection: fan-made event poster"}]
+        table["withdrawals"] = [
+            {
+                "title": "File:Unused Event.png",
+                "sha256": [event["sha256"]],
+                "reason": "fanart",
+                "evidence": "visual_inspection: fan-made event poster",
+            }
+        ]
         self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
         self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
         self.assertNotIn(event["id"], {a["id"] for a in self.manifest()["assets"]})
@@ -746,10 +848,15 @@ class ArchiveIntegrityTests(WikiRun):
 
     def test_download_probe_failure_is_recorded(self) -> None:
         table = self.scenario.reviews_json()
-        table["reviews"].append({"title": "File:Cited Screenshot.png", "sha1": [hashlib.sha1(
-            self.scenario.data["Cited Screenshot.png"]).hexdigest()], "role": None,
-            "evidence": "download_probe: the file returns HTTP 404 from the CDN",
-            "pending": "the content could not be inspected"})
+        table["reviews"].append(
+            {
+                "title": "File:Cited Screenshot.png",
+                "sha1": [hashlib.sha1(self.scenario.data["Cited Screenshot.png"]).hexdigest()],
+                "role": None,
+                "evidence": "download_probe: the file returns HTTP 404 from the CDN",
+                "pending": "the content could not be inspected",
+            }
+        )
         self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
         client = self.scenario.client()
         url = next(url for url in client.blobs if "Cited_Screenshot" in url and "wikitide" in url)
@@ -757,11 +864,13 @@ class ArchiveIntegrityTests(WikiRun):
         self.assertEqual(self.run_cli("--source", "miraheze", client=client), 1)
         candidate = self.candidate("miraheze", "File:Cited Screenshot.png")
         self.assertEqual((candidate["disposition"], candidate["role"]), ("failed", None))
-        self.assertIn("inspection download for the archivist review (unresolved_role: archivist review",
-                      candidate["notes"])
+        self.assertIn(
+            "inspection download for the archivist review (unresolved_role: archivist review", candidate["notes"]
+        )
         [failure] = [f for f in self.manifest()["failures"] if f["candidate_id"] == candidate["id"]]
-        self.assertEqual((failure["phase"], failure["error_class"], failure["http_status"]), ("download", "http_4xx",
-                                                                                              404))
+        self.assertEqual(
+            (failure["phase"], failure["error_class"], failure["http_status"]), ("download", "http_4xx", 404)
+        )
         client = self.scenario.client()
         del client.blobs[url]
         self.assertEqual(self.run_cli("--source", "miraheze", client=client), 1)
@@ -784,8 +893,15 @@ class ArchiveIntegrityTests(WikiRun):
 
     def test_checked_at_is_the_last_access(self) -> None:
         client = self.scenario.client()
-        self.assertEqual(cli.main(["--root", str(self.root), "--work-dir", str(self.work), "--source", "miraheze"],
-                                  client_factory=lambda: client, now=clock(), log=self.logs.append), 0)
+        self.assertEqual(
+            cli.main(
+                ["--root", str(self.root), "--work-dir", str(self.work), "--source", "miraheze"],
+                client_factory=lambda: client,
+                now=clock(),
+                log=self.logs.append,
+            ),
+            0,
+        )
         data = self.manifest()
         source = next(s for s in data["sources"] if s["id"] == "wikis:miraheze")
         last = max(a["fetched_at"] for a in data["assets"] if a["source_id"] == "wikis:miraheze")
@@ -797,10 +913,15 @@ class ArchiveIntegrityTests(WikiRun):
             self.assertEqual(self.run_cli("--metadata-only"), 3)  # another --work-dir does not help
         self.assertEqual(self.run_cli("--metadata-only"), 0)
         acquire.Journal(self.work / "journal.jsonl", self.root).append(
-            {"event": "clear_failures", "id": "wikis:miraheze:File:Nothing.png"})
+            {"event": "clear_failures", "id": "wikis:miraheze:File:Nothing.png"}
+        )
         other = self.tmp / "other-work"
-        code = cli.main(["--root", str(self.root), "--work-dir", str(other), "--metadata-only"],
-                        client_factory=self.scenario.client, now=lambda: NOW, log=self.logs.append)
+        code = cli.main(
+            ["--root", str(self.root), "--work-dir", str(other), "--metadata-only"],
+            client_factory=self.scenario.client,
+            now=lambda: NOW,
+            log=self.logs.append,
+        )
         self.assertEqual(code, 3)
         self.assertEqual(self.run_cli("--metadata-only"), 0)  # resuming with the journal's own work dir works
 
@@ -816,9 +937,14 @@ class ResumeTests(WikiRun):
         self.assertFalse((self.work / "journal.jsonl").exists())
         client = self.scenario.client()
         self.assertEqual(self.run_cli("--source", "miraheze", "--resume", client=client), 0, "\n".join(self.logs))
-        fetched_again = [url for url in client.downloads if any(
-            cid.split(":File:", 1)[1].replace(" ", "_") in url.replace("%28", "(").replace("%29", ")")
-            for cid in done)]
+        fetched_again = [
+            url
+            for url in client.downloads
+            if any(
+                cid.split(":File:", 1)[1].replace(" ", "_") in url.replace("%28", "(").replace("%29", ")")
+                for cid in done
+            )
+        ]
         self.assertEqual(fetched_again, [])
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
@@ -844,12 +970,14 @@ class ResumeTests(WikiRun):
         self.assertEqual(self.run_cli("--metadata-only", "--source", "miraheze"), 0)
         args = cli.parse_args(["--root", str(self.root), "--source", "miraheze"])
         client = self.scenario.client()
-        runner = cli.Runner(self.root, args, self.work, client_factory=lambda: client, now=lambda: NOW,
-                            log=self.logs.append)
+        runner = cli.Runner(
+            self.root, args, self.work, client_factory=lambda: client, now=lambda: NOW, log=self.logs.append
+        )
         runner.state = acquire.State.load(self.root, runner.journal)
         runner.discover(client)
-        acquirer = acquire.Acquirer(self.root, runner.state, runner.journal, client, now=lambda: NOW,
-                                    log=self.logs.append)
+        acquirer = acquire.Acquirer(
+            self.root, runner.state, runner.journal, client, now=lambda: NOW, log=self.logs.append
+        )
         plans = [p for p in runner.plans["miraheze"] if p.accepted][:2]
         for plan in plans:
             acquirer.download(plan)
@@ -886,8 +1014,12 @@ class ResumeTests(WikiRun):
 
     def test_script_entry_point(self) -> None:
         """``python -I scripts/fetch_wikis.py --verify --root`` works as a subprocess (offline)."""
-        result = subprocess.run([sys.executable, "-I", str(ROOT / "scripts" / "fetch_wikis.py"), "--verify",
-                                 "--root", str(self.root)], capture_output=True, text=True, timeout=60)
+        result = subprocess.run(
+            [sys.executable, "-I", str(ROOT / "scripts" / "fetch_wikis.py"), "--verify", "--root", str(self.root)],
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("verify: OK", result.stdout)
 

@@ -25,8 +25,12 @@ from primary.adapters import apple, facebook, probe, registry as registry_adapte
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/official"
-QUALITY = {"source_variant": "site_original", "origin_status": "official", "master_status": "unverified",
-           "notes": "test"}
+QUALITY = {
+    "source_variant": "site_original",
+    "origin_status": "official",
+    "master_status": "unverified",
+    "notes": "test",
+}
 
 
 def text(name):
@@ -42,9 +46,15 @@ class OfficialTestCase(unittest.TestCase):
         self.temp.cleanup()
 
     def run_family(self, seeds, network, **options):
-        acquisition = runner.Runner(self.root, "official", sorted(seeds, key=lambda s: s["id"]),
-                                    client_factory=network.factory, now=lambda: FIXED_NOW, sleep=lambda s: None,
-                                    **options)
+        acquisition = runner.Runner(
+            self.root,
+            "official",
+            sorted(seeds, key=lambda s: s["id"]),
+            client_factory=network.factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+            **options,
+        )
         return acquisition.run()
 
     def candidates(self, source_id):
@@ -63,9 +73,17 @@ class AppleTests(OfficialTestCase):
     PAGE = "https://apps.apple.com/us/app/dynamix/id945955095"
 
     def seed(self, items):
-        return {"id": "official:apple-store", "name": "Apple", "url": self.PAGE, "platform": "app-store",
-                "adapter": "apple_store", "identity_quotes": ["C4Cat"], "quality": QUALITY, "items": items,
-                "rules": [{"match": ".*", "role": "store_screenshot", "game": "dynamix"}]}
+        return {
+            "id": "official:apple-store",
+            "name": "Apple",
+            "url": self.PAGE,
+            "platform": "app-store",
+            "adapter": "apple_store",
+            "identity_quotes": ["C4Cat"],
+            "quality": QUALITY,
+            "items": items,
+            "rules": [{"match": ".*", "role": "store_screenshot", "game": "dynamix"}],
+        }
 
     def test_product_media_shelves_at_native_size(self):
         routes = {self.PAGE: {"text": text("apple_page.html")}}
@@ -119,8 +137,9 @@ class AppleTests(OfficialTestCase):
 
     def test_shelf_parser_reads_the_observed_structure(self):
         mapping = apple.shelves(apple.server_data(text("apple_page.html")))
-        self.assertEqual([(d, i) for d, i, _ in apple.media_items(mapping)], [("pad", 1), ("phone", 1), ("phone", 2),
-                                                                              ("phone", 3)])
+        self.assertEqual(
+            [(d, i) for d, i, _ in apple.media_items(mapping)], [("pad", 1), ("phone", 1), ("phone", 2), ("phone", 3)]
+        )
 
     def test_itunes_lookup_sets_requested_at_native_size_and_merged_across_storefronts(self):
         routes = {}
@@ -130,8 +149,10 @@ class AppleTests(OfficialTestCase):
         data = [json.loads(text(f"itunes_lookup_{c}.json"))["results"][0] for c in ("us", "jp")]
         urls = sorted({u for app in data for u in app["screenshotUrls"] + app["ipadScreenshotUrls"]})
         for index, url in enumerate(urls):
-            routes[apple.native_lookup_url(url)] = {"bytes": image_bytes("PNG", (60 + index, 34)),
-                                                    "content_type": "image/png"}
+            routes[apple.native_lookup_url(url)] = {
+                "bytes": image_bytes("PNG", (60 + index, 34)),
+                "content_type": "image/png",
+            }
         network = FakeNetwork(routes)
         self.run_family([self.seed([{"lookup_id": "945955095", "countries": ["us", "jp"]}])], network)
         found = self.candidates("official:apple-store")
@@ -140,8 +161,9 @@ class AppleTests(OfficialTestCase):
         self.assertTrue(shared["file_url"].endswith("/pr_source.png/4000x4000bb.png"))  # the upload's format
         self.assertTrue(shared["source_reported"]["url"].endswith("/pr_source.png/392x696bb.jpg"))  # as advertised
         self.assertIsNone(shared["source_reported"]["mime"])  # a JPEG rendition was advertised, a PNG one stored
-        self.assertEqual(apple.same_format_mime("https://e.test/a.png/1x1bb.jpg", "https://e.test/a.png/9x9bb.jpg"),
-                         "image/jpeg")
+        self.assertEqual(
+            apple.same_format_mime("https://e.test/a.png/1x1bb.jpg", "https://e.test/a.png/9x9bb.jpg"), "image/jpeg"
+        )
         self.assertIn("us:phone1", shared["notes"])
         self.assertIn("jp:phone2", shared["notes"])
         self.assertIn("lookup:92092603-00f8-d690-9f01-b4437bda3e80", found)
@@ -150,15 +172,33 @@ class AppleTests(OfficialTestCase):
 
     def test_quality_note_describes_the_rendition_actually_stored(self):
         sized = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
-        lookup = {"resultCount": 1, "results": [{"trackId": 945955095, "trackName": "Dynamix", "sellerName": "C4Cat",
-                                                 "bundleId": "com.c4cat.dynamix", "ipadScreenshotUrls": [],
-                                                 "screenshotUrls": [sized + "mzl.sklhwvmk.jpg/406x228bb.jpg",
-                                                                    sized + "mzl.eumuhmxw.png/406x228bb.png"]}]}
-        routes = {full_url(apple.LOOKUP, {"id": "945955095", "country": "hk", "entity": "software"}): {"json": lookup},
-                  sized + "mzl.sklhwvmk.jpg/4000x4000bb.jpg": {"bytes": image_bytes("JPEG", (40, 30)),
-                                                               "content_type": "image/jpeg"},
-                  sized + "mzl.eumuhmxw.png/4000x4000bb.png": {"bytes": image_bytes("PNG", (40, 31)),
-                                                               "content_type": "image/png"}}
+        lookup = {
+            "resultCount": 1,
+            "results": [
+                {
+                    "trackId": 945955095,
+                    "trackName": "Dynamix",
+                    "sellerName": "C4Cat",
+                    "bundleId": "com.c4cat.dynamix",
+                    "ipadScreenshotUrls": [],
+                    "screenshotUrls": [
+                        sized + "mzl.sklhwvmk.jpg/406x228bb.jpg",
+                        sized + "mzl.eumuhmxw.png/406x228bb.png",
+                    ],
+                }
+            ],
+        }
+        routes = {
+            full_url(apple.LOOKUP, {"id": "945955095", "country": "hk", "entity": "software"}): {"json": lookup},
+            sized + "mzl.sklhwvmk.jpg/4000x4000bb.jpg": {
+                "bytes": image_bytes("JPEG", (40, 30)),
+                "content_type": "image/jpeg",
+            },
+            sized + "mzl.eumuhmxw.png/4000x4000bb.png": {
+                "bytes": image_bytes("PNG", (40, 31)),
+                "content_type": "image/png",
+            },
+        }
         seed = self.seed([{"lookup_id": "945955095", "countries": ["hk"]}])
         seed["quality"] = {**QUALITY, "notes": "A store re-render of the upload."}
         self.run_family([seed], FakeNetwork(routes))
@@ -166,26 +206,39 @@ class AppleTests(OfficialTestCase):
         self.assertTrue(notes["JPEG"].startswith("Apple's JPEG rendition of the JPEG upload at native size (lossy"))
         self.assertNotIn("(lossless", notes["JPEG"])
         self.assertTrue(notes["PNG"].startswith("Apple's PNG rendition of the PNG upload at native size (lossless"))
-        self.assertTrue(all("A store re-render of the upload." in n and apple.IDENTIFIER_NOTE in n
-                            for n in notes.values()))
+        self.assertTrue(
+            all("A store re-render of the upload." in n and apple.IDENTIFIER_NOTE in n for n in notes.values())
+        )
         self.verify()
 
     def test_an_empty_lookup_answer_keeps_the_list_open(self):
         url = full_url(apple.LOOKUP, {"id": "945955095", "country": "hk", "entity": "software"})
-        self.run_family([self.seed([{"lookup_id": "945955095", "countries": ["hk"]}])],
-                        FakeNetwork({url: {"json": {"resultCount": 0, "results": []}}}))
+        self.run_family(
+            [self.seed([{"lookup_id": "945955095", "countries": ["hk"]}])],
+            FakeNetwork({url: {"json": {"resultCount": 0, "results": []}}}),
+        )
         snapshot = manifest.load_discovery(self.root, "official:apple-store")
         self.assertEqual(snapshot["continuation"]["itunes-lookup"], "no-result-hk")
         self.assertFalse(snapshot["discovery_complete"])
 
     def test_lossless_rendition_follows_the_upload_format(self):
         sized = "https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/aa/bb/cc/"
-        self.assertEqual(apple.native_lookup_url(sized + "mzl.eumuhmxw.png/406x228bb.png"),
-                         sized + "mzl.eumuhmxw.png/4000x4000bb.png")
-        self.assertEqual(apple.native_lookup_url(sized + "mzl.abc.jpg/406x228bb.jpg"),
-                         sized + "mzl.abc.jpg/4000x4000bb.jpg")  # a JPEG upload gains nothing from PNG
-        rendition = apple.native_rendition({"template": sized + "x/pr_source.jpg/{w}x{h}{c}.{f}", "width": 10,
-                                            "height": 5, "crop": "bb", "variants": [{"format": "jpeg"}]})
+        self.assertEqual(
+            apple.native_lookup_url(sized + "mzl.eumuhmxw.png/406x228bb.png"),
+            sized + "mzl.eumuhmxw.png/4000x4000bb.png",
+        )
+        self.assertEqual(
+            apple.native_lookup_url(sized + "mzl.abc.jpg/406x228bb.jpg"), sized + "mzl.abc.jpg/4000x4000bb.jpg"
+        )  # a JPEG upload gains nothing from PNG
+        rendition = apple.native_rendition(
+            {
+                "template": sized + "x/pr_source.jpg/{w}x{h}{c}.{f}",
+                "width": 10,
+                "height": 5,
+                "crop": "bb",
+                "variants": [{"format": "jpeg"}],
+            }
+        )
         self.assertEqual((rendition["format"], rendition["advertised_format"]), ("jpeg", "jpeg"))
 
 
@@ -196,18 +249,35 @@ class GooglePlayTests(OfficialTestCase):
     Q = "https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCTrsFZTTN7W8hdkJh5yqAkM"
 
     def test_native_size_is_decoded_not_taken_from_the_url(self):
-        network = FakeNetwork({
-            self.EN: {"text": text("google_play_en.html")}, self.JA: {"text": text("google_play_ja.html")},
-            f"{self.P}=s0": {"bytes": image_bytes("PNG", (1052, 591)), "content_type": "image/png"},
-            f"{self.Q}=s0": {"bytes": image_bytes("PNG", (128, 72), (1, 2, 3)), "content_type": "image/png"}})
-        seed = {"id": "official:google-play", "name": "Google Play", "platform": "google-play",
-                "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix", "adapter": "google_play",
-                "identity_quotes": ["C4Cat"], "quality": QUALITY, "items": [{"url": self.EN}, {"url": self.JA}],
-                "rules": [{"match": "^screenshot:", "role": "store_screenshot"}]}
+        network = FakeNetwork(
+            {
+                self.EN: {"text": text("google_play_en.html")},
+                self.JA: {"text": text("google_play_ja.html")},
+                f"{self.P}=s0": {"bytes": image_bytes("PNG", (1052, 591)), "content_type": "image/png"},
+                f"{self.Q}=s0": {"bytes": image_bytes("PNG", (128, 72), (1, 2, 3)), "content_type": "image/png"},
+            }
+        )
+        seed = {
+            "id": "official:google-play",
+            "name": "Google Play",
+            "platform": "google-play",
+            "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
+            "adapter": "google_play",
+            "identity_quotes": ["C4Cat"],
+            "quality": QUALITY,
+            "items": [{"url": self.EN}, {"url": self.JA}],
+            "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+        }
         self.run_family([seed], network)
         found = self.candidates("official:google-play")
-        self.assertEqual(sorted(found), ["icon:IconTokenAbcdef0123456789", f"screenshot:{self.P.rsplit('/', 1)[1]}",
-                                         f"screenshot:{self.Q.rsplit('/', 1)[1]}"])
+        self.assertEqual(
+            sorted(found),
+            [
+                "icon:IconTokenAbcdef0123456789",
+                f"screenshot:{self.P.rsplit('/', 1)[1]}",
+                f"screenshot:{self.Q.rsplit('/', 1)[1]}",
+            ],
+        )
         first = found[f"screenshot:{self.P.rsplit('/', 1)[1]}"]
         self.assertIn("1052x592", first["notes"])  # the advertised resize request is kept as a note only
         second = found[f"screenshot:{self.Q.rsplit('/', 1)[1]}"]
@@ -224,14 +294,31 @@ class GooglePlayTests(OfficialTestCase):
     def test_refused_listing_pages_are_one_candidate_each_and_later_sources_still_run(self):
         # A 403 on the first locale makes the host skipped for the others: both refusals must be distinct candidates
         # (they once collided as "page" and aborted the family run before official:website).
-        network = FakeNetwork({self.EN: {"error": net.BlockedError("HTTP 403", url=self.EN, http_status=403)},
-                               "https://dynamix.c4-cat.com/": {"text": "<title>Dynamix</title>"}})
-        seed = {"id": "official:google-play", "name": "Google Play", "platform": "google-play", "url": self.EN,
-                "adapter": "google_play", "quality": QUALITY, "items": [{"url": self.EN}, {"url": self.JA}],
-                "rules": [{"match": "^screenshot:", "role": "store_screenshot"}]}
-        website = {"id": "official:website", "name": "Website", "url": "https://dynamix.c4-cat.com/",
-                   "platform": "web", "adapter": "page_probe", "hosts": ["dynamix.c4-cat.com"],
-                   "items": [{"url": "https://dynamix.c4-cat.com/"}]}
+        network = FakeNetwork(
+            {
+                self.EN: {"error": net.BlockedError("HTTP 403", url=self.EN, http_status=403)},
+                "https://dynamix.c4-cat.com/": {"text": "<title>Dynamix</title>"},
+            }
+        )
+        seed = {
+            "id": "official:google-play",
+            "name": "Google Play",
+            "platform": "google-play",
+            "url": self.EN,
+            "adapter": "google_play",
+            "quality": QUALITY,
+            "items": [{"url": self.EN}, {"url": self.JA}],
+            "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+        }
+        website = {
+            "id": "official:website",
+            "name": "Website",
+            "url": "https://dynamix.c4-cat.com/",
+            "platform": "web",
+            "adapter": "page_probe",
+            "hosts": ["dynamix.c4-cat.com"],
+            "items": [{"url": "https://dynamix.c4-cat.com/"}],
+        }
         self.run_family([seed, website], network)
         found = self.candidates("official:google-play")
         self.assertEqual(sorted(found), [f"page:{self.EN}", f"page:{self.JA}"])
@@ -249,25 +336,48 @@ class TapTapTests(OfficialTestCase):
         base = "https://img-tc.tapimg.com/market/images/"
         shot_png = image_bytes("PNG", (22, 12))
         import hashlib
+
         token = hashlib.md5(shot_png).hexdigest()
         page = text("taptap_app.html").replace("0f46c7d8f23cfefc08f151e5de5f02ee", token)
         payload = json.loads(page.split('data-ssr="true">', 1)[1].split("</script>", 1)[0])
         app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
         payload[app["screenshots"]].append(payload[app["screenshots"]][0])  # the same upload listed twice
-        page = page.split('data-ssr="true">', 1)[0] + 'data-ssr="true">' + json.dumps(payload) + "</script>" + \
-            page.split('data-ssr="true">', 1)[1].split("</script>", 1)[1]
-        network = FakeNetwork({
-            "https://www.taptap.cn/app/7082": {"text": page},
-            f"{base}{token}.png": {"bytes": shot_png, "content_type": "image/png"},
-            f"{base}1111c7d8f23cfefc08f151e5de5f0222.jpg": {"bytes": image_bytes("JPEG", (13, 7)),
-                                                            "content_type": "image/jpeg"},
-            f"{base}4395ff13f01cca52f28efb2a1694bce9.jpg": {"bytes": image_bytes("JPEG", (102, 50)),
-                                                            "content_type": "image/jpeg"}})
-        seed = {"id": "official:taptap", "name": "TapTap", "url": "https://www.taptap.cn/app/7082",
-                "platform": "taptap", "adapter": "taptap_app", "params": {"identifier": "com.c4cat.dynamix"},
-                "identity_quotes": ["C4Cat"], "quality": QUALITY, "items": [{"url": "https://www.taptap.cn/app/7082"}],
-                "rules": [{"match": "^screenshot:", "role": "store_screenshot"},
-                          {"match": "^banner:[0-9a-f]{32}\\.", "role": "promotional"}]}
+        page = (
+            page.split('data-ssr="true">', 1)[0]
+            + 'data-ssr="true">'
+            + json.dumps(payload)
+            + "</script>"
+            + page.split('data-ssr="true">', 1)[1].split("</script>", 1)[1]
+        )
+        network = FakeNetwork(
+            {
+                "https://www.taptap.cn/app/7082": {"text": page},
+                f"{base}{token}.png": {"bytes": shot_png, "content_type": "image/png"},
+                f"{base}1111c7d8f23cfefc08f151e5de5f0222.jpg": {
+                    "bytes": image_bytes("JPEG", (13, 7)),
+                    "content_type": "image/jpeg",
+                },
+                f"{base}4395ff13f01cca52f28efb2a1694bce9.jpg": {
+                    "bytes": image_bytes("JPEG", (102, 50)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
+        seed = {
+            "id": "official:taptap",
+            "name": "TapTap",
+            "url": "https://www.taptap.cn/app/7082",
+            "platform": "taptap",
+            "adapter": "taptap_app",
+            "params": {"identifier": "com.c4cat.dynamix"},
+            "identity_quotes": ["C4Cat"],
+            "quality": QUALITY,
+            "items": [{"url": "https://www.taptap.cn/app/7082"}],
+            "rules": [
+                {"match": "^screenshot:", "role": "store_screenshot"},
+                {"match": "^banner:[0-9a-f]{32}\\.", "role": "promotional"},
+            ],
+        }
         self.run_family([seed], network)
         found = self.candidates("official:taptap")
         rendition = found["banner:4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg"]
@@ -295,24 +405,33 @@ class TapTapTests(OfficialTestCase):
         self.assertIs(assets[f"screenshot:{token}"]["comparisons"]["bytes_match"], False)
         self.verify()
 
-
     def test_every_trailer_poster_frame_is_accounted_for(self):
         page = text("taptap_app.html")
         head, rest = page.split('data-ssr="true">', 1)
         body, tail = rest.split("</script>", 1)
         payload = json.loads(body)
         app = next(v for v in payload if isinstance(v, dict) and "screenshots" in v)
-        posters = ["https://img-tc.tapimg.com/video-picture/1001/first.jpg",
-                   "https://img-tc.tapimg.com/video-picture/1002/first.jpg"]
+        posters = [
+            "https://img-tc.tapimg.com/video-picture/1001/first.jpg",
+            "https://img-tc.tapimg.com/video-picture/1002/first.jpg",
+        ]
         for url, field in zip(posters, ("thumbnail", "raw_cover")):  # raw_cover: the video's first frame
             base_index = len(payload)
             payload += [{"video": base_index + 1}, {field: base_index + 2}, {"original_url": base_index + 3}, url]
             payload[app["app_videos"]].append(base_index)
         page = head + 'data-ssr="true">' + json.dumps(payload) + "</script>" + tail
         network = FakeNetwork({"https://www.taptap.cn/app/7082": {"text": page}})
-        seed = {"id": "official:taptap", "name": "TapTap", "url": "https://www.taptap.cn/app/7082",
-                "platform": "taptap", "adapter": "taptap_app", "params": {"identifier": "com.c4cat.dynamix"},
-                "quality": QUALITY, "items": [{"url": "https://www.taptap.cn/app/7082"}], "rules": []}
+        seed = {
+            "id": "official:taptap",
+            "name": "TapTap",
+            "url": "https://www.taptap.cn/app/7082",
+            "platform": "taptap",
+            "adapter": "taptap_app",
+            "params": {"identifier": "com.c4cat.dynamix"},
+            "quality": QUALITY,
+            "items": [{"url": "https://www.taptap.cn/app/7082"}],
+            "rules": [],
+        }
         self.run_family([seed], network)
         found = self.candidates("official:taptap")
         for url in posters:
@@ -329,21 +448,43 @@ class TapTapTests(OfficialTestCase):
         base = "https://img-tc.tapimg.com/market/images/"
         page = text("taptap_app.html").replace("1111c7d8f23cfefc08f151e5de5f0222", token)
         play = "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US"
-        shot = ("https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCT"
-                "rsFZTTN7W8hdkJh5yqAkM")
-        network = FakeNetwork({
-            play: {"text": text("google_play_en.html")},
-            f"{GooglePlayTests.P}=s0": {"bytes": image_bytes("PNG", (20, 10)), "content_type": "image/png"},
-            f"{shot}=s0": {"bytes": upload, "content_type": "image/png"},
-            "https://www.taptap.cn/app/7082": {"text": page},
-            f"{base}{token}.jpg": {"bytes": image_bytes("JPEG", (128, 72), (1, 2, 3)), "content_type": "image/jpeg"}})
-        google = {"id": "official:google-play", "name": "Google Play", "platform": "google-play", "url": play,
-                  "adapter": "google_play", "quality": QUALITY, "items": [{"url": play}],
-                  "rules": [{"match": "^screenshot:", "role": "store_screenshot"}]}
-        taptap = {"id": "official:taptap", "name": "TapTap", "url": "https://www.taptap.cn/app/7082",
-                  "platform": "taptap", "adapter": "taptap_app", "params": {"identifier": "com.c4cat.dynamix"},
-                  "quality": QUALITY, "items": [{"url": "https://www.taptap.cn/app/7082"}],
-                  "rules": [{"match": f"^screenshot:{token}$", "role": "store_screenshot"}]}
+        shot = (
+            "https://play-lh.googleusercontent.com/QC8ectWHiiahajhJcvSgsmQH4T5_3dckTukIMeh02gD1oRTQ60M0y8TpJjdpbCT"
+            "rsFZTTN7W8hdkJh5yqAkM"
+        )
+        network = FakeNetwork(
+            {
+                play: {"text": text("google_play_en.html")},
+                f"{GooglePlayTests.P}=s0": {"bytes": image_bytes("PNG", (20, 10)), "content_type": "image/png"},
+                f"{shot}=s0": {"bytes": upload, "content_type": "image/png"},
+                "https://www.taptap.cn/app/7082": {"text": page},
+                f"{base}{token}.jpg": {
+                    "bytes": image_bytes("JPEG", (128, 72), (1, 2, 3)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
+        google = {
+            "id": "official:google-play",
+            "name": "Google Play",
+            "platform": "google-play",
+            "url": play,
+            "adapter": "google_play",
+            "quality": QUALITY,
+            "items": [{"url": play}],
+            "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+        }
+        taptap = {
+            "id": "official:taptap",
+            "name": "TapTap",
+            "url": "https://www.taptap.cn/app/7082",
+            "platform": "taptap",
+            "adapter": "taptap_app",
+            "params": {"identifier": "com.c4cat.dynamix"},
+            "quality": QUALITY,
+            "items": [{"url": "https://www.taptap.cn/app/7082"}],
+            "rules": [{"match": f"^screenshot:{token}$", "role": "store_screenshot"}],
+        }
         self.run_family([google, taptap], network)
         assets = self.manifest()["assets"]
         exact = next(a for a in assets if a["download_url"] == f"{shot}=s0")
@@ -356,27 +497,46 @@ class TapTapTests(OfficialTestCase):
         from primary import runner as runner_module
         from primary.adapters import taptap
 
-        url = ("https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_"
-               "thumbnail_1920x1080.jpg")
+        url = (
+            "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_"
+            "thumbnail_1920x1080.jpg"
+        )
         context = runner_module.AdapterContext(client=None, seed={}, source_id="official:taptap")
-        drafts = taptap.banner_drafts(context, {"rules": [{"match": "^banner:", "role": "promotional"}]},
-                                      {"original_url": url, "width": 1920, "height": 1080}, {url},
-                                      "https://www.taptap.cn/app/7082", {}, [], [])
+        drafts = taptap.banner_drafts(
+            context,
+            {"rules": [{"match": "^banner:", "role": "promotional"}]},
+            {"original_url": url, "width": 1920, "height": 1080},
+            {url},
+            "https://www.taptap.cn/app/7082",
+            {},
+            [],
+            [],
+        )
         self.assertEqual([d.action for d in drafts], ["excluded", "download"])
         self.assertIn("trailer's poster frame", drafts[0].reason)
-        self.assertEqual(drafts[1].file_url,
-                         "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg")
+        self.assertEqual(
+            drafts[1].file_url, "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg"
+        )
 
     def test_a_downscaled_rendition_is_not_called_upscaled(self):
         from primary import runner as runner_module
         from primary.adapters import taptap
 
-        url = ("https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_"
-               "thumbnail_480x270.jpg")
+        url = (
+            "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_"
+            "thumbnail_480x270.jpg"
+        )
         context = runner_module.AdapterContext(client=None, seed={}, source_id="official:taptap")
-        drafts = taptap.banner_drafts(context, {"rules": [{"match": "^banner:", "role": "promotional"}]},
-                                      {"original_url": url, "width": 480, "height": 270}, set(),
-                                      "https://www.taptap.cn/app/7082", {}, [], [])
+        drafts = taptap.banner_drafts(
+            context,
+            {"rules": [{"match": "^banner:", "role": "promotional"}]},
+            {"original_url": url, "width": 480, "height": 270},
+            set(),
+            "https://www.taptap.cn/app/7082",
+            {},
+            [],
+            [],
+        )
         self.assertTrue(drafts[0].reason.startswith("out_of_scope_other: TapTap crop/resize rendition"))
         self.assertIn("888x500 crop shown at 480x270", drafts[0].reason)
 
@@ -385,17 +545,30 @@ class XTimelineTests(OfficialTestCase):
     MEDIA = "https://pbs.twimg.com/media/GoqoEkJW4AA5saO?format=jpg&name=orig"
 
     def network(self, timeline=None):
-        post_url = full_url(x_adapter.API, {"id": "981147690795900928", "lang": "en",
-                                            "token": x_adapter.syndication_token("981147690795900928")})
-        return FakeNetwork({
-            x_adapter.TIMELINE + "c4c4cat": {"text": timeline or text("x_timeline.html")},
-            post_url: {"json": {"__typename": "TweetTombstone"}},
-            self.MEDIA: {"bytes": image_bytes("JPEG", (120, 63)), "content_type": "image/jpeg"}})
+        post_url = full_url(
+            x_adapter.API,
+            {"id": "981147690795900928", "lang": "en", "token": x_adapter.syndication_token("981147690795900928")},
+        )
+        return FakeNetwork(
+            {
+                x_adapter.TIMELINE + "c4c4cat": {"text": timeline or text("x_timeline.html")},
+                post_url: {"json": {"__typename": "TweetTombstone"}},
+                self.MEDIA: {"bytes": image_bytes("JPEG", (120, 63)), "content_type": "image/jpeg"},
+            }
+        )
 
     def seed(self, rules, items=None):
-        return {"id": "official:x", "name": "X", "url": "https://x.com/c4c4cat", "platform": "x", "adapter": "x_post",
-                "params": {"handle": "c4c4cat"}, "quality": QUALITY,
-                "items": items or [{"timeline": "c4c4cat"}, {"post_id": "981147690795900928"}], "rules": rules}
+        return {
+            "id": "official:x",
+            "name": "X",
+            "url": "https://x.com/c4c4cat",
+            "platform": "x",
+            "adapter": "x_post",
+            "params": {"handle": "c4c4cat"},
+            "quality": QUALITY,
+            "items": items or [{"timeline": "c4c4cat"}, {"post_id": "981147690795900928"}],
+            "rules": rules,
+        }
 
     def test_embed_timeline_is_a_sample_and_a_catch_all_rule_admits_nothing_from_it(self):
         network = self.network()
@@ -436,7 +609,7 @@ class XTimelineTests(OfficialTestCase):
         for key in ("full_text", "text"):
             if key in tweet:
                 tweet[key] = "DNXU 2.0 update out now on iOS/Android! New songs for the sequel."
-        page = page[:match.start(2)] + json.dumps(data) + page[match.end(2):]
+        page = page[: match.start(2)] + json.dumps(data) + page[match.end(2) :]
         seeds = runner.load_seeds(runner.SEEDS_DIR / "official.json", "official")
         seed = {**next(s for s in seeds if s["id"] == "official:x"), "items": [{"timeline": "c4c4cat"}]}
         network = self.network(page)
@@ -473,11 +646,15 @@ class ClassificationSeedTests(unittest.TestCase):
         self.assertGreater(cited, 10)
 
     def test_the_package_lovely_lineup_card_is_a_mapped_reference(self):
-        rule = next(rule for source_id, rule in self.rules()
-                    if source_id == "official:youtube" and rule.get("match") == "^Q4A5Wg5CViM$")
+        rule = next(
+            rule
+            for source_id, rule in self.rules()
+            if source_id == "official:youtube" and rule.get("match") == "^Q4A5Wg5CViM$"
+        )
         self.assertEqual((rule["role"], rule["mapping_status"]), ("reference", "inferred"))
-        self.assertEqual(rule["song_titles"], ["Crystal Ribbon", "Heart Eyes", "Super Macaron",
-                                               "White Chocolate (dynamix edit)"])
+        self.assertEqual(
+            rule["song_titles"], ["Crystal Ribbon", "Heart Eyes", "Super Macaron", "White Chocolate (dynamix edit)"]
+        )
         self.assertTrue(all(entry["note"].startswith("visual_inspection") for entry in rule["mapping_evidence"]))
 
 
@@ -486,24 +663,43 @@ class YouTubeTests(OfficialTestCase):
     VIDEO = "FInFw2lVz_I"
 
     def seed(self, items, rules=None):
-        return {"id": "official:youtube", "name": "YouTube", "url": self.CHANNEL, "platform": "youtube",
-                "adapter": "youtube_video", "params": {"channel_url": self.CHANNEL},
-                "quality": {**QUALITY, "source_variant": "preview"}, "items": items,
-                "rules": rules if rules is not None else [
-                    {"match": "^FInFw2lVz_I$", "role": "promotional", "evidence_quotes": ["Package Vocal"],
-                     "collections": ["Package Vocal"]},
-                    {"match": "^channel:banner$", "role": "promotional"},
-                    {"match": "^channel:avatar$", "action": "exclude", "reason": "site_ui: company logo"}]}
+        return {
+            "id": "official:youtube",
+            "name": "YouTube",
+            "url": self.CHANNEL,
+            "platform": "youtube",
+            "adapter": "youtube_video",
+            "params": {"channel_url": self.CHANNEL},
+            "quality": {**QUALITY, "source_variant": "preview"},
+            "items": items,
+            "rules": rules
+            if rules is not None
+            else [
+                {
+                    "match": "^FInFw2lVz_I$",
+                    "role": "promotional",
+                    "evidence_quotes": ["Package Vocal"],
+                    "collections": ["Package Vocal"],
+                },
+                {"match": "^channel:banner$", "role": "promotional"},
+                {"match": "^channel:avatar$", "action": "exclude", "reason": "site_ui: company logo"},
+            ],
+        }
 
     def oembed_url(self, video):
         return full_url(youtube.OEMBED, {"url": f"https://www.youtube.com/watch?v={video}", "format": "json"})
 
     def test_largest_generated_thumbnail_with_fallback(self):
-        routes = {self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
-                  youtube.thumbnail(self.VIDEO, "maxresdefault"): {
-                      "error": net.HttpError("HTTP 404", url="https://i.ytimg.com/", http_status=404)},
-                  youtube.thumbnail(self.VIDEO, "sddefault"): {"bytes": image_bytes("JPEG", (64, 48)),
-                                                               "content_type": "image/jpeg"}}
+        routes = {
+            self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
+            youtube.thumbnail(self.VIDEO, "maxresdefault"): {
+                "error": net.HttpError("HTTP 404", url="https://i.ytimg.com/", http_status=404)
+            },
+            youtube.thumbnail(self.VIDEO, "sddefault"): {
+                "bytes": image_bytes("JPEG", (64, 48)),
+                "content_type": "image/jpeg",
+            },
+        }
         network = FakeNetwork(routes)
         self.run_family([self.seed([{"video_id": self.VIDEO}])], network)
         candidate = self.candidates("official:youtube")[self.VIDEO]
@@ -545,12 +741,18 @@ class YouTubeTests(OfficialTestCase):
     def test_a_private_video_refused_by_oembed_does_not_block_the_other_videos(self):
         private = "AAAAAAAAAAA"
         rules = [{"match": "^(FInFw2lVz_I|AAAAAAAAAAA)$", "role": "promotional"}]
-        network = FakeNetwork({
-            self.oembed_url(private): {"error": net.BlockedError("access refused (HTTP 401)", url=youtube.OEMBED,
-                                                                 http_status=401)},
-            self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
-            youtube.thumbnail(self.VIDEO, "maxresdefault"): {"bytes": image_bytes("JPEG", (64, 36)),
-                                                             "content_type": "image/jpeg"}})
+        network = FakeNetwork(
+            {
+                self.oembed_url(private): {
+                    "error": net.BlockedError("access refused (HTTP 401)", url=youtube.OEMBED, http_status=401)
+                },
+                self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
+                youtube.thumbnail(self.VIDEO, "maxresdefault"): {
+                    "bytes": image_bytes("JPEG", (64, 36)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
         self.run_family([self.seed([{"video_id": private}, {"video_id": self.VIDEO}], rules)], network)
         found = self.candidates("official:youtube")
         self.assertEqual(found[private]["disposition"], "failed")
@@ -563,8 +765,10 @@ class YouTubeTests(OfficialTestCase):
 
     def test_repeated_oembed_refusals_block_the_host(self):
         videos = ["AAAAAAAAAAA", "BBBBBBBBBBB", "CCCCCCCCCCC", "DDDDDDDDDDD", self.VIDEO]
-        routes = {self.oembed_url(video): {"error": net.BlockedError("HTTP 403", url=youtube.OEMBED, http_status=403)}
-                  for video in videos}
+        routes = {
+            self.oembed_url(video): {"error": net.BlockedError("HTTP 403", url=youtube.OEMBED, http_status=403)}
+            for video in videos
+        }
         network = FakeNetwork(routes)
         rules = [{"match": ".*", "role": "promotional"}]
         self.run_family([self.seed([{"video_id": video} for video in videos], rules)], network)
@@ -576,11 +780,17 @@ class YouTubeTests(OfficialTestCase):
 
     def test_resume_reuses_an_archived_fallback_rendition_without_requests(self):
         def routes():
-            return {self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
-                    youtube.thumbnail(self.VIDEO, "maxresdefault"): {
-                        "error": net.HttpError("HTTP 404", url="https://i.ytimg.com/", http_status=404)},
-                    youtube.thumbnail(self.VIDEO, "sddefault"): {"bytes": image_bytes("JPEG", (64, 48)),
-                                                                 "content_type": "image/jpeg"}}
+            return {
+                self.oembed_url(self.VIDEO): {"json": json.loads(text("youtube_oembed.json"))},
+                youtube.thumbnail(self.VIDEO, "maxresdefault"): {
+                    "error": net.HttpError("HTTP 404", url="https://i.ytimg.com/", http_status=404)
+                },
+                youtube.thumbnail(self.VIDEO, "sddefault"): {
+                    "bytes": image_bytes("JPEG", (64, 48)),
+                    "content_type": "image/jpeg",
+                },
+            }
+
         seed = self.seed([{"video_id": self.VIDEO}])
         self.run_family([seed], FakeNetwork(routes()))
         before = self.manifest()["assets"][0]
@@ -596,10 +806,15 @@ class YouTubeTests(OfficialTestCase):
     def test_channel_art_needs_the_image_on_the_channel_page(self):
         banner = "https://yt3.googleusercontent.com/" + "B" * 40
         avatar = "https://yt3.googleusercontent.com/" + "A" * 40
-        network = FakeNetwork({self.CHANNEL: {"text": f"<title>C4 Cat - YouTube</title> {'B' * 40}=w1060"},
-                               f"{banner}=s0": {"bytes": image_bytes("JPEG", (80, 45)), "content_type": "image/jpeg"}})
-        self.run_family([self.seed([{"channel_art": "banner", "url": banner},
-                                    {"channel_art": "avatar", "url": avatar}])], network)
+        network = FakeNetwork(
+            {
+                self.CHANNEL: {"text": f"<title>C4 Cat - YouTube</title> {'B' * 40}=w1060"},
+                f"{banner}=s0": {"bytes": image_bytes("JPEG", (80, 45)), "content_type": "image/jpeg"},
+            }
+        )
+        self.run_family(
+            [self.seed([{"channel_art": "banner", "url": banner}, {"channel_art": "avatar", "url": avatar}])], network
+        )
         found = self.candidates("official:youtube")
         self.assertEqual(found["channel:banner"]["disposition"], "downloaded")
         self.assertEqual(found["channel:avatar"]["disposition"], "pending")  # not on the page: never admitted
@@ -617,21 +832,43 @@ class YouTubeTests(OfficialTestCase):
 
 class FacebookTests(OfficialTestCase):
     POST = "https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/"
-    IMAGE = ("https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/474475887_2672744962912332_8069806985176556266_n.jpg"
-             "?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=104&ccb=1-7&_nc_sid=cae128&oh=00_AfTest"
-             "&oe=68000000")
+    IMAGE = (
+        "https://scontent-sjc6-1.xx.fbcdn.net/v/t39.30808-6/474475887_2672744962912332_8069806985176556266_n.jpg"
+        "?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=p600x600&_nc_cat=104&ccb=1-7&_nc_sid=cae128&oh=00_AfTest"
+        "&oe=68000000"
+    )
 
     def seed(self, items, rules=None):
-        return {"id": "official:facebook", "name": "Facebook", "url": "https://www.facebook.com/c4cat.dynamix/",
-                "platform": "facebook", "adapter": "facebook_post", "params": {"page": "c4cat.dynamix"},
-                "quality": {**QUALITY, "source_variant": "preview"}, "rights": {"holder": "C4Cat Entertainment Limited"},
-                "items": items, "rules": rules if rules is not None else [
-                    {"match": "^1848526438667526$", "role": "reference", "evidence_quotes": ["Own The Night"],
-                     "song_titles": ["Own The Night", "Arty Party"], "mapping_status": "confirmed_primary"}]}
+        return {
+            "id": "official:facebook",
+            "name": "Facebook",
+            "url": "https://www.facebook.com/c4cat.dynamix/",
+            "platform": "facebook",
+            "adapter": "facebook_post",
+            "params": {"page": "c4cat.dynamix"},
+            "quality": {**QUALITY, "source_variant": "preview"},
+            "rights": {"holder": "C4Cat Entertainment Limited"},
+            "items": items,
+            "rules": rules
+            if rules is not None
+            else [
+                {
+                    "match": "^1848526438667526$",
+                    "role": "reference",
+                    "evidence_quotes": ["Own The Night"],
+                    "song_titles": ["Own The Night", "Arty Party"],
+                    "mapping_status": "confirmed_primary",
+                }
+            ],
+        }
 
     def test_open_graph_image_of_a_permalink(self):
-        network = FakeNetwork({self.POST: {"text": text("facebook_post.html")},
-                               self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
+        network = FakeNetwork(
+            {
+                self.POST: {"text": text("facebook_post.html")},
+                self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"},
+            }
+        )
         self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
         candidate = self.candidates("official:facebook")["1848526438667526"]
         self.assertEqual(candidate["disposition"], "downloaded")
@@ -648,12 +885,23 @@ class FacebookTests(OfficialTestCase):
         self.verify()
 
     def test_the_open_graph_note_appears_once_with_item_and_rule_notes(self):
-        rules = [{"match": "^1848526438667526$", "role": "reference", "evidence_quotes": ["Own The Night"],
-                  "candidate_notes": "Comeback card."}]
-        network = FakeNetwork({self.POST: {"text": text("facebook_post.html")},
-                               self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
-        self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST, "notes": "Item note."}], rules)],
-                        network)
+        rules = [
+            {
+                "match": "^1848526438667526$",
+                "role": "reference",
+                "evidence_quotes": ["Own The Night"],
+                "candidate_notes": "Comeback card.",
+            }
+        ]
+        network = FakeNetwork(
+            {
+                self.POST: {"text": text("facebook_post.html")},
+                self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"},
+            }
+        )
+        self.run_family(
+            [self.seed([{"key": "1848526438667526", "url": self.POST, "notes": "Item note."}], rules)], network
+        )
         notes = self.manifest()["assets"][0]["notes"]
         self.assertEqual(notes.count("Open Graph image of"), 1, notes)
         self.assertEqual(notes.count("Comeback card."), 1, notes)
@@ -661,14 +909,23 @@ class FacebookTests(OfficialTestCase):
         self.verify()
 
     def resign(self, page, oh, oe):
-        return (page.replace("oh=00_AfTest&amp;oe=68000000", f"oh={oh}&amp;oe={oe}"),
-                self.IMAGE.replace("oh=00_AfTest&oe=68000000", f"oh={oh}&oe={oe}"))
+        return (
+            page.replace("oh=00_AfTest&amp;oe=68000000", f"oh={oh}&amp;oe={oe}"),
+            self.IMAGE.replace("oh=00_AfTest&oe=68000000", f"oh={oh}&oe={oe}"),
+        )
 
     def test_resume_reuses_the_archive_when_only_the_signature_changed(self):
         img = image_bytes("JPEG", (60, 34))
         seed = self.seed([{"key": "1848526438667526", "url": self.POST}])
-        self.run_family([seed], FakeNetwork({self.POST: {"text": text("facebook_post.html")},
-                                             self.IMAGE: {"bytes": img, "content_type": "image/jpeg"}}))
+        self.run_family(
+            [seed],
+            FakeNetwork(
+                {
+                    self.POST: {"text": text("facebook_post.html")},
+                    self.IMAGE: {"bytes": img, "content_type": "image/jpeg"},
+                }
+            ),
+        )
         before = self.manifest()["assets"][0]
         page, signed = self.resign(text("facebook_post.html"), "00_AfOther", "69000000")
         network = FakeNetwork({self.POST: {"text": page}, signed: {"bytes": img, "content_type": "image/jpeg"}})
@@ -690,13 +947,26 @@ class FacebookTests(OfficialTestCase):
     def test_refetched_identical_bytes_keep_one_fetch_s_url_target_and_time(self):
         img = image_bytes("JPEG", (60, 34))
         seed = self.seed([{"key": "1848526438667526", "url": self.POST}])
-        self.run_family([seed], FakeNetwork({self.POST: {"text": text("facebook_post.html")},
-                                             self.IMAGE: {"bytes": img, "content_type": "image/jpeg"}}))
+        self.run_family(
+            [seed],
+            FakeNetwork(
+                {
+                    self.POST: {"text": text("facebook_post.html")},
+                    self.IMAGE: {"bytes": img, "content_type": "image/jpeg"},
+                }
+            ),
+        )
         before = self.manifest()["assets"][0]
         page, signed = self.resign(text("facebook_post.html"), "00_AfOther", "69000000")
         network = FakeNetwork({self.POST: {"text": page}, signed: {"bytes": img, "content_type": "image/jpeg"}})
-        acquisition = runner.Runner(self.root, "official", [seed], client_factory=network.factory,
-                                    now=lambda: "2026-10-11T08:00:00Z", sleep=lambda s: None)
+        acquisition = runner.Runner(
+            self.root,
+            "official",
+            [seed],
+            client_factory=network.factory,
+            now=lambda: "2026-10-11T08:00:00Z",
+            sleep=lambda s: None,
+        )
         acquisition.run()  # a refresh without --resume downloads again
         self.assertEqual(network.count("scontent-sjc6-1.xx.fbcdn.net"), 1)
         after = self.manifest()["assets"][0]
@@ -709,15 +979,20 @@ class FacebookTests(OfficialTestCase):
     def test_mime_follows_the_requested_rendition_not_the_upload_name(self):
         png_named = self.IMAGE.replace("_n.jpg?", "_n.png?")
         page = text("facebook_post.html").replace("_n.jpg?", "_n.png?")
-        network = FakeNetwork({self.POST: {"text": page},
-                               png_named: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
+        network = FakeNetwork(
+            {
+                self.POST: {"text": page},
+                png_named: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"},
+            }
+        )
         self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
         asset = self.manifest()["assets"][0]
         self.assertEqual(asset["source_reported"]["mime"], "image/jpeg")  # stp=dst-jpg_tt6
         self.assertIs(asset["comparisons"]["format_match"], True)
         self.assertIn("ends in .png", asset["notes"])
-        self.assertEqual(facebook.rendition_mime("https://x.fbcdn.net/v/a_n.png?stp=c0.5.1_dst-png_s206x206"),
-                         "image/png")
+        self.assertEqual(
+            facebook.rendition_mime("https://x.fbcdn.net/v/a_n.png?stp=c0.5.1_dst-png_s206x206"), "image/png"
+        )
         self.assertIsNone(facebook.rendition_mime("https://x.fbcdn.net/v/a_n.jpg?_nc_cat=1"))
         self.verify()
 
@@ -733,8 +1008,13 @@ class FacebookTests(OfficialTestCase):
         self.verify()
 
     def test_curated_exclusion_applies_to_a_post_without_an_image(self):
-        rules = [{"match": "^1848526438667526$", "action": "exclude",
-                  "reason": "out_of_scope_other: text-only post (submission rules); no image"}]
+        rules = [
+            {
+                "match": "^1848526438667526$",
+                "action": "exclude",
+                "reason": "out_of_scope_other: text-only post (submission rules); no image",
+            }
+        ]
         network = FakeNetwork({self.POST: {"text": text("facebook_shell.html")}})
         self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}], rules)], network)
         candidate = self.candidates("official:facebook")["1848526438667526"]
@@ -746,16 +1026,27 @@ class FacebookTests(OfficialTestCase):
         login = "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fc4cat.dynamix%2Fphotos%2F1%2F"
         photo = "https://www.facebook.com/c4cat.dynamix/photos/a.1/1/"
         video = "https://www.facebook.com/c4cat.dynamix/videos/258082247123314"
-        reel = text("facebook_post.html").replace(
-            "https://www.facebook.com/c4cat.dynamix/posts/comeback-track-event/1848526438667526/",
-            "https://www.facebook.com/reel/258082247123314/").replace(
-            "<title>Dynamix - [Comeback", "<title>47 reactions | [Comeback")
-        network = FakeNetwork({photo: {"text": text("facebook_shell.html"), "final_url": login},
-                               video: {"text": reel, "final_url": "https://www.facebook.com/reel/258082247123314/"},
-                               self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"}})
-        rules = [{"match": "^(1|258082247123314)$", "role": "gameplay_screenshot", "evidence_quotes": ["Own The Night"]}]
-        self.run_family([self.seed([{"key": "1", "url": photo}, {"key": "258082247123314", "url": video}], rules)],
-                        network)
+        reel = (
+            text("facebook_post.html")
+            .replace(
+                "https://www.facebook.com/c4cat.dynamix/posts/comeback-track-event/1848526438667526/",
+                "https://www.facebook.com/reel/258082247123314/",
+            )
+            .replace("<title>Dynamix - [Comeback", "<title>47 reactions | [Comeback")
+        )
+        network = FakeNetwork(
+            {
+                photo: {"text": text("facebook_shell.html"), "final_url": login},
+                video: {"text": reel, "final_url": "https://www.facebook.com/reel/258082247123314/"},
+                self.IMAGE: {"bytes": image_bytes("JPEG", (60, 34)), "content_type": "image/jpeg"},
+            }
+        )
+        rules = [
+            {"match": "^(1|258082247123314)$", "role": "gameplay_screenshot", "evidence_quotes": ["Own The Night"]}
+        ]
+        self.run_family(
+            [self.seed([{"key": "1", "url": photo}, {"key": "258082247123314", "url": video}], rules)], network
+        )
         found = self.candidates("official:facebook")
         self.assertEqual(found["1"]["disposition"], "blocked")
         self.assertIn("login page", found["1"]["reason"])
@@ -766,8 +1057,9 @@ class FacebookTests(OfficialTestCase):
         self.verify()
 
     def test_permalink_leaving_the_page_is_held(self):
-        page = text("facebook_post.html").replace("https://www.facebook.com/c4cat.dynamix/posts/",
-                                                  "https://www.facebook.com/someone.else/posts/")
+        page = text("facebook_post.html").replace(
+            "https://www.facebook.com/c4cat.dynamix/posts/", "https://www.facebook.com/someone.else/posts/"
+        )
         network = FakeNetwork({self.POST: {"text": page}})
         self.run_family([self.seed([{"key": "1848526438667526", "url": self.POST}])], network)
         candidate = self.candidates("official:facebook")["1848526438667526"]
@@ -789,11 +1081,24 @@ class FacebookTests(OfficialTestCase):
 
 class ProbeAndRegistryTests(OfficialTestCase):
     def test_dns_failure_is_temporarily_unavailable(self):
-        network = FakeNetwork({"https://dynamix.c4-cat.com/": {"error": net.ConnectionFetchError(
-            "cannot resolve dynamix.c4-cat.com", url="https://dynamix.c4-cat.com/")}})
-        seed = {"id": "official:website", "name": "Website", "url": "https://dynamix.c4-cat.com/", "platform": "web",
-                "adapter": "page_probe", "hosts": ["dynamix.c4-cat.com"],
-                "items": [{"url": "https://dynamix.c4-cat.com/"}]}
+        network = FakeNetwork(
+            {
+                "https://dynamix.c4-cat.com/": {
+                    "error": net.ConnectionFetchError(
+                        "cannot resolve dynamix.c4-cat.com", url="https://dynamix.c4-cat.com/"
+                    )
+                }
+            }
+        )
+        seed = {
+            "id": "official:website",
+            "name": "Website",
+            "url": "https://dynamix.c4-cat.com/",
+            "platform": "web",
+            "adapter": "page_probe",
+            "hosts": ["dynamix.c4-cat.com"],
+            "items": [{"url": "https://dynamix.c4-cat.com/"}],
+        }
         self.run_family([seed], network)
         source = self.manifest()["sources"][0]
         self.assertEqual(source["status"], "temporarily_unavailable")
@@ -805,26 +1110,58 @@ class ProbeAndRegistryTests(OfficialTestCase):
         self.verify()
 
     def test_login_wall_probe_keeps_the_feed_open(self):
-        network = FakeNetwork({"https://www.facebook.com/c4cat.dynamix/": {"error": net.BlockedError(
-            "HTTP 403", url="https://www.facebook.com/c4cat.dynamix/", http_status=403)}})
-        seed = {"id": "official:facebook", "name": "Facebook", "url": "https://www.facebook.com/c4cat.dynamix/",
-                "platform": "facebook", "adapter": "page_probe", "hosts": ["www.facebook.com"],
-                "unenumerated_lists": {"page-timeline": "login wall"},
-                "items": [{"url": "https://www.facebook.com/c4cat.dynamix/"}]}
+        network = FakeNetwork(
+            {
+                "https://www.facebook.com/c4cat.dynamix/": {
+                    "error": net.BlockedError(
+                        "HTTP 403", url="https://www.facebook.com/c4cat.dynamix/", http_status=403
+                    )
+                }
+            }
+        )
+        seed = {
+            "id": "official:facebook",
+            "name": "Facebook",
+            "url": "https://www.facebook.com/c4cat.dynamix/",
+            "platform": "facebook",
+            "adapter": "page_probe",
+            "hosts": ["www.facebook.com"],
+            "unenumerated_lists": {"page-timeline": "login wall"},
+            "items": [{"url": "https://www.facebook.com/c4cat.dynamix/"}],
+        }
         self.run_family([seed], network)
         source = self.manifest()["sources"][0]
-        self.assertEqual((source["status"], source["evidence_level"], source["discovery_complete"]),
-                         ("manual_access", "blocked", False))
+        self.assertEqual(
+            (source["status"], source["evidence_level"], source["discovery_complete"]),
+            ("manual_access", "blocked", False),
+        )
         self.verify()
 
     def test_registry_sources_make_no_request(self):
         network = FakeNetwork({})
-        seed = {"id": "official:official-leads", "name": "Leads", "url": "https://dynamix.c4-cat.com/",
-                "platform": "registry", "adapter": "lead_registry",
-                "items": [{"key": "qooapp:237", "page_url": "https://apps.qoo-app.com/en/app/237", "title": "QooApp",
-                           "disposition": "excluded", "reason": "out_of_scope_other: mirror"},
-                          {"key": "fb:login", "page_url": "https://www.facebook.com/c4cat.dynamix/", "title": "FB",
-                           "disposition": "blocked", "reason": "blocked: login wall"}]}
+        seed = {
+            "id": "official:official-leads",
+            "name": "Leads",
+            "url": "https://dynamix.c4-cat.com/",
+            "platform": "registry",
+            "adapter": "lead_registry",
+            "items": [
+                {
+                    "key": "qooapp:237",
+                    "page_url": "https://apps.qoo-app.com/en/app/237",
+                    "title": "QooApp",
+                    "disposition": "excluded",
+                    "reason": "out_of_scope_other: mirror",
+                },
+                {
+                    "key": "fb:login",
+                    "page_url": "https://www.facebook.com/c4cat.dynamix/",
+                    "title": "FB",
+                    "disposition": "blocked",
+                    "reason": "blocked: login wall",
+                },
+            ],
+        }
         self.run_family([seed], network)
         self.assertEqual(network.calls, [])
         self.assertEqual(network.factories, [])  # no network client was even created
@@ -837,13 +1174,29 @@ class ProbeAndRegistryTests(OfficialTestCase):
     def test_awaiting_download_needs_a_file_url(self):
         # 09: awaiting_download is an admitted candidate with a known file URL; a lead with nothing to fetch is
         # unresolved_role. The registry rejects such a seed item, and --verify rejects such a candidate.
-        lead = {"key": "x:gone", "page_url": "https://x.com/gone", "title": "Deleted account",
-                "disposition": "pending", "reason": "unresolved_role: every archived status is a TweetTombstone"}
-        upload = {"key": "file:known", "page_url": "https://example.org/page", "title": "Known file",
-                  "file_url": "https://example.org/a.png", "disposition": "pending",
-                  "reason": "awaiting_download: not fetched yet"}
-        seed = {"id": "official:official-leads", "name": "Leads", "url": "https://dynamix.c4-cat.com/",
-                "platform": "registry", "adapter": "lead_registry", "items": [lead, upload]}
+        lead = {
+            "key": "x:gone",
+            "page_url": "https://x.com/gone",
+            "title": "Deleted account",
+            "disposition": "pending",
+            "reason": "unresolved_role: every archived status is a TweetTombstone",
+        }
+        upload = {
+            "key": "file:known",
+            "page_url": "https://example.org/page",
+            "title": "Known file",
+            "file_url": "https://example.org/a.png",
+            "disposition": "pending",
+            "reason": "awaiting_download: not fetched yet",
+        }
+        seed = {
+            "id": "official:official-leads",
+            "name": "Leads",
+            "url": "https://dynamix.c4-cat.com/",
+            "platform": "registry",
+            "adapter": "lead_registry",
+            "items": [lead, upload],
+        }
         with self.assertRaisesRegex(ValueError, "needs its file_url"):
             registry_adapter.check_seed({**seed, "items": [{**lead, "reason": "awaiting_download: nothing"}]}, "s")
         self.run_family([seed], FakeNetwork({}))
@@ -855,39 +1208,83 @@ class ProbeAndRegistryTests(OfficialTestCase):
                 candidate["reason"] = "awaiting_download: every archived status is a TweetTombstone"
         path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         errors, _warnings, _counts = runner.verify_family(self.root, "official")
-        self.assertEqual(errors, ["official:official-leads:x:gone: pending 'awaiting_download' without a file URL "
-                                  "(awaiting_download is an admitted candidate with a known file URL; a lead with no "
-                                  "file to fetch is unresolved_role)"])
+        self.assertEqual(
+            errors,
+            [
+                "official:official-leads:x:gone: pending 'awaiting_download' without a file URL "
+                "(awaiting_download is an admitted candidate with a known file URL; a lead with no "
+                "file to fetch is unresolved_role)"
+            ],
+        )
         # An admitted rule whose item has no file URL is held as unresolved_role, never awaiting_download.
-        draft = model.apply_rule({"match": ".*", "role": "promotional"}, key="k", page_url="https://example.org/",
-                                 texts={}, file_url=None, default_title="t", default_quality=QUALITY,
-                                 default_rights={})
+        draft = model.apply_rule(
+            {"match": ".*", "role": "promotional"},
+            key="k",
+            page_url="https://example.org/",
+            texts={},
+            file_url=None,
+            default_title="t",
+            default_quality=QUALITY,
+            default_rights={},
+        )
         self.assertEqual((draft.action, draft.reason), ("pending", model.NO_FILE_REASON))
         self.assertTrue(draft.reason.startswith("unresolved_role: "))
 
 
 class SoundCloudListTests(OfficialTestCase):
     def sound_page(self, title, artwork):
-        sound = {"title": title, "description": "", "artwork_url": artwork, "created_at": "2017-07-04T16:15:35Z",
-                 "user": {"username": "C4Cat", "permalink": "c4cat"}}
-        return {"text": "<html><head><title>x</title></head><body><script>window.__sc_hydration = "
-                        + json.dumps([{"hydratable": "sound", "data": sound}]) + ";</script></body></html>"}
+        sound = {
+            "title": title,
+            "description": "",
+            "artwork_url": artwork,
+            "created_at": "2017-07-04T16:15:35Z",
+            "user": {"username": "C4Cat", "permalink": "c4cat"},
+        }
+        return {
+            "text": "<html><head><title>x</title></head><body><script>window.__sc_hydration = "
+            + json.dumps([{"hydratable": "sound", "data": sound}])
+            + ";</script></body></html>"
+        }
 
     def test_every_listed_track_is_accounted_for_and_a_partial_list_stays_open(self):
         art = "https://i1.sndcdn.com/artworks-000000000001-aaaaaa-large.jpg"
-        network = FakeNetwork({
-            "https://soundcloud.com/c4cat/tracks": {"text": text("soundcloud_tracks.html")},
-            "https://soundcloud.com/c4cat/le-ciel-heureux-p": self.sound_page("P4koo - Le ciel heureux (Preview)", art),
-            "https://soundcloud.com/c4cat/packer-woo-meeting-in-sky": self.sound_page("Packer Woo - Meeting", art),
-            "https://soundcloud.com/c4cat/package-zhd": self.sound_page("Package ZHD", None),
-            art.replace("-large", "-original"): {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"}})
-        seed = {"id": "official:soundcloud-c4cat", "name": "C4Cat SoundCloud", "url": "https://soundcloud.com/c4cat",
-                "platform": "soundcloud", "adapter": "release_page", "hosts": ["soundcloud.com", ".sndcdn.com"],
-                "params": {"handle": "c4cat"}, "quality": QUALITY,
-                "items": [{"url": "https://soundcloud.com/c4cat/le-ciel-heureux-p", "key": "le-ciel-heureux-p"},
-                          {"tracks_of": "c4cat"}],
-                "rules": [{"match": "^le-ciel-heureux-p$", "role": "song_art", "song_titles": ["Le ciel heureux"],
-                           "mapping_status": "confirmed_primary", "evidence_quotes": ["Le ciel heureux"]}]}
+        network = FakeNetwork(
+            {
+                "https://soundcloud.com/c4cat/tracks": {"text": text("soundcloud_tracks.html")},
+                "https://soundcloud.com/c4cat/le-ciel-heureux-p": self.sound_page(
+                    "P4koo - Le ciel heureux (Preview)", art
+                ),
+                "https://soundcloud.com/c4cat/packer-woo-meeting-in-sky": self.sound_page("Packer Woo - Meeting", art),
+                "https://soundcloud.com/c4cat/package-zhd": self.sound_page("Package ZHD", None),
+                art.replace("-large", "-original"): {
+                    "bytes": image_bytes("JPEG", (30, 30)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
+        seed = {
+            "id": "official:soundcloud-c4cat",
+            "name": "C4Cat SoundCloud",
+            "url": "https://soundcloud.com/c4cat",
+            "platform": "soundcloud",
+            "adapter": "release_page",
+            "hosts": ["soundcloud.com", ".sndcdn.com"],
+            "params": {"handle": "c4cat"},
+            "quality": QUALITY,
+            "items": [
+                {"url": "https://soundcloud.com/c4cat/le-ciel-heureux-p", "key": "le-ciel-heureux-p"},
+                {"tracks_of": "c4cat"},
+            ],
+            "rules": [
+                {
+                    "match": "^le-ciel-heureux-p$",
+                    "role": "song_art",
+                    "song_titles": ["Le ciel heureux"],
+                    "mapping_status": "confirmed_primary",
+                    "evidence_quotes": ["Le ciel heureux"],
+                }
+            ],
+        }
         self.run_family([seed], network)
         snapshot = manifest.load_discovery(self.root, "official:soundcloud-c4cat")
         found = {c["upstream_key"]: c for c in snapshot["candidates"]}
@@ -902,21 +1299,47 @@ class SoundCloudListTests(OfficialTestCase):
 
 
 class IsolationTests(OfficialTestCase):
-    REGISTRY = {"id": "official:official-leads", "name": "Leads", "url": "https://dynamix.c4-cat.com/",
-                "platform": "registry", "adapter": "lead_registry",
-                "items": [{"key": "qooapp:237", "page_url": "https://apps.qoo-app.com/en/app/237", "title": "QooApp",
-                           "disposition": "excluded", "reason": "out_of_scope_other: mirror"}]}
-    WEBSITE = {"id": "official:website", "name": "Website", "url": "https://dynamix.c4-cat.com/", "platform": "web",
-               "adapter": "page_probe", "hosts": ["dynamix.c4-cat.com"],
-               "items": [{"url": "https://dynamix.c4-cat.com/"}]}
+    REGISTRY = {
+        "id": "official:official-leads",
+        "name": "Leads",
+        "url": "https://dynamix.c4-cat.com/",
+        "platform": "registry",
+        "adapter": "lead_registry",
+        "items": [
+            {
+                "key": "qooapp:237",
+                "page_url": "https://apps.qoo-app.com/en/app/237",
+                "title": "QooApp",
+                "disposition": "excluded",
+                "reason": "out_of_scope_other: mirror",
+            }
+        ],
+    }
+    WEBSITE = {
+        "id": "official:website",
+        "name": "Website",
+        "url": "https://dynamix.c4-cat.com/",
+        "platform": "web",
+        "adapter": "page_probe",
+        "hosts": ["dynamix.c4-cat.com"],
+        "items": [{"url": "https://dynamix.c4-cat.com/"}],
+    }
 
     def test_an_adapter_error_is_recorded_and_the_next_source_still_runs(self):
         network = FakeNetwork({"https://dynamix.c4-cat.com/": {"text": "<title>Dynamix</title>"}})
         self.run_family([self.REGISTRY, self.WEBSITE], network)
-        with mock.patch.object(registry_adapter, "discover", side_effect=RuntimeError("unexpected payload")), \
-                mock.patch.object(probe, "discover", wraps=probe.discover) as later:
-            acquisition = runner.Runner(self.root, "official", [self.REGISTRY, self.WEBSITE],
-                                        client_factory=network.factory, now=lambda: FIXED_NOW, sleep=lambda s: None)
+        with (
+            mock.patch.object(registry_adapter, "discover", side_effect=RuntimeError("unexpected payload")),
+            mock.patch.object(probe, "discover", wraps=probe.discover) as later,
+        ):
+            acquisition = runner.Runner(
+                self.root,
+                "official",
+                [self.REGISTRY, self.WEBSITE],
+                client_factory=network.factory,
+                now=lambda: FIXED_NOW,
+                sleep=lambda s: None,
+            )
             acquisition.run()
         self.assertEqual(later.call_count, 1)  # the source after the failing one was still processed
         self.assertIn("RuntimeError", acquisition.source_errors["official:official-leads"])
@@ -933,14 +1356,26 @@ class IsolationTests(OfficialTestCase):
 
     def test_an_unexpected_download_error_fails_only_that_candidate(self):
         page = "https://dynamix.c4-cat.com/press"
-        seed = {"id": "official:website", "name": "Website", "url": page, "platform": "web",
-                "adapter": "direct_files", "hosts": ["dynamix.c4-cat.com"], "quality": QUALITY,
-                "items": [{"key": "a", "page_url": page, "file_url": "https://dynamix.c4-cat.com/a.png"},
-                          {"key": "b", "page_url": page, "file_url": "https://dynamix.c4-cat.com/b.png"}],
-                "rules": [{"match": "^[ab]$", "role": "promotional"}]}
-        network = FakeNetwork({
-            "https://dynamix.c4-cat.com/a.png": {"bytes": image_bytes(), "content_type": "image/png"},
-            "https://dynamix.c4-cat.com/b.png": {"bytes": image_bytes("PNG", (9, 9)), "content_type": "image/png"}})
+        seed = {
+            "id": "official:website",
+            "name": "Website",
+            "url": page,
+            "platform": "web",
+            "adapter": "direct_files",
+            "hosts": ["dynamix.c4-cat.com"],
+            "quality": QUALITY,
+            "items": [
+                {"key": "a", "page_url": page, "file_url": "https://dynamix.c4-cat.com/a.png"},
+                {"key": "b", "page_url": page, "file_url": "https://dynamix.c4-cat.com/b.png"},
+            ],
+            "rules": [{"match": "^[ab]$", "role": "promotional"}],
+        }
+        network = FakeNetwork(
+            {
+                "https://dynamix.c4-cat.com/a.png": {"bytes": image_bytes(), "content_type": "image/png"},
+                "https://dynamix.c4-cat.com/b.png": {"bytes": image_bytes("PNG", (9, 9)), "content_type": "image/png"},
+            }
+        )
         original = runner.Runner._resolve_download
 
         def flaky(self, state, client, draft):
@@ -969,15 +1404,25 @@ class CliTests(OfficialTestCase):
             self.assertEqual(code, 0, out.getvalue())
         else:
             self.assertEqual(code, 1, out.getvalue())
-            self.assertEqual([line.strip() for line in out.getvalue().splitlines() if "ERROR" in line],
-                             ["ERROR: official:apple-store: no valid discovery snapshot at "
-                              "data/discovery/apple-store.json"])
+            self.assertEqual(
+                [line.strip() for line in out.getvalue().splitlines() if "ERROR" in line],
+                ["ERROR: official:apple-store: no valid discovery snapshot at data/discovery/apple-store.json"],
+            )
         shutil.copytree(fixture, self.root / "contract")
-        manifest.write_json_atomic(self.root / "contract/data/discovery/apple-store.json", {
-            "schema_version": 1, "source_id": "official:apple-store", "started_at": FIXED_NOW, "finished_at": FIXED_NOW,
-            "scope": {"lists": ["product-media-shelves"], "api": None, "notes": "test"},
-            "continuation": {"product-media-shelves": "not-read:test"}, "discovery_complete": False,
-            "candidates": [], "errors": []})
+        manifest.write_json_atomic(
+            self.root / "contract/data/discovery/apple-store.json",
+            {
+                "schema_version": 1,
+                "source_id": "official:apple-store",
+                "started_at": FIXED_NOW,
+                "finished_at": FIXED_NOW,
+                "scope": {"lists": ["product-media-shelves"], "api": None, "notes": "test"},
+                "continuation": {"product-media-shelves": "not-read:test"},
+                "discovery_complete": False,
+                "candidates": [],
+                "errors": [],
+            },
+        )
         out = io.StringIO()
         with redirect_stdout(out):
             code = cli.main("official", ["--verify", "--root", str(self.root / "contract")])
@@ -1031,16 +1476,38 @@ class CliTests(OfficialTestCase):
 
     def test_verify_reports_seed_sources_without_a_record(self):
         seeds_path = self.root / "official-seeds.json"
-        seeds_path.write_text(json.dumps({"family": "official", "sources": [
-            {"id": "official:website", "name": "Website", "url": "https://dynamix.c4-cat.com/", "platform": "web",
-             "adapter": "page_probe", "hosts": ["dynamix.c4-cat.com"],
-             "items": [{"url": "https://dynamix.c4-cat.com/"}]},
-            {"id": "official:c4cat", "name": "C4Cat", "url": "https://c4-cat.com/", "platform": "web",
-             "adapter": "page_probe", "hosts": ["c4-cat.com"], "items": [{"url": "https://c4-cat.com/"}]}]}),
-            encoding="utf-8")
+        seeds_path.write_text(
+            json.dumps(
+                {
+                    "family": "official",
+                    "sources": [
+                        {
+                            "id": "official:website",
+                            "name": "Website",
+                            "url": "https://dynamix.c4-cat.com/",
+                            "platform": "web",
+                            "adapter": "page_probe",
+                            "hosts": ["dynamix.c4-cat.com"],
+                            "items": [{"url": "https://dynamix.c4-cat.com/"}],
+                        },
+                        {
+                            "id": "official:c4cat",
+                            "name": "C4Cat",
+                            "url": "https://c4-cat.com/",
+                            "platform": "web",
+                            "adapter": "page_probe",
+                            "hosts": ["c4-cat.com"],
+                            "items": [{"url": "https://c4-cat.com/"}],
+                        },
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
         network = FakeNetwork({"https://dynamix.c4-cat.com/": {"text": "<title>Dynamix</title>"}})
-        self.run_family([s for s in runner.load_seeds(seeds_path, "official") if s["id"] == "official:website"],
-                        network)
+        self.run_family(
+            [s for s in runner.load_seeds(seeds_path, "official") if s["id"] == "official:website"], network
+        )
         out = io.StringIO()
         with redirect_stdout(out):
             code = cli.main("official", ["--verify", "--root", str(self.root), "--seeds", str(seeds_path)])

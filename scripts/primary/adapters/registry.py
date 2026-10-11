@@ -21,8 +21,23 @@ from . import base
 HOSTS: list[str] = []
 OFFLINE = True
 DISPOSITIONS = ("excluded", "pending", "blocked")
-ITEM_FIELDS = {"key", "page_url", "file_url", "title", "disposition", "reason", "game", "role", "game_evidence",
-               "song_titles", "illustrators", "composers", "collections", "notes", "observed"}
+ITEM_FIELDS = {
+    "key",
+    "page_url",
+    "file_url",
+    "title",
+    "disposition",
+    "reason",
+    "game",
+    "role",
+    "game_evidence",
+    "song_titles",
+    "illustrators",
+    "composers",
+    "collections",
+    "notes",
+    "observed",
+}
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -44,8 +59,10 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             if prefix not in schema.EXCLUSION_REASONS:
                 raise ValueError(f"{label}: exclusion reason must start with one of {schema.EXCLUSION_REASONS}")
         if model.awaiting_without_file(item):
-            raise ValueError(f"{label}: an awaiting_download item needs its file_url (a lead with no file to fetch "
-                             "is unresolved_role)")
+            raise ValueError(
+                f"{label}: an awaiting_download item needs its file_url (a lead with no file to fetch "
+                "is unresolved_role)"
+            )
         if item.get("game", "unknown") not in schema.GAMES:
             raise ValueError(f"{label}: game must be one of {schema.GAMES}")
         if item.get("role") is not None and item["role"] not in schema.KINDS:
@@ -56,24 +73,42 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=["registry"], evidence_level=seed.get("evidence_level",
-                                                                                    "search_index"),
-                                   scope_notes="Curated research-sweep leads recorded without a request (no file to "
-                                               "acquire, or access already observed as limited).")
+    discovery = base.new_discovery(
+        seed,
+        lists=["registry"],
+        evidence_level=seed.get("evidence_level", "search_index"),
+        scope_notes="Curated research-sweep leads recorded without a request (no file to "
+        "acquire, or access already observed as limited).",
+    )
     for item in seed["items"]:
         reason = item["reason"]
         game = item.get("game", "unknown")
         if item["disposition"] == "excluded":
             game = {"universe_only": "dynamix_universe", "not_dynamix": "not_dynamix"}.get(
-                reason.split(":", 1)[0].strip(), game)
-        notes = " ".join(filter(None, [item.get("notes"), f"Research observation: {item['observed']}"
-                                       if item.get("observed") else None]))
-        draft = model.Draft(upstream_key=item["key"], page_url=item["page_url"], title=item["title"],
-                            action=item["disposition"], file_url=item.get("file_url"), role=item.get("role"),
-                            game=game, game_evidence=list(item.get("game_evidence", [])),
-                            source_reported=base.reported(url=item.get("file_url")), reason=reason)
-        draft.candidate_extra = {name: list(item[name]) for name in ("song_titles", "illustrators", "composers",
-                                                                     "collections") if item.get(name)}
+                reason.split(":", 1)[0].strip(), game
+            )
+        notes = " ".join(
+            filter(
+                None, [item.get("notes"), f"Research observation: {item['observed']}" if item.get("observed") else None]
+            )
+        )
+        draft = model.Draft(
+            upstream_key=item["key"],
+            page_url=item["page_url"],
+            title=item["title"],
+            action=item["disposition"],
+            file_url=item.get("file_url"),
+            role=item.get("role"),
+            game=game,
+            game_evidence=list(item.get("game_evidence", [])),
+            source_reported=base.reported(url=item.get("file_url")),
+            reason=reason,
+        )
+        draft.candidate_extra = {
+            name: list(item[name])
+            for name in ("song_titles", "illustrators", "composers", "collections")
+            if item.get(name)
+        }
         if notes:
             draft.candidate_extra["notes"] = model.clip(notes, 1200)
         discovery.candidates.append(draft)

@@ -36,11 +36,14 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
     for index, item in enumerate(items):
         if isinstance(item, dict) and "tracks_of" in item:
             if not re.fullmatch(r"[a-z0-9_-]+", str(item["tracks_of"])) or "soundcloud.com" not in seed.get(
-                    "hosts", []):
-                raise ValueError(f"{where}: items[{index}].tracks_of must be a SoundCloud permalink "
-                                 "(with host soundcloud.com)")
-        elif not isinstance(item, dict) or not all(isinstance(item.get(k), str) and item[k].strip() for k in ("url",
-                                                                                                           "key")):
+                "hosts", []
+            ):
+                raise ValueError(
+                    f"{where}: items[{index}].tracks_of must be a SoundCloud permalink (with host soundcloud.com)"
+                )
+        elif not isinstance(item, dict) or not all(
+            isinstance(item.get(k), str) and item[k].strip() for k in ("url", "key")
+        ):
             raise ValueError(f"{where}: items[{index}] needs url and key (or tracks_of)")
     if not seed.get("hosts"):
         raise ValueError(f"{where}: hosts (release host and image CDN) are required")
@@ -102,6 +105,7 @@ def account_tracks(handle: str) -> Any:
 
     def covers(candidate: Mapping[str, Any]) -> bool:
         return str(candidate.get("page_url") or "").startswith(prefix)
+
     return covers
 
 
@@ -126,8 +130,10 @@ def listed_items(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery) 
             discovery.errors.append(model.discovery_error("discover", url, f"{name}: no track links found"))
         if total is None or len(tracks) < total:
             discovery.continuation[name] = f"listed-{len(tracks)}-of-{total if total is not None else 'unknown'}"
-            discovery.notes.append(f"{url} rendered {len(tracks)} of {total if total is not None else '?'} tracks on "
-                                   f"{ctx.now()[:10]}; the others are not enumerated.")
+            discovery.notes.append(
+                f"{url} rendered {len(tracks)} of {total if total is not None else '?'} tracks on "
+                f"{ctx.now()[:10]}; the others are not enumerated."
+            )
         for slug in tracks:
             track_url = f"https://soundcloud.com/{handle}/{slug}"
             if track_url not in known:
@@ -138,10 +144,17 @@ def listed_items(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery) 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     lists = [f"tracks:{item['tracks_of']}" for item in seed["items"] if "tracks_of" in item]
-    discovery = base.new_discovery(seed, lists=["seed-pages", *lists],
-                                   scope_notes="Explicit release page URLs" + (
-                                       " plus the tracks the account's /tracks page renders" if lists else
-                                       " only; the artist's catalogue is not enumerated") + ".")
+    discovery = base.new_discovery(
+        seed,
+        lists=["seed-pages", *lists],
+        scope_notes="Explicit release page URLs"
+        + (
+            " plus the tracks the account's /tracks page renders"
+            if lists
+            else " only; the artist's catalogue is not enumerated"
+        )
+        + ".",
+    )
     for item in listed_items(ctx, seed, discovery):
         page_url, key = item["url"], item["key"]
         title = item.get("title") or key
@@ -158,19 +171,29 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         sound = soundcloud_sound(html)
         if sound is not None:
             user = sound.get("user") if isinstance(sound.get("user"), dict) else {}
-            texts.update({"sc.title": str(sound.get("title") or ""), "sc.description": str(
-                sound.get("description") or ""), "sc.user": f"{user.get('username') or ''} "
-                                                            f"({user.get('permalink') or ''})"})
+            texts.update(
+                {
+                    "sc.title": str(sound.get("title") or ""),
+                    "sc.description": str(sound.get("description") or ""),
+                    "sc.user": f"{user.get('username') or ''} ({user.get('permalink') or ''})",
+                }
+            )
             reported_time = sound.get("created_at") if isinstance(sound.get("created_at"), str) else None
             handle = (seed.get("params") or {}).get("handle")
             if handle and str(user.get("permalink") or "").lower() != handle.lower():
                 texts["sc.uploader_mismatch"] = str(user.get("permalink") or "?")
             image = sound.get("artwork_url") if isinstance(sound.get("artwork_url"), str) else None
             if not image:
-                discovery.candidates.append(model.Draft(
-                    upstream_key=key, page_url=page_url, title=texts["sc.title"] or title, action="excluded",
-                    reason="out_of_scope_other: the track has no artwork of its own (SoundCloud shows the "
-                           "uploader avatar)"))
+                discovery.candidates.append(
+                    model.Draft(
+                        upstream_key=key,
+                        page_url=page_url,
+                        title=texts["sc.title"] or title,
+                        action="excluded",
+                        reason="out_of_scope_other: the track has no artwork of its own (SoundCloud shows the "
+                        "uploader avatar)",
+                    )
+                )
                 continue
         for index, block in enumerate(base.json_ld(document)):
             for name in ("name", "description", "creditText", "headline"):
@@ -186,13 +209,24 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         cover = original_cover(advertised)
         rule = model.find_rule(base.rules(seed), key)
         if "sc.uploader_mismatch" in texts:
-            rule = model.hold(rule, f"unresolved_game: uploader {texts['sc.uploader_mismatch']} is not this source's "
-                                    f"account {seed['params']['handle']}")
+            rule = model.hold(
+                rule,
+                f"unresolved_game: uploader {texts['sc.uploader_mismatch']} is not this source's "
+                f"account {seed['params']['handle']}",
+            )
         draft = model.apply_rule(
-            rule, key=key, page_url=page_url, texts=texts, file_url=base.stored(cover),
-            default_title=texts.get("sc.title") or texts.get("og:title") or title, default_quality=ctx.quality,
-            default_rights=ctx.rights, original_filename=base.last_segment(cover) if cover else None,
-            base_evidence=[page_url], source_reported=base.reported(url=advertised, timestamp=reported_time))
+            rule,
+            key=key,
+            page_url=page_url,
+            texts=texts,
+            file_url=base.stored(cover),
+            default_title=texts.get("sc.title") or texts.get("og:title") or title,
+            default_quality=ctx.quality,
+            default_rights=ctx.rights,
+            original_filename=base.last_segment(cover) if cover else None,
+            base_evidence=[page_url],
+            source_reported=base.reported(url=advertised, timestamp=reported_time),
+        )
         if item.get("notes") and "notes" not in draft.candidate_extra:
             draft.candidate_extra["notes"] = item["notes"]
         discovery.candidates.append(draft)

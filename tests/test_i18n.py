@@ -24,13 +24,29 @@ RUNTIME = "src/i18n.js"
 Script = namedtuple("Script", "kind value timing")
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 # Text files of the interface (the vendor bundle is third-party and checked byte for byte in test_layout.py).
-UI_TEXT_FILES = ["archive.html", "templates/slideshow.html", "site.webmanifest", "browserconfig.xml", "assets/site/README.md",
-                 "scripts/render_slideshow.py", "src/i18n.js", "src/archive.js", "src/archive.css", "src/slideshow.css",
-                 "src/i18n/common.js", "src/i18n/archive.js", "src/i18n/slideshow.js"]
+UI_TEXT_FILES = [
+    "archive.html",
+    "templates/slideshow.html",
+    "site.webmanifest",
+    "browserconfig.xml",
+    "assets/site/README.md",
+    "scripts/render_slideshow.py",
+    "src/i18n.js",
+    "src/archive.js",
+    "src/archive.css",
+    "src/slideshow.css",
+    "src/i18n/common.js",
+    "src/i18n/archive.js",
+    "src/i18n/slideshow.js",
+]
 # A line may name DEEMO only to attribute the code it was adapted from.
-ATTRIBUTION = re.compile(r"mashirozx/deemo|FridrichMethod/deemo|DEEMO (?:gallery|reference)|DEEMO 图库|DEEMO 参考", re.IGNORECASE)
+ATTRIBUTION = re.compile(
+    r"mashirozx/deemo|FridrichMethod/deemo|DEEMO (?:gallery|reference)|DEEMO 图库|DEEMO 参考", re.IGNORECASE
+)
 # DEEMO-only names and media that must not reappear in the Dynamix interface.
-FOREIGN = re.compile(r"Rayark|Alice|Hans\b|Fantique|COPRGTL|Coprhtl|RocknRoll|Magnolia|SnowEgg|Sakuzyo|bg\.png|\.mp3|deemo-lang|DEEMO_I18N|DEEMO_CATALOG")
+FOREIGN = re.compile(
+    r"Rayark|Alice|Hans\b|Fantique|COPRGTL|Coprhtl|RocknRoll|Magnolia|SnowEgg|Sakuzyo|bg\.png|\.mp3|deemo-lang|DEEMO_I18N|DEEMO_CATALOG"
+)
 
 
 def message_tables(relative):
@@ -73,24 +89,34 @@ def script_role(script, callers):
 
 def script_order_problems(scripts, callers):
     """Reasons the i18n runtime, the message tables and the code that uses DYNAMIX_I18N might not run in that order."""
+
     def name(script):
         return script.value if script.kind == "src" else f"the inline script {script.value.strip()[:40]!r}"
 
     group = [(script_role(script, callers), script) for script in scripts if script_role(script, callers)]
-    problems = [f"{name(script)} is async, so it may run before or after the others" for _, script in group if script.timing == "async"]
+    problems = [
+        f"{name(script)} is async, so it may run before or after the others"
+        for _, script in group
+        if script.timing == "async"
+    ]
     runtimes = sum(kind == "runtime" for kind, _ in group)
     if runtimes != 1:
         problems.append(f"{RUNTIME} is loaded {runtimes} times")
     if not any(kind == "table" for kind, _ in group):
         problems.append("no message table (src/i18n/*.js) is loaded")
     if len({script.timing for _, script in group}) > 1:
-        problems.append("mixed timings, so document order is not execution order: " + ", ".join(f"{name(script)} ({script.timing})" for _, script in group))
+        problems.append(
+            "mixed timings, so document order is not execution order: "
+            + ", ".join(f"{name(script)} ({script.timing})" for _, script in group)
+        )
     if problems:
         return problems
     rank = {"runtime": 0, "table": 1, "caller": 2}
     for (before, first), (after, second) in zip(group, group[1:]):
         if rank[before] > rank[after]:
-            problems.append(f"{name(first)} ({before}) runs before {name(second)} ({after}); expected the runtime, then every message table, then the code that calls t()")
+            problems.append(
+                f"{name(first)} ({before}) runs before {name(second)} ({after}); expected the runtime, then every message table, then the code that calls t()"
+            )
     return problems
 
 
@@ -181,7 +207,11 @@ class MessageTests(unittest.TestCase):
                 for key, english in tables["en"].items():
                     chinese = tables["zh-CN"][key]
                     self.assertTrue(english.strip() and chinese.strip(), f"Empty string: {key}")
-                    self.assertEqual(set(PLACEHOLDER.findall(english)), set(PLACEHOLDER.findall(chinese)), f"Placeholder mismatch: {key}")
+                    self.assertEqual(
+                        set(PLACEHOLDER.findall(english)),
+                        set(PLACEHOLDER.findall(chinese)),
+                        f"Placeholder mismatch: {key}",
+                    )
                     self.assertNotIn(key, seen, f"{key} is defined in both {seen.get(key)} and {relative}")
                     seen[key] = relative
 
@@ -228,8 +258,14 @@ class MessageTests(unittest.TestCase):
         for lang in LANGUAGES:
             self.assertEqual(messages[lang]["header.title"], messages[lang]["meta.title"])
             self.assertEqual(messages[lang]["slideshow.title.short"], messages[lang]["meta.title"])
-        self.assertEqual([messages["en"][key] for key in ("credit.illustrator", "credit.composer", "credit.unknown")], ["Illustrator", "Composer", "Unknown"])
-        self.assertEqual([messages["zh-CN"][key] for key in ("credit.illustrator", "credit.composer", "credit.unknown")], ["画师", "曲师", "未知"])
+        self.assertEqual(
+            [messages["en"][key] for key in ("credit.illustrator", "credit.composer", "credit.unknown")],
+            ["Illustrator", "Composer", "Unknown"],
+        )
+        self.assertEqual(
+            [messages["zh-CN"][key] for key in ("credit.illustrator", "credit.composer", "credit.unknown")],
+            ["画师", "曲师", "未知"],
+        )
 
 
 class PageTests(unittest.TestCase):
@@ -242,7 +278,9 @@ class PageTests(unittest.TestCase):
         self.assertIn(RUNTIME, sources)
         self.assertIn("src/i18n/common.js", sources)
         tables_loaded = [src for src in sources if src.startswith("src/i18n/")]
-        self.assertEqual(callers_of(page), set(PAGES[relative]), f"PAGES must list every script of {relative} that uses DYNAMIX_I18N")
+        self.assertEqual(
+            callers_of(page), set(PAGES[relative]), f"PAGES must list every script of {relative} that uses DYNAMIX_I18N"
+        )
         self.assertEqual(script_order_problems(page.scripts, set(PAGES[relative])), [], f"Script order in {relative}")
         keys = set()
         for src in tables_loaded:
@@ -254,7 +292,9 @@ class PageTests(unittest.TestCase):
         for match in T_PREFIX.findall(code):
             prefix = match[0] or match[2]
             self.assertTrue(any(key.startswith(prefix) for key in keys), f"No keys start with {prefix!r}")
-        self.assertEqual(page.han, [], f"Untranslated Han text in {relative}; tag it lang=\"zh-CN\" or move it to src/i18n/")
+        self.assertEqual(
+            page.han, [], f'Untranslated Han text in {relative}; tag it lang="zh-CN" or move it to src/i18n/'
+        )
         toggles = len(re.findall(r"data-lang-toggle", (ROOT / relative).read_text(encoding="utf-8-sig")))
         self.assertGreaterEqual(toggles, 1, f"{relative} needs a language toggle")
 
@@ -327,7 +367,7 @@ class PageTests(unittest.TestCase):
             scripts = parse_page(relative).scripts
             for index, script in enumerate(scripts):
                 for other in sorted({"parser", "defer", "async"} - {script.timing}):
-                    mutated = scripts[:index] + [script._replace(timing=other)] + scripts[index + 1:]
+                    mutated = scripts[:index] + [script._replace(timing=other)] + scripts[index + 1 :]
                     with self.subTest(page=relative, script=script.value[:40], timing=other):
                         if script_role(script, set(callers)):
                             self.assertNotEqual(script_order_problems(mutated, set(callers)), [])
@@ -372,9 +412,11 @@ class BrandingTests(unittest.TestCase):
 class ScriptOrderTests(unittest.TestCase):
     """The order model itself, on small pages shaped like archive.html (all defer) and the slideshow (all classic)."""
 
-    DEFERRED = ('<script src="src/i18n.js" defer></script><script src="src/i18n/common.js" defer></script>'
-                '<script src="src/i18n/archive.js" defer></script><script src="data/catalog.js" defer></script>'
-                '<script src="src/archive.js" defer></script>')
+    DEFERRED = (
+        '<script src="src/i18n.js" defer></script><script src="src/i18n/common.js" defer></script>'
+        '<script src="src/i18n/archive.js" defer></script><script src="data/catalog.js" defer></script>'
+        '<script src="src/archive.js" defer></script>'
+    )
     CALLERS = {"src/archive.js"}
 
     def problems(self, html, callers=CALLERS):
@@ -382,10 +424,14 @@ class ScriptOrderTests(unittest.TestCase):
 
     def test_timing_follows_the_html_rules(self):
         cases = [
-            ('<script src="a.js"></script>', "parser"), ('<script src="a.js" defer></script>', "defer"),
-            ('<script src="a.js" async></script>', "async"), ('<script src="a.js" defer async></script>', "async"),
-            ('<script type="module" src="a.js"></script>', "defer"), ('<script type="module" async src="a.js"></script>', "async"),
-            ("<script defer>x()</script>", "parser"), ("<script async>x()</script>", "parser"),
+            ('<script src="a.js"></script>', "parser"),
+            ('<script src="a.js" defer></script>', "defer"),
+            ('<script src="a.js" async></script>', "async"),
+            ('<script src="a.js" defer async></script>', "async"),
+            ('<script type="module" src="a.js"></script>', "defer"),
+            ('<script type="module" async src="a.js"></script>', "async"),
+            ("<script defer>x()</script>", "parser"),
+            ("<script async>x()</script>", "parser"),
             ('<script type="module">x()</script>', "defer"),
         ]
         for html, expected in cases:
@@ -408,8 +454,13 @@ class ScriptOrderTests(unittest.TestCase):
         self.assertIn("src/i18n/archive.js is async, so it may run before or after the others", problems)
 
     def test_document_order_matters_within_one_timing(self):
-        tables_first = self.DEFERRED.replace('<script src="src/i18n.js" defer></script>', "") + '<script src="src/i18n.js" defer></script>'
-        self.assertIn("src/archive.js (caller) runs before src/i18n.js (runtime)", " ".join(self.problems(tables_first)))
+        tables_first = (
+            self.DEFERRED.replace('<script src="src/i18n.js" defer></script>', "")
+            + '<script src="src/i18n.js" defer></script>'
+        )
+        self.assertIn(
+            "src/archive.js (caller) runs before src/i18n.js (runtime)", " ".join(self.problems(tables_first))
+        )
 
     def test_inline_code_ignores_defer(self):
         page = '<script src="src/i18n.js" defer></script><script src="src/i18n/common.js" defer></script><script defer>DYNAMIX_I18N.t("x");</script>'
@@ -417,7 +468,9 @@ class ScriptOrderTests(unittest.TestCase):
 
     def test_missing_runtime_or_tables(self):
         self.assertIn("src/i18n.js is loaded 0 times", self.problems('<script src="src/i18n/common.js"></script>'))
-        self.assertIn("no message table (src/i18n/*.js) is loaded", self.problems('<script src="src/i18n.js"></script>'))
+        self.assertIn(
+            "no message table (src/i18n/*.js) is loaded", self.problems('<script src="src/i18n.js"></script>')
+        )
 
 
 class SiteReadmeTests(unittest.TestCase):

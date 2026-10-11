@@ -222,16 +222,31 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(build["needs"], ["a", "b"])
         self.assertEqual(build["if"], "x == 'y' && z == 'w'")
         steps = build["steps"]
-        self.assertEqual(steps[0], {"name": "First", "uses": "owner/repo@0123", "with": {"path": "${{ runner.temp }}/x"}})
+        self.assertEqual(
+            steps[0], {"name": "First", "uses": "owner/repo@0123", "with": {"path": "${{ runner.temp }}/x"}}
+        )
         self.assertEqual(steps[1], {"name": "It's quoted", "run": 'echo "# not a comment"\n\nexit 0\n'})
         self.assertEqual(steps[2], {"run": 'double "quoted"'})
         self.assertEqual(steps[3], "plain item")
         self.assertEqual(len(steps), 4)
 
     def test_unsupported_constructs_fail_loudly(self):
-        for text in ("a: &anchor 1\n", "a: *alias\n", "a: !tag x\n", "a:\n\tb: 1\n", "a: 1\na: 2\n",
-                     "a:\n  b: 1\n   c: 2\n", "a: {b: 1}\n", "a: [b,\n  c]\n", "a: b\n  continued\n",
-                     "- a\nb: 1\n", "a: 'open\n", "a: |+\n  x\n", "a:\n  -  b: 1\n", "a: 1\n- b\n"):
+        for text in (
+            "a: &anchor 1\n",
+            "a: *alias\n",
+            "a: !tag x\n",
+            "a:\n\tb: 1\n",
+            "a: 1\na: 2\n",
+            "a:\n  b: 1\n   c: 2\n",
+            "a: {b: 1}\n",
+            "a: [b,\n  c]\n",
+            "a: b\n  continued\n",
+            "- a\nb: 1\n",
+            "a: 'open\n",
+            "a: |+\n  x\n",
+            "a:\n  -  b: 1\n",
+            "a: 1\n- b\n",
+        ):
             with self.subTest(text=text):
                 with self.assertRaises(YamlSubsetError):
                     parse_yaml(text)

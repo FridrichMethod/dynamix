@@ -48,22 +48,39 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog="fetch_wikis.py", description=__doc__.split("\n\n")[0])
     parser.add_argument("--metadata-only", action="store_true", help="discover and classify; download nothing")
-    parser.add_argument("--resume", action="store_true",
-                        help="continue an acquisition, re-hashing archived files instead of trusting existence")
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="continue an acquisition, re-hashing archived files instead of trusting existence",
+    )
     parser.add_argument("--limit", type=int, default=None, metavar="N", help="at most N download attempts")
     parser.add_argument("--source", choices=sorted(config.SOURCES), help="write/acquire only this source")
-    parser.add_argument("--include-animated", action="store_true",
-                        help="also accept animated GIF captures (excluded as animated_capture by default)")
+    parser.add_argument(
+        "--include-animated",
+        action="store_true",
+        help="also accept animated GIF captures (excluded as animated_capture by default)",
+    )
     parser.add_argument("--verify", action="store_true", help="offline verification of manifest, snapshots, files")
     parser.add_argument("--root", default=None, help="repository root (default: this checkout)")
-    parser.add_argument("--only", action="append", default=[], metavar="TITLE",
-                        help="download only these candidates (File: title or candidate ID; repeatable)")
-    parser.add_argument("--work-dir", default=None,
-                        help="journal/lock directory, private to you (default: <root>/.cache/fetch_wikis/work)")
+    parser.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        metavar="TITLE",
+        help="download only these candidates (File: title or candidate ID; repeatable)",
+    )
+    parser.add_argument(
+        "--work-dir",
+        default=None,
+        help="journal/lock directory, private to you (default: <root>/.cache/fetch_wikis/work)",
+    )
     parser.add_argument("--lock-file", default=None, help="lock file (default: <work dir>/lock)")
-    parser.add_argument("--cache-dir", default=None,
-                        help="reuse raw API responses stored here (crash recovery of one discovery; never reuse "
-                             "an old cache for a fresh snapshot)")
+    parser.add_argument(
+        "--cache-dir",
+        default=None,
+        help="reuse raw API responses stored here (crash recovery of one discovery; never reuse "
+        "an old cache for a fresh snapshot)",
+    )
     args = parser.parse_args(argv)
     if args.limit is not None and args.limit < 0:
         parser.error("--limit must be >= 0")
@@ -77,9 +94,16 @@ class _Interrupted(Exception):
 
 
 class Runner:
-    def __init__(self, root: Path, args: argparse.Namespace, work_dir: Path, *,
-                 client_factory: Callable[[], Any], now: Callable[[], str] = manifest.now_utc,
-                 log: Callable[[str], None] = print):
+    def __init__(
+        self,
+        root: Path,
+        args: argparse.Namespace,
+        work_dir: Path,
+        *,
+        client_factory: Callable[[], Any],
+        now: Callable[[], str] = manifest.now_utc,
+        log: Callable[[str], None] = print,
+    ):
         self.root, self.args, self.work_dir = root, args, work_dir
         self.client_factory, self.now, self.log = client_factory, now, log
         self.selected = [args.source] if args.source else list(config.SOURCES)
@@ -113,8 +137,10 @@ class Runner:
             # current evidence (acquire.resolve): a Japanese-list run leaves an interrupted run's journal in place.
             self.state = acquire.State.load(self.root)
             if self.journal.has_events():
-                self.log("an interrupted English-wiki run left its journal; it is replayed by the next English-wiki "
-                         "run (not by this one)")
+                self.log(
+                    "an interrupted English-wiki run left its journal; it is replayed by the next English-wiki "
+                    "run (not by this one)"
+                )
         with self.client_factory() as client:
             self.discover(client)
             self.write()
@@ -129,18 +155,23 @@ class Runner:
         if self.mediawiki_selected:
             for key in config.MEDIAWIKI_KEYS:
                 self.log(f"discovering {config.SOURCES[key].source_id} ...")
-                inventory = discover.fetch_inventory(client, config.SOURCES[key], cache_dir=self.args.cache_dir,
-                                                     now=self.now)
+                inventory = discover.fetch_inventory(
+                    client, config.SOURCES[key], cache_dir=self.args.cache_dir, now=self.now
+                )
                 self.inventories[key] = inventory
-                self.log(f"  {len(inventory.files)} files, {len(inventory.pages)} articles, {inventory.requests} "
-                         f"requests, complete={inventory.complete}, errors={len(inventory.errors)}")
+                self.log(
+                    f"  {len(inventory.files)} files, {len(inventory.pages)} articles, {inventory.requests} "
+                    f"requests, complete={inventory.complete}, errors={len(inventory.errors)}"
+                )
         for key in config.HTML_KEYS:
             if self.mediawiki_selected or key in self.selected:
                 started = self.now()
                 self.ja[key] = jawikis.fetch_lists(client, config.SOURCES[key])
                 self.ja_times[key] = (started, self.now())
-                self.log(f"  {key}: {sum(len(page.rows) for page in self.ja[key])} song rows, "
-                         f"{sum(1 for page in self.ja[key] if page.error)} page errors")
+                self.log(
+                    f"  {key}: {sum(len(page.rows) for page in self.ja[key])} song rows, "
+                    f"{sum(1 for page in self.ja[key] if page.error)} page errors"
+                )
         if not self.inventories:
             return
         self.index = songindex.build(self.inventories, self.ja)
@@ -148,9 +179,14 @@ class Runner:
         withdrawals = reviews.load_withdrawals()
         conflicts, withdrawn, deferred = [], [], []
         for key in self.mediawiki_selected:
-            resolution = acquire.resolve(self.plans[key], self.state, complete=self.inventories[key].complete,
-                                         evidence_complete=self.evidence_complete, withdrawals=withdrawals,
-                                         defer_withdrawals=self.args.metadata_only)
+            resolution = acquire.resolve(
+                self.plans[key],
+                self.state,
+                complete=self.inventories[key].complete,
+                evidence_complete=self.evidence_complete,
+                withdrawals=withdrawals,
+                defer_withdrawals=self.args.metadata_only,
+            )
             self.candidates[key] = resolution.candidates
             conflicts.extend(resolution.conflicts)
             withdrawn.extend(resolution.withdrawals)
@@ -158,8 +194,10 @@ class Runner:
         if conflicts:
             raise acquire.ReclassifiedError(conflicts)
         for asset, withdrawal in deferred:  # a metadata-only run never changes the archive
-            self.log(f"WITHDRAWAL PENDING {asset['id']} ({asset['candidate_id']}): {withdrawal.reason}: "
-                     f"{withdrawal.evidence}; carried out by the next acquiring run")
+            self.log(
+                f"WITHDRAWAL PENDING {asset['id']} ({asset['candidate_id']}): {withdrawal.reason}: "
+                f"{withdrawal.evidence}; carried out by the next acquiring run"
+            )
         for asset, withdrawal in withdrawn:
             self.withdraw(asset, withdrawal)
 
@@ -176,8 +214,9 @@ class Runner:
             plans = {plan.candidate_id: plan for plan in self.plans[key]}
             for number, candidate in enumerate(self.candidates[key]):
                 if candidate.get("asset_id") == asset["id"] and candidate["disposition"] == "duplicate_bytes":
-                    pending = dict(candidate, disposition="pending",
-                                   reason=acquire.awaiting_reason(plans[candidate["id"]]))
+                    pending = dict(
+                        candidate, disposition="pending", reason=acquire.awaiting_reason(plans[candidate["id"]])
+                    )
                     pending.pop("asset_id", None)
                     self.candidates[key][number] = pending
 
@@ -191,20 +230,27 @@ class Runner:
         for key in self.mediawiki_selected:
             source = config.SOURCES[key]
             others = [config.SOURCES[k].source_id for k in config.MEDIAWIKI_KEYS if k != key]
-            snapshot = outputs.mediawiki_snapshot(self.inventories[key], acquire.apply_outcomes(
-                self.candidates[key], self.state), pooled_with=others)
+            snapshot = outputs.mediawiki_snapshot(
+                self.inventories[key], acquire.apply_outcomes(self.candidates[key], self.state), pooled_with=others
+            )
             snapshots[source.source_id] = snapshot
             self.state.sources[source.source_id] = outputs.mediawiki_source(
-                source, snapshot, self.state.assets.values(), self.state.failures.values(),
-                metadata_only=self.args.metadata_only, last_attempt=self.state.attempts.get(source.source_id))
+                source,
+                snapshot,
+                self.state.assets.values(),
+                self.state.failures.values(),
+                metadata_only=self.args.metadata_only,
+                last_attempt=self.state.attempts.get(source.source_id),
+            )
         for key in config.HTML_KEYS:
             if key in self.selected and key in self.ja:
                 source = config.SOURCES[key]
                 started, finished = self.ja_times[key]
                 snapshot = outputs.html_snapshot(source, self.ja[key], started_at=started, finished_at=finished)
                 snapshots[source.source_id] = snapshot
-                self.state.sources[source.source_id] = outputs.html_source(source, snapshot, self.ja[key],
-                                                                           self.state.failures.values())
+                self.state.sources[source.source_id] = outputs.html_source(
+                    source, snapshot, self.ja[key], self.state.failures.values()
+                )
         data = self.state.manifest()
         schema.validate_manifest(data, "wikis")
         all_snapshots = {}
@@ -213,13 +259,18 @@ class Runner:
         schema.reconcile(data, {key: value for key, value in all_snapshots.items() if value is not None})
         index = None
         ja_complete = all(page.error is None for pages in self.ja.values() for page in pages)
-        if self.index is not None and set(self.selected) == set(config.SOURCES) and not (
-                self.evidence_complete and ja_complete):
+        if (
+            self.index is not None
+            and set(self.selected) == set(config.SOURCES)
+            and not (self.evidence_complete and ja_complete)
+        ):
             self.log("song index proposal not rewritten: the discovery is incomplete")
         elif self.index is not None and set(self.selected) == set(config.SOURCES):
-            index = self.index.to_json(as_of=min(s["finished_at"] for s in snapshots.values())[:10],
-                                       generated_from=outputs.GENERATED_FROM,
-                                       artwork=songindex.artwork_ids(data["assets"]))
+            index = self.index.to_json(
+                as_of=min(s["finished_at"] for s in snapshots.values())[:10],
+                generated_from=outputs.GENERATED_FROM,
+                artwork=songindex.artwork_ids(data["assets"]),
+            )
             schema.validate_song_index(index, {asset["id"] for asset in data["assets"]})
             schema.validate_song_links(index, data["assets"])
         for source_id, snapshot in snapshots.items():
@@ -236,8 +287,9 @@ class Runner:
         are written before the error propagates."""
         for key in self.mediawiki_selected:  # before any request: never download through a planted link
             acquire.asset_dir(self.root, config.SOURCES[key])
-        acquirer = acquire.Acquirer(self.root, self.state, self.journal, client, now=self.now, log=self.log,
-                                    lock=self.lock)
+        acquirer = acquire.Acquirer(
+            self.root, self.state, self.journal, client, now=self.now, log=self.log, lock=self.lock
+        )
         flusher = acquire.Flusher(self.write, lock=self.lock)
         only = set(self.args.only)
         counter = {"attempts": 0}
@@ -257,9 +309,10 @@ class Runner:
             # at most once per run after them; otherwise strongest evidence first, so that among same-wiki byte
             # duplicates the template/caption-named file becomes the record and the others point at it
             # (duplicate_bytes); then by candidate ID.
-            order = sorted(zip(self.plans[key], self.candidates[key]),
-                           key=lambda pair: (pair[1]["disposition"] == "failed", -pair[0].decision.strength,
-                                             pair[0].candidate_id))
+            order = sorted(
+                zip(self.plans[key], self.candidates[key]),
+                key=lambda pair: (pair[1]["disposition"] == "failed", -pair[0].decision.strength, pair[0].candidate_id),
+            )
             try:
                 for plan, candidate in order:
                     if stop.is_set():
@@ -275,16 +328,21 @@ class Runner:
                     outcome = outcome or acquirer.download(plan)
                     with self.lock:
                         totals[outcome.disposition] = totals.get(outcome.disposition, 0) + 1
-                    self.log(f"  [{number if number is not None else 'skip'}] {outcome.disposition:15} "
-                             f"{plan.candidate_id}" + (f" -> {outcome.asset_id}" if outcome.asset_id else "")
-                             + (f" ({outcome.message})" if outcome.message else ""))
+                    self.log(
+                        f"  [{number if number is not None else 'skip'}] {outcome.disposition:15} "
+                        f"{plan.candidate_id}"
+                        + (f" -> {outcome.asset_id}" if outcome.asset_id else "")
+                        + (f" ({outcome.message})" if outcome.message else "")
+                    )
                     flusher.tick()
             except BaseException as error:  # noqa: BLE001 - re-raised in the main thread
                 errors.append(error)
                 stop.set()
 
-        workers = [threading.Thread(target=work, args=(key,), name=f"fetch-{key}", daemon=True)
-                   for key in self.mediawiki_selected]
+        workers = [
+            threading.Thread(target=work, args=(key,), name=f"fetch-{key}", daemon=True)
+            for key in self.mediawiki_selected
+        ]
         try:
             for worker in workers:
                 worker.start()
@@ -299,8 +357,10 @@ class Runner:
         finally:
             self.repair_failures = list(acquirer.repair_failures)
             self.write()
-            self.log(f"downloads this run: {counter['attempts']} attempts, " + ", ".join(
-                f"{name} {count}" for name, count in sorted(totals.items())))
+            self.log(
+                f"downloads this run: {counter['attempts']} attempts, "
+                + ", ".join(f"{name} {count}" for name, count in sorted(totals.items()))
+            )
         if errors:
             raise errors[0]
 
@@ -309,8 +369,11 @@ class Runner:
             return 2
         if any(page.error for key in self.selected if key in self.ja for page in self.ja[key]):
             return 2
-        failed = [f for f in self.state.failures.values()
-                  if any(f["source_id"] == config.SOURCES[key].source_id for key in self.mediawiki_selected)]
+        failed = [
+            f
+            for f in self.state.failures.values()
+            if any(f["source_id"] == config.SOURCES[key].source_id for key in self.mediawiki_selected)
+        ]
         return 1 if failed or self.repair_failures else 0
 
 
@@ -318,8 +381,13 @@ def _raise_interrupt(signum: int, frame: Any) -> None:
     raise KeyboardInterrupt(f"signal {signum}")
 
 
-def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | None = None,
-         now: Callable[[], str] = manifest.now_utc, log: Callable[[str], None] | None = None) -> int:
+def main(
+    argv: list[str] | None = None,
+    *,
+    client_factory: Callable[[], Any] | None = None,
+    now: Callable[[], str] = manifest.now_utc,
+    log: Callable[[str], None] | None = None,
+) -> int:
     args = parse_args(argv)
     root = Path(args.root).resolve() if args.root else REPO_ROOT
     log = log or (lambda message: print(message, flush=True))
@@ -341,16 +409,21 @@ def main(argv: list[str] | None = None, *, client_factory: Callable[[], Any] | N
     except acquire.ReclassifiedError as error:
         for conflict in error.conflicts:
             print(f"REVIEW {conflict}", file=sys.stderr)
-        print("archived files are no longer accepted by the current (complete) evidence; nothing was written. Fix "
-              "the classification, or add a reviewed withdrawal to scripts/wikis/reviews.json", file=sys.stderr)
+        print(
+            "archived files are no longer accepted by the current (complete) evidence; nothing was written. Fix "
+            "the classification, or add a reviewed withdrawal to scripts/wikis/reviews.json",
+            file=sys.stderr,
+        )
         return 4
     except KeyboardInterrupt:
         print("interrupted; outputs written up to the last completed download", file=sys.stderr)
         return 130
     except Exception:  # noqa: BLE001 - reported with its own exit code (1 means failed downloads)
         traceback.print_exc()
-        print("internal error: fetch_wikis.py stopped; outputs are written only up to the last completed write",
-              file=sys.stderr)
+        print(
+            "internal error: fetch_wikis.py stopped; outputs are written only up to the last completed write",
+            file=sys.stderr,
+        )
         return 5
     finally:
         signal.signal(signal.SIGTERM, previous)

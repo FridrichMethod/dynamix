@@ -8,10 +8,32 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any, Mapping
 
-from .schema import (ARCHIVE_URL_PREFIX, CATALOG_SPEC, FAMILIES, KINDS, _check_fields, _fail, _integer, _label,
-                     _nullable, _object, _timestamp, catalog_sort_key, catalog_url, check_source_slugs, is_gallery,
-                     is_slideshow, ordered_union, provenance_sort_key, source_family, thumb_relpath, tier_for,
-                     validate_asset, validate_failure, validate_source)
+from .schema import (
+    ARCHIVE_URL_PREFIX,
+    CATALOG_SPEC,
+    FAMILIES,
+    KINDS,
+    _check_fields,
+    _fail,
+    _integer,
+    _label,
+    _nullable,
+    _object,
+    _timestamp,
+    catalog_sort_key,
+    catalog_url,
+    check_source_slugs,
+    is_gallery,
+    is_slideshow,
+    ordered_union,
+    provenance_sort_key,
+    source_family,
+    thumb_relpath,
+    tier_for,
+    validate_asset,
+    validate_failure,
+    validate_source,
+)
 
 MERGED_FIELDS = ("illustrators", "composers", "song_titles", "song_ids", "collections")
 
@@ -22,8 +44,11 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
     if asset["source_id"] not in source_names:
         _fail(label, "source_id", "is not listed in catalog sources")
     expected = {
-        "family": family, "source_name": source_names.get(asset["source_id"]), "url": catalog_url(asset["path"]),
-        "gallery": is_gallery(asset), "slideshow": is_slideshow(asset),
+        "family": family,
+        "source_name": source_names.get(asset["source_id"]),
+        "url": catalog_url(asset["path"]),
+        "gallery": is_gallery(asset),
+        "slideshow": is_slideshow(asset),
         "site_original": tier_for(asset["kind"], asset["format"]) == "site",
         "archive_url": ARCHIVE_URL_PREFIX + catalog_url(asset["path"]),
     }
@@ -42,8 +67,12 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
             _fail(label, "provenance", f"source_name of {record['source_id']!r} differs from its source")
     keys = [provenance_sort_key(record) for record in provenance]
     if keys != sorted(keys) or len(set(keys)) != len(keys):
-        _fail(label, "provenance", "must be unique and ordered by the primary-record rule (family priority; "
-              "wikis:miraheze, then wikis:fandom, then other sources; quality.source_variant; source ID; asset ID)")
+        _fail(
+            label,
+            "provenance",
+            "must be unique and ordered by the primary-record rule (family priority; "
+            "wikis:miraheze, then wikis:fandom, then other sources; quality.source_variant; source ID; asset ID)",
+        )
     if provenance[0]["source_id"] != asset["source_id"]:
         _fail(label, "provenance", "the first entry must be the primary record")
     for field in MERGED_FIELDS:
@@ -52,9 +81,20 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
             _fail(label, field, f"must be the ordered union across provenance {merged!r}")
 
 
-SUMMARY_FIELDS = ("source_count", "source_asset_records", "unique_files", "gallery_images", "slideshow_images",
-                  "exact_duplicate_records", "by_family", "by_kind", "failure_count", "downloaded_bytes",
-                  "site_original_bytes", "archive_only_bytes")
+SUMMARY_FIELDS = (
+    "source_count",
+    "source_asset_records",
+    "unique_files",
+    "gallery_images",
+    "slideshow_images",
+    "exact_duplicate_records",
+    "by_family",
+    "by_kind",
+    "failure_count",
+    "downloaded_bytes",
+    "site_original_bytes",
+    "archive_only_bytes",
+)
 
 
 def _expected_summary(catalog: Mapping[str, Any]) -> dict:
@@ -63,23 +103,32 @@ def _expected_summary(catalog: Mapping[str, Any]) -> dict:
     site = sum(asset["bytes"] for asset in assets if asset["site_original"])
     total = sum(asset["bytes"] for asset in assets)
     return {
-        "source_count": len(catalog["sources"]), "source_asset_records": len(records), "unique_files": len(assets),
+        "source_count": len(catalog["sources"]),
+        "source_asset_records": len(records),
+        "unique_files": len(assets),
         "gallery_images": sum(asset["gallery"] for asset in assets),
         "slideshow_images": sum(asset["slideshow"] for asset in assets),
         "exact_duplicate_records": len(records) - len(assets),
         "by_family": dict(Counter(record["family"] for record in records)),
-        "by_kind": dict(Counter(asset["kind"] for asset in assets)), "failure_count": len(catalog["failures"]),
-        "downloaded_bytes": total, "site_original_bytes": site, "archive_only_bytes": total - site,
+        "by_kind": dict(Counter(asset["kind"] for asset in assets)),
+        "failure_count": len(catalog["failures"]),
+        "downloaded_bytes": total,
+        "site_original_bytes": site,
+        "archive_only_bytes": total - site,
     }
 
 
 def _check_summary(catalog: Mapping[str, Any]) -> None:
     summary = catalog["summary"]
-    _check_fields("catalog summary", summary, {
-        **{field: _integer(0) for field in SUMMARY_FIELDS},
-        "by_family": _object({}, {family: _integer(0) for family in FAMILIES}),
-        "by_kind": _object({}, {kind: _integer(0) for kind in KINDS}),
-    })
+    _check_fields(
+        "catalog summary",
+        summary,
+        {
+            **{field: _integer(0) for field in SUMMARY_FIELDS},
+            "by_family": _object({}, {family: _integer(0) for family in FAMILIES}),
+            "by_kind": _object({}, {kind: _integer(0) for kind in KINDS}),
+        },
+    )
     for field, value in _expected_summary(catalog).items():
         actual = summary[field]
         if isinstance(value, dict):

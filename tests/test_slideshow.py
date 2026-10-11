@@ -86,7 +86,7 @@ def top_level_css(css):
     out, depth, index = [], 0, 0
     for match in re.finditer(r"@(?:media|supports)[^{]*\{|\{|\}", css):
         if depth == 0:
-            out.append(css[index:match.start()])
+            out.append(css[index : match.start()])
         if match.group().startswith("@"):
             depth += 1
         elif depth and match.group() == "{":
@@ -105,17 +105,20 @@ def media_block(css, condition):
     if not match:
         return None
     depth = 1
-    for brace in re.finditer(r"[{}]", css[match.end():]):
+    for brace in re.finditer(r"[{}]", css[match.end() :]):
         depth += 1 if brace.group() == "{" else -1
         if depth == 0:
-            return css[match.end():match.end() + brace.start()]
+            return css[match.end() : match.end() + brace.start()]
     return None
 
 
 def css_value(css, selectors, prop):
     rule = r"(?m)^[ \t]*" + r"\s*,\s*".join(map(re.escape, selectors)) + r"\s*\{([^}]*)\}"
-    values = [found.group(1) for body in re.findall(rule, css)
-              for found in re.finditer(r"(?<![\w-])" + re.escape(prop) + r"\s*:\s*([^;]+?)\s*(?:;|$)", body)]
+    values = [
+        found.group(1)
+        for body in re.findall(rule, css)
+        for found in re.finditer(r"(?<![\w-])" + re.escape(prop) + r"\s*:\s*([^;]+?)\s*(?:;|$)", body)
+    ]
     return values[-1] if values else None
 
 
@@ -166,13 +169,21 @@ class SlideshowTemplateTests(unittest.TestCase):
         for name, toggle in ICON_BUTTONS.items():
             with self.subTest(control=name):
                 node = self.control(name)
-                self.assertEqual((node.tag, node.attrs.get("type")), ("button", "button"), "Actions are <button type=button>, not links")
+                self.assertEqual(
+                    (node.tag, node.attrs.get("type")),
+                    ("button", "button"),
+                    "Actions are <button type=button>, not links",
+                )
                 key = i18n_attrs(node).get("aria-label")
                 self.assertTrue(key, "Icon-only controls take an aria-label translated through data-i18n-attr")
                 self.assert_translated(key)
                 self.assertEqual(node.attrs.get("aria-label"), self.messages["en"][key])
                 if toggle:
-                    self.assertIn(node.attrs.get("aria-pressed"), ("true", "false"), "Toggles expose their state with aria-pressed")
+                    self.assertIn(
+                        node.attrs.get("aria-pressed"),
+                        ("true", "false"),
+                        "Toggles expose their state with aria-pressed",
+                    )
 
     def test_no_javascript_urls_or_html_parsing(self):
         for node in self.nodes:
@@ -184,7 +195,7 @@ class SlideshowTemplateTests(unittest.TestCase):
         for node in self.nodes:
             if node.tag == "img":
                 with self.subTest(src=node.attrs.get("src")):
-                    self.assertIn("alt", node.attrs, "Decorative icons take alt=\"\"")
+                    self.assertIn("alt", node.attrs, 'Decorative icons take alt=""')
 
     def test_accessible_names_contain_the_visible_label(self):
         """WCAG 2.5.3: an aria-label on a control with visible text must contain that text."""
@@ -193,7 +204,9 @@ class SlideshowTemplateTests(unittest.TestCase):
             if label_key and text_key:
                 for lang in ("en", "zh-CN"):
                     with self.subTest(control=text_key, lang=lang):
-                        self.assertIn(self.messages[lang][text_key].casefold(), self.messages[lang][label_key].casefold())
+                        self.assertIn(
+                            self.messages[lang][text_key].casefold(), self.messages[lang][label_key].casefold()
+                        )
 
     def test_bottom_row_dom_order_follows_its_layout(self):
         order = [cls for node in self.nodes if "bt" in node.classes for cls in node.classes if cls in BOTTOM_ROW]
@@ -206,9 +219,14 @@ class SlideshowTemplateTests(unittest.TestCase):
             offsets[name] = int(match.group(1))
         self.assertEqual([offsets[name] for name in BOTTOM_ROW], sorted(offsets.values()))
         phone = media_block(self.css, "(max-width: 480px)")
-        steps = [re.search(r"\." + re.escape(name) + r"\s*\{\s*left:\s*([^;]+);", phone).group(1) for name in BOTTOM_ROW[1:]]
-        self.assertEqual(steps, ["calc(-20px + (100vw - 72px) / 3)", "calc(-20px + (100vw - 72px) * 2 / 3)", "calc(-20px + 100vw - 72px)"],
-                         "Four discs spread evenly on phones")
+        steps = [
+            re.search(r"\." + re.escape(name) + r"\s*\{\s*left:\s*([^;]+);", phone).group(1) for name in BOTTOM_ROW[1:]
+        ]
+        self.assertEqual(
+            steps,
+            ["calc(-20px + (100vw - 72px) / 3)", "calc(-20px + (100vw - 72px) * 2 / 3)", "calc(-20px + 100vw - 72px)"],
+            "Four discs spread evenly on phones",
+        )
 
     def test_no_music_player_or_dedication(self):
         for marker in ("<audio", "speaker", "iplayer", "playMusic", "Alice", "Hans", "dedication", ".mp3"):
@@ -217,7 +235,9 @@ class SlideshowTemplateTests(unittest.TestCase):
                 self.assertNotIn(marker.lstrip("."), self.css.replace("mySlides", ""))
 
     def test_only_the_current_slide_takes_hits_and_reaches_assistive_tech(self):
-        rule = lambda selector: re.search(r"(?m)^" + re.escape(selector) + r" \{(.*?)\n\}", self.css, re.DOTALL).group(1)
+        rule = lambda selector: re.search(r"(?m)^" + re.escape(selector) + r" \{(.*?)\n\}", self.css, re.DOTALL).group(
+            1
+        )
         self.assertRegex(rule(".mySlides"), r"pointer-events:\s*none")
         self.assertRegex(rule(".mySlides"), r"visibility:\s*hidden")
         self.assertRegex(rule(".mySlides.is-current"), r"pointer-events:\s*auto")
@@ -237,9 +257,13 @@ class SlideshowTemplateTests(unittest.TestCase):
         screenshot, which draws a clamp without its ellipsis) shows an artwork without its whole credit line."""
         self.assertIn('var dt = element("dt", "notes-" + role, label);', self.code)
         self.assertIn('var dd = element("dd", "notes-" + role);', self.code)
-        rows = re.findall(r'(?m)metaRow\(meta, "(\w+)", DYNAMIX_I18N\.t\("([\w.]+)"\), data\.(\w+), (.*)\);\s*$', self.code)
+        rows = re.findall(
+            r'(?m)metaRow\(meta, "(\w+)", DYNAMIX_I18N\.t\("([\w.]+)"\), data\.(\w+), (.*)\);\s*$', self.code
+        )
         by_field = {field: (role, key, always) for role, key, field, always in rows}
-        self.assertEqual(by_field["illustrators"], ("artist", "credit.illustrator", "true"), "The illustrator row is always shown")
+        self.assertEqual(
+            by_field["illustrators"], ("artist", "credit.illustrator", "true"), "The illustrator row is always shown"
+        )
         self.assertEqual(by_field["composers"][:2], ("composer", "credit.composer"))
         for lang in ("en", "zh-CN"):
             with self.subTest(lang=lang):
@@ -249,7 +273,10 @@ class SlideshowTemplateTests(unittest.TestCase):
             for part in selector.split(","):
                 if ".notes-meta" in part and "::before" not in part:
                     self.assertIn(":not(.notes-artist)", part)
-        clamp = re.search(r"\.notes-(?:meta|artist)\b[^{}]*\{[^}]*(?<![\w-])(?:-webkit-line-clamp|line-clamp|max-height|overflow)\s*:", self.css)
+        clamp = re.search(
+            r"\.notes-(?:meta|artist)\b[^{}]*\{[^}]*(?<![\w-])(?:-webkit-line-clamp|line-clamp|max-height|overflow)\s*:",
+            self.css,
+        )
         self.assertIsNone(clamp, clamp and clamp.group())
         # The fit gives up parts in turn (fitNotes()); each step has its rule, and none touches the illustrator's row.
         steps = json.loads(re.search(r"var FIT_STEPS = (\[[^\]]*\]);", self.code).group(1))
@@ -268,7 +295,9 @@ class SlideshowTemplateTests(unittest.TestCase):
 
     def test_unknown_credits_say_unknown(self):
         self.assertIn('dd.textContent = DYNAMIX_I18N.t("credit.unknown");', self.code)
-        self.assertEqual((self.messages["en"]["credit.unknown"], self.messages["zh-CN"]["credit.unknown"]), ("Unknown", "未知"))
+        self.assertEqual(
+            (self.messages["en"]["credit.unknown"], self.messages["zh-CN"]["credit.unknown"]), ("Unknown", "未知")
+        )
 
     def test_short_landscape_arrows_stay_below_the_language_toggle(self):
         base = top_level_css(self.css)
@@ -298,15 +327,23 @@ class SlideshowTemplateTests(unittest.TestCase):
         disc = px(css_value(base, [".bt"], "width")) + 2 * px(css_value(base, [".bt"], "padding"))
         row_right = px(css_value(base, [".random"], "left")) + disc / 2 + disc  # .bt is shifted right by half its size
         self.assertGreater(px(css_value(block, [".asset-caption"], "left")), row_right)
-        band_top = px(css_value(block, [".asset-caption"], "bottom")) + px(css_value(block, [".asset-caption"], "height"))
-        stage = re.fullmatch(r"max\(8vh,\s*(\d+)px\)", css_value(block, [".slideshow-container"], "margin-bottom") or "")
+        band_top = px(css_value(block, [".asset-caption"], "bottom")) + px(
+            css_value(block, [".asset-caption"], "height")
+        )
+        stage = re.fullmatch(
+            r"max\(8vh,\s*(\d+)px\)", css_value(block, [".slideshow-container"], "margin-bottom") or ""
+        )
         self.assertTrue(stage, "The stage keeps clear of the band at every width: margin-bottom: max(8vh, <n>px)")
         self.assertLess(band_top, int(stage.group(1)), "The caption's band ends below the stage")
-        self.assertGreaterEqual(int(stage.group(1)), disc * 1.5, "The stage clears the control row (bottom: 0, shifted up by half)")
+        self.assertGreaterEqual(
+            int(stage.group(1)), disc * 1.5, "The stage clears the control row (bottom: 0, shifted up by half)"
+        )
         # Narrow short landscape windows keep a compact row at the left, so the band stays wide enough.
         narrow = media_block(self.css, "(orientation: landscape) and (max-height: 560px) and (max-width: 599px)")
         self.assertTrue(narrow, "No narrow short-landscape block")
-        small = px(css_value(narrow, [".bt:not(.lang-toggle)"], "width")) + 2 * px(css_value(narrow, [".bt:not(.lang-toggle)"], "padding"))
+        small = px(css_value(narrow, [".bt:not(.lang-toggle)"], "width")) + 2 * px(
+            css_value(narrow, [".bt:not(.lang-toggle)"], "padding")
+        )
         lefts = [px(css_value(narrow, [name], "left")) for name in (".github", ".archive-link", ".random")]
         self.assertEqual(lefts, sorted(lefts))
         self.assertTrue(all(b - a >= small for a, b in zip(lefts, lefts[1:])), "The compact discs do not overlap")
@@ -338,9 +375,13 @@ class SlideshowTemplateTests(unittest.TestCase):
         call archive.html by the name the page gives itself, in each language."""
         archive = tables("archive")
         links = [node for node in self.nodes if node.tag == "a" and node.attrs.get("href") == "archive.html"]
-        self.assertEqual({node.attrs.get("data-i18n") for node in links}, {"slideshow.archive.text", "slideshow.caption.browse"})
+        self.assertEqual(
+            {node.attrs.get("data-i18n") for node in links}, {"slideshow.archive.text", "slideshow.caption.browse"}
+        )
         for node in links:
-            self.assertEqual(node.text.strip(), self.messages["en"][node.attrs["data-i18n"]], "static text is the English string")
+            self.assertEqual(
+                node.text.strip(), self.messages["en"][node.attrs["data-i18n"]], "static text is the English string"
+            )
         for lang in ("en", "zh-CN"):
             with self.subTest(lang=lang):
                 name = archive[lang]["header.title"].removeprefix("Dynamix ")  # "Artwork Archive" / "曲绘档案"
@@ -355,8 +396,12 @@ class SlideshowTemplateTests(unittest.TestCase):
         self.assertIn("var hasSlides = imgTargets.length > 0;", self.code)
         self.assertIn('document.querySelector(".intro-empty").hidden = false;', self.code)
         for function in ("plusSlides", "showSlides", "randomSlide", "randomClick"):
-            body = re.search(r"function " + function + r"\([^)]*\) \{\n(.*?)\n        \}", self.code, re.DOTALL).group(1)
-            self.assertIn("hasSlides", body.split("\n", 2)[0] + body.split("\n", 2)[1], f"{function} returns early without slides")
+            body = re.search(r"function " + function + r"\([^)]*\) \{\n(.*?)\n        \}", self.code, re.DOTALL).group(
+                1
+            )
+            self.assertIn(
+                "hasSlides", body.split("\n", 2)[0] + body.split("\n", 2)[1], f"{function} returns early without slides"
+            )
         self.assertIn('new URLSearchParams(location.search).get("asset")', self.code)
         self.assertIn("decodeURIComponent(location.hash.slice(1))", self.code)
         self.assertIn('window.addEventListener("hashchange"', self.code)
@@ -371,7 +416,10 @@ class SlideshowTemplateTests(unittest.TestCase):
         """The screenshot renderer draws text with the first family of a stack only (src/vendor/legacy-ui.js joins the
         font and keeps what precedes the first comma), so each stack must start with a family every system has."""
         stacks = re.findall(r"(?:font-family|--display|--small-caps)\s*:\s*([^;]+);", self.css)
-        stacks += [match.split("/", 1)[-1].split(" ", 1)[-1] for match in re.findall(r"(?<![\w-])font\s*:\s*([^;]+);", self.css)]
+        stacks += [
+            match.split("/", 1)[-1].split(" ", 1)[-1]
+            for match in re.findall(r"(?<![\w-])font\s*:\s*([^;]+);", self.css)
+        ]
         self.assertTrue(stacks)
         for stack in stacks:
             first = stack.strip().split(",")[0].strip()

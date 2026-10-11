@@ -53,14 +53,15 @@ def _expanded(cells: list[Any]) -> list[str]:
     for cell in cells:
         try:
             span = max(1, min(20, int(cell.get("colspan", 1))))
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             span = 1
         values.extend([_text(cell)] * span)
     return values
 
 
-def parse_tables(html: str, label: str, url: str, *, container_ids: tuple[str, ...] = ("wikibody", "body")
-                 ) -> list[SongRow]:
+def parse_tables(
+    html: str, label: str, url: str, *, container_ids: tuple[str, ...] = ("wikibody", "body")
+) -> list[SongRow]:
     """Song rows from every innermost table with a recognizable title header."""
     soup = BeautifulSoup(html, "html.parser")
     root = None
@@ -119,8 +120,11 @@ def fetch_lists(client: Any, source: config.WikiSource) -> list[ListPage]:
         try:
             text, final_url, _headers = client.get_text(url)
         except net.FetchError as error:
-            page.error = {"phase": "discover", "url": url,
-                          "message": redact_text(f"{label}: {error.error_class}: {error}")[:500]}
+            page.error = {
+                "phase": "discover",
+                "url": url,
+                "message": redact_text(f"{label}: {error.error_class}: {error}")[:500],
+            }
             pages.append(page)
             continue
         page.final_url = final_url

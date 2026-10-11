@@ -24,13 +24,21 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
         if item.get("request", True) and not seed.get("hosts"):
             raise ValueError(f"{where}: hosts are required when items[{index}] makes a request")
     if seed.get("status_on_success") and seed["status_on_success"] not in (
-            "available", "partially_available", "metadata_only", "manual_access", "excluded"):
+        "available",
+        "partially_available",
+        "metadata_only",
+        "manual_access",
+        "excluded",
+    ):
         raise ValueError(f"{where}: invalid status_on_success")
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=list(seed.get("lists", ["probe"])),
-                                   scope_notes="Availability probe only; no candidates are enumerated.")
+    discovery = base.new_discovery(
+        seed,
+        lists=list(seed.get("lists", ["probe"])),
+        scope_notes="Availability probe only; no candidates are enumerated.",
+    )
     status = seed.get("status_on_success", "metadata_only")
     for item in seed["items"]:
         url = item["url"]
@@ -45,19 +53,25 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             base.mark_unread(discovery, discovery.lists[0], error)
             discovery.evidence_level = "blocked" if error.error_class in FAILURE_STATUS else "not_established"
             status = FAILURE_STATUS.get(error.error_class, "temporarily_unavailable")
-            discovery.notes.append(f"Probe of {url} on {ctx.now()[:10]} failed: {error.error_class}"
-                                   f"{'' if error.http_status is None else f' (HTTP {error.http_status})'}: "
-                                   f"{model.clip(error.message, 120)}.")
+            discovery.notes.append(
+                f"Probe of {url} on {ctx.now()[:10]} failed: {error.error_class}"
+                f"{'' if error.http_status is None else f' (HTTP {error.http_status})'}: "
+                f"{model.clip(error.message, 120)}."
+            )
             continue
         document = base.soup(html)
-        texts = {"title": document.title.get_text(" ", strip=True) if document.title else "",
-                 "body": base.page_text(base.soup(html))}
+        texts = {
+            "title": document.title.get_text(" ", strip=True) if document.title else "",
+            "body": base.page_text(base.soup(html)),
+        }
         found, missing = model.find_quotes(item.get("expect_quotes", []), texts, url)
-        discovery.notes.extend(f"Page read {ctx.now()[:10]} ({url}): {entry['field']} contains "
-                               f"“{entry['quote']}”." for entry in found)
+        discovery.notes.extend(
+            f"Page read {ctx.now()[:10]} ({url}): {entry['field']} contains “{entry['quote']}”." for entry in found
+        )
         for quote in missing:
-            discovery.errors.append(model.discovery_error("discover", url, f"expected text not found: "
-                                                                           f"{model.clip(quote, 80)}"))
+            discovery.errors.append(
+                model.discovery_error("discover", url, f"expected text not found: {model.clip(quote, 80)}")
+            )
         if item.get("note"):
             discovery.notes.append(item["note"])
     discovery.status = status

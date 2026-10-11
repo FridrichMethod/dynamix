@@ -93,6 +93,7 @@ _CHARSET = re.compile(r"charset=[\"']?([A-Za-z0-9._:-]+)", re.IGNORECASE)
 
 # --- Errors -----------------------------------------------------------------------------------------------------------
 
+
 class FetchError(Exception):
     """Base class; attributes mirror the Failure contract (``error_class``, ``http_status``, ``retriable``,
     ``manual``, ``attempts``). ``url`` and ``message`` are already redacted."""
@@ -101,8 +102,16 @@ class FetchError(Exception):
     default_retriable = False
     default_manual = False
 
-    def __init__(self, message: str, *, url: str | None = None, http_status: int | None = None,
-                 retriable: bool | None = None, manual: bool | None = None, retry_after: float | None = None):
+    def __init__(
+        self,
+        message: str,
+        *,
+        url: str | None = None,
+        http_status: int | None = None,
+        retriable: bool | None = None,
+        manual: bool | None = None,
+        retry_after: float | None = None,
+    ):
         self.message = redact_text(message)
         # ``url`` becomes the Failure record's URL (stored-URL rule); str() is for logs (strict rule).
         self.url = redact_url(url, strict=False) if url else None
@@ -113,8 +122,15 @@ class FetchError(Exception):
         self.retry_after = retry_after
         self.attempts = 1
 
-    def failure(self, *, source_id: str, candidate_id: str, phase: str = "download", attempted_at: str | None = None,
-                url: str | None = None) -> dict:
+    def failure(
+        self,
+        *,
+        source_id: str,
+        candidate_id: str,
+        phase: str = "download",
+        attempted_at: str | None = None,
+        url: str | None = None,
+    ) -> dict:
         """A validated Failure record for this error (``url`` defaults to the URL that failed).
 
         A refused redirect is reported against the URL that sent it, so ``self.url`` is a valid URL except when the
@@ -125,27 +141,41 @@ class FetchError(Exception):
             raise ValueError("a Failure record needs the URL that was attempted")
         problem = url_problem(target)
         if problem:
-            raise ValueError(f"the failed URL cannot be stored ({problem}); pass url= with a valid URL such as the "
-                             "candidate's page URL")
-        return failure_record(source_id=source_id, candidate_id=candidate_id, phase=phase, url=target,
-                              attempted_at=attempted_at or manifest.now_utc(), attempts=self.attempts,
-                              error_class=self.error_class, http_status=self.http_status, retriable=self.retriable,
-                              manual=self.manual, message=self.message)
+            raise ValueError(
+                f"the failed URL cannot be stored ({problem}); pass url= with a valid URL such as the "
+                "candidate's page URL"
+            )
+        return failure_record(
+            source_id=source_id,
+            candidate_id=candidate_id,
+            phase=phase,
+            url=target,
+            attempted_at=attempted_at or manifest.now_utc(),
+            attempts=self.attempts,
+            error_class=self.error_class,
+            http_status=self.http_status,
+            retriable=self.retriable,
+            manual=self.manual,
+            message=self.message,
+        )
 
 
 class HostNotAllowedError(FetchError):
     """Scheme, credentials, host or resolved address outside the allowlist/public internet."""
+
     error_class = "host_not_allowed"
 
 
 class BlockedError(FetchError):
     """401/403 or another access refusal; never retried and flagged for manual follow-up."""
+
     error_class = "blocked"
     default_manual = True
 
 
 class ChallengeError(BlockedError):
     """A bot-check/captcha interstitial (``cf-mitigated: challenge``, ``Just a moment...``, ``cf-chl`` markers)."""
+
     error_class = "challenge"
 
 
@@ -169,11 +199,13 @@ class TimeoutFetchError(FetchError):
 
 class ConnectionFetchError(FetchError):
     """DNS failure, refused/reset connection or broken transfer; retried."""
+
     error_class = "other"
     default_retriable = True
 
 
 # --- Results ----------------------------------------------------------------------------------------------------------
+
 
 @dataclass(frozen=True)
 class DownloadResult:
@@ -189,6 +221,7 @@ class DownloadResult:
 
 # --- Helpers ----------------------------------------------------------------------------------------------------------
 
+
 def parse_retry_after(value: str | None, *, now: datetime | None = None) -> float | None:
     """Seconds requested by a ``Retry-After`` header (delta-seconds or HTTP date), or None when absent/unparseable."""
     if not value or not value.strip():
@@ -198,7 +231,7 @@ def parse_retry_after(value: str | None, *, now: datetime | None = None) -> floa
     except ValueError:
         try:
             when = parsedate_to_datetime(value.strip())
-        except (TypeError, ValueError, IndexError):
+        except TypeError, ValueError, IndexError:
             return None
         if when is None:
             return None
@@ -241,12 +274,12 @@ def _redirect_target(current: str, location: str) -> str:
     check rejects; a backslash therefore cannot split the authority)."""
     try:
         location = location.encode("latin-1").decode("utf-8")
-    except (UnicodeEncodeError, UnicodeDecodeError):
+    except UnicodeEncodeError, UnicodeDecodeError:
         pass
     target = urljoin(current, location)
     try:
         return requests.utils.requote_uri(target)
-    except (requests.RequestException, ValueError):
+    except requests.RequestException, ValueError:
         return target
 
 
@@ -301,9 +334,19 @@ def _cause_summary(error: BaseException) -> str:
         names.append(name)
         reason = getattr(current, "reason", None)
         nested = next((arg for arg in getattr(current, "args", ()) if isinstance(arg, BaseException)), None)
-        current = next((candidate for candidate in (reason if isinstance(reason, BaseException) else None,
-                                                    current.__cause__, nested, current.__context__)
-                        if candidate is not None), None)
+        current = next(
+            (
+                candidate
+                for candidate in (
+                    reason if isinstance(reason, BaseException) else None,
+                    current.__cause__,
+                    nested,
+                    current.__context__,
+                )
+                if candidate is not None
+            ),
+            None,
+        )
     return " <- ".join(names)
 
 
@@ -327,8 +370,10 @@ class _PeerCheckMixin:
 def _guarded_adapter(check: Callable[[str, str], None]) -> HTTPAdapter:
     connection = type("GuardedHTTPConnection", (_PeerCheckMixin, HTTPConnection), {"peer_check": staticmethod(check)})
     secure = type("GuardedHTTPSConnection", (_PeerCheckMixin, HTTPSConnection), {"peer_check": staticmethod(check)})
-    pools = {"http": type("GuardedHTTPConnectionPool", (HTTPConnectionPool,), {"ConnectionCls": connection}),
-             "https": type("GuardedHTTPSConnectionPool", (HTTPSConnectionPool,), {"ConnectionCls": secure})}
+    pools = {
+        "http": type("GuardedHTTPConnectionPool", (HTTPConnectionPool,), {"ConnectionCls": connection}),
+        "https": type("GuardedHTTPSConnectionPool", (HTTPSConnectionPool,), {"ConnectionCls": secure}),
+    }
 
     class GuardedAdapter(HTTPAdapter):
         def init_poolmanager(self, *args: Any, **kwargs: Any) -> None:
@@ -360,16 +405,29 @@ class HostSchedule:
 
 # --- Client -----------------------------------------------------------------------------------------------------------
 
+
 class PoliteClient:
     """Allowlisted, rate-limited GET client. Thread-safe: requests to different hosts may run concurrently."""
 
-    def __init__(self, allowed_hosts: Iterable[str], *, min_interval: float = DEFAULT_MIN_INTERVAL,
-                 max_bytes: int = DEFAULT_MAX_BYTES, timeout: float | tuple[float, float] = DEFAULT_TIMEOUT,
-                 max_attempts: int = MAX_ATTEMPTS, max_redirects: int = MAX_REDIRECTS,
-                 max_retry_after: float = MAX_RETRY_AFTER, max_duration: float = DEFAULT_MAX_DURATION,
-                 allow_loopback: bool = False, user_agent: str = USER_AGENT, proxies: Mapping[str, str] | None = None,
-                 sleep: Callable[[float], None] = time.sleep, clock: Callable[[], float] = time.monotonic,
-                 resolver: Callable[[str], list[str]] | None = None, schedule: HostSchedule | None = None):
+    def __init__(
+        self,
+        allowed_hosts: Iterable[str],
+        *,
+        min_interval: float = DEFAULT_MIN_INTERVAL,
+        max_bytes: int = DEFAULT_MAX_BYTES,
+        timeout: float | tuple[float, float] = DEFAULT_TIMEOUT,
+        max_attempts: int = MAX_ATTEMPTS,
+        max_redirects: int = MAX_REDIRECTS,
+        max_retry_after: float = MAX_RETRY_AFTER,
+        max_duration: float = DEFAULT_MAX_DURATION,
+        allow_loopback: bool = False,
+        user_agent: str = USER_AGENT,
+        proxies: Mapping[str, str] | None = None,
+        sleep: Callable[[float], None] = time.sleep,
+        clock: Callable[[], float] = time.monotonic,
+        resolver: Callable[[str], list[str]] | None = None,
+        schedule: HostSchedule | None = None,
+    ):
         entries = [normalize_host(host) for host in allowed_hosts]
         if not entries:
             raise ValueError("allowed_hosts must name at least one host")
@@ -405,38 +463,51 @@ class PoliteClient:
 
     # -- public API --
 
-    def get_json(self, url: str, params: Mapping[str, Any] | None = None, *,
-                 headers: Mapping[str, str] | None = None) -> tuple[Any, str]:
+    def get_json(
+        self, url: str, params: Mapping[str, Any] | None = None, *, headers: Mapping[str, str] | None = None
+    ) -> tuple[Any, str]:
         """GET and parse JSON. Returns ``(data, final_url)``."""
+
         def consume(response: requests.Response, final_url: str) -> tuple[Any, str]:
             body = b"".join(self._iter_body(response, final_url))
             try:
                 return json.loads(body), final_url
             except ValueError as error:
                 if _is_challenge_body(body[:CHALLENGE_SNIFF_BYTES]):
-                    raise ChallengeError(f"challenge page served with HTTP {response.status_code}", url=final_url,
-                                         http_status=response.status_code) from None
-                raise FetchError(f"response is not valid JSON: {error}", url=final_url,
-                                 http_status=response.status_code) from None
+                    raise ChallengeError(
+                        f"challenge page served with HTTP {response.status_code}",
+                        url=final_url,
+                        http_status=response.status_code,
+                    ) from None
+                raise FetchError(
+                    f"response is not valid JSON: {error}", url=final_url, http_status=response.status_code
+                ) from None
+
         return self._fetch(self._with_params(url, params), {"Accept": "application/json", **(headers or {})}, consume)
 
     def get_text(self, url: str, *, headers: Mapping[str, str] | None = None) -> tuple[str, str, dict[str, str]]:
         """GET a text/HTML page. Returns ``(text, final_url, headers)``; a 200 challenge page raises ChallengeError."""
+
         def consume(response: requests.Response, final_url: str) -> tuple[str, str, dict[str, str]]:
             body = b"".join(self._iter_body(response, final_url))
             if _CHALLENGE_MARKERS.search(body[:CHALLENGE_SNIFF_BYTES]):
-                raise ChallengeError(f"challenge page served with HTTP {response.status_code}", url=final_url,
-                                     http_status=response.status_code)
+                raise ChallengeError(
+                    f"challenge page served with HTTP {response.status_code}",
+                    url=final_url,
+                    http_status=response.status_code,
+                )
             declared = _CHARSET.search(response.headers.get("Content-Type", ""))
             try:  # a declared charset wins; otherwise UTF-8 (not requests' ISO-8859-1 default for text/*)
                 text = body.decode(declared.group(1) if declared else "utf-8", errors="replace")
             except LookupError:
                 text = body.decode("utf-8", errors="replace")
             return text, final_url, _public_headers(response.headers)
+
         return self._fetch(url, dict(headers or {}), consume)
 
-    def download(self, url: str, dest_dir: str | os.PathLike[str], stem: str, *,
-                 headers: Mapping[str, str] | None = None) -> DownloadResult:
+    def download(
+        self, url: str, dest_dir: str | os.PathLike[str], stem: str, *, headers: Mapping[str, str] | None = None
+    ) -> DownloadResult:
         """Stream the body into a unique ``.<slug(stem)>.*.part`` file inside ``dest_dir`` and hash it.
 
         The temporary file is deleted on any failure (including a failed attempt that is then retried). A successful
@@ -462,13 +533,25 @@ class PoliteClient:
                     handle.flush()
                     os.fsync(handle.fileno())
                 if _is_challenge_body(head):
-                    raise ChallengeError(f"challenge page served with HTTP {response.status_code}", url=final_url,
-                                         http_status=response.status_code)
-                return DownloadResult(temp, final_url, response.status_code, response.headers.get("Content-Type"),
-                                      size, sha256.hexdigest(), sha1.hexdigest(), _public_headers(response.headers))
+                    raise ChallengeError(
+                        f"challenge page served with HTTP {response.status_code}",
+                        url=final_url,
+                        http_status=response.status_code,
+                    )
+                return DownloadResult(
+                    temp,
+                    final_url,
+                    response.status_code,
+                    response.headers.get("Content-Type"),
+                    size,
+                    sha256.hexdigest(),
+                    sha1.hexdigest(),
+                    _public_headers(response.headers),
+                )
             except BaseException:
                 temp.unlink(missing_ok=True)
                 raise
+
         return self._fetch(url, dict(headers or {}), consume)
 
     def is_allowed_host(self, host: str) -> bool:
@@ -502,8 +585,9 @@ class PoliteClient:
                 delay = retry_delay(error, attempt, max_retry_after=self._max_retry_after)
                 if delay is None or attempt == self._max_attempts:
                     raise
-                LOG.info("retrying %s in %.1f s after %s (attempt %d)", redact_url(url), delay, error.error_class,
-                         attempt)
+                LOG.info(
+                    "retrying %s in %.1f s after %s (attempt %d)", redact_url(url), delay, error.error_class, attempt
+                )
                 self._sleep(delay)
         raise AssertionError("unreachable")
 
@@ -550,8 +634,9 @@ class PoliteClient:
                 if not self._proxied:
                     self._check_resolution(host, url)
                 try:
-                    response = self._session.get(url, headers=dict(headers), allow_redirects=False, stream=True,
-                                                 timeout=self._timeout)
+                    response = self._session.get(
+                        url, headers=dict(headers), allow_redirects=False, stream=True, timeout=self._timeout
+                    )
                     response.dynamix_deadline = deadline  # read by _body_chunks
                 except requests.RequestException as error:
                     raise self._transport_error(error, url) from None
@@ -575,7 +660,7 @@ class PoliteClient:
         """
         try:
             scheme = urlsplit(url).scheme
-        except (TypeError, ValueError, AttributeError):
+        except TypeError, ValueError, AttributeError:
             scheme = ""
         if scheme and scheme not in ("http", "https"):
             raise HostNotAllowedError(f"scheme {scheme!r} is not allowed", url=url)
@@ -587,8 +672,9 @@ class PoliteClient:
             raise HostNotAllowedError(f"host {host!r} is not in the allowlist", url=url)
         contacted = self._contacted_host(url)
         if _canonical_host(contacted) != _canonical_host(host):
-            raise HostNotAllowedError(f"ambiguous authority: checked host {host!r} but requests would contact "
-                                      f"{contacted!r}", url=url)
+            raise HostNotAllowedError(
+                f"ambiguous authority: checked host {host!r} but requests would contact {contacted!r}", url=url
+            )
         return host
 
     @staticmethod
@@ -644,10 +730,14 @@ class PoliteClient:
             raise BlockedError(f"access refused (HTTP {status})", url=url, http_status=status)
         if status == 429 or 500 <= status <= 599:
             retry_after = parse_retry_after(response.headers.get("Retry-After"))
-            note = "" if retry_after is None or retry_after <= self._max_retry_after else (
-                f"; Retry-After {retry_after:.0f} s exceeds {self._max_retry_after:.0f} s, not retried")
-            raise HttpError(f"HTTP {status}{note}", url=url, http_status=status, retriable=True,
-                            retry_after=retry_after)
+            note = (
+                ""
+                if retry_after is None or retry_after <= self._max_retry_after
+                else (f"; Retry-After {retry_after:.0f} s exceeds {self._max_retry_after:.0f} s, not retried")
+            )
+            raise HttpError(
+                f"HTTP {status}{note}", url=url, http_status=status, retriable=True, retry_after=retry_after
+            )
         raise HttpError(f"HTTP {status}", url=url, http_status=status)
 
     def _read_head(self, response: requests.Response, url: str) -> bytes:
@@ -672,16 +762,21 @@ class PoliteClient:
         deadline = getattr(response, "dynamix_deadline", None)
         while True:
             if deadline is not None and self._clock() > deadline:
-                raise TimeoutFetchError(f"response not complete within {self._max_duration:.0f} s", url=url,
-                                        http_status=response.status_code)
+                raise TimeoutFetchError(
+                    f"response not complete within {self._max_duration:.0f} s",
+                    url=url,
+                    http_status=response.status_code,
+                )
             try:
                 chunk = response.raw.read1(CHUNK_BYTES, decode_content=True)
             except (ReadTimeoutError, Urllib3TimeoutError, socket.timeout, TimeoutError) as error:
-                raise TimeoutFetchError(f"timed out reading the body ({_cause_summary(error)})", url=url,
-                                        http_status=response.status_code) from None
+                raise TimeoutFetchError(
+                    f"timed out reading the body ({_cause_summary(error)})", url=url, http_status=response.status_code
+                ) from None
             except (Urllib3Error, OSError) as error:
-                raise ConnectionFetchError(f"broken transfer ({_cause_summary(error)})", url=url,
-                                           http_status=response.status_code) from None
+                raise ConnectionFetchError(
+                    f"broken transfer ({_cause_summary(error)})", url=url, http_status=response.status_code
+                ) from None
             if not chunk:
                 return
             yield chunk
@@ -689,21 +784,26 @@ class PoliteClient:
     def _iter_body(self, response: requests.Response, url: str) -> Iterator[bytes]:
         declared = response.headers.get("Content-Length")
         if declared and declared.strip().isdigit() and int(declared) > self._max_bytes:
-            raise SizeLimitError(f"Content-Length {int(declared)} exceeds {self._max_bytes} bytes", url=url,
-                                 http_status=response.status_code)
+            raise SizeLimitError(
+                f"Content-Length {int(declared)} exceeds {self._max_bytes} bytes",
+                url=url,
+                http_status=response.status_code,
+            )
         total = 0
         for chunk in self._body_chunks(response, url):
             total += len(chunk)
             if total > self._max_bytes:
-                raise SizeLimitError(f"response exceeds {self._max_bytes} bytes", url=url,
-                                     http_status=response.status_code)
+                raise SizeLimitError(
+                    f"response exceeds {self._max_bytes} bytes", url=url, http_status=response.status_code
+                )
             yield chunk
 
     @staticmethod
     def _transport_error(error: requests.RequestException, url: str) -> FetchError:
         """Timeout/connection FetchError whose message names exception classes only (see :func:`_cause_summary`)."""
         timed_out = isinstance(error, requests.Timeout) or any(
-            isinstance(arg, (ReadTimeoutError, socket.timeout, TimeoutError)) for arg in error.args)
+            isinstance(arg, (ReadTimeoutError, socket.timeout, TimeoutError)) for arg in error.args
+        )
         if timed_out:
             return TimeoutFetchError(f"timed out ({_cause_summary(error)})", url=url)
         return ConnectionFetchError(f"connection failed ({_cause_summary(error)})", url=url)

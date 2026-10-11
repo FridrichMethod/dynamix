@@ -32,11 +32,36 @@ from lib.checks import redact_text
 ACTIONS = ("download", "excluded", "blocked", "failed", "pending")
 RULE_ACTIONS = ("download", "exclude", "pending")
 RULE_FIELDS = {
-    "match", "title", "role", "game", "action", "reason", "evidence_quotes", "game_evidence", "song_titles",
-    "collections", "illustrators", "composers", "mapping_status", "credit_evidence", "variant_group", "variant_role",
-    "quality", "rights", "notes", "transformed", "allow_universe_mention", "game_associations", "candidate_notes",
-    "primary_evidence", "upstream_revision", "withdraw_archived", "credit_source", "mapping_evidence",
-    "title_aliases", "archive_under",
+    "match",
+    "title",
+    "role",
+    "game",
+    "action",
+    "reason",
+    "evidence_quotes",
+    "game_evidence",
+    "song_titles",
+    "collections",
+    "illustrators",
+    "composers",
+    "mapping_status",
+    "credit_evidence",
+    "variant_group",
+    "variant_role",
+    "quality",
+    "rights",
+    "notes",
+    "transformed",
+    "allow_universe_mention",
+    "game_associations",
+    "candidate_notes",
+    "primary_evidence",
+    "upstream_revision",
+    "withdraw_archived",
+    "credit_source",
+    "mapping_evidence",
+    "title_aliases",
+    "archive_under",
 }
 ADMITTED_GAMES = ("dynamix", "mixed")  # the only games a download rule may assert (schema: accepted candidates)
 REJECTED_RE = re.compile(r"rejected\s+submission", re.IGNORECASE)
@@ -51,8 +76,11 @@ NO_FILE_REASON = "unresolved_role: no downloadable file URL was found for this i
 
 def awaiting_without_file(candidate: Mapping[str, Any]) -> bool:
     """Whether a ``pending`` candidate says ``awaiting_download`` although it names no file URL to fetch."""
-    return (candidate.get("disposition") == "pending" and not candidate.get("file_url")
-            and str(candidate.get("reason") or "").split(":", 1)[0].strip() == "awaiting_download")
+    return (
+        candidate.get("disposition") == "pending"
+        and not candidate.get("file_url")
+        and str(candidate.get("reason") or "").split(":", 1)[0].strip() == "awaiting_download"
+    )
 
 
 def normalize_text(text: str) -> str:
@@ -140,8 +168,15 @@ def discovery_error(phase: str, url: str | None, message: str) -> dict:
 
 # --- Seed rules -------------------------------------------------------------------------------------------------------
 
-LIST_FIELDS = ("evidence_quotes", "song_titles", "illustrators", "composers", "collections", "game_evidence",
-               "game_associations")
+LIST_FIELDS = (
+    "evidence_quotes",
+    "song_titles",
+    "illustrators",
+    "composers",
+    "collections",
+    "game_evidence",
+    "game_associations",
+)
 
 
 def _https(value: Any) -> bool:
@@ -153,24 +188,37 @@ def _check_credit_sources(rule: Mapping[str, Any], action: str, where: str) -> N
     name and the https URL that states it. A download rule that credits names must cite a source for every name: a
     ``credit_source`` (used for names its fetched text does not state with their role) or a curated entry per name."""
     source = rule.get("credit_source")
-    if source is not None and not (isinstance(source, dict) and set(source) <= {"url", "note"}
-                                   and _https(source.get("url")) and isinstance(source.get("note", ""), str)):
+    if source is not None and not (
+        isinstance(source, dict)
+        and set(source) <= {"url", "note"}
+        and _https(source.get("url"))
+        and isinstance(source.get("note", ""), str)
+    ):
         raise ValueError(f"{where}: credit_source must be an object with an https url (and an optional note)")
     curated = set()
     for index, entry in enumerate(rule.get("credit_evidence", [])):
-        if not (isinstance(entry, dict) and entry.get("role") in schema.CREDIT_ROLES
-                and isinstance(entry.get("name"), str) and entry["name"].strip() and _https(entry.get("url"))
-                and all(entry.get(k) is None or isinstance(entry[k], str) and entry[k].strip()
-                        for k in ("field", "quote"))
-                and set(entry) <= {"role", "name", "url", "field", "quote"}):
-            raise ValueError(f"{where}: credit_evidence[{index}] needs a role, a name and an https url (field and "
-                             "quote optional)")
+        if not (
+            isinstance(entry, dict)
+            and entry.get("role") in schema.CREDIT_ROLES
+            and isinstance(entry.get("name"), str)
+            and entry["name"].strip()
+            and _https(entry.get("url"))
+            and all(entry.get(k) is None or isinstance(entry[k], str) and entry[k].strip() for k in ("field", "quote"))
+            and set(entry) <= {"role", "name", "url", "field", "quote"}
+        ):
+            raise ValueError(
+                f"{where}: credit_evidence[{index}] needs a role, a name and an https url (field and quote optional)"
+            )
         curated.add((entry["role"], entry["name"]))
-    credited = [*(("illustrator", name) for name in rule.get("illustrators", [])),
-                *(("composer", name) for name in rule.get("composers", []))]
+    credited = [
+        *(("illustrator", name) for name in rule.get("illustrators", [])),
+        *(("composer", name) for name in rule.get("composers", [])),
+    ]
     if action == "download" and source is None and any(credit not in curated for credit in credited):
-        raise ValueError(f"{where}: a download rule that credits names needs a credit_source (or a curated "
-                         "credit_evidence entry with a url for every name)")
+        raise ValueError(
+            f"{where}: a download rule that credits names needs a credit_source (or a curated "
+            "credit_evidence entry with a url for every name)"
+        )
 
 
 def check_rule(rule: Mapping[str, Any], where: str) -> None:
@@ -187,24 +235,34 @@ def check_rule(rule: Mapping[str, Any], where: str) -> None:
     if "game" in rule and rule["game"] not in schema.GAMES:
         raise ValueError(f"{where}: game must be one of {schema.GAMES}")
     if action == "download" and rule.get("game", schema.GAME) not in ADMITTED_GAMES:
-        raise ValueError(f"{where}: a download rule admits original-game files only; game must be one of "
-                         f"{ADMITTED_GAMES} (use an exclude or pending rule for {rule['game']!r})")
+        raise ValueError(
+            f"{where}: a download rule admits original-game files only; game must be one of "
+            f"{ADMITTED_GAMES} (use an exclude or pending rule for {rule['game']!r})"
+        )
     if "withdraw_archived" in rule and (rule["withdraw_archived"] is not True or action == "download"):
         raise ValueError(f"{where}: withdraw_archived must be true and only on an exclude or pending rule")
-    if "archive_under" in rule and (action != "download" or not isinstance(rule["archive_under"], str)
-                                    or not rule["archive_under"].strip()):
+    if "archive_under" in rule and (
+        action != "download" or not isinstance(rule["archive_under"], str) or not rule["archive_under"].strip()
+    ):
         raise ValueError(f"{where}: archive_under names an upstream key and is only allowed on a download rule")
     if "{filename}" in str(rule.get("title", "")):
         raise ValueError(f"{where}: a title is human text from the cited page, not the file name ({{filename}})")
     _check_credit_sources(rule, action, where)
     for index, entry in enumerate(rule.get("mapping_evidence", [])):
-        if not (isinstance(entry, dict) and isinstance(entry.get("url"), str) and entry["url"].startswith("http")
-                and any(isinstance(entry.get(k), str) and entry[k].strip() for k in ("quote", "note"))):
+        if not (
+            isinstance(entry, dict)
+            and isinstance(entry.get("url"), str)
+            and entry["url"].startswith("http")
+            and any(isinstance(entry.get(k), str) and entry[k].strip() for k in ("quote", "note"))
+        ):
             raise ValueError(f"{where}: mapping_evidence[{index}] needs a url and a quote or note")
     aliases = rule.get("title_aliases", {})
-    if not isinstance(aliases, dict) or any(title not in rule.get("song_titles", []) or not isinstance(names, list)
-                                            or not all(isinstance(name, str) and name.strip() for name in names)
-                                            for title, names in aliases.items()):
+    if not isinstance(aliases, dict) or any(
+        title not in rule.get("song_titles", [])
+        or not isinstance(names, list)
+        or not all(isinstance(name, str) and name.strip() for name in names)
+        for title, names in aliases.items()
+    ):
         raise ValueError(f"{where}: title_aliases maps a song title of the rule to a list of alias strings")
     if action in ("exclude", "pending") and not rule.get("reason"):
         raise ValueError(f"{where}: an {action} rule needs a reason")
@@ -220,21 +278,30 @@ def check_rule(rule: Mapping[str, Any], where: str) -> None:
         raise ValueError(f"{where}: unknown mapping_status")
     if rule.get("mapping_status", "unmapped") != "unmapped" and not rule.get("song_titles"):
         raise ValueError(f"{where}: a mapped rule needs song_titles")
-    if rule.get("mapping_status") == "confirmed_primary" and not (rule.get("evidence_quotes")
-                                                                  or rule.get("primary_evidence")):
-        raise ValueError(f"{where}: confirmed_primary needs evidence_quotes found in the primary post itself (or, "
-                         "for a copy of that post's file, primary_evidence quoting it)")
+    if rule.get("mapping_status") == "confirmed_primary" and not (
+        rule.get("evidence_quotes") or rule.get("primary_evidence")
+    ):
+        raise ValueError(
+            f"{where}: confirmed_primary needs evidence_quotes found in the primary post itself (or, "
+            "for a copy of that post's file, primary_evidence quoting it)"
+        )
     if rule.get("variant_role") and not rule.get("variant_group"):
         raise ValueError(f"{where}: variant_role requires variant_group")
     if rule.get("game_associations") and schema.GAME not in rule["game_associations"]:
         raise ValueError(f"{where}: game_associations must include {schema.GAME!r}")
-    if action == "download" and not rule.get("game_associations") and any(
-            COLLABORATION_RE.search(name) for name in rule.get("collections", [])):
-        raise ValueError(f"{where}: a collaboration collection needs game_associations naming the partner (so the "
-                         "C4Cat default rights holder is not applied to partner art)")
+    if (
+        action == "download"
+        and not rule.get("game_associations")
+        and any(COLLABORATION_RE.search(name) for name in rule.get("collections", []))
+    ):
+        raise ValueError(
+            f"{where}: a collaboration collection needs game_associations naming the partner (so the "
+            "C4Cat default rights holder is not applied to partner art)"
+        )
     for index, entry in enumerate(rule.get("primary_evidence", [])):
-        if not isinstance(entry, dict) or not all(isinstance(entry.get(k), str) and entry[k].strip()
-                                                  for k in ("url", "quote")):
+        if not isinstance(entry, dict) or not all(
+            isinstance(entry.get(k), str) and entry[k].strip() for k in ("url", "quote")
+        ):
             raise ValueError(f"{where}: primary_evidence[{index}] needs url and quote")
 
 
@@ -279,24 +346,59 @@ _ASCII_WORD = r"(?<![0-9A-Za-z]){}(?![0-9A-Za-z])"
 # artwork), never a joint composer+illustrator label.
 _SONG_PICTURE = r"(?!絵|イラスト|ジャケ|画)"
 ROLE_TERMS = {  # labels that state a credit's role, in the languages the sources use (BGA/movie credits are videos)
-    "illustrator": re.compile("|".join([
-        # ``cover`` alone is also a vocal/remix cover ("Cover by X"): only ``Cover:`` or ``Cover art/illustration/
-        # image/design/picture`` labels the artwork.
-        _ASCII_WORD.format(r"(?:illust\w*|art\s*works?|art|jackets?|cover\s*(?:image|design)s?|"
-                           r"covers?(?=\s*(?:[:：=]|art|illust|pic))|visual\w*|drawn|drawing|painted|pic(?:ture)?\s*by)"),
-        "イラストレーター", "イラストレーション", "イラスト", "ジャケット", "ジャケ写", "ジャケ", "アートワーク", "絵師", "絵",
-        "插画", "插圖", "画师", "美术", "封面"]), re.IGNORECASE),
-    "composer": re.compile("|".join([
-        _ASCII_WORD.format(r"(?:music\w*|compos\w*|arrang\w*|track\s*by|sound)"),
-        "作編曲", "作曲", "編曲", "编曲", "楽曲提供", f"楽曲{_SONG_PICTURE}", "音楽", "音乐", f"曲{_SONG_PICTURE}"]),
-        re.IGNORECASE),
+    "illustrator": re.compile(
+        "|".join(
+            [
+                # ``cover`` alone is also a vocal/remix cover ("Cover by X"): only ``Cover:`` or ``Cover art/illustration/
+                # image/design/picture`` labels the artwork.
+                _ASCII_WORD.format(
+                    r"(?:illust\w*|art\s*works?|art|jackets?|cover\s*(?:image|design)s?|"
+                    r"covers?(?=\s*(?:[:：=]|art|illust|pic))|visual\w*|drawn|drawing|painted|pic(?:ture)?\s*by)"
+                ),
+                "イラストレーター",
+                "イラストレーション",
+                "イラスト",
+                "ジャケット",
+                "ジャケ写",
+                "ジャケ",
+                "アートワーク",
+                "絵師",
+                "絵",
+                "插画",
+                "插圖",
+                "画师",
+                "美术",
+                "封面",
+            ]
+        ),
+        re.IGNORECASE,
+    ),
+    "composer": re.compile(
+        "|".join(
+            [
+                _ASCII_WORD.format(r"(?:music\w*|compos\w*|arrang\w*|track\s*by|sound)"),
+                "作編曲",
+                "作曲",
+                "編曲",
+                "编曲",
+                "楽曲提供",
+                f"楽曲{_SONG_PICTURE}",
+                "音楽",
+                "音乐",
+                f"曲{_SONG_PICTURE}",
+            ]
+        ),
+        re.IGNORECASE,
+    ),
 }
 # What may stand between a credit label and the credited name: separators (``: ``, `` by ``, ``は``, ``@``), a joined
 # label word (``Composition/Vocal:``) and earlier names of the same list (``Composed by A and B``, ``A & B``, ``A X B``).
 # Anything else (``music package "Kplecraft Collection"``, ``Illustration by A B:``) means the label credits someone else.
-_LABEL_GAP = re.compile(r"(?:\s*/\s*[A-Za-z]+)*[\s:：=\-–—・@＠]*(?:by|は|が)?[\s:：=\-–—@＠]*"
-                        r"(?:[^\n:：。．!！?？「」『』\"“”]{1,40}?(?:\s+(?:and|x|×|vs\.?|feat\.?)\s+|\s*[&＆,、/×]\s*)@?)?",
-                        re.IGNORECASE)
+_LABEL_GAP = re.compile(
+    r"(?:\s*/\s*[A-Za-z]+)*[\s:：=\-–—・@＠]*(?:by|は|が)?[\s:：=\-–—@＠]*"
+    r"(?:[^\n:：。．!！?？「」『』\"“”]{1,40}?(?:\s+(?:and|x|×|vs\.?|feat\.?)\s+|\s*[&＆,、/×]\s*)@?)?",
+    re.IGNORECASE,
+)
 # A credit label is read back from the name to the nearest of these (a new line or list bullet starts a new credit).
 _SEGMENT_BREAK = re.compile(r"[\n\r|｜◆◇■□●○★☆▼▽▶►•]|-{3,}|={3,}")
 _LABEL_JOIN = re.compile(r"^(?:[\s&/+＆・,、]|and|と|及び)*$", re.IGNORECASE)
@@ -331,20 +433,26 @@ def label_roles(before: str) -> tuple[set[str], int | None]:
     offset = breaks[-1].end() if breaks else 0
     segment = before[offset:]
     if not segment.strip() and breaks:  # "Illustration:" on its own line, the name on the next one
-        previous = before[:breaks[-1].start()]
+        previous = before[: breaks[-1].start()]
         earlier = list(_SEGMENT_BREAK.finditer(previous))
         start = earlier[-1].end() if earlier else 0
         if previous[start:].rstrip().endswith((":", "：")):
             offset, segment = start, before[start:]
-    found = sorted(((match.start(), match.end(), role) for role, pattern in ROLE_TERMS.items()
-                    for match in pattern.finditer(segment)), key=lambda item: (item[0], -item[1]))
+    found = sorted(
+        (
+            (match.start(), match.end(), role)
+            for role, pattern in ROLE_TERMS.items()
+            for match in pattern.finditer(segment)
+        ),
+        key=lambda item: (item[0], -item[1]),
+    )
     if not found:
         return set(), None
     group = [found[-1]]
-    if not _LABEL_GAP.fullmatch(segment[group[0][1]:]):
+    if not _LABEL_GAP.fullmatch(segment[group[0][1] :]):
         return set(), None
     for item in reversed(found[:-1]):
-        if item[1] <= group[-1][0] and _LABEL_JOIN.match(segment[item[1]:group[-1][0]]):
+        if item[1] <= group[-1][0] and _LABEL_JOIN.match(segment[item[1] : group[-1][0]]):
             group.append(item)
         elif item[1] <= group[-1][0]:
             break
@@ -365,11 +473,12 @@ def locate_credit(name: str, texts: Mapping[str, str], role: str) -> tuple[str, 
         value = unicodedata.normalize("NFKC", text)
         for match in pattern.finditer(value):
             window = max(0, match.start() - LABEL_WINDOW)
-            roles, label = label_roles(value[window:match.start()])
+            roles, label = label_roles(value[window : match.start()])
             if role in roles:
                 start, end = min(window + label, max(0, match.start() - EXCERPT_CONTEXT)), match.end() + EXCERPT_CONTEXT
-                return field_name, clip(("…" if start else "") + value[start:end] + ("…" if end < len(value) else ""),
-                                        200)
+                return field_name, clip(
+                    ("…" if start else "") + value[start:end] + ("…" if end < len(value) else ""), 200
+                )
     return None
 
 
@@ -387,18 +496,28 @@ def guard_texts(texts: Mapping[str, str]) -> tuple[str | None, str | None]:
             continue
         match = REJECTED_RE.search(text)
         if match and rejected is None:
-            rejected = clip(text[max(0, match.start() - 60): match.end() + 40], 160)
+            rejected = clip(text[max(0, match.start() - 60) : match.end() + 40], 160)
         match = UNIVERSE_RE.search(text)
         if match and universe is None:
-            universe = clip(text[max(0, match.start() - 60): match.end() + 40], 160)
+            universe = clip(text[max(0, match.start() - 60) : match.end() + 40], 160)
     return rejected, universe
 
 
-def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts: Mapping[str, str],
-               file_url: str | None, default_title: str, default_quality: Mapping[str, Any],
-               default_rights: Mapping[str, Any], source_reported: dict | None = None,
-               original_filename: str | None = None, base_evidence: Iterable[str] = (),
-               unclassified_reason: str = "unresolved_role: no seed rule for this item; needs review") -> Draft:
+def apply_rule(
+    rule: Mapping[str, Any] | None,
+    *,
+    key: str,
+    page_url: str,
+    texts: Mapping[str, str],
+    file_url: str | None,
+    default_title: str,
+    default_quality: Mapping[str, Any],
+    default_rights: Mapping[str, Any],
+    source_reported: dict | None = None,
+    original_filename: str | None = None,
+    base_evidence: Iterable[str] = (),
+    unclassified_reason: str = "unresolved_role: no seed rule for this item; needs review",
+) -> Draft:
     """A :class:`Draft` for one discovered item from its seed rule and the fetched ``texts``.
 
     No rule -> ``pending`` (never admitted on keywords alone). A download rule needs every ``evidence_quotes`` entry in
@@ -411,13 +530,26 @@ def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts
     rule = dict(rule or {})
     title = (rule.get("title") or default_title).replace("{default}", default_title)
     found, missing = find_quotes(rule.get("evidence_quotes", []), texts, page_url)
-    game_evidence = [*base_evidence, *rule.get("game_evidence", []),
-                     *(f"{item['field']}: {item['quote']}" for item in found)]
-    draft = Draft(upstream_key=key, page_url=page_url, title=title, action="pending", file_url=file_url,
-                  role=rule.get("role"), game="unknown", game_evidence=list(dict.fromkeys(game_evidence)),
-                  source_reported=reported, original_filename=original_filename)
-    extra = {name: list(rule[name]) for name in ("song_titles", "illustrators", "composers", "collections")
-             if rule.get(name)}
+    game_evidence = [
+        *base_evidence,
+        *rule.get("game_evidence", []),
+        *(f"{item['field']}: {item['quote']}" for item in found),
+    ]
+    draft = Draft(
+        upstream_key=key,
+        page_url=page_url,
+        title=title,
+        action="pending",
+        file_url=file_url,
+        role=rule.get("role"),
+        game="unknown",
+        game_evidence=list(dict.fromkeys(game_evidence)),
+        source_reported=reported,
+        original_filename=original_filename,
+    )
+    extra = {
+        name: list(rule[name]) for name in ("song_titles", "illustrators", "composers", "collections") if rule.get(name)
+    }
     if rule.get("candidate_notes"):
         extra["notes"] = rule["candidate_notes"]
     draft.candidate_extra = extra
@@ -441,14 +573,18 @@ def apply_rule(rule: Mapping[str, Any] | None, *, key: str, page_url: str, texts
             draft.game = {"universe_only": "dynamix_universe", "not_dynamix": "not_dynamix"}.get(prefix, draft.game)
         return draft
     if missing:
-        draft.reason = "unresolved_game: seed evidence not found in the fetched content (" + "; ".join(
-            clip(quote, 80) for quote in missing) + ")"
+        draft.reason = (
+            "unresolved_game: seed evidence not found in the fetched content ("
+            + "; ".join(clip(quote, 80) for quote in missing)
+            + ")"
+        )
         return draft
     if universe and not rule.get("allow_universe_mention"):
         # The fetched text names the sequel: original-game use is unconfirmed until a curator decides.
         draft.game = "mixed" if found else "dynamix_universe"
-        draft.reason = (f"unresolved_game: upstream text mentions Dynamix Universe; confirm original-game use "
-                        f"({universe})")
+        draft.reason = (
+            f"unresolved_game: upstream text mentions Dynamix Universe; confirm original-game use ({universe})"
+        )
         return draft
     draft.game = rule.get("game", schema.GAME)  # check_rule allows only dynamix/mixed on a download rule
     if not file_url:
@@ -466,8 +602,9 @@ def _title_supported(names: Iterable[str], texts: Mapping[str, str], primary_quo
     return any(locate_term(name, texts) or any(normalize_text(name) in quote for quote in quotes) for name in names)
 
 
-def mapping_fields(rule: Mapping[str, Any], found: list[dict], page_url: str,
-                   texts: Mapping[str, str]) -> tuple[str, list, list[str]]:
+def mapping_fields(
+    rule: Mapping[str, Any], found: list[dict], page_url: str, texts: Mapping[str, str]
+) -> tuple[str, list, list[str]]:
     """(mapping_status, mapping_evidence, notes) for a download rule.
 
     The fetched text that names a mapped song title (or one of its ``title_aliases``, e.g. the index alias
@@ -487,17 +624,31 @@ def mapping_fields(rule: Mapping[str, Any], found: list[dict], page_url: str,
         if hit and not any(entry.get("field") == hit[0] and entry.get("quote") == hit[1] for entry in evidence):
             evidence.append({"url": page_url, "field": hit[0], "quote": hit[1]})
     if status == "confirmed_primary":
-        unsupported = [title for title in song_titles
-                       if not _title_supported([title, *aliases.get(title, [])], texts,
-                                               [entry["quote"] for entry in primary])]
+        unsupported = [
+            title
+            for title in song_titles
+            if not _title_supported([title, *aliases.get(title, [])], texts, [entry["quote"] for entry in primary])
+        ]
         if unsupported:
             status = "inferred"
-            notes.append("Mapping recorded as inferred, not confirmed_primary: the primary text does not name "
-                         + ", ".join(f"“{title}”" for title in unsupported) + ".")
-    evidence += [{"url": entry["url"], "field": "primary_post", "quote": clip(entry["quote"]),
-                  **({"note": entry["note"]} if entry.get("note") else {})} for entry in primary]
-    evidence += [{key: (clip(value) if key == "quote" else value) for key, value in entry.items()}
-                 for entry in rule.get("mapping_evidence", [])]
+            notes.append(
+                "Mapping recorded as inferred, not confirmed_primary: the primary text does not name "
+                + ", ".join(f"“{title}”" for title in unsupported)
+                + "."
+            )
+    evidence += [
+        {
+            "url": entry["url"],
+            "field": "primary_post",
+            "quote": clip(entry["quote"]),
+            **({"note": entry["note"]} if entry.get("note") else {}),
+        }
+        for entry in primary
+    ]
+    evidence += [
+        {key: (clip(value) if key == "quote" else value) for key, value in entry.items()}
+        for entry in rule.get("mapping_evidence", [])
+    ]
     if not evidence:
         evidence = [{"url": page_url, "note": "seed classification (no quote required)"}]
     return status, evidence, notes
@@ -510,9 +661,16 @@ def credit_fields(rule: Mapping[str, Any], page_url: str, texts: Mapping[str, st
     quote that cites ``credit_source`` (the page the seed credit comes from, e.g. the wiki song page), and a note says
     so; composer and illustrator never borrow each other's evidence. Without a ``credit_source`` such an entry has no
     URL, which ``--verify`` reports (``check_rule`` requires the source on every download rule that credits names)."""
-    curated = [{"role": entry["role"], "name": entry["name"], "url": entry.get("url"), "field": entry.get("field"),
-                "quote": clip(entry["quote"]) if entry.get("quote") else None}
-               for entry in rule.get("credit_evidence", [])]
+    curated = [
+        {
+            "role": entry["role"],
+            "name": entry["name"],
+            "url": entry.get("url"),
+            "field": entry.get("field"),
+            "quote": clip(entry["quote"]) if entry.get("quote") else None,
+        }
+        for entry in rule.get("credit_evidence", [])
+    ]
     named = {(entry["role"], entry["name"]) for entry in curated}
     source = rule.get("credit_source") or {}
     entries, unstated = list(curated), []
@@ -529,13 +687,24 @@ def credit_fields(rule: Mapping[str, Any], page_url: str, texts: Mapping[str, st
     notes = []
     if unstated:
         origin = " ".join(filter(None, [source.get("note"), source.get("url")])) or "no cited source"
-        notes.append("Credits the fetched text does not state with their role, cited from " + origin + ": "
-                     + ", ".join(unstated) + ".")
+        notes.append(
+            "Credits the fetched text does not state with their role, cited from "
+            + origin
+            + ": "
+            + ", ".join(unstated)
+            + "."
+        )
     return entries, notes
 
 
-def asset_meta(rule: Mapping[str, Any], found: list[dict], page_url: str, default_quality: Mapping[str, Any],
-               default_rights: Mapping[str, Any], texts: Mapping[str, str] | None = None) -> dict:
+def asset_meta(
+    rule: Mapping[str, Any],
+    found: list[dict],
+    page_url: str,
+    default_quality: Mapping[str, Any],
+    default_rights: Mapping[str, Any],
+    texts: Mapping[str, str] | None = None,
+) -> dict:
     """Descriptive asset fields from a download rule (the runner adds the measured fields)."""
     texts = texts or {}
     status, evidence, notes = mapping_fields(rule, found, page_url, texts)
@@ -549,8 +718,11 @@ def asset_meta(rule: Mapping[str, Any], found: list[dict], page_url: str, defaul
         # which a rule states with an explicit rights.holder (e.g. the partner the page names).
         rights["holder"] = None
     if partners and rights.get("holder") is None:
-        notes.append("Rights holder not recorded: the art is also associated with " + ", ".join(partners)
-                     + " and no cited source names its holder, so the C4Cat default is not applied.")
+        notes.append(
+            "Rights holder not recorded: the art is also associated with "
+            + ", ".join(partners)
+            + " and no cited source names its holder, so the C4Cat default is not applied."
+        )
     if rights.get("url") is None:
         rights["url"] = page_url
     if rights.get("creator") is None and rule.get("illustrators"):
@@ -577,18 +749,38 @@ def asset_meta(rule: Mapping[str, Any], found: list[dict], page_url: str, defaul
     return meta
 
 
-def error_draft(key: str, page_url: str, title: str, error: Any, *, phase: str, file_url: str | None = None,
-                role: str | None = None, game: str = "unknown", game_evidence: Iterable[str] = (),
-                source_reported: dict | None = None) -> Draft:
+def error_draft(
+    key: str,
+    page_url: str,
+    title: str,
+    error: Any,
+    *,
+    phase: str,
+    file_url: str | None = None,
+    role: str | None = None,
+    game: str = "unknown",
+    game_evidence: Iterable[str] = (),
+    source_reported: dict | None = None,
+) -> Draft:
     """A ``blocked``/``failed`` draft for an item whose discovery or download raised ``error``."""
     error_class = getattr(error, "error_class", "other")
     blocked = error_class in ("blocked", "challenge")
     status = getattr(error, "http_status", None)
     detail = getattr(error, "message", None) or str(error)
-    reason = (f"{error_class}: {detail}" + ("" if status is None or str(status) in detail else f" (HTTP {status})"))
+    reason = f"{error_class}: {detail}" + ("" if status is None or str(status) in detail else f" (HTTP {status})")
     if blocked:
         reason += "; manual access required, not retried"
-    return Draft(upstream_key=key, page_url=page_url, title=title, action="blocked" if blocked else "failed",
-                 file_url=file_url, role=role, game=game, game_evidence=list(game_evidence),
-                 source_reported=source_reported or schema.make_source_reported(url=file_url),
-                 reason=clip(reason, 400), error=error, error_phase=phase)
+    return Draft(
+        upstream_key=key,
+        page_url=page_url,
+        title=title,
+        action="blocked" if blocked else "failed",
+        file_url=file_url,
+        role=role,
+        game=game,
+        game_evidence=list(game_evidence),
+        source_reported=source_reported or schema.make_source_reported(url=file_url),
+        reason=clip(reason, 400),
+        error=error,
+        error_phase=phase,
+    )

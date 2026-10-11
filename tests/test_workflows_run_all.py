@@ -26,11 +26,13 @@ SKIPPED = textwrap.dedent("""\
 """)
 GUARDED = PASSING.replace("unittest.main()\n", 'if __name__ == "__main__":\n    unittest.main()\n')
 # A module that defines tests but never runs them exits 0 on its own; the runner must still fail it.
-NO_MAIN_FAILING = ("import unittest\nclass T(unittest.TestCase):\n    def test_fails(self):\n"
-                   "        self.assertEqual(1, 2)\n")
+NO_MAIN_FAILING = (
+    "import unittest\nclass T(unittest.TestCase):\n    def test_fails(self):\n        self.assertEqual(1, 2)\n"
+)
 NO_MAIN_PASSING = "import unittest\nclass T(unittest.TestCase):\n    def test_ok(self):\n        pass\n"
-EXITS_ZERO_FIRST = ("import sys, unittest\nclass T(unittest.TestCase):\n    def test_bad(self):\n"
-                    "        self.fail()\nsys.exit(0)\n")
+EXITS_ZERO_FIRST = (
+    "import sys, unittest\nclass T(unittest.TestCase):\n    def test_bad(self):\n        self.fail()\nsys.exit(0)\n"
+)
 NO_EXIT_FAILING = FAILING.replace("unittest.main()", "unittest.main(exit=False)")
 NO_EXIT_PASSING = PASSING.replace("unittest.main()", "unittest.main(exit=False)")
 
@@ -42,12 +44,23 @@ class RunAllTests(unittest.TestCase):
             tests_dir.mkdir()
             for name, source in modules.items():
                 (tests_dir / name).write_text(source, encoding="utf-8")
-            return subprocess.run([sys.executable, "-I", str(RUNNER), "--tests-dir", str(tests_dir)],
-                                  capture_output=True, text=True, env={"PATH": "/usr/bin:/bin"})
+            return subprocess.run(
+                [sys.executable, "-I", str(RUNNER), "--tests-dir", str(tests_dir)],
+                capture_output=True,
+                text=True,
+                env={"PATH": "/usr/bin:/bin"},
+            )
 
     def test_all_passing_modules_exit_zero(self):
-        result = self.run_all({"test_a.py": PASSING, "test_b.py": PASSING, "test_c.py": SKIPPED,
-                               "test_d.py": GUARDED, "test_e.py": NO_EXIT_PASSING})
+        result = self.run_all(
+            {
+                "test_a.py": PASSING,
+                "test_b.py": PASSING,
+                "test_c.py": SKIPPED,
+                "test_d.py": GUARDED,
+                "test_e.py": NO_EXIT_PASSING,
+            }
+        )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("5 of 5 test modules passed", result.stdout)
 
@@ -69,11 +82,16 @@ class RunAllTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_any_failure_error_or_crash_is_nonzero_and_named(self):
-        for label, source in (("failure", FAILING), ("error", ERRORING), ("import crash", BROKEN_IMPORT),
-                              ("no tests ran", NO_TESTS), ("failing test, no unittest.main", NO_MAIN_FAILING),
-                              ("passing test, no unittest.main", NO_MAIN_PASSING),
-                              ("exits 0 before running tests", EXITS_ZERO_FIRST),
-                              ("unittest.main(exit=False) with a failure", NO_EXIT_FAILING)):
+        for label, source in (
+            ("failure", FAILING),
+            ("error", ERRORING),
+            ("import crash", BROKEN_IMPORT),
+            ("no tests ran", NO_TESTS),
+            ("failing test, no unittest.main", NO_MAIN_FAILING),
+            ("passing test, no unittest.main", NO_MAIN_PASSING),
+            ("exits 0 before running tests", EXITS_ZERO_FIRST),
+            ("unittest.main(exit=False) with a failure", NO_EXIT_FAILING),
+        ):
             with self.subTest(case=label):
                 result = self.run_all({"test_a.py": PASSING, "test_z.py": source})
                 self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -109,20 +127,33 @@ class RunAllTests(unittest.TestCase):
         for path in sorted((ROOT / "tests").glob("test_*.py")):
             with self.subTest(module=path.name):
                 tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-                self.assertTrue(any(main_guard_runs_unittest(node) for node in tree.body),
-                                'end the module with: if __name__ == "__main__": unittest.main()')
+                self.assertTrue(
+                    any(main_guard_runs_unittest(node) for node in tree.body),
+                    'end the module with: if __name__ == "__main__": unittest.main()',
+                )
 
 
 def main_guard_runs_unittest(node: ast.stmt) -> bool:
     """Whether ``node`` is ``if __name__ == "__main__":`` whose body calls ``unittest.main(...)``."""
-    if not (isinstance(node, ast.If) and isinstance(node.test, ast.Compare)
-            and isinstance(node.test.left, ast.Name) and node.test.left.id == "__name__"
-            and len(node.test.comparators) == 1 and isinstance(node.test.comparators[0], ast.Constant)
-            and node.test.comparators[0].value == "__main__"):
+    if not (
+        isinstance(node, ast.If)
+        and isinstance(node.test, ast.Compare)
+        and isinstance(node.test.left, ast.Name)
+        and node.test.left.id == "__name__"
+        and len(node.test.comparators) == 1
+        and isinstance(node.test.comparators[0], ast.Constant)
+        and node.test.comparators[0].value == "__main__"
+    ):
         return False
-    return any(isinstance(call, ast.Call) and isinstance(call.func, ast.Attribute) and call.func.attr == "main"
-               and isinstance(call.func.value, ast.Name) and call.func.value.id == "unittest"
-               for statement in node.body for call in ast.walk(statement))
+    return any(
+        isinstance(call, ast.Call)
+        and isinstance(call.func, ast.Attribute)
+        and call.func.attr == "main"
+        and isinstance(call.func.value, ast.Name)
+        and call.func.value.id == "unittest"
+        for statement in node.body
+        for call in ast.walk(statement)
+    )
 
 
 if __name__ == "__main__":

@@ -74,8 +74,9 @@ class ContractFixtureTests(Base):
         catalog = build.combine(self.root, verify=True)
         schema.validate_catalog(catalog)
         summary = catalog["summary"]
-        self.assertEqual((summary["source_asset_records"], summary["unique_files"], summary["exact_duplicate_records"]),
-                         (11, 10, 1))
+        self.assertEqual(
+            (summary["source_asset_records"], summary["unique_files"], summary["exact_duplicate_records"]), (11, 10, 1)
+        )
         self.assertEqual((summary["gallery_images"], summary["slideshow_images"], summary["failure_count"]), (9, 1, 2))
         self.assertEqual(summary["by_family"], {"wikis": 7, "artists": 2, "official": 0, "archives": 2})
         self.assertEqual(catalog["snapshots"]["official"], None)
@@ -89,8 +90,9 @@ class ContractFixtureTests(Base):
         self.assertEqual(cosmic[0]["source_id"], "wikis:miraheze")
         self.assertTrue(cosmic[0]["url"].startswith("assets/public/wikis/miraheze/"))
         self.assertEqual(len(cosmic[0]["variants"]), 2)
-        self.assertEqual([failure["id"] for failure in catalog["failures"]],
-                         sorted(failure["id"] for failure in catalog["failures"]))
+        self.assertEqual(
+            [failure["id"] for failure in catalog["failures"]], sorted(failure["id"] for failure in catalog["failures"])
+        )
 
     def test_tiers_gallery_and_slideshow_follow_the_contract(self):
         catalog = build.combine(self.root)
@@ -110,10 +112,19 @@ class ContractFixtureTests(Base):
 class DedupTests(Base):
     def test_duplicates_across_families_take_the_artist_record_as_primary(self):
         background = fx.find_record(self.root, title="Dynamix background 03", upstream_status="current")
-        artist = fx.add_record(self.root, fx.copy_record(self.root, background, "artists:x:fixture_painter",
-                                                         illustrators=["Fixture Painter"], title="Background 03 post"))
-        official = fx.add_record(self.root, fx.copy_record(self.root, background, "official:website",
-                                                           composers=["Not A Painter"]))
+        artist = fx.add_record(
+            self.root,
+            fx.copy_record(
+                self.root,
+                background,
+                "artists:x:fixture_painter",
+                illustrators=["Fixture Painter"],
+                title="Background 03 post",
+            ),
+        )
+        official = fx.add_record(
+            self.root, fx.copy_record(self.root, background, "official:website", composers=["Not A Painter"])
+        )
         catalog = build.combine(self.root, verify=True)
         schema.validate_catalog(catalog)
         entry = self.entries(catalog, sha256=background["sha256"])
@@ -121,17 +132,25 @@ class DedupTests(Base):
         entry = entry[0]
         self.assertEqual(entry["id"], artist["id"])
         self.assertEqual((entry["family"], entry["title"]), ("artists", "Background 03 post"))
-        self.assertEqual([p["asset_id"] for p in entry["provenance"]], [artist["id"], official["id"],
-                                                                         background["id"]])
+        self.assertEqual([p["asset_id"] for p in entry["provenance"]], [artist["id"], official["id"], background["id"]])
         self.assertEqual((entry["illustrators"], entry["composers"]), (["Fixture Painter"], ["Not A Painter"]))
         self.assertEqual(catalog["summary"]["exact_duplicate_records"], 3)
         self.assertEqual(catalog["summary"]["unique_files"], 10)
 
     def test_distinct_bytes_stay_distinct_entries(self):
         cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
-        same_title = fx.add_record(self.root, fx.make_record(
-            self.root, "archives:fixture-scan", fx.solid_png((60, 60), (1, 2, 3)), "scan-0001.png",
-            title="Cosmic Pulse", variant_group=cosmic["variant_group"], variant_role="scan"))
+        same_title = fx.add_record(
+            self.root,
+            fx.make_record(
+                self.root,
+                "archives:fixture-scan",
+                fx.solid_png((60, 60), (1, 2, 3)),
+                "scan-0001.png",
+                title="Cosmic Pulse",
+                variant_group=cosmic["variant_group"],
+                variant_role="scan",
+            ),
+        )
         catalog = build.combine(self.root, verify=True)
         titles = [asset["id"] for asset in self.entries(catalog, title="Cosmic Pulse")]
         self.assertEqual(len(titles), 2)
@@ -145,9 +164,18 @@ class DedupTests(Base):
             self.assertEqual(asset["variants"], [i for i in group if i != asset["id"]])
 
     def test_superseded_and_removed_records_are_retained(self):
-        removed = fx.add_record(self.root, fx.make_record(
-            self.root, "wikis:fixture-mirror", fx.solid_png((40, 30), (9, 9, 9)), "Gone.png", kind="background",
-            upstream_status="removed", notes="Deleted upstream; archived bytes kept."))
+        removed = fx.add_record(
+            self.root,
+            fx.make_record(
+                self.root,
+                "wikis:fixture-mirror",
+                fx.solid_png((40, 30), (9, 9, 9)),
+                "Gone.png",
+                kind="background",
+                upstream_status="removed",
+                notes="Deleted upstream; archived bytes kept.",
+            ),
+        )
         catalog = build.combine(self.root, verify=True)
         old = self.entries(catalog, upstream_status="superseded")
         self.assertEqual(len(old), 1)
@@ -159,15 +187,31 @@ class DedupTests(Base):
         self.assertEqual((gone["upstream_status"], gone["provenance"][0]["upstream_status"]), ("removed", "removed"))
 
     def test_records_sharing_a_hash_must_agree_on_measured_fields(self):
-        record = {"id": "wikis:a:0000000000000000", "sha256": "0" * 64, "bytes": 1, "sha1": "a" * 40,
-                  "format": "PNG", "width": 1, "height": 1, "kind": "song_art"}
+        record = {
+            "id": "wikis:a:0000000000000000",
+            "sha256": "0" * 64,
+            "bytes": 1,
+            "sha1": "a" * 40,
+            "format": "PNG",
+            "width": 1,
+            "height": 1,
+            "kind": "song_art",
+        }
         with self.assertRaisesRegex(build.CatalogError, "disagree on width"):
             build._group_by_sha([record, {**record, "id": "wikis:b:0000000000000000", "width": 2}])
 
     def test_records_sharing_a_hash_must_agree_on_kind(self):
         """09 "Coordinator decisions (2026-10-11)": every record of one SHA-256 carries the same kind."""
-        record = {"id": "wikis:a:0000000000000000", "sha256": "0" * 64, "bytes": 1, "sha1": "a" * 40,
-                  "format": "PNG", "width": 1, "height": 1, "kind": "promotional"}
+        record = {
+            "id": "wikis:a:0000000000000000",
+            "sha256": "0" * 64,
+            "bytes": 1,
+            "sha1": "a" * 40,
+            "format": "PNG",
+            "width": 1,
+            "height": 1,
+            "kind": "promotional",
+        }
         with self.assertRaisesRegex(build.CatalogError, "disagree on kind"):
             build._group_by_sha([record, {**record, "id": "official:x:0000000000000000", "kind": "reference"}])
 
@@ -193,9 +237,18 @@ class TitleTests(Base):
     @staticmethod
     def record(source_id, filename, title, **fields):
         """A bare record for title_problem (only the fields it reads)."""
-        return {"id": f"{source_id}:0000000000000000", "source_id": source_id, "original_filename": filename,
-                "title": title, "kind": "promotional", "song_titles": [], "mapping_status": "unmapped",
-                "mapping_evidence": [], "credit_evidence": None, **fields}
+        return {
+            "id": f"{source_id}:0000000000000000",
+            "source_id": source_id,
+            "original_filename": filename,
+            "title": title,
+            "kind": "promotional",
+            "song_titles": [],
+            "mapping_status": "unmapped",
+            "mapping_evidence": [],
+            "credit_evidence": None,
+            **fields,
+        }
 
     def assert_verify_fails(self, *expected):
         with self.assertRaises(build.CatalogError) as caught:
@@ -209,13 +262,18 @@ class TitleTests(Base):
 
     def test_the_catalog_title_is_the_primary_records_title(self):
         fandom = fx.find_record(self.root, source_id="wikis:fandom", title="Cosmic Pulse")
-        fx.update_record(self.root, fandom["id"], title="Cosmic Pulse (Fandom gallery caption)",
-                         mapping_status="inferred")
+        fx.update_record(
+            self.root, fandom["id"], title="Cosmic Pulse (Fandom gallery caption)", mapping_status="inferred"
+        )
         entry = self.entries(build.combine(self.root, verify=True), sha256=fandom["sha256"])[0]
         self.assertEqual((entry["source_id"], entry["title"]), ("wikis:miraheze", "Cosmic Pulse"))
         self.assertEqual([p["asset_id"] for p in entry["provenance"]][1], fandom["id"])
-        artist = fx.add_record(self.root, fx.copy_record(self.root, fandom, "artists:x:fixture_painter",
-                                                         title="Cosmic Pulse illustration (artist post)"))
+        artist = fx.add_record(
+            self.root,
+            fx.copy_record(
+                self.root, fandom, "artists:x:fixture_painter", title="Cosmic Pulse illustration (artist post)"
+            ),
+        )
         entry = self.entries(build.combine(self.root, verify=True), sha256=fandom["sha256"])[0]
         self.assertEqual((entry["id"], entry["title"]), (artist["id"], "Cosmic Pulse illustration (artist post)"))
 
@@ -232,8 +290,11 @@ class TitleTests(Base):
     def test_text_titled_families_must_not_use_the_file_stem(self):
         post = self.add("official:x", "G1a2B3cXk_4.png", "G1a2B3cXk_4")
         scan = self.add("archives:fixture-scan", "004.jpg", "004")
-        message = self.assert_verify_fails(f"{post['id']}: title 'G1a2B3cXk_4' is the stem",
-                                           f"{scan['id']}: title '004' is the stem", "official titles come from")
+        message = self.assert_verify_fails(
+            f"{post['id']}: title 'G1a2B3cXk_4' is the stem",
+            f"{scan['id']}: title '004' is the stem",
+            "official titles come from",
+        )
         self.assertIn("2 record(s)", message)
         fx.update_record(self.root, post["id"], title="Dynamix 10th anniversary (official post)")
         fx.update_record(self.root, scan["id"], title="Interview scan, page 4")
@@ -256,14 +317,15 @@ class TitleTests(Base):
                 problem = build.title_problem(self.record("wikis:miraheze", "Night_Drive_Chart_List.jpg", title))
                 self.assertIn("is the upstream file name", problem or "")
         self.assertIsNone(build.title_problem(self.record("archives:4gamer", "IMG_0042.jpg", "Interview photo 42")))
-        caught = [self.add("archives:fixture-scan", f"IMG_{n:04d}.jpg", title)
-                  for n, title in enumerate(("IMG 0000", "img_0001", "IMG_0002.JPG"))]
+        caught = [
+            self.add("archives:fixture-scan", f"IMG_{n:04d}.jpg", title)
+            for n, title in enumerate(("IMG 0000", "img_0001", "IMG_0002.JPG"))
+        ]
         message = self.assert_verify_fails(*(record["id"] for record in caught))
         self.assertIn("3 record(s)", message)
 
     def test_wiki_titles_keeping_the_underscores_are_rejected_in_any_case(self):
-        record = self.record("wikis:miraheze", "Night_Drive_Chart_List.jpg", "night_drive_chart_list",
-                             kind="reference")
+        record = self.record("wikis:miraheze", "Night_Drive_Chart_List.jpg", "night_drive_chart_list", kind="reference")
         self.assertIn("File: name with underscores", build.title_problem(record) or "")
         for title in ("Night Drive Chart List", "night drive chart list"):  # the fallback, whatever its case
             self.assertIsNone(build.title_problem({**record, "title": title}))
@@ -279,8 +341,9 @@ class TitleTests(Base):
                 caption = {"url": "https://example.org/post/1", "field": "caption", "quote": "Cosmic_Pulse"}
                 self.assertIsNone(build.title_problem({**bare, "mapping_evidence": [caption]}))
                 self.assertIsNone(build.title_problem({**bare, "notes": "post text: 'Cosmic_Pulse'"}))
-                credit = [{"role": "illustrator", "name": "P", "url": None, "field": "caption",
-                           "quote": "Cosmic_Pulse"}]
+                credit = [
+                    {"role": "illustrator", "name": "P", "url": None, "field": "caption", "quote": "Cosmic_Pulse"}
+                ]
                 self.assertIsNone(build.title_problem({**bare, "credit_evidence": credit}))
                 partial = {**caption, "quote": "Cosmic_Pulse by P"}  # a longer text does not quote the title
                 self.assertIsNotNone(build.title_problem({**bare, "mapping_evidence": [partial]}))
@@ -290,9 +353,15 @@ class TitleTests(Base):
         build.combine(self.root, verify=True)
 
     def test_an_exact_song_title_passes_even_when_it_is_the_file_name(self):
-        self.add("artists:x:fixture_painter", "Cosmic Pulse.png", "Cosmic Pulse", song_titles=["Cosmic Pulse"],
-                 song_ids=["song:cosmic-pulse"], mapping_status="confirmed_primary",
-                 mapping_evidence=["https://example.org/x-fixture_painter/post"])
+        self.add(
+            "artists:x:fixture_painter",
+            "Cosmic Pulse.png",
+            "Cosmic Pulse",
+            song_titles=["Cosmic Pulse"],
+            song_ids=["song:cosmic-pulse"],
+            mapping_status="confirmed_primary",
+            mapping_evidence=["https://example.org/x-fixture_painter/post"],
+        )
         build.combine(self.root, verify=True)
         record = self.record("official:x", "Marion.net", "Marion.net")  # a song whose title has a dot
         self.assertIn("is the upstream file name", build.title_problem(record) or "")
@@ -307,12 +376,22 @@ class TitleTests(Base):
         cosmic = fx.find_record(self.root, source_id="wikis:miraheze", title="Cosmic Pulse")
         fx.update_record(self.root, cosmic["id"], title="Cosmic Pulse jacket")
         self.assert_verify_fails(f"{cosmic['id']}: title 'Cosmic Pulse jacket' is not the exact title 'Cosmic Pulse'")
-        song = self.record("wikis:miraheze", "CP_jacket.png", "Cosmic Pulse jacket", kind="song_art",
-                           mapping_status="confirmed_wiki", song_titles=["Cosmic Pulse"])
+        song = self.record(
+            "wikis:miraheze",
+            "CP_jacket.png",
+            "Cosmic Pulse jacket",
+            kind="song_art",
+            mapping_status="confirmed_wiki",
+            song_titles=["Cosmic Pulse"],
+        )
         self.assertIsNotNone(build.title_problem({**song, "mapping_status": "confirmed_primary"}))
-        for fields in ({"mapping_status": "inferred"}, {"mapping_status": "conflict"},
-                       {"song_titles": ["Cosmic Pulse", "Moonlight of Sand Castle"]}, {"kind": "promotional"},
-                       {"source_id": "official:x", "id": "official:x:0000000000000000"}):
+        for fields in (
+            {"mapping_status": "inferred"},
+            {"mapping_status": "conflict"},
+            {"song_titles": ["Cosmic Pulse", "Moonlight of Sand Castle"]},
+            {"kind": "promotional"},
+            {"source_id": "official:x", "id": "official:x:0000000000000000"},
+        ):
             with self.subTest(fields=fields):
                 self.assertIsNone(build.title_problem({**song, **fields}))
         fx.update_record(self.root, cosmic["id"], title="Cosmic Pulse")
@@ -324,16 +403,30 @@ class TitleTests(Base):
         self.add("wikis:fixture-mirror", "Crank_Up_Chart_List.jpg", "Crank Up Chart List", kind="reference")
         build.combine(self.root, verify=True)
         # A caption quoted in the record's evidence may keep underscores (the wiki captions File:A_O.jpg 'A_O').
-        caption = self.add("wikis:fixture-mirror", "A_O.jpg", "A_O", kind="gameplay_screenshot",
-                           mapping_status="inferred", song_titles=["Goldelius"], song_ids=["song:goldelius"],
-                           mapping_evidence=[{"url": "https://example.org/wiki/Goldelius", "field": "link",
-                                              "quote": "section Trivia, caption 'A_O', image in a song page"}])
+        caption = self.add(
+            "wikis:fixture-mirror",
+            "A_O.jpg",
+            "A_O",
+            kind="gameplay_screenshot",
+            mapping_status="inferred",
+            song_titles=["Goldelius"],
+            song_ids=["song:goldelius"],
+            mapping_evidence=[
+                {
+                    "url": "https://example.org/wiki/Goldelius",
+                    "field": "link",
+                    "quote": "section Trivia, caption 'A_O', image in a song page",
+                }
+            ],
+        )
         build.combine(self.root, verify=True)
         # Underscores kept from the File: name without such a caption are a regression.
-        stem = self.add("wikis:fixture-mirror", "Night_Drive_Chart_List.jpg", "Night_Drive_Chart_List",
-                        kind="reference")
-        message = self.assert_verify_fails(f"{stem['id']}: title 'Night_Drive_Chart_List' is the File: name with "
-                                           "underscores")
+        stem = self.add(
+            "wikis:fixture-mirror", "Night_Drive_Chart_List.jpg", "Night_Drive_Chart_List", kind="reference"
+        )
+        message = self.assert_verify_fails(
+            f"{stem['id']}: title 'Night_Drive_Chart_List' is the File: name with underscores"
+        )
         self.assertNotIn(caption["id"], message)
         self.assertIn("1 record(s)", message)
 
@@ -416,8 +509,11 @@ class SafetyTests(Base):
         self.assertIsNone(catalog["snapshots"]["official"])
         wikis = self.root / "data/sources/wikis.json"
         original = wikis.read_text(encoding="utf-8")
-        for broken in (original.replace('"illustrators"', '"illustrator"', 1), original[:-20],
-                       original.replace('"schema_version": 1', '"schema_version": 1, "schema_version": 1', 1)):
+        for broken in (
+            original.replace('"illustrators"', '"illustrator"', 1),
+            original[:-20],
+            original.replace('"schema_version": 1', '"schema_version": 1, "schema_version": 1', 1),
+        ):
             with self.subTest(broken=broken[-40:]):
                 wikis.write_text(broken, encoding="utf-8")
                 with self.assertRaisesRegex(build.CatalogError, "data/sources/wikis.json"):
@@ -439,11 +535,15 @@ class SafetyTests(Base):
         with mock.patch.object(build, "tracked_files", return_value=None):
             catalog = build.combine(self.root)  # a fixture root: the family is empty
             self.assertNotIn("archives:hkstp", [source["id"] for source in catalog["sources"]])
-            with mock.patch.object(build, "REPO_ROOT", self.root), \
-                    self.assertRaisesRegex(build.CatalogError, "archives.json is missing and Git cannot be queried"):
+            with (
+                mock.patch.object(build, "REPO_ROOT", self.root),
+                self.assertRaisesRegex(build.CatalogError, "archives.json is missing and Git cannot be queried"),
+            ):
                 build.combine(self.root)
-            with mock.patch.object(build, "REPO_ROOT", self.root), \
-                    self.assertRaisesRegex(build.CatalogError, "Git cannot be queried"):
+            with (
+                mock.patch.object(build, "REPO_ROOT", self.root),
+                self.assertRaisesRegex(build.CatalogError, "Git cannot be queried"),
+            ):
                 thumbs.build(self.root, prune=True)  # --prune must not retire the family's previews
             self.assertFalse((self.root / thumbs.MANIFEST).exists())
 
@@ -457,9 +557,10 @@ class SafetyTests(Base):
         fx.git(checkout, "add", "data")
         (checkout / "data/sources/archives.json").unlink()
         script = [sys.executable, "-I", "-B", str(checkout / "scripts/build_catalog.py")]
-        for environment, message in ((fx.clean_environment(), "tracked by Git but missing"),
-                                     ({"PATH": str(self.base / "no-git"), "HOME": str(self.base)},
-                                      "Git cannot be queried")):
+        for environment, message in (
+            (fx.clean_environment(), "tracked by Git but missing"),
+            ({"PATH": str(self.base / "no-git"), "HOME": str(self.base)}, "Git cannot be queried"),
+        ):
             with self.subTest(message=message):
                 result = subprocess.run(script, capture_output=True, text=True, timeout=300, env=environment)
                 self.assertEqual(result.returncode, 1, result.stderr)
@@ -478,8 +579,10 @@ class OutputTests(Base):
         self.assertEqual(sorted(self.outputs()), sorted(OUTPUTS))
         catalog = manifest.load_json(self.root / build.CATALOG_JSON)
         schema.validate_catalog(catalog)
-        self.assertEqual([a["id"] for a in catalog["assets"] if a["thumb"]],
-                         [a["id"] for a in catalog["assets"] if build.needs_preview(a)])
+        self.assertEqual(
+            [a["id"] for a in catalog["assets"] if a["thumb"]],
+            [a["id"] for a in catalog["assets"] if build.needs_preview(a)],
+        )
         self.assertEqual(self.run_main("--verify", "--check")[0], 0)
 
     def test_check_reports_each_stale_or_missing_output_without_writing(self):
@@ -536,7 +639,7 @@ class OutputTests(Base):
         for forbidden in ("<", " ", " ", "\r"):
             self.assertNotIn(forbidden, script)
         self.assertEqual(script.count("\n"), 1)
-        payload = json.loads(script[len(prefix):-2])
+        payload = json.loads(script[len(prefix) : -2])
         self.assertEqual(payload, manifest.load_json(self.root / build.CATALOG_JSON))
         self.assertIn(hostile, [asset["title"] for asset in payload["assets"]])
 
@@ -550,8 +653,9 @@ class OutputTests(Base):
         self.assertNotIn("<script", markup)
         catalog = manifest.load_json(self.root / build.CATALOG_JSON)
         slides = Slides(markup).images
-        self.assertEqual([img.get("data-id") for img in slides],
-                         [asset["id"] for asset in catalog["assets"] if asset["slideshow"]])
+        self.assertEqual(
+            [img.get("data-id") for img in slides], [asset["id"] for asset in catalog["assets"] if asset["slideshow"]]
+        )
         self.assertIn(artist["title"], slides[0].values())
 
     def test_repository_builds_need_previews_and_the_template(self):

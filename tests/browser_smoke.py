@@ -48,10 +48,19 @@ VIEWPORTS = {"desktop": (1440, 900), "phone": (375, 812)}
 BOTTOM_ROW = ["photo", "github", "archive-link", "random"]
 INJECTION = "<img src=x onerror=alert(1)>"
 HAS_HAN = "(text) => /[\\u3400-\\u9fff]/.test(text)"
-IMAGE_SHOWN = "(() => { const img = document.getElementById('full-image'); return img.complete && img.naturalWidth > 0; })()"
+IMAGE_SHOWN = (
+    "(() => { const img = document.getElementById('full-image'); return img.complete && img.naturalWidth > 0; })()"
+)
 SLIDE_SHOWN = "imgTargets[slideIndex - 1].naturalWidth > 0 && imgTargets[slideIndex - 1].closest('.mySlides').classList.contains('is-current')"
 SHOWN_ID = "imgTargets[slideIndex - 1].dataset.id"
-STATUS_ORDER = ["available", "partially_available", "temporarily_unavailable", "manual_access", "metadata_only", "excluded"]
+STATUS_ORDER = [
+    "available",
+    "partially_available",
+    "temporarily_unavailable",
+    "manual_access",
+    "metadata_only",
+    "excluded",
+]
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -59,8 +68,14 @@ STATUS_ORDER = ["available", "partially_available", "temporarily_unavailable", "
 
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
-    extensions_map = {**http.server.SimpleHTTPRequestHandler.extensions_map, ".webmanifest": "application/manifest+json",
-                      ".webp": "image/webp", ".svg": "image/svg+xml", ".ico": "image/x-icon", ".json": "application/json"}
+    extensions_map = {
+        **http.server.SimpleHTTPRequestHandler.extensions_map,
+        ".webmanifest": "application/manifest+json",
+        ".webp": "image/webp",
+        ".svg": "image/svg+xml",
+        ".ico": "image/x-icon",
+        ".json": "application/json",
+    }
 
     def log_message(self, *args):
         pass
@@ -89,7 +104,11 @@ def serve(directory: Path):
 def catalog_js(catalog):
     """The frozen catalog.js encoding (09-frozen-contracts.md; the DEEMO reference form), as tests/fixtures/ui uses."""
     compact = json.dumps(catalog, ensure_ascii=False, separators=(",", ":"))
-    return "window.DYNAMIX_CATALOG = " + compact.replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029") + ";\n"
+    return (
+        "window.DYNAMIX_CATALOG = "
+        + compact.replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+        + ";\n"
+    )
 
 
 def build_site(destination: Path, catalog: dict):
@@ -103,7 +122,9 @@ def build_site(destination: Path, catalog: dict):
     shutil.copytree(FIXTURE / "assets/public", destination / "assets/public")
     shutil.copytree(FIXTURE / "assets/thumbs", destination / "assets/thumbs")
     (destination / "data").mkdir()
-    (destination / "data/catalog.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (destination / "data/catalog.json").write_text(
+        json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     (destination / "data/catalog.js").write_text(catalog_js(catalog), encoding="utf-8")
     (destination / "index.html").write_text(render_slideshow(destination, catalog), encoding="utf-8")
 
@@ -156,13 +177,24 @@ def edges(catalog: dict) -> tuple[dict, dict, str]:
     shown = [asset for asset in bare["assets"] if asset["gallery"] and asset["slideshow"]]
     with_songs = next(asset for asset in shown if [song for song in asset["song_titles"] if song.strip()])
     with_file = next(asset for asset in shown if asset is not with_songs and asset["original_filename"])
-    names = {with_songs["id"]: " / ".join(song for song in with_songs["song_titles"] if song.strip()),
-             with_file["id"]: with_file["original_filename"]}
+    names = {
+        with_songs["id"]: " / ".join(song for song in with_songs["song_titles"] if song.strip()),
+        with_file["id"]: with_file["original_filename"],
+    }
     with_songs["title"] = ""
     with_file.update({"title": "  ", "song_titles": []})
-    small = next(asset for asset in bare["assets"] if asset["gallery"] and asset["site_original"] and not asset["thumb"]
-                 and asset["kind"] == "song_art" and max(asset["width"], asset["height"]) < 1000)
-    small.update({"site_original": False, "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/" + small["path"]})
+    small = next(
+        asset
+        for asset in bare["assets"]
+        if asset["gallery"]
+        and asset["site_original"]
+        and not asset["thumb"]
+        and asset["kind"] == "song_art"
+        and max(asset["width"], asset["height"]) < 1000
+    )
+    small.update(
+        {"site_original": False, "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/" + small["path"]}
+    )
     return bare, names, small["id"]
 
 
@@ -255,7 +287,10 @@ class Monitor:
         is released by leave() rather than reported."""
         pending = self.pending.setdefault(page, set())
         deadline = time.monotonic() + timeout
-        while any(not request.url.endswith(("favicon.svg", "favicon.ico")) for request in pending) and time.monotonic() < deadline:
+        while (
+            any(not request.url.endswith(("favicon.svg", "favicon.ico")) for request in pending)
+            and time.monotonic() < deadline
+        ):
             page.wait_for_timeout(50)
 
     def leave(self, page):
@@ -320,7 +355,11 @@ class Smoke:
         except Skip as reason:
             skipped = str(reason)
         except Exception as error:  # noqa: BLE001 - every failure is reported and fails the run
-            failure = {"check": name, "error": f"{type(error).__name__}: {error}", "trace": traceback.format_exc(limit=4)}
+            failure = {
+                "check": name,
+                "error": f"{type(error).__name__}: {error}",
+                "trace": traceback.format_exc(limit=4),
+            }
         for page in list(self.open_pages):  # a failed check leaves its pages open; close them quietly
             self.monitor.leave(page)
             page.context.close()
@@ -396,7 +435,9 @@ def check_archive_filters(smoke, base, catalog):
         page.locator("#family").select_option(family)
         assert count(page) == expected, (family, count(page), expected)
         options = page.evaluate("[...document.querySelectorAll('#source option')].map((o) => o.value).filter(Boolean)")
-        families = page.evaluate("(ids) => ids.map((id) => window.DYNAMIX_CATALOG.sources.find((s) => s.id === id).family)", options)
+        families = page.evaluate(
+            "(ids) => ids.map((id) => window.DYNAMIX_CATALOG.sources.find((s) => s.id === id).family)", options
+        )
         assert set(families) <= {family}, (family, families)
     page.locator("#reset-filters").click()
     sources = page.evaluate("[...document.querySelectorAll('#source option')].map((o) => o.value).filter(Boolean)")
@@ -417,15 +458,21 @@ def check_archive_filters(smoke, base, catalog):
     page.locator("#minimum").select_option("1000")
     large = catalog_count(page, "(a) => Math.max(a.width, a.height) >= 1000")
     assert count(page) == large
-    sizes = page.evaluate("[...document.querySelectorAll('.card-image img')].map((img) => Math.max(+img.getAttribute('width'), +img.getAttribute('height')))")
+    sizes = page.evaluate(
+        "[...document.querySelectorAll('.card-image img')].map((img) => Math.max(+img.getAttribute('width'), +img.getAttribute('height')))"
+    )
     assert all(size >= 1000 for size in sizes), sizes
     page.locator("#reset-filters").click()
     page.locator("#sort").select_option("resolution")
-    areas = page.evaluate("[...document.querySelectorAll('.card-image img')].map((img) => +img.getAttribute('width') * +img.getAttribute('height'))")
+    areas = page.evaluate(
+        "[...document.querySelectorAll('.card-image img')].map((img) => +img.getAttribute('width') * +img.getAttribute('height'))"
+    )
     assert areas == sorted(areas, reverse=True), areas
     page.locator("#sort").select_option("title")
     titles = page.locator(".card h2").all_inner_texts()
-    assert titles == page.evaluate("(titles) => [...titles].sort(new Intl.Collator('en', {numeric: true}).compare)", titles), titles
+    assert titles == page.evaluate(
+        "(titles) => [...titles].sort(new Intl.Collator('en', {numeric: true}).compare)", titles
+    ), titles
     page.locator("#sort").select_option("source")
     order = page.evaluate("""() => { const rank = ['artists', 'official', 'wikis', 'archives'];
         const shown = [...document.querySelectorAll('.card h2')].map((h) => h.textContent);
@@ -441,7 +488,9 @@ def check_archive_filters(smoke, base, catalog):
     page.wait_for_function("document.getElementById('count').textContent.includes('/')")
     assert [page.locator("#family").input_value(), page.locator("#minimum").input_value()] == ["wikis", "1000"]
     open_archive(smoke, page, base, "?minimum=4321&sort=bogus&family=nope&kind=x&source=nobody")
-    state = page.evaluate("['minimum', 'sort', 'family', 'kind', 'source'].map((id) => document.getElementById(id).value)")
+    state = page.evaluate(
+        "['minimum', 'sort', 'family', 'kind', 'source'].map((id) => document.getElementById(id).value)"
+    )
     assert state == ["0", "source", "", "", ""], state
     smoke.finish(page)
 
@@ -455,11 +504,15 @@ def check_pagination(smoke, base):
     page.locator("#more").focus()
     page.keyboard.press("Enter")
     assert page.locator(".card").count() == 120
-    assert page.evaluate("document.activeElement === document.getElementById('more')"), "focus stays on Load more while it is shown"
+    assert page.evaluate("document.activeElement === document.getElementById('more')"), (
+        "focus stays on Load more while it is shown"
+    )
     page.keyboard.press("Enter")
     assert page.locator(".card").count() == total and page.locator("#more").is_hidden()
     # The last Load more hides itself; focus moves to the first card it added, so Tab continues through the new cards.
-    assert page.evaluate("document.activeElement === document.querySelectorAll('.card-image')[120]"), page.evaluate("document.activeElement.outerHTML.slice(0, 80)")
+    assert page.evaluate("document.activeElement === document.querySelectorAll('.card-image')[120]"), page.evaluate(
+        "document.activeElement.outerHTML.slice(0, 80)"
+    )
     page.keyboard.press("Tab")
     assert page.evaluate("document.activeElement === document.querySelectorAll('.card-image')[121]")
     # Closing the viewer after Next past the drawn cards draws up to the image shown and focuses its card.
@@ -485,7 +538,10 @@ def check_viewer(smoke, base, catalog, fixture):
     assert viewer.evaluate("(el) => el.open")
     opened = page.evaluate("decodeURIComponent(location.hash.slice(1))")
     assert opened == page.locator(".card").first.get_attribute("data-id"), "the fragment names the open file"
-    assert page.evaluate("(id) => window.DYNAMIX_CATALOG.assets.find((a) => a.id === id).title", opened) == page.locator("#viewer-title").inner_text()
+    assert (
+        page.evaluate("(id) => window.DYNAMIX_CATALOG.assets.find((a) => a.id === id).title", opened)
+        == page.locator("#viewer-title").inner_text()
+    )
     position = page.locator("#position").inner_text()
     page.keyboard.press("ArrowRight")
     assert page.locator("#position").inner_text() != position or count(page) == 1
@@ -493,7 +549,9 @@ def check_viewer(smoke, base, catalog, fixture):
     assert page.locator("#position").inner_text() == position
     for _ in range(25):  # Tab stays inside the modal dialog
         page.keyboard.press("Tab")
-        inside = page.evaluate("document.getElementById('viewer').contains(document.activeElement) || document.activeElement === document.body")
+        inside = page.evaluate(
+            "document.getElementById('viewer').contains(document.activeElement) || document.activeElement === document.body"
+        )
         assert inside, page.evaluate("document.activeElement.outerHTML.slice(0, 120)")
     page.keyboard.press("Escape")
     assert not viewer.evaluate("(el) => el.open")
@@ -525,7 +583,9 @@ def check_viewer(smoke, base, catalog, fixture):
                 assert page.locator("#no-preview").is_visible()
         assert slideshow.is_visible() == bool(asset["slideshow"]), asset["id"]
         if asset["slideshow"]:
-            assert slideshow.get_attribute("href") == "index.html#" + quote(asset["id"], safe=""), slideshow.get_attribute("href")
+            assert slideshow.get_attribute("href") == "index.html#" + quote(asset["id"], safe=""), (
+                slideshow.get_attribute("href")
+            )
         if asset["format"] != "PDF" and (asset["site_original"] or asset["thumb"]):
             page.wait_for_function(IMAGE_SHOWN, timeout=5000)
         blocks = page.locator("#provenance .provenance-item").count()
@@ -553,27 +613,51 @@ def check_provenance_text(smoke, base, catalog):
         field = t("comparison.sha1_match")
         assert t("comparison.matched", field=field) in text, (lang, "matched")
         mismatch = next(p for p in duplicate["provenance"] if p["comparisons"]["sha1_match"] is False)
-        assert t("comparison.mismatched", field=field, reported=mismatch["source_reported"]["sha1"], observed=duplicate["sha1"]) in text, (lang, "mismatched")
+        assert (
+            t(
+                "comparison.mismatched",
+                field=field,
+                reported=mismatch["source_reported"]["sha1"],
+                observed=duplicate["sha1"],
+            )
+            in text
+        ), (lang, "mismatched")
         assert t("comparison.unknown", field=field) in text, (lang, "unknown")
         for record in duplicate["provenance"]:
             quality = record["quality"]
-            line = t("provenance.quality", variant=t(f"quality.source_variant.{quality['source_variant']}"),
-                     origin=t(f"quality.origin_status.{quality['origin_status']}"), master=t(f"quality.master_status.{quality['master_status']}"))
+            line = t(
+                "provenance.quality",
+                variant=t(f"quality.source_variant.{quality['source_variant']}"),
+                origin=t(f"quality.origin_status.{quality['origin_status']}"),
+                master=t(f"quality.master_status.{quality['master_status']}"),
+            )
             assert line in text, (lang, line)
         assert t("provenance.rights_holder", holder=duplicate["rights"]["holder"]) in text
         assert lang == "en" or page.evaluate(HAS_HAN, t("comparison.unknown", field=field))
         # Every credit-evidence role has a label (no raw "other"); each record lists the packs it names, and only those.
-        other = next(entry for record in duplicate["provenance"] for entry in record["credit_evidence"] or [] if entry["role"] == "other")
-        assert f"{t('credit.role.other')} · {other['name']}" in text and f"other · {other['name']}" not in text, (lang, "credit role")
+        other = next(
+            entry
+            for record in duplicate["provenance"]
+            for entry in record["credit_evidence"] or []
+            if entry["role"] == "other"
+        )
+        assert f"{t('credit.role.other')} · {other['name']}" in text and f"other · {other['name']}" not in text, (
+            lang,
+            "credit role",
+        )
         packs = [record["collections"] for record in duplicate["provenance"] if record["collections"]]
-        assert packs and len(packs) < len(duplicate["provenance"]), "the fixture has records that name packs and one that does not"
+        assert packs and len(packs) < len(duplicate["provenance"]), (
+            "the fixture has records that name packs and one that does not"
+        )
         for names in packs:
             line = t("provenance.collections", names=" / ".join(names))
             assert text.count(line) == packs.count(names), (lang, line)
         smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(hostile["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open")
         assert page.locator("a[href^='javascript:' i]").count() == 0
-        assert "javascript:alert(6)" in page.locator("#provenance").inner_text(), "a script-looking string is shown as text"
+        assert "javascript:alert(6)" in page.locator("#provenance").inner_text(), (
+            "a script-looking string is shown as text"
+        )
         smoke.finish(page)
 
 
@@ -605,8 +689,12 @@ def check_injection(smoke, base, catalog):
         page.wait_for_function("document.querySelector('.slide-notes .notes-title') !== null")
         assert page.locator(".slide-notes .notes-title").inner_text().replace("\u00a0", " ") == hostile["title"]
         assert INJECTION in page.locator(".slide-notes").inner_text()
-        assert page.locator("#asset-source").get_attribute("href") == hostile["page_url"], "the caption links the source page"
-        assert page.locator(".slide-notes").evaluate("(node) => node.querySelector('img, script, b') === null"), "no markup from the data"
+        assert page.locator("#asset-source").get_attribute("href") == hostile["page_url"], (
+            "the caption links the source page"
+        )
+        assert page.locator(".slide-notes").evaluate("(node) => node.querySelector('img, script, b') === null"), (
+            "no markup from the data"
+        )
     page.wait_for_timeout(300)
     assert page.evaluate("document.querySelectorAll('img[src=\"x\"]').length") == 0, "no injected element"
     assert page.evaluate("[...document.scripts].every((s) => !s.textContent.includes('alert('))")
@@ -631,7 +719,9 @@ def check_previews(smoke, base, catalog, fixture):
         assert src == (thumb or (url if site else None)), (src, thumb, url, site)
     originals = {urlparse(urljoin(base, url)).path for _, thumb, url, _ in cards if thumb}
     assert not originals & set(requested), sorted(originals & set(requested))[:3]
-    image_bytes = page.evaluate("performance.getEntriesByType('resource').filter((e) => e.initiatorType === 'img').reduce((sum, e) => sum + e.encodedBodySize, 0)")
+    image_bytes = page.evaluate(
+        "performance.getEntriesByType('resource').filter((e) => e.initiatorType === 'img').reduce((sum, e) => sum + e.encodedBodySize, 0)"
+    )
     assert image_bytes < 2_000_000, image_bytes
     smoke.measurements[f"first-screen grid image bytes at 1440x900, {base}"] = image_bytes
     smoke.finish(page)
@@ -650,13 +740,18 @@ def check_previews(smoke, base, catalog, fixture):
         card = page.locator(f".card[data-id={json.dumps(asset['id'])}]")
         assert card.count() == 1, asset["id"]
         if fallback:
-            page.wait_for_function("(card) => { const img = card.querySelector('img'); return img && img.getAttribute('src') !== null && img.complete && img.naturalWidth > 0; }",
-                                   arg=card.element_handle(), timeout=10_000)
+            page.wait_for_function(
+                "(card) => { const img = card.querySelector('img'); return img && img.getAttribute('src') !== null && img.complete && img.naturalWidth > 0; }",
+                arg=card.element_handle(),
+                timeout=10_000,
+            )
             assert card.locator("img").get_attribute("src") == fallback
         else:
             card.locator(".card-placeholder").wait_for(timeout=10_000)
             assert card.locator("img").count() == 0
-            assert urlparse(urljoin(base, asset["url"])).path not in requested, "an archive-only original is never requested"
+            assert urlparse(urljoin(base, asset["url"])).path not in requested, (
+                "an archive-only original is never requested"
+            )
         smoke.finish(page)
 
 
@@ -745,8 +840,10 @@ def check_viewer_failures(smoke, base, catalog):
     published = find(catalog, lambda a: a["gallery"] and a["site_original"] and a["thumb"])
     if not (archived and published):
         raise Skip("the catalog lacks an archive-only or a published gallery image with a preview")
-    for asset, failing, key, link in ((archived, archived["thumb"], "viewer.preview_error", "viewer.repository"),
-                                      (published, published["url"], "viewer.image_error", "viewer.original")):
+    for asset, failing, key, link in (
+        (archived, archived["thumb"], "viewer.preview_error", "viewer.repository"),
+        (published, published["url"], "viewer.image_error", "viewer.original"),
+    ):
         page = smoke.page(base)
         url = urljoin(base, failing)
         smoke.monitor.expect(url)
@@ -758,10 +855,16 @@ def check_viewer_failures(smoke, base, catalog):
         for lang in ("en", "zh-CN"):
             page.evaluate("(lang) => DYNAMIX_I18N.setLang(lang)", lang)
             assert page.locator("#full-image").is_hidden(), (asset["id"], "no broken-image glyph")
-            assert page.locator("#image-error").inner_text() == t(key, link=t(link)), (lang, page.locator("#image-error").inner_text())
+            assert page.locator("#image-error").inner_text() == t(key, link=t(link)), (
+                lang,
+                page.locator("#image-error").inner_text(),
+            )
             note = page.locator("#archive-note").text_content()
             if not asset["site_original"]:
-                assert note.startswith(t("viewer.archive_only_no_preview")) and t("viewer.archive_only") not in note, (lang, note)
+                assert note.startswith(t("viewer.archive_only_no_preview")) and t("viewer.archive_only") not in note, (
+                    lang,
+                    note,
+                )
             assert note == note.strip(), (lang, note)
         page.keyboard.press("ArrowRight")
         page.wait_for_function(IMAGE_SHOWN, timeout=5000)
@@ -776,10 +879,13 @@ def check_inventory(smoke, base, catalog):
     tally = Counter(source["status"] for source in catalog["sources"])
     totals = catalog.get("summary") or {}
     pick = lambda key, fallback: fallback if totals.get(key) is None else totals[key]  # the page's `??`
-    counts = {"sources": pick("source_count", len(catalog["sources"])), "records": pick("source_asset_records", 0),
-              "files": pick("unique_files", len(catalog["assets"])),
-              "gallery": pick("gallery_images", sum(bool(asset["gallery"]) for asset in catalog["assets"])),
-              "failures": pick("failure_count", 0)}
+    counts = {
+        "sources": pick("source_count", len(catalog["sources"])),
+        "records": pick("source_asset_records", 0),
+        "files": pick("unique_files", len(catalog["assets"])),
+        "gallery": pick("gallery_images", sum(bool(asset["gallery"]) for asset in catalog["assets"])),
+        "failures": pick("failure_count", 0),
+    }
     for lang in ("en", "zh-CN"):
         page = smoke.page(base)
         open_archive(smoke, page, base, f"?lang={lang}")
@@ -789,11 +895,18 @@ def check_inventory(smoke, base, catalog):
         # Compared as rendered text, which keeps a leading space that innerText would hide.
         composed = t("inventory.summary", **counts)
         if tally:
-            statuses = " · ".join(t("inventory.status_count", status=t("status." + status), count=tally[status])
-                                  for status in STATUS_ORDER if tally[status])
+            statuses = " · ".join(
+                t("inventory.status_count", status=t("status." + status), count=tally[status])
+                for status in STATUS_ORDER
+                if tally[status]
+            )
             assert t("inventory.statuses", statuses=statuses) in summary, (lang, summary)
             composed = t("text.sentences", first=composed, second=t("inventory.statuses", statuses=statuses))
-        assert page.locator("#inventory-summary").text_content() == composed, (lang, page.locator("#inventory-summary").text_content(), composed)
+        assert page.locator("#inventory-summary").text_content() == composed, (
+            lang,
+            page.locator("#inventory-summary").text_content(),
+            composed,
+        )
         if lang == "zh-CN":
             assert ":" not in summary and "。 " not in summary and "：" in summary, summary
         else:
@@ -806,7 +919,9 @@ def check_inventory(smoke, base, catalog):
             failures = page.locator("#failures").inner_text()
             assert "1 attempts" not in failures, failures
             for failure in catalog["failures"]:
-                form = page.evaluate("([lang, count]) => new Intl.PluralRules(lang).select(count)", [lang, failure["attempts"]])
+                form = page.evaluate(
+                    "([lang, count]) => new Intl.PluralRules(lang).select(count)", [lang, failure["attempts"]]
+                )
                 assert t(f"inventory.attempts.{form}", count=failure["attempts"]) in failures, (lang, failure["id"])
         smoke.finish(page)
 
@@ -823,7 +938,9 @@ def check_history(smoke, base, catalog):
     page.locator("#references a").first.click()
     page.wait_for_function("document.getElementById('viewer').open")
     assert page.locator("#viewer-title").inner_text() == reference["title"]
-    assert urlparse(page.url).query == "kind=reference" and urlparse(page.url).fragment == quote(reference["id"], safe=""), page.url
+    assert urlparse(page.url).query == "kind=reference" and urlparse(page.url).fragment == quote(
+        reference["id"], safe=""
+    ), page.url
     page.go_back()
     page.wait_for_function("!document.getElementById('viewer').open", timeout=3000)
     assert (urlparse(page.url).query, urlparse(page.url).fragment) == ("sort=title", ""), page.url
@@ -834,7 +951,10 @@ def check_history(smoke, base, catalog):
     assert urlparse(page.url).query == "sort=title", "the URL keeps the restored filters"
     page.go_forward()
     page.wait_for_function("document.getElementById('viewer').open", timeout=3000)
-    assert page.locator("#viewer-title").inner_text() == reference["title"] and page.locator("#kind").input_value() == "reference"
+    assert (
+        page.locator("#viewer-title").inner_text() == reference["title"]
+        and page.locator("#kind").input_value() == "reference"
+    )
     page.keyboard.press("Escape")
     page.wait_for_function("location.hash === ''", timeout=3000)
     assert urlparse(page.url).query == "kind=reference", page.url
@@ -847,7 +967,11 @@ def check_served_catalog(smoke, base, catalog, allow_empty):
     gallery = sum(bool(asset["gallery"]) for asset in catalog["assets"])
     slides = [asset["id"] for asset in catalog["assets"] if asset["slideshow"]]
     summary = catalog.get("summary") or {}
-    assert (summary.get("gallery_images"), summary.get("slideshow_images")) == (gallery, len(slides)), (summary, gallery, len(slides))
+    assert (summary.get("gallery_images"), summary.get("slideshow_images")) == (gallery, len(slides)), (
+        summary,
+        gallery,
+        len(slides),
+    )
     assert allow_empty or (gallery and slides), f"the catalog has {gallery} gallery and {len(slides)} slideshow images"
     page = smoke.page(base)
     smoke.goto(page, urljoin(base, "index.html"))
@@ -883,12 +1007,19 @@ def check_layout(smoke, base, catalog, lang, size):
         assert no_horizontal_scroll(page), (lang, size, "slideshow")
         for name in BOTTOM_ROW + ["lang-toggle"]:
             box = page.locator(f".{name}").first.bounding_box()
-            assert box and box["x"] >= 0 and box["x"] + box["width"] <= width and box["y"] + box["height"] <= height, (name, box)
+            assert box and box["x"] >= 0 and box["x"] + box["width"] <= width and box["y"] + box["height"] <= height, (
+                name,
+                box,
+            )
         boxes = [page.locator(f".{name}").first.bounding_box() for name in BOTTOM_ROW]
         assert all(left["x"] + left["width"] <= right["x"] for left, right in zip(boxes, boxes[1:])), boxes
         for arrow in (".prev", ".next"):
-            assert page.locator(arrow).evaluate("""(node) => { const box = node.getBoundingClientRect();
-                return node.contains(document.elementFromPoint((box.left + box.right) / 2, (box.top + box.bottom) / 2)); }"""), arrow
+            assert page.locator(
+                arrow
+            ).evaluate("""(node) => { const box = node.getBoundingClientRect();
+                return node.contains(document.elementFromPoint((box.left + box.right) / 2, (box.top + box.bottom) / 2)); }"""), (
+                arrow
+            )
     smoke.finish(page)
 
 
@@ -918,8 +1049,11 @@ def check_slideshow(smoke, base, catalog, fixture):
         original = page.locator("#asset-original")
         assert original.get_attribute("href") == target["url"] and original.get_attribute("download") is not None
         source = page.locator("#asset-source")
-        expected = page.evaluate("""(value) => { try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) ? url.href : null; }
-            catch { return null; } }""", target["page_url"])
+        expected = page.evaluate(
+            """(value) => { try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) ? url.href : null; }
+            catch { return null; } }""",
+            target["page_url"],
+        )
         assert source.get_attribute("href") == expected, (source.get_attribute("href"), expected)
         if len(slides) > 1:
             page.locator(".next").click()
@@ -937,7 +1071,9 @@ def check_slideshow(smoke, base, catalog, fixture):
         smoke.finish(page)
     page = open_slideshow(smoke, base, "")
     clock = page.locator(".random button")
-    assert clock.get_attribute("aria-pressed") == "true" and page.evaluate("randomFlag") == 0, "plain index.html autoplays"
+    assert clock.get_attribute("aria-pressed") == "true" and page.evaluate("randomFlag") == 0, (
+        "plain index.html autoplays"
+    )
     clock.click()
     assert [clock.get_attribute("aria-pressed"), page.evaluate("randomFlag")] == ["false", 1]
     clock.click()
@@ -946,8 +1082,11 @@ def check_slideshow(smoke, base, catalog, fixture):
     row = []
     for _ in range(30):
         page.keyboard.press("Tab")
-        stop = page.evaluate("""(names) => { const control = document.activeElement.closest(names.map((name) => '.' + name).join(', '));
-            return control && [names.find((name) => control.classList.contains(name)), document.activeElement.getBoundingClientRect().left]; }""", BOTTOM_ROW)
+        stop = page.evaluate(
+            """(names) => { const control = document.activeElement.closest(names.map((name) => '.' + name).join(', '));
+            return control && [names.find((name) => control.classList.contains(name)), document.activeElement.getBoundingClientRect().left]; }""",
+            BOTTOM_ROW,
+        )
         if stop and stop[0] not in [name for name, _ in row]:
             row.append(stop)
         if len(row) == len(BOTTOM_ROW):
@@ -956,9 +1095,15 @@ def check_slideshow(smoke, base, catalog, fixture):
     smoke.finish(page)
     for lang in ("en", "zh-CN"):
         page = open_slideshow(smoke, base, f"?asset={quote(target['id'], safe='')}&lang={lang}")
-        for role, key in (("button", "slideshow.nav.prev"), ("button", "slideshow.nav.next"), ("button", "slideshow.screenshot.take"),
-                          ("button", "slideshow.autoplay.label"), ("link", "slideshow.github.label"), ("link", "slideshow.archive.text"),
-                          ("link", "slideshow.attribution")):
+        for role, key in (
+            ("button", "slideshow.nav.prev"),
+            ("button", "slideshow.nav.next"),
+            ("button", "slideshow.screenshot.take"),
+            ("button", "slideshow.autoplay.label"),
+            ("link", "slideshow.github.label"),
+            ("link", "slideshow.archive.text"),
+            ("link", "slideshow.attribution"),
+        ):
             name = page.evaluate("(key) => DYNAMIX_I18N.t(key)", key)
             assert page.get_by_role(role, name=name, exact=True).count() == 1, (lang, role, name)
             assert (lang == "zh-CN") == page.evaluate(HAS_HAN, name), (lang, name)
@@ -975,8 +1120,22 @@ def check_slideshow(smoke, base, catalog, fixture):
 # Phones held sideways (533 x 320: the compact control row of windows under 600px wide), short narrow landscape windows
 # (560 x 440 to 700 x 560, where the text column is narrowest for its height), short portrait phones (browser bars
 # included) and short desktop windows, where the notes, the caption and the bottom control row compete for room.
-SHORT_SCREENS = [(533, 320), (568, 320), (640, 360), (667, 375), (812, 375), (844, 390), (560, 440), (600, 450), (700, 560),
-                 (960, 540), (320, 454), (375, 553), (360, 568), (360, 640)]
+SHORT_SCREENS = [
+    (533, 320),
+    (568, 320),
+    (640, 360),
+    (667, 375),
+    (812, 375),
+    (844, 390),
+    (560, 440),
+    (600, 450),
+    (700, 560),
+    (960, 540),
+    (320, 454),
+    (375, 553),
+    (360, 568),
+    (360, 640),
+]
 # The visible text blocks of the liner column that overlap a control of the bottom row; what the caption's lines cross
 # besides (the stage, the arrows, the language toggle, the notes or the title card); the blocks not wholly on screen;
 # and whether the illustrator's whole credit (when slide notes are up) lies on screen above that row, every line of it
@@ -1035,7 +1194,7 @@ def check_short_screens(smoke, base, catalog, fixture):
                 state = page.evaluate(CLEARANCE, BOTTOM_ROW)
                 assert state == CLEAR, (lang, width, height, page.evaluate(SHOWN_ID), state)
                 steps = page.evaluate(FIT).split()
-                assert steps == FIT_STEPS[:len(steps)], (lang, width, height, page.evaluate(SHOWN_ID), steps)
+                assert steps == FIT_STEPS[: len(steps)], (lang, width, height, page.evaluate(SHOWN_ID), steps)
                 if steps:
                     fitted.add(page.evaluate(SHOWN_ID))
                 for full, tooltip in page.evaluate(CUT):
@@ -1044,9 +1203,15 @@ def check_short_screens(smoke, base, catalog, fixture):
             smoke.finish(page)
     if fixture:
         crowded = [asset for asset in slides if len(asset["collections"]) >= 5]
-        assert len(crowded) == 2 and {asset["id"] for asset in crowded} <= fitted, ("the crowded slides give up parts", sorted(fitted))
+        assert len(crowded) == 2 and {asset["id"] for asset in crowded} <= fitted, (
+            "the crowded slides give up parts",
+            sorted(fitted),
+        )
         latin = next(asset for asset in crowded if asset["title"].isascii())
-        assert (568, 320, latin["title"]) in cut, ("the crowded slide's file name is cut on a landscape phone", sorted(cut))
+        assert (568, 320, latin["title"]) in cut, (
+            "the crowded slide's file name is cut on a landscape phone",
+            sorted(cut),
+        )
 
 
 # The saved screenshot's copy of the page (html2canvas's clone, seen through markCuts()): each notes text with its full
@@ -1093,7 +1258,9 @@ def check_screenshot_notes(smoke, base, catalog, fixture):
                 smoke.goto(page, urljoin(base, f"index.html?lang={lang}&asset=" + quote(asset["id"], safe="")))
                 page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
                 page.wait_for_function(SLIDE_SHOWN, timeout=10_000)
-                credit = page.evaluate("imgTargets[slideIndex - 1].dataset.illustrators || DYNAMIX_I18N.t('credit.unknown')")
+                credit = page.evaluate(
+                    "imgTargets[slideIndex - 1].dataset.illustrators || DYNAMIX_I18N.t('credit.unknown')"
+                )
                 capture = page.evaluate(CAPTURE)
                 where = (lang, width, height, asset["id"])
                 assert capture, (where, "the screenshot is drawn from a copy that markCuts() has seen")
@@ -1121,9 +1288,11 @@ WRAPPED_WORDS = """(root) => { const doc = root.ownerDocument, range = doc.creat
             range.setStart(node, match.index); range.setEnd(node, match.index + match[0].length);
             if (new Set([...range.getClientRects()].map((box) => Math.round(box.top))).size > 1) spanning.push(match[0]); } }
     return spanning; }"""
-WRAP_CAPTURE = """(title) => new Promise((resolve) => {
+WRAP_CAPTURE = (
+    """(title) => new Promise((resolve) => {
     window.setTimeout(() => resolve(null), 20000);
-    const spanning = WRAPPED_WORDS;""".replace("WRAPPED_WORDS", WRAPPED_WORDS) + """
+    const spanning = WRAPPED_WORDS;""".replace("WRAPPED_WORDS", WRAPPED_WORDS)
+    + """
     const node = document.querySelector('.slide-notes .notes-title');
     node.textContent = title;
     node.dataset.full = title;
@@ -1134,6 +1303,7 @@ WRAP_CAPTURE = """(title) => new Promise((resolve) => {
         resolve({page, copy: spanning(doc.querySelector('.slide-notes'))}); };
     screenshot();
 })"""
+)
 
 
 def check_screenshot_line_breaks(smoke, base, catalog):
@@ -1214,7 +1384,11 @@ def check_empty(smoke, base):
     assert page.locator("#inventory-summary").inner_text()
     smoke.goto(page, urljoin(base, "index.html"))
     page.wait_for_function("document.querySelector('.dynamix-view').style.opacity === '1'")
-    assert page.locator(".intro-empty").is_visible() and page.locator(".prev").is_hidden() and page.locator(".asset-caption").is_hidden()
+    assert (
+        page.locator(".intro-empty").is_visible()
+        and page.locator(".prev").is_hidden()
+        and page.locator(".asset-caption").is_hidden()
+    )
     page.keyboard.press("ArrowRight")
     page.wait_for_timeout(200)
     assert page.evaluate("document.querySelectorAll('.mySlides').length") == 0
@@ -1227,23 +1401,33 @@ def check_edges(smoke, base, catalog, names, small_id):
     each language's way, with nothing before the first. Texts are compared as rendered (textContent)."""
     page = smoke.page(base)
     open_archive(smoke, page, base, "?sort=title")
-    cards = page.evaluate("[...document.querySelectorAll('.card')].map((card) => [card.dataset.id, card.querySelector('h2').textContent])")
+    cards = page.evaluate(
+        "[...document.querySelectorAll('.card')].map((card) => [card.dataset.id, card.querySelector('h2').textContent])"
+    )
     shown = dict(cards)
     for asset_id, name in names.items():
         assert shown.get(asset_id) == name, (asset_id, shown.get(asset_id), name)
     order = [title for _, title in cards]
-    assert order == page.evaluate("(titles) => [...titles].sort(new Intl.Collator('en', {numeric: true}).compare)", order), order
+    assert order == page.evaluate(
+        "(titles) => [...titles].sort(new Intl.Collator('en', {numeric: true}).compare)", order
+    ), order
     for asset_id, name in names.items():
         smoke.goto(page, urljoin(base, "archive.html#" + quote(asset_id, safe="")))
         page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
-        assert [page.locator("#viewer-title").text_content(), page.locator("#full-image").get_attribute("alt")] == [name, name], asset_id
+        assert [page.locator("#viewer-title").text_content(), page.locator("#full-image").get_attribute("alt")] == [
+            name,
+            name,
+        ], asset_id
     small = next(asset for asset in catalog["assets"] if asset["id"] == small_id)
     t = translator(page)
     for lang in ("en", "zh-CN"):
         smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(small_id, safe="")))
         page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
-        expected = t("text.sentences", first=t("viewer.archive_only_no_preview"),
-                     second=t("viewer.low_resolution", size=max(small["width"], small["height"])))
+        expected = t(
+            "text.sentences",
+            first=t("viewer.archive_only_no_preview"),
+            second=t("viewer.low_resolution", size=max(small["width"], small["height"])),
+        )
         note = page.locator("#archive-note").text_content()
         assert note == expected, (lang, note, expected)
     smoke.finish(page)
@@ -1347,10 +1531,17 @@ def run_suite(smoke, base, catalog, fixture, label):
     smoke.run(f"{label}: catalog strings render as text", check_injection, base, catalog)
     smoke.run(f"{label}: slideshow deep links, controls and names", check_slideshow, base, catalog, fixture)
     smoke.run(f"{label}: screenshot overlay", check_screenshot_overlay, base, catalog)
-    smoke.run(f"{label}: short screens keep notes and caption clear of the controls", check_short_screens, base, catalog, fixture)
+    smoke.run(
+        f"{label}: short screens keep notes and caption clear of the controls",
+        check_short_screens,
+        base,
+        catalog,
+        fixture,
+    )
     smoke.run(f"{label}: screenshots cut no notes text silently", check_screenshot_notes, base, catalog, fixture)
-    smoke.run(f"{label}: screenshots keep the page's line breaks inside words", check_screenshot_line_breaks, base,
-              catalog)
+    smoke.run(
+        f"{label}: screenshots keep the page's line breaks inside words", check_screenshot_line_breaks, base, catalog
+    )
     smoke.run(f"{label}: Tab follows the drawing", check_tab_order, base, catalog)
     smoke.run(f"{label}: notice without JavaScript", check_without_javascript, base)
     for lang in ("en", "zh-CN"):
@@ -1364,10 +1555,16 @@ def main(argv=None):
     mode.add_argument("--base", help="URL of an already served checkout (loopback only)")
     mode.add_argument("--fixture", action="store_true", help="build and serve sites from tests/fixtures/ui")
     parser.add_argument("--root", type=Path, help="with --base: the served checkout, opened from file:// as well")
-    parser.add_argument("--workdir", type=Path, help="with --fixture: directory for the generated sites (default: a new temp dir)")
+    parser.add_argument(
+        "--workdir", type=Path, help="with --fixture: directory for the generated sites (default: a new temp dir)"
+    )
     parser.add_argument("--browser", default="/usr/bin/google-chrome")
-    parser.add_argument("--only", action="append", default=[], help="run only checks whose name contains this text (repeatable)")
-    parser.add_argument("--allow-empty", action="store_true", help="with --base: accept a catalog without gallery or slideshow images")
+    parser.add_argument(
+        "--only", action="append", default=[], help="run only checks whose name contains this text (repeatable)"
+    )
+    parser.add_argument(
+        "--allow-empty", action="store_true", help="with --base: accept a catalog without gallery or slideshow images"
+    )
     args = parser.parse_args(argv)
     started = time.monotonic()
     servers, cleanup = [], None
@@ -1396,7 +1593,13 @@ def main(argv=None):
                 servers = [serve(work / "root"), serve(work / "mounted")]
                 root_base = f"http://127.0.0.1:{servers[0].server_port}/"
                 mounted = f"http://127.0.0.1:{servers[1].server_port}/"
-                smoke.run("root: served catalog has gallery and slideshow images", check_served_catalog, root_base, catalog, False)
+                smoke.run(
+                    "root: served catalog has gallery and slideshow images",
+                    check_served_catalog,
+                    root_base,
+                    catalog,
+                    False,
+                )
                 run_suite(smoke, root_base, catalog, True, "root")
                 smoke.run("root: provenance comparisons and unsafe links", check_provenance_text, root_base, catalog)
                 smoke.run("root: failed viewer images", check_viewer_failures, root_base, catalog)
@@ -1405,13 +1608,33 @@ def main(argv=None):
                 run_suite(smoke, mounted + "dynamix/", catalog, True, "/dynamix/")
                 smoke.run("/dynamix/: requests stay under the mount", check_subpath_requests, mounted, ("/dynamix/",))
                 smoke.run("/empty/: empty catalog", check_empty, mounted + "empty/")
-                smoke.run("/empty/: an empty catalog is consistent when allowed", check_served_catalog, mounted + "empty/", empty, True)
+                smoke.run(
+                    "/empty/: an empty catalog is consistent when allowed",
+                    check_served_catalog,
+                    mounted + "empty/",
+                    empty,
+                    True,
+                )
                 smoke.run("/many/: 60 per page and focus after paging", check_pagination, mounted + "many/")
-                smoke.run("/hostile/: script URLs in a catalog are never linked or loaded", check_hostile, mounted + "hostile/")
-                smoke.run("/edges/: untitled files and a two-sentence viewer note", check_edges, mounted + "edges/", edge_catalog,
-                          edge_names, edge_small)
-                smoke.run("subpath server: every request under /dynamix/, /empty/, /many/, /hostile/ or /edges/", check_subpath_requests,
-                          mounted, ("/dynamix/", "/empty/", "/many/", "/hostile/", "/edges/"))
+                smoke.run(
+                    "/hostile/: script URLs in a catalog are never linked or loaded",
+                    check_hostile,
+                    mounted + "hostile/",
+                )
+                smoke.run(
+                    "/edges/: untitled files and a two-sentence viewer note",
+                    check_edges,
+                    mounted + "edges/",
+                    edge_catalog,
+                    edge_names,
+                    edge_small,
+                )
+                smoke.run(
+                    "subpath server: every request under /dynamix/, /empty/, /many/, /hostile/ or /edges/",
+                    check_subpath_requests,
+                    mounted,
+                    ("/dynamix/", "/empty/", "/many/", "/hostile/", "/edges/"),
+                )
                 smoke.run("file://: archive and slideshow from disk", check_file_url, work / "root", catalog)
                 base = root_base
             else:
@@ -1424,7 +1647,13 @@ def main(argv=None):
                 smoke.finish(probe)
                 if catalog is None:
                     raise SystemExit("The served archive.html has no data/catalog.js")
-                smoke.run("base: served catalog has gallery and slideshow images", check_served_catalog, base, catalog, args.allow_empty)
+                smoke.run(
+                    "base: served catalog has gallery and slideshow images",
+                    check_served_catalog,
+                    base,
+                    catalog,
+                    args.allow_empty,
+                )
                 run_suite(smoke, base, catalog, False, "base")
                 smoke.run("base: missing catalog message", check_missing_catalog, base)
                 smoke.run("base: manifest and icons", check_site_icons, base)
@@ -1444,9 +1673,18 @@ def main(argv=None):
         problems.append("no check ran to completion")
     if args.fixture and smoke.skipped:
         problems.append(f"the fixture covers every check, but these were skipped: {smoke.skipped}")
-    report = {"mode": "fixture" if args.fixture else "base", "base": base, "browser": browser_version, "passed": smoke.passed,
-              "failed": smoke.failed, "skipped": smoke.skipped, "measurements": smoke.measurements,
-              "monitor_problems": problems, "requests": len(monitor.urls), "seconds": round(time.monotonic() - started, 1)}
+    report = {
+        "mode": "fixture" if args.fixture else "base",
+        "base": base,
+        "browser": browser_version,
+        "passed": smoke.passed,
+        "failed": smoke.failed,
+        "skipped": smoke.skipped,
+        "measurements": smoke.measurements,
+        "monitor_problems": problems,
+        "requests": len(monitor.urls),
+        "seconds": round(time.monotonic() - started, 1),
+    }
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 1 if smoke.failed or problems else 0
 

@@ -64,8 +64,9 @@ class FailureLifecycleTests(WikiRun):
         for pages in (self.scenario.miraheze_pages, self.scenario.fandom_pages):
             pages["Vocal"] = vocal
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
-        self.assertEqual(self.candidate("miraheze", "File:Package Vocal.jpg")["reason"].split(":")[0],
-                         "unresolved_role")
+        self.assertEqual(
+            self.candidate("miraheze", "File:Package Vocal.jpg")["reason"].split(":")[0], "unresolved_role"
+        )
         self.assert_no_failures()
 
     def crash_after_failed_download(self) -> None:
@@ -81,6 +82,7 @@ class FailureLifecycleTests(WikiRun):
             if calls["count"] >= 2:  # the final write after the downloads
                 raise OSError("simulated crash before the final write")
             original(runner)
+
         cli.Runner.write = write
         try:
             code = self.run_cli("--source", "miraheze", "--only", "File:Package Vocal.jpg", client=client)
@@ -137,10 +139,14 @@ class FailureLifecycleTests(WikiRun):
         self.fail_package_vocal()
         wikis = self.scenario.wikis()
         wikis[config.MIRAHEZE.api_url].fail[("allimages", 2)] = net.HttpError("HTTP 503", url="x", http_status=503)
-        self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only", client=self.scenario.client(wikis)),
-                         2, "\n".join(self.logs))
-        self.assertNotIn("wikis:miraheze:File:Package_Vocal.jpg",
-                         {c["id"] for c in self.snapshot("miraheze")["candidates"]})
+        self.assertEqual(
+            self.run_cli("--source", "miraheze", "--metadata-only", client=self.scenario.client(wikis)),
+            2,
+            "\n".join(self.logs),
+        )
+        self.assertNotIn(
+            "wikis:miraheze:File:Package_Vocal.jpg", {c["id"] for c in self.snapshot("miraheze")["candidates"]}
+        )
         self.assertEqual(len(self.manifest()["failures"]), 1)  # kept: the incomplete discovery proves nothing
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
         for _ in range(2):
@@ -173,8 +179,13 @@ class FailureLifecycleTests(WikiRun):
 
             def __exit__(self, *args):
                 return None
-        code = cli.main(["--root", str(self.root), "--work-dir", str(self.work), "--metadata-only"],
-                        client_factory=Broken, now=lambda: NOW, log=self.logs.append)
+
+        code = cli.main(
+            ["--root", str(self.root), "--work-dir", str(self.work), "--metadata-only"],
+            client_factory=Broken,
+            now=lambda: NOW,
+            log=self.logs.append,
+        )
         self.assertEqual(code, 5)
 
 
@@ -192,8 +203,10 @@ class ArchiveStateTests(WikiRun):
         copy = self.candidate("miraheze", "File:Cosmic Pulse copy.png")
         record = {a["id"]: a for a in self.manifest()["assets"]}[owner["id"]]
         self.assertEqual((copy["disposition"], copy["asset_id"]), ("downloaded", owner["id"]))
-        self.assertEqual((record["upstream_status"], record["candidate_id"], record.get("superseded_by")),
-                         ("current", copy["id"], None))
+        self.assertEqual(
+            (record["upstream_status"], record["candidate_id"], record.get("superseded_by")),
+            ("current", copy["id"], None),
+        )
         self.assertNotEqual(self.asset("miraheze", "File:CosmicPulseDynamix.png")["id"], owner["id"])
         self.assertEqual(self.verify(), 0, "\n".join(self.logs))
 
@@ -205,8 +218,14 @@ class ArchiveStateTests(WikiRun):
         entry.update(role="fanart", evidence="visual_inspection: fan-made event poster")
         for key in ("game", "game_evidence", "songs"):
             entry.pop(key)
-        table["withdrawals"] = [{"title": "File:Unused Event.png", "sha256": [event["sha256"]], "reason": "fanart",
-                                 "evidence": "visual_inspection: fan-made event poster"}]
+        table["withdrawals"] = [
+            {
+                "title": "File:Unused Event.png",
+                "sha256": [event["sha256"]],
+                "reason": "fanart",
+                "evidence": "visual_inspection: fan-made event poster",
+            }
+        ]
         self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
         record_before = json.dumps(event, sort_keys=True)
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
@@ -214,8 +233,10 @@ class ArchiveStateTests(WikiRun):
         kept = {a["id"]: a for a in self.manifest()["assets"]}[event["id"]]
         self.assertEqual(json.dumps(kept, sort_keys=True), record_before)  # the displayed corpus is unchanged
         candidate = self.candidate("miraheze", "File:Unused Event.png")
-        self.assertEqual((candidate["disposition"], candidate["asset_id"], candidate["role"]),
-                         ("downloaded", event["id"], "promotional"))
+        self.assertEqual(
+            (candidate["disposition"], candidate["asset_id"], candidate["role"]),
+            ("downloaded", event["id"], "promotional"),
+        )
         self.assertIn(acquire.WITHDRAWAL_PENDING_NOTE, candidate["notes"])
         self.assertTrue(any(line.startswith("WITHDRAWAL PENDING") for line in self.logs))
         self.assertFalse(any(line.startswith("WITHDRAWN") for line in self.logs))
@@ -230,6 +251,7 @@ class SourceNoteTests(WikiRun):
     def test_pending_note_describes_the_pending_set(self) -> None:
         def note() -> str:
             return next(s for s in self.manifest()["sources"] if s["id"] == "wikis:miraheze")["notes"]
+
         self.assertEqual(self.run_cli("--source", "miraheze", "--metadata-only"), 0, "\n".join(self.logs))
         self.assertRegex(note(), r"Pending: \d+ accepted files await download \(metadata-only run\); \d+ unresolved")
         self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
@@ -241,8 +263,9 @@ class SourceNoteTests(WikiRun):
 class WorkDirTests(WikiRun):
     def default_run(self, *args: str, client=None) -> int:
         client = client or self.scenario.client()
-        return cli.main(["--root", str(self.root), *args], client_factory=lambda: client, now=lambda: NOW,
-                        log=self.logs.append)
+        return cli.main(
+            ["--root", str(self.root), *args], client_factory=lambda: client, now=lambda: NOW, log=self.logs.append
+        )
 
     def test_default_work_dir_is_private_and_inside_the_root(self) -> None:
         work = acquire.default_work_dir(self.root)
@@ -282,8 +305,12 @@ class WorkDirTests(WikiRun):
         shared = self.tmp / "group-work"
         shared.mkdir()
         shared.chmod(0o770)
-        code = cli.main(["--root", str(self.root), "--work-dir", str(shared), "--metadata-only"],
-                        client_factory=self.scenario.client, now=lambda: NOW, log=self.logs.append)
+        code = cli.main(
+            ["--root", str(self.root), "--work-dir", str(shared), "--metadata-only"],
+            client_factory=self.scenario.client,
+            now=lambda: NOW,
+            log=self.logs.append,
+        )
         self.assertEqual(code, 3)
 
     def test_lock_symlink_is_refused(self) -> None:
@@ -301,14 +328,22 @@ class WorkDirTests(WikiRun):
         target.mkdir()
         link = self.tmp / "link-work"
         link.symlink_to(target, target_is_directory=True)
-        code = cli.main(["--root", str(self.root), "--work-dir", str(link), "--metadata-only"],
-                        client_factory=self.scenario.client, now=lambda: NOW, log=self.logs.append)
+        code = cli.main(
+            ["--root", str(self.root), "--work-dir", str(link), "--metadata-only"],
+            client_factory=self.scenario.client,
+            now=lambda: NOW,
+            log=self.logs.append,
+        )
         self.assertEqual(code, 3)
         open_dir = self.tmp / "open-work"
         open_dir.mkdir()
         open_dir.chmod(0o777)
-        code = cli.main(["--root", str(self.root), "--work-dir", str(open_dir), "--metadata-only"],
-                        client_factory=self.scenario.client, now=lambda: NOW, log=self.logs.append)
+        code = cli.main(
+            ["--root", str(self.root), "--work-dir", str(open_dir), "--metadata-only"],
+            client_factory=self.scenario.client,
+            now=lambda: NOW,
+            log=self.logs.append,
+        )
         self.assertEqual(code, 3)
 
     def test_journal_of_another_root_is_refused_and_kept(self) -> None:
@@ -341,8 +376,14 @@ class WorkDirTests(WikiRun):
         entry.update(role="fanart", evidence="visual_inspection: fan-made event poster")
         for key in ("game", "game_evidence", "songs"):
             entry.pop(key)
-        table["withdrawals"] = [{"title": "File:Unused Event.png", "sha256": [event["sha256"]], "reason": "fanart",
-                                 "evidence": "visual_inspection: fan-made event poster"}]
+        table["withdrawals"] = [
+            {
+                "title": "File:Unused Event.png",
+                "sha256": [event["sha256"]],
+                "reason": "fanart",
+                "evidence": "visual_inspection: fan-made event poster",
+            }
+        ]
         self.reviews_path.write_text(json.dumps(table), encoding="utf-8")
         self.assertEqual(self.run_cli("--source", "miraheze"), 0, "\n".join(self.logs))
         self.assertNotIn(event["id"], {a["id"] for a in self.manifest()["assets"]})
@@ -402,7 +443,9 @@ class VariantLinkTests(WikiRun):
         self.assertEqual((old_fandom.get("variant_group"), mira.get("variant_group")), (group, group))
         # Fandom re-uploads the title; format=original now returns the bytes Miraheze holds.
         self.scenario.overrides[("fandom", "Pair Comeback Chart List.jpg")] = {
-            "timestamp": "2026-09-01T00:00:00Z", "sha1": "b" * 40}
+            "timestamp": "2026-09-01T00:00:00Z",
+            "sha1": "b" * 40,
+        }
         self.assertEqual(self.run_cli(), 0, "\n".join(self.logs))
         assets = {asset["id"]: asset for asset in self.manifest()["assets"]}
         new_fandom = self.asset("fandom", "File:Pair Comeback Chart List.jpg")
@@ -416,8 +459,13 @@ class VariantLinkTests(WikiRun):
 
     @staticmethod
     def _record(source_id: str, sha256: str, status: str | None = None, **extra) -> dict:
-        record = {"id": f"{source_id}:{sha256[:16]}", "source_id": source_id,
-                  "candidate_id": f"{source_id}:File:T.png", "sha256": sha256, "comparisons": {"sha1_match": True}}
+        record = {
+            "id": f"{source_id}:{sha256[:16]}",
+            "source_id": source_id,
+            "candidate_id": f"{source_id}:File:T.png",
+            "sha256": sha256,
+            "comparisons": {"sha1_match": True},
+        }
         if status:
             record["upstream_status"] = status
         return dict(record, **extra)
@@ -433,8 +481,13 @@ class VariantLinkTests(WikiRun):
         self.assertEqual({record.get("variant_group") for record in linked}, {"wiki-file:File:T.png"})
         # A superseded or removed revision is never linked, and its stale fields go.
         for status in ("superseded", "removed"):
-            records = variants.link([self._record(mira, "a" * 64), self._record(fandom, "a" * 64),
-                                     self._record(fandom, "c" * 64, status, **stale)])
+            records = variants.link(
+                [
+                    self._record(mira, "a" * 64),
+                    self._record(fandom, "a" * 64),
+                    self._record(fandom, "c" * 64, status, **stale),
+                ]
+            )
             self.assertTrue(all(not set(variants.FIELDS) & set(record) for record in records), status)
         # Different bytes within one source only are not wiki variants.
         alone = variants.link([self._record(mira, "a" * 64), self._record(mira, "d" * 64)])

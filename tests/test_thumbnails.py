@@ -32,30 +32,49 @@ SOURCE = "artists:x:fixture_thumbs"
 SRGB = ImageCms.ImageCmsProfile(ImageCms.createProfile("sRGB")).tobytes()
 # Originals of the contract fixture that need a preview: the 1200 px artist original, the 600 px wiki cover (one
 # entry for the Miraheze and Fandom copies), the 640 px background and the 320 px archive-tier screenshot.
-CONTRACT_PREVIEWS = {"FIXTUREcosmic.png": (480, 480), "Cosmic Pulse.png": (480, 480),
-                     "Dynamix background 03.png": (480, 270), "press-kit-2014-screenshot.png": (320, 180)}
+CONTRACT_PREVIEWS = {
+    "FIXTUREcosmic.png": (480, 480),
+    "Cosmic Pulse.png": (480, 480),
+    "Dynamix background 03.png": (480, 270),
+    "press-kit-2014-screenshot.png": (320, 180),
+}
 
 
 def grey_profile(gamma):
     """A minimal ICC v2 greyscale display profile (a gamma curve and a D50 white point)."""
+
     def xyz(x, y, z):
         return b"XYZ " + bytes(4) + struct.pack(">3i", *(round(value * 65536) for value in (x, y, z)))
-    tags = [(b"kTRC", b"curv" + bytes(4) + struct.pack(">IH", 1, round(gamma * 256))),
-            (b"wtpt", xyz(0.9642, 1.0, 0.8249))]
+
+    tags = [
+        (b"kTRC", b"curv" + bytes(4) + struct.pack(">IH", 1, round(gamma * 256))),
+        (b"wtpt", xyz(0.9642, 1.0, 0.8249)),
+    ]
     offset, table, body = 128 + 4 + 12 * len(tags), b"", b""
     for signature, data in tags:
         table += signature + struct.pack(">II", offset + len(body), len(data))
         body += data + bytes(-len(data) % 4)
-    header = (struct.pack(">I", offset + len(body)) + bytes(4) + bytes([2, 0x10, 0, 0]) + b"mntrGRAYXYZ " + bytes(12)
-              + b"acsp" + bytes(28) + xyz(0.9642, 1.0, 0.8249)[8:] + bytes(48))
+    header = (
+        struct.pack(">I", offset + len(body))
+        + bytes(4)
+        + bytes([2, 0x10, 0, 0])
+        + b"mntrGRAYXYZ "
+        + bytes(12)
+        + b"acsp"
+        + bytes(28)
+        + xyz(0.9642, 1.0, 0.8249)[8:]
+        + bytes(48)
+    )
     return header + struct.pack(">I", len(tags)) + table + body
 
 
 def cmyk_profile(lightness):
     """A minimal ICC v2 CMYK output profile: an 8-bit lookup table (2 grid points per ink) to neutral Lab, L* =
     ``lightness`` without black ink and 0 with full black. Its black point is L* 0, so no black-point scaling."""
+
     def xyz(x, y, z):
         return b"XYZ " + bytes(4) + struct.pack(">3i", *(round(value * 65536) for value in (x, y, z)))
+
     identity, matrix = bytes(range(256)), struct.pack(">9i", 65536, 0, 0, 0, 65536, 0, 0, 0, 65536)
     nodes = b"".join(bytes([0 if index & 1 else round(lightness * 255 / 100), 128, 128]) for index in range(16))
     table = b"mft1" + bytes(4) + bytes([4, 3, 2, 0]) + matrix + identity * 4 + nodes + identity * 3
@@ -64,8 +83,17 @@ def cmyk_profile(lightness):
     for signature, data in tags:
         directory += signature + struct.pack(">II", offset + len(body), len(data))
         body += data + bytes(-len(data) % 4)
-    header = (struct.pack(">I", offset + len(body)) + bytes(4) + bytes([2, 0x10, 0, 0]) + b"prtrCMYKLab "
-              + bytes(12) + b"acsp" + bytes(28) + xyz(0.9642, 1.0, 0.8249)[8:] + bytes(48))
+    header = (
+        struct.pack(">I", offset + len(body))
+        + bytes(4)
+        + bytes([2, 0x10, 0, 0])
+        + b"prtrCMYKLab "
+        + bytes(12)
+        + b"acsp"
+        + bytes(28)
+        + xyz(0.9642, 1.0, 0.8249)[8:]
+        + bytes(48)
+    )
     return header + struct.pack(">I", len(tags)) + directory + body
 
 
@@ -161,8 +189,13 @@ class BuildTests(Fixture):
     def test_previews_are_small_metadata_free_webp_files(self):
         thumbs.build(self.root)
         entries = self.manifest()["thumbnails"]
-        expected = {"wide.png": (480, 288), "cutout.png": (373, 480), "photo.jpg": (480, 480),
-                    "anim.gif": (480, 320), **CONTRACT_PREVIEWS}
+        expected = {
+            "wide.png": (480, 288),
+            "cutout.png": (373, 480),
+            "photo.jpg": (480, 480),
+            "anim.gif": (480, 320),
+            **CONTRACT_PREVIEWS,
+        }
         self.assertEqual(set(entries), {self.sha(name) for name in expected})
         for name, size in expected.items():
             with self.subTest(name=name):
@@ -181,20 +214,29 @@ class BuildTests(Fixture):
                         self.assertEqual(image.getpixel((5, 240))[3], 0)
                         self.assertEqual(image.getpixel((370, 240))[3], 255)
         encoder = self.manifest()["encoder"]
-        self.assertEqual({key: encoder[key] for key in ("format", "long_edge", "quality", "method")},
-                         {"format": "WEBP", "long_edge": 480, "quality": 75, "method": 6})
+        self.assertEqual(
+            {key: encoder[key] for key in ("format", "long_edge", "quality", "method")},
+            {"format": "WEBP", "long_edge": 480, "quality": 75, "method": 6},
+        )
         self.assertEqual(set(encoder), {"format", "long_edge", "quality", "method", "pillow", "libwebp"})
 
     def test_small_site_images_and_pdfs_get_no_preview_but_archive_rasters_do(self):
         thumbs.build(self.root)
         entries = self.manifest()["thumbnails"]
-        for match in ({"original_filename": "small.png"}, {"format": "PDF"}, {"title": "交差して歪む過去と未来"},
-                      {"format": "GIF", "source_id": "artists:x:ariiol_"}):
+        for match in (
+            {"original_filename": "small.png"},
+            {"format": "PDF"},
+            {"title": "交差して歪む過去と未来"},
+            {"format": "GIF", "source_id": "artists:x:ariiol_"},
+        ):
             with self.subTest(match=match):
                 self.assertNotIn(fx.find_record(self.root, **match)["sha256"], entries)
         shot = fx.find_record(self.root, kind="gameplay_screenshot")
-        self.assertEqual((entries[shot["sha256"]]["width"], entries[shot["sha256"]]["height"]),
-                         (shot["width"], shot["height"]), "an archive-tier preview is never enlarged")
+        self.assertEqual(
+            (entries[shot["sha256"]]["width"], entries[shot["sha256"]]["height"]),
+            (shot["width"], shot["height"]),
+            "an archive-tier preview is never enlarged",
+        )
 
     def test_animated_gif_previews_its_first_frame(self):
         thumbs.build(self.root)
@@ -264,8 +306,12 @@ class ColourModeTests(Fixture):
 
     def test_greyscale_profile_is_applied_not_embedded(self):
         flat = Image.new("L", (800, 600), 128)
-        expected = ImageCms.profileToProfile(flat, ImageCms.ImageCmsProfile(io.BytesIO(grey_profile(1.0))),
-                                             ImageCms.createProfile("sRGB"), outputMode="RGB").getpixel((0, 0))
+        expected = ImageCms.profileToProfile(
+            flat,
+            ImageCms.ImageCmsProfile(io.BytesIO(grey_profile(1.0))),
+            ImageCms.createProfile("sRGB"),
+            outputMode="RGB",
+        ).getpixel((0, 0))
         self.assertGreater(expected[0], 170)
         for name, mode, format_name in (("grey.jpg", "L", "JPEG"), ("grey-cutout.png", "LA", "PNG")):
             with self.subTest(mode=mode):
@@ -303,11 +349,17 @@ class ColourModeTests(Fixture):
         naive = print_image.convert("RGB").getpixel((0, 0))
         self.assertEqual(naive, (255, 127, 0))
         profile = cmyk_profile(90)
-        managed = ImageCms.profileToProfile(Image.new("CMYK", (1, 1), ink), ImageCms.ImageCmsProfile(
-            io.BytesIO(profile)), ImageCms.createProfile("sRGB"), outputMode="RGB").getpixel((0, 0))
+        managed = ImageCms.profileToProfile(
+            Image.new("CMYK", (1, 1), ink),
+            ImageCms.ImageCmsProfile(io.BytesIO(profile)),
+            ImageCms.createProfile("sRGB"),
+            outputMode="RGB",
+        ).getpixel((0, 0))
         self.assertTrue(all(200 < channel < 250 for channel in managed), managed)  # neutral light grey
-        for name, options, expected in (("press-scan.jpg", {}, naive),
-                                        ("press-scan-tagged.jpg", {"icc_profile": profile}, managed)):
+        for name, options, expected in (
+            ("press-scan.jpg", {}, naive),
+            ("press-scan-tagged.jpg", {"icc_profile": profile}, managed),
+        ):
             with self.subTest(name=name):
                 preview = self.render(name, print_image, "JPEG", quality=95, **options)
                 self.assertEqual((preview.mode, preview.size), ("RGB", (480, 360)))
@@ -322,10 +374,20 @@ class ColourModeTests(Fixture):
         cases = [
             ("lab.png", flat, "PNG", {"icc_profile": lab}, "Lab ICC profile on a L image"),
             ("rgb-on-grey.png", flat, "PNG", {"icc_profile": SRGB}, "RGB ICC profile on a L image"),
-            ("grey-on-rgb.png", flat.convert("RGB"), "PNG", {"icc_profile": grey_profile(2.2)},
-             "GRAY ICC profile on a RGB image"),
-            ("cmyk-on-rgb.png", flat.convert("RGB"), "PNG", {"icc_profile": cmyk_profile(90)},
-             "CMYK ICC profile on a RGB image"),
+            (
+                "grey-on-rgb.png",
+                flat.convert("RGB"),
+                "PNG",
+                {"icc_profile": grey_profile(2.2)},
+                "GRAY ICC profile on a RGB image",
+            ),
+            (
+                "cmyk-on-rgb.png",
+                flat.convert("RGB"),
+                "PNG",
+                {"icc_profile": cmyk_profile(90)},
+                "CMYK ICC profile on a RGB image",
+            ),
             ("rgb-on-cmyk.jpg", ink, "JPEG", {"icc_profile": SRGB}, "RGB ICC profile on a CMYK image"),
             ("grey-on-cmyk.jpg", ink, "JPEG", {"icc_profile": grey_profile(1.0)}, "GRAY ICC profile on a CMYK image"),
             ("broken-profile.png", flat, "PNG", {"icc_profile": b"not a profile" * 10}, "unreadable ICC profile"),
@@ -337,9 +399,10 @@ class ColourModeTests(Fixture):
             with self.subTest(mode=mode), self.assertRaisesRegex(ValueError, f"unsupported image mode {mode}$"):
                 thumbs.eight_bit(Image.new(mode, (4, 4)), "x.png")
         # The build stops too, before writing any preview or manifest, and names every refused original.
-        refused = [self.add("rgb-on-cmyk-record.jpg", fx.encode(ink, "JPEG", icc_profile=SRGB)),
-                   self.add("grey-on-rgb-record.png", fx.encode(flat.convert("RGB"), "PNG",
-                                                                icc_profile=grey_profile(2.2)))]
+        refused = [
+            self.add("rgb-on-cmyk-record.jpg", fx.encode(ink, "JPEG", icc_profile=SRGB)),
+            self.add("grey-on-rgb-record.png", fx.encode(flat.convert("RGB"), "PNG", icc_profile=grey_profile(2.2))),
+        ]
         with self.assertRaisesRegex(ValueError, "2 original\\(s\\) cannot be previewed") as caught:
             thumbs.build(self.root)
         for record in refused:
@@ -414,8 +477,10 @@ class CheckTests(Fixture):
         for options in ({"exif": exif.tobytes()}, {"xmp": xmp}):
             with self.subTest(metadata=next(iter(options))):
                 self.rewrite_entry("wide.png", self.webp((480, 288), **options))
-                self.assertEqual(thumbs.problems(self.root),
-                                 [f"Thumbnail carries EXIF or XMP metadata: {thumbs.thumb_path(self.sha('wide.png'))}"])
+                self.assertEqual(
+                    thumbs.problems(self.root),
+                    [f"Thumbnail carries EXIF or XMP metadata: {thumbs.thumb_path(self.sha('wide.png'))}"],
+                )
 
     def test_changed_encoder_settings_are_detected(self):
         value = self.manifest()
@@ -438,8 +503,11 @@ class CheckTests(Fixture):
             self.assertEqual(thumbs.main(["--check"], root=self.root), 1)
         self.assertIn("Missing thumbnail file", errors.getvalue())
         for args in (["--check", "--prune"], ["--verify", "--rebuild"]):
-            with self.subTest(args=args), contextlib.redirect_stderr(io.StringIO()), \
-                    self.assertRaises(SystemExit) as raised:
+            with (
+                self.subTest(args=args),
+                contextlib.redirect_stderr(io.StringIO()),
+                self.assertRaises(SystemExit) as raised,
+            ):
                 thumbs.main(args, root=self.root)
             self.assertEqual(raised.exception.code, 2)
 
@@ -557,9 +625,16 @@ class CatalogHookTests(Fixture):
 
     def test_a_cmyk_press_scan_does_not_block_the_pipeline(self):
         """An archive-tier CMYK scan needs a preview like every archive raster; catalog and coverage then build."""
-        scan = fx.add_record(self.root, fx.make_record(
-            self.root, "archives:fixture-press", fx.encode(Image.new("CMYK", (300, 200), (0, 128, 255, 0)), "JPEG"),
-            "press-scan.jpg", kind="gameplay_screenshot"))
+        scan = fx.add_record(
+            self.root,
+            fx.make_record(
+                self.root,
+                "archives:fixture-press",
+                fx.encode(Image.new("CMYK", (300, 200), (0, 128, 255, 0)), "JPEG"),
+                "press-scan.jpg",
+                kind="gameplay_screenshot",
+            ),
+        )
         thumbs.build(self.root)
         self.assertEqual(thumbs.problems(self.root, reencode=True), [])
         with contextlib.redirect_stderr(io.StringIO()):  # notes about the absent template

@@ -20,16 +20,45 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 # Query/fragment keys whose values are credentials wherever they appear. Stored provenance URLs must not carry them
 # (checks.http_url rejects them; redact_url(url, strict=False) replaces their values).
-CREDENTIAL_QUERY_KEYS = frozenset({
-    "access_token", "api_key", "apikey", "auth_token", "client_secret", "id_token", "passwd", "password", "pwd",
-    "refresh_token", "secret", "signature", "token", "x-amz-credential", "x-amz-security-token", "x-amz-signature",
-    "x-goog-credential", "x-goog-signature",
-})
+CREDENTIAL_QUERY_KEYS = frozenset(
+    {
+        "access_token",
+        "api_key",
+        "apikey",
+        "auth_token",
+        "client_secret",
+        "id_token",
+        "passwd",
+        "password",
+        "pwd",
+        "refresh_token",
+        "secret",
+        "signature",
+        "token",
+        "x-amz-credential",
+        "x-amz-security-token",
+        "x-amz-signature",
+        "x-goog-credential",
+        "x-goog-signature",
+    }
+)
 # Strict set for logs and error/Failure messages: also generic names that often, but not always, carry secrets.
 # Stored URLs keep these, because public URLs use them legitimately (e.g. an archived ``image.php?key=12``).
-SENSITIVE_QUERY_KEYS = CREDENTIAL_QUERY_KEYS | frozenset({
-    "auth", "authorization", "code", "cookie", "credential", "key", "phpsessid", "session", "sessionid", "sid", "sig",
-})
+SENSITIVE_QUERY_KEYS = CREDENTIAL_QUERY_KEYS | frozenset(
+    {
+        "auth",
+        "authorization",
+        "code",
+        "cookie",
+        "credential",
+        "key",
+        "phpsessid",
+        "session",
+        "sessionid",
+        "sid",
+        "sig",
+    }
+)
 REDACTED = "REDACTED"
 _URL_IN_TEXT = re.compile(r"https?://[^\s\"'<>]+")
 _HEADER_SECRET = re.compile(r"(?im)\b(authorization|proxy-authorization|cookie|set-cookie)(\s*[:=]\s*)[^\r\n]+")
@@ -84,8 +113,10 @@ def redact_text(text: str, *, strict: bool = True) -> str:
     replaced, and Authorization/Cookie/Set-Cookie header values and bearer tokens removed."""
     keys = _keys(strict)
     text = _URL_IN_TEXT.sub(lambda match: redact_url(match.group(0), strict=strict), str(text))
-    text = _PAIR_IN_TEXT.sub(lambda match: f"{match.group(1)}={REDACTED}"
-                             if unquote(match.group(1)).lower() in keys else match.group(0), text)
+    text = _PAIR_IN_TEXT.sub(
+        lambda match: f"{match.group(1)}={REDACTED}" if unquote(match.group(1)).lower() in keys else match.group(0),
+        text,
+    )
     text = _HEADER_SECRET.sub(lambda match: f"{match.group(1)}{match.group(2)}{REDACTED}", text)
     return _BEARER.sub(lambda match: f"{match.group(1)} {REDACTED}", text)
 
@@ -173,11 +204,16 @@ def tristate(value: Any) -> str | None:
 
 def integer(minimum: int, maximum: int | None = None) -> Checker:
     def check(value: Any) -> str | None:
-        if isinstance(value, bool) or not isinstance(value, int) or value < minimum or (
-                maximum is not None and value > maximum):
+        if (
+            isinstance(value, bool)
+            or not isinstance(value, int)
+            or value < minimum
+            or (maximum is not None and value > maximum)
+        ):
             bound = f" and <= {maximum}" if maximum is not None else ""
             return f"must be an integer >= {minimum}{bound}"
         return None
+
     return check
 
 
@@ -192,6 +228,7 @@ def one_of(values: Iterable[Any]) -> Checker:
         if isinstance(value, str) and value in allowed:
             return None
         return f"must be one of {', '.join(map(str, allowed))}; got {value!r}"
+
     return check
 
 
@@ -260,11 +297,13 @@ def list_of(checker: Checker, *, unique: bool = True) -> Checker:
             if len(set(keys)) != len(keys):
                 return "must not contain duplicates"
         return None
+
     return check
 
 
-def obj(required: Mapping[str, Checker], optional: Mapping[str, Checker] | None = None, *,
-        extra: bool = False) -> Checker:
+def obj(
+    required: Mapping[str, Checker], optional: Mapping[str, Checker] | None = None, *, extra: bool = False
+) -> Checker:
     optional = optional or {}
 
     def check(value: Any) -> str | None:
@@ -286,4 +325,5 @@ def obj(required: Mapping[str, Checker], optional: Mapping[str, Checker] | None 
                 if problem:
                     return f"{key}: {problem}"
         return None
+
     return check

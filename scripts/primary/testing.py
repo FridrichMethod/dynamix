@@ -18,11 +18,13 @@ from urllib.parse import urlencode, urlsplit
 
 from lib import net
 
-MINIMAL_PDF = (b"%PDF-1.4\n1 0 obj\n<< /Type /Catalog >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF\n")
+MINIMAL_PDF = b"%PDF-1.4\n1 0 obj\n<< /Type /Catalog >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF\n"
 FIXED_NOW = "2026-10-10T12:00:00Z"
 
 
-def image_bytes(fmt: str = "PNG", size: tuple[int, int] = (64, 36), color: tuple[int, int, int] = (200, 30, 90)) -> bytes:
+def image_bytes(
+    fmt: str = "PNG", size: tuple[int, int] = (64, 36), color: tuple[int, int, int] = (200, 30, 90)
+) -> bytes:
     from PIL import Image
 
     buffer = io.BytesIO()
@@ -88,10 +90,16 @@ class FakeClient:
         descriptor, name = tempfile.mkstemp(prefix=f".{stem[:20] or 'file'}.", suffix=".part", dir=dest_dir)
         with os.fdopen(descriptor, "wb") as stream:
             stream.write(data)
-        return net.DownloadResult(temp_path=Path(name), final_url=response.get("final_url", url), status=200,
-                                  content_type=response.get("content_type"), bytes=len(data),
-                                  sha256=hashlib.sha256(data).hexdigest(), sha1=hashlib.sha1(data).hexdigest(),
-                                  headers={})
+        return net.DownloadResult(
+            temp_path=Path(name),
+            final_url=response.get("final_url", url),
+            status=200,
+            content_type=response.get("content_type"),
+            bytes=len(data),
+            sha256=hashlib.sha256(data).hexdigest(),
+            sha1=hashlib.sha1(data).hexdigest(),
+            headers={},
+        )
 
     def close(self) -> None:
         pass

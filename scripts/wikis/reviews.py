@@ -64,8 +64,9 @@ from lib import schema
 REVIEWS_PATH = Path(__file__).resolve().parent / "reviews.json"
 FORMAT = "dynamix-wiki-archivist-reviews/1"
 # Exclusions a review may assign; animated captures and video placeholders are detected mechanically.
-REVIEW_EXCLUSIONS = tuple(reason for reason in schema.EXCLUSION_REASONS
-                          if reason not in ("animated_capture", "video_placeholder"))
+REVIEW_EXCLUSIONS = tuple(
+    reason for reason in schema.EXCLUSION_REASONS if reason not in ("animated_capture", "video_placeholder")
+)
 REVIEW_GAMES = ("dynamix", "mixed", "dynamix_universe", "not_dynamix")
 EVIDENCE_PREFIX = re.compile(r"^[a-z_]+: \S")
 _SHA1 = re.compile(r"^[0-9a-f]{40}$")
@@ -134,9 +135,21 @@ def parse(data: Any) -> dict[str, Review]:
         label = f"review #{number}"
         if not isinstance(entry, dict):
             raise ValueError(f"{label}: must be an object")
-        unknown = set(entry) - {"title", "sha1", "role", "game", "evidence", "game_evidence", "songs",
-                                "associations", "pending", "animated", "list_graphic", "official_branding",
-                                "whole_screen"}
+        unknown = set(entry) - {
+            "title",
+            "sha1",
+            "role",
+            "game",
+            "evidence",
+            "game_evidence",
+            "songs",
+            "associations",
+            "pending",
+            "animated",
+            "list_graphic",
+            "official_branding",
+            "whole_screen",
+        }
         if unknown:
             raise ValueError(f"{label}: unknown fields {sorted(unknown)}")
         title = _string(entry, "title", label, required=True)
@@ -166,10 +179,12 @@ def parse(data: Any) -> dict[str, Review]:
             raise ValueError(f"{label}: exclusion {role!r} needs the matching game")
         if role in schema.KINDS and game in ("dynamix", "mixed") and pending:
             raise ValueError(f"{label}: an accepted role and game cannot also be pending")
-        if (role is None or (role in schema.KINDS and game not in ("dynamix", "mixed", "dynamix_universe"))) \
-                and not pending:
-            raise ValueError(f"{label}: a review that establishes no role or no original-game use needs a pending "
-                             "reason")
+        if (
+            role is None or (role in schema.KINDS and game not in ("dynamix", "mixed", "dynamix_universe"))
+        ) and not pending:
+            raise ValueError(
+                f"{label}: a review that establishes no role or no original-game use needs a pending reason"
+            )
         if game == "mixed" and not associations:
             raise ValueError(f"{label}: game 'mixed' needs associations")
         animated = entry.get("animated")
@@ -191,14 +206,27 @@ def parse(data: Any) -> dict[str, Review]:
         if not isinstance(whole_screen, bool):
             raise ValueError(f"{label}: whole_screen must be true or false")
         if whole_screen and (role != "gameplay_screenshot" or game not in ("dynamix", "mixed")):
-            raise ValueError(f"{label}: whole_screen needs role 'gameplay_screenshot' and an original-game or shared "
-                             "game")
+            raise ValueError(
+                f"{label}: whole_screen needs role 'gameplay_screenshot' and an original-game or shared game"
+            )
         for text in (evidence, game_evidence, pending):
             if schema.contains_credentials(text, strict=False):
                 raise ValueError(f"{label}: evidence must not contain credentials")
-        result[title] = Review(title, sha1, role, game, evidence, game_evidence, _strings(entry, "songs", label),
-                               associations, pending, official_animation=animated == "official",
-                               list_graphic=list_graphic, official_branding=branding, whole_screen=whole_screen)
+        result[title] = Review(
+            title,
+            sha1,
+            role,
+            game,
+            evidence,
+            game_evidence,
+            _strings(entry, "songs", label),
+            associations,
+            pending,
+            official_animation=animated == "official",
+            list_graphic=list_graphic,
+            official_branding=branding,
+            whole_screen=whole_screen,
+        )
     return result
 
 
@@ -227,8 +255,11 @@ class Withdrawal:
     evidence: str  # "<basis>: <observation>"
 
     def covers(self, sha256: str, decision: Any) -> bool:
-        return (sha256 in self.sha256 and decision.disposition == "excluded"
-                and decision.reason.split(":", 1)[0].strip() == self.reason)
+        return (
+            sha256 in self.sha256
+            and decision.disposition == "excluded"
+            and decision.reason.split(":", 1)[0].strip() == self.reason
+        )
 
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")

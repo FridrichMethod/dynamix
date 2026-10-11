@@ -58,10 +58,25 @@ from lib import paths, schema
 from . import config, wikitext
 
 KINDS = set(schema.KINDS)
-EXCLUSION_ROLES = {"person_photo", "site_ui", "game_ui", "external_release_art", "video_placeholder",
-                   "out_of_scope_other"}
-DOWNLOAD_KINDS = {"song_art", "pack_cover", "character", "background", "part", "promotional", "process",
-                  "reference", "gameplay_screenshot"}
+EXCLUSION_ROLES = {
+    "person_photo",
+    "site_ui",
+    "game_ui",
+    "external_release_art",
+    "video_placeholder",
+    "out_of_scope_other",
+}
+DOWNLOAD_KINDS = {
+    "song_art",
+    "pack_cover",
+    "character",
+    "background",
+    "part",
+    "promotional",
+    "process",
+    "reference",
+    "gameplay_screenshot",
+}
 MAX_EVIDENCE = 8
 # Song templates and the game each establishes: Template:SongOther holds unreleased/cancelled songs (no game).
 SONG_TEMPLATES = {"Song": "dynamix", "SongUV": "dynamix_universe", "SongOther": None}
@@ -147,6 +162,7 @@ class Decision:
 
 # --- Pages ------------------------------------------------------------------------------------------------------------
 
+
 def _category_titles(page: Mapping[str, Any]) -> list[str]:
     values = []
     for category in page.get("categories") or []:
@@ -201,25 +217,45 @@ def song_records(source_id: str, page: Mapping[str, Any], url: str) -> list[Song
         title_param = wikitext.clean_markup(raw_title).replace("\n", " ").strip()
         title = title_param or page["title"]
         if template.name in ("Song", "SongOther"):
-            composer_field = "Compound Artist Link" if params.get("Compound Artist Link") else (
-                "Artist" if "Artist" in params else None)
-            illustrator_field = "Cover Artist" if "Cover Artist" in params else (
-                "Cover Art" if "Cover Art" in params else None)
+            composer_field = (
+                "Compound Artist Link"
+                if params.get("Compound Artist Link")
+                else ("Artist" if "Artist" in params else None)
+            )
+            illustrator_field = (
+                "Cover Artist" if "Cover Artist" in params else ("Cover Art" if "Cover Art" in params else None)
+            )
         else:
-            composer_field = "Compound Artist Link" if params.get("Compound Artist Link") else (
-                "Artist" if "Artist" in params else None)
+            composer_field = (
+                "Compound Artist Link"
+                if params.get("Compound Artist Link")
+                else ("Artist" if "Artist" in params else None)
+            )
             illustrator_field = "Illustrator" if "Illustrator" in params else None
         composer_raw = params.get(composer_field, "") if composer_field else ""
         illustrator_raw = params.get(illustrator_field, "") if illustrator_field else ""
         raw_image = params.get("Imgsuffix", "")
-        records.append(SongRecord(
-            source_id=source_id, page=page["title"], url=url, revision=(page.get("revision") or {}).get("revid"),
-            template=template.name, title=title, imgsuffix=wikitext.canonical_file_name(raw_image),
-            imgsuffix_raw=raw_image, illustrators=wikitext.credit_names(illustrator_raw),
-            composers=wikitext.credit_names(composer_raw, strip_illustrator_notes=True), illustrator_raw=illustrator_raw.strip(),
-            composer_raw=composer_raw.strip(), composer_field=composer_field, illustrator_field=illustrator_field,
-            categories=categories, number=wikitext.clean_markup(params.get("No.", "")),
-            update=wikitext.clean_markup(params.get("Update", ""))))
+        records.append(
+            SongRecord(
+                source_id=source_id,
+                page=page["title"],
+                url=url,
+                revision=(page.get("revision") or {}).get("revid"),
+                template=template.name,
+                title=title,
+                imgsuffix=wikitext.canonical_file_name(raw_image),
+                imgsuffix_raw=raw_image,
+                illustrators=wikitext.credit_names(illustrator_raw),
+                composers=wikitext.credit_names(composer_raw, strip_illustrator_notes=True),
+                illustrator_raw=illustrator_raw.strip(),
+                composer_raw=composer_raw.strip(),
+                composer_field=composer_field,
+                illustrator_field=illustrator_field,
+                categories=categories,
+                number=wikitext.clean_markup(params.get("No.", "")),
+                update=wikitext.clean_markup(params.get("Update", "")),
+            )
+        )
     return records
 
 
@@ -229,9 +265,18 @@ def analyze_page(source: config.WikiSource, page: Mapping[str, Any]) -> PageInfo
     game, reason = page_game(page["title"], _category_titles(page), [song.template for song in songs])
     categories = _category_titles(page)
     content = (page.get("revision") or {}).get("content") or ""
-    return PageInfo(source.source_id, page["title"], url, (page.get("revision") or {}).get("revid"), categories,
-                    game, reason, songs, package="Category:Song Package" in categories,
-                    transcludes=bool(re.search(r"\{\{\s*:", wikitext.mask_comments(content))))
+    return PageInfo(
+        source.source_id,
+        page["title"],
+        url,
+        (page.get("revision") or {}).get("revid"),
+        categories,
+        game,
+        reason,
+        songs,
+        package="Category:Song Package" in categories,
+        transcludes=bool(re.search(r"\{\{\s*:", wikitext.mask_comments(content))),
+    )
 
 
 def _section_role(title: str, sections: list[str]) -> str | None:
@@ -252,9 +297,14 @@ def _caption_role(caption: str) -> str | None:
     return None
 
 
-def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: PageInfo,
-                  files: Mapping[str, Mapping[str, Any]], song_pages: Mapping[str, list[SongRecord]],
-                  song_titles: Mapping[str, tuple[str, str]] | None = None) -> list[tuple[str, Evidence]]:
+def page_evidence(
+    source: config.WikiSource,
+    page: Mapping[str, Any],
+    info: PageInfo,
+    files: Mapping[str, Mapping[str, Any]],
+    song_pages: Mapping[str, list[SongRecord]],
+    song_titles: Mapping[str, tuple[str, str]] | None = None,
+) -> list[tuple[str, Evidence]]:
     """``(file title, Evidence)`` for every file reference on an article page. ``song_titles`` (see
     :func:`original_song_titles`) lets a cover-art caption that quotes another original-game song's title name that
     song instead of the host page's."""
@@ -296,8 +346,13 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
                 role, strength = "site_ui", 1
             elif _page_role(info.title):
                 role, strength = _page_role(info.title), 2
-        elif (info.package and info.game == "dynamix" and region_game in (None, "dynamix") and ref.caption
-              and config.PACKAGE_CAPTION.search(ref.caption)):
+        elif (
+            info.package
+            and info.game == "dynamix"
+            and region_game in (None, "dynamix")
+            and ref.caption
+            and config.PACKAGE_CAPTION.search(ref.caption)
+        ):
             # An original-game package page's own "Package <name>" image: its cover, as specific as an Imgsuffix.
             role, strength, context = "pack_cover", 3, ref.context + PACK_CONTEXT
         else:
@@ -323,17 +378,25 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
                     game = "mixed"
                     other_game = named
                     detail += f", artwork of the song for {other_game} (another game/event)"
-                elif (game is None and info.game == "mixed" and region is None and ref.context == "gallery"
-                      and caption_role in config.MIXED_PAGE_GALLERY_ROLES
-                      and not re.search(r"universe|\bUV\b", ref.caption, re.I)):
+                elif (
+                    game is None
+                    and info.game == "mixed"
+                    and region is None
+                    and ref.context == "gallery"
+                    and caption_role in config.MIXED_PAGE_GALLERY_ROLES
+                    and not re.search(r"universe|\bUV\b", ref.caption, re.I)
+                ):
                     game = "dynamix"
                     detail += ", page-level gallery of a two-game song page (original-game event items)"
             elif info.title in config.SITE_UI_PAGES:
                 role, strength = "site_ui", 2
             else:
                 role, strength = _list_page_role(info.title, sections, files[file_title])
-                if role is not None and (info.title, role) in config.SECTION_NOTES and _section_role(
-                        info.title, sections) == role:
+                if (
+                    role is not None
+                    and (info.title, role) in config.SECTION_NOTES
+                    and _section_role(info.title, sections) == role
+                ):
                     detail = (detail + ", " if detail else "") + config.SECTION_NOTES[(info.title, role)]
                 if role is None and info.songs and sections and config.TRIVIA_SECTIONS.match(sections[-1]):
                     role, strength = "gameplay_screenshot", 1
@@ -353,9 +416,26 @@ def page_evidence(source: config.WikiSource, page: Mapping[str, Any], info: Page
                 originals = [record for record in info.songs if record.template == "Song"]
                 if originals:
                     song, song_page = originals[0].title, info.title
-        result.append((file_title, Evidence(source.source_id, info.title, info.url, context, role, strength, game,
-                                            song, song_page, detail, other_game, listed and role == "reference",
-                                            caption=ref.caption)))
+        result.append(
+            (
+                file_title,
+                Evidence(
+                    source.source_id,
+                    info.title,
+                    info.url,
+                    context,
+                    role,
+                    strength,
+                    game,
+                    song,
+                    song_page,
+                    detail,
+                    other_game,
+                    listed and role == "reference",
+                    caption=ref.caption,
+                ),
+            )
+        )
     return result
 
 
@@ -393,8 +473,14 @@ def _named_song(caption: str, song_titles: Mapping[str, tuple[str, str]] | None)
     """``(title, page)`` of the one original-game song whose title a caption quotes, else None."""
     if not caption or not song_titles:
         return None
-    named = {song_titles[key] for key in (wikitext.normalize_key(next(group for group in match.groups() if group))
-                                          for match in _QUOTED.finditer(caption)) if key in song_titles}
+    named = {
+        song_titles[key]
+        for key in (
+            wikitext.normalize_key(next(group for group in match.groups() if group))
+            for match in _QUOTED.finditer(caption)
+        )
+        if key in song_titles
+    }
     return named.pop() if len(named) == 1 else None
 
 
@@ -428,8 +514,10 @@ class SongNames:
                 base = wikitext.normalize_key(_TRAILING_NOTE.sub("", name))
                 if base and base != key:
                     loose.setdefault(base, set()).add(title)
-        return cls({key: min(titles) for key, titles in exact.items() if len(titles) == 1},
-                   {key: min(titles) for key, titles in loose.items() if len(titles) == 1 and key not in exact})
+        return cls(
+            {key: min(titles) for key, titles in exact.items() if len(titles) == 1},
+            {key: min(titles) for key, titles in loose.items() if len(titles) == 1 and key not in exact},
+        )
 
     def resolve(self, text: str) -> tuple[str, bool] | None:
         """``(exact title, whole-spelling match)`` of the one song ``text`` names, else None; without a whole-spelling
@@ -458,7 +546,7 @@ def subject_text(text: str) -> str:
     """Subject of a list caption or file title: the text before its first list words (config.SUBJECT_END), '' when it
     has none ("Peony X Xetta Comeback Chart List" -> "Peony X Xetta")."""
     match = config.SUBJECT_END.search(text or "")
-    return text[:match.start()].strip(" \t\n-–—:;,(") if match else ""
+    return text[: match.start()].strip(" \t\n-–—:;,(") if match else ""
 
 
 def read_subject(text: str, names: SongNames) -> SubjectReading:
@@ -473,7 +561,7 @@ def read_subject(text: str, names: SongNames) -> SubjectReading:
     for end in range(1, count + 1):
         for start in range(end):
             found = best[start]
-            piece = "".join(chunks[2 * start:2 * end - 1]).strip()
+            piece = "".join(chunks[2 * start : 2 * end - 1]).strip()
             match = names.resolve(piece) if found is not None and piece else None
             if match is not None and (best[end] is None or len(found) + 1 < len(best[end])):
                 best[end] = found + [match]
@@ -499,9 +587,12 @@ class Subject:
     def only(self, titles: Iterable[str]) -> "Subject":
         """The subject restricted to ``titles`` (the songs an archivist review saw in the bytes)."""
         keep = set(titles)
-        return replace(self, songs=tuple(song for song in self.songs if song in keep),
-                       page_named=frozenset(song for song in self.page_named if song in keep),
-                       named=tuple(entry for entry in self.named if entry[0] in keep))
+        return replace(
+            self,
+            songs=tuple(song for song in self.songs if song in keep),
+            page_named=frozenset(song for song in self.page_named if song in keep),
+            named=tuple(entry for entry in self.named if entry[0] in keep),
+        )
 
 
 def _list_item(item: Evidence) -> bool:
@@ -540,8 +631,11 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
     for item, label, subject in sources:
         reading = read_subject(subject, names)
         field_name = "file title" if item is file_title_item else item.context
-        url = config.page_url(config.SOURCES[_source_key(item.source_id)], file_title) \
-            if item is file_title_item else item.url
+        url = (
+            config.page_url(config.SOURCES[_source_key(item.source_id)], file_title)
+            if item is file_title_item
+            else item.url
+        )
         for title, whole in reading.songs:
             if title not in songs:
                 songs.append(title)
@@ -561,8 +655,16 @@ def list_subject(file_title: str, items: Iterable[Evidence], names: SongNames | 
         if item.song not in songs:
             songs.append(item.song)
         page_named.add(item.song)
-        named.append((item.song, item.url, item.context, (f"{item.detail}; " if item.detail else "")
-                      + f"shown on the page of the original-game song {item.song!r}", item.source_id))
+        named.append(
+            (
+                item.song,
+                item.url,
+                item.context,
+                (f"{item.detail}; " if item.detail else "")
+                + f"shown on the page of the original-game song {item.song!r}",
+                item.source_id,
+            )
+        )
     return Subject(tuple(songs), frozenset(page_named), tuple(named), unread, unread_pages)
 
 
@@ -576,8 +678,10 @@ def unread_note(subject: Subject, songs: Iterable[str]) -> tuple[str, bool]:
     plural = len(pages) > 1
     where = f"the original-game song {'pages' if plural else 'page'} showing it ({shown})"
     if placed:
-        text = (f"{where} {'map their songs' if plural else 'maps its song'} by that gallery placement alone "
-                f"(mapping inferred), not because a caption or the file title names {'them' if plural else 'it'}")
+        text = (
+            f"{where} {'map their songs' if plural else 'maps its song'} by that gallery placement alone "
+            f"(mapping inferred), not because a caption or the file title names {'them' if plural else 'it'}"
+        )
     else:
         text = f"{where} {'are' if plural else 'is'} not taken as its subject"
     return f"List subject not read: {subject.unread}; {text}.", bool(placed)
@@ -612,8 +716,13 @@ def _list_page_role(title: str, sections: list[str], info: Mapping[str, Any]) ->
     return None, 0
 
 
-def usage_evidence(source: config.WikiSource, file_title: str, usage: Mapping[str, Any],
-                   pages: Mapping[str, PageInfo], direct_pages: set[str]) -> list[Evidence]:
+def usage_evidence(
+    source: config.WikiSource,
+    file_title: str,
+    usage: Mapping[str, Any],
+    pages: Mapping[str, PageInfo],
+    direct_pages: set[str],
+) -> list[Evidence]:
     """Evidence from ``prop=fileusage`` and the file's own categories: embeddings the wikitext scan did not see
     (template-built names, other namespaces) and category roles."""
     found = []
@@ -632,31 +741,66 @@ def usage_evidence(source: config.WikiSource, file_title: str, usage: Mapping[st
             # belongs to (used by decide() only when no role evidence names a song; mapping at most inferred).
             originals = [song for song in info.songs if song.template == "Song"]
             song = originals[0].title if len(originals) == 1 and not info.transcludes else None
-            found.append(Evidence(source.source_id, title, info.url, "embedded", role, 2 if role else 0, game,
-                                  song=song, song_page=title if song else None,
-                                  detail=f"page game: {info.game or 'none'} ({info.game_reason}); not referenced "
-                                         "directly in the page text (transcluded or template-built)"))
+            found.append(
+                Evidence(
+                    source.source_id,
+                    title,
+                    info.url,
+                    "embedded",
+                    role,
+                    2 if role else 0,
+                    game,
+                    song=song,
+                    song_page=title if song else None,
+                    detail=f"page game: {info.game or 'none'} ({info.game_reason}); not referenced "
+                    "directly in the page text (transcluded or template-built)",
+                )
+            )
         elif namespace == 10:
             role = "site_ui" if config.SITE_UI_TEMPLATE_RE.match(title) else None
             found.append(Evidence(source.source_id, title, url, "embedded in template", role, 1 if role else 0, None))
         else:
-            found.append(Evidence(source.source_id, title, url, f"embedded in namespace {namespace}", None, 0, None,
-                                  detail="user/forum/non-article page"))
+            found.append(
+                Evidence(
+                    source.source_id,
+                    title,
+                    url,
+                    f"embedded in namespace {namespace}",
+                    None,
+                    0,
+                    None,
+                    detail="user/forum/non-article page",
+                )
+            )
     for category in _category_titles(usage):
         role = config.FILE_CATEGORY_ROLES.get(category)
         if role is not None:
-            found.append(Evidence(source.source_id, file_title, config.page_url(source, file_title), "file category",
-                                  role, 2, None, detail=category,
-                                  list_graphic=category in config.LIST_CATEGORIES and role == "reference"))
+            found.append(
+                Evidence(
+                    source.source_id,
+                    file_title,
+                    config.page_url(source, file_title),
+                    "file category",
+                    role,
+                    2,
+                    None,
+                    detail=category,
+                    list_graphic=category in config.LIST_CATEGORIES and role == "reference",
+                )
+            )
     return found
 
 
 # Miraheze's import summary on every file imported from Fandom (2026-08-09 maintenance script).
-IMPORT_BOILERPLATE = re.compile(r"^\s*(?:==\s*Summary\s*==\s*)?Importing (?:images|files) from "
-                                r"https?://dynamixc4cat\.fandom\.com\S*\s*(?:\(\[\[phorge:T\d+\|T\d+\]\]\))?\s*$", re.I)
+IMPORT_BOILERPLATE = re.compile(
+    r"^\s*(?:==\s*Summary\s*==\s*)?Importing (?:images|files) from "
+    r"https?://dynamixc4cat\.fandom\.com\S*\s*(?:\(\[\[phorge:T\d+\|T\d+\]\]\))?\s*$",
+    re.I,
+)
 _REDIRECT = re.compile(r"^\s*#REDIRECT\s*\[\[\s*:?\s*(?:file|image)\s*:([^\]|#]+)", re.I)
-_DESCRIPTION_NOISE = re.compile(r"\[\[\s*Category\s*:[^\]]*\]\]|^\s*==+[^=\n]*==+\s*$|\{\{[^{}]*\}\}|/\*[^*]*\*/",
-                                re.I | re.M)
+_DESCRIPTION_NOISE = re.compile(
+    r"\[\[\s*Category\s*:[^\]]*\]\]|^\s*==+[^=\n]*==+\s*$|\{\{[^{}]*\}\}|/\*[^*]*\*/", re.I | re.M
+)
 
 
 def description_text(text: str | None) -> str:
@@ -677,8 +821,9 @@ def redirect_target(text: str | None) -> str | None:
     return "File:" + name if name else None
 
 
-def filepage_evidence(source: config.WikiSource, file_title: str, filepage: Mapping[str, Any],
-                      pages: Mapping[str, PageInfo]) -> list[Evidence]:
+def filepage_evidence(
+    source: config.WikiSource, file_title: str, filepage: Mapping[str, Any], pages: Mapping[str, PageInfo]
+) -> list[Evidence]:
     """Pages that link to the file's description page (``[[:File:X]]``, e.g. a citation in a song's Trivia). A link is
     not a use of the image, so it gives neither a role nor a game; the linking page and its game are recorded for
     reviewers. Links from talk/user/forum pages are recorded the same way."""
@@ -688,17 +833,45 @@ def filepage_evidence(source: config.WikiSource, file_title: str, filepage: Mapp
         if not isinstance(title, str):
             continue
         if entry.get("redirect"):
-            found.append(Evidence(source.source_id, title, config.page_url(source, title), "file page alias", None, 0,
-                                  None, detail=f"{title} redirects to this file page"))
+            found.append(
+                Evidence(
+                    source.source_id,
+                    title,
+                    config.page_url(source, title),
+                    "file page alias",
+                    None,
+                    0,
+                    None,
+                    detail=f"{title} redirects to this file page",
+                )
+            )
         elif namespace == 0 and title in pages:
             info = pages[title]
-            found.append(Evidence(source.source_id, title, info.url, "linked from article", None, 0, None,
-                                  detail=f"links to the file page; page game: {info.game or 'none'} "
-                                         f"({info.game_reason})"))
+            found.append(
+                Evidence(
+                    source.source_id,
+                    title,
+                    info.url,
+                    "linked from article",
+                    None,
+                    0,
+                    None,
+                    detail=f"links to the file page; page game: {info.game or 'none'} ({info.game_reason})",
+                )
+            )
         else:
-            found.append(Evidence(source.source_id, title, config.page_url(source, title),
-                                  f"linked from namespace {namespace}", None, 0, None,
-                                  detail="user/talk/forum/file page link"))
+            found.append(
+                Evidence(
+                    source.source_id,
+                    title,
+                    config.page_url(source, title),
+                    f"linked from namespace {namespace}",
+                    None,
+                    0,
+                    None,
+                    detail="user/talk/forum/file page link",
+                )
+            )
     return found
 
 
@@ -707,20 +880,44 @@ def review_evidence(source: config.WikiSource, file_title: str, review: Any) -> 
     (as ``inferred``: strength 0)."""
     url = config.page_url(source, file_title)
     songs = list(review.songs) or [None]
-    return [Evidence(source.source_id, file_title, url, "archivist review", review.role, 0, None, song=song,
-                     detail=review.evidence, list_graphic=review.list_graphic) for song in songs]
+    return [
+        Evidence(
+            source.source_id,
+            file_title,
+            url,
+            "archivist review",
+            review.role,
+            0,
+            None,
+            song=song,
+            detail=review.evidence,
+            list_graphic=review.list_graphic,
+        )
+        for song in songs
+    ]
 
 
 def filename_evidence(source: config.WikiSource, file_title: str) -> list[Evidence]:
     name = file_title.split(":", 1)[1]
     for pattern, role in config.FILENAME_ROLES:
         if pattern.search(name):
-            return [Evidence(source.source_id, file_title, config.page_url(source, file_title), "filename", role, 0,
-                             None, detail=f"filename convention /{pattern.pattern}/")]
+            return [
+                Evidence(
+                    source.source_id,
+                    file_title,
+                    config.page_url(source, file_title),
+                    "filename",
+                    role,
+                    0,
+                    None,
+                    detail=f"filename convention /{pattern.pattern}/",
+                )
+            ]
     return []
 
 
 # --- Wiki-level collection --------------------------------------------------------------------------------------------
+
 
 @dataclass
 class WikiEvidence:
@@ -733,10 +930,14 @@ class WikiEvidence:
     filepages: dict[str, dict] = field(default_factory=dict)
 
 
-def collect(source: config.WikiSource, files: Mapping[str, Mapping[str, Any]],
-            usage: Mapping[str, Mapping[str, Any]], raw_pages: Mapping[str, Mapping[str, Any]],
-            gif_frames: Mapping[str, int | None] | None = None,
-            filepages: Mapping[str, Mapping[str, Any]] | None = None) -> WikiEvidence:
+def collect(
+    source: config.WikiSource,
+    files: Mapping[str, Mapping[str, Any]],
+    usage: Mapping[str, Mapping[str, Any]],
+    raw_pages: Mapping[str, Mapping[str, Any]],
+    gif_frames: Mapping[str, int | None] | None = None,
+    filepages: Mapping[str, Mapping[str, Any]] | None = None,
+) -> WikiEvidence:
     pages = {title: analyze_page(source, page) for title, page in raw_pages.items()}
     by_page_title: dict[str, list[SongRecord]] = {}
     songs: list[SongRecord] = []
@@ -753,12 +954,20 @@ def collect(source: config.WikiSource, files: Mapping[str, Mapping[str, Any]],
             direct[file_title].add(title)
     filepages = filepages or {}
     for file_title in files:
-        evidence[file_title].extend(usage_evidence(source, file_title, usage.get(file_title, {}), pages,
-                                                   direct[file_title]))
+        evidence[file_title].extend(
+            usage_evidence(source, file_title, usage.get(file_title, {}), pages, direct[file_title])
+        )
         evidence[file_title].extend(filepage_evidence(source, file_title, filepages.get(file_title, {}), pages))
         evidence[file_title].extend(filename_evidence(source, file_title))
-    return WikiEvidence(source, {title: dict(info) for title, info in files.items()}, pages, songs, evidence,
-                        dict(gif_frames or {}), {title: dict(page) for title, page in filepages.items()})
+    return WikiEvidence(
+        source,
+        {title: dict(info) for title, info in files.items()},
+        pages,
+        songs,
+        evidence,
+        dict(gif_frames or {}),
+        {title: dict(page) for title, page in filepages.items()},
+    )
 
 
 def universe_threshold(wikis: Iterable[WikiEvidence], fandom_key: str = "fandom") -> str | None:
@@ -800,10 +1009,20 @@ def _is_link(item: Evidence) -> bool:
     return item.context in LINK_CONTEXTS or item.context.startswith("linked from namespace")
 
 
-def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, frames: int | None,
-           include_animated: bool, fandom_timestamp: str | None, threshold: str | None, review: Any = None,
-           review_stale: bool = False, alias: tuple[str, bool] | None = None,
-           song_names: SongNames | None = None) -> Decision:
+def decide(
+    file_title: str,
+    items: list[Evidence],
+    info: Mapping[str, Any],
+    *,
+    frames: int | None,
+    include_animated: bool,
+    fandom_timestamp: str | None,
+    threshold: str | None,
+    review: Any = None,
+    review_stale: bool = False,
+    alias: tuple[str, bool] | None = None,
+    song_names: SongNames | None = None,
+) -> Decision:
     """Role, game and planned disposition for one file title from pooled evidence.
 
     ``review`` is an applicable :class:`wikis.reviews.Review` (its evidence items carry the context
@@ -816,8 +1035,17 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     """
     mime = (info.get("mime") or "").lower()
     if mime.startswith("video/"):
-        return Decision(None, "unknown", [f"API mime {mime}"], [f"API mime {mime}"], [], [], "excluded",
-                        f"video_placeholder: {mime} entry (embedded video, not a stored file)", "unmapped")
+        return Decision(
+            None,
+            "unknown",
+            [f"API mime {mime}"],
+            [f"API mime {mime}"],
+            [],
+            [],
+            "excluded",
+            f"video_placeholder: {mime} entry (embedded video, not a stored file)",
+            "unmapped",
+        )
     if alias is not None and alias[1]:
         note = f"file description page redirects to {alias[0]}, which reports the same SHA-1"
         return Decision(None, "unknown", [], [note], [], [], "excluded", f"redirect_or_alias: {note}", "unmapped")
@@ -830,30 +1058,51 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     role_evidence = _short([f"{item.role} <- {item.text()}" for item in sorted(role_items, key=lambda i: -i.strength)])
     # A review refines an exclusion that page evidence gives (wiki chrome usage of a Universe announcement, a
     # placeholder on a profile list) to the exclusion seen in the bytes; it never turns an exclusion into a download.
-    refines = (review is not None and review.role is not None and review.role not in KINDS and len(leaders) == 1
-               and leaders[0] in EXCLUSION_ROLES and review.role != leaders[0])
+    refines = (
+        review is not None
+        and review.role is not None
+        and review.role not in KINDS
+        and len(leaders) == 1
+        and leaders[0] in EXCLUSION_ROLES
+        and review.role != leaders[0]
+    )
     # The game's own branding that the wiki shows as interface (Main Page header): site_ui describes the wiki's use.
-    branding = (review is not None and review.official_branding and review.role in KINDS
-                and {item.role for item in role_items if item.strength >= 1} == {"site_ui"})
+    branding = (
+        review is not None
+        and review.official_branding
+        and review.role in KINDS
+        and {item.role for item in role_items if item.strength >= 1} == {"site_ui"}
+    )
     # A whole game screen that a page about a game feature shows: game_ui describes the page's topic, not the file.
-    screen = (review is not None and review.whole_screen and review.role == "gameplay_screenshot"
-              and {item.role for item in role_items if item.strength >= 1} == {"game_ui"})
-    reviewed_role = review is not None and review.role is not None and (
-        top < 1 or (len(leaders) > 1 and review.role in leaders) or refines or branding or screen)
+    screen = (
+        review is not None
+        and review.whole_screen
+        and review.role == "gameplay_screenshot"
+        and {item.role for item in role_items if item.strength >= 1} == {"game_ui"}
+    )
+    reviewed_role = (
+        review is not None
+        and review.role is not None
+        and (top < 1 or (len(leaders) > 1 and review.role in leaders) or refines or branding or screen)
+    )
     rule_notes: list[str] = []
     if reviewed_role:
         leaders, top = [review.role], max(top, 0)
         role_evidence = _short([f"{review.role} <- {review.role_text()}"] + role_evidence)
     if branding:
         overridden = "; ".join(_clip_text(item.text()) for item in role_items if item.role == "site_ui")
-        rule_notes.append(f"Kind {review.role} by the archivist review: official branding (the game's own wordmark) "
-                          f"that the wiki reuses as an interface image; the site_ui page evidence describes that use, "
-                          f"not the file: {overridden}.")
+        rule_notes.append(
+            f"Kind {review.role} by the archivist review: official branding (the game's own wordmark) "
+            f"that the wiki reuses as an interface image; the site_ui page evidence describes that use, "
+            f"not the file: {overridden}."
+        )
     if screen:
         overridden = "; ".join(_clip_text(item.text()) for item in role_items if item.role == "game_ui")
-        rule_notes.append(f"Kind {review.role} by the archivist review: a whole game screen that a page about a game "
-                          f"feature shows; the game_ui page evidence describes the page's topic, not the file: "
-                          f"{overridden}.")
+        rule_notes.append(
+            f"Kind {review.role} by the archivist review: a whole game screen that a page about a game "
+            f"feature shows; the game_ui page evidence describes the page's topic, not the file: "
+            f"{overridden}."
+        )
     subject = list_subject(file_title, page_items, song_names)
     listed = _list_rule(page_items, leaders, review, reviewed_role)
     if listed is not None:
@@ -868,27 +1117,43 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     # host song page, a gallery item) but the review does not is left out and recorded -- a caption may name the pair
     # of a two-song comeback whose halves are separate images -- and a song it names that no page evidence maps is
     # added; either change rests on the review (inferred).
-    transcribed = (review is not None and review.list_graphic and review.role == role == "reference"
-                   and bool(review.songs))
+    transcribed = (
+        review is not None and review.list_graphic and review.role == role == "reference" and bool(review.songs)
+    )
     mapped_items, unseen = _transcription(items, role, review.songs if transcribed else None)
     mapped_page_items = [item for item in mapped_items if item.context != REVIEW_CONTEXT]
     songs, mapping, mapping_evidence = _song_mapping(mapped_items, role, reviewed_role=reviewed_role)
     song_pages = list(dict.fromkeys(item.song_page for item in items if item.song_page))
     song_page_roles = any(item.song_page for item in role_items)
     unreleased = any(item.context == "Template:SongOther|Imgsuffix" for item in items)
-    if not games and role in DOWNLOAD_KINDS and song_page_roles and not unreleased and threshold \
-            and fandom_timestamp and fandom_timestamp < threshold:
+    if (
+        not games
+        and role in DOWNLOAD_KINDS
+        and song_page_roles
+        and not unreleased
+        and threshold
+        and fandom_timestamp
+        and fandom_timestamp < threshold
+    ):
         games = {"dynamix"}
-        game_items.append(f"pre-Universe upload: Fandom upload {fandom_timestamp} precedes the wiki's first "
-                          f"Universe-named upload ({threshold}); role from a song page")
+        game_items.append(
+            f"pre-Universe upload: Fandom upload {fandom_timestamp} precedes the wiki's first "
+            f"Universe-named upload ({threshold}); role from a song page"
+        )
     reviewed_game = not games and review is not None and review.game is not None
     if reviewed_game:
         games = {review.game}
         game_items.append(review.game_text())
     # A review that saw another game's identity in the bytes (game "mixed" with associations) adds it to the original
     # game that page context gives: the file is shared, not moved to the other game.
-    shared = (not reviewed_game and review is not None and review.game == "mixed" and bool(review.associations)
-              and bool(games) and games <= {"dynamix", "mixed"})
+    shared = (
+        not reviewed_game
+        and review is not None
+        and review.game == "mixed"
+        and bool(review.associations)
+        and bool(games)
+        and games <= {"dynamix", "mixed"}
+    )
     if shared:
         games = games | {"mixed"}
         game_items.append(review.game_text() + " (shared-game identity added to the page evidence)")
@@ -909,15 +1174,18 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     # The songs a list subject names join the mapping, one song or several (a transcription keeps only its own).
     if subject is not None and role == "reference" and subject.songs:
         wanted = subject.only(review.songs) if transcribed else subject
-        songs, mapping, mapping_evidence = _subject_songs(wanted, songs, mapping, mapping_evidence,
-                                                          reviewed_role=reviewed_role)
+        songs, mapping, mapping_evidence = _subject_songs(
+            wanted, songs, mapping, mapping_evidence, reviewed_role=reviewed_role
+        )
         unseen += [song for song in subject.songs if song not in wanted.songs and song not in unseen]
     if unseen:
         mapping, mapping_evidence = _with_review_evidence(items, mapping_evidence)
         them = "them" if len(unseen) > 1 else "it"
-        rule_notes.append(f"Not mapped although page evidence names {them}: {', '.join(map(repr, unseen))}; the "
-                          f"archivist review ({review.title}) transcribes the songs the bytes show and does not list "
-                          f"{them}.")
+        rule_notes.append(
+            f"Not mapped although page evidence names {them}: {', '.join(map(repr, unseen))}; the "
+            f"archivist review ({review.title}) transcribes the songs the bytes show and does not list "
+            f"{them}."
+        )
     if transcribed and any(song not in songs for song in review.songs):
         songs = songs + [song for song in review.songs if song not in songs]
         mapping, mapping_evidence = _with_review_evidence(items, mapping_evidence)
@@ -927,41 +1195,66 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         if placed and mapping == "confirmed_wiki":
             mapping = "inferred"
     associations = {"dynamix_universe" for item in page_items if item.game == "dynamix_universe"} | {
-        re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_") for item in page_items
-        if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")}
+        re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")
+        for item in page_items
+        if item.other_game and re.sub(r"[^a-z0-9]+", "_", item.other_game.casefold()).strip("_")
+    }
     if (reviewed_game or shared) and game == "mixed":
         associations |= set(review.associations)
-    base = dict(game=game, game_evidence=_short(game_items), role_evidence=role_evidence, songs=songs,
-                song_pages=song_pages, mapping=mapping, mapping_evidence=mapping_evidence, strength=top,
-                associations=sorted(associations), rule_notes=rule_notes)
+    base = dict(
+        game=game,
+        game_evidence=_short(game_items),
+        role_evidence=role_evidence,
+        songs=songs,
+        song_pages=song_pages,
+        mapping=mapping,
+        mapping_evidence=mapping_evidence,
+        strength=top,
+        associations=sorted(associations),
+        rule_notes=rule_notes,
+    )
     if len(leaders) > 1:
-        return Decision(None, **base, disposition="excluded" if game == "dynamix_universe" else "pending",
-                        reason=("universe_only: Universe-only usage; conflicting roles " + ", ".join(leaders))
-                        if game == "dynamix_universe" else
-                        f"unresolved_role: conflicting {_strength_name(top)} evidence for {', '.join(leaders)}"
-                        + (f"; {review.role_text()}; {review.pending}" if review is not None and review.pending else "")
-                        + _stale(review_stale))
+        return Decision(
+            None,
+            **base,
+            disposition="excluded" if game == "dynamix_universe" else "pending",
+            reason=("universe_only: Universe-only usage; conflicting roles " + ", ".join(leaders))
+            if game == "dynamix_universe"
+            else f"unresolved_role: conflicting {_strength_name(top)} evidence for {', '.join(leaders)}"
+            + (f"; {review.role_text()}; {review.pending}" if review is not None and review.pending else "")
+            + _stale(review_stale),
+        )
     kind = role if role in KINDS else None
     if reviewed_role and role in ("not_dynamix", "universe_only"):
         wanted = "not_dynamix" if role == "not_dynamix" else "dynamix_universe"
         if game != wanted:  # the review contradicts page context: look again instead of overriding the pages
-            return Decision(None, **base, disposition="pending",
-                            reason=f"unresolved_game: the archivist review says {role} but page context gives "
-                                   f"{game}; review again")
+            return Decision(
+                None,
+                **base,
+                disposition="pending",
+                reason=f"unresolved_game: the archivist review says {role} but page context gives {game}; review again",
+            )
         return Decision(None, **base, disposition="excluded", reason=f"{role}: {review.role_text()}")
     if game == "dynamix_universe":
-        return Decision(kind, **base, disposition="excluded",
-                        reason="universe_only: " + (review.game_text() if reviewed_game else
-                                                    "used only in Dynamix Universe contexts"))
+        return Decision(
+            kind,
+            **base,
+            disposition="excluded",
+            reason="universe_only: "
+            + (review.game_text() if reviewed_game else "used only in Dynamix Universe contexts"),
+        )
     if game == "not_dynamix":
         return Decision(None, **base, disposition="excluded", reason=f"not_dynamix: {review.game_text()}")
     if reviewed_role and role not in KINDS:
         return Decision(None, **base, disposition="excluded", reason=f"{role}: {review.role_text()}")
     if role in EXCLUSION_ROLES:
-        labels = {"person_photo": "composer/artist/charter profile image", "site_ui": "wiki interface image",
-                  "game_ui": "game interface element (icon, button, grade, badge)",
-                  "external_release_art": "cover art of an external music release",
-                  "out_of_scope_other": "not game artwork"}
+        labels = {
+            "person_photo": "composer/artist/charter profile image",
+            "site_ui": "wiki interface image",
+            "game_ui": "game interface element (icon, button, grade, badge)",
+            "external_release_art": "cover art of an external music release",
+            "out_of_scope_other": "not game artwork",
+        }
         return Decision(None, **base, disposition="excluded", reason=f"{role}: {labels.get(role, role)}")
     if kind is None:
         if review is not None and review.pending:
@@ -973,8 +1266,12 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
     official = review is not None and review.official_animation
     if mime == "image/gif" and (frames is None or frames > 1) and not include_animated and not official:
         what = "animated GIF" if frames else "GIF with unknown frame count"
-        return Decision(kind, **base, disposition="excluded",
-                        reason=f"animated_capture: {what} ({frames or '?'} frames); use --include-animated to keep")
+        return Decision(
+            kind,
+            **base,
+            disposition="excluded",
+            reason=f"animated_capture: {what} ({frames or '?'} frames); use --include-animated to keep",
+        )
     if game == "unknown":
         # A filename convention alone never classifies a file: the hint stays in the reason only.
         if review is not None and review.pending:
@@ -984,11 +1281,19 @@ def decide(file_title: str, items: list[Evidence], info: Mapping[str, Any], *, f
         else:
             why = "no page establishes original-game use"
         source = "archivist review" if reviewed_role else _strength_name(top)
-        return Decision(kind if top > 0 or reviewed_role else None, **base, disposition="pending",
-                        reason=f"unresolved_game: {kind} role ({source}) but {why}" + _stale(review_stale))
+        return Decision(
+            kind if top > 0 or reviewed_role else None,
+            **base,
+            disposition="pending",
+            reason=f"unresolved_game: {kind} role ({source}) but {why}" + _stale(review_stale),
+        )
     if mime not in ("image/png", "image/jpeg", "image/gif", "image/webp"):
-        return Decision(kind, **base, disposition="excluded",
-                        reason=f"out_of_scope_other: unsupported media type {mime or 'unknown'}")
+        return Decision(
+            kind,
+            **base,
+            disposition="excluded",
+            reason=f"out_of_scope_other: unsupported media type {mime or 'unknown'}",
+        )
     return Decision(kind, **base, disposition="download", reason="")
 
 
@@ -996,11 +1301,12 @@ RULE_TEXT_LIMIT = 400
 
 
 def _clip_text(text: str) -> str:
-    return text if len(text) <= RULE_TEXT_LIMIT else text[:RULE_TEXT_LIMIT - 3] + "..."
+    return text if len(text) <= RULE_TEXT_LIMIT else text[: RULE_TEXT_LIMIT - 3] + "..."
 
 
-def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, reviewed_role: bool
-               ) -> tuple[str, str, bool] | None:
+def _list_rule(
+    page_items: list[Evidence], leaders: list[str], review: Any, reviewed_role: bool
+) -> tuple[str, str, bool] | None:
     """``(role evidence entry, asset note, rests on the review)`` when the list and chart-announcement rule
     (:data:`config.LIST_GRAPHIC_RULE`) decides that the file is ``reference``, else None.
 
@@ -1025,16 +1331,19 @@ def _list_rule(page_items: list[Evidence], leaders: list[str], review: Any, revi
     basis_text = "; ".join(_clip_text(text) for text in list(dict.fromkeys(basis))[:2])
     overridden_text = "; ".join(_clip_text(text) for text in list(dict.fromkeys(overridden))[:3])
     entry = f"{config.LIST_GRAPHIC_RULE}; list evidence: {named or basis_text}"
-    note = (f"Kind reference by the {config.LIST_GRAPHIC_RULE} (09-frozen-contracts.md, coordinator classification "
-            f"decisions). List evidence: {basis_text}.")
+    note = (
+        f"Kind reference by the {config.LIST_GRAPHIC_RULE} (09-frozen-contracts.md, coordinator classification "
+        f"decisions). List evidence: {basis_text}."
+    )
     if overridden:  # the overridden items follow in the role evidence; the asset note quotes them
         entry += "; it overrides the promotional page evidence listed here"
         note += f" Promotional page evidence it overrides: {overridden_text}."
     return entry, note, not page_lists
 
 
-def _transcription(items: list[Evidence], role: str | None, transcribed: Iterable[str] | None
-                   ) -> tuple[list[Evidence], list[str]]:
+def _transcription(
+    items: list[Evidence], role: str | None, transcribed: Iterable[str] | None
+) -> tuple[list[Evidence], list[str]]:
     """``(items for the song mapping, songs left out)``: without a transcription (``transcribed`` None) every item;
     with one (the songs a list review saw in the bytes), the page items naming another song are dropped, and the
     songs they would have mapped for ``role`` are returned so that the decision records them."""
@@ -1044,12 +1353,14 @@ def _transcription(items: list[Evidence], role: str | None, transcribed: Iterabl
 
     def other(item: Evidence) -> bool:
         return bool(item.song) and item.context != REVIEW_CONTEXT and item.song not in keep
+
     unseen = [item.song for item in items if other(item) and item.role == role and item.context != "embedded"]
     return [item for item in items if not other(item)], list(dict.fromkeys(unseen))
 
 
-def _subject_songs(subject: Subject, songs: list[str], mapping: str, evidence: list[Any], *, reviewed_role: bool
-                   ) -> tuple[list[str], str, list[Any]]:
+def _subject_songs(
+    subject: Subject, songs: list[str], mapping: str, evidence: list[Any], *, reviewed_role: bool
+) -> tuple[list[str], str, list[Any]]:
     """Adds the songs a list or chart-announcement graphic's subject names (one song or several) to its mapping. The
     mapping stays ``confirmed_wiki`` only when every added song is named by page evidence (a caption naming the whole
     title, or a song page showing the graphic); a song read from the file title or from a partial spelling is
@@ -1057,8 +1368,11 @@ def _subject_songs(subject: Subject, songs: list[str], mapping: str, evidence: l
     extra = [song for song in subject.songs if song not in songs]
     if not extra:
         return songs, mapping, evidence
-    confirmed = not reviewed_role and all(song in subject.page_named for song in extra) and (
-        not songs or mapping == "confirmed_wiki")
+    confirmed = (
+        not reviewed_role
+        and all(song in subject.page_named for song in extra)
+        and (not songs or mapping == "confirmed_wiki")
+    )
     added = []
     for song in extra:
         url, field_name, quote, source_id = next(entry[1:] for entry in subject.named if entry[0] == song)
@@ -1072,14 +1386,19 @@ def _with_review_evidence(items: list[Evidence], evidence: list[Any]) -> tuple[s
     reviewed = next((item for item in items if item.context == REVIEW_CONTEXT), None)
     if reviewed is None:
         return "inferred", evidence
-    entry = {"url": reviewed.url, "field": REVIEW_CONTEXT, "quote": reviewed.detail[:300] or None,
-             "source_id": reviewed.source_id}
+    entry = {
+        "url": reviewed.url,
+        "field": REVIEW_CONTEXT,
+        "quote": reviewed.detail[:300] or None,
+        "source_id": reviewed.source_id,
+    }
     kept = [item for item in evidence if item != entry]
-    return "inferred", (kept[:MAX_EVIDENCE - 1] + [entry])
+    return "inferred", (kept[: MAX_EVIDENCE - 1] + [entry])
 
 
-def _gallery_song(items: list[Evidence], songs: list[str], mapping: str, evidence: list[Any]
-                  ) -> tuple[list[str], str, list[Any]]:
+def _gallery_song(
+    items: list[Evidence], songs: list[str], mapping: str, evidence: list[Any]
+) -> tuple[list[str], str, list[Any]]:
     """A file whose role evidence names no song: the one original-game song whose page gallery shows it (a caption
     such as 'Used "Justice Justice" Background Parts' gives no role by itself), as ``inferred``. Only called when
     :func:`_song_mapping` found no song, so no gallery item names a song for the decided role."""
@@ -1087,23 +1406,38 @@ def _gallery_song(items: list[Evidence], songs: list[str], mapping: str, evidenc
     titles = sorted({item.song for item in hosts})
     if len(titles) != 1:
         return songs, mapping, evidence
-    found = [{"url": item.url, "field": "gallery",
-              "quote": (f"{item.detail}; " if item.detail else "") + f"in the gallery of the original-game song "
-                       f"{item.song!r}; role from other evidence", "source_id": item.source_id} for item in hosts]
+    found = [
+        {
+            "url": item.url,
+            "field": "gallery",
+            "quote": (f"{item.detail}; " if item.detail else "") + f"in the gallery of the original-game song "
+            f"{item.song!r}; role from other evidence",
+            "source_id": item.source_id,
+        }
+        for item in hosts
+    ]
     return titles, "inferred", [dict(entry, quote=entry["quote"][:300]) for entry in found[:MAX_EVIDENCE]]
 
 
-def _embedding_song(items: list[Evidence], songs: list[str], mapping: str, evidence: list[Any]
-                    ) -> tuple[list[str], str, list[Any]]:
+def _embedding_song(
+    items: list[Evidence], songs: list[str], mapping: str, evidence: list[Any]
+) -> tuple[list[str], str, list[Any]]:
     """A song_art file that no role evidence maps: the one original-game song whose page embeds it (fileusage of a
     page with a single ``Template:Song``, e.g. a cover the template builds from another field), as ``inferred``."""
     hosts = [item for item in items if item.context == "embedded" and item.song and item.game == "dynamix"]
     titles = sorted({item.song for item in hosts})
     if len(titles) != 1:
         return songs, mapping, evidence
-    found = [{"url": item.url, "field": "embedded",
-              "quote": f"embedded by the page of the original-game song {item.song!r} (its only Template:Song); "
-                       "role from the filename convention", "source_id": item.source_id} for item in hosts]
+    found = [
+        {
+            "url": item.url,
+            "field": "embedded",
+            "quote": f"embedded by the page of the original-game song {item.song!r} (its only Template:Song); "
+            "role from the filename convention",
+            "source_id": item.source_id,
+        }
+        for item in hosts
+    ]
     return titles, "inferred", found[:MAX_EVIDENCE]
 
 
@@ -1117,6 +1451,7 @@ def _unresolved_role(items: list[Evidence]) -> str:
 
     def listed(values: list[str]) -> str:
         return ", ".join(values[:5]) + (f" and {len(values) - 5} more" if len(values) > 5 else "")
+
     if not embedded and not linked:
         return "unresolved_role: not embedded on any page of either wiki and no role evidence"
     if not embedded:
@@ -1139,11 +1474,11 @@ def _majority(items: list[Evidence]) -> list[str]:
 
 def _strength_name(strength: int) -> str:
     return {3: "template", 2: "caption/list-page/category", 1: "list-link/section", 0: "filename-only"}.get(
-        strength, "no")
+        strength, "no"
+    )
 
 
-def _song_mapping(items: list[Evidence], role: str | None, *, reviewed_role: bool
-                  ) -> tuple[list[str], str, list[Any]]:
+def _song_mapping(items: list[Evidence], role: str | None, *, reviewed_role: bool) -> tuple[list[str], str, list[Any]]:
     """``(songs, mapping status, mapping evidence)`` of a file with role ``role``.
 
     Page evidence naming a song for the role decides: its strongest items, and among them the songs named by the
@@ -1172,9 +1507,11 @@ def _song_mapping(items: list[Evidence], role: str | None, *, reviewed_role: boo
     if not songs:
         return [], "unmapped", []
     confirmed = [item for item in chosen_page if item.strength >= 2]
-    shown = (confirmed or chosen_page)[:MAX_EVIDENCE - min(len(review), MAX_EVIDENCE // 2)] + review
-    evidence = [{"url": item.url, "field": item.context, "quote": item.detail[:300] or None,
-                 "source_id": item.source_id} for item in shown[:MAX_EVIDENCE]]
+    shown = (confirmed or chosen_page)[: MAX_EVIDENCE - min(len(review), MAX_EVIDENCE // 2)] + review
+    evidence = [
+        {"url": item.url, "field": item.context, "quote": item.detail[:300] or None, "source_id": item.source_id}
+        for item in shown[:MAX_EVIDENCE]
+    ]
     status = "confirmed_wiki" if confirmed and not review and not reviewed_role else "inferred"
     if role == "song_art" and len(winners) > 1 and top < 3:
         status = "conflict"

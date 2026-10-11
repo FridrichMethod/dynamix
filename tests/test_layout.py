@@ -14,7 +14,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-CSS_URL = re.compile(r'''url\(\s*(?:"([^"]*)"|'([^']*)'|([^)]*?))\s*\)''', re.IGNORECASE)
+CSS_URL = re.compile(r"""url\(\s*(?:"([^"]*)"|'([^']*)'|([^)]*?))\s*\)""", re.IGNORECASE)
 PAGES = ("archive.html", "templates/slideshow.html")
 SCRIPTS = ("src/i18n.js", "src/archive.js", "src/i18n/common.js", "src/i18n/archive.js", "src/i18n/slideshow.js")
 STYLESHEETS = ("src/archive.css", "src/slideshow.css")
@@ -22,13 +22,24 @@ STYLESHEETS = ("src/archive.css", "src/slideshow.css")
 # with punycode 1.2.4, and Pace 1.0.0); its MIT texts are copied verbatim from the same reference commit.
 VENDOR_SHA256 = "4596246286d0f0fb9fa2c6a9c57bd05e8c226c01007026e7398f7e6bc940ef03"
 LICENSES = {
-    "licenses/html2canvas-MIT.txt": ("86200ce4e92d9a22c41c8647a55f7a5fddff304ff89b4d36ecc699ed8c123d2c", "Copyright (c) 2012 Niklas von Hertzen"),
-    "licenses/pace-MIT.txt": ("7415a0a1c245c068a22c955200ef39e80a4a938b2383d3f30b028e0d8b5602e3", "Copyright (c) 2013 HubSpot, Inc."),
-    "licenses/punycode-MIT.txt": ("1e234f86ba3f213fbab143e195f172a40c5f943fb268c45d619ede8510b20d06", "Copyright Mathias Bynens"),
+    "licenses/html2canvas-MIT.txt": (
+        "86200ce4e92d9a22c41c8647a55f7a5fddff304ff89b4d36ecc699ed8c123d2c",
+        "Copyright (c) 2012 Niklas von Hertzen",
+    ),
+    "licenses/pace-MIT.txt": (
+        "7415a0a1c245c068a22c955200ef39e80a4a938b2383d3f30b028e0d8b5602e3",
+        "Copyright (c) 2013 HubSpot, Inc.",
+    ),
+    "licenses/punycode-MIT.txt": (
+        "1e234f86ba3f213fbab143e195f172a40c5f943fb268c45d619ede8510b20d06",
+        "Copyright Mathias Bynens",
+    ),
 }
 FONT_OR_AUDIO = {".ttf", ".otf", ".woff", ".woff2", ".eot", ".mp3", ".ogg", ".wav", ".m4a", ".flac"}
 # Ways of turning a string into markup or code; data must only ever be set as text.
-UNSAFE_SINKS = re.compile(r"\binnerHTML\b|\bouterHTML\b|insertAdjacentHTML|document\.write|\beval\(|new Function\(|\.srcdoc\b|setHTMLUnsafe|parseFromString")
+UNSAFE_SINKS = re.compile(
+    r"\binnerHTML\b|\bouterHTML\b|insertAdjacentHTML|document\.write|\beval\(|new Function\(|\.srcdoc\b|setHTMLUnsafe|parseFromString"
+)
 
 
 def css_urls(text):
@@ -78,7 +89,9 @@ def parse(relative):
 class LayoutTests(unittest.TestCase):
     def assert_local_resource(self, page, url):
         parsed = urlsplit(url)
-        self.assertFalse(parsed.scheme or parsed.netloc, f"{page.relative_to(ROOT)} loads a remote or scheme URL: {url}")
+        self.assertFalse(
+            parsed.scheme or parsed.netloc, f"{page.relative_to(ROOT)} loads a remote or scheme URL: {url}"
+        )
         self.assertTrue(parsed.path, url)
         self.assertFalse(parsed.path.startswith("/"), f"Root-relative URL breaks nested hosting: {page}: {url}")
         target = (page.parent / unquote(parsed.path)).resolve()
@@ -128,7 +141,9 @@ class LayoutTests(unittest.TestCase):
 
     def test_css_url_parser_preserves_spaces_and_optional_quotes(self):
         self.assertEqual(
-            css_urls('src: url("../assets/a b.ttf"); src: url(../assets/c d.ttf); background: url(\'../assets/e f.png\');'),
+            css_urls(
+                "src: url(\"../assets/a b.ttf\"); src: url(../assets/c d.ttf); background: url('../assets/e f.png');"
+            ),
             ["../assets/a b.ttf", "../assets/c d.ttf", "../assets/e f.png"],
         )
 
@@ -148,7 +163,12 @@ class LayoutTests(unittest.TestCase):
         for name, text in code.items():
             with self.subTest(script=name):
                 self.assertIsNone(UNSAFE_SINKS.search(text), "data must be set with textContent / setAttribute")
-                self.assertIsNone(re.search(r"\bfetch\(|XMLHttpRequest|WebSocket|EventSource|navigator\.sendBeacon|importScripts", text), "no network requests while browsing")
+                self.assertIsNone(
+                    re.search(
+                        r"\bfetch\(|XMLHttpRequest|WebSocket|EventSource|navigator\.sendBeacon|importScripts", text
+                    ),
+                    "no network requests while browsing",
+                )
 
     def test_manifest_and_browserconfig_icons_exist(self):
         manifest_path = ROOT / "site.webmanifest"
@@ -190,9 +210,19 @@ class LayoutTests(unittest.TestCase):
 
     def test_derived_files_name_their_origin(self):
         """Adapted files keep a derivation notice naming the Apache-2.0 reference and its commit."""
-        for relative in ("archive.html", "templates/slideshow.html", "src/i18n.js", "src/archive.js", "src/archive.css",
-                         "src/slideshow.css", "browserconfig.xml", "scripts/render_slideshow.py", "src/i18n/common.js",
-                         "src/i18n/archive.js", "src/i18n/slideshow.js"):
+        for relative in (
+            "archive.html",
+            "templates/slideshow.html",
+            "src/i18n.js",
+            "src/archive.js",
+            "src/archive.css",
+            "src/slideshow.css",
+            "browserconfig.xml",
+            "scripts/render_slideshow.py",
+            "src/i18n/common.js",
+            "src/i18n/archive.js",
+            "src/i18n/slideshow.js",
+        ):
             with self.subTest(file=relative):
                 head = "\n".join((ROOT / relative).read_text(encoding="utf-8-sig").splitlines()[:20])
                 self.assertRegex(head, r"Apache-2\.0")
@@ -200,12 +230,18 @@ class LayoutTests(unittest.TestCase):
 
     def test_layout_has_no_case_insensitive_filename_collisions(self):
         seen = {}
-        paths = [path for directory in ("assets/site", "src", "scripts", "templates", "licenses", "tests") for path in (ROOT / directory).rglob("*")
-                 if path.is_file() and "__pycache__" not in path.parts]
+        paths = [
+            path
+            for directory in ("assets/site", "src", "scripts", "templates", "licenses", "tests")
+            for path in (ROOT / directory).rglob("*")
+            if path.is_file() and "__pycache__" not in path.parts
+        ]
         paths.extend(path for path in ROOT.iterdir() if path.is_file())
         for path in paths:
             relative = path.relative_to(ROOT).as_posix()
-            self.assertNotIn(relative.casefold(), seen, f"Case-insensitive collision: {relative} / {seen.get(relative.casefold())}")
+            self.assertNotIn(
+                relative.casefold(), seen, f"Case-insensitive collision: {relative} / {seen.get(relative.casefold())}"
+            )
             seen[relative.casefold()] = relative
 
 

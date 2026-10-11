@@ -55,8 +55,9 @@ def links(html: str, page_url: str, link_rules: list[Mapping[str, Any]]) -> list
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=["seed-pages"],
-                                   scope_notes="Links matching explicit patterns on explicit pages only.")
+    discovery = base.new_discovery(
+        seed, lists=["seed-pages"], scope_notes="Links matching explicit patterns on explicit pages only."
+    )
     pages_read: set[str] = set()
     discovery.coverage["seed-pages"] = base.listed_on(pages_read)
     for item in seed["items"]:
@@ -64,13 +65,22 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         try:
             html, _, _ = ctx.client.get_text(page_url)
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft(item.get("key") or base.page_key(page_url), page_url,
-                                                          item.get("title", "seed page"), error, phase="discover"))
+            discovery.candidates.append(
+                model.error_draft(
+                    item.get("key") or base.page_key(page_url),
+                    page_url,
+                    item.get("title", "seed page"),
+                    error,
+                    phase="discover",
+                )
+            )
             base.mark_unread(discovery, "seed-pages", error)
             continue
         document = base.soup(html)
-        texts = {"title": document.title.get_text(" ", strip=True) if document.title else "",
-                 "body": base.page_text(base.soup(html))}
+        texts = {
+            "title": document.title.get_text(" ", strip=True) if document.title else "",
+            "body": base.page_text(base.soup(html)),
+        }
         evidence, missing = base.identity(seed, texts, page_url)
         found = links(html, page_url, item["link_rules"])
         if not found:
@@ -84,12 +94,26 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             name = base.last_segment(url)
             ext = name.rsplit(".", 1)[-1] if "." in name else None
             # Titled from the page it cites: its headline and the file's position among the page's links.
-            default = (f"{item['title_prefix']}{name}" if item.get("title_prefix") else
-                       f"{model.clip(title, 120)} ({position}/{len(found)})" if title and len(found) > 1 else
-                       title or name)
-            discovery.candidates.append(model.apply_rule(
-                rule, key=key, page_url=page_url, texts=texts, file_url=base.stored(url),
-                default_title=default,
-                default_quality=ctx.quality, default_rights=ctx.rights, original_filename=name,
-                base_evidence=evidence, source_reported=base.reported(url=url, mime=base.mime_for(ext))))
+            default = (
+                f"{item['title_prefix']}{name}"
+                if item.get("title_prefix")
+                else f"{model.clip(title, 120)} ({position}/{len(found)})"
+                if title and len(found) > 1
+                else title or name
+            )
+            discovery.candidates.append(
+                model.apply_rule(
+                    rule,
+                    key=key,
+                    page_url=page_url,
+                    texts=texts,
+                    file_url=base.stored(url),
+                    default_title=default,
+                    default_quality=ctx.quality,
+                    default_rights=ctx.rights,
+                    original_filename=name,
+                    base_evidence=evidence,
+                    source_reported=base.reported(url=url, mime=base.mime_for(ext)),
+                )
+            )
     return discovery

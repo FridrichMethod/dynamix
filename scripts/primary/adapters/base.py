@@ -27,16 +27,27 @@ def require_items(seed: Mapping[str, Any], where: str, fields: Iterable[str]) ->
     return items
 
 
-def new_discovery(seed: Mapping[str, Any], *, lists: list[str], api: str | None = None,
-                  evidence_level: str = "page_read", scope_notes: str = "") -> model.Discovery:
+def new_discovery(
+    seed: Mapping[str, Any],
+    *,
+    lists: list[str],
+    api: str | None = None,
+    evidence_level: str = "page_read",
+    scope_notes: str = "",
+) -> model.Discovery:
     """A discovery whose ``lists`` are complete once processed; the seed's ``unenumerated_lists`` stay open."""
     continuation = {name: None for name in lists}
     unenumerated = seed.get("unenumerated_lists", {})
     continuation.update({name: str(state) for name, state in unenumerated.items()})
     crawl = seed.get("crawl_scope")
     notes = scope_notes or (crawl.get("notes", "") if isinstance(crawl, dict) else "")
-    return model.Discovery(lists=[*lists, *unenumerated], continuation=continuation, api=api,
-                           evidence_level=evidence_level, scope_notes=notes)
+    return model.Discovery(
+        lists=[*lists, *unenumerated],
+        continuation=continuation,
+        api=api,
+        evidence_level=evidence_level,
+        scope_notes=notes,
+    )
 
 
 def mark_unread(discovery: model.Discovery, list_name: str, error: Any) -> None:
@@ -50,8 +61,10 @@ def mark_unread(discovery: model.Discovery, list_name: str, error: Any) -> None:
 def listed_on(pages: set[str]) -> Any:
     """Coverage predicate (``Discovery.coverage``): a previous candidate is covered by a list when its page is one of
     the ``pages`` this run read completely (a page-read failure candidate ``page:<url>`` never is)."""
+
     def covers(candidate: Mapping[str, Any]) -> bool:
         return candidate.get("page_url") in pages and not str(candidate.get("upstream_key", "")).startswith("page:")
+
     return covers
 
 
@@ -81,8 +94,11 @@ def headline(document: BeautifulSoup) -> str:
     text = " ".join(h1.get_text(" ").split()) if h1 else ""
     if len(text) >= 16:
         return text
-    return meta_content(document, "og:title") or (
-        " ".join(document.title.get_text(" ").split()) if document.title else "") or text
+    return (
+        meta_content(document, "og:title")
+        or (" ".join(document.title.get_text(" ").split()) if document.title else "")
+        or text
+    )
 
 
 def json_ld(document: BeautifulSoup) -> list[dict]:
@@ -120,20 +136,43 @@ def stored(url: str | None) -> str | None:
     return stored_url(url)
 
 
-def reported(*, url: str | None = None, mime: str | None = None, bytes: int | None = None,
-             width: int | None = None, height: int | None = None, sha1: str | None = None,
-             timestamp: str | None = None, revision: Any = None) -> dict:
+def reported(
+    *,
+    url: str | None = None,
+    mime: str | None = None,
+    bytes: int | None = None,
+    width: int | None = None,
+    height: int | None = None,
+    sha1: str | None = None,
+    timestamp: str | None = None,
+    revision: Any = None,
+) -> dict:
     """``source_reported`` with only valid values (bad advertised numbers become null, never an exception)."""
+
     def number(value: Any) -> int | None:
         return value if isinstance(value, int) and not isinstance(value, bool) and value >= 0 else None
+
     sha = sha1.lower() if isinstance(sha1, str) and re.fullmatch(r"[0-9a-fA-F]{40}", sha1) else None
-    return schema.make_source_reported(url=stored(url), mime=mime or None, bytes=number(bytes),
-                                       width=number(width), height=number(height), sha1=sha, timestamp=timestamp,
-                                       revision=revision)
+    return schema.make_source_reported(
+        url=stored(url),
+        mime=mime or None,
+        bytes=number(bytes),
+        width=number(width),
+        height=number(height),
+        sha1=sha,
+        timestamp=timestamp,
+        revision=revision,
+    )
 
 
-MIME_BY_EXT = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png", "gif": "image/gif",
-               "webp": "image/webp", "pdf": "application/pdf"}
+MIME_BY_EXT = {
+    "jpg": "image/jpeg",
+    "jpeg": "image/jpeg",
+    "png": "image/png",
+    "gif": "image/gif",
+    "webp": "image/webp",
+    "pdf": "application/pdf",
+}
 
 
 def mime_for(ext: str | None) -> str | None:
@@ -150,5 +189,9 @@ def identity_rule(rule: Mapping[str, Any] | None, missing: list[str]) -> Mapping
     """Downgrade a download rule to ``pending`` when the page's identity quotes were not found."""
     if rule is None or not missing or rule.get("action", "download") != "download":
         return rule
-    return model.hold(rule, "unresolved_game: page identity not established (missing "
-                      + "; ".join(model.clip(quote, 60) for quote in missing) + ")")
+    return model.hold(
+        rule,
+        "unresolved_game: page identity not established (missing "
+        + "; ".join(model.clip(quote, 60) for quote in missing)
+        + ")",
+    )

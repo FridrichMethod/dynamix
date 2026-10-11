@@ -23,8 +23,12 @@ from primary.adapters import pixiv as pixiv_adapter, x as x_adapter  # noqa: E40
 from primary.testing import FIXED_NOW, FakeNetwork, full_url, image_bytes  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures/artists"
-QUALITY = {"source_variant": "site_original", "origin_status": "artist_post", "master_status": "unverified",
-           "notes": "test"}
+QUALITY = {
+    "source_variant": "site_original",
+    "origin_status": "artist_post",
+    "master_status": "unverified",
+    "notes": "test",
+}
 
 
 def fixture_text(name):
@@ -44,9 +48,15 @@ class ArtistsTestCase(unittest.TestCase):
         self.temp.cleanup()
 
     def run_family(self, seeds, network, **options):
-        acquisition = runner.Runner(self.root, "artists", sorted(seeds, key=lambda s: s["id"]),
-                                    client_factory=network.factory, now=lambda: FIXED_NOW, sleep=lambda s: None,
-                                    **options)
+        acquisition = runner.Runner(
+            self.root,
+            "artists",
+            sorted(seeds, key=lambda s: s["id"]),
+            client_factory=network.factory,
+            now=lambda: FIXED_NOW,
+            sleep=lambda s: None,
+            **options,
+        )
         counts = acquisition.run()
         return acquisition, counts
 
@@ -67,27 +77,54 @@ class ArtistsTestCase(unittest.TestCase):
 
 # --- pixiv: multi-page artwork, per-page rules, hotlink-protected originals -------------------------------------------
 
+
 def pixiv_seed():
-    return {"id": "artists:pixiv:5401047", "name": "pixiv Sand Suna", "url": "https://www.pixiv.net/users/5401047",
-            "platform": "pixiv", "adapter": "pixiv_artwork", "params": {"user_id": "5401047"}, "quality": QUALITY,
-            "items": [{"illust_id": "92594600"}],
-            "rules": [{"match": "^92594600:p0$", "role": "song_art", "song_titles": ["MassacrE || 3rc4224M"],
-                       "mapping_status": "confirmed_primary", "evidence_quotes": ["For Dynamix x RAVON"],
-                       "variant_group": "massacre", "variant_role": "square"},
-                      {"match": "^92594600:p1$", "role": "song_art", "song_titles": ["MassacrE || 3rc4224M"],
-                       "mapping_status": "confirmed_primary", "evidence_quotes": ["For Dynamix x RAVON"],
-                       "variant_group": "massacre", "variant_role": "16:9"}]}
+    return {
+        "id": "artists:pixiv:5401047",
+        "name": "pixiv Sand Suna",
+        "url": "https://www.pixiv.net/users/5401047",
+        "platform": "pixiv",
+        "adapter": "pixiv_artwork",
+        "params": {"user_id": "5401047"},
+        "quality": QUALITY,
+        "items": [{"illust_id": "92594600"}],
+        "rules": [
+            {
+                "match": "^92594600:p0$",
+                "role": "song_art",
+                "song_titles": ["MassacrE || 3rc4224M"],
+                "mapping_status": "confirmed_primary",
+                "evidence_quotes": ["For Dynamix x RAVON"],
+                "variant_group": "massacre",
+                "variant_role": "square",
+            },
+            {
+                "match": "^92594600:p1$",
+                "role": "song_art",
+                "song_titles": ["MassacrE || 3rc4224M"],
+                "mapping_status": "confirmed_primary",
+                "evidence_quotes": ["For Dynamix x RAVON"],
+                "variant_group": "massacre",
+                "variant_role": "16:9",
+            },
+        ],
+    }
 
 
 def pixiv_routes(original_error=None):
     detail = fixture_json("pixiv_illust_92594600.json")
     pages = fixture_json("pixiv_pages_92594600.json")
-    routes = {"https://www.pixiv.net/ajax/illust/92594600": {"json": detail},
-              "https://www.pixiv.net/ajax/illust/92594600/pages": {"json": pages}}
+    routes = {
+        "https://www.pixiv.net/ajax/illust/92594600": {"json": detail},
+        "https://www.pixiv.net/ajax/illust/92594600/pages": {"json": pages},
+    }
     for index, page in enumerate(pages["body"]):
         url = page["urls"]["original"]
-        routes[url] = {"error": original_error(url)} if original_error else {
-            "bytes": image_bytes("JPEG", (48, 27), (40 * index, 90, 160)), "content_type": "image/jpeg"}
+        routes[url] = (
+            {"error": original_error(url)}
+            if original_error
+            else {"bytes": image_bytes("JPEG", (48, 27), (40 * index, 90, 160)), "content_type": "image/jpeg"}
+        )
     return routes
 
 
@@ -159,16 +196,30 @@ def wayback_seed(captures, rules=None):
 
 
 def cdx_url(original, stamp):
-    return full_url(pixiv_adapter.CDX, {"url": original, "matchType": "exact", "output": "json",
-                                        "fl": pixiv_adapter.CDX_FIELDS, "from": stamp, "to": stamp})
+    return full_url(
+        pixiv_adapter.CDX,
+        {
+            "url": original,
+            "matchType": "exact",
+            "output": "json",
+            "fl": pixiv_adapter.CDX_FIELDS,
+            "from": stamp,
+            "to": stamp,
+        },
+    )
 
 
 def wayback_routes(payload, *, cdx_rows=None, stamp=P1_STAMP, original=P1_ORIGINAL):
     routes = pixiv_routes(lambda url: net.BlockedError("HTTP 403", url=url, http_status=403))
     digest = base64.b32encode(hashlib.sha1(payload).digest()).decode()
-    rows = cdx_rows if cdx_rows is not None else [
-        ["timestamp", "original", "mimetype", "statuscode", "digest", "length"],
-        [stamp, original, "image/jpeg", "200", digest, "2215933"]]
+    rows = (
+        cdx_rows
+        if cdx_rows is not None
+        else [
+            ["timestamp", "original", "mimetype", "statuscode", "digest", "length"],
+            [stamp, original, "image/jpeg", "200", digest, "2215933"],
+        ]
+    )
     routes[cdx_url(original, stamp)] = {"json": rows}
     routes[f"https://web.archive.org/web/{stamp}id_/{original}"] = {"bytes": payload, "content_type": "image/jpeg"}
     return routes
@@ -203,8 +254,13 @@ class PixivWaybackTests(ArtistsTestCase):
 
     def test_capture_missing_from_cdx_is_held_without_a_download(self):
         payload = image_bytes("JPEG", (48, 27))
-        routes = wayback_routes(payload, cdx_rows=[["timestamp", "original", "mimetype", "statuscode", "digest",
-                                                    "length"], [P1_STAMP, P1_ORIGINAL, "text/html", "302", "X", "1"]])
+        routes = wayback_routes(
+            payload,
+            cdx_rows=[
+                ["timestamp", "original", "mimetype", "statuscode", "digest", "length"],
+                [P1_STAMP, P1_ORIGINAL, "text/html", "302", "X", "1"],
+            ],
+        )
         network = FakeNetwork(routes)
         self.run_family([wayback_seed([self.CAPTURE])], network)
         p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
@@ -244,8 +300,9 @@ class PixivWaybackTests(ArtistsTestCase):
     def test_cdx_failure_keeps_the_list_open_but_fetches_the_capture(self):
         payload = image_bytes("JPEG", (48, 27), (5, 5, 5))
         routes = wayback_routes(payload)
-        routes[cdx_url(P1_ORIGINAL, P1_STAMP)] = {"error": net.HttpError("HTTP 503", url=pixiv_adapter.CDX,
-                                                                         http_status=503)}
+        routes[cdx_url(P1_ORIGINAL, P1_STAMP)] = {
+            "error": net.HttpError("HTTP 503", url=pixiv_adapter.CDX, http_status=503)
+        }
         network = FakeNetwork(routes)
         self.run_family([wayback_seed([self.CAPTURE])], network)
         snapshot = self.snapshot("artists:pixiv:5401047")
@@ -259,10 +316,12 @@ class PixivWaybackTests(ArtistsTestCase):
         # CDX check fails, and the Internet Archive answers the id_ request from its nearest other capture.
         payload = image_bytes("JPEG", (48, 27), (7, 7, 7))
         routes = wayback_routes(payload)
-        routes[cdx_url(P1_ORIGINAL, P1_STAMP)] = {"error": net.HttpError("HTTP 503", url=pixiv_adapter.CDX,
-                                                                         http_status=503)}
+        routes[cdx_url(P1_ORIGINAL, P1_STAMP)] = {
+            "error": net.HttpError("HTTP 503", url=pixiv_adapter.CDX, http_status=503)
+        }
         routes[f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}"]["final_url"] = (
-            f"https://web.archive.org/web/20240101000000id_/{P1_ORIGINAL}")
+            f"https://web.archive.org/web/20240101000000id_/{P1_ORIGINAL}"
+        )
         self.run_family([wayback_seed([self.CAPTURE])], FakeNetwork(routes))
         p1 = self.candidates("artists:pixiv:5401047")["92594600:p1"]
         self.assertEqual(p1["disposition"], "pending")
@@ -289,19 +348,26 @@ class PixivWaybackTests(ArtistsTestCase):
         before = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith(":p1"))
         routes = wayback_routes(payload)
         routes[f"https://web.archive.org/web/{P1_STAMP}id_/{P1_ORIGINAL}"]["final_url"] = (
-            f"https://web.archive.org/web/20240101000000id_/{P1_ORIGINAL}")
+            f"https://web.archive.org/web/20240101000000id_/{P1_ORIGINAL}"
+        )
         self.run_family([wayback_seed([self.CAPTURE])], FakeNetwork(routes))  # a refresh without --resume
         after = next(a for a in self.manifest()["assets"] if a["candidate_id"].endswith(":p1"))
         self.assertEqual(after, before)
         self.assertEqual(self.candidates("artists:pixiv:5401047")["92594600:p1"]["disposition"], "downloaded")
-        self.assertTrue(any("held, previous archive kept" in error["message"]
-                            for error in self.snapshot("artists:pixiv:5401047")["errors"]))
+        self.assertTrue(
+            any(
+                "held, previous archive kept" in error["message"]
+                for error in self.snapshot("artists:pixiv:5401047")["errors"]
+            )
+        )
         self.verify()
 
     def test_seed_capture_must_be_the_original_of_its_own_page(self):
-        for capture in ({"page": 0, "timestamp": P1_STAMP, "original": P1_ORIGINAL},
-                        {"page": 1, "timestamp": "2022", "original": P1_ORIGINAL},
-                        {"page": 1, "timestamp": P1_STAMP, "original": P1_ORIGINAL.replace("92594600", "1")}):
+        for capture in (
+            {"page": 0, "timestamp": P1_STAMP, "original": P1_ORIGINAL},
+            {"page": 1, "timestamp": "2022", "original": P1_ORIGINAL},
+            {"page": 1, "timestamp": P1_STAMP, "original": P1_ORIGINAL.replace("92594600", "1")},
+        ):
             with self.assertRaises(ValueError):
                 pixiv_adapter.check_seed(wayback_seed([capture]), "test")
 
@@ -313,28 +379,52 @@ class PixivWaybackTests(ArtistsTestCase):
 
 # --- X: multi-image posts mapped per image ----------------------------------------------------------------------------
 
+
 def x_seed(rules):
-    return {"id": "artists:x:ariiol_", "name": "X ariiol", "url": "https://x.com/ariiol_", "platform": "x",
-            "adapter": "x_post", "params": {"handle": "ariiol_"}, "quality": QUALITY,
-            "items": [{"post_id": "1879155241788293570"}], "rules": rules}
+    return {
+        "id": "artists:x:ariiol_",
+        "name": "X ariiol",
+        "url": "https://x.com/ariiol_",
+        "platform": "x",
+        "adapter": "x_post",
+        "params": {"handle": "ariiol_"},
+        "quality": QUALITY,
+        "items": [{"post_id": "1879155241788293570"}],
+        "rules": rules,
+    }
 
 
 def x_routes():
     post = fixture_json("x_tweet_result.json")
-    url = full_url(x_adapter.API, {"id": "1879155241788293570", "lang": "en",
-                                   "token": x_adapter.syndication_token("1879155241788293570")})
-    return {url: {"json": post},
-            "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig": {
-                "bytes": image_bytes("JPEG", (64, 36), (10, 20, 30)), "content_type": "image/jpeg"},
-            "https://pbs.twimg.com/media/GhQZt2xyzAAs87K?format=png&name=orig": {
-                "bytes": image_bytes("PNG", (32, 32), (90, 90, 90)), "content_type": "image/png"}}
+    url = full_url(
+        x_adapter.API,
+        {"id": "1879155241788293570", "lang": "en", "token": x_adapter.syndication_token("1879155241788293570")},
+    )
+    return {
+        url: {"json": post},
+        "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig": {
+            "bytes": image_bytes("JPEG", (64, 36), (10, 20, 30)),
+            "content_type": "image/jpeg",
+        },
+        "https://pbs.twimg.com/media/GhQZt2xyzAAs87K?format=png&name=orig": {
+            "bytes": image_bytes("PNG", (32, 32), (90, 90, 90)),
+            "content_type": "image/png",
+        },
+    }
 
 
 class XTests(ArtistsTestCase):
     def test_each_image_of_a_post_is_classified_on_its_own(self):
-        rules = [{"match": "^1879155241788293570:1$", "role": "song_art", "song_titles": ["Cosmic Pulse"],
-                  "mapping_status": "confirmed_primary", "evidence_quotes": ["Made the cover", "Cosmic Pulse"]},
-                 {"match": "^1879155241788293570:2$", "role": "process"}]
+        rules = [
+            {
+                "match": "^1879155241788293570:1$",
+                "role": "song_art",
+                "song_titles": ["Cosmic Pulse"],
+                "mapping_status": "confirmed_primary",
+                "evidence_quotes": ["Made the cover", "Cosmic Pulse"],
+            },
+            {"match": "^1879155241788293570:2$", "role": "process"},
+        ]
         network = FakeNetwork(x_routes())
         self.run_family([x_seed(rules)], network)
         found = self.candidates("artists:x:ariiol_")
@@ -349,8 +439,9 @@ class XTests(ArtistsTestCase):
         # The quoted Dynamix announcement is part of the evidence the post itself carries.
         quotes = [entry["quote"] for entry in assets["1"]["mapping_evidence"]]
         self.assertIn("Cosmic Pulse", quotes)
-        self.assertEqual(assets["1"]["download_url"],
-                         "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig")
+        self.assertEqual(
+            assets["1"]["download_url"], "https://pbs.twimg.com/media/GhQZt1eboAAs87K?format=jpg&name=orig"
+        )
         # source_reported is what the endpoint advertised (media_url_https), not the derived name=orig URL.
         self.assertEqual(assets["1"]["source_reported"]["url"], "https://pbs.twimg.com/media/GhQZt1eboAAs87K.jpg")
         self.verify()
@@ -370,8 +461,15 @@ class XTests(ArtistsTestCase):
         self.verify()
 
     def test_missing_evidence_quote_holds_the_candidate(self):
-        rules = [{"match": "^1879155241788293570:1$", "role": "song_art", "song_titles": ["Other Song"],
-                  "mapping_status": "confirmed_primary", "evidence_quotes": ["Other Song"]}]
+        rules = [
+            {
+                "match": "^1879155241788293570:1$",
+                "role": "song_art",
+                "song_titles": ["Other Song"],
+                "mapping_status": "confirmed_primary",
+                "evidence_quotes": ["Other Song"],
+            }
+        ]
         network = FakeNetwork(x_routes())
         self.run_family([x_seed(rules)], network)
         found = self.candidates("artists:x:ariiol_")
@@ -388,22 +486,35 @@ class XTests(ArtistsTestCase):
         self.assertIsNotNone(model.locate_term("kRM & 残響P", texts))
 
     def test_titles_come_from_the_post_text(self):
-        self.assertEqual(x_adapter.post_title("Necroxus アートワーク https://t.co/zyHzm1Nqs7", "fallback", 1, 1),
-                         "Necroxus アートワーク")
+        self.assertEqual(
+            x_adapter.post_title("Necroxus アートワーク https://t.co/zyHzm1Nqs7", "fallback", 1, 1),
+            "Necroxus アートワーク",
+        )
         self.assertEqual(x_adapter.post_title("a\nb https://t.co/x", "fallback", 2, 3), "a b (2/3)")
-        self.assertEqual(x_adapter.post_title("https://t.co/aUjB5RvYuv", "@h post 1 image 1", 1, 1), "@h post 1 image 1")
+        self.assertEqual(
+            x_adapter.post_title("https://t.co/aUjB5RvYuv", "@h post 1 image 1", 1, 1), "@h post 1 image 1"
+        )
         self.assertLessEqual(len(x_adapter.post_title("x" * 300, "f", 1, 1)), 100)
 
     def test_titles_keep_text_written_right_after_a_link_and_show_auto_linked_names(self):
         # Post 1354398754414051334: X auto-linked the song title Marion.net; the CJK text follows the link directly.
         text = "復刻曲「声が届かないのなら」、「https://t.co/joFeVM7MOu」が帰ってくるよ！\n開催期間 https://t.co/AbC123xyZ9"
-        post = {"text": text, "entities": {"urls": [{"url": "https://t.co/joFeVM7MOu", "display_url": "Marion.net",
-                                                     "expanded_url": "http://Marion.net"}],
-                                           "media": [{"url": "https://t.co/AbC123xyZ9",
-                                                      "display_url": "pic.x.com/AbC123xyZ9"}]}}
-        self.assertEqual(x_adapter.post_title(text, "fb", 1, 1, x_adapter.link_texts(post)),
-                         "復刻曲「声が届かないのなら」、「Marion.net」が帰ってくるよ！ 開催期間")
-        self.assertEqual(x_adapter.post_title("「https://t.co/joFeVM7MOu」が帰ってくる", "fb", 1, 1), "「 」が帰ってくる")
+        post = {
+            "text": text,
+            "entities": {
+                "urls": [
+                    {"url": "https://t.co/joFeVM7MOu", "display_url": "Marion.net", "expanded_url": "http://Marion.net"}
+                ],
+                "media": [{"url": "https://t.co/AbC123xyZ9", "display_url": "pic.x.com/AbC123xyZ9"}],
+            },
+        }
+        self.assertEqual(
+            x_adapter.post_title(text, "fb", 1, 1, x_adapter.link_texts(post)),
+            "復刻曲「声が届かないのなら」、「Marion.net」が帰ってくるよ！ 開催期間",
+        )
+        self.assertEqual(
+            x_adapter.post_title("「https://t.co/joFeVM7MOu」が帰ってくる", "fb", 1, 1), "「 」が帰ってくる"
+        )
 
     def test_syndication_token_matches_the_embed_script(self):
         # Value computed by X's embed script ((id / 1e15) * pi).toString(36) without zeros and dots.
@@ -412,9 +523,19 @@ class XTests(ArtistsTestCase):
 
 # --- Release pages: SoundCloud, Bandcamp rejected submission ----------------------------------------------------------
 
+
 def release_seed(source_id, url_base, items, rules, hosts, params=None):
-    seed = {"id": source_id, "name": source_id, "url": url_base, "platform": "soundcloud", "adapter": "release_page",
-            "hosts": hosts, "quality": QUALITY, "items": items, "rules": rules}
+    seed = {
+        "id": source_id,
+        "name": source_id,
+        "url": url_base,
+        "platform": "soundcloud",
+        "adapter": "release_page",
+        "hosts": hosts,
+        "quality": QUALITY,
+        "items": items,
+        "rules": rules,
+    }
     if params:
         seed["params"] = params
     return seed
@@ -424,25 +545,49 @@ class ReleaseTests(ArtistsTestCase):
     def test_soundcloud_original_artwork_and_uploader_check(self):
         page = fixture_text("soundcloud_track.html")
         other = page.replace('"permalink":"kuske-kuonrecords"', '"permalink":"someone-else"')
-        network = FakeNetwork({
-            "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383": {"text": page},
-            "https://soundcloud.com/kuske-kuonrecords/reupload": {"text": other},
-            "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg": {
-                "bytes": image_bytes("JPEG", (40, 40)), "content_type": "image/jpeg"}})
-        rules = [{"match": ".*", "role": "song_art", "song_titles": ["16383"], "mapping_status": "confirmed_primary",
-                  "evidence_quotes": ["Rhythm Game \"Dynamix\"", "16383"], "illustrators": ["Kplecraft"],
-                  "composers": ["Kplecraft"],
-                  "credit_source": {"url": "https://dynamix.miraheze.org/wiki/16383", "note": "the wiki song page"}}]
-        seed = release_seed("artists:soundcloud:kuske-kuonrecords", "https://soundcloud.com/kuske-kuonrecords",
-                            [{"url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
-                              "key": "dynamix-kplecraft-16383"},
-                             {"url": "https://soundcloud.com/kuske-kuonrecords/reupload", "key": "reupload"}],
-                            rules, ["soundcloud.com", ".sndcdn.com"], {"handle": "kuske-kuonrecords"})
+        network = FakeNetwork(
+            {
+                "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383": {"text": page},
+                "https://soundcloud.com/kuske-kuonrecords/reupload": {"text": other},
+                "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg": {
+                    "bytes": image_bytes("JPEG", (40, 40)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
+        rules = [
+            {
+                "match": ".*",
+                "role": "song_art",
+                "song_titles": ["16383"],
+                "mapping_status": "confirmed_primary",
+                "evidence_quotes": ['Rhythm Game "Dynamix"', "16383"],
+                "illustrators": ["Kplecraft"],
+                "composers": ["Kplecraft"],
+                "credit_source": {"url": "https://dynamix.miraheze.org/wiki/16383", "note": "the wiki song page"},
+            }
+        ]
+        seed = release_seed(
+            "artists:soundcloud:kuske-kuonrecords",
+            "https://soundcloud.com/kuske-kuonrecords",
+            [
+                {
+                    "url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
+                    "key": "dynamix-kplecraft-16383",
+                },
+                {"url": "https://soundcloud.com/kuske-kuonrecords/reupload", "key": "reupload"},
+            ],
+            rules,
+            ["soundcloud.com", ".sndcdn.com"],
+            {"handle": "kuske-kuonrecords"},
+        )
         self.run_family([seed], network)
         found = self.candidates("artists:soundcloud:kuske-kuonrecords")
         self.assertEqual(found["dynamix-kplecraft-16383"]["disposition"], "downloaded")
-        self.assertEqual(found["dynamix-kplecraft-16383"]["file_url"],
-                         "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg")
+        self.assertEqual(
+            found["dynamix-kplecraft-16383"]["file_url"],
+            "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg",
+        )
         self.assertEqual(found["reupload"]["disposition"], "pending")
         self.assertIn("uploader someone-else", found["reupload"]["reason"])
         self.assertEqual(found["reupload"]["game"], "unknown")
@@ -450,14 +595,19 @@ class ReleaseTests(ArtistsTestCase):
         self.assertEqual(asset["illustrators"], ["Kplecraft"])
         self.assertEqual(asset["source_reported"]["timestamp"], "2017-12-04T13:40:06Z")
         # source_reported keeps the rendition the page advertises; the derived -original URL is only downloaded.
-        self.assertEqual(asset["source_reported"]["url"],
-                         "https://i1.sndcdn.com/artworks-000264879671-n9mjel-large.jpg")
+        self.assertEqual(
+            asset["source_reported"]["url"], "https://i1.sndcdn.com/artworks-000264879671-n9mjel-large.jpg"
+        )
         self.assertEqual(asset["download_url"], "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg")
         # The title "[Dynamix] Kplecraft - 16383" bills the artist but states no role: neither credit is quoted
         # from it; both cite the rule's credit source instead.
-        self.assertEqual({(c["role"], c["field"], c["quote"], c["url"]) for c in asset["credit_evidence"]},
-                         {("illustrator", None, None, "https://dynamix.miraheze.org/wiki/16383"),
-                          ("composer", None, None, "https://dynamix.miraheze.org/wiki/16383")})
+        self.assertEqual(
+            {(c["role"], c["field"], c["quote"], c["url"]) for c in asset["credit_evidence"]},
+            {
+                ("illustrator", None, None, "https://dynamix.miraheze.org/wiki/16383"),
+                ("composer", None, None, "https://dynamix.miraheze.org/wiki/16383"),
+            },
+        )
         self.assertIn("Kplecraft (illustrator), Kplecraft (composer)", asset["notes"])
         self.assertEqual(asset["mapping_status"], "confirmed_primary")
         self.assertIn("16383", " ".join(e["quote"] for e in asset["mapping_evidence"]))
@@ -465,17 +615,40 @@ class ReleaseTests(ArtistsTestCase):
 
     def test_unstated_credit_and_unnamed_title_are_not_claimed_from_the_page(self):
         page = fixture_text("soundcloud_track.html")
-        network = FakeNetwork({
-            "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383": {"text": page},
-            "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg": {
-                "bytes": image_bytes("JPEG", (40, 40)), "content_type": "image/jpeg"}})
-        rules = [{"match": ".*", "role": "song_art", "song_titles": ["Nanohemu"], "mapping_status": "confirmed_primary",
-                  "evidence_quotes": ["Dynamix"], "illustrators": ["Zero"], "composers": ["Kplecraft"],
-                  "credit_source": {"url": "https://dynamix.miraheze.org/wiki/16383", "note": "the wiki song page"}}]
-        seed = release_seed("artists:soundcloud:kuske-kuonrecords", "https://soundcloud.com/kuske-kuonrecords",
-                            [{"url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
-                              "key": "dynamix-kplecraft-16383"}],
-                            rules, ["soundcloud.com", ".sndcdn.com"], {"handle": "kuske-kuonrecords"})
+        network = FakeNetwork(
+            {
+                "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383": {"text": page},
+                "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg": {
+                    "bytes": image_bytes("JPEG", (40, 40)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
+        rules = [
+            {
+                "match": ".*",
+                "role": "song_art",
+                "song_titles": ["Nanohemu"],
+                "mapping_status": "confirmed_primary",
+                "evidence_quotes": ["Dynamix"],
+                "illustrators": ["Zero"],
+                "composers": ["Kplecraft"],
+                "credit_source": {"url": "https://dynamix.miraheze.org/wiki/16383", "note": "the wiki song page"},
+            }
+        ]
+        seed = release_seed(
+            "artists:soundcloud:kuske-kuonrecords",
+            "https://soundcloud.com/kuske-kuonrecords",
+            [
+                {
+                    "url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
+                    "key": "dynamix-kplecraft-16383",
+                }
+            ],
+            rules,
+            ["soundcloud.com", ".sndcdn.com"],
+            {"handle": "kuske-kuonrecords"},
+        )
         self.run_family([seed], network)
         asset = self.manifest()["assets"][0]
         # The page never names "Nanohemu": the mapping cannot be confirmed by this primary post.
@@ -490,30 +663,53 @@ class ReleaseTests(ArtistsTestCase):
 
     def test_credit_without_any_source_fails_verify(self):
         page = fixture_text("soundcloud_track.html")
-        network = FakeNetwork({
-            "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383": {"text": page},
-            "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg": {
-                "bytes": image_bytes("JPEG", (40, 40)), "content_type": "image/jpeg"}})
+        network = FakeNetwork(
+            {
+                "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383": {"text": page},
+                "https://i1.sndcdn.com/artworks-000264879671-n9mjel-original.jpg": {
+                    "bytes": image_bytes("JPEG", (40, 40)),
+                    "content_type": "image/jpeg",
+                },
+            }
+        )
         rules = [{"match": ".*", "role": "song_art", "evidence_quotes": ["Dynamix"], "illustrators": ["Kplecraft"]}]
         with self.assertRaises(ValueError):  # load_seeds refuses it; a hand-built seed still fails --verify
             model.check_rule(rules[0], "rule")
-        seed = release_seed("artists:soundcloud:kuske-kuonrecords", "https://soundcloud.com/kuske-kuonrecords",
-                            [{"url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
-                              "key": "dynamix-kplecraft-16383"}],
-                            rules, ["soundcloud.com", ".sndcdn.com"], {"handle": "kuske-kuonrecords"})
+        seed = release_seed(
+            "artists:soundcloud:kuske-kuonrecords",
+            "https://soundcloud.com/kuske-kuonrecords",
+            [
+                {
+                    "url": "https://soundcloud.com/kuske-kuonrecords/dynamix-kplecraft-16383",
+                    "key": "dynamix-kplecraft-16383",
+                }
+            ],
+            rules,
+            ["soundcloud.com", ".sndcdn.com"],
+            {"handle": "kuske-kuonrecords"},
+        )
         self.run_family([seed], network)
         errors, _, _ = runner.verify_family(self.root, "artists")
-        self.assertEqual([e for e in errors if "cites no source" in e],
-                         ["artists:soundcloud:kuske-kuonrecords:" + self.manifest()["assets"][0]["sha256"][:16]
-                          + ": credit 'Kplecraft' (illustrator) cites no source URL"])
+        self.assertEqual(
+            [e for e in errors if "cites no source" in e],
+            [
+                "artists:soundcloud:kuske-kuonrecords:"
+                + self.manifest()["assets"][0]["sha256"][:16]
+                + ": credit 'Kplecraft' (illustrator) cites no source URL"
+            ],
+        )
 
     def test_rejected_submission_is_excluded_even_with_a_download_rule(self):
-        network = FakeNetwork({"https://veirtunes.bandcamp.com/track/beyond-ephemera": {
-            "text": fixture_text("bandcamp_rejected.html")}})
-        seed = release_seed("artists:bandcamp:veirtunes", "https://veirtunes.bandcamp.com/",
-                            [{"url": "https://veirtunes.bandcamp.com/track/beyond-ephemera",
-                              "key": "track/beyond-ephemera"}],
-                            [{"match": ".*", "role": "song_art"}], ["veirtunes.bandcamp.com", ".bcbits.com"])
+        network = FakeNetwork(
+            {"https://veirtunes.bandcamp.com/track/beyond-ephemera": {"text": fixture_text("bandcamp_rejected.html")}}
+        )
+        seed = release_seed(
+            "artists:bandcamp:veirtunes",
+            "https://veirtunes.bandcamp.com/",
+            [{"url": "https://veirtunes.bandcamp.com/track/beyond-ephemera", "key": "track/beyond-ephemera"}],
+            [{"match": ".*", "role": "song_art"}],
+            ["veirtunes.bandcamp.com", ".bcbits.com"],
+        )
         self.run_family([seed], network)
         candidate = self.candidates("artists:bandcamp:veirtunes")["track/beyond-ephemera"]
         self.assertEqual(candidate["disposition"], "excluded")
@@ -527,6 +723,7 @@ class ReleaseTests(ArtistsTestCase):
 
 # --- ArtStation: mixed portfolio entries, 403 ------------------------------------------------------------------------
 
+
 class MatchingTests(unittest.TestCase):
     def test_terms_match_whole_words_only(self):
         texts = {"description": "Japan tour drawing by ケシksくん; Artwork : 原木シィタケ"}
@@ -538,8 +735,9 @@ class MatchingTests(unittest.TestCase):
 
     def test_credit_is_quoted_from_its_credit_line(self):
         texts = {"sc.title": "TangJuan vs Black Box - Xetta", "sc.description": "Illustration by TangJuan"}
-        self.assertEqual(model.locate_credit("TangJuan", texts, "illustrator"),
-                         ("sc.description", "Illustration by TangJuan"))
+        self.assertEqual(
+            model.locate_credit("TangJuan", texts, "illustrator"), ("sc.description", "Illustration by TangJuan")
+        )
         # A title naming the artist states no role: no composer evidence from it.
         self.assertIsNone(model.locate_credit("TangJuan", texts, "composer"))
 
@@ -565,8 +763,9 @@ class MatchingTests(unittest.TestCase):
         self.assertIsNone(locate("Reku", {"d": "Artwork: A\n◆ Reku Mochizuki □ https://e.test"}, "illustrator"))
         # Japanese labels.
         self.assertIsNotNone(locate("よしもん", {"d": "イラストはよしもんさんに描いて頂きました。"}, "illustrator"))
-        self.assertIsNotNone(locate("kRM & 残響P", {"d": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」"},
-                                    "composer"))
+        self.assertIsNotNone(
+            locate("kRM & 残響P", {"d": "[Event] 次のイベント曲はkRM & 残響Pさんが作った「オレンジ」"}, "composer")
+        )
         self.assertIsNone(locate("Yunosuke", {"d": "Made the cover for Yunosuke!"}, "composer"))
         # 曲絵 / 楽曲絵 / 楽曲イラスト ("the song's artwork") label an illustrator only, never a composer; a bare 曲 label
         # (曲：X, 曲・絵：X) still credits the composer.
@@ -581,23 +780,30 @@ class MatchingTests(unittest.TestCase):
         for text in ("Cover: Alice", "Cover art by Alice", "Cover illustration: Alice", "Cover image by Alice"):
             self.assertIsNotNone(locate("Alice", {"d": text}, "illustrator"), text)
         # The label must lead to the name (directly, or through a list of names), not merely precede it.
-        self.assertIsNone(locate("Kplecraft", {"d": 'Included in the music package "Kplecraft Collection" of'},
-                                 "composer"))
+        self.assertIsNone(
+            locate("Kplecraft", {"d": 'Included in the music package "Kplecraft Collection" of'}, "composer")
+        )
         self.assertIsNone(locate("Foo", {"d": "Artwork: Max Foo"}, "illustrator"))  # part of another name
-        for name, text, role in (("Jehezukiel", "Composition/Vocal: Jehezukiel Visualized by X", "composer"),
-                                 ("長井りく", "🎨Artwork 長井りく:https://twitter.com/sojyiqui", "illustrator"),
-                                 ("Violpa", "流星をイメージしました。ジャケットはViolpaさんです。", "illustrator"),
-                                 ("SCTL", "Composed by Linne X SCTL @sctl_shin Visualized by", "composer"),
-                                 ("deronoitz", "Mixing and Mastering done by myself illust by @deronoitz", "illustrator"),
-                                 ("MimiChair", "Visualized: DCWH & MimiChair Pattern Design: T", "illustrator")):
+        for name, text, role in (
+            ("Jehezukiel", "Composition/Vocal: Jehezukiel Visualized by X", "composer"),
+            ("長井りく", "🎨Artwork 長井りく:https://twitter.com/sojyiqui", "illustrator"),
+            ("Violpa", "流星をイメージしました。ジャケットはViolpaさんです。", "illustrator"),
+            ("SCTL", "Composed by Linne X SCTL @sctl_shin Visualized by", "composer"),
+            ("deronoitz", "Mixing and Mastering done by myself illust by @deronoitz", "illustrator"),
+            ("MimiChair", "Visualized: DCWH & MimiChair Pattern Design: T", "illustrator"),
+        ):
             self.assertIsNotNone(locate(name, {"d": text}, role), (name, text))
 
     def test_credit_fields_never_borrow_the_other_roles_evidence(self):
         entries, notes = model.credit_fields(
             {"illustrators": ["Black Box"], "credit_source": {"url": "https://e.test/wiki", "note": "the wiki"}},
-            "https://e.test/p", {"sc.description": "Music: Black Box"})
-        self.assertEqual(entries, [{"role": "illustrator", "name": "Black Box", "url": "https://e.test/wiki",
-                                    "field": None, "quote": None}])
+            "https://e.test/p",
+            {"sc.description": "Music: Black Box"},
+        )
+        self.assertEqual(
+            entries,
+            [{"role": "illustrator", "name": "Black Box", "url": "https://e.test/wiki", "field": None, "quote": None}],
+        )
         self.assertIn("the wiki https://e.test/wiki: Black Box (illustrator)", notes[0])
 
     def test_rule_game_is_validated(self):
@@ -605,17 +811,24 @@ class MatchingTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 model.check_rule({"match": "^a$", "role": "song_art", "game": game}, "rule")
         model.check_rule({"match": "^a$", "role": "song_art", "game": "mixed"}, "rule")
-        model.check_rule({"match": "^a$", "action": "exclude", "reason": "universe_only: sequel",
-                          "game": "dynamix_universe"}, "rule")
+        model.check_rule(
+            {"match": "^a$", "action": "exclude", "reason": "universe_only: sequel", "game": "dynamix_universe"}, "rule"
+        )
         with self.assertRaises(ValueError):
             model.check_rule({"match": "^a$", "action": "exclude", "reason": "fanart: x", "game": "dynamics"}, "rule")
         with self.assertRaises(ValueError):
             model.check_rule({"match": "^a$", "role": "song_art", "withdraw_archived": True}, "rule")
 
     def test_list_fields_must_be_lists_of_non_empty_strings(self):
-        rule = {"match": "^1:1$", "role": "song_art", "song_titles": ["Xetta"], "mapping_status": "inferred",
-                "evidence_quotes": ["Dynamix"], "illustrators": ["ab"],
-                "credit_source": {"url": "https://e.test/wiki"}}
+        rule = {
+            "match": "^1:1$",
+            "role": "song_art",
+            "song_titles": ["Xetta"],
+            "mapping_status": "inferred",
+            "evidence_quotes": ["Dynamix"],
+            "illustrators": ["ab"],
+            "credit_source": {"url": "https://e.test/wiki"},
+        }
         model.check_rule(rule, "rule")
         for name in model.LIST_FIELDS:
             for bad in ("Dynamix", ["ok", ""], ["ok", "  "], [3], {"a": 1}):
@@ -632,13 +845,16 @@ class MatchingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "https url"):
             model.check_rule({**rule, "credit_source": {"note": "the wiki"}}, "rule")
         model.check_rule({**rule, "credit_source": {"url": "https://e.test/wiki", "note": "the wiki"}}, "rule")
-        curated = [{"role": "illustrator", "name": "A", "url": "https://e.test/a", "quote": "Art: A"},
-                   {"role": "composer", "name": "B", "url": "https://e.test/b"}]
+        curated = [
+            {"role": "illustrator", "name": "A", "url": "https://e.test/a", "quote": "Art: A"},
+            {"role": "composer", "name": "B", "url": "https://e.test/b"},
+        ]
         model.check_rule({**rule, "credit_evidence": curated}, "rule")  # a curated, sourced entry per name
         with self.assertRaisesRegex(ValueError, "credit_evidence\\[1\\]"):
             model.check_rule({**rule, "credit_evidence": [curated[0], {"role": "composer", "name": "B"}]}, "rule")
-        model.check_rule({"match": "^a$", "action": "pending", "reason": "unresolved_role: review",
-                          "illustrators": ["A"]}, "rule")  # only an admitted file's credits are recorded on an asset
+        model.check_rule(
+            {"match": "^a$", "action": "pending", "reason": "unresolved_role: review", "illustrators": ["A"]}, "rule"
+        )  # only an admitted file's credits are recorded on an asset
 
     def test_min_interval_cannot_undercut_the_network_policy(self):
         for bad in (0, 0.1, -1, "2", True, float("nan"), float("inf")):
@@ -650,9 +866,10 @@ class MatchingTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "min_interval|non-finite", msg=repr(bad)):
                     runner.load_seeds(path, "artists")
         seed = {**direct_seed([{"match": "^a$", "role": "song_art"}]), "min_interval": float("nan")}
-        with tempfile.TemporaryDirectory() as temp, mock.patch.object(runner.manifest, "load_json",
-                                                                      return_value={"family": "artists",
-                                                                                    "sources": [seed]}):
+        with (
+            tempfile.TemporaryDirectory() as temp,
+            mock.patch.object(runner.manifest, "load_json", return_value={"family": "artists", "sources": [seed]}),
+        ):
             with self.assertRaisesRegex(ValueError, "min_interval"):
                 runner.load_seeds(Path(temp) / "artists.json", "artists")
         seed = {**direct_seed([{"match": "^a$", "role": "song_art"}]), "min_interval": 2.5}
@@ -662,16 +879,30 @@ class MatchingTests(unittest.TestCase):
             self.assertEqual(runner.load_seeds(path, "artists")[0]["min_interval"], 2.5)
 
     def test_multi_game_art_gets_no_default_holder(self):
-        default = {"holder": "C4Cat Entertainment Limited and/or the credited artist", "creator": None, "url": None,
-                   "license": None, "restrictions": None}
+        default = {
+            "holder": "C4Cat Entertainment Limited and/or the credited artist",
+            "creator": None,
+            "url": None,
+            "license": None,
+            "restrictions": None,
+        }
         quality = dict(QUALITY)
-        meta = model.asset_meta({"role": "song_art", "game_associations": ["dynamix", "ravon"]}, [], "https://e.test/p",
-                                quality, default)
+        meta = model.asset_meta(
+            {"role": "song_art", "game_associations": ["dynamix", "ravon"]}, [], "https://e.test/p", quality, default
+        )
         self.assertIsNone(meta["rights"]["holder"])
         self.assertIn("also associated with ravon", meta["notes"])
-        named = model.asset_meta({"role": "song_art", "game_associations": ["dynamix", "arcaea"],
-                                  "rights": {"holder": "lowiro and/or the credited artist"}}, [], "https://e.test/p",
-                                 quality, default)
+        named = model.asset_meta(
+            {
+                "role": "song_art",
+                "game_associations": ["dynamix", "arcaea"],
+                "rights": {"holder": "lowiro and/or the credited artist"},
+            },
+            [],
+            "https://e.test/p",
+            quality,
+            default,
+        )
         self.assertEqual(named["rights"]["holder"], "lowiro and/or the credited artist")
         self.assertNotIn("notes", named)
         plain = model.asset_meta({"role": "song_art"}, [], "https://e.test/p", quality, default)
@@ -688,8 +919,11 @@ class MatchingTests(unittest.TestCase):
         model.check_rule({"match": "^a$", "role": "promotional", "collections": ["Event"]}, "rule")
 
     def test_committed_partner_art_names_its_partners(self):
-        seeds = {seed["id"]: seed for family in ("artists", "official")
-                 for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json", family)}
+        seeds = {
+            seed["id"]: seed
+            for family in ("artists", "official")
+            for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json", family)
+        }
 
         def rule(source_id, match):
             return next(r for r in seeds[source_id]["rules"] if r.get("match") == match)
@@ -698,8 +932,10 @@ class MatchingTests(unittest.TestCase):
         self.assertEqual(berry["game_associations"], ["dynamix", "berry_melody"])
         # The image itself prints both notices; the record names both holders, never C4Cat alone.
         self.assertEqual(berry["rights"]["holder"], "Sky Way Studio and C4Cat Entertainment Limited")
-        for source_id, match, event in (("artists:soundcloud:linne_ennil", "^whirlwind$", "PABAT! 2017"),
-                                        ("artists:soundcloud:sctl_shin", "^venus\\-invader$", "PABAT! 2018")):
+        for source_id, match, event in (
+            ("artists:soundcloud:linne_ennil", "^whirlwind$", "PABAT! 2017"),
+            ("artists:soundcloud:sctl_shin", "^venus\\-invader$", "PABAT! 2018"),
+        ):
             entry = rule(source_id, match)
             self.assertEqual(entry["game_associations"], ["dynamix", "bms"], source_id)
             self.assertIn(event, entry["evidence_quotes"])
@@ -719,8 +955,11 @@ class MatchingTests(unittest.TestCase):
                         self.assertIn("Illustrator not credited", rule.get("notes", ""), where)
                     # The same for composers: a mapped single-song record credits the song's composer (cited) or
                     # its notes say why it does not (e.g. a mapping conflict).
-                    if (rule.get("mapping_status", "unmapped") != "unmapped" and len(rule.get("song_titles", [])) == 1
-                            and not rule.get("composers")):
+                    if (
+                        rule.get("mapping_status", "unmapped") != "unmapped"
+                        and len(rule.get("song_titles", [])) == 1
+                        and not rule.get("composers")
+                    ):
                         self.assertIn("composer", rule.get("notes", "").lower(), where)
                     if rule.get("composers") and not rule.get("credit_evidence"):
                         self.assertTrue(rule.get("credit_source", {}).get("url"), where)
@@ -744,9 +983,17 @@ def direct_seed(rules, name=None, notes=None):
         item["original_filename"] = name
     if notes:
         item["notes"] = notes
-    return {"id": "artists:wix:testcase", "name": "Wix test", "url": DIRECT_PAGE, "platform": "web",
-            "adapter": "direct_files", "hosts": ["static.wixstatic.com"], "quality": QUALITY, "items": [item],
-            "rules": rules}
+    return {
+        "id": "artists:wix:testcase",
+        "name": "Wix test",
+        "url": DIRECT_PAGE,
+        "platform": "web",
+        "adapter": "direct_files",
+        "hosts": ["static.wixstatic.com"],
+        "quality": QUALITY,
+        "items": [item],
+        "rules": rules,
+    }
 
 
 def direct_network():
@@ -796,8 +1043,15 @@ class ReclassificationTests(ArtistsTestCase):
         self.assertTrue(any("is now pending" in warning for warning in warnings), warnings)
 
     def test_candidate_notes_reach_the_asset_record(self):
-        self.run_family([direct_seed([{"match": "^a$", "role": "character", "notes": "Rule note."}],
-                                     notes="Character: Nami (jacket of Cosmic Pulse).")], direct_network())
+        self.run_family(
+            [
+                direct_seed(
+                    [{"match": "^a$", "role": "character", "notes": "Rule note."}],
+                    notes="Character: Nami (jacket of Cosmic Pulse).",
+                )
+            ],
+            direct_network(),
+        )
         asset = self.manifest()["assets"][0]
         self.assertEqual(asset["notes"], "Rule note. Character: Nami (jacket of Cosmic Pulse).")
         self.verify()
@@ -805,21 +1059,42 @@ class ReclassificationTests(ArtistsTestCase):
 
 class ArtStationTests(ArtistsTestCase):
     def seed(self):
-        return {"id": "artists:artstation:sandgodoven", "name": "ArtStation", "platform": "artstation",
-                "url": "https://sandgodoven.artstation.com/projects/6baqbW", "adapter": "artstation_project",
-                "params": {"username": "sandgodoven"}, "quality": QUALITY, "items": [{"project": "6baqbW"}],
-                "rules": [{"match": "^6baqbW:101$", "role": "song_art", "song_titles": ["MassacrE || 3rc4224M"],
-                           "mapping_status": "confirmed_primary", "evidence_quotes": ["Dynamix"]},
-                          {"match": "^6baqbW:102$", "action": "exclude", "reason": "not_dynamix: RAVON-only "
-                                                                                   "composition", "game": "not_dynamix"}]}
+        return {
+            "id": "artists:artstation:sandgodoven",
+            "name": "ArtStation",
+            "platform": "artstation",
+            "url": "https://sandgodoven.artstation.com/projects/6baqbW",
+            "adapter": "artstation_project",
+            "params": {"username": "sandgodoven"},
+            "quality": QUALITY,
+            "items": [{"project": "6baqbW"}],
+            "rules": [
+                {
+                    "match": "^6baqbW:101$",
+                    "role": "song_art",
+                    "song_titles": ["MassacrE || 3rc4224M"],
+                    "mapping_status": "confirmed_primary",
+                    "evidence_quotes": ["Dynamix"],
+                },
+                {
+                    "match": "^6baqbW:102$",
+                    "action": "exclude",
+                    "reason": "not_dynamix: RAVON-only composition",
+                    "game": "not_dynamix",
+                },
+            ],
+        }
 
     def test_unrelated_portfolio_entries_are_not_admitted(self):
         data = fixture_json("artstation_project.json")
         large = data["assets"][0]["image_url"]
-        network = FakeNetwork({
-            "https://www.artstation.com/projects/6baqbW.json": {"json": data},
-            large.replace("/large/", "/4k/"): {"error": net.HttpError("HTTP 404", url=large, http_status=404)},
-            large: {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"}})
+        network = FakeNetwork(
+            {
+                "https://www.artstation.com/projects/6baqbW.json": {"json": data},
+                large.replace("/large/", "/4k/"): {"error": net.HttpError("HTTP 404", url=large, http_status=404)},
+                large: {"bytes": image_bytes("JPEG", (30, 30)), "content_type": "image/jpeg"},
+            }
+        )
         self.run_family([self.seed()], network)
         found = self.candidates("artists:artstation:sandgodoven")
         self.assertEqual(found["6baqbW:101"]["disposition"], "downloaded")
@@ -839,9 +1114,15 @@ class ArtStationTests(ArtistsTestCase):
         self.verify()
 
     def test_bot_check_is_blocked_and_recorded(self):
-        network = FakeNetwork({"https://www.artstation.com/projects/6baqbW.json": {
-            "error": net.ChallengeError("bot check", url="https://www.artstation.com/projects/6baqbW.json",
-                                        http_status=403)}})
+        network = FakeNetwork(
+            {
+                "https://www.artstation.com/projects/6baqbW.json": {
+                    "error": net.ChallengeError(
+                        "bot check", url="https://www.artstation.com/projects/6baqbW.json", http_status=403
+                    )
+                }
+            }
+        )
         self.run_family([self.seed()], network)
         candidate = self.candidates("artists:artstation:sandgodoven")["6baqbW"]
         self.assertEqual(candidate["disposition"], "blocked")
@@ -854,10 +1135,13 @@ class ArtStationTests(ArtistsTestCase):
 
 # --- Interrupted runs and idempotent resume ---------------------------------------------------------------------------
 
+
 class ResumeTests(ArtistsTestCase):
     def rules(self):
-        return [{"match": "^1879155241788293570:1$", "role": "song_art"},
-                {"match": "^1879155241788293570:2$", "role": "process"}]
+        return [
+            {"match": "^1879155241788293570:1$", "role": "song_art"},
+            {"match": "^1879155241788293570:2$", "role": "process"},
+        ]
 
     def test_interrupted_run_keeps_completed_candidates_and_resume_finishes(self):
         network = FakeNetwork(x_routes())
@@ -925,6 +1209,7 @@ class ResumeTests(ArtistsTestCase):
 
 # --- Committed seeds --------------------------------------------------------------------------------------------------
 
+
 class SeedTests(unittest.TestCase):
     def test_committed_seed_files_are_valid(self):
         ids = set()
@@ -937,8 +1222,7 @@ class SeedTests(unittest.TestCase):
     def test_every_research_lead_has_a_recorded_disposition(self):
         seeds = {}
         for family in ("artists", "official", "archives"):
-            seeds.update({seed["id"]: seed for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json",
-                                                                          family)})
+            seeds.update({seed["id"]: seed for seed in runner.load_seeds(runner.SEEDS_DIR / f"{family}.json", family)})
         # The sweep crosswalk and the gap-fill crosswalk each list every yes/unclear lead of their research file.
         for name in ("leads-crosswalk.json", "leads-gapfill-crosswalk.json"):
             with self.subTest(crosswalk=name):
@@ -964,8 +1248,10 @@ class SeedTests(unittest.TestCase):
                 snapshot = manifest.load_discovery(ROOT, target["source_id"])
                 self.assertIsNotNone(snapshot, f"lead {lead['lead']}: {target['source_id']} has no snapshot")
                 keys = [c["upstream_key"] for c in snapshot["candidates"]]
-                self.assertTrue(not prefix or any(key.startswith(prefix) for key in keys),
-                                f"lead {lead['lead']}: {target['source_id']} has no candidate {prefix!r}")
+                self.assertTrue(
+                    not prefix or any(key.startswith(prefix) for key in keys),
+                    f"lead {lead['lead']}: {target['source_id']} has no candidate {prefix!r}",
+                )
         self.check_crosswalk_files(crosswalk, seeds)
 
     def check_crosswalk_files(self, crosswalk, seeds):
@@ -989,8 +1275,9 @@ class SeedTests(unittest.TestCase):
                         self.assertEqual(item.get("file_url"), entry["url"], where)
                     continue
                 if entry["source_id"] not in snapshots:
-                    snapshots[entry["source_id"]] = {c["upstream_key"]: c for c in manifest.load_discovery(
-                        ROOT, entry["source_id"])["candidates"]}
+                    snapshots[entry["source_id"]] = {
+                        c["upstream_key"]: c for c in manifest.load_discovery(ROOT, entry["source_id"])["candidates"]
+                    }
                 if entry["key"] == "":  # not a file (a feed, an HTML page): the source record, with the reason
                     self.assertEqual(entry["match"], "noted", where)
                     self.assertTrue(entry.get("note"), where)

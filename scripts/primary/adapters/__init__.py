@@ -2,8 +2,23 @@
 via ``hosts``), ``check_seed(seed, where)`` and ``discover(ctx, seed) -> primary.model.Discovery``. An adapter with
 ``OFFLINE = True`` makes no request at all and gets a client that refuses every call."""
 
-from . import (apple, artstation, bilibili, direct, facebook, google_play, page_links, pixiv, probe, registry, release,
-               taptap, wayback, x, youtube)
+from . import (
+    apple,
+    artstation,
+    bilibili,
+    direct,
+    facebook,
+    google_play,
+    page_links,
+    pixiv,
+    probe,
+    registry,
+    release,
+    taptap,
+    wayback,
+    x,
+    youtube,
+)
 
 ADAPTERS = {
     "x_post": x,

@@ -67,8 +67,10 @@ SIXTEEN_BIT_GREY = {"I;16", "I;16L", "I;16B", "I;16N"}
 CMYK = "CMYK"
 ALPHA_MODES = {"RGBA", "LA", "PA", "RGBa", "La"}
 PREVIEW_NAME = re.compile(r"^[0-9a-f]{16}\.webp$")
-DESCRIPTION = ("Derived WebP previews for the archive grid and for archive-tier originals that Pages does not serve; "
-               "they are not archive files. Originals are unchanged and listed with their hashes in data/catalog.json.")
+DESCRIPTION = (
+    "Derived WebP previews for the archive grid and for archive-tier originals that Pages does not serve; "
+    "they are not archive files. Originals are unchanged and listed with their hashes in data/catalog.json."
+)
 
 
 class ThumbnailError(ValueError):
@@ -76,8 +78,14 @@ class ThumbnailError(ValueError):
 
 
 def settings() -> dict:
-    return {"format": "WEBP", "long_edge": LONG_EDGE, "quality": QUALITY, "method": METHOD,
-            "pillow": PIL.__version__, "libwebp": features.version("webp")}
+    return {
+        "format": "WEBP",
+        "long_edge": LONG_EDGE,
+        "quality": QUALITY,
+        "method": METHOD,
+        "pillow": PIL.__version__,
+        "libwebp": features.version("webp"),
+    }
 
 
 def stable(encoder: Mapping[str, Any]) -> dict:
@@ -114,8 +122,10 @@ def originals(root: Path, catalog: Mapping[str, Any] | None = None) -> dict[str,
     for sha256, original in sorted(wanted.items()):
         other = names.setdefault(thumb_path(sha256), sha256)
         if other != sha256:
-            raise ThumbnailError(f"Thumbnail name collision: {original['path']} and {wanted[other]['path']} both map "
-                                 f"to {thumb_path(sha256)}")
+            raise ThumbnailError(
+                f"Thumbnail name collision: {original['path']} and {wanted[other]['path']} both map "
+                f"to {thumb_path(sha256)}"
+            )
     return dict(sorted(wanted.items()))
 
 
@@ -160,8 +170,7 @@ def colour_managed(image: Image.Image, path: str) -> tuple[Image.Image, bytes | 
             # A fresh sRGB profile on every call, so worker threads never share a LittleCMS profile handle.
             return ImageCms.profileToProfile(image, profile, ImageCms.createProfile("sRGB"), outputMode="RGB"), None
         except ImageCms.PyCMSError as error:
-            raise ThumbnailError(f"Cannot preview {path}: its CMYK ICC profile cannot be applied ({error})") \
-                from error
+            raise ThumbnailError(f"Cannot preview {path}: its CMYK ICC profile cannot be applied ({error})") from error
     if space != "GRAY" or image.mode not in GREY_MODES:
         raise ThumbnailError(f"Cannot preview {path}: {space} ICC profile on a {image.mode} image")
     alpha = image.mode == "LA" or "transparency" in image.info
@@ -170,8 +179,7 @@ def colour_managed(image: Image.Image, path: str) -> tuple[Image.Image, bytes | 
         # A fresh sRGB profile on every call, so worker threads never share a LittleCMS profile handle.
         rgb = ImageCms.profileToProfile(grey.convert("L"), profile, ImageCms.createProfile("sRGB"), outputMode="RGB")
     except ImageCms.PyCMSError as error:
-        raise ThumbnailError(f"Cannot preview {path}: its greyscale ICC profile cannot be applied ({error})") \
-            from error
+        raise ThumbnailError(f"Cannot preview {path}: its greyscale ICC profile cannot be applied ({error})") from error
     if alpha:
         rgb.putalpha(grey.getchannel("A"))
     return rgb, None
@@ -195,8 +203,9 @@ def render(root: Path, original: Mapping[str, Any]) -> tuple[bytes, tuple[int, i
         converted = managed if managed.mode == target else managed.convert(target)
         size = thumb_size(*converted.size)
         # Pillow resamples RGBA premultiplied, so fully transparent pixels do not darken cut-out edges.
-        preview = converted if size == converted.size else converted.resize(size, Image.Resampling.LANCZOS,
-                                                                             reducing_gap=3.0)
+        preview = (
+            converted if size == converted.size else converted.resize(size, Image.Resampling.LANCZOS, reducing_gap=3.0)
+        )
     buffer = io.BytesIO()
     preview.save(buffer, "WEBP", quality=QUALITY, method=METHOD, icc_profile=icc_profile)
     return buffer.getvalue(), preview.size
@@ -209,7 +218,7 @@ def read_manifest(root: Path) -> dict | None:
 
 def preview_file(root: Path, rel: str) -> Path:
     """Absolute path of a preview: ``assets/thumbs/<16 hex>.webp`` without symlinked components."""
-    if not rel.startswith(THUMB_DIR + "/") or not PREVIEW_NAME.fullmatch(rel[len(THUMB_DIR) + 1:]):
+    if not rel.startswith(THUMB_DIR + "/") or not PREVIEW_NAME.fullmatch(rel[len(THUMB_DIR) + 1 :]):
         raise ThumbnailError(f"Not a preview path: {rel!r}")
     try:
         return paths.safe_path(root, rel, under=THUMB_DIR)
@@ -249,8 +258,12 @@ def stored_files(root: Path) -> list[str]:
 
 
 def manifest_content(entries: Mapping[str, Mapping[str, Any]]) -> dict:
-    return {"schema_version": schema.SCHEMA_VERSION, "description": DESCRIPTION, "encoder": settings(),
-            "thumbnails": dict(sorted(entries.items()))}
+    return {
+        "schema_version": schema.SCHEMA_VERSION,
+        "description": DESCRIPTION,
+        "encoder": settings(),
+        "thumbnails": dict(sorted(entries.items())),
+    }
 
 
 def workers_for(workers: int | None) -> int:
@@ -273,8 +286,10 @@ def _store(root: Path, rel: str, data: bytes, owned: bool) -> None:
         if file.read_bytes() == data:
             return
         if not owned:
-            raise ThumbnailError(f"Refusing to overwrite {rel}: data/thumbs.json does not record it as this "
-                                 "original's preview (remove the file or restore data/thumbs.json)")
+            raise ThumbnailError(
+                f"Refusing to overwrite {rel}: data/thumbs.json does not record it as this "
+                "original's preview (remove the file or restore data/thumbs.json)"
+            )
     elif file.exists():
         raise ThumbnailError(f"Refusing to overwrite {rel}: not a regular file")
     write_atomic(root, rel, data)
@@ -283,6 +298,7 @@ def _store(root: Path, rel: str, data: bytes, owned: bool) -> None:
 def render_all(root: Path, pending: list[Mapping[str, Any]], workers: int | None) -> list[tuple[bytes, tuple]]:
     """Render every original (in parallel). When some cannot be previewed, nothing is returned and one error lists
     every such original, so a single run shows all of them."""
+
     def attempt(original: Mapping[str, Any]) -> tuple[tuple[bytes, tuple] | None, str | None]:
         try:
             return render(root, original), None
@@ -294,15 +310,21 @@ def render_all(root: Path, pending: list[Mapping[str, Any]], workers: int | None
         results = list(pool.map(attempt, pending))
     refused = [message for _, message in results if message]
     if refused:
-        shown = refused[:build_catalog.MAX_REPORTED]
+        shown = refused[: build_catalog.MAX_REPORTED]
         more = f"\n... and {len(refused) - len(shown)} more" if len(refused) > len(shown) else ""
-        raise ThumbnailError(f"{len(refused)} original(s) cannot be previewed; nothing was written:\n"
-                             + "\n".join(shown) + more)
+        raise ThumbnailError(
+            f"{len(refused)} original(s) cannot be previewed; nothing was written:\n" + "\n".join(shown) + more
+        )
     return [result for result, _ in results]
 
 
-def build(root: Path, prune: bool = False, rebuild: bool = False, workers: int | None = None,
-          catalog: Mapping[str, Any] | None = None) -> dict:
+def build(
+    root: Path,
+    prune: bool = False,
+    rebuild: bool = False,
+    workers: int | None = None,
+    catalog: Mapping[str, Any] | None = None,
+) -> dict:
     """Write missing or stale previews and data/thumbs.json; reuse previews whose bytes match the manifest.
 
     Entries of originals that no longer need a preview stay listed (and their files stay) until ``prune``."""
@@ -310,15 +332,19 @@ def build(root: Path, prune: bool = False, rebuild: bool = False, workers: int |
     current = settings()
     old = read_manifest(root)
     if old and old["encoder"] != current and not rebuild:
-        raise ThumbnailError(f"{MANIFEST} was encoded with {old['encoder']}, but this run uses {current}. Install "
-                             "requirements.txt, or pass --rebuild to re-encode every thumbnail.")
+        raise ThumbnailError(
+            f"{MANIFEST} was encoded with {old['encoder']}, but this run uses {current}. Install "
+            "requirements.txt, or pass --rebuild to re-encode every thumbnail."
+        )
     listed = dict(old["thumbnails"]) if old else {}
     wanted = originals(root, catalog)
     for sha256 in listed.keys() - wanted.keys():
         for other in wanted:
             if thumb_path(other) == thumb_path(sha256):
-                raise ThumbnailError(f"Thumbnail name collision: {wanted[other]['path']} and the listed preview of "
-                                     f"{sha256} both map to {thumb_path(other)}")
+                raise ThumbnailError(
+                    f"Thumbnail name collision: {wanted[other]['path']} and the listed preview of "
+                    f"{sha256} both map to {thumb_path(other)}"
+                )
     entries, pending = {}, []
     for sha256, original in wanted.items():
         if not rebuild and _reusable(root, sha256, listed.get(sha256)):
@@ -328,8 +354,13 @@ def build(root: Path, prune: bool = False, rebuild: bool = False, workers: int |
     rendered = render_all(root, [original for _, original in pending], workers)
     for (sha256, _), (data, (width, height)) in zip(pending, rendered, strict=True):
         _store(root, thumb_path(sha256), data, owned=sha256 in listed)
-        entries[sha256] = {"path": thumb_path(sha256), "width": width, "height": height, "bytes": len(data),
-                           "sha256": digest(data)}
+        entries[sha256] = {
+            "path": thumb_path(sha256),
+            "width": width,
+            "height": height,
+            "bytes": len(data),
+            "sha256": digest(data),
+        }
     retired = {sha256: entry for sha256, entry in listed.items() if sha256 not in wanted}
     pruned = prune_retired(root, retired) if prune else []
     kept = {} if prune else retired
@@ -339,9 +370,15 @@ def build(root: Path, prune: bool = False, rebuild: bool = False, workers: int |
         manifest.write_json_atomic(target, content)
     referenced = {entry["path"] for entry in content["thumbnails"].values()}
     unlisted = [path for path in stored_files(root) if path not in referenced]
-    return {"thumbnails": len(entries), "rendered": len(pending), "reused": len(entries) - len(pending),
-            "bytes": sum(entry["bytes"] for entry in entries.values()),
-            "retired": sorted(entry["path"] for entry in kept.values()), "pruned": pruned, "unlisted": unlisted}
+    return {
+        "thumbnails": len(entries),
+        "rendered": len(pending),
+        "reused": len(entries) - len(pending),
+        "bytes": sum(entry["bytes"] for entry in entries.values()),
+        "retired": sorted(entry["path"] for entry in kept.values()),
+        "pruned": pruned,
+        "unlisted": unlisted,
+    }
 
 
 def prune_retired(root: Path, retired: Mapping[str, Mapping[str, Any]]) -> list[str]:
@@ -351,8 +388,9 @@ def prune_retired(root: Path, retired: Mapping[str, Mapping[str, Any]]) -> list[
     for sha256, entry in sorted(retired.items()):
         file = preview_file(root, entry["path"])
         if file.exists() and (not file.is_file() or digest(file.read_bytes()) != entry["sha256"]):
-            raise ThumbnailError(f"Refusing to prune {entry['path']}: its bytes are not the preview recorded for "
-                                 f"{sha256}")
+            raise ThumbnailError(
+                f"Refusing to prune {entry['path']}: its bytes are not the preview recorded for {sha256}"
+            )
         targets.append((entry["path"], file))
     removed = []
     for rel, file in targets:
@@ -362,8 +400,9 @@ def prune_retired(root: Path, retired: Mapping[str, Mapping[str, Any]]) -> list[
     return removed
 
 
-def check_entry(root: Path, sha256: str, entry: Mapping[str, Any],
-                original: Mapping[str, Any] | None) -> tuple[list[str], bytes | None]:
+def check_entry(
+    root: Path, sha256: str, entry: Mapping[str, Any], original: Mapping[str, Any] | None
+) -> tuple[list[str], bytes | None]:
     """Problems with one recorded preview, and its bytes when they are intact."""
     path = entry["path"]
     file = preview_file(root, path)
@@ -382,21 +421,25 @@ def check_entry(root: Path, sha256: str, entry: Mapping[str, Any],
     if format_name != "WEBP":
         found.append(f"Thumbnail is {format_name}, not WEBP: {path}")
     if [*size] != [entry["width"], entry["height"]]:
-        found.append(f"Dimension mismatch: {path} is {size[0]}x{size[1]}, {MANIFEST} says "
-                     f"{entry['width']}x{entry['height']}")
+        found.append(
+            f"Dimension mismatch: {path} is {size[0]}x{size[1]}, {MANIFEST} says {entry['width']}x{entry['height']}"
+        )
     if original:
         # Either orientation: an EXIF-rotated original is previewed upright.
         expected = thumb_size(original["width"], original["height"])
         if sorted(size) != sorted(expected):
-            found.append(f"Dimension mismatch: {path} is {size[0]}x{size[1]}, expected {expected[0]}x{expected[1]} "
-                         f"for {original['path']}")
+            found.append(
+                f"Dimension mismatch: {path} is {size[0]}x{size[1]}, expected {expected[0]}x{expected[1]} "
+                f"for {original['path']}"
+            )
     if "exif" in info or "xmp" in info:
         found.append(f"Thumbnail carries EXIF or XMP metadata: {path}")
     return found, data
 
 
-def problems(root: Path, reencode: bool = False, workers: int | None = None,
-             catalog: Mapping[str, Any] | None = None) -> list[str]:
+def problems(
+    root: Path, reencode: bool = False, workers: int | None = None, catalog: Mapping[str, Any] | None = None
+) -> list[str]:
     """Everything that differs from what a build would produce; empty when the previews are current. With
     ``reencode`` every preview is also rendered again from its original and must match byte for byte."""
     root = Path(root)
@@ -406,18 +449,27 @@ def problems(root: Path, reencode: bool = False, workers: int | None = None,
     current, recorded = settings(), manifest_value["encoder"]
     found = []
     if stable(recorded) != stable(current):
-        found.append(f"Encoder settings changed: {MANIFEST} has {stable(recorded)}, the script uses "
-                     f"{stable(current)}: run scripts/build_thumbnails.py --rebuild")
+        found.append(
+            f"Encoder settings changed: {MANIFEST} has {stable(recorded)}, the script uses "
+            f"{stable(current)}: run scripts/build_thumbnails.py --rebuild"
+        )
     if reencode and recorded != current:
-        found.append(f"Byte-identical re-encoding needs Pillow {recorded.get('pillow')} with libwebp "
-                     f"{recorded.get('libwebp')} (running Pillow {current['pillow']} with libwebp "
-                     f"{current['libwebp']}); install requirements.txt")
+        found.append(
+            f"Byte-identical re-encoding needs Pillow {recorded.get('pillow')} with libwebp "
+            f"{recorded.get('libwebp')} (running Pillow {current['pillow']} with libwebp "
+            f"{current['libwebp']}); install requirements.txt"
+        )
         reencode = False
     wanted, thumbnails = originals(root, catalog), manifest_value["thumbnails"]
-    found.extend(f"No thumbnail for {wanted[sha256]['path']}: run scripts/build_thumbnails.py"
-                 for sha256 in sorted(wanted.keys() - thumbnails.keys()))
-    found.extend(f"Thumbnail {thumbnails[sha256]['path']} belongs to no current original: run "
-                 "scripts/build_thumbnails.py --prune" for sha256 in sorted(thumbnails.keys() - wanted.keys()))
+    found.extend(
+        f"No thumbnail for {wanted[sha256]['path']}: run scripts/build_thumbnails.py"
+        for sha256 in sorted(wanted.keys() - thumbnails.keys())
+    )
+    found.extend(
+        f"Thumbnail {thumbnails[sha256]['path']} belongs to no current original: run "
+        "scripts/build_thumbnails.py --prune"
+        for sha256 in sorted(thumbnails.keys() - wanted.keys())
+    )
     intact = []
     for sha256, entry in sorted(thumbnails.items()):
         entry_problems, data = check_entry(root, sha256, entry, wanted.get(sha256))
@@ -425,27 +477,35 @@ def problems(root: Path, reencode: bool = False, workers: int | None = None,
         if data is not None and sha256 in wanted:
             intact.append((wanted[sha256], entry["path"], data))
     referenced = {entry["path"] for entry in thumbnails.values()}
-    found.extend(f"Unlisted file in {THUMB_DIR}: {path}: not a preview recorded in {MANIFEST}; remove it"
-                 for path in stored_files(root) if path not in referenced)
+    found.extend(
+        f"Unlisted file in {THUMB_DIR}: {path}: not a preview recorded in {MANIFEST}; remove it"
+        for path in stored_files(root)
+        if path not in referenced
+    )
     if reencode:
         with ThreadPoolExecutor(workers_for(workers)) as pool:
             fresh = list(pool.map(lambda item: render(root, item[0])[0], intact))
-        found.extend(f"Re-encoding {original['path']} does not reproduce {path}"
-                     for (original, path, data), again in zip(intact, fresh, strict=True) if again != data)
+        found.extend(
+            f"Re-encoding {original['path']} does not reproduce {path}"
+            for (original, path, data), again in zip(intact, fresh, strict=True)
+            if again != data
+        )
     return found
 
 
 def main(argv: list[str] | None = None, root: Path | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
-                                     formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__.split("\n\n")[0], formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__
+    )
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true", help="write nothing; fail unless the previews are current")
     mode.add_argument("--verify", action="store_true", help="like --check, and re-encode every preview")
     mode.add_argument("--prune", action="store_true", help="build, then delete listed previews whose original left")
     parser.add_argument("--rebuild", action="store_true", help="re-encode every preview (after an encoder change)")
     parser.add_argument("--workers", type=int, help="images decoded in parallel (default: up to 8)")
-    parser.add_argument("--root", type=Path, default=root or REPO_ROOT,
-                        help="repository-shaped tree (default: %(default)s)")
+    parser.add_argument(
+        "--root", type=Path, default=root or REPO_ROOT, help="repository-shaped tree (default: %(default)s)"
+    )
     args = parser.parse_args(argv)
     if (args.check or args.verify) and args.rebuild:
         parser.error("--rebuild writes files; it cannot be combined with --check or --verify")
@@ -456,8 +516,16 @@ def main(argv: list[str] | None = None, root: Path | None = None) -> int:
                 print("\n".join(found), file=sys.stderr)
                 return 1
             thumbnails = (read_manifest(args.root) or {"thumbnails": {}})["thumbnails"]
-            print(json.dumps({"thumbnails": len(thumbnails), "bytes": sum(e["bytes"] for e in thumbnails.values()),
-                              "reencoded": args.verify}, indent=2))
+            print(
+                json.dumps(
+                    {
+                        "thumbnails": len(thumbnails),
+                        "bytes": sum(e["bytes"] for e in thumbnails.values()),
+                        "reencoded": args.verify,
+                    },
+                    indent=2,
+                )
+            )
             return 0
         summary = build(args.root, prune=args.prune, rebuild=args.rebuild, workers=args.workers)
     except (ValueError, OSError) as error:

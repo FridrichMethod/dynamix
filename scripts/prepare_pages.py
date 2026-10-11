@@ -63,13 +63,29 @@ from lib import manifest, paths, schema  # noqa: E402
 
 ROOT = SCRIPTS.parent
 
-REQUIRED_FILES = (".nojekyll", "LICENSE", "NOTICE", "README.md", "README.zh-CN.md", "archive.html",
-                  "data/catalog.js", "data/catalog.json", "index.html")
+REQUIRED_FILES = (
+    ".nojekyll",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "README.zh-CN.md",
+    "archive.html",
+    "data/catalog.js",
+    "data/catalog.json",
+    "index.html",
+)
 OPTIONAL_FILES = ("browserconfig.xml", "data/coverage.json", "site.webmanifest")
 PUBLIC_TREES = ("assets/site", "docs", "licenses", "src")
 # Never staged, even if a public tree or file list were widened by mistake.
-EXCLUDED_PREFIXES = ("docs/implementation/", "scripts/", "tests/", ".github/", "templates/", "data/sources/",
-                     "data/discovery/")
+EXCLUDED_PREFIXES = (
+    "docs/implementation/",
+    "scripts/",
+    "tests/",
+    ".github/",
+    "templates/",
+    "data/sources/",
+    "data/discovery/",
+)
 ORIGINALS_ROOT = paths.ASSET_ROOT  # assets/public
 THUMBS_ROOT = schema.THUMB_DIR  # assets/thumbs
 CATALOG_JSON = "data/catalog.json"
@@ -77,8 +93,10 @@ CATALOG_JS = "data/catalog.js"
 # Left out, in this order, only when the staged site would exceed the budget (09, Catalog presentation rules): files the
 # pages never load. The full manifest stays in the repository.
 OMIT_OVER_BUDGET = (CATALOG_JSON,)
-OMIT_REASON = ("left out because the staged site would exceed the budget with it; the pages never load it (they read "
-               "data/catalog.js) and the repository keeps it")
+OMIT_REASON = (
+    "left out because the staged site would exceed the budget with it; the pages never load it (they read "
+    "data/catalog.js) and the repository keeps it"
+)
 CATALOG_JS_PREFIX = "window.DYNAMIX_CATALOG = "
 CATALOG_JS_SUFFIX = ";\n"
 BUDGET_BYTES = schema.PAGES_BUDGET_BYTES
@@ -154,8 +172,9 @@ def regular_file(root: Path, rel: str, tracked: Mapping[str, str]) -> Path:
     if mode is None:
         raise PagesError(f"not tracked by Git: {rel}")
     if mode not in REGULAR_MODES:
-        raise PagesError(f"symlinks, submodules and other non-regular Git entries must not be published: {rel} "
-                         f"(mode {mode})")
+        raise PagesError(
+            f"symlinks, submodules and other non-regular Git entries must not be published: {rel} (mode {mode})"
+        )
     try:
         path = paths.safe_path(root, rel)
     except ValueError as error:
@@ -181,7 +200,7 @@ def load_catalog(root: Path, tracked: Mapping[str, str]) -> dict:
     if not script.startswith(CATALOG_JS_PREFIX) or not script.endswith(CATALOG_JS_SUFFIX):
         raise PagesError(f"{CATALOG_JS} must be {CATALOG_JS_PREFIX!r} + JSON + {CATALOG_JS_SUFFIX!r}")
     try:
-        encoded = manifest.loads(script[len(CATALOG_JS_PREFIX):-len(CATALOG_JS_SUFFIX)])
+        encoded = manifest.loads(script[len(CATALOG_JS_PREFIX) : -len(CATALOG_JS_SUFFIX)])
     except ValueError as error:
         raise PagesError(f"{CATALOG_JS} does not contain valid JSON: {error}") from None
     if encoded != catalog:
@@ -227,8 +246,10 @@ def catalog_entries(catalog: Mapping[str, Any]) -> tuple[list[Entry], list[Entry
         if problem:
             raise PagesError(f"{CATALOG_JSON}: asset {label!r}: {problem}")
         if asset["sha256"] in seen_sha:
-            raise PagesError(f"{CATALOG_JSON}: assets {seen_sha[asset['sha256']]!r} and {label!r} share a SHA-256; "
-                             "the catalog must be deduplicated")
+            raise PagesError(
+                f"{CATALOG_JSON}: assets {seen_sha[asset['sha256']]!r} and {label!r} share a SHA-256; "
+                "the catalog must be deduplicated"
+            )
         seen_sha[asset["sha256"]] = label
         if asset["site_original"]:
             originals.append(Entry(asset["path"], "site_original", asset["sha256"], asset["bytes"]))
@@ -284,11 +305,16 @@ def plan(root: Path, tracked: Mapping[str, str]) -> tuple[list[Entry], dict]:
         "archive_only_originals": {"files": len(archive_only), "bytes": sum(a["bytes"] for a in archive_only)},
         "unstaged_public_files": _unstaged(root, tracked, ORIGINALS_ROOT, staged),
         "unstaged_previews": _unstaged(root, tracked, THUMBS_ROOT, staged),
-        "other_tracked_files": sum(1 for rel in tracked if rel not in staged and not rel.startswith(
-            (ORIGINALS_ROOT + "/", THUMBS_ROOT + "/"))),
+        "other_tracked_files": sum(
+            1 for rel in tracked if rel not in staged and not rel.startswith((ORIGINALS_ROOT + "/", THUMBS_ROOT + "/"))
+        ),
     }
-    counts = {"assets": len(catalog["assets"]), "site_originals": len(originals),
-              "archive_only": len(archive_only), "previews": len(previews)}
+    counts = {
+        "assets": len(catalog["assets"]),
+        "site_originals": len(originals),
+        "archive_only": len(archive_only),
+        "previews": len(previews),
+    }
     return entries, {"excluded": excluded, "catalog": counts}
 
 
@@ -299,13 +325,16 @@ def verify_originals(entries: Iterable[Entry], digests: Mapping[str, Digest]) ->
             continue
         actual = digests[entry.path]
         if (actual.sha256, actual.bytes) != (entry.sha256, entry.bytes):
-            raise PagesError(f"{entry.path} does not match {CATALOG_JSON} (sha256 {actual.sha256}, {actual.bytes} "
-                             f"bytes; catalog {entry.sha256}, {entry.bytes} bytes); rebuild the catalog or restore "
-                             "the file")
+            raise PagesError(
+                f"{entry.path} does not match {CATALOG_JSON} (sha256 {actual.sha256}, {actual.bytes} "
+                f"bytes; catalog {entry.sha256}, {entry.bytes} bytes); rebuild the catalog or restore "
+                "the file"
+            )
 
 
-def commit_differences(entries: Iterable[Entry], digests: Mapping[str, Digest], commit: Commit,
-                       omitted: Collection[str] = ()) -> list[str]:
+def commit_differences(
+    entries: Iterable[Entry], digests: Mapping[str, Digest], commit: Commit, omitted: Collection[str] = ()
+) -> list[str]:
     """Sorted paths where the staged tree is not ``commit``'s: a staged file whose bytes are not the commit's blob at
     that path (edited, staged-only, skip-worktree or assume-unchanged, or not in the commit), and a public page file of
     the commit that is not staged (removed from the index or the work tree) unless the budget rule ``omitted`` it."""
@@ -351,19 +380,23 @@ def copy_and_hash(source: Path, destination: Path, object_format: str) -> Digest
     return digest_file(destination, object_format)
 
 
-def stage(root: Path, output: Path, entries: list[Entry], checked: Mapping[str, Digest],
-          object_format: str) -> list[tuple[str, str, int]]:
+def stage(
+    root: Path, output: Path, entries: list[Entry], checked: Mapping[str, Digest], object_format: str
+) -> list[tuple[str, str, int]]:
     """Copy every entry; returns ``(path, sha256, bytes)`` of each staged file, hashed from the staged copy, which
     must be exactly the bytes checked before copying (catalog, budget and commit checks)."""
     staged = []
     for entry in entries:
         digest = copy_and_hash(root / entry.path, output / entry.path, object_format)
         if entry.tier == "site_original" and (digest.sha256, digest.bytes) != (entry.sha256, entry.bytes):
-            raise PagesError(f"staged {entry.path} does not match the catalog (sha256 {digest.sha256}, "
-                             f"{digest.bytes} bytes)")
+            raise PagesError(
+                f"staged {entry.path} does not match the catalog (sha256 {digest.sha256}, {digest.bytes} bytes)"
+            )
         if digest != checked[entry.path]:
-            raise PagesError(f"staged {entry.path} differs from the bytes checked before copying; was the checkout "
-                             "modified while staging?")
+            raise PagesError(
+                f"staged {entry.path} differs from the bytes checked before copying; was the checkout "
+                "modified while staging?"
+            )
         staged.append((entry.path, digest.sha256, digest.bytes))
     return staged
 
@@ -372,8 +405,15 @@ def manifest_text(staged: Iterable[tuple[str, str, int]]) -> str:
     return "".join(f"{digest}  {rel}\n" for rel, digest, _ in sorted(staged))
 
 
-def summarize(output: Path, staged: list[tuple[str, str, int]], entries: list[Entry], evidence: dict, extra: dict,
-              budget: int, text: str) -> dict:
+def summarize(
+    output: Path,
+    staged: list[tuple[str, str, int]],
+    entries: list[Entry],
+    evidence: dict,
+    extra: dict,
+    budget: int,
+    text: str,
+) -> dict:
     """The run's summary: commit ``evidence`` first, then totals per tier, ``extra`` (exclusions, catalog counts) and
     the manifest digest."""
     tiers = {tier: {"files": 0, "bytes": 0} for tier in TIERS}
@@ -383,15 +423,29 @@ def summarize(output: Path, staged: list[tuple[str, str, int]], entries: list[En
         tiers[tier_of[rel]]["bytes"] += size
     total = sum(size for _, _, size in staged)
     return {
-        **evidence, "schema_version": schema.SCHEMA_VERSION, "output": str(output), "files": len(staged),
-        "bytes": total, "budget_bytes": budget, "budget_remaining_bytes": budget - total, "tiers": tiers, **extra,
+        **evidence,
+        "schema_version": schema.SCHEMA_VERSION,
+        "output": str(output),
+        "files": len(staged),
+        "bytes": total,
+        "budget_bytes": budget,
+        "budget_remaining_bytes": budget - total,
+        "tiers": tiers,
+        **extra,
         "manifest_format": MANIFEST_FORMAT,
         "manifest_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
     }
 
 
-def prepare(root: Path, output: Path, tracked: Mapping[str, str] | Iterable[str], *, commit: Commit,
-            allow_dirty: bool = False, budget: int = BUDGET_BYTES) -> tuple[dict, str]:
+def prepare(
+    root: Path,
+    output: Path,
+    tracked: Mapping[str, str] | Iterable[str],
+    *,
+    commit: Commit,
+    allow_dirty: bool = False,
+    budget: int = BUDGET_BYTES,
+) -> tuple[dict, str]:
     """Stage the site; returns ``(summary, manifest text)``. ``tracked`` maps path -> Git mode (or lists paths);
     ``commit`` is what the staged bytes must equal unless ``allow_dirty`` (the summary records the differences)."""
     root = Path(root).resolve()
@@ -406,12 +460,18 @@ def prepare(root: Path, output: Path, tracked: Mapping[str, str] | Iterable[str]
     differs = commit_differences(entries, digests, commit, [item["path"] for item in omitted])
     if differs and not allow_dirty:
         against = f"commit {commit.sha}" if commit.sha else "a commit (the repository has no HEAD)"
-        raise PagesError(f"{len(differs)} public file(s) differ from {against} (commit them or pass --allow-dirty): "
-                         f"{differs[:DIFF_LIMIT]}")
+        raise PagesError(
+            f"{len(differs)} public file(s) differ from {against} (commit them or pass --allow-dirty): "
+            f"{differs[:DIFF_LIMIT]}"
+        )
     if sum(digest.bytes for digest in digests.values()) > budget:
         raise PagesError(f"Pages payload exceeds the {budget}-byte budget (files grew while being checked)")
-    evidence = {"commit": commit.sha, "allow_dirty": allow_dirty, "matches_commit": not differs,
-                "differs_from_commit": differs}
+    evidence = {
+        "commit": commit.sha,
+        "allow_dirty": allow_dirty,
+        "matches_commit": not differs,
+        "differs_from_commit": differs,
+    }
     output.mkdir(parents=True, exist_ok=False)
     try:
         staged = stage(root, output, entries, digests, commit.object_format)
@@ -468,8 +528,11 @@ def head_commit(root: Path) -> Commit:
     if object_format not in OBJECT_FORMATS:
         raise PagesError(f"unsupported Git object format {object_format!r}")
     try:
-        result = subprocess.run(["git", "-C", str(root), "rev-parse", "--verify", "--quiet", "HEAD^{commit}"],
-                                capture_output=True, check=False)
+        result = subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "--verify", "--quiet", "HEAD^{commit}"],
+            capture_output=True,
+            check=False,
+        )
     except OSError as error:
         raise PagesError(f"cannot run git: {error}") from None
     if result.returncode != 0:
@@ -502,8 +565,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=ROOT, help="checkout to stage (default: this repository)")
     parser.add_argument("--summary", type=Path, help="also write the JSON summary here")
     parser.add_argument("--manifest", type=Path, help="write the sha256sum manifest of staged files here")
-    parser.add_argument("--allow-dirty", action="store_true",
-                        help="stage public files that differ from HEAD (recorded in the summary)")
+    parser.add_argument(
+        "--allow-dirty", action="store_true", help="stage public files that differ from HEAD (recorded in the summary)"
+    )
     args = parser.parse_args(argv)
     root = args.root.resolve()
     try:

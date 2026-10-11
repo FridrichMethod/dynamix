@@ -87,9 +87,18 @@ NEVER_STAGED = {
 
 def catalog_asset(asset_id, path, data, kind, fmt, thumb):
     site = schema.tier_for(kind, fmt) == "site"
-    return {"id": asset_id, "path": path, "url": schema.catalog_url(path), "sha256": sha256(data),
-            "bytes": len(data), "kind": kind, "format": fmt, "site_original": site,
-            "thumb": schema.thumb_relpath(sha256(data)) if thumb else None, "title": "x"}
+    return {
+        "id": asset_id,
+        "path": path,
+        "url": schema.catalog_url(path),
+        "sha256": sha256(data),
+        "bytes": len(data),
+        "kind": kind,
+        "format": fmt,
+        "site_original": site,
+        "thumb": schema.thumb_relpath(sha256(data)) if thumb else None,
+        "title": "x",
+    }
 
 
 class Checkout:
@@ -99,14 +108,30 @@ class Checkout:
         self.root = base / "checkout"
         self.root.mkdir()
         self.tracked: dict[str, str] = {}
-        self.catalog = {"schema_version": 1, "assets": [
-            catalog_asset("wikis:miraheze:" + sha256(ORIGINAL)[:16], SITE_ORIGINAL_PATH, ORIGINAL, "song_art", "PNG",
-                          True),
-            catalog_asset("archives:hkstp:" + sha256(ARCHIVE_PDF)[:16], ARCHIVE_PDF_PATH, ARCHIVE_PDF, "reference",
-                          "PDF", False),
-            catalog_asset("archives:hkstp:" + sha256(ARCHIVE_PNG)[:16], ARCHIVE_PNG_PATH, ARCHIVE_PNG,
-                          "gameplay_screenshot", "PNG", True),
-        ]}
+        self.catalog = {
+            "schema_version": 1,
+            "assets": [
+                catalog_asset(
+                    "wikis:miraheze:" + sha256(ORIGINAL)[:16], SITE_ORIGINAL_PATH, ORIGINAL, "song_art", "PNG", True
+                ),
+                catalog_asset(
+                    "archives:hkstp:" + sha256(ARCHIVE_PDF)[:16],
+                    ARCHIVE_PDF_PATH,
+                    ARCHIVE_PDF,
+                    "reference",
+                    "PDF",
+                    False,
+                ),
+                catalog_asset(
+                    "archives:hkstp:" + sha256(ARCHIVE_PNG)[:16],
+                    ARCHIVE_PNG_PATH,
+                    ARCHIVE_PNG,
+                    "gameplay_screenshot",
+                    "PNG",
+                    True,
+                ),
+            ],
+        }
         for rel, data in {**PAGE_FILES, **NEVER_STAGED, SITE_ORIGINAL_PATH: ORIGINAL}.items():
             self.write(rel, data)
         self.write(schema.thumb_relpath(sha256(ORIGINAL)), b"RIFF thumb a")
@@ -128,13 +153,24 @@ class Checkout:
 
     def commit(self) -> "pages.Commit":
         """A commit holding exactly the current bytes of every tracked regular file (as if committed just now)."""
-        blobs = {rel: git_blob((self.root / rel).read_bytes()) for rel in self.tracked
-                 if os.path.isfile(self.root / rel) and not os.path.islink(self.root / rel)}
+        blobs = {
+            rel: git_blob((self.root / rel).read_bytes())
+            for rel in self.tracked
+            if os.path.isfile(self.root / rel) and not os.path.islink(self.root / rel)
+        }
         return pages.Commit(FAKE_HEAD, blobs, "sha1")
 
 
-EXPECTED = sorted({*PAGE_FILES, "data/catalog.json", "data/catalog.js", SITE_ORIGINAL_PATH,
-                   schema.thumb_relpath(sha256(ORIGINAL)), schema.thumb_relpath(sha256(ARCHIVE_PNG))})
+EXPECTED = sorted(
+    {
+        *PAGE_FILES,
+        "data/catalog.json",
+        "data/catalog.js",
+        SITE_ORIGINAL_PATH,
+        schema.thumb_relpath(sha256(ORIGINAL)),
+        schema.thumb_relpath(sha256(ARCHIVE_PNG)),
+    }
+)
 
 
 def staged_files(output: Path) -> list[str]:
@@ -191,10 +227,13 @@ class AllowlistTests(PagesTestCase):
         self.assertTrue((self.output / schema.thumb_relpath(sha256(ARCHIVE_PNG))).is_file())
         originals = [rel for rel in staged_files(self.output) if rel.startswith("assets/public/")]
         self.assertEqual(originals, [SITE_ORIGINAL_PATH])
-        self.assertEqual(summary["excluded"]["archive_only_originals"],
-                         {"files": 2, "bytes": len(ARCHIVE_PDF) + len(ARCHIVE_PNG)})
-        self.assertEqual(summary["excluded"]["unstaged_public_files"],
-                         {"files": 3, "bytes": len(ORIGINAL) + len(ARCHIVE_PDF) + len(ARCHIVE_PNG)})
+        self.assertEqual(
+            summary["excluded"]["archive_only_originals"], {"files": 2, "bytes": len(ARCHIVE_PDF) + len(ARCHIVE_PNG)}
+        )
+        self.assertEqual(
+            summary["excluded"]["unstaged_public_files"],
+            {"files": 3, "bytes": len(ORIGINAL) + len(ARCHIVE_PDF) + len(ARCHIVE_PNG)},
+        )
         self.assertEqual(summary["excluded"]["unstaged_previews"]["files"], 1)
 
     def test_widened_selection_still_cannot_publish_excluded_trees(self):
@@ -240,8 +279,13 @@ class SafetyTests(PagesTestCase):
         self.checkout.tracked["src/archive.js"] = "100644"
 
     def test_traversal_and_out_of_tree_catalog_paths_are_rejected(self):
-        for bad in ("assets/public/../../../etc/passwd", "data/catalog.json", "/etc/passwd",
-                    "assets/public/wikis\\x.png", "assets/public/wikis/a:b.png"):
+        for bad in (
+            "assets/public/../../../etc/passwd",
+            "data/catalog.json",
+            "/etc/passwd",
+            "assets/public/wikis\\x.png",
+            "assets/public/wikis/a:b.png",
+        ):
             with self.subTest(path=bad):
                 checkout = self.checkout
                 original = checkout.catalog["assets"][0]
@@ -277,8 +321,9 @@ class SafetyTests(PagesTestCase):
         commit = self.checkout.commit()
         self.checkout.write("scripts/build_catalog.py", b"print('edited')\n")  # not published, so not relevant
         summary, _ = self.prepare(commit=commit)
-        self.assertEqual((summary["commit"], summary["matches_commit"], summary["differs_from_commit"]),
-                         (FAKE_HEAD, True, []))
+        self.assertEqual(
+            (summary["commit"], summary["matches_commit"], summary["differs_from_commit"]), (FAKE_HEAD, True, [])
+        )
         self.output = self.base / "site-2"
         self.checkout.write("index.html", b"<!doctype html><title>uncommitted</title>\n")
         self.assertRefused(r"1 public file\(s\) differ from commit c0ffee0+ .*\['index.html'\]", commit=commit)
@@ -312,15 +357,17 @@ class SafetyTests(PagesTestCase):
 
 class BudgetTests(PagesTestCase):
     def payload_bytes(self) -> int:
-        summary, _ = pages.prepare(self.checkout.root, self.base / "probe", self.checkout.tracked,
-                                   commit=self.checkout.commit())
+        summary, _ = pages.prepare(
+            self.checkout.root, self.base / "probe", self.checkout.tracked, commit=self.checkout.commit()
+        )
         return summary["bytes"]
 
     def test_budget_is_inclusive_and_overflow_fails_before_copying(self):
         total = self.payload_bytes()
         manifest_bytes = (self.checkout.root / "data/catalog.json").stat().st_size
-        self.assertRefused("exceeds the [0-9]+-byte budget even without data/catalog.json",
-                           budget=total - manifest_bytes - 1)
+        self.assertRefused(
+            "exceeds the [0-9]+-byte budget even without data/catalog.json", budget=total - manifest_bytes - 1
+        )
         summary, _ = self.prepare(budget=total)
         self.assertEqual(summary["budget_remaining_bytes"], 0)
         self.assertEqual(summary["omitted_over_budget"], [])
@@ -333,8 +380,10 @@ class BudgetTests(PagesTestCase):
         summary, _ = self.prepare(budget=total - 1)
         self.assertNotIn("data/catalog.json", staged_files(self.output))
         self.assertEqual(staged_files(self.output), [rel for rel in EXPECTED if rel != "data/catalog.json"])
-        self.assertEqual([(item["path"], item["bytes"]) for item in summary["omitted_over_budget"]],
-                         [("data/catalog.json", manifest_bytes)])
+        self.assertEqual(
+            [(item["path"], item["bytes"]) for item in summary["omitted_over_budget"]],
+            [("data/catalog.json", manifest_bytes)],
+        )
         self.assertEqual(summary["bytes"], total - manifest_bytes)
         self.assertTrue(summary["matches_commit"], summary["differs_from_commit"])
 
@@ -381,8 +430,12 @@ class IntegrityTests(PagesTestCase):
         self.assertRefused("not tracked by Git")
 
     def test_duplicate_sha256_in_catalog_fails(self):
-        twin = dict(self.checkout.catalog["assets"][0], id="wikis:fandom:" + sha256(ORIGINAL)[:16],
-                    path=DUPLICATE_COPY_PATH, url=schema.catalog_url(DUPLICATE_COPY_PATH))
+        twin = dict(
+            self.checkout.catalog["assets"][0],
+            id="wikis:fandom:" + sha256(ORIGINAL)[:16],
+            path=DUPLICATE_COPY_PATH,
+            url=schema.catalog_url(DUPLICATE_COPY_PATH),
+        )
         self.checkout.catalog["assets"].append(twin)
         self.checkout.write_catalog()
         self.assertRefused("share a SHA-256")
@@ -425,8 +478,9 @@ class IntegrityTests(PagesTestCase):
         path = self.checkout.root / "NOTICE"
         data = path.read_bytes()
         self.assertEqual(pages.digest_file(path, "sha1"), pages.Digest(sha256(data), git_blob(data), len(data)))
-        self.assertEqual(pages.digest_file(path, "sha256").blob,
-                         hashlib.sha256(b"blob %d\0" % len(data) + data).hexdigest())
+        self.assertEqual(
+            pages.digest_file(path, "sha256").blob, hashlib.sha256(b"blob %d\0" % len(data) + data).hexdigest()
+        )
         with self.assertRaisesRegex(pages.PagesError, "unsupported Git object format"):
             pages.digest_file(path, "md5")
 
@@ -434,8 +488,9 @@ class IntegrityTests(PagesTestCase):
 class DigestTests(PagesTestCase):
     def test_digest_is_deterministic_and_matches_a_sha256sum_manifest(self):
         first, text = self.prepare()
-        second, text_again = pages.prepare(self.checkout.root, self.base / "elsewhere/site", self.checkout.tracked,
-                                           commit=self.checkout.commit())
+        second, text_again = pages.prepare(
+            self.checkout.root, self.base / "elsewhere/site", self.checkout.tracked, commit=self.checkout.commit()
+        )
         self.assertEqual(text, text_again)
         self.assertEqual(first["manifest_sha256"], second["manifest_sha256"])
         self.assertEqual(first["manifest_sha256"], sha256(text.encode("utf-8")))
@@ -449,8 +504,9 @@ class DigestTests(PagesTestCase):
     def test_digest_changes_with_content(self):
         before, _ = self.prepare()
         self.checkout.write("src/archive.js", b"// ui changed\n")
-        after, _ = pages.prepare(self.checkout.root, self.base / "site-2", self.checkout.tracked,
-                                 commit=self.checkout.commit())
+        after, _ = pages.prepare(
+            self.checkout.root, self.base / "site-2", self.checkout.tracked, commit=self.checkout.commit()
+        )
         self.assertNotEqual(before["manifest_sha256"], after["manifest_sha256"])
 
 
@@ -460,13 +516,20 @@ def git_available() -> bool:
 
 @unittest.skipUnless(git_available(), "needs git to build a temporary repository")
 class CommandLineTests(PagesTestCase):
-    ENV = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@example.invalid", "GIT_COMMITTER_NAME": "t",
-           "GIT_COMMITTER_EMAIL": "t@example.invalid", "GIT_CONFIG_NOSYSTEM": "1", "HOME": "/nonexistent"}
+    ENV = {
+        "GIT_AUTHOR_NAME": "t",
+        "GIT_AUTHOR_EMAIL": "t@example.invalid",
+        "GIT_COMMITTER_NAME": "t",
+        "GIT_COMMITTER_EMAIL": "t@example.invalid",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "HOME": "/nonexistent",
+    }
 
     def git(self, *args):
         env = {**os.environ, **self.ENV}
-        return subprocess.run(["git", "-C", str(self.checkout.root), *args], check=True, capture_output=True,
-                              env=env).stdout.decode()
+        return subprocess.run(
+            ["git", "-C", str(self.checkout.root), *args], check=True, capture_output=True, env=env
+        ).stdout.decode()
 
     def setUp(self):
         super().setUp()
@@ -483,18 +546,31 @@ class CommandLineTests(PagesTestCase):
         self.assertEqual(self.main("--summary", str(summary_path), "--manifest", str(manifest_path)), 0)
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         self.assertEqual(summary["commit"], self.git("rev-parse", "HEAD").strip())
-        self.assertEqual((summary["allow_dirty"], summary["matches_commit"], summary["differs_from_commit"]),
-                         (False, True, []))
+        self.assertEqual(
+            (summary["allow_dirty"], summary["matches_commit"], summary["differs_from_commit"]), (False, True, [])
+        )
         self.assertEqual(staged_files(self.output), EXPECTED)
         text = manifest_path.read_text(encoding="utf-8")
         self.assertEqual(summary["manifest_sha256"], sha256(text.encode("utf-8")))
         if shutil.which("sha256sum"):
-            subprocess.run(["sha256sum", "--check", "--quiet", "--strict", str(manifest_path)], cwd=self.output,
-                           check=True)
+            subprocess.run(
+                ["sha256sum", "--check", "--quiet", "--strict", str(manifest_path)], cwd=self.output, check=True
+            )
 
     def test_script_runs_isolated_as_ci_invokes_it(self):
-        result = subprocess.run([sys.executable, "-I", str(ROOT / "scripts/prepare_pages.py"), "--root",
-                                 str(self.checkout.root), "--output", str(self.output)], capture_output=True, text=True)
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-I",
+                str(ROOT / "scripts/prepare_pages.py"),
+                "--root",
+                str(self.checkout.root),
+                "--output",
+                str(self.output),
+            ],
+            capture_output=True,
+            text=True,
+        )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["files"], len(EXPECTED))
 
@@ -511,14 +587,19 @@ class CommandLineTests(PagesTestCase):
         self.assertEqual(self.main("--allow-dirty", "--summary", str(summary_path)), 0)
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         self.assertEqual(summary["commit"], self.git("rev-parse", "HEAD").strip())
-        self.assertEqual((summary["allow_dirty"], summary["matches_commit"], summary["differs_from_commit"]),
-                         (True, False, ["archive.html"]))
+        self.assertEqual(
+            (summary["allow_dirty"], summary["matches_commit"], summary["differs_from_commit"]),
+            (True, False, ["archive.html"]),
+        )
         self.assertEqual((self.output / "archive.html").read_text(encoding="utf-8"), "edited")
 
     def test_cli_compares_with_head_not_git_status(self):
         """Edits git status does not report (skip-worktree, assume-unchanged) or only staged still differ from HEAD."""
-        for label, flag in (("skip-worktree", "--skip-worktree"), ("assume-unchanged", "--assume-unchanged"),
-                            ("staged only", None)):
+        for label, flag in (
+            ("skip-worktree", "--skip-worktree"),
+            ("assume-unchanged", "--assume-unchanged"),
+            ("staged only", None),
+        ):
             with self.subTest(case=label):
                 self.git("checkout", "-q", "--", ".")
                 if flag:
@@ -570,8 +651,9 @@ class CommandLineTests(PagesTestCase):
         fresh = self.base / "fresh"
         shutil.copytree(self.checkout.root, fresh, ignore=shutil.ignore_patterns(".git"))
         subprocess.run(["git", "-C", str(fresh), "init", "-q"], check=True, capture_output=True)
-        subprocess.run(["git", "-C", str(fresh), "add", "--", *sorted(self.checkout.tracked)], check=True,
-                       capture_output=True)
+        subprocess.run(
+            ["git", "-C", str(fresh), "add", "--", *sorted(self.checkout.tracked)], check=True, capture_output=True
+        )
         status, err = self.main_with_stderr(root=fresh)
         self.assertEqual(status, 1)
         self.assertIn("the repository has no HEAD", err)
@@ -609,8 +691,11 @@ class CommandLineTests(PagesTestCase):
         self.assertFalse(self.output.exists())
 
     def test_cli_reports_a_missing_git_cleanly(self):
-        with mock.patch.object(pages.subprocess, "run", side_effect=FileNotFoundError("git")), \
-                mock.patch("sys.stdout"), mock.patch("sys.stderr") as stderr:
+        with (
+            mock.patch.object(pages.subprocess, "run", side_effect=FileNotFoundError("git")),
+            mock.patch("sys.stdout"),
+            mock.patch("sys.stderr") as stderr,
+        ):
             status = pages.main(["--root", str(self.checkout.root), "--output", str(self.output)])
         self.assertEqual(status, 1)
         self.assertIn("cannot run git", "".join(call.args[0] for call in stderr.write.call_args_list))

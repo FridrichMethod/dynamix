@@ -77,6 +77,7 @@ class CatalogError(ValueError):
 
 # --- Inputs -----------------------------------------------------------------------------------------------------------
 
+
 def git_environment() -> dict[str, str]:
     """The environment without GIT_* variables, which a hook or linked worktree exports and which would point git
     commands run for another root at the enclosing checkout."""
@@ -88,13 +89,22 @@ def tracked_files(root: Path, directories: Iterable[str]) -> list[str] | None:
     checkout (or Git is unavailable)."""
     environment = git_environment()
     try:
-        top = subprocess.run(["git", "-C", str(root), "rev-parse", "--show-toplevel"], capture_output=True,
-                             text=True, check=True, env=environment)
+        top = subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+            capture_output=True,
+            text=True,
+            check=True,
+            env=environment,
+        )
         if Path(top.stdout.strip()).resolve() != Path(root).resolve():
             return None
-        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z", "--", *directories], capture_output=True,
-                                check=True, env=environment)
-    except (OSError, subprocess.CalledProcessError):
+        listed = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "-z", "--", *directories],
+            capture_output=True,
+            check=True,
+            env=environment,
+        )
+    except OSError, subprocess.CalledProcessError:
         return None
     return sorted(name.decode("utf-8") for name in listed.stdout.split(b"\0") if name)
 
@@ -121,8 +131,10 @@ def load_manifests(root: Path, *, strict: bool | None = None) -> dict[str, dict]
                 listed = tracked_files(root, ["data/sources"])
                 queried, tracked = True, None if listed is None else set(listed)
             if tracked is None and strict:
-                raise CatalogError(f"{rel} is missing and Git cannot be queried at the repository root to confirm "
-                                   "that it was never committed: restore it, or run where `git ls-files` works")
+                raise CatalogError(
+                    f"{rel} is missing and Git cannot be queried at the repository root to confirm "
+                    "that it was never committed: restore it, or run where `git ls-files` works"
+                )
             if tracked is not None and rel in tracked:
                 raise CatalogError(f"{rel} is tracked by Git but missing on disk: restore it")
             result[family] = manifest.empty_manifest(family)
@@ -160,6 +172,7 @@ def source_records(manifests: Mapping[str, Mapping[str, Any]]) -> tuple[list[dic
 
 
 # --- Titles -----------------------------------------------------------------------------------------------------------
+
 
 def _evidence_items(record: Mapping[str, Any]) -> list[Any]:
     return [*(record.get("mapping_evidence") or []), *(record.get("credit_evidence") or [])]
@@ -222,8 +235,10 @@ def title_problem(record: Mapping[str, Any]) -> str | None:
     family = record.get("family") or schema.source_family(record["source_id"])
     song = _confirmed_song_title(record) if family == "wikis" else None
     if song is not None:
-        return (f"title {title!r} is not the exact title {song!r} of the one song this wiki song art is confirmed "
-                f"({record['mapping_status']}) to show")
+        return (
+            f"title {title!r} is not the exact title {song!r} of the one song this wiki song art is confirmed "
+            f"({record['mapping_status']}) to show"
+        )
     name = re.split(r"[\\/]", filename)[-1]
     stem, wanted = paths.filename_stem(filename), comparable_name(title)
     if stem != name and wanted in (comparable_name(name), comparable_name(filename)):
@@ -231,11 +246,15 @@ def title_problem(record: Mapping[str, Any]) -> str | None:
     if wanted != comparable_name(stem) or _quoted_in_evidence(record, title):
         return None
     if family in TEXT_TITLED_FAMILIES:
-        return (f"title {title!r} is the stem of original_filename {filename!r}; {family} titles come from the post "
-                "or page text they cite (quote it in the record's evidence when it really is that text)")
+        return (
+            f"title {title!r} is the stem of original_filename {filename!r}; {family} titles come from the post "
+            "or page text they cite (quote it in the record's evidence when it really is that text)"
+        )
     if "_" in title:
-        return (f"title {title!r} is the File: name with underscores (original_filename {filename!r}); use the "
-                "mapped song's title, the wiki caption (quoted in evidence), or the File: title with spaces")
+        return (
+            f"title {title!r} is the File: name with underscores (original_filename {filename!r}); use the "
+            "mapped song's title, the wiki caption (quoted in evidence), or the File: title with spaces"
+        )
     return None
 
 
@@ -244,12 +263,15 @@ def check_titles(records: Iterable[Mapping[str, Any]]) -> None:
     found = [f"{record['id']}: {problem}" for record in records if (problem := title_problem(record))]
     if found:
         more = f"\n... and {len(found) - MAX_REPORTED} more" if len(found) > MAX_REPORTED else ""
-        raise CatalogError(f"{len(found)} record(s) break the title rule: a title is a human-readable name, never the "
-                           "bare upstream file name, which stays in original_filename (09-frozen-contracts.md, "
-                           "Catalog presentation rules, Titles):\n" + "\n".join(found[:MAX_REPORTED]) + more)
+        raise CatalogError(
+            f"{len(found)} record(s) break the title rule: a title is a human-readable name, never the "
+            "bare upstream file name, which stays in original_filename (09-frozen-contracts.md, "
+            "Catalog presentation rules, Titles):\n" + "\n".join(found[:MAX_REPORTED]) + more
+        )
 
 
 # --- Archived files ---------------------------------------------------------------------------------------------------
+
 
 def check_record_file(root: Path, record: Mapping[str, Any], verify: bool) -> None:
     """The record's file is a regular file inside ``assets/public/<family>/`` (no symlinked component) with the
@@ -264,8 +286,9 @@ def check_record_file(root: Path, record: Mapping[str, Any], verify: bool) -> No
     if not file.is_file():
         raise CatalogError(f"{record['id']}: missing file {record['path']}")
     if file.stat().st_size != record["bytes"]:
-        raise CatalogError(f"{record['id']}: {record['path']} has {file.stat().st_size} bytes, the record says "
-                           f"{record['bytes']}")
+        raise CatalogError(
+            f"{record['id']}: {record['path']} has {file.stat().st_size} bytes, the record says {record['bytes']}"
+        )
 
 
 def default_workers() -> int:
@@ -274,6 +297,7 @@ def default_workers() -> int:
 
 def check_files(root: Path, records: list[dict], verify: bool, workers: int | None = None) -> None:
     """Check every record's file (decoding in parallel: Pillow releases the GIL); report problems in record order."""
+
     def problem(record: dict) -> str | None:
         try:
             check_record_file(root, record, verify)
@@ -315,6 +339,7 @@ def orphan_files(root: Path, referenced: set[str]) -> list[str]:
 
 # --- Catalog ----------------------------------------------------------------------------------------------------------
 
+
 def needs_preview(asset: Mapping[str, Any]) -> bool:
     """A derived preview is needed for every archive-tier raster (Pages does not serve its original) and for gallery
     images whose long edge exceeds PREVIEW_LONG_EDGE. PDFs never get one."""
@@ -327,8 +352,12 @@ def needs_preview(asset: Mapping[str, Any]) -> bool:
 
 def provenance_entry(record: Mapping[str, Any], names: Mapping[str, str]) -> dict:
     """One source record as a catalog provenance entry (contract fields; absent optional fields are null)."""
-    entry = {"asset_id": record["id"], "source_id": record["source_id"], "source_name": names[record["source_id"]],
-             "family": record["family"]}
+    entry = {
+        "asset_id": record["id"],
+        "source_id": record["source_id"],
+        "source_name": names[record["source_id"]],
+        "family": record["family"],
+    }
     for field in schema.PROVENANCE_FIELDS[3:]:
         entry[field] = record.get(field)
     return entry
@@ -356,13 +385,20 @@ def catalog_entry(group: list[dict], names: Mapping[str, str]) -> dict:
     for field in MERGED_FIELDS:
         entry[field] = schema.ordered_union(record[field] for record in ordered)
     url = schema.catalog_url(primary["path"])
-    entry.update({
-        "family": primary["family"], "source_name": names[primary["source_id"]], "url": url, "thumb": None,
-        "gallery": schema.is_gallery(primary), "slideshow": schema.is_slideshow(primary),
-        "site_original": schema.tier_for(primary["kind"], primary["format"]) == "site",
-        "archive_url": schema.ARCHIVE_URL_PREFIX + url,
-        "provenance": [provenance_entry(record, names) for record in ordered], "variants": [],
-    })
+    entry.update(
+        {
+            "family": primary["family"],
+            "source_name": names[primary["source_id"]],
+            "url": url,
+            "thumb": None,
+            "gallery": schema.is_gallery(primary),
+            "slideshow": schema.is_slideshow(primary),
+            "site_original": schema.tier_for(primary["kind"], primary["format"]) == "site",
+            "archive_url": schema.ARCHIVE_URL_PREFIX + url,
+            "provenance": [provenance_entry(record, names) for record in ordered],
+            "variants": [],
+        }
+    )
     return entry
 
 
@@ -371,8 +407,15 @@ def _with_variants(assets: list[dict]) -> list[dict]:
     for asset in assets:
         if "variant_group" in asset:
             groups.setdefault(asset["variant_group"], []).append(asset["id"])
-    return [{**asset, "variants": sorted(other for other in groups.get(asset.get("variant_group") or "", [])
-                                         if other != asset["id"])} for asset in assets]
+    return [
+        {
+            **asset,
+            "variants": sorted(
+                other for other in groups.get(asset.get("variant_group") or "", []) if other != asset["id"]
+            ),
+        }
+        for asset in assets
+    ]
 
 
 def summarize(sources: list[dict], assets: list[dict], failures: list[dict]) -> dict:
@@ -384,19 +427,28 @@ def summarize(sources: list[dict], assets: list[dict], failures: list[dict]) -> 
     total = sum(asset["bytes"] for asset in assets)
     site = sum(asset["bytes"] for asset in assets if asset["site_original"])
     return {
-        "source_count": len(sources), "source_asset_records": len(records), "unique_files": len(assets),
+        "source_count": len(sources),
+        "source_asset_records": len(records),
+        "unique_files": len(assets),
         "gallery_images": sum(asset["gallery"] for asset in assets),
         "slideshow_images": sum(asset["slideshow"] for asset in assets),
         "exact_duplicate_records": len(records) - len(assets),
         "by_family": {family: families.get(family, 0) for family in schema.FAMILIES},
         "by_kind": {kind: kinds.get(kind, 0) for kind in schema.KINDS},
-        "failure_count": len(failures), "downloaded_bytes": total, "site_original_bytes": site,
+        "failure_count": len(failures),
+        "downloaded_bytes": total,
+        "site_original_bytes": site,
         "archive_only_bytes": total - site,
     }
 
 
-def combine(root: Path, *, verify: bool = False, manifests: Mapping[str, Mapping[str, Any]] | None = None,
-            workers: int | None = None) -> dict:
+def combine(
+    root: Path,
+    *,
+    verify: bool = False,
+    manifests: Mapping[str, Mapping[str, Any]] | None = None,
+    workers: int | None = None,
+) -> dict:
     """The catalog without previews (``thumb`` null): validated inputs, checked files, SHA-256 dedup, provenance,
     variants, deterministic order and summary. ``verify`` also rejects records titled with their file name,
     re-hashes/decodes every file and rejects orphans."""
@@ -419,20 +471,27 @@ def combine(root: Path, *, verify: bool = False, manifests: Mapping[str, Mapping
     catalog_sources = []
     for source in sorted(sources, key=lambda item: item["id"]):
         if "asset_count" in source and source["asset_count"] != counts[source["id"]]:
-            raise CatalogError(f"source {source['id']!r}: asset_count {source['asset_count']} but the manifest has "
-                               f"{counts[source['id']]} records")
+            raise CatalogError(
+                f"source {source['id']!r}: asset_count {source['asset_count']} but the manifest has "
+                f"{counts[source['id']]} records"
+            )
         catalog_sources.append(schema.canonical({**source, "asset_count": counts[source["id"]]}, "source"))
     failures = sorted(failures, key=lambda failure: failure["id"])
     return {
-        "schema_version": schema.SCHEMA_VERSION, "owner": schema.OWNER, "game": schema.CATALOG_GAME,
+        "schema_version": schema.SCHEMA_VERSION,
+        "owner": schema.OWNER,
+        "game": schema.CATALOG_GAME,
         "repository": schema.REPOSITORY,
         "snapshots": {family: manifests[family]["fetched_at"] for family in schema.FAMILIES},
-        "sources": catalog_sources, "assets": assets, "failures": failures,
+        "sources": catalog_sources,
+        "assets": assets,
+        "failures": failures,
         "summary": summarize(catalog_sources, assets, failures),
     }
 
 
 # --- Previews ---------------------------------------------------------------------------------------------------------
+
 
 def _thumb_entry_problem(sha256: str, entry: Any) -> str | None:
     if not _HEX64.fullmatch(sha256):
@@ -461,8 +520,11 @@ def load_thumbs(root: Path) -> dict | None:
         raise CatalogError(f"{THUMBS_MANIFEST}: {error}") from None
     if not isinstance(value, dict) or sorted(value) != ["description", "encoder", "schema_version", "thumbnails"]:
         raise CatalogError(f"{THUMBS_MANIFEST}: needs exactly schema_version, description, encoder, thumbnails")
-    if value["schema_version"] != schema.SCHEMA_VERSION or not isinstance(value["encoder"], dict) \
-            or not isinstance(value["thumbnails"], dict):
+    if (
+        value["schema_version"] != schema.SCHEMA_VERSION
+        or not isinstance(value["encoder"], dict)
+        or not isinstance(value["thumbnails"], dict)
+    ):
         raise CatalogError(f"{THUMBS_MANIFEST}: schema_version 1 with an encoder object and a thumbnails object")
     for sha256, entry in value["thumbnails"].items():
         problem = _thumb_entry_problem(sha256, entry)
@@ -479,8 +541,7 @@ def file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def attach_thumbnails(root: Path, catalog: Mapping[str, Any], *, verify: bool = False,
-                      required: bool = True) -> dict:
+def attach_thumbnails(root: Path, catalog: Mapping[str, Any], *, verify: bool = False, required: bool = True) -> dict:
     """A copy of the catalog whose entries that need a preview point at it (``thumb``). The repository build requires
     data/thumbs.json and a current preview for every such entry; ``required=False`` (a fixture without previews)
     leaves ``thumb`` null when the manifest is absent. ``url`` always stays the original."""
@@ -496,8 +557,7 @@ def attach_thumbnails(root: Path, catalog: Mapping[str, Any], *, verify: bool = 
             continue
         entry = thumbs["thumbnails"].get(asset["sha256"])
         if entry is None:
-            raise CatalogError(f"{THUMBS_MANIFEST} has no preview for {asset['path']}: run "
-                               "scripts/build_thumbnails.py")
+            raise CatalogError(f"{THUMBS_MANIFEST} has no preview for {asset['path']}: run scripts/build_thumbnails.py")
         try:
             file = paths.safe_path(root, entry["path"], under=schema.THUMB_DIR)
         except ValueError as error:
@@ -511,6 +571,7 @@ def attach_thumbnails(root: Path, catalog: Mapping[str, Any], *, verify: bool = 
 
 
 # --- Outputs ----------------------------------------------------------------------------------------------------------
+
 
 def catalog_script(catalog: Mapping[str, Any]) -> str:
     """``window.DYNAMIX_CATALOG = <JSON>;``: compact JSON in which every ``<`` (so ``</script>`` and ``<!--``) and
@@ -610,10 +671,14 @@ def build(root: Path, *, verify: bool = False, check: bool = False, workers: int
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
-                                     formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
-    parser.add_argument("--verify", action="store_true", help="re-hash and decode every archived file and preview, "
-                                                              "and reject orphans under assets/public/")
+    parser = argparse.ArgumentParser(
+        description=__doc__.split("\n\n")[0], formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__
+    )
+    parser.add_argument(
+        "--verify",
+        action="store_true",
+        help="re-hash and decode every archived file and preview, and reject orphans under assets/public/",
+    )
     parser.add_argument("--check", action="store_true", help="compare regenerated outputs without writing")
     parser.add_argument("--root", type=Path, default=REPO_ROOT, help="repository-shaped tree (default: %(default)s)")
     parser.add_argument("--workers", type=int, help="files decoded in parallel by --verify (default: up to 8)")

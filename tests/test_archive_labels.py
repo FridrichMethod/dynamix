@@ -16,34 +16,110 @@ CATALOGS = [path for path in (ROOT / "tests/fixtures/ui/catalog.json", ROOT / "d
 # Enumerations of docs/implementation/09-frozen-contracts.md (schema version 1). A label must exist before a value first
 # appears in a catalog, so the full vocabularies are checked, not only the values seen.
 CONTRACT_TOKENS = {
-    "kind": {"song_art", "pack_cover", "character", "background", "part", "promotional", "store_screenshot", "gameplay_screenshot", "process", "reference"},
+    "kind": {
+        "song_art",
+        "pack_cover",
+        "character",
+        "background",
+        "part",
+        "promotional",
+        "store_screenshot",
+        "gameplay_screenshot",
+        "process",
+        "reference",
+    },
     "family": {"artists", "official", "wikis", "archives"},
-    "status": {"available", "partially_available", "temporarily_unavailable", "manual_access", "metadata_only", "excluded"},
+    "status": {
+        "available",
+        "partially_available",
+        "temporarily_unavailable",
+        "manual_access",
+        "metadata_only",
+        "excluded",
+    },
     "mapping": {"confirmed_primary", "confirmed_wiki", "inferred", "unmapped", "conflict"},
     "quality.source_variant": {"site_original", "preview", "unknown"},
     "quality.origin_status": {"artist_post", "official", "wiki_copy", "repost", "scan", "unknown"},
     "quality.master_status": {"confirmed", "unverified"},
     "upstream": {"current", "removed", "superseded", "unknown"},
     "phase": {"discover", "download", "decode", "verify"},
-    "error": {"http_4xx", "http_5xx", "timeout", "blocked", "challenge", "decode_error", "size_limit", "host_not_allowed", "other"},
+    "error": {
+        "http_4xx",
+        "http_5xx",
+        "timeout",
+        "blocked",
+        "challenge",
+        "decode_error",
+        "size_limit",
+        "host_not_allowed",
+        "other",
+    },
     "comparison": {"sha1_match", "bytes_match", "dimensions_match", "format_match"},
     "credit.role": {"illustrator", "composer", "other"},
 }
 # Provenance-record fields src/archive.js shows in the viewer (or uses for search and filters).
 SHOWN_PROVENANCE = {
-    "asset_id", "source_id", "source_name", "family", "page_url", "download_url", "resolved_url", "quality", "rights", "mapping_status",
-    "mapping_evidence", "credit_evidence", "illustrators", "composers", "song_titles", "collections", "source_reported", "comparisons",
-    "upstream_status", "superseded_by", "notes",
+    "asset_id",
+    "source_id",
+    "source_name",
+    "family",
+    "page_url",
+    "download_url",
+    "resolved_url",
+    "quality",
+    "rights",
+    "mapping_status",
+    "mapping_evidence",
+    "credit_evidence",
+    "illustrators",
+    "composers",
+    "song_titles",
+    "collections",
+    "source_reported",
+    "comparisons",
+    "upstream_status",
+    "superseded_by",
+    "notes",
 }
 IGNORED_PROVENANCE = {
     "song_ids": "project song keys; the record's verbatim song titles are shown",
 }
 # Catalog-asset fields the page shows (grid, viewer, file info, links) or uses to decide what to show.
 SHOWN_ASSET = {
-    "id", "source_id", "title", "kind", "page_url", "path", "original_filename", "bytes", "sha256", "sha1", "format", "mime",
-    "width", "height", "fetched_at", "illustrators", "composers", "song_titles", "collections", "download_observed",
-    "variant_role", "upstream_revision", "transformed", "game_associations", "family", "source_name", "url", "thumb", "gallery",
-    "slideshow", "site_original", "archive_url", "provenance", "variants",
+    "id",
+    "source_id",
+    "title",
+    "kind",
+    "page_url",
+    "path",
+    "original_filename",
+    "bytes",
+    "sha256",
+    "sha1",
+    "format",
+    "mime",
+    "width",
+    "height",
+    "fetched_at",
+    "illustrators",
+    "composers",
+    "song_titles",
+    "collections",
+    "download_observed",
+    "variant_role",
+    "upstream_revision",
+    "transformed",
+    "game_associations",
+    "family",
+    "source_name",
+    "url",
+    "thumb",
+    "gallery",
+    "slideshow",
+    "site_original",
+    "archive_url",
+    "provenance",
+    "variants",
 }
 IGNORED_ASSET = {
     "candidate_id": "internal key of the discovery snapshot; the source page and file URLs are shown",
@@ -79,7 +155,9 @@ class ArchiveLabelTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tables = message_tables()
         cls.script = (ROOT / "src/archive.js").read_text(encoding="utf-8")
-        cls.catalogs = {path.relative_to(ROOT).as_posix(): json.loads(path.read_text(encoding="utf-8")) for path in CATALOGS}
+        cls.catalogs = {
+            path.relative_to(ROOT).as_posix(): json.loads(path.read_text(encoding="utf-8")) for path in CATALOGS
+        }
 
     def assert_labelled(self, prefix, tokens):
         self.assertTrue(tokens, f"No {prefix} tokens")
@@ -123,13 +201,27 @@ class ArchiveLabelTests(unittest.TestCase):
         self.assertEqual(SHOWN_PROVENANCE & set(IGNORED_PROVENANCE), set())
         for name, catalog in self.catalogs.items():
             asset_keys = set().union(*(asset.keys() for asset in catalog["assets"])) if catalog["assets"] else set()
-            record_keys = set().union(*(record.keys() for asset in catalog["assets"] for record in asset["provenance"])) if catalog["assets"] else set()
+            record_keys = (
+                set().union(*(record.keys() for asset in catalog["assets"] for record in asset["provenance"]))
+                if catalog["assets"]
+                else set()
+            )
             with self.subTest(catalog=name):
-                self.assertEqual(sorted(asset_keys - SHOWN_ASSET - set(IGNORED_ASSET)), [], "Show these asset fields or list them in IGNORED_ASSET")
-                self.assertEqual(sorted(record_keys - SHOWN_PROVENANCE - set(IGNORED_PROVENANCE)), [], "Show these provenance fields or list them")
+                self.assertEqual(
+                    sorted(asset_keys - SHOWN_ASSET - set(IGNORED_ASSET)),
+                    [],
+                    "Show these asset fields or list them in IGNORED_ASSET",
+                )
+                self.assertEqual(
+                    sorted(record_keys - SHOWN_PROVENANCE - set(IGNORED_PROVENANCE)),
+                    [],
+                    "Show these provenance fields or list them",
+                )
 
     def test_shown_fields_are_read_by_the_page(self):
-        unread = sorted(key for key in SHOWN_ASSET | SHOWN_PROVENANCE if not re.search(rf'\.{key}\b|"{key}"', self.script))
+        unread = sorted(
+            key for key in SHOWN_ASSET | SHOWN_PROVENANCE if not re.search(rf'\.{key}\b|"{key}"', self.script)
+        )
         self.assertEqual(unread, [], "src/archive.js no longer reads these SHOWN fields")
 
     def test_every_comparison_state_has_a_sentence(self):

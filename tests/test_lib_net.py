@@ -69,21 +69,21 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
                 for start in range(0, len(body), size):
-                    self.wfile.write(body[start:start + size])
+                    self.wfile.write(body[start : start + size])
                     self.wfile.flush()
                     time.sleep(pause)
             elif response.get("chunked"):
                 self.send_header("Transfer-Encoding", "chunked")
                 self.end_headers()
                 for start in range(0, len(body), 1024):
-                    piece = body[start:start + 1024]
+                    piece = body[start : start + 1024]
                     self.wfile.write(b"%x\r\n%s\r\n" % (len(piece), piece))
                 self.wfile.write(b"0\r\n\r\n")
             else:
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
-        except (BrokenPipeError, ConnectionResetError):
+        except BrokenPipeError, ConnectionResetError:
             pass
         finally:
             script.done()
@@ -105,17 +105,24 @@ def json_body(data):
 
 
 # Cloudflare JavaScript Detections, injected into ordinary pages (not a challenge).
-JSD_SNIPPET = (b"<script>(function(){var d=document.createElement('script');d.innerHTML=\"window.__CF$cv$params="
-               b"{r:'8a1b2c3d4e5f6a7b',t:'MTcyODU2MDAwMC4wMDAwMDA='};var a=document.createElement('script');"
-               b"a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';"
-               b"document.getElementsByTagName('head')[0].appendChild(a);\";})();</script>")
-JSD_PAGE = b"<!doctype html><html><head><title>Cosmic Pulse - Dynamix Wiki</title></head><body>ok" + JSD_SNIPPET + \
-    b"</body></html>"
+JSD_SNIPPET = (
+    b"<script>(function(){var d=document.createElement('script');d.innerHTML=\"window.__CF$cv$params="
+    b"{r:'8a1b2c3d4e5f6a7b',t:'MTcyODU2MDAwMC4wMDAwMDA='};var a=document.createElement('script');"
+    b"a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';"
+    b"document.getElementsByTagName('head')[0].appendChild(a);\";})();</script>"
+)
+JSD_PAGE = (
+    b"<!doctype html><html><head><title>Cosmic Pulse - Dynamix Wiki</title></head><body>ok"
+    + JSD_SNIPPET
+    + b"</body></html>"
+)
 # A real interstitial: Cloudflare challenge options object and orchestrate script.
-CHALLENGE_PAGE = (b"<!DOCTYPE html><html><head><title>Just a moment...</title></head><body><script>"
-                  b"window._cf_chl_opt={cvId: '3',cType: 'managed'};var a=document.createElement('script');"
-                  b"a.src='/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=8a1b2c3d4e5f6a7b';"
-                  b"</script></body></html>")
+CHALLENGE_PAGE = (
+    b"<!DOCTYPE html><html><head><title>Just a moment...</title></head><body><script>"
+    b"window._cf_chl_opt={cvId: '3',cType: 'managed'};var a=document.createElement('script');"
+    b"a.src='/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=8a1b2c3d4e5f6a7b';"
+    b"</script></body></html>"
+)
 SECRETS = ("deadbeefsecret", "topsecret")
 SECRET_QUERY = "?X-Amz-Signature=deadbeefsecret&token=topsecret&format=original"
 
@@ -163,8 +170,14 @@ class SuccessTests(NetTestCase):
         self.assertNotIn("authorization", headers)
 
     def test_get_text_uses_declared_charset(self):
-        self.script.add("/page", {"status": 200, "headers": {"Content-Type": "text/html; charset=shift_jis"},
-                                  "body": "交差して歪む過去と未来".encode("shift_jis")})
+        self.script.add(
+            "/page",
+            {
+                "status": 200,
+                "headers": {"Content-Type": "text/html; charset=shift_jis"},
+                "body": "交差して歪む過去と未来".encode("shift_jis"),
+            },
+        )
         text, final_url, headers = self.client().get_text(self.url("/page"))
         self.assertEqual(text, "交差して歪む過去と未来")
         self.assertTrue(final_url.endswith("/page"))
@@ -178,16 +191,19 @@ class SuccessTests(NetTestCase):
 
     def test_download_writes_hidden_temp_file_only(self):
         payload = bytes(range(256)) * 40
-        self.script.add("/x.png", {"status": 200, "headers": {"Content-Type": "image/png", "Set-Cookie": "a=b"},
-                                   "body": payload})
+        self.script.add(
+            "/x.png", {"status": 200, "headers": {"Content-Type": "image/png", "Set-Cookie": "a=b"}, "body": payload}
+        )
         result = self.client().download(self.url("/x.png"), self.dest, "Cosmic Pulse")
         self.assertEqual(result.temp_path.parent, self.dest)
         self.assertTrue(result.temp_path.name.startswith(".Cosmic-Pulse."))
         self.assertTrue(result.temp_path.name.endswith(".part"))
         self.assertEqual(self.dest_files(), [result.temp_path.name])
         self.assertEqual(result.temp_path.read_bytes(), payload)
-        self.assertEqual((result.bytes, result.sha256, result.sha1),
-                         (len(payload), hashlib.sha256(payload).hexdigest(), hashlib.sha1(payload).hexdigest()))
+        self.assertEqual(
+            (result.bytes, result.sha256, result.sha1),
+            (len(payload), hashlib.sha256(payload).hexdigest(), hashlib.sha1(payload).hexdigest()),
+        )
         self.assertEqual((result.status, result.content_type), (200, "image/png"))
         self.assertNotIn("set-cookie", result.headers)
 
@@ -226,8 +242,9 @@ class RetryTests(NetTestCase):
         with self.assertRaises(net.HttpError) as caught:
             self.client().get_json(self.url("/api"))
         error = caught.exception
-        self.assertEqual((error.error_class, error.http_status, error.retriable, error.attempts),
-                         ("http_5xx", 503, True, 3))
+        self.assertEqual(
+            (error.error_class, error.http_status, error.retriable, error.attempts), ("http_5xx", 503, True, 3)
+        )
         self.assertEqual(self.script.hits["/api"], 3)
         self.assertEqual(self.sleeps, [1.0, 2.0])
         record = error.failure(source_id="wikis:fandom", candidate_id="wikis:fandom:File:X.png")
@@ -287,8 +304,10 @@ class BlockTests(NetTestCase):
                     self.client().get_json(self.url(f"/{status}"))
                 error = caught.exception
                 self.assertNotIsInstance(error, net.ChallengeError)
-                self.assertEqual((error.error_class, error.retriable, error.manual, error.http_status),
-                                 ("blocked", False, True, status))
+                self.assertEqual(
+                    (error.error_class, error.retriable, error.manual, error.http_status),
+                    ("blocked", False, True, status),
+                )
                 self.assertEqual(self.script.hits[f"/{status}"], 1)
         self.assertEqual(self.sleeps, [])
 
@@ -296,8 +315,14 @@ class BlockTests(NetTestCase):
         self.script.add("/marker", {"status": 403, "body": b"<html>Please complete the captcha</html>"})
         self.script.add("/title", {"status": 503, "body": b"<html><title>Just a moment...</title></html>"})
         self.script.add("/header", {"status": 503, "headers": {"cf-mitigated": "challenge"}})
-        self.script.add("/ok-challenge", {"status": 200, "headers": {"Content-Type": "text/html"},
-                                          "body": b"<title>Just a moment...</title><script src='/cdn-cgi/cf-chl'>"})
+        self.script.add(
+            "/ok-challenge",
+            {
+                "status": 200,
+                "headers": {"Content-Type": "text/html"},
+                "body": b"<title>Just a moment...</title><script src='/cdn-cgi/cf-chl'>",
+            },
+        )
         for path in ("/marker", "/title", "/header"):
             with self.subTest(path=path), self.assertRaises(net.ChallengeError) as caught:
                 self.client().get_json(self.url(path))
@@ -360,8 +385,13 @@ class BoundaryTests(NetTestCase):
 
     def test_scheme_credentials_and_allowlist(self):
         client = self.client(hosts=["127.0.0.1", ".wikia.nocookie.net", "dynamix.miraheze.org"])
-        for url in ("ftp://127.0.0.1/x", "file:///etc/passwd", f"http://user:secretpw@127.0.0.1:{self.port}/x",
-                    "http://localhost/x", "http://[::1]/x"):
+        for url in (
+            "ftp://127.0.0.1/x",
+            "file:///etc/passwd",
+            f"http://user:secretpw@127.0.0.1:{self.port}/x",
+            "http://localhost/x",
+            "http://[::1]/x",
+        ):
             with self.subTest(url=url), self.assertRaises(net.HostNotAllowedError) as caught:
                 client.get_json(url)
             self.assertNotIn("secretpw", str(caught.exception))
@@ -423,6 +453,7 @@ class UrlBoundaryTests(NetTestCase):
         def resolve(host):
             asked.append(host)
             return [answer]
+
         return asked, resolve
 
     def test_backslash_authority_is_refused_before_dns_or_contact(self):
@@ -437,7 +468,9 @@ class UrlBoundaryTests(NetTestCase):
 
     def test_redirect_to_backslash_url_is_refused_before_any_request(self):
         asked, resolve = self.resolver_spy()
-        self.script.add("/a", {"status": 302, "headers": {"Location": f"http://localhost\\.miraheze.org:{self.port}/x"}})
+        self.script.add(
+            "/a", {"status": 302, "headers": {"Location": f"http://localhost\\.miraheze.org:{self.port}/x"}}
+        )
         client = self.client(hosts=["127.0.0.1", ".miraheze.org"], resolver=resolve)
         with self.assertRaises(net.HostNotAllowedError) as caught:
             client.get_json(self.url("/a"))
@@ -462,14 +495,25 @@ class UrlBoundaryTests(NetTestCase):
             client.get_json("http://evil.example\\.miraheze.org/x")
         with self.assertRaises(ValueError):
             caught.exception.failure(source_id="wikis:miraheze", candidate_id="wikis:miraheze:File:X.png")
-        record = caught.exception.failure(source_id="wikis:miraheze", candidate_id="wikis:miraheze:File:X.png",
-                                          url="https://dynamix.miraheze.org/wiki/File:X.png")
+        record = caught.exception.failure(
+            source_id="wikis:miraheze",
+            candidate_id="wikis:miraheze:File:X.png",
+            url="https://dynamix.miraheze.org/wiki/File:X.png",
+        )
         self.assertEqual(record["error_class"], "host_not_allowed")
 
     def test_nat64_and_ipv4_compatible_addresses(self):
         client = self.client(hosts=["a.example"], allow_loopback=True)
-        for address in ("64:ff9b::a00:1", "64:ff9b::7f00:1", "64:ff9b::c0a8:105", "::10.0.0.1", "::7f00:1",
-                        "64:ff9b:1::a00:1", "2002:a00:1::1", "::ffff:10.0.0.1"):
+        for address in (
+            "64:ff9b::a00:1",
+            "64:ff9b::7f00:1",
+            "64:ff9b::c0a8:105",
+            "::10.0.0.1",
+            "::7f00:1",
+            "64:ff9b:1::a00:1",
+            "2002:a00:1::1",
+            "::ffff:10.0.0.1",
+        ):
             with self.subTest(address=address):
                 self.assertFalse(client._address_allowed(address))
         for address in ("64:ff9b::5db8:d822", "93.184.216.34", "2606:2800:220:1:248:1893:25c8:1946"):
@@ -489,8 +533,11 @@ class ChallengeDetectionTests(NetTestCase):
         self.assertEqual(result.bytes, len(JSD_PAGE))  # media decoding, not the client, rejects HTML as an image
 
     def test_javascript_detections_keep_the_real_status(self):
-        cases = {503: (net.HttpError, "http_5xx", 3), 404: (net.HttpError, "http_4xx", 1),
-                 403: (net.BlockedError, "blocked", 1)}
+        cases = {
+            503: (net.HttpError, "http_5xx", 3),
+            404: (net.HttpError, "http_4xx", 1),
+            403: (net.BlockedError, "blocked", 1),
+        }
         for status, (kind, error_class, attempts) in cases.items():
             with self.subTest(status=status):
                 self.script.add(f"/{status}", {"status": status, "body": JSD_PAGE})
@@ -504,18 +551,28 @@ class ChallengeDetectionTests(NetTestCase):
         self.script.add("/page", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": CHALLENGE_PAGE})
         self.script.add("/x.png", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": CHALLENGE_PAGE})
         self.script.add("/api", {"status": 200, "headers": {"Content-Type": "text/html"}, "body": CHALLENGE_PAGE})
-        self.script.add("/403", {"status": 403, "body": b"<html><script src='/cdn-cgi/challenge-platform/h/g/"
-                                                        b"orchestrate/chl_page/v1'></script></html>"})
+        self.script.add(
+            "/403",
+            {
+                "status": 403,
+                "body": b"<html><script src='/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1'></script></html>",
+            },
+        )
         self.script.add("/429", {"status": 429, "body": b"<html><script>window._cf_chl_opt={}</script></html>"})
-        calls = {"/page": lambda c: c.get_text(self.url("/page")),
-                 "/x.png": lambda c: c.download(self.url("/x.png"), self.dest, "x"),
-                 "/api": lambda c: c.get_json(self.url("/api")), "/403": lambda c: c.get_text(self.url("/403")),
-                 "/429": lambda c: c.get_text(self.url("/429"))}
+        calls = {
+            "/page": lambda c: c.get_text(self.url("/page")),
+            "/x.png": lambda c: c.download(self.url("/x.png"), self.dest, "x"),
+            "/api": lambda c: c.get_json(self.url("/api")),
+            "/403": lambda c: c.get_text(self.url("/403")),
+            "/429": lambda c: c.get_text(self.url("/429")),
+        }
         for path, call in calls.items():
             with self.subTest(path=path), self.assertRaises(net.ChallengeError) as caught:
                 call(self.client())
-            self.assertEqual((caught.exception.error_class, caught.exception.retriable, self.script.hits[path]),
-                             ("challenge", False, 1))
+            self.assertEqual(
+                (caught.exception.error_class, caught.exception.retriable, self.script.hits[path]),
+                ("challenge", False, 1),
+            )
         self.assertEqual(self.dest_files(), [])
         self.assertEqual(self.sleeps, [])
 

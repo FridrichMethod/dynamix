@@ -51,8 +51,9 @@ class MediaWikiAPI:
     re-run without new requests; it is never used for committed data provenance beyond what the response contained.
     """
 
-    def __init__(self, client: Any, api_url: str, *, cache_dir: str | Path | None = None,
-                 max_requests: int | None = None):
+    def __init__(
+        self, client: Any, api_url: str, *, cache_dir: str | Path | None = None, max_requests: int | None = None
+    ):
         self.client = client
         self.api_url = api_url
         self.cache_dir = Path(cache_dir) if cache_dir else None
@@ -64,12 +65,15 @@ class MediaWikiAPI:
     def _cache_path(self, params: Mapping[str, Any]) -> Path | None:
         if self.cache_dir is None:
             return None
-        key = hashlib.sha256(json.dumps([self.api_url, sorted(params.items())], ensure_ascii=False).encode()).hexdigest()
+        key = hashlib.sha256(
+            json.dumps([self.api_url, sorted(params.items())], ensure_ascii=False).encode()
+        ).hexdigest()
         return self.cache_dir / f"{key[:32]}.json"
 
     def request_url(self, params: Mapping[str, Any]) -> str:
         """The URL of a request (for error records); parameters are public API arguments."""
         from urllib.parse import urlencode
+
         return f"{self.api_url}?{urlencode(sorted(params.items()))}"
 
     def call(self, params: Mapping[str, Any]) -> dict:
@@ -89,16 +93,23 @@ class MediaWikiAPI:
             raise ApiError("response is not a JSON object", url=self.request_url(full))
         if "error" in data:
             error = data["error"] if isinstance(data["error"], dict) else {"info": str(data["error"])}
-            raise ApiError(f"API error {error.get('code', '?')}: {error.get('info', '')}"[:300],
-                           url=self.request_url(full))
+            raise ApiError(
+                f"API error {error.get('code', '?')}: {error.get('info', '')}"[:300], url=self.request_url(full)
+            )
         if cached is not None:
             cached.parent.mkdir(parents=True, exist_ok=True)
             manifest.write_json_atomic(cached, data)
         return data
 
-    def enumerate(self, name: str, params: Mapping[str, Any],
-                  merge: Callable[[dict[str, Any], dict], None], *,
-                  start: Mapping[str, Any] | None = None, list_key: str | None = None) -> ListResult:
+    def enumerate(
+        self,
+        name: str,
+        params: Mapping[str, Any],
+        merge: Callable[[dict[str, Any], dict], None],
+        *,
+        start: Mapping[str, Any] | None = None,
+        list_key: str | None = None,
+    ) -> ListResult:
         """Follow ``continue`` from ``start`` (default: the beginning) and ``merge`` each response into ``items``.
 
         With ``list_key`` (``allimages`` or ``pages``) every response must carry ``query.<list_key>`` as a list, and
@@ -109,8 +120,13 @@ class MediaWikiAPI:
         while continuation is not None:
             marker = json.dumps(sorted(continuation.items()))
             if marker in seen:
-                result.errors.append({"phase": "discover", "url": self.request_url({**params, **continuation}),
-                                      "message": f"{name}: the API repeated a continuation; stopped"})
+                result.errors.append(
+                    {
+                        "phase": "discover",
+                        "url": self.request_url({**params, **continuation}),
+                        "message": f"{name}: the API repeated a continuation; stopped",
+                    }
+                )
                 result.continuation = continuation
                 return result
             seen.add(marker)
@@ -118,29 +134,49 @@ class MediaWikiAPI:
                 data = self.call({**params, **continuation})
             except (ApiError, net.FetchError) as error:
                 url = getattr(error, "url", None) or self.request_url({**params, **continuation})
-                result.errors.append({"phase": "discover", "url": url,
-                                      "message": redact_text(f"{name}: {type(error).__name__}: {error}")[:500]})
+                result.errors.append(
+                    {
+                        "phase": "discover",
+                        "url": url,
+                        "message": redact_text(f"{name}: {type(error).__name__}: {error}")[:500],
+                    }
+                )
                 result.continuation = continuation  # {} = the list failed before its first page
                 return result
             result.requests += 1
             problem = query_problem(data, list_key)
             if problem:
-                result.errors.append({"phase": "discover", "url": self.request_url({**params, **continuation}),
-                                      "message": f"{name}: {problem}; not taken as a complete page"})
+                result.errors.append(
+                    {
+                        "phase": "discover",
+                        "url": self.request_url({**params, **continuation}),
+                        "message": f"{name}: {problem}; not taken as a complete page",
+                    }
+                )
                 result.continuation = continuation
                 return result
             merge(result.items, data)
             next_continuation = data.get("continue")
             if next_continuation is not None and not isinstance(next_continuation, dict):
-                result.errors.append({"phase": "discover", "url": self.request_url(params),
-                                      "message": f"{name}: malformed continue value"})
+                result.errors.append(
+                    {
+                        "phase": "discover",
+                        "url": self.request_url(params),
+                        "message": f"{name}: malformed continue value",
+                    }
+                )
                 result.continuation = continuation
                 return result
             continuation = dict(next_continuation) if next_continuation else None
         if list_key is not None and not result.items:
-            result.errors.append({"phase": "discover", "url": self.request_url({**params, **(start or {})}),
-                                  "message": f"{name}: the API listed no entry at all; an empty answer is not taken as "
-                                             "the complete enumeration of the wiki"})
+            result.errors.append(
+                {
+                    "phase": "discover",
+                    "url": self.request_url({**params, **(start or {})}),
+                    "message": f"{name}: the API listed no entry at all; an empty answer is not taken as "
+                    "the complete enumeration of the wiki",
+                }
+            )
             result.continuation = dict(start) if start else {}
             return result
         result.complete = True
@@ -163,34 +199,79 @@ def query_problem(data: Mapping[str, Any], list_key: str | None) -> str | None:
 
 # --- Concrete lists ---------------------------------------------------------------------------------------------------
 
-ALLIMAGES_PARAMS = {"action": "query", "list": "allimages", "ailimit": MAX_LIMIT, "aisort": "name",
-                    "aiprop": "timestamp|user|comment|url|size|mime|sha1"}
-FILE_USAGE_PARAMS = {"action": "query", "generator": "allimages", "gailimit": MAX_LIMIT, "gaisort": "name",
-                     "prop": "fileusage|categories", "fulimit": MAX_LIMIT, "fuprop": "title",
-                     "cllimit": MAX_LIMIT}
+ALLIMAGES_PARAMS = {
+    "action": "query",
+    "list": "allimages",
+    "ailimit": MAX_LIMIT,
+    "aisort": "name",
+    "aiprop": "timestamp|user|comment|url|size|mime|sha1",
+}
+FILE_USAGE_PARAMS = {
+    "action": "query",
+    "generator": "allimages",
+    "gailimit": MAX_LIMIT,
+    "gaisort": "name",
+    "prop": "fileusage|categories",
+    "fulimit": MAX_LIMIT,
+    "fuprop": "title",
+    "cllimit": MAX_LIMIT,
+}
 # File description pages: current wikitext (redirects, descriptions) and the pages linking to them ([[:File:X]]).
 # Revision content allows at most 50 pages per request.
-FILE_PAGES_PARAMS = {"action": "query", "generator": "allimages", "gailimit": "50", "gaisort": "name",
-                     "prop": "revisions|linkshere", "rvprop": "ids|timestamp|content", "rvslots": "main",
-                     "lhlimit": MAX_LIMIT, "lhprop": "title|redirect"}
-PAGES_PARAMS = {"action": "query", "generator": "allpages", "gapnamespace": "0", "gapfilterredir": "nonredirects",
-                "gaplimit": "50", "prop": "revisions|categories|info", "rvprop": "ids|timestamp|content",
-                "rvslots": "main", "cllimit": MAX_LIMIT, "inprop": "url"}
+FILE_PAGES_PARAMS = {
+    "action": "query",
+    "generator": "allimages",
+    "gailimit": "50",
+    "gaisort": "name",
+    "prop": "revisions|linkshere",
+    "rvprop": "ids|timestamp|content",
+    "rvslots": "main",
+    "lhlimit": MAX_LIMIT,
+    "lhprop": "title|redirect",
+}
+PAGES_PARAMS = {
+    "action": "query",
+    "generator": "allpages",
+    "gapnamespace": "0",
+    "gapfilterredir": "nonredirects",
+    "gaplimit": "50",
+    "prop": "revisions|categories|info",
+    "rvprop": "ids|timestamp|content",
+    "rvslots": "main",
+    "cllimit": MAX_LIMIT,
+    "inprop": "url",
+}
 
 
 def _merge_allimages(items: dict[str, Any], data: dict) -> None:
     for row in data.get("query", {}).get("allimages", []):
         title = row.get("title") or ("File:" + str(row.get("name", "")).replace("_", " "))
-        items[title] = {key: row.get(key) for key in ("name", "title", "timestamp", "user", "comment", "url",
-                                                      "descriptionurl", "size", "width", "height", "mime", "sha1")}
+        items[title] = {
+            key: row.get(key)
+            for key in (
+                "name",
+                "title",
+                "timestamp",
+                "user",
+                "comment",
+                "url",
+                "descriptionurl",
+                "size",
+                "width",
+                "height",
+                "mime",
+                "sha1",
+            )
+        }
         items[title]["title"] = title
 
 
 def _merge_pages_lists(fields: Iterable[str]) -> Callable[[dict[str, Any], dict], None]:
     def merge(items: dict[str, Any], data: dict) -> None:
         for page in data.get("query", {}).get("pages", []):
-            entry = items.setdefault(page["title"], {"title": page["title"], "ns": page.get("ns"),
-                                                      "missing": bool(page.get("missing"))})
+            entry = items.setdefault(
+                page["title"], {"title": page["title"], "ns": page.get("ns"), "missing": bool(page.get("missing"))}
+            )
             for name in fields:
                 values = entry.setdefault(name, [])
                 for value in page.get(name, []) or []:
@@ -201,8 +282,12 @@ def _merge_pages_lists(fields: Iterable[str]) -> Callable[[dict[str, Any], dict]
                     entry[key] = page[key]
             for revision in page.get("revisions", []) or []:
                 slot = (revision.get("slots") or {}).get("main") or {}
-                entry["revision"] = {"revid": revision.get("revid"), "timestamp": revision.get("timestamp"),
-                                     "content": slot.get("content", slot.get("*"))}
+                entry["revision"] = {
+                    "revid": revision.get("revid"),
+                    "timestamp": revision.get("timestamp"),
+                    "content": slot.get("content", slot.get("*")),
+                }
+
     return merge
 
 
@@ -213,14 +298,16 @@ def allimages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> L
 
 def file_usage(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
     """``prop=fileusage|categories`` for every file (generator=allimages), keyed by ``File:`` title."""
-    return api.enumerate("fileusage", FILE_USAGE_PARAMS, _merge_pages_lists(("fileusage", "categories")), start=start,
-                         list_key="pages")
+    return api.enumerate(
+        "fileusage", FILE_USAGE_PARAMS, _merge_pages_lists(("fileusage", "categories")), start=start, list_key="pages"
+    )
 
 
 def file_pages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
     """Every file description page (generator=allimages) with its current wikitext and the pages linking to it."""
-    return api.enumerate("filepages", FILE_PAGES_PARAMS, _merge_pages_lists(("linkshere",)), start=start,
-                         list_key="pages")
+    return api.enumerate(
+        "filepages", FILE_PAGES_PARAMS, _merge_pages_lists(("linkshere",)), start=start, list_key="pages"
+    )
 
 
 def content_pages(api: MediaWikiAPI, *, start: Mapping[str, Any] | None = None) -> ListResult:
@@ -232,7 +319,7 @@ def gif_frames(api: MediaWikiAPI, titles: list[str]) -> ListResult:
     """Frame counts of GIF files from ``iiprop=metadata`` (``frameCount``); keyed by title, value int or None."""
     result = ListResult("gifmetadata", complete=True)
     for start in range(0, len(titles), TITLE_BATCH):
-        batch = titles[start:start + TITLE_BATCH]
+        batch = titles[start : start + TITLE_BATCH]
         params = {"action": "query", "prop": "imageinfo", "iiprop": "metadata", "titles": "|".join(batch)}
         part = api.enumerate("gifmetadata", params, _merge_gif_metadata, list_key="pages")
         result.items.update(part.items)
@@ -252,7 +339,7 @@ def _merge_gif_metadata(items: dict[str, Any], data: dict) -> None:
                 if isinstance(entry, dict) and entry.get("name") == "frameCount":
                     try:
                         frames = int(entry.get("value"))
-                    except (TypeError, ValueError):
+                    except TypeError, ValueError:
                         frames = None
         items[page["title"]] = frames
 
@@ -268,8 +355,13 @@ def expand_templates(api: MediaWikiAPI, texts: dict[str, str]) -> ListResult:
         except (ApiError, net.FetchError) as error:
             result.complete = False
             result.continuation = {"text": raw}
-            result.errors.append({"phase": "discover", "url": getattr(error, "url", None) or api.request_url(params),
-                                  "message": redact_text(f"expandtemplates: {type(error).__name__}: {error}")[:500]})
+            result.errors.append(
+                {
+                    "phase": "discover",
+                    "url": getattr(error, "url", None) or api.request_url(params),
+                    "message": redact_text(f"expandtemplates: {type(error).__name__}: {error}")[:500],
+                }
+            )
             continue
         result.requests += 1
         value = (data.get("expandtemplates") or {}).get("wikitext")

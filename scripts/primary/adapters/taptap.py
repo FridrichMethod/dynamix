@@ -66,9 +66,10 @@ def resolve(payload: list, index: int, *, depth: int = 0) -> Any:
             if tag == "Set":
                 return [resolve(payload, item, depth=depth + 1) for item in value[1:]]
             if tag == "Map":
-                return {str(resolve(payload, value[i], depth=depth + 1)): resolve(payload, value[i + 1],
-                                                                                   depth=depth + 1)
-                        for i in range(1, len(value) - 1, 2)}
+                return {
+                    str(resolve(payload, value[i], depth=depth + 1)): resolve(payload, value[i + 1], depth=depth + 1)
+                    for i in range(1, len(value) - 1, 2)
+                }
         return [resolve(payload, item, depth=depth + 1) for item in value]
     return value
 
@@ -77,9 +78,14 @@ def find_app(payload: list, identifier: str | None) -> dict | None:
     """The app object: a payload dict with ``screenshots`` and ``identifier`` (matching ``identifier`` if given)."""
     for value in payload:
         if isinstance(value, dict) and "screenshots" in value and "identifier" in value:
-            app = {key: (resolve(payload, value[key]) if key in ("screenshots", "banner", "icon", "identifier",
-                                                                 "title", "developers", "app_videos") else None)
-                   for key in value}
+            app = {
+                key: (
+                    resolve(payload, value[key])
+                    if key in ("screenshots", "banner", "icon", "identifier", "title", "developers", "app_videos")
+                    else None
+                )
+                for key in value
+            }
             if identifier is None or app.get("identifier") == identifier:
                 return app
     return None
@@ -99,16 +105,28 @@ def rendition_reason(url: str, width: Any, height: Any, poster: bool) -> str:
     role = " (also the trailer's poster frame)" if poster else ""
     advertised = f"{width}x{height}" if width and height else "size not advertised"
     if crop and thumb and (thumb[0] > crop[0] or thumb[1] > crop[1]):
-        return (f"upscaled: TapTap crop/resize rendition ({advertised}) of the uploaded banner, enlarged from a "
-                f"{crop[0]}x{crop[1]} crop to {thumb[0]}x{thumb[1]}{role}; the upload itself is the separate banner "
-                "candidate")
+        return (
+            f"upscaled: TapTap crop/resize rendition ({advertised}) of the uploaded banner, enlarged from a "
+            f"{crop[0]}x{crop[1]} crop to {thumb[0]}x{thumb[1]}{role}; the upload itself is the separate banner "
+            "candidate"
+        )
     detail = f" ({crop[0]}x{crop[1]} crop shown at {thumb[0]}x{thumb[1]})" if crop and thumb else ""
-    return (f"out_of_scope_other: TapTap crop/resize rendition ({advertised}) of the uploaded banner{detail}{role}; "
-            "the upload itself is the separate banner candidate")
+    return (
+        f"out_of_scope_other: TapTap crop/resize rendition ({advertised}) of the uploaded banner{detail}{role}; "
+        "the upload itself is the separate banner candidate"
+    )
 
 
-def banner_drafts(ctx: Any, seed: Mapping[str, Any], banner: Mapping[str, Any], thumbnails: set, page_url: str,
-                  texts: Mapping[str, str], evidence: list[str], missing: list[str]) -> list[model.Draft]:
+def banner_drafts(
+    ctx: Any,
+    seed: Mapping[str, Any],
+    banner: Mapping[str, Any],
+    thumbnails: set,
+    page_url: str,
+    texts: Mapping[str, str],
+    evidence: list[str],
+    missing: list[str],
+) -> list[model.Draft]:
     """The banner: a trailer thumbnail is a ``video_placeholder``; a ``<md5>_crop_..._thumbnail_WxH`` URL is TapTap's
     cropped and resized rendition (see :func:`rendition_reason`), so the base ``<md5>.<ext>`` upload becomes the
     candidate that seed rules classify. The page advertises only the rendition: its URL stays the upload candidate's
@@ -118,35 +136,67 @@ def banner_drafts(ctx: Any, seed: Mapping[str, Any], banner: Mapping[str, Any], 
     url = banner["original_url"]
     key = f"banner:{base.last_segment(url)}"
     match = _RENDITION.match(url)
-    advertised = base.reported(url=url, mime=base.mime_for(url.rsplit(".", 1)[-1]), width=banner.get("width"),
-                               height=banner.get("height"))
+    advertised = base.reported(
+        url=url, mime=base.mime_for(url.rsplit(".", 1)[-1]), width=banner.get("width"), height=banner.get("height")
+    )
     if url in thumbnails and not match:
-        return [model.Draft(upstream_key=key, page_url=page_url, title="TapTap banner", action="excluded",
-                            file_url=base.stored(url), game="dynamix", game_evidence=evidence,
-                            source_reported=advertised,
-                            reason="video_placeholder: banner is the trailer video thumbnail")]
+        return [
+            model.Draft(
+                upstream_key=key,
+                page_url=page_url,
+                title="TapTap banner",
+                action="excluded",
+                file_url=base.stored(url),
+                game="dynamix",
+                game_evidence=evidence,
+                source_reported=advertised,
+                reason="video_placeholder: banner is the trailer video thumbnail",
+            )
+        ]
     drafts = []
     upload_reported = advertised
     if match:
         upload_reported = base.reported(url=url)
-        drafts.append(model.Draft(
-            upstream_key=key, page_url=page_url, title="TapTap banner (platform rendition)", action="excluded",
-            file_url=base.stored(url), game="dynamix", game_evidence=evidence, source_reported=advertised,
-            reason=rendition_reason(url, banner.get("width"), banner.get("height"), url in thumbnails)))
+        drafts.append(
+            model.Draft(
+                upstream_key=key,
+                page_url=page_url,
+                title="TapTap banner (platform rendition)",
+                action="excluded",
+                file_url=base.stored(url),
+                game="dynamix",
+                game_evidence=evidence,
+                source_reported=advertised,
+                reason=rendition_reason(url, banner.get("width"), banner.get("height"), url in thumbnails),
+            )
+        )
         url = f"{match.group(1)}.{match.group(2)}"
         key = f"banner:{base.last_segment(url)}"
     token = _TOKEN.search(url)
     draft = model.apply_rule(
-        base.identity_rule(model.find_rule(base.rules(seed), key), missing), key=key, page_url=page_url, texts=texts,
-        file_url=base.stored(url), default_title="TapTap banner", default_quality=ctx.quality,
-        default_rights=ctx.rights, original_filename=base.last_segment(url), base_evidence=evidence,
-        source_reported=upload_reported)
+        base.identity_rule(model.find_rule(base.rules(seed), key), missing),
+        key=key,
+        page_url=page_url,
+        texts=texts,
+        file_url=base.stored(url),
+        default_title="TapTap banner",
+        default_quality=ctx.quality,
+        default_rights=ctx.rights,
+        original_filename=base.last_segment(url),
+        base_evidence=evidence,
+        source_reported=upload_reported,
+    )
     draft.md5_token = token.group(1) if token else None
     if match:
-        size = (f" ({banner['width']}x{banner['height']} advertised)" if banner.get("width") and banner.get("height")
-                else "")
-        note = (f"The page lists only the rendition {base.last_segment(banner['original_url'])}{size}; "
-                f"{base.last_segment(url)} is the upload its name derives from.")
+        size = (
+            f" ({banner['width']}x{banner['height']} advertised)"
+            if banner.get("width") and banner.get("height")
+            else ""
+        )
+        note = (
+            f"The page lists only the rendition {base.last_segment(banner['original_url'])}{size}; "
+            f"{base.last_segment(url)} is the upload its name derives from."
+        )
         draft.candidate_extra["notes"] = " ".join(filter(None, [draft.candidate_extra.get("notes"), note]))
     drafts.append(draft)
     return drafts
@@ -158,17 +208,28 @@ def poster_drafts(urls: set, page_url: str, evidence: list[str]) -> list[model.D
     drafts = []
     for url in sorted(u for u in urls if isinstance(u, str) and u):
         path = url.split("://", 1)[-1].split("/", 1)[-1].split("?", 1)[0]
-        drafts.append(model.Draft(upstream_key=f"video-poster:{path}", page_url=page_url, title="TapTap trailer poster",
-                                  action="excluded", file_url=base.stored(url), game="dynamix",
-                                  game_evidence=evidence,
-                                  reason="video_placeholder: trailer poster frame listed with the app's videos"))
+        drafts.append(
+            model.Draft(
+                upstream_key=f"video-poster:{path}",
+                page_url=page_url,
+                title="TapTap trailer poster",
+                action="excluded",
+                file_url=base.stored(url),
+                game="dynamix",
+                game_evidence=evidence,
+                reason="video_placeholder: trailer poster frame listed with the app's videos",
+            )
+        )
     return drafts
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=["app-screenshots"],
-                                   scope_notes="One app page; screenshots (original_url), banner and icon of the "
-                                               "app object only. Reviews/forum images are not collected.")
+    discovery = base.new_discovery(
+        seed,
+        lists=["app-screenshots"],
+        scope_notes="One app page; screenshots (original_url), banner and icon of the "
+        "app object only. Reviews/forum images are not collected.",
+    )
     identifier = (seed.get("params") or {}).get("identifier")
     pages_read: set[str] = set()
     discovery.coverage["app-screenshots"] = base.listed_on(pages_read)
@@ -178,8 +239,9 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             html, _, _ = ctx.client.get_text(page_url)
             app = find_app(nuxt_payload(html), identifier)
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft(base.page_key(page_url), page_url, "TapTap app page", error,
-                                                          phase="discover"))
+            discovery.candidates.append(
+                model.error_draft(base.page_key(page_url), page_url, "TapTap app page", error, phase="discover")
+            )
             base.mark_unread(discovery, "app-screenshots", error)
             continue
         except (ValueError, IndexError) as error:
@@ -187,14 +249,18 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             discovery.continuation["app-screenshots"] = "structure-not-recognized"
             continue
         if app is None:
-            discovery.errors.append(model.discovery_error("discover", page_url,
-                                                          f"no app object with identifier {identifier}"))
+            discovery.errors.append(
+                model.discovery_error("discover", page_url, f"no app object with identifier {identifier}")
+            )
             discovery.continuation["app-screenshots"] = "app-not-found"
             continue
         pages_read.add(page_url)
         developers = " ".join(d.get("name", "") for d in app.get("developers") or [] if isinstance(d, dict))
-        texts = {"identifier": str(app.get("identifier") or ""), "title": str(app.get("title") or ""),
-                 "developers": developers}
+        texts = {
+            "identifier": str(app.get("identifier") or ""),
+            "title": str(app.get("title") or ""),
+            "developers": developers,
+        }
         evidence, missing = base.identity(seed, texts, page_url)
         seen: dict[str, model.Draft] = {}
         for index, shot in enumerate(app.get("screenshots") or [], start=1):
@@ -206,17 +272,32 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             key = f"screenshot:{token.group(1) if token else index}"
             if key in seen:  # the app object may list the same upload twice; one candidate per upload
                 previous = seen[key]
-                previous.candidate_extra["notes"] = " ".join(filter(None, [
-                    previous.candidate_extra.get("notes"), f"Listed again at screenshot position {index}."]))
+                previous.candidate_extra["notes"] = " ".join(
+                    filter(
+                        None, [previous.candidate_extra.get("notes"), f"Listed again at screenshot position {index}."]
+                    )
+                )
                 continue
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             draft = model.apply_rule(
-                rule, key=key, page_url=page_url, texts=texts, file_url=url,
-                default_title=f"TapTap screenshot {index}", default_quality=ctx.quality, default_rights=ctx.rights,
-                original_filename=base.last_segment(url), base_evidence=evidence,
-                source_reported=base.reported(url=url, mime=base.mime_for(image.get("original_format")),
-                                              bytes=image.get("original_size"), width=image.get("width"),
-                                              height=image.get("height")))
+                rule,
+                key=key,
+                page_url=page_url,
+                texts=texts,
+                file_url=url,
+                default_title=f"TapTap screenshot {index}",
+                default_quality=ctx.quality,
+                default_rights=ctx.rights,
+                original_filename=base.last_segment(url),
+                base_evidence=evidence,
+                source_reported=base.reported(
+                    url=url,
+                    mime=base.mime_for(image.get("original_format")),
+                    bytes=image.get("original_size"),
+                    width=image.get("width"),
+                    height=image.get("height"),
+                ),
+            )
             draft.md5_token = token.group(1) if token else None
             seen[key] = draft
             discovery.candidates.append(draft)
@@ -225,13 +306,23 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         posters = thumbnails | {(video.get("raw_cover") or {}).get("original_url") for video in videos}
         banner, icon = _image(app.get("banner")), _image(app.get("icon"))
         if banner:
-            discovery.candidates.extend(banner_drafts(ctx, seed, banner, thumbnails, page_url, texts, evidence,
-                                                      missing))
-        discovery.candidates.extend(poster_drafts(posters - {banner["original_url"] if banner else None}, page_url,
-                                                  evidence))
+            discovery.candidates.extend(
+                banner_drafts(ctx, seed, banner, thumbnails, page_url, texts, evidence, missing)
+            )
+        discovery.candidates.extend(
+            poster_drafts(posters - {banner["original_url"] if banner else None}, page_url, evidence)
+        )
         if icon:
-            discovery.candidates.append(model.Draft(
-                upstream_key=f"icon:{base.last_segment(icon['original_url'])}", page_url=page_url,
-                title="TapTap app icon", action="excluded", file_url=base.stored(icon["original_url"]),
-                game="dynamix", game_evidence=evidence, reason="game_ui: store app icon (branding, not artwork)"))
+            discovery.candidates.append(
+                model.Draft(
+                    upstream_key=f"icon:{base.last_segment(icon['original_url'])}",
+                    page_url=page_url,
+                    title="TapTap app icon",
+                    action="excluded",
+                    file_url=base.stored(icon["original_url"]),
+                    game="dynamix",
+                    game_evidence=evidence,
+                    reason="game_ui: store app icon (branding, not artwork)",
+                )
+            )
     return discovery

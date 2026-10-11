@@ -54,7 +54,12 @@ def site_relative(value: object, field: str, asset_id: str) -> str:
     if any(ord(char) <= 0x20 or ord(char) == 0x7F for char in value):
         raise ValueError(f"{asset_id}: slideshow {field} holds a space or control character: {value!r}")
     parts = urlsplit(value)
-    if parts.scheme or parts.netloc or value.startswith(("/", "\\")) or ".." in unquote(value).replace("\\", "/").split("/"):
+    if (
+        parts.scheme
+        or parts.netloc
+        or value.startswith(("/", "\\"))
+        or ".." in unquote(value).replace("\\", "/").split("/")
+    ):
         raise ValueError(f"{asset_id}: slideshow {field} is not a site-relative path: {value!r}")
     return value
 
@@ -116,7 +121,7 @@ def art_layout(root: Path, asset: dict) -> dict:
             if "A" not in image.getbands() and "transparency" not in image.info:
                 return {}
             alpha = image.convert("RGBA").getchannel("A")
-    except (OSError, ValueError, Image.DecompressionBombError):
+    except OSError, ValueError, Image.DecompressionBombError:
         return {}
     opaque = alpha.point([0] * (ALPHA_THRESHOLD + 1) + [255] * (255 - ALPHA_THRESHOLD))
     width, height = opaque.size
@@ -128,11 +133,16 @@ def art_layout(root: Path, asset: dict) -> dict:
         left, top, right, bottom = box
         fractions = (left / width, top / height, (right - left) / width, (bottom - top) / height)
         fields["data-art-box"] = " ".join(f"{round(value, 4):g}" for value in fractions)
-    bands = {"left": (0, 0, 2, height), "top": (0, 0, width, 2), "right": (width - 2, 0, width, height), "bottom": (0, height - 2, width, height)}
+    bands = {
+        "left": (0, 0, 2, height),
+        "top": (0, 0, width, 2),
+        "right": (width - 2, 0, width, height),
+        "bottom": (0, height - 2, width, height),
+    }
     cut = []
     for edge, band in bands.items():
         strip = opaque.crop(band)
-        if strip.histogram()[255] > .02 * strip.width * strip.height:
+        if strip.histogram()[255] > 0.02 * strip.width * strip.height:
             cut.append(edge)
     if cut and len(cut) < 4:
         fields["data-bleed"] = " ".join(cut)
@@ -150,8 +160,12 @@ def slide_media(asset: dict) -> dict:
     repository = http_url(asset.get("archive_url"))
     if not asset.get("thumb") or not repository:
         raise ValueError(f"{asset_id}: slideshow asset is archive-only and lacks a preview or an archive_url")
-    return {"data-src": site_relative(asset.get("thumb"), "thumb", asset_id), "data-original": repository,
-            "data-original-external": "true", "data-preview-only": "true"}
+    return {
+        "data-src": site_relative(asset.get("thumb"), "thumb", asset_id),
+        "data-original": repository,
+        "data-original-external": "true",
+        "data-preview-only": "true",
+    }
 
 
 def slide_origin(asset: dict) -> dict:
@@ -167,9 +181,12 @@ def slide_fields(asset: dict, layout: dict) -> dict:
     if not (isinstance(width, int) and isinstance(height, int) and width > 0 and height > 0):
         raise ValueError(f"{asset.get('id')}: slideshow asset has no pixel dimensions")
     fields = {
-        "class": "dynamix-draw", **slide_media(asset),
-        "data-id": asset["id"], "data-title": display_title(asset),
-        "data-source": asset.get("source_name") or asset.get("source_id") or "", "data-source-id": asset.get("source_id") or "",
+        "class": "dynamix-draw",
+        **slide_media(asset),
+        "data-id": asset["id"],
+        "data-title": display_title(asset),
+        "data-source": asset.get("source_name") or asset.get("source_id") or "",
+        "data-source-id": asset.get("source_id") or "",
         "data-family": asset.get("family") or "",
     }
     page = http_url(asset.get("page_url"))
@@ -178,8 +195,12 @@ def slide_fields(asset: dict, layout: dict) -> dict:
     fields.update({"data-size": f"{width} × {height}", "data-kind": asset.get("kind") or ""})
     fields.update(slide_origin(asset))
     fields.update(layout)
-    for attribute, key in (("data-illustrators", "illustrators"), ("data-composers", "composers"),
-                           ("data-songs", "song_titles"), ("data-collections", "collections")):
+    for attribute, key in (
+        ("data-illustrators", "illustrators"),
+        ("data-composers", "composers"),
+        ("data-songs", "song_titles"),
+        ("data-collections", "collections"),
+    ):
         value = joined(asset, key)
         if value:
             fields[attribute] = value

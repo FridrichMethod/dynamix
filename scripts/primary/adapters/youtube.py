@@ -34,8 +34,10 @@ OEMBED = "https://www.youtube.com/oembed"
 RENDITIONS = ("maxresdefault", "sddefault", "hqdefault")
 _VIDEO_ID = re.compile(r"[A-Za-z0-9_-]{11}")
 _ART = re.compile(r"^https://yt3\.googleusercontent\.com/([A-Za-z0-9_-]{20,})$")
-THUMB_QUALITY = ("YouTube-generated JPEG thumbnail rendition of the video (largest available of maxresdefault "
-                 "1280x720, sddefault 640x480, hqdefault 480x360); a platform transform, not an uploaded original.")
+THUMB_QUALITY = (
+    "YouTube-generated JPEG thumbnail rendition of the video (largest available of maxresdefault "
+    "1280x720, sddefault 640x480, hqdefault 480x360); a platform transform, not an uploaded original."
+)
 
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
@@ -51,8 +53,10 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             raise ValueError(f"{where}: items[{index}] must be an object")
         if "channel_art" in item:
             if item["channel_art"] not in ("banner", "avatar") or not _ART.match(str(item.get("url", ""))):
-                raise ValueError(f"{where}: items[{index}] channel_art must be banner/avatar with a "
-                                 "yt3.googleusercontent.com image URL without size suffix")
+                raise ValueError(
+                    f"{where}: items[{index}] channel_art must be banner/avatar with a "
+                    "yt3.googleusercontent.com image URL without size suffix"
+                )
             keys.append(f"channel:{item['channel_art']}")
         elif not _VIDEO_ID.fullmatch(str(item.get("video_id", ""))):
             raise ValueError(f"{where}: items[{index}].video_id must be an 11-character YouTube video ID")
@@ -77,37 +81,58 @@ def _video(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: 
         try:
             data, _ = ctx.client.get_json(OEMBED, {"url": watch, "format": "json"}, per_item_refusal=True)
         except net.BlockedError as refusal:
-            if getattr(refusal, "skipped", False) or isinstance(refusal, net.ChallengeError) or \
-                    refusal.http_status not in (401, 403):
+            if (
+                getattr(refusal, "skipped", False)
+                or isinstance(refusal, net.ChallengeError)
+                or refusal.http_status not in (401, 403)
+            ):
                 raise
-            raise net.HttpError(f"oEmbed refused this video (HTTP {refusal.http_status}): private or not embeddable",
-                                url=watch, http_status=refusal.http_status, retriable=False) from refusal
+            raise net.HttpError(
+                f"oEmbed refused this video (HTTP {refusal.http_status}): private or not embeddable",
+                url=watch,
+                http_status=refusal.http_status,
+                retriable=False,
+            ) from refusal
         if not isinstance(data, dict) or not isinstance(data.get("title"), str):
             raise net.FetchError("oEmbed response without a title", url=watch)
     except net.FetchError as error:
-        draft = model.error_draft(video_id, watch, item.get("title") or f"YouTube video {video_id}", error,
-                                  phase="discover")
+        draft = model.error_draft(
+            video_id, watch, item.get("title") or f"YouTube video {video_id}", error, phase="discover"
+        )
         if item.get("notes"):
             draft.candidate_extra = {"notes": item["notes"]}
         discovery.candidates.append(draft)
         base.mark_unread(discovery, "seed-videos", error)
         return
-    texts = {"title": data["title"], "author": f"{data.get('author_name') or ''} {data.get('author_url') or ''}".strip()}
+    texts = {
+        "title": data["title"],
+        "author": f"{data.get('author_name') or ''} {data.get('author_url') or ''}".strip(),
+    }
     rule = model.find_rule(base.rules(seed), video_id)
     if not same_channel(data.get("author_url"), channel):
         rule = model.hold(rule, f"unresolved_game: the video's channel {data.get('author_url')!r} is not {channel}")
     advertised = data.get("thumbnail_url") if isinstance(data.get("thumbnail_url"), str) else None
     draft = model.apply_rule(
-        rule, key=video_id, page_url=watch, texts=texts, file_url=thumbnail(video_id, RENDITIONS[0]),
-        default_title=data["title"], default_quality=ctx.quality, default_rights=ctx.rights,
-        original_filename=f"{video_id}.jpg", base_evidence=[watch, f"oEmbed author: {texts['author']}"],
-        source_reported=base.reported(url=advertised))  # oEmbed names a URL, no MIME type: the stored rendition differs
+        rule,
+        key=video_id,
+        page_url=watch,
+        texts=texts,
+        file_url=thumbnail(video_id, RENDITIONS[0]),
+        default_title=data["title"],
+        default_quality=ctx.quality,
+        default_rights=ctx.rights,
+        original_filename=f"{video_id}.jpg",
+        base_evidence=[watch, f"oEmbed author: {texts['author']}"],
+        source_reported=base.reported(url=advertised),
+    )  # oEmbed names a URL, no MIME type: the stored rendition differs
     draft.fallback_urls = [thumbnail(video_id, rendition) for rendition in RENDITIONS[1:]]
     renditions = {thumbnail(video_id, rendition) for rendition in RENDITIONS}
     draft.same_file = renditions.__contains__  # an archived fallback rendition of this video is this file
-    note = (f"oEmbed names the video “{model.clip(data['title'], 120)}” on channel {data.get('author_name')} "
-            f"({data.get('author_url')}) and advertises {advertised} ({data.get('thumbnail_width')}x"
-            f"{data.get('thumbnail_height')}); the archive requests the largest generated rendition instead.")
+    note = (
+        f"oEmbed names the video “{model.clip(data['title'], 120)}” on channel {data.get('author_name')} "
+        f"({data.get('author_url')}) and advertises {advertised} ({data.get('thumbnail_width')}x"
+        f"{data.get('thumbnail_height')}); the archive requests the largest generated rendition instead."
+    )
     if draft.action == "download":
         draft.meta["transformed"] = True
         draft.meta["quality"]["notes"] = " ".join(filter(None, [draft.meta["quality"].get("notes"), THUMB_QUALITY]))
@@ -117,8 +142,9 @@ def _video(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: 
     discovery.candidates.append(draft)
 
 
-def _channel_art(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: Mapping[str, Any],
-                 page: dict) -> None:
+def _channel_art(
+    ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, item: Mapping[str, Any], page: dict
+) -> None:
     channel = seed["params"]["channel_url"]
     key = f"channel:{item['channel_art']}"
     if "html" not in page:
@@ -128,8 +154,9 @@ def _channel_art(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, 
             page["html"], page["error"] = None, error
             base.mark_unread(discovery, "channel-art", error)
     if page["html"] is None:
-        discovery.candidates.append(model.error_draft(key, channel, f"YouTube channel {item['channel_art']}",
-                                                      page["error"], phase="discover"))
+        discovery.candidates.append(
+            model.error_draft(key, channel, f"YouTube channel {item['channel_art']}", page["error"], phase="discover")
+        )
         return
     image_id = _ART.match(item["url"]).group(1)
     document = base.soup(page["html"])
@@ -137,20 +164,33 @@ def _channel_art(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, 
     rule = model.find_rule(base.rules(seed), key)
     if image_id not in page["html"]:
         rule = model.hold(rule, f"unresolved_game: the channel page no longer shows this {item['channel_art']} image")
-    discovery.candidates.append(model.apply_rule(
-        rule, key=key, page_url=channel, texts=texts, file_url=f"{item['url']}=s0",
-        default_title=f"{texts['title'] or 'YouTube channel'} {item['channel_art']}", default_quality=ctx.quality,
-        default_rights=ctx.rights, original_filename=f"{item['channel_art']}-{image_id[:16]}.jpg",
-        base_evidence=[channel, f"channel page lists image {image_id[:24]}…"],
-        source_reported=base.reported(url=f"{item['url']}=s0")))
+    discovery.candidates.append(
+        model.apply_rule(
+            rule,
+            key=key,
+            page_url=channel,
+            texts=texts,
+            file_url=f"{item['url']}=s0",
+            default_title=f"{texts['title'] or 'YouTube channel'} {item['channel_art']}",
+            default_quality=ctx.quality,
+            default_rights=ctx.rights,
+            original_filename=f"{item['channel_art']}-{image_id[:16]}.jpg",
+            base_evidence=[channel, f"channel page lists image {image_id[:24]}…"],
+            source_reported=base.reported(url=f"{item['url']}=s0"),
+        )
+    )
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     art = [item for item in seed["items"] if "channel_art" in item]
-    discovery = base.new_discovery(seed, lists=["seed-videos", *(["channel-art"] if art else [])], api=OEMBED,
-                                   evidence_level="live_api",
-                                   scope_notes="Explicit video IDs via YouTube's public oEmbed endpoint and the "
-                                               "thumbnail renditions YouTube generates; no video, audio or Data API.")
+    discovery = base.new_discovery(
+        seed,
+        lists=["seed-videos", *(["channel-art"] if art else [])],
+        api=OEMBED,
+        evidence_level="live_api",
+        scope_notes="Explicit video IDs via YouTube's public oEmbed endpoint and the "
+        "thumbnail renditions YouTube generates; no video, audio or Data API.",
+    )
     page: dict = {}
     for item in seed["items"]:
         if "channel_art" in item:

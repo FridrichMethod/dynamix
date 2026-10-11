@@ -54,15 +54,18 @@ def run(root: Path, *, log: Callable[[str], None] = print) -> int:
     linked = {asset["id"]: asset for asset in variants.link(data["assets"])}
     for asset in data["assets"]:
         if {name: asset.get(name) for name in variants.FIELDS} != {
-                name: linked[asset["id"]].get(name) for name in variants.FIELDS}:
+            name: linked[asset["id"]].get(name) for name in variants.FIELDS
+        }:
             problems.append(f"asset {asset['id']}: variant_group/variant_role do not match the wiki variant links")
     problems.extend(_orphans(root, data["assets"], log))
     problems.extend(_song_index(root, data["assets"]))
     for source_id, value in sorted(counts.items()):
         total = sum(value.values())
         log(f"{source_id}: {total} candidates = " + " + ".join(f"{name} {n}" for name, n in value.items()))
-    log(f"assets: {len(data['assets'])} records, {len({a['sha256'] for a in data['assets']})} unique SHA-256, "
-        f"{sum(a['bytes'] for a in data['assets'])} bytes; failures: {len(data['failures'])}")
+    log(
+        f"assets: {len(data['assets'])} records, {len({a['sha256'] for a in data['assets']})} unique SHA-256, "
+        f"{sum(a['bytes'] for a in data['assets'])} bytes; failures: {len(data['failures'])}"
+    )
     for problem in problems:
         log(f"FAIL {problem}")
     log("verify: OK" if not problems else f"verify: {len(problems)} problem(s)")

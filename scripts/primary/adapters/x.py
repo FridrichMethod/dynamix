@@ -85,7 +85,7 @@ def js_radix_string(value: float, radix: int = 36) -> str:
                 break
     integer_digits = []
     integer_value = float(integer)
-    while integer_value / radix >= 2.0 ** 53:
+    while integer_value / radix >= 2.0**53:
         integer_value /= radix
         integer_digits.append("0")
     while True:
@@ -124,9 +124,15 @@ def _media(data: Mapping[str, Any]) -> list[dict]:
     if isinstance(extended, list) and extended:
         return [item for item in extended if isinstance(item, dict)]
     photos = data.get("photos") or []
-    return [{"type": "photo", "media_url_https": photo.get("url"),
-             "original_info": {"width": photo.get("width"), "height": photo.get("height")}}
-            for photo in photos if isinstance(photo, dict)]
+    return [
+        {
+            "type": "photo",
+            "media_url_https": photo.get("url"),
+            "original_info": {"width": photo.get("width"), "height": photo.get("height")},
+        }
+        for photo in photos
+        if isinstance(photo, dict)
+    ]
 
 
 def timeline_tweets(html: str) -> list[dict]:
@@ -154,7 +160,7 @@ def link_texts(data: Mapping[str, Any]) -> dict[str, str]:
     """t.co link -> the text X displays for it (``entities.urls[].display_url``): links the post text shows as words
     (X auto-links names such as ``Marion.net``). Media links (``pic.x.com/...``) are not included and are dropped."""
     found: dict[str, str] = {}
-    for entry in ((data.get("entities") or {}).get("urls") or []):
+    for entry in (data.get("entities") or {}).get("urls") or []:
         if isinstance(entry, dict) and isinstance(entry.get("url"), str) and isinstance(entry.get("display_url"), str):
             found[entry["url"]] = entry["display_url"]
     return found
@@ -176,8 +182,17 @@ def per_post_rule(rule: Mapping[str, Any] | None, post_id: str) -> bool:
     return rule is not None and (post_id in str(rule.get("match", "")) or bool(rule.get("evidence_quotes")))
 
 
-def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discovery, handle: str, post_id: str,
-                     data: Mapping[str, Any], item: Mapping[str, Any], *, from_timeline: bool = False) -> None:
+def _post_candidates(
+    ctx: Any,
+    seed: Mapping[str, Any],
+    discovery: model.Discovery,
+    handle: str,
+    post_id: str,
+    data: Mapping[str, Any],
+    item: Mapping[str, Any],
+    *,
+    from_timeline: bool = False,
+) -> None:
     status_url = f"https://x.com/{handle}/status/{post_id}"
     author = ((data.get("user") or {}).get("screen_name") or "").lower()
     texts = _texts(data)
@@ -187,9 +202,14 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
     base_evidence = [status_url]
     notes = item.get("notes")
     if not media:
-        draft = model.Draft(upstream_key=post_id, page_url=status_url, title=f"@{handle} post {post_id}",
-                            action="excluded", game="unknown",
-                            reason="out_of_scope_other: the post has no image attachment")
+        draft = model.Draft(
+            upstream_key=post_id,
+            page_url=status_url,
+            title=f"@{handle} post {post_id}",
+            action="excluded",
+            game="unknown",
+            reason="out_of_scope_other: the post has no image attachment",
+        )
         if notes:
             draft.candidate_extra = {"notes": notes}
         discovery.candidates.append(draft)
@@ -197,38 +217,71 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
     for index, entry in enumerate(media, start=1):
         key = f"{post_id}:{index}"
         rule = model.find_rule(base.rules(seed), key)
-        if from_timeline and rule is not None and rule.get("action", "download") == "download" and not per_post_rule(
-                rule, post_id):
+        if (
+            from_timeline
+            and rule is not None
+            and rule.get("action", "download") == "download"
+            and not per_post_rule(rule, post_id)
+        ):
             # A timeline sample holds whatever the account posted lately (sequel news, other titles, greetings): a
             # catch-all rule never admits it; only a rule written for the post or one with quotes found in its text.
-            rule = model.hold(rule, "unresolved_role: embed-timeline post without a per-post seed rule or evidence "
-                                    "quote; needs review")
+            rule = model.hold(
+                rule,
+                "unresolved_role: embed-timeline post without a per-post seed rule or evidence quote; needs review",
+            )
         if author != handle.lower():
-            rule = model.hold(rule, f"unresolved_game: post author @{author or '?'} is not this source's account "
-                                    f"@{handle}")
-        title = post_title(texts["text"], f"@{handle} post {post_id} image {index}", index, len(media),
-                           link_texts(data))
+            rule = model.hold(
+                rule, f"unresolved_game: post author @{author or '?'} is not this source's account @{handle}"
+            )
+        title = post_title(
+            texts["text"], f"@{handle} post {post_id} image {index}", index, len(media), link_texts(data)
+        )
         if entry.get("type") != "photo":
-            discovery.candidates.append(model.Draft(
-                upstream_key=key, page_url=status_url, title=title, action="excluded", game="unknown",
-                reason=f"video_placeholder: X {entry.get('type')} attachment; only a poster frame is an image"))
+            discovery.candidates.append(
+                model.Draft(
+                    upstream_key=key,
+                    page_url=status_url,
+                    title=title,
+                    action="excluded",
+                    game="unknown",
+                    reason=f"video_placeholder: X {entry.get('type')} attachment; only a poster frame is an image",
+                )
+            )
             continue
         match = _MEDIA.match(entry.get("media_url_https") or "")
         if not match:
-            discovery.candidates.append(model.Draft(
-                upstream_key=key, page_url=status_url, title=title, action="pending",
-                reason="unresolved_role: unrecognized X media URL"))
+            discovery.candidates.append(
+                model.Draft(
+                    upstream_key=key,
+                    page_url=status_url,
+                    title=title,
+                    action="pending",
+                    reason="unresolved_role: unrecognized X media URL",
+                )
+            )
             continue
         media_key, ext = match.groups()
         file_url = f"https://pbs.twimg.com/media/{media_key}?format={ext}&name=orig"
         info = entry.get("original_info") or {}
         draft = model.apply_rule(
-            rule, key=key, page_url=status_url, texts=texts, file_url=file_url, default_title=title,
-            default_quality=ctx.quality, default_rights=ctx.rights, original_filename=f"{media_key}.{ext}",
-            source_reported=base.reported(url=entry.get("media_url_https"), mime=base.mime_for(ext),
-                                          width=info.get("width"),
-                                          height=info.get("height"), timestamp=data.get("created_at")),
-            base_evidence=base_evidence)
+            rule,
+            key=key,
+            page_url=status_url,
+            texts=texts,
+            file_url=file_url,
+            default_title=title,
+            default_quality=ctx.quality,
+            default_rights=ctx.rights,
+            original_filename=f"{media_key}.{ext}",
+            source_reported=base.reported(
+                url=entry.get("media_url_https"),
+                mime=base.mime_for(ext),
+                width=info.get("width"),
+                height=info.get("height"),
+                timestamp=data.get("created_at"),
+            ),
+            base_evidence=base_evidence,
+        )
         if notes and "notes" not in draft.candidate_extra:
             draft.candidate_extra["notes"] = notes
         discovery.candidates.append(draft)
@@ -238,11 +291,18 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     handle = seed["params"]["handle"]
     timelines = [item for item in seed["items"] if "timeline" in item]
     lists = ["seed-posts", *(f"timeline:{item['timeline']}" for item in timelines)]
-    discovery = base.new_discovery(seed, lists=lists, api=API, evidence_level="live_api",
-                                   scope_notes="Explicit seed post IDs via X's public embed (syndication) endpoint"
-                                               + ("; plus the bounded public embed timeline sample (not the full "
-                                                  "history)" if timelines else "; the account timeline is not "
-                                                                               "enumerated."))
+    discovery = base.new_discovery(
+        seed,
+        lists=lists,
+        api=API,
+        evidence_level="live_api",
+        scope_notes="Explicit seed post IDs via X's public embed (syndication) endpoint"
+        + (
+            "; plus the bounded public embed timeline sample (not the full history)"
+            if timelines
+            else "; the account timeline is not enumerated."
+        ),
+    )
     seen: set[str] = set()
     for item in timelines:
         name = f"timeline:{item['timeline']}"
@@ -273,16 +333,19 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         try:
             data, _ = ctx.client.get_json(API, {"id": post_id, "lang": "en", "token": syndication_token(post_id)})
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft(post_id, status_url, f"@{handle} post {post_id}", error,
-                                                          phase="discover"))
+            discovery.candidates.append(
+                model.error_draft(post_id, status_url, f"@{handle} post {post_id}", error, phase="discover")
+            )
             base.mark_unread(discovery, "seed-posts", error)
             continue
         if not isinstance(data, dict) or data.get("__typename") != "Tweet":
             kind = data.get("__typename") if isinstance(data, dict) else type(data).__name__
-            error = net.FetchError(f"post not available from the embed endpoint ({kind or 'empty response'})",
-                                   url=status_url)
-            discovery.candidates.append(model.error_draft(post_id, status_url, f"@{handle} post {post_id}", error,
-                                                          phase="discover"))
+            error = net.FetchError(
+                f"post not available from the embed endpoint ({kind or 'empty response'})", url=status_url
+            )
+            discovery.candidates.append(
+                model.error_draft(post_id, status_url, f"@{handle} post {post_id}", error, phase="discover")
+            )
             base.mark_unread(discovery, "seed-posts", error)
             continue
         _post_candidates(ctx, seed, discovery, handle, post_id, data, item)

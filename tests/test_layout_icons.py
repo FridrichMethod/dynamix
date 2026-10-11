@@ -21,8 +21,12 @@ LANES = [(12, 12, 6, 28), (46, 12, 6, 28), (22, 46, 20, 6)]
 DIAMOND = [(32, 19), (39, 26), (32, 33), (25, 26)]
 # Published raster sizes: name -> edge in pixels.
 PNGS = {
-    "favicon-16x16.png": 16, "favicon-32x32.png": 32, "apple-touch-icon.png": 180,
-    "android-chrome-192x192.png": 192, "android-chrome-512x512.png": 512, "mstile-150x150.png": 150,
+    "favicon-16x16.png": 16,
+    "favicon-32x32.png": 32,
+    "apple-touch-icon.png": 180,
+    "android-chrome-192x192.png": 192,
+    "android-chrome-512x512.png": 512,
+    "mstile-150x150.png": 150,
 }
 ICO_SIZES = [16, 32, 48]
 SUPERSAMPLE = 8
@@ -37,8 +41,11 @@ def draw_mark(size):
     draw = ImageDraw.Draw(image)
     draw.rounded_rectangle((0, 0, big - 1, big - 1), radius=round(CORNER * scale), fill=BACKGROUND)
     for x, y, width, height in LANES:
-        draw.rounded_rectangle((round(x * scale), round(y * scale), round((x + width) * scale) - 1, round((y + height) * scale) - 1),
-                               radius=round(2 * scale), fill=LANE)
+        draw.rounded_rectangle(
+            (round(x * scale), round(y * scale), round((x + width) * scale) - 1, round((y + height) * scale) - 1),
+            radius=round(2 * scale),
+            fill=LANE,
+        )
     draw.polygon([(round(x * scale), round(y * scale)) for x, y in DIAMOND], fill=NOTE)
     return image.resize((size, size), Image.Resampling.LANCZOS)
 
@@ -49,8 +56,11 @@ def write_icons():
         draw_mark(size).save(ICONS / name, optimize=True)
     # Each ICO frame is drawn at its own size (append_images) rather than scaled down from the largest one.
     largest = draw_mark(max(ICO_SIZES))
-    largest.save(ICONS / "favicon.ico", sizes=[(size, size) for size in ICO_SIZES],
-                 append_images=[draw_mark(size) for size in ICO_SIZES if size != max(ICO_SIZES)])
+    largest.save(
+        ICONS / "favicon.ico",
+        sizes=[(size, size) for size in ICO_SIZES],
+        append_images=[draw_mark(size) for size in ICO_SIZES if size != max(ICO_SIZES)],
+    )
 
 
 def max_difference(first, second):
@@ -79,7 +89,10 @@ class IconTests(unittest.TestCase):
     def test_svg_mark_has_the_same_shapes(self):
         svg = (ICONS / "favicon.svg").read_text(encoding="utf-8")
         self.assertIn(f'rx="{CORNER}" fill="{BACKGROUND}"', svg)
-        rects = [tuple(int(value) for value in match) for match in re.findall(r'<rect x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', svg)]
+        rects = [
+            tuple(int(value) for value in match)
+            for match in re.findall(r'<rect x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', svg)
+        ]
         self.assertEqual(rects, LANES)
         self.assertIn("M32 19 39 26 32 33 25 26Z", svg)
 
@@ -89,7 +102,18 @@ class IconTests(unittest.TestCase):
             with self.subTest(icon=path.name):
                 text = path.read_text(encoding="utf-8")
                 self.assertTrue(text.startswith('<svg xmlns="http://www.w3.org/2000/svg"'))
-                for forbidden in ("<image", "<script", "href=", "data:", "<metadata", "sodipodi", "inkscape", "Capa_1", "<foreignObject", "url("):
+                for forbidden in (
+                    "<image",
+                    "<script",
+                    "href=",
+                    "data:",
+                    "<metadata",
+                    "sodipodi",
+                    "inkscape",
+                    "Capa_1",
+                    "<foreignObject",
+                    "url(",
+                ):
                     self.assertNotIn(forbidden, text)
 
 

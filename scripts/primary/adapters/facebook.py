@@ -27,8 +27,10 @@ from .. import model
 from . import base
 
 HOSTS = ["www.facebook.com", ".fbcdn.net"]
-OG_QUALITY = ("Facebook's Open Graph rendition of the uploaded image (re-encoded and resized by Facebook per the URL's "
-              "stp/ctp parameters); a platform transform, not the uploaded original.")
+OG_QUALITY = (
+    "Facebook's Open Graph rendition of the uploaded image (re-encoded and resized by Facebook per the URL's "
+    "stp/ctp parameters); a platform transform, not the uploaded original."
+)
 _CTP = re.compile(r"[?&]ctp=([a-z]?\d+x\d+)")
 _CSTP = re.compile(r"[?&]cstp=([a-z]*\d+x\d+)")
 RENDITION_PARAMS = ("stp", "cstp", "ctp")
@@ -114,9 +116,13 @@ def readable_title(document_title: str, og_title: str | None) -> str:
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     page = seed["params"]["page"]
-    discovery = base.new_discovery(seed, lists=["seed-permalinks"], evidence_level="page_read",
-                                   scope_notes="Explicit permalinks only, read logged out; the Open Graph image of each "
-                                               "is the file. The page timeline is not enumerated.")
+    discovery = base.new_discovery(
+        seed,
+        lists=["seed-permalinks"],
+        evidence_level="page_read",
+        scope_notes="Explicit permalinks only, read logged out; the Open Graph image of each "
+        "is the file. The page timeline is not enumerated.",
+    )
     for item in seed["items"]:
         key, url = item["key"], item["url"]
         title = item.get("title") or f"Facebook {page} {key}"
@@ -130,39 +136,74 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             base.mark_unread(discovery, "seed-permalinks", error)
             continue
         og, document_title = open_graph(html)
-        texts = {"og:title": og.get("og:title", ""), "og:description": og.get("og:description", ""),
-                 "title": document_title}
+        texts = {
+            "og:title": og.get("og:title", ""),
+            "og:description": og.get("og:description", ""),
+            "title": document_title,
+        }
         image = og.get("og:image")
         rule = model.find_rule(base.rules(seed), key)
         if login_wall(final_url) or login_wall(og.get("og:url")):
-            draft = model.Draft(upstream_key=key, page_url=url, title=title, action="blocked", game="unknown",
-                                game_evidence=[url], reason=("blocked: the permalink redirects a logged-out reader to "
-                                                             "the login page; manual access required, not retried"))
-            draft.candidate_extra = {name: list(rule[name]) for name in ("song_titles", "illustrators", "composers",
-                                                                         "collections") if rule and rule.get(name)}
+            draft = model.Draft(
+                upstream_key=key,
+                page_url=url,
+                title=title,
+                action="blocked",
+                game="unknown",
+                game_evidence=[url],
+                reason=(
+                    "blocked: the permalink redirects a logged-out reader to "
+                    "the login page; manual access required, not retried"
+                ),
+            )
+            draft.candidate_extra = {
+                name: list(rule[name])
+                for name in ("song_titles", "illustrators", "composers", "collections")
+                if rule and rule.get(name)
+            }
             if item.get("notes"):
                 draft.candidate_extra["notes"] = item["notes"]
             discovery.candidates.append(draft)
             continue
         if not on_page(og.get("og:url") or final_url, page, url):
-            rule = model.hold(rule, f"unresolved_game: the permalink resolves to {og.get('og:url') or final_url}, "
-                                    f"not the {page} page")
+            rule = model.hold(
+                rule, f"unresolved_game: the permalink resolves to {og.get('og:url') or final_url}, not the {page} page"
+            )
         curated = rule is not None and rule.get("action", "download") in ("exclude", "pending")
         if (not image or checks.url_problem(image)) and curated:  # e.g. a text-only post recorded as excluded
-            draft = model.apply_rule(rule, key=key, page_url=url, texts=texts, file_url=None,
-                                     default_title=item.get("title") or title, default_quality=ctx.quality,
-                                     default_rights=ctx.rights, base_evidence=[url])
+            draft = model.apply_rule(
+                rule,
+                key=key,
+                page_url=url,
+                texts=texts,
+                file_url=None,
+                default_title=item.get("title") or title,
+                default_quality=ctx.quality,
+                default_rights=ctx.rights,
+                base_evidence=[url],
+            )
             if item.get("notes"):
                 draft.candidate_extra["notes"] = item["notes"]
             discovery.candidates.append(draft)
             continue
         if not image or checks.url_problem(image):
-            draft = model.Draft(upstream_key=key, page_url=url, title=title, action="blocked", game="unknown",
-                                game_evidence=[url], reason=(
-                                    "blocked: the permalink serves no Open Graph image to a logged-out reader (login "
-                                    "wall or empty page shell); manual access required, not retried"))
-            draft.candidate_extra = {name: list(rule[name]) for name in ("song_titles", "illustrators", "composers",
-                                                                         "collections") if rule and rule.get(name)}
+            draft = model.Draft(
+                upstream_key=key,
+                page_url=url,
+                title=title,
+                action="blocked",
+                game="unknown",
+                game_evidence=[url],
+                reason=(
+                    "blocked: the permalink serves no Open Graph image to a logged-out reader (login "
+                    "wall or empty page shell); manual access required, not retried"
+                ),
+            )
+            draft.candidate_extra = {
+                name: list(rule[name])
+                for name in ("song_titles", "illustrators", "composers", "collections")
+                if rule and rule.get(name)
+            }
             if item.get("notes"):
                 draft.candidate_extra["notes"] = item["notes"]
             discovery.candidates.append(draft)
@@ -171,24 +212,46 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         ext = name.rsplit(".", 1)[-1] if "." in name else None
         requested = rendition_mime(image)
         draft = model.apply_rule(
-            rule, key=key, page_url=url, texts=texts, file_url=image,
-            default_title=item.get("title") or model.clip(readable_title(document_title, og.get("og:title")) or title,
-                                                          120),
-            default_quality=ctx.quality, default_rights=ctx.rights, original_filename=name, base_evidence=[url],
-            source_reported=base.reported(url=image, mime=requested or base.mime_for(ext),
-                                          width=_int(og.get("og:image:width")), height=_int(og.get("og:image:height"))))
+            rule,
+            key=key,
+            page_url=url,
+            texts=texts,
+            file_url=image,
+            default_title=item.get("title")
+            or model.clip(readable_title(document_title, og.get("og:title")) or title, 120),
+            default_quality=ctx.quality,
+            default_rights=ctx.rights,
+            original_filename=name,
+            base_evidence=[url],
+            source_reported=base.reported(
+                url=image,
+                mime=requested or base.mime_for(ext),
+                width=_int(og.get("og:image:width")),
+                height=_int(og.get("og:image:height")),
+            ),
+        )
         identity = file_identity(image)
         if identity is not None:
             draft.same_file = lambda archived, identity=identity: file_identity(archived) == identity
-        sizes = ", ".join(filter(None, [f"display size {m.group(1)}" for m in [_CTP.search(image)] if m]
-                                 + [f"source bound {m.group(1)}" for m in [_CSTP.search(image)] if m]))
+        sizes = ", ".join(
+            filter(
+                None,
+                [f"display size {m.group(1)}" for m in [_CTP.search(image)] if m]
+                + [f"source bound {m.group(1)}" for m in [_CSTP.search(image)] if m],
+            )
+        )
         # No date here: a refresh that reuses the archive keeps fetched_at, which dates the archived fetch.
-        note = (f"Open Graph image of {url} as served to a logged-out reader"
-                + (f" (Facebook rendition parameters: {sizes})" if sizes else "") + ".")
+        note = (
+            f"Open Graph image of {url} as served to a logged-out reader"
+            + (f" (Facebook rendition parameters: {sizes})" if sizes else "")
+            + "."
+        )
         uploaded = base.mime_for(ext)
         if requested and uploaded and uploaded != requested:
-            note += (f" The upload's file name ends in .{ext} (its uploaded format); the URL's stp parameter requests "
-                     f"a {requested.split('/')[1].upper()} rendition, which is what source_reported.mime records.")
+            note += (
+                f" The upload's file name ends in .{ext} (its uploaded format); the URL's stp parameter requests "
+                f"a {requested.split('/')[1].upper()} rendition, which is what source_reported.mime records."
+            )
         if draft.action == "download":
             draft.meta["transformed"] = True
             draft.meta["quality"]["notes"] = " ".join(filter(None, [draft.meta["quality"].get("notes"), OG_QUALITY]))

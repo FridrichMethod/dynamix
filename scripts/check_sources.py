@@ -61,8 +61,14 @@ MEDIAWIKI_SOURCES = {
     "wikis:miraheze": MediaWiki("https://dynamix.miraheze.org/w/api.php", "dynamix.miraheze.org"),
     "wikis:fandom": MediaWiki("https://dynamixc4cat.fandom.com/api.php", "dynamixc4cat.fandom.com"),
 }
-ALLIMAGES_PARAMS = {"action": "query", "list": "allimages", "aiprop": "timestamp|url|size|sha1|mime",
-                    "ailimit": "500", "format": "json", "formatversion": "2"}
+ALLIMAGES_PARAMS = {
+    "action": "query",
+    "list": "allimages",
+    "aiprop": "timestamp|url|size|sha1|mime",
+    "ailimit": "500",
+    "format": "json",
+    "formatversion": "2",
+}
 FILE_PREFIX = "File:"
 COMPARED_FIELDS = ("sha1", "bytes", "width", "height", "mime", "timestamp")
 INTEGER_FIELDS = ("bytes", "width", "height")
@@ -114,10 +120,18 @@ def parse_image(image: Any) -> dict | None:
         key = FILE_PREFIX + name.replace(" ", "_")
     else:
         return None
-    return {"key": key, "title": key[len(FILE_PREFIX):].replace("_", " "), "page_url": _text(image.get("descriptionurl")),
-            "url": _text(image.get("url")), "sha1": _text(image.get("sha1")), "bytes": _integer(image.get("size")),
-            "width": _integer(image.get("width")), "height": _integer(image.get("height")),
-            "mime": _text(image.get("mime")), "timestamp": _text(image.get("timestamp"))}
+    return {
+        "key": key,
+        "title": key[len(FILE_PREFIX) :].replace("_", " "),
+        "page_url": _text(image.get("descriptionurl")),
+        "url": _text(image.get("url")),
+        "sha1": _text(image.get("sha1")),
+        "bytes": _integer(image.get("size")),
+        "width": _integer(image.get("width")),
+        "height": _integer(image.get("height")),
+        "mime": _text(image.get("mime")),
+        "timestamp": _text(image.get("timestamp")),
+    }
 
 
 def _error(url: str, message: str, error_class: str = "other") -> dict:
@@ -147,9 +161,14 @@ def _read_page(listing: Listing, data: Any, api: str) -> dict | None:
         else:
             listing.files[record["key"]] = record
     if unreadable:
-        listing.errors.append(_error(api, f"page {listing.pages}: {unreadable} allimages "
-                                          f"{'entry has' if unreadable == 1 else 'entries have'} no usable title or "
-                                          "name, so the listing is incomplete"))
+        listing.errors.append(
+            _error(
+                api,
+                f"page {listing.pages}: {unreadable} allimages "
+                f"{'entry has' if unreadable == 1 else 'entries have'} no usable title or "
+                "name, so the listing is incomplete",
+            )
+        )
     following = data.get("continue", {})
     if not isinstance(following, dict) or not all(isinstance(v, str) for v in following.values()):
         listing.errors.append(_error(api, "continuation is not an object of strings"))
@@ -213,9 +232,14 @@ def differences(saved: Mapping[str, Any], live: Mapping[str, Any]) -> dict[str, 
 
 
 def _saved_row(candidate: Mapping[str, Any]) -> dict:
-    return {"key": candidate["upstream_key"], "title": candidate["title"], "page_url": candidate["page_url"],
-            "disposition": candidate["disposition"], "asset_id": candidate.get("asset_id"),
-            "saved": {name: candidate["source_reported"].get(name) for name in COMPARED_FIELDS}}
+    return {
+        "key": candidate["upstream_key"],
+        "title": candidate["title"],
+        "page_url": candidate["page_url"],
+        "disposition": candidate["disposition"],
+        "asset_id": candidate.get("asset_id"),
+        "saved": {name: candidate["source_reported"].get(name) for name in COMPARED_FIELDS},
+    }
 
 
 def listed_by_allimages(candidate: Mapping[str, Any]) -> bool:
@@ -237,8 +261,14 @@ def compare(snapshot: Mapping[str, Any], listing: Listing) -> dict:
             without_metadata += 1
         diff = differences(reported, live[key])
         if diff:
-            changed.append({**_saved_row(saved[key]), "page_url": live[key]["page_url"] or saved[key]["page_url"],
-                            "changes": diff, "live": {name: live[key][name] for name in COMPARED_FIELDS}})
+            changed.append(
+                {
+                    **_saved_row(saved[key]),
+                    "page_url": live[key]["page_url"] or saved[key]["page_url"],
+                    "changes": diff,
+                    "live": {name: live[key][name] for name in COMPARED_FIELDS},
+                }
+            )
         else:
             unchanged += 1
     absent = [key for key in sorted(saved) if key not in live]
@@ -246,19 +276,36 @@ def compare(snapshot: Mapping[str, Any], listing: Listing) -> dict:
     aliases = [_saved_row(saved[key]) for key in absent if not listed_by_allimages(saved[key])]
     removed, not_seen = (missing, []) if listing.complete else ([], missing)
     return {
-        "added": added, "changed": changed, "removed": removed, "not_seen": not_seen, "aliases_not_listed": aliases,
-        "counts": {"saved_candidates": len(snapshot["candidates"]), "saved_files": len(saved),
-                   "not_comparable": len(snapshot["candidates"]) - len(saved), "live_files": len(live),
-                   "added": len(added), "changed": len(changed), "removed": len(removed), "not_seen": len(not_seen),
-                   "aliases_not_listed": len(aliases), "unchanged": unchanged,
-                   "saved_without_metadata": without_metadata},
+        "added": added,
+        "changed": changed,
+        "removed": removed,
+        "not_seen": not_seen,
+        "aliases_not_listed": aliases,
+        "counts": {
+            "saved_candidates": len(snapshot["candidates"]),
+            "saved_files": len(saved),
+            "not_comparable": len(snapshot["candidates"]) - len(saved),
+            "live_files": len(live),
+            "added": len(added),
+            "changed": len(changed),
+            "removed": len(removed),
+            "not_seen": len(not_seen),
+            "aliases_not_listed": len(aliases),
+            "unchanged": unchanged,
+            "saved_without_metadata": without_metadata,
+        },
     }
 
 
 def baseline_info(rel: str, snapshot: Mapping[str, Any]) -> dict:
-    return {"path": rel, "discovery_complete": snapshot["discovery_complete"], "finished_at": snapshot["finished_at"],
-            "candidates": len(snapshot["candidates"]), "errors": len(snapshot["errors"]),
-            "dispositions": schema.disposition_counts(snapshot["candidates"])}
+    return {
+        "path": rel,
+        "discovery_complete": snapshot["discovery_complete"],
+        "finished_at": snapshot["finished_at"],
+        "candidates": len(snapshot["candidates"]),
+        "errors": len(snapshot["errors"]),
+        "dispositions": schema.disposition_counts(snapshot["candidates"]),
+    }
 
 
 def load_baseline(root: Path, source_id: str) -> tuple[dict | None, str | None]:
@@ -272,7 +319,12 @@ def load_baseline(root: Path, source_id: str) -> tuple[dict | None, str | None]:
 def check_mediawiki(root: Path, source_id: str, client_factory: ClientFactory, max_pages: int) -> dict:
     wiki = MEDIAWIKI_SOURCES[source_id]
     rel = paths.discovery_relpath(source_id)
-    entry: dict[str, Any] = {"source_id": source_id, "adapter": "mediawiki-allimages", "api": wiki.api, "host": wiki.host}
+    entry: dict[str, Any] = {
+        "source_id": source_id,
+        "adapter": "mediawiki-allimages",
+        "api": wiki.api,
+        "host": wiki.host,
+    }
     snapshot, problem = load_baseline(root, source_id)
     if snapshot is None:
         return {**entry, "status": "baseline_error", "reason": f"{rel}: {problem}; nothing was compared"}
@@ -285,10 +337,19 @@ def check_mediawiki(root: Path, source_id: str, client_factory: ClientFactory, m
         notes.append(f"saved scope.api {saved_api} differs from the checked endpoint {wiki.api}")
     if not snapshot["discovery_complete"]:
         notes.append("the saved snapshot is incomplete, so 'added' files may only lie beyond its saved continuation")
-    return {**entry, "status": "compared" if listing.complete else "incomplete",
-            "live": {"complete": listing.complete, "pages": listing.pages, "files": len(listing.files),
-                     "continuation": listing.continuation, "errors": listing.errors},
-            **compare(snapshot, listing), "notes": notes}
+    return {
+        **entry,
+        "status": "compared" if listing.complete else "incomplete",
+        "live": {
+            "complete": listing.complete,
+            "pages": listing.pages,
+            "files": len(listing.files),
+            "continuation": listing.continuation,
+            "errors": listing.errors,
+        },
+        **compare(snapshot, listing),
+        "notes": notes,
+    }
 
 
 def other_snapshots(root: Path, checked: Iterable[str]) -> list[dict]:
@@ -313,29 +374,53 @@ def other_snapshots(root: Path, checked: Iterable[str]) -> list[dict]:
         if snapshot is None:
             entries.append({"source_id": data["source_id"], "status": "baseline_error", "reason": f"{rel}: {problem}"})
             continue
-        reason = ("no read-only live adapter; check this source manually" if data["source_id"] not in MEDIAWIKI_SOURCES
-                  else "not selected with --source")
-        entries.append({"source_id": data["source_id"], "status": "not_checked", "reason": reason,
-                        "baseline": baseline_info(rel, snapshot)})
+        reason = (
+            "no read-only live adapter; check this source manually"
+            if data["source_id"] not in MEDIAWIKI_SOURCES
+            else "not selected with --source"
+        )
+        entries.append(
+            {
+                "source_id": data["source_id"],
+                "status": "not_checked",
+                "reason": reason,
+                "baseline": baseline_info(rel, snapshot),
+            }
+        )
     return entries
 
 
-def run(root: Path, *, sources: Iterable[str] = tuple(MEDIAWIKI_SOURCES), client_factory: ClientFactory = default_client,
-        max_pages: int = DEFAULT_MAX_PAGES, now: str | None = None) -> dict:
+def run(
+    root: Path,
+    *,
+    sources: Iterable[str] = tuple(MEDIAWIKI_SOURCES),
+    client_factory: ClientFactory = default_client,
+    max_pages: int = DEFAULT_MAX_PAGES,
+    now: str | None = None,
+) -> dict:
     root = Path(root).resolve()
     selected = [source_id for source_id in MEDIAWIKI_SOURCES if source_id in set(sources)]
     results = [check_mediawiki(root, source_id, client_factory, max_pages) for source_id in selected]
     results += other_snapshots(root, selected)
     compared = [entry for entry in results if "counts" in entry]
-    totals = {name: sum(entry["counts"][name] for entry in compared)
-              for name in ("added", "changed", "removed", "not_seen", "aliases_not_listed", "unchanged")}
-    return {"schema_version": schema.SCHEMA_VERSION, "generated_at": now or manifest.now_utc(), "read_only": True,
-            "complete": bool(selected) and all(entry["status"] == "compared" for entry in results[:len(selected)]),
-            "differences": any(totals[name] for name in ("added", "changed", "removed")),
-            "not_seen": totals["not_seen"], "totals": totals, "sources": results}
+    totals = {
+        name: sum(entry["counts"][name] for entry in compared)
+        for name in ("added", "changed", "removed", "not_seen", "aliases_not_listed", "unchanged")
+    }
+    return {
+        "schema_version": schema.SCHEMA_VERSION,
+        "generated_at": now or manifest.now_utc(),
+        "read_only": True,
+        "complete": bool(selected) and all(entry["status"] == "compared" for entry in results[: len(selected)]),
+        "differences": any(totals[name] for name in ("added", "changed", "removed")),
+        "not_seen": totals["not_seen"],
+        "totals": totals,
+        "sources": results,
+    }
 
 
 # ---------------------------------------------------------------- Markdown report (untrusted text as code spans)
+
 
 def code(value: Any) -> str:
     """Untrusted text as one inline code span that stays inside its table cell (no mentions, links, HTML, rows).
@@ -357,8 +442,13 @@ def safe_link(url: Any, host: str | None) -> str | None:
         return None
     try:
         parts = urlsplit(url)
-        trusted = (parts.scheme == "https" and parts.hostname == host and parts.port is None
-                   and not parts.username and not parts.password)
+        trusted = (
+            parts.scheme == "https"
+            and parts.hostname == host
+            and parts.port is None
+            and not parts.username
+            and not parts.password
+        )
     except ValueError:
         return None
     return quote(url, safe=URL_SAFE) if trusted else None
@@ -378,8 +468,12 @@ def _value(field_name: str, value: Any) -> str:
 def _table(title: str, rows: list[dict], columns: tuple[str, ...], cells: Callable[[dict], list[str]]) -> list[str]:
     if not rows:
         return []
-    lines = [f"#### {title} ({len(rows)})", "", "| " + " | ".join(columns) + " |",
-             "| " + " | ".join("---" for _ in columns) + " |"]
+    lines = [
+        f"#### {title} ({len(rows)})",
+        "",
+        "| " + " | ".join(columns) + " |",
+        "| " + " | ".join("---" for _ in columns) + " |",
+    ]
     lines += ["| " + " | ".join(cells(row)) + " |" for row in rows[:ROW_LIMIT]]
     if len(rows) > ROW_LIMIT:
         lines += ["", f"{len(rows) - ROW_LIMIT} more are listed only in the --summary JSON."]
@@ -393,61 +487,102 @@ def _source_section(entry: Mapping[str, Any]) -> list[str]:
         lines += [code(entry["reason"]), ""]
     baseline = entry.get("baseline")
     if baseline:
-        lines += [f"- Saved snapshot {code(baseline['path'])}: {baseline['candidates']} candidates, "
-                  f"discovery_complete {code(baseline['discovery_complete'])}, finished {code(baseline['finished_at'])}"]
+        lines += [
+            f"- Saved snapshot {code(baseline['path'])}: {baseline['candidates']} candidates, "
+            f"discovery_complete {code(baseline['discovery_complete'])}, finished {code(baseline['finished_at'])}"
+        ]
     live = entry.get("live")
     if live:
-        lines += [f"- Live listing: {live['files']} files in {live['pages']} pages, complete {code(live['complete'])}"
-                  + (f", continuation {code(json.dumps(live['continuation'], ensure_ascii=False))}"
-                     if live["continuation"] else "")]
+        lines += [
+            f"- Live listing: {live['files']} files in {live['pages']} pages, complete {code(live['complete'])}"
+            + (
+                f", continuation {code(json.dumps(live['continuation'], ensure_ascii=False))}"
+                if live["continuation"]
+                else ""
+            )
+        ]
         lines += [f"- Error ({code(error['error_class'])}): {code(error['message'])}" for error in live["errors"]]
     lines += [f"- Note: {code(note)}" for note in entry.get("notes", [])]
     lines.append("")
     if "counts" in entry:
         counts = entry["counts"]
-        lines += [("| added | changed | removed | not seen (incomplete) | aliases not listed | unchanged | "
-                   "not comparable |"),
-                  "| --- | --- | --- | --- | --- | --- | --- |",
-                  f"| {counts['added']} | {counts['changed']} | {counts['removed']} | {counts['not_seen']} | "
-                  f"{counts['aliases_not_listed']} | {counts['unchanged']} | {counts['not_comparable']} |", ""]
-        lines += _table("Added", entry["added"], ("File", "Size", "Dimensions", "SHA-1", "Uploaded"),
-                        lambda row: [_file_cell(row, host), _value("bytes", row["bytes"]),
-                                     f"{_value('width', row['width'])}×{_value('height', row['height'])}",
-                                     _value("sha1", row["sha1"]), _value("timestamp", row["timestamp"])])
-        lines += _table("Changed", entry["changed"], ("File", "Saved disposition", "Changes (saved → live)"),
-                        lambda row: [_file_cell(row, host), code(row["disposition"]), "; ".join(
-                            f"{name} {_value(name, old)} → {_value(name, new)}"
-                            for name, (old, new) in row["changes"].items())])
-        lines += _table("Removed (absent from a complete live listing)", entry["removed"],
-                        ("File", "Saved disposition", "Asset"),
-                        lambda row: [_file_cell(row, host), code(row["disposition"]), _value("asset", row["asset_id"])])
-        lines += _table("Not seen (live listing incomplete; not a removal)", entry["not_seen"],
-                        ("File", "Saved disposition"),
-                        lambda row: [_file_cell(row, host), code(row["disposition"])])
-        lines += _table("Redirects and aliases not listed (expected; not a removal)", entry["aliases_not_listed"],
-                        ("File", "Saved disposition"),
-                        lambda row: [_file_cell(row, host), code(row["disposition"])])
+        lines += [
+            ("| added | changed | removed | not seen (incomplete) | aliases not listed | unchanged | not comparable |"),
+            "| --- | --- | --- | --- | --- | --- | --- |",
+            f"| {counts['added']} | {counts['changed']} | {counts['removed']} | {counts['not_seen']} | "
+            f"{counts['aliases_not_listed']} | {counts['unchanged']} | {counts['not_comparable']} |",
+            "",
+        ]
+        lines += _table(
+            "Added",
+            entry["added"],
+            ("File", "Size", "Dimensions", "SHA-1", "Uploaded"),
+            lambda row: [
+                _file_cell(row, host),
+                _value("bytes", row["bytes"]),
+                f"{_value('width', row['width'])}×{_value('height', row['height'])}",
+                _value("sha1", row["sha1"]),
+                _value("timestamp", row["timestamp"]),
+            ],
+        )
+        lines += _table(
+            "Changed",
+            entry["changed"],
+            ("File", "Saved disposition", "Changes (saved → live)"),
+            lambda row: [
+                _file_cell(row, host),
+                code(row["disposition"]),
+                "; ".join(
+                    f"{name} {_value(name, old)} → {_value(name, new)}" for name, (old, new) in row["changes"].items()
+                ),
+            ],
+        )
+        lines += _table(
+            "Removed (absent from a complete live listing)",
+            entry["removed"],
+            ("File", "Saved disposition", "Asset"),
+            lambda row: [_file_cell(row, host), code(row["disposition"]), _value("asset", row["asset_id"])],
+        )
+        lines += _table(
+            "Not seen (live listing incomplete; not a removal)",
+            entry["not_seen"],
+            ("File", "Saved disposition"),
+            lambda row: [_file_cell(row, host), code(row["disposition"])],
+        )
+        lines += _table(
+            "Redirects and aliases not listed (expected; not a removal)",
+            entry["aliases_not_listed"],
+            ("File", "Saved disposition"),
+            lambda row: [_file_cell(row, host), code(row["disposition"])],
+        )
     return lines
 
 
 def render(report: Mapping[str, Any]) -> str:
     totals = report["totals"]
     lines = [
-        "## Source metadata check", "",
+        "## Source metadata check",
+        "",
         f"Generated {code(report['generated_at'])}. Read-only: no snapshot, manifest or asset was changed, and no "
-        "file was downloaded.", "",
+        "file was downloaded.",
+        "",
         f"- Live checks complete: {code(report['complete'])}"
-        + ("" if report["complete"] else " (**incomplete**: some saved files could not be checked; see the errors "
-           "below)"),
+        + (
+            ""
+            if report["complete"]
+            else " (**incomplete**: some saved files could not be checked; see the errors below)"
+        ),
         f"- Upstream differences (added, changed or removed): {code(report['differences'])}",
         f"- Totals: {totals['added']} added · {totals['changed']} changed · {totals['removed']} removed · "
         f"{totals['not_seen']} not seen (incomplete listing) · {totals['aliases_not_listed']} redirects/aliases not "
-        f"listed · {totals['unchanged']} unchanged", "",
+        f"listed · {totals['unchanged']} unchanged",
+        "",
         "A file is reported as removed only when the live listing was enumerated completely; a timeout, block, HTTP "
         "or API error, an entry without a usable title, or the page limit leaves the listing incomplete, and missing "
         "files are then only *not seen*. Saved file redirects and aliases are never in the listing. "
         "Archived bytes are never deleted because of this report; review it, then refresh snapshots and downloads "
-        "with the fetchers (e.g. `fetch_wikis.py --resume`) and commit the reviewed result.", "",
+        "with the fetchers (e.g. `fetch_wikis.py --resume`) and commit the reviewed result.",
+        "",
     ]
     for entry in report["sources"]:
         lines += _source_section(entry)
@@ -466,8 +601,12 @@ def main(argv: list[str] | None = None, *, client_factory: ClientFactory = defau
     parser.add_argument("--report", required=True, type=Path, help="Markdown report (outside the checkout)")
     parser.add_argument("--summary", type=Path, help="full JSON comparison (outside the checkout)")
     parser.add_argument("--root", type=Path, default=ROOT, help="checkout whose data/discovery is compared")
-    parser.add_argument("--source", action="append", choices=sorted(MEDIAWIKI_SOURCES),
-                        help="check only this source live (repeatable; default: all with an adapter)")
+    parser.add_argument(
+        "--source",
+        action="append",
+        choices=sorted(MEDIAWIKI_SOURCES),
+        help="check only this source live (repeatable; default: all with an adapter)",
+    )
     parser.add_argument("--max-pages", type=int, default=DEFAULT_MAX_PAGES, help="API pages per source")
     args = parser.parse_args(argv)
     root = args.root.resolve()
@@ -478,8 +617,12 @@ def main(argv: list[str] | None = None, *, client_factory: ClientFactory = defau
         summary_path = _outside(args.summary, root) if args.summary else None
         if summary_path == report_path:
             raise ValueError("--report and --summary must be different files")
-        report = run(root, sources=args.source or tuple(MEDIAWIKI_SOURCES), client_factory=client_factory,
-                     max_pages=args.max_pages)
+        report = run(
+            root,
+            sources=args.source or tuple(MEDIAWIKI_SOURCES),
+            client_factory=client_factory,
+            max_pages=args.max_pages,
+        )
     except ValueError as error:
         print(f"check_sources: {error}", file=sys.stderr)
         return 1
@@ -488,11 +631,23 @@ def main(argv: list[str] | None = None, *, client_factory: ClientFactory = defau
     if summary_path:
         summary_path.parent.mkdir(parents=True, exist_ok=True)
         summary_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"complete": report["complete"], "differences": report["differences"],
-                      "not_seen": report["not_seen"], "totals": report["totals"]}, ensure_ascii=False))
+    print(
+        json.dumps(
+            {
+                "complete": report["complete"],
+                "differences": report["differences"],
+                "not_seen": report["not_seen"],
+                "totals": report["totals"],
+            },
+            ensure_ascii=False,
+        )
+    )
     if not report["complete"]:
-        print("check_sources: the report was written, but a live check was incomplete (see its errors); "
-              f"exit status {INCOMPLETE_STATUS}", file=sys.stderr)
+        print(
+            "check_sources: the report was written, but a live check was incomplete (see its errors); "
+            f"exit status {INCOMPLETE_STATUS}",
+            file=sys.stderr,
+        )
         return INCOMPLETE_STATUS
     return 0
 

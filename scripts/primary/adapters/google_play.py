@@ -46,7 +46,8 @@ def screenshots(html: str, page_url: str) -> list[dict]:
     found: dict[str, dict] = {}
     # ``data-screenshot-index`` marks the gallery in every locale (the alt text is localized).
     images = document.find_all("img", attrs={"data-screenshot-index": True}) or document.find_all(
-        "img", attrs={"alt": "Screenshot image"})
+        "img", attrs={"alt": "Screenshot image"}
+    )
     for image in images:
         urls = [image.get("src") or ""]
         urls += [part.strip().split(" ")[0] for part in (image.get("srcset") or "").split(",") if part.strip()]
@@ -62,9 +63,12 @@ def screenshots(html: str, page_url: str) -> list[dict]:
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=["listing-screenshots"],
-                                   scope_notes="Listing pages of the seed locales; unique screenshot images at native "
-                                               "size (=s0). Reviews, avatars and similar-app images are ignored.")
+    discovery = base.new_discovery(
+        seed,
+        lists=["listing-screenshots"],
+        scope_notes="Listing pages of the seed locales; unique screenshot images at native "
+        "size (=s0). Reviews, avatars and similar-app images are ignored.",
+    )
     by_key: dict[str, model.Draft] = {}
     pages_read: set[str] = set()
     discovery.coverage["listing-screenshots"] = base.listed_on(pages_read)
@@ -73,13 +77,18 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         try:
             html, _, _ = ctx.client.get_text(page_url)
         except net.FetchError as error:
-            discovery.candidates.append(model.error_draft(base.page_key(page_url), page_url, "Google Play listing",
-                                                          error, phase="discover"))
+            discovery.candidates.append(
+                model.error_draft(base.page_key(page_url), page_url, "Google Play listing", error, phase="discover")
+            )
             base.mark_unread(discovery, "listing-screenshots", error)
             continue
         document = base.soup(html)
-        texts = {f"ld.{name}": str(block.get(name) or "") for block in base.json_ld(document)
-                 for name in ("name", "url") if block.get(name)}
+        texts = {
+            f"ld.{name}": str(block.get(name) or "")
+            for block in base.json_ld(document)
+            for name in ("name", "url")
+            if block.get(name)
+        }
         for block in base.json_ld(document):
             author = block.get("author")
             if isinstance(author, dict) and author.get("name"):
@@ -96,29 +105,53 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             key = f"screenshot:{shot['token']}"
             if key in by_key:
                 previous = by_key[key]
-                previous.candidate_extra["notes"] = (previous.candidate_extra.get("notes", "")
-                                                     + f"; also listed on {page_url}").lstrip("; ")
+                previous.candidate_extra["notes"] = (
+                    previous.candidate_extra.get("notes", "") + f"; also listed on {page_url}"
+                ).lstrip("; ")
                 continue
             file_url = f"{shot['base']}=s0"
-            sizes = sorted({f"{w}x{h}" for w, h in (advertised_size(split_size(base.absolute(page_url, s))[1])
-                                                     for s in shot["srcs"]) if w and h})
+            sizes = sorted(
+                {
+                    f"{w}x{h}"
+                    for w, h in (advertised_size(split_size(base.absolute(page_url, s))[1]) for s in shot["srcs"])
+                    if w and h
+                }
+            )
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             draft = model.apply_rule(
-                rule, key=key, page_url=page_url, texts=texts, file_url=file_url,
-                default_title=f"Google Play screenshot {index}", default_quality=ctx.quality,
-                default_rights=ctx.rights, original_filename=base.last_segment(file_url), base_evidence=evidence,
-                source_reported=base.reported(url=base.absolute(page_url, shot["srcs"][0])))
-            draft.candidate_extra["notes"] = (f"listed on {page_url}" + ("; page advertised resize requests "
-                                              + ", ".join(sizes) + "; stored size is decoded from the =s0 bytes"
-                                              if sizes else ""))
+                rule,
+                key=key,
+                page_url=page_url,
+                texts=texts,
+                file_url=file_url,
+                default_title=f"Google Play screenshot {index}",
+                default_quality=ctx.quality,
+                default_rights=ctx.rights,
+                original_filename=base.last_segment(file_url),
+                base_evidence=evidence,
+                source_reported=base.reported(url=base.absolute(page_url, shot["srcs"][0])),
+            )
+            draft.candidate_extra["notes"] = f"listed on {page_url}" + (
+                "; page advertised resize requests " + ", ".join(sizes) + "; stored size is decoded from the =s0 bytes"
+                if sizes
+                else ""
+            )
             by_key[key] = draft
             discovery.candidates.append(draft)
         icon = base.meta_content(document, "og:image")
         parsed = split_size(icon) if icon else None
         if parsed and f"icon:{parsed[0].rsplit('/', 1)[-1]}" not in by_key:
             by_key[f"icon:{parsed[0].rsplit('/', 1)[-1]}"] = None
-            discovery.candidates.append(model.Draft(
-                upstream_key=f"icon:{parsed[0].rsplit('/', 1)[-1]}", page_url=page_url, title="Google Play app icon",
-                action="excluded", file_url=f"{parsed[0]}=s0", game="dynamix", game_evidence=evidence,
-                reason="game_ui: store app icon (branding, not artwork)"))
+            discovery.candidates.append(
+                model.Draft(
+                    upstream_key=f"icon:{parsed[0].rsplit('/', 1)[-1]}",
+                    page_url=page_url,
+                    title="Google Play app icon",
+                    action="excluded",
+                    file_url=f"{parsed[0]}=s0",
+                    game="dynamix",
+                    game_evidence=evidence,
+                    reason="game_ui: store app icon (branding, not artwork)",
+                )
+            )
     return discovery

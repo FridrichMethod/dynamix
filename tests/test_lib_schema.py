@@ -35,8 +35,10 @@ def asset_by_title(manifests, title, source_id=None):
 
 def build_catalog(manifests):
     """A minimal catalog assembled exactly as 09-frozen-contracts.md describes, to exercise validate_catalog."""
-    records = sorted((asset | {"family": family} for family, value in manifests.items() for asset in value["assets"]),
-                     key=schema.provenance_sort_key)
+    records = sorted(
+        (asset | {"family": family} for family, value in manifests.items() for asset in value["assets"]),
+        key=schema.provenance_sort_key,
+    )
     names = {source["id"]: source["name"] for value in manifests.values() for source in value["sources"]}
     groups = {}
     for record in records:
@@ -44,25 +46,50 @@ def build_catalog(manifests):
     assets = []
     for group in groups.values():
         primary = {key: value for key, value in group[0].items() if key != "family"}
-        provenance = [{"source_id": r["source_id"], "source_name": names[r["source_id"]], "family": r["family"],
-                       **{key: r.get(key) for key in schema.PROVENANCE_FIELDS[3:]}, "asset_id": r["id"]}
-                      for r in group]
-        entry = {**primary, **{field: schema.ordered_union(r[field] for r in group)
-                               for field in ("illustrators", "composers", "song_titles", "song_ids", "collections")}}
+        provenance = [
+            {
+                "source_id": r["source_id"],
+                "source_name": names[r["source_id"]],
+                "family": r["family"],
+                **{key: r.get(key) for key in schema.PROVENANCE_FIELDS[3:]},
+                "asset_id": r["id"],
+            }
+            for r in group
+        ]
+        entry = {
+            **primary,
+            **{
+                field: schema.ordered_union(r[field] for r in group)
+                for field in ("illustrators", "composers", "song_titles", "song_ids", "collections")
+            },
+        }
         url = schema.catalog_url(primary["path"])
-        entry.update({"family": group[0]["family"], "source_name": names[primary["source_id"]], "url": url,
-                      "thumb": schema.thumb_relpath(primary["sha256"]) if schema.is_gallery(primary) else None,
-                      "gallery": schema.is_gallery(primary), "slideshow": schema.is_slideshow(primary),
-                      "site_original": schema.tier_for(primary["kind"], primary["format"]) == "site",
-                      "archive_url": schema.ARCHIVE_URL_PREFIX + url, "provenance": provenance, "variants": []})
+        entry.update(
+            {
+                "family": group[0]["family"],
+                "source_name": names[primary["source_id"]],
+                "url": url,
+                "thumb": schema.thumb_relpath(primary["sha256"]) if schema.is_gallery(primary) else None,
+                "gallery": schema.is_gallery(primary),
+                "slideshow": schema.is_slideshow(primary),
+                "site_original": schema.tier_for(primary["kind"], primary["format"]) == "site",
+                "archive_url": schema.ARCHIVE_URL_PREFIX + url,
+                "provenance": provenance,
+                "variants": [],
+            }
+        )
         assets.append(schema.canonical(entry, "catalog_asset"))
     for entry in assets:
         group = entry.get("variant_group")
-        entry["variants"] = sorted(other["id"] for other in assets
-                                   if group and other.get("variant_group") == group and other is not entry)
+        entry["variants"] = sorted(
+            other["id"] for other in assets if group and other.get("variant_group") == group and other is not entry
+        )
     assets.sort(key=schema.catalog_sort_key)
-    sources = [{**source, "asset_count": sum(r["source_id"] == source["id"] for r in records)}
-               for value in manifests.values() for source in value["sources"]]
+    sources = [
+        {**source, "asset_count": sum(r["source_id"] == source["id"] for r in records)}
+        for value in manifests.values()
+        for source in value["sources"]
+    ]
     failures = [failure for value in manifests.values() for failure in value["failures"]]
     site = sum(entry["bytes"] for entry in assets if entry["site_original"])
     total = sum(entry["bytes"] for entry in assets)
@@ -71,39 +98,87 @@ def build_catalog(manifests):
         by_family[record["family"]] = by_family.get(record["family"], 0) + 1
     for entry in assets:
         by_kind[entry["kind"]] = by_kind.get(entry["kind"], 0) + 1
-    return {"schema_version": 1, "owner": schema.OWNER, "game": schema.CATALOG_GAME, "repository": schema.REPOSITORY,
-            "snapshots": {family: value["fetched_at"] for family, value in manifests.items()},
-            "sources": sources, "assets": assets, "failures": failures,
-            "summary": {"source_count": len(sources), "source_asset_records": len(records),
-                        "unique_files": len(assets), "gallery_images": sum(a["gallery"] for a in assets),
-                        "slideshow_images": sum(a["slideshow"] for a in assets),
-                        "exact_duplicate_records": len(records) - len(assets),
-                        "by_family": {family: by_family.get(family, 0) for family in schema.FAMILIES},
-                        "by_kind": by_kind, "failure_count": len(failures), "downloaded_bytes": total,
-                        "site_original_bytes": site, "archive_only_bytes": total - site}}
+    return {
+        "schema_version": 1,
+        "owner": schema.OWNER,
+        "game": schema.CATALOG_GAME,
+        "repository": schema.REPOSITORY,
+        "snapshots": {family: value["fetched_at"] for family, value in manifests.items()},
+        "sources": sources,
+        "assets": assets,
+        "failures": failures,
+        "summary": {
+            "source_count": len(sources),
+            "source_asset_records": len(records),
+            "unique_files": len(assets),
+            "gallery_images": sum(a["gallery"] for a in assets),
+            "slideshow_images": sum(a["slideshow"] for a in assets),
+            "exact_duplicate_records": len(records) - len(assets),
+            "by_family": {family: by_family.get(family, 0) for family in schema.FAMILIES},
+            "by_kind": by_kind,
+            "failure_count": len(failures),
+            "downloaded_bytes": total,
+            "site_original_bytes": site,
+            "archive_only_bytes": total - site,
+        },
+    }
 
 
 class EnumerationTests(unittest.TestCase):
     """Guards against accidental edits: these literals are copied from 09-frozen-contracts.md."""
 
     def test_contract_enumerations(self):
-        self.assertEqual(schema.KINDS, ("song_art", "pack_cover", "character", "background", "part", "promotional",
-                                        "store_screenshot", "gameplay_screenshot", "process", "reference"))
+        self.assertEqual(
+            schema.KINDS,
+            (
+                "song_art",
+                "pack_cover",
+                "character",
+                "background",
+                "part",
+                "promotional",
+                "store_screenshot",
+                "gameplay_screenshot",
+                "process",
+                "reference",
+            ),
+        )
         self.assertEqual(set(schema.SITE_KINDS) | set(schema.ARCHIVE_KINDS), set(schema.KINDS))
         self.assertFalse(set(schema.SITE_KINDS) & set(schema.ARCHIVE_KINDS))
         self.assertEqual(schema.FAMILY_PRIORITY, ("artists", "official", "wikis", "archives"))
-        self.assertEqual(schema.DISPOSITIONS, ("downloaded", "duplicate_bytes", "excluded", "failed", "blocked",
-                                               "pending"))
+        self.assertEqual(
+            schema.DISPOSITIONS, ("downloaded", "duplicate_bytes", "excluded", "failed", "blocked", "pending")
+        )
         self.assertEqual(len(schema.EXCLUSION_REASONS), 13)
-        self.assertEqual(schema.ERROR_CLASSES, ("http_4xx", "http_5xx", "timeout", "blocked", "challenge",
-                                                "decode_error", "size_limit", "host_not_allowed", "other"))
+        self.assertEqual(
+            schema.ERROR_CLASSES,
+            (
+                "http_4xx",
+                "http_5xx",
+                "timeout",
+                "blocked",
+                "challenge",
+                "decode_error",
+                "size_limit",
+                "host_not_allowed",
+                "other",
+            ),
+        )
         self.assertEqual(schema.UPSTREAM_STATUSES, ("current", "removed", "superseded", "unknown"))
-        self.assertEqual(schema.MAPPING_STATUSES, ("confirmed_primary", "confirmed_wiki", "inferred", "unmapped",
-                                                   "conflict"))
+        self.assertEqual(
+            schema.MAPPING_STATUSES, ("confirmed_primary", "confirmed_wiki", "inferred", "unmapped", "conflict")
+        )
         for source_id in schema.REGISTERED_SOURCE_IDS + ("artists:x:ariiol_", "artists:artstation:sandgodoven"):
             self.assertRegex(source_id, schema.SOURCE_ID_RE)
-        for bad in ("legacy:x", "wikis:Mira", "wikis:a_b", "artists:x", "artists:x:-bad", "wikis:x:y",
-                    "artists:x-foo:bar"):  # a hyphenated platform could not be split back out of its source slug
+        for bad in (
+            "legacy:x",
+            "wikis:Mira",
+            "wikis:a_b",
+            "artists:x",
+            "artists:x:-bad",
+            "wikis:x:y",
+            "artists:x-foo:bar",
+        ):  # a hyphenated platform could not be split back out of its source slug
             self.assertNotRegex(bad, schema.SOURCE_ID_RE)
 
     def test_source_slugs_must_be_unique(self):
@@ -139,20 +214,30 @@ class EnumerationTests(unittest.TestCase):
 class HelperTests(unittest.TestCase):
     def test_compute_comparisons_tri_state(self):
         observed = {"sniffed_format": "WEBP", "bytes": 10, "width": 2, "height": 3, "sha1": "a" * 40}
-        reported = schema.make_source_reported(mime="image/png; charset=binary", bytes=10, width=2, height=3,
-                                               sha1="A" * 40)
-        self.assertEqual(schema.compute_comparisons(reported, observed),
-                         {"sha1_match": True, "bytes_match": True, "dimensions_match": True, "format_match": False})
-        self.assertEqual(schema.compute_comparisons(schema.make_source_reported(), observed),
-                         dict.fromkeys(schema.COMPARISON_FIELDS))
-        self.assertEqual(schema.compute_comparisons(schema.make_source_reported(mime="image/jpg"),
-                                                    {**observed, "sniffed_format": "JPEG"})["format_match"], True)
+        reported = schema.make_source_reported(
+            mime="image/png; charset=binary", bytes=10, width=2, height=3, sha1="A" * 40
+        )
+        self.assertEqual(
+            schema.compute_comparisons(reported, observed),
+            {"sha1_match": True, "bytes_match": True, "dimensions_match": True, "format_match": False},
+        )
+        self.assertEqual(
+            schema.compute_comparisons(schema.make_source_reported(), observed), dict.fromkeys(schema.COMPARISON_FIELDS)
+        )
+        self.assertEqual(
+            schema.compute_comparisons(
+                schema.make_source_reported(mime="image/jpg"), {**observed, "sniffed_format": "JPEG"}
+            )["format_match"],
+            True,
+        )
         with self.assertRaises(ValueError):
             schema.make_source_reported(size=3)
 
     def test_redaction(self):
-        self.assertEqual(schema.redact_url("https://u:pw@example.com/a?token=abc&format=original&Sig=x#access_token=y"),
-                         "https://example.com/a?token=REDACTED&format=original&Sig=REDACTED#access_token=REDACTED")
+        self.assertEqual(
+            schema.redact_url("https://u:pw@example.com/a?token=abc&format=original&Sig=x#access_token=y"),
+            "https://example.com/a?token=REDACTED&format=original&Sig=REDACTED#access_token=REDACTED",
+        )
         clean = "https://static.wikia.nocookie.net/dynamix/images/a/a1/X.png/revision/latest?cb=1&format=original"
         self.assertEqual(schema.redact_url(clean), clean)
         text = "GET https://a.example/x?api_key=zz -> 403; Cookie: sid=1; Authorization: Bearer abc"
@@ -164,8 +249,10 @@ class HelperTests(unittest.TestCase):
 
     def test_redaction_of_pairs_outside_absolute_urls(self):
         """urllib3 messages carry the path and query without a scheme (``Max retries exceeded with url: /x?...``)."""
-        text = ("HTTPConnectionPool(host='127.0.0.1', port=9): Max retries exceeded with url: "
-                "/x.png?X-Amz-Signature=deadbeefsecret&token=topsecret&format=original (Caused by ...)")
+        text = (
+            "HTTPConnectionPool(host='127.0.0.1', port=9): Max retries exceeded with url: "
+            "/x.png?X-Amz-Signature=deadbeefsecret&token=topsecret&format=original (Caused by ...)"
+        )
         redacted = schema.redact_text(text)
         for secret in ("deadbeefsecret", "topsecret"):
             self.assertNotIn(secret, redacted)
@@ -184,27 +271,50 @@ class HelperTests(unittest.TestCase):
         self.assertIn("key=REDACTED", schema.redact_text(f"HTTP 404 for {wayback}"))
         self.assertIsNotNone(checks.http_url("https://cdn.example.com/a.png?X-Amz-Signature=abc"))
         self.assertIsNotNone(checks.http_url("https://cdn.example.com/a.png?token=abc"))
-        record = schema.failure_record(source_id="archives:wayback", candidate_id="archives:wayback:img-12",
-                                       phase="download", url=wayback, attempted_at="2026-10-10T12:00:00Z",
-                                       attempts=1, error_class="http_4xx", http_status=404, retriable=False,
-                                       manual=False, message=f"HTTP 404 for {wayback}")
+        record = schema.failure_record(
+            source_id="archives:wayback",
+            candidate_id="archives:wayback:img-12",
+            phase="download",
+            url=wayback,
+            attempted_at="2026-10-10T12:00:00Z",
+            attempts=1,
+            error_class="http_4xx",
+            http_status=404,
+            retriable=False,
+            manual=False,
+            message=f"HTTP 404 for {wayback}",
+        )
         self.assertEqual(record["url"], wayback)
         self.assertNotIn("key=12", record["message"])
 
     def test_url_syntax_rules(self):
         """A backslash ends the authority for urllib3 but not for urlsplit, so it can smuggle a host past a suffix
         check; all ASCII characters RFC 3986 forbids are refused, non-ASCII (IRI) characters are allowed."""
-        for bad in ("http://evil.example\\.miraheze.org/x", "http://evil.example\\@a.miraheze.org/x",
-                    "https://a.example/x y", "https://a.example/x|y", "https://a.example/{x}", "https://a.example/x<",
-                    "https://a.example/\x01", "http://evil%2eexample.miraheze.org/", "http://a.example:99999/",
-                    "http://[::1/x", "ftp://a.example/x", "https://a.example/x\t", "//a.example/x"):
+        for bad in (
+            "http://evil.example\\.miraheze.org/x",
+            "http://evil.example\\@a.miraheze.org/x",
+            "https://a.example/x y",
+            "https://a.example/x|y",
+            "https://a.example/{x}",
+            "https://a.example/x<",
+            "https://a.example/\x01",
+            "http://evil%2eexample.miraheze.org/",
+            "http://a.example:99999/",
+            "http://[::1/x",
+            "ftp://a.example/x",
+            "https://a.example/x\t",
+            "//a.example/x",
+        ):
             with self.subTest(url=bad):
                 self.assertIsNotNone(checks.url_problem(bad))
                 self.assertIsNotNone(checks.http_url(bad))
-        for good in ("https://dynamix.miraheze.org/wiki/交差して歪む過去と未来",
-                     "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
-                     "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png", "http://[2001:db8::1]:8080/x",
-                     "https://Dynamix.Miraheze.org./w/api.php?action=query&list=allimages"):
+        for good in (
+            "https://dynamix.miraheze.org/wiki/交差して歪む過去と未来",
+            "https://static.miraheze.org/dynamixwiki/archive/a/a1/20240601000000!Dynamix_background_03.png",
+            "https://dynamix.miraheze.org/wiki/File:Cosmic_Pulse_(crop).png",
+            "http://[2001:db8::1]:8080/x",
+            "https://Dynamix.Miraheze.org./w/api.php?action=query&list=allimages",
+        ):
             with self.subTest(url=good):
                 self.assertIsNone(checks.url_problem(good))
 
@@ -215,17 +325,26 @@ class HelperTests(unittest.TestCase):
         shuffled["quality"] = dict(reversed(list(asset["quality"].items())))
         before = copy.deepcopy(shuffled)
         ordered = schema.canonical(shuffled, "asset")
-        self.assertEqual(list(ordered), [key for key in schema.ASSET_FIELDS + schema.ASSET_OPTIONAL_FIELDS
-                                         if key in asset])
+        self.assertEqual(
+            list(ordered), [key for key in schema.ASSET_FIELDS + schema.ASSET_OPTIONAL_FIELDS if key in asset]
+        )
         self.assertEqual(list(ordered["quality"]), list(schema.QUALITY_FIELDS))
         self.assertEqual(shuffled, before)
 
     def test_failure_record_redacts_and_validates(self):
-        record = schema.failure_record(source_id="wikis:fandom", candidate_id="wikis:fandom:File:X.png",
-                                       phase="download", url="https://user:pw@dynamix.fandom.com/x?token=t",
-                                       attempted_at="2026-10-10T12:00:00Z", attempts=1, error_class="blocked",
-                                       http_status=403, retriable=False, manual=True,
-                                       message="denied for https://dynamix.fandom.com/x?token=t")
+        record = schema.failure_record(
+            source_id="wikis:fandom",
+            candidate_id="wikis:fandom:File:X.png",
+            phase="download",
+            url="https://user:pw@dynamix.fandom.com/x?token=t",
+            attempted_at="2026-10-10T12:00:00Z",
+            attempts=1,
+            error_class="blocked",
+            http_status=403,
+            retriable=False,
+            manual=True,
+            message="denied for https://dynamix.fandom.com/x?token=t",
+        )
         self.assertEqual(record["id"], "wikis:fandom:File:X.png:download")
         self.assertNotIn("pw", record["url"])
         self.assertNotIn("token=t", record["message"])
@@ -300,8 +419,13 @@ class RecordValidationTests(unittest.TestCase):
             (crop, lambda r: r.update(game_associations=["arcaea"]), "game_associations: must include"),
             (crop, lambda r: r["quality"].update(origin_status="artist"), "quality: origin_status"),
             (crop, lambda r: r["rights"].update(license=""), "rights: license"),
-            (crop, lambda r: r.update(credit_evidence=[{"role": "artist", "name": "x", "url": None, "field": None,
-                                                        "quote": None}]), "credit_evidence"),
+            (
+                crop,
+                lambda r: r.update(
+                    credit_evidence=[{"role": "artist", "name": "x", "url": None, "field": None, "quote": None}]
+                ),
+                "credit_evidence",
+            ),
         ]
         for base, mutate, fragment in mutations:
             with self.subTest(fragment=fragment):
@@ -342,9 +466,14 @@ class RecordValidationTests(unittest.TestCase):
             ({**excluded, "asset_id": downloaded["asset_id"]}, "asset_id: must be absent"),
             ({**downloaded, "disposition": "pending", "reason": "x"}, "asset_id: must be absent"),
             ({**downloaded, "role": "fanart"}, "role:"),
-            ({**excluded, "disposition": "pending", "reason": "pending: review"},
-             "reason: must start with a pending reason"),
-            ({**excluded, "disposition": "pending", "reason": "needs review"}, "reason: must start with a pending reason"),
+            (
+                {**excluded, "disposition": "pending", "reason": "pending: review"},
+                "reason: must start with a pending reason",
+            ),
+            (
+                {**excluded, "disposition": "pending", "reason": "needs review"},
+                "reason: must start with a pending reason",
+            ),
         ]
         for prefix in schema.PENDING_REASONS:
             schema.validate_candidate({**excluded, "disposition": "pending", "reason": f"{prefix}: detail"})
@@ -369,9 +498,10 @@ class RecordValidationTests(unittest.TestCase):
         self.assertInvalid(schema.validate_discovery, backwards, "finished_at")
         foreign = copy.deepcopy(self.discoveries["wikis:fandom"])
         self.assertInvalid(schema.validate_discovery, foreign, "must be 'wikis:miraheze'", source_id="wikis:miraheze")
-        self.assertEqual(schema.validate_discovery(self.discoveries["wikis:miraheze"]),
-                         {"downloaded": 4, "duplicate_bytes": 1, "excluded": 2, "failed": 0, "blocked": 0,
-                          "pending": 1})
+        self.assertEqual(
+            schema.validate_discovery(self.discoveries["wikis:miraheze"]),
+            {"downloaded": 4, "duplicate_bytes": 1, "excluded": 2, "failed": 0, "blocked": 0, "pending": 1},
+        )
 
     def test_manifest_rules(self):
         wikis = self.manifests["wikis"]
@@ -384,11 +514,17 @@ class RecordValidationTests(unittest.TestCase):
             (lambda m: m.update(family="artists"), "belongs to family 'wikis'"),
             (lambda m: m.update(extra=1), "extra: unknown field"),
             (lambda m: m.update(schema_version=2), "schema_version"),
-            (lambda m: m["assets"][0].update(upstream_status="superseded", superseded_by="wikis:fandom:" + "e" * 16),
-             "superseded_by: names no asset"),
-            (lambda m: m["assets"][0].update(upstream_status="superseded", superseded_by=m["assets"][1]["id"])
-             or m["assets"][1].update(upstream_status="superseded", superseded_by=m["assets"][0]["id"]),
-             "chain forms a cycle"),
+            (
+                lambda m: m["assets"][0].update(upstream_status="superseded", superseded_by="wikis:fandom:" + "e" * 16),
+                "superseded_by: names no asset",
+            ),
+            (
+                lambda m: (
+                    m["assets"][0].update(upstream_status="superseded", superseded_by=m["assets"][1]["id"])
+                    or m["assets"][1].update(upstream_status="superseded", superseded_by=m["assets"][0]["id"])
+                ),
+                "chain forms a cycle",
+            ),
         ]
         for mutate, fragment in cases:
             with self.subTest(fragment=fragment):
@@ -396,8 +532,10 @@ class RecordValidationTests(unittest.TestCase):
                 mutate(record)
                 self.assertInvalid(schema.validate_manifest, record, fragment)
         artists = copy.deepcopy(self.manifests["artists"])  # slug() collapses "--", so a--b and a-b collide
-        artists["sources"] = sorted([{**artists["sources"][0], "id": handle, "name": handle}
-                                     for handle in ("artists:x:a--b", "artists:x:a-b")], key=lambda s: s["id"])
+        artists["sources"] = sorted(
+            [{**artists["sources"][0], "id": handle, "name": handle} for handle in ("artists:x:a--b", "artists:x:a-b")],
+            key=lambda s: s["id"],
+        )
         artists.update(assets=[], failures=[])
         self.assertInvalid(schema.validate_manifest, artists, "share the source slug")
 
@@ -418,14 +556,25 @@ class RecordValidationTests(unittest.TestCase):
         cases = [
             (lambda m, s: m["sources"][1].update(candidate_count=99), "candidate_count"),
             (lambda m, s: m["sources"][0].update(discovery_complete=True), "discovery_complete"),
-            (lambda m, s: candidate(s, "wikis:miraheze", "downloaded").update(asset_id="wikis:miraheze:" + "0" * 16),
-             "not an asset recorded"),
+            (
+                lambda m, s: candidate(s, "wikis:miraheze", "downloaded").update(asset_id="wikis:miraheze:" + "0" * 16),
+                "not an asset recorded",
+            ),
             (lambda m, s: candidate(s, "wikis:miraheze", "downloaded").update(role="background"), "role"),
-            (lambda m, s: candidate(s, "wikis:miraheze", "duplicate_bytes").update(
-                asset_id="wikis:miraheze:" + "1" * 16), "names no recorded asset"),
+            (
+                lambda m, s: candidate(s, "wikis:miraheze", "duplicate_bytes").update(
+                    asset_id="wikis:miraheze:" + "1" * 16
+                ),
+                "names no recorded asset",
+            ),
             (lambda m, s: m.update(failures=[]) or m["sources"][0].pop("failure_count"), "needs a Failure record"),
-            (lambda m, s: s["wikis:miraheze"]["candidates"].remove(candidate(s, "wikis:miraheze", "downloaded"))
-             or m["sources"][1].update(candidate_count=7), "missing from a complete discovery"),
+            (
+                lambda m, s: (
+                    s["wikis:miraheze"]["candidates"].remove(candidate(s, "wikis:miraheze", "downloaded"))
+                    or m["sources"][1].update(candidate_count=7)
+                ),
+                "missing from a complete discovery",
+            ),
             (lambda m, s: candidate(s, "wikis:fandom", "failed").update(disposition="pending"), "not failed/blocked"),
         ]
         for mutate, fragment in cases:
@@ -468,8 +617,10 @@ class RecordValidationTests(unittest.TestCase):
         failing = [
             (unmarked, "its candidate is not 'downloaded' with this asset_id"),
             (lambda older, newer, candidate: older.pop("superseded_by"), "chain ends at"),
-            (lambda older, newer, candidate: newer.update(upstream_status="removed"),
-             "its candidate names this asset as downloaded"),
+            (
+                lambda older, newer, candidate: newer.update(upstream_status="removed"),
+                "its candidate names this asset as downloaded",
+            ),
             (new_revision_failed, "needs a Failure record"),  # superseded rule passes; the failed candidate does not
         ]
         for mutate, fragment in failing:
@@ -480,10 +631,12 @@ class RecordValidationTests(unittest.TestCase):
     def test_removed_asset_may_leave_complete_discovery(self):
         wikis = copy.deepcopy(self.manifests["wikis"])
         snaps = {sid: copy.deepcopy(snap) for sid, snap in self.discoveries.items() if sid.startswith("wikis:")}
-        background = next(a for a in wikis["assets"] if a["kind"] == "background"
-                          and a.get("upstream_status") == "current")
-        snaps["wikis:miraheze"]["candidates"] = [c for c in snaps["wikis:miraheze"]["candidates"]
-                                                 if c["id"] != background["candidate_id"]]
+        background = next(
+            a for a in wikis["assets"] if a["kind"] == "background" and a.get("upstream_status") == "current"
+        )
+        snaps["wikis:miraheze"]["candidates"] = [
+            c for c in snaps["wikis:miraheze"]["candidates"] if c["id"] != background["candidate_id"]
+        ]
         wikis["sources"][1]["candidate_count"] -= 1
         background["upstream_status"] = "removed"  # its superseded predecessor stays archived as well
         schema.validate_manifest(wikis, "wikis")
@@ -502,8 +655,10 @@ class RecordValidationTests(unittest.TestCase):
             (lambda i: i["songs"][0].update(inclusion_evidence=[]), "in_original_game requires positive evidence"),
             (lambda i: i["songs"][0].update(id="song:cosmic"), "id: must be"),
             (lambda i: i["songs"].reverse(), "songs: must be sorted"),
-            (lambda i: i["disagreements"].append({"song_id": "song:missing", "field": "x", "values": {}}),
-             "unknown song"),
+            (
+                lambda i: i["disagreements"].append({"song_id": "song:missing", "field": "x", "values": {}}),
+                "unknown song",
+            ),
             (lambda i: i.update(as_of="2026-13-01"), "as_of"),
         ]
         for mutate, fragment in cases:
@@ -545,22 +700,37 @@ class CatalogValidationTests(unittest.TestCase):
         summary = self.catalog["summary"]
         self.assertEqual(summary["exact_duplicate_records"], 1)  # Miraheze and Fandom share the Cosmic Pulse bytes
         self.assertEqual(summary["slideshow_images"], 1)  # only the 1200 px artist original
-        cosmic = next(a for a in self.catalog["assets"] if a["source_id"] == "wikis:miraheze"
-                      and a["kind"] == "song_art" and a["title"] == "Cosmic Pulse")
+        cosmic = next(
+            a
+            for a in self.catalog["assets"]
+            if a["source_id"] == "wikis:miraheze" and a["kind"] == "song_art" and a["title"] == "Cosmic Pulse"
+        )
         self.assertEqual([p["source_id"] for p in cosmic["provenance"]], ["wikis:miraheze", "wikis:fandom"])
         self.assertEqual(len(cosmic["variants"]), 2)
 
     def test_provenance_sort_key_follows_the_frozen_primary_rule(self):
         """09 "Catalog presentation rules", Primary record: family priority; wikis:miraheze, then wikis:fandom, then
         every other source, tied; quality.source_variant; source ID; asset ID."""
-        def record(source_id, variant="site_original", asset_id="x"):
-            return {"source_id": source_id, "asset_id": f"{source_id}:{asset_id}",
-                    "quality": {"source_variant": variant}}
 
-        ordered = [record("artists:x:painter", "preview"), record("official:x"), record("official:facebook", "preview"),
-                   record("official:c4cat", "unknown"), record("wikis:miraheze", "unknown"), record("wikis:fandom"),
-                   record("wikis:atwiki-ja"), record("wikis:rhythmgame-ja"), record("wikis:atwiki-ja", "preview"),
-                   record("archives:wayback")]
+        def record(source_id, variant="site_original", asset_id="x"):
+            return {
+                "source_id": source_id,
+                "asset_id": f"{source_id}:{asset_id}",
+                "quality": {"source_variant": variant},
+            }
+
+        ordered = [
+            record("artists:x:painter", "preview"),
+            record("official:x"),
+            record("official:facebook", "preview"),
+            record("official:c4cat", "unknown"),
+            record("wikis:miraheze", "unknown"),
+            record("wikis:fandom"),
+            record("wikis:atwiki-ja"),
+            record("wikis:rhythmgame-ja"),
+            record("wikis:atwiki-ja", "preview"),
+            record("archives:wayback"),
+        ]
         self.assertEqual(sorted(reversed(ordered), key=schema.provenance_sort_key), ordered)
 
     def test_catalog_mutations_are_rejected(self):
@@ -576,17 +746,27 @@ class CatalogValidationTests(unittest.TestCase):
             (lambda c: first(c, kind="reference").update(thumb="assets/thumbs/x.webp"), "thumb"),
             (lambda c: first(c, kind="background").update(archive_url="https://example.com/x"), "archive_url"),
             (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(variants=[]), "variants"),
-            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"].reverse(),
-             "provenance"),
+            (
+                lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"].reverse(),
+                "provenance",
+            ),
             (lambda c: first(c, kind="background").update(illustrators=["someone"]), "ordered union"),
-            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(song_ids=[]),
-             "song_ids: must be the ordered union"),
-            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(collections=[]),
-             "collections: must be the ordered union"),
-            (lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"][0].pop("song_ids"),
-             "missing key 'song_ids'"),
-            (lambda c: c["sources"].append({**c["sources"][0], "id": "archives:miraheze", "family": "archives"}),
-             "share the source slug"),
+            (
+                lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(song_ids=[]),
+                "song_ids: must be the ordered union",
+            ),
+            (
+                lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse").update(collections=[]),
+                "collections: must be the ordered union",
+            ),
+            (
+                lambda c: first(c, source_id="wikis:miraheze", title="Cosmic Pulse")["provenance"][0].pop("song_ids"),
+                "missing key 'song_ids'",
+            ),
+            (
+                lambda c: c["sources"].append({**c["sources"][0], "id": "archives:miraheze", "family": "archives"}),
+                "share the source slug",
+            ),
             (lambda c: c.update(owner="mashirozx"), "owner"),
             (lambda c: c["snapshots"].update(legacy=None), "snapshots"),
             (lambda c: c["sources"].append(copy.deepcopy(c["sources"][0])), "duplicate source"),

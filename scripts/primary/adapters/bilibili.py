@@ -73,16 +73,21 @@ def extract(data: Mapping[str, Any]) -> tuple[dict, list[dict], dict[str, str]]:
         url = original_picture_url(node.get("url") or node.get("src") or "")
         if url and ("width" in node or "height" in node) and url not in seen:
             seen.add(url)
-            pictures.append({"url": url, "width": node.get("width"), "height": node.get("height"),
-                             "size": node.get("size")})
+            pictures.append(
+                {"url": url, "width": node.get("width"), "height": node.get("height"), "size": node.get("size")}
+            )
     texts = {"title": title, "text": " ".join(words), "author": author.get("name", "")}
     return author, pictures, texts
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
-    discovery = base.new_discovery(seed, lists=["seed-posts"], api=API, evidence_level="live_api",
-                                   scope_notes="Explicit seed opus IDs via Bilibili's public web API; no space "
-                                               "listing or search is crawled.")
+    discovery = base.new_discovery(
+        seed,
+        lists=["seed-posts"],
+        api=API,
+        evidence_level="live_api",
+        scope_notes="Explicit seed opus IDs via Bilibili's public web API; no space listing or search is crawled.",
+    )
     expected_mid = str((seed.get("params") or {}).get("mid") or "")
     for item in seed["items"]:
         opus_id = item["opus_id"]
@@ -93,24 +98,36 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             code = data.get("code") if isinstance(data, dict) else None
             if code in RISK_CODES:
                 ctx.client.mark_blocked(API, f"code {code}")
-                raise net.ChallengeError(f"Bilibili {RISK_CODES[code]} (code {code}) for an anonymous client",
-                                         url=page_url, http_status=200)
+                raise net.ChallengeError(
+                    f"Bilibili {RISK_CODES[code]} (code {code}) for an anonymous client", url=page_url, http_status=200
+                )
             if code != 0:
-                raise net.FetchError(f"Bilibili API code {code}: {model.clip(str(data.get('message')), 80)}",
-                                     url=page_url)
+                raise net.FetchError(
+                    f"Bilibili API code {code}: {model.clip(str(data.get('message')), 80)}", url=page_url
+                )
         except net.FetchError as error:
             discovery.candidates.append(model.error_draft(opus_id, page_url, title, error, phase="discover"))
             base.mark_unread(discovery, "seed-posts", error)
             continue
         author, pictures, texts = extract(data.get("data") or {})
         if expected_mid and author.get("mid") != expected_mid:
-            override = {"action": "pending", "reason": f"unresolved_game: post author mid {author.get('mid')} is not "
-                                                       f"this source's account {expected_mid}"}
+            override = {
+                "action": "pending",
+                "reason": f"unresolved_game: post author mid {author.get('mid')} is not "
+                f"this source's account {expected_mid}",
+            }
         else:
             override = None
         if not pictures:
-            discovery.candidates.append(model.Draft(upstream_key=opus_id, page_url=page_url, title=title,
-                                                    action="excluded", reason="out_of_scope_other: no pictures"))
+            discovery.candidates.append(
+                model.Draft(
+                    upstream_key=opus_id,
+                    page_url=page_url,
+                    title=title,
+                    action="excluded",
+                    reason="out_of_scope_other: no pictures",
+                )
+            )
             continue
         for index, picture in enumerate(pictures, start=1):
             key = f"{opus_id}:{index}"
@@ -118,10 +135,24 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if override:
                 rule = model.hold(rule, override["reason"])
             name = base.last_segment(picture["url"])
-            discovery.candidates.append(model.apply_rule(
-                rule, key=key, page_url=page_url, texts=texts, file_url=picture["url"],
-                default_title=f"{title} image {index}", default_quality=ctx.quality, default_rights=ctx.rights,
-                original_filename=name, base_evidence=[page_url],
-                source_reported=base.reported(url=picture["url"], mime=base.mime_for(name.rsplit(".", 1)[-1]),
-                                              width=picture["width"], height=picture["height"])))
+            discovery.candidates.append(
+                model.apply_rule(
+                    rule,
+                    key=key,
+                    page_url=page_url,
+                    texts=texts,
+                    file_url=picture["url"],
+                    default_title=f"{title} image {index}",
+                    default_quality=ctx.quality,
+                    default_rights=ctx.rights,
+                    original_filename=name,
+                    base_evidence=[page_url],
+                    source_reported=base.reported(
+                        url=picture["url"],
+                        mime=base.mime_for(name.rsplit(".", 1)[-1]),
+                        width=picture["width"],
+                        height=picture["height"],
+                    ),
+                )
+            )
     return discovery

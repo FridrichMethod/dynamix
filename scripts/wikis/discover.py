@@ -44,27 +44,31 @@ class Inventory:
         return all(self.continuation.get(name, {}) is None for name in LISTS)
 
 
-def fetch_inventory(client: Any, source: config.WikiSource, *, cache_dir: str | Path | None = None,
-                    now=manifest.now_utc) -> Inventory:
+def fetch_inventory(
+    client: Any, source: config.WikiSource, *, cache_dir: str | Path | None = None, now=manifest.now_utc
+) -> Inventory:
     """Enumerate one MediaWiki wiki. Every list follows its continuation to the end; a failed list keeps its open
     continuation and error (the inventory is then incomplete, never silently partial)."""
-    api = mediawiki.MediaWikiAPI(client, source.api_url,
-                                 cache_dir=Path(cache_dir) / source.key if cache_dir else None)
+    api = mediawiki.MediaWikiAPI(client, source.api_url, cache_dir=Path(cache_dir) / source.key if cache_dir else None)
     inventory = Inventory(source, now(), now())
     results = {"allimages": mediawiki.allimages(api)}
     results["fileusage"] = mediawiki.file_usage(api)
     results["filepages"] = mediawiki.file_pages(api)
     results["pages"] = mediawiki.content_pages(api)
-    gif_titles = sorted(title for title, row in results["allimages"].items.items()
-                        if (row.get("mime") or "").lower() == "image/gif")
+    gif_titles = sorted(
+        title for title, row in results["allimages"].items.items() if (row.get("mime") or "").lower() == "image/gif"
+    )
     results["gifmetadata"] = mediawiki.gif_frames(api, gif_titles)
     results["expandtemplates"] = mediawiki.expand_templates(api, templated_titles(results["pages"].items))
     inventory.files = results["allimages"].items
     inventory.usage = results["fileusage"].items
     inventory.filepages = results["filepages"].items
     expansions = results["expandtemplates"].items
-    inventory.pages = {title: {**page, "title_expansions": expansions} if expansions else page
-                       for title, page in results["pages"].items.items() if page.get("ns") == 0}
+    inventory.pages = {
+        title: {**page, "title_expansions": expansions} if expansions else page
+        for title, page in results["pages"].items.items()
+        if page.get("ns") == 0
+    }
     inventory.gif_frames = results["gifmetadata"].items
     for name in LISTS:
         result = results[name]
@@ -83,12 +87,14 @@ def fetch_inventory(client: Any, source: config.WikiSource, *, cache_dir: str | 
 
 def _utc(seconds: float) -> str:
     from datetime import datetime, timezone
+
     return datetime.fromtimestamp(seconds, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def templated_titles(pages: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:
     """Song template ``Title`` values that use templates (raw value -> page title), to be expanded by the API."""
     from . import wikitext
+
     found: dict[str, str] = {}
     for title, page in sorted(pages.items()):
         content = (page.get("revision") or {}).get("content") or ""
@@ -100,6 +106,7 @@ def templated_titles(pages: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:
 
 
 # --- Plans ------------------------------------------------------------------------------------------------------------
+
 
 @dataclass
 class SongCredit:
@@ -181,19 +188,24 @@ def source_reported(info: Mapping[str, Any]) -> dict:
     def number(key: str) -> int | None:
         value = info.get(key)
         return value if isinstance(value, int) and not isinstance(value, bool) and value >= 0 else None
+
     sha1 = info.get("sha1")
     mime = info.get("mime")
     url = info.get("url")
     return schema.make_source_reported(
         url=url if isinstance(url, str) and schema.checks.url_problem(url) is None else None,
         mime=mime if isinstance(mime, str) and mime.strip() else None,
-        bytes=number("size"), width=number("width") or None, height=number("height") or None,
+        bytes=number("size"),
+        width=number("width") or None,
+        height=number("height") or None,
         sha1=sha1.lower() if isinstance(sha1, str) and len(sha1) == 40 else None,
-        timestamp=info.get("timestamp") if isinstance(info.get("timestamp"), str) else None, revision=None)
+        timestamp=info.get("timestamp") if isinstance(info.get("timestamp"), str) else None,
+        revision=None,
+    )
 
 
 def _clip(text: str, limit: int) -> str:
-    return text if len(text) <= limit else text[:limit - 3] + "..."
+    return text if len(text) <= limit else text[: limit - 3] + "..."
 
 
 def file_page_notes(info: Mapping[str, Any], filepage: Mapping[str, Any]) -> tuple[str, list[str]]:
@@ -211,14 +223,17 @@ def file_page_notes(info: Mapping[str, Any], filepage: Mapping[str, Any]) -> tup
         notes.append(f"file page text: {_clip(description, DESCRIPTION_LIMIT)!r}")
     if comment and comment != description:
         notes.append(f"upload comment: {_clip(comment, DESCRIPTION_LIMIT)!r}")
-    return (_clip(schema.redact_text(description, strict=False), DESCRIPTION_LIMIT),
-            [schema.redact_text(note, strict=False) for note in notes])
+    return (
+        _clip(schema.redact_text(description, strict=False), DESCRIPTION_LIMIT),
+        [schema.redact_text(note, strict=False) for note in notes],
+    )
 
 
 def _role_notes(decision: classify.Decision, extra: list[str] | None = None) -> str:
     parts = list(extra or [])
-    parts.append("role evidence: " + "; ".join(decision.role_evidence) if decision.role_evidence
-                 else "no role evidence")
+    parts.append(
+        "role evidence: " + "; ".join(decision.role_evidence) if decision.role_evidence else "no role evidence"
+    )
     return _clip("; ".join(parts), NOTES_LIMIT)
 
 
@@ -231,18 +246,29 @@ def _clean_list(values: list[str]) -> list[str]:
     return result
 
 
-def base_candidate(source: config.WikiSource, title: str, info: Mapping[str, Any],
-                   decision: classify.Decision, file_notes: list[str] | None = None) -> dict:
+def base_candidate(
+    source: config.WikiSource,
+    title: str,
+    info: Mapping[str, Any],
+    decision: classify.Decision,
+    file_notes: list[str] | None = None,
+) -> dict:
     key = upstream_key(title)
     page = info.get("descriptionurl")
     if not isinstance(page, str) or schema.checks.http_url(page) is not None:
         page = config.page_url(source, title)
     reported = source_reported(info)
     candidate = {
-        "id": schema.candidate_id(source.source_id, key), "source_id": source.source_id, "upstream_key": key,
-        "page_url": page, "file_url": reported["url"], "title": display_title(title) or key,
-        "role": decision.role if decision.role in schema.KINDS else None, "game": decision.game,
-        "game_evidence": _clean_list(decision.game_evidence), "source_reported": reported,
+        "id": schema.candidate_id(source.source_id, key),
+        "source_id": source.source_id,
+        "upstream_key": key,
+        "page_url": page,
+        "file_url": reported["url"],
+        "title": display_title(title) or key,
+        "role": decision.role if decision.role in schema.KINDS else None,
+        "game": decision.game,
+        "game_evidence": _clean_list(decision.game_evidence),
+        "source_reported": reported,
         "disposition": "excluded" if decision.disposition == "excluded" else "pending",
         "reason": decision.reason or None,
     }
@@ -261,9 +287,14 @@ def song_credits(songs: Mapping[str, Any]) -> dict[str, list[SongCredit]]:
     return result
 
 
-def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, include_animated: bool,
-                review_table: Mapping[str, reviews.Review] | None = None,
-                note_table: Mapping[str, reviews.Note] | None = None) -> dict[str, list[Plan]]:
+def build_plans(
+    inventories: Mapping[str, Inventory],
+    song_index: Any,
+    *,
+    include_animated: bool,
+    review_table: Mapping[str, reviews.Review] | None = None,
+    note_table: Mapping[str, reviews.Note] | None = None,
+) -> dict[str, list[Plan]]:
     """Classify every file of every inventory (evidence pooled by title across the wikis). ``review_table`` and
     ``note_table`` default to the committed archivist reviews and notes (``scripts/wikis/reviews.json``)."""
     if review_table is None:
@@ -271,8 +302,10 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
     note_table = reviews.load_notes() if note_table is None else note_table
     if inventories and all(inv.complete for inv in inventories.values()):
         check_review_songs(review_table, song_index)
-    wikis = {key: classify.collect(inv.source, inv.files, inv.usage, inv.pages, inv.gif_frames, inv.filepages)
-             for key, inv in inventories.items()}
+    wikis = {
+        key: classify.collect(inv.source, inv.files, inv.usage, inv.pages, inv.gif_frames, inv.filepages)
+        for key, inv in inventories.items()
+    }
     threshold = classify.universe_threshold(wikis.values())
     pooled: dict[str, list[classify.Evidence]] = {}
     for wiki in wikis.values():
@@ -294,21 +327,43 @@ def build_plans(inventories: Mapping[str, Inventory], song_index: Any, *, includ
             review, stale = reviews.find(review_table, title, info.get("sha1"))
             items = pooled.get(title, []) + (classify.review_evidence(inv.source, title, review) if review else [])
             filepage = inv.filepages.get(title, {})
-            decision = classify.decide(title, items, info, frames=frames.get(title),
-                                       include_animated=include_animated, fandom_timestamp=stamp,
-                                       threshold=threshold, review=review, review_stale=stale,
-                                       alias=_alias(inv, title, info, filepage), song_names=names)
+            decision = classify.decide(
+                title,
+                items,
+                info,
+                frames=frames.get(title),
+                include_animated=include_animated,
+                fandom_timestamp=stamp,
+                threshold=threshold,
+                review=review,
+                review_stale=stale,
+                alias=_alias(inv, title, info, filepage),
+                song_names=names,
+            )
             description, file_notes = file_page_notes(info, filepage)
             note = note_table.get(title)
             archivist = [note.text()] if note is not None and note.applies_to(info.get("sha1")) else []
             if decision.disposition == "probe":  # the review stays visible once the probe's outcome replaces reason
                 file_notes = file_notes + [f"inspection download for the archivist review ({decision.reason})"]
-            plan = Plan(inv.source, title, info, decision,
-                        base_candidate(inv.source, title, info, decision, file_notes + archivist),
-                        accepted=decision.disposition == "download", description=description,
-                        probe=decision.disposition == "probe", archivist_notes=archivist)
-            plan.counterpart = next((other.files[title] for other_key, other in inventories.items()
-                                     if other_key != key and title in other.files), None)
+            plan = Plan(
+                inv.source,
+                title,
+                info,
+                decision,
+                base_candidate(inv.source, title, info, decision, file_notes + archivist),
+                accepted=decision.disposition == "download",
+                description=description,
+                probe=decision.disposition == "probe",
+                archivist_notes=archivist,
+            )
+            plan.counterpart = next(
+                (
+                    other.files[title]
+                    for other_key, other in inventories.items()
+                    if other_key != key and title in other.files
+                ),
+                None,
+            )
             _attach_songs(plan, pooled.get(title, []), song_index)
             plan.candidate["title"] = record_title(plan, pooled.get(title, []))
             result.append(plan)
@@ -326,11 +381,14 @@ def check_review_songs(review_table: Mapping[str, reviews.Review], song_index: A
     if not entries:
         return
     titles = {entry.title for entry in entries.values()}
-    unknown = [f"{review.title}: {song!r}" for review in review_table.values() for song in review.songs
-               if song not in titles]
+    unknown = [
+        f"{review.title}: {song!r}" for review in review_table.values() for song in review.songs if song not in titles
+    ]
     if unknown:
-        raise reviews.ReviewSongError("archivist reviews name songs that are not exact song-index titles (fix "
-                                      "scripts/wikis/reviews.json): " + "; ".join(sorted(unknown)))
+        raise reviews.ReviewSongError(
+            "archivist reviews name songs that are not exact song-index titles (fix "
+            "scripts/wikis/reviews.json): " + "; ".join(sorted(unknown))
+        )
 
 
 def record_title(plan: Plan, items: list[classify.Evidence]) -> str:
@@ -339,8 +397,11 @@ def record_title(plan: Plan, items: list[classify.Evidence]) -> str:
     caption when one exists (the caption of the evidence for the decided role first, then the strongest, the one most
     pages use, Miraheze before Fandom, then the text); else the ``File:`` title without its extension (spaces for
     underscores). The upstream file name stays in ``original_filename``."""
-    if plan.decision.role == "song_art" and len(plan.song_ids) == 1 and mapping(plan)[0] in (
-            "confirmed_wiki", "confirmed_primary"):
+    if (
+        plan.decision.role == "song_art"
+        and len(plan.song_ids) == 1
+        and mapping(plan)[0] in ("confirmed_wiki", "confirmed_primary")
+    ):
         return plan.song_titles[0]
     captioned = [item for item in items if item.caption and classify.caption_context(item.context)]
     if captioned:
@@ -348,9 +409,16 @@ def record_title(plan: Plan, items: list[classify.Evidence]) -> str:
         for item in captioned:
             pages.setdefault(item.caption, set()).add(item.page)
         order = {source.source_id: number for number, source in enumerate(config.SOURCES.values())}
-        best = min(captioned, key=lambda item: (item.role != plan.decision.role, -item.strength,
-                                                -len(pages[item.caption]), order.get(item.source_id, 99),
-                                                item.caption))
+        best = min(
+            captioned,
+            key=lambda item: (
+                item.role != plan.decision.role,
+                -item.strength,
+                -len(pages[item.caption]),
+                order.get(item.source_id, 99),
+                item.caption,
+            ),
+        )
         text = " ".join(best.caption.split("\n")).strip()
         if text:
             return _clip(text, TITLE_LIMIT)
@@ -363,12 +431,10 @@ def song_names(song_index: Any) -> classify.SongNames | None:
     entries = getattr(song_index, "entries", None)
     if not entries:
         return None
-    return classify.SongNames.build((entry.title, entry.titles) for entry in entries.values()
-                                    if entry.in_original_game)
+    return classify.SongNames.build((entry.title, entry.titles) for entry in entries.values() if entry.in_original_game)
 
 
-def _alias(inv: Inventory, title: str, info: Mapping[str, Any], filepage: Mapping[str, Any]
-           ) -> tuple[str, bool] | None:
+def _alias(inv: Inventory, title: str, info: Mapping[str, Any], filepage: Mapping[str, Any]) -> tuple[str, bool] | None:
     """``(target, same reported SHA-1)`` when the file's description page redirects to another file of the wiki."""
     target = classify.redirect_target((filepage.get("revision") or {}).get("content"))
     if not target or target == title:
@@ -396,17 +462,20 @@ def _attach_songs(plan: Plan, items: list[classify.Evidence], song_index: Any) -
             credit = next((c for c in entry.credits if name in c.composers), None)
             if name not in plan.composers and credit is not None:
                 plan.composers.append(name)
-                plan.credit_evidence.append(_credit("composer", name, credit, credit.composer_field,
-                                                    credit.composer_raw))
+                plan.credit_evidence.append(
+                    _credit("composer", name, credit, credit.composer_field, credit.composer_raw)
+                )
         # Illustrators only for the song's own cover: this file is the Imgsuffix of its Template:Song on some wiki.
         is_cover = decision.role == "song_art" and any(
-            credit.imgsuffix and "File:" + credit.imgsuffix == plan.title for credit in entry.credits)
+            credit.imgsuffix and "File:" + credit.imgsuffix == plan.title for credit in entry.credits
+        )
         for name in entry.illustrators if is_cover else []:
             credit = next((c for c in entry.credits if name in c.illustrators), None)
             if name not in plan.illustrators and credit is not None:
                 plan.illustrators.append(name)
-                plan.credit_evidence.append(_credit("illustrator", name, credit, credit.illustrator_field,
-                                                    credit.illustrator_raw))
+                plan.credit_evidence.append(
+                    _credit("illustrator", name, credit, credit.illustrator_field, credit.illustrator_raw)
+                )
     plan.song_titles = list(dict.fromkeys(plan.song_titles))
     plan.song_ids = list(dict.fromkeys(plan.song_ids))
     candidate = plan.candidate
@@ -420,9 +489,13 @@ def _credit(role: str, name: str, credit: SongCredit, field_name: str | None, ra
     quote = " ".join(raw.split())
     if len(quote) > 300:
         quote = quote[:297] + "..."
-    return {"role": role, "name": name, "url": credit.page_url,
-            "field": f"Template:Song|{field_name}" if field_name else None,
-            "quote": schema.redact_text(quote, strict=False) or None}
+    return {
+        "role": role,
+        "name": name,
+        "url": credit.page_url,
+        "field": f"Template:Song|{field_name}" if field_name else None,
+        "quote": schema.redact_text(quote, strict=False) or None,
+    }
 
 
 def mapping(plan: Plan) -> tuple[str, list]:

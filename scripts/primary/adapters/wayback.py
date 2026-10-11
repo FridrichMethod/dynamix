@@ -52,7 +52,7 @@ def digest_hex(digest: str | None) -> str | None:
         return None
     try:
         raw = base64.b32decode(digest.upper())
-    except (binascii.Error, ValueError):
+    except binascii.Error, ValueError:
         return None
     return raw.hex() if len(raw) == 20 else None
 
@@ -64,18 +64,24 @@ def capture_check(stamp: str, sha1_hex: str | None) -> Callable[[Any], str | Non
     """``Draft.check_download`` for a raw ``id_`` capture request: the response must come from that very capture (the
     Internet Archive redirects a request for a timestamp it does not hold to the nearest other capture) and, when the
     CDX API listed a digest, its bytes must be that payload. Otherwise the reason the download is held."""
+
     def check(result: Any) -> str | None:
         final = getattr(result, "final_url", None) or ""
         match = _RAW_CAPTURE.match(final)
         if not match or match.group(1) != stamp:
             served = f"capture {match.group(1)}" if match else f"{checks.redact_url(final)!r}"
-            return (f"awaiting_download: the Internet Archive answered the raw request for capture {stamp} with "
-                    f"{served}; not the seeded capture, so nothing was archived")
+            return (
+                f"awaiting_download: the Internet Archive answered the raw request for capture {stamp} with "
+                f"{served}; not the seeded capture, so nothing was archived"
+            )
         if sha1_hex and getattr(result, "sha1", None) != sha1_hex:
-            return (f"awaiting_download: the bytes received for capture {stamp} (SHA-1 "
-                    f"{getattr(result, 'sha1', None)}) are not the payload the CDX API lists for it (digest SHA-1 "
-                    f"{sha1_hex}); held for review")
+            return (
+                f"awaiting_download: the bytes received for capture {stamp} (SHA-1 "
+                f"{getattr(result, 'sha1', None)}) are not the payload the CDX API lists for it (digest SHA-1 "
+                f"{sha1_hex}); held for review"
+            )
         return None
+
     return check
 
 
@@ -98,8 +104,14 @@ def capture_key(original: str, timestamp: str) -> str:
 
 def cdx_rows(ctx: Any, item: Mapping[str, Any], resume: str | None) -> tuple[list[dict], str | None]:
     """One CDX page as dicts and the resume key for the next page (None at the end)."""
-    params: dict[str, Any] = {"url": item["url"], "matchType": item.get("match_type", "exact"), "output": "json",
-                              "fl": FIELDS, "showResumeKey": "true", "limit": str(item.get("page_size", 500))}
+    params: dict[str, Any] = {
+        "url": item["url"],
+        "matchType": item.get("match_type", "exact"),
+        "output": "json",
+        "fl": FIELDS,
+        "showResumeKey": "true",
+        "limit": str(item.get("page_size", 500)),
+    }
     if item.get("filters"):
         params["filter"] = list(item["filters"])
     if resume:
@@ -170,9 +182,14 @@ def unique_captures(rows: list[dict]) -> list[dict]:
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     items = seed["items"]
-    discovery = base.new_discovery(seed, lists=[item["name"] for item in items], api=CDX, evidence_level="live_api",
-                                   scope_notes="Explicit CDX queries; one candidate per distinct archived payload "
-                                               "(earliest capture). Pages linking elsewhere are not followed.")
+    discovery = base.new_discovery(
+        seed,
+        lists=[item["name"] for item in items],
+        api=CDX,
+        evidence_level="live_api",
+        scope_notes="Explicit CDX queries; one candidate per distinct archived payload "
+        "(earliest capture). Pages linking elsewhere are not followed.",
+    )
     for item in items:
         rows: list[dict] = []
         resume: str | None = None  # the key of the page being requested; kept open when paging stops early
@@ -193,41 +210,64 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             else:
                 raise ValueError(f"paging stopped after {limit} pages (max_pages); the listing continues")
         except (net.FetchError, ValueError) as error:
-            discovery.errors.append(model.discovery_error("discover", CDX, f"{item['name']}: CDX listing "
-                                                                           f"interrupted: {error}"))
+            discovery.errors.append(
+                model.discovery_error("discover", CDX, f"{item['name']}: CDX listing interrupted: {error}")
+            )
             discovery.continuation[item["name"]] = resume or "not-started"
             if isinstance(error, net.BlockedError):
                 discovery.evidence_level = "blocked"
         else:
             listed_before = previously_listed(getattr(ctx, "previous", None), item) if not rows else 0
             if listed_before:
-                discovery.errors.append(model.discovery_error(
-                    "discover", CDX, f"{item['name']}: the CDX API listed no capture, although the previous snapshot "
-                                     f"holds {listed_before} capture(s) of this query; an empty answer is not taken "
-                                     "as the complete listing"))
+                discovery.errors.append(
+                    model.discovery_error(
+                        "discover",
+                        CDX,
+                        f"{item['name']}: the CDX API listed no capture, although the previous snapshot "
+                        f"holds {listed_before} capture(s) of this query; an empty answer is not taken "
+                        "as the complete listing",
+                    )
+                )
                 discovery.continuation[item["name"]] = "empty-answer"
         skipped = 0
         for row in unique_captures(rows):
             original, stamp = row.get("original", ""), row.get("timestamp", "")
             if not base.stored(original) or iso_timestamp(stamp) is None:
                 skipped += 1
-                discovery.errors.append(model.discovery_error(
-                    "discover", None, f"{item['name']}: unusable CDX row skipped (original "
-                                      f"{model.clip(repr(original), 80)}, timestamp {model.clip(repr(stamp), 20)})"))
+                discovery.errors.append(
+                    model.discovery_error(
+                        "discover",
+                        None,
+                        f"{item['name']}: unusable CDX row skipped (original "
+                        f"{model.clip(repr(original), 80)}, timestamp {model.clip(repr(stamp), 20)})",
+                    )
+                )
                 continue
             key = capture_key(original, stamp)
             rule = model.find_rule(base.rules(seed), key)
             texts = {"original": original}
-            note = (f"Wayback capture {stamp} of {original} (CDX mimetype {row.get('mimetype')}, status "
-                    f"{row.get('statuscode')}, WARC record length {row.get('length')}).")
+            note = (
+                f"Wayback capture {stamp} of {original} (CDX mimetype {row.get('mimetype')}, status "
+                f"{row.get('statuscode')}, WARC record length {row.get('length')})."
+            )
             draft = model.apply_rule(
-                rule, key=key, page_url=f"https://web.archive.org/web/{stamp}/{original}", texts=texts,
+                rule,
+                key=key,
+                page_url=f"https://web.archive.org/web/{stamp}/{original}",
+                texts=texts,
                 file_url=f"https://web.archive.org/web/{stamp}id_/{original}",
-                default_title=f"{base.last_segment(original)} (archived {stamp[:8]})", default_quality=ctx.quality,
-                default_rights=ctx.rights, original_filename=base.last_segment(original),
+                default_title=f"{base.last_segment(original)} (archived {stamp[:8]})",
+                default_quality=ctx.quality,
+                default_rights=ctx.rights,
+                original_filename=base.last_segment(original),
                 base_evidence=[f"capture of {original}"],
-                source_reported=base.reported(url=original, mime=row.get("mimetype") or None,
-                                              sha1=digest_hex(row.get("digest")), timestamp=iso_timestamp(stamp)))
+                source_reported=base.reported(
+                    url=original,
+                    mime=row.get("mimetype") or None,
+                    sha1=digest_hex(row.get("digest")),
+                    timestamp=iso_timestamp(stamp),
+                ),
+            )
             if draft.action == "download":
                 draft.meta["upstream_revision"] = stamp
                 draft.meta["notes"] = " ".join(filter(None, [draft.meta.get("notes"), note]))

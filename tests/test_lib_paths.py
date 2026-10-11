@@ -68,27 +68,39 @@ class ContractPathTests(unittest.TestCase):
 
     def test_source_slug_collisions(self):
         """data/discovery is flat across families, and slug() collapses hyphen runs."""
-        self.assertEqual(paths.source_slug_collisions(["official:x", "archives:x", "wikis:miraheze"]),
-                         [["archives:x", "official:x"]])
-        self.assertEqual(paths.source_slug_collisions(["artists:x:a--b", "artists:x:a-b"]),
-                         [["artists:x:a--b", "artists:x:a-b"]])
-        self.assertEqual(paths.source_slug_collisions(["artists:x:foo-bar", "artists:x-foo:bar"]),
-                         [["artists:x-foo:bar", "artists:x:foo-bar"]])
+        self.assertEqual(
+            paths.source_slug_collisions(["official:x", "archives:x", "wikis:miraheze"]), [["archives:x", "official:x"]]
+        )
+        self.assertEqual(
+            paths.source_slug_collisions(["artists:x:a--b", "artists:x:a-b"]), [["artists:x:a--b", "artists:x:a-b"]]
+        )
+        self.assertEqual(
+            paths.source_slug_collisions(["artists:x:foo-bar", "artists:x-foo:bar"]),
+            [["artists:x-foo:bar", "artists:x:foo-bar"]],
+        )
         self.assertEqual(paths.source_slug_collisions(["artists:x:foo-bar", "artists:pixiv:foo-bar"]), [])
 
     def test_asset_relpath(self):
-        self.assertEqual(paths.asset_relpath("wikis", "miraheze", "File:Cosmic Pulse.png", SHA, "webp"),
-                         f"assets/public/wikis/miraheze/File-Cosmic-Pulse--{SHA[:12]}.webp")
-        self.assertEqual(paths.asset_relpath("artists", "x-ariiol_", "dir/sub\\交差.jpg", SHA, "jpg"),
-                         f"assets/public/artists/x-ariiol_/file--{SHA[:12]}.jpg")
+        self.assertEqual(
+            paths.asset_relpath("wikis", "miraheze", "File:Cosmic Pulse.png", SHA, "webp"),
+            f"assets/public/wikis/miraheze/File-Cosmic-Pulse--{SHA[:12]}.webp",
+        )
+        self.assertEqual(
+            paths.asset_relpath("artists", "x-ariiol_", "dir/sub\\交差.jpg", SHA, "jpg"),
+            f"assets/public/artists/x-ariiol_/file--{SHA[:12]}.jpg",
+        )
         self.assertEqual(paths.filename_stem("archive.tar.gz"), "archive.tar")
         self.assertEqual(paths.filename_stem(".hidden"), ".hidden")
         self.assertEqual(paths.filename_stem("noext"), "noext")
-        bad_calls = [("legacy", "x", "a.png", SHA, "png"), ("wikis", "Mira heze", "a.png", SHA, "png"),
-                     ("wikis", "miraheze", "a.png", SHA.upper(), "png"),
-                     ("wikis", "miraheze", "a.png", SHA[:-1], "png"),
-                     ("wikis", "miraheze", "a.png", SHA, "PNG"), ("wikis", "miraheze", "", SHA, "png"),
-                     ("wikis", "miraheze", "a.png", SHA + "\n", "png")]
+        bad_calls = [
+            ("legacy", "x", "a.png", SHA, "png"),
+            ("wikis", "Mira heze", "a.png", SHA, "png"),
+            ("wikis", "miraheze", "a.png", SHA.upper(), "png"),
+            ("wikis", "miraheze", "a.png", SHA[:-1], "png"),
+            ("wikis", "miraheze", "a.png", SHA, "PNG"),
+            ("wikis", "miraheze", "", SHA, "png"),
+            ("wikis", "miraheze", "a.png", SHA + "\n", "png"),
+        ]
         for args in bad_calls:
             with self.subTest(args=args), self.assertRaises(ValueError):
                 paths.asset_relpath(*args)
@@ -108,14 +120,29 @@ class SafePathTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_syntax_rejections(self):
-        for bad in ("", "/etc/passwd", "C:/x.png", "a\\b.png", "a/../b.png", "./a.png", "a//b.png", "a/.", "..",
-                    "a/b\x00.png", "a/b:c.png", "a/b?.png", None):
+        for bad in (
+            "",
+            "/etc/passwd",
+            "C:/x.png",
+            "a\\b.png",
+            "a/../b.png",
+            "./a.png",
+            "a//b.png",
+            "a/.",
+            "..",
+            "a/b\x00.png",
+            "a/b:c.png",
+            "a/b?.png",
+            None,
+        ):
             with self.subTest(path=bad), self.assertRaises(ValueError):
                 paths.safe_path(self.root, bad)
 
     def test_under_prefix(self):
-        self.assertEqual(paths.safe_path(self.root, "assets/public/wikis/new/x.png", under="assets/public"),
-                         self.root.resolve() / "assets/public/wikis/new/x.png")
+        self.assertEqual(
+            paths.safe_path(self.root, "assets/public/wikis/new/x.png", under="assets/public"),
+            self.root.resolve() / "assets/public/wikis/new/x.png",
+        )
         for bad in ("assets/publicity/x.png", "data/x.json", "assets/public"):
             with self.subTest(path=bad), self.assertRaises(ValueError):
                 paths.safe_path(self.root, bad, under="assets/public")
@@ -126,16 +153,20 @@ class SafePathTests(unittest.TestCase):
         (outside / "secret.png").write_bytes(b"x")
         os.symlink(outside, self.root / "assets/public/wikis/linked")
         os.symlink(outside / "secret.png", self.root / "assets/public/wikis/file.png")
-        for rel in ("assets/public/wikis/linked/secret.png", "assets/public/wikis/linked/new.png",
-                    "assets/public/wikis/file.png"):
+        for rel in (
+            "assets/public/wikis/linked/secret.png",
+            "assets/public/wikis/linked/new.png",
+            "assets/public/wikis/file.png",
+        ):
             with self.subTest(path=rel), self.assertRaises(ValueError):
                 paths.safe_path(self.root, rel)
 
     def test_symlinked_root_itself_is_resolved(self):
         alias = Path(self.temp.name) / "alias"
         os.symlink(self.root, alias)
-        self.assertEqual(paths.safe_path(alias, "assets/public/wikis/a.png"),
-                         self.root.resolve() / "assets/public/wikis/a.png")
+        self.assertEqual(
+            paths.safe_path(alias, "assets/public/wikis/a.png"), self.root.resolve() / "assets/public/wikis/a.png"
+        )
 
     def test_file_used_as_directory(self):
         (self.root / "assets/public/wikis/plain").write_bytes(b"x")
@@ -145,12 +176,23 @@ class SafePathTests(unittest.TestCase):
 
 class CollisionTests(unittest.TestCase):
     def test_file_and_directory_collisions(self):
-        groups = paths.casefold_collisions([
-            "assets/public/wikis/miraheze/A--1.png", "assets/public/wikis/miraheze/a--1.png",
-            "assets/public/wikis/Fandom/x.png", "assets/public/wikis/fandom/y.png",
-            "assets/public/wikis/miraheze/unique.png", "assets/public/wikis/miraheze/unique.png"])
-        self.assertEqual(groups, [["assets/public/wikis/Fandom", "assets/public/wikis/fandom"],
-                                  ["assets/public/wikis/miraheze/A--1.png", "assets/public/wikis/miraheze/a--1.png"]])
+        groups = paths.casefold_collisions(
+            [
+                "assets/public/wikis/miraheze/A--1.png",
+                "assets/public/wikis/miraheze/a--1.png",
+                "assets/public/wikis/Fandom/x.png",
+                "assets/public/wikis/fandom/y.png",
+                "assets/public/wikis/miraheze/unique.png",
+                "assets/public/wikis/miraheze/unique.png",
+            ]
+        )
+        self.assertEqual(
+            groups,
+            [
+                ["assets/public/wikis/Fandom", "assets/public/wikis/fandom"],
+                ["assets/public/wikis/miraheze/A--1.png", "assets/public/wikis/miraheze/a--1.png"],
+            ],
+        )
 
     def test_unicode_normalization_collision(self):
         composed = "assets/" + unicodedata.normalize("NFC", "Café.png")

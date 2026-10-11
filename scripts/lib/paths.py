@@ -207,8 +207,7 @@ def song_id_base(title: str) -> str:
     if not isinstance(title, str) or not title.strip():
         raise ValueError(f"song title must be a non-empty string: {title!r}")
     body = _slug_body(title, lower=True, max_length=SLUG_MAX_LENGTH)
-    lossy = not body or any(char.isalnum() and not char.isascii()
-                            for char in unicodedata.normalize("NFKC", title))
+    lossy = not body or any(char.isalnum() and not char.isascii() for char in unicodedata.normalize("NFKC", title))
     base = slug(title, lower=True)
     return f"song:{base}-{song_title_hash(title)}" if lossy else f"song:{base}"
 

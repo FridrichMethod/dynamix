@@ -24,15 +24,20 @@ MAX_MEDIA_BYTES = 5000
 
 
 def tree(root):
-    return {path.relative_to(root).as_posix(): path.read_bytes()
-            for top in GENERATED_DIRS for path in sorted((root / top).rglob("*")) if path.is_file()}
+    return {
+        path.relative_to(root).as_posix(): path.read_bytes()
+        for top in GENERATED_DIRS
+        for path in sorted((root / top).rglob("*"))
+        if path.is_file()
+    }
 
 
 class FixtureContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.manifests = {family: manifest.load_manifest(FIXTURE, family, missing_ok=False)
-                         for family in schema.FAMILIES}
+        cls.manifests = {
+            family: manifest.load_manifest(FIXTURE, family, missing_ok=False) for family in schema.FAMILIES
+        }
         cls.assets = [asset for value in cls.manifests.values() for asset in value["assets"]]
         cls.by_id = {asset["id"]: asset for asset in cls.assets}
         cls.discoveries = {}
@@ -42,8 +47,11 @@ class FixtureContractTests(unittest.TestCase):
         cls.song_index = manifest.load_json(FIXTURE / "data/sources/song-index.json")
 
     def candidates(self, source_id, disposition=None):
-        return [c for c in self.discoveries[source_id]["candidates"]
-                if disposition is None or c["disposition"] == disposition]
+        return [
+            c
+            for c in self.discoveries[source_id]["candidates"]
+            if disposition is None or c["disposition"] == disposition
+        ]
 
     def find(self, **match):
         return [asset for asset in self.assets if all(asset.get(key) == value for key, value in match.items())]
@@ -60,13 +68,18 @@ class FixtureContractTests(unittest.TestCase):
             totals.update(schema.reconcile(value, snapshots, other_assets=self.assets))
         for source_id, counts in totals.items():
             self.assertEqual(sum(counts.values()), len(self.discoveries[source_id]["candidates"]), source_id)
-        self.assertEqual(totals["wikis:miraheze"], {"downloaded": 4, "duplicate_bytes": 1, "excluded": 2,
-                                                    "failed": 0, "blocked": 0, "pending": 1})
+        self.assertEqual(
+            totals["wikis:miraheze"],
+            {"downloaded": 4, "duplicate_bytes": 1, "excluded": 2, "failed": 0, "blocked": 0, "pending": 1},
+        )
         schema.validate_song_index(self.song_index, self.by_id)
         schema.validate_song_links(self.song_index, self.assets)
         json_files = sorted(p.relative_to(FIXTURE).as_posix() for p in (FIXTURE / "data").rglob("*.json"))
-        expected = sorted([paths.manifest_relpath(f) for f in schema.FAMILIES] + ["data/sources/song-index.json"]
-                          + [paths.discovery_relpath(sid) for sid in self.discoveries])
+        expected = sorted(
+            [paths.manifest_relpath(f) for f in schema.FAMILIES]
+            + ["data/sources/song-index.json"]
+            + [paths.discovery_relpath(sid) for sid in self.discoveries]
+        )
         self.assertEqual(json_files, expected)
 
     def test_files_match_records_and_have_no_orphans(self):
@@ -114,8 +127,9 @@ class FixtureContractTests(unittest.TestCase):
     def test_c_artist_original_larger_than_wiki_copy(self):
         artist = self.find(source_id="artists:x:ariiol_", kind="song_art")[0]
         wiki = self.find(source_id="wikis:miraheze", title="Cosmic Pulse")[0]
-        self.assertEqual((artist["mapping_status"], artist["quality"]["origin_status"]),
-                         ("confirmed_primary", "artist_post"))
+        self.assertEqual(
+            (artist["mapping_status"], artist["quality"]["origin_status"]), ("confirmed_primary", "artist_post")
+        )
         self.assertEqual(artist["quality"]["master_status"], "unverified")
         self.assertGreater(artist["width"] * artist["height"], wiki["width"] * wiki["height"])
         self.assertTrue(schema.is_slideshow(artist))
@@ -133,23 +147,28 @@ class FixtureContractTests(unittest.TestCase):
 
     def test_e_unknown_illustrator_and_unmapped(self):
         background = self.find(kind="background", upstream_status="current")[0]
-        self.assertEqual((background["illustrators"], background["mapping_status"], background["song_ids"]),
-                         ([], "unmapped", []))
+        self.assertEqual(
+            (background["illustrators"], background["mapping_status"], background["song_ids"]), ([], "unmapped", [])
+        )
 
     def test_f_failed_download(self):
         failed = self.candidates("wikis:fandom", "failed")
         self.assertEqual(len(failed), 1)
         failure = self.manifests["wikis"]["failures"][0]
-        self.assertEqual((failure["candidate_id"], failure["phase"], failure["error_class"]),
-                         (failed[0]["id"], "download", "http_5xx"))
+        self.assertEqual(
+            (failure["candidate_id"], failure["phase"], failure["error_class"]),
+            (failed[0]["id"], "download", "http_5xx"),
+        )
         self.assertFalse(any(asset["candidate_id"] == failed[0]["id"] for asset in self.assets))
         self.assertFalse(self.discoveries["wikis:fandom"]["discovery_complete"])
         self.assertIsNotNone(self.discoveries["wikis:fandom"]["continuation"]["allimages"])
 
     def test_g_reference_pdf_in_archive_tier(self):
         pdf = self.find(format="PDF")[0]
-        self.assertEqual((pdf["kind"], pdf["width"], pdf["height"], schema.source_family(pdf["source_id"])),
-                         ("reference", None, None, "archives"))
+        self.assertEqual(
+            (pdf["kind"], pdf["width"], pdf["height"], schema.source_family(pdf["source_id"])),
+            ("reference", None, None, "archives"),
+        )
         self.assertEqual(schema.tier_for(pdf["kind"], pdf["format"]), "archive")
         self.assertFalse(schema.is_gallery(pdf))
 
@@ -188,8 +207,10 @@ class FixtureContractTests(unittest.TestCase):
     def test_k_superseded_revision_under_the_same_candidate(self):
         old = self.find(upstream_status="superseded")[0]
         current = self.by_id[old["superseded_by"]]
-        self.assertEqual((old["candidate_id"], old["title"], old["kind"]),
-                         (current["candidate_id"], current["title"], current["kind"]))
+        self.assertEqual(
+            (old["candidate_id"], old["title"], old["kind"]),
+            (current["candidate_id"], current["title"], current["kind"]),
+        )
         self.assertEqual(current["upstream_status"], "current")
         self.assertNotEqual(old["sha256"], current["sha256"])
         self.assertLess(old["upstream_revision"], current["upstream_revision"])
@@ -210,11 +231,21 @@ class FixtureContractTests(unittest.TestCase):
         self.assertEqual(len(blocked), 1)
         self.assertTrue(blocked[0]["reason"].startswith("challenge"))
         failure = self.manifests["official"]["failures"][0]
-        self.assertEqual((failure["candidate_id"], failure["error_class"], failure["http_status"],
-                          failure["retriable"], failure["manual"]), (blocked[0]["id"], "challenge", 403, False, True))
+        self.assertEqual(
+            (
+                failure["candidate_id"],
+                failure["error_class"],
+                failure["http_status"],
+                failure["retriable"],
+                failure["manual"],
+            ),
+            (blocked[0]["id"], "challenge", 403, False, True),
+        )
         source = next(s for s in self.manifests["official"]["sources"] if s["id"] == "official:facebook")
-        self.assertEqual((source["status"], source["evidence_level"], source["discovery_complete"]),
-                         ("manual_access", "blocked", False))
+        self.assertEqual(
+            (source["status"], source["evidence_level"], source["discovery_complete"]),
+            ("manual_access", "blocked", False),
+        )
         self.assertTrue(self.discoveries["official:facebook"]["errors"])
 
     def test_n_animated_gif(self):
@@ -240,8 +271,12 @@ class FixtureContractTests(unittest.TestCase):
 
     def test_generator_reproduces_committed_bytes(self):
         with tempfile.TemporaryDirectory() as temp:
-            result = subprocess.run([sys.executable, "-I", "-B", str(GENERATOR), "--output", temp],
-                                    capture_output=True, text=True, timeout=120)
+            result = subprocess.run(
+                [sys.executable, "-I", "-B", str(GENERATOR), "--output", temp],
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
             self.assertEqual(result.returncode, 0, result.stderr[-2000:])
             generated, committed = tree(Path(temp)), tree(FIXTURE)
             self.assertEqual(sorted(generated), sorted(committed))
@@ -256,8 +291,9 @@ class PinnedPNGTests(unittest.TestCase):
     @staticmethod
     def picture(shade=0):
         image = Image.new("RGB", (96, 64))
-        image.putdata([((x * 7 + shade) % 256, (y * 5) % 256, (x * y + shade) % 256)
-                       for y in range(64) for x in range(96)])
+        image.putdata(
+            [((x * 7 + shade) % 256, (y * 5) % 256, (x * y + shade) % 256) for y in range(64) for x in range(96)]
+        )
         return image
 
     @staticmethod
@@ -305,9 +341,11 @@ class PinnedPNGTests(unittest.TestCase):
             self.assertEqual(decoded.convert("RGB").getpixel((0, 0)), (200, 24, 48))
 
     def test_a_different_shape_or_mode_is_never_taken_for_the_committed_image(self):
-        cases = [(Image.new("RGB", (2, 3), (40, 90, 200)), Image.new("RGB", (3, 2), (40, 90, 200))),  # transposed
-                 (Image.new("L", (4, 4), 128), Image.new("RGB", (4, 4), (128, 128, 128))),  # same grey, other mode
-                 (Image.new("L", (4, 4), 7), self.grey_palette_image(7))]  # same stored values and colours
+        cases = [
+            (Image.new("RGB", (2, 3), (40, 90, 200)), Image.new("RGB", (3, 2), (40, 90, 200))),  # transposed
+            (Image.new("L", (4, 4), 128), Image.new("RGB", (4, 4), (128, 128, 128))),  # same grey, other mode
+            (Image.new("L", (4, 4), 7), self.grey_palette_image(7)),
+        ]  # same stored values and colours
         for committed_image, drawn in cases:
             with self.subTest(committed=committed_image.mode, drawn=drawn.mode, size=drawn.size):
                 with tempfile.TemporaryDirectory() as temp:

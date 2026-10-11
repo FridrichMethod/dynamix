@@ -10,16 +10,27 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-APACHE_MARKERS = ("Apache License", "Version 2.0, January 2004", "http://www.apache.org/licenses/",
-                  "TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION", "1. Definitions.",
-                  "2. Grant of Copyright License.", "3. Grant of Patent License.", "4. Redistribution.",
-                  "9. Accepting Warranty or Additional Liability.", "END OF TERMS AND CONDITIONS")
+APACHE_MARKERS = (
+    "Apache License",
+    "Version 2.0, January 2004",
+    "http://www.apache.org/licenses/",
+    "TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+    "1. Definitions.",
+    "2. Grant of Copyright License.",
+    "3. Grant of Patent License.",
+    "4. Redistribution.",
+    "9. Accepting Warranty or Additional Liability.",
+    "END OF TERMS AND CONDITIONS",
+)
 MIT_GRANT = "Permission is hereby granted, free of charge, to any person"
 MIT_DISCLAIMER = 'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND'
 # Components known to be bundled in vendored files: license text -> (its first line, a marker in the bundle, name).
 VENDOR_LICENSES = {
-    "licenses/html2canvas-MIT.txt": ("Copyright (c) 2012 Niklas von Hertzen", b"html2canvas 0.5.0-beta3",
-                                     "html2canvas 0.5.0-beta3"),
+    "licenses/html2canvas-MIT.txt": (
+        "Copyright (c) 2012 Niklas von Hertzen",
+        b"html2canvas 0.5.0-beta3",
+        "html2canvas 0.5.0-beta3",
+    ),
     "licenses/punycode-MIT.txt": ("Copyright Mathias Bynens", b'version:"1.2.4"', "punycode.js 1.2.4"),
     "licenses/pace-MIT.txt": ("Copyright (c) 2013 HubSpot, Inc.", b"/*! pace 1.0.0 */", "Pace 1.0.0"),
 }
@@ -67,8 +78,11 @@ class VendorLicenseTests(unittest.TestCase):
             content = path.read_bytes()
             known = [relative for relative, (_, marker, _) in VENDOR_LICENSES.items() if marker in content]
             with self.subTest(file=path.relative_to(ROOT).as_posix()):
-                self.assertTrue(known, "unrecognized vendored code: add its license text under licenses/ and its "
-                                       "marker to VENDOR_LICENSES in this test")
+                self.assertTrue(
+                    known,
+                    "unrecognized vendored code: add its license text under licenses/ and its "
+                    "marker to VENDOR_LICENSES in this test",
+                )
             for relative in known:
                 first_line, _, _ = VENDOR_LICENSES[relative]
                 with self.subTest(file=path.name, license=relative):
@@ -116,19 +130,27 @@ class NoticeTests(unittest.TestCase):
         self.assertRegex(text, r"Apache(?: License,? Version 2\.0|-2\.0| License 2\.0)")
 
     def test_notice_separates_artwork_rights_from_the_software_license(self):
-        statements = [s for s in sentences(self.notice()) if re.search(ARTWORK, s, re.IGNORECASE)
-                      and re.search(NEGATION, s, re.IGNORECASE) and re.search(LICENSE_WORD, s, re.IGNORECASE)]
+        statements = [
+            s
+            for s in sentences(self.notice())
+            if re.search(ARTWORK, s, re.IGNORECASE)
+            and re.search(NEGATION, s, re.IGNORECASE)
+            and re.search(LICENSE_WORD, s, re.IGNORECASE)
+        ]
         self.assertTrue(statements, "NOTICE must state that the software license does not cover the artwork")
         c4cat = [s for s in sentences(self.notice()) if "C4Cat" in s]
-        self.assertTrue(any(re.search(ARTWORK, s, re.IGNORECASE) for s in c4cat),
-                        "NOTICE must attribute the artwork rights to C4Cat and/or the credited artists")
+        self.assertTrue(
+            any(re.search(ARTWORK, s, re.IGNORECASE) for s in c4cat),
+            "NOTICE must attribute the artwork rights to C4Cat and/or the credited artists",
+        )
 
     def test_notice_does_not_license_the_artwork_under_apache(self):
         for sentence in sentences(self.notice()):
             if re.search(ARTWORK, sentence, re.IGNORECASE) and re.search(r"licensed under (?:the )?Apache", sentence):
                 with self.subTest(sentence=sentence[:80]):
-                    self.assertRegex(sentence, re.compile(NEGATION, re.IGNORECASE),
-                                     "artwork must not be offered under Apache-2.0")
+                    self.assertRegex(
+                        sentence, re.compile(NEGATION, re.IGNORECASE), "artwork must not be offered under Apache-2.0"
+                    )
 
 
 if __name__ == "__main__":

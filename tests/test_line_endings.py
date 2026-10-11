@@ -37,9 +37,20 @@ NEVER_CONVERTED = {
     "licenses/pace-MIT.txt": {"text": "unset"},
     "src/vendor/legacy-ui.js": {"text": "unset"},
 }
-LF_TEXT = ("data/catalog.json", "data/catalog.js", "data/coverage.json", "data/thumbs.json", "index.html",
-           "archive.html", "data/sources/wikis.json", "data/discovery/miraheze.json", "scripts/build_catalog.py",
-           "src/archive.js", ".github/workflows/tests.yml", "README.md")
+LF_TEXT = (
+    "data/catalog.json",
+    "data/catalog.js",
+    "data/coverage.json",
+    "data/thumbs.json",
+    "index.html",
+    "archive.html",
+    "data/sources/wikis.json",
+    "data/discovery/miraheze.json",
+    "scripts/build_catalog.py",
+    "src/archive.js",
+    ".github/workflows/tests.yml",
+    "README.md",
+)
 FILTER_SAMPLE = 200  # pinned blobs re-read through CRLF filters (evenly spread; attributes are checked for all)
 FILTER_MAX_BYTES = 1 << 20
 CRLF_CHECKOUTS = (("core.autocrlf=true",), ("core.autocrlf=false", "core.eol=crlf"))
@@ -54,7 +65,7 @@ def in_git_checkout() -> bool:
         return False
     try:
         return Path(git("rev-parse", "--show-toplevel").decode().strip()).resolve() == ROOT
-    except (OSError, subprocess.CalledProcessError):
+    except OSError, subprocess.CalledProcessError:
         return False
 
 
@@ -76,8 +87,15 @@ def tracked() -> list[tuple[str, str, int]]:
         mode, blob, _ = meta.decode().split(" ")
         if mode in ("100644", "100755"):
             rows.append((name.decode(), blob, 0))
-    sizes = git("cat-file", "--batch-check=%(objectname) %(objectsize)",
-                stdin="".join(f"{blob}\n" for _, blob, _ in rows).encode()).decode().split("\n")
+    sizes = (
+        git(
+            "cat-file",
+            "--batch-check=%(objectname) %(objectsize)",
+            stdin="".join(f"{blob}\n" for _, blob, _ in rows).encode(),
+        )
+        .decode()
+        .split("\n")
+    )
     return [(path, blob, int(line.split()[1])) for (path, blob, _), line in zip(rows, sizes)]
 
 
@@ -87,7 +105,7 @@ def raw_contents(blobs: list[str]) -> list[bytes]:
     for _ in blobs:
         header_end = data.index(b"\n", offset)
         size = int(data[offset:header_end].split()[2])
-        contents.append(data[header_end + 1:header_end + 1 + size])
+        contents.append(data[header_end + 1 : header_end + 1 + size])
         offset = header_end + 1 + size + 1
     return contents
 
@@ -100,8 +118,12 @@ def checkout_bytes(path: str, blob: str, *config: str) -> bytes:
 
 
 def is_pinned(path: str) -> bool:
-    return (path.startswith(PINNED_PREFIXES) or path in PINNED_FILES or path.lower().endswith(MEDIA_EXTENSIONS)
-            or (path.startswith("licenses/") and path.endswith(".txt")))
+    return (
+        path.startswith(PINNED_PREFIXES)
+        or path in PINNED_FILES
+        or path.lower().endswith(MEDIA_EXTENSIONS)
+        or (path.startswith("licenses/") and path.endswith(".txt"))
+    )
 
 
 @unittest.skipUnless(in_git_checkout(), "needs git and a Git checkout of this repository")
@@ -149,23 +171,32 @@ class ContentTests(unittest.TestCase):
         raw = raw_contents([blob for _, blob in pinned])
         for settings in CRLF_CHECKOUTS:
             with self.subTest(settings=settings):
-                changed = [path for (path, blob), before in zip(pinned, raw)
-                           if checkout_bytes(path, blob, *settings) != before]
+                changed = [
+                    path for (path, blob), before in zip(pinned, raw) if checkout_bytes(path, blob, *settings) != before
+                ]
                 self.assertEqual(changed, [])
 
     def test_crlf_filter_probe_detects_conversion(self):
         """The probe above is not vacuous: without these attributes the same Git call does produce CRLF."""
         with tempfile.TemporaryDirectory() as temporary:
+
             def scratch(*args: str, stdin: bytes | None = None) -> bytes:
-                return subprocess.run(["git", "-C", temporary, *args], input=stdin, capture_output=True,
-                                      check=True).stdout
+                return subprocess.run(
+                    ["git", "-C", temporary, *args], input=stdin, capture_output=True, check=True
+                ).stdout
+
             scratch("init", "-q")
             blob = scratch("hash-object", "-w", "--stdin", stdin=b"a\nb\n").decode().strip()
-            self.assertEqual(scratch("-c", "core.autocrlf=true", "cat-file", "--filters", "--path=t.txt", blob),
-                             b"a\r\nb\r\n")
+            self.assertEqual(
+                scratch("-c", "core.autocrlf=true", "cat-file", "--filters", "--path=t.txt", blob), b"a\r\nb\r\n"
+            )
         readme = next(blob for path, blob, _ in tracked() if path == "README.md")
-        self.assertEqual(checkout_bytes("README.md", readme, "core.autocrlf=true"), raw_contents([readme])[0],
-                         "README.md is eol=lf, so even core.autocrlf=true keeps LF")
+        self.assertEqual(
+            checkout_bytes("README.md", readme, "core.autocrlf=true"),
+            raw_contents([readme])[0],
+            "README.md is eol=lf, so even core.autocrlf=true keeps LF",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

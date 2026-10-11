@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from lib import manifest, media, net, paths, schema  # noqa: E402
 
 FIXTURE = ROOT / "tests/fixtures/contract"
-MINIMAL_PDF = (b"%PDF-1.4\n1 0 obj\n<< /Type /Catalog >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF\n")
+MINIMAL_PDF = b"%PDF-1.4\n1 0 obj\n<< /Type /Catalog >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF\n"
 
 
 def encode(fmt, size=(40, 30), mode="RGB", **options):
@@ -75,8 +75,9 @@ class SniffAndInspectTests(MediaTestCase):
     def test_multi_picture_jpeg_is_a_jpeg(self):
         """Pillow opens a JPEG with an MPF APP2 segment (camera/phone files) as MPO; it is still a valid JPEG."""
         buffer = io.BytesIO()
-        Image.new("RGB", (64, 48), (10, 200, 30)).save(buffer, "MPO", save_all=True,
-                                                         append_images=[Image.new("RGB", (32, 24))])
+        Image.new("RGB", (64, 48), (10, 200, 30)).save(
+            buffer, "MPO", save_all=True, append_images=[Image.new("RGB", (32, 24))]
+        )
         data = buffer.getvalue()
         self.assertTrue(data.startswith(b"\xff\xd8\xff"))
         info = media.inspect(self.write("camera.jpg", data))
@@ -98,19 +99,28 @@ class SniffAndInspectTests(MediaTestCase):
 
     def test_corrupt_and_unknown_files(self):
         png = encode("PNG", size=(64, 64))
-        cases = {"truncated.png": png[: len(png) // 2], "empty.png": b"", "html.png": b"<html>blocked</html>",
-                 "garbage.png": b"\x89PNG\r\n\x1a\n" + b"\x00" * 64, "badjpeg.jpg": b"\xff\xd8\xff" + b"\x00" * 50,
-                 "header-only.webp": encode("WEBP")[:20]}
+        cases = {
+            "truncated.png": png[: len(png) // 2],
+            "empty.png": b"",
+            "html.png": b"<html>blocked</html>",
+            "garbage.png": b"\x89PNG\r\n\x1a\n" + b"\x00" * 64,
+            "badjpeg.jpg": b"\xff\xd8\xff" + b"\x00" * 50,
+            "header-only.webp": encode("WEBP")[:20],
+        }
         for name, data in cases.items():
             with self.subTest(name=name), self.assertRaises(media.MediaError):
                 media.inspect(self.write(name, data))
 
     def test_media_error_failure_record(self):
         error = media.MediaError("cannot decode PNG")
-        record = error.failure(source_id="wikis:fandom", candidate_id="wikis:fandom:File:X.png",
-                               url="https://static.wikia.nocookie.net/dynamix/images/x.png")
-        self.assertEqual((record["error_class"], record["phase"], record["retriable"]),
-                         ("decode_error", "decode", False))
+        record = error.failure(
+            source_id="wikis:fandom",
+            candidate_id="wikis:fandom:File:X.png",
+            url="https://static.wikia.nocookie.net/dynamix/images/x.png",
+        )
+        self.assertEqual(
+            (record["error_class"], record["phase"], record["retriable"]), ("decode_error", "decode", False)
+        )
         schema.validate_failure(record)
 
 
@@ -124,8 +134,16 @@ class FinalizeTests(MediaTestCase):
     def result(self, data, name=".x.123.part"):
         temp = self.dest / name
         temp.write_bytes(data)
-        return net.DownloadResult(temp, "https://example.org/x.png", 200, "image/png", len(data),
-                                  hashlib.sha256(data).hexdigest(), hashlib.sha1(data).hexdigest(), {})
+        return net.DownloadResult(
+            temp,
+            "https://example.org/x.png",
+            200,
+            "image/png",
+            len(data),
+            hashlib.sha256(data).hexdigest(),
+            hashlib.sha1(data).hexdigest(),
+            {},
+        )
 
     def test_moves_into_place_with_sniffed_extension(self):
         data = encode("WEBP", lossless=True)
@@ -176,8 +194,11 @@ class FinalizeTests(MediaTestCase):
         outside = self.dir / "outside"
         outside.mkdir()
         os.symlink(outside, self.root / "assets/public/wikis/linked")
-        for target in ("assets/public/wikis/linked/x--000000000000.png", "../x--000000000000.png",
-                       "data/x--000000000000.png"):
+        for target in (
+            "assets/public/wikis/linked/x--000000000000.png",
+            "../x--000000000000.png",
+            "data/x--000000000000.png",
+        ):
             with self.subTest(target=target):
                 result = self.result(encode("PNG"), ".s.part")
                 with self.assertRaises(ValueError):
@@ -188,8 +209,11 @@ class FinalizeTests(MediaTestCase):
 
 class VerifyAssetTests(MediaTestCase):
     def test_fixture_assets_verify_and_mismatches_fail(self):
-        records = [asset for family in schema.FAMILIES
-                   for asset in manifest.load_json(FIXTURE / f"data/sources/{family}.json")["assets"]]
+        records = [
+            asset
+            for family in schema.FAMILIES
+            for asset in manifest.load_json(FIXTURE / f"data/sources/{family}.json")["assets"]
+        ]
         self.assertGreaterEqual(len(records), 8)
         for asset in records:
             media.verify_asset_file(FIXTURE, asset)

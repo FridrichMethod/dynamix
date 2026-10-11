@@ -120,8 +120,9 @@ class SortingTests(unittest.TestCase):
         self.assertEqual(records, before)
 
     def test_disposition_counts(self):
-        counts = manifest.disposition_counts([{"disposition": "excluded"}, {"disposition": "excluded"},
-                                              {"disposition": "pending"}])
+        counts = manifest.disposition_counts(
+            [{"disposition": "excluded"}, {"disposition": "excluded"}, {"disposition": "pending"}]
+        )
         self.assertEqual(list(counts), list(schema.DISPOSITIONS))
         self.assertEqual((counts["excluded"], counts["pending"], counts["downloaded"]), (2, 1, 0))
         with self.assertRaises(ValueError):

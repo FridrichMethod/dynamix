@@ -76,14 +76,38 @@ IMAGE_ATTRS = ("src", "data-src", "data-original", "data-lazy-src")
 IMAGE_FILE_RE = re.compile(r"\.(?:jpe?g|png|gif|webp|avif|bmp|svg)$", re.IGNORECASE)  # a link or quoted URL to an image
 OTHER = "other:"  # key infix of a selection image that is not an article upload: ``<key_prefix>other:<host><path>``
 GENERIC_ALT = {"", "image", "img", "photo", "picture", "圖片", "图片"}
-CONFIG_FIELDS = {"page_url", "key_prefix", "select", "pattern", "og_image", "rewrite", "attr_urls", "embedded_json",
-                 "supplied_marker", "supplied_note"}
-EMBEDDED_FIELDS = {"script_id", "blocks", "type_field", "images", "url_field", "caption_field", "count", "width_field",
-                   "height_field", "extra_images"}
-FALLBACK_NOTE = ("Archived from {url}, the URL the page lists for this image: the normalized upload URL {file_url} "
-                 "answered HTTP 404.")
-FALLBACK_QUALITY_NOTE = ("Not established as the upload: archived from the URL the page lists ({how}) because the "
-                         "upload URL {file_url} answered HTTP 404.")
+CONFIG_FIELDS = {
+    "page_url",
+    "key_prefix",
+    "select",
+    "pattern",
+    "og_image",
+    "rewrite",
+    "attr_urls",
+    "embedded_json",
+    "supplied_marker",
+    "supplied_note",
+}
+EMBEDDED_FIELDS = {
+    "script_id",
+    "blocks",
+    "type_field",
+    "images",
+    "url_field",
+    "caption_field",
+    "count",
+    "width_field",
+    "height_field",
+    "extra_images",
+}
+FALLBACK_NOTE = (
+    "Archived from {url}, the URL the page lists for this image: the normalized upload URL {file_url} "
+    "answered HTTP 404."
+)
+FALLBACK_QUALITY_NOTE = (
+    "Not established as the upload: archived from the URL the page lists ({how}) because the "
+    "upload URL {file_url} answered HTTP 404."
+)
 SUPPLIED_LABEL = "The page places this image after its label '{marker}'."
 
 
@@ -94,8 +118,11 @@ def _check_embedded(spec: Any, label: str) -> None:
         if not isinstance(spec.get(name), str) or not spec[name].strip():
             raise ValueError(f"{label}.embedded_json.{name} is required")
     images = spec.get("images")
-    if not isinstance(images, dict) or not images or not all(
-            isinstance(k, str) and isinstance(v, str) and k and v for k, v in images.items()):
+    if (
+        not isinstance(images, dict)
+        or not images
+        or not all(isinstance(k, str) and isinstance(v, str) and k and v for k, v in images.items())
+    ):
         raise ValueError(f"{label}.embedded_json.images maps block types to image fields")
     for name in ("caption_field", "count", "width_field", "height_field"):
         if name in spec and (not isinstance(spec[name], str) or not spec[name].strip()):
@@ -130,8 +157,10 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
         seen.add(page["page_url"])
         re.compile(page["pattern"])
         rewrite = page.get("rewrite", [])
-        if not isinstance(rewrite, list) or any(not isinstance(pair, list) or len(pair) != 2
-                                                or not all(isinstance(part, str) for part in pair) for pair in rewrite):
+        if not isinstance(rewrite, list) or any(
+            not isinstance(pair, list) or len(pair) != 2 or not all(isinstance(part, str) for part in pair)
+            for pair in rewrite
+        ):
             raise ValueError(f"{label}.rewrite must be a list of [pattern, replacement] pairs")
         for pattern, _ in rewrite:
             re.compile(pattern)
@@ -144,8 +173,10 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
             if name in page and (not isinstance(page[name], str) or not page[name].strip()):
                 raise ValueError(f"{label}.{name} must be a non-empty string")
         if ("supplied_marker" in page) != ("supplied_note" in page):
-            raise ValueError(f"{label}: supplied_marker and supplied_note go together (the note replaces the source's "
-                             "default quality note for the images after the marker)")
+            raise ValueError(
+                f"{label}: supplied_marker and supplied_note go together (the note replaces the source's "
+                "default quality note for the images after the marker)"
+            )
 
 
 def normalized(url: str, rewrite: list[list[str]]) -> str:
@@ -190,16 +221,19 @@ def _path(data: Any, dotted: str) -> Any:
 
 def _size(width: Any, height: Any) -> tuple[int, int] | None:
     """(width, height) when both are positive integers (or digit strings), else None."""
+
     def number(value: Any) -> int | None:
         if isinstance(value, str) and value.strip().isdigit():
             value = int(value.strip())
         return value if isinstance(value, int) and not isinstance(value, bool) and value > 0 else None
+
     pair = (number(width), number(height))
     return pair if None not in pair else None
 
 
-def _embedded_images(document: Any, spec: Mapping[str, Any]) -> tuple[list[tuple[str, str, Any]], int | None,
-                                                                       list[tuple[str, str, Any]]] | None:
+def _embedded_images(
+    document: Any, spec: Mapping[str, Any]
+) -> tuple[list[tuple[str, str, Any]], int | None, list[tuple[str, str, Any]]] | None:
     """([(url, caption, size)] in block order, the article's own image count or None, [(url, caption, size)] of the
     ``extra_images``) from the embedded JSON payload; None when the script or the blocks list is missing or
     unreadable. ``size`` is the advertised (width, height) of the upload, or None."""
@@ -218,8 +252,9 @@ def _embedded_images(document: Any, spec: Mapping[str, Any]) -> tuple[list[tuple
         if not isinstance(image, dict) or not isinstance(image.get(spec["url_field"]), str):
             return None
         caption = image.get(spec.get("caption_field") or "")
-        size = (_size(image.get(spec["width_field"]), image.get(spec["height_field"]))
-                if spec.get("width_field") else None)
+        size = (
+            _size(image.get(spec["width_field"]), image.get(spec["height_field"])) if spec.get("width_field") else None
+        )
         return image[spec["url_field"]], " ".join(caption.split()) if isinstance(caption, str) else "", size
 
     found = []
@@ -282,8 +317,16 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
     body: set[str] = set()
     title = base.headline(document)
 
-    def add(raw: str | None, caption: str = "", *, supplied: bool = False, in_body: bool = True,
-            size: tuple[int, int] | None = None, size_of_listed: bool = False, image_link: bool = True) -> str | None:
+    def add(
+        raw: str | None,
+        caption: str = "",
+        *,
+        supplied: bool = False,
+        in_body: bool = True,
+        size: tuple[int, int] | None = None,
+        size_of_listed: bool = False,
+        image_link: bool = True,
+    ) -> str | None:
         """Record one listed URL; returns its key, or None when it names no image. ``size`` is advertised for the
         upload (``size_of_listed``: only for the URL exactly as listed). Outside the article's uploads, an ``a`` link
         or a quoted URL (``image_link`` False) counts only when it names an image file."""
@@ -304,8 +347,10 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
             key, bucket = f"{config['key_prefix']}{OTHER}{parts.netloc}{parts.path}", others
         else:
             return None
-        entry = bucket.setdefault(key, {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False,
-                                        "name": name, "size": None})
+        entry = bucket.setdefault(
+            key,
+            {"key": key, "url": url, "advertised": [], "caption": "", "supplied": False, "name": name, "size": None},
+        )
         if absolute != url and absolute not in entry["advertised"]:
             entry["advertised"].append(absolute)
         entry["supplied"] = entry["supplied"] or supplied
@@ -358,8 +403,15 @@ def article_images(html: str, page_url: str, config: Mapping[str, Any]) -> tuple
     return list(found.values()), list(others.values()), state
 
 
-def _title(item_title: str | None, page_headline: str, caption: str, position: tuple[int, int] | None,
-           fallback: str, linked: tuple[int, int] | None = None, other: tuple[int, int] | None = None) -> str:
+def _title(
+    item_title: str | None,
+    page_headline: str,
+    caption: str,
+    position: tuple[int, int] | None,
+    fallback: str,
+    linked: tuple[int, int] | None = None,
+    other: tuple[int, int] | None = None,
+) -> str:
     if item_title:
         return item_title
     if not page_headline:
@@ -378,18 +430,26 @@ def _title(item_title: str | None, page_headline: str, caption: str, position: t
 def _covering(configs: Mapping[str, Mapping[str, Any]], complete: set[str]) -> Any:
     """Coverage predicate: a previous candidate is covered by a complete enumeration of its page only when it is one
     the enumeration produces (its key is under the page's ``key_prefix``); named items and unread pages never are."""
+
     def covers(candidate: Mapping[str, Any]) -> bool:
         page = candidate.get("page_url")
         return page in complete and str(candidate.get("upstream_key", "")).startswith(configs[page]["key_prefix"])
+
     return covers
 
 
 def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     configs = {page["page_url"]: page for page in (seed.get("params") or {}).get("article_images", [])}
-    discovery = base.new_discovery(seed, lists=["seed-files", *([ARTICLE_LIST] if configs else [])],
-                                   scope_notes=("Explicitly named files, and every article-body image of the "
-                                                "configured article pages; nothing else is followed." if configs else
-                                                "Explicitly named files only; the page's gallery is not crawled."))
+    discovery = base.new_discovery(
+        seed,
+        lists=["seed-files", *([ARTICLE_LIST] if configs else [])],
+        scope_notes=(
+            "Explicitly named files, and every article-body image of the "
+            "configured article pages; nothing else is followed."
+            if configs
+            else "Explicitly named files only; the page's gallery is not crawled."
+        ),
+    )
     pages: dict[str, dict] = {}
     read_complete: set[str] = set()
     if configs:
@@ -400,10 +460,14 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             try:
                 html, _, _ = ctx.client.get_text(page_url)
                 document = base.soup(html)
-                pages[page_url] = {"html": html, "texts": {"title": document.title.get_text(" ", strip=True)
-                                                           if document.title else "",
-                                                           "body": base.page_text(base.soup(html))},
-                                   "headline": base.headline(document)}
+                pages[page_url] = {
+                    "html": html,
+                    "texts": {
+                        "title": document.title.get_text(" ", strip=True) if document.title else "",
+                        "body": base.page_text(base.soup(html)),
+                    },
+                    "headline": base.headline(document),
+                }
             except net.FetchError as error:
                 discovery.errors.append(model.discovery_error("discover", page_url, str(error)))
                 base.mark_unread(discovery, "seed-files", error)
@@ -424,11 +488,12 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             read_complete.add(page_url)
             continue
         script = (config.get("embedded_json") or {}).get("script_id")
-        detail = {"selection-not-found": f"article selection {config['select']!r} not found on the page",
-                  "selection-empty": f"article selection {config['select']!r} holds no image matching the pattern; "
-                                     "an empty selection is not a complete enumeration",
-                  "embedded-json-not-found": f"embedded article payload {script!r} not found or unreadable",
-                  }.get(state, f"article image count disagrees with the page ({state})")
+        detail = {
+            "selection-not-found": f"article selection {config['select']!r} not found on the page",
+            "selection-empty": f"article selection {config['select']!r} holds no image matching the pattern; "
+            "an empty selection is not a complete enumeration",
+            "embedded-json-not-found": f"embedded article payload {script!r} not found or unreadable",
+        }.get(state, f"article image count disagrees with the page ({state})")
         discovery.errors.append(model.discovery_error("discover", page_url, detail))
         discovery.continuation[ARTICLE_LIST] = discovery.continuation.get(ARTICLE_LIST) or state
 
@@ -455,10 +520,22 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             claimed.add((page_url, image["key"]))
         elif id(item) in unshown.get(page_url, []):
             linked = (unshown[page_url].index(id(item)) + 1, len(unshown[page_url]))
-        discovery.candidates.append(_draft(
-            ctx, seed, item, key=key, page_url=page_url, file_url=file_url, texts=page["texts"],
-            title=_title(item.get("title"), page["headline"], image["caption"] if image else "", place, name, linked),
-            image=image, config=configs.get(page_url)))
+        discovery.candidates.append(
+            _draft(
+                ctx,
+                seed,
+                item,
+                key=key,
+                page_url=page_url,
+                file_url=file_url,
+                texts=page["texts"],
+                title=_title(
+                    item.get("title"), page["headline"], image["caption"] if image else "", place, name, linked
+                ),
+                image=image,
+                config=configs.get(page_url),
+            )
+        )
     for page_url, images in enumerated.items():
         page = pages[page_url]
         for index, image in enumerate(images, start=1):
@@ -466,10 +543,20 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 continue
             name = base.last_segment(image["url"])
             item = {"key": image["key"], "page_url": page_url, "file_url": image["url"]}
-            discovery.candidates.append(_draft(
-                ctx, seed, item, key=image["key"], page_url=page_url, file_url=image["url"], texts=page["texts"],
-                title=_title(None, page["headline"], image["caption"], (index, len(images)), name), image=image,
-                config=configs[page_url]))
+            discovery.candidates.append(
+                _draft(
+                    ctx,
+                    seed,
+                    item,
+                    key=image["key"],
+                    page_url=page_url,
+                    file_url=image["url"],
+                    texts=page["texts"],
+                    title=_title(None, page["headline"], image["caption"], (index, len(images)), name),
+                    image=image,
+                    config=configs[page_url],
+                )
+            )
     named = {(item["page_url"], item["file_url"]) for item in seed["items"]}
     for page_url, images in others.items():  # selection images that are not the article's uploads
         page = pages[page_url]
@@ -477,25 +564,52 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         for index, image in enumerate(listed, start=1):
             name = base.last_segment(image["url"])
             item = {"key": image["key"], "page_url": page_url, "file_url": image["url"]}
-            discovery.candidates.append(_draft(
-                ctx, seed, item, key=image["key"], page_url=page_url, file_url=image["url"], texts=page["texts"],
-                title=_title(None, page["headline"], image["caption"], None, name, other=(index, len(listed))),
-                image=image, config=configs[page_url]))
+            discovery.candidates.append(
+                _draft(
+                    ctx,
+                    seed,
+                    item,
+                    key=image["key"],
+                    page_url=page_url,
+                    file_url=image["url"],
+                    texts=page["texts"],
+                    title=_title(None, page["headline"], image["caption"], None, name, other=(index, len(listed))),
+                    image=image,
+                    config=configs[page_url],
+                )
+            )
     return discovery
 
 
-def _draft(ctx: Any, seed: Mapping[str, Any], item: Mapping[str, Any], *, key: str, page_url: str, file_url: str,
-           texts: Mapping[str, str], title: str, image: Mapping[str, Any] | None = None,
-           config: Mapping[str, Any] | None = None) -> model.Draft:
+def _draft(
+    ctx: Any,
+    seed: Mapping[str, Any],
+    item: Mapping[str, Any],
+    *,
+    key: str,
+    page_url: str,
+    file_url: str,
+    texts: Mapping[str, str],
+    title: str,
+    image: Mapping[str, Any] | None = None,
+    config: Mapping[str, Any] | None = None,
+) -> model.Draft:
     name = image["name"] if image is not None else base.last_segment(file_url)
     ext = name.rsplit(".", 1)[-1] if "." in name else None
     size = image["size"] if image is not None and image["url"] == file_url and image["size"] else (None, None)
     draft = model.apply_rule(
-        model.find_rule(base.rules(seed), key), key=key, page_url=page_url, texts=texts,
-        file_url=base.stored(file_url), default_title=title, default_quality=ctx.quality,
-        default_rights=ctx.rights, original_filename=item.get("original_filename") or name,
-        base_evidence=[page_url], source_reported=base.reported(url=file_url, mime=base.mime_for(ext), width=size[0],
-                                                                height=size[1]))
+        model.find_rule(base.rules(seed), key),
+        key=key,
+        page_url=page_url,
+        texts=texts,
+        file_url=base.stored(file_url),
+        default_title=title,
+        default_quality=ctx.quality,
+        default_rights=ctx.rights,
+        original_filename=item.get("original_filename") or name,
+        base_evidence=[page_url],
+        source_reported=base.reported(url=file_url, mime=base.mime_for(ext), width=size[0], height=size[1]),
+    )
     if item.get("notes") and "notes" not in draft.candidate_extra:
         draft.candidate_extra["notes"] = item["notes"]
     if image is None:
@@ -519,11 +633,13 @@ def _supplied_quality(quality: Mapping[str, Any], default: Mapping[str, Any], co
     return {**quality, "notes": " ".join(filter(None, [notes, label]))}
 
 
-def _fallback_adjust(image: Mapping[str, Any], file_url: str, named: str | None) -> Callable[[model.Draft, str],
-                                                                                          model.Draft]:
+def _fallback_adjust(
+    image: Mapping[str, Any], file_url: str, named: str | None
+) -> Callable[[model.Draft, str], model.Draft]:
     """The ``fallback_adjust`` hook of an article image: archived from ``url``, a URL the page lists, the record names
     that URL as advertised (sizes advertised for the upload do not describe it), keeps a rendition's own file name
     (unless the seed or the pattern names the upload's) and is not called the upload (``source_variant: unknown``)."""
+
     def adjust(draft: model.Draft, url: str) -> model.Draft:
         parts = urlsplit(url)
         plain = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
@@ -533,14 +649,23 @@ def _fallback_adjust(image: Mapping[str, Any], file_url: str, named: str | None)
         if rendition and own_name:
             used.original_filename = base.last_segment(plain)
         ext = used.original_filename.rsplit(".", 1)[-1] if "." in (used.original_filename or "") else None
-        used.source_reported = {**draft.source_reported, "url": base.stored(url), "width": None, "height": None,
-                                "mime": base.mime_for(ext)}
+        used.source_reported = {
+            **draft.source_reported,
+            "url": base.stored(url),
+            "width": None,
+            "height": None,
+            "mime": base.mime_for(ext),
+        }
         if draft.action == "download":
-            how = ("a rendition or proxy copy that the seed's rewrite maps to the upload" if rendition
-                   else "the upload URL with the page's query")
+            how = (
+                "a rendition or proxy copy that the seed's rewrite maps to the upload"
+                if rendition
+                else "the upload URL with the page's query"
+            )
             note = FALLBACK_QUALITY_NOTE.format(how=how, file_url=base.stored(file_url))
             quality = {**draft.meta["quality"], "source_variant": "unknown"}
             quality["notes"] = " ".join(filter(None, [quality.get("notes"), note]))
             used.meta = {**draft.meta, "quality": quality}
         return used
+
     return adjust

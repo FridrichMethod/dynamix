@@ -116,9 +116,15 @@ def _open_private(path: Path, flags: int, mode: int = 0o600) -> int:
             raise UnsafeWorkDir(f"{path} is a symlink; refusing to open it") from None
         raise
     info = os.fstat(descriptor)
-    problem = ("is not a regular file" if not stat.S_ISREG(info.st_mode) else
-               "is owned by another user" if info.st_uid != os.getuid() else
-               "has several hard links" if info.st_nlink != 1 else None)
+    problem = (
+        "is not a regular file"
+        if not stat.S_ISREG(info.st_mode)
+        else "is owned by another user"
+        if info.st_uid != os.getuid()
+        else "has several hard links"
+        if info.st_nlink != 1
+        else None
+    )
     if problem:
         os.close(descriptor)
         raise UnsafeWorkDir(f"{path} {problem}; refusing to use it")
@@ -138,8 +144,10 @@ def exclusive_lock(path: Path) -> Iterator[None]:
             if error.errno not in (errno.EAGAIN, errno.EACCES, errno.EWOULDBLOCK):
                 raise
             holder = os.pread(descriptor, 64, 0).decode("ascii", "replace").strip() or "unknown"
-            raise LockHeld(f"another fetch_wikis.py run holds {path} (pid {holder}); monitor it instead of starting "
-                           "a second writer") from None
+            raise LockHeld(
+                f"another fetch_wikis.py run holds {path} (pid {holder}); monitor it instead of starting "
+                "a second writer"
+            ) from None
         os.ftruncate(descriptor, 0)
         os.pwrite(descriptor, f"{os.getpid()}\n".encode(), 0)
         yield
@@ -168,8 +176,10 @@ def claim_work_dir(root: Path, work_dir: Path) -> None:
             continue
         journal = Journal(Path(other) / "journal.jsonl", root)
         if journal.belongs_to_root() and journal.has_events():
-            raise LockHeld(f"an interrupted run on this root left its journal in {other}; resume it with "
-                           f"--work-dir {other} before starting another run")
+            raise LockHeld(
+                f"an interrupted run on this root left its journal in {other}; resume it with "
+                f"--work-dir {other} before starting another run"
+            )
     if mine not in known:
         descriptor = _open_private(registry, os.O_WRONLY | os.O_APPEND | os.O_CREAT)
         try:
@@ -222,11 +232,15 @@ class Journal:
             return []
         header = self._header(lines)
         if header is None or header.get("format") != JOURNAL_FORMAT:
-            raise UnsafeWorkDir(f"{self.path} has no {JOURNAL_FORMAT} header; it was not written by this tool for "
-                                "this root (inspect it, then remove it or use another --work-dir)")
+            raise UnsafeWorkDir(
+                f"{self.path} has no {JOURNAL_FORMAT} header; it was not written by this tool for "
+                "this root (inspect it, then remove it or use another --work-dir)"
+            )
         if header.get("root") != self.root:
-            raise UnsafeWorkDir(f"{self.path} belongs to the root {header.get('root')!r}, not {self.root!r}; resume "
-                                "that run with its own --root, or use another --work-dir")
+            raise UnsafeWorkDir(
+                f"{self.path} belongs to the root {header.get('root')!r}, not {self.root!r}; resume "
+                "that run with its own --root, or use another --work-dir"
+            )
         events = []
         for number, line in enumerate(lines[1:], start=2):
             try:
@@ -250,8 +264,15 @@ class Journal:
                 os.ftruncate(descriptor, size)
             payload = json.dumps(event, ensure_ascii=False, sort_keys=True) + "\n"
             if size == 0:
-                payload = json.dumps({"event": "header", "format": JOURNAL_FORMAT, "root": self.root},
-                                     ensure_ascii=False, sort_keys=True) + "\n" + payload
+                payload = (
+                    json.dumps(
+                        {"event": "header", "format": JOURNAL_FORMAT, "root": self.root},
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                    + "\n"
+                    + payload
+                )
             os.pwrite(descriptor, payload.encode("utf-8"), size)
             os.fsync(descriptor)
         finally:

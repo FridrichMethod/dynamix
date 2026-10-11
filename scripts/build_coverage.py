@@ -41,8 +41,9 @@ DISCOVERY_EXTRAS = re.compile(r"^song-index(?:\.[a-z0-9-]+)?\.json$")
 # Artwork that answers "does this song have art": the song's own illustration, shown in the gallery.
 SONG_ART_KINDS = ("song_art",)
 # Kinds whose missing illustrator credit is a gap (screenshots and references have no illustrator to credit).
-ARTWORK_KINDS = tuple(kind for kind in schema.KINDS
-                      if kind not in ("store_screenshot", "gameplay_screenshot", "reference"))
+ARTWORK_KINDS = tuple(
+    kind for kind in schema.KINDS if kind not in ("store_screenshot", "gameplay_screenshot", "reference")
+)
 HIGH_RES_LONG_EDGE = 1920
 LOW_RES_LONG_EDGE = 1000
 LONG_EDGE_BUCKETS = ("lt_1000", "lt_1920", "ge_1920")
@@ -58,55 +59,55 @@ DEFINITIONS = {
     "unique_files": "Catalog entries: distinct SHA-256 values; exact duplicates across sources count once.",
     "exact_duplicate_records": "source_asset_records minus unique_files.",
     "song_denominator": "Songs of data/sources/song-index.json with in_original_game true (positive original-game "
-                        "evidence); Universe-only songs are outside it. Variants never multiply it.",
+    "evidence); Universe-only songs are outside it. Variants never multiply it.",
     "song_art": "A catalog gallery entry of kind song_art. It links a song only through its provenance records whose "
-                "song_ids name that song, at their mapping_status; the merged song_ids alone link nothing. Confirmed "
-                "song art: linked by a record whose mapping_status is confirmed_primary or confirmed_wiki.",
+    "song_ids name that song, at their mapping_status; the merged song_ids alone link nothing. Confirmed "
+    "song art: linked by a record whose mapping_status is confirmed_primary or confirmed_wiki.",
     "with_any_artwork": "Denominator songs with confirmed song art. Every per-song size, rendition, originality and "
-                        "illustrator metric below counts confirmed song art only.",
+    "illustrator metric below counts confirmed song art only.",
     "inferred_only": "Denominator songs without confirmed song art whose song_art links are all inferred.",
     "conflict_only": "Denominator songs without confirmed song art with at least one song_art link whose "
-                     "mapping_status is conflict (any other link inferred).",
+    "mapping_status is conflict (any other link inferred).",
     "missing_art": "Denominator songs without any song_art link. with_any_artwork + inferred_only + conflict_only + "
-                   "missing_art = denominator.",
+    "missing_art = denominator.",
     "with_any_linked_asset": "Denominator songs named by any catalog entry of any kind and any mapping status "
-                             "(screenshots included).",
+    "(screenshots included).",
     "with_confirmed_original": "Denominator songs with song art carrying one provenance record that is from the "
-                               "artists or official family, origin_status artist_post/official, mapping_status "
-                               "confirmed_primary naming the song, rendition site_original. Not a claim of an artist "
-                               "master.",
+    "artists or official family, origin_status artist_post/official, mapping_status "
+    "confirmed_primary naming the song, rendition site_original. Not a claim of an artist "
+    "master.",
     "with_long_edge_ge_1920": "Denominator songs with confirmed song art whose decoded long edge is at least 1920 px; "
-                              "a size bucket only, not evidence of authenticity, full composition or a master.",
+    "a size bucket only, not evidence of authenticity, full composition or a master.",
     "low_resolution_only": "with_any_artwork songs whose confirmed song art all have a long edge under 1920 px. "
-                           "best_long_edge buckets the songs by their largest confirmed song art (<1000, <1920, "
-                           ">=1920 px); a size bucket only.",
+    "best_long_edge buckets the songs by their largest confirmed song art (<1000, <1920, "
+    ">=1920 px); a size bucket only.",
     "rendition": "Per provenance record: site_original when quality.source_variant is site_original and the record "
-                 "is not transformed; preview when source_variant is preview or transformed is true; else unknown.",
+    "is not transformed; preview when source_variant is preview or transformed is true; else unknown.",
     "with_site_original": "with_any_artwork songs with confirmed song art that has a site_original record (the file "
-                          "as the source serves it at full size; not a claim of an artist master).",
+    "as the source serves it at full size; not a claim of an artist master).",
     "variant_unknown": "with_any_artwork songs without a site_original record but with an unknown one.",
     "preview_only": "with_any_artwork songs whose confirmed song art records are all previews or platform transforms. "
-                    "with_site_original + variant_unknown + preview_only = with_any_artwork.",
+    "with_site_original + variant_unknown + preview_only = with_any_artwork.",
     "unknown_illustrator": "with_any_artwork songs whose confirmed song art all have an empty illustrators list.",
     "unknown_illustrator_assets": "Catalog entries of artwork kinds (not screenshots or references) whose merged "
-                                  "illustrators list is empty.",
+    "illustrators list is empty.",
     "unmapped_assets": "Catalog entries of artwork kinds whose provenance records are all unmapped.",
     "conflict_assets": "Catalog entries with at least one provenance record whose mapping_status is conflict.",
     "inferred_only_assets": "Catalog entries with an inferred record and no confirmed one (an entry that also has "
-                            "a conflict record is listed in conflict_assets too).",
+    "a conflict record is listed in conflict_assets too).",
     "source_reported_mismatches": "Records where an advertised SHA-1, byte count, size or MIME differs from the "
-                                  "saved bytes (comparison false); null comparisons are not mismatches.",
+    "saved bytes (comparison false); null comparisons are not mismatches.",
     "staged_site_estimate": "What scripts/prepare_pages.py stages, counted the same way: one original per SHA-256 (the "
-                            "file named by the url of each catalog entry with site_original true; identical copies "
-                            "under other sources' paths and archive-tier originals stay out), each distinct preview "
-                            "named by a thumb, and the generated data/catalog.json, data/catalog.js, index.html (null "
-                            "when it is not rendered: no template outside the repository root) and data/coverage.json "
-                            "(this file, LF line ends). It excludes the static page files prepare_pages also stages "
-                            "(archive.html, README*, LICENSE, NOTICE, .nojekyll, assets/site/, docs/, licenses/, src/, "
-                            "...), so editing them never makes this report stale; prepare_pages enforces the exact "
-                            "budget.",
+    "file named by the url of each catalog entry with site_original true; identical copies "
+    "under other sources' paths and archive-tier originals stay out), each distinct preview "
+    "named by a thumb, and the generated data/catalog.json, data/catalog.js, index.html (null "
+    "when it is not rendered: no template outside the repository root) and data/coverage.json "
+    "(this file, LF line ends). It excludes the static page files prepare_pages also stages "
+    "(archive.html, README*, LICENSE, NOTICE, .nojekyll, assets/site/, docs/, licenses/, src/, "
+    "...), so editing them never makes this report stale; prepare_pages enforces the exact "
+    "budget.",
     "successor_not_primary": "Records whose superseded_by names a record that is not the primary (catalog ID) of "
-                             "its catalog entry; catalog_entry is the entry holding the successor's bytes.",
+    "its catalog entry; catalog_entry is the entry holding the successor's bytes.",
 }
 
 
@@ -115,6 +116,7 @@ class CoverageError(ValueError):
 
 
 # --- Inputs -----------------------------------------------------------------------------------------------------------
+
 
 def load_song_index(root: Path, record_ids: Iterable[str], records: Iterable[Mapping[str, Any]]) -> dict:
     target = paths.safe_path(root, SONG_INDEX)
@@ -150,18 +152,23 @@ def load_snapshots(root: Path, sources: list[dict]) -> dict[str, dict]:
     return snapshots
 
 
-def reconcile(manifests: Mapping[str, Mapping[str, Any]], snapshots: Mapping[str, Mapping[str, Any]],
-              records: list[dict]) -> dict[str, dict[str, int]]:
+def reconcile(
+    manifests: Mapping[str, Mapping[str, Any]], snapshots: Mapping[str, Mapping[str, Any]], records: list[dict]
+) -> dict[str, dict[str, int]]:
     """Per-source disposition counts after schema.reconcile; any disagreement fails."""
     counts: dict[str, dict[str, int]] = {}
     for family in schema.FAMILIES:
-        own = {source_id: snapshot for source_id, snapshot in snapshots.items()
-               if schema.source_family(source_id) == family}
+        own = {
+            source_id: snapshot
+            for source_id, snapshot in snapshots.items()
+            if schema.source_family(source_id) == family
+        }
         try:
             counts.update(schema.reconcile(manifests[family], own, other_assets=records))
         except ValueError as error:
-            raise CoverageError(f"{paths.manifest_relpath(family)} does not reconcile with its discovery snapshots: "
-                                f"{error}") from None
+            raise CoverageError(
+                f"{paths.manifest_relpath(family)} does not reconcile with its discovery snapshots: {error}"
+            ) from None
     for source_id, value in counts.items():
         total = len(snapshots[source_id]["candidates"])
         if sum(value.values()) != total:
@@ -172,15 +179,20 @@ def reconcile(manifests: Mapping[str, Mapping[str, Any]], snapshots: Mapping[str
             if source["id"] in snapshots:
                 continue
             if "candidate_count" in source or source.get("discovery_complete") is True:
-                raise CoverageError(f"source {source['id']!r} declares candidate_count/discovery_complete without a "
-                                    f"discovery snapshot ({paths.discovery_relpath(source['id'])})")
+                raise CoverageError(
+                    f"source {source['id']!r} declares candidate_count/discovery_complete without a "
+                    f"discovery snapshot ({paths.discovery_relpath(source['id'])})"
+                )
             if "failure_count" in source and source["failure_count"] != failures[source["id"]]:
-                raise CoverageError(f"source {source['id']!r}: failure_count {source['failure_count']} but the "
-                                    f"manifest has {failures[source['id']]} failures")
+                raise CoverageError(
+                    f"source {source['id']!r}: failure_count {source['failure_count']} but the "
+                    f"manifest has {failures[source['id']]} failures"
+                )
     return counts
 
 
 # --- Metrics ----------------------------------------------------------------------------------------------------------
+
 
 def _ordered_counts(values: Iterable[str], order: Iterable[str]) -> dict[str, int]:
     counter = Counter(values)
@@ -193,8 +205,14 @@ def _reason(candidate: Mapping[str, Any]) -> str:
     return candidate["reason"].split(":", 1)[0].strip()
 
 
-def source_metrics(sources: list[dict], snapshots: Mapping[str, dict], counts: Mapping[str, dict],
-                   records: list[dict], failures: list[dict], catalog: Mapping[str, Any]) -> dict:
+def source_metrics(
+    sources: list[dict],
+    snapshots: Mapping[str, dict],
+    counts: Mapping[str, dict],
+    records: list[dict],
+    failures: list[dict],
+    catalog: Mapping[str, Any],
+) -> dict:
     record_counts = Counter(record["source_id"] for record in records)
     primary_counts = Counter(asset["source_id"] for asset in catalog["assets"])
     rows: list[dict] = []
@@ -202,21 +220,30 @@ def source_metrics(sources: list[dict], snapshots: Mapping[str, dict], counts: M
     for source in sorted(sources, key=lambda item: item["id"]):
         source_id, snapshot = source["id"], snapshots.get(source["id"])
         own_failures = [failure for failure in failures if failure["source_id"] == source_id]
-        row = {"id": source_id, "family": source["family"], "name": source["name"], "status": source["status"],
-               "evidence_level": source.get("evidence_level"),
-               "discovery": paths.discovery_relpath(source_id) if snapshot else None,
-               "discovery_complete": snapshot["discovery_complete"] if snapshot else None,
-               "open_continuations": sorted(name for name, token in snapshot["continuation"].items()
-                                            if token is not None) if snapshot else None,
-               "discovery_errors": len(snapshot["errors"]) if snapshot else None,
-               "candidates": len(snapshot["candidates"]) if snapshot else None,
-               "by_disposition": counts.get(source_id),
-               "exclusion_reasons": _ordered_counts(
-                   (_reason(c) for c in snapshot["candidates"] if c["disposition"] == "excluded"),
-                   ()) if snapshot else None,
-               "asset_records": record_counts[source_id], "primary_unique_files": primary_counts[source_id],
-               "failures": len(own_failures),
-               "failures_by_class": _ordered_counts((f["error_class"] for f in own_failures), ())}
+        row = {
+            "id": source_id,
+            "family": source["family"],
+            "name": source["name"],
+            "status": source["status"],
+            "evidence_level": source.get("evidence_level"),
+            "discovery": paths.discovery_relpath(source_id) if snapshot else None,
+            "discovery_complete": snapshot["discovery_complete"] if snapshot else None,
+            "open_continuations": sorted(name for name, token in snapshot["continuation"].items() if token is not None)
+            if snapshot
+            else None,
+            "discovery_errors": len(snapshot["errors"]) if snapshot else None,
+            "candidates": len(snapshot["candidates"]) if snapshot else None,
+            "by_disposition": counts.get(source_id),
+            "exclusion_reasons": _ordered_counts(
+                (_reason(c) for c in snapshot["candidates"] if c["disposition"] == "excluded"), ()
+            )
+            if snapshot
+            else None,
+            "asset_records": record_counts[source_id],
+            "primary_unique_files": primary_counts[source_id],
+            "failures": len(own_failures),
+            "failures_by_class": _ordered_counts((f["error_class"] for f in own_failures), ()),
+        }
         rows.append(row)
         state = "not_enumerated" if snapshot is None else "complete" if snapshot["discovery_complete"] else "incomplete"
         enumeration[state].append(source_id)
@@ -233,14 +260,17 @@ def source_metrics(sources: list[dict], snapshots: Mapping[str, dict], counts: M
 
 def candidate_metrics(snapshots: Mapping[str, dict], counts: Mapping[str, dict]) -> dict:
     candidates = [candidate for snapshot in snapshots.values() for candidate in snapshot["candidates"]]
-    by_disposition = {disposition: sum(value[disposition] for value in counts.values())
-                      for disposition in schema.DISPOSITIONS}
+    by_disposition = {
+        disposition: sum(value[disposition] for value in counts.values()) for disposition in schema.DISPOSITIONS
+    }
     if sum(by_disposition.values()) != len(candidates):
         raise CoverageError("candidate dispositions do not reconcile with the candidate total")
     return {
-        "total": len(candidates), "by_disposition": by_disposition,
-        "by_exclusion_reason": _ordered_counts((_reason(c) for c in candidates if c["disposition"] == "excluded"),
-                                               schema.EXCLUSION_REASONS),
+        "total": len(candidates),
+        "by_disposition": by_disposition,
+        "by_exclusion_reason": _ordered_counts(
+            (_reason(c) for c in candidates if c["disposition"] == "excluded"), schema.EXCLUSION_REASONS
+        ),
         "by_game": _ordered_counts((c["game"] for c in candidates), schema.GAMES),
     }
 
@@ -259,17 +289,23 @@ def asset_metrics(catalog: Mapping[str, Any], records: list[dict], previews: boo
     groups = Counter(asset["variant_group"] for asset in assets if "variant_group" in asset)
     buckets = Counter(_edge_bucket(_long_edge(asset)) for asset in assets if asset["gallery"])
     return {
-        "source_asset_records": summary["source_asset_records"], "unique_files": summary["unique_files"],
+        "source_asset_records": summary["source_asset_records"],
+        "unique_files": summary["unique_files"],
         "exact_duplicate_records": summary["exact_duplicate_records"],
-        "gallery_images": summary["gallery_images"], "slideshow_images": summary["slideshow_images"],
+        "gallery_images": summary["gallery_images"],
+        "slideshow_images": summary["slideshow_images"],
         "by_kind": summary["by_kind"],
         "by_format": _ordered_counts((asset["format"] for asset in assets), schema.FORMATS),
-        "by_tier": {"site": sum(asset["site_original"] for asset in assets),
-                    "archive": sum(not asset["site_original"] for asset in assets)},
-        "variant_groups": len(groups), "entries_in_variant_groups": sum(groups.values()),
+        "by_tier": {
+            "site": sum(asset["site_original"] for asset in assets),
+            "archive": sum(not asset["site_original"] for asset in assets),
+        },
+        "variant_groups": len(groups),
+        "entries_in_variant_groups": sum(groups.values()),
         "entries_with_variants": sum(bool(asset["variants"]) for asset in assets),
-        "records_by_upstream_status": _ordered_counts((record.get("upstream_status") or "unset" for record in records),
-                                                      (*schema.UPSTREAM_STATUSES, "unset")),
+        "records_by_upstream_status": _ordered_counts(
+            (record.get("upstream_status") or "unset" for record in records), (*schema.UPSTREAM_STATUSES, "unset")
+        ),
         "transformed_records": sum(record.get("transformed") is True for record in records),
         "gallery_long_edge": {key: buckets.get(key, 0) for key in LONG_EDGE_BUCKETS},
         "entries_with_preview": sum(asset["thumb"] is not None for asset in assets) if previews else None,
@@ -290,9 +326,14 @@ def _best_rendition(assets: list[dict], transformed: set[str]) -> str:
 
 def _confirmed_original(asset: Mapping[str, Any], song_id: str, transformed: set[str]) -> bool:
     """One record of the entry is the artist's/official file for this song as the source serves it."""
-    return any(entry["family"] in ORIGINAL_FAMILIES and entry["mapping_status"] == "confirmed_primary"
-               and entry["quality"]["origin_status"] in ORIGINAL_ORIGINS and song_id in entry["song_ids"]
-               and _rendition(entry, transformed) == "site_original" for entry in asset["provenance"])
+    return any(
+        entry["family"] in ORIGINAL_FAMILIES
+        and entry["mapping_status"] == "confirmed_primary"
+        and entry["quality"]["origin_status"] in ORIGINAL_ORIGINS
+        and song_id in entry["song_ids"]
+        and _rendition(entry, transformed) == "site_original"
+        for entry in asset["provenance"]
+    )
 
 
 def _song_links(catalog: Mapping[str, Any], denominator: list[str]) -> tuple[dict[str, list], dict[str, set]]:
@@ -333,27 +374,42 @@ def song_metrics(index: Mapping[str, Any], catalog: Mapping[str, Any], transform
     low = [s for s in with_art if best_edge[s] != "ge_1920"]
     by_rendition = {kind: [s for s in with_art if rendition[s] == kind] for kind in RENDITIONS}
     unknown_illustrator = [s for s in with_art if all(not asset["illustrators"] for asset in art[s])]
-    if len(with_art) + len(inferred_only) + len(conflict_only) + len(missing) != len(denominator) \
-            or sum(map(len, by_rendition.values())) != len(with_art):
+    if len(with_art) + len(inferred_only) + len(conflict_only) + len(missing) != len(denominator) or sum(
+        map(len, by_rendition.values())
+    ) != len(with_art):
         raise CoverageError("song coverage buckets do not reconcile with the denominator")
     by_id = {song["id"]: song for song in songs}
     section = {
-        "index_as_of": index["as_of"], "index_songs": len(songs), "denominator": len(denominator),
+        "index_as_of": index["as_of"],
+        "index_songs": len(songs),
+        "denominator": len(denominator),
         "outside_denominator": len(songs) - len(denominator),
         "denominator_removed": sum(by_id[s]["removed"] for s in denominator),
         "denominator_universe_also": sum(by_id[s]["universe_also"] for s in denominator),
-        "with_any_artwork": len(with_art), "inferred_only": len(inferred_only), "conflict_only": len(conflict_only),
-        "missing_art": len(missing), "with_any_linked_asset": len(inside & linked),
-        "with_confirmed_original": len(confirmed), "with_long_edge_ge_1920": len(high),
+        "with_any_artwork": len(with_art),
+        "inferred_only": len(inferred_only),
+        "conflict_only": len(conflict_only),
+        "missing_art": len(missing),
+        "with_any_linked_asset": len(inside & linked),
+        "with_confirmed_original": len(confirmed),
+        "with_long_edge_ge_1920": len(high),
         "low_resolution_only": len(low),
         "best_long_edge": {key: sum(value == key for value in best_edge.values()) for key in LONG_EDGE_BUCKETS},
-        "with_site_original": len(by_rendition["site_original"]), "variant_unknown": len(by_rendition["unknown"]),
-        "preview_only": len(by_rendition["preview"]), "unknown_illustrator": len(unknown_illustrator),
+        "with_site_original": len(by_rendition["site_original"]),
+        "variant_unknown": len(by_rendition["unknown"]),
+        "preview_only": len(by_rendition["preview"]),
+        "unknown_illustrator": len(unknown_illustrator),
     }
-    gaps = {"missing_art_songs": missing, "inferred_only_songs": inferred_only, "conflict_only_songs": conflict_only,
-            "low_resolution_only_songs": low, "preview_only_songs": by_rendition["preview"],
-            "variant_unknown_songs": by_rendition["unknown"], "unknown_illustrator_songs": unknown_illustrator,
-            "linked_outside_denominator": sorted(linked - inside)}
+    gaps = {
+        "missing_art_songs": missing,
+        "inferred_only_songs": inferred_only,
+        "conflict_only_songs": conflict_only,
+        "low_resolution_only_songs": low,
+        "preview_only_songs": by_rendition["preview"],
+        "variant_unknown_songs": by_rendition["unknown"],
+        "unknown_illustrator_songs": unknown_illustrator,
+        "linked_outside_denominator": sorted(linked - inside),
+    }
     return section, gaps
 
 
@@ -368,23 +424,31 @@ def asset_gaps(catalog: Mapping[str, Any], snapshots: Mapping[str, dict]) -> dic
         "unknown_illustrator_assets": [asset["id"] for asset in artwork if not asset["illustrators"]],
         "unmapped_assets": [asset["id"] for asset in artwork if statuses(asset) == {"unmapped"}],
         "conflict_assets": [asset["id"] for asset in catalog["assets"] if "conflict" in statuses(asset)],
-        "inferred_only_assets": [asset["id"] for asset in catalog["assets"]
-                                 if "inferred" in statuses(asset)
-                                 and not statuses(asset) & {"confirmed_primary", "confirmed_wiki"}],
+        "inferred_only_assets": [
+            asset["id"]
+            for asset in catalog["assets"]
+            if "inferred" in statuses(asset) and not statuses(asset) & {"confirmed_primary", "confirmed_wiki"}
+        ],
         "pending_candidates": [c["id"] for c in candidates if c["disposition"] == "pending"],
         "blocked_candidates": [c["id"] for c in candidates if c["disposition"] == "blocked"],
         "failed_candidates": [c["id"] for c in candidates if c["disposition"] == "failed"],
     }
 
 
-def mismatches(index: Mapping[str, Any], records: list[dict], snapshots: Mapping[str, dict],
-               catalog: Mapping[str, Any]) -> dict:
+def mismatches(
+    index: Mapping[str, Any], records: list[dict], snapshots: Mapping[str, dict], catalog: Mapping[str, Any]
+) -> dict:
     by_id = {record["id"]: record for record in records}
     entry_of = {entry["asset_id"]: asset["id"] for asset in catalog["assets"] for entry in asset["provenance"]}
-    successors = [{"asset_id": record["id"], "superseded_by": record["superseded_by"],
-                   "catalog_entry": entry_of.get(record["superseded_by"])}
-                  for record in sorted(records, key=lambda item: item["id"])
-                  if record.get("superseded_by") and entry_of.get(record["superseded_by"]) != record["superseded_by"]]
+    successors = [
+        {
+            "asset_id": record["id"],
+            "superseded_by": record["superseded_by"],
+            "catalog_entry": entry_of.get(record["superseded_by"]),
+        }
+        for record in sorted(records, key=lambda item: item["id"])
+        if record.get("superseded_by") and entry_of.get(record["superseded_by"]) != record["superseded_by"]
+    ]
     reported = []
     for record in sorted(records, key=lambda item: item["id"]):
         fields = [field for field, value in record["comparisons"].items() if value is False]
@@ -404,18 +468,28 @@ def mismatches(index: Mapping[str, Any], records: list[dict], snapshots: Mapping
         linked = sorted(record["id"] for record in records if song["id"] in record["song_ids"])
         listed = sorted(song["artwork_asset_ids"])
         if linked != listed:
-            artwork.append({"song_id": song["id"], "index_only": sorted(set(listed) - set(linked)),
-                            "records_only": sorted(set(linked) - set(listed))})
-    other_source = [candidate["id"] for source_id in sorted(snapshots)
-                    for candidate in snapshots[source_id]["candidates"]
-                    if candidate["disposition"] == "duplicate_bytes" and candidate.get("asset_id") in by_id
-                    and by_id[candidate["asset_id"]]["source_id"] != source_id]
+            artwork.append(
+                {
+                    "song_id": song["id"],
+                    "index_only": sorted(set(listed) - set(linked)),
+                    "records_only": sorted(set(linked) - set(listed)),
+                }
+            )
+    other_source = [
+        candidate["id"]
+        for source_id in sorted(snapshots)
+        for candidate in snapshots[source_id]["candidates"]
+        if candidate["disposition"] == "duplicate_bytes"
+        and candidate.get("asset_id") in by_id
+        and by_id[candidate["asset_id"]]["source_id"] != source_id
+    ]
     return {
         "source_reported": reported,
         "transformed_records": sorted(record["id"] for record in records if record.get("transformed") is True),
         "record_disagreements": disagreements,
-        "song_index_disagreements": [{"song_id": item["song_id"], "field": item["field"]}
-                                     for item in index["disagreements"]],
+        "song_index_disagreements": [
+            {"song_id": item["song_id"], "field": item["field"]} for item in index["disagreements"]
+        ],
         "song_index_artwork": artwork,
         "duplicate_bytes_other_source": other_source,
         "successor_not_primary": successors,
@@ -427,9 +501,11 @@ def generated_sizes(root: Path, catalog: Mapping[str, Any]) -> dict[str, int | N
     data/catalog.json, data/catalog.js and index.html (rendered like build_catalog does: required at the repository
     root, None elsewhere without templates/slideshow.html)."""
     index = build_catalog.render_index(root, catalog, required=build_catalog.is_repository_root(root))
-    return {"catalog_json": len(manifest.dumps(catalog).encode("utf-8")),
-            "catalog_script": len(build_catalog.catalog_script(catalog).encode("utf-8")),
-            "index_html": None if index is None else len(index.encode("utf-8"))}
+    return {
+        "catalog_json": len(manifest.dumps(catalog).encode("utf-8")),
+        "catalog_script": len(build_catalog.catalog_script(catalog).encode("utf-8")),
+        "index_html": None if index is None else len(index.encode("utf-8")),
+    }
 
 
 def staged_originals(catalog: Mapping[str, Any]) -> dict[str, int]:
@@ -440,12 +516,18 @@ def staged_originals(catalog: Mapping[str, Any]) -> dict[str, int]:
 
 def staged_previews(catalog: Mapping[str, Any], thumbs: Mapping[str, Any]) -> dict[str, int]:
     """``{preview path: bytes}`` of every distinct preview a catalog entry names (prepare_pages stages each once)."""
-    return {asset["thumb"]: thumbs["thumbnails"][asset["sha256"]]["bytes"] for asset in catalog["assets"]
-            if asset["thumb"]}
+    return {
+        asset["thumb"]: thumbs["thumbnails"][asset["sha256"]]["bytes"] for asset in catalog["assets"] if asset["thumb"]
+    }
 
 
-def byte_metrics(catalog: Mapping[str, Any], records: list[dict], thumbs: Mapping[str, Any] | None,
-                 generated: Mapping[str, int | None], coverage_bytes: int) -> dict:
+def byte_metrics(
+    catalog: Mapping[str, Any],
+    records: list[dict],
+    thumbs: Mapping[str, Any] | None,
+    generated: Mapping[str, int | None],
+    coverage_bytes: int,
+) -> dict:
     """Byte totals; ``generated`` from generated_sizes, ``coverage_bytes`` the size of data/coverage.json itself."""
     assets = catalog["assets"]
     site = sum(staged_originals(catalog).values())
@@ -454,13 +536,19 @@ def byte_metrics(catalog: Mapping[str, Any], records: list[dict], thumbs: Mappin
     files = {**generated, "coverage_json": coverage_bytes}
     staged = site + (previews or 0) + sum(size for size in files.values() if size is not None)
     return {
-        "records_by_family": {family: sum(r["bytes"] for r in records if r["family"] == family)
-                              for family in schema.FAMILIES},
-        "unique_by_primary_family": {family: sum(a["bytes"] for a in assets if a["family"] == family)
-                                     for family in schema.FAMILIES},
-        "unique_total": total, "by_tier": {"site": site, "archive": total - site}, "previews": previews,
-        **files, "staged_site_estimate": staged,
-        "pages_budget": schema.PAGES_BUDGET_BYTES, "within_pages_budget": staged <= schema.PAGES_BUDGET_BYTES,
+        "records_by_family": {
+            family: sum(r["bytes"] for r in records if r["family"] == family) for family in schema.FAMILIES
+        },
+        "unique_by_primary_family": {
+            family: sum(a["bytes"] for a in assets if a["family"] == family) for family in schema.FAMILIES
+        },
+        "unique_total": total,
+        "by_tier": {"site": site, "archive": total - site},
+        "previews": previews,
+        **files,
+        "staged_site_estimate": staged,
+        "pages_budget": schema.PAGES_BUDGET_BYTES,
+        "within_pages_budget": staged <= schema.PAGES_BUDGET_BYTES,
     }
 
 
@@ -480,6 +568,7 @@ def with_byte_metrics(report: Mapping[str, Any], byte_metrics_for: Callable[[int
 
 # --- Build ------------------------------------------------------------------------------------------------------------
 
+
 def build(root: Path) -> dict:
     """The coverage report for ``root``; raises CoverageError/CatalogError when the inputs do not reconcile."""
     root = Path(root)
@@ -490,8 +579,7 @@ def build(root: Path) -> dict:
     if thumbs is not None:
         catalog = build_catalog.attach_thumbnails(root, catalog)
     elif build_catalog.is_repository_root(root):  # the staged-site estimate needs the previews
-        raise CoverageError(f"Missing required input: {build_catalog.THUMBS_MANIFEST}: run "
-                            "scripts/build_thumbnails.py")
+        raise CoverageError(f"Missing required input: {build_catalog.THUMBS_MANIFEST}: run scripts/build_thumbnails.py")
     index = load_song_index(root, (record["id"] for record in records), records)
     snapshots = load_snapshots(root, sources)
     counts = reconcile(manifests, snapshots, records)
@@ -499,13 +587,19 @@ def build(root: Path) -> dict:
     songs, song_gaps = song_metrics(index, catalog, transformed)
     generated = generated_sizes(root, catalog)
     report = {
-        "schema_version": schema.SCHEMA_VERSION, "game": schema.CATALOG_GAME, "as_of": index["as_of"],
+        "schema_version": schema.SCHEMA_VERSION,
+        "game": schema.CATALOG_GAME,
+        "as_of": index["as_of"],
         "inputs": {
-            "song_index": SONG_INDEX, "manifests": {family: manifests[family]["fetched_at"]
-                                                    for family in schema.FAMILIES},
-            "discovery": {source_id: {"path": paths.discovery_relpath(source_id),
-                                      "finished_at": snapshots[source_id]["finished_at"]}
-                          for source_id in sorted(snapshots)},
+            "song_index": SONG_INDEX,
+            "manifests": {family: manifests[family]["fetched_at"] for family in schema.FAMILIES},
+            "discovery": {
+                source_id: {
+                    "path": paths.discovery_relpath(source_id),
+                    "finished_at": snapshots[source_id]["finished_at"],
+                }
+                for source_id in sorted(snapshots)
+            },
             "thumbs": build_catalog.THUMBS_MANIFEST if thumbs is not None else None,
         },
         "definitions": DEFINITIONS,
@@ -520,8 +614,9 @@ def build(root: Path) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
-                                     formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__.split("\n\n")[0], formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__
+    )
     parser.add_argument("--check", action="store_true", help="compare with data/coverage.json without writing")
     parser.add_argument("--root", type=Path, default=REPO_ROOT, help="repository-shaped tree (default: %(default)s)")
     args = parser.parse_args(argv)
@@ -537,8 +632,17 @@ def main(argv: list[str] | None = None) -> int:
     except (ValueError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
-    print(json.dumps({"songs": coverage["songs"], "candidates": coverage["candidates"]["by_disposition"],
-                      "bytes": coverage["bytes"]}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {
+                "songs": coverage["songs"],
+                "candidates": coverage["candidates"]["by_disposition"],
+                "bytes": coverage["bytes"],
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
     return 0
 
 
