@@ -58,7 +58,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 
 从不获取付费或私有资料，也从不绕过登录、机器人验证或访问控制：这类来源记录为被阻止或需要人工访问。
 
-“未存档”描述的是当前的文件树和目录。Git 历史从不改写，因此后来经复核撤回或重新分类的记录，其字节仍可在较早的提交中取得，尽管当前没有任何记录、目录条目或页面展示它们：一张后来查明是放大图的 wiki 照片（现为 `upscaled`）、属于独立发行物封面的 wiki eyecatch 图片（现为 `external_release_art`）、已被 Apple 对同一上传提供的 PNG 版本取代的 App Store JPEG 重新编码文件、记录在等待复核期间被撤回的画师个人插画（现为 `pending`），以及一张官方 X 的界面图条（现为 `site_ui`）。撤回它们的提交说明写明了仍保存这些字节的提交；撤回机制见 [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md#重复文件修订与两个英文-wiki) 和 [docs/sources-artists.zh-CN.md](docs/sources-artists.zh-CN.md)。
+“未存档”描述的是当前的文件树和目录。Git 历史从不改写，因此后来经复核撤回或重新分类的记录，其字节仍可在较早的提交中取得，尽管当前没有任何记录、目录条目或页面展示它们：一张后来查明是放大图的 wiki 照片（现为 `upscaled`）、属于独立发行物封面的 wiki eyecatch 图片（现为 `external_release_art`）、已被 Apple 对同一上传提供的 PNG 版本取代的 App Store JPEG 重新编码文件、记录在等待复核期间被撤回的画师个人插画（现为 `pending`），以及一张官方 X 的界面图条（现为 `site_ui`）。这些字节最早出现在以下提交中：放大图在 `a418229`，eyecatch 图片在 `6beba72`，App Store JPEG 在 `21a8d7a`，个人插画在 `765b5aa`，X 界面图条在 `74bf4e4`；撤回机制见 [docs/sources-wikis.zh-CN.md](docs/sources-wikis.zh-CN.md#重复文件修订与两个英文-wiki) 和 [docs/sources-artists.zh-CN.md](docs/sources-artists.zh-CN.md)。
 
 ### 文件按发布原样保存
 
