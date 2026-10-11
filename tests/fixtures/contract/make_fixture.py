@@ -350,7 +350,7 @@ def build_discoveries(assets: dict[str, dict]) -> dict[str, dict]:
                    game_evidence=["Category:Characters (synthetic)"], disposition="excluded",
                    reason="animated_capture: 250 px animated GIF capture"),
         wiki_extra("wikis:miraheze", "Song_select_screen.png", game="unknown", game_evidence=[],
-                   disposition="pending", reason="classification pending manual review"),
+                   disposition="pending", reason="unresolved_role: classification pending manual review"),
     ]
     fandom = [
         _candidate(assets["F1"]), _candidate(assets["F2"]),

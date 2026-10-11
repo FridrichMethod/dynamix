@@ -425,7 +425,7 @@ class ReconciliationFailureTests(Base):
         crop = fx.find_record(self.root, title="Cosmic Pulse (crop)")
         for candidate in value["candidates"]:
             if candidate["id"] == crop["candidate_id"]:
-                candidate.update(disposition="pending", reason="re-review", asset_id=None)
+                candidate.update(disposition="pending", reason="unresolved_role: re-review", asset_id=None)
         self.save_snapshot(value)
         self.assert_fails("does not reconcile")
 
@@ -449,7 +449,7 @@ class ReconciliationFailureTests(Base):
         for candidate in value["candidates"]:
             candidate.update(source_id="archives:wayback", id="archives:wayback:" + candidate["upstream_key"])
             candidate.pop("asset_id", None)
-            candidate.update(disposition="pending", reason="not fetched")
+            candidate.update(disposition="pending", reason="awaiting_download: not fetched")
         self.save_snapshot(value)
         self.assert_fails("not the discovery snapshot of a source declared")
         (self.root / "data/discovery/wayback.json").unlink()

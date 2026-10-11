@@ -37,7 +37,7 @@ An exclude or pending rule that sets `withdraw_archived` is an explicit curator 
 
 Records are titled from the post or release page they cite (a pixiv work's title with its page number, an X post's text, a track or album title); the file name stays in `original_filename`.
 
-`confirmed_primary` requires the fetched page itself to name the song (a quoted field in `mapping_evidence`); every mapped song title must be named by the fetched text, otherwise the record is `inferred`. Each credited name has a `credit_evidence` entry quoting the field that states it, or, when the page does not state it, an entry pointing to the research or wiki page the rule cites. Illustrators and composers stay in separate lists. A post's grouping, a multi-page work or an album title is not taken as the song of every image in it.
+`confirmed_primary` requires the fetched page itself to name the song (a quoted field in `mapping_evidence`); every mapped song title must be named by the fetched text, otherwise the record is `inferred`. Each credited name has a `credit_evidence` entry quoting the field that states it, or, when the page does not state it, an entry pointing to the research or wiki page the rule cites; an entry citing a wiki song page carries the `Template:Song` field and quote that the wikis family records for that page and name. Illustrators and composers stay in separate lists, and a joint credit is stored as the source writes it (`Keiyuu & RED-FOX`, `Linne X SCTL`), never split into separate names, as in the wikis family. A post's grouping, a multi-page work or an album title is not taken as the song of every image in it.
 
 ## Exclusions
 

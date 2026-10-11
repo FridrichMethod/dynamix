@@ -770,7 +770,7 @@ class PrimaryEvidenceTests(ArchivesTestCase):
         snapshot = manifest.load_json(path)
         for change in ({"disposition": "excluded", "game": "not_dynamix",
                         "reason": "rejected_submission: unused image for Dynamix Submission 2019"},
-                       {"disposition": "pending", "game": "unknown", "reason": "pending: artwork owner 1 is not ..."}):
+                       {"disposition": "pending", "game": "unknown", "reason": "unresolved_game: artwork owner 1 is not ..."}):
             snapshot["candidates"][0].update(change)
             manifest.write_json_atomic(path, snapshot)
             problems = self.problems()
@@ -1249,6 +1249,30 @@ class FamilyConsistencyTests(ArchivesTestCase):
         manifest.write_json_atomic(self.root / "data/sources/archives.json", data)
         errors, _warnings, _ = runner.verify_family(self.root, "archives")
         self.assertTrue(any("'song:hope' is the song 'HOPE'" in error for error in errors), errors)
+
+    def test_a_credit_cited_from_a_wiki_song_page_gets_the_wiki_field_and_quote(self):
+        """A credit the fetched text does not state, cited from a wiki song page (credit_source), takes the
+        Template:Song field and quote that the wikis family records for that page, role and name."""
+        page = "https://dynamix.miraheze.org/wiki/Hope!!"
+        lookup = {(page, "illustrator", "HAT"): ("Template:Song|Cover Artist", "HAT")}
+        meta = {"credit_evidence": [{"role": "illustrator", "name": "HAT", "url": page.replace("!!", "%21%21"),
+                                     "field": None, "quote": None},
+                                    {"role": "composer", "name": "Takahiro Aoki", "url": page, "field": None,
+                                     "quote": None},
+                                    {"role": "illustrator", "name": "HAT", "url": "https://a.example.org/post",
+                                     "field": "caption", "quote": "illust: HAT"}]}
+        runner.fill_cited_credits(meta, lookup)
+        self.assertEqual([(entry["field"], entry["quote"]) for entry in meta["credit_evidence"]],
+                         [("Template:Song|Cover Artist", "HAT"), (None, None), ("caption", "illust: HAT")])
+        with mock.patch.object(runner.manifest, "load_manifest", return_value={"assets": [
+                {"credit_evidence": [{"role": "illustrator", "name": "HAT", "url": page,
+                                      "field": "Template:Song|Cover Artist", "quote": "HAT"}]},
+                {"credit_evidence": [{"role": "composer", "name": "X", "url": page, "field": "Template:Song|Artist",
+                                      "quote": "X"},
+                                     {"role": "composer", "name": "X", "url": page,
+                                      "field": "Template:Song|Compound Artist Link", "quote": "[[X]]"}]}]}):
+            self.assertEqual(runner.wiki_credit_fields(self.root),
+                             {(page, "illustrator", "HAT"): ("Template:Song|Cover Artist", "HAT")})  # X: ambiguous
 
 
 class GuardedSpacingTests(unittest.TestCase):

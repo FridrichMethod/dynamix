@@ -30,7 +30,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 from PIL import Image
 
@@ -298,6 +298,37 @@ def resolve_song_ids(titles: Iterable[str], lookup: Mapping[str, list[str]]) -> 
     return result
 
 
+def wiki_credit_fields(root: str | os.PathLike[str]) -> dict[tuple[str, str, str], tuple[str, str]]:
+    """``(page URL, role, name) -> (field, quote)`` of the wikis family's credit evidence (each a ``Template:Song``
+    field quoted from that wiki song page), for the pairs that one field and quote state unambiguously.
+
+    A primary record that cites a wiki song page for a credit its own fetched text does not state (``credit_source``)
+    takes the field and quote from here, so the credit can be checked against the cited page like a wiki record's."""
+    try:
+        data = manifest.load_manifest(root, "wikis", missing_ok=True)
+    except (ValueError, OSError):
+        return {}
+    found: dict[tuple[str, str, str], set[tuple[str, str]]] = {}
+    for asset in data["assets"]:
+        for entry in asset.get("credit_evidence") or []:
+            if entry.get("url") and entry.get("field") and entry.get("quote"):
+                key = (unquote(entry["url"]), entry["role"], entry["name"])
+                found.setdefault(key, set()).add((entry["field"], entry["quote"]))
+    return {key: next(iter(values)) for key, values in found.items() if len(values) == 1}
+
+
+def fill_cited_credits(meta: dict, lookup: Mapping[tuple[str, str, str], tuple[str, str]]) -> None:
+    """Give the draft's quote-less credit entries that cite a wiki song page the field and quote the wikis family
+    records for that page, role and name (unchanged when it records none)."""
+    entries = meta.get("credit_evidence") or []
+    for index, entry in enumerate(entries):
+        if entry.get("field") or entry.get("quote") or not entry.get("url"):
+            continue
+        hit = lookup.get((unquote(entry["url"]), entry["role"], entry["name"]))
+        if hit:
+            entries[index] = {**entry, "field": hit[0], "quote": hit[1]}
+
+
 # --- Record builders --------------------------------------------------------------------------------------------------
 
 def append_note(notes: str | None, note: str) -> str:
@@ -496,6 +527,7 @@ class Runner:
         self.source_errors: dict[str, str] = {}  # source ID -> unexpected error that ended its run early
         self._md5_index: dict[str, str] | None = None  # MD5 -> asset ID of this family's archived files (lazy)
         self._songs = song_lookup(load_song_index(self.root))  # title/alias -> song IDs of the reconciled index
+        self._wiki_credits = wiki_credit_fields(self.root)  # (wiki page, role, name) -> Template:Song field, quote
         self._pixels: dict[str, str | None] = {}  # file SHA-256 -> decoded-pixel digest (pixel twins)
 
     # -- public --
@@ -577,10 +609,12 @@ class Runner:
                 "discover", stored_url(state.seed["url"]), f"adapter produced duplicate candidate keys "
                 f"{sorted(set(duplicates))[:5]}; only the first draft of each was recorded"))
             state.discovery.continuation["duplicate-keys"] = f"dropped-{len(duplicates)}"
-        if self._songs:
-            for draft in drafts:  # song IDs come from the reconciled index, not from the title alone
-                if draft.meta and draft.meta.get("song_titles"):
-                    draft.meta["song_ids"] = resolve_song_ids(draft.meta["song_titles"], self._songs)
+        for draft in drafts:
+            if self._songs and draft.meta and draft.meta.get("song_titles"):
+                # song IDs come from the reconciled index, not from the title alone
+                draft.meta["song_ids"] = resolve_song_ids(draft.meta["song_titles"], self._songs)
+            if draft.meta and self._wiki_credits:
+                fill_cited_credits(draft.meta, self._wiki_credits)
         keys = [draft.upstream_key for draft in drafts]
         for draft in drafts:  # first pass: everything not needing a download, and placeholders
             cid = schema.candidate_id(state.source_id, draft.upstream_key)
@@ -590,8 +624,8 @@ class Runner:
                     state.candidates[cid] = self._previous_candidate(state, cid)
                 else:
                     state.candidates[cid] = candidate_record(
-                        state.source_id, draft, "pending", reason="pending: download not attempted yet (run in "
-                                                                  "progress or interrupted; rerun with --resume)")
+                        state.source_id, draft, "pending", reason="awaiting_download: download not attempted yet "
+                                                                  "(run in progress or interrupted; rerun with --resume)")
                     state.pending_ids.add(cid)
             else:
                 self._record_non_download(state, draft)
@@ -790,7 +824,8 @@ class Runner:
                     sid, draft, "downloaded", asset_id=previous_asset["id"])
             else:
                 state.candidates[cid] = candidate_record(sid, draft, "pending",
-                                                         reason="pending: not downloaded (--metadata-only run)")
+                                                         reason="awaiting_download: not downloaded "
+                                                                "(--metadata-only run)")
             return
         if self.resume and previous_asset is not None and self._reusable(previous_asset, draft):
             refreshed = self._refresh_record(previous_asset, draft)

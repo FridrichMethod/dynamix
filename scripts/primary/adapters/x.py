@@ -201,10 +201,11 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
                 rule, post_id):
             # A timeline sample holds whatever the account posted lately (sequel news, other titles, greetings): a
             # catch-all rule never admits it; only a rule written for the post or one with quotes found in its text.
-            rule = model.hold(rule, "pending: embed-timeline post without a per-post seed rule or evidence quote; "
-                                    "needs review")
+            rule = model.hold(rule, "unresolved_role: embed-timeline post without a per-post seed rule or evidence "
+                                    "quote; needs review")
         if author != handle.lower():
-            rule = model.hold(rule, f"pending: post author @{author or '?'} is not this source's account @{handle}")
+            rule = model.hold(rule, f"unresolved_game: post author @{author or '?'} is not this source's account "
+                                    f"@{handle}")
         title = post_title(texts["text"], f"@{handle} post {post_id} image {index}", index, len(media),
                            link_texts(data))
         if entry.get("type") != "photo":
@@ -216,7 +217,7 @@ def _post_candidates(ctx: Any, seed: Mapping[str, Any], discovery: model.Discove
         if not match:
             discovery.candidates.append(model.Draft(
                 upstream_key=key, page_url=status_url, title=title, action="pending",
-                reason="pending: unrecognized X media URL"))
+                reason="awaiting_download: unrecognized X media URL"))
             continue
         media_key, ext = match.groups()
         file_url = f"https://pbs.twimg.com/media/{media_key}?format={ext}&name=orig"

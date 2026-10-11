@@ -69,11 +69,12 @@ def capture_check(stamp: str, sha1_hex: str | None) -> Callable[[Any], str | Non
         match = _RAW_CAPTURE.match(final)
         if not match or match.group(1) != stamp:
             served = f"capture {match.group(1)}" if match else f"{checks.redact_url(final)!r}"
-            return (f"pending: the Internet Archive answered the raw request for capture {stamp} with {served}; "
-                    "not the seeded capture, so nothing was archived")
+            return (f"awaiting_download: the Internet Archive answered the raw request for capture {stamp} with "
+                    f"{served}; not the seeded capture, so nothing was archived")
         if sha1_hex and getattr(result, "sha1", None) != sha1_hex:
-            return (f"pending: the bytes received for capture {stamp} (SHA-1 {getattr(result, 'sha1', None)}) are not "
-                    f"the payload the CDX API lists for it (digest SHA-1 {sha1_hex}); held for review")
+            return (f"awaiting_download: the bytes received for capture {stamp} (SHA-1 "
+                    f"{getattr(result, 'sha1', None)}) are not the payload the CDX API lists for it (digest SHA-1 "
+                    f"{sha1_hex}); held for review")
         return None
     return check
 

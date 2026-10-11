@@ -150,5 +150,5 @@ def identity_rule(rule: Mapping[str, Any] | None, missing: list[str]) -> Mapping
     """Downgrade a download rule to ``pending`` when the page's identity quotes were not found."""
     if rule is None or not missing or rule.get("action", "download") != "download":
         return rule
-    return model.hold(rule, "pending: page identity not established (missing "
+    return model.hold(rule, "unresolved_game: page identity not established (missing "
                       + "; ".join(model.clip(quote, 60) for quote in missing) + ")")

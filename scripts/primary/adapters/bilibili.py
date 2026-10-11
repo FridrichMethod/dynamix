@@ -104,7 +104,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             continue
         author, pictures, texts = extract(data.get("data") or {})
         if expected_mid and author.get("mid") != expected_mid:
-            override = {"action": "pending", "reason": f"pending: post author mid {author.get('mid')} is not "
+            override = {"action": "pending", "reason": f"unresolved_game: post author mid {author.get('mid')} is not "
                                                        f"this source's account {expected_mid}"}
         else:
             override = None
