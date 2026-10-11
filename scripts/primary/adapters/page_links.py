@@ -28,10 +28,11 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
         link_rules = item.get("link_rules")
         if not isinstance(link_rules, list) or not link_rules:
             raise ValueError(f"{where}: items[{index}].link_rules must be a non-empty list")
-        for rule in link_rules:
-            if rule.get("attr") not in ("href", "src") or not isinstance(rule.get("pattern"), str):
-                raise ValueError(f"{where}: items[{index}].link_rules need attr href/src and a pattern")
-            re.compile(rule["pattern"])
+        for rule_index, rule in enumerate(link_rules):
+            label = f"{where}: items[{index}].link_rules[{rule_index}]"
+            if not isinstance(rule, dict) or rule.get("attr") not in ("href", "src"):
+                raise ValueError(f"{label} needs attr href/src and a pattern")
+            model.check_regex(rule.get("pattern"), f"{label}.pattern")
     if not seed.get("hosts"):
         raise ValueError(f"{where}: hosts are required")
 

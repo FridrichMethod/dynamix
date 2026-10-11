@@ -222,10 +222,24 @@ def _check_credit_sources(rule: Mapping[str, Any], action: str, where: str) -> N
         )
 
 
+def check_regex(value: Any, label: str) -> None:
+    """ValueError naming ``label`` unless ``value`` is a string that compiles as a regular expression. A seed pattern
+    must fail when the seeds are loaded (and in ``--verify``), not when a run first applies it; ``re.error`` itself is
+    no ValueError."""
+    if not isinstance(value, str):
+        raise ValueError(f"{label} must be a regular expression string")
+    try:
+        re.compile(value)
+    except re.error as error:
+        raise ValueError(f"{label} is not a valid regular expression ({error})") from None
+
+
 def check_rule(rule: Mapping[str, Any], where: str) -> None:
     unknown = sorted(set(rule) - RULE_FIELDS)
     if unknown:
         raise ValueError(f"{where}: unknown rule field {unknown[0]!r}")
+    if rule.get("match") is not None:  # a rule without ``match`` matches every key
+        check_regex(rule["match"], f"{where}: match")
     for name in LIST_FIELDS:  # a string here would be iterated per character (one-letter "quotes" and credits)
         value = rule.get(name, [])
         if not isinstance(value, list) or not all(isinstance(item, str) and item.strip() for item in value):

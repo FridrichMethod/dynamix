@@ -1127,12 +1127,72 @@ class PressArticleTests(ArchivesTestCase):
     def test_seed_validation(self):
         seed = self.seed(self.RULES)
         seed["params"]["article_images"][0]["pattern"] = "("
-        with self.assertRaises(Exception):
+        with self.assertRaisesRegex(ValueError, r"^test: params\.article_images\[0\]\.pattern .*regular expression"):
+            direct_adapter.check_seed(seed, "test")
+        seed = self.seed(self.RULES)
+        seed["params"]["article_images"][0]["rewrite"] = [["(", "x"]]
+        with self.assertRaisesRegex(ValueError, r"rewrite\[0\] .*regular expression"):
             direct_adapter.check_seed(seed, "test")
         seed = self.seed(self.RULES)
         del seed["params"]["article_images"][0]["select"]
         with self.assertRaises(ValueError):
             direct_adapter.check_seed(seed, "test")
+
+    def load_seeds(self, source):
+        path = self.root / "seeds.json"
+        path.write_text(json.dumps({"family": "archives", "sources": [source]}), encoding="utf-8")
+        return runner.load_seeds(path, "archives")
+
+    def test_seeds_that_would_fail_at_run_time_are_rejected_when_loaded(self):
+        """Each of these passed load_seeds (and --verify) and then crashed or aborted the source at run time."""
+        page_links = RunnerStateTests.seed(self)
+        self.load_seeds(page_links)  # the valid seed loads
+        cases = []
+        bad_rule = json.loads(json.dumps(page_links))
+        bad_rule["rules"] = [{"match": "(", "role": "promotional"}]
+        cases.append((bad_rule, r"rules\[0\]: match .*regular expression"))
+        bad_rule = json.loads(json.dumps(page_links))
+        bad_rule["rules"] = [{"match": ["img/"], "role": "promotional"}]
+        cases.append((bad_rule, r"rules\[0\]: match must be a regular expression string"))
+        bad_link = json.loads(json.dumps(page_links))
+        bad_link["items"][0]["link_rules"][0]["pattern"] = "("
+        cases.append((bad_link, r"link_rules\[0\]\.pattern .*regular expression"))
+        registry = {
+            "id": "archives:test-leads",
+            "name": "Leads",
+            "url": "https://press.example.org/",
+            "platform": "web",
+            "adapter": "lead_registry",
+            "items": [
+                {
+                    "key": "a",
+                    "page_url": "https://press.example.org/a",
+                    "title": "A",
+                    "disposition": "pending",
+                    "reason": "needs review: x",
+                }
+            ],
+        }
+        cases.append((registry, r"items\[0\]: a pending reason must start with one of"))
+        probe = {
+            "id": "archives:test-probe",
+            "name": "Probe",
+            "url": "https://press.example.org/",
+            "platform": "web",
+            "adapter": "page_probe",
+            "hosts": ["press.example.org"],
+            "lists": [],
+            "items": [{"url": "https://press.example.org/"}],
+        }
+        cases.append((probe, r"lists must be a non-empty list of names"))
+        for source, message in cases:
+            with self.subTest(message=message):
+                with self.assertRaisesRegex(ValueError, message) as caught:
+                    self.load_seeds(source)
+                self.assertIn(f"source {source['id']!r}", str(caught.exception))
+        registry["items"][0]["reason"] = "unresolved_role: x"
+        probe["lists"] = ["probe"]
+        self.assertEqual(len(self.load_seeds(registry)) + len(self.load_seeds(probe)), 2)
 
 
 class PrimaryEvidenceTests(ArchivesTestCase):

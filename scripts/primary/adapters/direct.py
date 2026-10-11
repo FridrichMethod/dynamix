@@ -157,15 +157,15 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
         if checks.http_url(page["page_url"]) or page["page_url"] in seen:
             raise ValueError(f"{label}.page_url must be a distinct http(s) URL")
         seen.add(page["page_url"])
-        re.compile(page["pattern"])
+        model.check_regex(page["pattern"], f"{label}.pattern")
         rewrite = page.get("rewrite", [])
         if not isinstance(rewrite, list) or any(
             not isinstance(pair, list) or len(pair) != 2 or not all(isinstance(part, str) for part in pair)
             for pair in rewrite
         ):
             raise ValueError(f"{label}.rewrite must be a list of [pattern, replacement] pairs")
-        for pattern, _ in rewrite:
-            re.compile(pattern)
+        for pair_index, (pattern, _) in enumerate(rewrite):
+            model.check_regex(pattern, f"{label}.rewrite[{pair_index}]")
         attrs = page.get("attr_urls", [])
         if not isinstance(attrs, list) or not all(isinstance(name, str) and name.strip() for name in attrs):
             raise ValueError(f"{label}.attr_urls must be a list of attribute names")
