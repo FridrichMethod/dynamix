@@ -681,12 +681,15 @@ class OtherGameCaptionTests(unittest.TestCase):
 
     def test_the_documented_caption_examples_behave_as_documented(self) -> None:
         """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: another game's
-        artwork or event records an association, Dynamix's own events do not, and a BMS release event is the song's
-        separate release (external_release_art). The stale 'another game or event' wording is gone."""
+        artwork or event records an association (with a possessive too), Dynamix's own occasions do not, and a BMS
+        release event is the song's separate release (external_release_art). The paragraph names the two word lists
+        that decide a Dynamix occasion. The stale 'another game or event' wording is gone."""
         expected = {
             "Artwork in RAVON": ("download", ["ravon"]),
             "Artwork for the RAVON Collaboration Event": ("download", ["ravon"]),
+            "Artwork for Arcaea's 3rd Anniversary": ("download", ["arcaea"]),
             "Jacket for the Halloween Event": ("download", []),
+            "Artwork for New Year's Eve": ("download", []),
             "Artwork in PABAT! 2017": ("excluded", []),
         }
         for relative, stale in (
@@ -698,6 +701,10 @@ class OtherGameCaptionTests(unittest.TestCase):
             with self.subTest(document=relative):
                 self.assertNotIn(stale, paragraph)
                 self.assertIn("`external_release_art`", paragraph)
+                self.assertIn("`scripts/wikis/config.py`", paragraph)
+                for name in ("DYNAMIX_OCCASION", "OCCASION_WORDS"):
+                    self.assertIn(f"`{name}`", paragraph)
+                    self.assertTrue(hasattr(config, name), name)
                 for caption in expected:
                     self.assertIn(caption, paragraph)
         for caption, (disposition, associations) in expected.items():
