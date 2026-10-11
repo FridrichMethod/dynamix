@@ -808,26 +808,34 @@ class OtherGameCaptionTests(unittest.TestCase):
 
     def test_the_documented_caption_examples_behave_as_documented(self) -> None:
         """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: a listed game's
-        artwork or event records an association (with a possessive too), Dynamix's own occasions and other unlisted
-        names do not, and a BMS release event is the song's separate release (external_release_art). The paragraph
-        names the reviewed game list (config.OTHER_GAMES, which replaced the word lists DYNAMIX_OCCASION and
+        artwork or event records an association (with a possessive too, and in a name that starts with Dynamix),
+        Dynamix's own occasions and other unlisted names do not and carry the curator note, the game's own name alone
+        names nothing to review, and a BMS release event is the song's separate release (external_release_art). The
+        paragraph names the reviewed game list (config.OTHER_GAMES, which replaced the word lists DYNAMIX_OCCASION and
         OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed word lists. The stale 'another
-        game or event' wording is gone."""
-        expected = {
-            "Artwork in RAVON": ("download", ["ravon"]),
-            "Artwork for the RAVON Collaboration Event": ("download", ["ravon"]),
-            "Artwork for Arcaea's 3rd Anniversary": ("download", ["arcaea"]),
-            "Jacket for the Halloween Event": ("download", []),
-            "Artwork for New Year's Eve": ("download", []),
-            "Artwork in PABAT! 2017": ("excluded", []),
+        game or event' wording is gone, and so is the claim that a name starting with "Dynamix" is never another game,
+        which has been false since such names go through the reviewed list."""
+        expected = {  # caption: (disposition, associations, whether the evidence asks a curator to review the name)
+            "Artwork in RAVON": ("download", ["ravon"], False),
+            "Artwork for the RAVON Collaboration Event": ("download", ["ravon"], False),
+            "Artwork for Arcaea's 3rd Anniversary": ("download", ["arcaea"], False),
+            "Jacket for the Halloween Event": ("download", [], True),
+            "Artwork for New Year's Eve": ("download", [], True),
+            "Artwork for Dynamix x RAVON Collaboration": ("download", ["ravon"], False),
+            "Artwork for Dynamix's 5th Anniversary": ("download", [], True),
+            "Artwork in Dynamix": ("download", [], False),
+            "Jacket from Dynamix (2016)": ("download", [], False),
+            "Artwork in PABAT! 2017": ("excluded", [], False),
         }
         for relative, stale in (
             ("docs/sources-wikis.md", "another game or event"),
             ("docs/sources-wikis.zh-CN.md", "其他游戏或活动"),
+            ("docs/sources-wikis.md", 'a name that starts with "Dynamix" is never another game'),
+            ("docs/sources-wikis.zh-CN.md", "以“Dynamix”开头的名称从不算作其他游戏"),
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
             [paragraph] = [line for line in text.splitlines() if "`mixed`" in line and "`game_associations`" in line]
-            with self.subTest(document=relative):
+            with self.subTest(document=relative, stale=stale):
                 self.assertNotIn(stale, paragraph)
                 self.assertIn("`external_release_art`", paragraph)
                 self.assertIn("`scripts/wikis/config.py`", paragraph)
@@ -838,10 +846,12 @@ class OtherGameCaptionTests(unittest.TestCase):
                     self.assertFalse(hasattr(config, name), name)
                 for caption in expected:
                     self.assertIn(caption, paragraph)
-        for caption, (disposition, associations) in expected.items():
+        for caption, (disposition, associations, review) in expected.items():
             with self.subTest(caption=caption):
-                decision = self.decide([self.gallery_item("S " + caption)])
+                item = self.gallery_item("S " + caption)
+                decision = self.decide([item])
                 self.assertEqual((decision.disposition, decision.associations), (disposition, associations))
+                self.assertEqual(self.REVIEW in item.detail, review, item.detail)
                 if disposition == "excluded":
                     self.assertEqual(decision.reason.split(":")[0], "external_release_art")
 
