@@ -2,7 +2,9 @@ name: Tests
 
 # Every push and pull request (any branch, stacked pull requests included), and pages.yml before it builds a release
 # artifact. Read-only: nothing here deploys Pages, pushes, tags or publishes a release. The site job only uploads an
-# ordinary CI artifact of the staged website for inspection.
+# ordinary CI artifact of the staged website for inspection. The lint job runs every pre-commit hook on every file and
+# fails when a hook reports a problem or would change a file; nothing is fixed or committed. The checks job runs the
+# unit tests under coverage.py and fails when the coverage of scripts/ is below fail_under in pyproject.toml.
 # Parts of the job layout and step wording are adapted from FridrichMethod/deemo .github/workflows/tests.yml
 # (Apache-2.0, commit b14bf0d5f5a05e5382c319f3fd5019a4936820b8).
 on:
@@ -37,12 +39,29 @@ jobs:
         id: install
         run: |
           python -m venv "$RUNNER_TEMP/venv"
-          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet -r requirements.txt
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet -r requirements.txt -r requirements-lint.txt
           "$RUNNER_TEMP/venv/bin/python" -I -c 'import PIL.features; print("Pillow", PIL.__version__, "libwebp", PIL.features.version("webp"))'
       # The remaining checks run even when an earlier one fails, so one run reports every failure.
-      - name: Unit tests (every tests/test_*.py; fails on any failure or when none is found)
+      - name: Unit tests under coverage (every tests/test_*.py; fails on any failure or when none is found)
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
-        run: '"$RUNNER_TEMP/venv/bin/python" -I tests/run_all.py'
+        env:
+          # Outside the checkout. [tool.coverage.run] in pyproject.toml measures scripts/ in every Python process
+          # the tests start (parallel = true writes one data file per process next to this name).
+          COVERAGE_FILE: ${{ runner.temp }}/coverage/.coverage
+        run: |
+          mkdir -p "$RUNNER_TEMP/coverage"
+          "$RUNNER_TEMP/venv/bin/python" -I -m coverage run tests/run_all.py
+      - name: Coverage of scripts/ by the unit tests (fails below fail_under in pyproject.toml)
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        env:
+          COVERAGE_FILE: ${{ runner.temp }}/coverage/.coverage
+        run: |
+          "$RUNNER_TEMP/venv/bin/python" -I -m coverage combine --quiet "$RUNNER_TEMP/coverage"
+          {
+            echo "### Coverage of scripts/ by the unit tests"
+            "$RUNNER_TEMP/venv/bin/python" -I -m coverage report --format=markdown --fail-under=0
+          } >> "$GITHUB_STEP_SUMMARY"
+          "$RUNNER_TEMP/venv/bin/python" -I -m coverage report
       - name: Catalog matches its manifests and files
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: '"$RUNNER_TEMP/venv/bin/python" -I scripts/build_catalog.py --verify --check'
@@ -85,6 +104,46 @@ jobs:
         run: |
           changes="$(git status --porcelain --untracked-files=all)"
           [ -z "$changes" ] || { echo "::error::a check modified the checkout"; printf '%s\n' "$changes"; exit 1; }
+
+  lint:
+    name: Lint, format and type checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.14"
+      - name: Install the pinned lint tools (requirements-lint.txt, and ESLint from package-lock.json)
+        id: install
+        # ESLint runs on the runner's preinstalled Node.js, which must satisfy "engines" in package.json.
+        run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet -r requirements-lint.txt
+          node_version="$(node --version)"
+          echo "Node.js $node_version"
+          IFS=. read -r major minor _ <<< "${node_version#v}"
+          { [ "$major" -eq 20 ] && [ "$minor" -ge 19 ]; } || { [ "$major" -eq 22 ] && [ "$minor" -ge 13 ]; } \
+            || [ "$major" -ge 24 ] \
+            || { echo "::error::Node.js $node_version does not satisfy ^20.19.0 || ^22.13.0 || >=24"; exit 1; }
+          npm ci --ignore-scripts --no-audit --no-fund
+      - name: Every pre-commit hook on every file (check only; fails when a hook would change a file)
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        env:
+          PRE_COMMIT_HOME: ${{ runner.temp }}/pre-commit
+        run: '"$RUNNER_TEMP/venv/bin/python" -I -m pre_commit run --all-files --show-diff-on-failure'
+      - name: Lint left the checkout unchanged
+        if: ${{ !cancelled() }}
+        # node_modules/ and the ruff and mypy caches are git-ignored.
+        run: |
+          changes="$(git status --porcelain --untracked-files=all)"
+          [ -z "$changes" ] || { echo "::error::a lint hook modified the checkout"; printf '%s\n' "$changes"; exit 1; }
 
   browser:
     name: Browser smoke test
