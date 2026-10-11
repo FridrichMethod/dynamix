@@ -412,6 +412,24 @@ class OtherGameCaptionTests(unittest.TestCase):
         self.assertEqual((listed.role, listed.game, listed.other_game), ("reference", "dynamix", "RAVON"))
         self.assertEqual((self.decide([listed]).game, self.decide([listed]).associations), ("mixed", ["ravon"]))
 
+    def test_dynamix_events_are_not_another_game(self) -> None:
+        """DX1-04: artwork captioned for one of Dynamix's own events or anniversaries is original-game art: no
+        association (which would also drop the default C4Cat rights holder), the page game stays."""
+        captions = {
+            "Jacket for the Halloween Event": "the Halloween Event",
+            "Artwork from the 2nd Anniversary": "the 2nd Anniversary",
+            "Artwork for Christmas Event 2021": "Christmas Event 2021",
+            "Illustration in Event 23 June to 27 June": "Event 23 June to 27 June",
+            "Artwork for the New Year Festival": "the New Year Festival",
+        }
+        for caption, occasion in captions.items():
+            text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
+            item = self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
+            self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", None), caption)
+            self.assertIn(f"artwork for {occasion} (a Dynamix event, not another game)", item.detail)
+            decision = self.decide([item])
+            self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "dynamix", []))
+
 
 def _review(**fields):
     entry = {

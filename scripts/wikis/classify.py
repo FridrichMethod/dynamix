@@ -378,7 +378,9 @@ def page_evidence(
                     role, song = "external_release_art", None
                     detail += f", artwork of the song's release for {named} (an external release event)"
                 else:
-                    if other is not None:
+                    if other is not None and config.DYNAMIX_OCCASION.search(named):
+                        detail += f", artwork for {named} (a Dynamix event, not another game)"
+                    elif other is not None:
                         # Shared artwork: an association only. The page or tab keeps deciding the game (decide()
                         # makes it "mixed" when an original-game context exists), so a Universe-only page stays
                         # Universe-only and a page without game evidence gives none.

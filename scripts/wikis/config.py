@@ -285,6 +285,14 @@ OTHER_GAME_ARTWORK = re.compile(
     r"(?P<other>[^\s,;()][^,;()]*)",
     re.I,
 )
+# Dynamix's own occasions are not another game: artwork "for the Halloween Event", "from the 2nd Anniversary" or "for
+# Christmas Event 2021" is original-game art and creates no game association (an association would also drop the
+# default rights holder). Names of other games and collaborations (RAVON, ...) do not contain these words.
+DYNAMIX_OCCASION = re.compile(
+    r"\b(?:events?|anniversary|festival|christmas|x'?mas|halloween|new\s+year|valentine'?s?|april\s+fools?|"
+    r"birthday)\b",
+    re.I,
+)
 # Observed layout of all song pages with both Template:Song and Template:SongUV (2026-10-10, 20 pages on Miraheze):
 # each game's template and notes sit in its own tab, and the page-level gallery after the tabs lists the original
 # game's event items (characters, parts, backgrounds, chart lists, comeback announcements). A page-level gallery
