@@ -1274,6 +1274,24 @@ class FamilyConsistencyTests(ArchivesTestCase):
             self.assertEqual(runner.wiki_credit_fields(self.root),
                              {(page, "illustrator", "HAT"): ("Template:Song|Cover Artist", "HAT")})  # X: ambiguous
 
+    def test_a_run_fills_a_cited_credit_from_the_wikis_manifest(self):
+        """The acquisition itself (not only the helper) gives a credit cited from a wiki song page the field and quote
+        of the wikis manifest's Template:Song credit; a credit the wikis family does not record stays quote-less."""
+        page = "https://dynamix.miraheze.org/wiki/Hope!!"
+        wikis = manifest.load_json(ROOT / "tests/fixtures/contract/data/sources/wikis.json")
+        wikis["assets"][0]["credit_evidence"] = [{"role": "illustrator", "name": "HAT", "url": page,
+                                                  "field": "Template:Song|Cover Artist", "quote": "HAT"}]
+        manifest.write_json_atomic(self.root / "data/sources/wikis.json", wikis)
+        rule = {"role": "song_art", "song_titles": ["Hope!!"], "mapping_status": "inferred",
+                "illustrators": ["HAT"], "composers": ["Takahiro Aoki"],
+                "credit_source": {"url": page, "note": "the wiki song page, Template:Song"}}
+        self.run_family([self.source("archives:press", "a.example.org", rule)], self.network())
+        asset = self.manifest()["assets"][0]
+        self.assertEqual(asset["credit_evidence"], [
+            {"role": "illustrator", "name": "HAT", "url": page, "field": "Template:Song|Cover Artist", "quote": "HAT"},
+            {"role": "composer", "name": "Takahiro Aoki", "url": page, "field": None, "quote": None}])
+        self.verify()
+
 
 class GuardedSpacingTests(unittest.TestCase):
     """GuardedClient spaces requests per host across the per-source clients of a run (frozen >= 1.0 s default),
