@@ -24,6 +24,7 @@ import functools
 import http.server
 import itertools
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -53,6 +54,10 @@ IMAGE_SHOWN = (
 )
 SLIDE_SHOWN = "imgTargets[slideIndex - 1].naturalWidth > 0 && imgTargets[slideIndex - 1].closest('.mySlides').classList.contains('is-current')"
 SHOWN_ID = "imgTargets[slideIndex - 1].dataset.id"
+# Every link that opens a new tab, with whether it carries rel noopener and noreferrer and lies in a provenance block.
+NEW_TAB_LINKS = """() => [...document.querySelectorAll('a[target="_blank"]')].map((node) => ({href: node.href,
+    safe: node.relList.contains('noopener') && node.relList.contains('noreferrer'),
+    provenance: Boolean(node.closest('#provenance'))}))"""
 STATUS_ORDER = [
     "available",
     "partially_available",
@@ -130,11 +135,20 @@ def build_site(destination: Path, catalog: dict):
 
 
 def hostile(catalog: dict) -> dict:
-    """A catalog the builder would never write: script and data URLs where files and pages belong. The page must still
-    render, link nothing unsafe and run nothing. (No slideshow entries: the renderer rejects such paths outright.)"""
+    """A catalog the builder would never write: script and data URLs where files and pages belong, and a
+    protocol-relative preview and a root-relative file that would load from another host or outside the site's mount.
+    The page must still render, link and load nothing unsafe and run nothing. (No slideshow entries: the renderer
+    rejects such paths outright.)"""
     bad = json.loads(json.dumps(catalog))
-    site = next(asset for asset in bad["assets"] if asset["gallery"] and asset["site_original"] and asset["thumb"])
+    published = [
+        asset
+        for asset in bad["assets"]
+        if asset["gallery"] and asset["site_original"] and asset["thumb"] and asset["format"] != "PDF"
+    ]
+    site, other_host, root_relative = published[:3]
     site.update({"url": "javascript:alert(7)", "thumb": "java\tscript:alert(8)"})
+    other_host["thumb"] = "//127.0.0.2/x.png"
+    root_relative["url"] = "/x.png"
     archived = next(asset for asset in bad["assets"] if asset["gallery"] and not asset["site_original"])
     archived["archive_url"] = "javascript:alert(9)"
     for asset in bad["assets"]:
@@ -564,6 +578,7 @@ def check_viewer(smoke, base, catalog, fixture):
     assert page.evaluate("getComputedStyle(document.activeElement).outlineStyle") != "none", "keyboard focus is visible"
     page.wait_for_function("location.hash === ''", timeout=3000)  # the close event, which clears it, is asynchronous
     # Deep link: archive.html#<id> opens that file, for every catalog entry (gallery or not).
+    provenance_links = 0
     for asset in catalog["assets"][: (None if fixture else 5)]:
         smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
@@ -595,12 +610,17 @@ def check_viewer(smoke, base, catalog, fixture):
             page.wait_for_function(IMAGE_SHOWN, timeout=5000)
         blocks = page.locator("#provenance .provenance-item").count()
         assert blocks == len(asset["provenance"]), (asset["id"], blocks)
+        # A new tab never gets a handle on this page (noopener) or the archive URL as Referer (noreferrer).
+        links = page.evaluate(NEW_TAB_LINKS)
+        assert all(link["safe"] for link in links), (asset["id"], [link["href"] for link in links if not link["safe"]])
+        provenance_links += sum(link["provenance"] for link in links)
         credits = page.locator("#viewer-credits").inner_text()
         for role in ("illustrators", "composers"):
             names = asset[role]
             assert all(name in credits for name in names), (role, names, credits)
         if not asset["illustrators"]:
             assert page.evaluate("DYNAMIX_I18N.t('credit.unknown')") in credits
+    assert provenance_links, "no provenance link opens a new tab, so their rel was never checked"
     smoke.finish(page)
 
 
@@ -1450,6 +1470,16 @@ def check_edges(smoke, base, catalog, names, small_id):
 
 UNSAFE_LINKS = """() => [...document.querySelectorAll('[href], [src]')].map((node) => node.href || node.src || '')
     .filter((url) => url && !/^(https?:|file:|#)/i.test(url))"""
+# Images that load from outside the site's mount (another host, or the server root above it), and links to the same
+# host that leave the mount. Links to other hosts (sources, the repository) are allowed.
+OFF_MOUNT = """(base) => [...document.querySelectorAll('img[src], a[href]')]
+    .map((node) => [node.localName, node.localName === 'img' ? node.src : node.href])
+    .filter(([tag, url]) => (tag === 'img' || new URL(url).origin === new URL(base).origin) && !url.startsWith(base))"""
+
+
+def refused_site_url(value):
+    """Values src/archive.js never uses as a site file: a scheme, a leading slash or backslash, a space or control."""
+    return bool(re.match(r"^(?:[a-z][a-z\d+.-]*:|[\\/])", value, re.IGNORECASE) or re.search(r"[\x00-\x20\x7f]", value))
 
 
 def check_hostile(smoke, base):
@@ -1457,13 +1487,20 @@ def check_hostile(smoke, base):
     open_archive(smoke, page, base)
     assert count(page) > 0
     assert page.evaluate(UNSAFE_LINKS) == [], page.evaluate(UNSAFE_LINKS)
+    assert page.evaluate(OFF_MOUNT, base) == [], page.evaluate(OFF_MOUNT, base)
     catalog = page.evaluate("window.DYNAMIX_CATALOG")
+    refused = [
+        asset for asset in catalog["assets"] if refused_site_url(asset["url"]) or refused_site_url(asset["thumb"] or "")
+    ]
+    assert {"/x.png", "javascript:alert(7)"} <= {asset["url"] for asset in refused}, "the hostile catalog is in place"
+    assert "//127.0.0.2/x.png" in {asset["thumb"] for asset in refused}, "the hostile catalog is in place"
     for asset in catalog["assets"]:
         smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open")
         page.locator(".source-inventory summary").first.evaluate("(node) => node.parentElement.open = true")
         assert page.evaluate(UNSAFE_LINKS) == [], (asset["id"], page.evaluate(UNSAFE_LINKS))
-        if asset["url"].startswith("javascript:"):
+        assert page.evaluate(OFF_MOUNT, base) == [], (asset["id"], page.evaluate(OFF_MOUNT, base))
+        if asset["site_original"] and refused_site_url(asset["url"]):
             assert page.locator("#download").is_hidden() and page.locator("#original").is_hidden()
         if asset["archive_url"].startswith("javascript:"):
             assert page.locator("#download").is_hidden() and page.locator("#archive-note").is_visible()
