@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:trialsuperbeats",
+  "started_at": "2026-10-10T22:36:10Z",
+  "finished_at": "2026-10-10T22:36:14Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:trialsuperbeats:dynamixnova",
+      "source_id": "artists:soundcloud:trialsuperbeats",
+      "upstream_key": "dynamixnova",
+      "page_url": "https://soundcloud.com/trialsuperbeats/dynamixnova",
+      "file_url": "https://i1.sndcdn.com/artworks-000568584215-9gsllu-original.jpg",
+      "title": "Notorious(Nota & TRIAL) - NOVA [#Dynamix][#MuseDash][#陽春白雪]",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/trialsuperbeats/dynamixnova",
+        "sc.title: Dynamix",
+        "sc.description: Violpa"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000568584215-9gsllu-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2019-07-17T14:49:17Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:trialsuperbeats:5fe5204b5f7ee9ed",
+      "song_titles": [
+        "NOVA"
+      ],
+      "illustrators": [
+        "Violpa"
+      ],
+      "composers": [
+        "Notorious(Nota & TRIAL)"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:trialsuperbeats:notorious-gift",
+      "source_id": "artists:soundcloud:trialsuperbeats",
+      "upstream_key": "notorious-gift",
+      "page_url": "https://soundcloud.com/trialsuperbeats/notorious-gift",
+      "file_url": "https://i1.sndcdn.com/artworks-FfmOIovTq0AhLsUM-c5kVOQ-original.jpg",
+      "title": "Notorious(Nota & TRIAL) - GIFT [#event_bof][#BOFXVI][#Lanota][#Dynamix]",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/trialsuperbeats/notorious-gift",
+        "sc.title: #Dynamix",
+        "sc.description: inukoro"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-FfmOIovTq0AhLsUM-c5kVOQ-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2020-10-14T13:35:17Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:trialsuperbeats:c425d7476ee6640e",
+      "song_titles": [
+        "GIFT"
+      ],
+      "illustrators": [
+        "inukoro"
+      ],
+      "composers": [
+        "Notorious(Nota & TRIAL)"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:trialsuperbeats:notoriousnota-trial-wing",
+      "source_id": "artists:soundcloud:trialsuperbeats",
+      "upstream_key": "notoriousnota-trial-wing",
+      "page_url": "https://soundcloud.com/trialsuperbeats/notoriousnota-trial-wing",
+      "file_url": "https://i1.sndcdn.com/artworks-l9sxdxPLHW8RexnO-GgOGtg-original.jpg",
+      "title": "Notorious(Nota & TRIAL) - WING [#Dynamix]",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/trialsuperbeats/notoriousnota-trial-wing",
+        "sc.title: #Dynamix",
+        "sc.title: WING"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-l9sxdxPLHW8RexnO-GgOGtg-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2023-05-07T08:00:47Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:trialsuperbeats:c6f4cdd8e8824ac1",
+      "song_titles": [
+        "WING"
+      ],
+      "illustrators": [
+        "KinCraft"
+      ],
+      "composers": [
+        "Notorious(Nota & TRIAL)"
+      ]
+    }
+  ],
+  "errors": []
+}

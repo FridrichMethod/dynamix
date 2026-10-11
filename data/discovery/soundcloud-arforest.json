@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:arforest",
+  "started_at": "2026-10-10T22:35:08Z",
+  "finished_at": "2026-10-10T22:35:10Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:arforest:in-arcaeaflashback",
+      "source_id": "artists:soundcloud:arforest",
+      "upstream_key": "in-arcaeaflashback",
+      "page_url": "https://soundcloud.com/arforest/in-arcaeaflashback",
+      "file_url": "https://i1.sndcdn.com/artworks-000222111576-g1f9w0-original.jpg",
+      "title": "[in Arcaea & Dynamix]Flashback",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/arforest/in-arcaeaflashback"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000222111576-g1f9w0-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-05-11T14:34:14Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: Arcaea-themed character art, not the yoshimo jacket used in Dynamix (research visual comparison)",
+      "notes": "Negative control: title names Dynamix but the image is different art."
+    }
+  ],
+  "errors": []
+}

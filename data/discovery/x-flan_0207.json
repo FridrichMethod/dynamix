@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:flan_0207",
+  "started_at": "2026-10-10T22:36:21Z",
+  "finished_at": "2026-10-10T22:36:26Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:flan_0207:1176105598867296257",
+      "source_id": "artists:x:flan_0207",
+      "upstream_key": "1176105598867296257",
+      "page_url": "https://x.com/flan_0207/status/1176105598867296257",
+      "file_url": null,
+      "title": "@flan_0207 post 1176105598867296257",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: 'HaltquinZ♠♥♣♦名義で Jack out kⅢerのアートワーク書かせて頂きました'."
+    },
+    {
+      "id": "artists:x:flan_0207:1184099862897258497",
+      "source_id": "artists:x:flan_0207",
+      "upstream_key": "1184099862897258497",
+      "page_url": "https://x.com/flan_0207/status/1184099862897258497",
+      "file_url": null,
+      "title": "@flan_0207 post 1184099862897258497",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: 'ジャケット担当してますです' quoting the official Jack Out KIllER event post."
+    },
+    {
+      "id": "artists:x:flan_0207:1184819096027746309",
+      "source_id": "artists:x:flan_0207",
+      "upstream_key": "1184819096027746309",
+      "page_url": "https://x.com/flan_0207/status/1184819096027746309",
+      "file_url": null,
+      "title": "@flan_0207 post 1184819096027746309",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Comment on the official character preview 'Jack' (quoted); no image of its own."
+    },
+    {
+      "id": "artists:x:flan_0207:1185170668175814661:1",
+      "source_id": "artists:x:flan_0207",
+      "upstream_key": "1185170668175814661:1",
+      "page_url": "https://x.com/flan_0207/status/1185170668175814661",
+      "file_url": "https://pbs.twimg.com/media/EHKSa4ZUYAAGGhX?format=png&name=orig",
+      "title": "構図とキャラデザを送って ましろまさんがいい感じにキャラデザを直してくれてそののあと描きこんだ @HaltquinZで作ったアートワークです。 #Dynamix",
+      "role": "process",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/flan_0207/status/1185170668175814661",
+        "text: アートワーク",
+        "text: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EHKSa4ZUYAAGGhX.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1001,
+        "height": 2814,
+        "sha1": null,
+        "timestamp": "2019-10-18T12:28:01.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:flan_0207:2198ac225def3cf3",
+      "song_titles": [
+        "Jack Out KIllER"
+      ],
+      "illustrators": [
+        "HaltquinZ♠♥♣♦ (Rinne.6×ましろま)"
+      ],
+      "composers": [
+        "MisoilePunch♪ 〜タケノコ添え～"
+      ]
+    }
+  ],
+  "errors": []
+}

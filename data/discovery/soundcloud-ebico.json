@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:ebico",
+  "started_at": "2026-10-10T22:35:20Z",
+  "finished_at": "2026-10-10T22:35:22Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:ebico:moonlight-of-sand-castle",
+      "source_id": "artists:soundcloud:ebico",
+      "upstream_key": "moonlight-of-sand-castle",
+      "page_url": "https://soundcloud.com/ebico/moonlight-of-sand-castle",
+      "file_url": "https://i1.sndcdn.com/artworks-000150098114-5zzlbg-original.jpg",
+      "title": "Moonlight Of Sand Castle",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/ebico/moonlight-of-sand-castle"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000150098114-5zzlbg-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-03-08T09:59:23Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:ebico:479b7216a438330a",
+      "song_titles": [
+        "Moonlight of Sand Castle"
+      ],
+      "illustrators": [
+        "NanoKun"
+      ],
+      "composers": [
+        "旅人E"
+      ]
+    }
+  ],
+  "errors": []
+}

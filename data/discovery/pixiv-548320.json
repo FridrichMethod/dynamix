@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:pixiv:548320",
+  "started_at": "2026-10-10T22:34:19Z",
+  "finished_at": "2026-10-10T22:34:26Z",
+  "scope": {
+    "lists": [
+      "seed-artworks",
+      "wayback-captures"
+    ],
+    "api": "https://www.pixiv.net/ajax/illust/",
+    "notes": "Explicit seed artwork IDs via pixiv's public ajax/illust JSON (no login, no search, no profile crawl); originals of the listed pages from their Internet Archive raw captures (one exact CDX check each)."
+  },
+  "continuation": {
+    "seed-artworks": null,
+    "wayback-captures": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:pixiv:548320:45429113:p0",
+      "source_id": "artists:pixiv:548320",
+      "upstream_key": "45429113:p0",
+      "page_url": "https://www.pixiv.net/artworks/45429113",
+      "file_url": "https://web.archive.org/web/20221222150529id_/https://i.pximg.net/img-original/img/2014/08/18/07/41/33/45429113_p0.jpg",
+      "title": "【携帯ゲーム】病気な世界へようこそ (p0)",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://www.pixiv.net/artworks/45429113",
+        "title: 病気な世界へようこそ",
+        "caption: sick-game.com"
+      ],
+      "source_reported": {
+        "url": "https://i.pximg.net/img-original/img/2014/08/18/07/41/33/45429113_p0.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 3000,
+        "height": 1552,
+        "sha1": "937878ffacb96bd6444121b96216da433f77d1ec",
+        "timestamp": "2014-08-17T22:41:00+00:00",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:pixiv:548320:b5ff48835e4774ed",
+      "song_titles": [
+        "Regenerate Violence"
+      ],
+      "illustrators": [
+        "deme"
+      ],
+      "composers": [
+        "V!C"
+      ]
+    }
+  ],
+  "errors": []
+}

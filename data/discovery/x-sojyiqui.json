@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:sojyiqui",
+  "started_at": "2026-10-10T22:36:55Z",
+  "finished_at": "2026-10-10T22:36:59Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:sojyiqui:1521477142470860803",
+      "source_id": "artists:x:sojyiqui",
+      "upstream_key": "1521477142470860803",
+      "page_url": "https://x.com/sojyiqui/status/1521477142470860803",
+      "file_url": null,
+      "title": "@sojyiqui post 1521477142470860803",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "out_of_scope_other: the post has no image attachment",
+      "notes": "Credit evidence: 'Halv(@Ha1uday0)さんの『Sushi Tornado』 ジャケットを担当いたしました！ #Dynamix'."
+    },
+    {
+      "id": "artists:x:sojyiqui:1524965569342377984:1",
+      "source_id": "artists:x:sojyiqui",
+      "upstream_key": "1524965569342377984:1",
+      "page_url": "https://x.com/sojyiqui/status/1524965569342377984",
+      "file_url": "https://pbs.twimg.com/media/FSnEGNPUUAEG5Ub?format=jpg&name=orig",
+      "title": "#Dynamix 『Sushi Tornado』本日から遊べます！ Makiちゃんともども何卒よろしくお願いいたします〜！🐱🍣🌪",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/sojyiqui/status/1524965569342377984"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FSnEGNPUUAEG5Ub.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1683,
+        "height": 2048,
+        "sha1": null,
+        "timestamp": "2022-05-13T04:11:38.000Z",
+        "revision": null
+      },
+      "disposition": "pending",
+      "reason": "unresolved_role: the illustrator's release-day celebration illustration of the song's character Maki with handwritten text, not the jacket (research MAD 75); not established as game artwork",
+      "song_titles": [
+        "Sushi Tornado"
+      ]
+    },
+    {
+      "id": "artists:x:sojyiqui:1525410932750716928:1",
+      "source_id": "artists:x:sojyiqui",
+      "upstream_key": "1525410932750716928:1",
+      "page_url": "https://x.com/sojyiqui/status/1525410932750716928",
+      "file_url": "https://pbs.twimg.com/media/FStZJ-racAA9z9n?format=jpg&name=orig",
+      "title": "Sushi Tornado[HARD]でSランク、0916191点を獲得しました。 #Dynamix むずい！",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/sojyiqui/status/1525410932750716928"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FStZJ-racAA9z9n.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1739,
+        "height": 1304,
+        "sha1": null,
+        "timestamp": "2022-05-14T09:41:21.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: the poster's own score-result screenshot (Sushi Tornado HARD S rank)"
+    }
+  ],
+  "errors": []
+}

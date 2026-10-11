@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:kforest",
+  "started_at": "2026-10-10T22:35:38Z",
+  "finished_at": "2026-10-10T22:35:39Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:kforest:j83w0wjiytyd",
+      "source_id": "artists:soundcloud:kforest",
+      "upstream_key": "j83w0wjiytyd",
+      "page_url": "https://soundcloud.com/kforest/j83w0wjiytyd",
+      "file_url": "https://i1.sndcdn.com/artworks-6sEz3RnOU7d2yRe7-f56HOw-original.jpg",
+      "title": "【シノビスラッシュ】流麗凛舞",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/kforest/j83w0wjiytyd",
+        "sc.description: 中本ひょうり"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-6sEz3RnOU7d2yRe7-f56HOw-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2024-09-08T01:20:16Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:kforest:4d54c1be7ab850ae",
+      "song_titles": [
+        "流麗凛舞"
+      ],
+      "illustrators": [
+        "中本ひょうり"
+      ],
+      "composers": [
+        "K-forest"
+      ]
+    }
+  ],
+  "errors": []
+}

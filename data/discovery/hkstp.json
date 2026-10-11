@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "source_id": "archives:hkstp",
+  "started_at": "2026-10-11T00:18:53Z",
+  "finished_at": "2026-10-11T00:18:56Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Links matching explicit patterns on explicit pages only."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "archives:hkstp:-/media/corpsite/assets/news/img/20160809_1.jpg",
+      "source_id": "archives:hkstp",
+      "upstream_key": "-/media/corpsite/assets/news/img/20160809_1.jpg",
+      "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+      "file_url": "https://www.hkstp.org/-/media/corpsite/assets/news/img/20160809_1.jpg",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (4/4)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "title: Dynamix",
+        "body: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://www.hkstp.org/-/media/corpsite/assets/news/img/20160809_1.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "person_photo: launch-event group photo"
+    },
+    {
+      "id": "archives:hkstp:media/blqg5pwq/appendix3.pdf",
+      "source_id": "archives:hkstp",
+      "upstream_key": "media/blqg5pwq/appendix3.pdf",
+      "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+      "file_url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (3/4)",
+      "role": "reference",
+      "game": "dynamix",
+      "game_evidence": [
+        "title: Dynamix",
+        "body: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://www.hkstp.org/media/blqg5pwq/appendix3.pdf",
+        "mime": "application/pdf",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "failed",
+      "reason": "http_4xx: HTTP 404",
+      "notes": "Appendix 3: the C4Cat / Dynamix company profile."
+    },
+    {
+      "id": "archives:hkstp:media/hmzhrcry/appendix2.pdf",
+      "source_id": "archives:hkstp",
+      "upstream_key": "media/hmzhrcry/appendix2.pdf",
+      "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+      "file_url": "https://www.hkstp.org/media/hmzhrcry/appendix2.pdf",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (2/4)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "title: Dynamix",
+        "body: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://www.hkstp.org/media/hmzhrcry/appendix2.pdf",
+        "mime": "application/pdf",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: appendix about another incubatee (Marlin / btw App)"
+    },
+    {
+      "id": "archives:hkstp:media/rgscafs0/appendix1.pdf",
+      "source_id": "archives:hkstp",
+      "upstream_key": "media/rgscafs0/appendix1.pdf",
+      "page_url": "https://www.hkstp.org/zh-cn/park-life/news-and-events/news/press-release-20160809",
+      "file_url": "https://www.hkstp.org/media/rgscafs0/appendix1.pdf",
+      "title": "科技园培育公司多元发展 游泳监察仪Marlin丶手游Dynamix及「btw街坊泥鯭」App同时发布 (1/4)",
+      "role": null,
+      "game": "not_dynamix",
+      "game_evidence": [
+        "title: Dynamix",
+        "body: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://www.hkstp.org/media/rgscafs0/appendix1.pdf",
+        "mime": "application/pdf",
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "not_dynamix: appendix about another incubatee (Marlin / btw App)"
+    }
+  ],
+  "errors": []
+}

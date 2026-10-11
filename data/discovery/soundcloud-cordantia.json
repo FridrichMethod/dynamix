@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:cordantia",
+  "started_at": "2026-10-10T22:35:16Z",
+  "finished_at": "2026-10-10T22:35:18Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:cordantia:arcana-idola",
+      "source_id": "artists:soundcloud:cordantia",
+      "upstream_key": "arcana-idola",
+      "page_url": "https://soundcloud.com/cordantia/arcana-idola",
+      "file_url": "https://i1.sndcdn.com/artworks-000126349271-7ia6a3-original.jpg",
+      "title": "Arcana Idola",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/cordantia/arcana-idola"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000126349271-7ia6a3-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2015-08-14T13:57:20Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: original 2015 track cover (moon, clock tower); the Dynamix jacket is a different illustration of the same character",
+      "notes": "Credit evidence: 'illustrated by sana (pixiv:id=2490522)' = 未早."
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:myukke",
+  "started_at": "2026-10-10T22:35:49Z",
+  "finished_at": "2026-10-10T22:35:52Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:myukke:dynamix-myukke-occhoco-rest-less",
+      "source_id": "artists:soundcloud:myukke",
+      "upstream_key": "dynamix-myukke-occhoco-rest-less",
+      "page_url": "https://soundcloud.com/myukke/dynamix-myukke-occhoco-rest-less",
+      "file_url": "https://i1.sndcdn.com/artworks-000245380455-hyq6mc-original.jpg",
+      "title": "[Dynamix] MYUKKE. - OCCHOCO-REST-LESS",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/myukke/dynamix-myukke-occhoco-rest-less",
+        "sc.title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000245380455-hyq6mc-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-10-03T11:51:49Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:myukke:1ea8a04fdde47dc2",
+      "song_titles": [
+        "OCCHOCO-REST-LESS"
+      ],
+      "illustrators": [
+        "MYUKKE."
+      ],
+      "composers": [
+        "MYUKKE."
+      ]
+    },
+    {
+      "id": "artists:soundcloud:myukke:for-paradigm-reboot-myukke-sutta-monday",
+      "source_id": "artists:soundcloud:myukke",
+      "upstream_key": "for-paradigm-reboot-myukke-sutta-monday",
+      "page_url": "https://soundcloud.com/myukke/for-paradigm-reboot-myukke-sutta-monday",
+      "file_url": "https://i1.sndcdn.com/artworks-IcCygcJJY4oW0r4i-fbWBSg-original.jpg",
+      "title": "[for Paradigm: Reboot] MYUKKE. - SUTTA MONDAY",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://soundcloud.com/myukke/for-paradigm-reboot-myukke-sutta-monday",
+        "sc.title: SUTTA MONDAY"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-IcCygcJJY4oW0r4i-fbWBSg-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2023-01-26T10:23:45Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:myukke:f23a284e634cfd87",
+      "song_titles": [
+        "SUTTA MONDAY"
+      ],
+      "illustrators": [
+        "人間蛋"
+      ],
+      "composers": [
+        "MYUKKE."
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,4143 @@
+{
+  "family": "official",
+  "sources": [
+    {
+      "id": "official:apple-store",
+      "name": "Apple App Store — Dynamix (945955095)",
+      "url": "https://apps.apple.com/us/app/dynamix/id945955095",
+      "platform": "app-store",
+      "adapter": "apple_store",
+      "notes": "Original app ID 945955095 (Universe 6741094831 excluded). Current product-page screenshots plus the older storefront-specific sets still listed by the iTunes lookup API.",
+      "identity_quotes": [
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "A store re-render, not the untouched upload file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://apps.apple.com/us/app/dynamix/id945955095"
+        },
+        {
+          "lookup_id": "945955095",
+          "countries": [
+            "us",
+            "gb",
+            "jp",
+            "hk",
+            "tw",
+            "kr",
+            "de",
+            "sg",
+            "th"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "match": ".*",
+          "role": "store_screenshot",
+          "game": "dynamix",
+          "allow_universe_mention": true,
+          "candidate_notes": "The product page of app 945955095 links the sequel only in its 'more by this developer' shelf; the screenshots belong to the original app."
+        }
+      ]
+    },
+    {
+      "id": "official:google-play",
+      "name": "Google Play — Dynamix (com.c4cat.dynamix)",
+      "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
+      "platform": "google-play",
+      "adapter": "google_play",
+      "notes": "Package com.c4cat.dynamix (Universe com.c4cat.dynamix2 excluded). Listing pages in three locales.",
+      "identity_quotes": [
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "Google Play '=s0' file at native size: the stored upload as served (TapTap's MD5-named uploads of the same screenshots match these files byte for byte)."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=en_US&gl=US"
+        },
+        {
+          "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=ja&gl=JP"
+        },
+        {
+          "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix&hl=zh_TW&gl=TW"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^screenshot:",
+          "role": "store_screenshot",
+          "game": "dynamix"
+        }
+      ]
+    },
+    {
+      "id": "official:taptap",
+      "name": "TapTap — Dynamix (7082)",
+      "url": "https://www.taptap.cn/app/7082",
+      "platform": "taptap",
+      "adapter": "taptap_app",
+      "params": {
+        "identifier": "com.c4cat.dynamix"
+      },
+      "notes": "Secondary store listing (C4Cat identified as developer). Visible update text is historical.",
+      "identity_quotes": [
+        "C4Cat"
+      ],
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "TapTap original_url copy; the file's MD5 is compared with the upload's name token, and a mismatch is recorded as a TapTap re-encode."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://www.taptap.cn/app/7082"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^screenshot:",
+          "role": "store_screenshot",
+          "game": "dynamix"
+        },
+        {
+          "match": "^banner:[0-9a-f]{32}\\.",
+          "role": "promotional",
+          "game": "dynamix",
+          "candidate_notes": "Store banner upload (Dynamix logo graphic)."
+        }
+      ]
+    },
+    {
+      "id": "official:website",
+      "name": "Dynamix official website",
+      "url": "https://dynamix.c4-cat.com/",
+      "platform": "web",
+      "adapter": "page_probe",
+      "hosts": [
+        "dynamix.c4-cat.com"
+      ],
+      "notes": "Official site; historical captures are archived by archives:wayback.",
+      "items": [
+        {
+          "url": "https://dynamix.c4-cat.com/"
+        }
+      ]
+    },
+    {
+      "id": "official:c4cat",
+      "name": "C4Cat company site",
+      "url": "https://c4-cat.com/",
+      "platform": "web",
+      "adapter": "page_probe",
+      "hosts": [
+        "c4-cat.com"
+      ],
+      "status_on_success": "metadata_only",
+      "notes": "Company placeholder page; identity lead only, no game catalog.",
+      "items": [
+        {
+          "url": "https://c4-cat.com/",
+          "note": "Coming-soon/contact placeholder; no artwork."
+        }
+      ]
+    },
+    {
+      "id": "official:facebook",
+      "name": "Dynamix official Facebook page",
+      "url": "https://www.facebook.com/c4cat.dynamix/",
+      "platform": "facebook",
+      "adapter": "facebook_post",
+      "unenumerated_lists": {
+        "page-timeline": "the timeline is not served to logged-out non-browser clients; only explicit permalinks are read"
+      },
+      "notes": "Original-game page (linked by the stores; 24,053 followers in research). Explicit permalinks cited by the Dynamix wiki or found by research, read logged out; the Open Graph image of each is archived as Facebook's rendition.",
+      "items": [
+        {
+          "key": "page",
+          "url": "https://www.facebook.com/c4cat.dynamix/"
+        },
+        {
+          "key": "768368460016668",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/768368460016668"
+        },
+        {
+          "key": "1777549545765216",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1777549545765216/"
+        },
+        {
+          "key": "1788302508023253",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1788302508023253/"
+        },
+        {
+          "key": "1848526438667526",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1848526438667526/"
+        },
+        {
+          "key": "1622507284602777",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1622507284602777/"
+        },
+        {
+          "key": "1656778821175623",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1656778821175623"
+        },
+        {
+          "key": "1013660312154147",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1013660312154147"
+        },
+        {
+          "key": "1038600566326788",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1038600566326788"
+        },
+        {
+          "key": "1087145688138942",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1087145688138942"
+        },
+        {
+          "key": "1160648210788689",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1160648210788689"
+        },
+        {
+          "key": "1205047386348771",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1205047386348771"
+        },
+        {
+          "key": "1268316040021905",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1268316040021905"
+        },
+        {
+          "key": "1302443343275841",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1302443343275841"
+        },
+        {
+          "key": "1369360063250835",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1369360063250835"
+        },
+        {
+          "key": "1427080310812143",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1427080310812143"
+        },
+        {
+          "key": "1467743186745855",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1467743186745855"
+        },
+        {
+          "key": "1528176000702573",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1528176000702573"
+        },
+        {
+          "key": "1582732028580303",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1582732028580303"
+        },
+        {
+          "key": "901693993350780",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/901693993350780"
+        },
+        {
+          "key": "979167482270097",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/979167482270097"
+        },
+        {
+          "key": "1777584645761706",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1777584645761706/"
+        },
+        {
+          "key": "620178154835700",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044.1073741828.298476717005847/620178154835700/"
+        },
+        {
+          "key": "1658708940982611",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1658708940982611/"
+        },
+        {
+          "key": "693933942734314",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/693933942734314"
+        },
+        {
+          "key": "pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl"
+        },
+        {
+          "key": "1023954971124681",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1023954971124681/"
+        },
+        {
+          "key": "1809409469245890",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/1809409469245890"
+        },
+        {
+          "key": "787584971428350",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/787584971428350"
+        },
+        {
+          "key": "1286313065321666",
+          "url": "https://www.facebook.com/c4cat.dynamix/videos/1286313065321666"
+        },
+        {
+          "key": "258082247123314",
+          "url": "https://www.facebook.com/c4cat.dynamix/videos/258082247123314"
+        },
+        {
+          "key": "452110388309145",
+          "url": "https://www.facebook.com/c4cat.dynamix/videos/452110388309145/"
+        },
+        {
+          "key": "1847194385467398",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/1847194385467398",
+          "notes": "Cited by the Dynamix wiki; research found no Open Graph image for logged-out readers."
+        },
+        {
+          "key": "1871794933007343",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/1871794933007343/",
+          "notes": "Cited by the Dynamix wiki; research found no Open Graph image for logged-out readers."
+        },
+        {
+          "key": "1807859599400877",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1807859599400877",
+          "notes": "Cited by the Dynamix wiki; research found no Open Graph image for logged-out readers."
+        },
+        {
+          "key": "1927755297411306",
+          "url": "https://www.facebook.com/c4cat.dynamix/photos/a.299148080272044/1927755297411306/",
+          "notes": "Cited by the Dynamix wiki; research found no Open Graph image for logged-out readers."
+        },
+        {
+          "key": "429940337192817",
+          "url": "https://www.facebook.com/c4cat.dynamix/posts/we-are-calling-for-music-submissionhttpdynamixc4-catcommusic_submissionrulesarti/429940337192817/"
+        }
+      ],
+      "params": {
+        "page": "c4cat.dynamix"
+      },
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "rules": [
+        {
+          "match": "^page$",
+          "action": "exclude",
+          "reason": "game_ui: app icon used as the page's profile picture"
+        },
+        {
+          "match": "^768368460016668$",
+          "role": "reference",
+          "song_titles": [
+            "^/7(L⎥?[_(L+#<>+&⎥^(o)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Hyphen"
+          ],
+          "title_aliases": {
+            "^/7(L⎥?[_(L+#<>+&⎥^(o)": [
+              "^/7(L|?[_(L+#<>+&|^(o)"
+            ]
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Event 'coming soon' card (Hyphen). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1777549545765216$",
+          "role": "promotional",
+          "song_titles": [
+            "RE:IGNITE-Republic of Gamers"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RE:IGNITE-Republic of Gamers"
+          ],
+          "collections": [
+            "ROG Phone 5s x Dynamix"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "rog_phone"
+          ],
+          "candidate_notes": "ROG Phone 5s x Dynamix special collaboration card."
+        },
+        {
+          "match": "^1788302508023253$",
+          "role": "reference",
+          "song_titles": [
+            "Shinobi (Original Short Mix)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Shinobi (Original Short Mix)"
+          ],
+          "composers": [
+            "[sound shinobi]"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Shinobi_(Original_Short_Mix)",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50330)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Upcoming event card for Shinobi (Original Short Mix). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1848526438667526$",
+          "role": "reference",
+          "song_titles": [
+            "Own The Night",
+            "Arty Party"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Own The Night",
+            "Arty Party"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Comeback announcement card listing two songs (list graphic)."
+        },
+        {
+          "match": "^1622507284602777$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 2021 Lunar New Year event poster (research og:image description)."
+        },
+        {
+          "match": "^1656778821175623$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 2021 Easter event poster (research og:image description)."
+        },
+        {
+          "match": "^1013660312154147$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 2018 Christmas event poster (research og:image description)."
+        },
+        {
+          "match": "^1038600566326788$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 2019 Lunar New Year event poster (research og:image description)."
+        },
+        {
+          "match": "^1087145688138942$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 2019 Easter event poster (research og:image description)."
+        },
+        {
+          "match": "^1160648210788689$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 2019 Summer event poster (research og:image description)."
+        },
+        {
+          "match": "^1205047386348771$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 5th anniversary x Halloween 2019 poster (research og:image description)."
+        },
+        {
+          "match": "^1268316040021905$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Christmas event poster (3.13.07 update post) (research og:image description)."
+        },
+        {
+          "match": "^1302443343275841$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official new character/parts poster (3.14.00 update post) (research og:image description)."
+        },
+        {
+          "match": "^1369360063250835$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Easter 2020 event poster (research og:image description)."
+        },
+        {
+          "match": "^1427080310812143$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Dragon Boat Festival 2020 event poster (research og:image description)."
+        },
+        {
+          "match": "^1467743186745855$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Summer 2020 event poster (research og:image description)."
+        },
+        {
+          "match": "^1528176000702573$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Halloween 2020 x 6th anniversary poster (research og:image description)."
+        },
+        {
+          "match": "^1582732028580303$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Christmas 2020 event poster (research og:image description)."
+        },
+        {
+          "match": "^901693993350780$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official Summer 2018 event banner (research og:image description)."
+        },
+        {
+          "match": "^979167482270097$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 4th anniversary x Halloween 2018 poster (research og:image description)."
+        },
+        {
+          "match": "^1777584645761706$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Official 2021 Mid-Autumn event poster (research og:image description)."
+        },
+        {
+          "match": "^620178154835700$",
+          "role": "reference",
+          "evidence_quotes": [
+            "ubmission"
+          ],
+          "candidate_notes": "Song Submission 2017 rules poster: informational graphic stating the submission rules and cover-art format."
+        },
+        {
+          "match": "^1658708940982611$",
+          "role": "reference",
+          "evidence_quotes": [
+            "ubmission"
+          ],
+          "candidate_notes": "Open Submission 2021 poster: informational graphic stating the submission rules and cover-art format."
+        },
+        {
+          "match": "^693933942734314$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "公開徵曲活動在2023年的今天"
+          ],
+          "candidate_notes": "Open Submission 2023 key visual; visual_inspection 2026-10-10 of the 600x600 Open Graph crop: the mascot with the title 'DYNAMIX 2023 OPEN SUBMISSION' (no rules text is visible in this crop), an event key visual (promotional)."
+        },
+        {
+          "match": "^pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "公開徵曲活動在2023年的今天"
+          ],
+          "candidate_notes": "Open Submission 2023 key visual; visual_inspection 2026-10-10 of the 600x600 Open Graph crop: the mascot with the title 'DYNAMIX 2023 OPEN SUBMISSION' (no rules text is visible in this crop), an event key visual (promotional)."
+        },
+        {
+          "match": "^1023954971124681$",
+          "action": "exclude",
+          "reason": "fanart: 'Snow Sapphire' by 奏汰, a doujin submission reposted by the page"
+        },
+        {
+          "match": "^1809409469245890$",
+          "role": "reference",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Operation notice card (mascot)."
+        },
+        {
+          "match": "^787584971428350$",
+          "role": "reference",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "candidate_notes": "Player ID instruction card."
+        },
+        {
+          "match": "^1286313065321666$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "paradigm_reboot"
+          ],
+          "collections": [
+            "Paradigm: Reboot Collaboration"
+          ],
+          "candidate_notes": "Video poster: in-game UI with the Paradigm character Alkaid (song Marsh Winds)."
+        },
+        {
+          "match": "^258082247123314$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "paradigm_reboot"
+          ],
+          "collections": [
+            "Paradigm: Reboot Collaboration"
+          ],
+          "candidate_notes": "Video poster: in-game UI with the Paradigm character Para (song Restricted Access)."
+        },
+        {
+          "match": "^452110388309145$",
+          "action": "exclude",
+          "withdraw_archived": true,
+          "reason": "video_placeholder: poster frame of the v2.6 update preview video (abstract light streaks, no artwork or UI)"
+        },
+        {
+          "match": "^429940337192817$",
+          "action": "exclude",
+          "reason": "out_of_scope_other: Facebook link-preview rendition (815x792, darkened) of the official website's song-art collage new32.png, which is archived from its own capture as archives:wayback:77957c0d9f1b5ff4"
+        }
+      ]
+    },
+    {
+      "id": "official:x",
+      "name": "Dynamix official X (@c4c4cat)",
+      "url": "https://x.com/c4c4cat",
+      "platform": "x",
+      "adapter": "x_post",
+      "params": {
+        "handle": "c4c4cat"
+      },
+      "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
+      "unenumerated_lists": {
+        "wayback-status-captures": "research resolved about 840 archived @c4c4cat status IDs through the embed endpoint (2026-10-10); the posts whose images it measured are seeded explicitly, the remaining event-banner photos (about 350, mostly 1200x628) and about 1,250 unresolved archived status keys are not processed"
+      },
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "X 'name=orig' rendition as served by X; X re-encodes uploads, so this is the platform's largest copy, not the artist's master file."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "timeline": "c4c4cat"
+        },
+        {
+          "post_id": "1437747970875674626"
+        },
+        {
+          "post_id": "1889645633545613724"
+        },
+        {
+          "post_id": "1156172591872167937"
+        },
+        {
+          "post_id": "1239884186070265856"
+        },
+        {
+          "post_id": "981147690795900928"
+        },
+        {
+          "post_id": "1748178472759865377"
+        },
+        {
+          "post_id": "1818255227595743610"
+        },
+        {
+          "post_id": "809670504449572864"
+        },
+        {
+          "post_id": "811543501733101568"
+        },
+        {
+          "post_id": "831877510870601728"
+        },
+        {
+          "post_id": "834312940610220032"
+        },
+        {
+          "post_id": "835073424917577728"
+        },
+        {
+          "post_id": "835081787436998656"
+        },
+        {
+          "post_id": "842671176669323264"
+        },
+        {
+          "post_id": "870277523724132352"
+        },
+        {
+          "post_id": "877170201267023872"
+        },
+        {
+          "post_id": "880003300275347458"
+        },
+        {
+          "post_id": "900634708517593089"
+        },
+        {
+          "post_id": "920935237567201281"
+        },
+        {
+          "post_id": "957946437911941121"
+        },
+        {
+          "post_id": "1060502195374714881"
+        },
+        {
+          "post_id": "1156165289907838977"
+        },
+        {
+          "post_id": "1178640887355719681"
+        },
+        {
+          "post_id": "1186975557067653120"
+        },
+        {
+          "post_id": "1189512271703269376"
+        },
+        {
+          "post_id": "1192048987358019585"
+        },
+        {
+          "post_id": "1204007768987881472"
+        },
+        {
+          "post_id": "1216690549182230528"
+        },
+        {
+          "post_id": "1217763427189309440"
+        },
+        {
+          "post_id": "1247131946095972353"
+        },
+        {
+          "post_id": "1250393437095911427"
+        },
+        {
+          "post_id": "1251842986339598337"
+        },
+        {
+          "post_id": "1252930152625049603"
+        },
+        {
+          "post_id": "1253292191897681920"
+        },
+        {
+          "post_id": "1254666590727155713"
+        },
+        {
+          "post_id": "1272499095123267585"
+        },
+        {
+          "post_id": "1275760589386776577"
+        },
+        {
+          "post_id": "1277210136273027073"
+        },
+        {
+          "post_id": "1285907445466804224"
+        },
+        {
+          "post_id": "1287357000016224260"
+        },
+        {
+          "post_id": "1288444160018612224"
+        },
+        {
+          "post_id": "1289893710214262786"
+        },
+        {
+          "post_id": "1298591025418481664"
+        },
+        {
+          "post_id": "1300040576968962048"
+        },
+        {
+          "post_id": "1305114005191757824"
+        },
+        {
+          "post_id": "1305838780729917441"
+        },
+        {
+          "post_id": "1306201168503332870"
+        },
+        {
+          "post_id": "1308737882526425088"
+        },
+        {
+          "post_id": "1310187433485504513"
+        },
+        {
+          "post_id": "1310910948119425025"
+        },
+        {
+          "post_id": "1315623248558686209"
+        },
+        {
+          "post_id": "1318884743513919490"
+        },
+        {
+          "post_id": "1320334293516709889"
+        },
+        {
+          "post_id": "1321421459638681601"
+        },
+        {
+          "post_id": "1322871006357315585"
+        },
+        {
+          "post_id": "1323490087397658624"
+        },
+        {
+          "post_id": "1331568315706142723"
+        },
+        {
+          "post_id": "1333017872860213255"
+        },
+        {
+          "post_id": "1338453689703555072"
+        },
+        {
+          "post_id": "1341715177331335169"
+        },
+        {
+          "post_id": "1343164731750694917"
+        },
+        {
+          "post_id": "1351862036330905601"
+        },
+        {
+          "post_id": "1353311589705854978"
+        },
+        {
+          "post_id": "1354398754414051334"
+        },
+        {
+          "post_id": "1355848303439581188"
+        },
+        {
+          "post_id": "1358747410151870464"
+        },
+        {
+          "post_id": "1364545616563507202"
+        },
+        {
+          "post_id": "1365995165387792390"
+        },
+        {
+          "post_id": "1374692479027580930"
+        },
+        {
+          "post_id": "1376142026622828546"
+        },
+        {
+          "post_id": "1376504413452439553"
+        },
+        {
+          "post_id": "1385201723678003201"
+        },
+        {
+          "post_id": "1386288886435876868"
+        },
+        {
+          "post_id": "1387376051807047689"
+        },
+        {
+          "post_id": "1388825604774977538"
+        },
+        {
+          "post_id": "1397522911678840838"
+        },
+        {
+          "post_id": "1398972463879438337"
+        },
+        {
+          "post_id": "1407669775799623683"
+        },
+        {
+          "post_id": "1409116629825294344"
+        },
+        {
+          "post_id": "1410901066380623872"
+        },
+        {
+          "post_id": "1417816629401030660"
+        },
+        {
+          "post_id": "1418541403244617732"
+        },
+        {
+          "post_id": "1419266181224177668"
+        },
+        {
+          "post_id": "1420353347035582469"
+        },
+        {
+          "post_id": "1421802897663139843"
+        },
+        {
+          "post_id": "1427842694999527428"
+        },
+        {
+          "post_id": "1428205081292251137"
+        },
+        {
+          "post_id": "1428567468444950530"
+        },
+        {
+          "post_id": "1428839259532836867"
+        },
+        {
+          "post_id": "1428960055492321284"
+        },
+        {
+          "post_id": "1430500213030936583"
+        },
+        {
+          "post_id": "1431949753311432704"
+        },
+        {
+          "post_id": "1434365675686879233"
+        },
+        {
+          "post_id": "1434728063649079298"
+        },
+        {
+          "post_id": "1435090451833315331"
+        },
+        {
+          "post_id": "1435452837211803651"
+        },
+        {
+          "post_id": "1435483036779483139"
+        },
+        {
+          "post_id": "1437430883837956097"
+        },
+        {
+          "post_id": "1440662164495237120"
+        },
+        {
+          "post_id": "1450809024216059910"
+        },
+        {
+          "post_id": "1452606530516230145"
+        },
+        {
+          "post_id": "1452615928441720832"
+        },
+        {
+          "post_id": "1453330641274097667"
+        },
+        {
+          "post_id": "1454780199988457480"
+        },
+        {
+          "post_id": "1463477504123932673"
+        },
+        {
+          "post_id": "1464927056723156998"
+        },
+        {
+          "post_id": "1472900045280190465"
+        },
+        {
+          "post_id": "1473624368869748740"
+        },
+        {
+          "post_id": "1475073909376618498"
+        },
+        {
+          "post_id": "1476161072998453249"
+        },
+        {
+          "post_id": "1477610628621561858"
+        },
+        {
+          "post_id": "1485583166953779206"
+        },
+        {
+          "post_id": "1486307941267431426"
+        },
+        {
+          "post_id": "1487757487981748224"
+        },
+        {
+          "post_id": "1496454806998814725"
+        },
+        {
+          "post_id": "1506601655986388992"
+        },
+        {
+          "post_id": "1513509675957841929"
+        },
+        {
+          "post_id": "1748030616950734862"
+        },
+        {
+          "post_id": "1797599111748731072"
+        },
+        {
+          "post_id": "1814225168224727044"
+        },
+        {
+          "post_id": "1817892842204807209"
+        },
+        {
+          "post_id": "1833837896794792179"
+        },
+        {
+          "post_id": "1840723270796292551"
+        },
+        {
+          "post_id": "1361646516008443909"
+        },
+        {
+          "post_id": "1356210690101489665"
+        },
+        {
+          "post_id": "1498266736608661505"
+        },
+        {
+          "post_id": "1498629128467197954"
+        },
+        {
+          "post_id": "1325407725623283712"
+        },
+        {
+          "post_id": "1480156399204061186"
+        },
+        {
+          "post_id": "819433943690670080"
+        },
+        {
+          "post_id": "1870076698345287834"
+        },
+        {
+          "post_id": "1901242039800299634"
+        },
+        {
+          "post_id": "1868989522002018708",
+          "notes": "Official event announcement quoted by the illustrator lomiu (@Serolerr) in https://x.com/serolerr/status/1869236616776343997 (research lead)."
+        }
+      ],
+      "rules": [
+        {
+          "match": "^981147690795900928:1$",
+          "role": "reference",
+          "song_titles": [
+            "Xetta"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "TangJuan vs Black Box"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "Xetta"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Xetta",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for Xetta. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
+          "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box; the credit follows the wiki."
+        },
+        {
+          "match": "^1156172591872167937:1$",
+          "role": "reference",
+          "song_titles": [
+            "オレンジ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "kRM & 残響P"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "オレンジ"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for オレンジ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
+          "notes": "Composer credit as the official post writes it; the wiki credits Dragon_Klub & 残響P."
+        },
+        {
+          "match": "^1239884186070265856:1$",
+          "role": "reference",
+          "song_titles": [
+            "終の舞姫"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "終の舞姫"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for 終の舞姫. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1437747970875674626:1$",
+          "role": "reference",
+          "song_titles": [
+            "玲瓏メテオ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Reku Mochizuki"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "玲瓏メテオ"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%8E%B2%E7%93%8F%E3%83%A1%E3%83%86%E3%82%AA",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for 玲瓏メテオ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1889645633545613724:1$",
+          "role": "reference",
+          "song_titles": [
+            "Grayscale Tragedy",
+            "ネーヴェの紋様",
+            "Horloge"
+          ],
+          "mapping_status": "confirmed_primary",
+          "collections": [
+            "Berry Melody Collaboration"
+          ],
+          "evidence_quotes": [
+            "Berry Melody",
+            "horloge"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 3 titled jackets ('Grayscale Tragedy', 'ネーヴェの紋様', 'horloge') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "berry_melody"
+          ],
+          "rights": {
+            "holder": "Sky Way Studio and C4Cat Entertainment Limited"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1889645633545613724",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Grayscale Tragedy', 'ネーヴェの紋様', 'horloge'"
+            }
+          ],
+          "notes": "Rights holders as printed on the image itself (visual_inspection: '©Sky Way Studio ©C4Cat Entertainment Limited', bottom centre)."
+        },
+        {
+          "match": "^1818255227595743610:1$",
+          "role": "reference",
+          "song_titles": [
+            "scualee"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Aoi"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "scualee"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Scualee",
+            "note": "the Dynamix wiki song page"
+          },
+          "candidate_notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1748178472759865377:[1-4]$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "プリロール"
+          ],
+          "candidate_notes": "Official PRIROLL collaboration announcement: cakes and macarons themed on song illustrations and characters."
+        },
+        {
+          "match": "^809670504449572864:",
+          "role": "reference",
+          "song_titles": [
+            "紅"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "「紅」"
+          ],
+          "composers": [
+            "モリモリあつし"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%E7%B4%85_(Kurenai)",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45228)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for 紅. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^811543501733101568:",
+          "role": "reference",
+          "song_titles": [
+            "Persephone"
+          ],
+          "mapping_status": "inferred",
+          "composers": [
+            "EBICO"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Persephone",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50306)"
+          },
+          "evidence_quotes": [
+            "イベントソング",
+            "@EBICO"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/811543501733101568",
+              "note": "visual_inspection 2026-10-10: the COMING SOON card prints 'Persephone' and 'EBICO'; the post text names only the composer"
+            }
+          ],
+          "candidate_notes": "Official event announcement image (COMING SOON card) for Persephone. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^831877510870601728:",
+          "role": "reference",
+          "song_titles": [
+            "Theme of Rabi-Ribi"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Theme of @RabiRibiGame"
+          ],
+          "composers": [
+            "3R2"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Theme_of_Rabi-Ribi",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50358)"
+          },
+          "collections": [
+            "Rabi-Ribi Collaboration"
+          ],
+          "candidate_notes": "Official event announcement image for Theme of Rabi-Ribi. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
+          "title_aliases": {
+            "Theme of Rabi-Ribi": [
+              "Theme of @RabiRibiGame"
+            ]
+          },
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "rabi_ribi"
+          ]
+        },
+        {
+          "match": "^834312940610220032:",
+          "role": "reference",
+          "song_titles": [
+            "αterlβus"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "αterlβus"
+          ],
+          "composers": [
+            "Aoi"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%CE%91terl%CE%B2us",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51738)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for αterlβus. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^835073424917577728:",
+          "role": "reference",
+          "evidence_quotes": [
+            "dynamix.submission.2017@gmail.com"
+          ],
+          "collections": [
+            "Song Submission 2017"
+          ],
+          "candidate_notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+        },
+        {
+          "match": "^835081787436998656:",
+          "role": "reference",
+          "evidence_quotes": [
+            "dynamix.submission.2017@gmail.com"
+          ],
+          "collections": [
+            "Song Submission 2017"
+          ],
+          "candidate_notes": "Song Submission 2017 rules poster (informational graphic with the mascot)."
+        },
+        {
+          "match": "^842671176669323264:",
+          "role": "reference",
+          "song_titles": [
+            "Crystal Ribbon"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Crystal Ribbon"
+          ],
+          "composers": [
+            "Cosine"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Crystal_Ribbon",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49673)"
+          },
+          "collections": [
+            "Package Lovely"
+          ],
+          "candidate_notes": "Official preview image for Crystal Ribbon of Package Lovely. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^870277523724132352:",
+          "role": "promotional",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "arcaea"
+          ],
+          "evidence_quotes": [
+            "arcaea"
+          ],
+          "collections": [
+            "Arcaea Collaboration"
+          ],
+          "candidate_notes": "Dynamix x Arcaea collaboration announcement visual."
+        },
+        {
+          "match": "^877170201267023872:",
+          "role": "reference",
+          "song_titles": [
+            "Vexaria"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Vexaria"
+          ],
+          "composers": [
+            "ak+q"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Vexaria",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49740)"
+          },
+          "collections": [
+            "Arcaea Collaboration"
+          ],
+          "candidate_notes": "Official event announcement image for Vexaria. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "arcaea"
+          ]
+        },
+        {
+          "match": "^880003300275347458:",
+          "role": "reference",
+          "song_titles": [
+            "to soar"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "To soar"
+          ],
+          "composers": [
+            "Aoi with mAoA9"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/To_soar",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50360)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for to soar. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^900634708517593089:",
+          "role": "reference",
+          "song_titles": [
+            "Arcana Idola"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Arcana Idola"
+          ],
+          "composers": [
+            "紅葉月梛葉 a.k.a. Aine"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Arcana_Idola",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50161)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for Arcana Idola. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^920935237567201281:",
+          "song_titles": [
+            "紅",
+            "Theme of Rabi-Ribi"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^957946437911941121:",
+          "role": "reference",
+          "song_titles": [
+            "JOACHIM : D",
+            "Emulisy",
+            "Own The Night",
+            "曇る鑑《かがみ》の霧を含みて"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "イベント曲を予告"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Monthly upcoming-events lineup (list graphic)."
+        },
+        {
+          "match": "^1060502195374714881:",
+          "song_titles": [
+            "Soul Army",
+            "Marion.net",
+            "銀梅花"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1060502195374714881",
+              "note": "X auto-linked the title Marion.net into https://t.co/joFeVM7MOu; the image of 1060502195374714881 prints 'Marion.net MoonHare' (visual_inspection 2026-10-10), and the same t.co link appears in both posts"
+            }
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 3 songs (list graphic)."
+        },
+        {
+          "match": "^1156165289907838977:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2019夏祭"
+          ],
+          "collections": [
+            "Dynamix 2019夏祭"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2019夏祭 (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1178640887355719681:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "5周年記念xハロウィーンイベント"
+          ],
+          "collections": [
+            "5周年記念xハロウィーンイベント"
+          ],
+          "candidate_notes": "Official seasonal event poster: 5周年記念xハロウィーンイベント (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1186975557067653120:",
+          "song_titles": [
+            "Unshakable",
+            "Own The Night",
+            "Prismatic Flipper"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 3 songs (list graphic)."
+        },
+        {
+          "match": "^1189512271703269376:",
+          "song_titles": [
+            "Pandemik",
+            "Hopeful Warrior",
+            "Black：Magnam"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 3 songs (list graphic)."
+        },
+        {
+          "match": "^1192048987358019585:",
+          "song_titles": [
+            "Rain",
+            "Cross†Soul",
+            "Nightmare Girl"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 3 songs (list graphic)."
+        },
+        {
+          "match": "^1204007768987881472:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "運営とイベントのお知らせ"
+          ],
+          "collections": [
+            "運営とイベントのお知らせ"
+          ],
+          "candidate_notes": "Official seasonal event poster: 運営とイベントのお知らせ (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1216690549182230528:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "運営とイベントのお知らせ"
+          ],
+          "collections": [
+            "運営とイベントのお知らせ"
+          ],
+          "candidate_notes": "Official seasonal event poster: 運営とイベントのお知らせ (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1217763427189309440:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "「Intruders」"
+          ],
+          "collections": [
+            "Intruders"
+          ],
+          "candidate_notes": "Official package release visual for Intruders."
+        },
+        {
+          "match": "^1247131946095972353:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix Easter Event 2020"
+          ],
+          "collections": [
+            "Dynamix Easter Event 2020"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix Easter Event 2020 (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1250393437095911427:",
+          "song_titles": [
+            "Arcana Idola",
+            "Blue"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1251842986339598337:",
+          "song_titles": [
+            "ほしぞらトラベル",
+            "Peony"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1252930152625049603:",
+          "song_titles": [
+            "Soul fire lit",
+            "BLUFF"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1253292191897681920:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "パッケージセール"
+          ],
+          "candidate_notes": "Package sale post re-using an earlier visual."
+        },
+        {
+          "match": "^1254666590727155713:",
+          "song_titles": [
+            "Defended",
+            "Justice Justice"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1272499095123267585:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix Dragon Boat Festival Event 2020"
+          ],
+          "collections": [
+            "Dynamix Dragon Boat Festival Event 2020"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix Dragon Boat Festival Event 2020 (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1275760589386776577:",
+          "song_titles": [
+            "Angel x Angel",
+            "Vanilla_Sky"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1277210136273027073:",
+          "song_titles": [
+            "CORONA",
+            "交差して歪む過去と未来"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1285907445466804224:",
+          "song_titles": [
+            "diSTractiOn PoInT",
+            "Frontline B-Side"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1287357000016224260:",
+          "song_titles": [
+            "The Endless for Traveler",
+            "NOISIΛ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1288444160018612224:",
+          "song_titles": [
+            "Nova Highway",
+            "soar to Ø"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1289893710214262786:",
+          "song_titles": [
+            "Lily",
+            "Sunset Road"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1298591025418481664:",
+          "song_titles": [
+            "to soar",
+            "哀しい竜とカイツール"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1300040576968962048:",
+          "song_titles": [
+            "Dement ~After Legend~",
+            "Knight of Tripletz (for DNX Edit)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1305114005191757824:",
+          "song_titles": [
+            "Destruction"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "composers": [
+            "桃源郷華"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Destruction",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 31856)"
+          },
+          "candidate_notes": "Official single-song comeback card for Destruction. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1305838780729917441:",
+          "role": "reference",
+          "song_titles": [
+            "Moving On"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Moving On"
+          ],
+          "composers": [
+            "CROWLIA"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Moving_On",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49955)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for Moving On. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1306201168503332870:",
+          "song_titles": [
+            "Cryonix"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "composers": [
+            "sky_delta"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Cryonix",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50189)"
+          },
+          "candidate_notes": "Official single-song comeback card for Cryonix. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1308737882526425088:",
+          "song_titles": [
+            "Triumph & Regret",
+            "Youth"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "title_aliases": {
+            "Triumph & Regret": [
+              "Triumph And Regret"
+            ]
+          },
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1310187433485504513:",
+          "song_titles": [
+            "DeaDLiNE",
+            "夏色メランコリー"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1310910948119425025:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "「Crossing Delta」"
+          ],
+          "collections": [
+            "Crossing Delta"
+          ],
+          "candidate_notes": "Official package release visual for Crossing Delta."
+        },
+        {
+          "match": "^1315623248558686209:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix Halloween Event 2020 x 6th Anniversary"
+          ],
+          "collections": [
+            "Dynamix Halloween Event 2020 x 6th Anniversary"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix Halloween Event 2020 x 6th Anniversary (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1318884743513919490:",
+          "song_titles": [
+            "Link To Dungeons",
+            "Sultan Madness"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1320334293516709889:",
+          "song_titles": [
+            "Arty Party",
+            "Ice Chandelier"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1321421459638681601:",
+          "song_titles": [
+            "Sky land",
+            "Rudy"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1322871006357315585:",
+          "song_titles": [
+            "Time & Space (Dynamix Edit)",
+            "16383"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1323490087397658624:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Package Sale"
+          ],
+          "candidate_notes": "Package sale post re-using an earlier visual."
+        },
+        {
+          "match": "^1331568315706142723:",
+          "song_titles": [
+            "Hall of Fame",
+            "Glory of the Sacred Kingdom"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1333017872860213255:",
+          "song_titles": [
+            "BOUNCE THE TECH",
+            "Chrysoberyl"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1338453689703555072:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2020 Christmas Event"
+          ],
+          "collections": [
+            "Dynamix 2020 Christmas Event"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2020 Christmas Event (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1341715177331335169:",
+          "song_titles": [
+            "Speedster, Trickster",
+            "Empty Stars"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1343164731750694917:",
+          "song_titles": [
+            "Anökumene",
+            "JOACHIM : D"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1351862036330905601:",
+          "song_titles": [
+            "曇る鑑《かがみ》の霧を含みて",
+            "白色の夢で。"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1353311589705854978:",
+          "song_titles": [
+            "Dead Master",
+            "Lumina"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1354398754414051334:",
+          "song_titles": [
+            "声が届かないのなら",
+            "Marion.net"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1060502195374714881",
+              "note": "X auto-linked the title Marion.net into https://t.co/joFeVM7MOu; the image of 1060502195374714881 prints 'Marion.net MoonHare' (visual_inspection 2026-10-10), and the same t.co link appears in both posts"
+            }
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1355848303439581188:",
+          "song_titles": [
+            "The Clockwork Doll",
+            "Wish"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1358747410151870464:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2021 Lunar New Year Event"
+          ],
+          "collections": [
+            "Dynamix 2021 Lunar New Year Event"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2021 Lunar New Year Event (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1364545616563507202:",
+          "song_titles": [
+            "Crank up",
+            "Aujourd'hui"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1365995165387792390:",
+          "song_titles": [
+            "Evoltex (poppi'n mix)",
+            "Regenerate Violence"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1374692479027580930:",
+          "song_titles": [
+            "Xetta",
+            "Oriental Landscape"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1376142026622828546:",
+          "song_titles": [
+            "終の舞姫",
+            "Kreuz"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1376504413452439553:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2021 Easter Event"
+          ],
+          "collections": [
+            "Dynamix 2021 Easter Event"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2021 Easter Event (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1385201723678003201:",
+          "song_titles": [
+            "Startail",
+            "Blue"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1386288886435876868:",
+          "song_titles": [
+            "Now Is The Time, Do It",
+            "Arcana Idola"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1387376051807047689:",
+          "song_titles": [
+            "月奏リバイバル",
+            "Mass Control"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1388825604774977538:",
+          "song_titles": [
+            "Fernand System Operating!!",
+            "ほしぞらトラベル"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1397522911678840838:",
+          "song_titles": [
+            "New Story",
+            "αterlβus"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1398972463879438337:",
+          "song_titles": [
+            "Forbidden Area",
+            "Snowy Light"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1407669775799623683:",
+          "song_titles": [
+            "Flarebirds of Scarlet Prism",
+            "Sky Adventure!"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1409116629825294344:",
+          "song_titles": [
+            "Starbirds of Zenith Blue",
+            "涅槃を灯すシャーデンフロイデ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1410901066380623872:",
+          "role": "promotional",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "evidence_quotes": [
+            "RAVON",
+            "テーマアート"
+          ],
+          "illustrators": [
+            "takelifesoul"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "credit_evidence": [
+            {
+              "role": "illustrator",
+              "name": "takelifesoul",
+              "url": "https://x.com/c4c4cat/status/1410901066380623872",
+              "field": "text",
+              "quote": "テーマアート：@takelifesoul"
+            }
+          ],
+          "candidate_notes": "RAVON x Dynamix collaboration announcement key art.",
+          "notes": "The official post credits the theme art to the X account @takelifesoul."
+        },
+        {
+          "match": "^1417816629401030660:",
+          "song_titles": [
+            "Angel x Angel",
+            "The Path"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1418541403244617732:",
+          "action": "exclude",
+          "reason": "fanart: weekly [Artwork Submission] repost of a player's drawing (メイドさん by Yunana), not game artwork"
+        },
+        {
+          "match": "^1419266181224177668:",
+          "song_titles": [
+            "RASeed",
+            "Dolqueen"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1420353347035582469:",
+          "song_titles": [
+            "交差して歪む過去と未来",
+            "Enhanced Lights"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1421802897663139843:",
+          "song_titles": [
+            "CORONA",
+            "Between Boundaries"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1427842694999527428:",
+          "role": "promotional",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "White：Revolve"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('White : Revolve') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1427842694999527428",
+              "note": "visual_inspection 2026-10-10: the card prints one titled jacket 'White : Revolve' and three '?' slots"
+            }
+          ]
+        },
+        {
+          "match": "^1428205081292251137:",
+          "role": "reference",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "White：Revolve",
+            "Astral"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 2 titled jackets ('White : Revolve', 'Astral') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1428205081292251137",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral'"
+            }
+          ]
+        },
+        {
+          "match": "^1428567468444950530:",
+          "role": "reference",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "White：Revolve",
+            "Astral",
+            "Mitochondria"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 3 titled jackets ('White : Revolve', 'Astral', 'Mitochondria') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1428567468444950530",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral', 'Mitochondria'"
+            }
+          ]
+        },
+        {
+          "match": "^1428839259532836867:",
+          "role": "promotional",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "ReLyna"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
+          "composers": [
+            "Se-U-Ra"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/ReLyna",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50323)"
+          }
+        },
+        {
+          "match": "^1428960055492321284:",
+          "role": "reference",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "White：Revolve",
+            "Astral",
+            "Mitochondria",
+            "ReLyna"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 4 titled jackets ('White : Revolve', 'Astral', 'Mitochondria', 'ReLyna') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1428960055492321284",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral', 'Mitochondria', 'ReLyna'"
+            }
+          ]
+        },
+        {
+          "match": "^1430500213030936583:",
+          "song_titles": [
+            "diSTractiOn PoInT",
+            "The Endless for Traveler"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1431949753311432704:",
+          "song_titles": [
+            "Frontline B-Side",
+            "NOISIΛ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1434365675686879233:",
+          "role": "promotional",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "Rave! and Get On It!"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('Rave! and Get on it!') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped.",
+          "title_aliases": {
+            "Rave! and Get On It!": [
+              "Rave! and Get on it!"
+            ]
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1434365675686879233",
+              "note": "visual_inspection 2026-10-10: the card prints one titled jacket 'Rave! and Get on it!' and three '?' slots"
+            }
+          ]
+        },
+        {
+          "match": "^1434728063649079298:",
+          "role": "reference",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "Rave! and Get On It!",
+            "Totally bounded"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 2 titled jackets ('Rave! and Get on it!', 'Totally bounded') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1434728063649079298",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded'"
+            }
+          ]
+        },
+        {
+          "match": "^1435090451833315331:",
+          "role": "reference",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "Rave! and Get On It!",
+            "Totally bounded",
+            "Euouae"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 3 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1435090451833315331",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded', 'Euouae'"
+            }
+          ]
+        },
+        {
+          "match": "^1435452837211803651:",
+          "role": "promotional",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
+          "composers": [
+            "Spiegel vs Yukino"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/MassacrE",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50271)"
+          }
+        },
+        {
+          "match": "^1435483036779483139:",
+          "role": "reference",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "ravon"
+          ],
+          "song_titles": [
+            "Rave! and Get On It!",
+            "Totally bounded",
+            "Euouae",
+            "MassacrE || 3rc4224M"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "RAVONコラボPack"
+          ],
+          "collections": [
+            "RAVON Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 4 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "title_aliases": {
+            "Rave! and Get On It!": [
+              "Rave! and Get on it!"
+            ]
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1435483036779483139",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M'"
+            }
+          ]
+        },
+        {
+          "match": "^1437430883837956097:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2021 Mid-Autumn Festival Event"
+          ],
+          "collections": [
+            "Dynamix 2021 Mid-Autumn Festival Event"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2021 Mid-Autumn Festival Event (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1440662164495237120:",
+          "song_titles": [
+            "MLG",
+            "おもひでファンタジア"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1450809024216059910:",
+          "song_titles": [
+            "^/7(L⎥?[_(L+#<>+&⎥^(o)",
+            "Knight of Tripletz (for DNX Edit)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "title_aliases": {
+            "^/7(L⎥?[_(L+#<>+&⎥^(o)": [
+              "^/7(L|?[_(L+#<>+&|^(o)"
+            ]
+          },
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1452606530516230145:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2021 Halloween Event X 7th Anniversiry"
+          ],
+          "collections": [
+            "Dynamix 2021 Halloween Event X 7th Anniversiry"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2021 Halloween Event X 7th Anniversiry (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1452615928441720832:",
+          "song_titles": [
+            "to soar",
+            "オレンジ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1453330641274097667:",
+          "song_titles": [
+            "哀しい竜とカイツール",
+            "Laivisca"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1454780199988457480:",
+          "song_titles": [
+            "Dement ~After Legend~",
+            "紅"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1463477504123932673:",
+          "song_titles": [
+            "Daydream",
+            "Cervelle Connexion"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1464927056723156998:",
+          "song_titles": [
+            "Nives Marinae",
+            "ROAD to 773H"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1472900045280190465:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2021 Christmas X New Year's Eve Event"
+          ],
+          "collections": [
+            "Dynamix 2021 Christmas X New Year's Eve Event"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2021 Christmas X New Year's Eve Event (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1473624368869748740:",
+          "song_titles": [
+            "Unshakable",
+            "Ice Chandelier"
+          ],
+          "mapping_status": "inferred",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback card listing two songs (list graphic). This post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card, which is recorded under post 1475073909376618498 (whose text names those songs); this candidate is duplicate_bytes of it.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1473624368869748740",
+              "note": "visual_inspection 2026-10-10: the attached card prints 'Unshakable / RiraN' and 'Ice Chandelier / pan', not the Own The Night / Arty Party comeback the post text announces; the same bytes are attached to 1475073909376618498, whose text names Unshakable and Ice Chandelier"
+            }
+          ],
+          "archive_under": "1475073909376618498:1"
+        },
+        {
+          "match": "^1475073909376618498:",
+          "song_titles": [
+            "Unshakable",
+            "Ice Chandelier"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic). The same card is also attached to post 1473624368869748740, which announces another comeback."
+        },
+        {
+          "match": "^1476161072998453249:",
+          "song_titles": [
+            "Link To Dungeons",
+            "Prismatic Flipper"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1477610628621561858:",
+          "song_titles": [
+            "Sultan Madness",
+            "Sky land"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1485583166953779206:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2022 Lunar New Year Event"
+          ],
+          "collections": [
+            "Dynamix 2022 Lunar New Year Event"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2022 Lunar New Year Event (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1486307941267431426:",
+          "song_titles": [
+            "strawberry*passion",
+            "Hall of Fame"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1487757487981748224:",
+          "song_titles": [
+            "Rain",
+            "Glory of the Sacred Kingdom"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1496454806998814725:",
+          "song_titles": [
+            "Partenza",
+            "Skrik (DNX edit)"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1506601655986388992:",
+          "song_titles": [
+            "Grenade",
+            "Future City Ⅵ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+        },
+        {
+          "match": "^1513509675957841929:",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2022 Easter Event"
+          ],
+          "collections": [
+            "Dynamix 2022 Easter Event"
+          ],
+          "candidate_notes": "Official seasonal event poster: Dynamix 2022 Easter Event (event key art with parts and title rewards)."
+        },
+        {
+          "match": "^1797599111748731072:",
+          "role": "reference",
+          "evidence_quotes": [
+            "[Comeback Track Preview]"
+          ],
+          "candidate_notes": "Monthly comeback-track list (list graphic)."
+        },
+        {
+          "match": "^1814225168224727044:",
+          "role": "reference",
+          "evidence_quotes": [
+            "難易度調整"
+          ],
+          "candidate_notes": "Difficulty-adjustment list (list graphic)."
+        },
+        {
+          "match": "^1817892842204807209:",
+          "role": "reference",
+          "evidence_quotes": [
+            "[Comeback Track Preview]"
+          ],
+          "candidate_notes": "Monthly comeback-track list (list graphic)."
+        },
+        {
+          "match": "^1833837896794792179:",
+          "role": "reference",
+          "evidence_quotes": [
+            "[Comeback Track Preview]"
+          ],
+          "candidate_notes": "Monthly comeback-track list (list graphic)."
+        },
+        {
+          "match": "^1840723270796292551:",
+          "role": "reference",
+          "evidence_quotes": [
+            "[Comeback Track Preview]"
+          ],
+          "candidate_notes": "Monthly comeback-track list (list graphic)."
+        },
+        {
+          "match": "^1361646516008443909:",
+          "role": "reference",
+          "song_titles": [
+            "WHIRLWIND"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "WHIRLWIND"
+          ],
+          "composers": [
+            "Linne X SCTL"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/WHIRLWIND",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50382)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for WHIRLWIND. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1356210690101489665:",
+          "role": "reference",
+          "song_titles": [
+            "My life is mine",
+            "(XD)",
+            "WHIRLWIND"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "イベント曲を予告"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Monthly upcoming-events lineup (list graphic)."
+        },
+        {
+          "match": "^1498266736608661505:",
+          "role": "reference",
+          "song_titles": [
+            "Φ",
+            "アリス失格",
+            "Fission"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "イベント曲を予告"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Monthly upcoming-events lineup (list graphic)."
+        },
+        {
+          "match": "^1498629128467197954:",
+          "role": "reference",
+          "song_titles": [
+            "Φ"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "「Φ」"
+          ],
+          "composers": [
+            "Street"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/%CE%A6",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 44863)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for Φ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1325407725623283712:",
+          "song_titles": [
+            "Black：Magnam"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "composers": [
+            "adaptor"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51263)"
+          },
+          "candidate_notes": "Official single-song comeback card for Black：Magnam. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^1480156399204061186:",
+          "song_titles": [
+            "Black：Magnam"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "復刻曲"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "role": "reference",
+          "composers": [
+            "adaptor"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51263)"
+          },
+          "candidate_notes": "Official single-song comeback card for Black：Magnam, re-posted in 2022 (the same file as post 1325407725623283712). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^819433943690670080:",
+          "role": "reference",
+          "song_titles": [
+            "Vanilla_Sky"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "Vanilla Sky"
+          ],
+          "composers": [
+            "stereoberry"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Vanilla_Sky",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51742)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Official event announcement image for Vanilla_Sky. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
+          "title_aliases": {
+            "Vanilla_Sky": [
+              "Vanilla Sky"
+            ]
+          }
+        },
+        {
+          "match": "^1870076698345287834:",
+          "action": "exclude",
+          "withdraw_archived": true,
+          "reason": "site_ui: decorative mascot-icon pattern strip attached to a text notice; no artwork or information"
+        },
+        {
+          "match": "^1901242039800299634:",
+          "role": "reference",
+          "song_titles": [
+            "Luna Rossa",
+            "流麗凛舞"
+          ],
+          "mapping_status": "confirmed_primary",
+          "evidence_quotes": [
+            "流麗凛舞"
+          ],
+          "collections": [
+            "Shinobi Slash Collaboration"
+          ],
+          "candidate_notes": "Collaboration pack lineup card printing 2 titled jackets ('Luna Rossa', '流麗凛舞') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "shinobi_slash"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1901242039800299634",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Luna Rossa', '流麗凛舞'"
+            }
+          ]
+        },
+        {
+          "match": "^1748030616950734862:1$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "イベントバンドル"
+          ],
+          "candidate_notes": "Event Bundle 001 title card."
+        },
+        {
+          "match": "^1748030616950734862:2$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "イベントバンドル"
+          ],
+          "candidate_notes": "Event Bundle 001 'PICK UP' jacket collage."
+        },
+        {
+          "match": "^1748030616950734862:3$",
+          "role": "reference",
+          "evidence_quotes": [
+            "イベントバンドル"
+          ],
+          "candidate_notes": "Event Bundle 001 full track list (list graphic)."
+        },
+        {
+          "match": "^1868989522002018708:1$",
+          "role": "reference",
+          "song_titles": [
+            "Curtainfall!"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "Yukikurage"
+          ],
+          "collections": [
+            "Event"
+          ],
+          "evidence_quotes": [
+            "[Event]",
+            "Curtainfall!"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Curtainfall!",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50573)"
+          },
+          "candidate_notes": "Official event announcement image for Curtainfall!. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        }
+      ]
+    },
+    {
+      "id": "official:soundcloud-c4cat",
+      "name": "C4Cat official SoundCloud",
+      "url": "https://soundcloud.com/c4cat",
+      "platform": "soundcloud",
+      "adapter": "release_page",
+      "hosts": [
+        "soundcloud.com",
+        ".sndcdn.com"
+      ],
+      "params": {
+        "handle": "c4cat"
+      },
+      "notes": "Official C4Cat account (11 tracks 2016-2017); every track its /tracks page renders is recorded (SoundCloud server-renders only part of the list).",
+      "quality": {
+        "source_variant": "site_original",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": "SoundCloud '-original' artwork rendition as served by SoundCloud (the platform may re-encode uploads); a release cover, not a confirmed master."
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "url": "https://soundcloud.com/c4cat/le-ciel-heureux-p",
+          "key": "le-ciel-heureux-p"
+        },
+        {
+          "tracks_of": "c4cat"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^le\\-ciel\\-heureux\\-p$",
+          "role": "song_art",
+          "song_titles": [
+            "Le ciel heureux"
+          ],
+          "mapping_status": "confirmed_primary",
+          "illustrators": [
+            "NanoKun"
+          ],
+          "composers": [
+            "P4koo"
+          ],
+          "evidence_quotes": [
+            "Le ciel heureux"
+          ],
+          "variant_role": "square crop of the jacket (official preview upload)",
+          "variant_group": "jacket:le-ciel-heureux",
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/Le_ciel_heureux",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 45216)"
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://dynamix.miraheze.org/wiki/File:LeCeilHeureuxDynamix.jpg",
+              "note": "visual_inspection 2026-10-10: same drawing as the in-game jacket, square crop; the in-game jacket's Cover Artist credit applies to this file"
+            }
+          ]
+        },
+        {
+          "match": "^(mmry-memento-mori|packer-woo-meeting-in-sky|packer-woo-origo-harbour)$",
+          "action": "exclude",
+          "reason": "not_dynamix: visual_inspection: the cover art shows the Zold:out logo (another C4Cat title); official C4Cat upload of 2017-07-04 without description, title not in the 2026-10-10 original-game song index",
+          "game": "not_dynamix"
+        }
+      ]
+    },
+    {
+      "id": "official:official-leads",
+      "name": "Official-side research leads without an acquirable file",
+      "url": "https://dynamix.c4-cat.com/",
+      "platform": "registry",
+      "adapter": "lead_registry",
+      "notes": "Curated 2026-10-10 research-sweep leads about official channels and listings; recorded without requests.",
+      "items": [
+        {
+          "key": "qooapp:237",
+          "page_url": "https://apps.qoo-app.com/en/app/237",
+          "title": "QooApp listing",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: mirrors Google Play images; distributes APKs, which this project does not use",
+          "game": "dynamix"
+        },
+        {
+          "key": "amazon:appstore-search",
+          "page_url": "https://www.amazon.com/s?k=Dynamix+C4Cat&i=mobile-apps",
+          "title": "Amazon Appstore / Huawei AppGallery",
+          "disposition": "pending",
+          "reason": "pending: no listing established (Amazon Appstore reportedly discontinued); search response not parsed"
+        },
+        {
+          "key": "priroll:ct12529",
+          "page_url": "https://priroll.jp/shopbrand/ct12529/",
+          "title": "PRIROLL collaboration shop",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: merchandise shop page; the official announcement post is recorded under official:x",
+          "game": "dynamix"
+        },
+        {
+          "key": "x:c4c4cat:timeline-media",
+          "page_url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/c4c4cat",
+          "title": "Embed-timeline media listed by research",
+          "disposition": "pending",
+          "reason": "pending: covered by the official:x embed timeline item when the endpoint answers; post IDs were not recorded by research"
+        },
+        {
+          "key": "x:SHINOBI_SLASH:1902697909684179446",
+          "page_url": "https://x.com/SHINOBI_SLASH/status/1902697909684179446",
+          "title": "Shinobi Slash collaboration banner (partner account)",
+          "disposition": "pending",
+          "reason": "pending: partner-game official post (not a C4Cat account); collaboration key art recorded under artists:pixiv:89112381"
+        },
+        {
+          "key": "x:synthnova:ravon-dynamix-collab",
+          "page_url": "https://x.com/synthnova/status/1428960056024915979",
+          "title": "RAVON's own Dynamix collaboration pack announcements (@synthnova)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner game RAVON's announcement images (posts 1410901060084924416, 1427842942803214338, 1428960056024915979, 1431889356327776258, 1435483036368338946; 3840x2160) of Dynamix songs ported into RAVON; partner-game promotion, not original-Dynamix artwork",
+          "game": "mixed",
+          "song_titles": [
+            "Black：Magnam",
+            "Perspicuus_Aestus",
+            "Jack Out KIllER",
+            "ReLyna",
+            "Caelus",
+            "OCCHOCO-REST-LESS",
+            "Between Boundaries",
+            "MassacrE || 3rc4224M"
+          ]
+        },
+        {
+          "key": "x:SHINOBI_SLASH:1900879824065097867",
+          "page_url": "https://x.com/SHINOBI_SLASH/status/1900879824065097867",
+          "title": "Shinobi Slash announcement of Dynamix songs (partner account)",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: partner game Shinobi Slash's announcement of five Dynamix songs coming into Shinobi Slash (collaboration key art with the partner's song list); the key art itself is tracked as artists:pixiv:89112381 129309072",
+          "game": "mixed",
+          "illustrators": [
+            "中本ひょうり"
+          ],
+          "notes": "Quoted by the illustrator's post https://x.com/hyourinakamoto2/status/1902220775538753786."
+        },
+        {
+          "key": "x:liq_mmry:880267173574262784",
+          "page_url": "https://x.com/liq_mmry/status/880267173574262784",
+          "title": "@liq_mmry post crediting the To soar character design",
+          "disposition": "excluded",
+          "reason": "out_of_scope_other: credit evidence only, no image of its own ('This character is designed by ケシksくん @KeshiksExt'); the quoted official To soar banner is official:x 880003300275347458; the poster's staff identity is not established",
+          "game": "dynamix",
+          "song_titles": [
+            "to soar"
+          ]
+        },
+        {
+          "key": "facebook:c4cat.dynamix:feed-2026-10",
+          "page_url": "https://www.facebook.com/c4cat.dynamix/",
+          "title": "Comeback Track Event banners on the page feed (9-13 Oct 2026)",
+          "disposition": "blocked",
+          "reason": "blocked: the page timeline is not served to a logged-out non-browser client (only the profile picture is); the nine 1200x628 'I'm back!' banners (assets 831280678, 833326134, 835120269, 836744843, 836959221, 837775304, 840005048, 840071367, 840643335) need manual access",
+          "game": "dynamix",
+          "song_titles": [
+            "scualee",
+            "BIT TECH COMPUTER",
+            "To Drop We Ride",
+            "Mamba",
+            "Supernova",
+            "Amphisbaena",
+            "Mithridates",
+            "LOVE",
+            "The Defiant's Anthem"
+          ]
+        },
+        {
+          "key": "discord:qEyt97pQTv",
+          "page_url": "https://discord.com/invite/qEyt97pQTv",
+          "title": "Dynamix community Discord (now named 'Dynamix Universe')",
+          "disposition": "blocked",
+          "reason": "blocked: reading channels requires joining the server (account); no art library inspected",
+          "game": "mixed"
+        },
+        {
+          "key": "weibo:search-c4cat",
+          "page_url": "https://s.weibo.com/weibo?q=C4Cat%20Dynamix",
+          "title": "Weibo search for an official account",
+          "disposition": "blocked",
+          "reason": "blocked: 'Sina Visitor System' challenge for logged-out requests; no official Weibo account found by web search"
+        },
+        {
+          "key": "bilibili:search-c4cat",
+          "page_url": "https://search.bilibili.com/upuser?keyword=C4Cat",
+          "title": "Bilibili user search for an official account",
+          "disposition": "blocked",
+          "reason": "blocked: the user-search API answered a captcha page; no official space found by web search"
+        },
+        {
+          "key": "plurk:c4cat",
+          "page_url": "https://www.plurk.com/c4cat",
+          "title": "Plurk c4cat / c4cats / dynamix",
+          "disposition": "excluded",
+          "reason": "not_dynamix: plurk.com/c4cat and /c4cats do not exist; plurk.com/dynamix is an unrelated personal account",
+          "game": "not_dynamix"
+        },
+        {
+          "key": "instagram:c4cat",
+          "page_url": "https://www.instagram.com/c4cat/",
+          "title": "Instagram c4cat / c4cats",
+          "disposition": "blocked",
+          "reason": "blocked: logged-out app shell without profile data (login wall); no official account found"
+        },
+        {
+          "key": "linktree:c4cat",
+          "page_url": "https://linktr.ee/c4cat",
+          "title": "Linktree c4cat / c4cats / dynamix",
+          "disposition": "excluded",
+          "reason": "not_dynamix: linktr.ee/c4cat and /c4cats do not exist; linktr.ee/dynamix belongs to an unrelated group",
+          "game": "not_dynamix"
+        },
+        {
+          "key": "x:c4c4cat:wayback-media",
+          "page_url": "https://web.archive.org/cdx/search/cdx?url=twitter.com/c4c4cat/status/*",
+          "title": "Official X post images found through Wayback captures of the account's status pages",
+          "disposition": "pending",
+          "reason": "awaiting_download: two official post images research found through Wayback captures (FAXSiIcUcAAx9eE, 1200x628, the 2021-09-28 Shinobi event announcement; GhKr4G3bgAAL8t0, 750x194); their post IDs were not recorded, so no per-post rule admits them yet"
+        }
+      ]
+    },
+    {
+      "id": "official:youtube",
+      "name": "C4 Cat YouTube channel (@C4CatEntertainment)",
+      "url": "https://www.youtube.com/@C4CatEntertainment",
+      "platform": "youtube",
+      "adapter": "youtube_video",
+      "params": {
+        "channel_url": "https://www.youtube.com/@C4CatEntertainment"
+      },
+      "owner_evidence": "channel 'C 4 Cat' (UCWGypDMEwUTCkwmUR0pq0lA), keywords 'Game Mobile C4Cat Dynamix zoldout'; video descriptions link dl.dnx.c4-cat.com and facebook.com/c4cat.dynamix",
+      "notes": "Official channel: 61 uploads, 3 streams and 1 playlist-only video (research enumeration 2026-10-10); the 28 Dynamix-related videos are seeded explicitly (Project W / Zold:out videos are another game).",
+      "unenumerated_lists": {
+        "channel-videos": "the channel's video list is not re-enumerated (no Data API): the channel header showed 64 videos and the 2026-10-10 research enumeration read 61 uploads, 3 streams and 1 playlist-only video; only the 28 Dynamix-related videos are seeded, and the other 37 uploads are not recorded as candidates (23 Zold:out trailer, PV, OST and Kickstarter videos, 13 character skill-demo or introduction videos whose titles name no game, and the Project W teaser)"
+      },
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "items": [
+        {
+          "channel_art": "banner",
+          "url": "https://yt3.googleusercontent.com/zY0EA2BKMRzJ9VjCCEsJtIA_e_qaRwO5ld_-CrzyWRQbX1Br_c4XQLZNPBxViKKmWqR4xiwi"
+        },
+        {
+          "channel_art": "avatar",
+          "url": "https://yt3.googleusercontent.com/nH67SMoTva9-Qzaw9nSxI7wVXoL0OlWoZFSfdjqNA6YCvPVj_itCLYm5L2tDIouzHVUjsx5-"
+        },
+        {
+          "video_id": "dE-ywtFYswU"
+        },
+        {
+          "video_id": "D09PQg7mTpw"
+        },
+        {
+          "video_id": "IOt4k5RBtcw"
+        },
+        {
+          "video_id": "ooGWwVICuIE"
+        },
+        {
+          "video_id": "HV1ZP3jsdh0"
+        },
+        {
+          "video_id": "shbCnvJovcE"
+        },
+        {
+          "video_id": "FInFw2lVz_I"
+        },
+        {
+          "video_id": "2yp09foNv10"
+        },
+        {
+          "video_id": "QT1XYRD8T4k"
+        },
+        {
+          "video_id": "OddLD4cKYvE"
+        },
+        {
+          "video_id": "Dph6gHJB7SI"
+        },
+        {
+          "video_id": "Ss-l68rOuno"
+        },
+        {
+          "video_id": "Q4A5Wg5CViM"
+        },
+        {
+          "video_id": "ohZma5VGdmo"
+        },
+        {
+          "video_id": "zCzjrrbmFy8"
+        },
+        {
+          "video_id": "J0nQeDQGYxk"
+        },
+        {
+          "video_id": "HaSzSxTdWUs"
+        },
+        {
+          "video_id": "XXCJb_eFVGA"
+        },
+        {
+          "video_id": "qjv2dFKaUkg"
+        },
+        {
+          "video_id": "dhgR1g--SkM"
+        },
+        {
+          "video_id": "V9b2am5u4wM"
+        },
+        {
+          "video_id": "Dr6Ox38bgTc"
+        },
+        {
+          "video_id": "FIAt9YBEh1E"
+        },
+        {
+          "video_id": "rvwP4eY-owg"
+        },
+        {
+          "video_id": "ElhnpfB8Stw"
+        },
+        {
+          "video_id": "WeFoz6KSouM"
+        },
+        {
+          "video_id": "VgQ9Hf4MEA4"
+        },
+        {
+          "video_id": "_jERP3ePo1w"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^channel:banner$",
+          "role": "promotional",
+          "quality": {
+            "source_variant": "unknown",
+            "notes": "Google's full-size (=s0) copy of the channel banner upload; not known to be the uploaded file."
+          },
+          "candidate_notes": "Channel banner: the original Dynamix wordmark."
+        },
+        {
+          "match": "^channel:avatar$",
+          "action": "exclude",
+          "reason": "site_ui: C4Cat company logo used as the channel avatar"
+        },
+        {
+          "match": "^dE\\-ywtFYswU$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "【Dynamix】trailer"
+          ],
+          "candidate_notes": "Thumbnail: Dynamix logo key visual (2014 trailer)."
+        },
+        {
+          "match": "^D09PQg7mTpw$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix遊戲試玩"
+          ],
+          "candidate_notes": "visual_inspection: thumbnail is a photo of a hand playing Dynamix on a phone."
+        },
+        {
+          "match": "^IOt4k5RBtcw$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2.0"
+          ],
+          "song_titles": [
+            "Actinium"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.youtube.com/watch?v=IOt4k5RBtcw",
+              "note": "visual_inspection 2026-10-10: the thumbnail is an 'ACTINIUM / Mimi' title card"
+            }
+          ],
+          "candidate_notes": "Thumbnail: ACTINIUM / Mimi title card of the 2.0 trailer."
+        },
+        {
+          "match": "^ooGWwVICuIE$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 2.3"
+          ],
+          "candidate_notes": "Thumbnail: 'Version 2.3' title card."
+        },
+        {
+          "match": "^HV1ZP3jsdh0$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Dynamix 3.0"
+          ],
+          "candidate_notes": "visual_inspection: thumbnail is the 3.0 song-select screen (Set Free -KIVA Edition-)."
+        },
+        {
+          "match": "^shbCnvJovcE$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "OverRapid"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "overrapid"
+          ],
+          "collections": [
+            "OverRapid Collaboration"
+          ],
+          "candidate_notes": "Thumbnail: Dynamix X OverRapid collaboration card."
+        },
+        {
+          "match": "^FInFw2lVz_I$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Package Vocal"
+          ],
+          "collections": [
+            "Package Vocal"
+          ],
+          "candidate_notes": "Thumbnail: Vocal Collection package collage of four jackets."
+        },
+        {
+          "match": "^2yp09foNv10$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Rabi Ribi"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "rabi_ribi"
+          ],
+          "collections": [
+            "Rabi-Ribi Collaboration"
+          ],
+          "candidate_notes": "Thumbnail: Dynamix x Rabi-Ribi title visual."
+        },
+        {
+          "match": "^QT1XYRD8T4k$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Rabi-Ribi"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "rabi_ribi"
+          ],
+          "collections": [
+            "Rabi-Ribi Collaboration"
+          ],
+          "candidate_notes": "visual_inspection: thumbnail is a gameplay frame of System Interior (pixel-art animated background)."
+        },
+        {
+          "match": "^OddLD4cKYvE$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix遊戲試玩 2017"
+          ],
+          "candidate_notes": "Thumbnail: mascot card 'Now Available in Apple App Store & Google Play Store' (same custom thumbnail as Dph6gHJB7SI)."
+        },
+        {
+          "match": "^Dph6gHJB7SI$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Dynamix 遊戲試玩 2017"
+          ],
+          "candidate_notes": "Thumbnail: mascot card 'Now Available in Apple App Store & Google Play Store'."
+        },
+        {
+          "match": "^Ss\\-l68rOuno$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Character Eluva Preview"
+          ],
+          "candidate_notes": "visual_inspection: thumbnail is the in-game player-info screen (Evoltex (poppi'n mix))."
+        },
+        {
+          "match": "^Q4A5Wg5CViM$",
+          "role": "reference",
+          "evidence_quotes": [
+            "Package Lovely"
+          ],
+          "collections": [
+            "Package Lovely"
+          ],
+          "song_titles": [
+            "Crystal Ribbon",
+            "Heart Eyes",
+            "Super Macaron",
+            "White Chocolate (dynamix edit)"
+          ],
+          "mapping_status": "inferred",
+          "mapping_evidence": [
+            {
+              "url": "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
+              "note": "visual_inspection 2026-10-10: the thumbnail prints four titled jackets, each with its composer and chart-level diamonds: 'Crystal Ribbon' / Cosine (3, 5, 8), 'Heart Eyes' / M-O-T-U (2, 5, 10, 13), 'Super Macaron' / Sobrem (1, 6, 8, 11, 14), 'White Chocolate (dynamix edit)' / Cashew (1, 5, 10); the oEmbed title names only the package"
+            }
+          ],
+          "candidate_notes": "Thumbnail: Package Lovely lineup card printing 4 titled jackets ('Crystal Ribbon', 'Heart Eyes', 'Super Macaron', 'White Chocolate (dynamix edit)'), each with its chart levels: a pack lineup and chart-level graphic, kind reference (coordinator decisions D1 and D2, visual_inspection 2026-10-10); every printed title is mapped."
+        },
+        {
+          "match": "^ohZma5VGdmo$",
+          "role": "gameplay_screenshot",
+          "evidence_quotes": [
+            "Event Full combo"
+          ],
+          "candidate_notes": "visual_inspection: thumbnail is a photo of hands playing on a tablet."
+        },
+        {
+          "match": "^zCzjrrbmFy8$",
+          "role": "reference",
+          "evidence_quotes": [
+            "You Spin Me Around"
+          ],
+          "song_titles": [
+            "You Spin Me Around"
+          ],
+          "mapping_status": "confirmed_primary",
+          "composers": [
+            "RiraN"
+          ],
+          "credit_source": {
+            "url": "https://dynamix.miraheze.org/wiki/You_Spin_Me_Around",
+            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50391)"
+          },
+          "collections": [
+            "Event"
+          ],
+          "candidate_notes": "Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
+        },
+        {
+          "match": "^J0nQeDQGYxk$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Package Ace"
+          ],
+          "collections": [
+            "Package Ace"
+          ],
+          "candidate_notes": "Thumbnail: Package Ace card with four jacket thumbnails."
+        },
+        {
+          "match": "^HaSzSxTdWUs$",
+          "action": "exclude",
+          "reason": "person_photo: thumbnail is a photo of three people with plush mascots"
+        },
+        {
+          "match": "^XXCJb_eFVGA$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Arcaea"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "arcaea"
+          ],
+          "collections": [
+            "Arcaea Collaboration"
+          ],
+          "candidate_notes": "Thumbnail: Dynamix x Arcaea collaboration package card with four jackets."
+        },
+        {
+          "match": "^qjv2dFKaUkg$",
+          "action": "pending",
+          "reason": "unresolved_game: 'TGS Day3' booth video (Tokyo Game Show 2017 showed Dynamix and Zold:out); the thumbnail shows hands on a tablet, the title names no game"
+        },
+        {
+          "match": "^dhgR1g\\-\\-SkM$",
+          "action": "exclude",
+          "reason": "person_photo: thumbnail is a photo of people at the TGS party"
+        },
+        {
+          "match": "^V9b2am5u4wM$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Package Piano-manic"
+          ],
+          "collections": [
+            "Package Piano-manic"
+          ],
+          "candidate_notes": "Thumbnail: Package Piano-manic card with four jacket thumbnails."
+        },
+        {
+          "match": "^Dr6Ox38bgTc$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Hachi Hachi"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "hachi_hachi"
+          ],
+          "collections": [
+            "Hachi Hachi Collaboration"
+          ],
+          "candidate_notes": "Thumbnail: Dynamix x Hachi Hachi Taipei 2017 tournament stream layout."
+        },
+        {
+          "match": "^FIAt9YBEh1E$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Package TwoSquare"
+          ],
+          "collections": [
+            "TwoSquare: The Old Year #1"
+          ],
+          "candidate_notes": "Thumbnail: Package TwoSquare: The Old Year #1 card with four jacket thumbnails."
+        },
+        {
+          "match": "^rvwP4eY\\-owg$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Stellights"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "stellights"
+          ],
+          "collections": [
+            "Stellights Collaboration"
+          ],
+          "candidate_notes": "Thumbnail: Package Stellights Collection card with four jacket thumbnails."
+        },
+        {
+          "match": "^ElhnpfB8Stw$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Paradigm: Reboot"
+          ],
+          "game": "mixed",
+          "game_associations": [
+            "dynamix",
+            "paradigm_reboot"
+          ],
+          "collections": [
+            "Paradigm: Reboot Collaboration"
+          ],
+          "candidate_notes": "Thumbnail: 'AVAILABLE ON 2023.12.30' card with three collaboration jackets."
+        },
+        {
+          "match": "^WeFoz6KSouM$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Event Bundle #1"
+          ],
+          "collections": [
+            "Event Bundle #1"
+          ],
+          "candidate_notes": "Thumbnail: 'NOW PLAYING Sakura Fubuki' music-preview frame with the jacket."
+        },
+        {
+          "match": "^VgQ9Hf4MEA4$",
+          "role": "promotional",
+          "evidence_quotes": [
+            "Event Bundle #2"
+          ],
+          "collections": [
+            "Event Bundle #2"
+          ],
+          "candidate_notes": "Thumbnail: 'NOW PLAYING OCCHOCO-REST-LESS' music-preview frame with the jacket."
+        },
+        {
+          "match": "^_jERP3ePo1w$",
+          "action": "exclude",
+          "reason": "universe_only: 'Area TA' is a Dynamix Universe update",
+          "game": "dynamix_universe"
+        }
+      ]
+    },
+    {
+      "id": "official:facebook-c4cats",
+      "name": "C4Cat corporate Facebook page",
+      "url": "https://www.facebook.com/c4cats/",
+      "platform": "facebook",
+      "adapter": "facebook_post",
+      "params": {
+        "page": "c4cats"
+      },
+      "notes": "C4Cat's corporate page (Dynamix and Zold:out); only its profile picture is served logged out.",
+      "quality": {
+        "source_variant": "preview",
+        "origin_status": "official",
+        "master_status": "unverified",
+        "notes": ""
+      },
+      "rights": {
+        "holder": "C4Cat Entertainment Limited"
+      },
+      "unenumerated_lists": {
+        "page-timeline": "the timeline is not served to logged-out non-browser clients; the photos research saw (TGS 2017 poster, magazine page, leaflet, booth photos) need manual access"
+      },
+      "items": [
+        {
+          "key": "page",
+          "url": "https://www.facebook.com/c4cats/"
+        }
+      ],
+      "rules": [
+        {
+          "match": "^page$",
+          "action": "pending",
+          "reason": "unresolved_game: the page's profile picture is an illustration of a green-haired girl holding C4Cat's bomb-cat mascot (visual_inspection 2026-10-10); no cited source names the character or the game it belongs to"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:artstation:sandgodoven",
+  "started_at": "2026-10-10T22:33:01Z",
+  "finished_at": "2026-10-10T22:33:02Z",
+  "scope": {
+    "lists": [
+      "seed-projects"
+    ],
+    "api": "https://www.artstation.com/projects/",
+    "notes": "Explicit seed project hashes via ArtStation project JSON; the portfolio listing is not crawled."
+  },
+  "continuation": {
+    "seed-projects": "not-read:challenge"
+  },
+  "discovery_complete": false,
+  "candidates": [
+    {
+      "id": "artists:artstation:sandgodoven:6baqbW",
+      "source_id": "artists:artstation:sandgodoven",
+      "upstream_key": "6baqbW",
+      "page_url": "https://www.artstation.com/artwork/6baqbW",
+      "file_url": null,
+      "title": "MassacrE || 3rc4224M (Sand Suna)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "blocked",
+      "reason": "challenge: challenge page (HTTP 403); manual access required, not retried"
+    }
+  ],
+  "errors": []
+}

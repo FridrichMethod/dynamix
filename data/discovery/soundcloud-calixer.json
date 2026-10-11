@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:calixer",
+  "started_at": "2026-10-10T22:35:10Z",
+  "finished_at": "2026-10-10T22:35:11Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:calixer:und0-turret-calixer-raseedcollab",
+      "source_id": "artists:soundcloud:calixer",
+      "upstream_key": "und0-turret-calixer-raseedcollab",
+      "page_url": "https://soundcloud.com/calixer/und0-turret-calixer-raseedcollab",
+      "file_url": "https://i1.sndcdn.com/artworks-000172495177-va9ozn-original.jpg",
+      "title": "[Dynamix] CUT(Calixer & Und0 & Turret) - RASeed(Collab)",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://soundcloud.com/calixer/und0-turret-calixer-raseedcollab"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000172495177-va9ozn-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2016-07-21T06:45:17Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: RASeed logo cover, not the Dynamix jacket (night forest sky)"
+    }
+  ],
+  "errors": []
+}

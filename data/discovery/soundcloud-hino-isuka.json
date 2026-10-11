@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:hino-isuka",
+  "started_at": "2026-10-10T22:35:27Z",
+  "finished_at": "2026-10-10T22:35:29Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:hino-isuka:dynamix-mechanical-jager",
+      "source_id": "artists:soundcloud:hino-isuka",
+      "upstream_key": "dynamix-mechanical-jager",
+      "page_url": "https://soundcloud.com/hino-isuka/dynamix-mechanical-jager",
+      "file_url": "https://i1.sndcdn.com/artworks-000421265517-mo0eet-original.jpg",
+      "title": "【Dynamix】翡乃イスカ - Mechanical Jäger",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/hino-isuka/dynamix-mechanical-jager",
+        "sc.title: Dynamix",
+        "sc.description: 空斗"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000421265517-mo0eet-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2018-10-15T10:13:09Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:hino-isuka:586a73e54a8b30d3",
+      "song_titles": [
+        "Mechanical Jäger"
+      ],
+      "illustrators": [
+        "空斗"
+      ],
+      "composers": [
+        "翡乃イスカ"
+      ]
+    }
+  ],
+  "errors": []
+}

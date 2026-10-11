@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:omocha1019",
+  "started_at": "2026-10-10T22:35:54Z",
+  "finished_at": "2026-10-10T22:35:56Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:omocha1019:wish",
+      "source_id": "artists:soundcloud:omocha1019",
+      "upstream_key": "wish",
+      "page_url": "https://soundcloud.com/omocha1019/wish",
+      "file_url": "https://i1.sndcdn.com/artworks-000224961924-hxwr8m-original.jpg",
+      "title": "【Dynamix Submission2017】Wish",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/omocha1019/wish",
+        "sc.title: Dynamix",
+        "sc.description: 國春"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000224961924-hxwr8m-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2017-05-30T14:29:53Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:omocha1019:135d966bb14b286c",
+      "song_titles": [
+        "Wish"
+      ],
+      "illustrators": [
+        "國春 樹"
+      ],
+      "composers": [
+        "Omocha"
+      ]
+    }
+  ],
+  "errors": []
+}

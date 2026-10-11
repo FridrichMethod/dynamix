@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:kuskekplecraft",
+  "started_at": "2026-10-10T22:36:33Z",
+  "finished_at": "2026-10-10T22:36:38Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:kuskekplecraft:1253596942510075904:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "1253596942510075904:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/1253596942510075904",
+      "file_url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5?format=jpg&name=orig",
+      "title": "音楽ゲーム、Dynamixで楽曲パックが28日までセール中みたいです。 Kplecraft Collection がセール価格になるのはたぶん初めてだと思うのでまだ未プレイの人はこの機会に是非！ 全…",
+      "role": "gameplay_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/1253596942510075904",
+        "text: Kplecraft Collection",
+        "text: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/EWWroNdU8AAqJ_5.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1536,
+        "sha1": null,
+        "timestamp": "2020-04-24T08:09:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:d061d2f5b5551883",
+      "collections": [
+        "Kplecraft"
+      ],
+      "notes": "In-game store screenshot of the Kplecraft Collection pack page (sale, 2020-04-24)."
+    },
+    {
+      "id": "artists:x:kuskekplecraft:1547147750847893505:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "1547147750847893505:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/1547147750847893505",
+      "file_url": "https://pbs.twimg.com/media/FXiSO_bUEAAWFaH?format=png&name=orig",
+      "title": "めちゃくちゃ今更ですが、 Kplecraft / 16383 が今日から Spotify や Apple Music 等の各種サブスクで聴けるようになりました。 各配信先へのリンクはリプライにぶら下…",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/1547147750847893505"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/FXiSO_bUEAAWFaH.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 3000,
+        "height": 3000,
+        "sha1": null,
+        "timestamp": "2022-07-13T09:15:43.000Z",
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "external_release_art: streaming single cover 'Kplecraft / 16383' (square crop of the jacket's pixel-art scene with title lettering), not the game jacket"
+    },
+    {
+      "id": "artists:x:kuskekplecraft:916314186858119169:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "916314186858119169:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/916314186858119169",
+      "file_url": null,
+      "title": "OCCHOCO-REST-LESS #Dynamix",
+      "role": null,
+      "game": "unknown",
+      "game_evidence": [],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "video_placeholder: X animated_gif attachment; only a poster frame is an image"
+    },
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:1",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:1",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV?format=png&name=orig",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (1/4)",
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-qiiUMAIDEuV.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1440,
+        "height": 864,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:739f1eba59e8b0e2",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
+    },
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:2",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:2",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV?format=png&name=orig",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (2/4)",
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-s1hUQAAehqV.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1336,
+        "height": 1336,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:631e6573e815e93c",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
+    },
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:3",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:3",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J?format=png&name=orig",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (3/4)",
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-uh0U8AAx3_J.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1336,
+        "height": 1336,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:e3d38373d1a11531",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
+    },
+    {
+      "id": "artists:x:kuskekplecraft:946599307431460867:4",
+      "source_id": "artists:x:kuskekplecraft",
+      "upstream_key": "946599307431460867:4",
+      "page_url": "https://x.com/KuskeKplecraft/status/946599307431460867",
+      "file_url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh?format=png&name=orig",
+      "title": "16383のBGAのフィールドマップは、ジャケに表示されてる部分の８倍くらいの広さで作ってあります。プレイ中にNanohemuの鳥がぐるっと１周するアニメーションが見れるので、普段BGAをオフにして… (4/4)",
+      "role": "background",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://x.com/KuskeKplecraft/status/946599307431460867",
+        "text: 16383"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/DSL-v7vUIAAzGUh.png",
+        "mime": "image/png",
+        "bytes": null,
+        "width": 1336,
+        "height": 1336,
+        "sha1": null,
+        "timestamp": "2017-12-29T04:30:36.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:kuskekplecraft:831c0edbdcc84bbb",
+      "song_titles": [
+        "16383"
+      ],
+      "illustrators": [
+        "Kplecraft"
+      ],
+      "composers": [
+        "Kplecraft"
+      ],
+      "notes": "The post describes the 16383 BGA field map, built about eight times larger than the part shown on the jacket."
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "source_id": "official:taptap",
+  "started_at": "2026-10-10T22:29:26Z",
+  "finished_at": "2026-10-10T22:29:29Z",
+  "scope": {
+    "lists": [
+      "app-screenshots"
+    ],
+    "api": null,
+    "notes": "One app page; screenshots (original_url), banner and icon of the app object only. Reviews/forum images are not collected."
+  },
+  "continuation": {
+    "app-screenshots": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "official:taptap:banner:4395ff13f01cca52f28efb2a1694bce9.jpg",
+      "source_id": "official:taptap",
+      "upstream_key": "banner:4395ff13f01cca52f28efb2a1694bce9.jpg",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9.jpg",
+      "title": "TapTap banner",
+      "role": "promotional",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:47d0961643bea294",
+      "notes": "Store banner upload (Dynamix logo graphic). The page lists only the rendition 4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg (1920x1080 advertised); 4395ff13f01cca52f28efb2a1694bce9.jpg is the upload its name derives from."
+    },
+    {
+      "id": "official:taptap:banner:4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
+      "source_id": "official:taptap",
+      "upstream_key": "banner:4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
+      "title": "TapTap banner (platform rendition)",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/4395ff13f01cca52f28efb2a1694bce9_crop_888x500a76a0_thumbnail_1920x1080.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 1920,
+        "height": 1080,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "upscaled: TapTap crop/resize rendition (1920x1080) of the uploaded banner, enlarged from a 888x500 crop to 1920x1080 (also the trailer's poster frame); the upload itself is the separate banner candidate"
+    },
+    {
+      "id": "official:taptap:icon:23c51666ae309b07d5f4fe5d888157e5.png",
+      "source_id": "official:taptap",
+      "upstream_key": "icon:23c51666ae309b07d5f4fe5d888157e5.png",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/23c51666ae309b07d5f4fe5d888157e5.png",
+      "title": "TapTap app icon",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "game_ui: store app icon (branding, not artwork)"
+    },
+    {
+      "id": "official:taptap:screenshot:0f46c7d8f23cfefc08f151e5de5f02ee",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:0f46c7d8f23cfefc08f151e5de5f02ee",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/0f46c7d8f23cfefc08f151e5de5f02ee.png",
+      "title": "TapTap screenshot 1",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/0f46c7d8f23cfefc08f151e5de5f02ee.png",
+        "mime": "image/png",
+        "bytes": 589803,
+        "width": 2208,
+        "height": 1242,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:8d70b429cbfd9a79"
+    },
+    {
+      "id": "official:taptap:screenshot:2038df099256080506c2f28c6b008261",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:2038df099256080506c2f28c6b008261",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/2038df099256080506c2f28c6b008261.png",
+      "title": "TapTap screenshot 5",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/2038df099256080506c2f28c6b008261.png",
+        "mime": "image/png",
+        "bytes": 1540548,
+        "width": 1334,
+        "height": 750,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:5529333c92ab469c"
+    },
+    {
+      "id": "official:taptap:screenshot:221f98e1ff0b2becf5cd7ed3bb563aea",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:221f98e1ff0b2becf5cd7ed3bb563aea",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/221f98e1ff0b2becf5cd7ed3bb563aea.png",
+      "title": "TapTap screenshot 6",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/221f98e1ff0b2becf5cd7ed3bb563aea.png",
+        "mime": "image/png",
+        "bytes": 874135,
+        "width": 1280,
+        "height": 720,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:e43c9de1417c4d71",
+      "notes": "Listed again at screenshot position 10."
+    },
+    {
+      "id": "official:taptap:screenshot:2f215ccd55242210eea8142db76cdfcb",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:2f215ccd55242210eea8142db76cdfcb",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/2f215ccd55242210eea8142db76cdfcb.png",
+      "title": "TapTap screenshot 9",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/2f215ccd55242210eea8142db76cdfcb.png",
+        "mime": "image/png",
+        "bytes": 838164,
+        "width": 1280,
+        "height": 720,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:d2f88990027506dd",
+      "notes": "Listed again at screenshot position 13."
+    },
+    {
+      "id": "official:taptap:screenshot:9166f3144900633b831d903ad77f2d06",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:9166f3144900633b831d903ad77f2d06",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/9166f3144900633b831d903ad77f2d06.png",
+      "title": "TapTap screenshot 7",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/9166f3144900633b831d903ad77f2d06.png",
+        "mime": "image/png",
+        "bytes": 176942,
+        "width": 1280,
+        "height": 720,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:2d9ab8e4d3d71ced",
+      "notes": "Listed again at screenshot position 11."
+    },
+    {
+      "id": "official:taptap:screenshot:a8d6c68d9d06afbe16579353e558a8ce",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:a8d6c68d9d06afbe16579353e558a8ce",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/a8d6c68d9d06afbe16579353e558a8ce.png",
+      "title": "TapTap screenshot 4",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/a8d6c68d9d06afbe16579353e558a8ce.png",
+        "mime": "image/png",
+        "bytes": 2087553,
+        "width": 1334,
+        "height": 750,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:b2ab61c8f4d55ec4"
+    },
+    {
+      "id": "official:taptap:screenshot:e56a9f28cf3300343b312d97f1a21451",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:e56a9f28cf3300343b312d97f1a21451",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/e56a9f28cf3300343b312d97f1a21451.png",
+      "title": "TapTap screenshot 3",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/e56a9f28cf3300343b312d97f1a21451.png",
+        "mime": "image/png",
+        "bytes": 1804294,
+        "width": 1334,
+        "height": 750,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:a242d7ab81e39366"
+    },
+    {
+      "id": "official:taptap:screenshot:eb82f5be03c5f8b83f61ceae0ef33c01",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:eb82f5be03c5f8b83f61ceae0ef33c01",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/eb82f5be03c5f8b83f61ceae0ef33c01.png",
+      "title": "TapTap screenshot 2",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/eb82f5be03c5f8b83f61ceae0ef33c01.png",
+        "mime": "image/png",
+        "bytes": 1319600,
+        "width": 1334,
+        "height": 750,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:9a69aa49614679a0"
+    },
+    {
+      "id": "official:taptap:screenshot:fc3f1dbb6f893fcd4213d2a96e0d22b2",
+      "source_id": "official:taptap",
+      "upstream_key": "screenshot:fc3f1dbb6f893fcd4213d2a96e0d22b2",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/market/images/fc3f1dbb6f893fcd4213d2a96e0d22b2.png",
+      "title": "TapTap screenshot 8",
+      "role": "store_screenshot",
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": "https://img-tc.tapimg.com/market/images/fc3f1dbb6f893fcd4213d2a96e0d22b2.png",
+        "mime": "image/png",
+        "bytes": 893110,
+        "width": 1280,
+        "height": 720,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "official:taptap:60bc0b49aad2e19e",
+      "notes": "Listed again at screenshot position 12."
+    },
+    {
+      "id": "official:taptap:video-poster:video-picture/lrz-6xEYnEtJnKvBentDprAMa8PX/first.jpg",
+      "source_id": "official:taptap",
+      "upstream_key": "video-poster:video-picture/lrz-6xEYnEtJnKvBentDprAMa8PX/first.jpg",
+      "page_url": "https://www.taptap.cn/app/7082",
+      "file_url": "https://img-tc.tapimg.com/video-picture/lrz-6xEYnEtJnKvBentDprAMa8PX/first.jpg",
+      "title": "TapTap trailer poster",
+      "role": null,
+      "game": "dynamix",
+      "game_evidence": [
+        "identifier: C4Cat"
+      ],
+      "source_reported": {
+        "url": null,
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": null,
+        "revision": null
+      },
+      "disposition": "excluded",
+      "reason": "video_placeholder: trailer poster frame listed with the app's videos"
+    }
+  ],
+  "errors": []
+}

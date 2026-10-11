@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:x:r_solidor",
+  "started_at": "2026-10-10T22:36:49Z",
+  "finished_at": "2026-10-10T22:36:50Z",
+  "scope": {
+    "lists": [
+      "seed-posts"
+    ],
+    "api": "https://cdn.syndication.twimg.com/tweet-result",
+    "notes": "Explicit seed post IDs via X's public embed (syndication) endpoint; the account timeline is not enumerated."
+  },
+  "continuation": {
+    "seed-posts": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:x:r_solidor:1890032490053861447:1",
+      "source_id": "artists:x:r_solidor",
+      "upstream_key": "1890032490053861447:1",
+      "page_url": "https://x.com/R_Solidor/status/1890032490053861447",
+      "file_url": "https://pbs.twimg.com/media/Gjq-iDraEAEW-IR?format=jpg&name=orig",
+      "title": "Berry Melody × Dynamixコラボに際しまして、SoundCloudの \"ネーヴェの紋様\" ジャケットイラストを変更いたしました！soundcloud.com/r_solidor/m…",
+      "role": "song_art",
+      "game": "mixed",
+      "game_evidence": [
+        "https://x.com/R_Solidor/status/1890032490053861447",
+        "text: ネーヴェの紋様",
+        "text: Berry Melody × Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://pbs.twimg.com/media/Gjq-iDraEAEW-IR.jpg",
+        "mime": "image/jpeg",
+        "bytes": null,
+        "width": 2048,
+        "height": 1536,
+        "sha1": null,
+        "timestamp": "2025-02-13T13:37:15.000Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:x:r_solidor:58d616cfe0c02cb5",
+      "song_titles": [
+        "ネーヴェの紋様"
+      ],
+      "illustrators": [
+        "Zero"
+      ],
+      "composers": [
+        "R.Solidor"
+      ],
+      "collections": [
+        "Berry Melody Collaboration"
+      ]
+    }
+  ],
+  "errors": []
+}

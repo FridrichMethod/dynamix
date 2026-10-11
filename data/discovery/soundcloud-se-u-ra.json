@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:se-u-ra",
+  "started_at": "2026-10-10T22:36:05Z",
+  "finished_at": "2026-10-10T22:36:07Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:se-u-ra:dynamix",
+      "source_id": "artists:soundcloud:se-u-ra",
+      "upstream_key": "dynamix",
+      "page_url": "https://soundcloud.com/se-u-ra/dynamix",
+      "file_url": "https://i1.sndcdn.com/artworks-000558766005-lm7u39-original.jpg",
+      "title": "【Dynamix】哀しい竜とカイツール",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/se-u-ra/dynamix",
+        "sc.title: Dynamix",
+        "sc.description: yoshimo"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000558766005-lm7u39-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2019-06-28T12:41:53Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:se-u-ra:47bb34a8f592c59a",
+      "song_titles": [
+        "哀しい竜とカイツール"
+      ],
+      "illustrators": [
+        "yoshimo"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ]
+    },
+    {
+      "id": "artists:soundcloud:se-u-ra:dynamix-1",
+      "source_id": "artists:soundcloud:se-u-ra",
+      "upstream_key": "dynamix-1",
+      "page_url": "https://soundcloud.com/se-u-ra/dynamix-1",
+      "file_url": "https://i1.sndcdn.com/artworks-y5QUqkK5pG3QnGZc-zJUDwQ-original.jpg",
+      "title": "【Dynamix】終の舞姫",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/se-u-ra/dynamix-1",
+        "sc.title: Dynamix",
+        "sc.description: Se-U-Ra"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-y5QUqkK5pG3QnGZc-zJUDwQ-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2020-03-17T11:20:30Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:se-u-ra:8a5cd6227e360976",
+      "song_titles": [
+        "終の舞姫"
+      ],
+      "illustrators": [
+        "Se-U-Ra"
+      ],
+      "composers": [
+        "Se-U-Ra"
+      ]
+    }
+  ],
+  "errors": []
+}

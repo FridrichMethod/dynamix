@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source_id": "artists:soundcloud:cashewnuts",
+  "started_at": "2026-10-10T22:35:11Z",
+  "finished_at": "2026-10-10T22:35:12Z",
+  "scope": {
+    "lists": [
+      "seed-pages"
+    ],
+    "api": null,
+    "notes": "Explicit release page URLs only; the artist's catalogue is not enumerated."
+  },
+  "continuation": {
+    "seed-pages": null
+  },
+  "discovery_complete": true,
+  "candidates": [
+    {
+      "id": "artists:soundcloud:cashewnuts:cashew-white-chocolate",
+      "source_id": "artists:soundcloud:cashewnuts",
+      "upstream_key": "cashew-white-chocolate",
+      "page_url": "https://soundcloud.com/cashewnuts/cashew-white-chocolate",
+      "file_url": "https://i1.sndcdn.com/artworks-000212691845-ruevex-original.jpg",
+      "title": "【Dynamix】 White Chocolate",
+      "role": "song_art",
+      "game": "dynamix",
+      "game_evidence": [
+        "https://soundcloud.com/cashewnuts/cashew-white-chocolate",
+        "sc.title: Dynamix"
+      ],
+      "source_reported": {
+        "url": "https://i1.sndcdn.com/artworks-000212691845-ruevex-large.jpg",
+        "mime": null,
+        "bytes": null,
+        "width": null,
+        "height": null,
+        "sha1": null,
+        "timestamp": "2015-07-27T04:56:26Z",
+        "revision": null
+      },
+      "disposition": "downloaded",
+      "asset_id": "artists:soundcloud:cashewnuts:9a4ce06a385ff740",
+      "song_titles": [
+        "White Chocolate (dynamix edit)"
+      ],
+      "illustrators": [
+        "NanoKun"
+      ],
+      "composers": [
+        "Cashew"
+      ]
+    }
+  ],
+  "errors": []
+}
