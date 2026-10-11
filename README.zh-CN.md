@@ -44,7 +44,7 @@ python3 -I -m http.server 8765 --bind 127.0.0.1
 
 `reference` 指资料性图片和文档。按照 2026-10-10 的分类规则，凡是显示谱面难度等级的公告图都属于 `reference`，无论它预告的是一首曲目还是多首、来自 wiki 还是官方 X 或 Facebook 帖子（包括带等级标记的单曲谱面一览、“即将推出”或回归预告图）；主要内容是曲目或谱面列表的图片同样如此：活动与回归曲目阵容、“即将举行的活动”和“回归曲目”图，以及印有多张带曲名封面的曲包或联动阵容卡。这类图片中出现的封面美术另行存档为该曲目自己的 `song_art` 文件。更新说明、新闻稿 PDF 等文档也属于 `reference`。`promotional` 保留不含谱面等级信息、关于单首曲目、单个曲包或单个活动的图片：主视觉、活动和周年海报、单张联动主视觉、横幅、标志和字标。商店截图是应用商店的渲染版本，不是美术原稿。
 
-`archive` 层级的原文件与其他文件一样保存在本仓库中；网站不提供它们只是为了控制体积。它们的目录条目带有 `archive_url`，即该文件在 `main` 分支上的 GitHub raw 地址（`https://github.com/FridrichMethod/dynamix/raw/main/...`），查看器会标注“原文件保存在仓库中”。只有当包含该文件的提交已经位于 GitHub 仓库的 `main` 分支上时，这个链接才可用。
+`archive` 层级的原文件与其他文件一样保存在本仓库中；网站不提供它们只是为了控制体积。它们的目录条目带有 `archive_url`，即该文件在 `main` 分支上的 GitHub raw 地址（`https://github.com/FridrichMethod/dynamix/raw/main/...`），查看器会标注“原文件保存在仓库中”。这些链接跟随 `main` 分支，而不是网站所显示的版本：只有当包含该文件的提交已经位于 GitHub 仓库的 `main` 分支上时，链接才可用；该版本之后在 `main` 上撤回或移动的文件，在下一次发布之前链接会返回 404。版本下载包保留该版本的每个原文件（见[发布](#发布)），Git 历史也保留这些字节。
 
 ### 不收录的内容
 
@@ -256,6 +256,7 @@ npx --no-install eslint --max-warnings=0 src
 
 - [Pages 工作流](.github/workflows/pages.yml)从不在推送、PR 或定时任务上运行。它只能手动触发，并且只有同时满足以下条件才会部署：触发目标是 `main`，输入的 `release_sha` 是被触发提交的完整 SHA，且仓库变量 `RELEASE_APPROVED_SHA` 指向同一个提交。这样的运行会检查批准、在该提交上重新运行全部测试、用 `prepare_pages.py` 暂存网站并部署。
 - `RELEASE_APPROVED_SHA` 指向已发布的提交。之后推送到 `main` 的提交会被测试但不会部署，因此网站显示的是最近一次发布的提交，可能比 `main` 旧。
+- 网站上 `archive` 层级文件的仓库链接（`archive_url`，`main` 上的 raw 地址）跟随 `main` 而不是已发布的提交：发布之后在 `main` 上撤回或移动的文件，在下一次发布之前链接会返回 404。GitHub Release 下载包包含该版本的每个原文件。
 - Tests 工作流在每次推送时准备并检查网站，但只上传 CI artifact，不能部署。
 
 之后的发布需要：一个经过审阅且 CI 通过的 `main` 提交，并同时更新两份 README 中的状态一行和本节（它们会随网站一起暂存）；把 `RELEASE_APPROVED_SHA` 设为该提交的完整 SHA；在 `main` 上手动触发 Pages 工作流，`release_sha` 填同一个 SHA；以及新的版本标签和 GitHub Release。

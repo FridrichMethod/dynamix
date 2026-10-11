@@ -746,6 +746,26 @@ class ReleaseStateTests(unittest.TestCase):
         self.assertIn(old, self.SAMPLE[relative], "the sample edit must apply")
         return {**self.SAMPLE, relative: self.SAMPLE[relative].replace(old, new, count)}
 
+    # What each README says about repository links in its storage-tier paragraph and in its Releases section.
+    ARCHIVE_LINKS = {
+        "README.md": ("`archive_url`", "follow `main`", "404", "until the next release"),
+        "README.zh-CN.md": ("`archive_url`", "跟随 `main`", "404", "在下一次发布之前"),
+    }
+
+    def test_readmes_say_that_repository_links_follow_main(self):
+        """archive_url points at raw/main by contract (09-frozen-contracts.md), while the website shows the last
+        release: a file withdrawn on main after that release has no repository link there until the next release. The
+        storage-tier paragraph and the Releases section of both READMEs say so."""
+        for relative, phrases in self.ARCHIVE_LINKS.items():
+            text = read(relative)
+            tier = next(part for part in text.split("\n\n") if "`archive_url`" in part and "/raw/main/" in part)
+            parts = readme_release_text(relative, text)
+            self.assertIsNotNone(parts)
+            for place, part in (("storage tiers", tier), ("Releases", parts[1])):
+                for phrase in phrases:
+                    with self.subTest(document=relative, place=place, phrase=phrase):
+                        self.assertIn(phrase, part)
+
     def test_release_check_accepts_the_sample(self):
         self.assertEqual(release_state_problems(self.SAMPLE), [])
 
