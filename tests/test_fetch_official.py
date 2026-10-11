@@ -104,6 +104,19 @@ class AppleTests(OfficialTestCase):
         self.assertEqual(self.manifest()["sources"][0]["status"], "partially_available")
         self.verify()
 
+    def test_an_unusable_artwork_template_is_held_as_unresolved_role(self):
+        # 09: a template that renders no URL leaves no file to fetch: unresolved_role, never awaiting_download.
+        page = text("apple_page.html")
+        good = "a89c0c45-e49f-72ab-0a80-754c422d057f/pr_source.png/{w}x{h}{c}.{f}"
+        self.assertEqual(page.count(good), 1)
+        routes = {self.PAGE: {"text": page.replace(good, good[: -len("{f}")] + "{q}")}}
+        self.run_family([self.seed([{"url": self.PAGE}])], FakeNetwork(routes))
+        held = self.candidates("official:apple-store")["pad:a89c0c45-e49f-72ab-0a80-754c422d057f"]
+        self.assertEqual(held["disposition"], "pending")
+        self.assertEqual(held["reason"], "unresolved_role: unusable artwork template")
+        self.assertFalse(held.get("file_url"))
+        self.verify()
+
     def test_shelf_parser_reads_the_observed_structure(self):
         mapping = apple.shelves(apple.server_data(text("apple_page.html")))
         self.assertEqual([(d, i) for d, i, _ in apple.media_items(mapping)], [("pad", 1), ("phone", 1), ("phone", 2),
@@ -820,7 +833,6 @@ class ProbeAndRegistryTests(OfficialTestCase):
         self.assertEqual(self.manifest()["sources"][0]["status"], "metadata_only")
         self.assertEqual(self.manifest()["failures"], [])
         self.verify()
-
 
     def test_awaiting_download_needs_a_file_url(self):
         # 09: awaiting_download is an admitted candidate with a known file URL; a lead with nothing to fetch is

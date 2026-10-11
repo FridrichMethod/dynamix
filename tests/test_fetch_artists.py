@@ -355,6 +355,20 @@ class XTests(ArtistsTestCase):
         self.assertEqual(assets["1"]["source_reported"]["url"], "https://pbs.twimg.com/media/GhQZt1eboAAs87K.jpg")
         self.verify()
 
+    def test_an_unrecognized_media_url_is_held_as_unresolved_role(self):
+        # 09: no file to fetch, so the photo is held as unresolved_role, never awaiting_download.
+        routes = x_routes()
+        api = next(url for url in routes if url.startswith(x_adapter.API))
+        post = json.loads(json.dumps(routes[api]["json"]))
+        post["mediaDetails"][1]["media_url_https"] = "https://pbs.twimg.com/media/odd/GhQZt2xyzAAs87K.png"
+        routes[api] = {"json": post}
+        self.run_family([x_seed([{"match": "^1879155241788293570:2$", "role": "process"}])], FakeNetwork(routes))
+        held = self.candidates("artists:x:ariiol_")["1879155241788293570:2"]
+        self.assertEqual(held["disposition"], "pending")
+        self.assertEqual(held["reason"], "unresolved_role: unrecognized X media URL")
+        self.assertFalse(held.get("file_url"))
+        self.verify()
+
     def test_missing_evidence_quote_holds_the_candidate(self):
         rules = [{"match": "^1879155241788293570:1$", "role": "song_art", "song_titles": ["Other Song"],
                   "mapping_status": "confirmed_primary", "evidence_quotes": ["Other Song"]}]
