@@ -280,8 +280,14 @@ CAPTION_ROLES = (
 # "Artwork in PABAT! 2017" is the artwork of the song's own release in that event (an eyecatch with the event title
 # and credits), a separate external release (external_release_art), not Dynamix artwork.
 EXTERNAL_RELEASE_EVENT = re.compile(r"\b(?:PABAT|BOF|BMS)\b", re.I)
+# The name after "Artwork/Cover/Jacket/Illustration in/for/from" (group "other", up to a comma, semicolon or
+# parenthesis) goes to the reviewed list (OTHER_GAMES, classify.listed_games), also when it starts with "Dynamix": "for
+# Dynamix x RAVON Collaboration" names RAVON, while an unlisted partner and Dynamix's own occasions ("for Dynamix's 5th
+# Anniversary") name no listed game and get the curator note like every other unlisted name. Only the original game's
+# own name alone ("Artwork in Dynamix", "Jacket from Dynamix (2016)", with or without a possessive) is not matched: it
+# names neither another game nor an occasion, so there is nothing to record or review.
 OTHER_GAME_ARTWORK = re.compile(
-    r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+(?!dynamix\b)"
+    r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+(?!dynamix(?:['’]s?)?\s*(?:[,;()]|$))"
     r"(?P<other>[^\s,;()][^,;()]*)",
     re.I,
 )
@@ -302,25 +308,40 @@ class OtherGame:
 # Collaboration Event", "Arcaea's 3rd Anniversary"). Any other name -- an unlisted event, holiday or game, Dynamix's own
 # occasions among them ("the Halloween Event") -- records no association, so the page game and the default rights
 # holder stay, and the item's evidence names it with OTHER_GAME_REVIEW for a curator. A new collaboration needs a
-# reviewed entry here. Entries come from evidence only: a game that committed wiki captions name, or one that the
-# caption tests use; each says which. It replaces the occasion heuristic (word lists DYNAMIX_OCCASION/OCCASION_WORDS),
-# which read every name it did not know as a game.
+# reviewed entry here. Each entry says what it is based on: RAVON is the only game that committed wiki captions name;
+# Arcaea, Lanota and Rotaeno come from the caption tests written before this list (DX1-01, DX1-04), and committed
+# primary-source records associate each of them with Dynamix artwork; Cytus, Cytus II and Phigros were added with the
+# list itself (round 2, from that change's task list): no committed caption, game association or earlier test names
+# them, and only the tests added with the list use them (whether they stay is an open owner question).
+# The list replaces the occasion heuristic (word lists DYNAMIX_OCCASION/OCCASION_WORDS), which read every name it did
+# not know as a game.
 OTHER_GAMES = (
     # Committed captions: the galleries of six original-game song pages on both wikis caption their square art
     # "<song> Artwork in RAVON" (Black：Magnam, Jack Out KIllER, MassacrE, Rave! and Get on it!, ReLyna, Totally
     # bounded; data/discovery/miraheze.json and fandom.json), Dynamix's RAVON collaboration.
     OtherGame("RAVON", "ravon", ("RAVON",)),
-    # Test entry: no committed caption names it; the caption tests use it (tests/test_fetch_wikis_parse.py).
+    # Earlier caption tests (DX1-01 onwards, tests/test_fetch_wikis_parse.py); no committed caption names it. The
+    # primary seeds associate it: Party Vinyl's square art, in Dynamix's Arcaea collaboration pack
+    # (scripts/primary/seeds/archives.json, game_associations dynamix and arcaea).
     OtherGame("Arcaea", "arcaea", ("Arcaea",)),
-    # Test entry, as Arcaea (the plain name of the pair with Cytus II).
+    # Added with this list (round 2): no committed caption, game association or earlier test names it (committed
+    # records name Cytus only in excluded fan-video notes and a press-roundup capture excluded as not Dynamix); the
+    # list's own tests use it as the plain name of the pair with Cytus II.
     OtherGame("Cytus", "cytus", ("Cytus",)),
-    # Test entry, as Arcaea (a spelling that starts with another entry's: the longer one is read).
+    # Added with this list (round 2): nothing committed names it; the list's own tests use it for a spelling that
+    # starts with another entry's (the longer one is read).
     OtherGame("Cytus II", "cytus_ii", ("Cytus II",)),
-    # Test entry, as Arcaea.
+    # Earlier caption tests (the DX1-04 follow-up: "Artwork for Lanota Anniversary"); no committed caption names it.
+    # The primary seeds associate it: GIFT's SoundCloud art (scripts/primary/seeds/artists.json, game_associations
+    # dynamix and lanota).
     OtherGame("Lanota", "lanota", ("Lanota",)),
-    # Test entry, as Arcaea (a plural possessive, "Phigros'").
+    # Added with this list (round 2): no committed caption, game association or earlier test names it (committed
+    # records name Phigros only in the titles and notes of excluded fan videos on Fandom); the list's own tests use it
+    # for a plural possessive ("Phigros'").
     OtherGame("Phigros", "phigros", ("Phigros",)),
-    # Test entry, as Arcaea ("the Dynamix X Rotaeno Collaboration Event").
+    # Earlier caption tests ("the Dynamix X Rotaeno Collaboration Event"); no committed caption names it. The primary
+    # seeds associate it: C4Cat's "Dynamix X Rotaeno Collaboration Announcement" key visual
+    # (scripts/primary/seeds/archives.json, game_associations dynamix and rotaeno).
     OtherGame("Rotaeno", "rotaeno", ("Rotaeno",)),
 )
 # A spelling matches as whole words in any letter case, its words separated by any whitespace, the longest spelling

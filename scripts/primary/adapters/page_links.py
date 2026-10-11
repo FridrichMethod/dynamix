@@ -3,8 +3,10 @@
 Each seed item names a page and ``link_rules``: which attribute to read (``href``/``src``), a regex the absolute URL's
 path must match, and whether to drop the query (CMS resize parameters such as ``?mw=1980``). Every matching link is a
 candidate keyed by its path (``<host>/<path>`` under a rule with ``same_host: false``, whose links may sit on several
-hosts); a file that several seed pages link is one candidate, the first page's, whose notes name the other pages; while
-any of those pages is not read completely, the candidate's earlier disposition is held (:func:`base.held_on`). Its
+hosts); a file that several seed pages link is one candidate, the first page's, whose notes name the other pages that
+link it; while any of those pages is not read completely, the candidate's earlier disposition is held
+(:func:`base.held_on`). A page that this run does not read completely stays named on a candidate listed again when the
+previous snapshot's candidate named it (:func:`keep_unread_links`), so the hold also lasts into later runs. Its
 classification comes from the source's seed rules, unclassified links stay ``pending``.
 Links are resolved as a browser requests them (a literal space is percent-encoded, :func:`base.link_url`); a matching
 link that is still no valid http(s) URL is reported as a discovery error and keeps the list open (``links-skipped-N``).
@@ -16,7 +18,7 @@ Used for the HKSTP press release (appendix PDFs, press photo) and the 4Gamer scr
 from __future__ import annotations
 
 import re
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from typing import Any
 from urllib.parse import urlsplit, urlunsplit
 
@@ -141,10 +143,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if first is not None and first.file_url == base.stored(url):
                 # The same file linked from another seed page: one candidate (the first page's) that names this page,
                 # so that this page's unread state holds it too (base.held_on).
-                note = base.ALSO_LINKED_NOTE.format(url=page_url)
-                notes = first.candidate_extra.get("notes") or ""
-                if note not in notes:
-                    first.candidate_extra["notes"] = f"{notes} {note}".strip()
+                note_also_linked(first, page_url)
                 continue
             rule = base.identity_rule(model.find_rule(base.rules(seed), key), missing)
             name = base.last_segment(url)
@@ -177,4 +176,36 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
     if skipped_links and discovery.continuation.get("seed-pages") is None:
         # A matching link without a candidate: the pages' links are not fully accounted for.
         discovery.continuation["seed-pages"] = f"links-skipped-{skipped_links}"
+    keep_unread_links(emitted, ctx.previous, (item["url"] for item in seed["items"]), pages_read)
     return discovery
+
+
+def note_also_linked(draft: model.Draft, page_url: str) -> None:
+    """Name ``page_url`` on ``draft`` as another seed page that links its file (:data:`base.ALSO_LINKED_NOTE`, once)."""
+    note = base.ALSO_LINKED_NOTE.format(url=page_url)
+    notes = draft.candidate_extra.get("notes") or ""
+    if note not in notes:
+        draft.candidate_extra["notes"] = f"{notes} {note}".strip()
+
+
+def keep_unread_links(
+    emitted: Mapping[str, model.Draft], previous: Mapping[str, Any] | None, pages: Iterable[str], complete: set[str]
+) -> None:
+    """Keep naming, on each candidate this run lists again, every seed page (of ``pages``) that this run did not read
+    completely (not in ``complete``) and that the previous snapshot's candidate of the same key named as linking its
+    file (:func:`base.linking_pages`: its page or an :data:`base.ALSO_LINKED_NOTE`). An incomplete read is no
+    observation, so the page may still link the file: without its note, a later run in which the listing page no
+    longer links the file while that page is still unread would drop the candidate instead of holding it
+    (:func:`base.held_on`). A page read completely is named only when it links the file in this run."""
+    unread = [page for page in dict.fromkeys(pages) if page not in complete]
+    if not previous or not unread:
+        return
+    earlier = {candidate.get("upstream_key"): candidate for candidate in previous.get("candidates", [])}
+    for key, draft in emitted.items():
+        candidate = earlier.get(key)
+        if candidate is None:
+            continue
+        linked = base.linking_pages(candidate)
+        for page in unread:
+            if page != draft.page_url and page in linked:
+                note_also_linked(draft, page)
