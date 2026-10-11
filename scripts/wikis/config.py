@@ -284,13 +284,22 @@ EXTERNAL_RELEASE_EVENT = re.compile(r"\b(?:PABAT|BOF|BMS)\b", re.I)
 # parenthesis) goes to the reviewed list (OTHER_GAMES, classify.listed_games), also when it starts with "Dynamix": "for
 # Dynamix x RAVON Collaboration" names RAVON, while an unlisted partner and Dynamix's own occasions ("for Dynamix's 5th
 # Anniversary") name no listed game and get the curator note like every other unlisted name. Only the original game's
-# own name alone ("Artwork in Dynamix", "Jacket from Dynamix (2016)", with or without a possessive) is not matched: it
-# names neither another game nor an occasion, so there is nothing to record or review.
+# own name alone, with or without a possessive and trailing sentence punctuation ("Artwork in Dynamix", "Jacket from
+# Dynamix (2016)", "Artwork in Dynamix!"), is not matched: it names neither another game nor an occasion, so there is
+# nothing to record or review. With a dash-separated qualifier after it, it gets no curator note either
+# (DYNAMIX_QUALIFIED).
 OTHER_GAME_ARTWORK = re.compile(
-    r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+(?!dynamix(?:['’]s?)?\s*(?:[,;()]|$))"
+    r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+"
+    r"(?!dynamix(?:['’]s?)?\s*[.!?…]*\s*(?:[,;()]|$))"
     r"(?P<other>[^\s,;()][^,;()]*)",
     re.I,
 )
+# The original game's own name and a qualifier after a dash with a space on each side, or a dash ending the caption
+# ("Artwork in Dynamix - original", "Dynamix – 2016 version", "Dynamix — HQ"): no curator note, as for the name alone,
+# while a listed game in the qualifier is still recorded ("for Dynamix - Lanota Collaboration": Lanota). A hyphenated
+# or dash-joined name ("Dynamix-exclusive Event", "Dynamix–Lanota Event") is a name like any other
+# (classify.page_evidence).
+DYNAMIX_QUALIFIED = re.compile(r"dynamix(?:['’]s?)?\s*[.!?…]*\s+[-‐‑‒–—―]+(?:\s|$)", re.I)
 # A name (group "other") that starts with "Dynamix" is never a release event of EXTERNAL_RELEASE_EVENT, as before such
 # names went to the reviewed list: "for Dynamix PABAT 2017" stays the song's artwork (with the curator note), while
 # "for the Dynamix BMS" and "in PABAT! 2017" are external releases (classify.page_evidence).

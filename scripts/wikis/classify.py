@@ -389,10 +389,11 @@ def page_evidence(
                     song, song_page = quoted
                     detail += f", the caption names the cover of another song ({quoted[0]})"
                 other = config.OTHER_GAME_ARTWORK.search(ref.caption) if caption_role in KINDS else None
-                named = other.group("other").strip().strip("'\"") if other is not None else ""
+                raw = other.group("other") if other is not None else ""
+                named = raw.strip().strip("'\"")
                 release_event = (
                     other is not None
-                    and config.DYNAMIX_NAME.match(other.group("other")) is None  # "for Dynamix PABAT 2017": no event
+                    and config.DYNAMIX_NAME.match(raw) is None  # "for Dynamix PABAT 2017": no event
                     and config.EXTERNAL_RELEASE_EVENT.search(named) is not None
                 )
                 if release_event:
@@ -408,9 +409,10 @@ def page_evidence(
                         games_named = ", ".join(other_games)
                         game_note = f": {games_named}" if games_named != named else ""
                         detail += f", artwork of the song for {named} (another game/event{game_note})"
-                    elif named:
+                    elif named and not config.DYNAMIX_QUALIFIED.match(raw):
                         # Owner decision 2026-10-11: a name that is not on the reviewed list (an unlisted event,
-                        # holiday or game) records no association; the evidence asks a curator to review it.
+                        # holiday or game) records no association; the evidence asks a curator to review it. The game's
+                        # own name with a dash-separated qualifier ("Dynamix - original") names nothing to review.
                         detail += f", the caption names {named}, {config.OTHER_GAME_REVIEW}"
                     if (
                         game is None
