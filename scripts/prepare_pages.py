@@ -15,7 +15,11 @@
 
 Scripts, tests, workflows, templates, discovery snapshots and source manifests are never staged. Symlinks, submodules,
 unmerged entries and unsafe paths are refused, as is an existing output directory or one inside the checkout. Before
-anything is copied the payload must fit the 950,000,000-byte budget (no single file above 100 MiB), ``data/catalog.js``
+anything is copied the payload must fit the 950,000,000-byte budget (no single file above 100 MiB). When it does not,
+the explicit rule of 09-frozen-contracts.md (Catalog presentation rules) applies first: ``data/catalog.json``, which
+the pages never load (they read ``data/catalog.js``; their links to the manifest name the repository copy), is left
+out of the payload and the summary records it under ``omitted_over_budget``; only a payload that still does not fit is
+refused. Originals are never dropped or recompressed to fit. ``data/catalog.js``
 must encode the same catalog as ``data/catalog.json``, and every staged original must hash to its catalog SHA-256 and
 size; after copying, every staged file is hashed again and must still be the bytes that were checked. Any failure
 removes the partial output.
@@ -70,6 +74,11 @@ ORIGINALS_ROOT = paths.ASSET_ROOT  # assets/public
 THUMBS_ROOT = schema.THUMB_DIR  # assets/thumbs
 CATALOG_JSON = "data/catalog.json"
 CATALOG_JS = "data/catalog.js"
+# Left out, in this order, only when the staged site would exceed the budget (09, Catalog presentation rules): files the
+# pages never load. The full manifest stays in the repository.
+OMIT_OVER_BUDGET = (CATALOG_JSON,)
+OMIT_REASON = ("left out because the staged site would exceed the budget with it; the pages never load it (they read "
+               "data/catalog.js) and the repository keeps it")
 CATALOG_JS_PREFIX = "window.DYNAMIX_CATALOG = "
 CATALOG_JS_SUFFIX = ";\n"
 BUDGET_BYTES = schema.PAGES_BUDGET_BYTES
@@ -295,14 +304,34 @@ def verify_originals(entries: Iterable[Entry], digests: Mapping[str, Digest]) ->
                              "the file")
 
 
-def commit_differences(entries: Iterable[Entry], digests: Mapping[str, Digest], commit: Commit) -> list[str]:
+def commit_differences(entries: Iterable[Entry], digests: Mapping[str, Digest], commit: Commit,
+                       omitted: Collection[str] = ()) -> list[str]:
     """Sorted paths where the staged tree is not ``commit``'s: a staged file whose bytes are not the commit's blob at
     that path (edited, staged-only, skip-worktree or assume-unchanged, or not in the commit), and a public page file of
-    the commit that is not staged (removed from the index or the work tree)."""
+    the commit that is not staged (removed from the index or the work tree) unless the budget rule ``omitted`` it."""
     staged = {entry.path for entry in entries}
     changed = {entry.path for entry in entries if commit.blobs.get(entry.path) != digests[entry.path].blob}
-    dropped = {entry.path for entry in public_entries(commit.blobs)} - staged
+    dropped = {entry.path for entry in public_entries(commit.blobs)} - staged - set(omitted)
     return sorted(changed | dropped)
+
+
+def fit_budget(root: Path, entries: list[Entry], budget: int) -> tuple[list[Entry], list[dict]]:
+    """``entries`` within ``budget``: unchanged when they fit, else without the files of :data:`OMIT_OVER_BUDGET`
+    (in order, only as many as needed); :class:`PagesError` when the payload still exceeds the budget."""
+    sizes = {entry.path: (root / entry.path).stat().st_size for entry in entries}
+    total = sum(sizes.values())
+    omitted: list[dict] = []
+    for rel in OMIT_OVER_BUDGET:
+        if total <= budget:
+            break
+        if rel in sizes:
+            entries = [entry for entry in entries if entry.path != rel]
+            total -= sizes[rel]
+            omitted.append({"path": rel, "bytes": sizes[rel], "reason": OMIT_REASON})
+    if total > budget:
+        without = f" even without {', '.join(item['path'] for item in omitted)}" if omitted else ""
+        raise PagesError(f"Pages payload of {total} bytes exceeds the {budget}-byte budget{without}")
+    return entries, omitted
 
 
 def check_output(root: Path, output: Path) -> Path:
@@ -370,12 +399,11 @@ def prepare(root: Path, output: Path, tracked: Mapping[str, str] | Iterable[str]
         tracked = dict.fromkeys(tracked, "100644")
     output = check_output(root, Path(output))
     entries, extra = plan(root, tracked)
-    total = sum((root / entry.path).stat().st_size for entry in entries)
-    if total > budget:
-        raise PagesError(f"Pages payload of {total} bytes exceeds the {budget}-byte budget")
+    entries, omitted = fit_budget(root, entries, budget)
+    extra = {**extra, "omitted_over_budget": omitted}
     digests = {entry.path: digest_file(root / entry.path, commit.object_format) for entry in entries}
     verify_originals(entries, digests)
-    differs = commit_differences(entries, digests, commit)
+    differs = commit_differences(entries, digests, commit, [item["path"] for item in omitted])
     if differs and not allow_dirty:
         against = f"commit {commit.sha}" if commit.sha else "a commit (the repository has no HEAD)"
         raise PagesError(f"{len(differs)} public file(s) differ from {against} (commit them or pass --allow-dirty): "
