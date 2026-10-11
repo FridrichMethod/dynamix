@@ -559,6 +559,10 @@ class UrlBoundaryTests(NetTestCase):
             "224.0.0.1": "IPv4 multicast",
             "ff02::1": "IPv6 multicast",
             "::": "IPv6 unspecified",
+            "fec0::1": "deprecated IPv6 site-local (RFC 3879), reported as global by Python",
+            "fec0::a9fe:a9fe": "IPv6 site-local",
+            "100:0:0:1::1": "reserved IPv6 (100::/8 outside the discard prefix), reported as global",
+            "5f00::1": "reserved IPv6 (4000::/3), reported as global",
         }
         for allow_loopback in (False, True):
             client = self.client(hosts=["a.example"], allow_loopback=allow_loopback)

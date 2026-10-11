@@ -83,10 +83,11 @@ characters RFC 3986 forbids — notably `\` — and a host of `[a-z0-9_-]` label
 characters are fine), and the host requests would actually contact (urllib3 `parse_url` of the prepared URL) must
 equal the checked host. Fetchers must pass URLs as given by the API (percent-encoded); a redirect `Location` is
 re-encoded like requests does. Manual redirects re-check scheme, allowlist, https→http downgrade and every resolved and
-connected address (private/loopback/link-local/reserved, NAT64-embedded non-public IPv4 and IPv4-compatible IPv6
-rejected; `allow_loopback` is for tests); a refused redirect is reported against the URL that sent it. One request in
-flight per host, `min_interval` from the end of one request to the next, for every hop (a host reached only through a
-redirect included); clients given one `net.HostSchedule()` share these per-host locks and ready times (the primary
+connected address (not global, i.e. private/shared/loopback/link-local/IPv6 site-local/reserved, or multicast;
+NAT64-embedded non-public IPv4 and IPv4-compatible IPv6 rejected; `allow_loopback` is for tests); a refused
+redirect is reported against the URL that sent it. One request in flight per host, `min_interval` from the end of
+one request to the next, for every hop (a host reached only through a redirect included); clients given one
+`net.HostSchedule()` share these per-host locks and ready times (the primary
 runner passes one to the per-source clients of a run). `max_duration` bounds each attempt from
 request start to the end of the body (bodies are read with `read1`, so a trickling server is cut off within one read
 timeout of the deadline; `TimeoutFetchError`). Retries: 429/5xx/timeouts/connection errors, ≤ 3 attempts,

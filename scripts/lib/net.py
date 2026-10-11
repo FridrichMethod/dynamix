@@ -6,9 +6,9 @@
   and the host requests/urllib3 would contact must equal the host that was checked, so parser differences cannot
   smuggle another host past the allowlist.
 * Redirects are followed manually (at most 5 hops). Every hop's host is resolved first and refused when any address
-  is private, loopback, link-local, reserved or multicast; the address actually connected to is checked again, so a
-  DNS answer that changes between the check and the connection cannot reach a local service. ``allow_loopback=True``
-  (tests only) admits loopback addresses and nothing else.
+  is not global (private, shared, loopback, link-local, IPv6 site-local, reserved) or is multicast; the address
+  actually connected to is checked again, so a DNS answer that changes between the check and the connection cannot
+  reach a local service. ``allow_loopback=True`` (tests only) admits loopback addresses and nothing else.
 * One request in flight per host and at least ``min_interval`` seconds (default 1.0) between the end of one request
   and the start of the next to the same host. Every hop counts, so a host reached only through a redirect is spaced
   too; clients that share a :class:`HostSchedule` (e.g. the per-source clients of one fetcher run) share these per-host
@@ -698,9 +698,13 @@ class PoliteClient:
                 embedded = _embedded_ipv4(ip)
                 if embedded is not None:  # through a NAT64 translator: judge the IPv4 destination, never loopback
                     return embedded.is_global and not embedded.is_multicast
+                if ip.is_site_local:  # deprecated fec0::/10 (RFC 3879), which Python reports as global
+                    return False
         if ip.is_loopback:
             return self._allow_loopback
-        return ip.is_global and not ip.is_multicast
+        # is_reserved after the branches above (64:ff9b::/96 and ::/8 are reserved too): IPv4 240.0.0.0/4 and the
+        # unassigned IPv6 ranges outside 2000::/3, several of which Python reports as global.
+        return ip.is_global and not ip.is_multicast and not ip.is_reserved
 
     def _check_resolution(self, host: str, url: str) -> None:
         try:
