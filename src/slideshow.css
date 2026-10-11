@@ -977,6 +977,38 @@ canvas {
     }
 }
 
+/* Short landscape windows under 600px wide (old 533 x 320 and 480 x 320 phones, small desktop windows): the 90px grid
+   would leave the caption's band too narrow, and under 481px the phone rule would spread the row across the whole
+   width. The row keeps to the left in the phones' 56px discs on a 72px grid instead (lefts -20px + i * 72px, the last
+   disc ending at 196px + 28px + 56px = 280px), and the band starts 16px after it. The discs stay within the band's
+   height (their tops are 84px above the screen's foot). */
+@media screen and (orientation: landscape) and (max-height: 560px) and (max-width: 599px) {
+    .bt:not(.lang-toggle) {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+    .archive-link a {
+        font-size: 13px;
+    }
+    .photo,
+    .save {
+        left: -20px;
+    }
+    .github {
+        left: 52px;
+    }
+    .archive-link {
+        left: 124px;
+    }
+    .random {
+        left: 196px;
+    }
+    .asset-caption {
+        left: 296px;
+    }
+}
+
 /* Portrait screens: the stage on top (below the language toggle), then a fixed-height notes
    block and the caption, clear of the bottom control row. Fixed heights keep the artwork from jumping
    as titles change length. */

@@ -286,6 +286,15 @@ class SlideshowTemplateTests(unittest.TestCase):
         self.assertTrue(stage, "The stage keeps clear of the band at every width: margin-bottom: max(8vh, <n>px)")
         self.assertLess(band_top, int(stage.group(1)), "The caption's band ends below the stage")
         self.assertGreaterEqual(int(stage.group(1)), disc * 1.5, "The stage clears the control row (bottom: 0, shifted up by half)")
+        # Narrow short landscape windows keep a compact row at the left, so the band stays wide enough.
+        narrow = media_block(self.css, "(orientation: landscape) and (max-height: 560px) and (max-width: 599px)")
+        self.assertTrue(narrow, "No narrow short-landscape block")
+        small = px(css_value(narrow, [".bt:not(.lang-toggle)"], "width")) + 2 * px(css_value(narrow, [".bt:not(.lang-toggle)"], "padding"))
+        lefts = [px(css_value(narrow, [name], "left")) for name in (".github", ".archive-link", ".random")]
+        self.assertEqual(lefts, sorted(lefts))
+        self.assertTrue(all(b - a >= small for a, b in zip(lefts, lefts[1:])), "The compact discs do not overlap")
+        self.assertGreater(px(css_value(narrow, [".asset-caption"], "left")), lefts[-1] + small / 2 + small)
+        self.assertLessEqual(small * 1.5, int(stage.group(1)))
         # The clamped notes show a cut text's full wording in a tooltip.
         self.assertIn("node.title = node.dataset.full", self.code)
 

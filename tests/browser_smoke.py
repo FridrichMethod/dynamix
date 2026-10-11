@@ -934,10 +934,10 @@ def check_slideshow(smoke, base, catalog, fixture):
         smoke.finish(page)
 
 
-# Phones held sideways, short portrait phones (browser bars included) and a short desktop window, where the notes, the
-# caption and the bottom control row compete for room.
-SHORT_SCREENS = [(568, 320), (640, 360), (667, 375), (812, 375), (844, 390), (960, 540), (320, 454), (375, 553), (360, 568),
-                 (360, 640)]
+# Phones held sideways (533 x 320: the compact control row of windows under 600px wide), short portrait phones (browser
+# bars included) and a short desktop window, where the notes, the caption and the bottom control row compete for room.
+SHORT_SCREENS = [(533, 320), (568, 320), (640, 360), (667, 375), (812, 375), (844, 390), (960, 540), (320, 454), (375, 553),
+                 (360, 568), (360, 640)]
 # The visible text blocks of the liner column that overlap a control of the bottom row; what the caption's lines cross
 # besides (the stage, the arrows, the language toggle, the notes or the title card); the blocks not wholly on screen;
 # and whether the first line of the illustrator's credit (when slide notes are up) lies on screen above that row. The
