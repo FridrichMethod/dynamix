@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:youtube",
-  "started_at": "2026-10-11T00:14:47Z",
-  "finished_at": "2026-10-11T00:15:19Z",
+  "started_at": "2026-10-11T01:18:27Z",
+  "finished_at": "2026-10-11T01:18:59Z",
   "scope": {
     "lists": [
       "seed-videos",
@@ -15,7 +15,7 @@
   "continuation": {
     "seed-videos": null,
     "channel-art": null,
-    "channel-videos": "the channel's video list is not re-enumerated (no Data API); video IDs come from the 2026-10-10 research enumeration"
+    "channel-videos": "the channel's video list is not re-enumerated (no Data API): the channel header showed 64 videos and the 2026-10-10 research enumeration read 61 uploads, 3 streams and 1 playlist-only video; only the 28 Dynamix-related videos are seeded, and the other 37 uploads are not recorded as candidates (23 Zold:out trailer, PV, OST and Kickstarter videos, 13 character skill-demo or introduction videos whose titles name no game, and the Project W teaser)"
   },
   "discovery_complete": false,
   "candidates": [
@@ -383,7 +383,7 @@
       "page_url": "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
       "file_url": "https://i.ytimg.com/vi/Q4A5Wg5CViM/maxresdefault.jpg",
       "title": "[Package] Package Lovely Preview",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
@@ -402,10 +402,16 @@
       },
       "disposition": "downloaded",
       "asset_id": "official:youtube:8c3eb810b85dc7e8",
+      "song_titles": [
+        "Crystal Ribbon",
+        "Heart Eyes",
+        "Super Macaron",
+        "White Chocolate (dynamix edit)"
+      ],
       "collections": [
         "Package Lovely"
       ],
-      "notes": "Thumbnail: Package Lovely card with four jacket thumbnails."
+      "notes": "Thumbnail: Package Lovely lineup card printing 4 titled jackets ('Crystal Ribbon', 'Heart Eyes', 'Super Macaron', 'White Chocolate (dynamix edit)'), each with its chart levels: a pack lineup and chart-level graphic, kind reference (coordinator decisions D1 and D2, visual_inspection 2026-10-10); every printed title is mapped."
     },
     {
       "id": "official:youtube:QT1XYRD8T4k",

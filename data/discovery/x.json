@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_id": "official:x",
-  "started_at": "2026-10-11T00:11:47Z",
-  "finished_at": "2026-10-11T00:14:44Z",
+  "started_at": "2026-10-11T01:15:28Z",
+  "finished_at": "2026-10-11T01:18:24Z",
   "scope": {
     "lists": [
       "seed-posts",
@@ -2358,7 +2358,7 @@
       "page_url": "https://x.com/c4c4cat/status/1427842694999527428",
       "file_url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 8月21日より、『RAVONコラボPack1』が「Dynamix」に登場！ 待望の一曲目はこちら！ 【White：Revolve】by adaptor…",
-      "role": "reference",
+      "role": "promotional",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1427842694999527428",
@@ -2382,7 +2382,7 @@
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "Collaboration pack lineup card printing 1 titled jacket ('White : Revolve') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+      "notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('White : Revolve') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped."
     },
     {
       "id": "official:x:1428205081292251137:1",
@@ -2600,7 +2600,7 @@
       "page_url": "https://x.com/c4c4cat/status/1434365675686879233",
       "file_url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
       "title": "【#RAVON × #Dynamix コラボ】 9月8日より、『RAVONコラボPack2』が「Dynamix」に登場！ 一曲目はこちら！ 【Rave! and Get on it!】by Woof…",
-      "role": "reference",
+      "role": "promotional",
       "game": "mixed",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1434365675686879233",
@@ -2624,7 +2624,7 @@
       "collections": [
         "RAVON Collaboration"
       ],
-      "notes": "Collaboration pack lineup card printing 1 titled jacket ('Rave! and Get on it!') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+      "notes": "Collaboration pack lineup card at its first reveal: 1 titled jacket ('Rave! and Get on it!') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped."
     },
     {
       "id": "official:x:1434728063649079298:1",
@@ -3276,7 +3276,7 @@
       "page_url": "https://x.com/c4c4cat/status/1480156399204061186",
       "file_url": "https://pbs.twimg.com/media/FIf6dFoXsAMh_3T?format=jpg&name=orig",
       "title": "[Event] 次の火曜日は復刻曲「Black：Magnam」が帰ってくるよ！ 開催期間は1月11日13時から1月15日21時（UTC+9）まで！ @adaptor166 #Dynamix",
-      "role": "promotional",
+      "role": "reference",
       "game": "dynamix",
       "game_evidence": [
         "https://x.com/c4c4cat/status/1480156399204061186",
@@ -3304,7 +3304,7 @@
       "collections": [
         "Event"
       ],
-      "notes": "Official single-song comeback card for Black：Magnam."
+      "notes": "Official single-song comeback card for Black：Magnam, re-posted in 2022 (the same file as post 1325407725623283712). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
     },
     {
       "id": "official:x:1485583166953779206:1",

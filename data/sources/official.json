@@ -154,7 +154,7 @@
       "url": "https://x.com/c4c4cat",
       "platform": "x",
       "status": "partially_available",
-      "checked_at": "2026-10-11T00:11:47Z",
+      "checked_at": "2026-10-11T01:15:28Z",
       "notes": "Official account (id 3166512194). Explicit posts via the public embed endpoint plus the embed timeline sample; full history is login-walled.",
       "api_url": "https://cdn.syndication.twimg.com/tweet-result",
       "rate_policy": "one request at a time per host, >= 1 s spacing, Retry-After <= 60 s, <= 3 attempts for 429/5xx/timeouts, no retry on 401/403/challenge",
@@ -171,7 +171,7 @@
       "url": "https://www.youtube.com/@C4CatEntertainment",
       "platform": "youtube",
       "status": "partially_available",
-      "checked_at": "2026-10-11T00:14:47Z",
+      "checked_at": "2026-10-11T01:18:27Z",
       "notes": "Official channel: 61 uploads, 3 streams and 1 playlist-only video (research enumeration 2026-10-10); the 28 Dynamix-related videos are seeded explicitly (Project W / Zold:out videos are another game).",
       "api_url": "https://www.youtube.com/oembed",
       "owner_evidence": "channel 'C 4 Cat' (UCWGypDMEwUTCkwmUR0pq0lA), keywords 'Game Mobile C4Cat Dynamix zoldout'; video descriptions link dl.dnx.c4-cat.com and facebook.com/c4cat.dynamix",
@@ -6015,7 +6015,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1427842694999527428:1",
       "title": "【#RAVON × #Dynamix コラボ】 8月21日より、『RAVONコラボPack1』が「Dynamix」に登場！ 待望の一曲目はこちら！ 【White：Revolve】by adaptor…",
-      "kind": "reference",
+      "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1427842694999527428",
       "download_url": "https://pbs.twimg.com/media/E9CwJ07UYAcx3Vf?format=jpg&name=orig",
@@ -6055,7 +6055,7 @@
         },
         {
           "url": "https://x.com/c4c4cat/status/1427842694999527428",
-          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve'"
+          "note": "visual_inspection 2026-10-10: the card prints one titled jacket 'White : Revolve' and three '?' slots"
         }
       ],
       "quality": {
@@ -6101,7 +6101,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 1 titled jacket ('White : Revolve') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card at its first reveal: 1 titled jacket ('White : Revolve') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped."
     },
     {
       "id": "official:x:07c3385bc6631c2d",
@@ -14756,7 +14756,7 @@
       "source_id": "official:x",
       "candidate_id": "official:x:1434365675686879233:1",
       "title": "【#RAVON × #Dynamix コラボ】 9月8日より、『RAVONコラボPack2』が「Dynamix」に登場！ 一曲目はこちら！ 【Rave! and Get on it!】by Woof…",
-      "kind": "reference",
+      "kind": "promotional",
       "game": "dynamix",
       "page_url": "https://x.com/c4c4cat/status/1434365675686879233",
       "download_url": "https://pbs.twimg.com/media/E-cCbBVUYAUPfLC?format=jpg&name=orig",
@@ -14796,7 +14796,7 @@
         },
         {
           "url": "https://x.com/c4c4cat/status/1434365675686879233",
-          "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!'"
+          "note": "visual_inspection 2026-10-10: the card prints one titled jacket 'Rave! and Get on it!' and three '?' slots"
         }
       ],
       "quality": {
@@ -14842,7 +14842,7 @@
         "dynamix",
         "ravon"
       ],
-      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card printing 1 titled jacket ('Rave! and Get on it!') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped."
+      "notes": "Rights holder not recorded: the art is also associated with ravon and no cited source names its holder, so the C4Cat default is not applied. Collaboration pack lineup card at its first reveal: 1 titled jacket ('Rave! and Get on it!') and three unrevealed '?' slots, without chart levels. Neither coordinator decision applies (D1 needs chart levels, D2 a card printing several titled jackets), so it is promotional like other single-song announcements without levels; the later reveal cards of the same template that print several titled jackets are reference (D2). Every printed title is mapped."
     },
     {
       "id": "official:x:ad6b57d1b1bed2e7",
@@ -19068,7 +19068,7 @@
       "source_id": "official:youtube",
       "candidate_id": "official:youtube:Q4A5Wg5CViM",
       "title": "[Package] Package Lovely Preview",
-      "kind": "promotional",
+      "kind": "reference",
       "game": "dynamix",
       "page_url": "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
       "download_url": "https://i.ytimg.com/vi/Q4A5Wg5CViM/maxresdefault.jpg",
@@ -19085,13 +19085,33 @@
       "fetched_at": "2026-10-10T20:54:58Z",
       "illustrators": [],
       "composers": [],
-      "song_titles": [],
-      "song_ids": [],
+      "song_titles": [
+        "Crystal Ribbon",
+        "Heart Eyes",
+        "Super Macaron",
+        "White Chocolate (dynamix edit)"
+      ],
+      "song_ids": [
+        "song:crystal-ribbon",
+        "song:heart-eyes",
+        "song:super-macaron",
+        "song:white-chocolate-dynamix-edit"
+      ],
       "collections": [
         "Package Lovely"
       ],
-      "mapping_status": "unmapped",
-      "mapping_evidence": [],
+      "mapping_status": "inferred",
+      "mapping_evidence": [
+        {
+          "url": "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
+          "field": "title",
+          "quote": "Package Lovely"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=Q4A5Wg5CViM",
+          "note": "visual_inspection 2026-10-10: the thumbnail prints four titled jackets, each with its composer and chart-level diamonds: 'Crystal Ribbon' / Cosine (3, 5, 8), 'Heart Eyes' / M-O-T-U (2, 5, 10, 13), 'Super Macaron' / Sobrem (1, 6, 8, 11, 14), 'White Chocolate (dynamix edit)' / Cashew (1, 5, 10); the oEmbed title names only the package"
+        }
+      ],
       "quality": {
         "source_variant": "preview",
         "origin_status": "official",
@@ -19131,7 +19151,7 @@
         "format_match": null
       },
       "upstream_status": "current",
-      "notes": "oEmbed names the video “[Package] Package Lovely Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/Q4A5Wg5CViM/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Package Lovely card with four jacket thumbnails.",
+      "notes": "oEmbed names the video “[Package] Package Lovely Preview” on channel C4 Cat (https://www.youtube.com/@C4CatEntertainment) and advertises https://i.ytimg.com/vi/Q4A5Wg5CViM/hqdefault.jpg (480x360); the archive requests the largest generated rendition instead. Thumbnail: Package Lovely lineup card printing 4 titled jackets ('Crystal Ribbon', 'Heart Eyes', 'Super Macaron', 'White Chocolate (dynamix edit)'), each with its chart levels: a pack lineup and chart-level graphic, kind reference (coordinator decisions D1 and D2, visual_inspection 2026-10-10); every printed title is mapped.",
       "transformed": true
     },
     {
