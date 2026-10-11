@@ -1,0 +1,70 @@
+# 画师来源
+
+[English](sources-artists.md) · **简体中文**
+
+本文档说明 `artists` 来源类别：原版曲目署名画师和作曲者的公开帖子与发行页面。`scripts/fetch_artists.py` 把结果写入 `data/sources/artists.json`，并为每个来源写一份发现快照 `data/discovery/<platform>-<handle>.json`。画师原图优先于 wiki 副本：画师的文件与 wiki 副本字节完全相同时，目录选择画师的记录作为该条目的主记录，wiki 记录保留在来源记录中。
+
+## 范围
+
+这里不会抓取整个平台。抓取什么由数据决定：`scripts/primary/seeds/artists.json` 列出每个来源及其适配器、明确的种子（帖子 ID、页面 URL、曲目页面），以及针对每个预期候选的人工规则。种子来自 2026-10-10 的调研，其中每条线索都有交代（见下文的线索对照表）。每个来源 ID 的形式为 `artists:<platform>:<handle>`，例如 `artists:x:ariiol_`。
+
+来源可以是画师（发布曲绘的帖子），也可以是作曲者（发行页面，其封面不一定是游戏中的曲绘）。两者都会记录，但绝不混淆：作曲者的发行封面不是画师的原图，画面与游戏曲绘不同的封面会以 `external_release_art` 排除。
+
+## 平台与访问方式
+
+| 平台 | 读取方式 | 记录内容 | 限制 |
+| --- | --- | --- | --- |
+| X | 对明确的帖子使用公开嵌入接口 `cdn.syndication.twimg.com/tweet-result`；图片取自 `pbs.twimg.com`，带 `name=orig` | 每张附图一个候选（`<post>:<n>`） | X 会重新编码上传的图片，因此 `name=orig` 是平台上最大的副本，而不是画师的文件。完整的账号历史需要登录，不读取。 |
+| pixiv | 公开 JSON `www.pixiv.net/ajax/illust/<id>`（多页作品另读 `/pages`） | 作品的每一页一个候选 | 图片主机 `i.pximg.net` 拒绝不带 pixiv Referer 的请求。从不伪造 Referer：一次被拒后，本次运行不再访问该主机，相关候选记为 `blocked`。pixiv 对未登录读者隐藏文件 URL 的作品，不发请求直接记为 `blocked`。如果种子指定了 pixiv 为某一页列出的原图在 Wayback Machine 中的存档，记录保留 pixiv 帖子作为 `page_url`，并在一次精确的 CDX 检查之后下载原始存档（`web.archive.org/web/<timestamp>id_/<original>`）；CDX 摘要成为 `source_reported.sha1`，来自其他存档或字节不同的响应保持待定。这类原图的 ArchiveTeam 存档也列在 `archives:wayback` 下（见 [sources-archives.zh-CN.md](sources-archives.zh-CN.md)）。 |
+| SoundCloud | 曲目页面内嵌的 `__sc_hydration` 数据；封面请求其 `-original` 版本 | 明确的曲目页面，或 `/tracks` 页面渲染出的每首曲目（`tracks_of` 列表模式） | SoundCloud 只渲染长曲目列表的一部分；这样的列表保持未完成（`discovery_complete: false`）。平台可能重新编码上传的图片。 |
+| Bandcamp | 页面的 JSON-LD；封面请求其 `_0`（存储的最大）版本 | 明确的曲目或专辑页面 | 这是发行封面，从不默认等同于游戏曲绘。 |
+| Bilibili | 明确帖子的公开 JSON | 明确的帖子 | 匿名客户端会收到风控代码；记为 `blocked`（验证），需要人工访问。 |
+| ArtStation | 公开的项目 JSON | 明确的项目 | 请求收到 403 验证页面；记为 `blocked`，从不绕过。 |
+| 作品集网站 | JavaScript 渲染图库中明确的文件 URL（`direct_files`） | 仅限指名的文件 | 取不带缩放后缀的文件；缺少证据的候选保持待定。 |
+| 调研线索 | 不发请求（`lead_registry`） | `artists:research:leads`：调研中的署名与身份证据、登录墙、机器人验证和暂缓项，各自保留 URL 和结论 | 记录下来是为了让每条线索都有处置结果；其中没有曲绘文件。 |
+
+`scripts/primary/seeds/leads-crosswalk.json` 把调研中的每条线索对应到记录其处置结果的来源和候选键，因此遗漏线索会让种子测试失败。
+
+## 种子与分类规则
+
+人工规则（对候选键的正则表达式）只能在给出类型时接受候选。游戏（`dynamix` 或 `mixed`）、曲目对应和署名来自规则，并且规则中的证据引文必须出现在适配器实际获取的文本中（pixiv 说明、帖子正文、曲目标题或简介）。否则候选保持 `pending`，游戏为 `unknown`。未分类的条目为 `pending`；不会仅凭关键词接受任何内容。
+
+有两条保护规则优先于种子。宣布为**落选投稿**的页面即使提到 Dynamix，也会排除该候选（`rejected_submission`）。提到 **Dynamix Universe** 的候选保持 `pending`，除非规则明确允许。同一曲绘的不同裁切共享一个 `variant_group`（`jacket:<song slug>`），并各自写明 `variant_role`，因此方形曲绘、宽横幅和特写保持为不同的文件。
+
+设置了 `withdraw_archived` 的排除或待定规则，是策展者明确决定删除该候选先前存档的记录（字节仍保留在 Git 历史中）。没有这一设置时，规则如今排除的已存档候选仍然保留，并使 `--verify` 失败，因此规则变化不会悄悄删掉文件。
+
+## 署名与曲目对应
+
+记录以其引用的帖子或发行页面作为标题（pixiv 作品标题加页码、X 帖子的正文、曲目或专辑标题）；文件名保留在 `original_filename` 中。
+
+`confirmed_primary` 要求获取的页面本身写明曲目（`mapping_evidence` 中的引用字段）；每个对应的曲名都必须出现在获取的文本中，否则记录为 `inferred`。每个署名都有一条 `credit_evidence`，引用写明该名字的字段；页面没有写明时，则指向规则所引用的调研或 wiki 页面。画师和作曲者保存在不同的列表中。帖子的分组、多页作品或专辑标题不会被当作其中每张图的曲目。
+
+## 排除
+
+被排除的画师候选附带原因记录，例如 `rejected_submission`（画师或厂牌说明未被采用的投稿）、`external_release_art`（与游戏曲绘不同的发行封面）、`fanart`、`game_ui`（应用图标或选曲画面拼图）和 `out_of_scope_other`（没有图片的帖子、带 Dynamix 标签的赠图、只有署名证据而没有曲绘文件、仅凭名字匹配的账号）。从不获取付费或私有资料。
+
+## 证据级别与访问限制
+
+通过公开 JSON 接口读取的来源为 `live_api`；从页面读取的来源为 `page_read`；唯一一次读取被拒绝的来源为 `blocked`；调研线索登记为 `search_index`。来源的 `status` 说明能做到什么：`available`、`partially_available`（例如只渲染了一部分的曲目列表）、`manual_access`（登录、Referer 检查或机器人验证）、`metadata_only`（有身份或署名证据，但没有可获取的文件）或 `excluded`（所有候选都被排除，例如反例对照）。401、403 或验证页面以错误类别 `blocked` 或 `challenge` 记录，不重试；不绕过任何限制。本类别中没有某个文件，并不意味着画师没有发布过它：pixiv、Instagram 和 X 等平台在未登录时只能读取一部分。
+
+## 数量
+
+下方标记之间的数字在每次构建后由 `scripts/update_docs_stats.py` 根据 `data/coverage.json`（`artists` 类别的 `sources.records`）和 `data/catalog.json` 生成，不是手工填写的。
+
+<!-- STATS:BEGIN -->
+<!-- STATS:END -->
+
+## 权利
+
+画师本人的帖子标为 `origin_status: artist_post`；作曲者的发行封面标为 `repost`，因为作曲者不是其画师。除非来源确认了原稿，`master_status` 保持 `unverified`；平台渲染版本（X 的重新编码、SoundCloud 的 `-original`、Bandcamp 的 `_0`）在 `quality.notes` 中如实说明。权利人默认为 “C4Cat Entertainment Limited and/or the credited artist”；只有证据写明时，记录才会写另一个权利人；已知时 `rights.creator` 为署名画师。这些作品都没有确认任何许可证，因此 `rights.license` 保持为空。公开发布的帖子并不构成再利用该曲绘的许可。
+
+## 命令
+
+```sh
+.venv/bin/python -I scripts/fetch_artists.py --metadata-only     # 发现并记录候选；不下载
+.venv/bin/python -I scripts/fetch_artists.py --resume            # 获取；重新校验已存档文件，而不是重新下载
+.venv/bin/python -I scripts/fetch_artists.py --resume --source artists:x:ariiol_
+.venv/bin/python -I scripts/fetch_artists.py --verify            # 离线
+```
+
+`--source`（可重复）把一次运行限定在指定来源，其他记录保持不变；`--seeds` 读取另一个种子文件，`-v` 记录每个请求的决定。`--metadata-only` 从不下载，也从不改动已存档记录。每次运行持有排他锁（`--lock`；默认锁在本类别的 `assets/public/artists/` 目录上），同一类别的第二次获取会以状态码 3 退出。每处理完一个候选，清单和快照就会被校验并原子地重写，因此被终止的运行最多丢失正在下载的那个文件。某个来源出现意外的适配器错误时，保留该来源先前的候选，记录错误和未完成的 `adapter` continuation，其他来源继续运行，最后以状态码 1 退出；无法读取的页面让其列表保持未完成，因此读取失败绝不会看起来像读取完整。`--verify` 离线运行：校验清单和快照、核对处置结果、重新计算并解码每个文件、报告 `assets/public/artists/` 下没有记录的文件和符号链接，并检查每个种子来源都有记录。
