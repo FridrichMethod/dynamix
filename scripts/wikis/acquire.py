@@ -41,7 +41,7 @@ from typing import Any, Callable, Mapping
 
 from lib import manifest, media, net, paths, schema
 
-from . import config, discover, variants
+from . import classify, config, discover, variants
 from .workdir import (STATE_DIR, Journal, LockHeld, UnsafeWorkDir, claim_work_dir,  # noqa: F401 (re-exported)
                       default_work_dir, exclusive_lock, prepare_state_dir, prepare_work_dir, root_lock_path)
 
@@ -497,8 +497,33 @@ def _unarchived(plan: discover.Plan, candidate: dict, state: State, evidence_com
 
 # --- Downloads --------------------------------------------------------------------------------------------------------
 
+def _stored_file_note(info: Mapping[str, Any], counterpart: Mapping[str, Any], reported: Mapping[str, Any],
+                      sha1: str) -> str:
+    """Quality note of Miraheze bytes whose SHA-1 is the one Miraheze's API records: only what was measured. The file
+    is the title's current revision as Miraheze stores it; its upload comment may record an import from Fandom, and
+    Fandom's API may record the same SHA-1 or another (earlier) upload. Neither copy is called the original upload
+    (09-frozen-contracts.md, coordinator decisions, wave 4)."""
+    stamp = reported.get("timestamp")
+    note = ("The full-size file Miraheze's file host serves for this title: its SHA-1 is the one Miraheze's API "
+            "records for the title's current revision" + (f" ({stamp})" if stamp else ""))
+    comment = info.get("comment")
+    if isinstance(comment, str) and classify.IMPORT_BOILERPLATE.match(comment):
+        note += ", whose upload comment records an import from the Fandom wiki"
+    note += "."
+    other_sha1, other_stamp = counterpart.get("sha1"), counterpart.get("timestamp")
+    if isinstance(other_sha1, str) and other_sha1.lower() == sha1.lower():
+        note += " Fandom's API records the same SHA-1 for the title."
+    elif isinstance(other_sha1, str):
+        earlier = isinstance(other_stamp, str) and isinstance(stamp, str) and other_stamp < stamp
+        note += (f" Fandom's API records {'an earlier' if earlier else 'another'} upload of the title"
+                 + (f" ({other_stamp})" if isinstance(other_stamp, str) else "")
+                 + " with another SHA-1, so these bytes are not byte-identical to that upload.")
+    return note + " A wiki copy, not an artist master."
+
+
 def _quality(source: config.WikiSource, transform: str | None, fmt: str, reported: Mapping[str, Any],
-             comparisons: Mapping[str, Any], nbytes: int) -> dict:
+             comparisons: Mapping[str, Any], nbytes: int, *, sha1: str, info: Mapping[str, Any] | None = None,
+             counterpart: Mapping[str, Any] | None = None) -> dict:
     if transform == "format":
         return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
                 "notes": f"The CDN returned {fmt} although {reported.get('mime')} was reported and the stored original "
@@ -516,8 +541,13 @@ def _quality(source: config.WikiSource, transform: str | None, fmt: str, reporte
     if source.key == "fandom":
         note = ("Stored original requested from Fandom's CDN with format=original; a wiki copy, not an artist "
                 "master.")
+    elif comparisons["sha1_match"] is not True:  # never measured so far; the Fandom rule above, for Miraheze
+        return {"source_variant": "unknown", "origin_status": "wiki_copy", "master_status": "unverified",
+                "notes": "The bytes Miraheze's file host serves for this title differ from the SHA-1 Miraheze's API "
+                         "records (see comparisons); not the stored file byte for byte. A wiki copy, not an artist "
+                         "master."}
     else:
-        note = "Original upload as served by the wiki's file host; a wiki copy, not an artist master."
+        note = _stored_file_note(info or {}, counterpart or {}, reported, sha1)
     return {"source_variant": "site_original", "origin_status": "wiki_copy", "master_status": "unverified",
             "notes": note}
 
@@ -562,7 +592,8 @@ def describe(plan: discover.Plan, *, fmt: str, sha1: str, nbytes: int, compariso
         "illustrators": list(plan.illustrators), "composers": list(plan.composers),
         "song_titles": list(plan.song_titles), "song_ids": list(plan.song_ids) if status != "unmapped" else [],
         "collections": list(plan.collections), "mapping_status": status, "mapping_evidence": evidence,
-        "quality": _quality(source, transform, fmt, reported, comparisons, nbytes),
+        "quality": _quality(source, transform, fmt, reported, comparisons, nbytes, sha1=sha1, info=plan.info,
+                            counterpart=other),
         "rights": schema.default_rights(creator=plan.illustrators[0] if len(plan.illustrators) == 1 else None,
                                         url=candidate["page_url"]),
     }

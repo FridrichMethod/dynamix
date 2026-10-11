@@ -233,6 +233,22 @@ class AcquisitionTests(WikiRun):
         self.assertEqual(fandom["quality"]["source_variant"], "unknown")  # not the upload byte for byte
         self.assertEqual(mira["quality"]["source_variant"], "site_original")
         self.assertIn("Fandom's API records this title's upload with another SHA-1", mira["notes"])
+        # The quality note states what was measured and never calls the Miraheze copy the original upload: its
+        # revision is the 2026 import (upload comment) and Fandom's API records an earlier upload with another SHA-1.
+        self.assertNotIn("Original upload", mira["quality"]["notes"])
+        self.assertIn("its SHA-1 is the one Miraheze's API records for the title's current revision "
+                      "(2026-08-09T09:37:35Z), whose upload comment records an import from the Fandom wiki.",
+                      mira["quality"]["notes"])
+        self.assertIn("Fandom's API records an earlier upload of the title (2020-08-30T12:06:20Z) with another "
+                      "SHA-1, so these bytes are not byte-identical to that upload.", mira["quality"]["notes"])
+        same = self.asset("miraheze", "File:Cosmic Pulse Chart List.jpg")["quality"]
+        self.assertEqual(same["source_variant"], "site_original")
+        self.assertIn("Fandom's API records the same SHA-1 for the title.", same["notes"])
+        self.assertNotIn("import", same["notes"])  # no upload comment recorded for that title
+        only = acquire._stored_file_note({}, {}, {"timestamp": None}, "a" * 40)  # a title Fandom does not list
+        self.assertEqual(only, "The full-size file Miraheze's file host serves for this title: its SHA-1 is the one "
+                               "Miraheze's API records for the title's current revision. A wiki copy, not an artist "
+                               "master.")
         self.assertNotIn("transformed", fandom)
         # Same-wiki duplicate: a second File: title with identical bytes points at the first record.
         copy = self.candidate("miraheze", "File:Cosmic Pulse copy.png")

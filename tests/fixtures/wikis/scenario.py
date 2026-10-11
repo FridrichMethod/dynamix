@@ -197,7 +197,10 @@ class Scenario:
         self.overrides: dict[tuple[str, str], dict[str, Any]] = {
             # Fandom's API advertises other bytes/SHA-1 than its format=original response (observed live).
             ("fandom", "CosmicPulseDynamix.png"): {"sha1": "0" * 40, "nbytes": len(self.data[
-                "CosmicPulseDynamix.png"]) + 18},
+                "CosmicPulseDynamix.png"]) + 18, "timestamp": "2020-08-30T12:06:20Z"},
+            # Miraheze's revision of the title is the 2026 import from Fandom (its upload comment says so).
+            ("miraheze", "CosmicPulseDynamix.png"): {"timestamp": "2026-08-09T09:37:35Z", "comment": (
+                "== Summary ==\nImporting images from https://dynamixc4cat.fandom.com ([[phorge:T15787|T15787]])")},
         }
         self.texts = {
             "https://w.atwiki.jp/dynamix2ch/pages/25.html": ATWIKI_25,
@@ -254,7 +257,7 @@ class Scenario:
             rows.append(file_row(base, name, data, size, mime=self.mime[name.rsplit(".", 1)[1]],
                                  description_base=description, suffix=suffix,
                                  timestamp=extra.get("timestamp", "2021-02-11T14:41:30Z"),
-                                 sha1=extra.get("sha1"), nbytes=extra.get("nbytes")))
+                                 sha1=extra.get("sha1"), nbytes=extra.get("nbytes"), comment=extra.get("comment")))
         if wiki == "fandom":
             rows.append({"name": "Some_video", "title": "File:Some video", "timestamp": "2020-01-01T00:00:00Z",
                          "url": "https://static.wikia.nocookie.net/dynamixc4cat/images/z/zz/Some_video",

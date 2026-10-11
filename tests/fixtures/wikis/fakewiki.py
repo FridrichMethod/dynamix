@@ -203,11 +203,15 @@ class FakeClient:
 
 def file_row(base_file_url: str, name: str, data: bytes, size: tuple[int, int], *, mime: str,
              timestamp: str = "2021-02-11T14:41:30Z", sha1: str | None = None, nbytes: int | None = None,
-             description_base: str = "https://example.invalid/wiki/", suffix: str = "") -> dict:
+             description_base: str = "https://example.invalid/wiki/", suffix: str = "",
+             comment: str | None = None) -> dict:
     """An allimages row whose advertised values default to the real bytes (override to simulate mismatches)."""
     from urllib.parse import quote
-    return {"name": name.replace(" ", "_"), "title": "File:" + name.replace("_", " "), "timestamp": timestamp,
-            "url": f"{base_file_url}/{quote(name.replace(' ', '_'))}{suffix}",
-            "descriptionurl": f"{description_base}File:{quote(name.replace(' ', '_'))}",
-            "size": len(data) if nbytes is None else nbytes, "width": size[0], "height": size[1], "mime": mime,
-            "sha1": sha1 or hashlib.sha1(data).hexdigest()}
+    row = {"name": name.replace(" ", "_"), "title": "File:" + name.replace("_", " "), "timestamp": timestamp,
+           "url": f"{base_file_url}/{quote(name.replace(' ', '_'))}{suffix}",
+           "descriptionurl": f"{description_base}File:{quote(name.replace(' ', '_'))}",
+           "size": len(data) if nbytes is None else nbytes, "width": size[0], "height": size[1], "mime": mime,
+           "sha1": sha1 or hashlib.sha1(data).hexdigest()}
+    if comment is not None:  # the upload comment (aiprop=comment)
+        row["comment"] = comment
+    return row
