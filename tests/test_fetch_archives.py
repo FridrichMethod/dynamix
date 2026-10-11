@@ -1014,6 +1014,48 @@ class PressArticleTests(ArchivesTestCase):
         self.assertEqual(
             snapshot["continuation"], {"article-images": "not-read:http_5xx", "seed-files": "not-read:http_5xx"}
         )
+        # The named read_page item was never checked against its page: failed with the page's error, not "evidence
+        # not found in the fetched content".
+        candidate = self.candidates("archives:press")["gnn129234:0001345596"]
+        self.assertEqual(candidate["disposition"], "failed")
+        self.assertTrue(candidate["reason"].startswith("http_5xx"), candidate["reason"])
+        self.assertEqual(
+            [f["id"] for f in self.manifest()["failures"]], ["archives:press:gnn129234:0001345596:discover"]
+        )
+        self.assertEqual(self.manifest()["sources"][0]["status"], "temporarily_unavailable")
+        self.verify()
+        blocked = FakeNetwork({self.PAGE: {"error": net.BlockedError("HTTP 403", url=self.PAGE, http_status=403)}})
+        self.run_family([self.seed(self.RULES)], blocked)
+        candidate = self.candidates("archives:press")["gnn129234:0001345596"]
+        self.assertEqual(candidate["disposition"], "blocked")
+        self.assertEqual(self.manifest()["sources"][0]["status"], "manual_access")
+        self.verify()
+
+    def test_an_unreadable_page_changes_no_status_of_an_archived_named_item(self):
+        item = {
+            "key": "named:a",
+            "page_url": self.PAGE,
+            "read_page": True,
+            "file_url": self.IMG.format("96/0001345596", "JPG"),
+        }
+        rules = [{"match": "^named:", "role": "promotional", "evidence_quotes": ["Dynamix"]}]
+
+        def seed(items):
+            source = self.seed(rules, items=items)
+            del source["params"]  # named files only
+            return source
+
+        self.run_family([seed([item])], FakeNetwork(self.routes()))
+        self.run_family([seed([])], FakeNetwork(self.routes()))  # every list read, the seeds no longer name it
+        self.assertEqual([a["upstream_status"] for a in self.manifest()["assets"]], ["unknown"])
+        failing = FakeNetwork({self.PAGE: {"error": net.HttpError("HTTP 503", url=self.PAGE, http_status=503)}})
+        self.run_family([seed([item])], failing)
+        [asset] = self.manifest()["assets"]
+        self.assertEqual(asset["upstream_status"], "unknown")  # a failed read is no observation
+        self.assertEqual(self.candidates("archives:press")["named:a"]["disposition"], "downloaded")  # archive kept
+        messages = [e["message"] for e in manifest.load_discovery(self.root, "archives:press")["errors"]]
+        self.assertTrue(any("is now failed (http_5xx" in m for m in messages), messages)
+        self.assertFalse(any("seed evidence not found" in m for m in messages), messages)
         self.verify()
 
     def test_named_item_matched_by_url_is_not_enumerated_twice(self):

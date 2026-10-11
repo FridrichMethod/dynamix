@@ -2,7 +2,8 @@
 
 For pages whose gallery is rendered by JavaScript (Wix pro-gallery, Tumblr themes) the seed names each file directly:
 ``{"key", "page_url", "file_url"}``. With ``"read_page": true`` the page is fetched once and its title/text become the
-evidence that seed rules quote; otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
+evidence that seed rules quote (an item whose page cannot be read is ``failed``/``blocked`` with that read's error and a
+Failure record); otherwise rules cannot claim ``confirmed_primary`` and carry their own notes.
 
 Article pages (``params.article_images``): every image of a read page's article body is accounted for, not only the
 named files. Each entry ``{"page_url", "key_prefix", "select", "pattern", "og_image"?, "rewrite"?, "attr_urls"?,
@@ -474,7 +475,7 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
                 base.mark_unread(discovery, "seed-files", error)
                 if page_url in configs:
                     base.mark_unread(discovery, ARTICLE_LIST, error)
-                pages[page_url] = {"html": None, "texts": {}, "headline": ""}
+                pages[page_url] = {"html": None, "texts": {}, "headline": "", "error": error}
         return pages[page_url]
 
     enumerated: dict[str, list[dict]] = {}
@@ -515,6 +516,21 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
         page_url, file_url, key = item["page_url"], item["file_url"], item["key"]
         page = read(page_url) if item.get("read_page") else {"texts": {}, "headline": ""}
         name = base.last_segment(file_url)
+        if page.get("error") is not None:
+            # The page whose text the seed rule quotes could not be read: the item fails (or is blocked) with that
+            # error and a Failure record, instead of a rule check against text that was never fetched.
+            discovery.candidates.append(
+                model.error_draft(
+                    key,
+                    page_url,
+                    _title(item.get("title"), "", "", None, name),
+                    page["error"],
+                    phase="discover",
+                    file_url=base.stored(file_url),
+                    source_reported=base.reported(url=file_url),
+                )
+            )
+            continue
         place, image = placed[id(item)]
         linked = None
         if place is not None:
