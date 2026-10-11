@@ -5,6 +5,7 @@ import contextlib
 import io
 import json
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -198,10 +199,10 @@ class PagesConsistencyTests(Base):
         for rel, data in self.STATIC.items():
             (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
             (self.root / rel).write_bytes(data)
-        if not (fx.git(self.root, "init", "-q") and fx.git(self.root, "add", "-A")
-                and fx.git(self.root, "-c", "user.name=Fixture", "-c", "user.email=fixture@example.org", "commit",
-                           "-q", "--no-gpg-sign", "-m", "fixture")):
-            self.skipTest("git is not available")
+        fx.git(self.root, "init", "-q")
+        fx.git(self.root, "add", "-A")
+        fx.git(self.root, "-c", "user.name=Fixture", "-c", "user.email=fixture@example.org", "commit", "-q",
+               "--no-gpg-sign", "-m", "fixture")
         output = Path(self.temp.name) / "site"
         with mock.patch.dict(os.environ, fx.clean_environment(), clear=True):
             summary, _ = pages.prepare(self.root, output, pages.tracked_entries(self.root),
@@ -238,6 +239,72 @@ class PagesConsistencyTests(Base):
         records = [r for family in schema.FAMILIES for r in fx.load_manifest(self.root, family)["assets"]]
         site_records = sum(r["bytes"] for r in records if schema.tier_for(r["kind"], r["format"]) == "site")
         self.assertEqual(report["bytes"]["by_tier"]["site"], site_records - fandom["bytes"])
+
+
+class FixtureGitTests(unittest.TestCase):
+    """The fixture's git helper (used to stage the site and to track manifests) skips only when git is missing: a
+    failing command fails the test, and the user's global hooks or templates cannot make a fixture commit fail."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.base = Path(self.temp.name)
+        if fx.shutil.which("git") is None:
+            self.skipTest("git is not installed")
+
+    def hostile_home(self):
+        """A HOME whose global config points hooksPath and init.templateDir at a pre-commit hook that always fails."""
+        home = self.base / "home"
+        hooks = home / "hooks"
+        hooks.mkdir(parents=True)
+        (hooks / "pre-commit").write_text("#!/bin/sh\nexit 1\n", encoding="utf-8")
+        (hooks / "pre-commit").chmod(0o755)
+        template = home / "template"
+        (template / "hooks").mkdir(parents=True)
+        (template / "hooks/pre-commit").write_bytes((hooks / "pre-commit").read_bytes())
+        (template / "hooks/pre-commit").chmod(0o755)
+        (home / ".gitconfig").write_text(f"[core]\n\thooksPath = {hooks}\n[init]\n\ttemplateDir = {template}\n"
+                                         "[user]\n\tname = Someone\n\temail = someone@example.org\n",
+                                         encoding="utf-8")
+        return home
+
+    def commit(self, root):
+        (root / "file.txt").write_text("fixture\n", encoding="utf-8")
+        fx.git(root, "init", "-q")
+        fx.git(root, "add", "-A")
+        fx.git(root, "-c", "user.name=Fixture", "-c", "user.email=fixture@example.org", "commit", "-q",
+               "--no-gpg-sign", "-m", "fixture")
+
+    def test_global_hooks_and_templates_cannot_fail_a_fixture_commit(self):
+        home = self.hostile_home()
+        control = self.base / "control"
+        control.mkdir()
+        (control / "file.txt").write_text("fixture\n", encoding="utf-8")
+        environment = {**fx.clean_environment(), "HOME": str(home), "XDG_CONFIG_HOME": str(home / ".config")}
+        for args in (["init", "-q"], ["add", "-A"]):
+            subprocess.run(["git", "-C", str(control), *args], check=True, capture_output=True, env=environment)
+        result = subprocess.run(["git", "-C", str(control), "commit", "-q", "-m", "x"], capture_output=True,
+                                env=environment)
+        self.assertNotEqual(result.returncode, 0, "the hostile configuration really blocks a plain commit")
+        root = self.base / "repo"
+        root.mkdir()
+        with mock.patch.dict(os.environ, {"HOME": str(home), "XDG_CONFIG_HOME": str(home / ".config")}):
+            self.commit(root)
+        self.assertFalse((root / ".git/hooks/pre-commit").exists(), "no template hook was copied")
+
+    def test_a_failing_git_command_fails_the_test_instead_of_skipping_it(self):
+        root = self.base / "repo"
+        root.mkdir()
+        self.commit(root)
+        with self.assertRaisesRegex(AssertionError, "rev-parse --verify no-such-ref failed with exit code"):
+            fx.git(root, "rev-parse", "--verify", "no-such-ref")
+
+    def test_only_a_missing_git_executable_skips(self):
+        with mock.patch.object(fx.shutil, "which", return_value=None), self.assertRaises(unittest.SkipTest):
+            fx.git(self.base, "status")
+        with mock.patch.object(fx.subprocess, "run", side_effect=FileNotFoundError("git")), \
+                self.assertRaises(unittest.SkipTest):
+            fx.git(self.base, "status")
 
 
 class SongCoverageTests(Base):

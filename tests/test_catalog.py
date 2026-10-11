@@ -334,8 +334,8 @@ class SafetyTests(Base):
         wikis.write_text(original, encoding="utf-8")
 
     def test_a_tracked_manifest_missing_from_disk_fails(self):
-        if not (fx.git(self.root, "init", "-q") and fx.git(self.root, "add", "data")):
-            self.skipTest("git is unavailable")
+        fx.git(self.root, "init", "-q")
+        fx.git(self.root, "add", "data")
         self.assertIn("data/sources/archives.json", build.tracked_files(self.root, ["data/sources"]))
         (self.root / "data/sources/archives.json").unlink()
         with self.assertRaisesRegex(build.CatalogError, "tracked by Git but missing"):
@@ -362,8 +362,8 @@ class SafetyTests(Base):
         checkout = self.base / "checkout"
         shutil.copytree(self.root, checkout)
         shutil.copytree(fx.SCRIPTS, checkout / "scripts", ignore=shutil.ignore_patterns("__pycache__"))
-        if not (fx.git(checkout, "init", "-q") and fx.git(checkout, "add", "data")):
-            self.skipTest("git is unavailable")
+        fx.git(checkout, "init", "-q")
+        fx.git(checkout, "add", "data")
         (checkout / "data/sources/archives.json").unlink()
         script = [sys.executable, "-I", "-B", str(checkout / "scripts/build_catalog.py")]
         for environment, message in ((fx.clean_environment(), "tracked by Git but missing"),

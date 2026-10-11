@@ -14,6 +14,7 @@ import os
 import shutil
 import subprocess
 import sys
+import unittest
 from pathlib import Path
 from urllib.parse import quote
 
@@ -211,10 +212,23 @@ def run_script(name: str, *args: str) -> subprocess.CompletedProcess:
                           timeout=300, env=clean_environment())
 
 
-def git(root: Path, *args: str) -> bool:
-    """Run git in ``root``; False when git is unavailable."""
+def git_environment() -> dict[str, str]:
+    """clean_environment() isolated from the user's and the system's Git configuration (hooks, templates, signing,
+    identity), so a fixture repository behaves the same on every machine."""
+    return {**clean_environment(), "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
+
+
+def git(root: Path, *args: str) -> None:
+    """Run git in ``root``, isolated from user/system configuration and with hooks disabled. The test is skipped only
+    when the git executable is missing; any failing git command fails the test with git's own message."""
+    executable = shutil.which("git")
+    if executable is None:
+        raise unittest.SkipTest("git is not installed")
+    command = [executable, "-c", f"core.hooksPath={os.devnull}", "-C", str(root), *args]
     try:
-        subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True, env=clean_environment())
-    except (OSError, subprocess.CalledProcessError):
-        return False
-    return True
+        result = subprocess.run(command, capture_output=True, text=True, timeout=120, env=git_environment())
+    except FileNotFoundError:
+        raise unittest.SkipTest("git is not installed") from None
+    if result.returncode != 0:
+        raise AssertionError(f"git {' '.join(args)} failed with exit code {result.returncode}: "
+                             f"{(result.stderr or result.stdout).strip()}")
