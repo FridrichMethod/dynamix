@@ -1814,6 +1814,45 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertEqual(sorted(self.candidates("archives:press")), ["img/x.png"])
         self.verify()
 
+    def test_an_adapter_crash_carries_every_previous_candidate_over(self):
+        """Discovery that raises enumerated nothing: every previous candidate is carried over unchanged with its Failure
+        records (archived, excluded, pending, and a read-failure placeholder, which no other run keeps) and the crash
+        note; no upstream status changes, and the open adapter list keeps the snapshot incomplete."""
+        rules = [
+            {"match": "^img/a\\.png$", "role": "promotional", "game": "dynamix"},
+            {"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"},
+        ]  # y.png: no rule
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        routes = {
+            self.PAGE: self.page("a.png", "x.png", "y.png"),
+            other: {"error": net.HttpError("HTTP 503", url=other, http_status=503)},
+            "https://press.example.org/img/a.png": self.file((1, 2, 3)),
+        }
+        self.run_family([seed], FakeNetwork(routes))
+        before = {c["upstream_key"]: c for c in manifest.load_discovery(self.root, "archives:press")["candidates"]}
+        self.assertEqual(
+            {key: c["disposition"] for key, c in before.items()},
+            {"img/a.png": "downloaded", "img/x.png": "excluded", "img/y.png": "pending", f"page:{other}": "failed"},
+        )
+        failures, assets = self.manifest()["failures"], self.manifest()["assets"]
+        self.assertEqual([f["candidate_id"] for f in failures], [f"archives:press:page:{other}"])
+        page_links = runner.ADAPTERS["page_links"]
+        with mock.patch.object(page_links, "discover", side_effect=RuntimeError("unexpected markup")):
+            self.run_family([seed], FakeNetwork(routes))
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertEqual(
+            (snapshot["continuation"], snapshot["discovery_complete"]), ({"adapter": "error:RuntimeError"}, False)
+        )
+        found = {c["upstream_key"]: c for c in snapshot["candidates"]}
+        self.assertEqual(sorted(found), sorted(before))
+        for key, candidate in before.items():
+            self.assertEqual({**found[key], "notes": None}, {**candidate, "notes": None})
+            self.assertIn("Carried over from an earlier run: this run's discovery failed.", found[key]["notes"])
+        self.assertEqual((self.manifest()["failures"], self.manifest()["assets"]), (failures, assets))
+        self.verify()
+
     def test_a_file_two_seed_pages_link_is_held_while_either_page_is_unread(self):
         """A file that two seed pages link is one candidate, the first page's, whose notes name the other page. When
         the first page is read completely without it while the other page, which linked it too, cannot be read, its

@@ -14,16 +14,32 @@ Robustness rules (07 §Integrity):
   has URLs the source lists: that one falls back to them like a 404 (09, archived fallback renditions).
 * Archived bytes are never dropped. A transient failure while refreshing a candidate that already has an archived file
   keeps the previous record and logs a discovery error; new bytes for the same candidate supersede the old record
-  (``upstream_status: superseded``) instead of replacing it; a previous candidate that a run no longer discovers is
-  carried over unchanged (with a note) so that its asset stays reconciled.
-* A previous candidate without archived bytes (excluded, pending, failed, blocked) that the run did not list again
-  keeps its disposition only while its page failed to read in this run (a discovery error draft names it) or a list
-  that holds it is open (``Discovery.holds``: each Wayback CDX query, the iTunes lookup list, the seed and article
-  pages of a few adapters that were not read completely, and a SoundCloud ``tracks:<handle>`` list or X embed timeline
-  whose read failed or listed nothing; ``scripts/primary/README.md`` gives each condition). Otherwise it leaves the
-  snapshot, also while the read that listed it is open: a partly rendered ``/tracks`` page, a timeline sample that was
-  read and a TapTap page read with an unparsed screenshot entry hold nothing.
+  (``upstream_status: superseded``) instead of replacing it.
 * ``--metadata-only`` never downloads and never changes archived records; not-yet-archived candidates are ``pending``.
+
+Carry-over (:meth:`Runner._carry_over`) of a previous candidate that this run's discovery did not list again:
+
+* The adapter raised (``SourceState.keep_previous``): nothing was enumerated, so **every** previous candidate is
+  carried over unchanged with its Failure records and the note ``Carried over from an earlier run: this run's discovery
+  failed.``, whether archived or not and including read-failure placeholders; no upstream status changes, and the open
+  ``adapter`` list keeps the snapshot incomplete.
+* Otherwise a candidate with archived bytes (its ``asset_id`` is a record of the source, or a record names it) is never
+  dropped. When every list that covers it (``Discovery.coverage``) was read completely and no longer lists it, its
+  record becomes ``upstream_status: removed`` and the candidate leaves the snapshot; else it is carried over with a
+  note, and its record becomes ``unknown`` when every list of the run was read completely (the seeds no longer reach
+  it). A failed or partial read, and ``--metadata-only``, change no status.
+* A candidate without archived bytes is carried over with its earlier disposition, its Failure records and
+  :data:`HELD_NOTE` only while :meth:`Runner._held` holds it: the discovery is not complete, the disposition is
+  excluded, pending, failed or blocked, it is no earlier read-failure record (``page:<url>``, or a candidate with a
+  ``discover`` Failure: this run's attempt records it again or replaces it), and either its page's read failed in this
+  run (a discovery error draft names that page) or an open list's ``Discovery.holds`` predicate names it. Those lists
+  are each Wayback CDX query, the iTunes lookup list, the seed pages of ``page_links`` (any page that linked the file),
+  Google Play, the App Store and TapTap that were not read completely, an article page of ``direct_files`` not
+  enumerated completely, a ``direct_files`` named item that an earlier read excluded as a rejected submission while
+  its page is unread, and a SoundCloud ``tracks:<handle>`` list or X embed timeline whose read failed or listed nothing
+  (``scripts/primary/README.md`` gives each condition). Otherwise the candidate leaves the snapshot, also while the
+  read that listed it is open: a partly rendered ``/tracks`` page, a timeline sample that was read and a TapTap page
+  read with an unparsed screenshot entry hold nothing.
 """
 
 from __future__ import annotations
