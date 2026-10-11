@@ -30,7 +30,6 @@ family or song-mapping inputs, contract dedup/provenance/tier rules, slideshow m
 from __future__ import annotations
 
 import argparse
-import contextlib
 import hashlib
 import json
 import os
@@ -40,9 +39,10 @@ import sys
 import tempfile
 import unicodedata
 from collections import Counter
+from collections.abc import Iterable, Mapping
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 SCRIPTS = Path(__file__).resolve().parent
 if str(SCRIPTS) not in sys.path:  # `python -I` does not put the script's directory on sys.path

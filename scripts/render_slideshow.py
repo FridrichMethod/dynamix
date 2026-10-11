@@ -219,7 +219,8 @@ def render_slideshow(root: Path, catalog: dict) -> str:
     with ThreadPoolExecutor() as pool:
         layouts = list(pool.map(lambda asset: art_layout(root, asset), assets))
     slides = []
-    for asset, layout in zip(assets, layouts):
+    # strict: layouts is pool.map over assets, so the two lists always have the same length.
+    for asset, layout in zip(assets, layouts, strict=True):
         attributes = " ".join(f'{key}="{attr(value)}"' for key, value in slide_fields(asset, layout).items())
         slides.append(f'        <div class="mySlides fade"><img {attributes}></div>')
     return template.replace(PLACEHOLDER, "\n".join(slides))

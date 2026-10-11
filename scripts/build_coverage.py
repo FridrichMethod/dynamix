@@ -23,8 +23,9 @@ import json
 import re
 import sys
 from collections import Counter
+from collections.abc import Callable, Iterable, Mapping
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 
 SCRIPTS = Path(__file__).resolve().parent
 if str(SCRIPTS) not in sys.path:  # `python -I` does not put the script's directory on sys.path
