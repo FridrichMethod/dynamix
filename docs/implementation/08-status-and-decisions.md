@@ -1,5 +1,9 @@
 # Status, decisions and execution records
 
+## Implementation status — 2026-10-11
+
+**Implemented and validated** at `db8867935d6700644fbd227cb7d94cef8f41df7c`. The evidence, reviews, measured counts and limitations are in [10-validation-report.md](10-validation-report.md). Publication, CI on the final `main` SHA and cleanup are recorded in the coordinator's final response. The release hold is in force: Pages is not deployed, no approval SHA is set, and no tag or GitHub Release exists.
+
 ## Planning status — 2026-10-10
 
 **PLANNING_COMPLETE.** The packet received independent architecture/workflow and source-evidence reviews; all identified corrections were incorporated. Local Markdown links, fenced blocks, final newlines and trailing whitespace were checked. Implementation, collection acquisition, Git initialization, GitHub creation/push and release have not been performed here. Initial workspace was empty/non-Git on host `lab-ubuntu`; no Slurm job was set. Sherlock was not used.

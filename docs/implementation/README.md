@@ -14,6 +14,8 @@ Prepared **2026-10-10** for a later Codex/Claude multiagent implementation. Thre
 | [06-validation-and-release.md](06-validation-and-release.md) | Review gates, exact-head verification, GitHub push, release hold |
 | [07-data-contracts.md](07-data-contracts.md) | Source/candidate/catalog contracts and deterministic behavior |
 | [08-status-and-decisions.md](08-status-and-decisions.md) | Initial state, assumptions, evidence and execution log templates |
+| [09-frozen-contracts.md](09-frozen-contracts.md) | Contracts frozen during implementation: schema v1, storage tiers, CLI, path ownership, review decisions |
+| [10-validation-report.md](10-validation-report.md) | Validation evidence, reviews, measured collection and limitations for the reviewed implementation |
 
 ## Start implementation
 
@@ -28,3 +30,5 @@ The user requested an “ultracode” workflow. No installed skill or executable
 Current deliverable: Markdown instructions and source research. At the beginning of this planning session, `dynamix/` was empty and was not a Git repository. This session does not implement fetchers, download a production collection, initialize Git, create a GitHub repository, or deploy a website.
 
 Future target: a reviewed implementation on `main`, public repository pushed to the verified destination, green checks and a prepared site artifact, no leftover task branches/worktrees, and a documented release hold. `READY_FOR_RELEASE` is a future acceptance state, not this packet's current status.
+
+Implementation followed on 2026-10-10/11; its outcome, evidence and remaining limitations are in [10-validation-report.md](10-validation-report.md).
