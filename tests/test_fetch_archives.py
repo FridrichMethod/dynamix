@@ -838,6 +838,29 @@ class PressArticleTests(ArchivesTestCase):
         )
         self.assertEqual((others, state), ([], None))
 
+    def test_a_comma_inside_a_srcset_url_does_not_split_it(self):
+        # Jetpack/Photon renditions carry a raw comma in their query (resize=300,169): a srcset candidate runs to
+        # whitespace, and only a comma after its descriptor (or at its end) separates candidates (HTML srcset rules).
+        upload = "https://i0.wp.com/news.example.org/wp-content/uploads/2016/08/a"
+        page = (
+            "<html><head><title>Dynamix</title></head><body><div class='post'>"
+            f"<img srcset='{upload}.jpg?resize=300,169&amp;ssl=1 300w, {upload}-1024x576.jpg 1024w'></div></body></html>"
+        )
+        config = {
+            "page_url": self.PAGE,
+            "key_prefix": "q:",
+            "select": "div.post",
+            "pattern": "https://news\\.example\\.org/wp-content/uploads/\\d+/\\d+/[^/]+\\.jpg",
+            "rewrite": [["^https://i0\\.wp\\.com/", "https://"], ["-\\d+x\\d+(\\.\\w+)$", "\\1"]],
+        }
+        images, others, state = direct_adapter.article_images(page, self.PAGE, config)
+        self.assertEqual(([image["key"] for image in images], others, state), (["q:a"], [], None))
+        self.assertEqual(images[0]["advertised"], [f"{upload}.jpg?resize=300,169&ssl=1", f"{upload}-1024x576.jpg"])
+        self.assertEqual(
+            direct_adapter.srcset_urls(" a.jpg 1x,b.jpg 2x , c,d.jpg (x, y) 3x,, e.jpg,"),
+            ["a.jpg", "b.jpg", "c,d.jpg", "e.jpg"],
+        )
+
     def test_an_image_count_that_disagrees_keeps_the_list_open(self):
         routes = {self.NEXT_PAGE: self.next_page(10)}
         self.run_family([self.next_seed(self.NEXT_RULES)], FakeNetwork(routes), metadata_only=True)
