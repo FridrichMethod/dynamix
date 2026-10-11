@@ -1,6 +1,6 @@
 # Validation report
 
-Coordinator's record for the implementation requested on 2026-10-10. It describes the reviewed content commit **`db8867935d6700644fbd227cb7d94cef8f41df7c`** (`impl/integration`, later fast-forwarded into `main`). This report is committed after that commit and changes only `docs/implementation/`; no code, data or generated output. The push, the CI run on the final `main` SHA, and the worktree cleanup are recorded in the coordinator's final response, not here, so the release-ready checkout stays clean (see [06](06-validation-and-release.md#gate-7--cleanup-and-final-evidence)).
+Coordinator's record for the implementation requested on 2026-10-10. It describes the reviewed content commit **`effc4be6c6fad521d1cd4fcc77fbf2b5980812fe`** (`impl/integration`, later fast-forwarded into `main`). Code and data were reviewed in full at `db88679`; `effc4be` adds only the CI fix for the test fixtures and the public DEEMO reference (see [CI on the first push](#ci-on-the-first-push)). This report is committed after that commit and changes only `docs/implementation/`; no code, data or generated output. The push, the CI run on the final `main` SHA, and the worktree cleanup are recorded in the coordinator's final response, not here, so the release-ready checkout stays clean (see [06](06-validation-and-release.md#gate-7--cleanup-and-final-evidence)).
 
 **State: READY_FOR_RELEASE once the push and CI listed under [Remaining release-ready steps](#remaining-release-ready-steps) succeed. Release hold in force: Pages not deployed, no approval SHA, no tags, no GitHub Release.**
 
@@ -9,7 +9,7 @@ Coordinator's record for the implementation requested on 2026-10-10. It describe
 | Item | Value |
 | --- | --- |
 | Repository | `FridrichMethod/dynamix`, to be created by this task after this report is committed; before creation, `gh api repos/FridrichMethod/dynamix` answered 404 |
-| Reviewed content SHA | `db8867935d6700644fbd227cb7d94cef8f41df7c` |
+| Reviewed content SHA | `effc4be6c6fad521d1cd4fcc77fbf2b5980812fe` (code and data unchanged since `db88679`) |
 | Base | `828da4a` (planning packet), unchanged. Everything since descends from it through ancestry-preserving `--no-ff` merges, and no commit was rewritten. |
 | Reference | DEEMO `b14bf0d5f5a05e5382c319f3fd5019a4936820b8`, read-only (only `git show`/reads; its acquisition scripts were never run) |
 | Acquisition / source checks | 2026-10-10 to 2026-10-11 (UTC). Manifest times: wikis `2026-10-11T04:27:27Z`, artists `2026-10-10T21:00:40Z`, official `2026-10-11T00:14:38Z`, archives `2026-10-11T04:50:56Z` |
@@ -33,12 +33,14 @@ One writer per worktree; the coordinator alone merged, generated outputs and tou
 | `cf5a0d4` | `impl/wikis` | Miraheze and Fandom inventories, Japanese lists, song index |
 | `1ea4344` | `impl/final-fixes` | final-review fixes |
 | `aa43a66` | `impl/final-fixes` | delta-review follow-ups |
+| `48be578` | `impl/ci-zlib` | fixture PNGs independent of the zlib build; public DEEMO reference |
+| `effc4be` | `impl/ci-zlib` | palette-colour key test |
 
-Coordinator commits on the integration branch record contract decisions in [09](09-frozen-contracts.md), adopt `data/sources/song-index.json` unchanged from the wikis proposal (`5c6899b`), and regenerate the outputs (`7707050`, then `db88679`). All eight task branches are ancestors of the reviewed SHA.
+Coordinator commits on the integration branch record contract decisions in [09](09-frozen-contracts.md), adopt `data/sources/song-index.json` unchanged from the wikis proposal (`5c6899b`), and regenerate the outputs (`7707050`, then `db88679`). All nine task branches are ancestors of the reviewed SHA.
 
-## Gate 3 — exact-head checks at `db88679`
+## Gate 3 — exact-head checks
 
-Run on the clean integration checkout (offline):
+Run on the clean integration checkout (offline) at `db88679`, and repeated in full at `48be578` with identical results. `effc4be` changes only `tests/test_fixtures_contract.py` and a docstring; all 33 test files pass there under both zlib builds.
 
 | Command | Result |
 | --- | --- |
@@ -58,8 +60,8 @@ The verbatim `licenses/pace-MIT.txt` ends with a blank line. It is byte-identica
 
 | Mode | Served | Result |
 | --- | --- | --- |
-| `--fixture` | UI fixture sites at an HTTP root, under `/dynamix/`, `/empty/`, `/many/`, `/hostile/` and `/edges/`, and from `file://` | 49 passed, 0 failed, 0 skipped, 0 monitor problems |
-| `--base` checkout | the clean checkout at `db88679`, loopback HTTP root, plus `file://` | 22 passed, 0 failed, 0 skipped, 0 monitor problems |
+| `--fixture` | UI fixture sites at an HTTP root, under `/dynamix/`, `/empty/`, `/many/`, `/hostile/` and `/edges/`, and from `file://` | 49 passed, 0 failed, 0 skipped, 0 monitor problems (again at `48be578`) |
+| `--base` checkout | the clean checkout at `db88679`, loopback HTTP root, plus `file://` (no public file changed afterwards) | 22 passed, 0 failed, 0 skipped, 0 monitor problems |
 | `--base` staged | the staged Pages artifact under `/dynamix/` | 22 passed, 0 failed, 0 skipped, 0 monitor problems |
 
 First-screen grid images on the real catalog at 1440×900 total 616,150 B. The `--base` checks, as named in the run log:
@@ -73,7 +75,7 @@ First-screen grid images on the real catalog at 1440×900 total 616,150 B. The `
 
 ## Pages artifact (prepared, not deployed)
 
-`scripts/prepare_pages.py --output <new dir>` on the clean checkout at `db88679`:
+`scripts/prepare_pages.py --output <new dir>` on the clean checkout at `db88679`, and again at `48be578` with the identical manifest:
 
 | Item | Value |
 | --- | --- |
@@ -96,6 +98,7 @@ Each implementation wave was reviewed by agents that did not write the work, and
 | Independent verification of the fixes (`313c8cf`) | 0 blocking or major; 7 minor. Each original finding was reproduced on the base and checked at the head, and mutation tests confirmed the new tests. |
 | Coordinator and second fix round | the 7 minors resolved or documented below |
 | Independent delta review (`313c8cf..7707050`) | 0 blocking or major. It confirmed the verifier's findings 1–4 and 6 resolved, 5 (NanoKun field and quote) correctly left open, and 7 unchanged. It reproduced every generated output byte for byte from a clean archive. It staged the site independently, with the same digest. Field-level data diff: no sha256, size, path or dimension changed. 2 minor findings, 1 low: a lead registry item still `awaiting_download`; two adapter holds without tests; the 09 rule wording. |
+| CI fix review (`impl/ci-zlib`) | 0 blocking or major. It reproduced the CI failure on `7412ef4` with the stock zlib and showed both tests pass at the fix under both builds. Mutations of the generator call sites and of every part of the key are caught; the minor findings (untested key parts, the docstring scope, undocumented reuse limits) were fixed and rechecked. |
 | Follow-ups and recheck (`7707050..db88679`) | the Xetta lead moved to `unresolved_role`; tests for the X and App Store holds (mutation-checked); 09 reworded. The recheck found F1–F3 resolved and nothing new. The 12 mutation cases are all killed, and `tests/run_all.py` passes 33 modules (831 tests). |
 
 Highlights of what the final round fixed:
@@ -111,7 +114,7 @@ Highlights of what the final round fixed:
 
 ## Measured collection
 
-All counts come from `data/coverage.json` and `data/catalog.json` at `db88679`. Definitions are in [docs/coverage.md](../coverage.md).
+All counts come from `data/coverage.json` and `data/catalog.json` at `db88679` (unchanged at `effc4be`). Definitions are in [docs/coverage.md](../coverage.md).
 
 | Measure | Value |
 | --- | --- |
@@ -167,10 +170,18 @@ No image was upscaled, cropped, recompressed or re-encoded. Originals keep their
   - eight illustrations from lalaluhat's Wix and X sources, withdrawn while they await review, first in `765b5aa`;
   - one official X interface strip, first in `74bf4e4`.
   - History is not rewritten. Both READMEs disclose this.
-- **Local paths in the planning files.** The planning files written before implementation (`AGENTS.md` and `docs/implementation/02`, `04`, `05`) name the reference by an absolute path on the maintainer's machine rather than by its public repository. They are in the base commit `828da4a`, so editing the tip would not remove the path from public history; they are left as written.
+- **Local reference path in history.** The base commit `828da4a` named the DEEMO reference by an absolute path on the maintainer's machine (`AGENTS.md` and `docs/implementation/02`, `04`, `05`). The tip names the public repository `https://github.com/FridrichMethod/deemo` at the same pinned commit instead; the base commit keeps the old wording because history is not rewritten.
 - **Large data files.** `data/catalog.json` is 40.2 MB and `data/catalog.js` 29.3 MB; the pages load the script only. If a later payload exceeds the budget, `prepare_pages.py` leaves `catalog.json` out first and records it. The archive page's manifest link then has no target on the site, but the repository copy remains.
 - **Live sources were not rechecked at the reviewed head.** The offline `--verify` checks and the per-source snapshots are the evidence. `scripts/check_sources.py --report` is the manual, read-only way to compare live metadata later.
 - **Third-party artwork.** It is not covered by the code license. Attribution and source-specific notes are in `NOTICE` and the catalog.
+
+## CI on the first push
+
+The first push of `main` (`7412ef4`) ran `tests.yml` as [run 38119962148](https://github.com/FridrichMethod/dynamix/actions/runs/38119962148). The browser smoke job and every offline data check passed: catalog, previews, coverage, documentation statistics, manifests, whitespace, and an unchanged checkout. Two unit tests failed: `test_fixtures_contract.test_generator_reproduces_committed_bytes` and `test_layout_fixture.test_generator_reproduces_the_committed_fixture`.
+
+Cause: Pillow's `_imaging` links `libz.so.1` dynamically and compresses PNG data with whichever zlib the process has loaded. The fixtures had been generated under Homebrew's Python, which loads zlib-ng; the runner's Python uses stock zlib 1.3. The same pixels therefore produced different PNG bytes. Preloading the system zlib reproduced the failure locally.
+
+Fix (`impl/ci-zlib`, merged as `48be578` and `effc4be`): both fixture generators keep the committed bytes of a PNG that decodes to exactly the drawn image (`tests/fixtures/pinned_png.py`), and encode only a changed drawing. No committed fixture byte changed, and no real-data output is affected; previews are WebP, and data files hold no zlib output. All 33 test files pass under both zlib builds, and regenerating both fixtures in place under the stock zlib leaves the tree unchanged.
 
 ## Release hold
 
