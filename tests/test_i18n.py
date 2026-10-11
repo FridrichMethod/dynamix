@@ -218,9 +218,8 @@ class MessageTests(unittest.TestCase):
         # Only raw catalog field names (an evidence entry's own keys, shown as data) are joined to values in the code.
         self.assertEqual(re.findall(r"`[^`]*\}: \$\{[^`]*`", code), ["`${key}: ${textValue(entry[key])}`"])
         self.assertIn('t("inventory.status_count", {status: label("status", status), count: number})', code)
-        self.assertIn('t("text.sentences", {first, second})', code)
-        self.assertEqual(len(re.findall(r"\bsentences\(\[|\bsentences\(notes\)", code)), 2, "the inventory summary and the viewer's note")
-        self.assertNotIn('notes.join(" ")', code)
+        # The composed texts themselves (the inventory summary, the viewer's note) are checked in a browser, as rendered
+        # (tests/browser_smoke.py: check_inventory, check_viewer).
 
     def test_titles_and_credit_labels(self):
         messages = all_messages()

@@ -5,9 +5,9 @@
 
 --fixture builds sites from tests/fixtures/ui (the frozen catalog shape, including injection strings, archive-only files,
 a PDF, unknown credits and an empty catalog) and serves them itself on 127.0.0.1: one at an HTTP root, others under
-/dynamix/, /empty/ and /many/ of a second server that has nothing at its root, so a root-relative URL fails. It also opens
-the site from file://. --base checks an already served checkout with the catalog it serves (fixture-only cases are
-skipped); --root additionally opens that checkout from file://.
+/dynamix/, /empty/, /many/, /hostile/ and /edges/ of a second server that has nothing at its root, so a root-relative URL
+fails. It also opens the site from file://. --base checks an already served checkout with the catalog it serves
+(fixture-only cases are skipped); --root additionally opens that checkout from file://.
 
 Besides its own assertions, a run fails on any uncaught exception, console error, HTTP error, failed request, request
 that leaves the local server or its mount path (each is blocked before it reaches the network), or JavaScript dialog,
@@ -144,6 +144,26 @@ def many(catalog: dict, copies: int = 13) -> dict:
     bulk["summary"]["gallery_images"] = sum(asset["gallery"] for asset in bulk["assets"])
     bulk["summary"]["unique_files"] = len(bulk["assets"])
     return bulk
+
+
+def edges(catalog: dict) -> tuple[dict, dict, str]:
+    """Rare records: titles the builder never leaves blank (an empty one on a slideshow file with linked songs, a blank
+    one on a slideshow file whose songs are removed too) and a small artwork kept only in the repository, without a
+    preview (its viewer note has two sentences). Returns the catalog, the name each untitled file should be shown under
+    (its songs, then its upstream file name, as scripts/render_slideshow.py and src/archive.js name it) and the small
+    archive-only file's ID."""
+    bare = json.loads(json.dumps(catalog))
+    shown = [asset for asset in bare["assets"] if asset["gallery"] and asset["slideshow"]]
+    with_songs = next(asset for asset in shown if [song for song in asset["song_titles"] if song.strip()])
+    with_file = next(asset for asset in shown if asset is not with_songs and asset["original_filename"])
+    names = {with_songs["id"]: " / ".join(song for song in with_songs["song_titles"] if song.strip()),
+             with_file["id"]: with_file["original_filename"]}
+    with_songs["title"] = ""
+    with_file.update({"title": "  ", "song_titles": []})
+    small = next(asset for asset in bare["assets"] if asset["gallery"] and asset["site_original"] and not asset["thumb"]
+                 and asset["kind"] == "song_art" and max(asset["width"], asset["height"]) < 1000)
+    small.update({"site_original": False, "archive_url": "https://github.com/FridrichMethod/dynamix/raw/main/" + small["path"]})
+    return bare, names, small["id"]
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -485,6 +505,10 @@ def check_viewer(smoke, base, catalog, fixture):
         smoke.goto(page, urljoin(base, "archive.html#" + quote(asset["id"], safe="")))
         page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
         assert page.locator("#viewer-title").inner_text() == asset["title"], asset["id"]
+        # The note under the image is composed of whole sentences: no separator before the first (as rendered text,
+        # which keeps the leading space innerText would hide).
+        note = page.locator("#archive-note").text_content()
+        assert note == note.strip(), (asset["id"], note)
         download, original, slideshow = page.locator("#download"), page.locator("#original"), page.locator("#slideshow")
         if asset["site_original"]:
             assert download.get_attribute("href") == asset["url"], (asset["id"], download.get_attribute("href"))
@@ -735,9 +759,10 @@ def check_viewer_failures(smoke, base, catalog):
             page.evaluate("(lang) => DYNAMIX_I18N.setLang(lang)", lang)
             assert page.locator("#full-image").is_hidden(), (asset["id"], "no broken-image glyph")
             assert page.locator("#image-error").inner_text() == t(key, link=t(link)), (lang, page.locator("#image-error").inner_text())
-            note = page.locator("#archive-note").inner_text()
+            note = page.locator("#archive-note").text_content()
             if not asset["site_original"]:
                 assert note.startswith(t("viewer.archive_only_no_preview")) and t("viewer.archive_only") not in note, (lang, note)
+            assert note == note.strip(), (lang, note)
         page.keyboard.press("ArrowRight")
         page.wait_for_function(IMAGE_SHOWN, timeout=5000)
         assert page.locator("#image-error").is_hidden() and page.locator("#full-image").is_visible()
@@ -746,19 +771,29 @@ def check_viewer_failures(smoke, base, catalog):
 
 def check_inventory(smoke, base, catalog):
     """The inventory summary names only the source statuses the catalog's sources have, with counts, in the language's
-    punctuation (full-width colons and no space after a Chinese full stop); failure lines count attempts in the
-    language's plural form."""
+    punctuation (full-width colons and no space after a Chinese full stop), as whole sentences with nothing before the
+    first; failure lines count attempts in the language's plural form."""
     tally = Counter(source["status"] for source in catalog["sources"])
+    totals = catalog.get("summary") or {}
+    pick = lambda key, fallback: fallback if totals.get(key) is None else totals[key]  # the page's `??`
+    counts = {"sources": pick("source_count", len(catalog["sources"])), "records": pick("source_asset_records", 0),
+              "files": pick("unique_files", len(catalog["assets"])),
+              "gallery": pick("gallery_images", sum(bool(asset["gallery"]) for asset in catalog["assets"])),
+              "failures": pick("failure_count", 0)}
     for lang in ("en", "zh-CN"):
         page = smoke.page(base)
         open_archive(smoke, page, base, f"?lang={lang}")
         t = translator(page)
         page.locator(".source-inventory summary").first.click()
         summary = page.locator("#inventory-summary").inner_text()
+        # Compared as rendered text, which keeps a leading space that innerText would hide.
+        composed = t("inventory.summary", **counts)
         if tally:
             statuses = " · ".join(t("inventory.status_count", status=t("status." + status), count=tally[status])
                                   for status in STATUS_ORDER if tally[status])
             assert t("inventory.statuses", statuses=statuses) in summary, (lang, summary)
+            composed = t("text.sentences", first=composed, second=t("inventory.statuses", statuses=statuses))
+        assert page.locator("#inventory-summary").text_content() == composed, (lang, page.locator("#inventory-summary").text_content(), composed)
         if lang == "zh-CN":
             assert ":" not in summary and "。 " not in summary and "：" in summary, summary
         else:
@@ -1038,6 +1073,41 @@ def check_empty(smoke, base):
     smoke.finish(page)
 
 
+def check_edges(smoke, base, catalog, names, small_id):
+    """A file without a title is shown under its songs, then its upstream file name: on its card, in the title sort, in
+    the viewer and in the slideshow (slide, alt text, notes and caption). A viewer note of two sentences joins them in
+    each language's way, with nothing before the first. Texts are compared as rendered (textContent)."""
+    page = smoke.page(base)
+    open_archive(smoke, page, base, "?sort=title")
+    cards = page.evaluate("[...document.querySelectorAll('.card')].map((card) => [card.dataset.id, card.querySelector('h2').textContent])")
+    shown = dict(cards)
+    for asset_id, name in names.items():
+        assert shown.get(asset_id) == name, (asset_id, shown.get(asset_id), name)
+    order = [title for _, title in cards]
+    assert order == page.evaluate("(titles) => [...titles].sort(new Intl.Collator('en', {numeric: true}).compare)", order), order
+    for asset_id, name in names.items():
+        smoke.goto(page, urljoin(base, "archive.html#" + quote(asset_id, safe="")))
+        page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
+        assert [page.locator("#viewer-title").text_content(), page.locator("#full-image").get_attribute("alt")] == [name, name], asset_id
+    small = next(asset for asset in catalog["assets"] if asset["id"] == small_id)
+    t = translator(page)
+    for lang in ("en", "zh-CN"):
+        smoke.goto(page, urljoin(base, f"archive.html?lang={lang}#" + quote(small_id, safe="")))
+        page.wait_for_function("document.getElementById('viewer').open", timeout=5000)
+        expected = t("text.sentences", first=t("viewer.archive_only_no_preview"),
+                     second=t("viewer.low_resolution", size=max(small["width"], small["height"])))
+        note = page.locator("#archive-note").text_content()
+        assert note == expected, (lang, note, expected)
+    smoke.finish(page)
+    for asset_id, name in names.items():
+        page = open_slideshow(smoke, base, "#" + quote(asset_id, safe=""))
+        slide = page.evaluate("[imgTargets[slideIndex - 1].dataset.title, imgTargets[slideIndex - 1].alt]")
+        assert slide == [name, name], (asset_id, slide)
+        assert page.locator("#asset-title").text_content() == name
+        assert page.locator(".slide-notes .notes-title").first.get_attribute("data-full") == name
+        smoke.finish(page)
+
+
 UNSAFE_LINKS = """() => [...document.querySelectorAll('[href], [src]')].map((node) => node.href || node.src || '')
     .filter((url) => url && !/^(https?:|file:|#)/i.test(url))"""
 
@@ -1169,6 +1239,8 @@ def main(argv=None):
                 build_site(work / "mounted/empty", empty)
                 build_site(work / "mounted/many", many(catalog))
                 build_site(work / "mounted/hostile", hostile(catalog))
+                edge_catalog, edge_names, edge_small = edges(catalog)
+                build_site(work / "mounted/edges", edge_catalog)
                 servers = [serve(work / "root"), serve(work / "mounted")]
                 root_base = f"http://127.0.0.1:{servers[0].server_port}/"
                 mounted = f"http://127.0.0.1:{servers[1].server_port}/"
@@ -1184,8 +1256,10 @@ def main(argv=None):
                 smoke.run("/empty/: an empty catalog is consistent when allowed", check_served_catalog, mounted + "empty/", empty, True)
                 smoke.run("/many/: 60 per page and focus after paging", check_pagination, mounted + "many/")
                 smoke.run("/hostile/: script URLs in a catalog are never linked or loaded", check_hostile, mounted + "hostile/")
-                smoke.run("subpath server: every request under /dynamix/, /empty/ or /many/", check_subpath_requests, mounted,
-                          ("/dynamix/", "/empty/", "/many/", "/hostile/"))
+                smoke.run("/edges/: untitled files and a two-sentence viewer note", check_edges, mounted + "edges/", edge_catalog,
+                          edge_names, edge_small)
+                smoke.run("subpath server: every request under /dynamix/, /empty/, /many/, /hostile/ or /edges/", check_subpath_requests,
+                          mounted, ("/dynamix/", "/empty/", "/many/", "/hostile/", "/edges/"))
                 smoke.run("file://: archive and slideshow from disk", check_file_url, work / "root", catalog)
                 base = root_base
             else:

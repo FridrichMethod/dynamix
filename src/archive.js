@@ -20,8 +20,12 @@
   // A label for a token when the tables have one; otherwise the recorded token as it is.
   const label = (prefix, token) => i18n.has(`${prefix}.${token}`) ? t(`${prefix}.${token}`) : String(token ?? "");
   const familyName = (family) => label("family", family);
-  // Sentences in a row: English puts a space between them, Chinese (after its full stop) none.
-  const sentences = (parts) => parts.filter(Boolean).reduce((first, second) => t("text.sentences", {first, second}), "");
+  // Sentences in a row: English puts a space between them, Chinese (after its full stop) none. Only between them: the
+  // first sentence starts the text.
+  const sentences = (parts) => {
+    const list = parts.filter(Boolean);
+    return list.length ? list.reduce((first, second) => t("text.sentences", {first, second})) : "";
+  };
   // The catalog's human title; a record without one (never written by the builder) is named by its songs, then by its
   // upstream file name, then by its ID.
   const textList = (value) => Array.isArray(value) ? value.filter((entry) => typeof entry === "string" && entry.trim()) : [];
