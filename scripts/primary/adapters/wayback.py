@@ -6,7 +6,8 @@ discovery stays incomplete. Paging is bounded: a resume key returned twice or mo
 200) stop the listing with the pending key kept open. Captures are grouped by (URL key, content digest): the earliest
 capture of each distinct payload is one candidate ``<host/path>@<timestamp>``. A query that lists no capture although the
 previous snapshot holds captures it matched is not a complete listing: its list stays open (``empty-answer``) with a
-discovery error, so no archived capture changes status on an empty response (07 §Integrity).
+discovery error, so no archived capture changes status on an empty response (07 §Integrity). The state persists over
+further empty answers (the excluded or pending captures are no longer in the snapshot by then) until a listing is read.
 ``web.archive.org/web/<ts>id_/<original>`` returns the archived bytes without replay rewriting; the replay page is the
 ``page_url``.
 
@@ -218,15 +219,24 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
             if isinstance(error, net.BlockedError):
                 discovery.evidence_level = "blocked"
         else:
-            listed_before = previously_listed(getattr(ctx, "previous", None), item) if not rows else 0
-            if listed_before:
+            previous = getattr(ctx, "previous", None)
+            listed_before = previously_listed(previous, item) if not rows else 0
+            # Captures without archived bytes (excluded, pending, failed) are not carried into the snapshot of a run
+            # whose listing was empty, so an earlier empty answer keeps the list open on its own: it stays open until
+            # a listing is read again (07 §Integrity: never infer completeness from an empty response).
+            empty_before = not rows and ((previous or {}).get("continuation") or {}).get(item["name"]) == "empty-answer"
+            if listed_before or empty_before:
+                held = (
+                    f"the previous snapshot holds {listed_before} capture(s) of this query"
+                    if listed_before
+                    else "the previous run got an empty answer too, after this query had listed captures"
+                )
                 discovery.errors.append(
                     model.discovery_error(
                         "discover",
                         CDX,
-                        f"{item['name']}: the CDX API listed no capture, although the previous snapshot "
-                        f"holds {listed_before} capture(s) of this query; an empty answer is not taken "
-                        "as the complete listing",
+                        f"{item['name']}: the CDX API listed no capture, although {held}; an empty answer is not "
+                        "taken as the complete listing",
                     )
                 )
                 discovery.continuation[item["name"]] = "empty-answer"

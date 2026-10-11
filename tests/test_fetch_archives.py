@@ -233,6 +233,33 @@ class WaybackTests(ArchivesTestCase):
         self.assertNotEqual(self.manifest()["sources"][0]["status"], "available")
         self.verify()
 
+    def test_a_second_empty_answer_still_keeps_the_list_open(self):
+        """Captures without archived bytes (all excluded) leave the snapshot after the first empty answer, so the
+        guard must not depend on them alone: every later empty answer keeps the list open until a listing is read."""
+        item = {"name": "download-host", "url": "dl.example.org/", "match_type": "prefix"}
+        rules = [{"match": "^dl\\.example\\.org/", "action": "exclude", "reason": "site_ui: download page"}]
+        rows = [
+            HEADER,
+            *(
+                [f"org,example,dl)/{name}", stamp, f"http://dl.example.org/{name}", "text/html", "200", "A" * 32, "9"]
+                for name, stamp in (("index.html", "20150101000000"), ("get.html", "20150102000000"))
+            ),
+        ]
+        self.run_family([self.seed(rules, items=[item])], FakeNetwork({cdx_url(item): {"json": rows}}))
+        self.assertEqual(len(self.candidates("archives:wayback")), 2)
+        for _ in range(2):  # two transient empty answers in a row
+            self.run_family([self.seed(rules, items=[item])], FakeNetwork({cdx_url(item): {"json": []}}))
+            snapshot = manifest.load_discovery(self.root, "archives:wayback")
+            self.assertFalse(snapshot["discovery_complete"])
+            self.assertEqual(snapshot["continuation"], {"download-host": "empty-answer"})
+            self.assertTrue(any("not taken as the complete listing" in e["message"] for e in snapshot["errors"]))
+            self.assertFalse(self.manifest()["sources"][0]["discovery_complete"])
+            self.verify()
+        self.run_family([self.seed(rules, items=[item])], FakeNetwork({cdx_url(item): {"json": rows}}))
+        snapshot = manifest.load_discovery(self.root, "archives:wayback")  # a listing read again closes it
+        self.assertEqual((snapshot["continuation"], len(snapshot["candidates"])), ({"download-host": None}, 2))
+        self.verify()
+
     def test_cdx_item_matching_follows_the_query(self):
         prefix = {"url": "dynamix.c4-cat.com/img/", "match_type": "prefix"}
         self.assertTrue(wayback.matches_item(prefix, "http://www.dynamix.c4-cat.com:80/IMG/cap1.png"))
