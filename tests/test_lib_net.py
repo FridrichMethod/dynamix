@@ -7,6 +7,7 @@ uses real time with short intervals. No test resolves or contacts a non-loopback
 import email.utils
 import hashlib
 import json
+import os
 import socket
 import sys
 import tempfile
@@ -15,9 +16,10 @@ import time
 import types
 import unittest
 from contextlib import contextmanager
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from unittest import mock
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -231,7 +233,7 @@ class RetryTests(NetTestCase):
         self.assertEqual(self.sleeps, [2.0])
 
     def test_retry_after_http_date(self):
-        when = email.utils.format_datetime(datetime.now(timezone.utc) + timedelta(seconds=10), usegmt=True)
+        when = email.utils.format_datetime(datetime.now(UTC) + timedelta(seconds=10), usegmt=True)
         self.script.add("/api", {"status": 503, "headers": {"Retry-After": when}}, json_body(1))
         self.client().get_json(self.url("/api"))
         self.assertEqual(len(self.sleeps), 1)
@@ -287,7 +289,7 @@ class RetryTests(NetTestCase):
         self.assertEqual((caught.exception.error_class, self.script.hits["/api"]), ("other", 1))
 
     def test_parse_retry_after(self):
-        now = datetime(2026, 10, 10, 12, 0, 0, tzinfo=timezone.utc)
+        now = datetime(2026, 10, 10, 12, 0, 0, tzinfo=UTC)
         self.assertEqual(net.parse_retry_after(" 2.5 ", now=now), 2.5)
         self.assertEqual(net.parse_retry_after("Sat, 10 Oct 2026 12:00:30 GMT", now=now), 30.0)
         self.assertEqual(net.parse_retry_after("Sat, 10 Oct 2026 11:00:00 GMT", now=now), 0.0)
@@ -416,13 +418,27 @@ class BoundaryTests(NetTestCase):
             client.get_json("http://internal.invalid/x")
 
     def test_connected_address_is_checked_against_rebinding(self):
-        """The resolver claims a public address, but the connection actually reaches 127.0.0.1."""
+        """The resolver claims a public address, but the connection actually reaches 127.0.0.1. Every configured
+        production host is https, so both schemes are checked; the check runs as soon as the TCP connection exists,
+        before any TLS handshake, so the plain loopback listener needs no certificate."""
         self.script.add("/api", json_body(1))
-        client = self.client(hosts=["localhost"], allow_loopback=False, resolver=lambda host: ["93.184.216.34"])
-        with self.assertRaises(net.HostNotAllowedError) as caught:
-            client.get_json(self.url("/api", host="localhost"))
-        self.assertIn("non-public address", caught.exception.message)
+        client = self.client(
+            hosts=["localhost"], allow_loopback=False, resolver=lambda host: ["93.184.216.34"], max_attempts=1
+        )
+        for scheme in ("http", "https"):
+            with self.subTest(scheme=scheme):
+                with self.assertRaises(net.HostNotAllowedError) as caught:
+                    client.get_json(f"{scheme}://localhost:{self.port}/api")
+                self.assertIn("non-public address", caught.exception.message)
         self.assertEqual(self.script.hits, {})
+
+    def test_both_schemes_use_the_peer_checking_connection(self):
+        client = self.client()
+        for scheme in ("http", "https"):
+            with self.subTest(scheme=scheme):
+                adapter = client._session.get_adapter(f"{scheme}://127.0.0.1/")
+                pool = adapter.poolmanager.pool_classes_by_scheme[scheme]
+                self.assertTrue(issubclass(pool.ConnectionCls, net._PeerCheckMixin), pool.ConnectionCls)
 
     def test_size_limit_by_content_length_and_by_stream(self):
         self.script.add("/big", {"status": 200, "body": b"x" * 4096})
@@ -441,6 +457,39 @@ class BoundaryTests(NetTestCase):
             self.client().get_json(self.url("/api") + "?token=topsecret&format=original")
         self.assertNotIn("topsecret", str(caught.exception))
         self.assertIn("format=original", caught.exception.url)
+
+    def test_environment_proxies_and_netrc_are_ignored(self):
+        """trust_env is off: a proxy from the environment would route around the connected-address check (urllib3's
+        ProxyManager does not use the guarded pool classes), and a .netrc entry would send credentials."""
+        self.script.add("/api", json_body(1))
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            dead_proxy = f"http://127.0.0.1:{probe.getsockname()[1]}"
+        netrc = Path(self.temp.name) / "netrc"
+        netrc.write_text("machine 127.0.0.1 login archivist password secretpw\n", encoding="utf-8")
+        proxy_names = ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy")
+        cases = {"proxy": dict.fromkeys(proxy_names, dead_proxy), "netrc": {"NETRC": str(netrc)}}
+        for case, values in cases.items():
+            with self.subTest(case=case), mock.patch.dict(os.environ):
+                for name in (*proxy_names, "NO_PROXY", "no_proxy", "NETRC"):
+                    os.environ.pop(name, None)
+                os.environ.update(values)
+                hits = self.script.hits.get("/api", 0)
+                data, _ = self.client(max_attempts=1).get_json(self.url("/api"))
+                self.assertEqual((data, self.script.hits["/api"]), (1, hits + 1))  # direct, not through the proxy
+                self.assertNotIn("authorization", self.script.requests[-1][1])
+
+    def test_only_http_200_counts_as_a_complete_body(self):
+        """The client sends no Range header, so a 206 (or a 203 transformed body) comes from a misbehaving server
+        and is never archived as the complete file."""
+        for status in (206, 203):
+            with self.subTest(status=status):
+                self.script.add(f"/{status}.png", {"status": status, "body": b"\x89PNG\r\n\x1a\n partial"})
+                with self.assertRaises(net.HttpError) as caught:
+                    self.client().download(self.url(f"/{status}.png"), self.dest, "x")
+                self.assertEqual((caught.exception.http_status, caught.exception.retriable), (status, False))
+                self.assertEqual(self.script.hits[f"/{status}.png"], 1)
+                self.assertEqual(self.dest_files(), [])
 
 
 class UrlBoundaryTests(NetTestCase):
@@ -521,6 +570,43 @@ class UrlBoundaryTests(NetTestCase):
                 self.assertTrue(client._address_allowed(address))
         self.assertTrue(client._address_allowed("::ffff:127.0.0.1"))  # real loopback, allowed only in tests
         self.assertFalse(self.client(hosts=["a.example"], allow_loopback=False)._address_allowed("::ffff:127.0.0.1"))
+
+    def test_non_public_address_classes_are_refused(self):
+        """One example per non-public class, so that weakening the policy (e.g. ``not is_private`` instead of
+        ``is_global``, which admits RFC 6598 shared space) fails here. None of them is loopback, so allow_loopback
+        changes nothing."""
+        refused = {
+            "100.64.0.1": "RFC 6598 shared address space (carrier-grade NAT)",
+            "100.100.100.200": "RFC 6598 space: Alibaba Cloud instance metadata",
+            "169.254.169.254": "IPv4 link-local: cloud instance metadata",
+            "::ffff:169.254.169.254": "IPv4-mapped link-local metadata address",
+            "fd00:ec2::254": "IPv6 unique local: AWS instance metadata",
+            "fe80::1": "IPv6 link-local",
+            "10.1.2.3": "RFC 1918",
+            "172.16.0.1": "RFC 1918",
+            "192.168.0.1": "RFC 1918",
+            "192.0.0.8": "IETF protocol assignments",
+            "192.0.2.1": "documentation (TEST-NET-1)",
+            "198.18.0.1": "benchmarking",
+            "0.0.0.0": "this host",
+            "255.255.255.255": "limited broadcast",
+            "240.0.0.1": "reserved (class E)",
+            "224.0.0.1": "IPv4 multicast",
+            "ff02::1": "IPv6 multicast",
+            "::": "IPv6 unspecified",
+            "fec0::1": "deprecated IPv6 site-local (RFC 3879), reported as global by Python",
+            "fec0::a9fe:a9fe": "IPv6 site-local",
+            "100:0:0:1::1": "reserved IPv6 (100::/8 outside the discard prefix), reported as global",
+            "5f00::1": "reserved IPv6 (4000::/3), reported as global",
+        }
+        for allow_loopback in (False, True):
+            client = self.client(hosts=["a.example"], allow_loopback=allow_loopback)
+            for address, kind in refused.items():
+                with self.subTest(address=address, kind=kind, allow_loopback=allow_loopback):
+                    self.assertFalse(client._address_allowed(address))
+            for address in ("93.184.216.34", "1.1.1.1", "2606:2800:220:1:248:1893:25c8:1946", "2a00:1450:4001::1"):
+                with self.subTest(address=address, allow_loopback=allow_loopback):
+                    self.assertTrue(client._address_allowed(address))
 
 
 class ChallengeDetectionTests(NetTestCase):
@@ -609,6 +695,22 @@ class CredentialFreeMessageTests(NetTestCase):
             with self.subTest(path=path), self.assertRaises(net.FetchError) as caught:
                 client.get_json(self.url(path) + SECRET_QUERY)
             self.assertNoSecrets(caught.exception)
+
+    def test_downgrade_refusal_message_is_credential_free(self):
+        """The https -> http refusal is the message that embeds a URL (the redirect target), e.g. a signed CDN URL.
+        Offline stand-in for TLS as in test_https_to_http_redirect_is_refused."""
+        client = self.client(hosts=["secure.example"], max_attempts=1)
+
+        @contextmanager
+        def fake_exchange(url, headers):
+            yield types.SimpleNamespace(status_code=302, headers={"Location": "http://secure.example/x" + SECRET_QUERY})
+
+        client._exchange = fake_exchange
+        with self.assertRaises(net.HostNotAllowedError) as caught:
+            client.get_json("https://secure.example/a")
+        self.assertIn("downgrades https to http: http://secure.example/x?", caught.exception.message)
+        self.assertIn("format=original", caught.exception.message)  # only the credential values are replaced
+        self.assertNoSecrets(caught.exception)
 
 
 class DeadlineTests(NetTestCase):

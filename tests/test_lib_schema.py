@@ -230,6 +230,8 @@ class HelperTests(unittest.TestCase):
             )["format_match"],
             True,
         )
+        pdf_observed = {**observed, "sniffed_format": "PDF", "width": None, "height": None}
+        self.assertIsNone(schema.compute_comparisons(reported, pdf_observed)["dimensions_match"])  # nothing measured
         with self.assertRaises(ValueError):
             schema.make_source_reported(size=3)
 
@@ -364,10 +366,26 @@ class RecordValidationTests(unittest.TestCase):
     def test_fixture_records_are_valid(self):
         for family, value in self.manifests.items():
             schema.validate_manifest(value, family)
+        sources = {source["id"]: source for value in self.manifests.values() for source in value["sources"]}
         for source_id, snapshot in self.discoveries.items():
             counts = schema.validate_discovery(snapshot, source_id)
-            self.assertEqual(sum(counts.values()), len(snapshot["candidates"]))
+            self.assertEqual(sum(counts.values()), sources[source_id]["candidate_count"], source_id)
         schema.validate_song_index(self.song_index)
+
+    def test_timestamps_and_dates_take_ascii_digits_only(self):
+        """``\\d`` and strptime accept every Unicode decimal digit, but the validators order timestamps as strings:
+        fullwidth digits sort after all ASCII ones, so a year-2000 fetched_at would pass the 'latest' check."""
+        for value in ("２０２６-10-10T12:00:00Z", "٢٠٢٦-10-10T12:00:00Z", "2026-1０-10T12:00:00Z"):
+            with self.subTest(timestamp=value):
+                self.assertIsNotNone(checks.timestamp(value))
+        for value in ("٢٠٢٦-10-10", "２０２６-10-10"):
+            with self.subTest(date=value):
+                self.assertIsNotNone(checks.date(value))
+        self.assertIsNone(checks.timestamp("2026-10-10T12:00:00Z"))
+        self.assertIsNone(checks.date("2026-10-10"))
+        wikis = copy.deepcopy(self.manifests["wikis"])
+        wikis["fetched_at"] = "２０００-01-01T00:00:00Z"
+        self.assertInvalid(schema.validate_manifest, wikis, "fetched_at")
 
     def test_asset_field_errors_name_record_and_field(self):
         base = asset_by_title(self.manifests, "Cosmic Pulse (crop)")
@@ -409,6 +427,17 @@ class RecordValidationTests(unittest.TestCase):
             (pdf, lambda r: r.update(width=10), "width: must be null for a PDF"),
             (crop, lambda r: r["download_observed"].update(bytes=r["bytes"] + 1), "download_observed.bytes"),
             (crop, lambda r: r["download_observed"].update(sniffed_format="WEBP"), "download_observed.sniffed_format"),
+            (crop, lambda r: r["download_observed"].update(sha256="0" * 64), "download_observed.sha256"),
+            (crop, lambda r: r["download_observed"].update(sha1="0" * 40), "download_observed.sha1"),
+            (crop, lambda r: r["download_observed"].update(width=r["width"] + 1), "download_observed.width"),
+            (crop, lambda r: r["download_observed"].update(height=r["height"] + 1), "download_observed.height"),
+            (
+                crop,
+                lambda r: r["mapping_evidence"].append(
+                    {"url": "https://cdn.example/x.png?token=abc", "field": "image"}
+                ),
+                "must not contain credentials",
+            ),
             (crop, lambda r: r["comparisons"].update(sha1_match=None), "comparisons: must be"),
             (crop, lambda r: r["source_reported"].update(sha1="b" * 40), "comparisons: must be"),
             (crop, lambda r: r.update(mapping_evidence=[]), "mapping_evidence: must not be empty"),
@@ -432,6 +461,15 @@ class RecordValidationTests(unittest.TestCase):
                 record = copy.deepcopy(base)
                 mutate(record)
                 self.assertInvalid(schema.validate_asset, record, fragment)
+        advertised = copy.deepcopy(pdf)  # a page size is advertised, but a PDF has no decoded pixel size
+        advertised["source_reported"].update(width=1240, height=1754)
+        schema.validate_asset(advertised)
+        self.assertIsNone(advertised["comparisons"]["dimensions_match"])
+        self.assertInvalid(
+            schema.validate_asset,
+            {**advertised, "comparisons": {**advertised["comparisons"], "dimensions_match": False}},
+            "comparisons: must be",
+        )
 
     def test_source_and_failure(self):
         source = copy.deepcopy(self.manifests["wikis"]["sources"][0])
@@ -450,6 +488,12 @@ class RecordValidationTests(unittest.TestCase):
         self.assertInvalid(schema.validate_failure, {**failure, "attempts": 0}, "attempts:")
         self.assertInvalid(schema.validate_failure, {**failure, "message": "Cookie: a=b"}, "message:")
         self.assertInvalid(schema.validate_failure, {**failure, "phase": "upload"}, "phase:")
+        foreign = "wikis:miraheze:File:X.png"  # a candidate of another source
+        self.assertInvalid(
+            schema.validate_failure,
+            {**failure, "candidate_id": foreign, "id": schema.failure_id(foreign, failure["phase"])},
+            "candidate_id: must start with 'wikis:fandom:'",
+        )
 
     def test_candidates(self):
         snapshot = self.discoveries["wikis:miraheze"]
@@ -479,6 +523,9 @@ class RecordValidationTests(unittest.TestCase):
             schema.validate_candidate({**excluded, "disposition": "pending", "reason": f"{prefix}: detail"})
         universe = next(c for c in snapshot["candidates"] if (c.get("reason") or "").startswith("universe_only"))
         cases.append(({**universe, "game": "dynamix"}, "game: must be 'dynamix_universe'"))
+        other_game = {**excluded, "reason": "not_dynamix: another game's key art"}
+        schema.validate_candidate({**other_game, "game": "not_dynamix"})
+        cases.append(({**other_game, "game": "unknown"}, "game: must be 'not_dynamix'"))
         for record, fragment in cases:
             with self.subTest(fragment=fragment):
                 self.assertInvalid(schema.validate_candidate, record, fragment)
@@ -505,7 +552,21 @@ class RecordValidationTests(unittest.TestCase):
 
     def test_manifest_rules(self):
         wikis = self.manifests["wikis"]
+
+        def shared_path(m):
+            """A second record whose SHA-256 differs only after the 12 digits the path keeps: another ID, same path."""
+            twin = copy.deepcopy(next(a for a in m["assets"] if a["title"] == "Cosmic Pulse (crop)"))
+            sha = twin["sha256"]
+            sha = sha[:12] + ("1" if sha[12] == "0" else "0") + sha[13:]
+            twin.update(sha256=sha, id=schema.asset_id(twin["source_id"], sha))
+            twin["download_observed"]["sha256"] = sha
+            schema.validate_asset(twin, "wikis")
+            m["assets"] = sorted([*m["assets"], twin], key=lambda a: a["id"])
+
         cases = [
+            (shared_path, "assets: two records share a path"),
+            (lambda m: m["sources"].reverse(), "sources: must be sorted"),
+            (lambda m: m["failures"].append(copy.deepcopy(m["failures"][0])), "failures: duplicate id"),
             (lambda m: m["assets"].reverse(), "assets: must be sorted"),
             (lambda m: m["assets"].append(copy.deepcopy(m["assets"][-1])), "duplicate id"),
             (lambda m: m.update(fetched_at="2026-10-09T00:00:00Z"), "fetched_at: must be the latest"),
@@ -553,7 +614,25 @@ class RecordValidationTests(unittest.TestCase):
         def candidate(snaps, source_id, disposition):
             return next(c for c in snaps[source_id]["candidates"] if c["disposition"] == disposition)
 
+        def failure_without_candidate(m, s):
+            gone = "wikis:miraheze:File:Gone.png"
+            failure = {**m["failures"][0], "source_id": "wikis:miraheze", "candidate_id": gone}
+            failure["id"] = schema.failure_id(gone, failure["phase"])
+            schema.validate_failure(failure, "wikis")
+            m["failures"] = sorted([*m["failures"], failure], key=lambda f: f["id"])
+            m["sources"][1].update(failure_count=1)
+
+        def swapped_snapshots(m, s):
+            s["wikis:fandom"], s["wikis:miraheze"] = s["wikis:miraheze"], s["wikis:fandom"]
+
         cases = [
+            (lambda m, s: m["sources"][0].update(asset_count=99), "asset_count: 99 but the data has 2"),
+            (lambda m, s: m["sources"][0].update(failure_count=99), "failure_count: 99 but the data has 1"),
+            (
+                failure_without_candidate,
+                "failure 'wikis:miraheze:File:Gone.png:download': candidate_id: missing from a complete discovery",
+            ),
+            (swapped_snapshots, "has no matching source"),
             (lambda m, s: m["sources"][1].update(candidate_count=99), "candidate_count"),
             (lambda m, s: m["sources"][0].update(discovery_complete=True), "discovery_complete"),
             (
@@ -586,6 +665,44 @@ class RecordValidationTests(unittest.TestCase):
 
     def wiki_snapshots(self):
         return {sid: copy.deepcopy(snap) for sid, snap in self.discoveries.items() if sid.startswith("wikis:")}
+
+    def test_duplicate_bytes_names_another_candidate_of_the_same_source(self):
+        """09: ``duplicate_bytes`` means the *same source* already archived identical bytes under another candidate.
+        Identical bytes from another source are that source's own ``downloaded`` record, so the catalog keeps every
+        provenance record; a cross-source target would silently drop one."""
+        all_assets = [asset for value in self.manifests.values() for asset in value["assets"]]
+        schema.reconcile(self.manifests["wikis"], self.wiki_snapshots(), other_assets=all_assets)  # same-source copy
+
+        def cross_source(target_of):
+            wikis, snaps = copy.deepcopy(self.manifests["wikis"]), self.wiki_snapshots()
+            fandom = next(c for c in snaps["wikis:fandom"]["candidates"] if c["id"].endswith(":File:Cosmic_Pulse.png"))
+            own = fandom["asset_id"]
+            fandom.update(disposition="duplicate_bytes", asset_id=target_of(own), reason="identical SHA-256")
+            wikis["assets"] = [asset for asset in wikis["assets"] if asset["id"] != own]
+            next(s for s in wikis["sources"] if s["id"] == "wikis:fandom")["asset_count"] -= 1
+            schema.validate_manifest(wikis, "wikis")  # the manifest alone stays valid
+            return wikis, snaps, fandom
+
+        miraheze_copy = cross_source(lambda own: own.replace("wikis:fandom:", "wikis:miraheze:"))
+        other_family = cross_source(
+            lambda own: next(a["id"] for a in all_assets if a["source_id"].startswith("artists:"))
+        )
+        for name, (wikis, snaps, fandom) in {"miraheze": miraheze_copy, "artists": other_family}.items():
+            with self.subTest(target=name):
+                self.assertInvalid(schema.validate_candidate, fandom, "asset_id", "same source")
+                for others in (all_assets, ()):
+                    with self.assertRaises(ValueError) as caught:
+                        schema.reconcile(wikis, snaps, other_assets=others)
+                    self.assertIn("wikis:fandom:File:Cosmic_Pulse.png", str(caught.exception))
+                    self.assertIn("asset_id", str(caught.exception))
+
+        snaps = self.wiki_snapshots()  # a candidate cannot be a duplicate of its own record
+        own = next(c for c in snaps["wikis:miraheze"]["candidates"] if c["id"].endswith(":File:Cosmic_Pulse.png"))
+        own.update(disposition="duplicate_bytes", reason="identical SHA-256")
+        schema.validate_candidate(own, "wikis:miraheze")
+        with self.assertRaises(ValueError) as caught:
+            schema.reconcile(self.manifests["wikis"], snaps, other_assets=all_assets)
+        self.assertIn("another candidate", str(caught.exception))
 
     def test_superseded_revision_shares_the_current_candidate(self):
         """MediaWiki re-uploads keep the File: title, so the older archived revision keeps the candidate ID."""
@@ -654,6 +771,9 @@ class RecordValidationTests(unittest.TestCase):
         cases = [
             (lambda i: i["songs"][0].update(inclusion_evidence=[]), "in_original_game requires positive evidence"),
             (lambda i: i["songs"][0].update(id="song:cosmic"), "id: must be"),
+            (lambda i: i["songs"][0].update(id="song:cosmic-pulse-1"), "plus a -N collision suffix"),
+            (lambda i: i["songs"][0].update(id="song:cosmic-pulse-01"), "plus a -N collision suffix"),
+            (lambda i: i["songs"][0].update(id="song:cosmic-pulse-0"), "plus a -N collision suffix"),
             (lambda i: i["songs"].reverse(), "songs: must be sorted"),
             (
                 lambda i: i["disagreements"].append({"song_id": "song:missing", "field": "x", "values": {}}),
@@ -670,6 +790,34 @@ class RecordValidationTests(unittest.TestCase):
         broken["songs"][0]["artwork_asset_ids"].append("wikis:miraheze:" + "f" * 16)
         with self.assertRaises(ValueError):
             schema.validate_song_index(broken, known)
+
+    def test_song_ids_follow_the_deterministic_assignment(self):
+        """09: -2, -3 suffixes go to colliding slugs in sorted exact-title order (paths.assign_song_ids), so the IDs
+        are a function of the titles; a gap, a gratuitous suffix or swapped IDs would renumber linked songs."""
+        cosmic = next(song for song in self.song_index["songs"] if song["title"] == "Cosmic Pulse")
+        upper = {**cosmic, "title": "COSMIC PULSE"}  # sorts before "Cosmic Pulse", so it takes the base ID
+
+        def with_songs(*songs):
+            record = copy.deepcopy(self.song_index)
+            others = [song for song in record["songs"] if song["title"] != "Cosmic Pulse"]
+            record["songs"] = sorted(others + copy.deepcopy(list(songs)), key=lambda song: song["id"])
+            return record
+
+        schema.validate_song_index(
+            with_songs({**upper, "id": "song:cosmic-pulse"}, {**cosmic, "id": "song:cosmic-pulse-2"})
+        )
+        cases = {
+            "swapped": with_songs({**upper, "id": "song:cosmic-pulse-2"}, {**cosmic, "id": "song:cosmic-pulse"}),
+            "gap": with_songs({**upper, "id": "song:cosmic-pulse"}, {**cosmic, "id": "song:cosmic-pulse-7"}),
+            "gratuitous suffix": with_songs({**cosmic, "id": "song:cosmic-pulse-3"}),
+        }
+        for name, record in cases.items():
+            with self.subTest(case=name):
+                self.assertInvalid(schema.validate_song_index, record, "id: must be", "sorted exact-title order")
+        for second in ("song:cosmic-pulse-2", "song:cosmic-pulse-7"):  # identical exact titles cannot be ordered
+            with self.subTest(identical_title=second):
+                record = with_songs(cosmic, {**cosmic, "id": second})
+                self.assertInvalid(schema.validate_song_index, record, "title:", "more than one song")
 
     def test_song_links(self):
         assets = [asset for value in self.manifests.values() for asset in value["assets"]]

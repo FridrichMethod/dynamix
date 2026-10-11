@@ -6,9 +6,9 @@
   and the host requests/urllib3 would contact must equal the host that was checked, so parser differences cannot
   smuggle another host past the allowlist.
 * Redirects are followed manually (at most 5 hops). Every hop's host is resolved first and refused when any address
-  is private, loopback, link-local, reserved or multicast; the address actually connected to is checked again, so a
-  DNS answer that changes between the check and the connection cannot reach a local service. ``allow_loopback=True``
-  (tests only) admits loopback addresses and nothing else.
+  is not global (private, shared, loopback, link-local, IPv6 site-local, reserved) or is multicast; the address
+  actually connected to is checked again, so a DNS answer that changes between the check and the connection cannot
+  reach a local service. ``allow_loopback=True`` (tests only) admits loopback addresses and nothing else.
 * One request in flight per host and at least ``min_interval`` seconds (default 1.0) between the end of one request
   and the start of the next to the same host. Every hop counts, so a host reached only through a redirect is spaced
   too; clients that share a :class:`HostSchedule` (e.g. the per-source clients of one fetcher run) share these per-host
@@ -44,12 +44,13 @@ import socket
 import tempfile
 import threading
 import time
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
-from typing import Any, Callable, Iterable, Iterator, Mapping
+from typing import Any, cast
 from urllib.parse import urljoin, urlsplit
 
 import requests
@@ -236,8 +237,8 @@ def parse_retry_after(value: str | None, *, now: datetime | None = None) -> floa
         if when is None:
             return None
         if when.tzinfo is None:
-            when = when.replace(tzinfo=timezone.utc)
-        seconds = (when - (now or datetime.now(timezone.utc))).total_seconds()
+            when = when.replace(tzinfo=UTC)
+        seconds = (when - (now or datetime.now(UTC))).total_seconds()
     return None if math.isnan(seconds) else max(seconds, 0.0)
 
 
@@ -284,7 +285,7 @@ def _redirect_target(current: str, location: str) -> str:
 
 
 def _system_resolver(host: str) -> list[str]:
-    return sorted({info[4][0] for info in socket.getaddrinfo(host, None, type=socket.SOCK_STREAM)})
+    return sorted({str(info[4][0]) for info in socket.getaddrinfo(host, None, type=socket.SOCK_STREAM)})
 
 
 def _public_headers(headers: Mapping[str, str]) -> dict[str, str]:
@@ -355,7 +356,7 @@ class _PeerCheckMixin:
 
     peer_check: Callable[[str, str], None] | None = None
 
-    def _new_conn(self):  # type: ignore[no-untyped-def]
+    def _new_conn(self) -> socket.socket:
         sock = super()._new_conn()  # type: ignore[misc]
         check = type(self).peer_check
         if check is not None:
@@ -637,7 +638,7 @@ class PoliteClient:
                     response = self._session.get(
                         url, headers=dict(headers), allow_redirects=False, stream=True, timeout=self._timeout
                     )
-                    response.dynamix_deadline = deadline  # read by _body_chunks
+                    cast(Any, response).dynamix_deadline = deadline  # read by _body_chunks
                 except requests.RequestException as error:
                     raise self._transport_error(error, url) from None
                 except HostNotAllowedError as error:  # raised by the connected-address check inside urllib3
@@ -688,7 +689,7 @@ class PoliteClient:
 
     def _address_allowed(self, address: str) -> bool:
         ip = ipaddress.ip_address(address.split("%", 1)[0])
-        if ip.version == 6:
+        if isinstance(ip, ipaddress.IPv6Address):
             if ip.ipv4_mapped is not None:
                 ip = ip.ipv4_mapped
             elif _is_ipv4_compatible(ip):
@@ -697,9 +698,13 @@ class PoliteClient:
                 embedded = _embedded_ipv4(ip)
                 if embedded is not None:  # through a NAT64 translator: judge the IPv4 destination, never loopback
                     return embedded.is_global and not embedded.is_multicast
+                if ip.is_site_local:  # deprecated fec0::/10 (RFC 3879), which Python reports as global
+                    return False
         if ip.is_loopback:
             return self._allow_loopback
-        return ip.is_global and not ip.is_multicast
+        # is_reserved after the branches above (64:ff9b::/96 and ::/8 are reserved too): IPv4 240.0.0.0/4 and the
+        # unassigned IPv6 ranges outside 2000::/3, several of which Python reports as global.
+        return ip.is_global and not ip.is_multicast and not ip.is_reserved
 
     def _check_resolution(self, host: str, url: str) -> None:
         try:
@@ -769,7 +774,7 @@ class PoliteClient:
                 )
             try:
                 chunk = response.raw.read1(CHUNK_BYTES, decode_content=True)
-            except (ReadTimeoutError, Urllib3TimeoutError, socket.timeout, TimeoutError) as error:
+            except (ReadTimeoutError, Urllib3TimeoutError, TimeoutError) as error:
                 raise TimeoutFetchError(
                     f"timed out reading the body ({_cause_summary(error)})", url=url, http_status=response.status_code
                 ) from None

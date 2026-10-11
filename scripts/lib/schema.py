@@ -13,20 +13,19 @@ from __future__ import annotations
 import re
 import unicodedata
 from collections import Counter
-from typing import Any, Iterable, Mapping
+from collections.abc import Iterable, Mapping
+from typing import Any, NoReturn
 from urllib.parse import quote
 
 from . import checks, paths
-from .checks import (
-    CREDENTIAL_QUERY_KEYS,
-    DATE_RE,
-    REDACTED,
-    SENSITIVE_QUERY_KEYS,  # noqa: F401
-    TIMESTAMP_RE,
-    contains_credentials,
-    redact_text,
-    redact_url,
-)
+
+# Explicit re-exports: callers use them as ``schema.<name>`` (scripts/lib/README.md lists the schema constants).
+from .checks import CREDENTIAL_QUERY_KEYS as CREDENTIAL_QUERY_KEYS
+from .checks import DATE_RE as DATE_RE
+from .checks import REDACTED as REDACTED
+from .checks import SENSITIVE_QUERY_KEYS as SENSITIVE_QUERY_KEYS
+from .checks import TIMESTAMP_RE as TIMESTAMP_RE
+from .checks import contains_credentials, redact_text, redact_url
 
 Checker = checks.Checker
 _nonempty, _text, _boolean, _tristate = checks.nonempty, checks.text, checks.boolean, checks.tristate
@@ -676,7 +675,7 @@ def _label(kind: str, record: Any) -> str:
     return kind
 
 
-def _fail(label: str, field: str, problem: str) -> None:
+def _fail(label: str, field: str, problem: str) -> NoReturn:
     raise ValueError(f"{label}: {field}: {problem}")
 
 
@@ -853,8 +852,8 @@ def validate_candidate(candidate: Any, source_id: str | None = None) -> None:
             _fail(label, "asset_id", f"is required for disposition {disposition!r}")
         if candidate["game"] not in ("dynamix", "mixed"):
             _fail(label, "game", f"must be 'dynamix' or 'mixed' for disposition {disposition!r}")
-        if disposition == "downloaded" and not target.startswith(candidate["source_id"] + ":"):
-            _fail(label, "asset_id", "a downloaded candidate's asset belongs to the same source")
+        if not target.startswith(candidate["source_id"] + ":"):  # 09: duplicate_bytes means the *same source*
+            _fail(label, "asset_id", f"a {disposition} candidate's asset belongs to the same source")
     elif target is not None:
         _fail(label, "asset_id", f"must be absent or null for disposition {disposition!r}")
     if disposition == "pending" and reason.split(":", 1)[0].strip() not in PENDING_REASONS:
@@ -950,7 +949,8 @@ def reconcile(
     """Cross-check a validated family manifest with its validated discovery snapshots (``{source_id: snapshot}``).
 
     Checks source counts, candidate <-> asset links, failure <-> candidate links and that a complete discovery accounts
-    for every current asset. ``other_assets`` are records of other manifests that ``duplicate_bytes`` may name.
+    for every current asset. A ``duplicate_bytes`` candidate names an asset of its own source recorded under another
+    candidate (09); ``other_assets`` (records of other manifests) only sharpen the error when it names one of those.
     Returns ``{source_id: disposition counts}``.
     """
     label = f"manifest {manifest['family']!r}"
@@ -1068,13 +1068,24 @@ def _reconcile_candidate(
     label = _label("candidate", candidate)
     target = candidate.get("asset_id")
     if candidate["disposition"] == "downloaded":
-        asset = assets.get(target)
+        asset = assets.get(target) if isinstance(target, str) else None
         if asset is None or asset["candidate_id"] != candidate["id"]:
             _fail(label, "asset_id", f"{target!r} is not an asset recorded for this candidate")
         if candidate["role"] != asset["kind"]:
             _fail(label, "role", f"{candidate['role']!r} differs from the asset kind {asset['kind']!r}")
-    elif candidate["disposition"] == "duplicate_bytes" and target not in known:
-        _fail(label, "asset_id", f"{target!r} names no recorded asset")
+    elif candidate["disposition"] == "duplicate_bytes":
+        asset = assets.get(target) if isinstance(target, str) else None
+        if asset is None and target not in known:
+            _fail(label, "asset_id", f"{target!r} names no recorded asset")
+        if asset is None or asset["source_id"] != candidate["source_id"]:
+            _fail(
+                label,
+                "asset_id",
+                f"{target!r} is an asset of another source; a duplicate_bytes candidate names identical bytes the "
+                "same source archived (identical bytes of another source are that source's own record)",
+            )
+        if asset["candidate_id"] == candidate["id"]:
+            _fail(label, "asset_id", f"{target!r} is this candidate's own record, not one of another candidate")
 
 
 def validate_song_index(index: Any, known_asset_ids: Iterable[str] | None = None) -> None:
@@ -1094,10 +1105,33 @@ def validate_song_index(index: Any, known_asset_ids: Iterable[str] | None = None
             if missing:
                 _fail(label, "artwork_asset_ids", f"unknown asset {missing[0]!r}")
     _check_unique_sorted("song index", "songs", index["songs"])
+    _check_song_id_assignment(index["songs"])
     song_ids = {song["id"] for song in index["songs"]}
     for disagreement in index["disagreements"]:
         if disagreement["song_id"] not in song_ids:
             _fail("song index", "disagreements", f"unknown song {disagreement['song_id']!r}")
+
+
+def _check_song_id_assignment(songs: list[dict]) -> None:
+    """09: song IDs get their -2, -3 suffixes deterministically by sorted exact title, i.e. they equal
+    :func:`paths.assign_song_ids` over the index's titles. Identical exact titles have no such order."""
+    counts = Counter(song["title"] for song in songs)
+    for song in songs:
+        if counts[song["title"]] > 1:
+            _fail(
+                _label("song", song),
+                "title",
+                f"{song['title']!r} is the exact title of more than one song; song IDs are assigned by sorted exact "
+                "title, so identical titles have no deterministic ID",
+            )
+    expected = paths.assign_song_ids([song["title"] for song in songs])
+    for song, want in zip(songs, expected, strict=True):  # assign_song_ids returns one ID per title, in order
+        if song["id"] != want:
+            _fail(
+                _label("song", song),
+                "id",
+                f"must be {want!r} (paths.assign_song_ids: -N suffixes in sorted exact-title order over the index)",
+            )
 
 
 def validate_song_links(index: Mapping[str, Any], assets: Iterable[Mapping[str, Any]]) -> None:

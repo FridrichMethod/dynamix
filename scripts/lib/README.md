@@ -47,11 +47,11 @@ Validators raise `ValueError("<kind> '<id>': <field>: <problem>")`; unknown fiel
 | `validate_source(source, family=None, *, catalog=False)` | fields, enums, ID pattern, family; `catalog=True` requires `asset_count` |
 | `validate_asset(asset, family=None, *, catalog=False)` | every field and type; ID = source + SHA prefix; MIME from format; PDF ⇒ null size, raster ⇒ positive ints; `path` equals `paths.asset_relpath(...)`; `download_observed` equals the measured fields; `comparisons` equals `compute_comparisons`; mapping/upstream/variant rules |
 | `validate_failure(failure, family=None)` | ID, HTTP status vs `http_4xx`/`http_5xx`, `blocked`/`challenge`/`host_not_allowed` not retriable, credential-free |
-| `validate_candidate(candidate, source_id=None)` | ID = source + key; reason required unless `downloaded`; exclusion reason vocabulary; `asset_id` only for `downloaded`/`duplicate_bytes`; accepted candidates are `dynamix`/`mixed` |
+| `validate_candidate(candidate, source_id=None)` | ID = source + key; reason required unless `downloaded`; exclusion reason vocabulary; `asset_id` only for `downloaded`/`duplicate_bytes`, and then an asset of the candidate's own source; accepted candidates are `dynamix`/`mixed` |
 | `validate_discovery(snapshot, source_id=None)` → counts | complete ⇒ no open continuation; candidates valid, unique, sorted; returns `disposition_counts` |
 | `validate_manifest(manifest, family=None)` | envelope, all records, sorted unique IDs, known source IDs with unique source slugs, unique paths without case-fold collisions, `superseded_by` chains inside the manifest without cycles, `fetched_at` ≥ newest asset |
-| `reconcile(manifest, {source_id: snapshot}, other_assets=())` → `{source_id: counts}` | source counts, downloaded/duplicate links, failed ⇒ Failure record, complete discovery accounts for every current asset; earlier revisions may share the current revision's candidate (see below) |
-| `validate_song_index(index, known_asset_ids=None)` | song fields, ID = `paths.song_id_base(title)` (+ `-N`), positive inclusion evidence, sorted, disagreements name songs |
+| `reconcile(manifest, {source_id: snapshot}, other_assets=())` → `{source_id: counts}` | source counts, downloaded/duplicate links (a `duplicate_bytes` target is an asset of the same source recorded under another candidate; `other_assets` only sharpen that error), failed ⇒ Failure record, complete discovery accounts for every current asset; earlier revisions may share the current revision's candidate (see below) |
+| `validate_song_index(index, known_asset_ids=None)` | song fields, ID = `paths.assign_song_ids` over the index titles (`paths.song_id_base(title)`, `-N` in sorted exact-title order; an exact title may appear once), positive inclusion evidence, sorted, disagreements name songs |
 | `validate_song_links(index, assets)` | every asset (or catalog asset) `song_id` is a song of the index whose title or an alias is among the asset's `song_titles` |
 | `validate_catalog(catalog)` | top level, sources (`asset_count`, unique source slugs), failures, catalog asset fields (`url`, `thumb`, `gallery`, `slideshow`, `site_original`, `archive_url`, provenance order, ordered union of `illustrators`/`composers`/`song_titles`/`song_ids`/`collections` across provenance, `variants`), ordering, unique SHA-256, summary arithmetic |
 
@@ -83,10 +83,11 @@ characters RFC 3986 forbids — notably `\` — and a host of `[a-z0-9_-]` label
 characters are fine), and the host requests would actually contact (urllib3 `parse_url` of the prepared URL) must
 equal the checked host. Fetchers must pass URLs as given by the API (percent-encoded); a redirect `Location` is
 re-encoded like requests does. Manual redirects re-check scheme, allowlist, https→http downgrade and every resolved and
-connected address (private/loopback/link-local/reserved, NAT64-embedded non-public IPv4 and IPv4-compatible IPv6
-rejected; `allow_loopback` is for tests); a refused redirect is reported against the URL that sent it. One request in
-flight per host, `min_interval` from the end of one request to the next, for every hop (a host reached only through a
-redirect included); clients given one `net.HostSchedule()` share these per-host locks and ready times (the primary
+connected address (not global, i.e. private/shared/loopback/link-local/IPv6 site-local/reserved, or multicast;
+NAT64-embedded non-public IPv4 and IPv4-compatible IPv6 rejected; `allow_loopback` is for tests); a refused
+redirect is reported against the URL that sent it. One request in flight per host, `min_interval` from the end of
+one request to the next, for every hop (a host reached only through a redirect included); clients given one
+`net.HostSchedule()` share these per-host locks and ready times (the primary
 runner passes one to the per-source clients of a run). `max_duration` bounds each attempt from
 request start to the end of the body (bodies are read with `read1`, so a trickling server is cut off within one read
 timeout of the deadline; `TimeoutFetchError`). Retries: 429/5xx/timeouts/connection errors, ≤ 3 attempts,

@@ -10,8 +10,9 @@ from __future__ import annotations
 
 import hashlib
 import os
+from collections.abc import Callable, Mapping
 from pathlib import Path, PurePosixPath
-from typing import Any, Callable, Mapping
+from typing import Any
 
 from PIL import Image, ImageFile
 
