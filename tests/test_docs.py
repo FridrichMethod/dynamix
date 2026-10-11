@@ -1,4 +1,4 @@
-"""Public documentation: English/Simplified Chinese parity, links, statistics markers, attribution, release hold.
+"""Public documentation: English/Simplified Chinese parity, links, statistics markers, attribution, release state.
 
 Covers README.md, docs/sources-*.md, docs/coverage.md and licenses/README.md with their ``.zh-CN.md`` versions, plus
 NOTICE and .nojekyll. Offline: it reads files of this checkout and runs ``--help`` of the scripts the documents
@@ -7,12 +7,16 @@ quote (a script that is not in this tree yet must be a name of the frozen CLI co
 
 from __future__ import annotations
 
+import os
 import re
+import shutil
 import string
 import subprocess
 import sys
+import tempfile
 import unicodedata
 import unittest
+import unittest.mock
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -84,6 +88,14 @@ PUBLISHED_URL = re.compile(
 )
 # Each README's Status line prefix and the title of its Releases section.
 README_RELEASE_PARTS = {"README.md": ("**Status:**", "Releases"), "README.zh-CN.md": ("**状态**：", "发布")}
+# The release gate that v1.1.0 retired: a manual dispatch of main approved by the RELEASE_APPROVED_SHA variable and a
+# release_sha input. Pages now deploys a published vX.Y.Z release (.github/workflows/pages.yml), so no document names
+# the variable or the input, or tells a release to dispatch the workflow on main.
+RETIRED_GATE = re.compile(
+    r"RELEASE_APPROVED_SHA|\brelease_sha\b|"
+    r"\bdispatch(?:ed|es|ing)? (?:it |the [^.;:]{0,30}? )?on `?main\b|在 `?main`? 上手动触发",
+    re.IGNORECASE,
+)
 # Wording of the release hold that ended with v1.0.0, in either language, matched in rendered text (see plain()).
 # A website or Pages that is not deployed counts, also with words between ("网站目前未部署"), and so does a release or
 # deployment that is held, paused or suspended; "later pushes are tested but not deployed" (true after a release) does
@@ -304,10 +316,17 @@ def readme_release_text(relative: str, text: str) -> tuple[str, str] | None:
     return status[0], "\n".join(lines[start + 1 : end])
 
 
+def version_key(tag: str) -> tuple[int, ...]:
+    """vX.Y.Z in numeric order (v1.10.0 after v1.2.3)."""
+    return tuple(int(part) for part in tag[1:].split("."))
+
+
 def release_problems(relative: str, text: str) -> tuple[str | None, list[str]]:
-    """The release one README names and what is wrong with its description: it names exactly one vX.Y.Z release of
-    this repository, in its Status line and every release link, as the first version of its Releases section, and
-    neither part keeps wording of the former release hold."""
+    """The current release one README names and what is wrong with its description. Every release link is a vX.Y.Z
+    release of this repository; the Status line links exactly one, the current release, which is the newest release
+    linked anywhere (older ones, such as the first release, may be linked too) and the first version the Releases
+    section names and links. Neither part keeps wording of the former release hold, and the README does not describe
+    the retired manual-dispatch gate."""
     parts = readme_release_text(relative, text)
     if parts is None:
         return None, [f"{relative}: needs one {README_RELEASE_PARTS[relative][0]!r} line and one Releases section"]
@@ -315,18 +334,59 @@ def release_problems(relative: str, text: str) -> tuple[str | None, list[str]]:
     links = RELEASE_LINK.findall(text)
     foreign = sorted({repository for repository, _ in links if GITHUB + repository != REPOSITORY})
     problems = [f"{relative}: release links of other repositories: {foreign}"] if foreign else []
-    tags = sorted({tag for _, tag in links})
-    if len(tags) != 1 or not VERSION.fullmatch(tags[0]):
-        return None, [*problems, f"{relative}: release links name {tags}, not one vX.Y.Z release"]
-    version = tags[0]
+    tags = sorted({tag for _, tag in links if VERSION.fullmatch(tag)}, key=version_key)
+    malformed = sorted({tag for _, tag in links} - set(tags))
+    if malformed:
+        problems.append(f"{relative}: release links name {malformed}, which are not vX.Y.Z releases")
+    current = sorted({tag for _, tag in RELEASE_LINK.findall(status)})
+    if len(current) != 1 or not VERSION.fullmatch(current[0]):
+        return None, [*problems, f"{relative}: the Status line links {current}, not one vX.Y.Z release"]
+    version = current[0]
     if f"{REPOSITORY}/releases/tag/{version}" not in status:
-        problems.append(f"{relative}: the Status line does not link release {version}")
+        problems.append(f"{relative}: the Status line does not link release {version} of {REPOSITORY}")
+    newer = [tag for tag in tags if version_key(tag) > version_key(version)]
+    if newer:
+        problems.append(f"{relative}: links releases {newer}, newer than the current release {version}")
     named = re.findall(r"`(v\d+\.\d+\.\d+)`", section)
     if named[:1] != [version]:
         problems.append(f"{relative}: the Releases section names {named[:1]} first, not {version}")
+    if f"{REPOSITORY}/releases/tag/{version}" not in section:
+        problems.append(f"{relative}: the Releases section does not link release {version}")
     for place, part in (("Status line", status), ("Releases section", section)):
         problems.extend(f"{relative}: hold wording in the {place}: {found!r}" for found in hold_wording(plain(part)))
+    problems.extend(f"{relative}: describes the retired gate: {found!r}" for found in retired_gate(text))
     return version, problems
+
+
+def retired_gate(text: str) -> list[str]:
+    """Mentions of the retired manual-dispatch gate, in the raw and the rendered text."""
+    return sorted({match.group() for source in (text, plain(text)) for match in RETIRED_GATE.finditer(source)})
+
+
+def head_release_tags(root: Path = ROOT) -> list[str]:
+    """The vX.Y.Z tags that point at HEAD, oldest first: the release being built when the checkout is a release tag,
+    as in the Pages workflow's test run. Empty when HEAD has no such tag or git cannot tell."""
+    try:
+        listing = subprocess.run(
+            ["git", "tag", "--points-at", "HEAD"], cwd=root, capture_output=True, text=True, check=True, timeout=60
+        )
+    except (OSError, subprocess.SubprocessError):
+        return []
+    return sorted((tag for tag in listing.stdout.split() if VERSION.fullmatch(tag)), key=version_key)
+
+
+def tag_problems(readmes: dict[str, str], tags: list[str]) -> list[str]:
+    """A checkout tagged with vX.Y.Z releases is a release build: each README names the newest of them as its current
+    release, so the website a release deploys describes that release."""
+    if not tags:
+        return []
+    newest = max(tags, key=version_key)
+    problems = []
+    for relative, text in readmes.items():
+        version = release_problems(relative, text)[0]
+        if version != newest:
+            problems.append(f"{relative}: names {version} as the current release, but HEAD is the release {newest}")
+    return problems
 
 
 def release_state_problems(readmes: dict[str, str]) -> list[str]:
@@ -672,12 +732,41 @@ class AttributionTests(unittest.TestCase):
 
 
 class ReleaseStateTests(unittest.TestCase):
-    """The READMEs, which are staged with the website, describe the release and the Pages guard. Every other document
-    leaves the release state to them: no deployment or publication claim and no hold wording; a sentence about
-    deployment or release is negated, conditional, future or restricted (how the guard works, not what happened)."""
+    """The READMEs, which are staged with the website, describe the current release and the release-triggered Pages
+    workflow. Every other document leaves the release state to them: no deployment or publication claim and no hold
+    wording; a sentence about deployment or release is negated, conditional, future or restricted (how the guard
+    works, not what happened). No document describes the retired manual-dispatch gate."""
 
     READMES = ("README.md", "README.zh-CN.md")
     PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
+    # What each README's Releases section says about the release-triggered workflow.
+    RELEASE_MODEL = {
+        "README.md": (
+            "published",
+            "prerelease",
+            "`vX.Y.Z`",
+            "`v1.1.0-rc1`",
+            "on `main`",
+            "fails closed",
+            "gh workflow run pages.yml --ref",
+            "`v*`",
+        ),
+        "README.zh-CN.md": (
+            "发布",
+            "预发布",
+            "`vX.Y.Z`",
+            "`v1.1.0-rc1`",
+            "`main` 上",
+            "失败关闭",
+            "gh workflow run pages.yml --ref",
+            "`v*`",
+        ),
+    }
+
+    def test_no_document_names_the_retired_gate(self):
+        for relative in (*DOCUMENTS, "NOTICE"):
+            with self.subTest(document=relative):
+                self.assertEqual(retired_gate(read(relative)), [])
 
     def test_no_deployment_claims_outside_the_readmes(self):
         for relative in (*DOCUMENTS, "NOTICE"):
@@ -687,7 +776,8 @@ class ReleaseStateTests(unittest.TestCase):
                 self.assertEqual(release_wording_problems(read(relative)), [])
 
     # Statements about the site's release state that a document other than the READMEs must not make, and statements
-    # about deployment or release that it may make (how the guard works, or unrelated uses of the words).
+    # about deployment or release that it may make (how the guard works, or unrelated uses of the words). Samples that
+    # name RELEASE_APPROVED_SHA test this wording rule alone; test_no_document_names_the_retired_gate refuses them.
     OUTSIDE_REFUSED = (
         "GitHub Pages deployment is held until a later release decision, so the website is not deployed.",
         "GitHub Pages 部署处于冻结状态，网站尚未部署。",
@@ -746,21 +836,32 @@ class ReleaseStateTests(unittest.TestCase):
             for phrase in (
                 self.PAGES_URL,
                 "/releases/tag/v",
-                "RELEASE_APPROVED_SHA",
                 "(.github/workflows/pages.yml)",
                 "(.github/workflows/check-sources.yml)",
             ):
                 with self.subTest(document=relative, phrase=phrase):
                     self.assertIn(phrase, text, f"{relative} must say {phrase!r}")
+            section = readme_release_text(relative, read(relative))
+            self.assertIsNotNone(section)
+            for phrase in self.RELEASE_MODEL[relative]:
+                with self.subTest(document=relative, release_model=phrase):
+                    self.assertIn(phrase, section[1], f"the Releases section of {relative} must say {phrase!r}")
             for stale in (
                 "the website is not deployed",
                 "nothing has been released",
                 "网站尚未部署",
                 "目前没有任何发布",
+                "release_approved_sha",
+                "release_sha",
             ):
                 with self.subTest(document=relative, stale=stale):
-                    self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold")
+                    self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold or old gate")
         self.assertEqual(release_state_problems({relative: read(relative) for relative in self.READMES}), [])
+
+    def test_a_release_build_names_its_tag(self):
+        """Where the checkout is a release tag (the Pages workflow's test run), both READMEs name that release."""
+        readmes = {relative: read(relative) for relative in self.READMES}
+        self.assertEqual(tag_problems(readmes, head_release_tags()), [])
 
     # A README pair in the shape of the real ones, which the release check accepts, and edits it must refuse.
     SAMPLE = {
@@ -770,8 +871,10 @@ class ReleaseStateTests(unittest.TestCase):
         "[Releases](#releases).\n\n"
         "## Releases\n\n"
         "Version `v1.2.3` (2026-01-02) is the latest release. Its "
-        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) carries the archive.\n\n"
-        "- The [Pages workflow](.github/workflows/pages.yml) deploys only the commit `RELEASE_APPROVED_SHA` names.\n"
+        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) carries the archive. "
+        "Version `v1.0.0` was the [first release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0).\n\n"
+        "- The [Pages workflow](.github/workflows/pages.yml) deploys only a published release of a `vX.Y.Z` tag whose "
+        "commit is on `main`.\n"
         "- Later pushes to `main` are tested but not deployed.\n\n"
         "## Sources\n",
         "README.zh-CN.md": "# 样例\n\n[English](README.md) · **简体中文**\n\n"
@@ -779,8 +882,9 @@ class ReleaseStateTests(unittest.TestCase):
         "发布在 <https://fridrichmethod.github.io/dynamix/>；见[发布](#发布)。\n\n"
         "## 发布\n\n"
         "`v1.2.3`（2026-01-02）是最新版本。其 "
-        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) 提供完整存档。\n\n"
-        "- [Pages 工作流](.github/workflows/pages.yml)只部署 `RELEASE_APPROVED_SHA` 指向的提交。\n"
+        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) 提供完整存档。"
+        "`v1.0.0` 是[首个版本](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0)。\n\n"
+        "- [Pages 工作流](.github/workflows/pages.yml)只部署 `vX.Y.Z` 标签的已发布版本，且其提交须在 `main` 上。\n"
         "- 之后推送到 `main` 的提交会被测试但不会部署。\n\n"
         "## 来源\n",
     }
@@ -813,15 +917,33 @@ class ReleaseStateTests(unittest.TestCase):
             "当前 `RELEASE_APPROVED_SHA` 仍未设置。",
         ),
     }
-    # Sentences that describe the guard: the unset variable is a condition of the dispatch, not the site's state.
+    # Sentences that describe the release gate: what fails closed is a condition of a run, not the site's state.
     GUARD_WORDING = {
         "README.md": (
-            "If `RELEASE_APPROVED_SHA` is unset or names another commit, the dispatch fails closed.",
-            "A dispatch fails closed when the variable is unset.",
+            "If the release is a prerelease or its tag's commit is not on `main`, the run fails closed.",
+            "A dispatch on a branch fails closed, and a push to `main` is tested but not deployed.",
+            "A tag that is not `vX.Y.Z` is never deployed.",
         ),
         "README.zh-CN.md": (
-            "如果 `RELEASE_APPROVED_SHA` 未设置或指向其他提交，触发会在批准任务处失败关闭。",
-            "`RELEASE_APPROVED_SHA` 未设置时，触发会失败关闭。",
+            "如果发布是预发布版本，或其标签的提交不在 `main` 上，运行会失败关闭。",
+            "在分支上手动触发会失败关闭；推送到 `main` 的提交会被测试但不会部署。",
+            "不是 `vX.Y.Z` 的标签从不部署。",
+        ),
+    }
+    # Sentences of the retired manual-dispatch gate (verbatim from the READMEs at v1.0.0) and variants.
+    RETIRED_WORDING = {
+        "README.md": (
+            "`RELEASE_APPROVED_SHA` names the released commit.",
+            "Its `release_sha` input is the full SHA of the dispatched commit.",
+            "The Pages workflow dispatched on `main` with the same SHA deploys it.",
+            "A later release dispatches the Pages workflow on `main`.",
+            "Dispatch it on main.",
+        ),
+        "README.zh-CN.md": (
+            "`RELEASE_APPROVED_SHA` 指向已发布的提交。",
+            "输入的 `release_sha` 是被触发提交的完整 SHA。",
+            "在 `main` 上手动触发 Pages 工作流，填写同一个 SHA。",
+            "之后的发布需要在 main 上手动触发 Pages 工作流。",
         ),
     }
 
@@ -895,6 +1017,83 @@ class ReleaseStateTests(unittest.TestCase):
                     with self.subTest(document=relative, place=place, sentence=sentence):
                         readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
                         self.assertEqual(release_state_problems(readmes), [])
+
+    def test_release_check_refuses_the_retired_gate(self):
+        for relative, wording in self.RETIRED_WORDING.items():
+            for sentence in wording:
+                for place, anchor in zip(("Status line", "Releases section"), self.ANCHORS[relative], strict=True):
+                    with self.subTest(document=relative, place=place, sentence=sentence):
+                        readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
+                        _, problems = release_problems(relative, readmes[relative])
+                        self.assertTrue([p for p in problems if "retired gate" in p], problems)
+
+    def test_release_check_refuses_stale_or_malformed_release_links(self):
+        """Each edit breaks one README on its own (release_problems), whatever the other language says."""
+        en, zh = "README.md", "README.zh-CN.md"
+        link = "https://github.com/FridrichMethod/dynamix/releases/tag/"
+        cases = {
+            "a newer release linked than the Status line's": (
+                en,
+                "is the latest release.",
+                f"is the latest release. Version `v1.10.0` is [next]({link}v1.10.0).",
+            ),
+            "the Status line links two releases": (
+                zh,
+                "；见[发布](#发布)。",
+                f"（[v1.0.0]({link}v1.0.0) 之后）；见[发布](#发布)。",
+            ),
+            "the Status line links no release": (en, f"[v1.2.3]({link}v1.2.3). The", "v1.2.3. The"),
+            "the Releases section does not link the current release": (
+                zh,
+                f"[GitHub Release]({link}v1.2.3) 提供完整存档。",
+                "GitHub Release 提供完整存档。",
+            ),
+            "a release link that is not vX.Y.Z": (en, f"{link}v1.0.0", f"{link}v1.0"),
+            "the first release named first": (zh, "`v1.2.3`（2026-01-02）是最新版本。", "最新版本（2026-01-02）。"),
+        }
+        for case, (relative, old, new) in cases.items():
+            with self.subTest(case=case):
+                text = self.edited(relative, old, new, 1)[relative]
+                self.assertNotEqual(release_problems(relative, text)[1], [], text)
+                self.assertNotEqual(release_state_problems({**self.SAMPLE, relative: text}), [])
+
+    def test_a_release_build_must_name_the_newest_tag_of_its_commit(self):
+        self.assertEqual(tag_problems(self.SAMPLE, []), [], "an untagged checkout names any release")
+        self.assertEqual(tag_problems(self.SAMPLE, ["v1.2.3"]), [])
+        self.assertEqual(tag_problems(self.SAMPLE, ["v1.0.0", "v1.2.3"]), [])
+        self.assertNotEqual(tag_problems(self.SAMPLE, ["v1.2.4"]), [])
+        self.assertNotEqual(tag_problems(self.SAMPLE, ["v1.2.3", "v1.10.0"]), [], "numeric, not lexical, order")
+
+    @unittest.skipUnless(shutil.which("git"), "needs git")
+    def test_head_release_tags_reads_the_checkout(self):
+        environment = {
+            "PATH": os.environ.get("PATH", "/usr/bin:/bin"),
+            "GIT_AUTHOR_NAME": "t",
+            "GIT_AUTHOR_EMAIL": "t@example.invalid",
+            "GIT_COMMITTER_NAME": "t",
+            "GIT_COMMITTER_EMAIL": "t@example.invalid",
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_CONFIG_GLOBAL": os.devnull,
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "checkout"
+            root.mkdir()
+
+            def git(*arguments: str) -> None:
+                subprocess.run(["git", *arguments], cwd=root, env=environment, check=True, capture_output=True)
+
+            git("init", "-q")
+            git("commit", "-q", "--allow-empty", "-m", "first")
+            git("tag", "v1.0.0")
+            git("commit", "-q", "--allow-empty", "-m", "second")
+            self.assertEqual(head_release_tags(root), [])
+            for tag in ("v1.10.0", "v1.2.3", "v1.2.3-rc1", "latest"):
+                git("tag", "-a", "-m", tag, tag)
+            self.assertEqual(head_release_tags(root), ["v1.2.3", "v1.10.0"])
+            empty = Path(temporary) / "empty"
+            empty.mkdir()
+            with unittest.mock.patch.dict(os.environ, {"GIT_CEILING_DIRECTORIES": temporary}):
+                self.assertEqual(head_release_tags(empty), [])
 
 
 class CommandTests(unittest.TestCase):
