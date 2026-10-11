@@ -285,34 +285,66 @@ OTHER_GAME_ARTWORK = re.compile(
     r"(?P<other>[^\s,;()][^,;()]*)",
     re.I,
 )
-# Dynamix's own occasions are not another game: artwork "for the Halloween Event", "from the 2nd Anniversary" or "for
-# Christmas Event 2021" is original-game art and creates no game association (an association would also drop the
-# default rights holder). An occasion name that also names another game or collaboration partner ("the RAVON
-# Collaboration Event", "Arcaea Event", "Lanota Anniversary") is that game's: the name minus the words that describe
-# an occasion (OCCASION_WORDS: occasion and collaboration words, Dynamix's own name, numbers, ordinals, months,
-# seasons and connecting words) names the other game, and only a name with nothing left is a Dynamix occasion. A word
-# missing from the list is read as a game name, the cautious side (no default rights holder; the evidence names it).
-DYNAMIX_OCCASION = re.compile(
-    r"\b(?:events?|anniversary|festival|christmas|x'?mas|halloween|new\s+year|valentine'?s?|april\s+fools?|"
-    r"birthday)\b",
+
+
+@dataclass(frozen=True)
+class OtherGame:
+    """A reviewed entry of OTHER_GAMES: a game that an "Artwork in/for/from <name>" caption can name."""
+
+    name: str  # canonical name, used in evidence text
+    slug: str  # its game_associations key
+    spellings: tuple[str, ...]  # accepted spellings, the canonical name included (see OTHER_GAME_NAMES)
+
+
+# Other games named in captions (owner decision 2026-10-11, 09-frozen-contracts.md "Other games named in captions"):
+# the name after "Artwork/Cover/Jacket/Illustration in/for/from" records another game only when it names a game of this
+# reviewed list, and then that game's association (an event or anniversary of the game included: "the RAVON
+# Collaboration Event", "Arcaea's 3rd Anniversary"). Any other name -- an unlisted event, holiday or game, Dynamix's own
+# occasions among them ("the Halloween Event") -- records no association, so the page game and the default rights
+# holder stay, and the item's evidence names it with OTHER_GAME_REVIEW for a curator. A new collaboration needs a
+# reviewed entry here. Entries come from evidence only: a game that committed wiki captions name, or one that the
+# caption tests use; each says which. It replaces the occasion heuristic (word lists DYNAMIX_OCCASION/OCCASION_WORDS),
+# which read every name it did not know as a game.
+OTHER_GAMES = (
+    # Committed captions: the galleries of six original-game song pages on both wikis caption their square art
+    # "<song> Artwork in RAVON" (Black：Magnam, Jack Out KIllER, MassacrE, Rave! and Get on it!, ReLyna, Totally
+    # bounded; data/discovery/miraheze.json and fandom.json), Dynamix's RAVON collaboration.
+    OtherGame("RAVON", "ravon", ("RAVON",)),
+    # Test entry: no committed caption names it; the caption tests use it (tests/test_fetch_wikis_parse.py).
+    OtherGame("Arcaea", "arcaea", ("Arcaea",)),
+    # Test entry, as Arcaea (the plain name of the pair with Cytus II).
+    OtherGame("Cytus", "cytus", ("Cytus",)),
+    # Test entry, as Arcaea (a spelling that starts with another entry's: the longer one is read).
+    OtherGame("Cytus II", "cytus_ii", ("Cytus II",)),
+    # Test entry, as Arcaea.
+    OtherGame("Lanota", "lanota", ("Lanota",)),
+    # Test entry, as Arcaea (a plural possessive, "Phigros'").
+    OtherGame("Phigros", "phigros", ("Phigros",)),
+    # Test entry, as Arcaea ("the Dynamix X Rotaeno Collaboration Event").
+    OtherGame("Rotaeno", "rotaeno", ("Rotaeno",)),
+)
+# A spelling matches as whole words in any letter case, its words separated by any whitespace, the longest spelling
+# first ("Cytus II" before "Cytus"); a possessive after it ("Arcaea's", "Arcaea’s", "Phigros'") is not part of the
+# match, so it names the game, while a longer word ("Arcaeana", "Cytus2") does not. Each spelling is a named group
+# (OTHER_GAME_GROUPS gives its game).
+_OTHER_GAME_ALTERNATIVES = sorted(
+    ((spelling, game) for game in OTHER_GAMES for spelling in game.spellings),
+    key=lambda pair: (-len(pair[0]), pair[0]),
+)
+OTHER_GAME_NAMES = re.compile(
+    r"(?<!\w)(?:"
+    + "|".join(
+        f"(?P<g{index}>" + r"\s+".join(re.escape(word) for word in spelling.split()) + ")"
+        for index, (spelling, _game) in enumerate(_OTHER_GAME_ALTERNATIVES)
+    )
+    + r")(?!\w)",
     re.I,
 )
-OCCASION_WORDS = re.compile(
-    r"\b(?:events?|anniversary|anniversaries|festivals?|christmas|x['’]?mas|halloween|new\s+year|"
-    r"valentine(?:['’]?s)?|april\s+fools?|birthday|easter|lunar|chinese|mid|spring|summer|autumn|fall|winter|"
-    r"season(?:al)?|holidays?|celebrations?|party|day|eve|week(?:end)?|limited|special|login|comeback|re-?runs?|"
-    r"collab(?:oration)?s?|dynamix(?:['’]s)?|c4cat(?:['’]s)?|the|a|an|of|and|to|in|on|at|for|from|with|x|"
-    r"vs|\d+(?:st|nd|rd|th)?|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|"
-    r"jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|"
-    r"nov(?:ember)?|dec(?:ember)?)\b",
-    re.I,
+OTHER_GAME_GROUPS = {f"g{index}": game for index, (_spelling, game) in enumerate(_OTHER_GAME_ALTERNATIVES)}
+OTHER_GAME_REVIEW = (
+    "which is not on the reviewed game list (scripts/wikis/config.py OTHER_GAMES), so no game association is "
+    "recorded (curator review)"
 )
-# A possessive ending a word ("Arcaea's", "New Year’s", "April Fools'"), followed by nothing but punctuation: it ties
-# a name to the occasion and is never part of the name, so classify.occasion_game drops it from every word of an
-# occasion name before OCCASION_WORDS are removed and again from the words left, and from the end of a name without
-# occasion words. Kept, "the New Year's Event" would leave a game "s" and "Arcaea's 3rd Anniversary" the association
-# "arcaea_s".
-POSSESSIVE = re.compile(r"(?:['’]s|(?<=s)['’])(?=\W*$)", re.I)
 # Observed layout of all song pages with both Template:Song and Template:SongUV (2026-10-10, 20 pages on Miraheze):
 # each game's template and notes sit in its own tab, and the page-level gallery after the tabs lists the original
 # game's event items (characters, parts, backgrounds, chart lists, comeback announcements). A page-level gallery

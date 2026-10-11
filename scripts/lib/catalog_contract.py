@@ -39,6 +39,22 @@ from .schema import (
 MERGED_FIELDS = ("illustrators", "composers", "song_titles", "song_ids", "collections")
 
 
+def _credit_problem(record: Mapping[str, Any]) -> str | None:
+    """Why the ``credit_evidence`` of a catalog asset or provenance record contradicts its role lists, or None: each
+    ``illustrator`` or ``composer`` entry names a member of ``illustrators`` or ``composers`` (composer and illustrator
+    are separate roles, and the viewer shows the entries beside the lists). An ``other`` entry is free.
+
+    validate_catalog applies it, so no record with contradicting credit evidence reaches the published catalog (DX2-07);
+    validate_asset does not apply it to the family manifests yet, because a test builds such a source record
+    (tests/test_fetch_archives.py, test_a_run_fills_a_cited_credit_from_the_wikis_manifest)."""
+    lists = {"illustrator": record["illustrators"], "composer": record["composers"]}
+    for index, entry in enumerate(record.get("credit_evidence") or []):
+        role = entry["role"]
+        if role in lists and entry["name"] not in lists[role]:
+            return f"[{index}] names {role} {entry['name']!r}, who is not in {role}s"
+    return None
+
+
 def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, str]) -> None:
     label = _label("catalog asset", asset)
     family = source_family(asset["source_id"])
@@ -58,6 +74,9 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
             _fail(label, field, f"must be {value!r}")
     if asset["thumb"] not in (None, thumb_relpath(asset["sha256"])):
         _fail(label, "thumb", f"must be null or {thumb_relpath(asset['sha256'])!r}")
+    problem = _credit_problem(asset)  # the merged lists hold every name of the primary record
+    if problem:
+        _fail(label, "credit_evidence", problem)
     provenance = asset["provenance"]
     if not provenance:
         _fail(label, "provenance", "must list at least the primary record")
@@ -66,6 +85,9 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
             _fail(label, "provenance", f"family of {record['source_id']!r} must be {record['family']!r}")
         if source_names.get(record["source_id"]) != record["source_name"]:
             _fail(label, "provenance", f"source_name of {record['source_id']!r} differs from its source")
+        problem = _credit_problem(record)
+        if problem:
+            _fail(label, "provenance", f"{record.get('asset_id', record['source_id'])!r} credit_evidence: {problem}")
     keys = [provenance_sort_key(record) for record in provenance]
     if keys != sorted(keys) or len(set(keys)) != len(keys):
         _fail(

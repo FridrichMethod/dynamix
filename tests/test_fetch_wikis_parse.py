@@ -479,9 +479,12 @@ class DecideTests(unittest.TestCase):
 
 class OtherGameCaptionTests(unittest.TestCase):
     """DX1-01: a caption "<song> Artwork in <other game>" adds a shared-game association; it never supplies the
-    original game itself, so the page or tab game (and the pre-Universe rule) still decide."""
+    original game itself, so the page or tab game (and the pre-Universe rule) still decide. Owner decision
+    (2026-10-11, 09-frozen-contracts.md "Other games named in captions"): the name records another game only when it
+    names a game on the reviewed list (config.OTHER_GAMES); any other name records none and asks for a curator."""
 
     THRESHOLD = "2023-08-18T00:00:00Z"  # the wiki's first Universe-named Fandom upload
+    REVIEW = "which is not on the reviewed game list"  # the start of config.OTHER_GAME_REVIEW
 
     def found(self, title: str, text: str, categories: list[str], names: list[str]) -> dict:
         page = {"title": title, "revision": {"content": text, "revid": 1}, "categories": categories}
@@ -505,7 +508,7 @@ class OtherGameCaptionTests(unittest.TestCase):
         text += "WHIRLWIND Squared.png|WHIRLWIND Artwork in RAVON\n</gallery>"
         found = self.found("WHIRLWIND", text, ["Category:Songs"], ["WHIRLWINDDynamix.png", "WHIRLWIND Squared.png"])
         item = found["File:WHIRLWIND Squared.png"]
-        self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", "RAVON"))
+        self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ("RAVON",)))
         decision = self.decide([item])
         self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "mixed", ["ravon"]))
         self.assertTrue(any("another game/event" in entry for entry in decision.game_evidence))
@@ -519,7 +522,7 @@ class OtherGameCaptionTests(unittest.TestCase):
             "UVSong", text, ["Category:Songs (Dynamix Universe)"], ["UVSong cover.png", "UVSong RAVON.png"]
         )
         item = found["File:UVSong RAVON.png"]
-        self.assertEqual((item.game, item.other_game), ("dynamix_universe", "RAVON"))
+        self.assertEqual((item.game, item.other_games), ("dynamix_universe", ("RAVON",)))
         decision = self.decide([item])
         self.assertEqual(
             (decision.disposition, decision.reason.split(":")[0], decision.game),
@@ -531,7 +534,7 @@ class OtherGameCaptionTests(unittest.TestCase):
         """The same caption on a page that names no game ('Songs', a neutral list page): no original-game context."""
         text = "<gallery>\nSome Song Arcaea.png|Some song Artwork in Arcaea\n</gallery>"
         item = self.found("Songs", text, [], ["Some Song Arcaea.png"])["File:Some Song Arcaea.png"]
-        self.assertEqual((item.game, item.other_game), (None, "Arcaea"))
+        self.assertEqual((item.game, item.other_games), (None, ("Arcaea",)))
         decision = self.decide([item])
         self.assertEqual((decision.disposition, decision.reason.split(":")[0]), ("pending", "unresolved_game"))
         self.assertEqual((decision.game, decision.associations), ("unknown", ["arcaea"]))
@@ -548,7 +551,7 @@ class OtherGameCaptionTests(unittest.TestCase):
         names = ["B.png", "B cover.png", "B Squared.png", "B Chart List.png"]
         found = self.found("B", text, ["Category:Songs"], names)
         item = found["File:B Squared.png"]
-        self.assertEqual((item.game, item.other_game), (None, "RAVON"))
+        self.assertEqual((item.game, item.other_games), (None, ("RAVON",)))
         decision = self.decide([item], fandom_timestamp="2021-08-22T00:00:00Z")
         self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "mixed", ["ravon"]))
         self.assertTrue(any(entry.startswith("pre-Universe upload") for entry in decision.game_evidence))
@@ -557,12 +560,14 @@ class OtherGameCaptionTests(unittest.TestCase):
         self.assertEqual((later.disposition, later.reason.split(":")[0]), ("pending", "unresolved_game"))
         # A page-level gallery role of such a page is original-game evidence; the caption still adds the association.
         listed = found["File:B Chart List.png"]
-        self.assertEqual((listed.role, listed.game, listed.other_game), ("reference", "dynamix", "RAVON"))
+        self.assertEqual((listed.role, listed.game, listed.other_games), ("reference", "dynamix", ("RAVON",)))
         self.assertEqual((self.decide([listed]).game, self.decide([listed]).associations), ("mixed", ["ravon"]))
 
     def test_dynamix_events_are_not_another_game(self) -> None:
         """DX1-04: artwork captioned for one of Dynamix's own events or anniversaries is original-game art: no
-        association (which would also drop the default C4Cat rights holder), the page game stays."""
+        association (which would also drop the default C4Cat rights holder), the page game stays. Since the owner
+        decision of 2026-10-11 no event name is on the reviewed game list, so the evidence asks a curator to review
+        the name instead of calling it a Dynamix event."""
         captions = {
             "Jacket for the Halloween Event": "the Halloween Event",
             "Artwork from the 2nd Anniversary": "the 2nd Anniversary",
@@ -575,15 +580,14 @@ class OtherGameCaptionTests(unittest.TestCase):
         }
         for caption, occasion in captions.items():
             item = self.gallery_item(caption)
-            self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", None), caption)
-            self.assertIn(f"artwork for {occasion} (a Dynamix event, not another game)", item.detail)
+            self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()), caption)
+            self.assertIn(f"the caption names {occasion}, {self.REVIEW}", item.detail)
             decision = self.decide([item])
             self.assertEqual((decision.disposition, decision.game, decision.associations), ("download", "dynamix", []))
 
     def test_events_of_another_game_are_that_games(self) -> None:
-        """Only Dynamix's own occasions are suppressed: an event or anniversary name that also names another game or
-        collaboration partner is that game's, a shared artwork with the same association as 'Artwork in <game>' (so
-        the default C4Cat rights holder is not applied)."""
+        """W1: an event or anniversary name that also names a listed game is that game's, a shared artwork with the
+        same association as 'Artwork in <game>' (so the default C4Cat rights holder is not applied)."""
         captions = {
             "S Artwork for the RAVON Collaboration Event": "RAVON",
             "S Jacket in Arcaea Event": "Arcaea",
@@ -595,8 +599,8 @@ class OtherGameCaptionTests(unittest.TestCase):
         for caption, other in captions.items():
             with self.subTest(caption=caption):
                 item = self.gallery_item(caption)
-                self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", other))
-                self.assertNotIn("a Dynamix event", item.detail)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", (other,)))
+                self.assertNotIn(self.REVIEW, item.detail)
                 self.assertIn("(another game/event", item.detail)
                 decision = self.decide([item])
                 self.assertEqual(
@@ -621,8 +625,8 @@ class OtherGameCaptionTests(unittest.TestCase):
         for caption in captions:
             with self.subTest(caption=caption):
                 item = self.gallery_item(caption)
-                self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", None))
-                self.assertIn("(a Dynamix event, not another game)", item.detail)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertIn(self.REVIEW, item.detail)  # owner decision 2026-10-11: no list entry, curator review
                 decision = self.decide([item])
                 self.assertEqual(
                     (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
@@ -638,12 +642,12 @@ class OtherGameCaptionTests(unittest.TestCase):
             "S Artwork for Arcaea’s 10th Anniversary": "Arcaea",
             "S Artwork for the 10th Anniversary of Arcaea": "Arcaea",
             "S Jacket for RAVON's Collaboration Event 2024": "RAVON",
-            "S Artwork in RAVON's": "RAVON",  # a name without occasion words loses only the possessive ending it
+            "S Artwork in RAVON's": "RAVON",  # the possessive ending a listed name
         }
         for caption, other in captions.items():
             with self.subTest(caption=caption):
                 item = self.gallery_item(caption)
-                self.assertEqual((item.role, item.game, item.other_game), ("song_art", "dynamix", other))
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", (other,)))
                 self.assertIn("(another game/event", item.detail)
                 decision = self.decide([item])
                 self.assertEqual(
@@ -651,28 +655,108 @@ class OtherGameCaptionTests(unittest.TestCase):
                     ("download", "mixed", [other.casefold()]),
                 )
 
-    def test_occasion_game_strips_possessives_only(self) -> None:
-        """classify.occasion_game on the name alone: a possessive ending a word of an occasion name is dropped
-        before the occasion words are removed and before the rest is decided; a name without occasion words stands
-        as it is apart from a possessive that ends it."""
+    def test_listed_games_are_read_with_their_possessives(self) -> None:
+        """classify.listed_games on the name alone (it replaces the occasion heuristic): a listed game named with a
+        possessive, in any letter case, is that game under its canonical name; the occasions of Dynamix name none.
+        Changed by the owner decision of 2026-10-11: an unlisted game ("Assassin's Creed") names no game any more,
+        and a name in capitals gives the list's canonical name ("Arcaea"), not the caption's spelling ("ARCAEA")."""
         cases = {
-            "the New Year's Event": None,
-            "New Year’s Eve": None,
-            "April Fool's Day": None,
-            "April Fools' Day": None,
-            "Dynamix's 10th Anniversary": None,
-            "the 3rd Anniversary – 2024": None,
-            "Arcaea's 3rd Anniversary": "Arcaea",
-            "ARCAEA'S 3RD ANNIVERSARY": "ARCAEA",
-            "Lanota’s 2nd Anniversary Event!": "Lanota",
-            "the RAVON Collaboration Event": "RAVON",
-            "RAVON's": "RAVON",
-            "RAVON": "RAVON",
-            "Assassin's Creed": "Assassin's Creed",
+            "the New Year's Event": (),
+            "New Year’s Eve": (),
+            "April Fool's Day": (),
+            "April Fools' Day": (),
+            "Dynamix's 10th Anniversary": (),
+            "the 3rd Anniversary – 2024": (),
+            "Arcaea's 3rd Anniversary": ("Arcaea",),
+            "ARCAEA'S 3RD ANNIVERSARY": ("Arcaea",),
+            "Lanota’s 2nd Anniversary Event!": ("Lanota",),
+            "the RAVON Collaboration Event": ("RAVON",),
+            "RAVON's": ("RAVON",),
+            "RAVON": ("RAVON",),
+            "Assassin's Creed": (),
         }
         for named, expected in cases.items():
             with self.subTest(named=named):
-                self.assertEqual(classify.occasion_game(named), expected)
+                self.assertEqual(tuple(game.name for game in classify.listed_games(named)), expected)
+
+    def test_unlisted_names_record_no_game_and_ask_for_review(self) -> None:
+        """Owner decision 2026-10-11: a name that is not on the reviewed game list -- an unlisted game, an event or
+        holiday, a name in another script -- records no association (so the default rights holder stays), the page
+        game stays, and the evidence names the caption's name and asks a curator to review it. The occasion
+        heuristic read each of these as another game (an association 'assassin_s_creed', 'tokyo_game_show_2019',
+        'let', or a 'mixed' game without any association for a name without Latin letters)."""
+        names = (
+            "Assassin's Creed",
+            "Tokyo Game Show 2019",
+            "Let's Party Event",
+            "the Dynamix Universe Event",
+            "春节活动",
+            "新年's Event",
+            "Arcaea Lanota",  # control: two listed names side by side are two games
+        )
+        for named in names[:-1]:
+            with self.subTest(named=named):
+                item = self.gallery_item(f"S Artwork for {named}")
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+                self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+                self.assertIn("(curator review)", item.detail)
+                self.assertEqual((item.game, item.other_games), ("dynamix", ()))
+                self.assertTrue(any(self.REVIEW in entry for entry in decision.game_evidence))
+        control = self.decide([self.gallery_item(f"S Artwork for {names[-1]}")])
+        self.assertEqual((control.game, control.associations), ("mixed", ["arcaea", "lanota"]))
+
+    def test_listed_names_match_whole_words_longest_first(self) -> None:
+        """A listed spelling matches only as whole words, the longest first ("Cytus II" before "Cytus"); a name that
+        names several listed games records each; a plural possessive ("Phigros'") is read as its game."""
+        captions = {
+            "S Artwork for Cytus II's 5th Anniversary Event": ["cytus_ii"],
+            "S Artwork in Cytus": ["cytus"],
+            "S Artwork for Phigros' 2nd Anniversary": ["phigros"],
+            "S Artwork for the Arcaea x Lanota Collaboration Event": ["arcaea", "lanota"],
+            "S Artwork for the Lanota and Arcaea Festival": ["arcaea", "lanota"],
+            "S Artwork for Arcaeana": [],
+            "S Artwork for the RAVONs": [],
+            "S Artwork for Cytus2": [],
+        }
+        for caption, associations in captions.items():
+            with self.subTest(caption=caption):
+                decision = self.decide([self.gallery_item(caption)])
+                self.assertEqual(decision.associations, associations)
+                self.assertEqual(decision.game, "mixed" if associations else "dynamix")
+        item = self.gallery_item("S Artwork for the Lanota and Arcaea Festival")
+        self.assertEqual(item.other_games, ("Lanota", "Arcaea"))  # in the caption's order
+        self.assertIn("(another game/event: Lanota, Arcaea)", item.detail)
+
+    def test_quoted_names_keep_their_quotes_in_the_evidence(self) -> None:
+        """A name in typographic quotes ("‘Cytus’") is its game, and the evidence quotes the caption's name intact:
+        the occasion heuristic read the closing quote as a plural possessive and left "‘Cytus" in the evidence."""
+        item = self.gallery_item("S Artwork for ‘Cytus’")
+        self.assertIn("artwork of the song for ‘Cytus’ (another game/event: Cytus)", item.detail)
+        self.assertEqual(item.other_games, ("Cytus",))
+        self.assertEqual(self.decide([item]).associations, ["cytus"])
+
+    def test_the_reviewed_game_list_is_well_formed(self) -> None:
+        """config.OTHER_GAMES: unique canonical names, association keys and spellings; each canonical name is one of
+        its spellings; no entry is Dynamix itself or a BMS release event; RAVON, the one other game that committed
+        captions name, is listed."""
+        names = [game.name for game in config.OTHER_GAMES]
+        slugs = [game.slug for game in config.OTHER_GAMES]
+        spellings = [spelling.casefold() for game in config.OTHER_GAMES for spelling in game.spellings]
+        for values in (names, slugs, spellings):
+            self.assertEqual(len(values), len(set(values)), values)
+        for game in config.OTHER_GAMES:
+            with self.subTest(game=game.name):
+                self.assertRegex(game.slug, r"^[a-z0-9_]+$")
+                self.assertNotIn(game.slug, ("dynamix", "dynamix_universe", "unknown_other"))
+                self.assertIn(game.name, game.spellings)
+                for spelling in game.spellings:
+                    self.assertNotRegex(spelling, r"(?i)^dynamix\b")
+                    self.assertIsNone(config.EXTERNAL_RELEASE_EVENT.search(spelling))
+                    self.assertEqual(classify.listed_games(spelling), (game,))
+        self.assertIn("ravon", slugs)
 
     def gallery_item(self, caption: str):
         """The evidence of a gallery image captioned ``caption`` on an original-game song page."""
@@ -680,10 +764,12 @@ class OtherGameCaptionTests(unittest.TestCase):
         return self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
 
     def test_the_documented_caption_examples_behave_as_documented(self) -> None:
-        """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: another game's
-        artwork or event records an association (with a possessive too), Dynamix's own occasions do not, and a BMS
-        release event is the song's separate release (external_release_art). The paragraph names the two word lists
-        that decide a Dynamix occasion. The stale 'another game or event' wording is gone."""
+        """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: a listed game's
+        artwork or event records an association (with a possessive too), Dynamix's own occasions and other unlisted
+        names do not, and a BMS release event is the song's separate release (external_release_art). The paragraph
+        names the reviewed game list (config.OTHER_GAMES, which replaced the word lists DYNAMIX_OCCASION and
+        OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed word lists. The stale 'another
+        game or event' wording is gone."""
         expected = {
             "Artwork in RAVON": ("download", ["ravon"]),
             "Artwork for the RAVON Collaboration Event": ("download", ["ravon"]),
@@ -702,9 +788,11 @@ class OtherGameCaptionTests(unittest.TestCase):
                 self.assertNotIn(stale, paragraph)
                 self.assertIn("`external_release_art`", paragraph)
                 self.assertIn("`scripts/wikis/config.py`", paragraph)
+                self.assertIn("`OTHER_GAMES`", paragraph)
+                self.assertTrue(config.OTHER_GAMES)
                 for name in ("DYNAMIX_OCCASION", "OCCASION_WORDS"):
-                    self.assertIn(f"`{name}`", paragraph)
-                    self.assertTrue(hasattr(config, name), name)
+                    self.assertNotIn(name, paragraph)
+                    self.assertFalse(hasattr(config, name), name)
                 for caption in expected:
                     self.assertIn(caption, paragraph)
         for caption, (disposition, associations) in expected.items():

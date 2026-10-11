@@ -93,6 +93,14 @@ def mask_comments(text: str) -> str:
     return _COMMENT.sub(lambda match: re.sub(r"[^\n]", " ", match.group(0)), text or "")
 
 
+# A deliberate choice (review note of 2026-10-11, not verified against a live wiki): the one-for-one rule below follows
+# the first-letter capitalization that Wikimedia's production wikis configure through $wgOverrideUcfirstCharacters
+# ("ß" stays, "ǆ" becomes "ǅ"). MediaWiki core's default for that setting is empty, and a wiki without overrides
+# capitalizes the first letter with PHP's mb_strtoupper, a full case mapping ("ß" -> "SS", "ǆ" -> "Ǆ"). Whether
+# Miraheze or Fandom set overrides is not established; no committed title starts with a character on which the two
+# rules differ (scan of 2026-10-11). Before changing the rule, read the wikis' own title normalization at the next live
+# refresh (action=query&titles=File:ß.png). reviews.canonical_title, canonical_file_name, canonical_page_title and
+# _template_name all use it.
 def upper_first(text: str) -> str:
     """``text`` with its first letter capitalized as MediaWiki capitalizes a title, one character for one character:
     a lowercase letter takes its titlecase form when that is a single character (``é`` -> ``É``, the digraph ``ǆ`` ->
