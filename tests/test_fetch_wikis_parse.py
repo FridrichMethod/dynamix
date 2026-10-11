@@ -890,6 +890,45 @@ class OtherGameCaptionTests(unittest.TestCase):
                     self.assertEqual(classify.listed_games(spelling), (game,))
         self.assertIn("ravon", slugs)
 
+    def test_each_reviewed_entry_says_what_it_is(self) -> None:
+        """The comment above each OTHER_GAMES entry in scripts/wikis/config.py says what the entry is: a reviewed
+        entry, and for the six the owner decision of 2026-10-11 kept (RAVON, Arcaea, Lanota, Cytus, Cytus II,
+        Phigros) an owner-approved one; RAVON's also names the committed captions that evidence it. No comment calls
+        an entry a test entry or its membership an open owner question any more."""
+        source = (ROOT / "scripts/wikis/config.py").read_text(encoding="utf-8")
+        start = source.index("\nOTHER_GAMES = (\n")
+        header = source[source.index("# Other games named in captions") : start]
+        block = source[start : source.index("\n)\n", start)].splitlines()[2:]
+        comments: dict[str, str] = {}
+        pending: list[str] = []
+        for line in block:
+            stripped = line.strip()
+            if stripped.startswith("#"):
+                pending.append(stripped.lstrip("#").strip())
+            elif stripped.startswith("OtherGame("):
+                comments[stripped.split('"')[1]] = " ".join(pending)
+                pending = []
+        self.assertEqual(sorted(comments), sorted(game.name for game in config.OTHER_GAMES))
+        approved = {"RAVON", "Arcaea", "Lanota", "Cytus", "Cytus II", "Phigros"}
+        stale = (
+            "test entry",
+            "list's own tests",
+            "earlier caption tests",
+            "added with this list",
+            "open owner question",
+        )
+        for name, comment in comments.items():
+            with self.subTest(game=name):
+                self.assertIn("reviewed entry", comment.casefold())
+                for phrase in stale:
+                    self.assertNotIn(phrase, comment.casefold())
+                if name in approved:
+                    self.assertIn("Owner-approved reviewed entry (2026-10-11)", comment)
+        self.assertIn("committed captions", comments["RAVON"].casefold())
+        for phrase in stale:
+            with self.subTest(header=phrase):
+                self.assertNotIn(phrase, header.casefold())
+
     def gallery_item(self, caption: str):
         """The evidence of a gallery image captioned ``caption`` on an original-game song page."""
         text = f"{{{{Song\n|Title = S\n|Imgsuffix = S.png\n}}}}\n<gallery>\nS Event.png|{caption}\n</gallery>"
