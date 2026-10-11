@@ -346,7 +346,7 @@
         },
         {
           "match": "^768368460016668$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "^/7(L⎥?[_(L+#<>+&⎥^(o)"
           ],
@@ -362,7 +362,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Event 'coming soon' card (Hyphen)."
+          "candidate_notes": "Event 'coming soon' card (Hyphen). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1777549545765216$",
@@ -386,7 +386,7 @@
         },
         {
           "match": "^1788302508023253$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Shinobi (Original Short Mix)"
           ],
@@ -404,7 +404,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Upcoming event card for Shinobi (Original Short Mix)."
+          "candidate_notes": "Upcoming event card for Shinobi (Original Short Mix). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1848526438667526$",
@@ -577,19 +577,19 @@
         },
         {
           "match": "^693933942734314$",
-          "role": "reference",
+          "role": "promotional",
           "evidence_quotes": [
-            "ubmission"
+            "公開徵曲活動在2023年的今天"
           ],
-          "candidate_notes": "Open Submission 2023 poster: informational graphic stating the submission rules and cover-art format."
+          "candidate_notes": "Open Submission 2023 key visual; visual_inspection 2026-10-10 of the 600x600 Open Graph crop: the mascot with the title 'DYNAMIX 2023 OPEN SUBMISSION' (no rules text is visible in this crop), an event key visual (promotional)."
         },
         {
           "match": "^pfbid02kYGVKcqTXAp9VroMve8UhpCYykMG2s2nf9a7rTjYemyvecJ4X6iZyqaLmRqpm7MZl$",
-          "role": "reference",
+          "role": "promotional",
           "evidence_quotes": [
-            "ubmission"
+            "公開徵曲活動在2023年的今天"
           ],
-          "candidate_notes": "Open Submission 2023 poster (second post): informational graphic stating the submission rules and cover-art format."
+          "candidate_notes": "Open Submission 2023 key visual; visual_inspection 2026-10-10 of the 600x600 Open Graph crop: the mascot with the title 'DYNAMIX 2023 OPEN SUBMISSION' (no rules text is visible in this crop), an event key visual (promotional)."
         },
         {
           "match": "^1023954971124681$",
@@ -1087,7 +1087,7 @@
       "rules": [
         {
           "match": "^981147690795900928:1$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Xetta"
           ],
@@ -1106,12 +1106,12 @@
             "url": "https://dynamix.miraheze.org/wiki/Xetta",
             "note": "the Dynamix wiki song page"
           },
-          "candidate_notes": "Official event announcement image for Xetta.",
+          "candidate_notes": "Official event announcement image for Xetta. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
           "notes": "The post names the composers by X handle (@Tang0Juan) and Black Box; the credit follows the wiki."
         },
         {
           "match": "^1156172591872167937:1$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "オレンジ"
           ],
@@ -1130,12 +1130,12 @@
             "url": "https://dynamix.miraheze.org/wiki/%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8",
             "note": "the Dynamix wiki song page"
           },
-          "candidate_notes": "Official event announcement image for オレンジ.",
+          "candidate_notes": "Official event announcement image for オレンジ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
           "notes": "Composer credit as the official post writes it; the wiki credits Dragon_Klub & 残響P."
         },
         {
           "match": "^1239884186070265856:1$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "終の舞姫"
           ],
@@ -1154,11 +1154,11 @@
             "url": "https://dynamix.miraheze.org/wiki/%E7%B5%82%E3%81%AE%E8%88%9E%E5%A7%AB",
             "note": "the Dynamix wiki song page"
           },
-          "candidate_notes": "Official event announcement image for 終の舞姫."
+          "candidate_notes": "Official event announcement image for 終の舞姫. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1437747970875674626:1$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "玲瓏メテオ"
           ],
@@ -1177,18 +1177,17 @@
             "url": "https://dynamix.miraheze.org/wiki/%E7%8E%B2%E7%93%8F%E3%83%A1%E3%83%86%E3%82%AA",
             "note": "the Dynamix wiki song page"
           },
-          "candidate_notes": "Official event announcement image for 玲瓏メテオ."
+          "candidate_notes": "Official event announcement image for 玲瓏メテオ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1889645633545613724:1$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
+            "Grayscale Tragedy",
+            "ネーヴェの紋様",
             "Horloge"
           ],
           "mapping_status": "confirmed_primary",
-          "composers": [
-            "xL"
-          ],
           "collections": [
             "Berry Melody Collaboration"
           ],
@@ -1196,11 +1195,7 @@
             "Berry Melody",
             "horloge"
           ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/Horloge",
-            "note": "the Dynamix wiki song page"
-          },
-          "candidate_notes": "Official Dynamix x Berry Melody collaboration preview image for Horloge.",
+          "candidate_notes": "Collaboration pack lineup card printing 3 titled jackets ('Grayscale Tragedy', 'ネーヴェの紋様', 'horloge') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -1212,14 +1207,14 @@
           "mapping_evidence": [
             {
               "url": "https://x.com/c4c4cat/status/1889645633545613724",
-              "note": "visual_inspection 2026-10-10: the image shows the jackets of Grayscale Tragedy (Polysha), ネーヴェの紋様 (R.Solidor) and horloge (xL) of the Berry Melody collaboration package plus a hidden fourth song; the post text announces only horloge"
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Grayscale Tragedy', 'ネーヴェの紋様', 'horloge'"
             }
           ],
-          "notes": "Collaboration preview, not a single-song visual: it also shows the Grayscale Tragedy and ネーヴェの紋様 jackets. Rights holders as printed on the image itself (visual_inspection: '©Sky Way Studio ©C4Cat Entertainment Limited', bottom centre)."
+          "notes": "Rights holders as printed on the image itself (visual_inspection: '©Sky Way Studio ©C4Cat Entertainment Limited', bottom centre)."
         },
         {
           "match": "^1818255227595743610:1$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "scualee"
           ],
@@ -1238,7 +1233,7 @@
             "url": "https://dynamix.miraheze.org/wiki/Scualee",
             "note": "the Dynamix wiki song page"
           },
-          "candidate_notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733)."
+          "candidate_notes": "Official event announcement image for scualee (quoted by research lead 10, the composer's post 1818291230188650733). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1748178472759865377:[1-4]$",
@@ -1250,7 +1245,7 @@
         },
         {
           "match": "^809670504449572864:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "紅"
           ],
@@ -1268,11 +1263,11 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for 紅."
+          "candidate_notes": "Official event announcement image for 紅. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^811543501733101568:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Persephone"
           ],
@@ -1297,11 +1292,11 @@
               "note": "visual_inspection 2026-10-10: the COMING SOON card prints 'Persephone' and 'EBICO'; the post text names only the composer"
             }
           ],
-          "candidate_notes": "Official event announcement image (COMING SOON card) for Persephone."
+          "candidate_notes": "Official event announcement image (COMING SOON card) for Persephone. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^831877510870601728:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Theme of Rabi-Ribi"
           ],
@@ -1319,7 +1314,7 @@
           "collections": [
             "Rabi-Ribi Collaboration"
           ],
-          "candidate_notes": "Official event announcement image for Theme of Rabi-Ribi.",
+          "candidate_notes": "Official event announcement image for Theme of Rabi-Ribi. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
           "title_aliases": {
             "Theme of Rabi-Ribi": [
               "Theme of @RabiRibiGame"
@@ -1333,7 +1328,7 @@
         },
         {
           "match": "^834312940610220032:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "αterlβus"
           ],
@@ -1351,7 +1346,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for αterlβus."
+          "candidate_notes": "Official event announcement image for αterlβus. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^835073424917577728:",
@@ -1377,7 +1372,7 @@
         },
         {
           "match": "^842671176669323264:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Crystal Ribbon"
           ],
@@ -1395,7 +1390,7 @@
           "collections": [
             "Package Lovely"
           ],
-          "candidate_notes": "Official preview image for Crystal Ribbon of Package Lovely."
+          "candidate_notes": "Official preview image for Crystal Ribbon of Package Lovely. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^870277523724132352:",
@@ -1415,7 +1410,7 @@
         },
         {
           "match": "^877170201267023872:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Vexaria"
           ],
@@ -1433,7 +1428,7 @@
           "collections": [
             "Arcaea Collaboration"
           ],
-          "candidate_notes": "Official event announcement image for Vexaria.",
+          "candidate_notes": "Official event announcement image for Vexaria. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -1442,7 +1437,7 @@
         },
         {
           "match": "^880003300275347458:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "to soar"
           ],
@@ -1460,11 +1455,11 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for to soar."
+          "candidate_notes": "Official event announcement image for to soar. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^900634708517593089:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Arcana Idola"
           ],
@@ -1482,7 +1477,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for Arcana Idola."
+          "candidate_notes": "Official event announcement image for Arcana Idola. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^920935237567201281:",
@@ -1881,7 +1876,7 @@
           "collections": [
             "Event"
           ],
-          "role": "promotional",
+          "role": "reference",
           "composers": [
             "桃源郷華"
           ],
@@ -1889,11 +1884,11 @@
             "url": "https://dynamix.miraheze.org/wiki/Destruction",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 31856)"
           },
-          "candidate_notes": "Official single-song comeback card for Destruction."
+          "candidate_notes": "Official single-song comeback card for Destruction. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1305838780729917441:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Moving On"
           ],
@@ -1911,7 +1906,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for Moving On."
+          "candidate_notes": "Official event announcement image for Moving On. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1306201168503332870:",
@@ -1925,7 +1920,7 @@
           "collections": [
             "Event"
           ],
-          "role": "promotional",
+          "role": "reference",
           "composers": [
             "sky_delta"
           ],
@@ -1933,7 +1928,7 @@
             "url": "https://dynamix.miraheze.org/wiki/Cryonix",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50189)"
           },
-          "candidate_notes": "Official single-song comeback card for Cryonix."
+          "candidate_notes": "Official single-song comeback card for Cryonix. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1308737882526425088:",
@@ -2526,7 +2521,7 @@
         },
         {
           "match": "^1427842694999527428:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -2542,24 +2537,24 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
-          "composers": [
-            "adaptor"
-          ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/White%EF%BC%9ARevolve",
-            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50978)"
-          }
+          "candidate_notes": "Collaboration pack lineup card printing 1 titled jacket ('White : Revolve') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1427842694999527428",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve'"
+            }
+          ]
         },
         {
           "match": "^1428205081292251137:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
             "ravon"
           ],
           "song_titles": [
+            "White：Revolve",
             "Astral"
           ],
           "mapping_status": "confirmed_primary",
@@ -2569,24 +2564,25 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
-          "composers": [
-            "Titan Chaos"
-          ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/Astral",
-            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51828)"
-          }
+          "candidate_notes": "Collaboration pack lineup card printing 2 titled jackets ('White : Revolve', 'Astral') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1428205081292251137",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral'"
+            }
+          ]
         },
         {
           "match": "^1428567468444950530:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
             "ravon"
           ],
           "song_titles": [
+            "White：Revolve",
+            "Astral",
             "Mitochondria"
           ],
           "mapping_status": "confirmed_primary",
@@ -2596,14 +2592,13 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
-          "composers": [
-            "5argon"
-          ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/Mitochondria",
-            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51118)"
-          }
+          "candidate_notes": "Collaboration pack lineup card printing 3 titled jackets ('White : Revolve', 'Astral', 'Mitochondria') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1428567468444950530",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral', 'Mitochondria'"
+            }
+          ]
         },
         {
           "match": "^1428839259532836867:",
@@ -2634,7 +2629,7 @@
         },
         {
           "match": "^1428960055492321284:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -2653,7 +2648,13 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration pack visual (3840x2160)."
+          "candidate_notes": "Collaboration pack lineup card printing 4 titled jackets ('White : Revolve', 'Astral', 'Mitochondria', 'ReLyna') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1428960055492321284",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'White : Revolve', 'Astral', 'Mitochondria', 'ReLyna'"
+            }
+          ]
         },
         {
           "match": "^1430500213030936583:",
@@ -2689,7 +2690,7 @@
         },
         {
           "match": "^1434365675686879233:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -2705,29 +2706,29 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
+          "candidate_notes": "Collaboration pack lineup card printing 1 titled jacket ('Rave! and Get on it!') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
           "title_aliases": {
             "Rave! and Get On It!": [
               "Rave! and Get on it!"
             ]
           },
-          "composers": [
-            "Woof"
-          ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/Rave!_and_Get_on_it!",
-            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49713)"
-          }
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1434365675686879233",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!'"
+            }
+          ]
         },
         {
           "match": "^1434728063649079298:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
             "ravon"
           ],
           "song_titles": [
+            "Rave! and Get On It!",
             "Totally bounded"
           ],
           "mapping_status": "confirmed_primary",
@@ -2737,24 +2738,25 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
-          "composers": [
-            "影虎。"
-          ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/Totally_bounded",
-            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 49715)"
-          }
+          "candidate_notes": "Collaboration pack lineup card printing 2 titled jackets ('Rave! and Get on it!', 'Totally bounded') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1434728063649079298",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded'"
+            }
+          ]
         },
         {
           "match": "^1435090451833315331:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
             "ravon"
           ],
           "song_titles": [
+            "Rave! and Get On It!",
+            "Totally bounded",
             "Euouae"
           ],
           "mapping_status": "confirmed_primary",
@@ -2764,14 +2766,13 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration per-song announcement visual (3840x2160).",
-          "composers": [
-            "Spyro Kong"
-          ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/Euouae",
-            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51119)"
-          }
+          "candidate_notes": "Collaboration pack lineup card printing 3 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1435090451833315331",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded', 'Euouae'"
+            }
+          ]
         },
         {
           "match": "^1435452837211803651:",
@@ -2802,7 +2803,7 @@
         },
         {
           "match": "^1435483036779483139:",
-          "role": "promotional",
+          "role": "reference",
           "game": "mixed",
           "game_associations": [
             "dynamix",
@@ -2821,12 +2822,18 @@
           "collections": [
             "RAVON Collaboration"
           ],
-          "candidate_notes": "RAVON collaboration pack visual (3840x2160).",
+          "candidate_notes": "Collaboration pack lineup card printing 4 titled jackets ('Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
           "title_aliases": {
             "Rave! and Get On It!": [
               "Rave! and Get on it!"
             ]
-          }
+          },
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1435483036779483139",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Rave! and Get on it!', 'Totally bounded', 'Euouae', 'MassacrE || 3rc4224M'"
+            }
+          ]
         },
         {
           "match": "^1437430883837956097:",
@@ -2992,13 +2999,14 @@
             "Event"
           ],
           "role": "reference",
-          "candidate_notes": "Official comeback card listing two songs (list graphic). The post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card.",
+          "candidate_notes": "Official comeback card listing two songs (list graphic). This post announces Own The Night and Arty Party but carries the Unshakable / Ice Chandelier card, which is recorded under post 1475073909376618498 (whose text names those songs); this candidate is duplicate_bytes of it.",
           "mapping_evidence": [
             {
               "url": "https://x.com/c4c4cat/status/1473624368869748740",
               "note": "visual_inspection 2026-10-10: the attached card prints 'Unshakable / RiraN' and 'Ice Chandelier / pan', not the Own The Night / Arty Party comeback the post text announces; the same bytes are attached to 1475073909376618498, whose text names Unshakable and Ice Chandelier"
             }
-          ]
+          ],
+          "archive_under": "1475073909376618498:1"
         },
         {
           "match": "^1475073909376618498:",
@@ -3014,7 +3022,7 @@
             "Event"
           ],
           "role": "reference",
-          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic)."
+          "candidate_notes": "Official comeback announcement listing 2 songs (list graphic). The same card is also attached to post 1473624368869748740, which announces another comeback."
         },
         {
           "match": "^1476161072998453249:",
@@ -3176,7 +3184,7 @@
         },
         {
           "match": "^1361646516008443909:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "WHIRLWIND"
           ],
@@ -3194,7 +3202,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for WHIRLWIND."
+          "candidate_notes": "Official event announcement image for WHIRLWIND. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1356210690101489665:",
@@ -3232,7 +3240,7 @@
         },
         {
           "match": "^1498629128467197954:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Φ"
           ],
@@ -3250,7 +3258,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for Φ."
+          "candidate_notes": "Official event announcement image for Φ. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1325407725623283712:",
@@ -3264,7 +3272,7 @@
           "collections": [
             "Event"
           ],
-          "role": "promotional",
+          "role": "reference",
           "composers": [
             "adaptor"
           ],
@@ -3272,7 +3280,7 @@
             "url": "https://dynamix.miraheze.org/wiki/Black%EF%BC%9AMagnam",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 51263)"
           },
-          "candidate_notes": "Official single-song comeback card for Black：Magnam."
+          "candidate_notes": "Official single-song comeback card for Black：Magnam. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^1480156399204061186:",
@@ -3298,7 +3306,7 @@
         },
         {
           "match": "^819433943690670080:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Vanilla_Sky"
           ],
@@ -3316,7 +3324,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Official event announcement image for Vanilla_Sky.",
+          "candidate_notes": "Official event announcement image for Vanilla_Sky. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10).",
           "title_aliases": {
             "Vanilla_Sky": [
               "Vanilla Sky"
@@ -3331,29 +3339,29 @@
         },
         {
           "match": "^1901242039800299634:",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
+            "Luna Rossa",
             "流麗凛舞"
           ],
           "mapping_status": "confirmed_primary",
           "evidence_quotes": [
             "流麗凛舞"
           ],
-          "composers": [
-            "K-forest"
-          ],
-          "credit_source": {
-            "url": "https://dynamix.miraheze.org/wiki/%E6%B5%81%E9%BA%97%E5%87%9B%E8%88%9E",
-            "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 42188)"
-          },
           "collections": [
             "Shinobi Slash Collaboration"
           ],
-          "candidate_notes": "Official event announcement image for 流麗凛舞.",
+          "candidate_notes": "Collaboration pack lineup card printing 2 titled jackets ('Luna Rossa', '流麗凛舞') with the pack's other slots: a list graphic, kind reference (coordinator decision D2); every printed title is mapped.",
           "game": "mixed",
           "game_associations": [
             "dynamix",
             "shinobi_slash"
+          ],
+          "mapping_evidence": [
+            {
+              "url": "https://x.com/c4c4cat/status/1901242039800299634",
+              "note": "visual_inspection 2026-10-10: the lineup card prints the titled jackets 'Luna Rossa', '流麗凛舞'"
+            }
           ]
         },
         {
@@ -3382,7 +3390,7 @@
         },
         {
           "match": "^1868989522002018708:1$",
-          "role": "promotional",
+          "role": "reference",
           "song_titles": [
             "Curtainfall!"
           ],
@@ -3401,7 +3409,7 @@
             "url": "https://dynamix.miraheze.org/wiki/Curtainfall!",
             "note": "the Dynamix wiki (Miraheze) song page, Template:Song Artist/Cover Artist fields (revision 50573)"
           },
-          "candidate_notes": "Official event announcement image for Curtainfall!."
+          "candidate_notes": "Official event announcement image for Curtainfall!. It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         }
       ]
     },
@@ -3920,7 +3928,7 @@
         },
         {
           "match": "^zCzjrrbmFy8$",
-          "role": "promotional",
+          "role": "reference",
           "evidence_quotes": [
             "You Spin Me Around"
           ],
@@ -3938,7 +3946,7 @@
           "collections": [
             "Event"
           ],
-          "candidate_notes": "Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN)."
+          "candidate_notes": "Thumbnail: event 'COMING SOON' card for You Spin Me Around (RiraN). It displays the chart difficulty levels: a chart announcement graphic, kind reference (coordinator decision D1, visual_inspection 2026-10-10)."
         },
         {
           "match": "^J0nQeDQGYxk$",

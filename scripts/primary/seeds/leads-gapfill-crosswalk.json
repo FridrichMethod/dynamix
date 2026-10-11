@@ -3205,7 +3205,8 @@
           "url": "https://cdn.hk01.com/di/media/images/1333847/org/35b572cff41474f8a14c0b1d26a9cd87.jpg",
           "source_id": "archives:press",
           "key": "hk01:175169",
-          "match": "file_url"
+          "match": "normalized",
+          "note": "the research recorded the CDN path without its signature segment, which answers 404; the article's og:image and __NEXT_DATA__ mainImage list it as .../35b572cff41474f8a14c0b1d26a9cd87.jpg/_lRFrv0u7IvyWIOlFpbyxCKcor0yxRZGl4Ez25eBM9s, the candidate's file_url"
         }
       ]
     },
