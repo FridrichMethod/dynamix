@@ -1347,7 +1347,7 @@
           "page_url": "https://archive.org/details/wiki-dynamixc4cat.fandom.com-20260807",
           "title": "WikiTeam3 dump of the legacy Fandom wiki",
           "disposition": "pending",
-          "reason": "pending: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here",
+          "reason": "awaiting_download: multi-gigabyte 7z image dump of the Fandom wiki; possibly pre-transform originals; a decision for the wikis family / coordinator, not fetched here",
           "file_url": "https://archive.org/download/wiki-dynamixc4cat.fandom.com-20260807/dynamixc4cat.fandom.com-20260807-images.7z"
         },
         {
@@ -1606,7 +1606,7 @@
           "page_url": "https://appget.com/appli/view/66131/",
           "title": "Press and reference pages seen only as search snippets",
           "disposition": "pending",
-          "reason": "pending: not fetched (appget review, CUHK Newsletter 447, CUHK Pre-incubation Centre, Giant Bomb, Baidu Baike, Gcores); search-index snippets only"
+          "reason": "awaiting_download: not fetched (appget review, CUHK Newsletter 447, CUHK Pre-incubation Centre, Giant Bomb, Baidu Baike, Gcores); search-index snippets only"
         },
         {
           "key": "wikiwiki:ravon",
