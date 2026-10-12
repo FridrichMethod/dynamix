@@ -127,11 +127,11 @@ HOLD_MARKERS = re.compile(
 # The release variable stated as unset, also with an adverb or as "not set" ("is still unset", "isn't set yet", 目前未设置).
 # It is hold wording as a statement ("`RELEASE_APPROVED_SHA` is unset, so ..."), not as the condition of the guard ("If
 # the variable is unset, the dispatch fails closed", "变量未设置时……"). 还未设置 and 还没有设置 are hold wording in any
-# clause (HOLD_MARKERS).
+# clause (HOLD_MARKERS); written with a space ("变量还 未设置") only this rule sees them.
 UNSET_WORDING = re.compile(
     r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains|was)(?: still| currently| now)?"
     r"(?: unset|(?: not|n['’]t)(?: yet| currently)? set)\b|"
-    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|尚)?\s*(?:未|没有)(?:被)?设置",
+    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|还|尚)?\s*(?:未|没有)(?:被)?设置",
     re.IGNORECASE,
 )
 # A condition opening the clause (当 but not 当前 "currently"; 若 but not 若干; "whether" of a check), or, in Chinese, one
@@ -932,6 +932,10 @@ class ReleaseStateTests(unittest.TestCase):
         "变量仍然未设置。",
         "变量依然未设置。",
         "变量目前 未设置。",
+        # 还 with a space before 未 or 没有, which HOLD_MARKERS (还未, 还没有) does not see.
+        "变量还 未设置。",
+        "变量还 没有设置。",
+        "`RELEASE_APPROVED_SHA` 还 未设置。",
         # A plain statement with an unrelated condition after it, and past deployments with an adverb or another verb.
         "The variable is unset if you look at the settings today.",
         "`RELEASE_APPROVED_SHA` is unset when you look at the settings.",
@@ -1304,6 +1308,7 @@ class ReleaseStateTests(unittest.TestCase):
             "当前 `RELEASE_APPROVED_SHA` 仍未设置。",
             "`RELEASE_APPROVED_SHA` 目前未设置。",
             "网站暂不部署。",
+            "变量还 未设置。",
             # A condition in an earlier sentence does not cover the unset variable.
             "只要标签正确就会部署。变量目前未设置。",
             "只要标签正确就会部署；变量目前未设置。",
