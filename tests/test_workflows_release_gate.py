@@ -7,8 +7,8 @@ not a prerelease (looked up by every run, a re-run of a release run included, wi
 approval job and one in the build job: the only GitHub API requests of the workflows' scripts and the only uses of the
 job token), the tag's commit is on main, the full Tests workflow passed on it and the approval job recorded it. The
 deploy job's condition is evaluated with GitHub's expression semantics (the evaluator of tests/test_workflows.py), and
-every shell guard is executed (the Release lookup with a stand-in curl, the main-ancestry guard in temporary Git
-repositories), for each scenario.
+every shell guard is executed (the Release lookup with a stand-in curl, the main guard in temporary Git
+repositories with a local bare origin), for each scenario.
 """
 
 import functools
@@ -72,7 +72,11 @@ EVENT_GUARD_ENV = {
     "PRERELEASE": "${{ github.event.release.prerelease }}",
     "LC_ALL": "C",  # [0-9] in the tag check is then the ASCII digits only (WIDE_DIGIT_LOCALE)
 }
-MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}"}
+MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}", "GIT_TERMINAL_PROMPT": "0"}
+# The main guard also reads the tag from origin (SEC-2): actions/checkout refetches +<github.sha>:<tag> when the tag has
+# moved, so the checkout's tag always names the run's commit. A read of the public repository, without credentials.
+MAIN_GUARD_NAME = "Refuse unless the tag names the checked-out commit and it is on main"
+LS_REMOTE = 'remote="$(git ls-remote origin "$REF" "$REF^{}")"'
 # The Release lookup (owner decision D1): one read-only GET of the tag's Release with the job token, whose response the
 # Release guard after it reads from RUNNER_TEMP. Only these two steps of each Pages job see the token. A release run
 # looks the Release up as a dispatch does: a re-run keeps the event of the run it repeats, which no longer tells whether
@@ -96,7 +100,10 @@ CURL_OPTIONS = {
 # The longest --max-time (whole seconds) the lookup may give curl: a hung request then fails the lookup, and with it the
 # run, within two minutes instead of at the job's timeout.
 LOOKUP_MAX_SECONDS = 120
-NETWORK_COMMAND = re.compile(r"\b(?:curl|wget|nc|ncat|socat|telnet|ssh|scp|sftp|rsync|ftp)\b|/dev/(?:tcp|udp)/")
+NETWORK_COMMAND = re.compile(
+    r"\b(?:curl|wget|nc|ncat|socat|telnet|ssh|scp|sftp|rsync|ftp)\b|/dev/(?:tcp|udp)/|"
+    r"\bgit\s+(?:ls-remote|fetch|pull|clone)\b"
+)
 REPOSITORY = "FridrichMethod/dynamix"
 TOKEN = "stand-in-job-token"
 # The first five steps of the approval and the build job: the guards before and after the checkout.
@@ -346,6 +353,54 @@ ATTEMPTS = {
     "an empty attempt output": ("1", "", False),
 }
 
+# How origin's tags change after the checkout (SEC-2), which the checkout's own tags do not show: the tag, the run's
+# commit, the git commands on origin and the commit that the main guard's refusal names (None: the guard passes). The
+# names first and second stand for the commits of release_repository(), whose checkout keeps v1.1.0 (annotated) on
+# second and v1.0.0 (lightweight) on first. Refs whose names end in the tag's name sort before and after it in the
+# output of git ls-remote, so only the exact names count.
+ORIGIN_CHANGES = {
+    "an annotated tag as origin has it": ("v1.1.0", "second", (), None),
+    "a lightweight tag as origin has it": ("v1.0.0", "first", (), None),
+    "an annotated tag re-created on origin on the same commit": (
+        "v1.1.0",
+        "second",
+        (("tag", "-f", "-a", "-m", "again", "v1.1.0", "second"),),
+        None,
+    ),
+    "an annotated tag re-created on origin as a lightweight one": (
+        "v1.1.0",
+        "second",
+        (("tag", "-f", "v1.1.0", "second"),),
+        None,
+    ),
+    "refs on origin whose names end in an annotated tag's name": (
+        "v1.1.0",
+        "second",
+        (("update-ref", "refs/heads/refs/tags/v1.1.0", "first"), ("tag", "x/refs/tags/v1.1.0", "first")),
+        None,
+    ),
+    "refs on origin whose names end in a lightweight tag's name": (
+        "v1.0.0",
+        "first",
+        (("update-ref", "refs/heads/refs/tags/v1.0.0", "second"), ("tag", "x/refs/tags/v1.0.0", "second")),
+        None,
+    ),
+    "an annotated tag moved on origin": (
+        "v1.1.0",
+        "second",
+        (("tag", "-f", "-a", "-m", "moved", "v1.1.0", "first"),),
+        "first",
+    ),
+    "an annotated tag moved on origin as a lightweight one": (
+        "v1.1.0",
+        "second",
+        (("tag", "-f", "v1.1.0", "first"),),
+        "first",
+    ),
+    "a lightweight tag moved on origin": ("v1.0.0", "first", (("tag", "-f", "v1.0.0", "second"),), "second"),
+    "a tag deleted on origin": ("v1.1.0", "second", (("tag", "-d", "v1.1.0"),), "no commit"),
+}
+
 
 WIDE_DIGIT = "\u0663"  # ARABIC-INDIC DIGIT THREE
 
@@ -549,7 +604,9 @@ class ReleaseGateTests(unittest.TestCase):
         # The full history, so that origin/main is there to compare with; credentials are never kept.
         self.assertEqual(checkout["with"], {"fetch-depth": "0", "persist-credentials": "false"})
         self.assertNotIn("uses", main)
+        self.assertEqual(main["name"], MAIN_GUARD_NAME)
         self.assertEqual(main["env"], MAIN_GUARD_ENV)
+        self.assertEqual(main["run"].count(LS_REMOTE), 1, "the tag as origin has it, peeled to its commit")
         self.assertIn('git merge-base --is-ancestor "$SHA" refs/remotes/origin/main', main["run"])
         for step in (event, lookup, release, main):
             with self.subTest(step=step["name"]):
@@ -606,6 +663,8 @@ class ReleaseGateTests(unittest.TestCase):
             "nothing, since the deploy job requires the approval job's record of the current attempt: re-run the "
             "whole run.",
             "the deploy job deploys only the commit that the approval job of the same attempt recorded",
+            "needs the tag to name the run's commit on origin too (read with git ls-remote, without credentials",
+            "a tag that origin now has on another commit",
             'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
             "The github-pages environment accepts deployments only from tags from v1.1.1 on",
         ):
@@ -770,7 +829,7 @@ class ReleaseGateTests(unittest.TestCase):
         origin/main and a detached HEAD. The local branch main, which that checkout does not create, holds a commit off
         origin/main here: only origin/main counts."""
         with tempfile.TemporaryDirectory() as temporary:
-            root, commits = release_repository(Path(temporary))
+            root, _, commits = release_repository(Path(temporary))
             first, second, side = commits["first"], commits["second"], commits["side"]
             scenarios = {
                 "the tip of main": ("refs/tags/v1.1.0", second, second, True),
@@ -806,6 +865,52 @@ class ReleaseGateTests(unittest.TestCase):
                     result = run_guard(step, context, cwd=outside, GIT_CEILING_DIRECTORIES=temporary)
                     self.assertNotEqual(result.returncode, 0)
                     self.assertEqual(len(error_lines(result)), 1, result.stdout)
+
+    @unittest.skipUnless(shutil.which("bash") and shutil.which("git"), "needs bash and git to execute the guard step")
+    def test_main_guard_reads_the_tag_from_origin(self):
+        """actions/checkout refetches +<github.sha>:<tag> when origin's tag no longer names the run's commit, so the
+        checkout's own tag always passes. The main guard reads the tag from origin (the tag and its peeled ^{} line of
+        git ls-remote, by exact name) and refuses a tag moved or deleted there since the run started, and an origin it
+        cannot read (SEC-2). Each scenario changes origin only, as a move after the checkout does; the checkout keeps
+        v1.1.0 (annotated) on second and v1.0.0 (lightweight) on first."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root, origin, commits = release_repository(Path(temporary))
+            cases = [(job, *change) for job in ("approval", "build") for change in ORIGIN_CHANGES.items()]
+            for job_id, scenario, (tag, run, changes, named) in cases:
+                commands = [[commits.get(word, word) for word in command] for command in changes]
+                sha, refused = commits[run], commits.get(named, named) if named else None
+                with self.subTest(job=job_id, scenario=scenario):
+                    result = self.main_guard_after(job_id, root, origin, commands, f"refs/tags/{tag}", sha)
+                    self.assertEqual(result.returncode == 0, refused is None, result.stdout + result.stderr)
+                    errors = error_lines(result)
+                    self.assertEqual(len(errors), 0 if refused is None else 1, result.stdout)
+                    message = f"On origin the tag refs/tags/{tag} names {refused}, not the release commit {sha}."
+                    self.assertEqual(errors, [] if refused is None else [f"::error::{message}"])
+            second = commits["second"]
+            for job_id in ("approval", "build"):
+                with self.subTest(job=job_id, scenario="an origin that cannot be read"):
+                    git(root, "config", "remote.origin.url", str(Path(temporary) / "missing.git"))
+                    try:
+                        result = self.main_guard_after(job_id, root, origin, [], "refs/tags/v1.1.0", second)
+                    finally:
+                        git(root, "config", "remote.origin.url", str(origin))
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertEqual(len(error_lines(result)), 1, result.stdout)
+                    self.assertIn("could not be read from origin", error_lines(result)[0])
+
+    def main_guard_after(
+        self, job_id: str, root: Path, origin: Path, commands: list[list[str]], ref: str, sha: str
+    ) -> subprocess.CompletedProcess:
+        """Run the main guard of ``job_id`` in the checkout ``root`` at ``sha`` after ``commands`` changed ``origin``,
+        and set origin's refs back afterwards."""
+        refs = git(origin, "for-each-ref", "--format=%(refname) %(objectname)")
+        try:
+            for command in commands:
+                git(origin, *command)
+            git(root, "checkout", "-q", "--detach", sha)
+            return run_guard(self.guards(job_id)["main"], {"github.ref": ref, "github.sha": sha}, cwd=root)
+        finally:
+            restore_refs(origin, refs)
 
     @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
     def test_the_tag_check_takes_ascii_digits_only_in_any_locale(self):
@@ -980,29 +1085,51 @@ class ReleaseGateTests(unittest.TestCase):
                     self.assertIn(phrase, errors[0])
 
     def test_only_the_release_lookups_reach_the_github_api(self):
-        """Every shell network tool (NETWORK_COMMAND) in the workflows' scripts is a curl of a loopback smoke-test server
-        (tests.yml), except one curl in the Release lookup of each Pages job, which alone names the GitHub API and
-        receives the token. Requests that Python, pip or npm make are not matched."""
-        lookups = 0
+        """Every shell network tool or Git network command (NETWORK_COMMAND) in the workflows' scripts is a curl of a
+        loopback smoke-test server (tests.yml), except one curl in the Release lookup of each Pages job, which alone
+        names the GitHub API and receives the token, and one git ls-remote of origin in the main guard of each Pages
+        job, without the token (SEC-2). Requests that Python, pip or npm make are not matched."""
+        found = {"lookup": 0, "ls-remote": 0}
+        roles = {LOOKUP_NAME: "lookup", MAIN_GUARD_NAME: "ls-remote"}
         for name, job_id, step in run_steps(all_workflows()):
             lines = step["run"].replace("\\\n", " ").splitlines()
             network = [line for line in lines if NETWORK_COMMAND.search(line)]
-            is_lookup = (name, step.get("name")) == ("pages.yml", LOOKUP_NAME)
+            role = roles.get(step.get("name")) if name == "pages.yml" else None
+            command = "git ls-remote" if role == "ls-remote" else "curl"
             with self.subTest(workflow=name, job=job_id, step=step.get("name")):
                 for line in network:
-                    self.assertEqual(NETWORK_COMMAND.findall(line), ["curl"], line)
-                if is_lookup:
+                    self.assertEqual(NETWORK_COMMAND.findall(line), [command], line)
+                if role is not None:
                     self.assertIn(job_id, ("approval", "build"))
                     self.assertEqual(len(network), 1)
-                    self.assertIn(RELEASE_API, network[0])
+                    self.assertIn(RELEASE_API if role == "lookup" else LS_REMOTE, network[0])
+                    found[role] += 1
+                if role == "lookup":
                     self.assertEqual(step["env"]["TOKEN"], "${{ github.token }}")
-                    lookups += 1
                     continue
-                for line in network:
+                for line in network if role is None else ():
                     self.assertRegex(line, r"\bcurl (?:--[a-z-]+ )*(?:/dev/null )?http://127\.0\.0\.1:\d+/")
                 self.assertNotIn("api.github.com", step["run"])
                 self.assertNotIn("TOKEN", step.get("env") or {})
-        self.assertEqual(lookups, 2)
+        self.assertEqual(found, {"lookup": 2, "ls-remote": 2})
+
+    def test_the_network_rule_is_not_vacuous(self):
+        """NETWORK_COMMAND matches the shell network tools and Git's network commands, and none of the local Git
+        commands of the main guard."""
+        for command in (
+            "curl https://example.invalid/",
+            "wget https://example.invalid/",
+            "exec 3<>/dev/tcp/example.invalid/80",
+            "git ls-remote origin refs/tags/v1.1.0",
+            "git fetch origin main",
+            "git pull",
+            "git clone https://example.invalid/x.git",
+        ):
+            with self.subTest(network=command):
+                self.assertRegex(command, NETWORK_COMMAND)
+        for command in ("git rev-parse HEAD", 'git merge-base --is-ancestor "$SHA" refs/remotes/origin/main'):
+            with self.subTest(local=command):
+                self.assertNotRegex(command, NETWORK_COMMAND)
 
     def test_deployment_actions_only_in_pages_build_and_deploy(self):
         for name, workflow in all_workflows().items():
@@ -1022,10 +1149,11 @@ def git(cwd: Path, *arguments: str) -> str:
     return result.stdout.strip()
 
 
-def release_repository(base: Path) -> tuple[Path, dict[str, str]]:
-    """A checkout as actions/checkout leaves it with fetch-depth 0: commits first <- second on origin/main, side off
-    it; tags v1.0.0 (lightweight) on first, v1.1.0 (annotated) on second and v1.2.0 on side; the local branch main at
-    side, unlike origin/main."""
+def release_repository(base: Path) -> tuple[Path, Path, dict[str, str]]:
+    """A checkout as actions/checkout leaves it with fetch-depth 0, and its origin: commits first <- second on
+    origin/main, side off it; tags v1.0.0 (lightweight) on first, v1.1.0 (annotated) on second and v1.2.0 on side, in
+    the checkout and on origin alike; the local branch main at side, unlike origin/main. origin is a bare repository
+    under ``base`` whose main is second, and the checkout's remote origin points at it."""
     root = base / "checkout"
     root.mkdir()
     git(root, "init", "-q", "-b", "main")
@@ -1042,7 +1170,22 @@ def release_repository(base: Path) -> tuple[Path, dict[str, str]]:
     git(root, "tag", "v1.0.0", commits["first"])
     git(root, "tag", "-a", "-m", "v1.1.0", "v1.1.0", commits["second"])
     git(root, "tag", "v1.2.0", commits["side"])
-    return root, commits
+    origin = base / "origin.git"
+    git(base, "clone", "-q", "--bare", str(root), str(origin))
+    git(origin, "update-ref", "refs/heads/main", commits["second"])
+    git(root, "config", "remote.origin.url", str(origin))
+    return root, origin, commits
+
+
+def restore_refs(repository: Path, listing: str) -> None:
+    """Set the refs of ``repository`` back to ``listing``, as ``git for-each-ref --format='%(refname) %(objectname)'``
+    printed them: refs created since are deleted, and moved or deleted ones are set again."""
+    wanted = dict(line.split(" ") for line in listing.splitlines())
+    current = git(repository, "for-each-ref", "--format=%(refname)").splitlines()
+    for name in set(current) - set(wanted):
+        git(repository, "update-ref", "-d", name)
+    for name, target in wanted.items():
+        git(repository, "update-ref", name, target)
 
 
 if __name__ == "__main__":
