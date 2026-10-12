@@ -30,12 +30,14 @@ from test_workflows_yaml import parse_yaml  # noqa: E402
 
 WORKFLOWS = ROOT / ".github/workflows"
 EXPECTED_WORKFLOWS = {"tests.yml", "pages.yml", "check-sources.yml"}
-# The deploy job's condition: a tag ref, and a dispatch or a published release that is not a prerelease. It cannot tell
-# a malformed tag or a commit off main (EXPRESSION_BLIND); the shell guards before it refuse those.
+# The deploy job's condition: a tag ref, and a dispatch or a published release that is not a prerelease. The prerelease
+# flag is compared as JSON (owner decision D3): GitHub's == coerces null to false, so a release without the flag would
+# pass "prerelease == false". It cannot tell a malformed tag or a commit off main (EXPRESSION_BLIND); the shell guards
+# before it refuse those.
 DEPLOY_IF = (
     "startsWith(github.ref, 'refs/tags/v') && (github.event_name == 'workflow_dispatch' || "
     "(github.event_name == 'release' && github.event.action == 'published' && "
-    "github.event.release.prerelease == false))"
+    "toJSON(github.event.release.prerelease) == 'false'))"
 )
 EVENT_GUARD_ENV = {
     "EVENT_NAME": "${{ github.event_name }}",
@@ -137,9 +139,8 @@ DENIED = {  # each must fail the event guard; the deploy condition refuses all b
     "release whose tag is not the ref": released("v1.1.0", tag_name="v1.2.0"),
 }
 # Scenarios that the deploy condition alone accepts (GitHub expressions have no regular expressions, startsWith()
-# ignores case, null == false, and the condition does not compare the release's draft flag or tag name): the event guard
-# refuses them in the approval and the build job, and the deploy job needs the build job. A stricter condition shrinks
-# this set.
+# ignores case, and the condition does not compare the release's draft flag or tag name): the event guard refuses them
+# in the approval and the build job, and the deploy job needs the build job. A stricter condition shrinks this set.
 EXPRESSION_BLIND = {
     "dispatch on the tag v1.1",
     "dispatch on the tag v1.1.0-rc1",
@@ -154,7 +155,6 @@ EXPRESSION_BLIND = {
     "release of a tag with a superscript digit",
     "release v1.1",
     "release v1.1.0-rc1 not marked as a prerelease",
-    "release without a prerelease flag",
     "draft release",
     "release whose tag is not the ref",
 }
@@ -204,6 +204,7 @@ EXPRESSION_FUNCTIONS = {  # arguments cast to strings, compared ignoring case
     "endsWith": str.endswith,
     "contains": lambda text, part: part in text,
 }
+JSON_FUNCTION = "toJSON"  # one argument, written as JSON
 JSON_NUMBER = re.compile(r"-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?")
 
 
@@ -239,6 +240,14 @@ def as_text(value: object) -> str:
     return "" if expression_kind(value) == "null" else str(value)
 
 
+def as_json(value: object) -> str:
+    """GitHub's toJSON() of a scalar: 'null', 'true'/'false', a number as as_text() writes it, a string quoted."""
+    kind = expression_kind(value)
+    if kind == "string":
+        return json.dumps(value, ensure_ascii=False)
+    return "null" if kind == "null" else as_text(value)
+
+
 def truthy(value: object) -> bool:
     """False, 0, NaN, '' and null are falsy; everything else is truthy."""
     kind = expression_kind(value)
@@ -259,7 +268,8 @@ def loosely_equal(left: object, right: object) -> bool:
 class _Expression:
     """Recursive descent over GitHub's precedence: ``( )``, ``!``, ``== !=``, ``&&``, ``||``. ``&&`` and ``||``
     return an operand (the first falsy one, the first truthy one), as GitHub does. Indexing, the ordering operators,
-    status functions and every other function raise :class:`ExpressionError` instead of being guessed."""
+    status functions and every function other than toJSON() and the string functions raise :class:`ExpressionError`
+    instead of being guessed."""
 
     def __init__(self, expression: str, context: dict):
         self.tokens: list[tuple[str, str]] = []
@@ -337,8 +347,8 @@ class _Expression:
             return self.call(text)
         return self.context.get(text)  # a missing context value is null
 
-    def call(self, name: str) -> bool:
-        if name not in EXPRESSION_FUNCTIONS:
+    def call(self, name: str) -> object:
+        if name not in EXPRESSION_FUNCTIONS and name != JSON_FUNCTION:
             raise ExpressionError(f"unsupported function {name}()")
         self.take("(")
         arguments = [self.disjunction()]
@@ -346,6 +356,10 @@ class _Expression:
             self.take()
             arguments.append(self.disjunction())
         self.take(")")
+        if name == JSON_FUNCTION:
+            if len(arguments) != 1:
+                raise ExpressionError(f"{name}() takes one argument")
+            return as_json(arguments[0])
         if len(arguments) != 2:
             raise ExpressionError(f"{name}() takes two arguments")
         return EXPRESSION_FUNCTIONS[name](*(as_text(argument).casefold() for argument in arguments))
@@ -560,13 +574,15 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertIn(required, text)
 
     def test_deploy_condition_semantics(self):
+        """The deploy job's own if: (as the workflow writes it, not only DEPLOY_IF) on every scenario."""
+        condition = self.pages["jobs"]["deploy"]["if"]
         self.assertLessEqual(EXPRESSION_BLIND, set(DENIED))
         for scenario, context in ACCEPTED.items():
             with self.subTest(accepted=scenario):
-                self.assertTrue(evaluate(DEPLOY_IF, context))
+                self.assertTrue(evaluate(condition, context))
         for scenario, context in DENIED.items():
             with self.subTest(denied=scenario):
-                self.assertEqual(evaluate(DEPLOY_IF, context), scenario in EXPRESSION_BLIND)
+                self.assertEqual(evaluate(condition, context), scenario in EXPRESSION_BLIND)
 
     @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
     def test_event_guard_fails_closed(self):
@@ -812,6 +828,25 @@ class ExpressionEvaluatorTests(unittest.TestCase):
             context,
         )
 
+    def test_to_json_writes_the_value_as_json(self):
+        """toJSON() tells a missing flag (null) and a string from the boolean false, which == does not (D3)."""
+        context = {"flag": False, "on": True, "text": "false", "count": 12.0}
+        self.check(
+            {
+                "toJSON(flag) == 'false'": True,
+                "toJSON(flag) == 'FALSE'": True,  # a string comparison, ignoring case
+                "toJSON(on) == 'true'": True,
+                "toJSON(missing) == 'null'": True,
+                "toJSON(missing) == 'false'": False,
+                "missing == false": True,  # what toJSON() avoids
+                "toJSON(text) == 'false'": False,
+                "toJSON(text) == '\"false\"'": True,
+                "toJSON(count) == '12'": True,
+                "toJSON(flag)": True,  # the string 'false' is truthy
+            },
+            context,
+        )
+
     def test_context_values_and_quoted_literals(self):
         context = {"github.event.release.prerelease": False, "github.event_name": "release", "name": "it's"}
         self.check(
@@ -830,6 +865,8 @@ class ExpressionEvaluatorTests(unittest.TestCase):
             "always()",
             "success() && true",
             "fromJSON('1')",
+            "toJSON()",
+            "toJSON(a, b)",
             "format('{0}', a)",
             "startsWith(a)",
             "github.ref =~ 'x'",
