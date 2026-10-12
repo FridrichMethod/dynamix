@@ -866,33 +866,10 @@ class OtherGameCaptionTests(unittest.TestCase):
                 self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
                 self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
 
-    def test_an_occasion_of_a_listed_game_after_the_game_name_and_a_comma(self) -> None:
-        """W1: after the original game's own name alone and a comma, an occasion of a listed game -- a name on the
-        reviewed list with collaboration, event or anniversary wording (config.OCCASION_WORDING) -- continues the name
-        and records that game exactly as the dash form does ("Artwork in Dynamix, Lanota Collaboration" as "Artwork in
-        Dynamix - Lanota Collaboration"): the same evidence and decision but for the comma. Before, the comma ended
-        the name and the association was lost, which applies the default rights holder. Only the part up to the next
-        comma, semicolon or parenthesis is read, and the first name in the caption counts; when the bare name and its
-        comma sit inside that first name ("Cover for RAVON Artwork in Dynamix, Lanota Collaboration"), the part
-        continues the first name as it does after a dash (P3). Any other text after the comma (a credit, a version, a
-        listed name without such wording, such wording without a listed name) stays outside the name as before: no
-        association and no curator note. A semicolon or a parenthesis still ends the name."""
-        cases = (  # (the caption before the game's own name, that name, the part after the comma, the games recorded)
-            ("Artwork in", "Dynamix", "Lanota Collaboration", ("Lanota",)),
-            ("Artwork for", "Dynamix's", "Arcaea's 3rd Anniversary", ("Arcaea",)),
-            ("Jacket from", "Dynamix", "the RAVON Collaboration Event (2019)", ("RAVON",)),
-            ("Artwork in", "Dynamix!", "Cytus II Events", ("Cytus II",)),
-            ("Artwork in", "Dynamix -", "Phigros Anniversaries", ("Phigros",)),
-            ("illustration FOR", "DYNAMIX", "ROTAENO COLLABORATIONS", ("Rotaeno",)),
-            ("Artwork in", "Dynamix", "Lanota Collaboration, by HAT", ("Lanota",)),
-            ("Artwork in", "Dynamix", "Lanota Collaboration; by HAT", ("Lanota",)),  # the part ends at a semicolon
-            ("Artwork for", "Dynamix", "the Arcaea x Lanota Collaboration Event", ("Arcaea", "Lanota")),
-            ("Artwork for", "Dynamix", "RAVON BMS Event", ("RAVON",)),  # not a release event, as after a dash
-            ("Cover for RAVON, Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON",)),  # the first name counts
-            ("Cover for RAVON Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON", "Lanota")),  # inside it
-            ("Cover for Artwork in", "Dynamix", "Lanota Collaboration", ("Lanota",)),  # at its start
-            ("Artwork in", "Dynamix", "Lanota Collaboration; Cover for RAVON", ("Lanota",)),  # before a later name
-        )
+    def assert_like_the_dash_form(self, cases) -> None:
+        """Each case (the caption before the game's own name, that name, the part after the comma, the games recorded)
+        as "S <lead> <name>, <part>": it records those games, with the evidence and the decision of its dash form "S
+        <lead> <name> - <part>" but for the comma."""
         for lead, bare, rest, others in cases:
             caption = f"S {lead} {bare}, {rest}"
             with self.subTest(caption=caption):
@@ -910,18 +887,62 @@ class OtherGameCaptionTests(unittest.TestCase):
                         written.replace(f"{bare}, ", f"{bare} - "),
                         json.dumps(dataclasses.asdict(dash_form), ensure_ascii=False),
                     )
+
+    def test_an_occasion_of_a_listed_game_after_the_game_name_and_a_comma(self) -> None:
+        """W1: after the original game's own name alone and a comma, an occasion of a listed game -- a name on the
+        reviewed list with collaboration, event or anniversary wording (config.OCCASION_WORDING) -- continues the name
+        and records that game exactly as the dash form does ("Artwork in Dynamix, Lanota Collaboration" as "Artwork in
+        Dynamix - Lanota Collaboration"): the same evidence and decision but for the comma. Before, the comma ended
+        the name and the association was lost, which applies the default rights holder. Only the part up to the next
+        comma, semicolon or parenthesis is read."""
+        self.assert_like_the_dash_form(
+            (
+                ("Artwork in", "Dynamix", "Lanota Collaboration", ("Lanota",)),
+                ("Artwork for", "Dynamix's", "Arcaea's 3rd Anniversary", ("Arcaea",)),
+                ("Jacket from", "Dynamix", "the RAVON Collaboration Event (2019)", ("RAVON",)),
+                ("Artwork in", "Dynamix!", "Cytus II Events", ("Cytus II",)),
+                ("Artwork in", "Dynamix -", "Phigros Anniversaries", ("Phigros",)),
+                ("illustration FOR", "DYNAMIX", "ROTAENO COLLABORATIONS", ("Rotaeno",)),
+                ("Artwork in", "Dynamix", "Lanota Collaboration, by HAT", ("Lanota",)),
+                ("Artwork in", "Dynamix", "Lanota Collaboration; by HAT", ("Lanota",)),  # the part ends at a semicolon
+                ("Artwork for", "Dynamix", "the Arcaea x Lanota Collaboration Event", ("Arcaea", "Lanota")),
+                ("Artwork for", "Dynamix", "RAVON BMS Event", ("RAVON",)),  # not a release event, as after a dash
+            )
+        )
         item = self.gallery_item("S Artwork in Dynamix, Lanota Collaboration")
         self.assertIn("artwork of the song for Dynamix, Lanota Collaboration (another game/event: Lanota)", item.detail)
+        caption = "S Artwork in Dynamix , Lanota Collaboration"  # a space before the comma
+        with self.subTest(caption=caption):
+            self.assertEqual(self.gallery_item(caption).other_games, ("Lanota",))
+
+    def test_the_first_name_counts_for_an_occasion_after_the_game_name_and_a_comma(self) -> None:
+        """W1, P3: the first name in the caption counts. When the game's own name and its comma sit inside that first
+        name ("Cover for RAVON Artwork in Dynamix, Lanota Collaboration"), the part continues the first name as it
+        does after a dash, and the evidence quotes the name as written. A first name that ends before them keeps its
+        own record, a later name changes nothing, and with no other name the first part after the game's own name
+        that is an occasion of a listed game counts ("Artwork in Dynamix, HQ Cover for Dynamix, Lanota
+        Collaboration")."""
+        self.assert_like_the_dash_form(
+            (
+                ("Cover for RAVON, Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON",)),  # the first name counts
+                ("Cover for RAVON Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON", "Lanota")),  # inside it
+                ("Cover for Artwork in", "Dynamix", "Lanota Collaboration", ("Lanota",)),  # at its start
+                ("Artwork in", "Dynamix", "Lanota Collaboration; Cover for RAVON", ("Lanota",)),  # before a later name
+            )
+        )
         item = self.gallery_item("S Cover for RAVON Artwork in Dynamix, Lanota Collaboration")  # the name as written
         self.assertIn("for RAVON Artwork in Dynamix, Lanota Collaboration (another game/event: RAVON,", item.detail)
         item = self.gallery_item("S Cover for RAVON Artwork in Dynamix ,Lanota Collaboration")  # its spacing too
         self.assertIn("for RAVON Artwork in Dynamix ,Lanota Collaboration (another game/event: RAVON,", item.detail)
-        for caption, others in (
-            ("S Artwork in Dynamix , Lanota Collaboration", ("Lanota",)),  # a space before the comma
-            ("S Artwork in Dynamix, HQ Cover for Dynamix, Lanota Collaboration", ("Lanota",)),  # a second name
-        ):
-            with self.subTest(caption=caption):
-                self.assertEqual(self.gallery_item(caption).other_games, others)
+        caption = "S Artwork in Dynamix, HQ Cover for Dynamix, Lanota Collaboration"  # a second name
+        with self.subTest(caption=caption):
+            self.assertEqual(self.gallery_item(caption).other_games, ("Lanota",))
+
+    def test_other_text_after_the_game_name_and_a_comma_stays_outside_the_name(self) -> None:
+        """W1: any other text after the original game's own name and a comma (a credit, a version, a listed name
+        without occasion wording, such wording without a listed name) stays outside the name as before: no
+        association and no curator note. Only the part right after the name is read, and a semicolon or a parenthesis
+        still ends the name."""
         for caption in (
             "S Artwork in Dynamix, by HAT",
             "S Artwork in Dynamix, HQ",
