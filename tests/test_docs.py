@@ -147,11 +147,15 @@ CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：、。！？]")
 COORDINATED = re.compile(r"\s*(?:(?:or|and|nor)\b|或者|或|并且|且)", re.IGNORECASE)
 CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
 # "Nothing is deployed" states the site's state unless a condition of the guard comes before it in its sentence
-# ("When ..., nothing is deployed."): one that names a tag, branch, release, prerelease, commit or main, a refusal or a
-# failure (GUARD_CONDITION), not "When you look today, ...". A trailing condition does not count, as for the unset
+# ("When ..., nothing is deployed."): one whose own clause names what the guard checks, a tag, branch, release,
+# prerelease, draft, version, commit, main, an event (push, pull request, schedule), the approval, a refusal
+# or a failure (GUARD_CONDITION), not "When you look today, ...". A trailing condition does not count, as for the unset
 # wording.
 NOTHING_DEPLOYED = re.compile(rf"\b(?:nothing|none) (?:is|are) {_DONE}", re.IGNORECASE)
-GUARD_CONDITION = re.compile(r"\b(?:(?:tag|branch|release|prerelease|commit|refus|fail)\w*|main)\b", re.IGNORECASE)
+GUARD_CONDITION = re.compile(
+    r"\b(?:(?:tag|branch|release|prerelease|draft|version|commit|push|pull|schedul|approv|refus|fail)\w*|main)\b",
+    re.IGNORECASE,
+)
 SENTENCE_BREAK = re.compile(r"[.!?;](?=\s|$)|[。！？；]|\n")
 # A deployment or release told as an event that happened, which is what happened, not how the guard works, whatever
 # guard word the sentence also has ("... happened on 2026-10-11 when the owner approved it"); see release_events().
@@ -312,8 +316,9 @@ def hold_wording(text: str) -> list[str]:
             found.append(match.group())
     for match in NOTHING_DEPLOYED.finditer(text):
         before = SENTENCE_BREAK.split(text[: match.start()])[-1]
-        condition = CONDITION_BEFORE.search(before)
-        if not (condition and GUARD_CONDITION.search(before, condition.end())):
+        if not any(
+            GUARD_CONDITION.search(clause_at(before, c.start(), c.end())) for c in CONDITION_BEFORE.finditer(before)
+        ):
             found.append(match.group())
     return found
 
@@ -912,6 +917,7 @@ class ReleaseStateTests(unittest.TestCase):
         "变量现在未设置。",
         "变量仍然未设置。",
         "变量依然未设置。",
+        "变量目前 未设置。",
         # A plain statement with an unrelated condition after it, and past deployments with an adverb or another verb.
         "The variable is unset if you look at the settings today.",
         "`RELEASE_APPROVED_SHA` is unset when you look at the settings.",
@@ -924,6 +930,7 @@ class ReleaseStateTests(unittest.TestCase):
         "Nothing has been deployed.",
         "When you look today, nothing is deployed.",
         "For the tag v1.1.0, when you look today, nothing is deployed.",
+        "When you look today, the tag v1.1.0 exists, so nothing is deployed.",  # a guard word outside the condition
         # A condition inside an earlier clause joined with "and" does not cover the unset variable.
         "The tag v1.1.0 exists if you check, and the variable is unset.",
         # Variants of the accurate sentences below that still tell an event: a fronted date, a version in the clause, a
@@ -962,6 +969,13 @@ class ReleaseStateTests(unittest.TestCase):
         "When it is not on `main`, nothing is deployed.",
         "When a guard refuses the run, nothing is deployed.",
         "If the lookup fails, nothing is deployed.",
+        "If it is a draft, nothing is deployed.",
+        "When a push starts the run, nothing is deployed.",
+        "If a pull request starts the run, nothing is deployed.",
+        "When a schedule starts the run, nothing is deployed.",
+        "If the version has a leading zero, nothing is deployed.",
+        "When the approval job does not pass, nothing is deployed.",
+        "When you look today, if the tag is not on `main`, nothing is deployed.",  # a later condition of the guard
         # Accurate sentences: an event verb in a subordinate clause, a date of something else, an unrelated
         # "frozen", and the unset variable as a condition (的情况下, whether, a clause joined by "or", a version inside
         # the clause).
@@ -972,6 +986,7 @@ class ReleaseStateTests(unittest.TestCase):
         "The approval job checks whether `RELEASE_APPROVED_SHA` is unset or names another commit.",
         "If `release_sha` is wrong, or `RELEASE_APPROVED_SHA` is unset, the dispatch fails closed.",
         "If the tag v1.1.0 names another commit or the variable is unset, the dispatch fails closed.",
+        "For a dispatch, if `release_sha` is wrong, or the variable is unset, the dispatch fails closed.",
     )
 
     def test_release_wording_rule_outside_the_readmes(self):
