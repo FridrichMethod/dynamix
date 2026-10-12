@@ -744,6 +744,62 @@ class StatisticsMarkerTests(unittest.TestCase):
             with self.subTest(text=text):
                 self.assertEqual(count_claims(text), [])
 
+    # One sample per alternative of COUNT_CLAIMS that the samples above leave out, counted only through it, so that
+    # deleting the alternative lets it pass: each English noun in the singular and the plural; a word before the noun
+    # that starts with a digit, an apostrophe or a hyphen, or ends with an apostrophe; each other Chinese noun and
+    # classifier; and the Chinese forms with a one-digit number, with no space or with the noun right before it.
+    COUNTED_NOUNS = (
+        "file image song track record asset candidate artwork cover jacket screenshot source title upload original"
+    )
+    COUNTED_FORMS = (
+        *(f"1 {noun}" for noun in (*COUNTED_NOUNS.split(), "entry")),
+        *(f"12 {noun}s" for noun in COUNTED_NOUNS.split()),
+        "12 entries",
+        "1,024 bytes",
+        "12 4K images",
+        "3 '80s covers",
+        "12 3-D covers",
+        "12 artists' covers",
+        "3,773 原文件",
+        "537 首曲目",
+        "118 条记录",
+        "276 个候选",
+        "243 项资产",
+        "100 张封面",
+        "5 份截图",
+        "84 个来源",
+        "3,337 个标题",
+        "12 部作品的曲绘",
+        "42张图片",
+        "曲绘 3,773 张",
+        "曲绘共3,773张",
+        "封面共 5 张",
+    )
+    # Digits glued to a name are no count, one sample per character that may stand right before them (a letter, _,
+    # ., -) and a digit in the middle of a name; and a number followed by "a" counts no noun.
+    NAMED_NUMBERS = (
+        "MP3 files",
+        "IMG_0042 files",
+        "4 a file is no longer accepted",
+        "MP3 文件",
+        "H264 文件",
+        "IMG_0042 文件",
+        "Apache License 2.0 文件",
+        "SHA-1 文件",
+        "图片H5 张",
+        "图片IMG_2 张",
+        "图片Fig.2 张",
+        "图片SHA-1 张",
+    )
+
+    def test_count_pattern_sees_each_noun_classifier_and_word(self):
+        for text in self.COUNTED_FORMS:
+            with self.subTest(claim=text):
+                self.assertNotEqual(count_claims(text), [])
+        for text in self.NAMED_NUMBERS:
+            with self.subTest(text=text):
+                self.assertEqual(count_claims(text), [])
+
     def test_no_collection_counts_outside_the_markers(self):
         for relative in DOCUMENTS:
             text = read(relative)
@@ -757,6 +813,25 @@ class StatisticsMarkerTests(unittest.TestCase):
 
 
 class AttributionTests(unittest.TestCase):
+    # One line per alternative of ATTRIBUTION, which matches it only through that alternative.
+    ATTRIBUTING = (
+        "See FridrichMethod/deemo for the original slideshow.",
+        "The original slideshow is mashirozx/deemo.",
+        "The slideshow is derived from the DEEMO slideshow.",
+        "The slideshow derives from the DEEMO slideshow.",
+        "The slideshow was adapted for this archive from the DEEMO one.",
+        "The vendored script is byte-identical to the DEEMO one.",
+        "幻灯片改编自 DEEMO 的幻灯片。",
+        "幻灯片派生自 DEEMO 的幻灯片。",
+        "幻灯片源自 DEEMO 的幻灯片。",
+        "所附脚本与 DEEMO 的逐字节相同。",
+    )
+
+    def test_attribution_pattern_sees_each_wording(self):
+        for line in self.ATTRIBUTING:
+            with self.subTest(line=line):
+                self.assertRegex(line, ATTRIBUTION)
+
     def test_deemo_is_named_only_to_attribute_a_derivation(self):
         for relative in DOCUMENTS:
             for line in prose_lines(read(relative)):
