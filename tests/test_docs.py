@@ -142,14 +142,20 @@ CONDITION_BEFORE = re.compile(
     r"如果|假如|倘若|要是|一旦|只要|若(?!干)|当(?![前然中天日时])",
     re.IGNORECASE,
 )
-CONDITION_AFTER = re.compile(r"[^。；，：、,;:.!?]*?(?:(?<![暂及同当])时(?![间刻])|的话|情况下)")
+# A condition after a list joined with 、 covers the wording when the wording ends its item and a ， follows the
+# condition ("变量未设置、标签错误时，……", not "变量未设置、查看设置时会发现" or "变量未设置会被发现、查看设置时").
+_CONDITION_WORD = r"(?:(?<![暂及同当])时(?![间刻])|的话|情况下)"
+CONDITION_AFTER = re.compile(rf"[^。；，：、,;:.!?]*?{_CONDITION_WORD}|、[^。；，：,;:.!?]+?{_CONDITION_WORD}(?=，)")
 # ASCII punctuation ends a clause before whitespace only, so a version (v1.1.0) or a file name stays in its clause. 、
-# joins the items of a list, not clauses ("若标签错误、变量未设置，……" is one condition).
+# joins the items of a list, not clauses ("若标签错误、变量未设置，……" is one condition): a condition before the list
+# covers the wording only when the wording opens its item and a ， ends the list (clause_before()), and a date clause
+# may list dates (release_events()).
 CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：。！？]")
 # A clause that continues the one before it ("If X is wrong, or the variable is unset, ..."): a condition that opens
 # the first clause covers it (CONDITION_OPENS). A condition inside an earlier clause covers that clause alone ("The tag
-# v1.1.0 exists if you check, and the variable is unset.").
-COORDINATED = re.compile(r"\s*(?:(?:or|and)\b|或|并且|且)", re.IGNORECASE)
+# v1.1.0 exists if you check, and the variable is unset."). After a 、 the word may stand alone before the wording
+# (clause_before(): "倘若标签不对、或者变量未设置，……"), so 或者 is matched whole.
+COORDINATED = re.compile(r"\s*(?:(?:or|and)\b|或者|或|并且|且)", re.IGNORECASE)
 CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
 # "Nothing is deployed" states the site's state unless a condition of the guard comes before it in its sentence
 # ("When ..., nothing is deployed."): one whose own clause names what the guard checks, a tag, branch, release,
@@ -304,12 +310,19 @@ def sentences(lines: list[str], keep_code: bool = False) -> list[str]:
 def clause_before(text: str, end: int) -> str:
     """The clause of ``text`` that ends at ``end``, joined with the clauses before it that it continues with "or" or
     "and" (COORDINATED) when a condition opens the first of them (CONDITION_OPENS), so that the condition counts for
-    it; otherwise the clause alone."""
+    it; otherwise the clause alone. Across a 、 the items before count only when ``end`` opens an item (or follows its
+    或, 且, ...: COORDINATED) of a list that a ， ends, its consequence following ("若标签错误、变量未设置，……");
+    otherwise the item alone does, as where 、 stands for a comma ("如果查看设置、会发现变量未设置。",
+    "只要标签正确就会部署、变量目前未设置。")."""
     parts = CLAUSE_BREAK.split(text[:end])
     clause = continued = parts.pop()
     while parts and COORDINATED.match(continued):
         continued = parts.pop() + continued
-    return continued if CONDITION_OPENS.match(continued) else clause
+    found = continued if CONDITION_OPENS.match(continued) else clause
+    item = found.rpartition("、")[2]
+    opens = not item.strip() or COORDINATED.fullmatch(item)
+    after = CLAUSE_BREAK.search(text, end)
+    return found if opens and after is not None and after.group() == "，" else item
 
 
 def hold_wording(text: str) -> list[str]:
@@ -340,13 +353,13 @@ def clause_at(text: str, start: int, end: int) -> str:
 
 def release_events(sentence: str) -> list[str]:
     """What tells a deployment or release in ``sentence`` as an event that happened: a date in a clause that names it
-    (RELEASE_WORDS) or in a clause of its own (BARE_DATE), so that a date of something else ("Sources were checked on
-    2026-10-10, and nothing here deploys") does not count; a Chinese completed-event marker (部署了, 已于); or a
-    past-tense event verb that no subordinator introduces in its clause."""
+    (RELEASE_WORDS) or in a clause of its own (BARE_DATE, also an item listed with 、), so that a date of something else
+    ("Sources were checked on 2026-10-10, and nothing here deploys") does not count; a Chinese completed-event marker
+    (部署了, 已于); or a past-tense event verb that no subordinator introduces in its clause."""
     found = []
     for match in RELEASE_DATES.finditer(sentence):
         clause = clause_at(sentence, match.start(), match.end())
-        if RELEASE_WORDS.search(clause) or BARE_DATE.fullmatch(clause):
+        if RELEASE_WORDS.search(clause) or any(BARE_DATE.fullmatch(item) for item in clause.split("、")):
             found.append(match.group())
     found += [match.group() for match in RELEASE_EVENT_MARKERS.finditer(sentence)]
     for match in RELEASE_EVENT_VERBS.finditer(sentence):
@@ -1059,10 +1072,15 @@ class ReleaseStateTests(unittest.TestCase):
         "变量未设置是当时的状态。",
         "变量未设置的时间很长。",
         "变量未设置的时刻已经记录在案。",
-        # A condition before a clause break does not cover the unset variable after it.
+        # A condition before a clause break does not cover the unset variable after it, nor one before a 、 whose item
+        # the wording does not open; 时 after a 、 closes a list only when the wording ends its item and a ， follows 时.
         "如果查看设置，会发现变量未设置。",
         "若查看设置可见：变量未设置。",
         "Check the settings if you are unsure: the variable is unset.",
+        "如果查看设置、会发现变量未设置。",
+        "如果查看设置、会发现变量未设置，因此每次触发都会停在批准任务。",
+        "变量未设置、查看设置时会发现。",
+        "变量未设置会被发现、查看设置时。",
         # Events: each date form, a date as a clause of its own (at the end, after each preposition, with a space or a
         # code span after it), each Chinese marker and each event verb.
         *(
@@ -1083,6 +1101,9 @@ class ReleaseStateTests(unittest.TestCase):
         "On 2026-10-11 `UTC`, the deployment needed only the owner's approval.",
         "2026-10-11 ，部署只需要所有者批准。",
         "于 10 月 11 日 ，部署只需要所有者批准。",
+        "2026-10-11、2026-10-12，部署只需要所有者批准。",  # dates listed with 、 as the clause
+        # 、 joins the items of one clause, so the date dates the deployment it names (a ， would end the clause).
+        "来源于 2026-10-10 检查、未部署任何内容。",
         "网站在所有者批准后才部署了。",
         "网站在所有者批准后才上线了。",
         "GitHub Release 在所有者批准后才发布了。",
@@ -1179,7 +1200,7 @@ class ReleaseStateTests(unittest.TestCase):
         "届时网站随新版本部署。",
         "下一个版本会部署网站。",
         # "None is deployed" after a condition of the guard, each condition word, a condition that opens a clause which
-        # "and", 或, 并且 or 且 continues, and conditions listed with 、.
+        # "and", 或, 并且 or 且 continues, and conditions listed with 、, before or after them.
         "If a tag is not `vX.Y.Z`, none is deployed.",
         "Whenever a tag is not `vX.Y.Z`, nothing is deployed.",
         "While the Release is a draft, nothing is deployed.",
@@ -1191,6 +1212,8 @@ class ReleaseStateTests(unittest.TestCase):
         "倘若标签不对，或变量未设置，触发会失败关闭。",
         *(f"如果标签不对，{word}变量未设置，触发会失败关闭。" for word in ("并且", "且")),
         "若标签错误、变量未设置或指向其他提交，触发会失败关闭。",
+        "倘若标签不对、或者变量未设置，触发会失败关闭。",
+        "变量未设置、标签错误时，触发会失败关闭。",
         # An event verb after each subordinator.
         "The deploy job never runs before the test job has succeeded.",
         *(f"The deploy job runs only {word} the test job has succeeded." for word in ("once", "when", "if")),
@@ -1316,11 +1339,13 @@ class ReleaseStateTests(unittest.TestCase):
             "`RELEASE_APPROVED_SHA` 目前未设置。",
             "网站暂不部署。",
             "变量还 未设置。",
-            # A condition in an earlier sentence does not cover the unset variable.
+            # A condition in an earlier sentence does not cover the unset variable, nor one before a 、 that stands for
+            # a sentence mark.
             "只要标签正确就会部署。变量目前未设置。",
             "只要标签正确就会部署；变量目前未设置。",
             "只要标签正确就会部署！变量目前未设置。",
             "要是标签正确会部署吗？变量目前未设置。",
+            "只要标签正确就会部署、变量目前未设置。",
         ),
     }
     # Sentences that describe the release gate: what fails closed is a condition of a run, not the site's state.
