@@ -171,8 +171,10 @@ RELEASE_DATES = re.compile(
     r"\d{4} ?年|\d{1,2} ?月 ?\d{1,2} ?日",
     re.IGNORECASE,
 )
-# A clause that is only a date ("On 2026-10-11, ...", "2026-10-11，……"): it dates the rest of the sentence.
-BARE_DATE = re.compile(rf"\s*(?:(?:on|by|since|于|在)\s*)?(?:{RELEASE_DATES.pattern})", re.IGNORECASE)
+# A clause that is only a date ("On 2026-10-11, ...", "2026-10-11，……"): it dates the rest of the sentence. Whitespace
+# may end it: sentences() blanks a code span after the date to a space ("On 2026-10-11 `UTC`, ..."), and a space may
+# stand before a full-width comma. "In" is not English before a day, but a translation of 在 may put it there.
+BARE_DATE = re.compile(rf"\s*(?:(?:on|in|at|by|since|于|在)\s*)?(?:{RELEASE_DATES.pattern})\s*", re.IGNORECASE)
 RELEASE_EVENT_MARKERS = re.compile(r"(?:部署|上线|发布)(?:了|过)|已于")
 RELEASE_EVENT_VERBS = re.compile(
     r"\b(?:happened|took place|occurred|ran|succeeded|completed|finished|went (?:out|ahead|through)|"
@@ -1061,8 +1063,8 @@ class ReleaseStateTests(unittest.TestCase):
         "如果查看设置，会发现变量未设置。",
         "若查看设置可见：变量未设置。",
         "Check the settings if you are unsure: the variable is unset.",
-        # Events: each date form, a date as a clause of its own (at the end, after each preposition), each Chinese
-        # marker and each event verb.
+        # Events: each date form, a date as a clause of its own (at the end, after each preposition, with a space or a
+        # code span after it), each Chinese marker and each event verb.
         *(
             f"The deployment on {month} 11 needed only the owner's approval."
             for month in "January February March April May June July August September October November December".split()
@@ -1076,6 +1078,11 @@ class ReleaseStateTests(unittest.TestCase):
         "Since 2026-10-11, the deployment needs only the owner's approval.",
         "于10月11日，部署只需要所有者批准。",
         "在 2026-10-11，部署只需要所有者批准。",
+        "At 2026-10-11 `12:00 UTC`, the deployment needed only the owner's approval.",
+        "In 2026-10-11, the deployment needed only the owner's approval.",
+        "On 2026-10-11 `UTC`, the deployment needed only the owner's approval.",
+        "2026-10-11 ，部署只需要所有者批准。",
+        "于 10 月 11 日 ，部署只需要所有者批准。",
         "网站在所有者批准后才部署了。",
         "网站在所有者批准后才上线了。",
         "GitHub Release 在所有者批准后才发布了。",
