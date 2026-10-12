@@ -60,9 +60,11 @@ ATTRIBUTION = re.compile(
     r"byte-identical|改编|派生|源自|逐字节相同",
     re.IGNORECASE,
 )
-# A flat claim that something is deployed, live or published as the site, in any tense that states it as done.
+# A flat claim that something is deployed, live or published as the site, in any tense that states it as done, also
+# with an adverb between ("was first deployed", "is already live").
+_DONE = r"(?:(?:now|first|already|successfully|finally|recently|just|last) )?(?:deployed|live)\b"
 FLAT_CLAIMS = re.compile(
-    r"github\.io|\b(?:is|was|has been|have been|are|were) (?:now )?(?:deployed|live)\b|"
+    rf"github\.io|\b(?:is|was|has been|have been|are|were) {_DONE}|"
     r"\bwent live\b|\blive (?:site|website)\b|GitHub Pages site at|\bpublished (?:on|with|to|at|by) GitHub Pages\b|"
     r"\breleased as v\d|已(?:经)?部署|已上线|已经上线|(?:网站|站点|GitHub Pages|v\d+\.\d+\.\d+)[^。；，\n]{0,20}?已(?:经)?发布",
     re.IGNORECASE,
@@ -124,14 +126,14 @@ UNSET_WORDING = re.compile(
     r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|还|尚)?\s*(?:未|没有)(?:被)?设置",
     re.IGNORECASE,
 )
-# A condition opening the clause (当 but not 当前 "currently"; 若 but not 若干), or one right after the words.
+# A condition opening the clause (当 but not 当前 "currently"; 若 but not 若干), or, in Chinese, one right after the
+# words (时, 的话). An English "if" or "when" after a statement opens a clause of its own and leaves the statement as
+# it is ("The variable is unset if you look at the settings today.").
 CONDITION_BEFORE = re.compile(
     r"\b(?:if|when|whenever|while|unless|as long as|in case)\b|如果|假如|倘若|要是|一旦|只要|若(?!干)|当(?![前然中天日时])",
     re.IGNORECASE,
 )
-CONDITION_AFTER = re.compile(
-    r"\s*(?:if|when|whenever|unless)\b|[^。；，：、,;:.!?]*?(?:(?<![暂及同当])时(?![间刻])|的话)", re.IGNORECASE
-)
+CONDITION_AFTER = re.compile(r"[^。；，：、,;:.!?]*?(?:(?<![暂及同当])时(?![间刻])|的话)")
 CLAUSE_BREAK = re.compile(r"[,;:.!?，；：、。！？]")
 # A deployment or release told as an event that happened (a date or a past-tense event verb), which is what happened,
 # not how the guard works, whatever guard word the sentence also has ("... happened on 2026-10-11 when the owner
@@ -140,7 +142,8 @@ RELEASE_EVENTS = re.compile(
     r"\b\d{4}-\d{2}-\d{2}\b|"
     r"(?-i:\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}\b)|"
     r"\d{4} ?年|\d{1,2} ?月 ?\d{1,2} ?日|"
-    r"\b(?:happened|took place|occurred|ran|succeeded|completed|finished|went (?:out|ahead|through))\b|"
+    r"\b(?:happened|took place|occurred|ran|succeeded|completed|finished|went (?:out|ahead|through)|"
+    r"(?:was|were) (?:approved|triggered|started|performed|carried out|rolled out))\b|"
     r"(?:部署|上线|发布)(?:了|过)|已于",
     re.IGNORECASE,
 )
@@ -828,6 +831,12 @@ class ReleaseStateTests(unittest.TestCase):
         "`RELEASE_APPROVED_SHA` 目前未设置。",
         "网站暂不部署。",
         "The website is temporarily not deployed.",
+        # A plain statement with an unrelated condition after it, and past deployments with an adverb or another verb.
+        "The variable is unset if you look at the settings today.",
+        "`RELEASE_APPROVED_SHA` is unset when you look at the settings.",
+        "The website was first deployed to GitHub Pages when v1.0.0 was tagged.",
+        "The deployment was approved when v1.0.0 was tagged.",
+        "The website is already live, so nothing else is needed.",
     )
     OUTSIDE_ALLOWED = (
         "A push to `main` never deploys the website.",
@@ -933,6 +942,7 @@ class ReleaseStateTests(unittest.TestCase):
             "The website is currently not deployed.",
             "Because `RELEASE_APPROVED_SHA` is unset, every dispatch fails closed.",
             "`RELEASE_APPROVED_SHA` is not set, so every dispatch fails closed.",
+            "The variable is unset if you look at the settings today.",
         ),
         "README.zh-CN.md": (
             "目前没有任何发布。",
