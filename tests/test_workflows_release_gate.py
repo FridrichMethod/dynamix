@@ -399,7 +399,8 @@ ATTEMPTS = {
 # commit, the git commands on origin and the commit that the main guard's refusal names (None: the guard passes). The
 # names first and second stand for the commits of release_repository(), whose checkout keeps v1.1.0 (annotated) on
 # second and v1.0.0 (lightweight) on first. Refs whose names end in the tag's name sort before and after it in the
-# output of git ls-remote, so only the exact names count.
+# output of git ls-remote, and an annotated one adds its own peeled ^{} line after the tag's, so only the exact names
+# count, the peeled line's included.
 ORIGIN_CHANGES = {
     "an annotated tag as origin has it": ("v1.1.0", "second", (), None),
     "a lightweight tag as origin has it": ("v1.0.0", "first", (), None),
@@ -418,7 +419,10 @@ ORIGIN_CHANGES = {
     "refs on origin whose names end in an annotated tag's name": (
         "v1.1.0",
         "second",
-        (("update-ref", "refs/heads/refs/tags/v1.1.0", "first"), ("tag", "x/refs/tags/v1.1.0", "first")),
+        (
+            ("update-ref", "refs/heads/refs/tags/v1.1.0", "first"),
+            ("tag", "-a", "-m", "decoy", "x/refs/tags/v1.1.0", "first"),
+        ),
         None,
     ),
     "refs on origin whose names end in a lightweight tag's name": (
@@ -437,6 +441,15 @@ ORIGIN_CHANGES = {
         "v1.1.0",
         "second",
         (("tag", "-f", "v1.1.0", "first"),),
+        "first",
+    ),
+    "an annotated tag moved on origin, with an annotated tag whose name ends in its name on the run's commit": (
+        "v1.1.0",
+        "second",
+        (
+            ("tag", "-f", "-a", "-m", "moved", "v1.1.0", "first"),
+            ("tag", "-a", "-m", "decoy", "x/refs/tags/v1.1.0", "second"),
+        ),
         "first",
     ),
     "a lightweight tag moved on origin": ("v1.0.0", "first", (("tag", "-f", "v1.0.0", "second"),), "second"),
