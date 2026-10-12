@@ -1072,12 +1072,15 @@ class ReleaseGateTests(unittest.TestCase):
         the API headers of owner decision D1 and the job token as an Authorization header read from standard input, so
         the token is never an argument. It saves the status and the body under RUNNER_TEMP, where the Release guard
         reads them. Any other event sends nothing."""
-        expected_url = f"https://api.github.com/repos/{REPOSITORY}/releases/tags/v1.1.0"
-        events = (dispatched(TAGGED), released("v1.1.0"))
+        # Two tags per event, so the request names the run's tag, not a fixed one.
+        events = (dispatched(TAGGED), released("v1.1.0"), dispatched("refs/tags/v10.20.30"), released("v2.0.0"))
         for job_id, event in [(job_id, event) for job_id in ("approval", "build") for event in events]:
             lookup = self.guards(job_id)["lookup"]
             context = {**event, "github.token": TOKEN}
-            with self.subTest(job=job_id, event=event["github.event_name"]), tempfile.TemporaryDirectory() as temporary:
+            tag = event["github.ref"].removeprefix("refs/tags/")
+            expected_url = f"https://api.github.com/repos/{REPOSITORY}/releases/tags/{tag}"
+            subtest = self.subTest(job=job_id, event=event["github.event_name"], tag=tag)
+            with subtest, tempfile.TemporaryDirectory() as temporary:
                 base = Path(temporary)
                 tools, state = stand_in_curl(base)
                 (state / "response.json").write_text(json.dumps(context[LOOKUP]), encoding="utf-8")
