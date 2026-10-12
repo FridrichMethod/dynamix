@@ -4,7 +4,7 @@ Coordinator's record for the implementation requested on 2026-10-10. It describe
 
 **State: READY_FOR_RELEASE once the push and CI listed under [Remaining release-ready steps](#remaining-release-ready-steps) succeed. Release hold in force: Pages not deployed, no approval SHA, no tags, no GitHub Release.**
 
-**Update 2026-10-11:** the push and CI succeeded, and on the owner's explicit instruction the hold was lifted: release `v1.0.0` was deployed to GitHub Pages and published as a GitHub Release. The README's Releases section describes it. This report otherwise records the state before that release; the content of release `v1.1.0` is recorded under [Release v1.1.0](#release-v110-2026-10-11).
+**Update 2026-10-11:** the push and CI succeeded, and on the owner's explicit instruction the hold was lifted: release `v1.0.0` was deployed to GitHub Pages and published as a GitHub Release. The README's Releases section describes it. This report otherwise records the state before that release; the content of releases `v1.1.0` and `v1.1.1` is recorded under [Release v1.1.0](#release-v110-2026-10-11) and [Release v1.1.1](#release-v111-2026-10-12).
 
 ## Identity
 
@@ -248,3 +248,21 @@ This section records the content of release `v1.1.0`: the reviewed content commi
 - The schema does not yet require non-empty `game_evidence` on accepted candidates, apply the credit-role rule to family-manifest records, or require a URL or quote on every credit entry (DX2-07), because the primary runners still build such records in their tests. Committed data has no violation.
 - A comma after the bare name ends a caption name, so "Artwork in Dynamix, Lanota Collaboration" records no Lanota, while the dash form does. No committed caption has either form.
 - Two adapter cases need live access to settle. The Google Play adapter skips gallery images without the screenshot marker silently (the Google Play part of DX4-02), and only a live page shows whether that can drop a real screenshot. The seed `artists:bilibili:ariiol` has no `params.mid`; its v1.0.0 read was blocked by a challenge, and pictures read from it are held until the account ID is recorded.
+
+## Release v1.1.1 (2026-10-12)
+
+This section records the content of release `v1.1.1`: the reviewed content commit **`69f13da8dac161fa229ecc3709785e2bea699252`** (`quality6/integration`). The commit that adds this section changes only this file. The section above describes `b647f08`; its open minor items give the state at release `v1.1.0`.
+
+**After `v1.1.0`.** Three fix rounds closed the open minor items that need no live access. Each fix branch was re-verified by a separate agent before it was merged, and a final review read the whole change set; its findings, all minor, were fixed in the last round. No blocking or major finding is open.
+
+- **Deployment** (owner decisions in [06, Gate 5](06-validation-and-release.md#gate-5--release-hold-design)). Every run, a release run, a re-run of one and a dispatch alike, looks the tag's GitHub Release up with one read-only request in the approval and build jobs and goes on only for a published Release that is not a prerelease. A `vX.Y.Z` tag has three numbers without leading zeros. The deploy job compares the prerelease flag through `toJSON()` and runs only for the commit that the approval job recorded. `tests/test_workflows.py` allows exactly this one request. The repository ruleset "Release tags v*" lets only repository admins create, move or delete `v*` tags.
+- **Schema** (DX2-07, recorded in [09](09-frozen-contracts.md)). Accepted candidates carry game evidence, seeds of the identity adapters need `identity_quotes`, the credit-role rule covers family-manifest records, and every catalog credit entry has a URL or a quote. Committed data has no violation.
+- **Captions.** After the bare game name and a comma, an occasion of a listed game continues the name as after a dash (coordinator decision in [09](09-frozen-contracts.md)). No committed caption changes classification.
+- **Other fixes.** `page_links` compares "Also linked from" notes whole, and each alternative of the documentation wording rules in `tests/test_docs.py` is pinned by a sample.
+
+**Exact-head checks at the content commit**, under both zlib-ng and the stock zlib that CI uses: `tests/run_all.py` (34 of 34 modules, also under coverage: 92.5 % branch coverage of `scripts/`, `fail_under` 92), the four `fetch_*.py --verify`, `build_catalog.py --verify --check`, `build_thumbnails.py --check`, `build_coverage.py --check`, `update_docs_stats.py --check`, both `git diff --check` forms, and `browser_smoke.py --fixture` and `--base` on the served checkout and on the staged site under `/dynamix/`. The checkout stayed clean. Nothing under `data/`, `assets/`, `index.html`, `tests/fixtures/`, `src/vendor/` or `licenses/` changed. The staged Pages payload (`manifest_sha256` `bd7b99419495ef1bf105a8c8636e37b75b81049b52c240a0363aa968d985d7cf`, 4,849 files, 930,414,244 bytes) differs from the `v1.1.0` payload only in `README.md`, `README.zh-CN.md`, `docs/sources-wikis.md` and `docs/sources-wikis.zh-CN.md`.
+
+**Open minor items**, none of which affects committed data:
+
+- The `v1.1.0` items on the dispatch Release check, on DX2-07 and on the comma form are resolved.
+- Two adapter cases still need live access to settle. The Google Play adapter skips gallery images without the screenshot marker silently (the Google Play part of DX4-02), and only a live page shows whether that can drop a real screenshot. The seed `artists:bilibili:ariiol` has no `params.mid`; its v1.0.0 read was blocked by a challenge, and pictures read from it are held until the account ID is recorded.
