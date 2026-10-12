@@ -1620,6 +1620,15 @@ class PressArticleTests(ArchivesTestCase):
         bad_link = json.loads(json.dumps(page_links))
         bad_link["items"][0]["link_rules"][0]["pattern"] = "("
         cases.append((bad_link, r"link_rules\[0\]\.pattern .*regular expression"))
+        # The page identity is the game evidence of a page_links candidate: without identity_quotes a download had
+        # none, which a downloaded candidate needs (DX2-07).
+        for quotes in (None, [], ["Dynamix", " "], "Dynamix"):
+            no_identity = json.loads(json.dumps(page_links))
+            if quotes is None:
+                del no_identity["identity_quotes"]
+            else:
+                no_identity["identity_quotes"] = quotes
+            cases.append((no_identity, r"identity_quotes must be a non-empty list of non-empty strings"))
         registry = {
             "id": "archives:test-leads",
             "name": "Leads",
@@ -1648,8 +1657,8 @@ class PressArticleTests(ArchivesTestCase):
             "items": [{"url": "https://press.example.org/"}],
         }
         cases.append((probe, r"lists must be a non-empty list of names"))
-        for source, message in cases:
-            with self.subTest(message=message):
+        for index, (source, message) in enumerate(cases):
+            with self.subTest(case=index, message=message):
                 with self.assertRaisesRegex(ValueError, message) as caught:
                     self.load_seeds(source)
                 self.assertIn(f"source {source['id']!r}", str(caught.exception))
@@ -1834,6 +1843,7 @@ class RunnerStateTests(ArchivesTestCase):
             "platform": "web",
             "adapter": "page_links",
             "hosts": ["press.example.org"],
+            "identity_quotes": ["Dynamix"],  # the page title: the game evidence of every candidate it lists
             "quality": QUALITY,
             "items": [{"url": self.PAGE, "link_rules": [{"attr": "src", "pattern": "^/img/"}]}],
             "rules": rules or [{"match": "^img/", "role": role, "game": "dynamix"}],

@@ -137,6 +137,11 @@ title); a file name is never a title.
 | `release_page` (list mode) | `{"tracks_of": "<handle>"}`: one read of `soundcloud.com/<handle>/tracks` | every server-rendered track becomes an item; the list stays open when fewer than the account's `track_count` are rendered; a read that fails or renders no track holds the tracks the list added before, a read that renders tracks holds none |
 | `page_probe`, `lead_registry` | one availability read / no request | dead or login-walled sources; research leads without an acquirable file |
 
+`apple_store`, `google_play`, `taptap_app` and `page_links` seeds need `identity_quotes`: text that the listing or page
+must show, such as the app title or the developer. The quotes found go into the `game_evidence` of every candidate of
+that page, and while one is missing a download rule holds its candidate `pending` (`unresolved_game`). `load_seeds`
+refuses such a seed without them, because its downloaded candidates could carry no game evidence.
+
 `seeds/leads-crosswalk.json` (research sweep) and `seeds/leads-gapfill-crosswalk.json` (research gap-fill: Wayback pixiv
 originals, official YouTube/Facebook/X, press, partner collaborations) map every 2026-10-10 lead
 (`dynamix_original_game` yes/unclear) to the source and candidate-key prefix that records its disposition; `lead_list`

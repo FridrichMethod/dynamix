@@ -34,6 +34,7 @@ _RENDITION_SIZES = re.compile(r"_crop_(\d+)x(\d+)[0-9a-z]*_thumbnail_(\d+)x(\d+)
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
     base.require_items(seed, where, ["url"])
+    base.require_identity(seed, where)
 
 
 def nuxt_payload(html: str) -> list:

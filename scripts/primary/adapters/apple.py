@@ -68,6 +68,7 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
                 raise ValueError(f"{where}: items[{index}] lookup needs a numeric lookup_id and 2-letter countries")
         elif not isinstance(item.get("url"), str) or not item["url"].strip():
             raise ValueError(f"{where}: items[{index}].url is required")
+    base.require_identity(seed, where)
 
 
 def source_format(url: str) -> str | None:

@@ -45,6 +45,7 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
                     raise ValueError(f"{label}.{name} must be true or false")
     if not seed.get("hosts"):
         raise ValueError(f"{where}: hosts are required")
+    base.require_identity(seed, where)
 
 
 def links(

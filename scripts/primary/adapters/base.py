@@ -300,6 +300,19 @@ def mime_for(ext: str | None) -> str | None:
     return MIME_BY_EXT.get((ext or "").lower().lstrip("."))
 
 
+def require_identity(seed: Mapping[str, Any], where: str) -> None:
+    """``check_seed`` of an adapter whose candidates take their game evidence from the page identity (:func:`identity`:
+    store listings, ``page_links`` pages): the seed needs ``identity_quotes``, a non-empty list of non-empty strings.
+    Without them a download rule could admit files with no game evidence, which every ``downloaded`` or
+    ``duplicate_bytes`` candidate needs (DX2-07)."""
+    quotes = seed.get("identity_quotes")
+    if not isinstance(quotes, list) or not quotes or not all(isinstance(q, str) and q.strip() for q in quotes):
+        raise ValueError(
+            f"{where}: identity_quotes must be a non-empty list of non-empty strings (the page identity they "
+            "establish is the game evidence of the candidates)"
+        )
+
+
 def identity(seed: Mapping[str, Any], texts: Mapping[str, str], url: str) -> tuple[list[str], list[str]]:
     """(evidence strings for the seed's ``identity_quotes`` found in ``texts``, missing quotes)."""
     found, missing = model.find_quotes(seed.get("identity_quotes", []), texts, url)

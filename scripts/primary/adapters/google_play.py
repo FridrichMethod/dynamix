@@ -26,6 +26,7 @@ _BASE = re.compile(r"^(https://play-lh\.googleusercontent\.com/[A-Za-z0-9_-]+)(?
 
 def check_seed(seed: Mapping[str, Any], where: str) -> None:
     base.require_items(seed, where, ["url"])
+    base.require_identity(seed, where)
 
 
 def split_size(url: str) -> tuple[str, str | None] | None:
