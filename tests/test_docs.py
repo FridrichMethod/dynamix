@@ -227,16 +227,6 @@ def plain(text: str) -> str:
     return re.sub(r"[*`]+|(?<!\w)_+|_+(?!\w)", "", MARKDOWN_LINK.sub(r"\1", text))
 
 
-def __getattr__(name: str) -> object:
-    """ReleaseStateTests moved to tests/test_docs_release.py; tests/test_docs_stats.py still reads its READMES from this
-    module. It is imported only when asked for, so that a run of this module neither collects nor runs it."""
-    if name == "ReleaseStateTests":
-        from test_docs_release import ReleaseStateTests
-
-        return ReleaseStateTests
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
-
-
 class DocumentPresenceTests(unittest.TestCase):
     def test_every_document_and_its_translation_exist(self):
         for relative in (*DOCUMENTS, "NOTICE", ".nojekyll"):

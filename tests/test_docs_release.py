@@ -43,7 +43,9 @@ VERSION = re.compile(r"v\d+\.\d+\.\d+")
 PUBLISHED_URL = re.compile(
     r"https://(?:fridrichmethod\.github\.io/|github\.com/FridrichMethod/dynamix/releases)[^\s()<>\[\]]*"
 )
-# Each README's Status line prefix and the title of its Releases section.
+# The READMEs, which alone describe the release state (tests/test_docs_stats.py reads them from here too), each
+# README's Status line prefix and the title of its Releases section.
+READMES = ("README.md", "README.zh-CN.md")
 README_RELEASE_PARTS = {"README.md": ("**Status:**", "Releases"), "README.zh-CN.md": ("**状态**：", "发布")}
 # The release gate that v1.1.0 retired: a manual dispatch of main approved by the RELEASE_APPROVED_SHA variable and a
 # release_sha input. Pages now deploys a published vX.Y.Z release (.github/workflows/pages.yml), so no document names
@@ -340,7 +342,6 @@ class ReleaseStateTests(unittest.TestCase):
     wording; a sentence about deployment or release is negated, conditional, future or restricted (how the guard
     works, not what happened). No document describes the retired manual-dispatch gate."""
 
-    READMES = ("README.md", "README.zh-CN.md")
     PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
     # What each README's Releases section says about the release-triggered workflow, with the owner decisions of
     # 2026-10-11: tags without leading zeros (D2), every run, a re-run of a release run included, looking up the tag's
@@ -402,7 +403,7 @@ class ReleaseStateTests(unittest.TestCase):
 
     def test_no_deployment_claims_outside_the_readmes(self):
         for relative in (*DOCUMENTS, "NOTICE"):
-            if relative in self.READMES:
+            if relative in READMES:
                 continue
             with self.subTest(document=relative):
                 self.assertEqual(release_wording_problems(read(relative)), [])
@@ -782,7 +783,7 @@ class ReleaseStateTests(unittest.TestCase):
                 self.assertEqual(release_wording_problems(text + "\n"), [])
 
     def test_readmes_describe_the_release_and_its_guard(self):
-        for relative in self.READMES:
+        for relative in READMES:
             text = read(relative).replace("**", "")
             for phrase in (
                 self.PAGES_URL,
@@ -810,11 +811,11 @@ class ReleaseStateTests(unittest.TestCase):
             ):
                 with self.subTest(document=relative, stale=stale):
                     self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold or old gate")
-        self.assertEqual(release_state_problems({relative: read(relative) for relative in self.READMES}), [])
+        self.assertEqual(release_state_problems({relative: read(relative) for relative in READMES}), [])
 
     def test_a_release_build_names_its_tag(self):
         """Where the checkout is a release tag (the Pages workflow's test run), both READMEs name that release."""
-        readmes = {relative: read(relative) for relative in self.READMES}
+        readmes = {relative: read(relative) for relative in READMES}
         self.assertEqual(tag_problems(readmes, head_release_tags()), [])
 
     # A README pair in the shape of the real ones, which the release check accepts, and edits it must refuse.
