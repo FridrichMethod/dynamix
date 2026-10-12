@@ -632,6 +632,12 @@ class ReleaseStateTests(unittest.TestCase):
         *(f"The deployment was {verb} only after the tests passed." for verb in ("triggered", "started", "performed")),
         *(f"The deployment was {verb} only after the tests passed." for verb in ("carried out", "rolled out")),
         "The deployments were triggered only after the tests passed.",
+        # The prose between two code spans of two backticks is prose (INLINE_CODE): an event and an unguarded statement
+        # there; and a run of backticks that no run of the same length closes prints as text.
+        "``v1.1.0`` was released on 2026-10-11 from ``main``.",
+        "``v1.1.0`` is the current release, and the site deploys from ``main``.",
+        "网站由 ``main`` 部署于 2026-10-11，来自 ``v1.1.0``。",
+        "The ```deploy`` job publishes the site.",
         # A guard word covers its own sentence only, whichever mark or line break ends it.
         *(f"A push never deploys{mark} The deployment uses the tag." for mark in ".!"),
         "A push never deploys; the deployment uses the tag.",
@@ -706,6 +712,7 @@ class ReleaseStateTests(unittest.TestCase):
         "The deploy job runs when the approval and build jobs pass.",
         "A pull request doesn't deploy the website.",
         "The last job of the Pages workflow is ``deploy``.",  # a code span of two backticks is code too
+        "The last step runs ``echo `date` > deployed.txt``.",  # a span of two backticks holds single ones
         "拉取请求不部署网站。",
         "预发布版本未部署到 GitHub Pages。",
         "只有已发布的版本部署网站。",

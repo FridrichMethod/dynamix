@@ -111,9 +111,10 @@ COUNT_CLAIMS = re.compile(
 BOLD_RUN = re.compile(r"(?<!\*)\*\*(?!\*)")
 LINK = re.compile(r"(?<!!)\[(?:[^\[\]]|\[[^\]]*\])*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
-# A code span holds at least one character: Markdown has no empty one, and two backticks open a span that two close
-# (``deploy`` is code, read here as its inner `deploy`).
-INLINE_CODE = re.compile(r"`[^`]+`")
+# A code span as CommonMark reads it: a run of n backticks opens a span that the next run of exactly n backticks closes
+# ("``deploy``" holds deploy, "``a`b``" holds a`b), and a run that no such run closes is literal text. So the prose
+# between two spans ("``a`` prose ``b``") stays prose, and a span is never empty (backticks that touch are one run).
+INLINE_CODE = re.compile(r"(?<!`)(?P<run>`+)(?!`)(?P<code>.+?)(?<!`)(?P=run)(?!`)")
 SCRIPT_CALL = re.compile(r"(?<![\w<>/.-])(?:(scripts|tests)/)?([a-z][a-z0-9_]*)\.py\b")
 FLAG = re.compile(r"(?<![\w-])(--[a-z][a-z0-9-]*)")
 
@@ -141,7 +142,7 @@ def code_lines(text: str) -> list[str]:
         if line.lstrip().startswith("```"):
             fenced = not fenced
             continue
-        lines.extend([line] if fenced else [span.strip("`") for span in INLINE_CODE.findall(line)])
+        lines.extend([line] if fenced else [match["code"] for match in INLINE_CODE.finditer(line)])
     return lines
 
 
@@ -199,7 +200,7 @@ def unrendered_bold(line: str) -> list[int]:
 def sentences(lines: list[str], keep_code: bool = False) -> list[str]:
     """Sentences of the prose, code spans blanked (or, with keep_code, kept as their text). Chinese text puts no space
     after 。！？；, so those end a sentence by themselves; . ! ? ; end one when whitespace follows."""
-    code = (lambda match: match.group().strip("`")) if keep_code else " "
+    code = (lambda match: match["code"]) if keep_code else " "
     text = "\n".join(INLINE_CODE.sub(code, line) for line in lines)
     return [part.strip() for part in re.split(r"(?<=[。！？；])|(?<=[.!?;])\s+|\n", text) if part.strip()]
 
@@ -213,6 +214,11 @@ def count_claims(line: str) -> list[str]:
         for claim in claims
         if int(re.search(r"\d[\d,]*", claim.group()).group().replace(",", "")) != schema.PAGES_BUDGET_BYTES
     ]
+
+
+def link_targets(line: str) -> list[str]:
+    """Link destinations of one prose line; a link inside a code span is code, not a link."""
+    return LINK.findall(INLINE_CODE.sub("", line))
 
 
 def plain(text: str) -> str:
@@ -328,6 +334,7 @@ class EmphasisTests(unittest.TestCase):
             "**状态**：网站",
             "a **b** c",
             "**排除原因。**",
+            "Type ``**` `` to start bold.",  # a code span (INLINE_CODE) holding "**" and a backtick is masked
         )
         literal = (
             "**日期。**曲目索引日期",
@@ -336,6 +343,7 @@ class EmphasisTests(unittest.TestCase):
             "**主记录。**条目",
             "a** b**",
             "**open only",
+            "Run ``a`` and read [the guide](missing-guide.md) and **bold ** text, then ``b``.",  # prose between spans
         )
         for line in rendered:
             with self.subTest(line=line):
@@ -351,7 +359,7 @@ class LinkTests(unittest.TestCase):
             document = ROOT / relative
             text = read(relative)
             for line in prose_lines(text):
-                for target in LINK.findall(INLINE_CODE.sub("", line)):
+                for target in link_targets(line):
                     if re.match(r"^[a-z][a-z0-9+.-]*:", target, re.IGNORECASE):
                         continue
                     path_part, _, fragment = target.partition("#")
@@ -367,10 +375,16 @@ class LinkTests(unittest.TestCase):
                                 f"no heading for #{fragment} in {resolved.relative_to(ROOT)}",
                             )
 
+    def test_link_check_reads_links_between_code_spans(self):
+        """A link in the prose between two code spans is checked; one inside a span (INLINE_CODE) is code."""
+        line = "Run ``a`` and read [the guide](missing-guide.md) and **bold ** text, then ``b``."
+        self.assertEqual(link_targets(line), ["missing-guide.md"])
+        self.assertEqual(link_targets("The syntax ``a`[b](c.md)`` is code."), [])
+
     def test_external_links_use_https(self):
         for relative in DOCUMENTS:
             for line in prose_lines(read(relative)):
-                for target in LINK.findall(INLINE_CODE.sub("", line)):
+                for target in link_targets(line):
                     with self.subTest(document=relative, link=target):
                         self.assertFalse(target.lower().startswith("http://"), "use https for external links")
 
@@ -438,6 +452,7 @@ class StatisticsMarkerTests(unittest.TestCase):
             "3,773 件原文件",
             "**3,773** 个文件",
             "1,354,109,068 字节的原文件",
+            "``a`` has 3,773 files and ``b``",  # prose between two code spans (INLINE_CODE) stays prose
         )
         not_claims = (
             "SHA-1 of the files",
@@ -633,6 +648,22 @@ class AttributionTests(unittest.TestCase):
 
 
 class CommandTests(unittest.TestCase):
+    # Lines and the code that code_lines() reads in them (INLINE_CODE): a run of backticks closes only at a run of the
+    # same length, so the prose between two spans is no code, a span holds shorter or longer runs, and a run that no
+    # such run closes is literal text, also one of two backticks before a span of one.
+    CODE_SPANS = (
+        ("Run ``a`` and then ``b``.", ["a", "b"]),
+        ("The step runs ``echo `date` > deployed.txt``.", ["echo `date` > deployed.txt"]),
+        ("The job is `a``deploy`.", ["a``deploy"]),
+        ("The ```deploy`` job publishes the site.", []),
+        ("`` for an empty span and `x` here", ["x"]),
+    )
+
+    def test_code_lines_read_code_spans_as_commonmark(self):
+        for line, spans in self.CODE_SPANS:
+            with self.subTest(line=line):
+                self.assertEqual(code_lines(line), spans)
+
     def test_documented_flags_exist(self):
         calls: dict[Path, set[str]] = {}
         for relative in DOCUMENTS:
