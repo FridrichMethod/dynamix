@@ -138,6 +138,48 @@ RETIRED_ENVIRONMENT = {
     ),
     "zh": ("只应手动运行 v1.1.1 起的标签", "允许来自 v* 标签的部署", "允许 main", "允许来自 main"),
 }
+# Wording that the pages.yml header (read when releasing) must not have (matched in lower case): the release hold, the
+# retired dispatch gate and wording of earlier versions of this workflow.
+HEADER_STALE = (
+    "RELEASE_APPROVED_SHA",
+    "release_sha",
+    "hold",
+    "approved sha",
+    "on main, not",
+    "does not look up",
+    "dispatched tag",
+    "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
+    "with one read-only API request and deploys",  # the approval and the build job each send one
+    "repeats no lookup, so re-run the whole run",  # a re-run of the deploy job alone now deploys nothing
+    *RETIRED_ENVIRONMENT["en"],
+)
+# What the header must say: what deploys, what fails closed and the repository settings around the workflow.
+HEADER_REQUIRED = (
+    "published",
+    "vX.Y.Z",
+    "prerelease",
+    "on main",
+    "Tests workflow",
+    "fails closed",
+    "gh workflow run pages.yml --ref v1.1.1",
+    # A run takes pages.yml from the tag's commit: tags before v1.1.1 run a workflow without the lookup.
+    "a run on an older tag would use that tag's own workflow, which does not check the Release",
+    "the github-pages environment refuses its deployment",
+    "v*",
+    "without leading zeros",
+    "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
+    "with one read-only API request in the approval job (and again in the build job)",
+    "only if that Release is published and not a prerelease",
+    "A re-run keeps the event of the run it repeats",
+    "A re-run of the deploy job alone, or of any jobs without the approval job, repeats no lookup and deploys "
+    "nothing, since the deploy job requires the approval job's record of the current attempt: re-run the "
+    "whole run.",
+    "the deploy job deploys only the commit that the approval job of the same attempt recorded",
+    "needs the tag to name the run's commit on origin too (read with git ls-remote, without credentials",
+    "a tag that origin now has on another commit",
+    'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
+    "The github-pages environment accepts deployments only from tags from v1.1.1 on",
+)
 SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
 
@@ -627,47 +669,10 @@ class ReleaseGateTests(unittest.TestCase):
             if line.startswith("#"):
                 header.append(line.lstrip("#").strip())
         text = " ".join(header)
-        for stale in (
-            "RELEASE_APPROVED_SHA",
-            "release_sha",
-            "hold",
-            "approved sha",
-            "on main, not",
-            "does not look up",
-            "dispatched tag",
-            "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
-            "with one read-only API request and deploys",  # the approval and the build job each send one
-            "repeats no lookup, so re-run the whole run",  # a re-run of the deploy job alone now deploys nothing
-            *RETIRED_ENVIRONMENT["en"],
-        ):
+        for stale in HEADER_STALE:
             with self.subTest(stale=stale):
                 self.assertNotIn(stale.lower(), text.lower())
-        for required in (
-            "published",
-            "vX.Y.Z",
-            "prerelease",
-            "on main",
-            "Tests workflow",
-            "fails closed",
-            "gh workflow run pages.yml --ref v1.1.1",
-            # A run takes pages.yml from the tag's commit: tags before v1.1.1 run a workflow without the lookup.
-            "a run on an older tag would use that tag's own workflow, which does not check the Release",
-            "the github-pages environment refuses its deployment",
-            "v*",
-            "without leading zeros",
-            "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
-            "with one read-only API request in the approval job (and again in the build job)",
-            "only if that Release is published and not a prerelease",
-            "A re-run keeps the event of the run it repeats",
-            "A re-run of the deploy job alone, or of any jobs without the approval job, repeats no lookup and deploys "
-            "nothing, since the deploy job requires the approval job's record of the current attempt: re-run the "
-            "whole run.",
-            "the deploy job deploys only the commit that the approval job of the same attempt recorded",
-            "needs the tag to name the run's commit on origin too (read with git ls-remote, without credentials",
-            "a tag that origin now has on another commit",
-            'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
-            "The github-pages environment accepts deployments only from tags from v1.1.1 on",
-        ):
+        for required in HEADER_REQUIRED:
             with self.subTest(required=required):
                 self.assertIn(required, text)
 
