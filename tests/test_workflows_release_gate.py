@@ -127,7 +127,7 @@ README_RERUN = {
 }
 # The environment rule before the owner decision of 2026-10-12: the github-pages environment allowed main and every v*
 # tag, so only the documentation kept tags before v1.1.1 from being run. The pages.yml header (English) and the READMEs
-# (README.md English, README.zh-CN.md Chinese) must not say so again; matched in lower case, without code backticks.
+# (README.md English, README.zh-CN.md Chinese) must not say so again; matched as unformatted() reads them.
 RETIRED_ENVIRONMENT = {
     "en": (
         "only tags from v1.1.1 on should be run by hand",
@@ -138,8 +138,8 @@ RETIRED_ENVIRONMENT = {
     ),
     "zh": ("只应手动运行 v1.1.1 起的标签", "允许来自 v* 标签的部署", "允许 main", "允许来自 main"),
 }
-# Wording that the pages.yml header (read when releasing) must not have (matched in lower case): the release hold, the
-# retired dispatch gate and wording of earlier versions of this workflow.
+# Wording that the pages.yml header (read when releasing) must not have (matched as unformatted() reads it): the release
+# hold, the retired dispatch gate and wording of earlier versions of this workflow.
 HEADER_STALE = (
     "RELEASE_APPROVED_SHA",
     "release_sha",
@@ -182,6 +182,12 @@ HEADER_REQUIRED = (
 )
 SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
+
+
+def unformatted(text: str) -> str:
+    """``text`` in lower case without code backticks or bold markers, as HEADER_STALE and RETIRED_ENVIRONMENT are
+    matched in the header and the READMEs: "allows `main`" reads "allows main"."""
+    return text.replace("`", "").replace("**", "").lower()
 
 
 SAME_ATTEMPT = object()  # approved(): the approval job ran in the deploy job's own attempt
@@ -674,7 +680,8 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertNotIn(retired, text)
 
     def test_header_comment_describes_the_release_gate(self):
-        """A maintainer reads this comment when releasing: it says what deploys and what fails closed."""
+        """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Stale wording
+        counts in code backticks too (unformatted()), as in the READMEs."""
         header = []
         for line in (WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines():
             if line.startswith("on:"):
@@ -684,7 +691,7 @@ class ReleaseGateTests(unittest.TestCase):
         text = " ".join(header)
         for stale in HEADER_STALE:
             with self.subTest(stale=stale):
-                self.assertNotIn(stale.lower(), text.lower())
+                self.assertNotIn(unformatted(stale), unformatted(text))
         for required in HEADER_REQUIRED:
             with self.subTest(required=required):
                 self.assertIn(required, text)
@@ -702,10 +709,10 @@ class ReleaseGateTests(unittest.TestCase):
         """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag
         or that only the documentation keeps older tags from being run (RETIRED_ENVIRONMENT)."""
         for relative, language in (("README.md", "en"), ("README.zh-CN.md", "zh")):
-            text = (ROOT / relative).read_text(encoding="utf-8").replace("`", "").replace("**", "").lower()
+            text = unformatted((ROOT / relative).read_text(encoding="utf-8"))
             for stale in RETIRED_ENVIRONMENT[language]:
                 with self.subTest(document=relative, stale=stale):
-                    self.assertNotIn(stale.lower(), text)
+                    self.assertNotIn(unformatted(stale), text)
 
     def test_deploy_condition_semantics(self):
         """The deploy job's own if: (as the workflow writes it, not only DEPLOY_IF) on every scenario. Without the
