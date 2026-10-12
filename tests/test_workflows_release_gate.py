@@ -38,24 +38,30 @@ from test_workflows import (  # noqa: E402
 )
 
 # The deploy job's condition: a tag ref, the commit that the approval job recorded after its guards passed (owner
-# decision D4), and a dispatch or a published release that is not a prerelease. The prerelease flag is compared as JSON
-# (owner decision D3): GitHub's == coerces null to false, so a release without the flag would pass "prerelease ==
-# false". It cannot tell a malformed tag or a commit off main (EXPRESSION_BLIND); the shell guards before it refuse
-# those.
+# decision D4) in the deploy job's own attempt (R1, ATTEMPTS), and a dispatch or a published release that is not a
+# prerelease. The prerelease flag is compared as JSON (owner decision D3): GitHub's == coerces null to false, so a
+# release without the flag would pass "prerelease == false". It cannot tell a malformed tag or a commit off main
+# (EXPRESSION_BLIND); the shell guards before it refuse those.
 DEPLOY_IF = (
     "startsWith(github.ref, 'refs/tags/v') && needs.approval.outputs.commit == github.sha && "
+    "needs.approval.outputs.attempt == github.run_attempt && "
     "(github.event_name == 'workflow_dispatch' || "
     "(github.event_name == 'release' && github.event.action == 'published' && "
     "toJSON(github.event.release.prerelease) == 'false'))"
 )
-# The approval job's output: the commit it approved, written by its last step after every guard passed.
+# The approval job's outputs: the commit it approved and the attempt of the run it ran in (the runner's
+# GITHUB_RUN_ATTEMPT), written by its last step after every guard passed.
 APPROVAL_OUTPUT = "needs.approval.outputs.commit"
-APPROVAL_OUTPUTS = {"commit": "${{ steps.approved.outputs.commit }}"}
+APPROVAL_ATTEMPT = "needs.approval.outputs.attempt"
+APPROVAL_OUTPUTS = {
+    "commit": "${{ steps.approved.outputs.commit }}",
+    "attempt": "${{ steps.approved.outputs.attempt }}",
+}
 RECORD_STEP = {
-    "name": "Record the commit that passed every guard",
+    "name": "Record the commit and the attempt that passed every guard",
     "id": "approved",
     "env": {"SHA": "${{ github.sha }}"},
-    "run": 'echo "commit=$SHA" >> "$GITHUB_OUTPUT"\n',
+    "run": 'echo "commit=$SHA" >> "$GITHUB_OUTPUT"\necho "attempt=$GITHUB_RUN_ATTEMPT" >> "$GITHUB_OUTPUT"\n',
 }
 EVENT_GUARD_ENV = {
     "EVENT_NAME": "${{ github.event_name }}",
@@ -98,6 +104,20 @@ GUARD_ROLES = ("event", "lookup", "release", "checkout", "main")
 # The event guard's tag check: v and three numbers without leading zeros (owner decision D2), under LC_ALL=C.
 TAG_CHECK = r'[[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]'
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
+# What each README says about a re-run of the deploy job alone (R1), and what it said while such a re-run could still
+# deploy.
+README_RERUN = {
+    "README.md": (
+        'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys '
+        'nothing; re-run the whole run ("Re-run all jobs").',
+        "does not look the Release up again",
+    ),
+    "README.zh-CN.md": (
+        "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容；"
+        "应重新运行整次运行（“Re-run all jobs”）。",
+        "不会再次查询 Release",
+    ),
+}
 # The environment rule before the owner decision of 2026-10-12: the github-pages environment allowed main and every v*
 # tag, so only the documentation kept tags before v1.1.1 from being run. The pages.yml header (English) and the READMEs
 # (README.md English, README.zh-CN.md Chinese) must not say so again; matched in lower case, without code backticks.
@@ -115,9 +135,16 @@ SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
 
 
-def approved(context: dict, commit: str | None = SHA) -> dict:
-    """``context`` as the deploy job sees it once the approval job has recorded ``commit`` (None: no output at all)."""
-    return {**context, APPROVAL_OUTPUT: commit} if commit is not None else dict(context)
+SAME_ATTEMPT = object()  # approved(): the approval job ran in the deploy job's own attempt
+
+
+def approved(context: dict, commit: str | None = SHA, attempt: object = SAME_ATTEMPT) -> dict:
+    """``context`` as the deploy job sees it once the approval job has recorded ``commit`` and ``attempt`` (None: no
+    such output at all). By default the approval job ran in the deploy job's own attempt (``github.run_attempt``), as
+    in a first run or a re-run of the whole run."""
+    recorded = context.get("github.run_attempt") if attempt is SAME_ATTEMPT else attempt
+    outputs = {APPROVAL_OUTPUT: commit, APPROVAL_ATTEMPT: recorded}
+    return {**context, **{name: value for name, value in outputs.items() if value is not None}}
 
 
 LOOKUP = "release lookup"  # a scenario's answer to the Release lookup: HTTP status, body and curl's exit status
@@ -148,15 +175,16 @@ def released(tag: str, **release: object) -> dict:
         "github.event.action": "published",
         "github.ref": f"refs/tags/{tag}",
         "github.sha": SHA,
+        "github.run_attempt": "1",
         **{f"github.event.release.{name}": value for name, value in fields.items() if value is not None},
         LOOKUP: ("200", release_body(tag, **release), 0),
     }
 
 
 def rerun(tag: str, **current: object) -> dict:
-    """A re-run of the run of ``released(tag)``: GitHub keeps the event of that run, while the Release lookup returns
-    the Release of ``tag`` as it is now (``current`` overrides its fields)."""
-    return looked_up(released(tag), "200", release_body(tag, **current))
+    """A re-run of the whole run of ``released(tag)``, its second attempt: GitHub keeps the event of that run, while the
+    Release lookup returns the Release of ``tag`` as it is now (``current`` overrides its fields)."""
+    return {**looked_up(released(tag), "200", release_body(tag, **current)), "github.run_attempt": "2"}
 
 
 def dispatched(ref: str, **release: object) -> dict:
@@ -167,6 +195,7 @@ def dispatched(ref: str, **release: object) -> dict:
         "github.event_name": "workflow_dispatch",
         "github.ref": ref,
         "github.sha": SHA,
+        "github.run_attempt": "1",
         LOOKUP: ("200", release_body(tag, **release), 0),
     }
 
@@ -177,7 +206,7 @@ def looked_up(context: dict, status: str, body: str, exit_status: int = 0) -> di
 
 
 def triggered(event: str, ref: str) -> dict:
-    return {"github.event_name": event, "github.ref": ref, "github.sha": SHA}
+    return {"github.event_name": event, "github.ref": ref, "github.sha": SHA, "github.run_attempt": "1"}
 
 
 # Each must pass the event guard, the Release lookup and the Release guard and, with the approval job's output, satisfy
@@ -281,7 +310,8 @@ DENIED = {
 # Scenarios that the deploy condition alone accepts when the approval job's output is github.sha (GitHub expressions
 # have no regular expressions, startsWith() ignores case, the condition does not compare the release's draft flag or
 # tag name, and it cannot see the Release lookup): the guards refuse them in the approval and the build job, so the
-# approval job records no commit, and the deploy job needs both jobs. A stricter condition shrinks this set.
+# approval job records no commit, and the deploy job needs both jobs. A stricter condition shrinks this set. In a
+# re-run of the deploy job alone, which repeats no guard, none of them deploys (ATTEMPTS).
 EXPRESSION_BLIND = {
     "dispatch on the tag v1.1",
     "dispatch on the tag v1.1.0-rc1",
@@ -299,6 +329,21 @@ EXPRESSION_BLIND = {
     "draft release",
     "release whose tag is not the ref",
     *RELEASE_LOOKUP_DENIED,
+}
+# The deploy job's attempt (github.run_attempt, numbered from 1) and the attempt that the approval job recorded (None:
+# no such output), with whether the deploy condition holds (R1). A re-run of the whole run repeats every guard and the
+# Release lookup and records its own attempt. A re-run of the deploy job alone ("Re-run this job" on Deploy, or "Re-run
+# failed jobs" after only Deploy failed), like any re-run without the approval job, keeps the approval job's outputs of
+# an earlier attempt, whose lookup it does not repeat, so it deploys nothing.
+ATTEMPTS = {
+    "the first attempt": ("1", "1", True),
+    "a re-run of the whole run (attempt 2 records 2)": ("2", "2", True),
+    "a re-run of the deploy job alone (attempt 2 keeps the record of attempt 1)": ("2", "1", False),
+    "a second re-run of the deploy job alone (attempt 3 keeps the record of attempt 1)": ("3", "1", False),
+    "a re-run of the failed build and deploy jobs after a whole re-run (attempt 3 keeps 2)": ("3", "2", False),
+    "a record of attempt 10 in attempt 1": ("1", "10", False),
+    "no attempt output (as a refusing approval job leaves it)": ("1", None, False),
+    "an empty attempt output": ("1", "", False),
 }
 
 
@@ -535,6 +580,7 @@ class ReleaseGateTests(unittest.TestCase):
             "dispatched tag",
             "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
             "with one read-only API request and deploys",  # the approval and the build job each send one
+            "repeats no lookup, so re-run the whole run",  # a re-run of the deploy job alone now deploys nothing
             *RETIRED_ENVIRONMENT["en"],
         ):
             with self.subTest(stale=stale):
@@ -556,11 +602,24 @@ class ReleaseGateTests(unittest.TestCase):
             "with one read-only API request in the approval job (and again in the build job)",
             "only if that Release is published and not a prerelease",
             "A re-run keeps the event of the run it repeats",
+            "A re-run of the deploy job alone, or of any jobs without the approval job, repeats no lookup and deploys "
+            "nothing, since the deploy job requires the approval job's record of the current attempt: re-run the "
+            "whole run.",
+            "the deploy job deploys only the commit that the approval job of the same attempt recorded",
             'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
             "The github-pages environment accepts deployments only from tags from v1.1.1 on",
         ):
             with self.subTest(required=required):
                 self.assertIn(required, text)
+
+    def test_readmes_say_that_a_re_run_of_the_deploy_job_alone_deploys_nothing(self):
+        """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1) and to re-run
+        the whole run, no longer only that such a re-run repeats no lookup."""
+        for relative, (required, stale) in README_RERUN.items():
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            with self.subTest(document=relative):
+                self.assertIn(required, text)
+                self.assertNotIn(stale, text)
 
     def test_readmes_drop_the_retired_environment_rule(self):
         """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag
@@ -574,7 +633,8 @@ class ReleaseGateTests(unittest.TestCase):
     def test_deploy_condition_semantics(self):
         """The deploy job's own if: (as the workflow writes it, not only DEPLOY_IF) on every scenario. Without the
         approval job's record of github.sha, nothing deploys (D4): not when the output is missing or empty, as a
-        refusing approval job leaves it, and not when it names another commit."""
+        refusing approval job leaves it, and not when it names another commit. Nor does a record of an earlier attempt
+        deploy (R1): a re-run of the deploy job alone repeats no guard, so it refuses even the EXPRESSION_BLIND ones."""
         condition = self.pages["jobs"]["deploy"]["if"]
         self.assertLessEqual(EXPRESSION_BLIND, set(DENIED))
         for scenario, context in ACCEPTED.items():
@@ -592,6 +652,29 @@ class ReleaseGateTests(unittest.TestCase):
             with self.subTest(denied=scenario):
                 self.assertEqual(evaluate(condition, approved(context)), scenario in EXPRESSION_BLIND)
                 self.assertFalse(evaluate(condition, approved(context, "")))
+        for scenario, context in {**ACCEPTED, **DENIED}.items():
+            later = {**context, "github.run_attempt": str(int(context["github.run_attempt"]) + 1)}
+            with self.subTest(deploy_job_alone=scenario):
+                self.assertFalse(evaluate(condition, approved(later, attempt=context["github.run_attempt"])))
+
+    def test_only_the_attempt_that_passed_the_guards_deploys(self):
+        """The approval job records the attempt it ran in, and the deploy condition requires it to be the deploy job's
+        own (R1, ATTEMPTS): a first run and a re-run of the whole run deploy; a re-run of the deploy job alone, which
+        repeats neither the guards nor the lookup, and a missing or empty record do not. GitHub documents
+        github.run_attempt as a string; as a number it compares alike. A scenario that the guards refuse never deploys,
+        and the deploy condition alone accepts an EXPRESSION_BLIND one only in the approval job's own attempt."""
+        condition = self.pages["jobs"]["deploy"]["if"]
+        cases = [
+            (scenario, context, label, attempts)
+            for scenario, context in {**ACCEPTED, **DENIED}.items()
+            for label, attempts in ATTEMPTS.items()
+        ]
+        for scenario, context, label, (current, recorded, allowed) in cases:
+            deployable = scenario in ACCEPTED or scenario in EXPRESSION_BLIND
+            for run_attempt in (current, int(current)):
+                with self.subTest(scenario=scenario, attempt=label, run_attempt=run_attempt):
+                    seen = approved({**context, "github.run_attempt": run_attempt}, attempt=recorded)
+                    self.assertEqual(evaluate(condition, seen), allowed and deployable)
 
     def test_approval_records_the_commit_after_every_guard(self):
         """The approval job's output is written by its last step, which has no if: or continue-on-error and so runs
@@ -600,6 +683,7 @@ class ReleaseGateTests(unittest.TestCase):
         self.assertEqual(approval["outputs"], APPROVAL_OUTPUTS)
         self.assertEqual(steps_of(approval)[-1], RECORD_STEP)
         self.assertIn(f"{APPROVAL_OUTPUT} == github.sha", self.pages["jobs"]["deploy"]["if"])
+        self.assertIn(f"{APPROVAL_ATTEMPT} == github.run_attempt", self.pages["jobs"]["deploy"]["if"])
         for job_id, job in self.pages["jobs"].items():
             for step in steps_of(job):
                 if step is steps_of(approval)[-1]:
@@ -609,13 +693,22 @@ class ReleaseGateTests(unittest.TestCase):
                     self.assertNotEqual(step.get("id"), "approved")
 
     @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's step")
-    def test_the_record_step_writes_exactly_the_commit(self):
+    def test_the_record_step_writes_exactly_the_commit_and_the_attempt(self):
+        """The record step writes github.sha and the runner's GITHUB_RUN_ATTEMPT. As the approval job's outputs, they
+        let the deploy job of that attempt deploy, and not the deploy job of a later attempt that reuses them."""
         record = steps_of(self.pages["jobs"]["approval"])[-1]
+        condition = self.pages["jobs"]["deploy"]["if"]
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / "github-output"
-            result = run_guard(record, {"github.sha": SHA}, GITHUB_OUTPUT=str(output))
+            result = run_guard(record, {"github.sha": SHA}, GITHUB_OUTPUT=str(output), GITHUB_RUN_ATTEMPT="3")
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            self.assertEqual(output.read_text(encoding="utf-8"), f"commit={SHA}\n")
+            self.assertEqual(output.read_text(encoding="utf-8"), f"commit={SHA}\nattempt=3\n")
+            written = dict(line.split("=", 1) for line in output.read_text(encoding="utf-8").splitlines())
+        outputs = {f"needs.approval.outputs.{name}": value for name, value in written.items()}
+        for run_attempt, allowed in (("3", True), ("4", False)):
+            with self.subTest(run_attempt=run_attempt):
+                context = {**dispatched(TAGGED), **outputs, "github.run_attempt": run_attempt}
+                self.assertEqual(evaluate(condition, context), allowed)
 
     @unittest.skipUnless(shutil.which("bash") and shutil.which("jq"), "needs bash and jq to execute the guard steps")
     def test_event_and_release_guards_fail_closed(self):
@@ -642,7 +735,8 @@ class ReleaseGateTests(unittest.TestCase):
         """GitHub's re-run of a release run keeps the event it started with, so the event guard still passes after the
         owner turned the Release into a prerelease or a draft or deleted it, and when the lookup answers for another
         tag or cannot be read. Each copy of the guards then makes its one lookup and refuses with the same reason as a
-        dispatch on the same tag; the deploy condition alone would accept the run (EXPRESSION_BLIND)."""
+        dispatch on the same tag; the deploy condition alone would accept the run (EXPRESSION_BLIND). A re-run of the
+        deploy job alone, which repeats no lookup, deploys nothing (R1)."""
         condition = self.pages["jobs"]["deploy"]["if"]
         releases = {
             name: context
@@ -654,6 +748,9 @@ class ReleaseGateTests(unittest.TestCase):
             for scenario, context in releases.items():
                 with self.subTest(job=job_id, scenario=scenario):
                     self.assertTrue(evaluate(condition, approved(context)), "the payload alone looks deployable")
+                    later = {**context, "github.run_attempt": str(int(context["github.run_attempt"]) + 1)}
+                    deploy_job_alone = approved(later, attempt=context["github.run_attempt"])
+                    self.assertFalse(evaluate(condition, deploy_job_alone), "the deploy job alone deploys nothing")
                     results, calls = self.run_gate(job_id, context)
                     output = "".join(result.stdout + result.stderr for result in results)
                     self.assertEqual(results[0].returncode, 0, output)
@@ -742,7 +839,8 @@ class ReleaseGateTests(unittest.TestCase):
         and runs a step with the shell it names. Any of these on a guard step, or continue-on-error or a defaults
         shell on the approval or the build job, would let a refused run reach the tests, the artifact or the
         deployment. The guard steps have exactly a name, an env and a run script, and run with the workflow's bash
-        (bash --noprofile --norc -eo pipefail)."""
+        (bash --noprofile --norc -eo pipefail). An env that set GITHUB_RUN_ATTEMPT would let the record step write an
+        attempt other than its own."""
         self.assertEqual(self.pages["defaults"], {"run": {"shell": "bash"}})
         for job_id in ("approval", "build"):
             job = self.pages["jobs"][job_id]
@@ -754,6 +852,9 @@ class ReleaseGateTests(unittest.TestCase):
                     self.assertEqual(sorted(step), ["env", "name", "run"], "no if:, continue-on-error or shell:")
         record = steps_of(self.pages["jobs"]["approval"])[-1]
         self.assertEqual(sorted(record), ["env", "id", "name", "run"], "the record step runs only after the guards")
+        # The recorded attempt is the runner's own: no env of the workflow, the approval job or the step sets it.
+        for env in (self.pages.get("env") or {}, self.pages["jobs"]["approval"].get("env") or {}, record["env"]):
+            self.assertNotIn("GITHUB_RUN_ATTEMPT", env)
 
     def test_guard_messages_describe_the_gate_not_a_hold(self):
         for job_id in ("approval", "build"):
