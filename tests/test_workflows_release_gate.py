@@ -3,11 +3,12 @@
 The release gate (owner decisions of 2026-10-11, superseding the manual-dispatch design of 06-validation-and-release.md
 Gate 5) must hold by construction: Pages deploys only a published, non-prerelease GitHub Release whose tag is vX.Y.Z
 (without leading zeros), or a manual dispatch on such a tag, and only when the tag's GitHub Release is published and
-not a prerelease (looked up by every run, a re-run of a release run included, with one read-only API request, the only
-request of the workflows' scripts outside the loopback smoke tests), the tag's commit is on main, the full Tests
-workflow passed on it and the approval job recorded it. The deploy job's condition is evaluated with GitHub's
-expression semantics (the evaluator of tests/test_workflows.py), and every shell guard is executed (the Release lookup
-with a stand-in curl, the main-ancestry guard in temporary Git repositories), for each scenario.
+not a prerelease (looked up by every run, a re-run of a release run included, with one read-only API request in the
+approval job and one in the build job: the only GitHub API requests of the workflows' scripts and the only uses of the
+job token), the tag's commit is on main, the full Tests workflow passed on it and the approval job recorded it. The
+deploy job's condition is evaluated with GitHub's expression semantics (the evaluator of tests/test_workflows.py), and
+every shell guard is executed (the Release lookup with a stand-in curl, the main-ancestry guard in temporary Git
+repositories), for each scenario.
 """
 
 import functools
@@ -687,8 +688,9 @@ class ReleaseGateTests(unittest.TestCase):
     def test_the_tag_check_takes_ascii_digits_only_in_any_locale(self):
         """The event guard runs with LC_ALL=C, so the [0-9] of its vX.Y.Z check is the ASCII digits only. In a locale
         such as en_US.UTF-8, bash's [0-9] also matches Arabic-Indic, fullwidth or superscript digits, which a Git tag
-        name may contain; the deploy condition's startsWith() and a v* environment rule would let such a tag through
-        (EXPRESSION_BLIND). The same step without LC_ALL accepts it in that locale, so the check is not vacuous."""
+        name may contain. The deploy condition's startsWith() would let such a tag through (EXPRESSION_BLIND), and so
+        would the github-pages environment's tag rules (globs such as v1.[2-9]*) wherever the digit comes after the part
+        that they match. The same step without LC_ALL accepts it in that locale, so the check is not vacuous."""
         locale = wide_digit_locale()
         if locale is None:
             self.skipTest("no installed locale in which bash's [0-9] matches the digits of other scripts")
@@ -851,8 +853,9 @@ class ReleaseGateTests(unittest.TestCase):
                     self.assertIn(phrase, errors[0])
 
     def test_only_the_release_lookups_reach_the_github_api(self):
-        """Every network command in the workflows' scripts is a curl of a loopback smoke-test server (tests.yml), except
-        one curl in the Release lookup of each Pages job, which alone names the GitHub API and receives the token."""
+        """Every shell network tool (NETWORK_COMMAND) in the workflows' scripts is a curl of a loopback smoke-test server
+        (tests.yml), except one curl in the Release lookup of each Pages job, which alone names the GitHub API and
+        receives the token. Requests that Python, pip or npm make are not matched."""
         lookups = 0
         for name, job_id, step in run_steps(all_workflows()):
             lines = step["run"].replace("\\\n", " ").splitlines()
