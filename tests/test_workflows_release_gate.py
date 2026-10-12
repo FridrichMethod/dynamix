@@ -98,6 +98,19 @@ GUARD_ROLES = ("event", "lookup", "release", "checkout", "main")
 # The event guard's tag check: v and three numbers without leading zeros (owner decision D2), under LC_ALL=C.
 TAG_CHECK = r'[[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]'
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
+# The environment rule before the owner decision of 2026-10-12: the github-pages environment allowed main and every v*
+# tag, so only the documentation kept tags before v1.1.1 from being run. The pages.yml header (English) and the READMEs
+# (README.md English, README.zh-CN.md Chinese) must not say so again; matched in lower case, without code backticks.
+RETIRED_ENVIRONMENT = {
+    "en": (
+        "only tags from v1.1.1 on should be run by hand",
+        "must allow deployments from v* tags",
+        "allows deployments from v* tags",
+        "allows main",
+        "allows deployments from main",
+    ),
+    "zh": ("只应手动运行 v1.1.1 起的标签", "允许来自 v* 标签的部署", "允许 main", "允许来自 main"),
+}
 SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
 
@@ -521,6 +534,7 @@ class ReleaseGateTests(unittest.TestCase):
             "does not look up",
             "dispatched tag",
             "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
+            *RETIRED_ENVIRONMENT["en"],
         ):
             with self.subTest(stale=stale):
                 self.assertNotIn(stale.lower(), text.lower())
@@ -541,9 +555,19 @@ class ReleaseGateTests(unittest.TestCase):
             "only if that Release is published and not a prerelease",
             "A re-run keeps the event of the run it repeats",
             'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
+            "The github-pages environment accepts deployments only from tags from v1.1.1 on",
         ):
             with self.subTest(required=required):
                 self.assertIn(required, text)
+
+    def test_readmes_drop_the_retired_environment_rule(self):
+        """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag
+        or that only the documentation keeps older tags from being run (RETIRED_ENVIRONMENT)."""
+        for relative, language in (("README.md", "en"), ("README.zh-CN.md", "zh")):
+            text = (ROOT / relative).read_text(encoding="utf-8").replace("`", "").replace("**", "").lower()
+            for stale in RETIRED_ENVIRONMENT[language]:
+                with self.subTest(document=relative, stale=stale):
+                    self.assertNotIn(stale.lower(), text)
 
     def test_deploy_condition_semantics(self):
         """The deploy job's own if: (as the workflow writes it, not only DEPLOY_IF) on every scenario. Without the
