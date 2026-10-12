@@ -319,13 +319,19 @@ def caption_name(caption: str) -> str | None:
     name alone and a comma, the next part continues the name when it is an occasion of a listed game: a name of
     config.OTHER_GAMES with collaboration, event or anniversary wording (config.BARE_NAME_COMMA, OCCASION_WORDING).
     "Artwork in Dynamix, Lanota Collaboration" -> "Dynamix, Lanota Collaboration", read as "Dynamix - Lanota
-    Collaboration" is; "Artwork in Dynamix, by HAT" -> None, as before."""
+    Collaboration" is; "Artwork in Dynamix, by HAT" -> None, as before. When the bare name and its comma sit inside
+    the first name, that name continues through the part as it does through a dash: "Cover for RAVON Artwork in Dynamix,
+    Lanota Collaboration" -> "RAVON Artwork in Dynamix, Lanota Collaboration"."""
     other = config.OTHER_GAME_ARTWORK.search(caption)
     for comma in config.BARE_NAME_COMMA.finditer(caption):
-        if other is not None and comma.start() > other.start():
+        if other is not None and comma.start() > other.end():
             break
         partner = comma.group("partner")
         if listed_games(partner) and config.OCCASION_WORDING.search(partner):
+            if other is not None and comma.start() > other.start():
+                # Inside the first name, which ends at this comma (a name runs up to the first comma, semicolon or
+                # parenthesis, and the bare name contains none).
+                return caption[other.start("other") : comma.end("partner")]
             return comma.group("other")
     return other.group("other") if other is not None else None
 

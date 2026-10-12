@@ -872,10 +872,11 @@ class OtherGameCaptionTests(unittest.TestCase):
         and records that game exactly as the dash form does ("Artwork in Dynamix, Lanota Collaboration" as "Artwork in
         Dynamix - Lanota Collaboration"): the same evidence and decision but for the comma. Before, the comma ended
         the name and the association was lost, which applies the default rights holder. Only the part up to the next
-        comma, semicolon or parenthesis is read, and the first name in the caption counts. Any other text after the
-        comma (a credit, a version, a listed name without such wording, such wording without a listed name) stays
-        outside the name as before: no association and no curator note. A semicolon or a parenthesis still ends the
-        name."""
+        comma, semicolon or parenthesis is read, and the first name in the caption counts; when the bare name and its
+        comma sit inside that first name ("Cover for RAVON Artwork in Dynamix, Lanota Collaboration"), the part
+        continues the first name as it does after a dash (P3). Any other text after the comma (a credit, a version, a
+        listed name without such wording, such wording without a listed name) stays outside the name as before: no
+        association and no curator note. A semicolon or a parenthesis still ends the name."""
         cases = (  # (the caption before the game's own name, that name, the part after the comma, the games recorded)
             ("Artwork in", "Dynamix", "Lanota Collaboration", ("Lanota",)),
             ("Artwork for", "Dynamix's", "Arcaea's 3rd Anniversary", ("Arcaea",)),
@@ -888,6 +889,8 @@ class OtherGameCaptionTests(unittest.TestCase):
             ("Artwork for", "Dynamix", "the Arcaea x Lanota Collaboration Event", ("Arcaea", "Lanota")),
             ("Artwork for", "Dynamix", "RAVON BMS Event", ("RAVON",)),  # not a release event, as after a dash
             ("Cover for RAVON, Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON",)),  # the first name counts
+            ("Cover for RAVON Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON", "Lanota")),  # inside it
+            ("Cover for Artwork in", "Dynamix", "Lanota Collaboration", ("Lanota",)),  # at its start
         )
         for lead, bare, rest, others in cases:
             caption = f"S {lead} {bare}, {rest}"
@@ -908,6 +911,8 @@ class OtherGameCaptionTests(unittest.TestCase):
                     )
         item = self.gallery_item("S Artwork in Dynamix, Lanota Collaboration")
         self.assertIn("artwork of the song for Dynamix, Lanota Collaboration (another game/event: Lanota)", item.detail)
+        item = self.gallery_item("S Cover for RAVON Artwork in Dynamix, Lanota Collaboration")  # the name as written
+        self.assertIn("for RAVON Artwork in Dynamix, Lanota Collaboration (another game/event: RAVON,", item.detail)
         for caption, others in (
             ("S Artwork in Dynamix , Lanota Collaboration", ("Lanota",)),  # a space before the comma
             ("S Artwork in Dynamix, HQ Cover for Dynamix, Lanota Collaboration", ("Lanota",)),  # a second name
