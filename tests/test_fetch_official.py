@@ -903,7 +903,8 @@ class StoreIdentitySeedTests(OfficialTestCase):
                 **fields,
             }
             self.assertEqual([s["id"] for s in self.load({**seed, "identity_quotes": ["C4Cat"]})], [source_id])
-            for quotes in (None, [], ["C4Cat", ""], "C4Cat"):
+            # A quote that is no string (a number, a JSON null) is refused like an empty one, with the same ValueError.
+            for quotes in (None, [], ["C4Cat", ""], "C4Cat", [1], ["C4Cat", None]):
                 with self.subTest(source=source_id, identity_quotes=quotes):
                     bad = dict(seed) if quotes is None else {**seed, "identity_quotes": quotes}
                     with self.assertRaisesRegex(

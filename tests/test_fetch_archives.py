@@ -1621,8 +1621,8 @@ class PressArticleTests(ArchivesTestCase):
         bad_link["items"][0]["link_rules"][0]["pattern"] = "("
         cases.append((bad_link, r"link_rules\[0\]\.pattern .*regular expression"))
         # The page identity is the game evidence of a page_links candidate: without identity_quotes a download had
-        # none, which a downloaded candidate needs (DX2-07).
-        for quotes in (None, [], ["Dynamix", " "], "Dynamix"):
+        # none, which a downloaded candidate needs (DX2-07). A quote that is no string is refused like an empty one.
+        for quotes in (None, [], ["Dynamix", " "], "Dynamix", [1], ["Dynamix", None]):
             no_identity = json.loads(json.dumps(page_links))
             if quotes is None:
                 del no_identity["identity_quotes"]
