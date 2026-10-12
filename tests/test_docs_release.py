@@ -1,0 +1,1089 @@
+"""Release state of the public documentation. The READMEs, which are staged with the website, describe the current
+release and the release-triggered Pages workflow; every other document leaves the release state to them, and no
+document describes the retired manual-dispatch gate.
+
+The documents, the rendering helpers (prose_lines(), sentences(), plain()) and the release rules that
+tests/test_docs_stats.py also applies to the generated blocks (FLAT_CLAIMS, RELEASE_WORDS, GUARDS) come from
+tests/test_docs.py. Offline: it reads files of this checkout and runs git only to list the tags of HEAD, in this checkout
+and in a temporary repository.
+"""
+
+from __future__ import annotations
+
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+import unittest.mock
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from test_docs import (  # noqa: E402 - the documents, the rendering helpers and the shared rules (no TestCase)
+    _DONE,
+    DOCUMENTS,
+    FLAT_CLAIMS,
+    GUARDS,
+    RELEASE_WORDS,
+    ROOT,
+    plain,
+    prose_lines,
+    read,
+    sentences,
+)
+
+GITHUB = "https://github.com/"
+REPOSITORY = GITHUB + "FridrichMethod/dynamix"
+RELEASE_LINK = re.compile(r"https://github\.com/([^/\s()<>\[\]]+/[^/\s()<>\[\]]+)/releases/tag/([^\s()<>\[\]]+)")
+VERSION = re.compile(r"v\d+\.\d+\.\d+")
+# Release and website URLs, which both READMEs link alike.
+PUBLISHED_URL = re.compile(
+    r"https://(?:fridrichmethod\.github\.io/|github\.com/FridrichMethod/dynamix/releases)[^\s()<>\[\]]*"
+)
+# The READMEs, which alone describe the release state (tests/test_docs_stats.py reads them from here too), each
+# README's Status line prefix and the title of its Releases section.
+READMES = ("README.md", "README.zh-CN.md")
+README_RELEASE_PARTS = {"README.md": ("**Status:**", "Releases"), "README.zh-CN.md": ("**状态**：", "发布")}
+# The release gate that v1.1.0 retired: a manual dispatch of main approved by the RELEASE_APPROVED_SHA variable and a
+# release_sha input. Pages now deploys a published vX.Y.Z release (.github/workflows/pages.yml), so no document names
+# the variable or the input, or tells a release to dispatch the workflow on main. Matched in the rendered text too
+# (retired_gate()), so `main` needs no backticks here.
+RETIRED_GATE = re.compile(
+    r"RELEASE_APPROVED_SHA|\brelease_sha\b|"
+    r"\bdispatch(?:ed|es|ing)? (?:it |the [^.;:]{0,30}? )?on main\b|在 main 上手动触发",
+    re.IGNORECASE,
+)
+# Wording of the release hold that ended with v1.0.0, in either language, matched in rendered text (see plain()).
+# A website or Pages that is not deployed counts, also with words between ("网站目前未部署") or for now ("temporarily",
+# 暂不), and so does a release or deployment that is held, paused or suspended; "later pushes are tested but not
+# deployed" (true after a release) does not.
+HOLD_MARKERS = re.compile(
+    r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still| currently| now| temporarily)?"
+    r"(?: not|n['’]t)(?: yet| currently)?(?: been)? (?:deployed|published|released|live)\b|"
+    # A release that is held: with a to/of/on phrase only through a copula or "on hold" ("each release of the frozen
+    # catalog" is not held), and the phrase may name a version ("deployment of v1.1.0 is paused").
+    r"\b(?:release|deployment|publication)s?\b(?: (?:to|of|on) (?:[^.;:,]|\.(?=\S)){0,30}?)?"
+    r"(?: (?:is|are|stays?|remains?|was|were|has been|have been)(?: still| currently| now| temporarily)?"
+    r" (?:on )?(?:hold|held|paused|suspended|frozen|halted)| on hold)\b|"
+    r"\b(?:release|deployment|publication)s? (?:hold|held|paused|suspended|frozen|halted)\b|"
+    r"\bno version tag\b|\bno GitHub Release\b|\bnothing has been released\b|"
+    r"\bha(?:s|ve) not been (?:made|published|released|created)\b|"
+    r"(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|"
+    r"(?:网站|站点)[^。；，：、,;:]{0,8}?(?:未|没有)(?:被)?(?:部署|发布|上线)|"
+    r"(?:部署|发布|上线)[^。；，：、,;:]{0,6}?暂停|暂停[^。；，：、,;:]{0,4}?(?:部署|发布|上线)|"
+    r"暂(?:时)?(?:不|未|没有)(?:被)?(?:部署|发布|上线)|"
+    r"没有版本标签|没有任何发布|冻结",
+    re.IGNORECASE,
+)
+# The release variable stated as unset, also with an adverb or as "not set" ("is still unset", "isn't set yet", 目前未设置).
+# It is hold wording as a statement ("`RELEASE_APPROVED_SHA` is unset, so ..."), not as the condition of the guard ("If
+# the variable is unset, the dispatch fails closed", "变量未设置时……"). 还未设置 and 还没有设置 are hold wording in any
+# clause (HOLD_MARKERS); written with a space ("变量还 未设置") only this rule sees them.
+UNSET_WORDING = re.compile(
+    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains|was)(?: still| currently| now)?"
+    r"(?: unset|(?: not|n['’]t)(?: yet| currently)? set)\b|"
+    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|还|尚)?\s*(?:未|没有)(?:被)?设置",
+    re.IGNORECASE,
+)
+# A condition opening the clause (当 but not 当前 "currently"; 若 but not 若干; "whether" of a check), or, in Chinese, one
+# right after the words (时, 的话, 的情况下). An English "if" or "when" after a statement opens a clause of its own and
+# leaves the statement as it is ("The variable is unset if you look at the settings today.").
+CONDITION_BEFORE = re.compile(
+    r"\b(?:if|when|whenever|while|unless|whether|as long as|in case)\b|"
+    r"如果|假如|倘若|要是|一旦|只要|若(?!干)|当(?![前然中天日时])",
+    re.IGNORECASE,
+)
+# A condition after a list joined with 、 covers the wording when the wording ends its item and a ， follows the
+# condition ("变量未设置、标签错误时，……", not "变量未设置、查看设置时会发现" or "变量未设置会被发现、查看设置时").
+_CONDITION_WORD = r"(?:(?<![暂及同当])时(?![间刻])|的话|情况下)"
+CONDITION_AFTER = re.compile(rf"[^。；，：、,;:.!?]*?{_CONDITION_WORD}|、[^。；，：,;:.!?]+?{_CONDITION_WORD}(?=，)")
+# ASCII punctuation ends a clause before whitespace only, so a version (v1.1.0) or a file name stays in its clause. 、
+# joins the items of a list, not clauses ("若标签错误、变量未设置，……" is one condition): a condition before the list
+# covers the wording only when the wording opens its item and a ， ends the list (clause_before()), and a date clause
+# may list dates (release_events()). A 、 written for a ， between a condition and a statement reads as such a list too
+# ("如果查看设置、变量未设置，这是事实。", "变量未设置、查看设置时，会发现。"): it has the punctuation and the condition
+# words of a list of conditions, and only what its items mean tells the two apart, as in the English "If you look at
+# the settings and the variable is unset, this is a fact.", which this check has always allowed.
+CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：。！？]")
+# A clause that continues the one before it ("If X is wrong, or the variable is unset, ..."): a condition that opens
+# the first clause covers it (CONDITION_OPENS). A condition inside an earlier clause covers that clause alone ("The tag
+# v1.1.0 exists if you check, and the variable is unset."). After a 、 the word may stand alone before the wording
+# (clause_before(): "倘若标签不对、或者变量未设置，……"), so 或者 is matched whole.
+COORDINATED = re.compile(r"\s*(?:(?:or|and)\b|或者|或|并且|且)", re.IGNORECASE)
+CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
+# "Nothing is deployed" states the site's state unless a condition of the guard comes before it in its sentence
+# ("When ..., nothing is deployed."): one whose own clause names what the guard checks, a tag, branch, release,
+# prerelease, draft, version, commit, main, an event (push, pull request, schedule), the approval, a refusal
+# or a failure (GUARD_CONDITION), not "When you look today, ...". A trailing condition does not count, as for the unset
+# wording.
+NOTHING_DEPLOYED = re.compile(rf"\b(?:nothing|none) (?:is|are) {_DONE}", re.IGNORECASE)
+GUARD_CONDITION = re.compile(
+    r"\b(?:(?:tag|branch|release|prerelease|draft|version|commit|push|pull|schedul|approv|refus|fail)\w*|main)\b",
+    re.IGNORECASE,
+)
+# The sentence of "nothing is deployed" (English only) ends at . ! ? ; before whitespace or at a line break.
+SENTENCE_BREAK = re.compile(r"[.!?;](?=\s)|\n")
+# A deployment or release told as an event that happened, which is what happened, not how the guard works, whatever
+# guard word the sentence also has ("... happened on 2026-10-11 when the owner approved it"); see release_events().
+# A month name counts in any case ("october 11"): no sentence puts a day number right after "may" or "march". Digits,
+# not word characters, bound an ISO date, so one glued to Chinese text ("于2026-10-11部署") or to a time
+# (2026-10-11T12:00Z) counts too.
+RELEASE_DATES = re.compile(
+    r"(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)|"
+    r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}\b|"
+    r"\d{4} ?年|\d{1,2} ?月 ?\d{1,2} ?日",
+    re.IGNORECASE,
+)
+# A clause that is only a date ("On 2026-10-11, ...", "2026-10-11，……"): it dates the rest of the sentence. Whitespace
+# may end it: sentences() blanks a code span after the date to a space ("On 2026-10-11 `UTC`, ..."), and a space may
+# stand before a full-width comma. "In" is not English before a day, but a translation of 在 may put it there.
+BARE_DATE = re.compile(rf"\s*(?:(?:on|in|at|by|since|于|在)\s*)?(?:{RELEASE_DATES.pattern})\s*", re.IGNORECASE)
+RELEASE_EVENT_MARKERS = re.compile(r"(?:部署|上线|发布)(?:了|过)|已于")
+RELEASE_EVENT_VERBS = re.compile(
+    r"\b(?:happened|took place|occurred|ran|succeeded|completed|finished|went (?:out|ahead|through)|"
+    r"(?:was|were) (?:approved|triggered|started|performed|carried out|rolled out))\b",
+    re.IGNORECASE,
+)
+# Words that open a subordinate clause: an event verb after one of them in its clause is a condition or a description
+# ("runs only after the tests succeeded", "a release that was approved"), not the event the sentence tells.
+SUBORDINATORS = re.compile(
+    r"\b(?:after|before|once|until|till|when|whenever|while|if|unless|since|whether|that|which|who)\b", re.IGNORECASE
+)
+
+
+def clause_before(text: str, end: int) -> str:
+    """The clause of ``text`` that ends at ``end``, joined with the clauses before it that it continues with "or" or
+    "and" (COORDINATED) when a condition opens the first of them (CONDITION_OPENS), so that the condition counts for
+    it; otherwise the clause alone. Where the clause that ends at ``end`` lists items with 、, the items before count
+    only when ``end`` opens an item (or follows its 或, 且, ...: COORDINATED) of a list that a ， ends, its consequence
+    following ("若标签错误、变量未设置，……"); otherwise the item alone does, as where 、 stands for a comma
+    ("如果查看设置、会发现变量未设置。", "只要标签正确就会部署、变量目前未设置。"). A 、 in an earlier clause lists items of
+    that clause and leaves the joined clauses as they are ("若标签错误、分支错误，或变量未设置，……")."""
+    parts = CLAUSE_BREAK.split(text[:end])
+    clause = continued = parts.pop()
+    while parts and COORDINATED.match(continued):
+        continued = parts.pop() + continued
+    found = continued if CONDITION_OPENS.match(continued) else clause
+    if "、" not in clause:
+        return found
+    item = clause.rpartition("、")[2]
+    opens = not item.strip() or COORDINATED.fullmatch(item)
+    after = CLAUSE_BREAK.search(text, end)
+    return found if opens and after is not None and after.group() == "，" else item
+
+
+def hold_wording(text: str) -> list[str]:
+    """Hold wording in rendered text: every HOLD_MARKERS match; the release variable stated as unset unless a condition
+    opens its clause (or the clause it continues) or, in Chinese, follows it; and "nothing is deployed" unless a
+    condition of the guard comes before it in its sentence. With the condition, the text describes the guard, not the
+    site's state."""
+    found = [match.group() for match in HOLD_MARKERS.finditer(text)]
+    for match in UNSET_WORDING.finditer(text):
+        clause = clause_before(text, match.start()) + match.group()
+        if not (CONDITION_BEFORE.search(clause) or CONDITION_AFTER.match(text, match.end())):
+            found.append(match.group())
+    for match in NOTHING_DEPLOYED.finditer(text):
+        before = SENTENCE_BREAK.split(text[: match.start()])[-1]
+        if not any(
+            GUARD_CONDITION.search(clause_at(before, c.start(), c.end())) for c in CONDITION_BEFORE.finditer(before)
+        ):
+            found.append(match.group())
+    return found
+
+
+def clause_at(text: str, start: int, end: int) -> str:
+    """The clause of ``text`` that holds ``text[start:end]``."""
+    before = [match.end() for match in CLAUSE_BREAK.finditer(text) if match.end() <= start]
+    after = CLAUSE_BREAK.search(text, end)
+    return text[before[-1] if before else 0 : after.start() if after else len(text)]
+
+
+def release_events(sentence: str) -> list[str]:
+    """What tells a deployment or release in ``sentence`` as an event that happened: a date in a clause that names it
+    (RELEASE_WORDS) or in a clause of its own (BARE_DATE, also an item listed with 、), so that a date of something else
+    ("Sources were checked on 2026-10-10, and nothing here deploys") does not count; a Chinese completed-event marker
+    (部署了, 已于); or a past-tense event verb that no subordinator introduces in its clause."""
+    found = []
+    for match in RELEASE_DATES.finditer(sentence):
+        clause = clause_at(sentence, match.start(), match.end())
+        if RELEASE_WORDS.search(clause) or any(BARE_DATE.fullmatch(item) for item in clause.split("、")):
+            found.append(match.group())
+    found += [match.group() for match in RELEASE_EVENT_MARKERS.finditer(sentence)]
+    for match in RELEASE_EVENT_VERBS.finditer(sentence):
+        if not SUBORDINATORS.search(CLAUSE_BREAK.split(sentence[: match.start()])[-1]):
+            found.append(match.group())
+    return found
+
+
+def release_wording_problems(text: str) -> list[str]:
+    """Statements about the site's release state in a document other than the READMEs, which alone describe it: a flat
+    deployment or publication claim anywhere, hold wording in any sentence, a sentence about deployment or release that
+    tells it as an event (release_events(): a date, a past-tense event verb) and one that is not negated, conditional,
+    future or restricted (how the guard works, not what happened). Claims, hold wording and events are matched in the
+    raw and the rendered text (see plain()), so that emphasis or a link around a date hides no event."""
+    claims = {match.group() for source in (text, plain(text)) for match in FLAT_CLAIMS.finditer(source)}
+    problems = [f"flat claim: {claim!r}" for claim in sorted(claims)]
+    for sentence in sentences(prose_lines(text), keep_code=True):
+        problems.extend(f"hold wording {found!r}: {sentence[:80]!r}" for found in hold_wording(plain(sentence)))
+    for sentence in sentences(prose_lines(text)):
+        if not RELEASE_WORDS.search(sentence):
+            continue
+        if release_events(sentence) or release_events(plain(sentence)):
+            problems.append(f"release told as an event: {sentence[:80]!r}")
+        elif not GUARDS.search(sentence):
+            problems.append(f"unguarded release statement: {sentence[:80]!r}")
+    return problems
+
+
+def readme_release_text(relative: str, text: str) -> tuple[str, str] | None:
+    """The Status line and the Releases section of one README, or None when either is missing or not unique."""
+    prefix, title = README_RELEASE_PARTS[relative]
+    lines = text.splitlines()
+    status = [line for line in lines if line.startswith(prefix)]
+    if len(status) != 1 or lines.count(f"## {title}") != 1:
+        return None
+    start = lines.index(f"## {title}")
+    end = next((n for n in range(start + 1, len(lines)) if lines[n].startswith("## ")), len(lines))
+    return status[0], "\n".join(lines[start + 1 : end])
+
+
+def version_key(tag: str) -> tuple[int, ...]:
+    """vX.Y.Z in numeric order (v1.10.0 after v1.2.3)."""
+    return tuple(int(part) for part in tag[1:].split("."))
+
+
+def release_problems(relative: str, text: str) -> tuple[str | None, list[str]]:
+    """The current release one README names and what is wrong with its description. Every release link is a vX.Y.Z
+    release of this repository; the Status line links exactly one, the current release, which is the newest release
+    linked anywhere (older ones, such as the first release, may be linked too) and the first version the Releases
+    section names and links. Neither part keeps wording of the former release hold, and the README does not describe
+    the retired manual-dispatch gate."""
+    parts = readme_release_text(relative, text)
+    if parts is None:
+        return None, [f"{relative}: needs one {README_RELEASE_PARTS[relative][0]!r} line and one Releases section"]
+    status, section = parts
+    links = RELEASE_LINK.findall(text)
+    foreign = sorted({repository for repository, _ in links if GITHUB + repository != REPOSITORY})
+    problems = [f"{relative}: release links of other repositories: {foreign}"] if foreign else []
+    tags = sorted({tag for _, tag in links if VERSION.fullmatch(tag)}, key=version_key)
+    malformed = sorted({tag for _, tag in links} - set(tags))
+    if malformed:
+        problems.append(f"{relative}: release links name {malformed}, which are not vX.Y.Z releases")
+    current = sorted({tag for _, tag in RELEASE_LINK.findall(status)})
+    if len(current) != 1 or not VERSION.fullmatch(current[0]):
+        return None, [*problems, f"{relative}: the Status line links {current}, not one vX.Y.Z release"]
+    version = current[0]
+    if f"{REPOSITORY}/releases/tag/{version}" not in status:
+        problems.append(f"{relative}: the Status line does not link release {version} of {REPOSITORY}")
+    newer = [tag for tag in tags if version_key(tag) > version_key(version)]
+    if newer:
+        problems.append(f"{relative}: links releases {newer}, newer than the current release {version}")
+    named = re.findall(r"`(v\d+\.\d+\.\d+)`", section)
+    if named[:1] != [version]:
+        problems.append(f"{relative}: the Releases section names {named[:1]} first, not {version}")
+    if f"{REPOSITORY}/releases/tag/{version}" not in section:
+        problems.append(f"{relative}: the Releases section does not link release {version}")
+    for place, part in (("Status line", status), ("Releases section", section)):
+        problems.extend(f"{relative}: hold wording in the {place}: {found!r}" for found in hold_wording(plain(part)))
+    problems.extend(f"{relative}: describes the retired gate: {found!r}" for found in retired_gate(text))
+    return version, problems
+
+
+def retired_gate(text: str) -> list[str]:
+    """Mentions of the retired manual-dispatch gate, in the raw and the rendered text."""
+    return sorted({match.group() for source in (text, plain(text)) for match in RETIRED_GATE.finditer(source)})
+
+
+def head_release_tags(root: Path = ROOT) -> list[str]:
+    """The vX.Y.Z tags that point at HEAD, oldest first: the release being built when the checkout is a release tag,
+    as in the Pages workflow's test run. Empty when HEAD has no such tag or git cannot tell."""
+    try:
+        listing = subprocess.run(
+            ["git", "tag", "--points-at", "HEAD"], cwd=root, capture_output=True, text=True, check=True, timeout=60
+        )
+    except (OSError, subprocess.SubprocessError):
+        return []
+    return sorted((tag for tag in listing.stdout.split() if VERSION.fullmatch(tag)), key=version_key)
+
+
+def tag_problems(readmes: dict[str, str], tags: list[str]) -> list[str]:
+    """A checkout tagged with vX.Y.Z releases is a release build: each README names the newest of them as its current
+    release, so the website a release deploys describes that release."""
+    if not tags:
+        return []
+    newest = max(tags, key=version_key)
+    problems = []
+    for relative, text in readmes.items():
+        version = release_problems(relative, text)[0]
+        if version != newest:
+            problems.append(f"{relative}: names {version} as the current release, but HEAD is the release {newest}")
+    return problems
+
+
+def release_state_problems(readmes: dict[str, str]) -> list[str]:
+    """Every problem of each README's release description (release_problems), plus disagreement between the languages:
+    both name the same release and link the same release and Pages URLs."""
+    problems, versions, urls = [], {}, {}
+    for relative, text in readmes.items():
+        version, found = release_problems(relative, text)
+        problems.extend(found)
+        versions[relative] = version
+        urls[relative] = sorted(set(PUBLISHED_URL.findall(text)))
+    if len(set(versions.values())) > 1:
+        problems.append(f"the READMEs name different releases: {versions}")
+    if len({tuple(found) for found in urls.values()}) > 1:
+        problems.append(f"the READMEs link different release or Pages URLs: {urls}")
+    return problems
+
+
+class ReleaseStateTests(unittest.TestCase):
+    """The READMEs, which are staged with the website, describe the current release and the release-triggered Pages
+    workflow. Every other document leaves the release state to them: no deployment or publication claim and no hold
+    wording; a sentence about deployment or release is negated, conditional, future or restricted (how the guard
+    works, not what happened). No document describes the retired manual-dispatch gate."""
+
+    PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
+    # What each README's Releases section says about the release-triggered workflow, with the owner decisions of
+    # 2026-10-11: tags without leading zeros (D2), every run, a re-run of a release run included, looking up the tag's
+    # Release (D1), and the tag ruleset beside the environment rule (D5). A run takes pages.yml from the tag's commit,
+    # and v1.1.1 is the first release whose workflow looks the tag's Release up, so the dispatch example names v1.1.1
+    # and older tags are said to run their own workflow, which the environment refuses to deploy. A re-run without the
+    # approval job deploys nothing (R1), and a tag moved on GitHub after the run started fails closed (SEC-2).
+    RELEASE_MODEL = {
+        "README.md": (
+            "published",
+            "prerelease",
+            "`vX.Y.Z`",
+            "`v1.1.0-rc1`",
+            "on `main`",
+            "fails closed",
+            "gh workflow run pages.yml --ref v1.1.1",
+            "a run on an older tag would use that tag's own workflow, which does not check the Release",
+            "the `github-pages` environment refuses its deployment",
+            "`v*`",
+            "three numbers without leading zeros",
+            "`v01.1.0`",
+            "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
+            "only if that Release is published and not a prerelease",
+            "A re-run keeps the event of the run it repeats",
+            'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys nothing; '
+            're-run the whole run ("Re-run all jobs")',
+            "a tag that now names another commit on GitHub (one moved after the run started)",
+            "`github-pages` environment accepts deployments only from tags from `v1.1.1` on",
+            "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
+        ),
+        "README.zh-CN.md": (
+            "发布",
+            "预发布",
+            "`vX.Y.Z`",
+            "`v1.1.0-rc1`",
+            "`main` 上",
+            "失败关闭",
+            "gh workflow run pages.yml --ref v1.1.1",
+            "较早标签上的运行会使用该标签自己的工作流，它不检查 Release",
+            "`github-pages` 环境会拒绝它的部署",
+            "`v*`",
+            "三个不带前导零的数字",
+            "`v01.1.0`",
+            "每次运行，无论是发布的运行、它的重新运行还是手动触发，都会先查询该标签的 GitHub Release",
+            "只有该 Release 已发布且不是预发布版本时才部署",
+            "重新运行沿用它所重复的那次运行的事件",
+            "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容；"
+            "应重新运行整次运行（“Re-run all jobs”）",
+            "在 GitHub 上现已指向另一个提交的标签（运行开始后被移动过）",
+            "`github-pages` 环境只接受来自 `v1.1.1` 起的标签的部署",
+            "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
+        ),
+    }
+
+    def test_no_document_names_the_retired_gate(self):
+        for relative in (*DOCUMENTS, "NOTICE"):
+            with self.subTest(document=relative):
+                self.assertEqual(retired_gate(read(relative)), [])
+
+    def test_no_deployment_claims_outside_the_readmes(self):
+        for relative in (*DOCUMENTS, "NOTICE"):
+            if relative in READMES:
+                continue
+            with self.subTest(document=relative):
+                self.assertEqual(release_wording_problems(read(relative)), [])
+
+    # Statements about the site's release state that a document other than the READMEs must not make, and statements
+    # about deployment or release that it may make (how the guard works, or unrelated uses of the words). Samples that
+    # name RELEASE_APPROVED_SHA test this wording rule alone; test_no_document_names_the_retired_gate refuses them.
+    OUTSIDE_REFUSED = (
+        "GitHub Pages deployment is held until a later release decision, so the website is not deployed.",
+        "GitHub Pages 部署处于冻结状态，网站尚未部署。",
+        "The website is published on GitHub Pages and the v1.0.0 release is out.",
+        "网站已发布在 GitHub Pages 上，v1.0.0 已发布。",
+        "网站在 2026-10-11 部署到 GitHub Pages。原文件不会被修改。",
+        "The website was put on GitHub Pages by a deployment on 2026-10-11. Originals are not modified.",
+        "`RELEASE_APPROVED_SHA` is unset, so nothing is released.",
+        "The website is *not* deployed yet.",
+        # The variable stated as unset, not as a condition of the guard.
+        "Because `RELEASE_APPROVED_SHA` is unset, every dispatch fails closed.",
+        "The variable remains unset; if it is set, the dispatch deploys.",
+        "当前 `RELEASE_APPROVED_SHA` 仍未设置，如果设置了才会部署。",
+        "`RELEASE_APPROVED_SHA` 未设置，因此每次触发都会停在批准任务。",
+        # A website that is not deployed with other words between, and deployment that is paused or suspended.
+        "网站目前未部署。",
+        "站点目前仍未部署到 GitHub Pages。",
+        "Pages deployment is paused.",
+        "Deployment to GitHub Pages is currently suspended.",
+        "The website is currently not deployed.",
+        "GitHub Pages 部署已暂停。",
+        # A deployment told as something that happened, which a guard word ("when", 才) does not turn into a rule.
+        "The deployment to GitHub Pages happened on 2026-10-11 when the owner approved it.",
+        "The deployment ran when the owner approved the release.",
+        "When the owner approved the release, the deployment ran.",
+        "网站在 2026-10-11 所有者批准后才部署到 GitHub Pages。",
+        # The variable stated as unset with an adverb or as not set, and a website withheld for now.
+        "`RELEASE_APPROVED_SHA` is currently unset.",
+        "`RELEASE_APPROVED_SHA` is still unset.",
+        "`RELEASE_APPROVED_SHA` is not set, so every dispatch fails closed.",
+        "The variable isn't set yet.",
+        "`RELEASE_APPROVED_SHA` 目前未设置。",
+        "网站暂不部署。",
+        "The website is temporarily not deployed.",
+        # Each other adverb, tense and negation of the unset wording, in either language.
+        "The variable is now unset.",
+        "`RELEASE_APPROVED_SHA` was unset, so every dispatch stopped at the approval job.",
+        "The variable is not yet set.",
+        "`RELEASE_APPROVED_SHA` is not currently set.",
+        "`RELEASE_APPROVED_SHA` 目前没有设置。",
+        "`RELEASE_APPROVED_SHA` 未被设置。",
+        "`RELEASE_APPROVED_SHA` 当前未设置。",
+        "变量现在未设置。",
+        "变量仍然未设置。",
+        "变量依然未设置。",
+        "变量目前 未设置。",
+        # 还 with a space before 未 or 没有, which HOLD_MARKERS (还未, 还没有) does not see.
+        "变量还 未设置。",
+        "变量还 没有设置。",
+        "`RELEASE_APPROVED_SHA` 还 未设置。",
+        # A plain statement with an unrelated condition after it, and past deployments with an adverb or another verb.
+        "The variable is unset if you look at the settings today.",
+        "`RELEASE_APPROVED_SHA` is unset when you look at the settings.",
+        "The website was first deployed to GitHub Pages when v1.0.0 was tagged.",
+        "The deployment was approved when v1.0.0 was tagged.",
+        "The website is already live, so nothing else is needed.",
+        # "Nothing is deployed" as the state of the site, also with a condition after it or one that is not the guard's.
+        "Nothing is deployed.",
+        "Nothing is deployed if you look today.",
+        "Nothing has been deployed.",
+        "When you look today, nothing is deployed.",
+        "For the tag v1.1.0, when you look today, nothing is deployed.",
+        "When you look today, the tag v1.1.0 exists, so nothing is deployed.",  # a guard word outside the condition
+        # A condition inside an earlier clause joined with "and" does not cover the unset variable.
+        "The tag v1.1.0 exists if you check, and the variable is unset.",
+        # Variants of the accurate sentences below that still tell an event: a fronted date, a version in the clause, a
+        # comma before the event verb; and held releases whose phrase names a version, also without a copula.
+        "2026-10-11，所有者批准后才部署到 GitHub Pages。",
+        "On 2026-10-11, the owner approved the deployment when the tests passed.",
+        "The deployment of v1.1.0 ran when the owner approved it.",
+        "The deployment, as planned, happened on 2026-10-11 when the owner approved it.",
+        "The release of v1.1.0 is on hold.",
+        "Deployment of v1.1.0 is paused.",
+        "Release of v1.1.0 on hold.",
+        # One sample per alternative of the rules, refused for that alternative alone, so that deleting the alternative
+        # lets it pass. Flat claims: each adverb, verb form, subject and preposition, and a claim in a code span.
+        "The website is now live.",
+        *(
+            f"The website was {adverb} deployed, and the next release will replace it."
+            for adverb in ("successfully", "finally", "recently", "just", "last")
+        ),
+        "The pages are live.",
+        "The pages were deployed, and the next release will replace them.",
+        "The pages have been deployed, and the next release will replace them.",
+        "The website went live.",
+        "The live site shows the catalog.",
+        "The live website shows the catalog.",
+        "The GitHub Pages site at the project URL shows the catalog.",
+        *(f"The website is published {word} GitHub Pages." for word in ("with", "to", "at", "by")),
+        "The catalog is released as v1.1.0, and the next release will follow.",
+        "See https://fridrichmethod.github.io/dynamix/ for the catalog.",
+        "The website is `live`.",
+        # Link syntax hides no claim or hold wording (plain()): an image such as a badge, brackets inside the link
+        # text (also empty ones), an empty link text and an empty destination.
+        "The website is ![live](badge.svg).",
+        "[The website [EN]](archive.html) is not deployed.",
+        "[The website []](archive.html) is not deployed.",
+        "The website[](archive.html) is not deployed.",
+        "The website is [live]().",
+        *(f"网站{words}，之后的推送不会部署。" for words in ("已部署", "已经部署", "已上线", "已经上线")),
+        "网站已发布。",
+        "网站已经发布。",
+        "网站目前已发布。",
+        "站点已发布。",
+        "GitHub Pages 已发布。",
+        "v1.1.0 已发布。",
+        # Unguarded statements, one word of RELEASE_WORDS each.
+        "A release deploys the website.",
+        "The tagged commit gets deployed.",
+        "Deploying the website takes a few minutes.",
+        "Deployments use the tag's commit.",
+        "Maintainers deploy the website from a tag.",
+        "The archive is released with each tag.",
+        "GitHub Releases carry the archive.",
+        "Version tags name the commits.",
+        "Each version tag names a commit.",
+        "网站随标签上线。",
+        "版本标签指向提交。",
+        # Hold wording: each subject, copula, adverb, negation and participle of a website that is not deployed, and of
+        # a held release, deployment or publication (with a to/on phrase, without a copula, or as a noun).
+        "The site is not deployed.",
+        "The pages are not deployed.",
+        "The website was not deployed.",
+        "The pages were not deployed.",
+        "The website has not been deployed.",
+        "The pages have not been deployed.",
+        "The website is still not deployed.",
+        "The site is now not live.",
+        "The website isn't deployed.",
+        "The website isn’t deployed until the next release.",
+        "The website is _not_ deployed until the next release.",
+        "The website is not yet deployed.",
+        "The website is not currently deployed.",
+        "The website is not published.",
+        "The website is not released.",
+        *(
+            f"Publication {verb} paused."
+            for verb in ("is", "stays", "remains", "was", "has been", "is still", "is currently", "is now")
+        ),
+        *(f"Releases {verb} paused." for verb in ("are", "stay", "remain", "were", "have been")),
+        *(f"Publication is {word}." for word in ("on hold", "suspended", "frozen", "halted")),
+        "Publication to GitHub Pages is paused.",
+        "Publication on GitHub Pages is paused.",
+        *(f"Publication {word}." for word in ("paused", "held", "suspended", "frozen", "halted")),
+        "Release paused.",
+        "Releases paused.",
+        "Deployment paused until the owner decides.",
+        "The release hold stays in place.",
+        "There is no version tag.",
+        "There is no GitHub Release.",
+        "A Release has not been published.",
+        "The catalog has not been released.",
+        "The tag has not been created.",
+        "None is deployed.",
+        "None are deployed.",
+        # Each Chinese form of hold wording.
+        *(f"这个版本{words}。" for words in ("还没有部署", "还未部署", "尚未被部署", "尚未发布", "尚未上线")),
+        "所有者批准的提交尚未设置，因此每次触发都会停在批准任务。",
+        *(f"网站{words}。" for words in ("未部署", "没有部署", "未被部署", "未发布", "未上线")),
+        "发布已暂停。",
+        *(f"{words}，以后会恢复。" for words in ("网站上线已暂停", "部署暂停", "暂停部署", "暂停网站部署", "暂停上线")),
+        "暂停发布。",
+        "网站暂时不部署。",
+        *(f"该版本{words}。" for words in ("暂未部署", "暂时没有部署", "暂未被部署", "暂不发布", "暂不上线")),
+        "目前没有版本标签。",
+        # The unset variable with "stays", a typographic apostrophe or 尚没有, and words that are no condition before it
+        # (若干, 当然, 当中, 当天, 当日, 当时) or after it (暂时, 及时, 同时, 当时, 时间, 时刻).
+        "The variable stays unset.",
+        "The variable isn’t set yet.",
+        "变量尚没有设置。",
+        "若干变量目前未设置。",
+        *(f"{word}变量未设置。" for word in ("当然", "这当中", "当天", "当日", "当时")),
+        "变量未设置导致触发暂时停止。",
+        "变量未设置会被及时发现。",
+        "变量未设置同时触发失败关闭。",
+        "变量未设置是当时的状态。",
+        "变量未设置的时间很长。",
+        "变量未设置的时刻已经记录在案。",
+        # A condition before a clause break does not cover the unset variable after it, nor one before a 、 whose item
+        # the wording does not open; 时 after a 、 closes a list only when the wording ends its item and a ， follows 时.
+        "如果查看设置，会发现变量未设置。",
+        "若查看设置可见：变量未设置。",
+        "Check the settings if you are unsure: the variable is unset.",
+        "如果查看设置、会发现变量未设置。",
+        "如果查看设置、会发现变量未设置，因此每次触发都会停在批准任务。",
+        "变量未设置、查看设置时会发现。",
+        "变量未设置会被发现、查看设置时。",
+        # The wording opens no item when other words follow the 或 of its item; and only a ， after the wording ends the
+        # list, not a ， before the list nor an ASCII comma.
+        "如果查看设置、或会发现变量未设置，因此每次触发都会停在批准任务。",
+        "如果标签不对，或分支不对、变量未设置。",
+        "若标签错误、变量未设置, 触发会失败关闭。",
+        # Events: each date form, a date as a clause of its own (at the end, after each preposition, with a space or a
+        # code span after it), each Chinese marker and each event verb.
+        *(
+            f"The deployment on {month} 11 needed only the owner's approval."
+            for month in "January February March April May June July August September October November December".split()
+        ),
+        "The deployment on october 11 needed only the owner's approval.",
+        "网站于2026-10-11部署到 GitHub Pages，只需要所有者批准。",
+        "The deployment needed only the owner's approval at 2026-10-11T12:00Z.",
+        "部署在 2026 年只需要所有者批准。",
+        "部署在2026年只需要所有者批准。",
+        "部署在 10 月 11 日只需要所有者批准。",
+        "部署在10月11日只需要所有者批准。",
+        "The deployment needed only the owner's approval, on 2026-10-11.",
+        "By 2026-10-11, the deployment needed only the owner's approval.",
+        "Since 2026-10-11, the deployment needs only the owner's approval.",
+        "于10月11日，部署只需要所有者批准。",
+        "在 2026-10-11，部署只需要所有者批准。",
+        "At 2026-10-11 `12:00 UTC`, the deployment needed only the owner's approval.",
+        "In 2026-10-11, the deployment needed only the owner's approval.",
+        "On 2026-10-11 `UTC`, the deployment needed only the owner's approval.",
+        "2026-10-11 ，部署只需要所有者批准。",
+        "于 10 月 11 日 ，部署只需要所有者批准。",
+        "2026-10-11、2026-10-12，部署只需要所有者批准。",  # dates listed with 、 as the clause
+        # Any item listed with 、 that is a date dates the sentence, also after another item or before one.
+        "来源检查、2026-10-11，部署只需要所有者批准。",
+        "2026-10-11、2026-10-12 两天，部署只需要所有者批准。",
+        "On **2026-10-11**, the deployment needed only the owner's approval.",  # emphasis hides no date
+        # The raw sentence counts too: a date in a link destination dates the deployment it names.
+        "The deployment needed only the owner's approval ([run log](logs/2026-10-11.txt)).",
+        # 、 joins the items of one clause, so the date dates the deployment it names (a ， would end the clause).
+        "来源于 2026-10-10 检查、未部署任何内容。",
+        "网站在所有者批准后才部署了。",
+        "网站在所有者批准后才上线了。",
+        "GitHub Release 在所有者批准后才发布了。",
+        "网站只在所有者批准后才部署过。",
+        "网站已于上周部署，之后的推送不会部署。",
+        *(f"The deployment {verb} only after the tests passed." for verb in ("took place", "occurred", "succeeded")),
+        *(f"The deployment {verb} only after the tests passed." for verb in ("completed", "finished", "went out")),
+        *(f"The deployment went {word} only after the tests passed." for word in ("ahead", "through")),
+        *(f"The deployment was {verb} only after the tests passed." for verb in ("triggered", "started", "performed")),
+        *(f"The deployment was {verb} only after the tests passed." for verb in ("carried out", "rolled out")),
+        "The deployments were triggered only after the tests passed.",
+        # The prose between two code spans of two backticks is prose (INLINE_CODE): an event and an unguarded statement
+        # there; and a run of backticks that no run of the same length closes prints as text.
+        "``v1.1.0`` was released on 2026-10-11 from ``main``.",
+        "``v1.1.0`` is the current release, and the site deploys from ``main``.",
+        "网站由 ``main`` 部署于 2026-10-11，来自 ``v1.1.0``。",
+        "The ```deploy`` job publishes the site.",
+        # A guard word covers its own sentence only, whichever mark or line break ends it.
+        *(f"A push never deploys{mark} The deployment uses the tag." for mark in ".!"),
+        "A push never deploys; the deployment uses the tag.",
+        "Will a push deploy? The deployment uses the tag.",
+        "- A push never deploys\n- The deployment uses the tag",
+        *(f"推送不会部署{mark}部署使用标签的提交。" for mark in "。！；"),
+        "推送会部署吗？部署使用标签的提交。",
+    )
+    OUTSIDE_ALLOWED = (
+        "A push to `main` never deploys the website.",
+        "推送到 `main` 不会部署网站。",
+        # How the guard works: the unset variable is a condition, not the state of the site.
+        "If the variable is unset or names any other commit, the dispatch fails closed at the approval job.",
+        "If `RELEASE_APPROVED_SHA` is unset or names another commit, the dispatch fails closed.",
+        "A dispatch fails closed when `RELEASE_APPROVED_SHA` is unset.",
+        "The variable, if it is unset, makes every dispatch fail closed.",
+        "如果 `RELEASE_APPROVED_SHA` 未设置或指向其他提交，触发会在批准任务处失败关闭。",
+        "`RELEASE_APPROVED_SHA` 未设置时，触发不会部署任何内容。",
+        "A deployment runs only when the approval job passes.",
+        "| `official:c4cat` | [C4Cat](https://c4-cat.com/) | 读取一次页面 | 即将上线/联系方式的占位页面，没有游戏目录；仅作身份证据。 |",
+        "Catalog entries held by two or more sources of this family: 0.",
+        "| `upstream_status` | Records that are removed or unset upstream. |",
+        "| `upstream_status` | 上游状态为 `removed` 或未设置的记录。 |",
+        "A composer's release cover is not the illustrator's original.",
+        "If `RELEASE_APPROVED_SHA` is not set, the dispatch fails closed.",
+        "变量目前未设置时，触发会失败关闭。",
+        # "Nothing is deployed" as the outcome of a condition of the guard, which names what the guard checks.
+        "When the variable is unset or names another commit, nothing is deployed.",
+        "If a tag is not `vX.Y.Z`, nothing is deployed.",
+        "Unless the Release is published, nothing is deployed.",
+        "If it is a prerelease, nothing is deployed.",
+        "When it is not on `main`, nothing is deployed.",
+        "When a guard refuses the run, nothing is deployed.",
+        "If the lookup fails, nothing is deployed.",
+        "If it is a draft, nothing is deployed.",
+        "When a push starts the run, nothing is deployed.",
+        "If a pull request starts the run, nothing is deployed.",
+        "When a schedule starts the run, nothing is deployed.",
+        "If the version has a leading zero, nothing is deployed.",
+        "When the approval job does not pass, nothing is deployed.",
+        "When you look today, if the tag is not on `main`, nothing is deployed.",  # a later condition of the guard
+        # Accurate sentences: an event verb in a subordinate clause, a date of something else, an unrelated
+        # "frozen", and the unset variable as a condition (的情况下, whether, a clause joined by "or", a version inside
+        # the clause).
+        "The deploy job runs only after the tests succeeded.",
+        "Sources were checked on 2026-10-10, and nothing here deploys the website.",
+        "No deployment depends on 12026-10-11 or 2026-10-111, which are numbers, not dates.",
+        "Each release of the frozen catalog carries the archive.",
+        "`RELEASE_APPROVED_SHA` 未设置的情况下，触发会失败关闭。",
+        "The approval job checks whether `RELEASE_APPROVED_SHA` is unset or names another commit.",
+        "If `release_sha` is wrong, or `RELEASE_APPROVED_SHA` is unset, the dispatch fails closed.",
+        "If the tag v1.1.0 names another commit or the variable is unset, the dispatch fails closed.",
+        "For a dispatch, if `release_sha` is wrong, or the variable is unset, the dispatch fails closed.",
+        # One sample per alternative of the rules, allowed only through that alternative. Each guard word alone in its
+        # sentence.
+        "A deployment requires a published release.",
+        "Deployments require a published release.",
+        "The deploy job does not run for a prerelease.",
+        "A second Pages run is held while the first one deploys.",  # the github-pages concurrency group
+        "The concurrency group can hold a second Pages run while the first one deploys.",
+        "A prerelease gets no deployment.",
+        "None of the pull requests deploys the website.",
+        "The website stays as it is until the next deployment.",
+        "A release run deploys unless its Release is a prerelease.",
+        "A run on an older tag would use that tag's own workflow, and the environment refuses its deployment.",
+        "The next release will deploy the website again.",
+        "A pull request cannot deploy the website.",
+        "Future releases deploy the same way.",
+        "Later releases deploy the same way.",
+        "Every release is tested before it deploys.",
+        "The deploy job runs if the approval and build jobs pass.",
+        "The deploy job runs when the approval and build jobs pass.",
+        "A pull request doesn't deploy the website.",
+        "The last job of the Pages workflow is ``deploy``.",  # a code span of two backticks is code too
+        "The last step runs ``echo `date` > deployed.txt``.",  # a span of two backticks holds single ones
+        "拉取请求不部署网站。",
+        "预发布版本未部署到 GitHub Pages。",
+        "只有已发布的版本部署网站。",
+        "网站只能从版本标签部署。",
+        "测试通过之前，部署任务一直等待。",
+        "将来的版本同样部署到 GitHub Pages。",
+        "以后的版本同样部署到 GitHub Pages。",
+        "如果 Release 已发布且标签的提交在 `main` 上，运行就部署网站。",
+        "测试通过后才部署网站。",
+        "部署须有已发布的 Release。",
+        "部署需要已发布的 Release。",
+        "手动触发的运行也部署标签的提交。",
+        "届时网站随新版本部署。",
+        "下一个版本会部署网站。",
+        # "None is deployed" after a condition of the guard, each condition word, a condition that opens a clause which
+        # "and", 或, 并且 or 且 continues, and conditions listed with 、, before or after them.
+        "If a tag is not `vX.Y.Z`, none is deployed.",
+        "Whenever a tag is not `vX.Y.Z`, nothing is deployed.",
+        "While the Release is a draft, nothing is deployed.",
+        "As long as the Release is a prerelease, nothing is deployed.",
+        "In case of a refusal, nothing is deployed.",
+        *(f"{word}变量未设置，触发会失败关闭。" for word in ("若", "假如", "要是", "一旦", "只要", "每当")),
+        "变量未设置的话，触发会失败关闭。",
+        "If the tag is wrong, and the variable is unset, the dispatch fails closed.",
+        "倘若标签不对，或变量未设置，触发会失败关闭。",
+        *(f"如果标签不对，{word}变量未设置，触发会失败关闭。" for word in ("并且", "且")),
+        "若标签错误、变量未设置或指向其他提交，触发会失败关闭。",
+        "倘若标签不对、或者变量未设置，触发会失败关闭。",
+        "变量未设置、标签错误时，触发会失败关闭。",
+        # A 、 in an earlier one of the joined clauses lists items of that clause, so the condition still opens them.
+        "若标签错误、分支错误，或变量未设置，触发会失败关闭。",
+        "若标签错误、分支错误，或者变量未设置，触发会失败关闭。",
+        "如果标签不对、分支不对，并且变量未设置，触发会失败关闭。",
+        "若标签错误、分支错误，或者发布用的变量未设置，触发会失败关闭。",
+        # An event verb after each subordinator.
+        "The deploy job never runs before the test job has succeeded.",
+        *(f"The deploy job runs only {word} the test job has succeeded." for word in ("once", "when", "if")),
+        *(f"The deploy job does not run {word} the test job has succeeded." for word in ("until", "till", "unless")),
+        "The deploy job is skipped whenever the test job has not succeeded.",
+        "No deployment starts while the previous one has not completed.",
+        "The deploy job will wait for the build job, since the approval job succeeded.",
+        "The deploy job depends on whether the test job succeeded and never deploys otherwise.",
+        "Only a run that was started on a `vX.Y.Z` tag deploys.",
+        "The deploy job deploys only the commit which was approved by the approval job.",
+        "Someone who ran a dispatch on a branch gets no deployment.",
+    )
+
+    def test_release_wording_rule_outside_the_readmes(self):
+        for text in self.OUTSIDE_REFUSED:
+            with self.subTest(refused=text):
+                self.assertNotEqual(release_wording_problems(text + "\n"), [])
+        for text in self.OUTSIDE_ALLOWED:
+            with self.subTest(allowed=text):
+                self.assertEqual(release_wording_problems(text + "\n"), [])
+
+    def test_readmes_describe_the_release_and_its_guard(self):
+        for relative in READMES:
+            text = read(relative).replace("**", "")
+            for phrase in (
+                self.PAGES_URL,
+                "/releases/tag/v",
+                "(.github/workflows/pages.yml)",
+                "(.github/workflows/check-sources.yml)",
+            ):
+                with self.subTest(document=relative, phrase=phrase):
+                    self.assertIn(phrase, text, f"{relative} must say {phrase!r}")
+            section = readme_release_text(relative, read(relative))
+            self.assertIsNotNone(section)
+            for phrase in self.RELEASE_MODEL[relative]:
+                with self.subTest(document=relative, release_model=phrase):
+                    self.assertIn(phrase, section[1], f"the Releases section of {relative} must say {phrase!r}")
+            for stale in (
+                "the website is not deployed",
+                "nothing has been released",
+                "网站尚未部署",
+                "目前没有任何发布",
+                "release_approved_sha",
+                "release_sha",
+                "does not look up the tag",
+                "不会查询该标签",
+                "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup, so it is no example of one
+            ):
+                with self.subTest(document=relative, stale=stale):
+                    self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold or old gate")
+        self.assertEqual(release_state_problems({relative: read(relative) for relative in READMES}), [])
+
+    def test_a_release_build_names_its_tag(self):
+        """Where the checkout is a release tag (the Pages workflow's test run), both READMEs name that release."""
+        readmes = {relative: read(relative) for relative in READMES}
+        self.assertEqual(tag_problems(readmes, head_release_tags()), [])
+
+    # A README pair in the shape of the real ones, which the release check accepts, and edits it must refuse.
+    SAMPLE = {
+        "README.md": "# Sample\n\n**English** · [简体中文](README.zh-CN.md)\n\n"
+        "**Status:** released as [v1.2.3](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3). The "
+        "website is published with GitHub Pages at <https://fridrichmethod.github.io/dynamix/>; see "
+        "[Releases](#releases).\n\n"
+        "## Releases\n\n"
+        "Version `v1.2.3` (2026-01-02) is the latest release. Its "
+        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) carries the archive. "
+        "Version `v1.0.0` was the [first release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0).\n\n"
+        "- The [Pages workflow](.github/workflows/pages.yml) deploys only a published release of a `vX.Y.Z` tag whose "
+        "commit is on `main`.\n"
+        "- Later pushes to `main` are tested but not deployed.\n\n"
+        "## Sources\n",
+        "README.zh-CN.md": "# 样例\n\n[English](README.md) · **简体中文**\n\n"
+        "**状态**：已发布 [v1.2.3](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3)。网站通过 GitHub Pages "
+        "发布在 <https://fridrichmethod.github.io/dynamix/>；见[发布](#发布)。\n\n"
+        "## 发布\n\n"
+        "`v1.2.3`（2026-01-02）是最新版本。其 "
+        "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) 提供完整存档。"
+        "`v1.0.0` 是[首个版本](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0)。\n\n"
+        "- [Pages 工作流](.github/workflows/pages.yml)只部署 `vX.Y.Z` 标签的已发布版本，且其提交须在 `main` 上。\n"
+        "- 之后推送到 `main` 的提交会被测试但不会部署。\n\n"
+        "## 来源\n",
+    }
+    TAG_LINK = "https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3"
+    # Sentences of the former release hold (verbatim from the READMEs before v1.0.0) and variants that dodge exact text.
+    HOLD_WORDING = {
+        "README.md": (
+            "Nothing has been released.",
+            "The website is not deployed, no version tag exists and no GitHub Release has been published.",
+            "`RELEASE_APPROVED_SHA` is unset, so every dispatch stops at the approval job.",
+            "Tags and GitHub Releases are separate decisions that have not been made.",
+            "The website is *not* deployed.",
+            "The website isn't deployed yet; deployment is held.",
+            "[The website](archive.html) is not deployed.",
+            "GitHub Pages deployment is held until a later, explicit release decision.",
+            "Pages deployment is paused.",
+            "The website is currently not deployed.",
+            "Because `RELEASE_APPROVED_SHA` is unset, every dispatch fails closed.",
+            "`RELEASE_APPROVED_SHA` is not set, so every dispatch fails closed.",
+            "The variable is unset if you look at the settings today.",
+            "Nothing is deployed.",
+            "Pages deployment is temporarily paused.",
+            "If a tag is not `vX.Y.Z`, the run fails closed. Nothing is deployed.",
+            # A condition in an earlier sentence covers neither the unset variable nor "nothing is deployed".
+            "The run fails closed if a tag is not `vX.Y.Z`. The variable is unset.",
+            "The run fails closed if a tag is not `vX.Y.Z`; the variable is unset.",
+            "Nothing deploys unless the Release is published! The variable is unset.",
+            "What happens if a tag is not `vX.Y.Z`? The variable is unset.",
+            "If a tag is not `vX.Y.Z`, the run fails closed; nothing is deployed.",
+            "If a tag is not `vX.Y.Z`, the run fails closed! Nothing is deployed.",
+            "What if a tag is not `vX.Y.Z`? Nothing is deployed.",
+        ),
+        "README.zh-CN.md": (
+            "目前没有任何发布。",
+            "网站尚未部署，没有版本标签，也没有发布 GitHub Release。",
+            "`RELEASE_APPROVED_SHA` 未设置，因此每次触发都会停在批准任务。",
+            "标签和 GitHub Release 是另外的决定，目前尚未做出。",
+            "网站还没有部署。",
+            "GitHub Pages 部署处于冻结状态。",
+            "[网站](archive.html)还未部署。",
+            "网站目前未部署。",
+            "GitHub Pages 部署已暂停。",
+            "当前 `RELEASE_APPROVED_SHA` 仍未设置。",
+            "`RELEASE_APPROVED_SHA` 目前未设置。",
+            "网站暂不部署。",
+            "变量还 未设置。",
+            # A condition in an earlier sentence does not cover the unset variable, nor one before a 、 that stands for
+            # a sentence mark.
+            "只要标签正确就会部署。变量目前未设置。",
+            "只要标签正确就会部署；变量目前未设置。",
+            "只要标签正确就会部署！变量目前未设置。",
+            "要是标签正确会部署吗？变量目前未设置。",
+            "只要标签正确就会部署、变量目前未设置。",
+        ),
+    }
+    # Sentences that describe the release gate: what fails closed is a condition of a run, not the site's state.
+    GUARD_WORDING = {
+        "README.md": (
+            "If the release is a prerelease or its tag's commit is not on `main`, the run fails closed.",
+            "A dispatch on a branch fails closed, and a push to `main` is tested but not deployed.",
+            "A tag that is not `vX.Y.Z` is never deployed.",
+            "When a dispatch is on a branch, nothing is deployed.",
+            # A full stop also ends the phrase of a held deployment ("deployment of `v01.1.0`").
+            "A deployment of `v01.1.0` fails closed. Its run is halted.",
+        ),
+        "README.zh-CN.md": (
+            "如果发布是预发布版本，或其标签的提交不在 `main` 上，运行会失败关闭。",
+            "在分支上手动触发会失败关闭；推送到 `main` 的提交会被测试但不会部署。",
+            "不是 `vX.Y.Z` 的标签从不部署。",
+        ),
+    }
+    # Sentences of the retired manual-dispatch gate (verbatim from the READMEs at v1.0.0) and variants.
+    RETIRED_WORDING = {
+        "README.md": (
+            "`RELEASE_APPROVED_SHA` names the released commit.",
+            "Its `release_sha` input is the full SHA of the dispatched commit.",
+            "The Pages workflow dispatched on `main` with the same SHA deploys it.",
+            "A later release dispatches the Pages workflow on `main`.",
+            "Dispatch it on main.",
+            "Dispatching it on `main` deploys the release.",
+        ),
+        "README.zh-CN.md": (
+            "`RELEASE_APPROVED_SHA` 指向已发布的提交。",
+            "输入的 `release_sha` 是被触发提交的完整 SHA。",
+            "在 `main` 上手动触发 Pages 工作流，填写同一个 SHA。",
+            "之后的发布需要在 main 上手动触发 Pages 工作流。",
+        ),
+    }
+
+    def edited(self, relative: str, old: str, new: str, count: int = -1) -> dict[str, str]:
+        self.assertIn(old, self.SAMPLE[relative], "the sample edit must apply")
+        return {**self.SAMPLE, relative: self.SAMPLE[relative].replace(old, new, count)}
+
+    # What each README says about repository links in its storage-tier paragraph and in its Releases section.
+    ARCHIVE_LINKS = {
+        "README.md": ("`archive_url`", "follow `main`", "404", "until the next release"),
+        "README.zh-CN.md": ("`archive_url`", "跟随 `main`", "404", "在下一次发布之前"),
+    }
+
+    def test_readmes_say_that_repository_links_follow_main(self):
+        """archive_url points at raw/main by contract (09-frozen-contracts.md), while the website shows the last
+        release: a file withdrawn on main after that release has no repository link there until the next release. The
+        storage-tier paragraph and the Releases section of both READMEs say so."""
+        for relative, phrases in self.ARCHIVE_LINKS.items():
+            text = read(relative)
+            tier = next(part for part in text.split("\n\n") if "`archive_url`" in part and "/raw/main/" in part)
+            parts = readme_release_text(relative, text)
+            self.assertIsNotNone(parts)
+            for place, part in (("storage tiers", tier), ("Releases", parts[1])):
+                for phrase in phrases:
+                    with self.subTest(document=relative, place=place, phrase=phrase):
+                        self.assertIn(phrase, part)
+
+    def test_release_check_accepts_the_sample(self):
+        self.assertEqual(release_state_problems(self.SAMPLE), [])
+
+    def test_release_check_refuses_mismatched_releases(self):
+        en, zh = "README.md", "README.zh-CN.md"
+        cases = {
+            "zh-only version bump": self.edited(zh, "v1.2.3", "v1.2.4"),
+            "en-only version bump": self.edited(en, "v1.2.3", "v1.3.0"),
+            "Status link bumped, Releases section not": self.edited(
+                en, "[v1.2.3](" + self.TAG_LINK, "[v1.3.0](" + self.TAG_LINK.replace("v1.2.3", "v1.3.0")
+            ),
+            "links bumped, the section's version not": self.edited(
+                zh, self.TAG_LINK, self.TAG_LINK.replace("v1.2.3", "v1.3.0")
+            ),
+            "release of another repository": self.edited(
+                en, self.TAG_LINK, "https://github.com/someone/else/releases/tag/v1.2.3", 1
+            ),
+            "Pages URL in one language only": self.edited(
+                zh, "https://fridrichmethod.github.io/dynamix/", "https://fridrichmethod.github.io/dynamix/archive.html"
+            ),
+            "no release link": self.edited(en, self.TAG_LINK, "https://github.com/FridrichMethod/dynamix/releases"),
+        }
+        for case, readmes in cases.items():
+            with self.subTest(case=case):
+                self.assertNotEqual(release_state_problems(readmes), [])
+
+    ANCHORS = {
+        "README.md": ("see [Releases](#releases).", "is the latest release."),
+        "README.zh-CN.md": ("见[发布](#发布)。", "是最新版本。"),
+    }
+
+    def test_release_check_refuses_hold_wording(self):
+        for relative, wording in self.HOLD_WORDING.items():
+            for sentence in wording:
+                for place, anchor in zip(("Status line", "Releases section"), self.ANCHORS[relative], strict=True):
+                    with self.subTest(document=relative, place=place, sentence=sentence):
+                        readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
+                        self.assertNotEqual(release_state_problems(readmes), [])
+        # A line break ends a sentence too: a list item without a full stop does not cover the next item.
+        item = "- Later pushes to `main` are tested but not deployed."
+        lines = "- If a tag is not `vX.Y.Z`, the run fails closed\n- Nothing is deployed."
+        self.assertNotEqual(release_state_problems(self.edited("README.md", item, lines)), [])
+
+    def test_release_check_accepts_a_description_of_the_guard(self):
+        for relative, wording in self.GUARD_WORDING.items():
+            for sentence in wording:
+                for place, anchor in zip(("Status line", "Releases section"), self.ANCHORS[relative], strict=True):
+                    with self.subTest(document=relative, place=place, sentence=sentence):
+                        readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
+                        self.assertEqual(release_state_problems(readmes), [])
+
+    def test_release_check_refuses_the_retired_gate(self):
+        for relative, wording in self.RETIRED_WORDING.items():
+            for sentence in wording:
+                for place, anchor in zip(("Status line", "Releases section"), self.ANCHORS[relative], strict=True):
+                    with self.subTest(document=relative, place=place, sentence=sentence):
+                        readmes = self.edited(relative, anchor, f"{anchor} {sentence}", 1)
+                        _, problems = release_problems(relative, readmes[relative])
+                        self.assertTrue([p for p in problems if "retired gate" in p], problems)
+
+    def test_release_check_refuses_stale_or_malformed_release_links(self):
+        """Each edit breaks one README on its own (release_problems), whatever the other language says."""
+        en, zh = "README.md", "README.zh-CN.md"
+        link = "https://github.com/FridrichMethod/dynamix/releases/tag/"
+        cases = {
+            "a newer release linked than the Status line's": (
+                en,
+                "is the latest release.",
+                f"is the latest release. Version `v1.10.0` is [next]({link}v1.10.0).",
+            ),
+            "the Status line links two releases": (
+                zh,
+                "；见[发布](#发布)。",
+                f"（[v1.0.0]({link}v1.0.0) 之后）；见[发布](#发布)。",
+            ),
+            "the Status line links no release": (en, f"[v1.2.3]({link}v1.2.3). The", "v1.2.3. The"),
+            "the Releases section does not link the current release": (
+                zh,
+                f"[GitHub Release]({link}v1.2.3) 提供完整存档。",
+                "GitHub Release 提供完整存档。",
+            ),
+            "a release link that is not vX.Y.Z": (en, f"{link}v1.0.0", f"{link}v1.0"),
+            "the first release named first": (zh, "`v1.2.3`（2026-01-02）是最新版本。", "最新版本（2026-01-02）。"),
+        }
+        for case, (relative, old, new) in cases.items():
+            with self.subTest(case=case):
+                text = self.edited(relative, old, new, 1)[relative]
+                self.assertNotEqual(release_problems(relative, text)[1], [], text)
+                self.assertNotEqual(release_state_problems({**self.SAMPLE, relative: text}), [])
+
+    def test_a_release_build_must_name_the_newest_tag_of_its_commit(self):
+        self.assertEqual(tag_problems(self.SAMPLE, []), [], "an untagged checkout names any release")
+        self.assertEqual(tag_problems(self.SAMPLE, ["v1.2.3"]), [])
+        self.assertEqual(tag_problems(self.SAMPLE, ["v1.0.0", "v1.2.3"]), [])
+        self.assertNotEqual(tag_problems(self.SAMPLE, ["v1.2.4"]), [])
+        self.assertNotEqual(tag_problems(self.SAMPLE, ["v1.2.3", "v1.10.0"]), [], "numeric, not lexical, order")
+
+    @unittest.skipUnless(shutil.which("git"), "needs git")
+    def test_head_release_tags_reads_the_checkout(self):
+        environment = {
+            "PATH": os.environ.get("PATH", "/usr/bin:/bin"),
+            "GIT_AUTHOR_NAME": "t",
+            "GIT_AUTHOR_EMAIL": "t@example.invalid",
+            "GIT_COMMITTER_NAME": "t",
+            "GIT_COMMITTER_EMAIL": "t@example.invalid",
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_CONFIG_GLOBAL": os.devnull,
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "checkout"
+            root.mkdir()
+
+            def git(*arguments: str) -> None:
+                subprocess.run(["git", *arguments], cwd=root, env=environment, check=True, capture_output=True)
+
+            git("init", "-q")
+            git("commit", "-q", "--allow-empty", "-m", "first")
+            git("tag", "v1.0.0")
+            git("commit", "-q", "--allow-empty", "-m", "second")
+            self.assertEqual(head_release_tags(root), [])
+            for tag in ("v1.10.0", "v1.2.3", "v1.2.3-rc1", "latest"):
+                git("tag", "-a", "-m", tag, tag)
+            self.assertEqual(head_release_tags(root), ["v1.2.3", "v1.10.0"])
+            empty = Path(temporary) / "empty"
+            empty.mkdir()
+            with unittest.mock.patch.dict(os.environ, {"GIT_CEILING_DIRECTORIES": temporary}):
+                self.assertEqual(head_release_tags(empty), [])
+
+
+if __name__ == "__main__":
+    unittest.main()

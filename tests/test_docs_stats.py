@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_catalog  # noqa: E402
 import build_coverage  # noqa: E402
 import test_docs as rules  # noqa: E402 - the documentation rules (its TestCase classes are not collected here)
+import test_docs_release as release  # noqa: E402 - the READMEs (its TestCase is not collected here either)
 import update_docs_stats as stats  # noqa: E402
 
 CONTRACT = ROOT / "tests/fixtures/contract"
@@ -154,7 +155,7 @@ class RenderTests(Base):
                 text = self.read(relative)
                 with self.subTest(document=relative):
                     # The READMEs describe the release in their own prose; their generated block never does.
-                    scope = block_of(text) if relative in rules.ReleaseStateTests.READMES else text
+                    scope = block_of(text) if relative in release.READMES else text
                     self.assertIsNone(rules.FLAT_CLAIMS.search(scope))
                     for sentence in rules.sentences(rules.prose_lines(block_of(text))):
                         if rules.RELEASE_WORDS.search(sentence):
