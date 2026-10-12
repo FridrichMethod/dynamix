@@ -534,6 +534,7 @@ class ReleaseGateTests(unittest.TestCase):
             "does not look up",
             "dispatched tag",
             "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
+            "with one read-only API request and deploys",  # the approval and the build job each send one
             *RETIRED_ENVIRONMENT["en"],
         ):
             with self.subTest(stale=stale):
@@ -552,6 +553,7 @@ class ReleaseGateTests(unittest.TestCase):
             "v*",
             "without leading zeros",
             "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
+            "with one read-only API request in the approval job (and again in the build job)",
             "only if that Release is published and not a prerelease",
             "A re-run keeps the event of the run it repeats",
             'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',

@@ -4,18 +4,18 @@ name: Deploy GitHub Pages (vX.Y.Z tags on main only)
 # that is not a prerelease, with a vX.Y.Z tag (three numbers without leading zeros: v1.10.0, not v01.1.0), deploys the
 # commit of that tag, and a manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.1) redeploys it. Every
 # run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release with one read-only
-# API request and deploys the tag's commit only if that Release is published and not a prerelease. A re-run keeps the
-# event of the run it repeats, so only the lookup sees a Release that has since become a draft or a prerelease or been
-# deleted (a re-run of the deploy job alone repeats no lookup, so re-run the whole run). A run takes this file from the
-# tag's commit, so these rules apply to tags from v1.1.1 on: a run on an older tag would use that tag's own workflow,
-# which does not check the Release, and the github-pages environment refuses its deployment. Every run also needs the
-# tag's commit to be on main, and the full Tests workflow must pass on that commit before the artifact is built. Any
-# other run fails closed at the approval job (a dispatch on a branch, a tag that is not vX.Y.Z, a release that is a
-# draft or prerelease, a tag without such a Release or whose lookup fails, a commit that is not on main): no tests, no
-# artifact, no deployment. The build job repeats the approval job's guards, and the deploy job deploys only the commit
-# that the approval job recorded after all its guards passed. The github-pages environment accepts deployments only from
-# tags from v1.1.1 on, and the repository ruleset "Release tags v*" lets only repository admins create, move or delete
-# v* tags.
+# API request in the approval job (and again in the build job) and deploys the tag's commit only if that Release is
+# published and not a prerelease. A re-run keeps the event of the run it repeats, so only the lookup sees a Release that
+# has since become a draft or a prerelease or been deleted (a re-run of the deploy job alone repeats no lookup, so
+# re-run the whole run). A run takes this file from the tag's commit, so these rules apply to tags from v1.1.1 on: a run
+# on an older tag would use that tag's own workflow, which does not check the Release, and the github-pages environment
+# refuses its deployment. Every run also needs the tag's commit to be on main, and the full Tests workflow must pass on
+# that commit before the artifact is built. Any other run fails closed at the approval job (a dispatch on a branch, a
+# tag that is not vX.Y.Z, a release that is a draft or prerelease, a tag without such a Release or whose lookup fails, a
+# commit that is not on main): no tests, no artifact, no deployment. The build job repeats the approval job's guards,
+# and the deploy job deploys only the commit that the approval job recorded after all its guards passed. The
+# github-pages environment accepts deployments only from tags from v1.1.1 on, and the repository ruleset "Release tags
+# v*" lets only repository admins create, move or delete v* tags.
 on:
   release:
     types: [published]
