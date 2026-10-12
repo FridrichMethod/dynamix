@@ -71,14 +71,16 @@ FLAT_CLAIMS = re.compile(
     re.IGNORECASE,
 )
 # Words that state deployment or release; such a sentence must be negated, conditional, future or restricted.
+# "GitHub Release" has no word boundary, so it also matches "GitHub Releases" and Chinese text without a space.
 RELEASE_WORDS = re.compile(
-    r"\bdeploy(?:s|ed|ing|ment|ments)?\b|\breleased\b|\bGitHub Releases?\b|\bversion tags?\b|"
-    r"部署|上线|GitHub Release|版本标签",
+    r"\bdeploy(?:s|ed|ing|ment|ments)?\b|\breleased\b|GitHub Release|\bversion tags?\b|部署|上线|版本标签",
     re.IGNORECASE,
 )
+# "Held", "hold" and 冻结 (frozen) guard nothing: about a release they are hold wording (HOLD_MARKERS). 未 also
+# covers 尚未.
 GUARDS = re.compile(
-    r"\b(?:not|no|never|nothing|none|until|unless|would|will|only|cannot|held|hold|future|later|"
-    r"requires?|before|if|when)\b|n't|不|未|没有|尚未|只有|只能|之前|将来|以后|如果|才|须|需要|冻结|手动|届时|会",
+    r"\b(?:not|no|never|nothing|none|until|unless|would|will|only|cannot|future|later|"
+    r"requires?|before|if|when)\b|n't|不|未|没有|只有|只能|之前|将来|以后|如果|才|须|需要|手动|届时|会",
     re.IGNORECASE,
 )
 GITHUB = "https://github.com/"
@@ -93,10 +95,11 @@ PUBLISHED_URL = re.compile(
 README_RELEASE_PARTS = {"README.md": ("**Status:**", "Releases"), "README.zh-CN.md": ("**状态**：", "发布")}
 # The release gate that v1.1.0 retired: a manual dispatch of main approved by the RELEASE_APPROVED_SHA variable and a
 # release_sha input. Pages now deploys a published vX.Y.Z release (.github/workflows/pages.yml), so no document names
-# the variable or the input, or tells a release to dispatch the workflow on main.
+# the variable or the input, or tells a release to dispatch the workflow on main. Matched in the rendered text too
+# (retired_gate()), so `main` needs no backticks here.
 RETIRED_GATE = re.compile(
     r"RELEASE_APPROVED_SHA|\brelease_sha\b|"
-    r"\bdispatch(?:ed|es|ing)? (?:it |the [^.;:]{0,30}? )?on `?main\b|在 `?main`? 上手动触发",
+    r"\bdispatch(?:ed|es|ing)? (?:it |the [^.;:]{0,30}? )?on main\b|在 main 上手动触发",
     re.IGNORECASE,
 )
 # Wording of the release hold that ended with v1.0.0, in either language, matched in rendered text (see plain()).
@@ -111,7 +114,7 @@ HOLD_MARKERS = re.compile(
     r"\b(?:release|deployment|publication)s?\b(?: (?:to|of|on) (?:[^.;:,]|\.(?=\S)){0,30}?)?"
     r"(?: (?:is|are|stays?|remains?|was|were|has been|have been)(?: still| currently| now| temporarily)?"
     r" (?:on )?(?:hold|held|paused|suspended|frozen|halted)| on hold)\b|"
-    r"\b(?:release|deployment|publication)s? (?:hold|held|paused|suspended|frozen|halted)\b|\brelease hold\b|"
+    r"\b(?:release|deployment|publication)s? (?:hold|held|paused|suspended|frozen|halted)\b|"
     r"\bno version tag\b|\bno GitHub Release\b|\bnothing has been released\b|"
     r"\bha(?:s|ve) not been (?:made|published|released|created)\b|"
     r"(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|"
@@ -123,11 +126,12 @@ HOLD_MARKERS = re.compile(
 )
 # The release variable stated as unset, also with an adverb or as "not set" ("is still unset", "isn't set yet", 目前未设置).
 # It is hold wording as a statement ("`RELEASE_APPROVED_SHA` is unset, so ..."), not as the condition of the guard ("If
-# the variable is unset, the dispatch fails closed", "变量未设置时……").
+# the variable is unset, the dispatch fails closed", "变量未设置时……"). 还未设置 and 还没有设置 are hold wording in any
+# clause (HOLD_MARKERS).
 UNSET_WORDING = re.compile(
     r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains|was)(?: still| currently| now)?"
     r"(?: unset|(?: not|n['’]t)(?: yet| currently)? set)\b|"
-    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|还|尚)?\s*(?:未|没有)(?:被)?设置",
+    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|尚)?\s*(?:未|没有)(?:被)?设置",
     re.IGNORECASE,
 )
 # A condition opening the clause (当 but not 当前 "currently"; 若 but not 若干; "whether" of a check), or, in Chinese, one
@@ -144,7 +148,7 @@ CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：、。！？]")
 # A clause that continues the one before it ("If X is wrong, or the variable is unset, ..."): a condition that opens
 # the first clause covers it (CONDITION_OPENS). A condition inside an earlier clause covers that clause alone ("The tag
 # v1.1.0 exists if you check, and the variable is unset.").
-COORDINATED = re.compile(r"\s*(?:(?:or|and|nor)\b|或者|或|并且|且)", re.IGNORECASE)
+COORDINATED = re.compile(r"\s*(?:(?:or|and)\b|或|并且|且)", re.IGNORECASE)
 CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
 # "Nothing is deployed" states the site's state unless a condition of the guard comes before it in its sentence
 # ("When ..., nothing is deployed."): one whose own clause names what the guard checks, a tag, branch, release,
@@ -156,7 +160,8 @@ GUARD_CONDITION = re.compile(
     r"\b(?:(?:tag|branch|release|prerelease|draft|version|commit|push|pull|schedul|approv|refus|fail)\w*|main)\b",
     re.IGNORECASE,
 )
-SENTENCE_BREAK = re.compile(r"[.!?;](?=\s|$)|[。！？；]|\n")
+# The sentence of "nothing is deployed" (English only) ends at . ! ? ; before whitespace or at a line break.
+SENTENCE_BREAK = re.compile(r"[.!?;](?=\s)|\n")
 # A deployment or release told as an event that happened, which is what happened, not how the guard works, whatever
 # guard word the sentence also has ("... happened on 2026-10-11 when the owner approved it"); see release_events().
 RELEASE_DATES = re.compile(
@@ -166,7 +171,7 @@ RELEASE_DATES = re.compile(
     re.IGNORECASE,
 )
 # A clause that is only a date ("On 2026-10-11, ...", "2026-10-11，……"): it dates the rest of the sentence.
-BARE_DATE = re.compile(rf"\s*(?:(?:on|in|at|by|since|于|在)\s*)?(?:{RELEASE_DATES.pattern})\s*", re.IGNORECASE)
+BARE_DATE = re.compile(rf"\s*(?:(?:on|by|since|于|在)\s*)?(?:{RELEASE_DATES.pattern})", re.IGNORECASE)
 RELEASE_EVENT_MARKERS = re.compile(r"(?:部署|上线|发布)(?:了|过)|已于")
 RELEASE_EVENT_VERBS = re.compile(
     r"\b(?:happened|took place|occurred|ran|succeeded|completed|finished|went (?:out|ahead|through)|"
