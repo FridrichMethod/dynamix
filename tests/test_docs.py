@@ -141,9 +141,11 @@ CONDITION_BEFORE = re.compile(
 CONDITION_AFTER = re.compile(r"[^。；，：、,;:.!?]*?(?:(?<![暂及同当])时(?![间刻])|的话|情况下)")
 # ASCII punctuation ends a clause before whitespace only, so a version (v1.1.0) or a file name stays in its clause.
 CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：、。！？]")
-# A clause that continues the one before it ("If X is wrong, or the variable is unset, ..."): the condition of the
-# first clause covers it.
+# A clause that continues the one before it ("If X is wrong, or the variable is unset, ..."): a condition that opens
+# the first clause covers it (CONDITION_OPENS). A condition inside an earlier clause covers that clause alone ("The tag
+# v1.1.0 exists if you check, and the variable is unset.").
 COORDINATED = re.compile(r"\s*(?:(?:or|and|nor)\b|或者|或|并且|且)", re.IGNORECASE)
+CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
 # "Nothing is deployed" states the site's state unless a condition opens its sentence ("When ..., nothing is
 # deployed."); a trailing condition does not count, as for the unset wording.
 NOTHING_DEPLOYED = re.compile(rf"\b(?:nothing|none) (?:is|are) {_DONE}", re.IGNORECASE)
@@ -286,12 +288,13 @@ def sentences(lines: list[str], keep_code: bool = False) -> list[str]:
 
 def clause_before(text: str, end: int) -> str:
     """The clause of ``text`` that ends at ``end``, joined with the clauses before it that it continues with "or" or
-    "and" (COORDINATED), so that a condition opening the first of them counts for it."""
+    "and" (COORDINATED) when a condition opens the first of them (CONDITION_OPENS), so that the condition counts for
+    it; otherwise the clause alone."""
     parts = CLAUSE_BREAK.split(text[:end])
-    clause = parts.pop()
-    while parts and COORDINATED.match(clause):
-        clause = parts.pop() + clause
-    return clause
+    clause = continued = parts.pop()
+    while parts and COORDINATED.match(continued):
+        continued = parts.pop() + continued
+    return continued if CONDITION_OPENS.match(continued) else clause
 
 
 def hold_wording(text: str) -> list[str]:
@@ -901,6 +904,8 @@ class ReleaseStateTests(unittest.TestCase):
         "Nothing is deployed.",
         "Nothing is deployed if you look today.",
         "Nothing has been deployed.",
+        # A condition inside an earlier clause joined with "and" does not cover the unset variable.
+        "The tag v1.1.0 exists if you check, and the variable is unset.",
         # Variants of the accurate sentences below that still tell an event: a fronted date, a version in the clause, a
         # comma before the event verb; and held releases whose phrase names a version.
         "2026-10-11，所有者批准后才部署到 GitHub Pages。",
