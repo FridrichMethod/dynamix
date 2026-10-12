@@ -254,7 +254,7 @@ npx --no-install eslint --max-warnings=0 src
 
 `v1.1.0`（2026-10-11）是当前版本，以 [GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.1.0) 的形式发布；上面的网站由其标签所指的提交部署。`v1.0.0`（2026-10-11）是首个版本，其 [GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0) 以一个下载包提供该版本的完整存档：每个原文件一份，放在其目录路径下（包括 `archive` 层级的文件；同一字节在其他记录路径下的副本不重复收录，目录按 SHA-256 对应到文件），另附 `data/`（目录、覆盖率、来源清单与发现快照）、公开文档、`LICENSE`、`NOTICE`、`licenses/` 和 `SHA256SUMS` 校验清单。
 
-- [Pages 工作流](.github/workflows/pages.yml)只部署已发布的版本。用 `vX.Y.Z` 标签（三个数字）发布、且不是预发布版本的 GitHub Release 会部署该标签所指的提交；在这样的标签上手动触发会重新部署它（`gh workflow run pages.yml --ref v1.1.0`）。推送、PR 和定时任务从不启动它。其他任何运行都会在构建任何内容之前失败关闭：在分支上的手动触发、不是 `vX.Y.Z` 的标签（例如 `v1.1` 或 `v1.1.0-rc1`）、草稿或预发布版本，或者提交不在 `main` 上的标签。发布的运行会检查这些条件，在该标签的提交上重新运行全部测试，用 `prepare_pages.py` 暂存网站并部署。
+- [Pages 工作流](.github/workflows/pages.yml)只部署已发布的版本。用 `vX.Y.Z` 标签（三个数字）发布、且不是预发布版本的 GitHub Release 会部署该标签所指的提交；在这样的标签上手动触发会重新部署该标签所指的提交（`gh workflow run pages.yml --ref v1.1.0`）；手动触发不会查询该标签的 GitHub Release，因此只用它重新部署已发布的标签。推送、PR 和定时任务从不启动它。其他任何运行都会在构建任何内容之前失败关闭：在分支上的手动触发、不是 `vX.Y.Z` 的标签（例如 `v1.1` 或 `v1.1.0-rc1`）、草稿或预发布的 Release，或者提交不在 `main` 上的标签。发布的运行会检查这些条件，在该标签的提交上重新运行全部测试，用 `prepare_pages.py` 暂存网站并部署。
 - 之后推送到 `main` 的提交会被测试但不会部署，因此网站显示的是最近一次发布的提交，可能比 `main` 旧。
 - 网站上 `archive` 层级文件的仓库链接（`archive_url`，`main` 上的 raw 地址）跟随 `main` 而不是已发布的提交：发布之后在 `main` 上撤回或移动的文件，在下一次发布之前链接会返回 404。该版本的标签保留其每个文件，地址为 `https://github.com/FridrichMethod/dynamix/raw/v1.1.0/` 加上文件路径。
 - Tests 工作流在每次推送时准备并检查网站，但只上传 CI artifact，不能部署。
