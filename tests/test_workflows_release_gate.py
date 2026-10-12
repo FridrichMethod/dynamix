@@ -89,7 +89,7 @@ GUARD_ROLES = ("event", "lookup", "release", "checkout", "main")
 TAG_CHECK = r'[[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]'
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
 # What each README says about a re-run of the deploy job alone (R1), and what it said while such a re-run could still
-# deploy.
+# deploy (matched as unformatted() reads it).
 README_RERUN = {
     "README.md": (
         'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys '
@@ -115,6 +115,11 @@ RETIRED_ENVIRONMENT = {
     ),
     "zh": ("只应手动运行 v1.1.1 起的标签", "允许来自 v* 标签的部署", "允许 main", "允许来自 main"),
 }
+# What no comment of pages.yml (the header or a comment after it) may say about a re-run without the approval job (R1):
+# that it repeats no lookup. It deploys nothing, and one that includes the build job repeats that job's lookup. Matched
+# as unformatted() reads them, "repeats no lookup" and "repeats no Release lookup" cover every sentence with either, and
+# "lookup it does not repeat" the approval job's outputs comment as the first R1 fix wrote it.
+RERUN_STALE = ("repeats no lookup", "repeats no Release lookup", "lookup it does not repeat")
 # Wording that the pages.yml header (read when releasing) must not have (matched as unformatted() reads it): the release
 # hold, the retired dispatch gate and wording of earlier versions of this workflow.
 HEADER_STALE = (
@@ -127,8 +132,7 @@ HEADER_STALE = (
     "dispatched tag",
     "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
     "with one read-only API request and deploys",  # the approval and the build job each send one
-    "repeats no lookup, so re-run the whole run",  # a re-run of the deploy job alone now deploys nothing
-    "repeats no lookup and deploys nothing",  # a re-run that includes the build job repeats its lookup
+    *RERUN_STALE,
     *RETIRED_ENVIRONMENT["en"],
 )
 # What the header must say: what deploys, what fails closed and the repository settings around the workflow.
@@ -161,10 +165,17 @@ SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
 
 
+# What unformatted() drops: code backticks, backslashes (Markdown escapes such as \*), the emphasis markers * and _, and
+# straight and curly quotes.
+FORMATTING = re.compile("[`\\\\*_\"'\u2018\u2019\u201c\u201d]")
+
+
 def unformatted(text: str) -> str:
-    """``text`` in lower case without code backticks or bold markers, as HEADER_STALE and RETIRED_ENVIRONMENT are
-    matched in the header and the READMEs: "allows `main`" reads "allows main"."""
-    return text.replace("`", "").replace("**", "").lower()
+    """``text`` as the stale wording (HEADER_STALE, RERUN_STALE, RETIRED_ENVIRONMENT, README_RERUN) is matched in
+    pages.yml and the READMEs: in lower case, without FORMATTING, and with each run of whitespace as one space.
+    "allows `main`", 'allows "main"', "allows **main**" and "allows  main" all read "allows main", and "*v\\** tags"
+    reads "v tags", as "v* tags" does."""
+    return re.sub(r"\s+", " ", FORMATTING.sub("", text)).lower()
 
 
 SAME_ATTEMPT = object()  # approved(): the approval job ran in the deploy job's own attempt
@@ -466,7 +477,7 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
 
     def test_header_comment_describes_the_release_gate(self):
         """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Stale wording
-        counts in code backticks too (unformatted()), as in the READMEs."""
+        counts with code backticks, quotes, emphasis or extra spaces too (unformatted()), as in the READMEs."""
         header = []
         for line in (WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines():
             if line.startswith("on:"):
@@ -481,6 +492,22 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
             with self.subTest(required=required):
                 self.assertIn(required, text)
 
+    def test_comments_after_the_header_drop_the_retired_re_run_wording(self):
+        """The comments after the header, such as the approval job's outputs comment, do not say that a re-run without
+        the approval job repeats no lookup either (RERUN_STALE, matched as unformatted() reads them)."""
+        comments, block, after_header = [], [], False
+        for line in [*(WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines(), ""]:
+            after_header = after_header or line.startswith("on:")
+            if after_header and line.strip().startswith("#"):
+                block.append(line.strip().lstrip("#").strip())
+            elif block:
+                comments.append(" ".join(block))
+                block = []
+        self.assertTrue(any("outputs of an earlier attempt" in comment for comment in comments), comments)
+        for stale in RERUN_STALE:
+            with self.subTest(stale=stale):
+                self.assertEqual([comment for comment in comments if unformatted(stale) in unformatted(comment)], [])
+
     def test_readmes_say_that_a_re_run_of_the_deploy_job_alone_deploys_nothing(self):
         """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1) and to re-run
         the whole run, no longer only that such a re-run repeats no lookup."""
@@ -488,7 +515,7 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
             text = (ROOT / relative).read_text(encoding="utf-8")
             with self.subTest(document=relative):
                 self.assertIn(required, text)
-                self.assertNotIn(stale, text)
+                self.assertNotIn(unformatted(stale), unformatted(text))
 
     def test_readmes_drop_the_retired_environment_rule(self):
         """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag

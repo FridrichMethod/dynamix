@@ -57,8 +57,10 @@ TOKEN = "stand-in-job-token"
 # commit, the git commands on origin and the commit that the main guard's refusal names (None: the guard passes). The
 # names first and second stand for the commits of release_repository(), whose checkout keeps v1.1.0 (annotated) on
 # second and v1.0.0 (lightweight) on first. Refs whose names end in the tag's name sort before and after it in the
-# output of git ls-remote, and an annotated one adds its own peeled ^{} line after the tag's, so only the exact names
-# count, the peeled line's included.
+# output of git ls-remote (refs/heads/... and refs/tags/a/... before it, refs/tags/x/... after it), and an annotated
+# one adds its own peeled ^{} line right after its own line, so the decoys' ^{} lines come both before and after the
+# tag's (and a lightweight tag has none): only the exact names count, the peeled line's included, not the first or the
+# last ^{} line.
 ORIGIN_CHANGES = {
     "an annotated tag as origin has it": ("v1.1.0", "second", (), None),
     "a lightweight tag as origin has it": ("v1.0.0", "first", (), None),
@@ -79,6 +81,7 @@ ORIGIN_CHANGES = {
         "second",
         (
             ("update-ref", "refs/heads/refs/tags/v1.1.0", "first"),
+            ("tag", "-a", "-m", "decoy", "a/refs/tags/v1.1.0", "first"),
             ("tag", "-a", "-m", "decoy", "x/refs/tags/v1.1.0", "first"),
         ),
         None,
@@ -86,7 +89,11 @@ ORIGIN_CHANGES = {
     "refs on origin whose names end in a lightweight tag's name": (
         "v1.0.0",
         "first",
-        (("update-ref", "refs/heads/refs/tags/v1.0.0", "second"), ("tag", "x/refs/tags/v1.0.0", "second")),
+        (
+            ("update-ref", "refs/heads/refs/tags/v1.0.0", "second"),
+            ("tag", "-a", "-m", "decoy", "a/refs/tags/v1.0.0", "second"),
+            ("tag", "-a", "-m", "decoy", "x/refs/tags/v1.0.0", "second"),
+        ),
         None,
     ),
     "an annotated tag moved on origin": (
@@ -106,6 +113,7 @@ ORIGIN_CHANGES = {
         "second",
         (
             ("tag", "-f", "-a", "-m", "moved", "v1.1.0", "first"),
+            ("tag", "-a", "-m", "decoy", "a/refs/tags/v1.1.0", "second"),
             ("tag", "-a", "-m", "decoy", "x/refs/tags/v1.1.0", "second"),
         ),
         "first",
