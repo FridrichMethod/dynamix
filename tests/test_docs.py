@@ -76,10 +76,11 @@ RELEASE_WORDS = re.compile(
     r"\bdeploy(?:s|ed|ing|ment|ments)?\b|\breleased\b|GitHub Release|\bversion tags?\b|部署|上线|版本标签",
     re.IGNORECASE,
 )
-# "Held", "hold" and 冻结 (frozen) guard nothing: about a release they are hold wording (HOLD_MARKERS). 未 also
+# "Held" and "hold" restrict a run ("A second Pages run is held while ..."); about a release they are hold wording,
+# which HOLD_MARKERS refuses anyway. 冻结 (frozen) needs no entry: HOLD_MARKERS refuses every sentence with it. 未 also
 # covers 尚未.
 GUARDS = re.compile(
-    r"\b(?:not|no|never|nothing|none|until|unless|would|will|only|cannot|future|later|"
+    r"\b(?:not|no|never|nothing|none|until|unless|would|will|only|cannot|held|hold|future|later|"
     r"requires?|before|if|when)\b|n't|不|未|没有|只有|只能|之前|将来|以后|如果|才|须|需要|手动|届时|会",
     re.IGNORECASE,
 )
@@ -1172,6 +1173,8 @@ class ReleaseStateTests(unittest.TestCase):
         "A deployment requires a published release.",
         "Deployments require a published release.",
         "The deploy job does not run for a prerelease.",
+        "A second Pages run is held while the first one deploys.",  # the github-pages concurrency group
+        "The concurrency group can hold a second Pages run while the first one deploys.",
         "A prerelease gets no deployment.",
         "None of the pull requests deploys the website.",
         "The website stays as it is until the next deployment.",
