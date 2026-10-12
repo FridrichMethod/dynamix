@@ -251,7 +251,7 @@ This section records the content of release `v1.1.0`: the reviewed content commi
 
 ## Release v1.1.1 (2026-10-12)
 
-This section records the content of release `v1.1.1`: the reviewed content commit **`69f13da8dac161fa229ecc3709785e2bea699252`** (`quality6/integration`). The commit that adds this section changes only this file. The section above describes `b647f08`; its open minor items give the state at release `v1.1.0`.
+This section records the content of release `v1.1.1`: the reviewed content commit **`69f13da8dac161fa229ecc3709785e2bea699252`** (`quality6/integration`). The commits after it change only `docs/implementation/`: this section, and one sentence of [06, Gate 5](06-validation-and-release.md#gate-5--release-hold-design), which now says that only an admin can choose the workflow that deploys a tag (the `github-pages` environment also allows `main`). The section above describes `b647f08`; its open minor items give the state at release `v1.1.0`.
 
 **After `v1.1.0`.** Three fix rounds closed the open minor items that need no live access. Each fix branch was re-verified by a separate agent before it was merged, and a final review read the whole change set; its findings, all minor, were fixed in the last round. No blocking or major finding is open.
 
