@@ -11,6 +11,7 @@ pre-commit hook read-only and never fixes; the checks job runs the unit tests un
 Their shell steps are executed with stand-ins (a fake Node.js, a stand-in test suite).
 """
 
+import functools
 import importlib.util
 import json
 import os
@@ -43,6 +44,7 @@ EVENT_GUARD_ENV = {
     "TAG": "${{ github.event.release.tag_name }}",
     "DRAFT": "${{ github.event.release.draft }}",
     "PRERELEASE": "${{ github.event.release.prerelease }}",
+    "LC_ALL": "C",  # [0-9] in the tag check is then the ASCII digits only (WIDE_DIGIT_LOCALE)
 }
 MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}"}
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
@@ -113,6 +115,9 @@ DENIED = {  # each must fail the event guard; the deploy condition refuses all b
     "dispatch on the tag v1.1.0.1": dispatched("refs/tags/v1.1.0.1"),
     "dispatch on the tag V1.1.0": dispatched("refs/tags/V1.1.0"),
     "dispatch on a ref with a second line": dispatched("refs/tags/v1.1.0\nrefs/heads/main"),
+    "dispatch on a tag with an Arabic-Indic digit": dispatched("refs/tags/v1.1.\u0663"),
+    "dispatch on a tag with a fullwidth digit": dispatched("refs/tags/v\uff11.1.0"),
+    "release of a tag with a superscript digit": released("v1.1.\u00b3"),
     "release v1.1": released("v1.1"),
     "release 1.1.0": released("1.1.0"),
     "release v1.1.0-rc1 marked as a prerelease": released("v1.1.0-rc1", prerelease=True),
@@ -133,6 +138,9 @@ EXPRESSION_BLIND = {
     "dispatch on the tag v1.1.0.1",
     "dispatch on the tag V1.1.0",
     "dispatch on a ref with a second line",
+    "dispatch on a tag with an Arabic-Indic digit",
+    "dispatch on a tag with a fullwidth digit",
+    "release of a tag with a superscript digit",
     "release v1.1",
     "release v1.1.0-rc1 not marked as a prerelease",
     "release without a prerelease flag",
@@ -339,25 +347,59 @@ def evaluate(expression: str, context: dict) -> bool:
 
 
 def resolve_env(env: dict, context: dict) -> dict:
-    """``${{ name }}`` env values as GitHub renders them: null as '', booleans as 'true'/'false'."""
+    """``${{ name }}`` env values as GitHub renders them: null as '', booleans as 'true'/'false'; a value without an
+    expression (``LC_ALL: C``) as it is written. Any other use of an expression is refused."""
     resolved = {}
     for name, value in env.items():
         match = re.fullmatch(r"\$\{\{\s*([\w.]+)\s*\}\}", value)
-        if not match:
+        if match:
+            resolved[name] = as_text(context.get(match.group(1)))
+        elif "${{" in value:
             raise ValueError(f"unexpected env value {value!r}")
-        resolved[name] = as_text(context.get(match.group(1)))
+        else:
+            resolved[name] = value
     return resolved
 
 
+WIDE_DIGIT = "\u0663"  # ARABIC-INDIC DIGIT THREE
+
+
+@functools.cache
+def wide_digit_locale() -> str | None:
+    """An installed locale in which bash's ``[0-9]`` also matches digits of other scripts, as glibc's en_US.UTF-8
+    does: the guards run in it (run_guard), so a guard that relies on the locale for its tag check is caught. None
+    when bash or such a locale is missing; the guards then run in the C locale."""
+    if not shutil.which("bash"):
+        return None
+    for name in ("en_US.UTF-8", "en_GB.UTF-8", "de_DE.UTF-8", "fr_FR.UTF-8"):
+        probe = subprocess.run(
+            ["bash", "--noprofile", "--norc", "-c", '[[ "$PROBE" =~ ^[0-9]$ ]]'],
+            env={"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "LANG": name, "PROBE": WIDE_DIGIT},
+            capture_output=True,
+        )
+        if probe.returncode == 0:
+            return name
+    return None
+
+
 def run_guard(step: dict, context: dict, cwd: Path | None = None, **extra: str) -> subprocess.CompletedProcess:
-    """Execute a shell guard step with bash -eo pipefail, its env resolved from ``context`` (plus ``extra``)."""
-    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), **GIT_ENV, **extra, **resolve_env(step["env"], context)}
+    """Execute a shell guard step with bash -eo pipefail, its env resolved from ``context`` (plus ``extra``), in the
+    locale of :func:`wide_digit_locale` when there is one (the step's own env, LC_ALL included, takes precedence)."""
+    locale = {"LANG": name} if (name := wide_digit_locale()) else {}
+    env = {
+        "PATH": os.environ.get("PATH", "/usr/bin:/bin"),
+        **GIT_ENV,
+        **locale,
+        **extra,
+        **resolve_env(step["env"], context),
+    }
     return subprocess.run(
         ["bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", step["run"]],
         cwd=cwd,
         env=env,
         capture_output=True,
-        text=True,
+        encoding="utf-8",
+        errors="replace",
     )
 
 
@@ -569,6 +611,48 @@ class ReleaseGateTests(unittest.TestCase):
                     self.assertNotEqual(result.returncode, 0)
                     self.assertEqual(len(error_lines(result)), 1, result.stdout)
 
+    @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
+    def test_the_tag_check_takes_ascii_digits_only_in_any_locale(self):
+        """The event guard runs with LC_ALL=C, so the [0-9] of its vX.Y.Z check is the ASCII digits only. In a locale
+        such as en_US.UTF-8, bash's [0-9] also matches Arabic-Indic, fullwidth or superscript digits, which a Git tag
+        name may contain; the deploy condition's startsWith() and a v* environment rule would let such a tag through
+        (EXPRESSION_BLIND). The same step without LC_ALL accepts it in that locale, so the check is not vacuous."""
+        locale = wide_digit_locale()
+        if locale is None:
+            self.skipTest("no installed locale in which bash's [0-9] matches the digits of other scripts")
+        scenarios = (
+            "dispatch on a tag with an Arabic-Indic digit",
+            "dispatch on a tag with a fullwidth digit",
+            "release of a tag with a superscript digit",
+        )
+        for job_id in ("approval", "build"):
+            step = self.guard_steps(job_id)[0]
+            self.assertEqual(step["env"].get("LC_ALL"), "C")
+            loose = {**step, "env": {name: value for name, value in step["env"].items() if name != "LC_ALL"}}
+            for scenario in scenarios:
+                with self.subTest(job=job_id, scenario=scenario, locale=locale):
+                    errors = error_lines(run_guard(step, DENIED[scenario]))
+                    self.assertEqual(len(errors), 1)
+                    self.assertIn("vX.Y.Z", errors[0])
+                    accepted = run_guard(loose, DENIED[scenario])
+                    self.assertEqual(accepted.returncode, 0, accepted.stdout + accepted.stderr)
+
+    def test_no_guard_step_or_gate_job_can_be_neutralised(self):
+        """GitHub skips a step whose if: is false, lets a job succeed despite a failing step under continue-on-error,
+        and runs a step with the shell it names. Any of these on a guard step, or continue-on-error or a defaults
+        shell on the approval or the build job, would let a refused run reach the tests, the artifact or the
+        deployment. The guard steps have exactly a name, an env and a run script, and run with the workflow's bash
+        (bash --noprofile --norc -eo pipefail)."""
+        self.assertEqual(self.pages["defaults"], {"run": {"shell": "bash"}})
+        for job_id in ("approval", "build"):
+            job = self.pages["jobs"][job_id]
+            for key in ("continue-on-error", "defaults", "if"):
+                with self.subTest(job=job_id, key=key):
+                    self.assertNotIn(key, job)
+            for step in self.guard_steps(job_id):
+                with self.subTest(job=job_id, step=step["name"]):
+                    self.assertEqual(sorted(step), ["env", "name", "run"], "no if:, continue-on-error or shell:")
+
     def test_guard_messages_describe_the_gate_not_a_hold(self):
         for job_id in ("approval", "build"):
             for step in self.guard_steps(job_id):
@@ -754,6 +838,7 @@ class ExpressionEvaluatorTests(unittest.TestCase):
         self.assertEqual(resolve_env(env, context), {"A": "false", "B": "", "C": "x", "D": "true", "E": ""})
         with self.assertRaises(ValueError):
             resolve_env({"A": "prefix ${{ a }}"}, context)
+        self.assertEqual(resolve_env({"LC_ALL": "C"}, context), {"LC_ALL": "C"})  # a constant, as written
 
 
 class PinningAndCommandTests(unittest.TestCase):

@@ -32,7 +32,8 @@ or game only where page evidence is absent (or break a tie between equally suppo
 exclusion reason given by page evidence with the exclusion seen in the bytes; a mapping that rests on a review is
 ``inferred`` at most. Song art named only by the filename convention is mapped (``inferred``) to the one
 original-game song whose page embeds it. A caption "Artwork in <BMS event>" (PABAT, BOF) names the artwork of the
-song's release in that event: ``external_release_art``.
+song's release in that event: ``external_release_art`` (never for a name that starts with "Dynamix",
+:data:`config.DYNAMIX_NAME`).
 
 Songs: the strongest page evidence naming a song for the decided role, and among it the songs named by the most
 distinct pages (see :func:`_song_mapping`); a cover-art caption that quotes another original-game song's title names
@@ -388,8 +389,14 @@ def page_evidence(
                     song, song_page = quoted
                     detail += f", the caption names the cover of another song ({quoted[0]})"
                 other = config.OTHER_GAME_ARTWORK.search(ref.caption) if caption_role in KINDS else None
-                named = other.group("other").strip().strip("'\"") if other is not None else ""
-                if other is not None and config.EXTERNAL_RELEASE_EVENT.search(named):
+                raw = other.group("other") if other is not None else ""
+                named = raw.strip().strip("'\"")
+                release_event = (
+                    other is not None
+                    and config.DYNAMIX_NAME.match(raw) is None  # "for Dynamix PABAT 2017": no event
+                    and config.EXTERNAL_RELEASE_EVENT.search(named) is not None
+                )
+                if release_event:
                     # "Artwork in PABAT! 2017": the song's artwork for a separate (BMS) event release, not Dynamix's.
                     role, song = "external_release_art", None
                     detail += f", artwork of the song's release for {named} (an external release event)"
@@ -402,9 +409,10 @@ def page_evidence(
                         games_named = ", ".join(other_games)
                         game_note = f": {games_named}" if games_named != named else ""
                         detail += f", artwork of the song for {named} (another game/event{game_note})"
-                    elif named:
+                    elif named and not config.DYNAMIX_QUALIFIED.match(raw):
                         # Owner decision 2026-10-11: a name that is not on the reviewed list (an unlisted event,
-                        # holiday or game) records no association; the evidence asks a curator to review it.
+                        # holiday or game) records no association; the evidence asks a curator to review it. The game's
+                        # own name with a dash-separated qualifier ("Dynamix - original") names nothing to review.
                         detail += f", the caption names {named}, {config.OTHER_GAME_REVIEW}"
                     if (
                         game is None
