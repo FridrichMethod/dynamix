@@ -905,13 +905,15 @@ class OtherGameCaptionTests(unittest.TestCase):
         self.assertIn("ravon", slugs)
 
     def test_each_reviewed_entry_says_what_it_is(self) -> None:
-        """The comment above each OTHER_GAMES entry in scripts/wikis/config.py says what the entry is: a reviewed
-        entry, and for the six the owner decision of 2026-10-11 kept (RAVON, Arcaea, Lanota, Cytus, Cytus II,
-        Phigros) an owner-approved one; RAVON's also names the committed captions that evidence it. No comment calls
-        an entry a test entry or its membership an open owner question any more."""
+        """The comment above each OTHER_GAMES entry in scripts/wikis/config.py says what the entry is, in the same
+        words for every entry: an owner-approved reviewed entry, since the owner decision of 2026-10-11 keeps all seven
+        (RAVON, Arcaea, Lanota, Cytus, Cytus II, Phigros and Rotaeno), and the list header names the seven. RAVON's
+        comment also names the committed captions that evidence it. No comment calls an entry a test entry, its
+        membership an open owner question, or an entry one that awaits the owner's confirmation any more."""
         source = (ROOT / "scripts/wikis/config.py").read_text(encoding="utf-8")
         start = source.index("\nOTHER_GAMES = (\n")
         header = source[source.index("# Other games named in captions") : start]
+        header = " ".join(line.lstrip("#").strip() for line in header.splitlines())
         block = source[start : source.index("\n)\n", start)].splitlines()[2:]
         comments: dict[str, str] = {}
         pending: list[str] = []
@@ -922,23 +924,27 @@ class OtherGameCaptionTests(unittest.TestCase):
             elif stripped.startswith("OtherGame("):
                 comments[stripped.split('"')[1]] = " ".join(pending)
                 pending = []
+        approved = ("RAVON", "Arcaea", "Lanota", "Cytus", "Cytus II", "Phigros", "Rotaeno")
+        self.assertEqual(sorted(comments), sorted(approved))
         self.assertEqual(sorted(comments), sorted(game.name for game in config.OTHER_GAMES))
-        approved = {"RAVON", "Arcaea", "Lanota", "Cytus", "Cytus II", "Phigros"}
         stale = (
             "test entry",
             "list's own tests",
             "earlier caption tests",
             "added with this list",
             "open owner question",
+            "awaits",
+            "owner's confirmation",
+            "does not name",
         )
         for name, comment in comments.items():
             with self.subTest(game=name):
-                self.assertIn("reviewed entry", comment.casefold())
+                self.assertTrue(comment.startswith("Owner-approved reviewed entry (2026-10-11)"), comment)
                 for phrase in stale:
                     self.assertNotIn(phrase, comment.casefold())
-                if name in approved:
-                    self.assertIn("Owner-approved reviewed entry (2026-10-11)", comment)
         self.assertIn("committed captions", comments["RAVON"].casefold())
+        self.assertIn("seven entries", header)
+        self.assertIn(", ".join(approved[:-1]) + " and " + approved[-1], header)
         for phrase in stale:
             with self.subTest(header=phrase):
                 self.assertNotIn(phrase, header.casefold())

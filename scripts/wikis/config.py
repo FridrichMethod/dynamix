@@ -321,12 +321,11 @@ class OtherGame:
 # Collaboration Event", "Arcaea's 3rd Anniversary"). Any other name -- an unlisted event, holiday or game, Dynamix's own
 # occasions among them ("the Halloween Event") -- records no association, so the page game and the default rights
 # holder stay, and the item's evidence names it with OTHER_GAME_REVIEW for a curator. A new collaboration needs a
-# reviewed entry here. The owner approved the entries on 2026-10-11 (RAVON, Arcaea, Lanota, Cytus, Cytus II and
-# Phigros); each entry says so and names the committed evidence for it, if there is any: RAVON is the only game that
-# committed wiki captions name, and committed primary-source records associate Arcaea, Lanota and Rotaeno with Dynamix
-# artwork. That approval does not name Rotaeno, so its entry says that it awaits the owner's confirmation.
-# The list replaces the occasion heuristic (word lists DYNAMIX_OCCASION/OCCASION_WORDS), which read every name it did
-# not know as a game.
+# reviewed entry here. The owner approved all seven entries on 2026-10-11 (RAVON, Arcaea, Lanota, Cytus, Cytus II,
+# Phigros and Rotaeno); each entry says so and names the committed evidence for it, if there is any: RAVON is the only
+# game that committed wiki captions name, and committed primary-source records associate Arcaea, Lanota and Rotaeno
+# with Dynamix artwork. The list replaces the occasion heuristic (word lists DYNAMIX_OCCASION/OCCASION_WORDS), which
+# read every name it did not know as a game.
 OTHER_GAMES = (
     # Owner-approved reviewed entry (2026-10-11), also evidenced by committed captions: the galleries of six
     # original-game song pages on both wikis caption their square art "<song> Artwork in RAVON" (Black：Magnam, Jack Out
@@ -349,10 +348,9 @@ OTHER_GAMES = (
     # Owner-approved reviewed entry (2026-10-11). No committed caption or game association names it (committed records
     # name Phigros only in the titles and notes of excluded fan videos on Fandom).
     OtherGame("Phigros", "phigros", ("Phigros",)),
-    # Reviewed entry, kept on the list; the owner approval of 2026-10-11 names the six entries above, not this one, so
-    # it awaits the owner's confirmation. No committed caption names it; the primary seeds associate it with Dynamix
-    # artwork: C4Cat's "Dynamix X Rotaeno Collaboration Announcement" key visual (scripts/primary/seeds/archives.json,
-    # game_associations dynamix and rotaeno).
+    # Owner-approved reviewed entry (2026-10-11). No committed caption names it; the primary seeds associate it with
+    # Dynamix artwork: C4Cat's "Dynamix X Rotaeno Collaboration Announcement" key visual
+    # (scripts/primary/seeds/archives.json, game_associations dynamix and rotaeno).
     OtherGame("Rotaeno", "rotaeno", ("Rotaeno",)),
 )
 # A spelling matches as whole words in any letter case, its words separated by any whitespace, the longest spelling
