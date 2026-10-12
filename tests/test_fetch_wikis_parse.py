@@ -891,6 +891,7 @@ class OtherGameCaptionTests(unittest.TestCase):
             ("Cover for RAVON, Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON",)),  # the first name counts
             ("Cover for RAVON Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON", "Lanota")),  # inside it
             ("Cover for Artwork in", "Dynamix", "Lanota Collaboration", ("Lanota",)),  # at its start
+            ("Artwork in", "Dynamix", "Lanota Collaboration; Cover for RAVON", ("Lanota",)),  # before a later name
         )
         for lead, bare, rest, others in cases:
             caption = f"S {lead} {bare}, {rest}"
@@ -913,6 +914,8 @@ class OtherGameCaptionTests(unittest.TestCase):
         self.assertIn("artwork of the song for Dynamix, Lanota Collaboration (another game/event: Lanota)", item.detail)
         item = self.gallery_item("S Cover for RAVON Artwork in Dynamix, Lanota Collaboration")  # the name as written
         self.assertIn("for RAVON Artwork in Dynamix, Lanota Collaboration (another game/event: RAVON,", item.detail)
+        item = self.gallery_item("S Cover for RAVON Artwork in Dynamix ,Lanota Collaboration")  # its spacing too
+        self.assertIn("for RAVON Artwork in Dynamix ,Lanota Collaboration (another game/event: RAVON,", item.detail)
         for caption, others in (
             ("S Artwork in Dynamix , Lanota Collaboration", ("Lanota",)),  # a space before the comma
             ("S Artwork in Dynamix, HQ Cover for Dynamix, Lanota Collaboration", ("Lanota",)),  # a second name
