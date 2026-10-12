@@ -125,7 +125,7 @@ HOLD_MARKERS = re.compile(
 # It is hold wording as a statement ("`RELEASE_APPROVED_SHA` is unset, so ..."), not as the condition of the guard ("If
 # the variable is unset, the dispatch fails closed", "变量未设置时……").
 UNSET_WORDING = re.compile(
-    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains|was)(?: still| currently| now| yet)?"
+    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains|was)(?: still| currently| now)?"
     r"(?: unset|(?: not|n['’]t)(?: yet| currently)? set)\b|"
     r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|还|尚)?\s*(?:未|没有)(?:被)?设置",
     re.IGNORECASE,
@@ -900,6 +900,17 @@ class ReleaseStateTests(unittest.TestCase):
         "`RELEASE_APPROVED_SHA` 目前未设置。",
         "网站暂不部署。",
         "The website is temporarily not deployed.",
+        # Each other adverb, tense and negation of the unset wording, in either language.
+        "The variable is now unset.",
+        "`RELEASE_APPROVED_SHA` was unset, so every dispatch stopped at the approval job.",
+        "The variable is not yet set.",
+        "`RELEASE_APPROVED_SHA` is not currently set.",
+        "`RELEASE_APPROVED_SHA` 目前没有设置。",
+        "`RELEASE_APPROVED_SHA` 未被设置。",
+        "`RELEASE_APPROVED_SHA` 当前未设置。",
+        "变量现在未设置。",
+        "变量仍然未设置。",
+        "变量依然未设置。",
         # A plain statement with an unrelated condition after it, and past deployments with an adverb or another verb.
         "The variable is unset if you look at the settings today.",
         "`RELEASE_APPROVED_SHA` is unset when you look at the settings.",
