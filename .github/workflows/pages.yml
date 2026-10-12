@@ -1,12 +1,12 @@
-name: Deploy GitHub Pages (published releases only)
+name: Deploy GitHub Pages (vX.Y.Z tags on main only)
 
-# Release tags only. This workflow never runs on push, pull request or a schedule. A published GitHub Release whose tag is
-# vX.Y.Z (three numbers, not a prerelease) deploys the commit of that tag; a manual dispatch on such a tag deploys that
-# commit again (gh workflow run pages.yml --ref v1.1.0; a dispatch does not look up the tag's Release, so use it only
-# to redeploy a released tag). Both need the tag's commit to be on main, and the full Tests workflow must
-# pass on that commit before the artifact is built. Any other run fails closed at the approval job (a dispatch on a
-# branch, a tag that is not vX.Y.Z, a release that is a draft or prerelease, a commit that is not on main): no tests, no artifact, no
-# deployment. The build job repeats the approval job's guards, and the deploy job has its own condition. The
+# vX.Y.Z tags on main only. This workflow never runs on push, pull request or a schedule. A published GitHub Release
+# whose tag is vX.Y.Z (three numbers, not a prerelease) deploys the commit of that tag; a manual dispatch on such a tag
+# deploys that commit (gh workflow run pages.yml --ref v1.1.0; a dispatch does not look up the tag's Release, so use it
+# only to redeploy a released tag). Both need the tag's commit to be on main, and the full Tests workflow must pass on
+# that commit before the artifact is built. Any other run fails closed at the approval job (a dispatch on a branch, a
+# tag that is not vX.Y.Z, a release that is a draft or prerelease, a commit that is not on main): no tests, no artifact,
+# no deployment. The build job repeats the approval job's guards, and the deploy job has its own condition. The
 # github-pages environment must allow deployments from v* tags.
 on:
   release:
@@ -53,7 +53,7 @@ jobs:
             workflow_dispatch)
               ;;
             *)
-              fail "Pages deploys only from a published release or a dispatch on a release tag, not $EVENT_NAME."
+              fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
               ;;
           esac
           [[ "$REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "Pages deploys only a vX.Y.Z tag, not $REF."
@@ -117,7 +117,7 @@ jobs:
             workflow_dispatch)
               ;;
             *)
-              fail "Pages deploys only from a published release or a dispatch on a release tag, not $EVENT_NAME."
+              fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
               ;;
           esac
           [[ "$REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "Pages deploys only a vX.Y.Z tag, not $REF."
