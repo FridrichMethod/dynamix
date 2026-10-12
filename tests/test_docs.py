@@ -61,10 +61,11 @@ ATTRIBUTION = re.compile(
     re.IGNORECASE,
 )
 # A flat claim that something is deployed, live or published as the site, in any tense that states it as done, also
-# with an adverb between ("was first deployed", "is already live").
+# with an adverb between ("was first deployed", "is already live"). "Nothing is deployed" is not a claim that something
+# is: hold_wording() refuses it unless a condition opens its sentence (NOTHING_DEPLOYED).
 _DONE = r"(?:(?:now|first|already|successfully|finally|recently|just|last) )?(?:deployed|live)\b"
 FLAT_CLAIMS = re.compile(
-    rf"github\.io|\b(?:is|was|has been|have been|are|were) {_DONE}|"
+    rf"github\.io|(?<!\bnothing )(?<!\bnone )\b(?:is|are) {_DONE}|\b(?:was|has been|have been|were) {_DONE}|"
     r"\bwent live\b|\blive (?:site|website)\b|GitHub Pages site at|\bpublished (?:on|with|to|at|by) GitHub Pages\b|"
     r"\breleased as v\d|已(?:经)?部署|已上线|已经上线|(?:网站|站点|GitHub Pages|v\d+\.\d+\.\d+)[^。；，\n]{0,20}?已(?:经)?发布",
     re.IGNORECASE,
@@ -135,6 +136,10 @@ CONDITION_BEFORE = re.compile(
 )
 CONDITION_AFTER = re.compile(r"[^。；，：、,;:.!?]*?(?:(?<![暂及同当])时(?![间刻])|的话)")
 CLAUSE_BREAK = re.compile(r"[,;:.!?，；：、。！？]")
+# "Nothing is deployed" states the site's state unless a condition opens its sentence ("When ..., nothing is
+# deployed."); a trailing condition does not count, as for the unset wording.
+NOTHING_DEPLOYED = re.compile(rf"\b(?:nothing|none) (?:is|are) {_DONE}", re.IGNORECASE)
+SENTENCE_BREAK = re.compile(r"[.!?;](?=\s|$)|[。！？；]|\n")
 # A deployment or release told as an event that happened (a date or a past-tense event verb), which is what happened,
 # not how the guard works, whatever guard word the sentence also has ("... happened on 2026-10-11 when the owner
 # approved it").
@@ -263,12 +268,16 @@ def sentences(lines: list[str], keep_code: bool = False) -> list[str]:
 
 
 def hold_wording(text: str) -> list[str]:
-    """Hold wording in rendered text: every HOLD_MARKERS match, and the release variable stated as unset unless a
-    condition opens its clause or follows it (then the text describes the guard, not the site's state)."""
+    """Hold wording in rendered text: every HOLD_MARKERS match; the release variable stated as unset unless a condition
+    opens its clause or, in Chinese, follows it; and "nothing is deployed" unless a condition opens its sentence. With
+    the condition, the text describes the guard, not the site's state."""
     found = [match.group() for match in HOLD_MARKERS.finditer(text)]
     for match in UNSET_WORDING.finditer(text):
         clause = CLAUSE_BREAK.split(text[: match.start()])[-1] + match.group()
         if not (CONDITION_BEFORE.search(clause) or CONDITION_AFTER.match(text, match.end())):
+            found.append(match.group())
+    for match in NOTHING_DEPLOYED.finditer(text):
+        if not CONDITION_BEFORE.search(SENTENCE_BREAK.split(text[: match.start()])[-1]):
             found.append(match.group())
     return found
 
@@ -837,6 +846,10 @@ class ReleaseStateTests(unittest.TestCase):
         "The website was first deployed to GitHub Pages when v1.0.0 was tagged.",
         "The deployment was approved when v1.0.0 was tagged.",
         "The website is already live, so nothing else is needed.",
+        # "Nothing is deployed" as the state of the site, also with a condition after it.
+        "Nothing is deployed.",
+        "Nothing is deployed if you look today.",
+        "Nothing has been deployed.",
     )
     OUTSIDE_ALLOWED = (
         "A push to `main` never deploys the website.",
@@ -856,6 +869,9 @@ class ReleaseStateTests(unittest.TestCase):
         "A composer's release cover is not the illustrator's original.",
         "If `RELEASE_APPROVED_SHA` is not set, the dispatch fails closed.",
         "变量目前未设置时，触发会失败关闭。",
+        # "Nothing is deployed" as the outcome of a condition of the guard.
+        "When the variable is unset or names another commit, nothing is deployed.",
+        "If a tag is not `vX.Y.Z`, nothing is deployed.",
     )
 
     def test_release_wording_rule_outside_the_readmes(self):
@@ -943,6 +959,7 @@ class ReleaseStateTests(unittest.TestCase):
             "Because `RELEASE_APPROVED_SHA` is unset, every dispatch fails closed.",
             "`RELEASE_APPROVED_SHA` is not set, so every dispatch fails closed.",
             "The variable is unset if you look at the settings today.",
+            "Nothing is deployed.",
         ),
         "README.zh-CN.md": (
             "目前没有任何发布。",
@@ -965,6 +982,7 @@ class ReleaseStateTests(unittest.TestCase):
             "If the release is a prerelease or its tag's commit is not on `main`, the run fails closed.",
             "A dispatch on a branch fails closed, and a push to `main` is tested but not deployed.",
             "A tag that is not `vX.Y.Z` is never deployed.",
+            "When a dispatch is on a branch, nothing is deployed.",
         ),
         "README.zh-CN.md": (
             "如果发布是预发布版本，或其标签的提交不在 `main` 上，运行会失败关闭。",
