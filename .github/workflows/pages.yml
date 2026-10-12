@@ -30,6 +30,9 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+    outputs:
+      # Written by the last step only, after every guard passed; the deploy job requires it to be github.sha.
+      commit: ${{ steps.approved.outputs.commit }}
     steps:
       - name: Refuse unless a published vX.Y.Z release or a dispatch on a vX.Y.Z tag
         env:
@@ -80,6 +83,12 @@ jobs:
           git merge-base --is-ancestor "$SHA" refs/remotes/origin/main \
             || fail "The release commit $SHA is not on main; only commits on main are released."
           echo "$REF names $SHA, which is on main."
+      - name: Record the commit that passed every guard
+        id: approved
+        env:
+          SHA: ${{ github.sha }}
+        run: |
+          echo "commit=$SHA" >> "$GITHUB_OUTPUT"
 
   tests:
     name: Tests
@@ -174,9 +183,9 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: build
+    needs: [approval, build]
     if: >-
-      startsWith(github.ref, 'refs/tags/v') &&
+      startsWith(github.ref, 'refs/tags/v') && needs.approval.outputs.commit == github.sha &&
       (github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'release' && github.event.action == 'published' &&
       toJSON(github.event.release.prerelease) == 'false'))

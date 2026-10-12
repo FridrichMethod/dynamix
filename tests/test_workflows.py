@@ -30,15 +30,26 @@ from test_workflows_yaml import parse_yaml  # noqa: E402
 
 WORKFLOWS = ROOT / ".github/workflows"
 EXPECTED_WORKFLOWS = {"tests.yml", "pages.yml", "check-sources.yml"}
-# The deploy job's condition: a tag ref, and a dispatch or a published release that is not a prerelease. The prerelease
-# flag is compared as JSON (owner decision D3): GitHub's == coerces null to false, so a release without the flag would
-# pass "prerelease == false". It cannot tell a malformed tag or a commit off main (EXPRESSION_BLIND); the shell guards
-# before it refuse those.
+# The deploy job's condition: a tag ref, the commit that the approval job recorded after its guards passed (owner
+# decision D4), and a dispatch or a published release that is not a prerelease. The prerelease flag is compared as JSON
+# (owner decision D3): GitHub's == coerces null to false, so a release without the flag would pass "prerelease ==
+# false". It cannot tell a malformed tag or a commit off main (EXPRESSION_BLIND); the shell guards before it refuse
+# those.
 DEPLOY_IF = (
-    "startsWith(github.ref, 'refs/tags/v') && (github.event_name == 'workflow_dispatch' || "
+    "startsWith(github.ref, 'refs/tags/v') && needs.approval.outputs.commit == github.sha && "
+    "(github.event_name == 'workflow_dispatch' || "
     "(github.event_name == 'release' && github.event.action == 'published' && "
     "toJSON(github.event.release.prerelease) == 'false'))"
 )
+# The approval job's output: the commit it approved, written by its last step after every guard passed.
+APPROVAL_OUTPUT = "needs.approval.outputs.commit"
+APPROVAL_OUTPUTS = {"commit": "${{ steps.approved.outputs.commit }}"}
+RECORD_STEP = {
+    "name": "Record the commit that passed every guard",
+    "id": "approved",
+    "env": {"SHA": "${{ github.sha }}"},
+    "run": 'echo "commit=$SHA" >> "$GITHUB_OUTPUT"\n',
+}
 EVENT_GUARD_ENV = {
     "EVENT_NAME": "${{ github.event_name }}",
     "ACTION": "${{ github.event.action }}",
@@ -78,6 +89,7 @@ AFTER_INSTALL = "${{ !cancelled() && steps.install.outcome == 'success' }}"
 COVERAGE_FILE = "${{ runner.temp }}/coverage/.coverage"  # outside the checkout
 VENV_PYTHON = '"$RUNNER_TEMP/venv/bin/python"'
 SHA = "0123456789abcdef0123456789abcdef01234567"
+OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
 
 
 def released(tag: str, **release: object) -> dict:
@@ -92,6 +104,11 @@ def released(tag: str, **release: object) -> dict:
     }
 
 
+def approved(context: dict, commit: str | None = SHA) -> dict:
+    """``context`` as the deploy job sees it once the approval job has recorded ``commit`` (None: no output at all)."""
+    return {**context, APPROVAL_OUTPUT: commit} if commit is not None else dict(context)
+
+
 def dispatched(ref: str) -> dict:
     return {"github.event_name": "workflow_dispatch", "github.ref": ref, "github.sha": SHA}
 
@@ -100,14 +117,16 @@ def triggered(event: str, ref: str) -> dict:
     return {"github.event_name": event, "github.ref": ref, "github.sha": SHA}
 
 
-ACCEPTED = {  # each must satisfy the deploy condition and pass the event guard
+ACCEPTED = {  # each must pass the event guard and, with the approval job's output, satisfy the deploy condition
     "release v1.1.0 published": released("v1.1.0"),
     "dispatch on the tag v1.1.0": dispatched("refs/tags/v1.1.0"),
     "release v10.20.30 published": released("v10.20.30"),
     "release v1.10.0 published": released("v1.10.0"),
     "dispatch on the tag v0.0.0": dispatched("refs/tags/v0.0.0"),
 }
-DENIED = {  # each must fail the event guard; the deploy condition refuses all but EXPRESSION_BLIND
+# Each must fail the event guard. The deploy condition refuses all but EXPRESSION_BLIND even with the approval job's
+# output (as if a guard had been bypassed), and all of them without it (what a refusing approval job leaves).
+DENIED = {
     "push to main": triggered("push", "refs/heads/main"),
     "push of the tag v1.1.0": triggered("push", "refs/tags/v1.1.0"),
     "pull request": triggered("pull_request", "refs/pull/1/merge"),
@@ -138,9 +157,10 @@ DENIED = {  # each must fail the event guard; the deploy condition refuses all b
     "release edited, not published": {**released("v1.1.0"), "github.event.action": "edited"},
     "release whose tag is not the ref": released("v1.1.0", tag_name="v1.2.0"),
 }
-# Scenarios that the deploy condition alone accepts (GitHub expressions have no regular expressions, startsWith()
-# ignores case, and the condition does not compare the release's draft flag or tag name): the event guard refuses them
-# in the approval and the build job, and the deploy job needs the build job. A stricter condition shrinks this set.
+# Scenarios that the deploy condition alone accepts when the approval job's output is github.sha (GitHub expressions
+# have no regular expressions, startsWith() ignores case, and the condition does not compare the release's draft flag
+# or tag name): the event guard refuses them in the approval and the build job, so the approval job records no commit,
+# and the deploy job needs both jobs. A stricter condition shrinks this set.
 EXPRESSION_BLIND = {
     "dispatch on the tag v1.1",
     "dispatch on the tag v1.1.0-rc1",
@@ -505,6 +525,7 @@ class ReleaseGateTests(unittest.TestCase):
         self.assertEqual(jobs["tests"]["uses"], "./.github/workflows/tests.yml")
         self.assertEqual(jobs["tests"]["needs"], "approval")
         self.assertEqual(jobs["build"]["needs"], ["approval", "tests"])
+        self.assertEqual(jobs["deploy"]["needs"], ["approval", "build"])
         for job_id in ("approval", "tests", "build"):
             with self.subTest(job=job_id):
                 self.assertNotIn("if", jobs[job_id], "a job condition could run it after a failed guard or skip it")
@@ -519,16 +540,16 @@ class ReleaseGateTests(unittest.TestCase):
         deploy = self.pages["jobs"]["deploy"]
         self.assertEqual(deploy["if"], DEPLOY_IF)
         self.assertNotRegex(deploy["if"], r"always\(|failure\(|cancelled\(|success\(")
-        self.assertEqual(deploy["needs"], "build")
+        self.assertEqual(deploy["needs"], ["approval", "build"])
         self.assertEqual(deploy["environment"]["name"], "github-pages")
         self.assertEqual([action_name(step["uses"]) for step in steps_of(deploy)], ["actions/deploy-pages"])
 
     def test_approval_and_build_start_with_the_same_guards(self):
         jobs = self.pages["jobs"]
         approval = steps_of(jobs["approval"])
-        self.assertEqual(len(approval), 3, "the approval job is the event guard, a checkout and the main guard")
-        self.assertEqual(steps_of(jobs["build"])[:3], approval, "the build job repeats the approval job's guards")
-        event, checkout, main = approval
+        self.assertEqual(len(approval), 4, "the event guard, a checkout, the main guard and the record of the commit")
+        self.assertEqual(steps_of(jobs["build"])[:3], approval[:3], "the build job repeats the approval job's guards")
+        event, checkout, main, _ = approval
         self.assertNotIn("uses", event)
         self.assertEqual(event["env"], EVENT_GUARD_ENV)
         self.assertEqual(event["run"].count(TAG_CHECK), 1, "the tag check is exactly the vX.Y.Z pattern")
@@ -574,15 +595,50 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertIn(required, text)
 
     def test_deploy_condition_semantics(self):
-        """The deploy job's own if: (as the workflow writes it, not only DEPLOY_IF) on every scenario."""
+        """The deploy job's own if: (as the workflow writes it, not only DEPLOY_IF) on every scenario. Without the
+        approval job's record of github.sha, nothing deploys (D4): not when the output is missing or empty, as a
+        refusing approval job leaves it, and not when it names another commit."""
         condition = self.pages["jobs"]["deploy"]["if"]
         self.assertLessEqual(EXPRESSION_BLIND, set(DENIED))
         for scenario, context in ACCEPTED.items():
             with self.subTest(accepted=scenario):
-                self.assertTrue(evaluate(condition, context))
+                self.assertTrue(evaluate(condition, approved(context)))
+            for label, commit in (
+                ("missing", None),
+                ("empty", ""),
+                ("another commit", OTHER_SHA),
+                ("a short SHA", SHA[:12]),
+            ):
+                with self.subTest(accepted=scenario, approval_output=label):
+                    self.assertFalse(evaluate(condition, approved(context, commit)))
         for scenario, context in DENIED.items():
             with self.subTest(denied=scenario):
-                self.assertEqual(evaluate(condition, context), scenario in EXPRESSION_BLIND)
+                self.assertEqual(evaluate(condition, approved(context)), scenario in EXPRESSION_BLIND)
+                self.assertFalse(evaluate(condition, approved(context, "")))
+
+    def test_approval_records_the_commit_after_every_guard(self):
+        """The approval job's output is written by its last step, which has no if: or continue-on-error and so runs
+        only when every guard before it passed; no other step of the workflow writes a step output."""
+        approval = self.pages["jobs"]["approval"]
+        self.assertEqual(approval["outputs"], APPROVAL_OUTPUTS)
+        self.assertEqual(steps_of(approval)[-1], RECORD_STEP)
+        self.assertIn(f"{APPROVAL_OUTPUT} == github.sha", self.pages["jobs"]["deploy"]["if"])
+        for job_id, job in self.pages["jobs"].items():
+            for step in steps_of(job):
+                if step is steps_of(approval)[-1]:
+                    continue
+                with self.subTest(job=job_id, step=step.get("name")):
+                    self.assertNotIn("GITHUB_OUTPUT", step.get("run", ""))
+                    self.assertNotEqual(step.get("id"), "approved")
+
+    @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's step")
+    def test_the_record_step_writes_exactly_the_commit(self):
+        record = steps_of(self.pages["jobs"]["approval"])[-1]
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "github-output"
+            result = run_guard(record, {"github.sha": SHA}, GITHUB_OUTPUT=str(output))
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertEqual(output.read_text(encoding="utf-8"), f"commit={SHA}\n")
 
     @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
     def test_event_guard_fails_closed(self):
@@ -680,6 +736,8 @@ class ReleaseGateTests(unittest.TestCase):
             for step in self.guard_steps(job_id):
                 with self.subTest(job=job_id, step=step["name"]):
                     self.assertEqual(sorted(step), ["env", "name", "run"], "no if:, continue-on-error or shell:")
+        record = steps_of(self.pages["jobs"]["approval"])[-1]
+        self.assertEqual(sorted(record), ["env", "id", "name", "run"], "the record step runs only after the guards")
 
     def test_guard_messages_describe_the_gate_not_a_hold(self):
         for job_id in ("approval", "build"):
