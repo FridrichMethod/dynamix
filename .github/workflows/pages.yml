@@ -9,7 +9,8 @@ name: Deploy GitHub Pages (vX.Y.Z tags on main only)
 # vX.Y.Z, a release that is a draft or prerelease, a dispatched tag without such a Release or whose lookup fails, a
 # commit that is not on main): no tests, no artifact, no deployment. The build job repeats the approval job's guards,
 # and the deploy job deploys only the commit that the approval job recorded after all its guards passed. The
-# github-pages environment must allow deployments from v* tags.
+# github-pages environment must allow deployments from v* tags, and the repository ruleset "Release tags v*" lets only
+# repository admins create, move or delete v* tags.
 on:
   release:
     types: [published]

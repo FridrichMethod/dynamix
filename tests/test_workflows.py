@@ -760,7 +760,14 @@ class ReleaseGateTests(unittest.TestCase):
             if line.startswith("#"):
                 header.append(line.lstrip("#").strip())
         text = " ".join(header)
-        for stale in ("RELEASE_APPROVED_SHA", "release_sha", "hold", "approved sha", "on main, not"):
+        for stale in (
+            "RELEASE_APPROVED_SHA",
+            "release_sha",
+            "hold",
+            "approved sha",
+            "on main, not",
+            "does not look up",
+        ):
             with self.subTest(stale=stale):
                 self.assertNotIn(stale.lower(), text.lower())
         for required in (
@@ -772,6 +779,10 @@ class ReleaseGateTests(unittest.TestCase):
             "fails closed",
             "gh workflow run pages.yml --ref v",
             "v*",
+            "without leading zeros",
+            "first looks up the tag's GitHub Release",
+            "only if that Release is published and not a prerelease",
+            'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
         ):
             with self.subTest(required=required):
                 self.assertIn(required, text)
