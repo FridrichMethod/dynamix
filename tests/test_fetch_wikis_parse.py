@@ -765,13 +765,16 @@ class OtherGameCaptionTests(unittest.TestCase):
                     (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
                 )
 
-    def test_the_game_name_alone_ends_at_sentence_punctuation_or_a_dash(self) -> None:
+    def test_the_game_name_alone_ends_at_sentence_punctuation_or_a_trailing_dash(self) -> None:
         """The original game's own name ends, as at the end of the caption or a comma, at trailing sentence
-        punctuation ("Artwork in Dynamix.", "Dynamix!") and at a dash-separated qualifier (a dash with a space on each
-        side, or ending the caption: "Dynamix - original", "Dynamix – 2016 version", "Dynamix — HQ"): it names no other
-        game and needs no review. A listed game in the qualifier is still recorded. A name that only goes on after
-        the punctuation, a hyphenated or dash-joined name ("Dynamix-exclusive", "Dynamix–Lanota", "Dynamix- Event")
-        and an occasion before the punctuation are read as names as before."""
+        punctuation ("Artwork in Dynamix.", "Dynamix!") and at a trailing dash (after a space, with nothing after it
+        but the end of the name: "Artwork in Dynamix -"): it names no other game and needs no review. Owner decision
+        2026-10-11: any further text after the name is a name like any other, a dash-separated qualifier included
+        ("Dynamix - original", "Dynamix - Halloween Event", "Dynamix - 5th Anniversary"), so an unlisted one records no
+        association and carries the curator note, while a listed game in it is recorded (round 4 read a qualifier
+        after a dash as the name alone and left out the note). A name that only goes on after the punctuation, a
+        hyphenated or dash-joined name ("Dynamix-exclusive", "Dynamix–Lanota", "Dynamix- Event") and an occasion
+        before the punctuation are read as names as before."""
         for caption in (
             "S Artwork in Dynamix.",
             "S Artwork in Dynamix!",
@@ -780,10 +783,6 @@ class OtherGameCaptionTests(unittest.TestCase):
             "S Artwork in Dynamix…",
             "S Artwork for Dynamix's.",
             "S Artwork in Dynamix! (2016)",
-            "S Artwork in Dynamix - original",
-            "S Artwork in Dynamix – 2016 version",
-            "S Jacket from Dynamix — HQ",
-            "S Artwork in Dynamix’s -- uncropped",
             "S Artwork in Dynamix -",
         ):
             with self.subTest(caption=caption):
@@ -806,17 +805,28 @@ class OtherGameCaptionTests(unittest.TestCase):
                 self.assertEqual(item.other_games, (other,))
                 self.assertNotIn(self.REVIEW, item.detail)
                 self.assertEqual(self.decide([item]).associations, [other.casefold()])
-        for named in (
-            "Dynamix-exclusive Event",
-            "Dynamix- Halloween Event",
-            "Dynamix. Halloween Event 2020",
-            "Dynamix's 5th Anniversary!",
-            "Dynamix Halloween Event - 2020",
+        for caption, named in (
+            ("S Artwork in Dynamix - original", "Dynamix - original"),
+            ("S Artwork in Dynamix – 2016 version", "Dynamix – 2016 version"),
+            ("S Jacket from Dynamix — HQ", "Dynamix — HQ"),
+            ("S Artwork in Dynamix’s -- uncropped", "Dynamix’s -- uncropped"),
+            ("S Artwork in Dynamix - Halloween Event", "Dynamix - Halloween Event"),
+            ("S Artwork for Dynamix - 5th Anniversary", "Dynamix - 5th Anniversary"),
+            ("S Artwork for Dynamix! - Halloween Event", "Dynamix! - Halloween Event"),
+            ("S Artwork for Dynamix-exclusive Event", "Dynamix-exclusive Event"),
+            ("S Artwork for Dynamix- Halloween Event", "Dynamix- Halloween Event"),
+            ("S Artwork for Dynamix. Halloween Event 2020", "Dynamix. Halloween Event 2020"),
+            ("S Artwork for Dynamix's 5th Anniversary!", "Dynamix's 5th Anniversary!"),
+            ("S Artwork for Dynamix Halloween Event - 2020", "Dynamix Halloween Event - 2020"),
         ):
-            with self.subTest(named=named):
-                item = self.gallery_item(f"S Artwork for {named}")
-                self.assertEqual(item.other_games, ())
+            with self.subTest(named=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
                 self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
 
     def test_names_that_start_with_dynamix_are_never_a_release_event(self) -> None:
         """A name that starts with "Dynamix" is not tested against the BMS release events (EXTERNAL_RELEASE_EVENT:
@@ -958,11 +968,13 @@ class OtherGameCaptionTests(unittest.TestCase):
         """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: a listed game's
         artwork or event records an association (with a possessive too, and in a name that starts with Dynamix),
         Dynamix's own occasions and other unlisted names do not and carry the curator note, the game's own name alone
-        names nothing to review, and a BMS release event is the song's separate release (external_release_art). The
-        paragraph names the reviewed game list (config.OTHER_GAMES, which replaced the word lists DYNAMIX_OCCASION and
-        OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed word lists. The stale 'another
-        game or event' wording is gone, and so is the claim that a name starting with "Dynamix" is never another game,
-        which has been false since such names go through the reviewed list."""
+        (also before trailing sentence punctuation) names nothing to review while any further text after it, a
+        dash-separated qualifier included, carries the note, and a BMS release event is the song's separate release
+        (external_release_art). The paragraph names the reviewed game list (config.OTHER_GAMES, which replaced the
+        word lists DYNAMIX_OCCASION and OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed
+        word lists. The stale 'another game or event' wording is gone, and so are the claim that a name starting with
+        "Dynamix" is never another game, which has been false since such names go through the reviewed list, and the
+        round-4 claim that a dash-separated qualifier after the name names nothing to review."""
         expected = {  # caption: (disposition, associations, whether the evidence asks a curator to review the name)
             "Artwork in RAVON": ("download", ["ravon"], False),
             "Artwork for the RAVON Collaboration Event": ("download", ["ravon"], False),
@@ -973,7 +985,10 @@ class OtherGameCaptionTests(unittest.TestCase):
             "Artwork for Dynamix's 5th Anniversary": ("download", [], True),
             "Artwork in Dynamix": ("download", [], False),
             "Jacket from Dynamix (2016)": ("download", [], False),
-            "Artwork in Dynamix - original": ("download", [], False),
+            "Artwork in Dynamix!": ("download", [], False),
+            "Artwork in Dynamix -": ("download", [], False),
+            "Artwork in Dynamix - original": ("download", [], True),
+            "Artwork in Dynamix - Halloween Event": ("download", [], True),
             "Artwork in PABAT! 2017": ("excluded", [], False),
         }
         for relative, stale in (
@@ -981,6 +996,8 @@ class OtherGameCaptionTests(unittest.TestCase):
             ("docs/sources-wikis.zh-CN.md", "其他游戏或活动"),
             ("docs/sources-wikis.md", 'a name that starts with "Dynamix" is never another game'),
             ("docs/sources-wikis.zh-CN.md", "以“Dynamix”开头的名称从不算作其他游戏"),
+            ("docs/sources-wikis.md", "punctuation or a dash-separated qualifier ("),
+            ("docs/sources-wikis.zh-CN.md", "句末标点或以破折号隔开的补充说明时"),
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
             [paragraph] = [line for line in text.splitlines() if "`mixed`" in line and "`game_associations`" in line]

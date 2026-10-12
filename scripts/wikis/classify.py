@@ -409,10 +409,10 @@ def page_evidence(
                         games_named = ", ".join(other_games)
                         game_note = f": {games_named}" if games_named != named else ""
                         detail += f", artwork of the song for {named} (another game/event{game_note})"
-                    elif named and not config.DYNAMIX_QUALIFIED.match(raw):
+                    elif named:
                         # Owner decision 2026-10-11: a name that is not on the reviewed list (an unlisted event,
-                        # holiday or game) records no association; the evidence asks a curator to review it. The game's
-                        # own name with a dash-separated qualifier ("Dynamix - original") names nothing to review.
+                        # holiday or game, also after "Dynamix" and a dash: "Dynamix - Halloween Event") records no
+                        # association; the evidence asks a curator to review it.
                         detail += f", the caption names {named}, {config.OTHER_GAME_REVIEW}"
                     if (
                         game is None
