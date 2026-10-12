@@ -597,6 +597,11 @@ class ReleaseStateTests(unittest.TestCase):
         "如果查看设置、会发现变量未设置，因此每次触发都会停在批准任务。",
         "变量未设置、查看设置时会发现。",
         "变量未设置会被发现、查看设置时。",
+        # The wording opens no item when other words follow the 或 of its item; and only a ， after the wording ends the
+        # list, not a ， before the list nor an ASCII comma.
+        "如果查看设置、或会发现变量未设置，因此每次触发都会停在批准任务。",
+        "如果标签不对，或分支不对、变量未设置。",
+        "若标签错误、变量未设置, 触发会失败关闭。",
         # Events: each date form, a date as a clause of its own (at the end, after each preposition, with a space or a
         # code span after it), each Chinese marker and each event verb.
         *(
@@ -621,7 +626,12 @@ class ReleaseStateTests(unittest.TestCase):
         "2026-10-11 ，部署只需要所有者批准。",
         "于 10 月 11 日 ，部署只需要所有者批准。",
         "2026-10-11、2026-10-12，部署只需要所有者批准。",  # dates listed with 、 as the clause
+        # Any item listed with 、 that is a date dates the sentence, also after another item or before one.
+        "来源检查、2026-10-11，部署只需要所有者批准。",
+        "2026-10-11、2026-10-12 两天，部署只需要所有者批准。",
         "On **2026-10-11**, the deployment needed only the owner's approval.",  # emphasis hides no date
+        # The raw sentence counts too: a date in a link destination dates the deployment it names.
+        "The deployment needed only the owner's approval ([run log](logs/2026-10-11.txt)).",
         # 、 joins the items of one clause, so the date dates the deployment it names (a ， would end the clause).
         "来源于 2026-10-10 检查、未部署任何内容。",
         "网站在所有者批准后才部署了。",
