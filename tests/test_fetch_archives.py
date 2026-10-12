@@ -2117,6 +2117,35 @@ class RunnerStateTests(ArchivesTestCase):
         self.assertIn(runner.HELD_NOTE, held["notes"])
         self.verify()
 
+    def test_a_linking_page_is_named_once(self):
+        """note_also_linked names a page once. A page that links the file but is not read completely (a skipped link)
+        reaches it twice in one run: as a page that links it, and from keep_unread_links, since the previous candidate
+        named it. The candidate still has one note for it. A page whose URL is a prefix or an extension of a named
+        page's URL is another page and gets its own note."""
+        from primary.adapters import page_links
+
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        listing = self.page("x.png", "y.png")
+        self.run_family([seed], FakeNetwork({self.PAGE: listing, other: listing}))
+        self.assertEqual(base_adapter.also_linked(self.candidates("archives:press")["img/x.png"]["notes"]), [other])
+        partial = {"text": listing["text"].replace("</body>", "<img src='/img/c\\d.png'></body>")}
+        self.run_family([seed], FakeNetwork({self.PAGE: listing, other: partial}))
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertEqual(snapshot["continuation"], {"seed-pages": "links-skipped-1"})  # other is not read completely
+        again = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual((again["disposition"], again["page_url"]), ("excluded", self.PAGE))
+        self.assertEqual(base_adapter.also_linked(again["notes"]), [other])
+        self.verify()
+        draft = model.Draft("img/x.png", self.PAGE, "x.png", "excluded")
+        prefix, extension = "https://press.example.org/othe", f"{other}.html"
+        # The note for the extension contains the text of the note for 'other', which is named after it all the same.
+        for page in (extension, extension, other, prefix, other, extension, prefix):
+            page_links.note_also_linked(draft, page)
+        self.assertEqual(base_adapter.also_linked(draft.candidate_extra["notes"]), [extension, other, prefix])
+
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
         other = "https://press.example.org/other"
         seed = self.seed()
