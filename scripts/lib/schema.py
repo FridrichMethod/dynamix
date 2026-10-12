@@ -774,6 +774,19 @@ def _check_observed(label: str, asset: Mapping[str, Any]) -> None:
         )
 
 
+def _credit_problem(record: Mapping[str, Any]) -> str | None:
+    """Why the ``credit_evidence`` of an asset (a family record, a catalog asset or a provenance record) contradicts
+    its role lists, or None: each ``illustrator`` or ``composer`` entry names a member of ``illustrators`` or
+    ``composers`` (composer and illustrator are separate roles, and the viewer shows the entries beside the lists;
+    DX2-07). An ``other`` entry is free."""
+    lists = {"illustrator": record["illustrators"], "composer": record["composers"]}
+    for index, entry in enumerate(record.get("credit_evidence") or []):
+        role = entry["role"]
+        if role in lists and entry["name"] not in lists[role]:
+            return f"[{index}] names {role} {entry['name']!r}, who is not in {role}s"
+    return None
+
+
 def _check_relations(label: str, asset: Mapping[str, Any], *, merged: bool) -> None:
     status = asset["mapping_status"]
     if status in MAPPED_STATUSES and not asset["mapping_evidence"]:
@@ -789,6 +802,9 @@ def _check_relations(label: str, asset: Mapping[str, Any], *, merged: bool) -> N
         _fail(label, "variant_role", "requires variant_group")
     if "game_associations" in asset and GAME not in asset["game_associations"]:
         _fail(label, "game_associations", f"must include {GAME!r}")
+    problem = _credit_problem(asset)  # a catalog asset (merged) holds every name of its primary record
+    if problem:
+        _fail(label, "credit_evidence", problem)
 
 
 def validate_asset(asset: Any, family: str | None = None, *, catalog: bool = False) -> None:
@@ -852,6 +868,8 @@ def validate_candidate(candidate: Any, source_id: str | None = None) -> None:
             _fail(label, "asset_id", f"is required for disposition {disposition!r}")
         if candidate["game"] not in ("dynamix", "mixed"):
             _fail(label, "game", f"must be 'dynamix' or 'mixed' for disposition {disposition!r}")
+        if not candidate["game_evidence"]:  # game identity stays in the discovery record (DX2-07)
+            _fail(label, "game_evidence", f"must not be empty for disposition {disposition!r}")
         if not target.startswith(candidate["source_id"] + ":"):  # 09: duplicate_bytes means the *same source*
             _fail(label, "asset_id", f"a {disposition} candidate's asset belongs to the same source")
     elif target is not None:

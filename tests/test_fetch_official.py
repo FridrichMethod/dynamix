@@ -444,6 +444,7 @@ class GooglePlayTests(OfficialTestCase):
             "platform": "google-play",
             "url": "https://play.google.com/store/apps/details?id=com.c4cat.dynamix",
             "adapter": "google_play",
+            "identity_quotes": ["C4Cat"],
             "quality": QUALITY,
             "items": [{"url": self.EN}, {"url": self.JA}],
             "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
@@ -480,6 +481,7 @@ class GooglePlayTests(OfficialTestCase):
             "platform": "google-play",
             "url": self.EN,
             "adapter": "google_play",
+            "identity_quotes": ["C4Cat"],
             "quality": QUALITY,
             "items": [{"url": self.EN}, {"url": self.JA}],
             "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
@@ -601,6 +603,7 @@ class TapTapTests(OfficialTestCase):
             "url": "https://www.taptap.cn/app/7082",
             "platform": "taptap",
             "adapter": "taptap_app",
+            "identity_quotes": ["C4Cat"],
             "params": {"identifier": "com.c4cat.dynamix"},
             "quality": QUALITY,
             "items": [{"url": "https://www.taptap.cn/app/7082"}],
@@ -644,6 +647,7 @@ class TapTapTests(OfficialTestCase):
             "platform": "google-play",
             "url": play,
             "adapter": "google_play",
+            "identity_quotes": ["C4Cat"],
             "quality": QUALITY,
             "items": [{"url": play}],
             "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
@@ -654,6 +658,7 @@ class TapTapTests(OfficialTestCase):
             "url": "https://www.taptap.cn/app/7082",
             "platform": "taptap",
             "adapter": "taptap_app",
+            "identity_quotes": ["C4Cat"],
             "params": {"identifier": "com.c4cat.dynamix"},
             "quality": QUALITY,
             "items": [{"url": "https://www.taptap.cn/app/7082"}],
@@ -694,6 +699,7 @@ class TapTapTests(OfficialTestCase):
             "url": "https://www.taptap.cn/app/7082",
             "platform": "taptap",
             "adapter": "taptap_app",
+            "identity_quotes": ["C4Cat"],
             "params": {"identifier": "com.c4cat.dynamix"},
             "quality": QUALITY,
             "items": [{"url": "https://www.taptap.cn/app/7082"}],
@@ -759,6 +765,7 @@ class TapTapTests(OfficialTestCase):
             "url": url,
             "platform": "taptap",
             "adapter": "taptap_app",
+            "identity_quotes": ["C4Cat"],
             "params": {"identifier": "com.c4cat.dynamix"},
             "quality": QUALITY,
             "items": [{"url": url}],
@@ -862,6 +869,48 @@ class TapTapTests(OfficialTestCase):
         )
         self.assertTrue(drafts[0].reason.startswith("out_of_scope_other: TapTap crop/resize rendition"))
         self.assertIn("888x500 crop shown at 480x270", drafts[0].reason)
+
+
+class StoreIdentitySeedTests(OfficialTestCase):
+    """A store listing's candidates take their game evidence from the listing's identity quotes (base.identity). A
+    seed without them admitted files with no game evidence, which a downloaded candidate needs (DX2-07), so
+    load_seeds refuses such a seed."""
+
+    TAPTAP = "https://www.taptap.cn/app/7082"
+    APPLE = "https://apps.apple.com/app/id1"
+    SEEDS = {
+        "official:taptap": {"adapter": "taptap_app", "url": TAPTAP, "items": [{"url": TAPTAP}]},
+        "official:google-play": {
+            "adapter": "google_play",
+            "url": GooglePlayTests.EN,
+            "items": [{"url": GooglePlayTests.EN}],
+        },
+        "official:apple-store": {"adapter": "apple_store", "url": APPLE, "items": [{"url": APPLE}]},
+    }
+
+    def load(self, seed):
+        path = self.root / "official.json"
+        path.write_text(json.dumps({"family": "official", "sources": [seed]}), encoding="utf-8")
+        return runner.load_seeds(path, "official")
+
+    def test_a_store_seed_without_identity_quotes_is_refused_when_loaded(self):
+        for source_id, fields in self.SEEDS.items():
+            seed = {
+                "id": source_id,
+                "name": source_id,
+                "platform": "store",
+                "rules": [{"match": "^screenshot:", "role": "store_screenshot"}],
+                **fields,
+            }
+            self.assertEqual([s["id"] for s in self.load({**seed, "identity_quotes": ["C4Cat"]})], [source_id])
+            # A quote that is no string (a number, a JSON null) is refused like an empty one, with the same ValueError.
+            for quotes in (None, [], ["C4Cat", ""], "C4Cat", [1], ["C4Cat", None]):
+                with self.subTest(source=source_id, identity_quotes=quotes):
+                    bad = dict(seed) if quotes is None else {**seed, "identity_quotes": quotes}
+                    with self.assertRaisesRegex(
+                        ValueError, f"source {source_id!r}: identity_quotes must be a non-empty list"
+                    ):
+                        self.load(bad)
 
 
 class XTimelineTests(OfficialTestCase):

@@ -45,6 +45,7 @@ def check_seed(seed: Mapping[str, Any], where: str) -> None:
                     raise ValueError(f"{label}.{name} must be true or false")
     if not seed.get("hosts"):
         raise ValueError(f"{where}: hosts are required")
+    base.require_identity(seed, where)
 
 
 def links(
@@ -181,11 +182,12 @@ def discover(ctx: Any, seed: Mapping[str, Any]) -> model.Discovery:
 
 
 def note_also_linked(draft: model.Draft, page_url: str) -> None:
-    """Name ``page_url`` on ``draft`` as another seed page that links its file (:data:`base.ALSO_LINKED_NOTE`, once)."""
-    note = base.ALSO_LINKED_NOTE.format(url=page_url)
+    """Name ``page_url`` on ``draft`` as another seed page that links its file (:data:`base.ALSO_LINKED_NOTE`, once).
+    The notes are compared note by note (:func:`base.also_linked`), not as text: a note naming ``<page_url>.html``
+    contains this note's text but names another page."""
     notes = draft.candidate_extra.get("notes") or ""
-    if note not in notes:
-        draft.candidate_extra["notes"] = f"{notes} {note}".strip()
+    if page_url not in base.also_linked(notes):
+        draft.candidate_extra["notes"] = f"{notes} {base.ALSO_LINKED_NOTE.format(url=page_url)}".strip()
 
 
 def keep_unread_links(

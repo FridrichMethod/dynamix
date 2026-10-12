@@ -80,11 +80,17 @@ ALSO_LINKED_NOTE = "Also linked from {url}."
 _ALSO_LINKED_RE = re.compile(r"Also linked from (\S+)\.(?=\s|$)")
 
 
+def also_linked(notes: Any) -> list[str]:
+    """The page each :data:`ALSO_LINKED_NOTE` in ``notes`` names, read from the whole note (so a note naming
+    ``https://x/a.html`` never counts as one naming ``https://x/a``)."""
+    return _ALSO_LINKED_RE.findall(str(notes or ""))
+
+
 def linking_pages(candidate: Mapping[str, Any]) -> list[str]:
     """Every page a candidate record says links its file: its ``page_url`` and each page an :data:`ALSO_LINKED_NOTE`
     in its notes names."""
     page = candidate.get("page_url")
-    return [*([page] if page else []), *_ALSO_LINKED_RE.findall(str(candidate.get("notes") or ""))]
+    return [*([page] if page else []), *also_linked(candidate.get("notes"))]
 
 
 def held_on(pages: Iterable[str], complete: set[str]) -> Any:
@@ -292,6 +298,19 @@ MIME_BY_EXT = {
 
 def mime_for(ext: str | None) -> str | None:
     return MIME_BY_EXT.get((ext or "").lower().lstrip("."))
+
+
+def require_identity(seed: Mapping[str, Any], where: str) -> None:
+    """``check_seed`` of an adapter whose candidates take their game evidence from the page identity (:func:`identity`:
+    store listings, ``page_links`` pages): the seed needs ``identity_quotes``, a non-empty list of non-empty strings.
+    Without them a download rule could admit files with no game evidence, which every ``downloaded`` or
+    ``duplicate_bytes`` candidate needs (DX2-07)."""
+    quotes = seed.get("identity_quotes")
+    if not isinstance(quotes, list) or not quotes or not all(isinstance(q, str) and q.strip() for q in quotes):
+        raise ValueError(
+            f"{where}: identity_quotes must be a non-empty list of non-empty strings (the page identity they "
+            "establish is the game evidence of the candidates)"
+        )
 
 
 def identity(seed: Mapping[str, Any], texts: Mapping[str, str], url: str) -> tuple[list[str], list[str]]:

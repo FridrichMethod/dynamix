@@ -455,6 +455,25 @@ class RecordValidationTests(unittest.TestCase):
                 ),
                 "credit_evidence",
             ),
+            (  # DX2-07: a family record's credit evidence names a credited name of its role, as the catalog's does
+                crop,
+                lambda r: r.update(
+                    credit_evidence=[
+                        {"role": "composer", "name": "Somebody Else", "url": None, "field": None, "quote": "x"}
+                    ]
+                ),
+                f"asset {crop['id']!r}: credit_evidence: [0] names composer 'Somebody Else', who is not in composers",
+            ),
+            (  # a role swap: Yunosuke is credited as composer only
+                crop,
+                lambda r: r.update(
+                    credit_evidence=[
+                        {"role": "illustrator", "name": "ariiol", "url": None, "field": None, "quote": "ariiol"},
+                        {"role": "illustrator", "name": "Yunosuke", "url": None, "field": None, "quote": "Yunosuke"},
+                    ]
+                ),
+                "credit_evidence: [1] names illustrator 'Yunosuke', who is not in illustrators",
+            ),
         ]
         for base, mutate, fragment in mutations:
             with self.subTest(fragment=fragment):
@@ -507,9 +526,14 @@ class RecordValidationTests(unittest.TestCase):
         snapshot = self.discoveries["wikis:miraheze"]
         by_disposition = {c["disposition"]: c for c in snapshot["candidates"]}
         downloaded, excluded = copy.deepcopy(by_disposition["downloaded"]), copy.deepcopy(by_disposition["excluded"])
+        duplicate = copy.deepcopy(by_disposition["duplicate_bytes"])
+        self.assertTrue(downloaded["game_evidence"] and duplicate["game_evidence"])
         cases = [
             ({**downloaded, "asset_id": None}, "asset_id: is required"),
             ({**downloaded, "game": "unknown"}, "game: must be 'dynamix' or 'mixed'"),
+            # DX2-07: an accepted candidate keeps the evidence of its game identity
+            ({**downloaded, "game_evidence": []}, "game_evidence: must not be empty for disposition 'downloaded'"),
+            ({**duplicate, "game_evidence": []}, "game_evidence: must not be empty for disposition 'duplicate_bytes'"),
             ({**downloaded, "asset_id": "wikis:fandom:" + "0" * 16}, "same source"),
             ({**downloaded, "id": downloaded["id"] + "x"}, "id: must be"),
             ({**downloaded, "upstream_key": "File:A b.png", "id": "wikis:miraheze:File:A b.png"}, "upstream_key"),
@@ -529,6 +553,7 @@ class RecordValidationTests(unittest.TestCase):
         ]
         for prefix in schema.PENDING_REASONS:
             schema.validate_candidate({**excluded, "disposition": "pending", "reason": f"{prefix}: detail"})
+        schema.validate_candidate({**excluded, "game_evidence": []})  # only an accepted candidate needs game evidence
         universe = next(c for c in snapshot["candidates"] if (c.get("reason") or "").startswith("universe_only"))
         cases.append(({**universe, "game": "dynamix"}, "game: must be 'dynamix_universe'"))
         other_game = {**excluded, "reason": "not_dynamix: another game's key art"}
@@ -583,6 +608,12 @@ class RecordValidationTests(unittest.TestCase):
             (lambda m: m.update(family="artists"), "belongs to family 'wikis'"),
             (lambda m: m.update(extra=1), "extra: unknown field"),
             (lambda m: m.update(schema_version=2), "schema_version"),
+            (  # DX2-07: the credit-role rule holds for every family record, not only in the catalog
+                lambda m: m["assets"][0].update(
+                    credit_evidence=[{"role": "illustrator", "name": "HAT", "url": None, "field": None, "quote": "HAT"}]
+                ),
+                "credit_evidence: [0] names illustrator 'HAT', who is not in illustrators",
+            ),
             (
                 lambda m: m["assets"][0].update(upstream_status="superseded", superseded_by="wikis:fandom:" + "e" * 16),
                 "superseded_by: names no asset",
@@ -1014,6 +1045,42 @@ class CatalogValidationTests(unittest.TestCase):
                 cosmic(catalog)["provenance"][1]["credit_evidence"] = evidence
                 if evidence is not None:
                     cosmic(catalog)["credit_evidence"] = evidence
+                schema.validate_catalog(catalog)
+
+    def test_every_catalog_credit_entry_cites_a_url_or_a_quote(self):
+        """DX2-07: a primary family may record a credit without a source URL or quote (its own --verify reports it),
+        but the published catalog refuses such an entry, on the catalog asset and on every provenance record."""
+        url = "https://x.com/ariiol_/status/1000000000000000003"
+
+        def cosmic(catalog):
+            return next(
+                a
+                for a in catalog["assets"]
+                if a["source_id"] == "wikis:miraheze" and a["kind"] == "song_art" and a["title"] == "Cosmic Pulse"
+            )
+
+        def entry(url=None, quote=None):
+            return {"role": "illustrator", "name": "ariiol", "url": url, "field": None, "quote": quote}
+
+        base = cosmic(self.catalog)
+        fandom = base["provenance"][1]["asset_id"]
+        for case, evidence in {"neither": [entry()], "an empty quote": [entry(quote=" ")]}.items():
+            for index, fragment in (
+                (None, f"catalog asset {base['id']!r}: credit_evidence: [0] (illustrator 'ariiol') cites no url"),
+                (1, f"provenance: {fandom!r} credit_evidence: [0] (illustrator 'ariiol') cites no url and no quote"),
+            ):
+                with self.subTest(case=case, provenance=index):
+                    catalog = copy.deepcopy(self.catalog)
+                    target = cosmic(catalog) if index is None else cosmic(catalog)["provenance"][index]
+                    target["credit_evidence"] = copy.deepcopy(evidence)
+                    with self.assertRaises(ValueError) as caught:
+                        schema.validate_catalog(catalog)
+                    self.assertIn(fragment, str(caught.exception))
+        for evidence in ([entry(url=url)], [entry(quote="Illustration: ariiol")], [entry(url, "ariiol")]):
+            with self.subTest(accepted=evidence):
+                catalog = copy.deepcopy(self.catalog)
+                cosmic(catalog)["credit_evidence"] = copy.deepcopy(evidence)
+                cosmic(catalog)["provenance"][1]["credit_evidence"] = copy.deepcopy(evidence)
                 schema.validate_catalog(catalog)
 
     def test_catalog_mutations_are_rejected(self):

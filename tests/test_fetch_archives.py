@@ -1620,6 +1620,15 @@ class PressArticleTests(ArchivesTestCase):
         bad_link = json.loads(json.dumps(page_links))
         bad_link["items"][0]["link_rules"][0]["pattern"] = "("
         cases.append((bad_link, r"link_rules\[0\]\.pattern .*regular expression"))
+        # The page identity is the game evidence of a page_links candidate: without identity_quotes a download had
+        # none, which a downloaded candidate needs (DX2-07). A quote that is no string is refused like an empty one.
+        for quotes in (None, [], ["Dynamix", " "], "Dynamix", [1], ["Dynamix", None]):
+            no_identity = json.loads(json.dumps(page_links))
+            if quotes is None:
+                del no_identity["identity_quotes"]
+            else:
+                no_identity["identity_quotes"] = quotes
+            cases.append((no_identity, r"identity_quotes must be a non-empty list of non-empty strings"))
         registry = {
             "id": "archives:test-leads",
             "name": "Leads",
@@ -1648,8 +1657,8 @@ class PressArticleTests(ArchivesTestCase):
             "items": [{"url": "https://press.example.org/"}],
         }
         cases.append((probe, r"lists must be a non-empty list of names"))
-        for source, message in cases:
-            with self.subTest(message=message):
+        for index, (source, message) in enumerate(cases):
+            with self.subTest(case=index, message=message):
                 with self.assertRaisesRegex(ValueError, message) as caught:
                     self.load_seeds(source)
                 self.assertIn(f"source {source['id']!r}", str(caught.exception))
@@ -1834,6 +1843,7 @@ class RunnerStateTests(ArchivesTestCase):
             "platform": "web",
             "adapter": "page_links",
             "hosts": ["press.example.org"],
+            "identity_quotes": ["Dynamix"],  # the page title: the game evidence of every candidate it lists
             "quality": QUALITY,
             "items": [{"url": self.PAGE, "link_rules": [{"attr": "src", "pattern": "^/img/"}]}],
             "rules": rules or [{"match": "^img/", "role": role, "game": "dynamix"}],
@@ -2082,6 +2092,61 @@ class RunnerStateTests(ArchivesTestCase):
             self.assertNotIn(f"Also linked from {second}.", notes())  # not a seed page any more: never carried
             self.assertNotIn(f"Also linked from {third}.", notes())  # unread, but it never linked the file
             self.verify()
+
+    def test_a_linking_page_is_named_although_a_named_page_url_extends_its_url(self):
+        """Linking pages are compared note by note, not as text: the note 'Also linked from <...>/other.html.'
+        contains the text of the note for '<...>/other', but that page is named too, so its unread state holds the
+        candidate like any other linking page's."""
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        longer, shorter = "https://press.example.org/other.html", "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"] += [
+            {"url": url, "link_rules": [{"attr": "src", "pattern": "^/img/"}]} for url in (longer, shorter)
+        ]
+        listing = self.page("x.png", "y.png")
+        self.run_family([seed], FakeNetwork({self.PAGE: listing, longer: listing, shorter: listing}))
+        before = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual(base_adapter.linking_pages(before), [self.PAGE, longer, shorter])
+        unread = {"error": net.HttpError("HTTP 503", url=shorter, http_status=503)}
+        self.run_family(
+            [seed], FakeNetwork({self.PAGE: self.page("y.png"), longer: self.page("y.png"), shorter: unread})
+        )
+        held = self.candidates("archives:press").get("img/x.png")
+        self.assertIsNotNone(held)  # the unread page linked it: an incomplete read is no observation
+        self.assertEqual((held["disposition"], held["reason"]), ("excluded", "site_ui: logo"))
+        self.assertIn(runner.HELD_NOTE, held["notes"])
+        self.verify()
+
+    def test_a_linking_page_is_named_once(self):
+        """note_also_linked names a page once. A page that links the file but is not read completely (a skipped link)
+        reaches it twice in one run: as a page that links it, and from keep_unread_links, since the previous candidate
+        named it. The candidate still has one note for it. A page whose URL is a prefix or an extension of a named
+        page's URL is another page and gets its own note."""
+        from primary.adapters import page_links
+
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        other = "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"].append({"url": other, "link_rules": [{"attr": "src", "pattern": "^/img/"}]})
+        listing = self.page("x.png", "y.png")
+        self.run_family([seed], FakeNetwork({self.PAGE: listing, other: listing}))
+        self.assertEqual(base_adapter.also_linked(self.candidates("archives:press")["img/x.png"]["notes"]), [other])
+        partial = {"text": listing["text"].replace("</body>", "<img src='/img/c\\d.png'></body>")}
+        self.run_family([seed], FakeNetwork({self.PAGE: listing, other: partial}))
+        snapshot = manifest.load_discovery(self.root, "archives:press")
+        self.assertEqual(snapshot["continuation"], {"seed-pages": "links-skipped-1"})  # other is not read completely
+        again = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual((again["disposition"], again["page_url"]), ("excluded", self.PAGE))
+        self.assertEqual(base_adapter.also_linked(again["notes"]), [other])
+        self.verify()
+        draft = model.Draft("img/x.png", self.PAGE, "x.png", "excluded")
+        prefix, extension = "https://press.example.org/othe", f"{other}.html"
+        # The note for the extension contains the text of the note for 'other', which is named after it all the same.
+        for page in (extension, extension, other, prefix, other, extension, prefix):
+            page_links.note_also_linked(draft, page)
+        self.assertEqual(base_adapter.also_linked(draft.candidate_extra["notes"]), [extension, other, prefix])
+        expected = " ".join(base_adapter.ALSO_LINKED_NOTE.format(url=url) for url in (extension, other, prefix))
+        self.assertEqual(draft.candidate_extra["notes"], expected)  # joined by one space, nothing before the first
 
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
         other = "https://press.example.org/other"
@@ -3116,6 +3181,9 @@ class FamilyConsistencyTests(ArchivesTestCase):
         of the wikis manifest's Template:Song credit; a credit the wikis family does not record stays quote-less."""
         page = "https://dynamix.miraheze.org/wiki/Hope!!"
         wikis = manifest.load_json(ROOT / "tests/fixtures/contract/data/sources/wikis.json")
+        # A wiki record that credits HAT as illustrator, with the Template:Song field and quote that state it (a
+        # record's illustrator entry names one of its illustrators: schema.validate_asset, DX2-07).
+        wikis["assets"][0]["illustrators"] = ["HAT"]
         wikis["assets"][0]["credit_evidence"] = [
             {"role": "illustrator", "name": "HAT", "url": page, "field": "Template:Song|Cover Artist", "quote": "HAT"}
         ]

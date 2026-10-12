@@ -104,18 +104,20 @@ or the other role's label is no evidence); otherwise the entry has no quote and 
 download rule that credits names must have unless a curated `credit_evidence` entry with a URL covers each name.
 List fields are lists of non-empty strings and `min_interval` is at least 1 s. Collaboration/multi-game art
 (`game_associations` beyond `dynamix`) gets `rights.holder: null` unless the rule names a holder the source supports.
-Curated `credit_evidence` and `mapping_evidence` entries are kept as given. Two guards override seeds: a *rejected submission* announcement excludes the candidate,
-and a *Dynamix Universe* mention holds it as `pending` unless the rule sets `allow_universe_mention`. Unclassified
-items are `pending`, never admitted on keywords; X embed-timeline posts need a rule whose `match` names the post ID
-(or that requires evidence quotes). `variant_role` requires `variant_group` (`jacket:<song slug>` groups crops of one
-song's artwork). An exclude/pending rule with `"withdraw_archived": true` is a curator's decision to remove an earlier
-archived record of that candidate (file and record; the bytes stay in Git history); without it an archived candidate
-that a rule now excludes stays archived and fails `--verify`. A download rule with `"archive_under": "<upstream key>"`
-says the same file is attached to that other candidate of the source, whose text names what it shows: that candidate
-resolves first and holds the record (an existing record of this candidate is taken over: same asset ID, the other
-candidate's own fetch and contract path, a note; that candidate's own earlier record of other bytes is superseded), and
-this candidate becomes `duplicate_bytes`; a target the run does not list is reported, never silently ignored. A rule `title` is human
-text from the cited page (`{default}` stands for the adapter's title); a file name is never a title.
+Curated `credit_evidence` and `mapping_evidence` entries are kept as given. A curated `illustrator` or `composer` entry
+must name someone the rule credits in that role, or the seeds fail to load. Two guards override seeds: a *rejected
+submission* announcement excludes the candidate, and a *Dynamix Universe* mention holds it as `pending` unless the rule
+sets `allow_universe_mention`. Unclassified items are `pending`, never admitted on keywords; X embed-timeline posts need
+a rule whose `match` names the post ID (or that requires evidence quotes). `variant_role` requires `variant_group`
+(`jacket:<song slug>` groups crops of one song's artwork). An exclude/pending rule with `"withdraw_archived": true` is a
+curator's decision to remove an earlier archived record of that candidate (file and record; the bytes stay in Git
+history); without it an archived candidate that a rule now excludes stays archived and fails `--verify`. A download rule
+with `"archive_under": "<upstream key>"` says the same file is attached to that other candidate of the source, whose
+text names what it shows: that candidate resolves first and holds the record (an existing record of this candidate is
+taken over: same asset ID, the other candidate's own fetch and contract path, a note; that candidate's own earlier
+record of other bytes is superseded), and this candidate becomes `duplicate_bytes`; a target the run does not list is
+reported, never silently ignored. A rule `title` is human text from the cited page (`{default}` stands for the adapter's
+title); a file name is never a title.
 
 ## Adapters
 
@@ -135,15 +137,20 @@ text from the cited page (`{default}` stands for the adapter's title); a file na
 | `release_page` (list mode) | `{"tracks_of": "<handle>"}`: one read of `soundcloud.com/<handle>/tracks` | every server-rendered track becomes an item; the list stays open when fewer than the account's `track_count` are rendered; a read that fails or renders no track holds the tracks the list added before, a read that renders tracks holds none |
 | `page_probe`, `lead_registry` | one availability read / no request | dead or login-walled sources; research leads without an acquirable file |
 
+`apple_store`, `google_play`, `taptap_app` and `page_links` seeds need `identity_quotes`: text that the listing or page
+must show, such as the app title or the developer. The quotes found go into the `game_evidence` of every candidate of
+that page, and while one is missing a download rule holds its candidate `pending` (`unresolved_game`). `load_seeds`
+refuses such a seed without them, because its downloaded candidates could carry no game evidence.
+
 `seeds/leads-crosswalk.json` (research sweep) and `seeds/leads-gapfill-crosswalk.json` (research gap-fill: Wayback pixiv
-originals, official YouTube/Facebook/X, press, partner collaborations) map every 2026-10-10 lead (`dynamix_original_game`
-yes/unclear) to the
-source and candidate-key prefix that records its disposition; `lead_list` holds the research file's SHA-256 and a hash
-of the lead list, so the seed test detects a dropped lead. Each lead's `files` maps every file URL the research
-recorded for it to one exact candidate (matched by `file_url`, `source_reported.url` or `page_url`, or `normalized`/
+originals, official YouTube/Facebook/X, press, partner collaborations) map every 2026-10-10 lead
+(`dynamix_original_game` yes/unclear) to the source and candidate-key prefix that records its disposition; `lead_list`
+holds the research file's SHA-256 and a hash of the lead list, so the seed test detects a dropped lead. Each lead's
+`files` maps every file URL the research recorded for it to one exact candidate (matched by `file_url`,
+`source_reported.url` or `page_url`, or `normalized`/
 `noted` with the reason) or registry item, and `files_sha256` hashes the per-lead file lists, so a file that no
-candidate accounts for, or a dropped file URL, fails the seed test (a page prefix alone is not enough). `testing.py` holds the offline test doubles used by
-`tests/test_fetch_{artists,official,archives}.py`.
+candidate accounts for, or a dropped file URL, fails the seed test (a page prefix alone is not enough). `testing.py`
+holds the offline test doubles used by `tests/test_fetch_{artists,official,archives}.py`.
 
 ### App Store renditions (observed 2026-10-10)
 
