@@ -921,6 +921,8 @@ class OtherGameCaptionTests(unittest.TestCase):
             "S Artwork in Dynamix, Halloween Event",  # occasion wording without a listed name
             "S Artwork in Dynamix, Lanotan Collaboration",  # a listed name only as a whole word
             "S Artwork in Dynamix, Eventide by Lanota",  # and occasion wording too
+            "S Artwork in Dynamix, Lanota Megaevent",  # at both ends of the word
+            "S Artwork in Dynamix, Lanota Precollaboration",
             "S Artwork in Dynamix, Lanota Collab",  # only the three words, not an abbreviation
             "S Artwork in Dynamix, by HAT, Lanota Collaboration",  # only the part right after the name
             "S Artwork in Dynamix, by HAT; Lanota Collaboration",  # which ends at a semicolon too
