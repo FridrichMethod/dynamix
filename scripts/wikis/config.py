@@ -289,13 +289,24 @@ EXTERNAL_RELEASE_EVENT = re.compile(r"\b(?:PABAT|BOF|BMS)\b", re.I)
 # (2016)", "Artwork in Dynamix!", "Artwork in Dynamix -"), it names neither another game nor an occasion, so there is
 # nothing to record or review. Any further text after the name is a name like any other (owner decision 2026-10-11),
 # a dash-separated qualifier included: "for Dynamix - Halloween Event" and "in Dynamix - original" get the curator
-# note, and "for Dynamix - Lanota Collaboration" records Lanota.
+# note, and "for Dynamix - Lanota Collaboration" records Lanota. After the name alone and a comma, the next part of the
+# caption (up to a comma, semicolon or parenthesis) continues the name only when it is an occasion of a listed game
+# (BARE_NAME_COMMA, classify.caption_name): a name on OTHER_GAMES together with collaboration, event or anniversary
+# wording (OCCASION_WORDING), so "in Dynamix, Lanota Collaboration" records Lanota as "in Dynamix - Lanota
+# Collaboration" does. Any other part after the comma, such as a credit or a version (", by HAT", ", HQ"), stays
+# outside the name: nothing to record or review, as before.
+_ARTWORK_OF = r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+"
+_BARE_NAME = r"dynamix(?:['’]s?)?\s*[.!?…]*(?:\s+[-‐‑‒–—―]+)?\s*"  # the original game's own name alone
 OTHER_GAME_ARTWORK = re.compile(
-    r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+"
-    r"(?!dynamix(?:['’]s?)?\s*[.!?…]*(?:\s+[-‐‑‒–—―]+)?\s*(?:[,;()]|$))"
-    r"(?P<other>[^\s,;()][^,;()]*)",
+    _ARTWORK_OF + r"(?!" + _BARE_NAME + r"(?:[,;()]|$))" + r"(?P<other>[^\s,;()][^,;()]*)",
     re.I,
 )
+# The bare name, a comma and the next part (group "partner"), at every start (a lookahead, so the matches may overlap).
+BARE_NAME_COMMA = re.compile(
+    r"(?=" + _ARTWORK_OF + r"(?P<other>" + _BARE_NAME + r",\s*(?P<partner>[^\s,;()][^,;()]*)))",
+    re.I,
+)
+OCCASION_WORDING = re.compile(r"\b(?:collaborations?|events?|anniversary|anniversaries)\b", re.I)
 # A name (group "other") that starts with "Dynamix" is never a release event of EXTERNAL_RELEASE_EVENT, as before such
 # names went to the reviewed list: "for Dynamix PABAT 2017" stays the song's artwork (with the curator note), while
 # "for the Dynamix BMS" and "in PABAT! 2017" are external releases (classify.page_evidence).

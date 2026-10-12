@@ -313,6 +313,23 @@ def listed_games(named: str) -> tuple[config.OtherGame, ...]:
     return tuple(dict.fromkeys(found))
 
 
+def caption_name(caption: str) -> str | None:
+    """The name, as written, after "Artwork/Cover/Jacket/Illustration in/for/from" in a caption
+    (config.OTHER_GAME_ARTWORK), or None; the first such name in the caption counts. After the original game's own
+    name alone and a comma, the next part continues the name when it is an occasion of a listed game: a name of
+    config.OTHER_GAMES with collaboration, event or anniversary wording (config.BARE_NAME_COMMA, OCCASION_WORDING).
+    "Artwork in Dynamix, Lanota Collaboration" -> "Dynamix, Lanota Collaboration", read as "Dynamix - Lanota
+    Collaboration" is; "Artwork in Dynamix, by HAT" -> None, as before."""
+    other = config.OTHER_GAME_ARTWORK.search(caption)
+    for comma in config.BARE_NAME_COMMA.finditer(caption):
+        if other is not None and comma.start() > other.start():
+            break
+        partner = comma.group("partner")
+        if listed_games(partner) and config.OCCASION_WORDING.search(partner):
+            return comma.group("other")
+    return other.group("other") if other is not None else None
+
+
 _OTHER_GAME_SLUGS = {game.name: game.slug for game in config.OTHER_GAMES}
 
 
@@ -388,8 +405,8 @@ def page_evidence(
                     # 'Cover Art of "Gallium Phosphide"' in the gallery of another song's page: that song's cover.
                     song, song_page = quoted
                     detail += f", the caption names the cover of another song ({quoted[0]})"
-                other = config.OTHER_GAME_ARTWORK.search(ref.caption) if caption_role in KINDS else None
-                raw = other.group("other") if other is not None else ""
+                other = caption_name(ref.caption) if caption_role in KINDS else None
+                raw = other if other is not None else ""
                 named = raw.strip().strip("'\"")
                 release_event = (
                     other is not None
