@@ -994,6 +994,13 @@ class ReleaseStateTests(unittest.TestCase):
         "The catalog is released as v1.1.0, and the next release will follow.",
         "See https://fridrichmethod.github.io/dynamix/ for the catalog.",
         "The website is `live`.",
+        # Link syntax hides no claim or hold wording (plain()): an image such as a badge, brackets inside the link
+        # text (also empty ones), an empty link text and an empty destination.
+        "The website is ![live](badge.svg).",
+        "[The website [EN]](archive.html) is not deployed.",
+        "[The website []](archive.html) is not deployed.",
+        "The website[](archive.html) is not deployed.",
+        "The website is [live]().",
         *(f"网站{words}，之后的推送不会部署。" for words in ("已部署", "已经部署", "已上线", "已经上线")),
         "网站已发布。",
         "网站已经发布。",
