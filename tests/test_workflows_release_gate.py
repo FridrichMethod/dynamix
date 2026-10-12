@@ -151,6 +151,7 @@ HEADER_STALE = (
     "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
     "with one read-only API request and deploys",  # the approval and the build job each send one
     "repeats no lookup, so re-run the whole run",  # a re-run of the deploy job alone now deploys nothing
+    "repeats no lookup and deploys nothing",  # a re-run that includes the build job repeats its lookup
     *RETIRED_ENVIRONMENT["en"],
 )
 # What the header must say: what deploys, what fails closed and the repository settings around the workflow.
@@ -171,9 +172,8 @@ HEADER_REQUIRED = (
     "with one read-only API request in the approval job (and again in the build job)",
     "only if that Release is published and not a prerelease",
     "A re-run keeps the event of the run it repeats",
-    "A re-run of the deploy job alone, or of any jobs without the approval job, repeats no lookup and deploys "
-    "nothing, since the deploy job requires the approval job's record of the current attempt: re-run the "
-    "whole run.",
+    "A re-run of the deploy job alone, or of any jobs without the approval job, deploys nothing, since the deploy "
+    "job requires the approval job's record of the current attempt: re-run the whole run.",
     "the deploy job deploys only the commit that the approval job of the same attempt recorded",
     "needs the tag to name the run's commit on origin too (read with git ls-remote, without credentials",
     "a tag that origin now has on another commit",
@@ -383,7 +383,7 @@ EXPRESSION_BLIND = {
 # no such output), with whether the deploy condition holds (R1). A re-run of the whole run repeats every guard and the
 # Release lookup and records its own attempt. A re-run of the deploy job alone ("Re-run this job" on Deploy, or "Re-run
 # failed jobs" after only Deploy failed), like any re-run without the approval job, keeps the approval job's outputs of
-# an earlier attempt, whose lookup it does not repeat, so it deploys nothing.
+# an earlier attempt, so it deploys nothing, also when it repeats the build job's guards and lookup.
 ATTEMPTS = {
     "the first attempt": ("1", "1", True),
     "a re-run of the whole run (attempt 2 records 2)": ("2", "2", True),
