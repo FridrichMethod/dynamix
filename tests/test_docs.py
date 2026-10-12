@@ -373,8 +373,8 @@ def release_wording_problems(text: str) -> list[str]:
     """Statements about the site's release state in a document other than the READMEs, which alone describe it: a flat
     deployment or publication claim anywhere, hold wording in any sentence, a sentence about deployment or release that
     tells it as an event (release_events(): a date, a past-tense event verb) and one that is not negated, conditional,
-    future or restricted (how the guard works, not what happened). Claims and hold wording are matched in the raw and
-    the rendered text (see plain())."""
+    future or restricted (how the guard works, not what happened). Claims, hold wording and events are matched in the
+    raw and the rendered text (see plain()), so that emphasis or a link around a date hides no event."""
     claims = {match.group() for source in (text, plain(text)) for match in FLAT_CLAIMS.finditer(source)}
     problems = [f"flat claim: {claim!r}" for claim in sorted(claims)]
     for sentence in sentences(prose_lines(text), keep_code=True):
@@ -382,7 +382,7 @@ def release_wording_problems(text: str) -> list[str]:
     for sentence in sentences(prose_lines(text)):
         if not RELEASE_WORDS.search(sentence):
             continue
-        if release_events(sentence):
+        if release_events(sentence) or release_events(plain(sentence)):
             problems.append(f"release told as an event: {sentence[:80]!r}")
         elif not GUARDS.search(sentence):
             problems.append(f"unguarded release statement: {sentence[:80]!r}")
@@ -1103,6 +1103,7 @@ class ReleaseStateTests(unittest.TestCase):
         "2026-10-11 ，部署只需要所有者批准。",
         "于 10 月 11 日 ，部署只需要所有者批准。",
         "2026-10-11、2026-10-12，部署只需要所有者批准。",  # dates listed with 、 as the clause
+        "On **2026-10-11**, the deployment needed only the owner's approval.",  # emphasis hides no date
         # 、 joins the items of one clause, so the date dates the deployment it names (a ， would end the clause).
         "来源于 2026-10-10 检查、未部署任何内容。",
         "网站在所有者批准后才部署了。",
