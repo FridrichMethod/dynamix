@@ -89,7 +89,7 @@ GUARD_ROLES = ("event", "lookup", "release", "checkout", "main")
 TAG_CHECK = r'[[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]'
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
 # What each README says about a re-run of the deploy job alone (R1), and what it said while such a re-run could still
-# deploy.
+# deploy (matched as unformatted() reads it).
 README_RERUN = {
     "README.md": (
         'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys '
@@ -161,10 +161,17 @@ SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
 
 
+# What unformatted() drops: code backticks, backslashes (Markdown escapes such as \*), the emphasis markers * and _, and
+# straight and curly quotes.
+FORMATTING = re.compile("[`\\\\*_\"'\u2018\u2019\u201c\u201d]")
+
+
 def unformatted(text: str) -> str:
-    """``text`` in lower case without code backticks or bold markers, as HEADER_STALE and RETIRED_ENVIRONMENT are
-    matched in the header and the READMEs: "allows `main`" reads "allows main"."""
-    return text.replace("`", "").replace("**", "").lower()
+    """``text`` as the stale wording (HEADER_STALE, RETIRED_ENVIRONMENT, README_RERUN) is matched in the pages.yml
+    header and the READMEs: in lower case, without FORMATTING, and with each run of whitespace as one space.
+    "allows `main`", 'allows "main"', "allows **main**" and "allows  main" all read "allows main", and "*v\\** tags"
+    reads "v tags", as "v* tags" does."""
+    return re.sub(r"\s+", " ", FORMATTING.sub("", text)).lower()
 
 
 SAME_ATTEMPT = object()  # approved(): the approval job ran in the deploy job's own attempt
@@ -466,7 +473,7 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
 
     def test_header_comment_describes_the_release_gate(self):
         """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Stale wording
-        counts in code backticks too (unformatted()), as in the READMEs."""
+        counts with code backticks, quotes, emphasis or extra spaces too (unformatted()), as in the READMEs."""
         header = []
         for line in (WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines():
             if line.startswith("on:"):
@@ -488,7 +495,7 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
             text = (ROOT / relative).read_text(encoding="utf-8")
             with self.subTest(document=relative):
                 self.assertIn(required, text)
-                self.assertNotIn(stale, text)
+                self.assertNotIn(unformatted(stale), unformatted(text))
 
     def test_readmes_drop_the_retired_environment_rule(self):
         """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag
