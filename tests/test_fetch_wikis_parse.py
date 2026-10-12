@@ -884,6 +884,7 @@ class OtherGameCaptionTests(unittest.TestCase):
             ("Artwork in", "Dynamix -", "Phigros Anniversaries", ("Phigros",)),
             ("illustration FOR", "DYNAMIX", "ROTAENO COLLABORATIONS", ("Rotaeno",)),
             ("Artwork in", "Dynamix", "Lanota Collaboration, by HAT", ("Lanota",)),
+            ("Artwork in", "Dynamix", "Lanota Collaboration; by HAT", ("Lanota",)),  # the part ends at a semicolon
             ("Artwork for", "Dynamix", "the Arcaea x Lanota Collaboration Event", ("Arcaea", "Lanota")),
             ("Artwork for", "Dynamix", "RAVON BMS Event", ("RAVON",)),  # not a release event, as after a dash
             ("Cover for RAVON, Artwork in", "Dynamix", "Lanota Collaboration", ("RAVON",)),  # the first name counts
@@ -922,6 +923,7 @@ class OtherGameCaptionTests(unittest.TestCase):
             "S Artwork in Dynamix, Eventide by Lanota",  # and occasion wording too
             "S Artwork in Dynamix, Lanota Collab",  # only the three words, not an abbreviation
             "S Artwork in Dynamix, by HAT, Lanota Collaboration",  # only the part right after the name
+            "S Artwork in Dynamix, by HAT; Lanota Collaboration",  # which ends at a semicolon too
             "S Artwork in Dynamix; Lanota Collaboration",
             "S Artwork in Dynamix (Lanota Collaboration)",
         ):
