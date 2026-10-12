@@ -216,6 +216,9 @@ RELEASE_LOOKUP_DENIED = {
     "dispatch with two JSON documents as the Release response": looked_up(
         dispatched(TAGGED), "200", release_body("v9.9.9") + release_body("v1.1.0")
     ),
+    "dispatch with a JSON string as the Release response": looked_up(dispatched(TAGGED), "200", '"v1.1.0"'),
+    "dispatch with a JSON number as the Release response": looked_up(dispatched(TAGGED), "200", "1"),
+    "dispatch with JSON null as the Release response": looked_up(dispatched(TAGGED), "200", "null"),
 }
 # Each must fail the gate: the event guard, or for RELEASE_LOOKUP_DENIED the Release lookup or the Release guard. The
 # deploy condition refuses all but EXPRESSION_BLIND even with the approval job's output (as if a guard had been
@@ -976,6 +979,9 @@ class ReleaseGateTests(unittest.TestCase):
             "dispatch on a tag whose Release has a string prerelease flag": 'prerelease="false"',
             "dispatch with a truncated Release response": "did not return valid JSON",
             "dispatch with a JSON array as the Release response": "is a JSON array, not one object",
+            "dispatch with a JSON string as the Release response": "is a JSON string, not one object",
+            "dispatch with a JSON number as the Release response": "is a JSON number, not one object",
+            "dispatch with JSON null as the Release response": "is a JSON null, not one object",
             "dispatch with two JSON documents as the Release response": "is not one JSON object",
         }
         for scenario, phrase in expected.items():
