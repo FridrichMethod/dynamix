@@ -115,6 +115,11 @@ RETIRED_ENVIRONMENT = {
     ),
     "zh": ("只应手动运行 v1.1.1 起的标签", "允许来自 v* 标签的部署", "允许 main", "允许来自 main"),
 }
+# What no comment of pages.yml (the header or a comment after it) may say about a re-run without the approval job (R1):
+# that it repeats no lookup. It deploys nothing, and one that includes the build job repeats that job's lookup. Matched
+# as unformatted() reads them, "repeats no lookup" and "repeats no Release lookup" cover every sentence with either, and
+# "lookup it does not repeat" the approval job's outputs comment as the first R1 fix wrote it.
+RERUN_STALE = ("repeats no lookup", "repeats no Release lookup", "lookup it does not repeat")
 # Wording that the pages.yml header (read when releasing) must not have (matched as unformatted() reads it): the release
 # hold, the retired dispatch gate and wording of earlier versions of this workflow.
 HEADER_STALE = (
@@ -127,8 +132,7 @@ HEADER_STALE = (
     "dispatched tag",
     "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
     "with one read-only API request and deploys",  # the approval and the build job each send one
-    "repeats no lookup, so re-run the whole run",  # a re-run of the deploy job alone now deploys nothing
-    "repeats no lookup and deploys nothing",  # a re-run that includes the build job repeats its lookup
+    *RERUN_STALE,
     *RETIRED_ENVIRONMENT["en"],
 )
 # What the header must say: what deploys, what fails closed and the repository settings around the workflow.
@@ -167,8 +171,8 @@ FORMATTING = re.compile("[`\\\\*_\"'\u2018\u2019\u201c\u201d]")
 
 
 def unformatted(text: str) -> str:
-    """``text`` as the stale wording (HEADER_STALE, RETIRED_ENVIRONMENT, README_RERUN) is matched in the pages.yml
-    header and the READMEs: in lower case, without FORMATTING, and with each run of whitespace as one space.
+    """``text`` as the stale wording (HEADER_STALE, RERUN_STALE, RETIRED_ENVIRONMENT, README_RERUN) is matched in
+    pages.yml and the READMEs: in lower case, without FORMATTING, and with each run of whitespace as one space.
     "allows `main`", 'allows "main"', "allows **main**" and "allows  main" all read "allows main", and "*v\\** tags"
     reads "v tags", as "v* tags" does."""
     return re.sub(r"\s+", " ", FORMATTING.sub("", text)).lower()
@@ -487,6 +491,22 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
         for required in HEADER_REQUIRED:
             with self.subTest(required=required):
                 self.assertIn(required, text)
+
+    def test_comments_after_the_header_drop_the_retired_re_run_wording(self):
+        """The comments after the header, such as the approval job's outputs comment, do not say that a re-run without
+        the approval job repeats no lookup either (RERUN_STALE, matched as unformatted() reads them)."""
+        comments, block, after_header = [], [], False
+        for line in [*(WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines(), ""]:
+            after_header = after_header or line.startswith("on:")
+            if after_header and line.strip().startswith("#"):
+                block.append(line.strip().lstrip("#").strip())
+            elif block:
+                comments.append(" ".join(block))
+                block = []
+        self.assertTrue(any("outputs of an earlier attempt" in comment for comment in comments), comments)
+        for stale in RERUN_STALE:
+            with self.subTest(stale=stale):
+                self.assertEqual([comment for comment in comments if unformatted(stale) in unformatted(comment)], [])
 
     def test_readmes_say_that_a_re_run_of_the_deploy_job_alone_deploys_nothing(self):
         """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1) and to re-run
