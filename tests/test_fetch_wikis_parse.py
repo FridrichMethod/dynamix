@@ -970,7 +970,8 @@ class OtherGameCaptionTests(unittest.TestCase):
         Dynamix's own occasions and other unlisted names do not and carry the curator note, the game's own name alone
         (also before trailing sentence punctuation) names nothing to review while any further text after it, a
         dash-separated qualifier included, carries the note, and a BMS release event is the song's separate release
-        (external_release_art). The paragraph names the reviewed game list (config.OTHER_GAMES, which replaced the
+        (external_release_art) unless the name starts with Dynamix, which keeps it song art with the note (round 4,
+        B2). The paragraph names the reviewed game list (config.OTHER_GAMES, which replaced the
         word lists DYNAMIX_OCCASION and OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed
         word lists. The stale 'another game or event' wording is gone, and so are the claim that a name starting with
         "Dynamix" is never another game, which has been false since such names go through the reviewed list, and the
@@ -990,6 +991,7 @@ class OtherGameCaptionTests(unittest.TestCase):
             "Artwork in Dynamix - original": ("download", [], True),
             "Artwork in Dynamix - Halloween Event": ("download", [], True),
             "Artwork in PABAT! 2017": ("excluded", [], False),
+            "Artwork for Dynamix PABAT 2017": ("download", [], True),
         }
         for relative, stale in (
             ("docs/sources-wikis.md", "another game or event"),
@@ -1012,6 +1014,10 @@ class OtherGameCaptionTests(unittest.TestCase):
                     self.assertFalse(hasattr(config, name), name)
                 for caption in expected:
                     self.assertIn(caption, paragraph)
+                # The exception for a name that starts with Dynamix stands in the BMS sentence, after its example.
+                self.assertGreater(
+                    paragraph.index("Artwork for Dynamix PABAT 2017"), paragraph.index("Artwork in PABAT! 2017")
+                )
         for caption, (disposition, associations, review) in expected.items():
             with self.subTest(caption=caption):
                 item = self.gallery_item("S " + caption)
@@ -1020,6 +1026,8 @@ class OtherGameCaptionTests(unittest.TestCase):
                 self.assertEqual(self.REVIEW in item.detail, review, item.detail)
                 if disposition == "excluded":
                     self.assertEqual(decision.reason.split(":")[0], "external_release_art")
+                else:
+                    self.assertEqual(item.role, "song_art")
 
 
 def _review(**fields):
