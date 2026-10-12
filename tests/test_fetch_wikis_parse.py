@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import dataclasses
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -1030,8 +1031,8 @@ class OtherGameCaptionTests(unittest.TestCase):
         return self.found("S", text, ["Category:Songs"], ["S.png", "S Event.png"])["File:S Event.png"]
 
     def test_the_documented_caption_examples_behave_as_documented(self) -> None:
-        """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: a listed game's
-        artwork or event records an association (with a possessive too, and in a name that starts with Dynamix),
+        """docs/sources-wikis.md (and its translation) quote exactly these captions in the game paragraph: a listed
+        game's artwork or event records an association (with a possessive too, and in a name that starts with Dynamix),
         Dynamix's own occasions and other unlisted names do not and carry the curator note, the game's own name alone
         (also before trailing sentence punctuation) names nothing to review while any further text after it, a
         dash-separated qualifier included, carries the note, and a BMS release event is the song's separate release
@@ -1040,7 +1041,9 @@ class OtherGameCaptionTests(unittest.TestCase):
         word lists DYNAMIX_OCCASION and OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed
         word lists. The stale 'another game or event' wording is gone, and so are the claim that a name starting with
         "Dynamix" is never another game, which has been false since such names go through the reviewed list, and the
-        round-4 claim that a dash-separated qualifier after the name names nothing to review."""
+        round-4 claim that a dash-separated qualifier after the name names nothing to review. The quoted examples are
+        compared exactly, each once: a substring check let an example that is the start of another one ("Artwork in
+        Dynamix -" of "Artwork in Dynamix - original") go missing unnoticed."""
         expected = {  # caption: (disposition, associations, whether the evidence asks a curator to review the name)
             "Artwork in RAVON": ("download", ["ravon"], False),
             "Artwork for the RAVON Collaboration Event": ("download", ["ravon"], False),
@@ -1058,6 +1061,8 @@ class OtherGameCaptionTests(unittest.TestCase):
             "Artwork in PABAT! 2017": ("excluded", [], False),
             "Artwork for Dynamix PABAT 2017": ("download", [], True),
         }
+        # A quoted caption example: "Artwork in RAVON" in English, “Artwork in RAVON” in the translation.
+        example = re.compile(r'["“]((?:Artwork|Cover|Jacket|Illustration) (?:in|for|from) [^"”]*)["”]')
         for relative, stale in (
             ("docs/sources-wikis.md", "another game or event"),
             ("docs/sources-wikis.zh-CN.md", "其他游戏或活动"),
@@ -1077,8 +1082,7 @@ class OtherGameCaptionTests(unittest.TestCase):
                 for name in ("DYNAMIX_OCCASION", "OCCASION_WORDS"):
                     self.assertNotIn(name, paragraph)
                     self.assertFalse(hasattr(config, name), name)
-                for caption in expected:
-                    self.assertIn(caption, paragraph)
+                self.assertEqual(sorted(example.findall(paragraph)), sorted(expected))
                 # The exception for a name that starts with Dynamix stands in the BMS sentence, after its example.
                 self.assertGreater(
                     paragraph.index("Artwork for Dynamix PABAT 2017"), paragraph.index("Artwork in PABAT! 2017")
