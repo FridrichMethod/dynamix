@@ -828,6 +828,71 @@ class OtherGameCaptionTests(unittest.TestCase):
                     (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
                 )
 
+    def test_the_boundaries_of_the_bare_game_name(self) -> None:
+        """The edges of the bare-name rule (config.OTHER_GAME_ARTWORK) that the round-4 re-verification found
+        unpinned: every dash of the class ends the bare name as a trailing dash, also a run of dashes, and also before
+        a comma, a semicolon or a parenthesis after a space. A dash right after the name, text right after a dash, a
+        second dash after a space and a name that only contains "Dynamix" later are names with the curator note."""
+        bare = [f"S Artwork in Dynamix {dash}" for dash in "-‐‑‒–—―"]
+        bare += [
+            "S Artwork in Dynamix --",
+            "S Artwork in Dynamix ——",
+            "S Artwork in Dynamix! -",  # sentence punctuation, then the trailing dash
+            "S Jacket from Dynamix - (2016)",
+            "S Artwork in Dynamix -, by HAT",
+            "S Artwork for Dynamix’s —; HQ",
+        ]
+        for caption in bare:
+            with self.subTest(bare=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertNotIn("the caption names", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+        for caption, named in (
+            ("S Artwork in Dynamix-", "Dynamix-"),
+            ("S Artwork in Dynamix—", "Dynamix—"),
+            ("S Artwork in Dynamix -original", "Dynamix -original"),
+            ("S Artwork in Dynamix - -", "Dynamix - -"),  # one run of dashes is the trailing dash
+            ("S Artwork for the Dynamix -", "the Dynamix -"),
+            ("S Artwork for the Dynamix", "the Dynamix"),
+        ):
+            with self.subTest(named=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+
+    def test_the_boundaries_of_the_dynamix_prefix_before_a_release_event(self) -> None:
+        """The edges of config.DYNAMIX_NAME, which keeps a name that starts with "Dynamix" from being a BMS release
+        event: it is the whole word in any letter case at the start of the caption's name as written, so a name in
+        straight quotes (stripped only for the evidence) and a longer word ("Dynamixer") stay release events, as
+        before round 3, while "DYNAMIX PABAT 2017" is the song's art with the curator note."""
+        for caption, named in (
+            ("S Artwork for DYNAMIX PABAT 2017", "DYNAMIX PABAT 2017"),
+            ("S Artwork for dynamix BOF 2013 Event", "dynamix BOF 2013 Event"),
+        ):
+            with self.subTest(song_art=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+                self.assertEqual(self.decide([item]).disposition, "download")
+        for caption in (
+            'S Artwork for "Dynamix PABAT 2017"',
+            "S Artwork for 'Dynamix PABAT 2017'",
+            "S Artwork for Dynamixer PABAT 2017",
+        ):
+            with self.subTest(release=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.other_games), ("external_release_art", ()))
+                self.assertIn("(an external release event)", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.reason.split(":")[0], decision.associations),
+                    ("excluded", "external_release_art", []),
+                )
+
     def test_names_that_start_with_dynamix_are_never_a_release_event(self) -> None:
         """A name that starts with "Dynamix" is not tested against the BMS release events (EXTERNAL_RELEASE_EVENT:
         PABAT, BOF, BMS), as before such names went through the reviewed list (R3): the caption keeps its art role and
