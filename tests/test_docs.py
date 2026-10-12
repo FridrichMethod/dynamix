@@ -143,8 +143,9 @@ CONDITION_BEFORE = re.compile(
     re.IGNORECASE,
 )
 CONDITION_AFTER = re.compile(r"[^。；，：、,;:.!?]*?(?:(?<![暂及同当])时(?![间刻])|的话|情况下)")
-# ASCII punctuation ends a clause before whitespace only, so a version (v1.1.0) or a file name stays in its clause.
-CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：、。！？]")
+# ASCII punctuation ends a clause before whitespace only, so a version (v1.1.0) or a file name stays in its clause. 、
+# joins the items of a list, not clauses ("若标签错误、变量未设置，……" is one condition).
+CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：。！？]")
 # A clause that continues the one before it ("If X is wrong, or the variable is unset, ..."): a condition that opens
 # the first clause covers it (CONDITION_OPENS). A condition inside an earlier clause covers that clause alone ("The tag
 # v1.1.0 exists if you check, and the variable is unset.").
@@ -1166,8 +1167,8 @@ class ReleaseStateTests(unittest.TestCase):
         "手动触发的运行也部署标签的提交。",
         "届时网站随新版本部署。",
         "下一个版本会部署网站。",
-        # "None is deployed" after a condition of the guard, each condition word, and a condition that opens a clause
-        # which "and", 或, 并且 or 且 continues.
+        # "None is deployed" after a condition of the guard, each condition word, a condition that opens a clause which
+        # "and", 或, 并且 or 且 continues, and conditions listed with 、.
         "If a tag is not `vX.Y.Z`, none is deployed.",
         "Whenever a tag is not `vX.Y.Z`, nothing is deployed.",
         "While the Release is a draft, nothing is deployed.",
@@ -1178,6 +1179,7 @@ class ReleaseStateTests(unittest.TestCase):
         "If the tag is wrong, and the variable is unset, the dispatch fails closed.",
         "倘若标签不对，或变量未设置，触发会失败关闭。",
         *(f"如果标签不对，{word}变量未设置，触发会失败关闭。" for word in ("并且", "且")),
+        "若标签错误、变量未设置或指向其他提交，触发会失败关闭。",
         # An event verb after each subordinator.
         "The deploy job never runs before the test job has succeeded.",
         *(f"The deploy job runs only {word} the test job has succeeded." for word in ("once", "when", "if")),
