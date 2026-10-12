@@ -1,6 +1,6 @@
 name: Deploy GitHub Pages (published releases only)
 
-# Releases only. This workflow never runs on push, pull request or a schedule. A published GitHub Release whose tag is
+# Release tags only. This workflow never runs on push, pull request or a schedule. A published GitHub Release whose tag is
 # vX.Y.Z (three numbers, not a prerelease) deploys the commit of that tag; a manual dispatch on such a tag deploys that
 # commit again (gh workflow run pages.yml --ref v1.1.0; a dispatch does not look up the tag's Release, so use it only
 # to redeploy a released tag). Both need the tag's commit to be on main, and the full Tests workflow must
