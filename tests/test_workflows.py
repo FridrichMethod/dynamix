@@ -3,13 +3,13 @@
 The release gate (owner decisions of 2026-10-11, superseding the manual-dispatch design of 06-validation-and-release.md
 Gate 5) must hold by construction: ordinary pushes and pull requests only test and upload CI artifacts; Pages deploys
 only a published, non-prerelease GitHub Release whose tag is vX.Y.Z (without leading zeros), or a manual dispatch on
-such a tag whose GitHub Release is published and not a prerelease (looked up with one read-only API request, the only
-request of the workflows' scripts outside the loopback smoke tests), and only when the tag's commit is on main, the
-full Tests workflow passed on it and the approval job recorded it; no workflow has a schedule, pushes, tags, creates
-releases or opens pull requests. Workflows are parsed with the stdlib YAML-subset reader in
-tests/test_workflows_yaml.py. The deploy job's condition is evaluated with GitHub's expression semantics, and every
-shell guard is executed (the Release lookup with a stand-in curl, the main-ancestry guard in temporary Git
-repositories), for each scenario. The lint job runs every
+such a tag, and only when the tag's GitHub Release is published and not a prerelease (looked up by every run, a
+re-run of a release run included, with one read-only API request, the only request of the workflows' scripts outside
+the loopback smoke tests), the tag's commit is on main, the full Tests workflow passed on it and the approval job
+recorded it; no workflow has a schedule, pushes, tags, creates releases or opens pull requests. Workflows are parsed
+with the stdlib YAML-subset reader in tests/test_workflows_yaml.py. The deploy job's condition is evaluated with
+GitHub's expression semantics, and every shell guard is executed (the Release lookup with a stand-in curl, the
+main-ancestry guard in temporary Git repositories), for each scenario. The lint job runs every
 pre-commit hook read-only and never fixes; the checks job runs the unit tests under coverage and enforces fail_under.
 Their shell steps are executed with stand-ins (a fake Node.js, a stand-in test suite).
 """
@@ -63,9 +63,11 @@ EVENT_GUARD_ENV = {
     "LC_ALL": "C",  # [0-9] in the tag check is then the ASCII digits only (WIDE_DIGIT_LOCALE)
 }
 MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}"}
-# The Release lookup (owner decision D1): one read-only GET of the dispatched tag's Release with the job token, whose
-# response the Release guard after it reads from RUNNER_TEMP. Only these two steps of each Pages job see the token.
-LOOKUP_NAME = "Look up the GitHub Release of a dispatched tag"
+# The Release lookup (owner decision D1): one read-only GET of the tag's Release with the job token, whose response the
+# Release guard after it reads from RUNNER_TEMP. Only these two steps of each Pages job see the token. A release run
+# looks the Release up as a dispatch does: a re-run keeps the event of the run it repeats, which no longer tells whether
+# the Release is still published and not a prerelease.
+LOOKUP_NAME = "Look up the GitHub Release of the tag"
 LOOKUP_ENV = {"EVENT_NAME": "${{ github.event_name }}", "REF": "${{ github.ref }}", "TOKEN": "${{ github.token }}"}
 RELEASE_GUARD_ENV = {"EVENT_NAME": "${{ github.event_name }}", "REF": "${{ github.ref }}"}
 RELEASE_API = '"https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/$tag"'
@@ -121,18 +123,6 @@ SHA = "0123456789abcdef0123456789abcdef01234567"
 OTHER_SHA = "89abcdef0123456789abcdef0123456789abcdef"
 
 
-def released(tag: str, **release: object) -> dict:
-    """The context of a published GitHub Release of ``tag`` (``release`` overrides fields of the event's release)."""
-    fields = {"tag_name": tag, "prerelease": False, "draft": False, **release}
-    return {
-        "github.event_name": "release",
-        "github.event.action": "published",
-        "github.ref": f"refs/tags/{tag}",
-        "github.sha": SHA,
-        **{f"github.event.release.{name}": value for name, value in fields.items() if value is not None},
-    }
-
-
 def approved(context: dict, commit: str | None = SHA) -> dict:
     """``context`` as the deploy job sees it once the approval job has recorded ``commit`` (None: no output at all)."""
     return {**context, APPROVAL_OUTPUT: commit} if commit is not None else dict(context)
@@ -156,6 +146,27 @@ def release_body(tag: str, **fields: object) -> str:
     return json.dumps({name: value for name, value in release.items() if value is not None})
 
 
+def released(tag: str, **release: object) -> dict:
+    """The context of a published GitHub Release of ``tag`` (``release`` overrides fields of the event's release). Its
+    Release lookup returns that Release as the event describes it; only a run that passes the event guard sends the
+    lookup."""
+    fields = {"tag_name": tag, "prerelease": False, "draft": False, **release}
+    return {
+        "github.event_name": "release",
+        "github.event.action": "published",
+        "github.ref": f"refs/tags/{tag}",
+        "github.sha": SHA,
+        **{f"github.event.release.{name}": value for name, value in fields.items() if value is not None},
+        LOOKUP: ("200", release_body(tag, **release), 0),
+    }
+
+
+def rerun(tag: str, **current: object) -> dict:
+    """A re-run of the run of ``released(tag)``: GitHub keeps the event of that run, while the Release lookup returns
+    the Release of ``tag`` as it is now (``current`` overrides its fields)."""
+    return looked_up(released(tag), "200", release_body(tag, **current))
+
+
 def dispatched(ref: str, **release: object) -> dict:
     """A manual dispatch on ``ref``. Its Release lookup returns the published Release of the tag (``release`` overrides
     fields of that Release); only a dispatch that passes the event guard sends the lookup."""
@@ -177,8 +188,11 @@ def triggered(event: str, ref: str) -> dict:
     return {"github.event_name": event, "github.ref": ref, "github.sha": SHA}
 
 
-ACCEPTED = {  # each must pass the event guard and, with the approval job's output, satisfy the deploy condition
+# Each must pass the event guard, the Release lookup and the Release guard and, with the approval job's output, satisfy
+# the deploy condition.
+ACCEPTED = {
     "release v1.1.0 published": released("v1.1.0"),
+    "re-run of release v1.1.0, whose Release is unchanged": rerun("v1.1.0"),
     "dispatch on the tag v1.1.0": dispatched("refs/tags/v1.1.0"),
     "release v10.20.30 published": released("v10.20.30"),
     "release v1.10.0 published": released("v1.10.0"),
@@ -186,10 +200,27 @@ ACCEPTED = {  # each must pass the event guard and, with the approval job's outp
 }
 TAGGED = "refs/tags/v1.1.0"
 NOT_FOUND = json.dumps({"message": "Not Found", "status": "404"})
-# Dispatches on a vX.Y.Z tag that pass the event guard: the Release lookup or the Release guard refuses them (owner
-# decision D1). A dispatch deploys only a tag with a published Release that is not a prerelease; any other answer, a
-# missing response included, fails closed.
+# Runs on a vX.Y.Z tag that pass the event guard: the Release lookup or the Release guard refuses them (owner decision
+# D1). A run deploys only a tag with a published Release that is not a prerelease; any other answer, a missing response
+# included, fails closed. A release run is looked up too: a re-run keeps the event of the run it repeats, so its
+# payload still passes the event guard after the Release became a prerelease or a draft or was deleted.
 RELEASE_LOOKUP_DENIED = {
+    "re-run of release v1.1.0, whose Release is now a prerelease": rerun("v1.1.0", prerelease=True),
+    "re-run of release v1.1.0, whose Release is now a draft": rerun("v1.1.0", draft=True),
+    "re-run of release v1.1.0, whose Release was deleted (HTTP 404)": looked_up(released("v1.1.0"), "404", NOT_FOUND),
+    "re-run of release v1.1.0, whose Release lookup names another tag": rerun("v1.1.0", tag_name="v1.2.0"),
+    "re-run of release v1.1.0, whose Release has no prerelease flag": rerun("v1.1.0", prerelease=None),
+    "release v1.1.0 whose Release lookup is forbidden (HTTP 403)": looked_up(
+        released("v1.1.0"), "403", json.dumps({"message": "Resource not accessible by integration"})
+    ),
+    "release v1.1.0 whose Release lookup fails at the server (HTTP 502)": looked_up(
+        released("v1.1.0"), "502", "<html>Bad gateway</html>"
+    ),
+    "release v1.1.0 whose Release lookup gets no response (a network error)": looked_up(
+        released("v1.1.0"), "000", "", 6
+    ),
+    "release v1.1.0 with a truncated Release response": looked_up(released("v1.1.0"), "200", '{"tag_name": "v1.1.0",'),
+    "release v1.1.0 with an empty Release response": looked_up(released("v1.1.0"), "200", ""),
     "dispatch on a tag without a published Release (HTTP 404)": looked_up(dispatched(TAGGED), "404", NOT_FOUND),
     "dispatch whose Release lookup is forbidden (HTTP 403)": looked_up(
         dispatched(TAGGED), "403", json.dumps({"message": "Resource not accessible by integration"})
@@ -773,6 +804,7 @@ class ReleaseGateTests(unittest.TestCase):
             "approved sha",
             "on main, not",
             "does not look up",
+            "dispatched tag",
         ):
             with self.subTest(stale=stale):
                 self.assertNotIn(stale.lower(), text.lower())
@@ -786,8 +818,9 @@ class ReleaseGateTests(unittest.TestCase):
             "gh workflow run pages.yml --ref v",
             "v*",
             "without leading zeros",
-            "first looks up the tag's GitHub Release",
+            "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
             "only if that Release is published and not a prerelease",
+            "A re-run keeps the event of the run it repeats",
             'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
         ):
             with self.subTest(required=required):
@@ -843,8 +876,8 @@ class ReleaseGateTests(unittest.TestCase):
     def test_event_and_release_guards_fail_closed(self):
         """Each scenario through the event guard, the Release lookup and the Release guard of both jobs. An accepted
         one passes all three without an error; a refused one stops at one of them with exactly one ::error:: line:
-        RELEASE_LOOKUP_DENIED at the lookup or the Release guard, every other one at the event guard. Only a dispatch
-        that passed the event guard sends the lookup, once; a release run never does."""
+        RELEASE_LOOKUP_DENIED at the lookup or the Release guard, every other one at the event guard. Every run that
+        passed the event guard sends the lookup, once, a release run as well as a dispatch; no other run sends it."""
         for job_id in ("approval", "build"):
             for scenario, context, allowed in [(name, ctx, True) for name, ctx in ACCEPTED.items()] + [
                 (name, ctx, False) for name, ctx in DENIED.items()
@@ -857,8 +890,37 @@ class ReleaseGateTests(unittest.TestCase):
                     self.assertEqual(sum(len(error_lines(result)) for result in results), 0 if allowed else 1, output)
                     if not allowed:
                         self.assertEqual(len(results) > 1, scenario in RELEASE_LOOKUP_DENIED, output)
-                    dispatch = context["github.event_name"] == "workflow_dispatch"
-                    self.assertEqual(len(calls), 1 if dispatch and results[0].returncode == 0 else 0, output)
+                    self.assertEqual(len(calls), 1 if results[0].returncode == 0 else 0, output)
+
+    @unittest.skipUnless(shutil.which("bash") and shutil.which("jq"), "needs bash and jq to execute the guard steps")
+    def test_a_release_run_checks_the_current_release(self):
+        """GitHub's re-run of a release run keeps the event it started with, so the event guard still passes after the
+        owner turned the Release into a prerelease or a draft or deleted it, and when the lookup answers for another
+        tag or cannot be read. Each copy of the guards then makes its one lookup and refuses with the same reason as a
+        dispatch on the same tag; the deploy condition alone would accept the run (EXPRESSION_BLIND)."""
+        condition = self.pages["jobs"]["deploy"]["if"]
+        releases = {
+            name: context
+            for name, context in RELEASE_LOOKUP_DENIED.items()
+            if context["github.event_name"] == "release"
+        }
+        self.assertGreaterEqual(len(releases), 10, "withdrawn, mismatched and unreadable Releases of a release run")
+        for job_id in ("approval", "build"):
+            for scenario, context in releases.items():
+                with self.subTest(job=job_id, scenario=scenario):
+                    self.assertTrue(evaluate(condition, approved(context)), "the payload alone looks deployable")
+                    results, calls = self.run_gate(job_id, context)
+                    output = "".join(result.stdout + result.stderr for result in results)
+                    self.assertEqual(results[0].returncode, 0, output)
+                    self.assertNotEqual(results[-1].returncode, 0, output)
+                    self.assertEqual(len(calls), 1, output)
+                    dispatch = {**dispatched(TAGGED), LOOKUP: context[LOOKUP]}
+                    refused, _ = self.run_gate(job_id, dispatch)
+                    self.assertEqual(
+                        [line for result in results for line in error_lines(result)],
+                        [line for result in refused for line in error_lines(result)],
+                        "a release run and a dispatch on the same tag are refused alike",
+                    )
 
     @unittest.skipUnless(shutil.which("bash") and shutil.which("git"), "needs bash and git to execute the guard step")
     def test_main_guard_deploys_only_a_commit_on_main(self):
@@ -983,6 +1045,14 @@ class ReleaseGateTests(unittest.TestCase):
             "dispatch with a JSON number as the Release response": "is a JSON number, not one object",
             "dispatch with JSON null as the Release response": "is a JSON null, not one object",
             "dispatch with two JSON documents as the Release response": "is not one JSON object",
+            "re-run of release v1.1.0, whose Release is now a prerelease": "prerelease=true",
+            "re-run of release v1.1.0, whose Release is now a draft": "draft=true",
+            "re-run of release v1.1.0, whose Release was deleted (HTTP 404)": "has no published GitHub Release",
+            "re-run of release v1.1.0, whose Release lookup names another tag": 'names the tag "v1.2.0", not v1.1.0',
+            "re-run of release v1.1.0, whose Release has no prerelease flag": "prerelease=null",
+            "release v1.1.0 whose Release lookup is forbidden (HTTP 403)": "returned HTTP 403, not 200",
+            "release v1.1.0 whose Release lookup gets no response (a network error)": "failed without a response",
+            "release v1.1.0 with a truncated Release response": "did not return valid JSON",
         }
         for scenario, phrase in expected.items():
             with self.subTest(scenario=scenario):
@@ -993,16 +1063,17 @@ class ReleaseGateTests(unittest.TestCase):
 
     @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
     def test_the_release_lookup_is_one_read_only_get(self):
-        """The lookup of a dispatch sends one request: a GET (no method, data, form, upload, config or redirect
-        option) of the Releases endpoint for the dispatched tag, over HTTPS only, within LOOKUP_MAX_SECONDS, with the
-        API headers of owner decision D1 and the job token as an Authorization header read from standard input, so the
-        token is never an argument. It saves the status and the body under RUNNER_TEMP, where the Release guard reads
-        them. A release run, or any other event, sends nothing."""
+        """The lookup of a dispatch or a release run sends one request: a GET (no method, data, form, upload, config or
+        redirect option) of the Releases endpoint for the run's tag, over HTTPS only, within LOOKUP_MAX_SECONDS, with
+        the API headers of owner decision D1 and the job token as an Authorization header read from standard input, so
+        the token is never an argument. It saves the status and the body under RUNNER_TEMP, where the Release guard
+        reads them. Any other event sends nothing."""
         expected_url = f"https://api.github.com/repos/{REPOSITORY}/releases/tags/v1.1.0"
-        for job_id in ("approval", "build"):
+        events = (dispatched(TAGGED), released("v1.1.0"))
+        for job_id, event in [(job_id, event) for job_id in ("approval", "build") for event in events]:
             lookup = self.guards(job_id)["lookup"]
-            context = {**dispatched(TAGGED), "github.token": TOKEN}
-            with self.subTest(job=job_id), tempfile.TemporaryDirectory() as temporary:
+            context = {**event, "github.token": TOKEN}
+            with self.subTest(job=job_id, event=event["github.event_name"]), tempfile.TemporaryDirectory() as temporary:
                 base = Path(temporary)
                 tools, state = stand_in_curl(base)
                 (state / "response.json").write_text(json.dumps(context[LOOKUP]), encoding="utf-8")
@@ -1040,29 +1111,29 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertEqual(
                     (runner / "release-lookup/release.json").read_text(encoding="utf-8"), context[LOOKUP][1]
                 )
-                for event in (released("v1.1.0"), triggered("push", TAGGED)):
-                    outcome = run_guard(lookup, {**event, "github.token": TOKEN}, **{**extra, "RUNNER_TEMP": temporary})
-                    self.assertEqual(outcome.returncode == 0, event["github.event_name"] == "release", outcome.stdout)
-                self.assertEqual(len(curl_calls(state)), 1, "no request for a release run or another event")
+                for other in (triggered("push", TAGGED), triggered("pull_request", TAGGED)):
+                    outcome = run_guard(lookup, {**other, "github.token": TOKEN}, **{**extra, "RUNNER_TEMP": temporary})
+                    self.assertNotEqual(outcome.returncode, 0, outcome.stdout)
+                    self.assertEqual(len(error_lines(outcome)), 1, outcome.stdout)
+                self.assertEqual(len(curl_calls(state)), 1, "no request for another event")
 
     @unittest.skipUnless(shutil.which("bash") and shutil.which("jq"), "needs bash and jq to execute the guard step")
     def test_the_release_guard_needs_the_saved_response(self):
-        """The Release guard decides only from the files the lookup saved: a dispatch without them fails closed, a
-        release run passes without them (its release is in the event), and another event fails."""
+        """The Release guard decides only from the files the lookup saved: a dispatch or a release run without them
+        fails closed (a release run's event does not stand in for the Release), and another event fails."""
         for job_id in ("approval", "build"):
             release = self.guards(job_id)["release"]
-            for context, allowed, phrase in (
-                (dispatched(TAGGED), False, "No response of the lookup"),
-                (released("v1.1.0"), True, None),
-                (triggered("push", TAGGED), False, "not push"),
+            for context, phrase in (
+                (dispatched(TAGGED), "No response of the lookup"),
+                (released("v1.1.0"), "No response of the lookup"),
+                (triggered("push", TAGGED), "not push"),
             ):
                 with self.subTest(job=job_id, event=context["github.event_name"]), tempfile.TemporaryDirectory() as tmp:
                     result = run_guard(release, context, RUNNER_TEMP=tmp)
-                    self.assertEqual(result.returncode == 0, allowed, result.stdout + result.stderr)
+                    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
                     errors = error_lines(result)
-                    self.assertEqual(len(errors), 0 if allowed else 1, result.stdout)
-                    if phrase:
-                        self.assertIn(phrase, errors[0])
+                    self.assertEqual(len(errors), 1, result.stdout)
+                    self.assertIn(phrase, errors[0])
 
     def test_only_the_release_lookups_reach_the_github_api(self):
         """Every network command in the workflows' scripts is a curl of a loopback smoke-test server (tests.yml), except
