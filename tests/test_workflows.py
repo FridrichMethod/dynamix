@@ -805,6 +805,7 @@ class ReleaseGateTests(unittest.TestCase):
             "on main, not",
             "does not look up",
             "dispatched tag",
+            "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
         ):
             with self.subTest(stale=stale):
                 self.assertNotIn(stale.lower(), text.lower())
@@ -815,7 +816,10 @@ class ReleaseGateTests(unittest.TestCase):
             "on main",
             "Tests workflow",
             "fails closed",
-            "gh workflow run pages.yml --ref v",
+            "gh workflow run pages.yml --ref v1.1.1",
+            # A run takes pages.yml from the tag's commit: tags before v1.1.1 run a workflow without the lookup.
+            "a run on an older tag uses that tag's own workflow, which does not check the Release",
+            "only tags from v1.1.1 on should be run by hand",
             "v*",
             "without leading zeros",
             "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",

@@ -2,11 +2,13 @@ name: Deploy GitHub Pages (vX.Y.Z tags on main only)
 
 # vX.Y.Z tags on main only. This workflow never runs on push, pull request or a schedule. A published GitHub Release
 # that is not a prerelease, with a vX.Y.Z tag (three numbers without leading zeros: v1.10.0, not v01.1.0), deploys the
-# commit of that tag, and a manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.0) redeploys it. Every
+# commit of that tag, and a manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.1) redeploys it. Every
 # run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release with one read-only
 # API request and deploys the tag's commit only if that Release is published and not a prerelease. A re-run keeps the
 # event of the run it repeats, so only the lookup sees a Release that has since become a draft or a prerelease or been
-# deleted. Every run also needs the tag's commit to be on main, and the full Tests workflow must pass on that commit
+# deleted. A run takes this file from the tag's commit, so these rules apply to tags from v1.1.1 on: a run on an older
+# tag uses that tag's own workflow, which does not check the Release, so only tags from v1.1.1 on should be run by
+# hand. Every run also needs the tag's commit to be on main, and the full Tests workflow must pass on that commit
 # before the artifact is built. Any other run fails closed at the approval job (a dispatch on a branch, a tag that is
 # not vX.Y.Z, a release that is a draft or prerelease, a tag without such a Release or whose lookup fails, a commit
 # that is not on main): no tests, no artifact, no deployment. The build job repeats the approval job's guards, and the
