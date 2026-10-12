@@ -56,7 +56,8 @@ jobs:
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
               ;;
           esac
-          [[ "$REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "Pages deploys only a vX.Y.Z tag, not $REF."
+          [[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] \
+            || fail "Pages deploys only a vX.Y.Z tag (three numbers without leading zeros), not $REF."
           echo "$EVENT_NAME of $REF may deploy once its commit is on main and the tests pass."
       - name: Checkout the tag with the history of main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -120,7 +121,8 @@ jobs:
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
               ;;
           esac
-          [[ "$REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "Pages deploys only a vX.Y.Z tag, not $REF."
+          [[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] \
+            || fail "Pages deploys only a vX.Y.Z tag (three numbers without leading zeros), not $REF."
           echo "$EVENT_NAME of $REF may deploy once its commit is on main and the tests pass."
       - name: Checkout the tag with the history of main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

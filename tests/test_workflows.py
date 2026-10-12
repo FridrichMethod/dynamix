@@ -47,6 +47,8 @@ EVENT_GUARD_ENV = {
     "LC_ALL": "C",  # [0-9] in the tag check is then the ASCII digits only (WIDE_DIGIT_LOCALE)
 }
 MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}"}
+# The event guard's tag check: v and three numbers without leading zeros (owner decision D2), under LC_ALL=C.
+TAG_CHECK = r'[[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]'
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
 ALLOWED_ACTIONS = {
     "actions/checkout",
@@ -100,6 +102,8 @@ ACCEPTED = {  # each must satisfy the deploy condition and pass the event guard
     "release v1.1.0 published": released("v1.1.0"),
     "dispatch on the tag v1.1.0": dispatched("refs/tags/v1.1.0"),
     "release v10.20.30 published": released("v10.20.30"),
+    "release v1.10.0 published": released("v1.10.0"),
+    "dispatch on the tag v0.0.0": dispatched("refs/tags/v0.0.0"),
 }
 DENIED = {  # each must fail the event guard; the deploy condition refuses all but EXPRESSION_BLIND
     "push to main": triggered("push", "refs/heads/main"),
@@ -114,6 +118,10 @@ DENIED = {  # each must fail the event guard; the deploy condition refuses all b
     "dispatch on the tag v1.1.0-rc1": dispatched("refs/tags/v1.1.0-rc1"),
     "dispatch on the tag v1.1.0.1": dispatched("refs/tags/v1.1.0.1"),
     "dispatch on the tag V1.1.0": dispatched("refs/tags/V1.1.0"),
+    # Three numbers without leading zeros (owner decision D2, 2026-10-11).
+    "release v01.1.0": released("v01.1.0"),
+    "dispatch on the tag v1.01.0": dispatched("refs/tags/v1.01.0"),
+    "release v1.1.00": released("v1.1.00"),
     "dispatch on a ref with a second line": dispatched("refs/tags/v1.1.0\nrefs/heads/main"),
     "dispatch on a tag with an Arabic-Indic digit": dispatched("refs/tags/v1.1.\u0663"),
     "dispatch on a tag with a fullwidth digit": dispatched("refs/tags/v\uff11.1.0"),
@@ -137,6 +145,9 @@ EXPRESSION_BLIND = {
     "dispatch on the tag v1.1.0-rc1",
     "dispatch on the tag v1.1.0.1",
     "dispatch on the tag V1.1.0",
+    "release v01.1.0",
+    "dispatch on the tag v1.01.0",
+    "release v1.1.00",
     "dispatch on a ref with a second line",
     "dispatch on a tag with an Arabic-Indic digit",
     "dispatch on a tag with a fullwidth digit",
@@ -506,6 +517,7 @@ class ReleaseGateTests(unittest.TestCase):
         event, checkout, main = approval
         self.assertNotIn("uses", event)
         self.assertEqual(event["env"], EVENT_GUARD_ENV)
+        self.assertEqual(event["run"].count(TAG_CHECK), 1, "the tag check is exactly the vX.Y.Z pattern")
         self.assertEqual(action_name(checkout["uses"]), "actions/checkout")
         # The full history, so that origin/main is there to compare with; credentials are never kept.
         self.assertEqual(checkout["with"], {"fetch-depth": "0", "persist-credentials": "false"})
@@ -669,6 +681,7 @@ class ReleaseGateTests(unittest.TestCase):
             "push to main": "not push",
             "dispatch on main": "not refs/heads/main",
             "dispatch on the tag v1.1.0-rc1": "vX.Y.Z",
+            "release v01.1.0": "without leading zeros",
             "prerelease v1.1.0": "prerelease",
             "release without a prerelease flag": "prerelease",
             "draft release": "draft",
