@@ -820,8 +820,10 @@ class ReleaseStateTests(unittest.TestCase):
     READMES = ("README.md", "README.zh-CN.md")
     PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
     # What each README's Releases section says about the release-triggered workflow, with the owner decisions of
-    # 2026-10-11: tags without leading zeros (D2), a dispatch that looks up the tag's Release (D1), and the tag ruleset
-    # beside the environment rule (D5).
+    # 2026-10-11: tags without leading zeros (D2), every run, a re-run of a release run included, looking up the tag's
+    # Release (D1), and the tag ruleset beside the environment rule (D5). A run takes pages.yml from the tag's commit,
+    # and v1.1.1 is the first release whose workflow looks the tag's Release up, so the dispatch example names v1.1.1
+    # and older tags are said to run their own workflow.
     RELEASE_MODEL = {
         "README.md": (
             "published",
@@ -830,12 +832,15 @@ class ReleaseStateTests(unittest.TestCase):
             "`v1.1.0-rc1`",
             "on `main`",
             "fails closed",
-            "gh workflow run pages.yml --ref",
+            "gh workflow run pages.yml --ref v1.1.1",
+            "a run on an older tag uses that tag's own workflow, which does not check the Release",
+            "only tags from `v1.1.1` on should be run by hand",
             "`v*`",
             "three numbers without leading zeros",
             "`v01.1.0`",
-            "first looks up the tag's GitHub Release",
+            "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
             "only if that Release is published and not a prerelease",
+            "A re-run keeps the event of the run it repeats",
             "`github-pages` environment allows deployments from `v*` tags",
             "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
         ),
@@ -846,12 +851,15 @@ class ReleaseStateTests(unittest.TestCase):
             "`v1.1.0-rc1`",
             "`main` 上",
             "失败关闭",
-            "gh workflow run pages.yml --ref",
+            "gh workflow run pages.yml --ref v1.1.1",
+            "较早标签上的运行使用该标签自己的工作流，它不检查 Release",
+            "只应手动运行 `v1.1.1` 起的标签",
             "`v*`",
             "三个不带前导零的数字",
             "`v01.1.0`",
-            "会先查询该标签的 GitHub Release",
+            "每次运行，无论是发布的运行、它的重新运行还是手动触发，都会先查询该标签的 GitHub Release",
             "只有该 Release 已发布且不是预发布版本时才部署",
+            "重新运行沿用它所重复的那次运行的事件",
             "`github-pages` 环境允许来自 `v*` 标签的部署",
             "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
         ),
@@ -1022,6 +1030,7 @@ class ReleaseStateTests(unittest.TestCase):
                 "release_sha",
                 "does not look up the tag",
                 "不会查询该标签",
+                "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup, so it is no example of one
             ):
                 with self.subTest(document=relative, stale=stale):
                     self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold or old gate")

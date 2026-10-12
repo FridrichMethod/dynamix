@@ -2,15 +2,19 @@ name: Deploy GitHub Pages (vX.Y.Z tags on main only)
 
 # vX.Y.Z tags on main only. This workflow never runs on push, pull request or a schedule. A published GitHub Release
 # that is not a prerelease, with a vX.Y.Z tag (three numbers without leading zeros: v1.10.0, not v01.1.0), deploys the
-# commit of that tag. A manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.0) first looks up the tag's
-# GitHub Release with one read-only API request and deploys the tag's commit only if that Release is published and not
-# a prerelease. Both need the tag's commit to be on main, and the full Tests workflow must pass on that commit before
-# the artifact is built. Any other run fails closed at the approval job (a dispatch on a branch, a tag that is not
-# vX.Y.Z, a release that is a draft or prerelease, a dispatched tag without such a Release or whose lookup fails, a
-# commit that is not on main): no tests, no artifact, no deployment. The build job repeats the approval job's guards,
-# and the deploy job deploys only the commit that the approval job recorded after all its guards passed. The
-# github-pages environment must allow deployments from v* tags, and the repository ruleset "Release tags v*" lets only
-# repository admins create, move or delete v* tags.
+# commit of that tag, and a manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.1) redeploys it. Every
+# run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release with one read-only
+# API request and deploys the tag's commit only if that Release is published and not a prerelease. A re-run keeps the
+# event of the run it repeats, so only the lookup sees a Release that has since become a draft or a prerelease or been
+# deleted (a re-run of the deploy job alone repeats no lookup, so re-run the whole run). A run takes this file from the
+# tag's commit, so these rules apply to tags from v1.1.1 on: a run on an older tag uses that tag's own workflow, which
+# does not check the Release, so only tags from v1.1.1 on should be run by hand. Every run also needs the tag's commit
+# to be on main, and the full Tests workflow must pass on that commit before the artifact is built. Any other run fails
+# closed at the approval job (a dispatch on a branch, a tag that is not vX.Y.Z, a release that is a draft or prerelease,
+# a tag without such a Release or whose lookup fails, a commit that is not on main): no tests, no artifact, no
+# deployment. The build job repeats the approval job's guards, and the deploy job deploys only the commit that the
+# approval job recorded after all its guards passed. The github-pages environment must allow deployments from v* tags,
+# and the repository ruleset "Release tags v*" lets only repository admins create, move or delete v* tags.
 on:
   release:
     types: [published]
@@ -65,7 +69,7 @@ jobs:
           [[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] \
             || fail "Pages deploys only a vX.Y.Z tag (three numbers without leading zeros), not $REF."
           echo "$EVENT_NAME of $REF may deploy once its commit is on main and the tests pass."
-      - name: Look up the GitHub Release of a dispatched tag
+      - name: Look up the GitHub Release of the tag
         env:
           EVENT_NAME: ${{ github.event_name }}
           REF: ${{ github.ref }}
@@ -73,12 +77,10 @@ jobs:
           TOKEN: ${{ github.token }}
         run: |
           fail() { echo "::error::$1"; exit 1; }
+          # A release run too: a re-run keeps the event of the run it repeats, so only this lookup sees the Release as
+          # it is now (a draft, a prerelease or deleted since).
           case "$EVENT_NAME" in
-            release)
-              echo "A release run carries its release in the event; nothing to look up."
-              exit 0
-              ;;
-            workflow_dispatch)
+            release | workflow_dispatch)
               ;;
             *)
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
@@ -94,18 +96,14 @@ jobs:
             || fail "The lookup of the GitHub Release of $tag failed without a response; nothing is deployed."
           echo "$status" > "$RUNNER_TEMP/release-lookup/status"
           echo "The lookup of the GitHub Release of $tag returned HTTP $status."
-      - name: Refuse a dispatch unless its tag has a published GitHub Release that is not a prerelease
+      - name: Refuse unless the tag has a published GitHub Release that is not a prerelease
         env:
           EVENT_NAME: ${{ github.event_name }}
           REF: ${{ github.ref }}
         run: |
           fail() { echo "::error::$1"; exit 1; }
           case "$EVENT_NAME" in
-            release)
-              echo "A release run: the first guard checked the release of the event."
-              exit 0
-              ;;
-            workflow_dispatch)
+            release | workflow_dispatch)
               ;;
             *)
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
@@ -119,7 +117,7 @@ jobs:
             200)
               ;;
             404)
-              fail "The tag $tag has no published GitHub Release (HTTP 404); a dispatch deploys only a released tag."
+              fail "The tag $tag has no published GitHub Release (HTTP 404); only a released tag deploys."
               ;;
             *)
               fail "The lookup of the GitHub Release of $tag returned HTTP $status, not 200."
@@ -206,7 +204,7 @@ jobs:
           [[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] \
             || fail "Pages deploys only a vX.Y.Z tag (three numbers without leading zeros), not $REF."
           echo "$EVENT_NAME of $REF may deploy once its commit is on main and the tests pass."
-      - name: Look up the GitHub Release of a dispatched tag
+      - name: Look up the GitHub Release of the tag
         env:
           EVENT_NAME: ${{ github.event_name }}
           REF: ${{ github.ref }}
@@ -214,12 +212,10 @@ jobs:
           TOKEN: ${{ github.token }}
         run: |
           fail() { echo "::error::$1"; exit 1; }
+          # A release run too: a re-run keeps the event of the run it repeats, so only this lookup sees the Release as
+          # it is now (a draft, a prerelease or deleted since).
           case "$EVENT_NAME" in
-            release)
-              echo "A release run carries its release in the event; nothing to look up."
-              exit 0
-              ;;
-            workflow_dispatch)
+            release | workflow_dispatch)
               ;;
             *)
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
@@ -235,18 +231,14 @@ jobs:
             || fail "The lookup of the GitHub Release of $tag failed without a response; nothing is deployed."
           echo "$status" > "$RUNNER_TEMP/release-lookup/status"
           echo "The lookup of the GitHub Release of $tag returned HTTP $status."
-      - name: Refuse a dispatch unless its tag has a published GitHub Release that is not a prerelease
+      - name: Refuse unless the tag has a published GitHub Release that is not a prerelease
         env:
           EVENT_NAME: ${{ github.event_name }}
           REF: ${{ github.ref }}
         run: |
           fail() { echo "::error::$1"; exit 1; }
           case "$EVENT_NAME" in
-            release)
-              echo "A release run: the first guard checked the release of the event."
-              exit 0
-              ;;
-            workflow_dispatch)
+            release | workflow_dispatch)
               ;;
             *)
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
@@ -260,7 +252,7 @@ jobs:
             200)
               ;;
             404)
-              fail "The tag $tag has no published GitHub Release (HTTP 404); a dispatch deploys only a released tag."
+              fail "The tag $tag has no published GitHub Release (HTTP 404); only a released tag deploys."
               ;;
             *)
               fail "The lookup of the GitHub Release of $tag returned HTTP $status, not 200."
