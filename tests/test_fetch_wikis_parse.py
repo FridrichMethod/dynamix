@@ -765,13 +765,16 @@ class OtherGameCaptionTests(unittest.TestCase):
                     (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
                 )
 
-    def test_the_game_name_alone_ends_at_sentence_punctuation_or_a_dash(self) -> None:
+    def test_the_game_name_alone_ends_at_sentence_punctuation_or_a_trailing_dash(self) -> None:
         """The original game's own name ends, as at the end of the caption or a comma, at trailing sentence
-        punctuation ("Artwork in Dynamix.", "Dynamix!") and at a dash-separated qualifier (a dash with a space on each
-        side, or ending the caption: "Dynamix - original", "Dynamix – 2016 version", "Dynamix — HQ"): it names no other
-        game and needs no review. A listed game in the qualifier is still recorded. A name that only goes on after
-        the punctuation, a hyphenated or dash-joined name ("Dynamix-exclusive", "Dynamix–Lanota", "Dynamix- Event")
-        and an occasion before the punctuation are read as names as before."""
+        punctuation ("Artwork in Dynamix.", "Dynamix!") and at a trailing dash (after a space, with nothing after it
+        but the end of the name: "Artwork in Dynamix -"): it names no other game and needs no review. Owner decision
+        2026-10-11: any further text after the name is a name like any other, a dash-separated qualifier included
+        ("Dynamix - original", "Dynamix - Halloween Event", "Dynamix - 5th Anniversary"), so an unlisted one records no
+        association and carries the curator note, while a listed game in it is recorded (round 4 read a qualifier
+        after a dash as the name alone and left out the note). A name that only goes on after the punctuation, a
+        hyphenated or dash-joined name ("Dynamix-exclusive", "Dynamix–Lanota", "Dynamix- Event") and an occasion
+        before the punctuation are read as names as before."""
         for caption in (
             "S Artwork in Dynamix.",
             "S Artwork in Dynamix!",
@@ -780,10 +783,6 @@ class OtherGameCaptionTests(unittest.TestCase):
             "S Artwork in Dynamix…",
             "S Artwork for Dynamix's.",
             "S Artwork in Dynamix! (2016)",
-            "S Artwork in Dynamix - original",
-            "S Artwork in Dynamix – 2016 version",
-            "S Jacket from Dynamix — HQ",
-            "S Artwork in Dynamix’s -- uncropped",
             "S Artwork in Dynamix -",
         ):
             with self.subTest(caption=caption):
@@ -806,17 +805,93 @@ class OtherGameCaptionTests(unittest.TestCase):
                 self.assertEqual(item.other_games, (other,))
                 self.assertNotIn(self.REVIEW, item.detail)
                 self.assertEqual(self.decide([item]).associations, [other.casefold()])
-        for named in (
-            "Dynamix-exclusive Event",
-            "Dynamix- Halloween Event",
-            "Dynamix. Halloween Event 2020",
-            "Dynamix's 5th Anniversary!",
-            "Dynamix Halloween Event - 2020",
+        for caption, named in (
+            ("S Artwork in Dynamix - original", "Dynamix - original"),
+            ("S Artwork in Dynamix – 2016 version", "Dynamix – 2016 version"),
+            ("S Jacket from Dynamix — HQ", "Dynamix — HQ"),
+            ("S Artwork in Dynamix’s -- uncropped", "Dynamix’s -- uncropped"),
+            ("S Artwork in Dynamix - Halloween Event", "Dynamix - Halloween Event"),
+            ("S Artwork for Dynamix - 5th Anniversary", "Dynamix - 5th Anniversary"),
+            ("S Artwork for Dynamix! - Halloween Event", "Dynamix! - Halloween Event"),
+            ("S Artwork for Dynamix-exclusive Event", "Dynamix-exclusive Event"),
+            ("S Artwork for Dynamix- Halloween Event", "Dynamix- Halloween Event"),
+            ("S Artwork for Dynamix. Halloween Event 2020", "Dynamix. Halloween Event 2020"),
+            ("S Artwork for Dynamix's 5th Anniversary!", "Dynamix's 5th Anniversary!"),
+            ("S Artwork for Dynamix Halloween Event - 2020", "Dynamix Halloween Event - 2020"),
         ):
-            with self.subTest(named=named):
-                item = self.gallery_item(f"S Artwork for {named}")
-                self.assertEqual(item.other_games, ())
+            with self.subTest(named=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
                 self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+
+    def test_the_boundaries_of_the_bare_game_name(self) -> None:
+        """The edges of the bare-name rule (config.OTHER_GAME_ARTWORK) that the round-4 re-verification found
+        unpinned: every dash of the class ends the bare name as a trailing dash, also a run of dashes, and also before
+        a comma, a semicolon or a parenthesis after a space. A dash right after the name, text right after a dash, a
+        second dash after a space and a name that only contains "Dynamix" later are names with the curator note."""
+        bare = [f"S Artwork in Dynamix {dash}" for dash in "-‐‑‒–—―"]
+        bare += [
+            "S Artwork in Dynamix --",
+            "S Artwork in Dynamix ——",
+            "S Artwork in Dynamix! -",  # sentence punctuation, then the trailing dash
+            "S Jacket from Dynamix - (2016)",
+            "S Artwork in Dynamix -, by HAT",
+            "S Artwork for Dynamix’s —; HQ",
+        ]
+        for caption in bare:
+            with self.subTest(bare=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertNotIn("the caption names", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.game, decision.associations), ("download", "dynamix", [])
+                )
+        for caption, named in (
+            ("S Artwork in Dynamix-", "Dynamix-"),
+            ("S Artwork in Dynamix—", "Dynamix—"),
+            ("S Artwork in Dynamix -original", "Dynamix -original"),
+            ("S Artwork in Dynamix - -", "Dynamix - -"),  # one run of dashes is the trailing dash
+            ("S Artwork for the Dynamix -", "the Dynamix -"),
+            ("S Artwork for the Dynamix", "the Dynamix"),
+        ):
+            with self.subTest(named=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+
+    def test_the_boundaries_of_the_dynamix_prefix_before_a_release_event(self) -> None:
+        """The edges of config.DYNAMIX_NAME, which keeps a name that starts with "Dynamix" from being a BMS release
+        event: it is the whole word in any letter case at the start of the caption's name as written, so a name in
+        straight quotes (stripped only for the evidence) and a longer word ("Dynamixer") stay release events, as
+        before round 3, while "DYNAMIX PABAT 2017" is the song's art with the curator note."""
+        for caption, named in (
+            ("S Artwork for DYNAMIX PABAT 2017", "DYNAMIX PABAT 2017"),
+            ("S Artwork for dynamix BOF 2013 Event", "dynamix BOF 2013 Event"),
+        ):
+            with self.subTest(song_art=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.game, item.other_games), ("song_art", "dynamix", ()))
+                self.assertIn(f"the caption names {named}, {self.REVIEW}", item.detail)
+                self.assertEqual(self.decide([item]).disposition, "download")
+        for caption in (
+            'S Artwork for "Dynamix PABAT 2017"',
+            "S Artwork for 'Dynamix PABAT 2017'",
+            "S Artwork for Dynamixer PABAT 2017",
+        ):
+            with self.subTest(release=caption):
+                item = self.gallery_item(caption)
+                self.assertEqual((item.role, item.other_games), ("external_release_art", ()))
+                self.assertIn("(an external release event)", item.detail)
+                decision = self.decide([item])
+                self.assertEqual(
+                    (decision.disposition, decision.reason.split(":")[0], decision.associations),
+                    ("excluded", "external_release_art", []),
+                )
 
     def test_names_that_start_with_dynamix_are_never_a_release_event(self) -> None:
         """A name that starts with "Dynamix" is not tested against the BMS release events (EXTERNAL_RELEASE_EVENT:
@@ -905,13 +980,15 @@ class OtherGameCaptionTests(unittest.TestCase):
         self.assertIn("ravon", slugs)
 
     def test_each_reviewed_entry_says_what_it_is(self) -> None:
-        """The comment above each OTHER_GAMES entry in scripts/wikis/config.py says what the entry is: a reviewed
-        entry, and for the six the owner decision of 2026-10-11 kept (RAVON, Arcaea, Lanota, Cytus, Cytus II,
-        Phigros) an owner-approved one; RAVON's also names the committed captions that evidence it. No comment calls
-        an entry a test entry or its membership an open owner question any more."""
+        """The comment above each OTHER_GAMES entry in scripts/wikis/config.py says what the entry is, in the same
+        words for every entry: an owner-approved reviewed entry, since the owner decision of 2026-10-11 keeps all seven
+        (RAVON, Arcaea, Lanota, Cytus, Cytus II, Phigros and Rotaeno), and the list header names the seven. RAVON's
+        comment also names the committed captions that evidence it. No comment calls an entry a test entry, its
+        membership an open owner question, or an entry one that awaits the owner's confirmation any more."""
         source = (ROOT / "scripts/wikis/config.py").read_text(encoding="utf-8")
         start = source.index("\nOTHER_GAMES = (\n")
         header = source[source.index("# Other games named in captions") : start]
+        header = " ".join(line.lstrip("#").strip() for line in header.splitlines())
         block = source[start : source.index("\n)\n", start)].splitlines()[2:]
         comments: dict[str, str] = {}
         pending: list[str] = []
@@ -922,23 +999,27 @@ class OtherGameCaptionTests(unittest.TestCase):
             elif stripped.startswith("OtherGame("):
                 comments[stripped.split('"')[1]] = " ".join(pending)
                 pending = []
+        approved = ("RAVON", "Arcaea", "Lanota", "Cytus", "Cytus II", "Phigros", "Rotaeno")
+        self.assertEqual(sorted(comments), sorted(approved))
         self.assertEqual(sorted(comments), sorted(game.name for game in config.OTHER_GAMES))
-        approved = {"RAVON", "Arcaea", "Lanota", "Cytus", "Cytus II", "Phigros"}
         stale = (
             "test entry",
             "list's own tests",
             "earlier caption tests",
             "added with this list",
             "open owner question",
+            "awaits",
+            "owner's confirmation",
+            "does not name",
         )
         for name, comment in comments.items():
             with self.subTest(game=name):
-                self.assertIn("reviewed entry", comment.casefold())
+                self.assertTrue(comment.startswith("Owner-approved reviewed entry (2026-10-11)"), comment)
                 for phrase in stale:
                     self.assertNotIn(phrase, comment.casefold())
-                if name in approved:
-                    self.assertIn("Owner-approved reviewed entry (2026-10-11)", comment)
         self.assertIn("committed captions", comments["RAVON"].casefold())
+        self.assertIn("seven entries", header)
+        self.assertIn(", ".join(approved[:-1]) + " and " + approved[-1], header)
         for phrase in stale:
             with self.subTest(header=phrase):
                 self.assertNotIn(phrase, header.casefold())
@@ -952,11 +1033,14 @@ class OtherGameCaptionTests(unittest.TestCase):
         """docs/sources-wikis.md (and its translation) quote these captions in the game paragraph: a listed game's
         artwork or event records an association (with a possessive too, and in a name that starts with Dynamix),
         Dynamix's own occasions and other unlisted names do not and carry the curator note, the game's own name alone
-        names nothing to review, and a BMS release event is the song's separate release (external_release_art). The
-        paragraph names the reviewed game list (config.OTHER_GAMES, which replaced the word lists DYNAMIX_OCCASION and
-        OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed word lists. The stale 'another
-        game or event' wording is gone, and so is the claim that a name starting with "Dynamix" is never another game,
-        which has been false since such names go through the reviewed list."""
+        (also before trailing sentence punctuation) names nothing to review while any further text after it, a
+        dash-separated qualifier included, carries the note, and a BMS release event is the song's separate release
+        (external_release_art) unless the name starts with Dynamix, which keeps it song art with the note (round 4,
+        B2). The paragraph names the reviewed game list (config.OTHER_GAMES, which replaced the
+        word lists DYNAMIX_OCCASION and OCCASION_WORDS by the owner decision of 2026-10-11) and no longer the removed
+        word lists. The stale 'another game or event' wording is gone, and so are the claim that a name starting with
+        "Dynamix" is never another game, which has been false since such names go through the reviewed list, and the
+        round-4 claim that a dash-separated qualifier after the name names nothing to review."""
         expected = {  # caption: (disposition, associations, whether the evidence asks a curator to review the name)
             "Artwork in RAVON": ("download", ["ravon"], False),
             "Artwork for the RAVON Collaboration Event": ("download", ["ravon"], False),
@@ -967,14 +1051,20 @@ class OtherGameCaptionTests(unittest.TestCase):
             "Artwork for Dynamix's 5th Anniversary": ("download", [], True),
             "Artwork in Dynamix": ("download", [], False),
             "Jacket from Dynamix (2016)": ("download", [], False),
-            "Artwork in Dynamix - original": ("download", [], False),
+            "Artwork in Dynamix!": ("download", [], False),
+            "Artwork in Dynamix -": ("download", [], False),
+            "Artwork in Dynamix - original": ("download", [], True),
+            "Artwork in Dynamix - Halloween Event": ("download", [], True),
             "Artwork in PABAT! 2017": ("excluded", [], False),
+            "Artwork for Dynamix PABAT 2017": ("download", [], True),
         }
         for relative, stale in (
             ("docs/sources-wikis.md", "another game or event"),
             ("docs/sources-wikis.zh-CN.md", "其他游戏或活动"),
             ("docs/sources-wikis.md", 'a name that starts with "Dynamix" is never another game'),
             ("docs/sources-wikis.zh-CN.md", "以“Dynamix”开头的名称从不算作其他游戏"),
+            ("docs/sources-wikis.md", "punctuation or a dash-separated qualifier ("),
+            ("docs/sources-wikis.zh-CN.md", "句末标点或以破折号隔开的补充说明时"),
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
             [paragraph] = [line for line in text.splitlines() if "`mixed`" in line and "`game_associations`" in line]
@@ -989,6 +1079,10 @@ class OtherGameCaptionTests(unittest.TestCase):
                     self.assertFalse(hasattr(config, name), name)
                 for caption in expected:
                     self.assertIn(caption, paragraph)
+                # The exception for a name that starts with Dynamix stands in the BMS sentence, after its example.
+                self.assertGreater(
+                    paragraph.index("Artwork for Dynamix PABAT 2017"), paragraph.index("Artwork in PABAT! 2017")
+                )
         for caption, (disposition, associations, review) in expected.items():
             with self.subTest(caption=caption):
                 item = self.gallery_item("S " + caption)
@@ -997,6 +1091,8 @@ class OtherGameCaptionTests(unittest.TestCase):
                 self.assertEqual(self.REVIEW in item.detail, review, item.detail)
                 if disposition == "excluded":
                     self.assertEqual(decision.reason.split(":")[0], "external_release_art")
+                else:
+                    self.assertEqual(item.role, "song_art")
 
 
 def _review(**fields):

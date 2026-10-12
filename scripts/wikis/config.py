@@ -284,22 +284,18 @@ EXTERNAL_RELEASE_EVENT = re.compile(r"\b(?:PABAT|BOF|BMS)\b", re.I)
 # parenthesis) goes to the reviewed list (OTHER_GAMES, classify.listed_games), also when it starts with "Dynamix": "for
 # Dynamix x RAVON Collaboration" names RAVON, while an unlisted partner and Dynamix's own occasions ("for Dynamix's 5th
 # Anniversary") name no listed game and get the curator note like every other unlisted name. Only the original game's
-# own name alone, with or without a possessive and trailing sentence punctuation ("Artwork in Dynamix", "Jacket from
-# Dynamix (2016)", "Artwork in Dynamix!"), is not matched: it names neither another game nor an occasion, so there is
-# nothing to record or review. With a dash-separated qualifier after it, it gets no curator note either
-# (DYNAMIX_QUALIFIED).
+# own name alone is not matched: with or without a possessive, before trailing sentence punctuation or a trailing dash
+# (after a space), and then nothing, a comma, a semicolon or a parenthesis ("Artwork in Dynamix", "Jacket from Dynamix
+# (2016)", "Artwork in Dynamix!", "Artwork in Dynamix -"), it names neither another game nor an occasion, so there is
+# nothing to record or review. Any further text after the name is a name like any other (owner decision 2026-10-11),
+# a dash-separated qualifier included: "for Dynamix - Halloween Event" and "in Dynamix - original" get the curator
+# note, and "for Dynamix - Lanota Collaboration" records Lanota.
 OTHER_GAME_ARTWORK = re.compile(
     r"\b(?:artwork|cover|jacket|illustration)\s+(?:in|for|from)\s+"
-    r"(?!dynamix(?:['’]s?)?\s*[.!?…]*\s*(?:[,;()]|$))"
+    r"(?!dynamix(?:['’]s?)?\s*[.!?…]*(?:\s+[-‐‑‒–—―]+)?\s*(?:[,;()]|$))"
     r"(?P<other>[^\s,;()][^,;()]*)",
     re.I,
 )
-# The original game's own name and a qualifier after a dash with a space on each side, or a dash ending the caption
-# ("Artwork in Dynamix - original", "Dynamix – 2016 version", "Dynamix — HQ"): no curator note, as for the name alone,
-# while a listed game in the qualifier is still recorded ("for Dynamix - Lanota Collaboration": Lanota). A hyphenated
-# or dash-joined name ("Dynamix-exclusive Event", "Dynamix–Lanota Event") is a name like any other
-# (classify.page_evidence).
-DYNAMIX_QUALIFIED = re.compile(r"dynamix(?:['’]s?)?\s*[.!?…]*\s+[-‐‑‒–—―]+(?:\s|$)", re.I)
 # A name (group "other") that starts with "Dynamix" is never a release event of EXTERNAL_RELEASE_EVENT, as before such
 # names went to the reviewed list: "for Dynamix PABAT 2017" stays the song's artwork (with the curator note), while
 # "for the Dynamix BMS" and "in PABAT! 2017" are external releases (classify.page_evidence).
@@ -321,12 +317,11 @@ class OtherGame:
 # Collaboration Event", "Arcaea's 3rd Anniversary"). Any other name -- an unlisted event, holiday or game, Dynamix's own
 # occasions among them ("the Halloween Event") -- records no association, so the page game and the default rights
 # holder stay, and the item's evidence names it with OTHER_GAME_REVIEW for a curator. A new collaboration needs a
-# reviewed entry here. The owner approved the entries on 2026-10-11 (RAVON, Arcaea, Lanota, Cytus, Cytus II and
-# Phigros); each entry says so and names the committed evidence for it, if there is any: RAVON is the only game that
-# committed wiki captions name, and committed primary-source records associate Arcaea, Lanota and Rotaeno with Dynamix
-# artwork. That approval does not name Rotaeno, so its entry says that it awaits the owner's confirmation.
-# The list replaces the occasion heuristic (word lists DYNAMIX_OCCASION/OCCASION_WORDS), which read every name it did
-# not know as a game.
+# reviewed entry here. The owner approved all seven entries on 2026-10-11 (RAVON, Arcaea, Lanota, Cytus, Cytus II,
+# Phigros and Rotaeno); each entry says so and names the committed evidence for it, if there is any: RAVON is the only
+# game that committed wiki captions name, and committed primary-source records associate Arcaea, Lanota and Rotaeno
+# with Dynamix artwork. The list replaces the occasion heuristic (word lists DYNAMIX_OCCASION/OCCASION_WORDS), which
+# read every name it did not know as a game.
 OTHER_GAMES = (
     # Owner-approved reviewed entry (2026-10-11), also evidenced by committed captions: the galleries of six
     # original-game song pages on both wikis caption their square art "<song> Artwork in RAVON" (Black：Magnam, Jack Out
@@ -349,10 +344,9 @@ OTHER_GAMES = (
     # Owner-approved reviewed entry (2026-10-11). No committed caption or game association names it (committed records
     # name Phigros only in the titles and notes of excluded fan videos on Fandom).
     OtherGame("Phigros", "phigros", ("Phigros",)),
-    # Reviewed entry, kept on the list; the owner approval of 2026-10-11 names the six entries above, not this one, so
-    # it awaits the owner's confirmation. No committed caption names it; the primary seeds associate it with Dynamix
-    # artwork: C4Cat's "Dynamix X Rotaeno Collaboration Announcement" key visual (scripts/primary/seeds/archives.json,
-    # game_associations dynamix and rotaeno).
+    # Owner-approved reviewed entry (2026-10-11). No committed caption names it; the primary seeds associate it with
+    # Dynamix artwork: C4Cat's "Dynamix X Rotaeno Collaboration Announcement" key visual
+    # (scripts/primary/seeds/archives.json, game_associations dynamix and rotaeno).
     OtherGame("Rotaeno", "rotaeno", ("Rotaeno",)),
 )
 # A spelling matches as whole words in any letter case, its words separated by any whitespace, the longest spelling
