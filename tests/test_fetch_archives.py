@@ -2083,6 +2083,30 @@ class RunnerStateTests(ArchivesTestCase):
             self.assertNotIn(f"Also linked from {third}.", notes())  # unread, but it never linked the file
             self.verify()
 
+    def test_a_linking_page_is_named_although_a_named_page_url_extends_its_url(self):
+        """Linking pages are compared note by note, not as text: the note 'Also linked from <...>/other.html.'
+        contains the text of the note for '<...>/other', but that page is named too, so its unread state holds the
+        candidate like any other linking page's."""
+        rules = [{"match": "^img/x\\.png$", "action": "exclude", "reason": "site_ui: logo"}]
+        longer, shorter = "https://press.example.org/other.html", "https://press.example.org/other"
+        seed = self.seed(rules=rules)
+        seed["items"] += [
+            {"url": url, "link_rules": [{"attr": "src", "pattern": "^/img/"}]} for url in (longer, shorter)
+        ]
+        listing = self.page("x.png", "y.png")
+        self.run_family([seed], FakeNetwork({self.PAGE: listing, longer: listing, shorter: listing}))
+        before = self.candidates("archives:press")["img/x.png"]
+        self.assertEqual(base_adapter.linking_pages(before), [self.PAGE, longer, shorter])
+        unread = {"error": net.HttpError("HTTP 503", url=shorter, http_status=503)}
+        self.run_family(
+            [seed], FakeNetwork({self.PAGE: self.page("y.png"), longer: self.page("y.png"), shorter: unread})
+        )
+        held = self.candidates("archives:press").get("img/x.png")
+        self.assertIsNotNone(held)  # the unread page linked it: an incomplete read is no observation
+        self.assertEqual((held["disposition"], held["reason"]), ("excluded", "site_ui: logo"))
+        self.assertIn(runner.HELD_NOTE, held["notes"])
+        self.verify()
+
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
         other = "https://press.example.org/other"
         seed = self.seed()

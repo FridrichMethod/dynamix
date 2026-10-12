@@ -80,11 +80,17 @@ ALSO_LINKED_NOTE = "Also linked from {url}."
 _ALSO_LINKED_RE = re.compile(r"Also linked from (\S+)\.(?=\s|$)")
 
 
+def also_linked(notes: Any) -> list[str]:
+    """The page each :data:`ALSO_LINKED_NOTE` in ``notes`` names, read from the whole note (so a note naming
+    ``https://x/a.html`` never counts as one naming ``https://x/a``)."""
+    return _ALSO_LINKED_RE.findall(str(notes or ""))
+
+
 def linking_pages(candidate: Mapping[str, Any]) -> list[str]:
     """Every page a candidate record says links its file: its ``page_url`` and each page an :data:`ALSO_LINKED_NOTE`
     in its notes names."""
     page = candidate.get("page_url")
-    return [*([page] if page else []), *_ALSO_LINKED_RE.findall(str(candidate.get("notes") or ""))]
+    return [*([page] if page else []), *also_linked(candidate.get("notes"))]
 
 
 def held_on(pages: Iterable[str], complete: set[str]) -> Any:
