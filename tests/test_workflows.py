@@ -81,6 +81,9 @@ CURL_OPTIONS = {
     "--output": True,
     "--write-out": True,
 }
+# The longest --max-time (whole seconds) the lookup may give curl: a hung request then fails the lookup, and with it the
+# run, within two minutes instead of at the job's timeout.
+LOOKUP_MAX_SECONDS = 120
 NETWORK_COMMAND = re.compile(r"\b(?:curl|wget|nc|ncat|socat|telnet|ssh|scp|sftp|rsync|ftp)\b|/dev/(?:tcp|udp)/")
 REPOSITORY = "FridrichMethod/dynamix"
 TOKEN = "stand-in-job-token"
@@ -984,10 +987,10 @@ class ReleaseGateTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's guard step")
     def test_the_release_lookup_is_one_read_only_get(self):
         """The lookup of a dispatch sends one request: a GET (no method, data, form, upload, config or redirect
-        option) of the Releases endpoint for the dispatched tag, over HTTPS only, with the API headers of owner
-        decision D1 and the job token as an Authorization header read from standard input, so the token is never an
-        argument. It saves the status and the body under RUNNER_TEMP, where the Release guard reads them. A release
-        run, or any other event, sends nothing."""
+        option) of the Releases endpoint for the dispatched tag, over HTTPS only, within LOOKUP_MAX_SECONDS, with the
+        API headers of owner decision D1 and the job token as an Authorization header read from standard input, so the
+        token is never an argument. It saves the status and the body under RUNNER_TEMP, where the Release guard reads
+        them. A release run, or any other event, sends nothing."""
         expected_url = f"https://api.github.com/repos/{REPOSITORY}/releases/tags/v1.1.0"
         for job_id in ("approval", "build"):
             lookup = self.guards(job_id)["lookup"]
@@ -1021,6 +1024,9 @@ class ReleaseGateTests(unittest.TestCase):
                     sorted(value for option, value in options if option == "--header"), ["@-", *API_HEADERS]
                 )
                 self.assertEqual(values["--proto"], "=https")
+                self.assertIn("--max-time", values, "a hung request must not run until the job's timeout")
+                self.assertRegex(values["--max-time"] or "", r"^[1-9][0-9]*$", "a positive number of whole seconds")
+                self.assertLessEqual(int(values["--max-time"] or 0), LOOKUP_MAX_SECONDS)
                 self.assertEqual(values["--write-out"], "%{http_code}")
                 self.assertEqual(values["--output"], str(runner / "release-lookup/release.json"))
                 self.assertEqual((runner / "release-lookup/status").read_text(encoding="utf-8"), "200\n")
