@@ -103,7 +103,10 @@ CONDITION_AFTER = re.compile(rf"[^。；，：、,;:.!?]*?{_CONDITION_WORD}|、[
 # ASCII punctuation ends a clause before whitespace only, so a version (v1.1.0) or a file name stays in its clause. 、
 # joins the items of a list, not clauses ("若标签错误、变量未设置，……" is one condition): a condition before the list
 # covers the wording only when the wording opens its item and a ， ends the list (clause_before()), and a date clause
-# may list dates (release_events()).
+# may list dates (release_events()). A 、 written for a ， between a condition and a statement reads as such a list too
+# ("如果查看设置、变量未设置，这是事实。", "变量未设置、查看设置时，会发现。"): it has the punctuation and the condition
+# words of a list of conditions, and only what its items mean tells the two apart, as in the English "If you look at
+# the settings and the variable is unset, this is a fact.", which this check has always allowed.
 CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：。！？]")
 # A clause that continues the one before it ("If X is wrong, or the variable is unset, ..."): a condition that opens
 # the first clause covers it (CONDITION_OPENS). A condition inside an earlier clause covers that clause alone ("The tag
