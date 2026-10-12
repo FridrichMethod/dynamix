@@ -349,9 +349,10 @@ class ReleaseStateTests(unittest.TestCase):
     # What each README's Releases section says about the release-triggered workflow, with the owner decisions of
     # 2026-10-11: tags without leading zeros (D2), every run, a re-run of a release run included, looking up the tag's
     # Release (D1), and the tag ruleset beside the environment rule (D5). A run takes pages.yml from the tag's commit,
-    # and v1.1.1 is the first release whose workflow looks the tag's Release up, so the dispatch example names v1.1.1
-    # and older tags are said to run their own workflow, which the environment refuses to deploy. A re-run without the
-    # approval job deploys nothing (R1), and a tag moved on GitHub after the run started fails closed (SEC-2).
+    # and v1.1.1 is the first release whose workflow looks the tag's Release up, so older tags are said to run their own
+    # workflow, which the environment refuses to deploy. A re-run without the approval job deploys nothing (R1), and a
+    # tag moved on GitHub after the run started fails closed (SEC-2); v1.1.2 is the first release whose workflow does
+    # both, so v1.1.1 is said to lack them and the dispatch example names the current release.
     RELEASE_MODEL = {
         "README.md": (
             "published",
@@ -360,8 +361,11 @@ class ReleaseStateTests(unittest.TestCase):
             "`v1.1.0-rc1`",
             "on `main`",
             "fails closed",
-            "gh workflow run pages.yml --ref v1.1.1",
+            "gh workflow run pages.yml --ref v1.1.2",
+            "so the Release lookup applies to tags from `v1.1.1` on",
             "a run on an older tag would use that tag's own workflow, which does not check the Release",
+            "The record of the current attempt and the check of the tag on GitHub apply to tags from `v1.1.2` on: a run on "
+            "`v1.1.1` uses that tag's own workflow, which has neither, so re-run such a run whole too.",
             "the `github-pages` environment refuses its deployment",
             "`v*`",
             "three numbers without leading zeros",
@@ -382,8 +386,11 @@ class ReleaseStateTests(unittest.TestCase):
             "`v1.1.0-rc1`",
             "`main` 上",
             "失败关闭",
-            "gh workflow run pages.yml --ref v1.1.1",
+            "gh workflow run pages.yml --ref v1.1.2",
+            "因此 Release 查询适用于 `v1.1.1` 起的标签",
             "较早标签上的运行会使用该标签自己的工作流，它不检查 Release",
+            "对当前这次尝试的记录和在 GitHub 上对标签的检查适用于 `v1.1.2` 起的标签：在 `v1.1.1` 上的运行会使用该标签自己的工作流，"
+            "两者都没有，因此这样的运行也应整次重新运行。",
             "`github-pages` 环境会拒绝它的部署",
             "`v*`",
             "三个不带前导零的数字",

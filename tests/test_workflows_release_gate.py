@@ -143,9 +143,13 @@ HEADER_REQUIRED = (
     "on main",
     "Tests workflow",
     "fails closed",
-    "gh workflow run pages.yml --ref v1.1.1",
-    # A run takes pages.yml from the tag's commit: tags before v1.1.1 run a workflow without the lookup.
+    "gh workflow run pages.yml --ref v1.1.2",
+    # A run takes pages.yml from the tag's commit: tags before v1.1.1 run a workflow without the lookup, and v1.1.1 one
+    # without the attempt record (R1) and the origin check (SEC-2).
+    "so the Release lookup applies to tags from v1.1.1 on",
     "a run on an older tag would use that tag's own workflow, which does not check the Release",
+    "The attempt record and the origin check below apply to tags from v1.1.2 on: a run on v1.1.1 uses that tag's own "
+    "workflow, which has neither.",
     "the github-pages environment refuses its deployment",
     "v*",
     "without leading zeros",
