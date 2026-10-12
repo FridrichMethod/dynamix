@@ -2145,6 +2145,8 @@ class RunnerStateTests(ArchivesTestCase):
         for page in (extension, extension, other, prefix, other, extension, prefix):
             page_links.note_also_linked(draft, page)
         self.assertEqual(base_adapter.also_linked(draft.candidate_extra["notes"]), [extension, other, prefix])
+        expected = " ".join(base_adapter.ALSO_LINKED_NOTE.format(url=url) for url in (extension, other, prefix))
+        self.assertEqual(draft.candidate_extra["notes"], expected)  # joined by one space, nothing before the first
 
     def test_a_candidate_the_seeds_no_longer_reach_becomes_unknown_then_current_again(self):
         other = "https://press.example.org/other"
