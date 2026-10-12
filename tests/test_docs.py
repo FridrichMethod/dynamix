@@ -172,9 +172,10 @@ GUARD_CONDITION = re.compile(
 SENTENCE_BREAK = re.compile(r"[.!?;](?=\s)|\n")
 # A deployment or release told as an event that happened, which is what happened, not how the guard works, whatever
 # guard word the sentence also has ("... happened on 2026-10-11 when the owner approved it"); see release_events().
+# A month name counts in any case ("october 11"): no sentence puts a day number right after "may" or "march".
 RELEASE_DATES = re.compile(
     r"\b\d{4}-\d{2}-\d{2}\b|"
-    r"(?-i:\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}\b)|"
+    r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}\b|"
     r"\d{4} ?年|\d{1,2} ?月 ?\d{1,2} ?日",
     re.IGNORECASE,
 )
@@ -1097,6 +1098,7 @@ class ReleaseStateTests(unittest.TestCase):
             f"The deployment on {month} 11 needed only the owner's approval."
             for month in "January February March April May June July August September October November December".split()
         ),
+        "The deployment on october 11 needed only the owner's approval.",
         "部署在 2026 年只需要所有者批准。",
         "部署在2026年只需要所有者批准。",
         "部署在 10 月 11 日只需要所有者批准。",
