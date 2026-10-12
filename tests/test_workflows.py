@@ -1,11 +1,11 @@
 """Static and behavioral checks of .github/workflows: triggers, permissions, pinning, no write paths, the CI jobs.
 
 Ordinary pushes and pull requests only test and upload CI artifacts; no workflow has a schedule, pushes, tags, creates
-releases or opens pull requests. The release gate of pages.yml is checked in tests/test_workflows_release_gate.py,
-with the expression evaluator and the env rendering of this module. Workflows are parsed with the stdlib YAML-subset
-reader in tests/test_workflows_yaml.py. The lint job runs every pre-commit hook read-only and never fixes; the checks
-job runs the unit tests under coverage and enforces fail_under. Their shell steps are executed with stand-ins (a fake
-Node.js, a stand-in test suite).
+releases or opens pull requests. The release gate of pages.yml is checked in tests/test_workflows_release_gate.py and
+tests/test_workflows_release_guards.py, with the expression evaluator and the env rendering of this module. Workflows
+are parsed with the stdlib YAML-subset reader in tests/test_workflows_yaml.py. The lint job runs every pre-commit hook
+read-only and never fixes; the checks job runs the unit tests under coverage and enforces fail_under. Their shell steps
+are executed with stand-ins (a fake Node.js, a stand-in test suite).
 """
 
 import importlib.util
