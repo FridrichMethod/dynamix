@@ -868,6 +868,8 @@ def validate_candidate(candidate: Any, source_id: str | None = None) -> None:
             _fail(label, "asset_id", f"is required for disposition {disposition!r}")
         if candidate["game"] not in ("dynamix", "mixed"):
             _fail(label, "game", f"must be 'dynamix' or 'mixed' for disposition {disposition!r}")
+        if not candidate["game_evidence"]:  # game identity stays in the discovery record (DX2-07)
+            _fail(label, "game_evidence", f"must not be empty for disposition {disposition!r}")
         if not target.startswith(candidate["source_id"] + ":"):  # 09: duplicate_bytes means the *same source*
             _fail(label, "asset_id", f"a {disposition} candidate's asset belongs to the same source")
     elif target is not None:

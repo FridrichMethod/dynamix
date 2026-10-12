@@ -526,9 +526,14 @@ class RecordValidationTests(unittest.TestCase):
         snapshot = self.discoveries["wikis:miraheze"]
         by_disposition = {c["disposition"]: c for c in snapshot["candidates"]}
         downloaded, excluded = copy.deepcopy(by_disposition["downloaded"]), copy.deepcopy(by_disposition["excluded"])
+        duplicate = copy.deepcopy(by_disposition["duplicate_bytes"])
+        self.assertTrue(downloaded["game_evidence"] and duplicate["game_evidence"])
         cases = [
             ({**downloaded, "asset_id": None}, "asset_id: is required"),
             ({**downloaded, "game": "unknown"}, "game: must be 'dynamix' or 'mixed'"),
+            # DX2-07: an accepted candidate keeps the evidence of its game identity
+            ({**downloaded, "game_evidence": []}, "game_evidence: must not be empty for disposition 'downloaded'"),
+            ({**duplicate, "game_evidence": []}, "game_evidence: must not be empty for disposition 'duplicate_bytes'"),
             ({**downloaded, "asset_id": "wikis:fandom:" + "0" * 16}, "same source"),
             ({**downloaded, "id": downloaded["id"] + "x"}, "id: must be"),
             ({**downloaded, "upstream_key": "File:A b.png", "id": "wikis:miraheze:File:A b.png"}, "upstream_key"),
@@ -548,6 +553,7 @@ class RecordValidationTests(unittest.TestCase):
         ]
         for prefix in schema.PENDING_REASONS:
             schema.validate_candidate({**excluded, "disposition": "pending", "reason": f"{prefix}: detail"})
+        schema.validate_candidate({**excluded, "game_evidence": []})  # only an accepted candidate needs game evidence
         universe = next(c for c in snapshot["candidates"] if (c.get("reason") or "").startswith("universe_only"))
         cases.append(({**universe, "game": "dynamix"}, "game: must be 'dynamix_universe'"))
         other_game = {**excluded, "reason": "not_dynamix: another game's key art"}
