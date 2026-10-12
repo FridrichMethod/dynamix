@@ -97,12 +97,12 @@ RETIRED_GATE = re.compile(
     re.IGNORECASE,
 )
 # Wording of the release hold that ended with v1.0.0, in either language, matched in rendered text (see plain()).
-# A website or Pages that is not deployed counts, also with words between ("网站目前未部署"), and so does a release or
-# deployment that is held, paused or suspended; "later pushes are tested but not deployed" (true after a release) does
-# not.
+# A website or Pages that is not deployed counts, also with words between ("网站目前未部署") or for now ("temporarily",
+# 暂不), and so does a release or deployment that is held, paused or suspended; "later pushes are tested but not
+# deployed" (true after a release) does not.
 HOLD_MARKERS = re.compile(
-    r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still| currently| now)?(?: not|n['’]t)"
-    r"(?: yet| currently)?(?: been)? (?:deployed|published|released|live)\b|"
+    r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still| currently| now| temporarily)?"
+    r"(?: not|n['’]t)(?: yet| currently| temporarily)?(?: been)? (?:deployed|published|released|live)\b|"
     r"\b(?:release|deployment|publication)s?\b(?: (?:to|of|on) [^.;:,]{0,30}?)? "
     r"(?:(?:is|are|stays?|remains?|was|were|has been|have been)(?: still| currently| now)? )?"
     r"(?:on )?(?:hold|held|paused|suspended|frozen|halted)\b|\brelease hold\b|"
@@ -111,14 +111,17 @@ HOLD_MARKERS = re.compile(
     r"(?:尚未|还没有|还未)(?:被)?(?:部署|发布|上线|做出|设置)|"
     r"(?:网站|站点)[^。；，：、,;:]{0,8}?(?:未|没有)(?:被)?(?:部署|发布|上线)|"
     r"(?:部署|发布|上线)[^。；，：、,;:]{0,6}?暂停|暂停[^。；，：、,;:]{0,4}?(?:部署|发布|上线)|"
+    r"暂(?:时)?(?:不|未|没有)(?:被)?(?:部署|发布|上线)|"
     r"没有版本标签|没有任何发布|冻结",
     re.IGNORECASE,
 )
-# The release variable stated as unset. It is hold wording as a statement ("`RELEASE_APPROVED_SHA` is unset, so ..."),
-# not as the condition of the guard ("If the variable is unset, the dispatch fails closed", "变量未设置时……").
+# The release variable stated as unset, also with an adverb or as "not set" ("is still unset", "isn't set yet", 目前未设置).
+# It is hold wording as a statement ("`RELEASE_APPROVED_SHA` is unset, so ..."), not as the condition of the guard ("If
+# the variable is unset, the dispatch fails closed", "变量未设置时……").
 UNSET_WORDING = re.compile(
-    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains) unset\b|"
-    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:仍|还|尚)?未设置",
+    r"\b(?:RELEASE_APPROVED_SHA|variable)\b[^.;]{0,30}?\b(?:is|stays|remains|was)(?: still| currently| now| yet)?"
+    r"(?: unset|(?: not|n['’]t)(?: yet| currently)? set)\b|"
+    r"(?:RELEASE_APPROVED_SHA|变量)\s*(?:目前|当前|现在|仍然|依然|仍|还|尚)?\s*(?:未|没有)(?:被)?设置",
     re.IGNORECASE,
 )
 # A condition opening the clause (当 but not 当前 "currently"; 若 but not 若干), or one right after the words.
@@ -817,6 +820,14 @@ class ReleaseStateTests(unittest.TestCase):
         "The deployment to GitHub Pages happened on 2026-10-11 when the owner approved it.",
         "The deployment ran when the owner approved the release.",
         "网站在 2026-10-11 所有者批准后才部署到 GitHub Pages。",
+        # The variable stated as unset with an adverb or as not set, and a website withheld for now.
+        "`RELEASE_APPROVED_SHA` is currently unset.",
+        "`RELEASE_APPROVED_SHA` is still unset.",
+        "`RELEASE_APPROVED_SHA` is not set, so every dispatch fails closed.",
+        "The variable isn't set yet.",
+        "`RELEASE_APPROVED_SHA` 目前未设置。",
+        "网站暂不部署。",
+        "The website is temporarily not deployed.",
     )
     OUTSIDE_ALLOWED = (
         "A push to `main` never deploys the website.",
@@ -834,6 +845,8 @@ class ReleaseStateTests(unittest.TestCase):
         "| `upstream_status` | Records that are removed or unset upstream. |",
         "| `upstream_status` | 上游状态为 `removed` 或未设置的记录。 |",
         "A composer's release cover is not the illustrator's original.",
+        "If `RELEASE_APPROVED_SHA` is not set, the dispatch fails closed.",
+        "变量目前未设置时，触发会失败关闭。",
     )
 
     def test_release_wording_rule_outside_the_readmes(self):
@@ -919,6 +932,7 @@ class ReleaseStateTests(unittest.TestCase):
             "Pages deployment is paused.",
             "The website is currently not deployed.",
             "Because `RELEASE_APPROVED_SHA` is unset, every dispatch fails closed.",
+            "`RELEASE_APPROVED_SHA` is not set, so every dispatch fails closed.",
         ),
         "README.zh-CN.md": (
             "目前没有任何发布。",
@@ -931,6 +945,8 @@ class ReleaseStateTests(unittest.TestCase):
             "网站目前未部署。",
             "GitHub Pages 部署已暂停。",
             "当前 `RELEASE_APPROVED_SHA` 仍未设置。",
+            "`RELEASE_APPROVED_SHA` 目前未设置。",
+            "网站暂不部署。",
         ),
     }
     # Sentences that describe the release gate: what fails closed is a condition of a run, not the site's state.
