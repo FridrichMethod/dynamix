@@ -891,6 +891,7 @@ class ReleaseStateTests(unittest.TestCase):
         # A deployment told as something that happened, which a guard word ("when", 才) does not turn into a rule.
         "The deployment to GitHub Pages happened on 2026-10-11 when the owner approved it.",
         "The deployment ran when the owner approved the release.",
+        "When the owner approved the release, the deployment ran.",
         "网站在 2026-10-11 所有者批准后才部署到 GitHub Pages。",
         # The variable stated as unset with an adverb or as not set, and a website withheld for now.
         "`RELEASE_APPROVED_SHA` is currently unset.",
@@ -962,13 +963,15 @@ class ReleaseStateTests(unittest.TestCase):
         "When a guard refuses the run, nothing is deployed.",
         "If the lookup fails, nothing is deployed.",
         # Accurate sentences: an event verb in a subordinate clause, a date of something else, an unrelated
-        # "frozen", and the unset variable as a condition (的情况下, whether, a clause joined by "or").
+        # "frozen", and the unset variable as a condition (的情况下, whether, a clause joined by "or", a version inside
+        # the clause).
         "The deploy job runs only after the tests succeeded.",
         "Sources were checked on 2026-10-10, and nothing here deploys the website.",
         "Each release of the frozen catalog carries the archive.",
         "`RELEASE_APPROVED_SHA` 未设置的情况下，触发会失败关闭。",
         "The approval job checks whether `RELEASE_APPROVED_SHA` is unset or names another commit.",
         "If `release_sha` is wrong, or `RELEASE_APPROVED_SHA` is unset, the dispatch fails closed.",
+        "If the tag v1.1.0 names another commit or the variable is unset, the dispatch fails closed.",
     )
 
     def test_release_wording_rule_outside_the_readmes(self):
@@ -1058,6 +1061,7 @@ class ReleaseStateTests(unittest.TestCase):
             "The variable is unset if you look at the settings today.",
             "Nothing is deployed.",
             "Pages deployment is temporarily paused.",
+            "If a tag is not `vX.Y.Z`, the run fails closed. Nothing is deployed.",
         ),
         "README.zh-CN.md": (
             "目前没有任何发布。",
