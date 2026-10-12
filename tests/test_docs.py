@@ -1179,7 +1179,7 @@ class ReleaseStateTests(unittest.TestCase):
         "None of the pull requests deploys the website.",
         "The website stays as it is until the next deployment.",
         "A release run deploys unless its Release is a prerelease.",
-        "Deploying from a branch would skip the release check.",
+        "A run on an older tag would use that tag's own workflow, and the environment refuses its deployment.",
         "The next release will deploy the website again.",
         "A pull request cannot deploy the website.",
         "Future releases deploy the same way.",
