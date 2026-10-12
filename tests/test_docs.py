@@ -172,9 +172,11 @@ GUARD_CONDITION = re.compile(
 SENTENCE_BREAK = re.compile(r"[.!?;](?=\s)|\n")
 # A deployment or release told as an event that happened, which is what happened, not how the guard works, whatever
 # guard word the sentence also has ("... happened on 2026-10-11 when the owner approved it"); see release_events().
-# A month name counts in any case ("october 11"): no sentence puts a day number right after "may" or "march".
+# A month name counts in any case ("october 11"): no sentence puts a day number right after "may" or "march". Digits,
+# not word characters, bound an ISO date, so one glued to Chinese text ("于2026-10-11部署") or to a time
+# (2026-10-11T12:00Z) counts too.
 RELEASE_DATES = re.compile(
-    r"\b\d{4}-\d{2}-\d{2}\b|"
+    r"(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)|"
     r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}\b|"
     r"\d{4} ?年|\d{1,2} ?月 ?\d{1,2} ?日",
     re.IGNORECASE,
@@ -1099,6 +1101,8 @@ class ReleaseStateTests(unittest.TestCase):
             for month in "January February March April May June July August September October November December".split()
         ),
         "The deployment on october 11 needed only the owner's approval.",
+        "网站于2026-10-11部署到 GitHub Pages，只需要所有者批准。",
+        "The deployment needed only the owner's approval at 2026-10-11T12:00Z.",
         "部署在 2026 年只需要所有者批准。",
         "部署在2026年只需要所有者批准。",
         "部署在 10 月 11 日只需要所有者批准。",
@@ -1174,6 +1178,7 @@ class ReleaseStateTests(unittest.TestCase):
         # the clause).
         "The deploy job runs only after the tests succeeded.",
         "Sources were checked on 2026-10-10, and nothing here deploys the website.",
+        "No deployment depends on 12026-10-11 or 2026-10-111, which are numbers, not dates.",
         "Each release of the frozen catalog carries the archive.",
         "`RELEASE_APPROVED_SHA` 未设置的情况下，触发会失败关闭。",
         "The approval job checks whether `RELEASE_APPROVED_SHA` is unset or names another commit.",
