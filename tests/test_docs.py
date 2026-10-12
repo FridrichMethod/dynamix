@@ -54,9 +54,9 @@ KNOWN_SCRIPTS = {
 REFERENCE_SHA = "b14bf0d5f5a05e5382c319f3fd5019a4936820b8"
 # Split so that this file never matches its own search for adaptation notices.
 ADAPTED_NOTICE = re.compile("adapted from " + r"FridrichMethod/deemo\b", re.IGNORECASE)
-# DEEMO may be named only where the text attributes or explains a derivation.
+# DEEMO may be named only where the text attributes or explains a derivation ("adapted" also covers "adapted from").
 ATTRIBUTION = re.compile(
-    r"FridrichMethod/deemo|mashirozx/deemo|derived from|derives from|adapted from|adapted|"
+    r"FridrichMethod/deemo|mashirozx/deemo|derived from|derives from|adapted|"
     r"byte-identical|改编|派生|源自|逐字节相同",
     re.IGNORECASE,
 )
@@ -202,7 +202,9 @@ MARKDOWN_LINK = re.compile(r"!?\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)]*\)")
 # files") or, in Chinese, behind a classifier and a few characters ("3,337 个已接受文件名"), or when it follows the noun
 # with a classifier ("曲绘共 3,773 张"). Digits inside names (SHA-1, 2.0, H5) are not numbers here, and a number
 # followed by "a"/"an" does not count the noun ("4 an archived file", an exit status). Lines are matched as rendered
-# (count_claims()), so "**3,773** files" counts too.
+# (count_claims()), so "**3,773** files" counts too. A word between the number and the noun is what stands before its
+# first letter, that letter and the rest; the letter ranges are lower case, since IGNORECASE matches both cases, and
+# after a Chinese noun no digit can stand right before the number.
 _COUNTED_EN = (
     r"files?|images?|songs?|tracks?|records?|assets?|candidates?|artworks?|covers?|jackets?|screenshots?|sources?|"
     r"titles?|entry|entries|uploads?|originals?|bytes"
@@ -210,9 +212,9 @@ _COUNTED_EN = (
 _COUNTED_ZH = r"原文件|文件|图片|曲目|记录|候选|曲绘|资产|封面|截图|来源|标题|条目|字节"
 _CLASSIFIERS_ZH = r"个|张|首|条|项|份|幅|件|部"
 COUNT_CLAIMS = re.compile(
-    rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s+(?:(?!an?\s)[A-Za-z0-9'-]*[A-Za-z][A-Za-z0-9'-]*\s+){{0,3}}(?:{_COUNTED_EN})\b|"
-    rf"(?<![A-Za-z0-9_.-])\d[\d,]*\s*(?:(?:{_CLASSIFIERS_ZH})[^\s，。；：、]{{0,8}}?)?(?:{_COUNTED_ZH})|"
-    rf"(?:{_COUNTED_ZH})[^\s\d，。；：、]{{0,4}}?\s*(?<![A-Za-z0-9_.-])\d[\d,]*\s*(?:{_CLASSIFIERS_ZH})",
+    rf"(?<![a-z0-9_.-])\d[\d,]*\s+(?:(?!an?\s)[0-9'-]*[a-z][a-z0-9'-]*\s+){{0,3}}(?:{_COUNTED_EN})\b|"
+    rf"(?<![a-z0-9_.-])\d[\d,]*\s*(?:(?:{_CLASSIFIERS_ZH})[^\s，。；：、]{{0,8}}?)?(?:{_COUNTED_ZH})|"
+    rf"(?:{_COUNTED_ZH})[^\s\d，。；：、]{{0,4}}?\s*(?<![a-z_.-])\d[\d,]*\s*(?:{_CLASSIFIERS_ZH})",
     re.IGNORECASE,
 )
 # A "**" pair renders as bold only when the opening run is left-flanking and the closing run right-flanking
