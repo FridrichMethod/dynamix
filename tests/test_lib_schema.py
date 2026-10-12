@@ -1041,6 +1041,42 @@ class CatalogValidationTests(unittest.TestCase):
                     cosmic(catalog)["credit_evidence"] = evidence
                 schema.validate_catalog(catalog)
 
+    def test_every_catalog_credit_entry_cites_a_url_or_a_quote(self):
+        """DX2-07: a primary family may record a credit without a source URL or quote (its own --verify reports it),
+        but the published catalog refuses such an entry, on the catalog asset and on every provenance record."""
+        url = "https://x.com/ariiol_/status/1000000000000000003"
+
+        def cosmic(catalog):
+            return next(
+                a
+                for a in catalog["assets"]
+                if a["source_id"] == "wikis:miraheze" and a["kind"] == "song_art" and a["title"] == "Cosmic Pulse"
+            )
+
+        def entry(url=None, quote=None):
+            return {"role": "illustrator", "name": "ariiol", "url": url, "field": None, "quote": quote}
+
+        base = cosmic(self.catalog)
+        fandom = base["provenance"][1]["asset_id"]
+        for case, evidence in {"neither": [entry()], "an empty quote": [entry(quote=" ")]}.items():
+            for index, fragment in (
+                (None, f"catalog asset {base['id']!r}: credit_evidence: [0] (illustrator 'ariiol') cites no url"),
+                (1, f"provenance: {fandom!r} credit_evidence: [0] (illustrator 'ariiol') cites no url and no quote"),
+            ):
+                with self.subTest(case=case, provenance=index):
+                    catalog = copy.deepcopy(self.catalog)
+                    target = cosmic(catalog) if index is None else cosmic(catalog)["provenance"][index]
+                    target["credit_evidence"] = copy.deepcopy(evidence)
+                    with self.assertRaises(ValueError) as caught:
+                        schema.validate_catalog(catalog)
+                    self.assertIn(fragment, str(caught.exception))
+        for evidence in ([entry(url=url)], [entry(quote="Illustration: ariiol")], [entry(url, "ariiol")]):
+            with self.subTest(accepted=evidence):
+                catalog = copy.deepcopy(self.catalog)
+                cosmic(catalog)["credit_evidence"] = copy.deepcopy(evidence)
+                cosmic(catalog)["provenance"][1]["credit_evidence"] = copy.deepcopy(evidence)
+                schema.validate_catalog(catalog)
+
     def test_catalog_mutations_are_rejected(self):
         def first(catalog, **match):
             return next(a for a in catalog["assets"] if all(a[k] == v for k, v in match.items()))

@@ -40,6 +40,16 @@ from .schema import (
 MERGED_FIELDS = ("illustrators", "composers", "song_titles", "song_ids", "collections")
 
 
+def _uncited_credit(record: Mapping[str, Any]) -> str | None:
+    """Why a ``credit_evidence`` entry of a catalog asset or provenance record cites nothing, or None: every entry of the
+    published catalog has a ``url`` or a non-empty ``quote`` (DX2-07). A primary family may record a credit without
+    either and reports it in its own ``--verify``; the catalog build refuses such a record."""
+    for index, entry in enumerate(record.get("credit_evidence") or []):
+        if not entry.get("url") and not (entry.get("quote") or "").strip():
+            return f"[{index}] ({entry['role']} {entry['name']!r}) cites no url and no quote"
+    return None
+
+
 def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, str]) -> None:
     label = _label("catalog asset", asset)
     family = source_family(asset["source_id"])
@@ -59,6 +69,9 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
             _fail(label, field, f"must be {value!r}")
     if asset["thumb"] not in (None, thumb_relpath(asset["sha256"])):
         _fail(label, "thumb", f"must be null or {thumb_relpath(asset['sha256'])!r}")
+    problem = _uncited_credit(asset)
+    if problem:
+        _fail(label, "credit_evidence", problem)
     provenance = asset["provenance"]
     if not provenance:
         _fail(label, "provenance", "must list at least the primary record")
@@ -67,7 +80,7 @@ def _check_catalog_asset(asset: Mapping[str, Any], source_names: Mapping[str, st
             _fail(label, "provenance", f"family of {record['source_id']!r} must be {record['family']!r}")
         if source_names.get(record["source_id"]) != record["source_name"]:
             _fail(label, "provenance", f"source_name of {record['source_id']!r} differs from its source")
-        problem = _credit_problem(record)  # each provenance record against its own lists (DX2-07)
+        problem = _credit_problem(record) or _uncited_credit(record)  # its own lists; a url or a quote (DX2-07)
         if problem:
             _fail(label, "provenance", f"{record.get('asset_id', record['source_id'])!r} credit_evidence: {problem}")
     keys = [provenance_sort_key(record) for record in provenance]
