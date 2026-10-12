@@ -1,13 +1,16 @@
 name: Deploy GitHub Pages (vX.Y.Z tags on main only)
 
 # vX.Y.Z tags on main only. This workflow never runs on push, pull request or a schedule. A published GitHub Release
-# whose tag is vX.Y.Z (three numbers, not a prerelease) deploys the commit of that tag; a manual dispatch on such a tag
-# deploys that commit (gh workflow run pages.yml --ref v1.1.0; a dispatch does not look up the tag's Release, so use it
-# only to redeploy a released tag). Both need the tag's commit to be on main, and the full Tests workflow must pass on
-# that commit before the artifact is built. Any other run fails closed at the approval job (a dispatch on a branch, a
-# tag that is not vX.Y.Z, a release that is a draft or prerelease, a commit that is not on main): no tests, no artifact,
-# no deployment. The build job repeats the approval job's guards, and the deploy job has its own condition. The
-# github-pages environment must allow deployments from v* tags.
+# that is not a prerelease, with a vX.Y.Z tag (three numbers without leading zeros: v1.10.0, not v01.1.0), deploys the
+# commit of that tag. A manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.0) first looks up the tag's
+# GitHub Release with one read-only API request and deploys the tag's commit only if that Release is published and not
+# a prerelease. Both need the tag's commit to be on main, and the full Tests workflow must pass on that commit before
+# the artifact is built. Any other run fails closed at the approval job (a dispatch on a branch, a tag that is not
+# vX.Y.Z, a release that is a draft or prerelease, a dispatched tag without such a Release or whose lookup fails, a
+# commit that is not on main): no tests, no artifact, no deployment. The build job repeats the approval job's guards,
+# and the deploy job deploys only the commit that the approval job recorded after all its guards passed. The
+# github-pages environment must allow deployments from v* tags, and the repository ruleset "Release tags v*" lets only
+# repository admins create, move or delete v* tags.
 on:
   release:
     types: [published]
@@ -30,6 +33,9 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+    outputs:
+      # Written by the last step only, after every guard passed; the deploy job requires it to be github.sha.
+      commit: ${{ steps.approved.outputs.commit }}
     steps:
       - name: Refuse unless a published vX.Y.Z release or a dispatch on a vX.Y.Z tag
         env:
@@ -56,8 +62,79 @@ jobs:
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
               ;;
           esac
-          [[ "$REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "Pages deploys only a vX.Y.Z tag, not $REF."
+          [[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] \
+            || fail "Pages deploys only a vX.Y.Z tag (three numbers without leading zeros), not $REF."
           echo "$EVENT_NAME of $REF may deploy once its commit is on main and the tests pass."
+      - name: Look up the GitHub Release of a dispatched tag
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          # The job's read-only token (contents: read), sent as a header from stdin, never on a command line.
+          TOKEN: ${{ github.token }}
+        run: |
+          fail() { echo "::error::$1"; exit 1; }
+          case "$EVENT_NAME" in
+            release)
+              echo "A release run carries its release in the event; nothing to look up."
+              exit 0
+              ;;
+            workflow_dispatch)
+              ;;
+            *)
+              fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
+              ;;
+          esac
+          tag="${REF#refs/tags/}"
+          mkdir "$RUNNER_TEMP/release-lookup"
+          # One read-only GET; this endpoint returns only a published Release. The guard below reads the response.
+          status="$(printf 'Authorization: Bearer %s\n' "$TOKEN" | curl --silent --show-error --proto =https \
+            --max-time 60 --header @- --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" --output "$RUNNER_TEMP/release-lookup/release.json" \
+            --write-out "%{http_code}" "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/$tag")" \
+            || fail "The lookup of the GitHub Release of $tag failed without a response; nothing is deployed."
+          echo "$status" > "$RUNNER_TEMP/release-lookup/status"
+          echo "The lookup of the GitHub Release of $tag returned HTTP $status."
+      - name: Refuse a dispatch unless its tag has a published GitHub Release that is not a prerelease
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+        run: |
+          fail() { echo "::error::$1"; exit 1; }
+          case "$EVENT_NAME" in
+            release)
+              echo "A release run: the first guard checked the release of the event."
+              exit 0
+              ;;
+            workflow_dispatch)
+              ;;
+            *)
+              fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
+              ;;
+          esac
+          tag="${REF#refs/tags/}"
+          lookup="$RUNNER_TEMP/release-lookup"
+          [ -f "$lookup/status" ] || fail "No response of the lookup of the GitHub Release of $tag to check."
+          status="$(cat "$lookup/status")"
+          case "$status" in
+            200)
+              ;;
+            404)
+              fail "The tag $tag has no published GitHub Release (HTTP 404); a dispatch deploys only a released tag."
+              ;;
+            *)
+              fail "The lookup of the GitHub Release of $tag returned HTTP $status, not 200."
+              ;;
+          esac
+          problem="$(jq --slurp --raw-output --arg tag "$tag" '
+            if length != 1 then "is not one JSON object"
+            elif (.[0] | type) != "object" then "is a JSON \(.[0] | type), not one object"
+            elif .[0].tag_name != $tag then "names the tag \(.[0].tag_name | tojson), not \($tag)"
+            elif .[0].draft != false then "has draft=\(.[0].draft | tojson); a draft never deploys"
+            elif .[0].prerelease != false then "has prerelease=\(.[0].prerelease | tojson); a prerelease never deploys"
+            else "" end' "$lookup/release.json")" \
+            || fail "The lookup of the GitHub Release of $tag did not return valid JSON."
+          [ -z "$problem" ] || fail "The GitHub Release found for $tag $problem."
+          echo "The tag $tag has a published GitHub Release that is not a prerelease."
       - name: Checkout the tag with the history of main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -79,6 +156,12 @@ jobs:
           git merge-base --is-ancestor "$SHA" refs/remotes/origin/main \
             || fail "The release commit $SHA is not on main; only commits on main are released."
           echo "$REF names $SHA, which is on main."
+      - name: Record the commit that passed every guard
+        id: approved
+        env:
+          SHA: ${{ github.sha }}
+        run: |
+          echo "commit=$SHA" >> "$GITHUB_OUTPUT"
 
   tests:
     name: Tests
@@ -120,8 +203,79 @@ jobs:
               fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
               ;;
           esac
-          [[ "$REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "Pages deploys only a vX.Y.Z tag, not $REF."
+          [[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] \
+            || fail "Pages deploys only a vX.Y.Z tag (three numbers without leading zeros), not $REF."
           echo "$EVENT_NAME of $REF may deploy once its commit is on main and the tests pass."
+      - name: Look up the GitHub Release of a dispatched tag
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          # The job's read-only token (contents: read), sent as a header from stdin, never on a command line.
+          TOKEN: ${{ github.token }}
+        run: |
+          fail() { echo "::error::$1"; exit 1; }
+          case "$EVENT_NAME" in
+            release)
+              echo "A release run carries its release in the event; nothing to look up."
+              exit 0
+              ;;
+            workflow_dispatch)
+              ;;
+            *)
+              fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
+              ;;
+          esac
+          tag="${REF#refs/tags/}"
+          mkdir "$RUNNER_TEMP/release-lookup"
+          # One read-only GET; this endpoint returns only a published Release. The guard below reads the response.
+          status="$(printf 'Authorization: Bearer %s\n' "$TOKEN" | curl --silent --show-error --proto =https \
+            --max-time 60 --header @- --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" --output "$RUNNER_TEMP/release-lookup/release.json" \
+            --write-out "%{http_code}" "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/$tag")" \
+            || fail "The lookup of the GitHub Release of $tag failed without a response; nothing is deployed."
+          echo "$status" > "$RUNNER_TEMP/release-lookup/status"
+          echo "The lookup of the GitHub Release of $tag returned HTTP $status."
+      - name: Refuse a dispatch unless its tag has a published GitHub Release that is not a prerelease
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+        run: |
+          fail() { echo "::error::$1"; exit 1; }
+          case "$EVENT_NAME" in
+            release)
+              echo "A release run: the first guard checked the release of the event."
+              exit 0
+              ;;
+            workflow_dispatch)
+              ;;
+            *)
+              fail "Pages deploys only from a published release or a dispatch on a vX.Y.Z tag, not $EVENT_NAME."
+              ;;
+          esac
+          tag="${REF#refs/tags/}"
+          lookup="$RUNNER_TEMP/release-lookup"
+          [ -f "$lookup/status" ] || fail "No response of the lookup of the GitHub Release of $tag to check."
+          status="$(cat "$lookup/status")"
+          case "$status" in
+            200)
+              ;;
+            404)
+              fail "The tag $tag has no published GitHub Release (HTTP 404); a dispatch deploys only a released tag."
+              ;;
+            *)
+              fail "The lookup of the GitHub Release of $tag returned HTTP $status, not 200."
+              ;;
+          esac
+          problem="$(jq --slurp --raw-output --arg tag "$tag" '
+            if length != 1 then "is not one JSON object"
+            elif (.[0] | type) != "object" then "is a JSON \(.[0] | type), not one object"
+            elif .[0].tag_name != $tag then "names the tag \(.[0].tag_name | tojson), not \($tag)"
+            elif .[0].draft != false then "has draft=\(.[0].draft | tojson); a draft never deploys"
+            elif .[0].prerelease != false then "has prerelease=\(.[0].prerelease | tojson); a prerelease never deploys"
+            else "" end' "$lookup/release.json")" \
+            || fail "The lookup of the GitHub Release of $tag did not return valid JSON."
+          [ -z "$problem" ] || fail "The GitHub Release found for $tag $problem."
+          echo "The tag $tag has a published GitHub Release that is not a prerelease."
       - name: Checkout the tag with the history of main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -172,12 +326,12 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: build
+    needs: [approval, build]
     if: >-
-      startsWith(github.ref, 'refs/tags/v') &&
+      startsWith(github.ref, 'refs/tags/v') && needs.approval.outputs.commit == github.sha &&
       (github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'release' && github.event.action == 'published' &&
-      github.event.release.prerelease == false))
+      toJSON(github.event.release.prerelease) == 'false'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
