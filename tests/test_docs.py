@@ -62,7 +62,7 @@ ATTRIBUTION = re.compile(
 )
 # A flat claim that something is deployed, live or published as the site, in any tense that states it as done, also
 # with an adverb between ("was first deployed", "is already live"). "Nothing is deployed" is not a claim that something
-# is: hold_wording() refuses it unless a condition opens its sentence (NOTHING_DEPLOYED).
+# is: hold_wording() refuses it unless a condition of the guard comes before it in its sentence (NOTHING_DEPLOYED).
 _DONE = r"(?:(?:now|first|already|successfully|finally|recently|just|last) )?(?:deployed|live)\b"
 FLAT_CLAIMS = re.compile(
     rf"github\.io|(?<!\bnothing )(?<!\bnone )\b(?:is|are) {_DONE}|\b(?:was|has been|have been|were) {_DONE}|"
@@ -146,9 +146,12 @@ CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：、。！？]")
 # v1.1.0 exists if you check, and the variable is unset.").
 COORDINATED = re.compile(r"\s*(?:(?:or|and|nor)\b|或者|或|并且|且)", re.IGNORECASE)
 CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
-# "Nothing is deployed" states the site's state unless a condition opens its sentence ("When ..., nothing is
-# deployed."); a trailing condition does not count, as for the unset wording.
+# "Nothing is deployed" states the site's state unless a condition of the guard comes before it in its sentence
+# ("When ..., nothing is deployed."): one that names a tag, branch, release, prerelease, commit or main, a refusal or a
+# failure (GUARD_CONDITION), not "When you look today, ...". A trailing condition does not count, as for the unset
+# wording.
 NOTHING_DEPLOYED = re.compile(rf"\b(?:nothing|none) (?:is|are) {_DONE}", re.IGNORECASE)
+GUARD_CONDITION = re.compile(r"\b(?:(?:tag|branch|release|prerelease|commit|refus|fail)\w*|main)\b", re.IGNORECASE)
 SENTENCE_BREAK = re.compile(r"[.!?;](?=\s|$)|[。！？；]|\n")
 # A deployment or release told as an event that happened, which is what happened, not how the guard works, whatever
 # guard word the sentence also has ("... happened on 2026-10-11 when the owner approved it"); see release_events().
@@ -300,14 +303,17 @@ def clause_before(text: str, end: int) -> str:
 def hold_wording(text: str) -> list[str]:
     """Hold wording in rendered text: every HOLD_MARKERS match; the release variable stated as unset unless a condition
     opens its clause (or the clause it continues) or, in Chinese, follows it; and "nothing is deployed" unless a
-    condition opens its sentence. With the condition, the text describes the guard, not the site's state."""
+    condition of the guard comes before it in its sentence. With the condition, the text describes the guard, not the
+    site's state."""
     found = [match.group() for match in HOLD_MARKERS.finditer(text)]
     for match in UNSET_WORDING.finditer(text):
         clause = clause_before(text, match.start()) + match.group()
         if not (CONDITION_BEFORE.search(clause) or CONDITION_AFTER.match(text, match.end())):
             found.append(match.group())
     for match in NOTHING_DEPLOYED.finditer(text):
-        if not CONDITION_BEFORE.search(SENTENCE_BREAK.split(text[: match.start()])[-1]):
+        before = SENTENCE_BREAK.split(text[: match.start()])[-1]
+        condition = CONDITION_BEFORE.search(before)
+        if not (condition and GUARD_CONDITION.search(before, condition.end())):
             found.append(match.group())
     return found
 
@@ -900,10 +906,12 @@ class ReleaseStateTests(unittest.TestCase):
         "The website was first deployed to GitHub Pages when v1.0.0 was tagged.",
         "The deployment was approved when v1.0.0 was tagged.",
         "The website is already live, so nothing else is needed.",
-        # "Nothing is deployed" as the state of the site, also with a condition after it.
+        # "Nothing is deployed" as the state of the site, also with a condition after it or one that is not the guard's.
         "Nothing is deployed.",
         "Nothing is deployed if you look today.",
         "Nothing has been deployed.",
+        "When you look today, nothing is deployed.",
+        "For the tag v1.1.0, when you look today, nothing is deployed.",
         # A condition inside an earlier clause joined with "and" does not cover the unset variable.
         "The tag v1.1.0 exists if you check, and the variable is unset.",
         # Variants of the accurate sentences below that still tell an event: a fronted date, a version in the clause, a
@@ -933,9 +941,14 @@ class ReleaseStateTests(unittest.TestCase):
         "A composer's release cover is not the illustrator's original.",
         "If `RELEASE_APPROVED_SHA` is not set, the dispatch fails closed.",
         "变量目前未设置时，触发会失败关闭。",
-        # "Nothing is deployed" as the outcome of a condition of the guard.
+        # "Nothing is deployed" as the outcome of a condition of the guard, which names what the guard checks.
         "When the variable is unset or names another commit, nothing is deployed.",
         "If a tag is not `vX.Y.Z`, nothing is deployed.",
+        "Unless the Release is published, nothing is deployed.",
+        "If it is a prerelease, nothing is deployed.",
+        "When it is not on `main`, nothing is deployed.",
+        "When a guard refuses the run, nothing is deployed.",
+        "If the lookup fails, nothing is deployed.",
         # Accurate sentences: an event verb in a subordinate clause, a date of something else, an unrelated
         # "frozen", and the unset variable as a condition (的情况下, whether, a clause joined by "or").
         "The deploy job runs only after the tests succeeded.",
