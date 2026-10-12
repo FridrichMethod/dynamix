@@ -105,7 +105,7 @@ RETIRED_GATE = re.compile(
 # deployed" (true after a release) does not.
 HOLD_MARKERS = re.compile(
     r"\b(?:website|site|pages)\b[^.;:]{0,60}?\b(?:is|was|are|were|has|have)(?: still| currently| now| temporarily)?"
-    r"(?: not|n['’]t)(?: yet| currently| temporarily)?(?: been)? (?:deployed|published|released|live)\b|"
+    r"(?: not|n['’]t)(?: yet| currently)?(?: been)? (?:deployed|published|released|live)\b|"
     # A release that is held: with a to/of/on phrase only through a copula or "on hold" ("each release of the frozen
     # catalog" is not held), and the phrase may name a version ("deployment of v1.1.0 is paused").
     r"\b(?:release|deployment|publication)s?\b(?: (?:to|of|on) (?:[^.;:,]|\.(?=\S)){0,30}?)?"
@@ -926,13 +926,14 @@ class ReleaseStateTests(unittest.TestCase):
         # A condition inside an earlier clause joined with "and" does not cover the unset variable.
         "The tag v1.1.0 exists if you check, and the variable is unset.",
         # Variants of the accurate sentences below that still tell an event: a fronted date, a version in the clause, a
-        # comma before the event verb; and held releases whose phrase names a version.
+        # comma before the event verb; and held releases whose phrase names a version, also without a copula.
         "2026-10-11，所有者批准后才部署到 GitHub Pages。",
         "On 2026-10-11, the owner approved the deployment when the tests passed.",
         "The deployment of v1.1.0 ran when the owner approved it.",
         "The deployment, as planned, happened on 2026-10-11 when the owner approved it.",
         "The release of v1.1.0 is on hold.",
         "Deployment of v1.1.0 is paused.",
+        "Release of v1.1.0 on hold.",
     )
     OUTSIDE_ALLOWED = (
         "A push to `main` never deploys the website.",
@@ -1056,6 +1057,7 @@ class ReleaseStateTests(unittest.TestCase):
             "`RELEASE_APPROVED_SHA` is not set, so every dispatch fails closed.",
             "The variable is unset if you look at the settings today.",
             "Nothing is deployed.",
+            "Pages deployment is temporarily paused.",
         ),
         "README.zh-CN.md": (
             "目前没有任何发布。",
