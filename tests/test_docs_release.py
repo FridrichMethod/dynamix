@@ -152,16 +152,19 @@ SUBORDINATORS = re.compile(
 def clause_before(text: str, end: int) -> str:
     """The clause of ``text`` that ends at ``end``, joined with the clauses before it that it continues with "or" or
     "and" (COORDINATED) when a condition opens the first of them (CONDITION_OPENS), so that the condition counts for
-    it; otherwise the clause alone. Across a 、 the items before count only when ``end`` opens an item (or follows its
-    或, 且, ...: COORDINATED) of a list that a ， ends, its consequence following ("若标签错误、变量未设置，……");
-    otherwise the item alone does, as where 、 stands for a comma ("如果查看设置、会发现变量未设置。",
-    "只要标签正确就会部署、变量目前未设置。")."""
+    it; otherwise the clause alone. Where the clause that ends at ``end`` lists items with 、, the items before count
+    only when ``end`` opens an item (or follows its 或, 且, ...: COORDINATED) of a list that a ， ends, its consequence
+    following ("若标签错误、变量未设置，……"); otherwise the item alone does, as where 、 stands for a comma
+    ("如果查看设置、会发现变量未设置。", "只要标签正确就会部署、变量目前未设置。"). A 、 in an earlier clause lists items of
+    that clause and leaves the joined clauses as they are ("若标签错误、分支错误，或变量未设置，……")."""
     parts = CLAUSE_BREAK.split(text[:end])
     clause = continued = parts.pop()
     while parts and COORDINATED.match(continued):
         continued = parts.pop() + continued
     found = continued if CONDITION_OPENS.match(continued) else clause
-    item = found.rpartition("、")[2]
+    if "、" not in clause:
+        return found
+    item = clause.rpartition("、")[2]
     opens = not item.strip() or COORDINATED.fullmatch(item)
     after = CLAUSE_BREAK.search(text, end)
     return found if opens and after is not None and after.group() == "，" else item
@@ -742,6 +745,11 @@ class ReleaseStateTests(unittest.TestCase):
         "若标签错误、变量未设置或指向其他提交，触发会失败关闭。",
         "倘若标签不对、或者变量未设置，触发会失败关闭。",
         "变量未设置、标签错误时，触发会失败关闭。",
+        # A 、 in an earlier one of the joined clauses lists items of that clause, so the condition still opens them.
+        "若标签错误、分支错误，或变量未设置，触发会失败关闭。",
+        "若标签错误、分支错误，或者变量未设置，触发会失败关闭。",
+        "如果标签不对、分支不对，并且变量未设置，触发会失败关闭。",
+        "若标签错误、分支错误，或者发布用的变量未设置，触发会失败关闭。",
         # An event verb after each subordinator.
         "The deploy job never runs before the test job has succeeded.",
         *(f"The deploy job runs only {word} the test job has succeeded." for word in ("once", "when", "if")),
