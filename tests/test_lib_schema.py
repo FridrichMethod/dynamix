@@ -455,6 +455,25 @@ class RecordValidationTests(unittest.TestCase):
                 ),
                 "credit_evidence",
             ),
+            (  # DX2-07: a family record's credit evidence names a credited name of its role, as the catalog's does
+                crop,
+                lambda r: r.update(
+                    credit_evidence=[
+                        {"role": "composer", "name": "Somebody Else", "url": None, "field": None, "quote": "x"}
+                    ]
+                ),
+                f"asset {crop['id']!r}: credit_evidence: [0] names composer 'Somebody Else', who is not in composers",
+            ),
+            (  # a role swap: Yunosuke is credited as composer only
+                crop,
+                lambda r: r.update(
+                    credit_evidence=[
+                        {"role": "illustrator", "name": "ariiol", "url": None, "field": None, "quote": "ariiol"},
+                        {"role": "illustrator", "name": "Yunosuke", "url": None, "field": None, "quote": "Yunosuke"},
+                    ]
+                ),
+                "credit_evidence: [1] names illustrator 'Yunosuke', who is not in illustrators",
+            ),
         ]
         for base, mutate, fragment in mutations:
             with self.subTest(fragment=fragment):
@@ -583,6 +602,12 @@ class RecordValidationTests(unittest.TestCase):
             (lambda m: m.update(family="artists"), "belongs to family 'wikis'"),
             (lambda m: m.update(extra=1), "extra: unknown field"),
             (lambda m: m.update(schema_version=2), "schema_version"),
+            (  # DX2-07: the credit-role rule holds for every family record, not only in the catalog
+                lambda m: m["assets"][0].update(
+                    credit_evidence=[{"role": "illustrator", "name": "HAT", "url": None, "field": None, "quote": "HAT"}]
+                ),
+                "credit_evidence: [0] names illustrator 'HAT', who is not in illustrators",
+            ),
             (
                 lambda m: m["assets"][0].update(upstream_status="superseded", superseded_by="wikis:fandom:" + "e" * 16),
                 "superseded_by: names no asset",

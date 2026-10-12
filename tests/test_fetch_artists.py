@@ -901,6 +901,17 @@ class MatchingTests(unittest.TestCase):
         model.check_rule({**rule, "credit_evidence": curated}, "rule")  # a curated, sourced entry per name
         with self.assertRaisesRegex(ValueError, "credit_evidence\\[1\\]"):
             model.check_rule({**rule, "credit_evidence": [curated[0], {"role": "composer", "name": "B"}]}, "rule")
+        # A curated entry names someone the rule credits in that role, as the asset's entries must (validate_asset):
+        # the seeds fail when loaded, not the record when the run writes it.
+        for entry, problem in (
+            ({"role": "composer", "name": "A", "url": "https://e.test/a"}, "names composer 'A', who is not in"),
+            ({"role": "illustrator", "name": "C", "url": "https://e.test/c"}, "names illustrator 'C', who is not in"),
+        ):
+            with self.subTest(entry=entry), self.assertRaisesRegex(ValueError, f"credit_evidence\\[2\\] {problem}"):
+                model.check_rule({**rule, "credit_evidence": [*curated, entry]}, "rule")
+        model.check_rule(
+            {**rule, "credit_evidence": [*curated, {"role": "other", "name": "C", "url": "https://e.test/c"}]}, "rule"
+        )
         model.check_rule(
             {"match": "^a$", "action": "pending", "reason": "unresolved_role: review", "illustrators": ["A"]}, "rule"
         )  # only an admitted file's credits are recorded on an asset

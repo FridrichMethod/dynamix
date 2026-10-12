@@ -3140,6 +3140,9 @@ class FamilyConsistencyTests(ArchivesTestCase):
         of the wikis manifest's Template:Song credit; a credit the wikis family does not record stays quote-less."""
         page = "https://dynamix.miraheze.org/wiki/Hope!!"
         wikis = manifest.load_json(ROOT / "tests/fixtures/contract/data/sources/wikis.json")
+        # A wiki record that credits HAT as illustrator, with the Template:Song field and quote that state it (a
+        # record's illustrator entry names one of its illustrators: schema.validate_asset, DX2-07).
+        wikis["assets"][0]["illustrators"] = ["HAT"]
         wikis["assets"][0]["credit_evidence"] = [
             {"role": "illustrator", "name": "HAT", "url": page, "field": "Template:Song|Cover Artist", "quote": "HAT"}
         ]

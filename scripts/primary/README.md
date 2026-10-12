@@ -104,7 +104,8 @@ or the other role's label is no evidence); otherwise the entry has no quote and 
 download rule that credits names must have unless a curated `credit_evidence` entry with a URL covers each name.
 List fields are lists of non-empty strings and `min_interval` is at least 1 s. Collaboration/multi-game art
 (`game_associations` beyond `dynamix`) gets `rights.holder: null` unless the rule names a holder the source supports.
-Curated `credit_evidence` and `mapping_evidence` entries are kept as given. Two guards override seeds: a *rejected
+Curated `credit_evidence` and `mapping_evidence` entries are kept as given. A curated `illustrator` or `composer` entry
+must name someone the rule credits in that role, or the seeds fail to load. Two guards override seeds: a *rejected
 submission* announcement excludes the candidate, and a *Dynamix Universe* mention holds it as `pending` unless the rule
 sets `allow_universe_mention`. Unclassified items are `pending`, never admitted on keywords; X embed-timeline posts need
 a rule whose `match` names the post ID (or that requires evidence quotes). `variant_role` requires `variant_group`

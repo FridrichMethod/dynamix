@@ -201,8 +201,11 @@ def _https(value: Any) -> bool:
 def _check_credit_sources(rule: Mapping[str, Any], action: str, where: str) -> None:
     """``credit_source`` is ``{"url": https URL, "note"?: str}``; a curated ``credit_evidence`` entry names a role, a
     name and the https URL that states it. A download rule that credits names must cite a source for every name: a
-    ``credit_source`` (used for names its fetched text does not state with their role) or a curated entry per name."""
+    ``credit_source`` (used for names its fetched text does not state with their role) or a curated entry per name.
+    A curated ``illustrator``/``composer`` entry names someone the rule credits in that role, as an asset's entries
+    must (``schema.validate_asset``), so the seeds fail when loaded rather than the record when written."""
     source = rule.get("credit_source")
+    lists = {"illustrator": rule.get("illustrators", []), "composer": rule.get("composers", [])}
     if source is not None and not (
         isinstance(source, dict)
         and set(source) <= {"url", "note"}
@@ -223,6 +226,11 @@ def _check_credit_sources(rule: Mapping[str, Any], action: str, where: str) -> N
         ):
             raise ValueError(
                 f"{where}: credit_evidence[{index}] needs a role, a name and an https url (field and quote optional)"
+            )
+        if entry["role"] in lists and entry["name"] not in lists[entry["role"]]:
+            raise ValueError(
+                f"{where}: credit_evidence[{index}] names {entry['role']} {entry['name']!r}, who is not in the "
+                f"rule's {entry['role']}s (composer and illustrator are separate roles)"
             )
         curated.add((entry["role"], entry["name"]))
     credited = [
