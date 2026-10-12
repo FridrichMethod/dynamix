@@ -126,7 +126,8 @@ jobs:
               ;;
           esac
           problem="$(jq --slurp --raw-output --arg tag "$tag" '
-            if length != 1 or (.[0] | type) != "object" then "is not one JSON object"
+            if length != 1 then "is not one JSON object"
+            elif (.[0] | type) != "object" then "is a JSON \(.[0] | type), not one object"
             elif .[0].tag_name != $tag then "names the tag \(.[0].tag_name | tojson), not \($tag)"
             elif .[0].draft != false then "has draft=\(.[0].draft | tojson); a draft never deploys"
             elif .[0].prerelease != false then "has prerelease=\(.[0].prerelease | tojson); a prerelease never deploys"
@@ -266,7 +267,8 @@ jobs:
               ;;
           esac
           problem="$(jq --slurp --raw-output --arg tag "$tag" '
-            if length != 1 or (.[0] | type) != "object" then "is not one JSON object"
+            if length != 1 then "is not one JSON object"
+            elif (.[0] | type) != "object" then "is a JSON \(.[0] | type), not one object"
             elif .[0].tag_name != $tag then "names the tag \(.[0].tag_name | tojson), not \($tag)"
             elif .[0].draft != false then "has draft=\(.[0].draft | tojson); a draft never deploys"
             elif .[0].prerelease != false then "has prerelease=\(.[0].prerelease | tojson); a prerelease never deploys"

@@ -975,6 +975,7 @@ class ReleaseGateTests(unittest.TestCase):
             "dispatch on a tag whose Release has no prerelease flag": "prerelease=null",
             "dispatch on a tag whose Release has a string prerelease flag": 'prerelease="false"',
             "dispatch with a truncated Release response": "did not return valid JSON",
+            "dispatch with a JSON array as the Release response": "is a JSON array, not one object",
             "dispatch with two JSON documents as the Release response": "is not one JSON object",
         }
         for scenario, phrase in expected.items():
