@@ -217,7 +217,9 @@ COUNT_CLAIMS = re.compile(
 BOLD_RUN = re.compile(r"(?<!\*)\*\*(?!\*)")
 LINK = re.compile(r"(?<!!)\[(?:[^\[\]]|\[[^\]]*\])*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
-INLINE_CODE = re.compile(r"`[^`]*`")
+# A code span holds at least one character: Markdown has no empty one, and two backticks open a span that two close
+# (``deploy`` is code, read here as its inner `deploy`).
+INLINE_CODE = re.compile(r"`[^`]+`")
 SCRIPT_CALL = re.compile(r"(?<![\w<>/.-])(?:(scripts|tests)/)?([a-z][a-z0-9_]*)\.py\b")
 FLAG = re.compile(r"(?<![\w-])(--[a-z][a-z0-9-]*)")
 
@@ -1196,6 +1198,7 @@ class ReleaseStateTests(unittest.TestCase):
         "The deploy job runs if the approval and build jobs pass.",
         "The deploy job runs when the approval and build jobs pass.",
         "A pull request doesn't deploy the website.",
+        "The last job of the Pages workflow is ``deploy``.",  # a code span of two backticks is code too
         "拉取请求不部署网站。",
         "预发布版本未部署到 GitHub Pages。",
         "只有已发布的版本部署网站。",
