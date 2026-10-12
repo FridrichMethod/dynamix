@@ -820,8 +820,8 @@ class ReleaseStateTests(unittest.TestCase):
     READMES = ("README.md", "README.zh-CN.md")
     PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
     # What each README's Releases section says about the release-triggered workflow, with the owner decisions of
-    # 2026-10-11: tags without leading zeros (D2), a dispatch that looks up the tag's Release (D1), and the tag ruleset
-    # beside the environment rule (D5).
+    # 2026-10-11: tags without leading zeros (D2), every run, a re-run of a release run included, looking up the tag's
+    # Release (D1), and the tag ruleset beside the environment rule (D5).
     RELEASE_MODEL = {
         "README.md": (
             "published",
@@ -834,8 +834,9 @@ class ReleaseStateTests(unittest.TestCase):
             "`v*`",
             "three numbers without leading zeros",
             "`v01.1.0`",
-            "first looks up the tag's GitHub Release",
+            "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
             "only if that Release is published and not a prerelease",
+            "A re-run keeps the event of the run it repeats",
             "`github-pages` environment allows deployments from `v*` tags",
             "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
         ),
@@ -850,8 +851,9 @@ class ReleaseStateTests(unittest.TestCase):
             "`v*`",
             "三个不带前导零的数字",
             "`v01.1.0`",
-            "会先查询该标签的 GitHub Release",
+            "每次运行，无论是发布的运行、它的重新运行还是手动触发，都会先查询该标签的 GitHub Release",
             "只有该 Release 已发布且不是预发布版本时才部署",
+            "重新运行沿用它所重复的那次运行的事件",
             "`github-pages` 环境允许来自 `v*` 标签的部署",
             "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
         ),
