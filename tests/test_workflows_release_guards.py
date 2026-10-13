@@ -1,11 +1,11 @@
 """The shell guards of the release gate of .github/workflows/pages.yml, executed for each scenario.
 
-tests/test_workflows_release_gate.py holds the scenarios, the deploy condition and the checks of the workflow as written.
-Here the guard steps of the approval and the build job run in bash as GitHub runs them: the event guard, the Release
-lookup with a stand-in curl (it records each request and answers with the scenario's response, so no request leaves the
-machine) and the Release guard; the main guard in temporary Git repositories with a local bare origin, also with a
-stand-in timeout that ends its read of origin; the approval job's record step; and the Re-run check job's step. The jobs
-of a run and of its re-runs also run here as GitHub decides them (run_attempt()), each job's if: as written.
+tests/test_workflows_release_gate.py holds the scenarios, the deploy condition and the checks of the workflow as
+written. Here the guard steps of the approval and the build job run in bash as GitHub runs them: the event guard, the
+Release lookup with a stand-in curl (it records each request and answers with the scenario's response, so no request
+leaves the machine) and the Release guard; the main guard in temporary Git repositories with a local bare origin, also
+with a stand-in timeout that ends its read of origin; the approval job's record step; and the Re-run check job's step.
+The jobs of a run and of its re-runs also run here as GitHub decides them (run_attempt()), each job's if: as written.
 """
 
 import functools
