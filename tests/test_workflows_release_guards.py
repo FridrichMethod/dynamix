@@ -1,17 +1,16 @@
 """The shell guards of the release gate of .github/workflows/pages.yml, executed for each scenario.
 
-tests/test_workflows_release_gate.py holds the scenarios, the deploy condition and the checks of the workflow as written.
-Here the guard steps of the approval and the build job run in bash as GitHub runs them: the event guard, the Release
-lookup with a stand-in curl (it records each request and answers with the scenario's response, so no request leaves the
-machine) and the Release guard; the main guard in temporary Git repositories with a local bare origin, also with a
-stand-in timeout that ends its read of origin; the approval job's record step; and the Re-run check job's step. The jobs
-of a run and of its re-runs also run here as GitHub decides them (run_attempt()), each job's if: as written.
+tests/test_workflows_release_gate.py holds the scenarios, the deploy condition and the checks of the workflow as
+written. Here the guard steps of the approval and the build job run in bash as GitHub runs them: the event guard, the
+Release lookup with a stand-in curl (it records each request and answers with the scenario's response, so no request
+leaves the machine) and the Release guard; the main guard in temporary Git repositories with a local bare origin, also
+with a stand-in timeout that ends its read of origin; the approval job's record step; and the Re-run check job's step.
+tests/test_workflows_release_reruns.py runs the jobs of a run and of its re-runs as GitHub decides them.
 """
 
 import functools
 import json
 import os
-import re
 import shutil
 import subprocess
 import sys
@@ -27,7 +26,7 @@ from test_workflows_release_gate import (  # noqa: E402
     ACCEPTED,
     DENIED,
     LOOKUP,
-    LS_REMOTE_MAX_SECONDS,
+    LS_REMOTE_SECONDS,
     RELEASE_LOOKUP_DENIED,
     REPOSITORY,
     RERUN_CHECK,
@@ -126,103 +125,42 @@ ORIGIN_CHANGES = {
     "a lightweight tag moved on origin": ("v1.0.0", "first", (("tag", "-f", "v1.0.0", "second"),), "second"),
     "a tag deleted on origin": ("v1.1.0", "second", (("tag", "-d", "v1.1.0"),), "no commit"),
 }
+# The names that git ls-remote of the tag and its peeled line lists, in its order, for each ORIGIN_CHANGES scenario
+# with decoys (refs whose names end in the tag's name). The decoys stand on both sides of the tag only because git
+# lists the refs sorted by name, each peeled ^{} line right after its own ref: this pins that order (E6), so that a
+# guard taking the first or the last ^{} line still fails a scenario.
+DECOY_LISTINGS = {
+    "refs on origin whose names end in an annotated tag's name": (
+        "refs/heads/refs/tags/v1.1.0",
+        "refs/tags/a/refs/tags/v1.1.0",
+        "refs/tags/a/refs/tags/v1.1.0^{}",
+        "refs/tags/v1.1.0",
+        "refs/tags/v1.1.0^{}",
+        "refs/tags/x/refs/tags/v1.1.0",
+        "refs/tags/x/refs/tags/v1.1.0^{}",
+    ),
+    "refs on origin whose names end in a lightweight tag's name": (
+        "refs/heads/refs/tags/v1.0.0",
+        "refs/tags/a/refs/tags/v1.0.0",
+        "refs/tags/a/refs/tags/v1.0.0^{}",
+        "refs/tags/v1.0.0",
+        "refs/tags/x/refs/tags/v1.0.0",
+        "refs/tags/x/refs/tags/v1.0.0^{}",
+    ),
+    "an annotated tag moved on origin, with an annotated tag whose name ends in its name on the run's commit": (
+        "refs/tags/a/refs/tags/v1.1.0",
+        "refs/tags/a/refs/tags/v1.1.0^{}",
+        "refs/tags/v1.1.0",
+        "refs/tags/v1.1.0^{}",
+        "refs/tags/x/refs/tags/v1.1.0",
+        "refs/tags/x/refs/tags/v1.1.0^{}",
+    ),
+}
 
 
 # A stand-in for GNU timeout, put first on PATH: it writes its arguments, one per line, to $STAND_IN_TIMEOUT_CALL and
 # exits at once with 124, the status of timeout when the command ran over the limit, without starting the command (F2).
 STAND_IN_TIMEOUT = '#!/bin/sh\nprintf "%s\\n" "$@" > "$STAND_IN_TIMEOUT_CALL"\nexit 124\n'
-
-
-# A job if: that names a status function is evaluated whatever the results of the jobs it needs; GitHub prefixes
-# success() to any other, which then runs only when every job it needs succeeded (GitHub's "Status check functions").
-STATUS_FUNCTION = re.compile(r"\b(?:always|success|failure|cancelled)\s*\(")
-
-
-def needed(job: dict) -> list[str]:
-    """The jobs that ``job`` needs, as a list (needs: may name one job without brackets)."""
-    needs = job.get("needs") or []
-    return [needs] if isinstance(needs, str) else list(needs)
-
-
-def rerun_jobs(jobs: dict[str, dict], selected: set[str]) -> set[str]:
-    """The jobs that GitHub runs again when a re-run selects ``selected``: those and every job that needs one of
-    them, directly or through other jobs ("Re-run failed jobs" selects the failed jobs, "Re-run this job" one job)."""
-    found = set(selected)
-    while extra := {job_id for job_id, job in jobs.items() if job_id not in found and found & set(needed(job))}:
-        found |= extra
-    return found
-
-
-def run_attempt(
-    jobs: dict[str, dict], context: dict, number: int, rerun: set[str], failing: set[str], previous: dict
-) -> dict[str, tuple[str, dict]]:
-    """Attempt ``number`` of a run as GitHub runs its jobs, in file order (each needs only jobs above it), as {job:
-    (result, outputs)}. A job outside ``rerun`` keeps its result and outputs of ``previous``. A job in it runs when
-    its if: holds (STATUS_FUNCTION), with the results and outputs of the jobs it needs, and then fails when it is in
-    ``failing`` or is the Re-run check job (its one step fails: test_the_rerun_check_step_fails_with_its_reason);
-    otherwise it succeeds, and the approval job records the commit and this attempt (its record step). A job that
-    does not run is skipped."""
-    state: dict[str, tuple[str, dict]] = {}
-    for job_id, job in jobs.items():
-        if job_id not in rerun:
-            state[job_id] = previous[job_id]
-            continue
-        seen = {**context, "github.run_attempt": str(number)}
-        for need in needed(job):
-            result, outputs = state[need]
-            seen[f"needs.{need}.result"] = result
-            seen.update({f"needs.{need}.outputs.{name}": value for name, value in outputs.items()})
-        condition = job.get("if")
-        if condition is not None and STATUS_FUNCTION.search(condition):
-            runs = evaluate(condition, seen)
-        else:
-            runs = all(state[need][0] == "success" for need in needed(job))
-            runs = runs and (condition is None or evaluate(condition, seen))
-        if not runs:
-            state[job_id] = ("skipped", {})
-        elif job_id in failing or job_id == RERUN_CHECK:
-            state[job_id] = ("failure", {})
-        else:
-            state[job_id] = ("success", {"commit": SHA, "attempt": str(number)} if job_id == "approval" else {})
-    return state
-
-
-FIRST = "first attempt"
-ALL = "Re-run all jobs"
-FAILED = "Re-run failed jobs"
-# Each attempt of a run of a published release: how it was started (FIRST, ALL, FAILED, or the id of the job whose
-# "Re-run this job" started it) and the jobs that fail when they run; then whether the last attempt deployed and whether
-# its Re-run check job ran (PROD-1). A re-run that leaves out the approval job, after a failed deploy, test or build job
-# or of the deploy or build job alone, keeps the approval job's record of an earlier attempt: its deploy job is skipped
-# and its Re-run check job runs and fails. A first attempt or a re-run of all jobs never runs it, nor does a run that the
-# approval job refused.
-RERUNS = {
-    "a first attempt": (((FIRST, ()),), True, False),
-    "a first attempt that the approval job refuses": (((FIRST, ("approval",)),), False, False),
-    "a first attempt whose tests fail": (((FIRST, ("tests",)),), False, False),
-    "a first attempt whose deployment fails": (((FIRST, ("deploy",)),), False, False),
-    "all jobs re-run after a deployment": (((FIRST, ()), (ALL, ())), True, False),
-    "all jobs re-run after the deployment failed": (((FIRST, ("deploy",)), (ALL, ())), True, False),
-    "all jobs re-run, refused by the approval job this time": (((FIRST, ()), (ALL, ("approval",))), False, False),
-    "failed jobs re-run after the deployment failed": (((FIRST, ("deploy",)), (FAILED, ())), False, True),
-    "failed jobs re-run after the tests failed": (((FIRST, ("tests",)), (FAILED, ())), False, True),
-    "failed jobs re-run after the build failed": (((FIRST, ("build",)), (FAILED, ())), False, True),
-    "failed jobs re-run after the approval job refused": (((FIRST, ("approval",)), (FAILED, ())), True, False),
-    "the deploy job re-run after a deployment": (((FIRST, ()), ("deploy", ())), False, True),
-    "the build job re-run after a deployment": (((FIRST, ()), ("build", ())), False, True),
-    "the approval job re-run after a deployment": (((FIRST, ()), ("approval", ())), True, False),
-    "the Re-run check job re-run after a re-run of the deploy job": (
-        ((FIRST, ()), ("deploy", ()), (RERUN_CHECK, ())),
-        False,
-        True,
-    ),
-    "all jobs re-run after a re-run of the deploy job": (((FIRST, ()), ("deploy", ()), (ALL, ())), True, False),
-    "failed jobs re-run after a re-run of all jobs failed to deploy": (
-        ((FIRST, ()), (ALL, ("deploy",)), (FAILED, ())),
-        False,
-        True,
-    ),
-}
 
 
 WIDE_DIGIT = "\u0663"  # ARABIC-INDIC DIGIT THREE
@@ -380,42 +318,6 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
                 context = {**dispatched(TAGGED), **outputs, "github.run_attempt": run_attempt}
                 self.assertEqual(evaluate(condition, context), allowed)
 
-    def test_every_attempt_that_deploys_nothing_fails(self):
-        """The jobs of a published release's run and of its re-runs (RERUNS), each if: as pages.yml writes it: an
-        attempt ends green exactly when it deployed (PROD-1). A re-run that left out the approval job deploys nothing
-        and its Re-run check job fails it; a first attempt and a re-run of all jobs never run that job."""
-        jobs = self.pages["jobs"]
-        for scenario, (attempts, deployed, checked) in RERUNS.items():
-            with self.subTest(scenario=scenario):
-                state: dict[str, tuple[str, dict]] = {}
-                for number, (start, failing) in enumerate(attempts, 1):
-                    if start == FIRST or start == ALL:
-                        selected = set(jobs)
-                    elif start == FAILED:
-                        selected = {job_id for job_id, (result, _) in state.items() if result == "failure"}
-                    else:
-                        selected = {start}
-                    rerun = rerun_jobs(jobs, selected)
-                    state = run_attempt(jobs, released("v1.1.2"), number, rerun, set(failing), state)
-                results = {job_id: result for job_id, (result, _) in state.items()}
-                green = "failure" not in results.values()
-                self.assertEqual(green, deployed, f"green only when this attempt deployed: {results}")
-                self.assertEqual(results["deploy"] == "success" and "deploy" in rerun, deployed, results)
-                ran_check = results.get(RERUN_CHECK, "skipped") != "skipped" and RERUN_CHECK in rerun
-                self.assertEqual(ran_check, checked, results)
-
-    def test_re_runs_reach_the_jobs_that_need_the_re_run_job(self):
-        """rerun_jobs() follows needs: through other jobs, as GitHub re-runs dependents: every re-run reaches the
-        Re-run check job, and only a re-run of the approval job (or of all jobs) repeats it."""
-        jobs = self.pages["jobs"]
-        self.assertEqual(rerun_jobs(jobs, {"tests"}), {"tests", "build", "deploy", RERUN_CHECK})
-        self.assertEqual(rerun_jobs(jobs, {"approval"}), set(jobs))
-        self.assertEqual(rerun_jobs(jobs, {RERUN_CHECK}), {RERUN_CHECK})
-        for job_id in jobs:
-            with self.subTest(job=job_id):
-                self.assertIn(RERUN_CHECK, rerun_jobs(jobs, {job_id}))
-                self.assertEqual("approval" in rerun_jobs(jobs, {job_id}), job_id == "approval")
-
     @unittest.skipUnless(shutil.which("bash"), "needs bash to execute the workflow's step")
     def test_the_rerun_check_step_fails_with_its_reason(self):
         """The Re-run check job's one step, run as GitHub runs it, prints exactly one error annotation, which says
@@ -563,7 +465,7 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
         """The main guard reads origin under timeout (F2): when timeout ends the read (status 124, here from a
         stand-in that exits so at once), the guard fails with the one error of an origin it cannot read. The stand-in
         sees the limit and the read it bounds: git ls-remote of origin's tag and its peeled line. The limit itself is
-        pinned in tests/test_workflows_release_gate.py (LS_REMOTE_MAX_SECONDS); a real origin that accepts the
+        pinned in tests/test_workflows_release_gate.py (LS_REMOTE_SECONDS); a real origin that accepts the
         connection and never answers fails the guard only after it, which is too slow for this suite."""
         with tempfile.TemporaryDirectory() as temporary:
             root, _, commits = release_repository(Path(temporary))
@@ -585,10 +487,33 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
                     self.assertTrue(call.exists(), "the read of origin goes through timeout")
                     limit, *command = call.read_text(encoding="utf-8").splitlines()
                     self.assertEqual(command, ["git", "ls-remote", "origin", ref, f"{ref}^{{}}"])
-                    self.assertRegex(limit, r"^[1-9][0-9]*$")
-                    self.assertLessEqual(int(limit), LS_REMOTE_MAX_SECONDS)
+                    self.assertEqual(limit, str(LS_REMOTE_SECONDS))
                     passed = run_guard(step, context, cwd=root)  # the real timeout and git: origin has the tag
                     self.assertEqual(passed.returncode, 0, passed.stdout + passed.stderr)
+
+    @unittest.skipUnless(shutil.which("git"), "needs git to list origin's refs")
+    def test_decoys_are_listed_before_and_after_the_tag(self):
+        """Every ORIGIN_CHANGES scenario with decoys names its listing in DECOY_LISTINGS, and git ls-remote of the tag
+        and its peeled line, as the main guard runs it, lists exactly those names in that order: decoys before the tag
+        and after it, each peeled line right after its own ref."""
+        with_decoys = {
+            scenario for scenario, (_, _, changes, _) in ORIGIN_CHANGES.items() if "/refs/tags/" in str(changes)
+        }
+        self.assertEqual(with_decoys, set(DECOY_LISTINGS))
+        with tempfile.TemporaryDirectory() as temporary:
+            root, origin, commits = release_repository(Path(temporary))
+            for scenario, expected in DECOY_LISTINGS.items():
+                tag, _, changes, _ = ORIGIN_CHANGES[scenario]
+                ref = f"refs/tags/{tag}"
+                refs = git(origin, "for-each-ref", "--format=%(refname) %(objectname)")
+                try:
+                    for command in changes:
+                        git(origin, *(commits.get(word, word) for word in command))
+                    listing = git(root, "ls-remote", "origin", ref, f"{ref}^{{}}")
+                finally:
+                    restore_refs(origin, refs)
+                with self.subTest(scenario=scenario):
+                    self.assertEqual(tuple(line.split("\t")[1] for line in listing.splitlines()), expected)
 
     def main_guard_after(
         self, job_id: str, root: Path, origin: Path, commands: list[list[str]], ref: str, sha: str
@@ -645,6 +570,9 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
             "release whose tag is not the ref": "v1.2.0",
             "dispatch on a tag without a published Release (HTTP 404)": "has no published GitHub Release (HTTP 404)",
             "dispatch whose Release lookup is forbidden (HTTP 403)": "returned HTTP 403, not 200",
+            "dispatch whose Release lookup is redirected (HTTP 301) with the Release's body": (
+                "returned HTTP 301, not 200"
+            ),
             "dispatch whose Release lookup gets no response (a network error)": "failed without a response",
             "dispatch on a tag whose Release is a prerelease": "prerelease=true",
             "dispatch on a tag whose Release is a draft": "draft=true",
