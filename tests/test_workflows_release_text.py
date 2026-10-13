@@ -55,11 +55,20 @@ RETIRED_ENVIRONMENT = {
     ),
     "zh": ("只应手动运行 v1.1.1 起的标签", "允许来自 v* 标签的部署", "允许 main", "允许来自 main"),
 }
-# What no comment of pages.yml (the header or a comment after it) may say about a re-run without the approval job (R1):
-# that it repeats no lookup. It deploys nothing, and one that includes the build job repeats that job's lookup. Matched
-# as unformatted() reads them, "repeats no lookup" and "repeats no Release lookup" cover every sentence with either, and
-# "lookup it does not repeat" the approval job's outputs comment as the first R1 fix wrote it.
-RERUN_STALE = ("repeats no lookup", "repeats no Release lookup", "lookup it does not repeat")
+# What no comment of pages.yml (the header or any other) and no part of README.md may say about a re-run without the
+# approval job (R1): that it repeats no lookup. It deploys nothing, and one that includes the build job repeats that
+# job's lookup. Matched in the text as unformatted() reads it, the family is "repeat(s) no" with at most two words
+# before "lookup" ("repeats no Release lookup", "repeats no GitHub Release lookup", "repeats no further lookup",
+# "repeats no Release-lookup"), "do(es) not repeat" with at most two words before it ("does not repeat the lookup"),
+# and "lookup it does not repeat", as the approval job's outputs comment said after the first R1 fix; "look-up" and
+# "look up" count as "lookup" (E5). A sentence that says what a re-run repeats, or that names a lookup further on, is
+# not in it (RERUN_STALE_SAMPLES).
+_LOOKUP = r"look[ -]?ups?\b"
+RERUN_STALE = re.compile(
+    rf"\brepeats? no (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
+    rf"|\b(?:does|do) not repeat (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
+    rf"|\b{_LOOKUP} it does not repeat\b"
+)
 # Wording that the pages.yml header (read when releasing) must not have (matched as unformatted() reads it): the release
 # hold, the retired dispatch gate and wording of earlier versions of this workflow.
 HEADER_STALE = (
@@ -72,7 +81,6 @@ HEADER_STALE = (
     "dispatched tag",
     "--ref v1.1.0",  # v1.1.0's own pages.yml does no Release lookup
     "with one read-only API request and deploys",  # the approval and the build job each send one
-    *RERUN_STALE,
     *RETIRED_ENVIRONMENT["en"],
 )
 # What the header must say: what deploys, what fails closed and the repository settings around the workflow.
@@ -211,6 +219,8 @@ class ReleaseTextTests(unittest.TestCase):
         for stale in HEADER_STALE:
             with self.subTest(stale=stale):
                 self.assertNotIn(unformatted(stale), unformatted(text))
+        with self.subTest(stale=RERUN_STALE.pattern):
+            self.assertEqual(RERUN_STALE.findall(unformatted(text)), [])
         for required in HEADER_REQUIRED:
             with self.subTest(required=required):
                 self.assertIn(required, text)
@@ -254,9 +264,42 @@ class ReleaseTextTests(unittest.TestCase):
         comments = [comment for _, comment in blocks]
         self.assertTrue(any("outputs of an earlier attempt" in comment for comment in comments), comments)
         self.assertIn("v7.0.1", comments, "the end-of-line comment of the checkout's pin is read")
-        for stale in RERUN_STALE:
-            with self.subTest(stale=stale):
-                self.assertEqual([comment for comment in comments if unformatted(stale) in unformatted(comment)], [])
+        self.assertEqual([comment for comment in comments if RERUN_STALE.search(unformatted(comment))], [])
+
+    # Sentences in and outside the RERUN_STALE family (E5), matched as unformatted() reads them.
+    RERUN_STALE_SAMPLES = {
+        "stale": (
+            "A re-run of the deploy job alone repeats no lookup.",
+            "It repeats no Release lookup and deploys nothing.",
+            "It repeats no `Release` lookup; it deploys nothing.",
+            "It repeats no GitHub Release lookup.",
+            "It repeats no Release-lookup.",
+            "It repeats no look-up.",
+            "It repeats no look up.",
+            "It repeats no further lookup.",
+            "Such re-runs repeat no lookups.",
+            "It does not repeat the lookup.",
+            "It does not repeat the Release lookup.",
+            "It does not repeat lookups.",
+            "Re-runs without the approval job do not repeat the lookup.",
+            "It keeps the outputs of an earlier attempt, whose lookup it does not repeat.",
+        ),
+        "allowed": (
+            "A re-run keeps the event of the run it repeats, so only the lookup sees a Release that is now a draft.",
+            "The build job repeats the approval job's guards and the Release lookup.",
+            "Every run repeats the lookup.",
+            "It repeats no guard of the approval job, and the build job repeats its own lookup.",
+            "It repeats no guard of the approval job but the build job and its lookup run.",
+            "It does not repeat the guards of the approval job while the build job repeats the lookup.",
+            "A lookup that it repeats sees the Release as it is now.",
+        ),
+    }
+
+    def test_the_retired_re_run_wording_is_one_narrow_family(self):
+        for kind, sentences in self.RERUN_STALE_SAMPLES.items():
+            for sentence in sentences:
+                with self.subTest(kind=kind, sentence=sentence):
+                    self.assertEqual(bool(RERUN_STALE.search(unformatted(sentence))), kind == "stale")
 
     def test_readmes_say_that_a_re_run_of_the_deploy_job_alone_deploys_nothing(self):
         """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1), that the Re-run
@@ -267,6 +310,8 @@ class ReleaseTextTests(unittest.TestCase):
             with self.subTest(document=relative):
                 self.assertIn(required, text)
                 self.assertNotIn(unformatted(stale), unformatted(text))
+        with self.subTest(document="README.md", stale=RERUN_STALE.pattern):
+            self.assertEqual(RERUN_STALE.findall(unformatted((ROOT / "README.md").read_text(encoding="utf-8"))), [])
 
     def test_gate_5_describes_the_review_fixes(self):
         """Gate 5 of 06-validation-and-release.md names the Re-run check job and says that v1.1.1's own workflow has
