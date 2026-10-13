@@ -534,6 +534,7 @@ class ReleaseWordingTests(unittest.TestCase):
         "The deploy job runs when the approval and build jobs pass.",
         "A pull request doesn't deploy the website.",
         "The last job of the Pages workflow is ``deploy``.",  # a code span of two backticks is code too
+        "The last job of the Pages workflow is ```deploy```.",  # and one of three
         "The last step runs ``echo `date` > deployed.txt``.",  # a span of two backticks holds single ones
         "拉取请求不部署网站。",
         "预发布版本未部署到 GitHub Pages。",

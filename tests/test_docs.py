@@ -639,12 +639,14 @@ class AttributionTests(unittest.TestCase):
 
 class CommandTests(unittest.TestCase):
     # Lines and the code that code_lines() reads in them (INLINE_CODE): a run of backticks closes only at a run of the
-    # same length, so the prose between two spans is no code, a span holds shorter or longer runs, and a run that no
-    # such run closes is literal text, also one of two backticks before a span of one.
+    # same length, so the prose between two spans is no code, a span holds shorter or longer runs, a run of any length
+    # opens one (three backticks too), and a run that no such run closes is literal text, also one of two backticks
+    # before a span of one.
     CODE_SPANS = (
         ("Run ``a`` and then ``b``.", ["a", "b"]),
         ("The step runs ``echo `date` > deployed.txt``.", ["echo `date` > deployed.txt"]),
         ("The job is `a``deploy`.", ["a``deploy"]),
+        ("The last job is ```deploy```.", ["deploy"]),
         ("The ```deploy`` job publishes the site.", []),
         ("`` for an empty span and `x` here", ["x"]),
     )
