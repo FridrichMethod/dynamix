@@ -30,7 +30,8 @@ def needed(job: dict) -> list[str]:
 
 def rerun_jobs(jobs: dict[str, dict], selected: set[str]) -> set[str]:
     """The jobs that GitHub runs again when a re-run selects ``selected``: those and every job that needs one of
-    them, directly or through other jobs ("Re-run failed jobs" selects the failed jobs, "Re-run this job" one job)."""
+    them, directly or through other jobs ("Re-run failed jobs" selects the failed and the cancelled jobs, "Re-run this
+    job" one job)."""
     found = set(selected)
     while extra := {job_id for job_id, job in jobs.items() if job_id not in found and found & set(needed(job))}:
         found |= extra
@@ -89,10 +90,10 @@ FAILED = "Re-run failed jobs"
 # Each attempt of a run of a published release: how it was started (FIRST, ALL, FAILED, or the id of the job whose
 # "Re-run this job" started it), the jobs that fail when they run and, for an attempt that someone cancels, the job
 # during which they do; then whether the last attempt deployed and whether its Re-run check job ran (PROD-1). A re-run
-# that leaves out the approval job, after a failed deploy, test or build job or of the deploy or build job alone, keeps
-# the approval job's record of an earlier attempt: its deploy job is skipped and its Re-run check job runs and fails. A
-# first attempt or a re-run of all jobs never runs it, nor does a run that the approval job refused or a cancelled run
-# (E8), which ends cancelled.
+# that leaves out the approval job, after a failed or cancelled deploy, test or build job or of the deploy or build job
+# alone, keeps the approval job's record of an earlier attempt: its deploy job is skipped and its Re-run check job runs
+# and fails. A first attempt or a re-run of all jobs never runs it, nor does a run that the approval job refused or a
+# cancelled run (E8), which ends cancelled.
 RERUNS = {
     "a first attempt": (((FIRST, ()),), True, False),
     "a first attempt that the approval job refuses": (((FIRST, ("approval",)),), False, False),
@@ -120,6 +121,11 @@ RERUNS = {
         True,
     ),
     "a first attempt cancelled during the tests": (((FIRST, (), "tests"),), False, False),
+    "failed jobs re-run after a first attempt cancelled during the tests": (
+        ((FIRST, (), "tests"), (FAILED, ())),
+        False,
+        True,
+    ),
     "all jobs re-run, cancelled during the tests": (((FIRST, ()), (ALL, (), "tests")), False, False),
     "failed jobs re-run after the tests failed, cancelled during the tests": (
         ((FIRST, ("tests",)), (FAILED, (), "tests")),
@@ -148,7 +154,9 @@ class ReleaseRerunTests(PagesJobs, unittest.TestCase):
                     if start == FIRST or start == ALL:
                         selected = set(jobs)
                     elif start == FAILED:
-                        selected = {job_id for job_id, (result, _) in state.items() if result == "failure"}
+                        selected = {
+                            job_id for job_id, (result, _) in state.items() if result in ("failure", "cancelled")
+                        }
                     else:
                         selected = {start}
                     rerun = rerun_jobs(jobs, selected)
