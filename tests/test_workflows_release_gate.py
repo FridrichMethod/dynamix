@@ -8,7 +8,9 @@ approval job and one in the build job: the only GitHub API requests of the workf
 job token), the tag's commit is on main, the full Tests workflow passed on it and the approval job recorded it. The
 deploy job's condition is evaluated with GitHub's expression semantics (the evaluator of tests/test_workflows.py) for
 each scenario, and tests/test_workflows_release_guards.py executes every shell guard for them (the Release lookup with
-a stand-in curl, the main guard in temporary Git repositories with a local bare origin).
+a stand-in curl, the main guard in temporary Git repositories with a local bare origin). The last job, Re-run check,
+fails a re-run that left out the approval job and so deployed nothing (PROD-1); tests/test_workflows_release_guards.py
+also runs the jobs of a run and of its re-runs as GitHub decides them.
 """
 
 import json
@@ -42,6 +44,30 @@ DEPLOY_IF = (
     "(github.event_name == 'release' && github.event.action == 'published' && "
     "toJSON(github.event.release.prerelease) == 'false'))"
 )
+# The last job (PROD-1). GitHub re-runs a job together with every job that needs it, so every re-run reaches this one,
+# and a job if: with a status function (always()) is evaluated whatever the results of the jobs it needs. It runs only
+# when the approval job succeeded in an earlier attempt and was not re-run: its record names another attempt, so the
+# deploy job of this attempt was skipped (ATTEMPTS), and this job fails the run with the reason instead of letting it
+# end green. It needs no permission, checkout, action or expression in its script, and stops within minutes.
+RERUN_CHECK = "rerun-check"
+RERUN_CHECK_IF = (
+    "always() && needs.approval.result == 'success' && needs.approval.outputs.attempt != github.run_attempt"
+)
+RERUN_CHECK_ERROR = "This attempt did not run the Release approval job, so it deployed nothing; re-run all jobs."
+RERUN_CHECK_JOB = {
+    "name": "Re-run check",
+    "needs": ["approval", "deploy"],
+    "if": RERUN_CHECK_IF,
+    "runs-on": "ubuntu-latest",
+    "timeout-minutes": "5",
+    "permissions": {},
+    "steps": [
+        {
+            "name": "Fail a re-run that left out the Release approval job",
+            "run": f'echo "::error::{RERUN_CHECK_ERROR}"\nexit 1\n',
+        }
+    ],
+}
 # The approval job's outputs: the commit it approved and the attempt of the run it ran in (the runner's
 # GITHUB_RUN_ATTEMPT), written by its last step after every guard passed.
 APPROVAL_OUTPUT = "needs.approval.outputs.commit"
@@ -165,7 +191,8 @@ HEADER_REQUIRED = (
     "only if that Release is published and not a prerelease",
     "A re-run keeps the event of the run it repeats",
     "A re-run of the deploy job alone, or of any jobs without the approval job, deploys nothing, since the deploy "
-    "job requires the approval job's record of the current attempt: re-run the whole run.",
+    "job requires the approval job's record of the current attempt, and the Re-run check job then fails it with an "
+    "error that says so: re-run the whole run.",
     "the deploy job deploys only the commit that the approval job of the same attempt recorded",
     "needs the tag to name the run's commit on origin too (read with git ls-remote, without credentials",
     "a tag that origin now has on another commit",
@@ -431,7 +458,7 @@ class PagesJobs:
 class ReleaseGateTests(PagesJobs, unittest.TestCase):
     def test_jobs_run_the_reusable_tests_between_approval_and_build(self):
         jobs = self.pages["jobs"]
-        self.assertEqual(list(jobs), ["approval", "tests", "build", "deploy"])
+        self.assertEqual(list(jobs), ["approval", "tests", "build", "deploy", RERUN_CHECK])
         self.assertEqual(jobs["tests"]["uses"], "./.github/workflows/tests.yml")
         self.assertEqual(jobs["tests"]["needs"], "approval")
         self.assertEqual(jobs["build"]["needs"], ["approval", "tests"])
@@ -453,6 +480,37 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
         self.assertEqual(deploy["needs"], ["approval", "build"])
         self.assertEqual(deploy["environment"]["name"], "github-pages")
         self.assertEqual([action_name(step["uses"]) for step in steps_of(deploy)], ["actions/deploy-pages"])
+
+    def test_the_rerun_check_job_is_the_reviewed_one(self):
+        """The Re-run check job as written (PROD-1): last, needing the approval and the deploy job, with RERUN_CHECK_IF,
+        no permission, a five-minute timeout and one step that only prints the error and fails; no checkout, action
+        or expression in its script."""
+        job = self.pages["jobs"][RERUN_CHECK]
+        self.assertEqual(job, RERUN_CHECK_JOB)
+        self.assertEqual(list(self.pages["jobs"])[-1], RERUN_CHECK, "it needs the deploy job, so it runs last")
+        self.assertNotIn("${{", job["steps"][0]["run"])
+
+    def test_the_rerun_check_runs_exactly_when_the_deploy_job_refuses_an_earlier_record(self):
+        """For every scenario, attempt pair of ATTEMPTS (github.run_attempt as a string, as GitHub documents it, and
+        as a number) and result of the approval job: the Re-run check job runs exactly when the approval job succeeded
+        and the deploy condition refuses its record as one of another attempt. So the deploy job and this job never
+        both run in one attempt, and a deploy job skipped for the attempt alone is always followed by it."""
+        check, deploy = self.pages["jobs"][RERUN_CHECK]["if"], self.pages["jobs"]["deploy"]["if"]
+        cases = [
+            (scenario, context, label, attempts, result)
+            for scenario, context in {**ACCEPTED, **DENIED}.items()
+            for label, attempts in ATTEMPTS.items()
+            for result in ("success", "failure", "cancelled", "skipped")
+        ]
+        for scenario, context, label, (current, recorded, allowed), result in cases:
+            for run_attempt in (current, int(current)):
+                seen = approved({**context, "github.run_attempt": run_attempt}, attempt=recorded)
+                seen["needs.approval.result"] = result
+                with self.subTest(scenario=scenario, attempt=label, run_attempt=run_attempt, approval=result):
+                    self.assertEqual(evaluate(check, seen), result == "success" and not allowed)
+                    self.assertFalse(evaluate(check, seen) and evaluate(deploy, seen), "never both in one attempt")
+                    if scenario in ACCEPTED and result == "success":
+                        self.assertNotEqual(evaluate(check, seen), evaluate(deploy, seen), "one of them runs")
 
     def test_approval_and_build_start_with_the_same_guards(self):
         jobs = self.pages["jobs"]

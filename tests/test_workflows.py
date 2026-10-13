@@ -98,6 +98,11 @@ EXPRESSION_FUNCTIONS = {  # arguments cast to strings, compared ignoring case
     "contains": lambda text, part: part in text,
 }
 JSON_FUNCTION = "toJSON"  # one argument, written as JSON
+# The one status function that evaluate() knows: always() is true whatever the results of the needed jobs (the Re-run
+# check job of pages.yml). GitHub prefixes success() to a job if: that names no status function; run_attempt() in
+# tests/test_workflows_release_guards.py applies that rule. success(), failure() and cancelled() depend on the state of
+# the run and stay refused.
+ALWAYS_FUNCTION = "always"
 JSON_NUMBER = re.compile(r"-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?")
 
 
@@ -161,8 +166,8 @@ def loosely_equal(left: object, right: object) -> bool:
 class _Expression:
     """Recursive descent over GitHub's precedence: ``( )``, ``!``, ``== !=``, ``&&``, ``||``. ``&&`` and ``||``
     return an operand (the first falsy one, the first truthy one), as GitHub does. Indexing, the ordering operators,
-    status functions and every function other than toJSON() and the string functions raise :class:`ExpressionError`
-    instead of being guessed."""
+    the status functions other than always() and every function other than toJSON() and the string functions raise
+    :class:`ExpressionError` instead of being guessed."""
 
     def __init__(self, expression: str, context: dict):
         self.tokens: list[tuple[str, str]] = []
@@ -241,6 +246,10 @@ class _Expression:
         return self.context.get(text)  # a missing context value is null
 
     def call(self, name: str) -> object:
+        if name == ALWAYS_FUNCTION:
+            self.take("(")
+            self.take(")")  # always() takes no argument
+            return True
         if name not in EXPRESSION_FUNCTIONS and name != JSON_FUNCTION:
             raise ExpressionError(f"unsupported function {name}()")
         self.take("(")
@@ -326,6 +335,8 @@ class PermissionTests(unittest.TestCase):
                     self.assertIn("permissions", job)
                     if (name, job_id) == ("pages.yml", "deploy"):
                         self.assertEqual(job["permissions"], {"pages": "write", "id-token": "write"})
+                    elif (name, job_id) == ("pages.yml", "rerun-check"):  # it only fails a run: no scope at all
+                        self.assertEqual(job["permissions"], {})
                     else:  # the approval job reads the history to find the tag's commit on main
                         self.assertEqual(job["permissions"], {"contents": "read"})
 
@@ -434,6 +445,18 @@ class ExpressionEvaluatorTests(unittest.TestCase):
             context,
         )
 
+    def test_always_is_true_and_takes_no_argument(self):
+        """always(), the status function of the Re-run check job's if:, is true; it combines like any other value."""
+        self.check({"always()": True, "!always()": False, "always() && false": False, "false || always()": True})
+        self.check({"always() && needs.approval.result == 'success'": True}, {"needs.approval.result": "success"})
+        for expression in ("always(true)", "always(", "always"):
+            with self.subTest(expression=expression):
+                if expression == "always":  # a name without a call is a context value (null), not the function
+                    self.assertIs(evaluate(expression, {}), False)
+                    continue
+                with self.assertRaises(ExpressionError):
+                    evaluate(expression, {})
+
     def test_context_values_and_quoted_literals(self):
         context = {"github.event.release.prerelease": False, "github.event_name": "release", "name": "it's"}
         self.check(
@@ -449,8 +472,10 @@ class ExpressionEvaluatorTests(unittest.TestCase):
     def test_unsupported_syntax_is_refused(self):
         for expression in (
             "",
-            "always()",
             "success() && true",
+            "failure()",
+            "cancelled()",
+            "!cancelled() && true",
             "fromJSON('1')",
             "toJSON()",
             "toJSON(a, b)",
