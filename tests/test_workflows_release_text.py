@@ -34,7 +34,8 @@ README_RERUN = {
     ),
 }
 # What Gate 5 of docs/implementation/06-validation-and-release.md says of the review fixes after v1.1.1: the Re-run
-# check job (PROD-1), and that a run on v1.1.1 takes that tag's workflow, without the attempt record or the origin check.
+# check job (PROD-1), and that a run on v1.1.1 takes that tag's workflow, without the attempt record or the origin
+# check.
 GATE5 = ROOT / "docs/implementation/06-validation-and-release.md"
 GATE5_REVIEW_FIXES = (
     'A last job, "Re-run check", then fails such a re-run with an error saying that it deployed nothing, so the run '
@@ -134,8 +135,8 @@ HEADER_REQUIRED = (
     # (the Release lookup, the attempt record, the Re-run check job and the origin check): the environment refuses the
     # deployment of a run on an older tag (ENV, owner decision of 2026-10-13).
     "A run takes this file from the tag's commit, and the github-pages environment accepts deployments only from tags "
-    "from v1.1.2 on: a run on an older tag would use that tag's own workflow, which lacks some of these checks, and the "
-    "environment refuses its deployment.",
+    "from v1.1.2 on: a run on an older tag would use that tag's own workflow, which lacks some of these checks, and "
+    "the environment refuses its deployment.",
 )
 
 
@@ -211,7 +212,9 @@ class ReleaseTextTests(unittest.TestCase):
         "allows [main](https://example.invalid/main)": "allows main",
         "see <https://example.invalid/> now": "see now",
         "allows ~~main~~": "allows main",
-        "allows m\u200bain, m\u200cai\u200dn, ma\u2060in, \ufeffmain and mai\u00adn": "allows main, main, main, main and main",
+        "allows m\u200bain, m\u200cai\u200dn, ma\u2060in, \ufeffmain and mai\u00adn": (
+            "allows main, main, main, main and main"
+        ),
         "Allows MAIN": "allows main",
         "a < b and c > d": "a < b and c > d",
         "环境允许`main`": "环境允许main",

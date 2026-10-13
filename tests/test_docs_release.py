@@ -417,17 +417,18 @@ class ReleaseStateTests(unittest.TestCase):
             "on `main`",
             "fails closed",
             "gh workflow run pages.yml --ref v1.1.3",
-            "A run takes the workflow from the tag's commit: a run on a tag older than `v1.1.2` would use that tag's own "
-            "workflow, which lacks some of these checks, and the `github-pages` environment refuses its deployment.",
+            "A run takes the workflow from the tag's commit: a run on a tag older than `v1.1.2` would use that tag's "
+            "own workflow, which lacks some of these checks, and the `github-pages` environment refuses its "
+            "deployment.",
             "`v*`",
             "three numbers without leading zeros",
             "`v01.1.0`",
             "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
             "only if that Release is published and not a prerelease",
             "A re-run keeps the event of the run it repeats",
-            'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys nothing '
-            'and fails at its last job ("Re-run check") with an error that says so; re-run the whole run ("Re-run all '
-            'jobs")',
+            'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys '
+            'nothing and fails at its last job ("Re-run check") with an error that says so; re-run the whole run '
+            '("Re-run all jobs")',
             "a tag that names another commit on GitHub when the approval or the build job checks it (one moved after "
             "the run started)",
             "`github-pages` environment accepts deployments only from tags from `v1.1.2` on",

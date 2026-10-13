@@ -728,7 +728,9 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
             "release whose tag is not the ref": "v1.2.0",
             "dispatch on a tag without a published Release (HTTP 404)": "has no published GitHub Release (HTTP 404)",
             "dispatch whose Release lookup is forbidden (HTTP 403)": "returned HTTP 403, not 200",
-            "dispatch whose Release lookup is redirected (HTTP 301) with the Release's body": "returned HTTP 301, not 200",
+            "dispatch whose Release lookup is redirected (HTTP 301) with the Release's body": (
+                "returned HTTP 301, not 200"
+            ),
             "dispatch whose Release lookup gets no response (a network error)": "failed without a response",
             "dispatch on a tag whose Release is a prerelease": "prerelease=true",
             "dispatch on a tag whose Release is a draft": "draft=true",
