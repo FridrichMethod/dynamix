@@ -396,12 +396,12 @@ class ReleaseStateTests(unittest.TestCase):
     PAGES_URL = "https://fridrichmethod.github.io/dynamix/"
     # What each README's Releases section says about the release-triggered workflow, with the owner decisions of
     # 2026-10-11: tags without leading zeros (D2), every run, a re-run of a release run included, looking up the tag's
-    # Release (D1), and the tag ruleset beside the environment rule (D5). A run takes pages.yml from the tag's commit,
-    # and v1.1.1 is the first release whose workflow looks the tag's Release up, so older tags are said to run their own
-    # workflow, which the environment refuses to deploy. A re-run without the approval job deploys nothing (R1), and a
-    # tag moved on GitHub after the run started fails closed when the approval or the build job checks it, the only two
-    # reads of the tag on GitHub (SEC-2, DOC-1); v1.1.2 is the first release whose workflow does both, so v1.1.1 is said
-    # to lack them and the dispatch example names the current release. The current release is dated by the US Pacific
+    # Release (D1), and the tag ruleset beside the environment rule (D5). A re-run without the approval job deploys
+    # nothing (R1), and a tag moved on GitHub after the run started fails closed when the approval or the build job
+    # checks it, the only two reads of the tag on GitHub (SEC-2, DOC-1). A run takes pages.yml from the tag's commit,
+    # and v1.1.2 is the first release whose workflow has all these checks, so the environment accepts deployments only
+    # from tags from v1.1.2 on and a run on an older tag is said to lack some of them (ENV, owner decision of
+    # 2026-10-13). The dispatch example names the current release. The current release is dated by the US Pacific
     # date of its release, as the earlier ones are (v1.1.0, tagged at 2026-10-11 20:18 PDT, is dated 2026-10-11): v1.1.2
     # is released on 2026-10-12 (DATE-1). The two releases before it are named in order, v1.1.1 the previous one and
     # v1.1.0 the one before it (TEST-1).
@@ -417,11 +417,8 @@ class ReleaseStateTests(unittest.TestCase):
             "on `main`",
             "fails closed",
             "gh workflow run pages.yml --ref v1.1.2",
-            "so the Release lookup applies to tags from `v1.1.1` on",
-            "a run on an older tag would use that tag's own workflow, which does not check the Release",
-            "The record of the current attempt and the check of the tag on GitHub apply to tags from `v1.1.2` on: a run on "
-            "`v1.1.1` uses that tag's own workflow, which has neither, so re-run such a run whole too.",
-            "the `github-pages` environment refuses its deployment",
+            "A run takes the workflow from the tag's commit: a run on a tag older than `v1.1.2` would use that tag's own "
+            "workflow, which lacks some of these checks, and the `github-pages` environment refuses its deployment.",
             "`v*`",
             "three numbers without leading zeros",
             "`v01.1.0`",
@@ -433,7 +430,7 @@ class ReleaseStateTests(unittest.TestCase):
             'jobs")',
             "a tag that names another commit on GitHub when the approval or the build job checks it (one moved after "
             "the run started)",
-            "`github-pages` environment accepts deployments only from tags from `v1.1.1` on",
+            "`github-pages` environment accepts deployments only from tags from `v1.1.2` on",
             "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
         ),
         "README.zh-CN.md": (
@@ -446,11 +443,8 @@ class ReleaseStateTests(unittest.TestCase):
             "`main` 上",
             "失败关闭",
             "gh workflow run pages.yml --ref v1.1.2",
-            "因此 Release 查询适用于 `v1.1.1` 起的标签",
-            "较早标签上的运行会使用该标签自己的工作流，它不检查 Release",
-            "对当前这次尝试的记录和在 GitHub 上对标签的检查适用于 `v1.1.2` 起的标签：在 `v1.1.1` 上的运行会使用该标签自己的工作流，"
-            "两者都没有，因此这样的运行也应整次重新运行。",
-            "`github-pages` 环境会拒绝它的部署",
+            "运行使用该标签所指提交中的工作流：早于 `v1.1.2` 的标签上的运行会使用该标签自己的工作流，它缺少其中一些检查，"
+            "`github-pages` 环境会拒绝它的部署。",
             "`v*`",
             "三个不带前导零的数字",
             "`v01.1.0`",
@@ -460,7 +454,7 @@ class ReleaseStateTests(unittest.TestCase):
             "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容，"
             "并会在最后一个任务（“Re-run check”）以说明原因的错误失败；应重新运行整次运行（“Re-run all jobs”）",
             "在批准任务或构建任务检查时已在 GitHub 上指向另一个提交的标签（运行开始后被移动过）",
-            "`github-pages` 环境只接受来自 `v1.1.1` 起的标签的部署",
+            "`github-pages` 环境只接受来自 `v1.1.2` 起的标签的部署",
             "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
         ),
     }

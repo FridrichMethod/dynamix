@@ -42,9 +42,21 @@ GATE5_REVIEW_FIXES = (
     "Since a run takes `pages.yml` from the tag's commit, a run on `v1.1.1` uses that tag's own workflow, which has "
     "neither check.",
 )
-# The environment rule before the owner decision of 2026-10-12: the github-pages environment allowed main and every v*
-# tag, so only the documentation kept tags before v1.1.1 from being run. The pages.yml header (English) and the READMEs
-# (README.md English, README.zh-CN.md Chinese) must not say so again; matched as unformatted() reads them.
+# The owner decision of 2026-10-13 in Gate 5 (ENV): the environment's tag rules from v1.1.2 on, and why.
+GATE5_ENVIRONMENT = (
+    "**Owner decision (2026-10-13, after release v1.1.2):** the `github-pages` environment accepts deployments only "
+    "from tags from `v1.1.2` on (tag rules `v1.1.[2-9]*`, `v1.1.1[0-9]*`, `v1.[2-9]*`, `v1.[1-9][0-9]*`, `v[2-9]*` and "
+    "`v[1-9][0-9]*`), so it refuses `v1.1.1` and older tags and accepts `v1.1.10` and later ones.",
+    "`v1.1.2` is the first release whose `pages.yml` has every current check",
+    "a run on an older tag would use that tag's own workflow, which lacks some of these checks, and the environment "
+    "refuses its deployment.",
+)
+# The environment rules before the owner decisions of 2026-10-12 and 2026-10-13, and what the documents said around
+# them. Until 2026-10-12 the github-pages environment allowed main and every v* tag, so only the documentation kept tags
+# before v1.1.1 from being run; until 2026-10-13 it accepted tags from v1.1.1 on, and the documents said that a run on
+# v1.1.1 uses that tag's workflow, which has neither the attempt record nor the origin check, so re-run such a run
+# whole. It now accepts tags from v1.1.2 on (GATE5_ENVIRONMENT). The pages.yml header (English) and the READMEs
+# (README.md English, README.zh-CN.md Chinese) must not say any of this again; matched as unformatted() reads them.
 RETIRED_ENVIRONMENT = {
     "en": (
         "only tags from v1.1.1 on should be run by hand",
@@ -52,8 +64,21 @@ RETIRED_ENVIRONMENT = {
         "allows deployments from v* tags",
         "allows main",
         "allows deployments from main",
+        "from v1.1.1 on",
+        "a run on v1.1.1 uses that tag's own workflow",
+        "which has neither",
+        "re-run such a run whole",
     ),
-    "zh": ("只应手动运行 v1.1.1 起的标签", "允许来自 v* 标签的部署", "允许 main", "允许来自 main"),
+    "zh": (
+        "只应手动运行 v1.1.1 起的标签",
+        "允许来自 v* 标签的部署",
+        "允许 main",
+        "允许来自 main",
+        "v1.1.1 起",
+        "在 v1.1.1 上的运行会使用该标签自己的工作流",
+        "两者都没有",
+        "这样的运行也应整次重新运行",
+    ),
 }
 # What no comment of pages.yml (the header or any other) and no part of README.md may say about a re-run without the
 # approval job (R1): that it repeats no lookup. It deploys nothing, and one that includes the build job repeats that
@@ -92,13 +117,6 @@ HEADER_REQUIRED = (
     "Tests workflow",
     "fails closed",
     "gh workflow run pages.yml --ref v1.1.2",
-    # A run takes pages.yml from the tag's commit: tags before v1.1.1 run a workflow without the lookup, and v1.1.1 one
-    # without the attempt record (R1) and the origin check (SEC-2).
-    "so the Release lookup applies to tags from v1.1.1 on",
-    "a run on an older tag would use that tag's own workflow, which does not check the Release",
-    "The attempt record and the origin check below apply to tags from v1.1.2 on: a run on v1.1.1 uses that tag's own "
-    "workflow, which has neither.",
-    "the github-pages environment refuses its deployment",
     "v*",
     "without leading zeros",
     "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
@@ -112,7 +130,12 @@ HEADER_REQUIRED = (
     "needs the tag to name the run's commit on origin too (read with git ls-remote, without credentials",
     "a tag that origin now has on another commit",
     'ruleset "Release tags v*" lets only repository admins create, move or delete v* tags',
-    "The github-pages environment accepts deployments only from tags from v1.1.1 on",
+    # A run takes pages.yml from the tag's commit, and v1.1.2 is the first release whose workflow has every check above
+    # (the Release lookup, the attempt record, the Re-run check job and the origin check): the environment refuses the
+    # deployment of a run on an older tag (ENV, owner decision of 2026-10-13).
+    "A run takes this file from the tag's commit, and the github-pages environment accepts deployments only from tags "
+    "from v1.1.2 on: a run on an older tag would use that tag's own workflow, which lacks some of these checks, and the "
+    "environment refuses its deployment.",
 )
 
 
@@ -321,9 +344,19 @@ class ReleaseTextTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
 
+    def test_gate_5_records_the_environment_from_v1_1_2(self):
+        """Gate 5 of 06-validation-and-release.md records the owner decision of 2026-10-13: the environment's tag rules
+        from v1.1.2 on, and that a run on an older tag would use a workflow without some of the checks
+        (GATE5_ENVIRONMENT)."""
+        text = re.sub(r"\s+", " ", GATE5.read_text(encoding="utf-8"))
+        for phrase in GATE5_ENVIRONMENT:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, text)
+
     def test_readmes_drop_the_retired_environment_rule(self):
-        """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag
-        or that only the documentation keeps older tags from being run (RETIRED_ENVIRONMENT)."""
+        """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag,
+        that only the documentation keeps older tags from being run, that it accepts tags from v1.1.1 on or what a run
+        on v1.1.1 lacks (RETIRED_ENVIRONMENT)."""
         for relative, language in (("README.md", "en"), ("README.zh-CN.md", "zh")):
             text = unformatted((ROOT / relative).read_text(encoding="utf-8"))
             for stale in RETIRED_ENVIRONMENT[language]:
