@@ -3,9 +3,9 @@
 Covers README.md, docs/sources-*.md, docs/coverage.md and licenses/README.md with their ``.zh-CN.md`` versions, plus
 NOTICE and .nojekyll. Offline: it reads files of this checkout and runs ``--help`` of the scripts the documents
 quote (a script that is not in this tree yet must be a name of the frozen CLI contract, and its check is skipped).
-The release state of the documents is checked in tests/test_docs_release.py, which imports the documents, the
-rendering helpers and the release rules that tests/test_docs_stats.py also applies (FLAT_CLAIMS, RELEASE_WORDS,
-GUARDS) from here.
+The release wording rules are in tests/test_docs_wording.py, which imports the rendering helpers and the release rules
+that tests/test_docs_stats.py also applies (FLAT_CLAIMS, RELEASE_WORDS, GUARDS) from here; the release state of the
+documents is checked in tests/test_docs_release.py.
 """
 
 from __future__ import annotations
@@ -60,7 +60,7 @@ ATTRIBUTION = re.compile(
     re.IGNORECASE,
 )
 # The release rules that tests/test_docs_stats.py also applies to the generated blocks. The others, which the comments
-# here name (hold_wording(), HOLD_MARKERS, NOTHING_DEPLOYED), are in tests/test_docs_release.py.
+# here name (hold_wording(), HOLD_MARKERS, NOTHING_DEPLOYED), are in tests/test_docs_wording.py.
 # A flat claim that something is deployed, live or published as the site, in any tense that states it as done, also
 # with an adverb between ("was first deployed", "is already live"). "Nothing is deployed" is not a claim that something
 # is: hold_wording() refuses it unless a condition of the guard comes before it in its sentence (NOTHING_DEPLOYED).
@@ -111,9 +111,14 @@ COUNT_CLAIMS = re.compile(
 BOLD_RUN = re.compile(r"(?<!\*)\*\*(?!\*)")
 LINK = re.compile(r"(?<!!)\[(?:[^\[\]]|\[[^\]]*\])*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
-# A code span as CommonMark reads it: a run of n backticks opens a span that the next run of exactly n backticks closes
-# ("``deploy``" holds deploy, "``a`b``" holds a`b), and a run that no such run closes is literal text. So the prose
-# between two spans ("``a`` prose ``b``") stays prose, and a span is never empty (backticks that touch are one run).
+# A code span, read one line at a time: a run of n backticks opens a span that the next run of exactly n backticks
+# closes ("``deploy``" holds deploy, "``a`b``" holds a`b), and a run that no such run closes is literal text. So the
+# prose between two spans ("``a`` prose ``b``") stays prose, and a span is never empty (backticks that touch are one
+# run). CommonMark reads spans so too, and it also lets a backslash escape a backtick outside a span, keeps a backtick
+# inside a link destination or an autolink as part of it, and continues a span on the next line of its paragraph: this
+# reading models none of the three, and no document has them
+# (test_documents_hold_only_code_spans_that_inline_code_reads). A span holds its text as written; CommonMark also drops
+# one space at each end when both ends have one.
 INLINE_CODE = re.compile(r"(?<!`)(?P<run>`+)(?!`)(?P<code>.+?)(?<!`)(?P=run)(?!`)")
 SCRIPT_CALL = re.compile(r"(?<![\w<>/.-])(?:(scripts|tests)/)?([a-z][a-z0-9_]*)\.py\b")
 FLAG = re.compile(r"(?<![\w-])(--[a-z][a-z0-9-]*)")
@@ -342,6 +347,10 @@ class EmphasisTests(unittest.TestCase):
             with self.subTest(line=line):
                 self.assertNotEqual(unrendered_bold(line), [])
 
+    def test_the_check_reports_columns_of_the_line(self):
+        """A code span is masked with as many characters as it has, so a column after it is a column of the line."""
+        self.assertEqual(unrendered_bold("Run ``a`b`` and **open only"), [16])
+
 
 class LinkTests(unittest.TestCase):
     def test_relative_links_and_anchors_resolve(self):
@@ -458,6 +467,7 @@ class StatisticsMarkerTests(unittest.TestCase):
             "any file over 100 MiB",
             "a 64 MiB response limit",
             "previews 480 px on the long edge",
+            "a log line such as `copied 12 files`",  # a count inside a code span (INLINE_CODE) is code
         )
         for text in claims:
             with self.subTest(claim=text):
@@ -639,12 +649,14 @@ class AttributionTests(unittest.TestCase):
 
 class CommandTests(unittest.TestCase):
     # Lines and the code that code_lines() reads in them (INLINE_CODE): a run of backticks closes only at a run of the
-    # same length, so the prose between two spans is no code, a span holds shorter or longer runs, and a run that no
-    # such run closes is literal text, also one of two backticks before a span of one.
+    # same length, so the prose between two spans is no code, a span holds shorter or longer runs, a run of any length
+    # opens one (three backticks too), and a run that no such run closes is literal text, also one of two backticks
+    # before a span of one.
     CODE_SPANS = (
         ("Run ``a`` and then ``b``.", ["a", "b"]),
         ("The step runs ``echo `date` > deployed.txt``.", ["echo `date` > deployed.txt"]),
         ("The job is `a``deploy`.", ["a``deploy"]),
+        ("The last job is ```deploy```.", ["deploy"]),
         ("The ```deploy`` job publishes the site.", []),
         ("`` for an empty span and `x` here", ["x"]),
     )
@@ -653,6 +665,20 @@ class CommandTests(unittest.TestCase):
         for line, spans in self.CODE_SPANS:
             with self.subTest(line=line):
                 self.assertEqual(code_lines(line), spans)
+
+    def test_documents_hold_only_code_spans_that_inline_code_reads(self):
+        """INLINE_CODE does not model a backslash before a run of backticks, a backtick in a link destination or an
+        autolink, or a span that continues on the next line, so no document has them: every backtick of a prose line
+        is part of a code span that closes on that line, no span opens right after a backslash, and no link
+        destination or autolink holds a backtick."""
+        for relative in DOCUMENTS:
+            for line in prose_lines(read(relative)):
+                with self.subTest(document=relative, line=line[:60]):
+                    self.assertNotIn("`", INLINE_CODE.sub("", line), "a backtick outside a code span of its line")
+                    spans = INLINE_CODE.finditer(line)
+                    escaped = [span.start() for span in spans if line[: span.start()].endswith("\\")]
+                    self.assertEqual(escaped, [], "a code span that opens right after a backslash")
+                    self.assertIsNone(re.search(r"\]\([^)]*`|<[^\s<>]*`[^\s<>]*>", line), "a backtick in a link")
 
     def test_documented_flags_exist(self):
         calls: dict[Path, set[str]] = {}
