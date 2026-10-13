@@ -163,6 +163,25 @@ class ReleaseRerunTests(PagesJobs, unittest.TestCase):
                 ran_check = results.get(RERUN_CHECK, "skipped") != "skipped" and RERUN_CHECK in rerun
                 self.assertEqual(ran_check, checked, results)
 
+    def test_a_cancelled_run_runs_later_jobs_only_through_a_status_function(self):
+        """run_attempt() in a run cancelled during one job: a later job whose if: names no status function does not
+        run, even when it needs no job (GitHub's implied success() is false in a cancelled run), while one whose if:
+        names a status function runs when its if: holds (E8). Without the cancellation each of them runs."""
+        jobs = {
+            "first": {},
+            "second": {},
+            "third": {"if": "github.run_attempt == '1'"},
+            "always": {"if": "always()"},
+            "not-cancelled": {"if": "!cancelled()"},
+        }
+        for cancelled_at, results in (
+            ("first", ("cancelled", "skipped", "skipped", "success", "skipped")),
+            (None, ("success",) * 5),
+        ):
+            with self.subTest(cancelled_at=cancelled_at):
+                state = run_attempt(jobs, {}, 1, set(jobs), set(), {}, cancelled_at)
+                self.assertEqual({job_id: result for job_id, (result, _) in state.items()}, dict(zip(jobs, results)))
+
     def test_re_runs_reach_the_jobs_that_need_the_re_run_job(self):
         """rerun_jobs() follows needs: through other jobs, as GitHub re-runs dependents: every re-run reaches the
         Re-run check job, and only a re-run of the approval job (or of all jobs) repeats it."""
