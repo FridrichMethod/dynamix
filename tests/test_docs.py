@@ -342,6 +342,10 @@ class EmphasisTests(unittest.TestCase):
             with self.subTest(line=line):
                 self.assertNotEqual(unrendered_bold(line), [])
 
+    def test_the_check_reports_columns_of_the_line(self):
+        """A code span is masked with as many characters as it has, so a column after it is a column of the line."""
+        self.assertEqual(unrendered_bold("Run ``a`b`` and **open only"), [16])
+
 
 class LinkTests(unittest.TestCase):
     def test_relative_links_and_anchors_resolve(self):
@@ -458,6 +462,7 @@ class StatisticsMarkerTests(unittest.TestCase):
             "any file over 100 MiB",
             "a 64 MiB response limit",
             "previews 480 px on the long edge",
+            "a log line such as `copied 12 files`",  # a count inside a code span (INLINE_CODE) is code
         )
         for text in claims:
             with self.subTest(claim=text):

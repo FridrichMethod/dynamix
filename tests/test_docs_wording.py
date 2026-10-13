@@ -310,6 +310,7 @@ class ReleaseWordingTests(unittest.TestCase):
         *(f"The website is published {word} GitHub Pages." for word in ("with", "to", "at", "by")),
         "The catalog is released as v1.1.0, and the next release will follow.",
         "See https://fridrichmethod.github.io/dynamix/ for the catalog.",
+        "See [the catalog](https://fridrichmethod.github.io/dynamix/).",  # a claim that only the raw text shows
         "The website is `live`.",
         # Link syntax hides no claim or hold wording (plain()): an image such as a badge, brackets inside the link
         # text (also empty ones), an empty link text and an empty destination.
@@ -470,6 +471,7 @@ class ReleaseWordingTests(unittest.TestCase):
     )
     OUTSIDE_ALLOWED = (
         "A push to `main` never deploys the website.",
+        "A push to`main`never deploys the website.",  # a code span stands between the words around it
         "推送到 `main` 不会部署网站。",
         # How the guard works: the unset variable is a condition, not the state of the site.
         "If the variable is unset or names any other commit, the dispatch fails closed at the approval job.",
