@@ -50,7 +50,8 @@ GATE5_ENVIRONMENT = (
     "**Owner decision (2026-10-13, after release v1.1.2):** the `github-pages` environment accepts deployments only "
     "from tags from `v1.1.2` on (tag rules `v1.1.[2-9]*`, `v1.1.1[0-9]*`, `v1.[2-9]*`, `v1.[1-9][0-9]*`, `v[2-9]*` and "
     "`v[1-9][0-9]*`), so it refuses `v1.1.1` and older tags and accepts `v1.1.10` and later ones.",
-    "`v1.1.2` is the first release whose `pages.yml` has every current check",
+    "`v1.1.2` is the first release whose `pages.yml` has every current check: the Release lookup (since `v1.1.1`), and "
+    "the record of the attempt, the Re-run check job and the check of the tag on origin (since `v1.1.2`).",
     "a run on an older tag would use that tag's own workflow, which lacks some of these checks, and the environment "
     "refuses its deployment.",
 )
@@ -115,6 +116,13 @@ RERUN_STALE = re.compile(
     rf"repeats? no (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
     rf"|(?:{_RERUN_SUBJECT}) (?:(?:does|do) not|doesnt|dont|never) repeats? (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
     rf"|{_LOOKUP} it does not repeat"
+)
+# What the comment of the Re-run check job says of the runs that skip it (E8, m3): a cancelled run ends cancelled, so
+# the job does not run in it (!cancelled()).
+RERUN_CHECK_COMMENT = (
+    "GitHub re-runs a job together with every job that needs it, so every re-run reaches this job.",
+    "The first attempt and a re-run of all jobs skip it, and so do a run that the approval job refused and a cancelled "
+    "run, which ends cancelled, not green.",
 )
 # Wording that the pages.yml header (read when releasing) must not have (matched in either reading: has_stale()): the
 # release hold, the retired dispatch gate and wording of earlier versions of this workflow.
@@ -388,6 +396,15 @@ class ReleaseTextTests(unittest.TestCase):
         self.assertTrue(any("outputs of an earlier attempt" in comment for comment in comments), comments)
         self.assertIn("v7.0.1", comments, "the end-of-line comment of the checkout's pin is read")
         self.assertEqual([comment for comment in comments if rerun_stale(comment)], [])
+
+    def test_the_rerun_check_comment_names_the_runs_that_skip_the_job(self):
+        """The comment of the Re-run check job says which runs skip it, a cancelled run among them
+        (RERUN_CHECK_COMMENT)."""
+        blocks = comment_blocks((WORKFLOWS / "pages.yml").read_text(encoding="utf-8"))
+        (comment,) = [comment for _, comment in blocks if RERUN_CHECK_COMMENT[0] in comment]
+        for phrase in RERUN_CHECK_COMMENT:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, comment)
 
     # Sentences in and outside the RERUN_STALE family (E5), matched in either reading (rerun_stale()).
     RERUN_STALE_SAMPLES = {
