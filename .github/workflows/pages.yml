@@ -2,7 +2,7 @@ name: Deploy GitHub Pages (vX.Y.Z tags on main only)
 
 # vX.Y.Z tags on main only. This workflow never runs on push, pull request or a schedule. A published GitHub Release
 # that is not a prerelease, with a vX.Y.Z tag (three numbers without leading zeros: v1.10.0, not v01.1.0), deploys the
-# commit of that tag, and a manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.2) redeploys it. Every
+# commit of that tag, and a manual dispatch on such a tag (gh workflow run pages.yml --ref v1.1.3) redeploys it. Every
 # run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release with one read-only
 # API request in the approval job (and again in the build job) and deploys the tag's commit only if that Release is
 # published and not a prerelease. A re-run keeps the event of the run it repeats, so only the lookup sees a Release that

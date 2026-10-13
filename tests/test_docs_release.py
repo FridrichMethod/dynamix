@@ -402,21 +402,21 @@ class ReleaseStateTests(unittest.TestCase):
     # and v1.1.2 is the first release whose workflow has all these checks, so the environment accepts deployments only
     # from tags from v1.1.2 on and a run on an older tag is said to lack some of them (ENV, owner decision of
     # 2026-10-13). The dispatch example names the current release. The current release is dated by the US Pacific
-    # date of its release, as the earlier ones are (v1.1.0, tagged at 2026-10-11 20:18 PDT, is dated 2026-10-11): v1.1.2
-    # is released on 2026-10-12 (DATE-1). The two releases before it are named in order, v1.1.1 the previous one and
-    # v1.1.0 the one before it (TEST-1).
+    # date of its release, as the earlier ones are (v1.1.0, tagged at 2026-10-11 20:18 PDT, is dated 2026-10-11): v1.1.3
+    # is released on 2026-10-13 (DATE-1). The releases before it are named in order, v1.1.2 the previous one and v1.1.1
+    # and v1.1.0 before it (TEST-1).
     RELEASE_MODEL = {
         "README.md": (
-            "Version `v1.1.2` (2026-10-12) is the current release",
-            "Version `v1.1.1` (2026-10-12) was the previous release, and version `v1.1.0` (2026-10-11) the one before "
-            "it.",
+            "Version `v1.1.3` (2026-10-13) is the current release",
+            "Version `v1.1.2` (2026-10-12) was the previous release, and versions `v1.1.1` (2026-10-12) and `v1.1.0` "
+            "(2026-10-11) came before it.",
             "published",
             "prerelease",
             "`vX.Y.Z`",
             "`v1.1.0-rc1`",
             "on `main`",
             "fails closed",
-            "gh workflow run pages.yml --ref v1.1.2",
+            "gh workflow run pages.yml --ref v1.1.3",
             "A run takes the workflow from the tag's commit: a run on a tag older than `v1.1.2` would use that tag's own "
             "workflow, which lacks some of these checks, and the `github-pages` environment refuses its deployment.",
             "`v*`",
@@ -434,15 +434,15 @@ class ReleaseStateTests(unittest.TestCase):
             "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
         ),
         "README.zh-CN.md": (
-            "`v1.1.2`（2026-10-12）是当前版本",
-            "`v1.1.1`（2026-10-12）是上一个版本，`v1.1.0`（2026-10-11）是再上一个版本。",
+            "`v1.1.3`（2026-10-13）是当前版本",
+            "`v1.1.2`（2026-10-12）是上一个版本，在它之前是 `v1.1.1`（2026-10-12）和 `v1.1.0`（2026-10-11）。",
             "发布",
             "预发布",
             "`vX.Y.Z`",
             "`v1.1.0-rc1`",
             "`main` 上",
             "失败关闭",
-            "gh workflow run pages.yml --ref v1.1.2",
+            "gh workflow run pages.yml --ref v1.1.3",
             "运行使用该标签所指提交中的工作流：早于 `v1.1.2` 的标签上的运行会使用该标签自己的工作流，它缺少其中一些检查，"
             "`github-pages` 环境会拒绝它的部署。",
             "`v*`",

@@ -116,7 +116,7 @@ HEADER_REQUIRED = (
     "on main",
     "Tests workflow",
     "fails closed",
-    "gh workflow run pages.yml --ref v1.1.2",
+    "gh workflow run pages.yml --ref v1.1.3",
     "v*",
     "without leading zeros",
     "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
