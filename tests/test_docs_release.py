@@ -10,6 +10,7 @@ and in a temporary repository.
 
 from __future__ import annotations
 
+import datetime
 import os
 import re
 import shutil
@@ -43,6 +44,15 @@ VERSION = re.compile(r"v\d+\.\d+\.\d+")
 PUBLISHED_URL = re.compile(
     r"https://(?:fridrichmethod\.github\.io/|github\.com/FridrichMethod/dynamix/releases)[^\s()<>\[\]]*"
 )
+# The repository's files at one ref (raw/<ref>/): main, which archive_url follows, the placeholder <tag> of the
+# storage-tier paragraph (RAW_REFS), or a release, which can only be the current one: the Releases section gives the
+# raw link of the tag that the website is deployed from (TEST-1).
+RAW_LINK = re.compile(r"https://github\.com/FridrichMethod/dynamix/raw/([^/\s()\[\]`]+)/")
+RAW_REFS = ("main", "<tag>")
+# A release named with its date in either language, "`v1.1.2` (2026-10-12)" or "`v1.1.2`（2026-10-12）": the Releases
+# section dates the current release first, then older ones, and both languages give the same releases and dates in
+# the same order (TEST-1).
+DATED_RELEASE = re.compile(r"`(v\d+\.\d+\.\d+)` ?[(（](\d{4}-\d{2}-\d{2})[)）]")
 # The READMEs, which alone describe the release state (tests/test_docs_stats.py reads them from here too), each
 # README's Status line prefix and the title of its Releases section.
 READMES = ("README.md", "README.zh-CN.md")
@@ -255,12 +265,40 @@ def version_key(tag: str) -> tuple[int, ...]:
     return tuple(int(part) for part in tag[1:].split("."))
 
 
+def dated_releases(relative: str, text: str) -> list[tuple[str, str]]:
+    """The releases that the Releases section of one README names with a date (DATED_RELEASE), in order, as (version,
+    date) pairs; none when the README has no such section."""
+    parts = readme_release_text(relative, text)
+    return DATED_RELEASE.findall(parts[1]) if parts else []
+
+
+def dated_release_problems(relative: str, version: str, dated: list[tuple[str, str]]) -> list[str]:
+    """What is wrong with the dated releases of one Releases section: the current release ``version`` must be dated
+    first, each release once, newest first, and each date a calendar date no later than the date before it."""
+    problems = []
+    if [found for found, _ in dated[:1]] != [version]:
+        problems.append(f"{relative}: the Releases section dates {dated[:1]} first, not the current release {version}")
+    versions = [found for found, _ in dated]
+    if versions != sorted(set(versions), key=version_key, reverse=True):
+        problems.append(f"{relative}: the Releases section dates {versions}, not each release once, newest first")
+    dates = [day for _, day in dated]
+    for day in dates:
+        try:
+            datetime.date.fromisoformat(day)
+        except ValueError:
+            problems.append(f"{relative}: the Releases section gives {day}, which is not a date")
+    if dates != sorted(dates, reverse=True):
+        problems.append(f"{relative}: the Releases section dates a newer release before an older one: {dated}")
+    return problems
+
+
 def release_problems(relative: str, text: str) -> tuple[str | None, list[str]]:
     """The current release one README names and what is wrong with its description. Every release link is a vX.Y.Z
     release of this repository; the Status line links exactly one, the current release, which is the newest release
     linked anywhere (older ones, such as the first release, may be linked too) and the first version the Releases
-    section names and links. Neither part keeps wording of the former release hold, and the README does not describe
-    the retired manual-dispatch gate."""
+    section names, links and dates (dated_release_problems()). Every raw link names main, the placeholder <tag> or the
+    current release, and the Releases section gives the current release's. Neither part keeps wording of the former
+    release hold, and the README does not describe the retired manual-dispatch gate."""
     parts = readme_release_text(relative, text)
     if parts is None:
         return None, [f"{relative}: needs one {README_RELEASE_PARTS[relative][0]!r} line and one Releases section"]
@@ -286,6 +324,12 @@ def release_problems(relative: str, text: str) -> tuple[str | None, list[str]]:
         problems.append(f"{relative}: the Releases section names {named[:1]} first, not {version}")
     if f"{REPOSITORY}/releases/tag/{version}" not in section:
         problems.append(f"{relative}: the Releases section does not link release {version}")
+    problems.extend(dated_release_problems(relative, version, DATED_RELEASE.findall(section)))
+    stale = sorted({ref for ref in RAW_LINK.findall(text) if ref not in (*RAW_REFS, version)})
+    if stale:
+        problems.append(f"{relative}: raw links name {stale}, not main, <tag> or the current release {version}")
+    if version not in RAW_LINK.findall(section):
+        problems.append(f"{relative}: the Releases section gives no raw link of release {version}")
     for place, part in (("Status line", status), ("Releases section", section)):
         problems.extend(f"{relative}: hold wording in the {place}: {found!r}" for found in hold_wording(plain(part)))
     problems.extend(f"{relative}: describes the retired gate: {found!r}" for found in retired_gate(text))
@@ -325,17 +369,21 @@ def tag_problems(readmes: dict[str, str], tags: list[str]) -> list[str]:
 
 def release_state_problems(readmes: dict[str, str]) -> list[str]:
     """Every problem of each README's release description (release_problems), plus disagreement between the languages:
-    both name the same release and link the same release and Pages URLs."""
-    problems, versions, urls = [], {}, {}
+    both name the same release, link the same release and Pages URLs, and date the same releases with the same dates in
+    the same order (dated_releases())."""
+    problems, versions, urls, dated = [], {}, {}, {}
     for relative, text in readmes.items():
         version, found = release_problems(relative, text)
         problems.extend(found)
         versions[relative] = version
         urls[relative] = sorted(set(PUBLISHED_URL.findall(text)))
+        dated[relative] = dated_releases(relative, text)
     if len(set(versions.values())) > 1:
         problems.append(f"the READMEs name different releases: {versions}")
     if len({tuple(found) for found in urls.values()}) > 1:
         problems.append(f"the READMEs link different release or Pages URLs: {urls}")
+    if len({tuple(found) for found in dated.values()}) > 1:
+        problems.append(f"the READMEs date different releases or dates: {dated}")
     return problems
 
 
@@ -351,10 +399,17 @@ class ReleaseStateTests(unittest.TestCase):
     # Release (D1), and the tag ruleset beside the environment rule (D5). A run takes pages.yml from the tag's commit,
     # and v1.1.1 is the first release whose workflow looks the tag's Release up, so older tags are said to run their own
     # workflow, which the environment refuses to deploy. A re-run without the approval job deploys nothing (R1), and a
-    # tag moved on GitHub after the run started fails closed (SEC-2); v1.1.2 is the first release whose workflow does
-    # both, so v1.1.1 is said to lack them and the dispatch example names the current release.
+    # tag moved on GitHub after the run started fails closed when the approval or the build job checks it, the only two
+    # reads of the tag on GitHub (SEC-2, DOC-1); v1.1.2 is the first release whose workflow does both, so v1.1.1 is said
+    # to lack them and the dispatch example names the current release. The current release is dated by the US Pacific
+    # date of its release, as the earlier ones are (v1.1.0, tagged at 2026-10-11 20:18 PDT, is dated 2026-10-11): v1.1.2
+    # is released on 2026-10-12 (DATE-1). The two releases before it are named in order, v1.1.1 the previous one and
+    # v1.1.0 the one before it (TEST-1).
     RELEASE_MODEL = {
         "README.md": (
+            "Version `v1.1.2` (2026-10-12) is the current release",
+            "Version `v1.1.1` (2026-10-12) was the previous release, and version `v1.1.0` (2026-10-11) the one before "
+            "it.",
             "published",
             "prerelease",
             "`vX.Y.Z`",
@@ -373,13 +428,17 @@ class ReleaseStateTests(unittest.TestCase):
             "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
             "only if that Release is published and not a prerelease",
             "A re-run keeps the event of the run it repeats",
-            'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys nothing; '
-            're-run the whole run ("Re-run all jobs")',
-            "a tag that now names another commit on GitHub (one moved after the run started)",
+            'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys nothing '
+            'and fails at its last job ("Re-run check") with an error that says so; re-run the whole run ("Re-run all '
+            'jobs")',
+            "a tag that names another commit on GitHub when the approval or the build job checks it (one moved after "
+            "the run started)",
             "`github-pages` environment accepts deployments only from tags from `v1.1.1` on",
             "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
         ),
         "README.zh-CN.md": (
+            "`v1.1.2`（2026-10-12）是当前版本",
+            "`v1.1.1`（2026-10-12）是上一个版本，`v1.1.0`（2026-10-11）是再上一个版本。",
             "发布",
             "预发布",
             "`vX.Y.Z`",
@@ -398,9 +457,9 @@ class ReleaseStateTests(unittest.TestCase):
             "每次运行，无论是发布的运行、它的重新运行还是手动触发，都会先查询该标签的 GitHub Release",
             "只有该 Release 已发布且不是预发布版本时才部署",
             "重新运行沿用它所重复的那次运行的事件",
-            "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容；"
-            "应重新运行整次运行（“Re-run all jobs”）",
-            "在 GitHub 上现已指向另一个提交的标签（运行开始后被移动过）",
+            "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容，"
+            "并会在最后一个任务（“Re-run check”）以说明原因的错误失败；应重新运行整次运行（“Re-run all jobs”）",
+            "在批准任务或构建任务检查时已在 GitHub 上指向另一个提交的标签（运行开始后被移动过）",
             "`github-pages` 环境只接受来自 `v1.1.1` 起的标签的部署",
             "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
         ),
@@ -834,22 +893,29 @@ class ReleaseStateTests(unittest.TestCase):
         "**Status:** released as [v1.2.3](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3). The "
         "website is published with GitHub Pages at <https://fridrichmethod.github.io/dynamix/>; see "
         "[Releases](#releases).\n\n"
+        "Each tag keeps its originals under `https://github.com/FridrichMethod/dynamix/raw/<tag>/`.\n\n"
         "## Releases\n\n"
         "Version `v1.2.3` (2026-01-02) is the latest release. Its "
         "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) carries the archive. "
-        "Version `v1.0.0` was the [first release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0).\n\n"
+        "Version `v1.0.0` (2025-12-01) was the "
+        "[first release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0).\n\n"
         "- The [Pages workflow](.github/workflows/pages.yml) deploys only a published release of a `vX.Y.Z` tag whose "
         "commit is on `main`.\n"
+        "- Repository links (`https://github.com/FridrichMethod/dynamix/raw/main/...`) follow `main`; the tag keeps "
+        "every file at `https://github.com/FridrichMethod/dynamix/raw/v1.2.3/` followed by its path.\n"
         "- Later pushes to `main` are tested but not deployed.\n\n"
         "## Sources\n",
         "README.zh-CN.md": "# 样例\n\n[English](README.md) · **简体中文**\n\n"
         "**状态**：已发布 [v1.2.3](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3)。网站通过 GitHub Pages "
         "发布在 <https://fridrichmethod.github.io/dynamix/>；见[发布](#发布)。\n\n"
+        "每个标签都在 `https://github.com/FridrichMethod/dynamix/raw/<tag>/` 下保留其原文件。\n\n"
         "## 发布\n\n"
         "`v1.2.3`（2026-01-02）是最新版本。其 "
         "[GitHub Release](https://github.com/FridrichMethod/dynamix/releases/tag/v1.2.3) 提供完整存档。"
-        "`v1.0.0` 是[首个版本](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0)。\n\n"
+        "`v1.0.0`（2025-12-01）是[首个版本](https://github.com/FridrichMethod/dynamix/releases/tag/v1.0.0)。\n\n"
         "- [Pages 工作流](.github/workflows/pages.yml)只部署 `vX.Y.Z` 标签的已发布版本，且其提交须在 `main` 上。\n"
+        "- 仓库链接（`https://github.com/FridrichMethod/dynamix/raw/main/...`）跟随 `main`；该版本的标签保留其每个文件，"
+        "地址为 `https://github.com/FridrichMethod/dynamix/raw/v1.2.3/` 加上文件路径。\n"
         "- 之后推送到 `main` 的提交会被测试但不会部署。\n\n"
         "## 来源\n",
     }
@@ -989,6 +1055,30 @@ class ReleaseStateTests(unittest.TestCase):
             with self.subTest(case=case):
                 self.assertNotEqual(release_state_problems(readmes), [])
 
+    def test_release_check_compares_the_dated_releases_of_both_languages(self):
+        """Each edit leaves both READMEs acceptable on their own (release_problems), but the two languages no longer
+        give the same releases with the same dates in the same order (TEST-1): a date changed in one language, an
+        older release left undated in one, or one more release dated in one."""
+        en, zh = "README.md", "README.zh-CN.md"
+        cases = {
+            "the current release's date changed in Chinese only": (zh, "（2026-01-02）", "（2026-01-03）"),
+            "an older release's date changed in English only": (en, "(2025-12-01)", "(2025-11-30)"),
+            "an older release undated in English only": (en, "`v1.0.0` (2025-12-01)", "`v1.0.0`"),
+            "one more release dated in Chinese only": (
+                zh,
+                "/releases/tag/v1.0.0)。\n",
+                "/releases/tag/v1.0.0)。此前的 `v0.9.0`（2025-11-01）只是预览。\n",
+            ),
+        }
+        for case, (relative, old, new) in cases.items():
+            with self.subTest(case=case):
+                readmes = self.edited(relative, old, new, 1)
+                for language, text in readmes.items():
+                    self.assertEqual(release_problems(language, text)[1], [], f"{language} alone is acceptable")
+                problems = release_state_problems(readmes)
+                self.assertEqual([p for p in problems if "date different" in p], problems)
+                self.assertEqual(len(problems), 1)
+
     ANCHORS = {
         "README.md": ("see [Releases](#releases).", "is the latest release."),
         "README.zh-CN.md": ("见[发布](#发布)。", "是最新版本。"),
@@ -1046,6 +1136,27 @@ class ReleaseStateTests(unittest.TestCase):
             ),
             "a release link that is not vX.Y.Z": (en, f"{link}v1.0.0", f"{link}v1.0"),
             "the first release named first": (zh, "`v1.2.3`（2026-01-02）是最新版本。", "最新版本（2026-01-02）。"),
+            # The raw links (TEST-1): one of an older release kept after a version bump and one of a ref that is not
+            # main, <tag> or a release, each beside the current release's, and a Releases section without the latter.
+            "a raw link of an older release": (en, "dynamix/raw/<tag>/", "dynamix/raw/v1.0.0/"),
+            "a raw link of a ref that is not main, <tag> or a release": (zh, "dynamix/raw/<tag>/", "dynamix/raw/v1.2/"),
+            "no raw link of the current release": (
+                en,
+                "; the tag keeps every file at `https://github.com/FridrichMethod/dynamix/raw/v1.2.3/` followed by its "
+                "path.",
+                ".",
+            ),
+            # The dated releases (TEST-1): the current release undated, a release dated twice, an older release before a
+            # newer one, a newer release with an earlier date, and a date that is not on the calendar.
+            "the current release undated": (zh, "`v1.2.3`（2026-01-02）是最新版本。", "`v1.2.3` 是最新版本。"),
+            "a release dated twice": (zh, "是最新版本。", "是最新版本，`v1.2.3`（2026-01-02）也是。"),
+            "an older release named before a newer one": (
+                en,
+                "Version `v1.0.0` (2025-12-01) was the ",
+                "Version `v1.0.0` (2025-12-01) came before `v1.1.0` (2025-11-15) and was the ",
+            ),
+            "a newer release dated before an older one": (en, "`v1.0.0` (2025-12-01)", "`v1.0.0` (2026-02-01)"),
+            "a date that is not on the calendar": (zh, "`v1.0.0`（2025-12-01）", "`v1.0.0`（2025-02-30）"),
         }
         for case, (relative, old, new) in cases.items():
             with self.subTest(case=case):

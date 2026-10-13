@@ -8,7 +8,9 @@ approval job and one in the build job: the only GitHub API requests of the workf
 job token), the tag's commit is on main, the full Tests workflow passed on it and the approval job recorded it. The
 deploy job's condition is evaluated with GitHub's expression semantics (the evaluator of tests/test_workflows.py) for
 each scenario, and tests/test_workflows_release_guards.py executes every shell guard for them (the Release lookup with
-a stand-in curl, the main guard in temporary Git repositories with a local bare origin).
+a stand-in curl, the main guard in temporary Git repositories with a local bare origin). The last job, Re-run check,
+fails a re-run that left out the approval job and so deployed nothing (PROD-1); tests/test_workflows_release_guards.py
+also runs the jobs of a run and of its re-runs as GitHub decides them.
 """
 
 import json
@@ -42,6 +44,30 @@ DEPLOY_IF = (
     "(github.event_name == 'release' && github.event.action == 'published' && "
     "toJSON(github.event.release.prerelease) == 'false'))"
 )
+# The last job (PROD-1). GitHub re-runs a job together with every job that needs it, so every re-run reaches this one,
+# and a job if: with a status function (always()) is evaluated whatever the results of the jobs it needs. It runs only
+# when the approval job succeeded in an earlier attempt and was not re-run: its record names another attempt, so the
+# deploy job of this attempt was skipped (ATTEMPTS), and this job fails the run with the reason instead of letting it
+# end green. It needs no permission, checkout, action or expression in its script, and stops within minutes.
+RERUN_CHECK = "rerun-check"
+RERUN_CHECK_IF = (
+    "always() && needs.approval.result == 'success' && needs.approval.outputs.attempt != github.run_attempt"
+)
+RERUN_CHECK_ERROR = "This attempt did not run the Release approval job, so it deployed nothing; re-run all jobs."
+RERUN_CHECK_JOB = {
+    "name": "Re-run check",
+    "needs": ["approval", "deploy"],
+    "if": RERUN_CHECK_IF,
+    "runs-on": "ubuntu-latest",
+    "timeout-minutes": "5",
+    "permissions": {},
+    "steps": [
+        {
+            "name": "Fail a re-run that left out the Release approval job",
+            "run": f'echo "::error::{RERUN_CHECK_ERROR}"\nexit 1\n',
+        }
+    ],
+}
 # The approval job's outputs: the commit it approved and the attempt of the run it ran in (the runner's
 # GITHUB_RUN_ATTEMPT), written by its last step after every guard passed.
 APPROVAL_OUTPUT = "needs.approval.outputs.commit"
@@ -69,7 +95,14 @@ MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}", "GIT_T
 # The main guard also reads the tag from origin (SEC-2): actions/checkout refetches +<github.sha>:<tag> when the tag has
 # moved, so the checkout's tag always names the run's commit. A read of the public repository, without credentials.
 MAIN_GUARD_NAME = "Refuse unless the tag names the checked-out commit and it is on main"
-LS_REMOTE = 'remote="$(git ls-remote origin "$REF" "$REF^{}")"'
+# The read is bounded as the Release lookup's curl is (F2): GNU timeout ends a git ls-remote that a stalled origin
+# holds, with exit status 124, and the guard fails through its "|| fail" (LS_REMOTE_FAILS) within LS_REMOTE_MAX_SECONDS
+# instead of at the job's timeout (10 minutes in the approval job, 30 in the build job). The limit is a positive number
+# of whole seconds (timeout 0 sets none), and timeout takes no option: with --foreground it would stop git alone and
+# leave git's transport helper (git-remote-http) running past the limit.
+LS_REMOTE = re.compile(r'remote="\$\(timeout (?P<seconds>[0-9]+) git ls-remote origin "\$REF" "\$REF\^\{\}"\)"')
+LS_REMOTE_FAILS = ' \\\n  || fail "The tag $REF could not be read from origin."\n'  # in the run script as parsed
+LS_REMOTE_MAX_SECONDS = 120
 # The Release lookup (owner decision D1): one read-only GET of the tag's Release with the job token, whose response the
 # Release guard after it reads from RUNNER_TEMP. Only these two steps of each Pages job see the token. A release run
 # looks the Release up as a dispatch does: a re-run keeps the event of the run it repeats, which no longer tells whether
@@ -88,20 +121,30 @@ GUARD_ROLES = ("event", "lookup", "release", "checkout", "main")
 # The event guard's tag check: v and three numbers without leading zeros (owner decision D2), under LC_ALL=C.
 TAG_CHECK = r'[[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]'
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
-# What each README says about a re-run of the deploy job alone (R1), and what it said while such a re-run could still
-# deploy (matched as unformatted() reads it).
+# What each README says about a re-run of the deploy job alone (R1) and the job that fails it (PROD-1), and what it
+# said while such a re-run could still deploy (matched as unformatted() reads it).
 README_RERUN = {
     "README.md": (
         'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys '
-        'nothing; re-run the whole run ("Re-run all jobs").',
+        'nothing and fails at its last job ("Re-run check") with an error that says so; re-run the whole run '
+        '("Re-run all jobs").',
         "does not look the Release up again",
     ),
     "README.zh-CN.md": (
-        "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容；"
-        "应重新运行整次运行（“Re-run all jobs”）。",
+        "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容，"
+        "并会在最后一个任务（“Re-run check”）以说明原因的错误失败；应重新运行整次运行（“Re-run all jobs”）。",
         "不会再次查询 Release",
     ),
 }
+# What Gate 5 of docs/implementation/06-validation-and-release.md says of the review fixes after v1.1.1: the Re-run
+# check job (PROD-1), and that a run on v1.1.1 takes that tag's workflow, without the attempt record or the origin check.
+GATE5 = ROOT / "docs/implementation/06-validation-and-release.md"
+GATE5_REVIEW_FIXES = (
+    'A last job, "Re-run check", then fails such a re-run with an error saying that it deployed nothing, so the run '
+    "does not end green.",
+    "Since a run takes `pages.yml` from the tag's commit, a run on `v1.1.1` uses that tag's own workflow, which has "
+    "neither check.",
+)
 # The environment rule before the owner decision of 2026-10-12: the github-pages environment allowed main and every v*
 # tag, so only the documentation kept tags before v1.1.1 from being run. The pages.yml header (English) and the READMEs
 # (README.md English, README.zh-CN.md Chinese) must not say so again; matched as unformatted() reads them.
@@ -158,7 +201,8 @@ HEADER_REQUIRED = (
     "only if that Release is published and not a prerelease",
     "A re-run keeps the event of the run it repeats",
     "A re-run of the deploy job alone, or of any jobs without the approval job, deploys nothing, since the deploy "
-    "job requires the approval job's record of the current attempt: re-run the whole run.",
+    "job requires the approval job's record of the current attempt, and the Re-run check job then fails it with an "
+    "error that says so: re-run the whole run.",
     "the deploy job deploys only the commit that the approval job of the same attempt recorded",
     "needs the tag to name the run's commit on origin too (read with git ls-remote, without credentials",
     "a tag that origin now has on another commit",
@@ -424,7 +468,7 @@ class PagesJobs:
 class ReleaseGateTests(PagesJobs, unittest.TestCase):
     def test_jobs_run_the_reusable_tests_between_approval_and_build(self):
         jobs = self.pages["jobs"]
-        self.assertEqual(list(jobs), ["approval", "tests", "build", "deploy"])
+        self.assertEqual(list(jobs), ["approval", "tests", "build", "deploy", RERUN_CHECK])
         self.assertEqual(jobs["tests"]["uses"], "./.github/workflows/tests.yml")
         self.assertEqual(jobs["tests"]["needs"], "approval")
         self.assertEqual(jobs["build"]["needs"], ["approval", "tests"])
@@ -447,6 +491,37 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
         self.assertEqual(deploy["environment"]["name"], "github-pages")
         self.assertEqual([action_name(step["uses"]) for step in steps_of(deploy)], ["actions/deploy-pages"])
 
+    def test_the_rerun_check_job_is_the_reviewed_one(self):
+        """The Re-run check job as written (PROD-1): last, needing the approval and the deploy job, with RERUN_CHECK_IF,
+        no permission, a five-minute timeout and one step that only prints the error and fails; no checkout, action
+        or expression in its script."""
+        job = self.pages["jobs"][RERUN_CHECK]
+        self.assertEqual(job, RERUN_CHECK_JOB)
+        self.assertEqual(list(self.pages["jobs"])[-1], RERUN_CHECK, "it needs the deploy job, so it runs last")
+        self.assertNotIn("${{", job["steps"][0]["run"])
+
+    def test_the_rerun_check_runs_exactly_when_the_deploy_job_refuses_an_earlier_record(self):
+        """For every scenario, attempt pair of ATTEMPTS (github.run_attempt as a string, as GitHub documents it, and
+        as a number) and result of the approval job: the Re-run check job runs exactly when the approval job succeeded
+        and the deploy condition refuses its record as one of another attempt. So the deploy job and this job never
+        both run in one attempt, and a deploy job skipped for the attempt alone is always followed by it."""
+        check, deploy = self.pages["jobs"][RERUN_CHECK]["if"], self.pages["jobs"]["deploy"]["if"]
+        cases = [
+            (scenario, context, label, attempts, result)
+            for scenario, context in {**ACCEPTED, **DENIED}.items()
+            for label, attempts in ATTEMPTS.items()
+            for result in ("success", "failure", "cancelled", "skipped")
+        ]
+        for scenario, context, label, (current, recorded, allowed), result in cases:
+            for run_attempt in (current, int(current)):
+                seen = approved({**context, "github.run_attempt": run_attempt}, attempt=recorded)
+                seen["needs.approval.result"] = result
+                with self.subTest(scenario=scenario, attempt=label, run_attempt=run_attempt, approval=result):
+                    self.assertEqual(evaluate(check, seen), result == "success" and not allowed)
+                    self.assertFalse(evaluate(check, seen) and evaluate(deploy, seen), "never both in one attempt")
+                    if scenario in ACCEPTED and result == "success":
+                        self.assertNotEqual(evaluate(check, seen), evaluate(deploy, seen), "one of them runs")
+
     def test_approval_and_build_start_with_the_same_guards(self):
         jobs = self.pages["jobs"]
         approval = steps_of(jobs["approval"])
@@ -467,11 +542,25 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
         self.assertNotIn("uses", main)
         self.assertEqual(main["name"], MAIN_GUARD_NAME)
         self.assertEqual(main["env"], MAIN_GUARD_ENV)
-        self.assertEqual(main["run"].count(LS_REMOTE), 1, "the tag as origin has it, peeled to its commit")
+        self.assertEqual(len(LS_REMOTE.findall(main["run"])), 1, "the tag as origin has it, peeled to its commit")
         self.assertIn('git merge-base --is-ancestor "$SHA" refs/remotes/origin/main', main["run"])
         for step in (event, lookup, release, main):
             with self.subTest(step=step["name"]):
                 self.assertTrue(step["run"].startswith('fail() { echo "::error::$1"; exit 1; }\n'))
+
+    def test_the_main_guard_bounds_its_read_of_origin(self):
+        """Each main guard reads origin with exactly one git ls-remote under timeout, whose limit is a positive number
+        of whole seconds no longer than LS_REMOTE_MAX_SECONDS, and fails through "|| fail" when the read fails or runs
+        over it (F2). tests/test_workflows_release_guards.py runs the guard when timeout ends the read."""
+        for job_id in ("approval", "build"):
+            script = self.guards(job_id)["main"]["run"]
+            reads = list(LS_REMOTE.finditer(script))
+            with self.subTest(job=job_id):
+                self.assertEqual(len(reads), 1, "one bounded read of origin")
+                self.assertRegex(reads[0].group("seconds"), r"^[1-9][0-9]*$", "a positive number of whole seconds")
+                self.assertLessEqual(int(reads[0].group("seconds")), LS_REMOTE_MAX_SECONDS)
+                self.assertEqual(script[reads[0].end() : reads[0].end() + len(LS_REMOTE_FAILS)], LS_REMOTE_FAILS)
+                self.assertEqual(script.count("git ls-remote"), 1)
 
     def test_the_retired_dispatch_gate_is_gone(self):
         text = (WORKFLOWS / "pages.yml").read_text(encoding="utf-8")
@@ -513,13 +602,22 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
                 self.assertEqual([comment for comment in comments if unformatted(stale) in unformatted(comment)], [])
 
     def test_readmes_say_that_a_re_run_of_the_deploy_job_alone_deploys_nothing(self):
-        """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1) and to re-run
-        the whole run, no longer only that such a re-run repeats no lookup."""
+        """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1), that the Re-run
+        check job then fails it (PROD-1), and to re-run the whole run, no longer only that such a re-run repeats no
+        lookup."""
         for relative, (required, stale) in README_RERUN.items():
             text = (ROOT / relative).read_text(encoding="utf-8")
             with self.subTest(document=relative):
                 self.assertIn(required, text)
                 self.assertNotIn(unformatted(stale), unformatted(text))
+
+    def test_gate_5_describes_the_review_fixes(self):
+        """Gate 5 of 06-validation-and-release.md names the Re-run check job and says that v1.1.1's own workflow has
+        neither the attempt record nor the origin check (GATE5_REVIEW_FIXES)."""
+        text = re.sub(r"\s+", " ", GATE5.read_text(encoding="utf-8"))
+        for phrase in GATE5_REVIEW_FIXES:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, text)
 
     def test_readmes_drop_the_retired_environment_rule(self):
         """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag
@@ -642,7 +740,7 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
                 if role is not None:
                     self.assertIn(job_id, ("approval", "build"))
                     self.assertEqual(len(network), 1)
-                    self.assertIn(RELEASE_API if role == "lookup" else LS_REMOTE, network[0])
+                    self.assertRegex(network[0], re.escape(RELEASE_API) if role == "lookup" else LS_REMOTE)
                     found[role] += 1
                 if role == "lookup":
                     self.assertEqual(step["env"]["TOKEN"], "${{ github.token }}")
