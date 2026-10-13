@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tests"))
 
 from test_workflows import (  # noqa: E402
+    RUN_CANCELLED,
     WORKFLOWS,
     action_name,
     all_workflows,
@@ -46,13 +47,14 @@ DEPLOY_IF = (
     "toJSON(github.event.release.prerelease) == 'false'))"
 )
 # The last job (PROD-1). GitHub re-runs a job together with every job that needs it, so every re-run reaches this one,
-# and a job if: with a status function (always()) is evaluated whatever the results of the jobs it needs. It runs only
-# when the approval job succeeded in an earlier attempt and was not re-run: its record names another attempt, so the
-# deploy job of this attempt was skipped (ATTEMPTS), and this job fails the run with the reason instead of letting it
-# end green. It needs no permission, checkout, action or expression in its script, and stops within minutes.
+# and a job if: with a status function (here cancelled()) is evaluated whatever the results of the jobs it needs. It
+# runs only when the approval job succeeded in an earlier attempt and was not re-run: its record names another attempt,
+# so the deploy job of this attempt was skipped (ATTEMPTS), and this job fails the run with the reason instead of
+# letting it end green. With !cancelled() rather than always(), it does not run in a cancelled run, which ends
+# cancelled anyway (E8). It needs no permission, checkout, action or expression in its script, and stops within minutes.
 RERUN_CHECK = "rerun-check"
 RERUN_CHECK_IF = (
-    "always() && needs.approval.result == 'success' && needs.approval.outputs.attempt != github.run_attempt"
+    "!cancelled() && needs.approval.result == 'success' && needs.approval.outputs.attempt != github.run_attempt"
 )
 RERUN_CHECK_ERROR = "This attempt did not run the Release approval job, so it deployed nothing; re-run all jobs."
 RERUN_CHECK_JOB = {
@@ -408,24 +410,29 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
 
     def test_the_rerun_check_runs_exactly_when_the_deploy_job_refuses_an_earlier_record(self):
         """For every scenario, attempt pair of ATTEMPTS (github.run_attempt as a string, as GitHub documents it, and
-        as a number) and result of the approval job: the Re-run check job runs exactly when the approval job succeeded
-        and the deploy condition refuses its record as one of another attempt. So the deploy job and this job never
-        both run in one attempt, and a deploy job skipped for the attempt alone is always followed by it."""
+        as a number), result of the approval job and whether the run was cancelled (RUN_CANCELLED): the Re-run check
+        job runs exactly when the approval job succeeded, the deploy condition refuses its record as one of another
+        attempt and the run was not cancelled (E8). So the deploy job and this job never both run in one attempt, and
+        in a run that was not cancelled a deploy job skipped for the attempt alone is always followed by it."""
         check, deploy = self.pages["jobs"][RERUN_CHECK]["if"], self.pages["jobs"]["deploy"]["if"]
         cases = [
-            (scenario, context, label, attempts, result)
+            (scenario, context, label, attempts, result, cancelled)
             for scenario, context in {**ACCEPTED, **DENIED}.items()
             for label, attempts in ATTEMPTS.items()
             for result in ("success", "failure", "cancelled", "skipped")
+            for cancelled in (False, True)
         ]
-        for scenario, context, label, (current, recorded, allowed), result in cases:
+        for scenario, context, label, (current, recorded, allowed), result, cancelled in cases:
             for run_attempt in (current, int(current)):
                 seen = approved({**context, "github.run_attempt": run_attempt}, attempt=recorded)
-                seen["needs.approval.result"] = result
-                with self.subTest(scenario=scenario, attempt=label, run_attempt=run_attempt, approval=result):
-                    self.assertEqual(evaluate(check, seen), result == "success" and not allowed)
+                seen.update({"needs.approval.result": result, RUN_CANCELLED: cancelled})
+                subtest = self.subTest(
+                    scenario=scenario, attempt=label, run_attempt=run_attempt, approval=result, cancelled=cancelled
+                )
+                with subtest:
+                    self.assertEqual(evaluate(check, seen), result == "success" and not allowed and not cancelled)
                     self.assertFalse(evaluate(check, seen) and evaluate(deploy, seen), "never both in one attempt")
-                    if scenario in ACCEPTED and result == "success":
+                    if scenario in ACCEPTED and result == "success" and not cancelled:
                         self.assertNotEqual(evaluate(check, seen), evaluate(deploy, seen), "one of them runs")
 
     def test_approval_and_build_start_with_the_same_guards(self):

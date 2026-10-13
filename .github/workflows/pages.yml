@@ -383,11 +383,11 @@ jobs:
     name: Re-run check
     # GitHub re-runs a job together with every job that needs it, so every re-run reaches this job. It runs only in a
     # re-run that left out the approval job: the deploy job of that attempt was skipped, and this job fails the run
-    # with the reason, so that it does not end green. The first attempt and a re-run of all jobs skip it, and so does
-    # a run that the approval job refused.
+    # with the reason, so that it does not end green. The first attempt and a re-run of all jobs skip it, and so do a
+    # run that the approval job refused and a cancelled run, which ends cancelled, not green.
     needs: [approval, deploy]
     if: >-
-      always() && needs.approval.result == 'success' &&
+      !cancelled() && needs.approval.result == 'success' &&
       needs.approval.outputs.attempt != github.run_attempt
     runs-on: ubuntu-latest
     timeout-minutes: 5
