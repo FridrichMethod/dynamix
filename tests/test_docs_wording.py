@@ -87,6 +87,14 @@ CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：。！？]")
 # (clause_before(): "倘若标签不对、或者变量未设置，……"), so 或者 is matched whole.
 COORDINATED = re.compile(r"\s*(?:(?:or|and)\b|或者|或|并且|且)", re.IGNORECASE)
 CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
+# An English serial list of conditions ("If the tag is wrong, the branch is wrong, or the variable is unset, the run
+# fails closed."): commas join its items, a condition opens the first and "or" the last, and a comma after the last ends
+# the list before the consequence (serial_list()). Only the wording in the last item counts, as one of the alternatives
+# that "or" joins: after "and" ("If you check, the tag exists, and the variable is unset, so ...") or in an earlier item
+# ("If you look, the variable is unset, or so it seems, ...") it may be a statement. A correction with "or rather" in
+# the last item reads as such a list too ("If you check, the tag exists, or rather the variable is unset, so nothing
+# deploys."): only what the items mean tells the two apart.
+SERIAL_OR = re.compile(r"\s*or\b", re.IGNORECASE)
 # "Nothing is deployed" states the site's state unless a condition of the guard comes before it in its sentence
 # ("When ..., nothing is deployed."): one whose own clause names what the guard checks, a tag, branch, release,
 # prerelease, draft, version, commit, main, an event (push, pull request, schedule), the approval, a refusal
@@ -129,8 +137,9 @@ SUBORDINATORS = re.compile(
 
 def clause_before(text: str, end: int) -> str:
     """The clause of ``text`` that ends at ``end``, joined with the clauses before it that it continues with "or" or
-    "and" (COORDINATED) when a condition opens the first of them (CONDITION_OPENS), so that the condition counts for
-    it; otherwise the clause alone. Where the clause that ends at ``end`` lists items with 、, the items before count
+    "and" (COORDINATED) when a condition opens the first of them (CONDITION_OPENS), or with the items before it of an
+    English serial list of conditions whose last item it is (serial_list()), so that the condition counts for it;
+    otherwise the clause alone. Where the clause that ends at ``end`` lists items with 、, the items before count
     only when ``end`` opens an item (or follows its 或, 且, ...: COORDINATED) of a list that a ， ends, its consequence
     following ("若标签错误、变量未设置，……"); otherwise the item alone does, as where 、 stands for a comma
     ("如果查看设置、会发现变量未设置。", "只要标签正确就会部署、变量目前未设置。"). A 、 in an earlier clause lists items of
@@ -139,7 +148,7 @@ def clause_before(text: str, end: int) -> str:
     clause = continued = parts.pop()
     while parts and COORDINATED.match(continued):
         continued = parts.pop() + continued
-    found = continued if CONDITION_OPENS.match(continued) else clause
+    found = continued if CONDITION_OPENS.match(continued) else (serial_list(text, end) or clause)
     if "、" not in clause:
         return found
     item = clause.rpartition("、")[2]
@@ -148,11 +157,27 @@ def clause_before(text: str, end: int) -> str:
     return found if opens and after is not None and after.group() == "，" else item
 
 
+def serial_list(text: str, end: int) -> str | None:
+    """The English serial list of conditions (SERIAL_OR) whose last item holds ``end``, from its first item to
+    ``end``; None when ``end`` is in no such item."""
+    breaks = list(CLAUSE_BREAK.finditer(text[:end]))
+    after = CLAUSE_BREAK.search(text, end)
+    if not breaks or not SERIAL_OR.match(text[breaks[-1].end() : end]) or after is None or after.group() != ",":
+        return None
+    for n in range(len(breaks) - 1, -1, -1):
+        start = breaks[n - 1].end() if n else 0
+        if breaks[n].group() != ",":
+            return None
+        if CONDITION_OPENS.match(text[start : breaks[n].start()]):
+            return text[start:end]
+    return None
+
+
 def hold_wording(text: str) -> list[str]:
     """Hold wording in rendered text: every HOLD_MARKERS match; the release variable stated as unset unless a condition
-    opens its clause (or the clause it continues) or, in Chinese, follows it; and "nothing is deployed" unless a
-    condition of the guard comes before it in its sentence. With the condition, the text describes the guard, not the
-    site's state."""
+    opens its clause (or the clause it continues, or the serial list whose last item it is: clause_before()) or, in
+    Chinese, follows it; and "nothing is deployed" unless a condition of the guard comes before it in its sentence.
+    With the condition, the text describes the guard, not the site's state."""
     found = [match.group() for match in HOLD_MARKERS.finditer(text)]
     for match in UNSET_WORDING.finditer(text):
         clause = clause_before(text, match.start()) + match.group()
@@ -284,6 +309,16 @@ class ReleaseWordingTests(unittest.TestCase):
         "When you look today, the tag v1.1.0 exists, so nothing is deployed.",  # a guard word outside the condition
         # A condition inside an earlier clause joined with "and" does not cover the unset variable.
         "The tag v1.1.0 exists if you check, and the variable is unset.",
+        # An English serial list of conditions covers the unset variable only in its last item, opened by "or", with a
+        # comma after it (SERIAL_OR): not after "and" or a word that starts with "or", nor before the end of the
+        # sentence, nor after a colon between the items, nor where a condition does not open the first item, nor in an
+        # earlier item.
+        "If you check, the tag exists, and the variable is unset, so nothing deploys.",
+        "If you check, the tag exists, originally the variable was unset, so nothing deployed.",
+        "When you look today, the tag exists, or rather the variable is unset.",
+        "When you look today, you see this: the tag exists, or rather the variable is unset, so nothing deploys.",
+        "The tag exists if you check, the branch is main, or the variable is unset, so nothing deploys.",
+        "When you look, the variable is unset, or so it seems, so nothing deploys.",
         # Variants of the accurate sentences below that still tell an event: a fronted date, a version in the clause, a
         # comma before the event verb; and held releases whose phrase names a version, also without a copula.
         "2026-10-11，所有者批准后才部署到 GitHub Pages。",
@@ -515,6 +550,10 @@ class ReleaseWordingTests(unittest.TestCase):
         "If `release_sha` is wrong, or `RELEASE_APPROVED_SHA` is unset, the dispatch fails closed.",
         "If the tag v1.1.0 names another commit or the variable is unset, the dispatch fails closed.",
         "For a dispatch, if `release_sha` is wrong, or the variable is unset, the dispatch fails closed.",
+        # An English serial list of conditions, the unset variable in its last item (SERIAL_OR), also after "OR".
+        "If the tag is wrong, the branch is wrong, or the variable is unset, the run fails closed.",
+        "If the tag is wrong, it is a draft, it is not on `main`, or the variable is unset, the run fails closed.",
+        "If the tag is wrong, the branch is wrong, OR the variable is unset, the run fails closed.",
         # One sample per alternative of the rules, allowed only through that alternative. Each guard word alone in its
         # sentence.
         "A deployment requires a published release.",
