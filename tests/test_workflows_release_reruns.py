@@ -180,7 +180,8 @@ class ReleaseRerunTests(PagesJobs, unittest.TestCase):
         ):
             with self.subTest(cancelled_at=cancelled_at):
                 state = run_attempt(jobs, {}, 1, set(jobs), set(), {}, cancelled_at)
-                self.assertEqual({job_id: result for job_id, (result, _) in state.items()}, dict(zip(jobs, results)))
+                expected = dict(zip(jobs, results, strict=True))
+                self.assertEqual({job_id: result for job_id, (result, _) in state.items()}, expected)
 
     def test_re_runs_reach_the_jobs_that_need_the_re_run_job(self):
         """rerun_jobs() follows needs: through other jobs, as GitHub re-runs dependents: every re-run reaches the
