@@ -563,6 +563,7 @@ class ReleaseWordingTests(unittest.TestCase):
         "倘若标签不对，或变量未设置，触发会失败关闭。",
         *(f"如果标签不对，{word}变量未设置，触发会失败关闭。" for word in ("并且", "且")),
         "若标签错误、变量未设置或指向其他提交，触发会失败关闭。",
+        "若标签错误、分支错误、变量未设置，触发会失败关闭。",  # the wording opens the last of three items
         "倘若标签不对、或者变量未设置，触发会失败关闭。",
         "变量未设置、标签错误时，触发会失败关闭。",
         # A 、 in an earlier one of the joined clauses lists items of that clause, so the condition still opens them.
