@@ -530,6 +530,9 @@ class ReleaseTextTests(unittest.TestCase):
             "Re-running the deploy job alone deploys nothing, and the deploy job does not repeat the lookup.",
             "A re-run of the build job runs it. The deploy job does not repeat the lookup.",
             "The deploy job reads the record, and it does not repeat the lookup.",
+            # At most two words before "lookup" (N3): with three, the object is another one.
+            "A re-run repeats no job without its lookup.",
+            "A re-run does not repeat jobs without their lookup.",
         ),
     }
 
