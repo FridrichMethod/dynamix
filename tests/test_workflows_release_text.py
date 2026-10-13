@@ -92,13 +92,15 @@ RETIRED_ENVIRONMENT = {
 # - "repeat(s) no" with at most two words before "lookup", whatever the subject ("repeats no Release lookup", "repeats
 #   no GitHub Release lookup", "repeats no further lookup", "repeats no Release-lookup");
 # - "does not", "do not", "doesn't", "don't" or "never" and "repeat(s)" with at most two words before "lookup" ("does
-#   not repeat the lookup"), when the subject is a re-run or a pronoun that can stand for one (m2): "re-run(s)" after at
-#   most four words that are not prepositions at the start of a clause ("A re-run", "Such re-runs", "If it failed, a
-#   re-run"), alone or followed by a phrase that starts with of, without, with, alone, that or which and starts no new
-#   clause (_NEW_CLAUSE: no sentence break, and no comma, "and", "but", "or", "so" or "while" before "the", "a", "an",
-#   "its", "this", "it" or "they"), as in "A re-run of the deploy job alone, or of any jobs without the approval job,
-#   does not"; or "it" or "they" at the start of a sentence. "The deploy job does not repeat the lookup", "The Re-run
-#   check job does not repeat the lookup" and "In a re-run, the deploy job does not repeat the lookup" are not in it;
+#   not repeat the lookup"), when the subject is a re-run or a pronoun that can stand for one (m2): at the start of a
+#   clause, after at most four words that are not prepositions ("A re-run", "Such re-runs", "If it failed, a re-run"),
+#   either "re-run(s)", alone or followed by a phrase that starts with of, without, with, alone, that, which or "(", or
+#   "re-running" and any phrase, where the phrase starts no new clause (_NEW_CLAUSE: no sentence break, and no comma,
+#   alone or before "and", "but", "or", "so" or "while", before "the", "a", "an", "its", "this", "it" or "they"), as in
+#   "A re-run of the deploy job alone, or of any jobs without the approval job, does not", "A re-run without the
+#   approval job and the build job does not" or "Re-running the deploy job alone does not"; or "it" or "they" at the
+#   start of a sentence. "The deploy job does not repeat the lookup", "The Re-run check job does not repeat the lookup"
+#   and "In a re-run, the deploy job does not repeat the lookup" are not in it;
 # - "lookup it does not repeat", as the approval job's outputs comment said after the first R1 fix.
 # "look-up" and "look up" count as "lookup" (E5). The first and the last alternative need no word boundary at either
 # end, so a text with one of 1bed861's three phrases ("repeats no lookup", "repeats no Release lookup", "lookup it does
@@ -106,10 +108,11 @@ RETIRED_ENVIRONMENT = {
 # re-run repeats, or that names a lookup further on, is not in it (RERUN_STALE_SAMPLES).
 _LOOKUP = r"look[ -]?ups?"
 _PREPOSITION = r"(?:of|in|on|at|for|from|to|by|with|without|after|before|during|than|as|into|per|via) "
-_NEW_CLAUSE = r"[.;:!?](?: |$)|(?:, |,? (?:and|but|or|so|while) )(?:the|a|an|its|this|it|they) "
+_NEW_CLAUSE = r"[.;:!?](?: |$)|, (?:(?:and|but|or|so|while) )?(?:the|a|an|its|this|it|they) "
+_PHRASE = rf"(?:(?!{_NEW_CLAUSE}).)*?"
 _RERUN_SUBJECT = (
-    rf"(?:^|(?<=[.;:!?,]) |(?<=\())(?:(?!{_PREPOSITION})[a-z][a-z0-9-]* ){{0,4}}re-?runs?"
-    rf"(?: (?:of|without|with|alone|that|which)\b(?:(?!{_NEW_CLAUSE}).)*?)?,?"
+    rf"(?:^|(?<=[.;:!?,]) |(?<=\())(?:(?!{_PREPOSITION})[a-z][a-z0-9-]* ){{0,4}}"
+    rf"(?:re-?runs?(?: (?:(?:of|without|with|alone|that|which)\b|\(){_PHRASE})?|re-?running\b{_PHRASE}),?"
     r"|(?:^|(?<=[.;:!?]) )(?:it|they)"
 )
 RERUN_STALE = re.compile(
@@ -430,6 +433,9 @@ class ReleaseTextTests(unittest.TestCase):
             "Such re-runs don't repeat the lookup.",
             "If the deployment failed, a re-run of the deploy job does not repeat the lookup.",
             "They never repeat the Release lookup.",
+            "Re-running the deploy job alone does not repeat the lookup.",
+            "A re-run (of the deploy job alone) does not repeat the lookup.",
+            "A re-run without the approval job and the build job does not repeat the lookup.",
             # 1bed861's phrases as substrings, as it matched them, inside longer words too.
             "It_repeats no lookup_step.",
             "Its_lookup it does not repeatedly send.",
@@ -451,6 +457,7 @@ class ReleaseTextTests(unittest.TestCase):
             "The job of a re-run does not repeat the lookup.",
             "A re-run of the deploy job deploys nothing, and the deploy job does not repeat the lookup.",
             "Once a re-run of the deploy job starts, the deploy job does not repeat the lookup.",
+            "Re-running the deploy job alone deploys nothing, and the deploy job does not repeat the lookup.",
             "A re-run of the build job runs it. The deploy job does not repeat the lookup.",
             "The deploy job reads the record, and it does not repeat the lookup.",
         ),
