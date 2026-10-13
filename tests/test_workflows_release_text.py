@@ -108,20 +108,71 @@ HEADER_REQUIRED = (
 )
 
 
-# What unformatted() drops: code backticks, backslashes (Markdown escapes such as \*), the emphasis markers * and _, and
-# straight and curly quotes.
-FORMATTING = re.compile("[`\\\\*_\"'\u2018\u2019\u201c\u201d]")
+# What unformatted() reads as markup, keeping only the text that it marks: an HTML tag (<code>main</code> reads main; an
+# autolink such as <https://...> goes whole) and the brackets and target of an inline Markdown link ([main](...) reads
+# main). A < that a letter or a / does not follow, as in "a < b", starts no tag.
+MARKUP = re.compile(r"</?[A-Za-z][^<>\n]*>|\[([^\[\]\n]*)\]\([^()\s]*\)")
+# What unformatted() drops: code backticks, backslashes (Markdown escapes such as \*), the emphasis and strikethrough
+# markers *, _ and ~, straight and curly quotes, and invisible format characters (zero-width space, non-joiner and
+# joiner, word joiner, byte order mark and soft hyphen), which split a word without showing.
+FORMATTING = re.compile("[`\\\\*_~\"'\u2018\u2019\u201c\u201d\u200b\u200c\u200d\u2060\ufeff\u00ad]")
+# A Chinese character or CJK punctuation. Chinese typography may leave out the space between CJK and Latin text, so
+# unformatted() drops a space next to one (CJK_SPACE): "允许 main" and "允许main" read alike.
+CJK = "\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff00-\uffef"
+CJK_SPACE = re.compile(f" (?=[{CJK}])|(?<=[{CJK}]) ")
 
 
 def unformatted(text: str) -> str:
     """``text`` as the stale wording (HEADER_STALE, RERUN_STALE, RETIRED_ENVIRONMENT, README_RERUN) is matched in
-    pages.yml and the READMEs: in lower case, without FORMATTING, and with each run of whitespace as one space.
-    "allows `main`", 'allows "main"', "allows **main**" and "allows  main" all read "allows main", and "*v\\** tags"
-    reads "v tags", as "v* tags" does."""
-    return re.sub(r"\s+", " ", FORMATTING.sub("", text)).lower()
+    pages.yml and the READMEs: without MARKUP (the text it marks kept) and FORMATTING, with each run of whitespace as
+    one space and no space next to CJK text (CJK_SPACE), in lower case. "allows `main`", 'allows "main"', "allows
+    **main**", "allows <code>main</code>", "allows [main](...)" and "allows  main" all read "allows main", "*v\\** tags"
+    reads "v tags", as "v* tags" does, and "允许`main`" reads "允许main", as "允许 main" does (UNFORMATTED)."""
+    marked = MARKUP.sub(lambda match: match.group(1) or "", text)
+    return CJK_SPACE.sub("", re.sub(r"\s+", " ", FORMATTING.sub("", marked))).lower()
 
 
 class ReleaseTextTests(unittest.TestCase):
+    # Texts and how unformatted() reads them (E2, E3): code, quotes, emphasis, Markdown escapes, extra spaces, HTML
+    # tags, links, strikethrough, invisible characters and case are dropped; a space next to CJK text too, while a
+    # space between Latin words and a < that starts no tag stay.
+    UNFORMATTED = {
+        "allows `main`": "allows main",
+        'allows "main"': "allows main",
+        "allows \u201cmain\u201d and \u2018v*\u2019 tags": "allows main and v tags",
+        "allows 'v*' tags": "allows v tags",
+        "allows **main**": "allows main",
+        "allows _main_": "allows main",
+        "allows *v\\** tags": "allows v tags",
+        "allows  main\n and\tmore": "allows main and more",
+        "allows <code>main</code>": "allows main",
+        'allows <span class="x">main</span><br/>': "allows main",
+        "allows [main](https://example.invalid/main)": "allows main",
+        "see <https://example.invalid/> now": "see now",
+        "allows ~~main~~": "allows main",
+        "allows m\u200bain, m\u200cai\u200dn, ma\u2060in, \ufeffmain and mai\u00adn": "allows main, main, main, main and main",
+        "Allows MAIN": "allows main",
+        "a < b and c > d": "a < b and c > d",
+        "环境允许`main`": "环境允许main",
+        "环境允许 main 部署": "环境允许main部署",
+        "不会再次查询 **Release**。": "不会再次查询release。",
+        "（ v1.1.1 ）起": "（v1.1.1）起",
+    }
+
+    def test_unformatted_reads_formatted_text_as_plain_text(self):
+        for text, plain in self.UNFORMATTED.items():
+            with self.subTest(text=text):
+                self.assertEqual(unformatted(text), plain)
+        # Both sides are unformatted, so a Chinese phrase without the space between CJK and Latin text contains the
+        # stale phrase that has it.
+        for text, stale in (
+            ("环境允许`main`", "允许 main"),
+            ("环境允许main", "允许 main"),
+            ("不会再次查询Release", "不会再次查询 Release"),
+        ):
+            with self.subTest(text=text, stale=stale):
+                self.assertIn(unformatted(stale), unformatted(text))
+
     def test_header_comment_describes_the_release_gate(self):
         """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Stale wording
         counts with code backticks, quotes, emphasis or extra spaces too (unformatted()), as in the READMEs."""
