@@ -9,9 +9,9 @@ job token), the tag's commit is on main, the full Tests workflow passed on it an
 deploy job's condition is evaluated with GitHub's expression semantics (the evaluator of tests/test_workflows.py) for
 each scenario, and tests/test_workflows_release_guards.py executes every shell guard for them (the Release lookup with
 a stand-in curl, the main guard in temporary Git repositories with a local bare origin). The last job, Re-run check,
-fails a re-run that left out the approval job and so deployed nothing (PROD-1); tests/test_workflows_release_guards.py
-also runs the jobs of a run and of its re-runs as GitHub decides them. What the comments of pages.yml and the READMEs
-say about the gate is checked in tests/test_workflows_release_text.py.
+fails a re-run that left out the approval job and so deployed nothing (PROD-1); tests/test_workflows_release_reruns.py
+runs the jobs of a run and of its re-runs as GitHub decides them. What the comments of pages.yml and the READMEs say
+about the gate is checked in tests/test_workflows_release_text.py.
 """
 
 import json

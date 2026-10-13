@@ -1,12 +1,13 @@
 """Static and behavioral checks of .github/workflows: triggers, permissions, pinning, no write paths, the CI jobs.
 
 Ordinary pushes and pull requests only test and upload CI artifacts; no workflow has a schedule, pushes, tags, creates
-releases or opens pull requests. The release gate of pages.yml is checked in tests/test_workflows_release_gate.py and
-tests/test_workflows_release_guards.py, with the expression evaluator and the env rendering of this module, and what its
-comments and the READMEs say about it in tests/test_workflows_release_text.py. Workflows are parsed with the stdlib
-YAML-subset reader in tests/test_workflows_yaml.py. The lint job runs every pre-commit hook read-only and never fixes;
-the checks job runs the unit tests under coverage and enforces fail_under. Their shell steps are executed with stand-ins
-(a fake Node.js, a stand-in test suite).
+releases or opens pull requests. The release gate of pages.yml is checked in tests/test_workflows_release_gate.py,
+tests/test_workflows_release_guards.py and tests/test_workflows_release_reruns.py, with the expression evaluator and the
+env rendering of this module, and what its comments and the READMEs say about it in
+tests/test_workflows_release_text.py. Workflows are parsed with the stdlib YAML-subset reader in
+tests/test_workflows_yaml.py. The lint job runs every pre-commit hook read-only and never fixes; the checks job runs the
+unit tests under coverage and enforces fail_under. Their shell steps are executed with stand-ins (a fake Node.js, a
+stand-in test suite).
 """
 
 import importlib.util
@@ -102,7 +103,7 @@ JSON_FUNCTION = "toJSON"  # one argument, written as JSON
 # The status functions that evaluate() knows, each without arguments: always() is true whatever happened in the run,
 # and cancelled() is true when the run was cancelled, which a context gives as RUN_CANCELLED: True (a context without
 # it, or with any other value, describes a run that was not cancelled). GitHub prefixes success() to a job if: that
-# names no status function; run_attempt() in tests/test_workflows_release_guards.py applies that rule. success() and
+# names no status function; run_attempt() in tests/test_workflows_release_reruns.py applies that rule. success() and
 # failure() depend on the results of the needed jobs and stay refused.
 STATUS_FUNCTIONS = ("always", "cancelled")
 RUN_CANCELLED = "run cancelled"  # a context key, not a GitHub context name: whether the run was cancelled
