@@ -121,20 +121,30 @@ GUARD_ROLES = ("event", "lookup", "release", "checkout", "main")
 # The event guard's tag check: v and three numbers without leading zeros (owner decision D2), under LC_ALL=C.
 TAG_CHECK = r'[[ "$REF" =~ ^refs/tags/v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]'
 RETIRED_GATE = ("RELEASE_APPROVED_SHA", "release_sha", "vars.", "inputs.")  # the manual-dispatch gate before v1.1.0
-# What each README says about a re-run of the deploy job alone (R1), and what it said while such a re-run could still
-# deploy (matched as unformatted() reads it).
+# What each README says about a re-run of the deploy job alone (R1) and the job that fails it (PROD-1), and what it
+# said while such a re-run could still deploy (matched as unformatted() reads it).
 README_RERUN = {
     "README.md": (
         'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys '
-        'nothing; re-run the whole run ("Re-run all jobs").',
+        'nothing and fails at its last job ("Re-run check") with an error that says so; re-run the whole run '
+        '("Re-run all jobs").',
         "does not look the Release up again",
     ),
     "README.zh-CN.md": (
-        "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容；"
-        "应重新运行整次运行（“Re-run all jobs”）。",
+        "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容，"
+        "并会在最后一个任务（“Re-run check”）以说明原因的错误失败；应重新运行整次运行（“Re-run all jobs”）。",
         "不会再次查询 Release",
     ),
 }
+# What Gate 5 of docs/implementation/06-validation-and-release.md says of the review fixes after v1.1.1: the Re-run
+# check job (PROD-1), and that a run on v1.1.1 takes that tag's workflow, without the attempt record or the origin check.
+GATE5 = ROOT / "docs/implementation/06-validation-and-release.md"
+GATE5_REVIEW_FIXES = (
+    'A last job, "Re-run check", then fails such a re-run with an error saying that it deployed nothing, so the run '
+    "does not end green.",
+    "Since a run takes `pages.yml` from the tag's commit, a run on `v1.1.1` uses that tag's own workflow, which has "
+    "neither check.",
+)
 # The environment rule before the owner decision of 2026-10-12: the github-pages environment allowed main and every v*
 # tag, so only the documentation kept tags before v1.1.1 from being run. The pages.yml header (English) and the READMEs
 # (README.md English, README.zh-CN.md Chinese) must not say so again; matched as unformatted() reads them.
@@ -592,13 +602,22 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
                 self.assertEqual([comment for comment in comments if unformatted(stale) in unformatted(comment)], [])
 
     def test_readmes_say_that_a_re_run_of_the_deploy_job_alone_deploys_nothing(self):
-        """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1) and to re-run
-        the whole run, no longer only that such a re-run repeats no lookup."""
+        """Both READMEs tell a maintainer that a re-run without the approval job deploys nothing (R1), that the Re-run
+        check job then fails it (PROD-1), and to re-run the whole run, no longer only that such a re-run repeats no
+        lookup."""
         for relative, (required, stale) in README_RERUN.items():
             text = (ROOT / relative).read_text(encoding="utf-8")
             with self.subTest(document=relative):
                 self.assertIn(required, text)
                 self.assertNotIn(unformatted(stale), unformatted(text))
+
+    def test_gate_5_describes_the_review_fixes(self):
+        """Gate 5 of 06-validation-and-release.md names the Re-run check job and says that v1.1.1's own workflow has
+        neither the attempt record nor the origin check (GATE5_REVIEW_FIXES)."""
+        text = re.sub(r"\s+", " ", GATE5.read_text(encoding="utf-8"))
+        for phrase in GATE5_REVIEW_FIXES:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, text)
 
     def test_readmes_drop_the_retired_environment_rule(self):
         """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag

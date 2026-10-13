@@ -428,8 +428,9 @@ class ReleaseStateTests(unittest.TestCase):
             "Every run, a release run, a re-run of one and a dispatch alike, first looks up the tag's GitHub Release",
             "only if that Release is published and not a prerelease",
             "A re-run keeps the event of the run it repeats",
-            'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys nothing; '
-            're-run the whole run ("Re-run all jobs")',
+            'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys nothing '
+            'and fails at its last job ("Re-run check") with an error that says so; re-run the whole run ("Re-run all '
+            'jobs")',
             "a tag that names another commit on GitHub when the approval or the build job checks it (one moved after "
             "the run started)",
             "`github-pages` environment accepts deployments only from tags from `v1.1.1` on",
@@ -456,8 +457,8 @@ class ReleaseStateTests(unittest.TestCase):
             "每次运行，无论是发布的运行、它的重新运行还是手动触发，都会先查询该标签的 GitHub Release",
             "只有该 Release 已发布且不是预发布版本时才部署",
             "重新运行沿用它所重复的那次运行的事件",
-            "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容；"
-            "应重新运行整次运行（“Re-run all jobs”）",
+            "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容，"
+            "并会在最后一个任务（“Re-run check”）以说明原因的错误失败；应重新运行整次运行（“Re-run all jobs”）",
             "在批准任务或构建任务检查时已在 GitHub 上指向另一个提交的标签（运行开始后被移动过）",
             "`github-pages` 环境只接受来自 `v1.1.1` 起的标签的部署",
             "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
