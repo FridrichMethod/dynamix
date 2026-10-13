@@ -126,6 +126,37 @@ ORIGIN_CHANGES = {
     "a lightweight tag moved on origin": ("v1.0.0", "first", (("tag", "-f", "v1.0.0", "second"),), "second"),
     "a tag deleted on origin": ("v1.1.0", "second", (("tag", "-d", "v1.1.0"),), "no commit"),
 }
+# The names that git ls-remote of the tag and its peeled line lists, in its order, for each ORIGIN_CHANGES scenario
+# with decoys (refs whose names end in the tag's name). The decoys stand on both sides of the tag only because git
+# lists the refs sorted by name, each peeled ^{} line right after its own ref: this pins that order (E6), so that a
+# guard taking the first or the last ^{} line still fails a scenario.
+DECOY_LISTINGS = {
+    "refs on origin whose names end in an annotated tag's name": (
+        "refs/heads/refs/tags/v1.1.0",
+        "refs/tags/a/refs/tags/v1.1.0",
+        "refs/tags/a/refs/tags/v1.1.0^{}",
+        "refs/tags/v1.1.0",
+        "refs/tags/v1.1.0^{}",
+        "refs/tags/x/refs/tags/v1.1.0",
+        "refs/tags/x/refs/tags/v1.1.0^{}",
+    ),
+    "refs on origin whose names end in a lightweight tag's name": (
+        "refs/heads/refs/tags/v1.0.0",
+        "refs/tags/a/refs/tags/v1.0.0",
+        "refs/tags/a/refs/tags/v1.0.0^{}",
+        "refs/tags/v1.0.0",
+        "refs/tags/x/refs/tags/v1.0.0",
+        "refs/tags/x/refs/tags/v1.0.0^{}",
+    ),
+    "an annotated tag moved on origin, with an annotated tag whose name ends in its name on the run's commit": (
+        "refs/tags/a/refs/tags/v1.1.0",
+        "refs/tags/a/refs/tags/v1.1.0^{}",
+        "refs/tags/v1.1.0",
+        "refs/tags/v1.1.0^{}",
+        "refs/tags/x/refs/tags/v1.1.0",
+        "refs/tags/x/refs/tags/v1.1.0^{}",
+    ),
+}
 
 
 # A stand-in for GNU timeout, put first on PATH: it writes its arguments, one per line, to $STAND_IN_TIMEOUT_CALL and
@@ -588,6 +619,30 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
                     self.assertEqual(limit, str(LS_REMOTE_SECONDS))
                     passed = run_guard(step, context, cwd=root)  # the real timeout and git: origin has the tag
                     self.assertEqual(passed.returncode, 0, passed.stdout + passed.stderr)
+
+    @unittest.skipUnless(shutil.which("git"), "needs git to list origin's refs")
+    def test_decoys_are_listed_before_and_after_the_tag(self):
+        """Every ORIGIN_CHANGES scenario with decoys names its listing in DECOY_LISTINGS, and git ls-remote of the tag
+        and its peeled line, as the main guard runs it, lists exactly those names in that order: decoys before the tag
+        and after it, each peeled line right after its own ref."""
+        with_decoys = {
+            scenario for scenario, (_, _, changes, _) in ORIGIN_CHANGES.items() if "/refs/tags/" in str(changes)
+        }
+        self.assertEqual(with_decoys, set(DECOY_LISTINGS))
+        with tempfile.TemporaryDirectory() as temporary:
+            root, origin, commits = release_repository(Path(temporary))
+            for scenario, expected in DECOY_LISTINGS.items():
+                tag, _, changes, _ = ORIGIN_CHANGES[scenario]
+                ref = f"refs/tags/{tag}"
+                refs = git(origin, "for-each-ref", "--format=%(refname) %(objectname)")
+                try:
+                    for command in changes:
+                        git(origin, *(commits.get(word, word) for word in command))
+                    listing = git(root, "ls-remote", "origin", ref, f"{ref}^{{}}")
+                finally:
+                    restore_refs(origin, refs)
+                with self.subTest(scenario=scenario):
+                    self.assertEqual(tuple(line.split("\t")[1] for line in listing.splitlines()), expected)
 
     def main_guard_after(
         self, job_id: str, root: Path, origin: Path, commands: list[list[str]], ref: str, sha: str
