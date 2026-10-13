@@ -3,9 +3,9 @@
 Covers README.md, docs/sources-*.md, docs/coverage.md and licenses/README.md with their ``.zh-CN.md`` versions, plus
 NOTICE and .nojekyll. Offline: it reads files of this checkout and runs ``--help`` of the scripts the documents
 quote (a script that is not in this tree yet must be a name of the frozen CLI contract, and its check is skipped).
-The release state of the documents is checked in tests/test_docs_release.py, which imports the documents, the
-rendering helpers and the release rules that tests/test_docs_stats.py also applies (FLAT_CLAIMS, RELEASE_WORDS,
-GUARDS) from here.
+The release wording rules are in tests/test_docs_wording.py, which imports the rendering helpers and the release rules
+that tests/test_docs_stats.py also applies (FLAT_CLAIMS, RELEASE_WORDS, GUARDS) from here; the release state of the
+documents is checked in tests/test_docs_release.py.
 """
 
 from __future__ import annotations
@@ -60,7 +60,7 @@ ATTRIBUTION = re.compile(
     re.IGNORECASE,
 )
 # The release rules that tests/test_docs_stats.py also applies to the generated blocks. The others, which the comments
-# here name (hold_wording(), HOLD_MARKERS, NOTHING_DEPLOYED), are in tests/test_docs_release.py.
+# here name (hold_wording(), HOLD_MARKERS, NOTHING_DEPLOYED), are in tests/test_docs_wording.py.
 # A flat claim that something is deployed, live or published as the site, in any tense that states it as done, also
 # with an adverb between ("was first deployed", "is already live"). "Nothing is deployed" is not a claim that something
 # is: hold_wording() refuses it unless a condition of the guard comes before it in its sentence (NOTHING_DEPLOYED).
