@@ -132,6 +132,36 @@ def unformatted(text: str) -> str:
     return CJK_SPACE.sub("", re.sub(r"\s+", " ", FORMATTING.sub("", marked))).lower()
 
 
+# A comment of a workflow file: from a # at the start of a line or after whitespace to the end of the line (E4). That is
+# a full-line comment at any indentation and an end-of-line comment, in the YAML and in a run script alike; a # inside a
+# word or right after a quote, as in ${REF#refs/tags/} or "### Pages payload", starts none.
+COMMENT = re.compile(r"(?:^|\s)#+(.*)$")
+
+
+def comment_blocks(text: str) -> list[tuple[int, str]]:
+    """Every comment of a workflow file (COMMENT), as blocks of consecutive lines that carry one: the number of the
+    block's first line and its comments joined with one space."""
+    blocks: list[tuple[int, str]] = []
+    block: list[str] = []
+    start = 0
+    for number, line in enumerate([*text.splitlines(), ""], 1):
+        match = COMMENT.search(line)
+        if match:
+            start = start if block else number
+            block.append(match.group(1).strip())
+        elif block:
+            blocks.append((start, " ".join(part for part in block if part)))
+            block = []
+    return blocks
+
+
+def header_comment(text: str) -> str:
+    """The header of a workflow file: every comment before its line "on:", joined with one space."""
+    lines = text.splitlines()
+    end = next(number for number, line in enumerate(lines) if line.startswith("on:"))
+    return " ".join(comment for _, comment in comment_blocks("\n".join(lines[:end])))
+
+
 class ReleaseTextTests(unittest.TestCase):
     # Texts and how unformatted() reads them (E2, E3): code, quotes, emphasis, Markdown escapes, extra spaces, HTML
     # tags, links, strikethrough, invisible characters and case are dropped; a space next to CJK text too, while a
@@ -174,15 +204,10 @@ class ReleaseTextTests(unittest.TestCase):
                 self.assertIn(unformatted(stale), unformatted(text))
 
     def test_header_comment_describes_the_release_gate(self):
-        """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Stale wording
-        counts with code backticks, quotes, emphasis or extra spaces too (unformatted()), as in the READMEs."""
-        header = []
-        for line in (WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines():
-            if line.startswith("on:"):
-                break
-            if line.startswith("#"):
-                header.append(line.lstrip("#").strip())
-        text = " ".join(header)
+        """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Every comment
+        before on: counts (header_comment()), an indented or end-of-line one too, and stale wording counts with code
+        backticks, quotes, emphasis or extra spaces too (unformatted()), as in the READMEs."""
+        text = header_comment((WORKFLOWS / "pages.yml").read_text(encoding="utf-8"))
         for stale in HEADER_STALE:
             with self.subTest(stale=stale):
                 self.assertNotIn(unformatted(stale), unformatted(text))
@@ -190,18 +215,45 @@ class ReleaseTextTests(unittest.TestCase):
             with self.subTest(required=required):
                 self.assertIn(required, text)
 
-    def test_comments_after_the_header_drop_the_retired_re_run_wording(self):
-        """The comments after the header, such as the approval job's outputs comment, do not say that a re-run without
-        the approval job repeats no lookup either (RERUN_STALE, matched as unformatted() reads them)."""
-        comments, block, after_header = [], [], False
-        for line in [*(WORKFLOWS / "pages.yml").read_text(encoding="utf-8").splitlines(), ""]:
-            after_header = after_header or line.startswith("on:")
-            if after_header and line.strip().startswith("#"):
-                block.append(line.strip().lstrip("#").strip())
-            elif block:
-                comments.append(" ".join(block))
-                block = []
+    # A workflow in the shapes that comments take in pages.yml, and its comment blocks and header (E4).
+    SAMPLE_WORKFLOW = (
+        "name: Sample  # an end-of-line comment\n"
+        "  # an indented comment\n"
+        "# a header line\n"
+        "on:\n"
+        "  workflow_dispatch:  # trailing\n"
+        "jobs:\n"
+        "  sample:\n"
+        "    steps:\n"
+        "      - uses: actions/checkout@0123456789abcdef0123456789abcdef01234567 # v1.2.3\n"
+        "      - run: |\n"
+        '          tag="${REF#refs/tags/}"\n'
+        '          echo "### not a comment"\n'
+        "          #   a shell comment\n"
+        "          #\n"
+        "          ## and more\n"
+    )
+    SAMPLE_COMMENTS = [
+        (1, "an end-of-line comment an indented comment a header line"),
+        (5, "trailing"),
+        (9, "v1.2.3"),
+        (13, "a shell comment and more"),
+    ]
+
+    def test_every_comment_of_a_workflow_is_read(self):
+        """comment_blocks() reads full-line comments at any indentation and end-of-line comments, in the YAML and in run
+        scripts, and no # inside a word or right after a quote; header_comment() is every comment before on:."""
+        self.assertEqual(comment_blocks(self.SAMPLE_WORKFLOW), self.SAMPLE_COMMENTS)
+        self.assertEqual(header_comment(self.SAMPLE_WORKFLOW), self.SAMPLE_COMMENTS[0][1])
+
+    def test_no_comment_of_pages_yml_has_the_retired_re_run_wording(self):
+        """No comment of pages.yml (comment_blocks(), the header and end-of-line comments included), such as the
+        approval job's outputs comment, says that a re-run without the approval job repeats no lookup (RERUN_STALE,
+        matched as unformatted() reads them)."""
+        blocks = comment_blocks((WORKFLOWS / "pages.yml").read_text(encoding="utf-8"))
+        comments = [comment for _, comment in blocks]
         self.assertTrue(any("outputs of an earlier attempt" in comment for comment in comments), comments)
+        self.assertIn("v7.0.1", comments, "the end-of-line comment of the checkout's pin is read")
         for stale in RERUN_STALE:
             with self.subTest(stale=stale):
                 self.assertEqual([comment for comment in comments if unformatted(stale) in unformatted(comment)], [])
