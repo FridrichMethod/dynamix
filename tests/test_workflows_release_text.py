@@ -87,17 +87,34 @@ RETIRED_ENVIRONMENT = {
 }
 # What no comment of pages.yml (the header or any other) and no part of README.md may say about a re-run without the
 # approval job (R1): that it repeats no lookup. It deploys nothing, and one that includes the build job repeats that
-# job's lookup. Matched in either reading of the text (rerun_stale()), the family is "repeat(s) no" with at most two
-# words before "lookup" ("repeats no Release lookup", "repeats no GitHub Release lookup", "repeats no further lookup",
-# "repeats no Release-lookup"), "do(es) not repeat" with at most two words before it ("does not repeat the lookup"), and
-# "lookup it does not repeat", as the approval job's outputs comment said after the first R1 fix; "look-up" and "look
-# up" count as "lookup" (E5). A sentence that says what a re-run repeats, or that names a lookup further on, is not in
-# it (RERUN_STALE_SAMPLES).
-_LOOKUP = r"look[ -]?ups?\b"
+# job's lookup. Matched in either reading of the text (rerun_stale()), the family is:
+# - "repeat(s) no" with at most two words before "lookup", whatever the subject ("repeats no Release lookup", "repeats
+#   no GitHub Release lookup", "repeats no further lookup", "repeats no Release-lookup");
+# - "does not", "do not", "doesn't", "don't" or "never" and "repeat(s)" with at most two words before "lookup" ("does
+#   not repeat the lookup"), when the subject is a re-run or a pronoun that can stand for one (m2): "re-run(s)" after at
+#   most four words that are not prepositions at the start of a clause ("A re-run", "Such re-runs", "If it failed, a
+#   re-run"), alone or followed by a phrase that starts with of, without, with, alone, that or which and starts no new
+#   clause (_NEW_CLAUSE: no sentence break, and no comma, "and", "but", "or", "so" or "while" before "the", "a", "an",
+#   "its", "this", "it" or "they"), as in "A re-run of the deploy job alone, or of any jobs without the approval job,
+#   does not"; or "it" or "they" at the start of a sentence. "The deploy job does not repeat the lookup", "The Re-run
+#   check job does not repeat the lookup" and "In a re-run, the deploy job does not repeat the lookup" are not in it;
+# - "lookup it does not repeat", as the approval job's outputs comment said after the first R1 fix.
+# "look-up" and "look up" count as "lookup" (E5). The first and the last alternative need no word boundary at either
+# end, so a text with one of 1bed861's three phrases ("repeats no lookup", "repeats no Release lookup", "lookup it does
+# not repeat"), even inside a longer word, is in the family, as 1bed861 matched them. A sentence that says what a
+# re-run repeats, or that names a lookup further on, is not in it (RERUN_STALE_SAMPLES).
+_LOOKUP = r"look[ -]?ups?"
+_PREPOSITION = r"(?:of|in|on|at|for|from|to|by|with|without|after|before|during|than|as|into|per|via) "
+_NEW_CLAUSE = r"[.;:!?](?: |$)|(?:, |,? (?:and|but|or|so|while) )(?:the|a|an|its|this|it|they) "
+_RERUN_SUBJECT = (
+    rf"(?:^|(?<=[.;:!?,]) |(?<=\())(?:(?!{_PREPOSITION})[a-z][a-z0-9-]* ){{0,4}}re-?runs?"
+    rf"(?: (?:of|without|with|alone|that|which)\b(?:(?!{_NEW_CLAUSE}).)*?)?,?"
+    r"|(?:^|(?<=[.;:!?]) )(?:it|they)"
+)
 RERUN_STALE = re.compile(
-    rf"\brepeats? no (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
-    rf"|\b(?:does|do) not repeat (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
-    rf"|\b{_LOOKUP} it does not repeat\b"
+    rf"repeats? no (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
+    rf"|(?:{_RERUN_SUBJECT}) (?:(?:does|do) not|doesnt|dont|never) repeats? (?:[a-z]+[ -]){{0,2}}{_LOOKUP}"
+    rf"|{_LOOKUP} it does not repeat"
 )
 # Wording that the pages.yml header (read when releasing) must not have (matched in either reading: has_stale()): the
 # release hold, the retired dispatch gate and wording of earlier versions of this workflow.
@@ -389,6 +406,16 @@ class ReleaseTextTests(unittest.TestCase):
             "It does not repeat lookups.",
             "Re-runs without the approval job do not repeat the lookup.",
             "It keeps the outputs of an earlier attempt, whose lookup it does not repeat.",
+            # A re-run or a pronoun as the subject of does not, doesn't, don't or never (m2).
+            "A re-run of the deploy job alone doesn't repeat the lookup.",
+            "A re-run of the deploy job alone never repeats the lookup.",
+            "A re-run of the deploy job alone, or of any jobs without the approval job, does not repeat the lookup.",
+            "Such re-runs don't repeat the lookup.",
+            "If the deployment failed, a re-run of the deploy job does not repeat the lookup.",
+            "They never repeat the Release lookup.",
+            # 1bed861's phrases as substrings, as it matched them, inside longer words too.
+            "It_repeats no lookup_step.",
+            "Its_lookup it does not repeatedly send.",
         ),
         "allowed": (
             "A re-run keeps the event of the run it repeats, so only the lookup sees a Release that is now a draft.",
@@ -398,6 +425,17 @@ class ReleaseTextTests(unittest.TestCase):
             "It repeats no guard of the approval job but the build job and its lookup run.",
             "It does not repeat the guards of the approval job while the build job repeats the lookup.",
             "A lookup that it repeats sees the Release as it is now.",
+            # Another subject of does not, doesn't or never (m2).
+            "The deploy job does not repeat the lookup; it relies on the approval job's record.",
+            "The deploy job doesn't repeat the lookup, and the Re-run check job never repeats it.",
+            "The Re-run check job does not repeat the lookup.",
+            "In a re-run of the whole run, the deploy job does not repeat the lookup.",
+            "The deploy job of a re-run never repeats the lookup.",
+            "The job of a re-run does not repeat the lookup.",
+            "A re-run of the deploy job deploys nothing, and the deploy job does not repeat the lookup.",
+            "Once a re-run of the deploy job starts, the deploy job does not repeat the lookup.",
+            "A re-run of the build job runs it. The deploy job does not repeat the lookup.",
+            "The deploy job reads the record, and it does not repeat the lookup.",
         ),
     }
 
