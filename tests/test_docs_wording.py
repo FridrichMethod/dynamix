@@ -88,13 +88,20 @@ CLAUSE_BREAK = re.compile(r"[,;:.!?](?=\s|$)|[，；：。！？]")
 COORDINATED = re.compile(r"\s*(?:(?:or|and)\b|或者|或|并且|且)", re.IGNORECASE)
 CONDITION_OPENS = re.compile(rf"\s*(?:{CONDITION_BEFORE.pattern})", re.IGNORECASE)
 # An English serial list of conditions ("If the tag is wrong, the branch is wrong, or the variable is unset, the run
-# fails closed."): commas join its items, a condition opens the first and "or" the last, and a comma after the last ends
-# the list before the consequence (serial_list()). Only the wording in the last item counts, as one of the alternatives
-# that "or" joins: after "and" ("If you check, the tag exists, and the variable is unset, so ...") or in an earlier item
-# ("If you look, the variable is unset, or so it seems, ...") it may be a statement. A correction with "or rather" in
-# the last item reads as such a list too ("If you check, the tag exists, or rather the variable is unset, so nothing
-# deploys."): only what the items mean tells the two apart.
-SERIAL_OR = re.compile(r"\s*or\b", re.IGNORECASE)
+# fails closed."): commas alone join its items; the last is the unset wording alone after "or" or "or the" (SERIAL_OR)
+# with a comma right after it; and the nearest item before that holds a condition opens with it and names what the
+# guard checks (GUARD_CONDITION) (serial_list()). It is the reading of a clause continued with "or" (COORDINATED), with
+# items that hold no condition in between, and narrower: elsewhere the wording may be a statement, after "and" ("If you
+# check the tag, it exists, and the variable is unset, so ..."), in an earlier item ("..., the variable is unset, or so
+# it seems, ..."), after a correction or hedge ("or rather", "or in fact", "or at least"), with a clause break inside it
+# ("the variable, it seems, is unset") or words after it ("is unset as it is today"), after a condition that is not the
+# guard's ("When you look today, ...") or does not open its item ("..., but when you look, ..."), and after an "or"
+# inside an item ("the docs or the settings show the variable is unset"), which is why "..., the branch is wrong or the
+# variable is unset, ..." is refused too. "Or if" needs no list: the item's own condition counts. As for "nothing is
+# deployed", a condition that names a guard word but is not the guard's reads as such a list ("When you check the tag,
+# it exists, or the variable is unset, so nothing deploys."), and as after any condition, what follows the comma is not
+# read ("..., which is the state today."): only what the words mean tells these apart.
+SERIAL_OR = re.compile(r"\s*or\s+(?:the\s+)?", re.IGNORECASE)
 # "Nothing is deployed" states the site's state unless a condition of the guard comes before it in its sentence
 # ("When ..., nothing is deployed."): one whose own clause names what the guard checks, a tag, branch, release,
 # prerelease, draft, version, commit, main, an event (push, pull request, schedule), the approval, a refusal
@@ -158,18 +165,24 @@ def clause_before(text: str, end: int) -> str:
 
 
 def serial_list(text: str, end: int) -> str | None:
-    """The English serial list of conditions (SERIAL_OR) whose last item holds ``end``, from its first item to
-    ``end``; None when ``end`` is in no such item."""
+    """The English serial list of conditions whose last item is the unset wording at ``end`` (SERIAL_OR), from its
+    first item to ``end``: "or" or "or the" alone before the wording, no clause break inside it and a comma right after
+    it, commas alone between the items, and the nearest item before that holds a condition opens with it and names what
+    the guard checks (GUARD_CONDITION). None for any other text."""
     breaks = list(CLAUSE_BREAK.finditer(text[:end]))
+    wording = UNSET_WORDING.match(text, end)
     after = CLAUSE_BREAK.search(text, end)
-    if not breaks or not SERIAL_OR.match(text[breaks[-1].end() : end]) or after is None or after.group() != ",":
+    if not breaks or wording is None or after is None or not SERIAL_OR.fullmatch(text[breaks[-1].end() : end]):
+        return None
+    if (after.start(), after.group()) != (wording.end(), ","):
         return None
     for n in range(len(breaks) - 1, -1, -1):
-        start = breaks[n - 1].end() if n else 0
         if breaks[n].group() != ",":
             return None
-        if CONDITION_OPENS.match(text[start : breaks[n].start()]):
-            return text[start:end]
+        start = breaks[n - 1].end() if n else 0
+        item = text[start : breaks[n].start()]
+        if CONDITION_BEFORE.search(item):
+            return text[start:end] if CONDITION_OPENS.match(item) and GUARD_CONDITION.search(item) else None
     return None
 
 
@@ -309,16 +322,35 @@ class ReleaseWordingTests(unittest.TestCase):
         "When you look today, the tag v1.1.0 exists, so nothing is deployed.",  # a guard word outside the condition
         # A condition inside an earlier clause joined with "and" does not cover the unset variable.
         "The tag v1.1.0 exists if you check, and the variable is unset.",
-        # An English serial list of conditions covers the unset variable only in its last item, opened by "or", with a
-        # comma after it (SERIAL_OR): not after "and" or a word that starts with "or", nor before the end of the
-        # sentence, nor after a colon between the items, nor where a condition does not open the first item, nor in an
-        # earlier item.
-        "If you check, the tag exists, and the variable is unset, so nothing deploys.",
-        "If you check, the tag exists, originally the variable was unset, so nothing deployed.",
-        "When you look today, the tag exists, or rather the variable is unset.",
-        "When you look today, you see this: the tag exists, or rather the variable is unset, so nothing deploys.",
+        # An English serial list of conditions covers the unset variable only as its last item, alone after "or" or
+        # "or the" with a comma right after it, commas alone between the items and a condition of the guard opening
+        # the nearest item that holds a condition (SERIAL_OR): not after "and" or "nor", nor before the end of the
+        # sentence (also with no mark) or a full-width comma, nor after a colon or a full-width comma between the
+        # items, nor where the condition is not the guard's or does not open its item, nor in an earlier item, nor
+        # after a correction or hedge, nor with a clause break inside the wording or words after it, nor where "or" is
+        # inside the item.
+        *(
+            f"If you check the tag, it exists, {word} the variable is unset, so nothing deploys."
+            for word in ("and", "nor")
+        ),
+        "When you check the tag, it exists, or the variable is unset.",
+        "- When you check the tag, it exists, or the variable is unset",
+        "When you check the tag, it exists, or the variable is unset，所以不会部署。",
+        "When you check the tag, you see this: it exists, or the variable is unset, so nothing deploys.",
+        "When you check the tag，it exists, or the variable is unset, so nothing deploys.",
+        "When you look today, the tag exists, or the variable is unset, so nothing deploys.",
         "The tag exists if you check, the branch is main, or the variable is unset, so nothing deploys.",
-        "When you look, the variable is unset, or so it seems, so nothing deploys.",
+        "If a tag is wrong, it fails, but when you look, it is fine, or the variable is unset, so nothing deploys.",
+        "When you check the tag, the variable is unset, or so it seems, so nothing deploys.",
+        *(
+            f"When you check the tag, it exists, or {words} the variable is unset, so nothing deploys."
+            for words in ("rather", "in fact", "at least", "more precisely", "indeed", "even")
+        ),
+        "When you check the tag, it exists, or actually `RELEASE_APPROVED_SHA` is unset, so nothing deploys.",
+        "When you check the tag, it exists, or the variable, it seems, is unset.",
+        "When you check the tag, it exists, or the variable, it seems, is unset, so nothing deploys.",
+        "When you check the tag, it exists, or the variable is unset as it is today, so nothing deploys.",
+        "If you check the tag, it exists, and the docs or the settings show the variable is unset, so nothing deploys.",
         # Variants of the accurate sentences below that still tell an event: a fronted date, a version in the clause, a
         # comma before the event verb; and held releases whose phrase names a version, also without a copula.
         "2026-10-11，所有者批准后才部署到 GitHub Pages。",
@@ -550,10 +582,13 @@ class ReleaseWordingTests(unittest.TestCase):
         "If `release_sha` is wrong, or `RELEASE_APPROVED_SHA` is unset, the dispatch fails closed.",
         "If the tag v1.1.0 names another commit or the variable is unset, the dispatch fails closed.",
         "For a dispatch, if `release_sha` is wrong, or the variable is unset, the dispatch fails closed.",
-        # An English serial list of conditions, the unset variable in its last item (SERIAL_OR), also after "OR".
+        # An English serial list of conditions, the unset variable as its last item (SERIAL_OR), also of four items,
+        # after "OR" or "or" alone, and after a lead-in before the item that the condition opens.
         "If the tag is wrong, the branch is wrong, or the variable is unset, the run fails closed.",
         "If the tag is wrong, it is a draft, it is not on `main`, or the variable is unset, the run fails closed.",
         "If the tag is wrong, the branch is wrong, OR the variable is unset, the run fails closed.",
+        "If the tag is wrong, the branch is wrong, or `RELEASE_APPROVED_SHA` is unset, the run fails closed.",
+        "For a dispatch, if the tag is wrong, the branch is wrong, or the variable is unset, the run fails closed.",
         # One sample per alternative of the rules, allowed only through that alternative. Each guard word alone in its
         # sentence.
         "A deployment requires a published release.",
