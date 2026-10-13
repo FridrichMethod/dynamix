@@ -240,6 +240,11 @@ RELEASE_LOOKUP_DENIED = {
     "dispatch whose Release lookup is redirected (HTTP 301)": looked_up(
         dispatched(TAGGED), "301", json.dumps({"message": "Moved Permanently"})
     ),
+    # Only the status refuses this one: the body is the tag's published Release, so a guard that also accepted a
+    # redirect would deploy (curl follows no redirect, so a 301 is never the Release itself).
+    "dispatch whose Release lookup is redirected (HTTP 301) with the Release's body": looked_up(
+        dispatched(TAGGED), "301", release_body("v1.1.0")
+    ),
     "dispatch whose Release lookup fails at the server (HTTP 502)": looked_up(
         dispatched(TAGGED), "502", "<html>Bad gateway</html>"
     ),
