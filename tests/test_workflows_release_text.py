@@ -373,6 +373,24 @@ class ReleaseTextTests(unittest.TestCase):
                 self.assertNotIn(stale or "repeats no lookup", unformatted(text))
                 self.assertTrue(has_stale(text, stale) if stale else rerun_stale(text))
 
+    # Stale wording that only the text without MARKUP has (N2): split by a tag or a link, which unformatted() drops
+    # but the text as written (unformatted() with markup false) keeps. The first reading of readings() finds it.
+    SHOWN_SAMPLES = (
+        ("The environment allows <code>main</code>.", "allows main"),
+        ("The environment allows [main](https://example.invalid/main).", "allows main"),
+        ("A re-run repeats <em>no</em> lookup.", None),
+        ("It does not repeat <code>the</code> lookup.", None),
+    )
+
+    def test_markup_hides_no_wording_that_the_text_shows(self):
+        """Stale wording counts in the reading without MARKUP as well (readings()), so a tag or a link inside it does
+        not hide it (N2)."""
+        for text, stale in self.SHOWN_SAMPLES:
+            with self.subTest(text=text):
+                written = unformatted(text, markup=False)
+                self.assertFalse(unformatted(stale) in written if stale else RERUN_STALE.search(written))
+                self.assertTrue(has_stale(text, stale) if stale else rerun_stale(text))
+
     def test_header_comment_describes_the_release_gate(self):
         """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Every comment
         before on: counts (header_comment()), an indented or end-of-line one too, and so do the lines that start with #
