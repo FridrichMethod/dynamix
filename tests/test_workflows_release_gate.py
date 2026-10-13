@@ -97,13 +97,14 @@ MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}", "GIT_T
 # moved, so the checkout's tag always names the run's commit. A read of the public repository, without credentials.
 MAIN_GUARD_NAME = "Refuse unless the tag names the checked-out commit and it is on main"
 # The read is bounded as the Release lookup's curl is (F2): GNU timeout ends a git ls-remote that a stalled origin
-# holds, with exit status 124, and the guard fails through its "|| fail" (LS_REMOTE_FAILS) within LS_REMOTE_MAX_SECONDS
-# instead of at the job's timeout (10 minutes in the approval job, 30 in the build job). The limit is a positive number
-# of whole seconds (timeout 0 sets none), and timeout takes no option: with --foreground it would stop git alone and
-# leave git's transport helper (git-remote-http) running past the limit.
+# holds, with exit status 124, and the guard fails through its "|| fail" (LS_REMOTE_FAILS) after LS_REMOTE_SECONDS
+# instead of at the job's timeout (10 minutes in the approval job, 30 in the build job). The limit is exactly 60 whole
+# seconds, the minute within which the main guard's comment says the guard fails (timeout 0 would set none), and
+# timeout takes no option: with --foreground it would stop git alone and leave git's transport helper
+# (git-remote-http) running past the limit.
 LS_REMOTE = re.compile(r'remote="\$\(timeout (?P<seconds>[0-9]+) git ls-remote origin "\$REF" "\$REF\^\{\}"\)"')
 LS_REMOTE_FAILS = ' \\\n  || fail "The tag $REF could not be read from origin."\n'  # in the run script as parsed
-LS_REMOTE_MAX_SECONDS = 120
+LS_REMOTE_SECONDS = 60
 # The Release lookup (owner decision D1): one read-only GET of the tag's Release with the job token, whose response the
 # Release guard after it reads from RUNNER_TEMP. Only these two steps of each Pages job see the token. A release run
 # looks the Release up as a dispatch does: a re-run keeps the event of the run it repeats, which no longer tells whether
@@ -454,16 +455,15 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
                 self.assertTrue(step["run"].startswith('fail() { echo "::error::$1"; exit 1; }\n'))
 
     def test_the_main_guard_bounds_its_read_of_origin(self):
-        """Each main guard reads origin with exactly one git ls-remote under timeout, whose limit is a positive number
-        of whole seconds no longer than LS_REMOTE_MAX_SECONDS, and fails through "|| fail" when the read fails or runs
-        over it (F2). tests/test_workflows_release_guards.py runs the guard when timeout ends the read."""
+        """Each main guard reads origin with exactly one git ls-remote under timeout, whose limit is LS_REMOTE_SECONDS
+        (60 whole seconds, as its comment says), and fails through "|| fail" when the read fails or runs over it
+        (F2). tests/test_workflows_release_guards.py runs the guard when timeout ends the read."""
         for job_id in ("approval", "build"):
             script = self.guards(job_id)["main"]["run"]
             reads = list(LS_REMOTE.finditer(script))
             with self.subTest(job=job_id):
                 self.assertEqual(len(reads), 1, "one bounded read of origin")
-                self.assertRegex(reads[0].group("seconds"), r"^[1-9][0-9]*$", "a positive number of whole seconds")
-                self.assertLessEqual(int(reads[0].group("seconds")), LS_REMOTE_MAX_SECONDS)
+                self.assertEqual(reads[0].group("seconds"), str(LS_REMOTE_SECONDS), "60 whole seconds")
                 self.assertEqual(script[reads[0].end() : reads[0].end() + len(LS_REMOTE_FAILS)], LS_REMOTE_FAILS)
                 self.assertEqual(script.count("git ls-remote"), 1)
 

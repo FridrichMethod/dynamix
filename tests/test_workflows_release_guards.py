@@ -27,7 +27,7 @@ from test_workflows_release_gate import (  # noqa: E402
     ACCEPTED,
     DENIED,
     LOOKUP,
-    LS_REMOTE_MAX_SECONDS,
+    LS_REMOTE_SECONDS,
     RELEASE_LOOKUP_DENIED,
     REPOSITORY,
     RERUN_CHECK,
@@ -563,7 +563,7 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
         """The main guard reads origin under timeout (F2): when timeout ends the read (status 124, here from a
         stand-in that exits so at once), the guard fails with the one error of an origin it cannot read. The stand-in
         sees the limit and the read it bounds: git ls-remote of origin's tag and its peeled line. The limit itself is
-        pinned in tests/test_workflows_release_gate.py (LS_REMOTE_MAX_SECONDS); a real origin that accepts the
+        pinned in tests/test_workflows_release_gate.py (LS_REMOTE_SECONDS); a real origin that accepts the
         connection and never answers fails the guard only after it, which is too slow for this suite."""
         with tempfile.TemporaryDirectory() as temporary:
             root, _, commits = release_repository(Path(temporary))
@@ -585,8 +585,7 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
                     self.assertTrue(call.exists(), "the read of origin goes through timeout")
                     limit, *command = call.read_text(encoding="utf-8").splitlines()
                     self.assertEqual(command, ["git", "ls-remote", "origin", ref, f"{ref}^{{}}"])
-                    self.assertRegex(limit, r"^[1-9][0-9]*$")
-                    self.assertLessEqual(int(limit), LS_REMOTE_MAX_SECONDS)
+                    self.assertEqual(limit, str(LS_REMOTE_SECONDS))
                     passed = run_guard(step, context, cwd=root)  # the real timeout and git: origin has the tag
                     self.assertEqual(passed.returncode, 0, passed.stdout + passed.stderr)
 
