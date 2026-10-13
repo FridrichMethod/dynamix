@@ -98,11 +98,13 @@ EXPRESSION_FUNCTIONS = {  # arguments cast to strings, compared ignoring case
     "contains": lambda text, part: part in text,
 }
 JSON_FUNCTION = "toJSON"  # one argument, written as JSON
-# The one status function that evaluate() knows: always() is true whatever the results of the needed jobs (the Re-run
-# check job of pages.yml). GitHub prefixes success() to a job if: that names no status function; run_attempt() in
-# tests/test_workflows_release_guards.py applies that rule. success(), failure() and cancelled() depend on the state of
-# the run and stay refused.
-ALWAYS_FUNCTION = "always"
+# The status functions that evaluate() knows, each without arguments: always() is true whatever happened in the run,
+# and cancelled() is true when the run was cancelled, which a context gives as RUN_CANCELLED: True (a context without
+# it, or with any other value, describes a run that was not cancelled). GitHub prefixes success() to a job if: that
+# names no status function; run_attempt() in tests/test_workflows_release_guards.py applies that rule. success() and
+# failure() depend on the results of the needed jobs and stay refused.
+STATUS_FUNCTIONS = ("always", "cancelled")
+RUN_CANCELLED = "run cancelled"  # a context key, not a GitHub context name: whether the run was cancelled
 JSON_NUMBER = re.compile(r"-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?")
 
 
@@ -166,8 +168,8 @@ def loosely_equal(left: object, right: object) -> bool:
 class _Expression:
     """Recursive descent over GitHub's precedence: ``( )``, ``!``, ``== !=``, ``&&``, ``||``. ``&&`` and ``||``
     return an operand (the first falsy one, the first truthy one), as GitHub does. Indexing, the ordering operators,
-    the status functions other than always() and every function other than toJSON() and the string functions raise
-    :class:`ExpressionError` instead of being guessed."""
+    the status functions other than always() and cancelled() and every function other than toJSON() and the string
+    functions raise :class:`ExpressionError` instead of being guessed."""
 
     def __init__(self, expression: str, context: dict):
         self.tokens: list[tuple[str, str]] = []
@@ -246,10 +248,10 @@ class _Expression:
         return self.context.get(text)  # a missing context value is null
 
     def call(self, name: str) -> object:
-        if name == ALWAYS_FUNCTION:
+        if name in STATUS_FUNCTIONS:
             self.take("(")
-            self.take(")")  # always() takes no argument
-            return True
+            self.take(")")  # a status function takes no argument
+            return True if name == "always" else self.context.get(RUN_CANCELLED) is True
         if name not in EXPRESSION_FUNCTIONS and name != JSON_FUNCTION:
             raise ExpressionError(f"unsupported function {name}()")
         self.take("(")
@@ -445,13 +447,30 @@ class ExpressionEvaluatorTests(unittest.TestCase):
             context,
         )
 
-    def test_always_is_true_and_takes_no_argument(self):
-        """always(), the status function of the Re-run check job's if:, is true; it combines like any other value."""
+    def test_status_functions_read_the_run_and_take_no_argument(self):
+        """always() is true, also in a cancelled run; cancelled(), of the Re-run check job's if: (as !cancelled()), is
+        true exactly when the context says the run was cancelled (RUN_CANCELLED: True). Both combine like any other
+        value, and a name without a call is a context value (null), not the function."""
         self.check({"always()": True, "!always()": False, "always() && false": False, "false || always()": True})
         self.check({"always() && needs.approval.result == 'success'": True}, {"needs.approval.result": "success"})
-        for expression in ("always(true)", "always(", "always"):
+        self.check({"cancelled()": False, "!cancelled()": True, "!cancelled() && true": True, "cancelled": False})
+        cancelled = {RUN_CANCELLED: True, "needs.approval.result": "success"}
+        self.check(
+            {
+                "cancelled()": True,
+                "!cancelled()": False,
+                "always()": True,
+                "!cancelled() && needs.approval.result == 'success'": False,
+                "cancelled() || false": True,
+            },
+            cancelled,
+        )
+        for value in (False, None, "true", 1):
+            with self.subTest(run_cancelled=value):
+                self.assertIs(evaluate("cancelled()", {RUN_CANCELLED: value}), False)
+        for expression in ("always(true)", "always(", "always", "cancelled(true)", "cancelled("):
             with self.subTest(expression=expression):
-                if expression == "always":  # a name without a call is a context value (null), not the function
+                if expression == "always":
                     self.assertIs(evaluate(expression, {}), False)
                     continue
                 with self.assertRaises(ExpressionError):
@@ -474,8 +493,7 @@ class ExpressionEvaluatorTests(unittest.TestCase):
             "",
             "success() && true",
             "failure()",
-            "cancelled()",
-            "!cancelled() && true",
+            "!failure() && true",
             "fromJSON('1')",
             "toJSON()",
             "toJSON(a, b)",
