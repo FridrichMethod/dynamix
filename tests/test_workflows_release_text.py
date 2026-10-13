@@ -60,6 +60,8 @@ GATE5_ENVIRONMENT = (
 # v1.1.1 uses that tag's workflow, which has neither the attempt record nor the origin check, so re-run such a run
 # whole. It now accepts tags from v1.1.2 on (GATE5_ENVIRONMENT). The pages.yml header (English) and the READMEs
 # (README.md English, README.zh-CN.md Chinese) must not say any of this again; matched in either reading (has_stale()).
+# "Neither" counts only after "own workflow" (m2): a sentence such as "a dispatch on a branch, which has neither a tag
+# nor a Release, fails closed" is accurate (RETIRED_ENVIRONMENT_SAMPLES).
 RETIRED_ENVIRONMENT = {
     "en": (
         "only tags from v1.1.1 on should be run by hand",
@@ -69,7 +71,7 @@ RETIRED_ENVIRONMENT = {
         "allows deployments from main",
         "from v1.1.1 on",
         "a run on v1.1.1 uses that tag's own workflow",
-        "which has neither",
+        "own workflow, which has neither",
         "re-run such a run whole",
     ),
     "zh": (
@@ -79,7 +81,7 @@ RETIRED_ENVIRONMENT = {
         "允许来自 main",
         "v1.1.1 起",
         "在 v1.1.1 上的运行会使用该标签自己的工作流",
-        "两者都没有",
+        "自己的工作流，两者都没有",
         "这样的运行也应整次重新运行",
     ),
 }
@@ -433,6 +435,25 @@ class ReleaseTextTests(unittest.TestCase):
         for phrase in GATE5_ENVIRONMENT:
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
+
+    # Sentences in and outside RETIRED_ENVIRONMENT (m2), in English and Chinese.
+    RETIRED_ENVIRONMENT_SAMPLES = {
+        "stale": (
+            ("en", "A run on an older tag uses that tag's own workflow, which has neither."),
+            ("zh", "较早标签上的运行会使用该标签自己的工作流，两者都没有。"),
+        ),
+        "allowed": (
+            ("en", "A dispatch on a branch, which has neither a vX.Y.Z tag nor a Release, fails closed."),
+            ("zh", "如果两者都没有，该文件不会收录。"),
+        ),
+    }
+
+    def test_the_retired_environment_wording_is_narrow(self):
+        for kind, sentences in self.RETIRED_ENVIRONMENT_SAMPLES.items():
+            for language, sentence in sentences:
+                with self.subTest(kind=kind, sentence=sentence):
+                    found = [stale for stale in RETIRED_ENVIRONMENT[language] if has_stale(sentence, stale)]
+                    self.assertEqual(bool(found), kind == "stale", found)
 
     def test_readmes_drop_the_retired_environment_rule(self):
         """The READMEs, which describe the release, no longer say that the environment allows main or every v* tag,
