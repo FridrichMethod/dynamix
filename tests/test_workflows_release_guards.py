@@ -3,8 +3,8 @@
 tests/test_workflows_release_gate.py holds the scenarios, the deploy condition and the checks of the workflow as written.
 Here the guard steps of the approval and the build job run in bash as GitHub runs them: the event guard, the Release
 lookup with a stand-in curl (it records each request and answers with the scenario's response, so no request leaves the
-machine) and the Release guard; the main guard in temporary Git repositories with a local bare origin; and the approval
-job's record step.
+machine) and the Release guard; the main guard in temporary Git repositories with a local bare origin, also with a
+stand-in timeout that ends its read of origin; and the approval job's record step.
 """
 
 import functools
@@ -25,6 +25,7 @@ from test_workflows_release_gate import (  # noqa: E402
     ACCEPTED,
     DENIED,
     LOOKUP,
+    LS_REMOTE_MAX_SECONDS,
     RELEASE_LOOKUP_DENIED,
     REPOSITORY,
     SHA,
@@ -121,6 +122,11 @@ ORIGIN_CHANGES = {
     "a lightweight tag moved on origin": ("v1.0.0", "first", (("tag", "-f", "v1.0.0", "second"),), "second"),
     "a tag deleted on origin": ("v1.1.0", "second", (("tag", "-d", "v1.1.0"),), "no commit"),
 }
+
+
+# A stand-in for GNU timeout, put first on PATH: it writes its arguments, one per line, to $STAND_IN_TIMEOUT_CALL and
+# exits at once with 124, the status of timeout when the command ran over the limit, without starting the command (F2).
+STAND_IN_TIMEOUT = '#!/bin/sh\nprintf "%s\\n" "$@" > "$STAND_IN_TIMEOUT_CALL"\nexit 124\n'
 
 
 WIDE_DIGIT = "\u0663"  # ARABIC-INDIC DIGIT THREE
@@ -406,6 +412,38 @@ class ReleaseGuardTests(PagesJobs, unittest.TestCase):
                     self.assertNotEqual(result.returncode, 0)
                     self.assertEqual(len(error_lines(result)), 1, result.stdout)
                     self.assertIn("could not be read from origin", error_lines(result)[0])
+
+    @unittest.skipUnless(shutil.which("bash") and shutil.which("git"), "needs bash and git to execute the guard step")
+    def test_main_guard_fails_when_origin_does_not_answer_in_time(self):
+        """The main guard reads origin under timeout (F2): when timeout ends the read (status 124, here from a
+        stand-in that exits so at once), the guard fails with the one error of an origin it cannot read. The stand-in
+        sees the limit and the read it bounds: git ls-remote of origin's tag and its peeled line. The limit itself is
+        pinned in tests/test_workflows_release_gate.py (LS_REMOTE_MAX_SECONDS); a real origin that accepts the
+        connection and never answers fails the guard only after it, which is too slow for this suite."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _, commits = release_repository(Path(temporary))
+            tools = Path(temporary) / "timeout-bin"
+            tools.mkdir()
+            (tools / "timeout").write_text(STAND_IN_TIMEOUT, encoding="utf-8")
+            (tools / "timeout").chmod(0o755)
+            path = f"{tools}{os.pathsep}{os.environ.get('PATH', '/usr/bin:/bin')}"
+            second, ref = commits["second"], "refs/tags/v1.1.0"
+            git(root, "checkout", "-q", "--detach", second)
+            for job_id in ("approval", "build"):
+                with self.subTest(job=job_id):
+                    call = Path(temporary) / f"timeout-{job_id}.txt"
+                    context = {"github.ref": ref, "github.sha": second}
+                    step = self.guards(job_id)["main"]
+                    result = run_guard(step, context, cwd=root, PATH=path, STAND_IN_TIMEOUT_CALL=str(call))
+                    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+                    self.assertEqual(error_lines(result), [f"::error::The tag {ref} could not be read from origin."])
+                    self.assertTrue(call.exists(), "the read of origin goes through timeout")
+                    limit, *command = call.read_text(encoding="utf-8").splitlines()
+                    self.assertEqual(command, ["git", "ls-remote", "origin", ref, f"{ref}^{{}}"])
+                    self.assertRegex(limit, r"^[1-9][0-9]*$")
+                    self.assertLessEqual(int(limit), LS_REMOTE_MAX_SECONDS)
+                    passed = run_guard(step, context, cwd=root)  # the real timeout and git: origin has the tag
+                    self.assertEqual(passed.returncode, 0, passed.stdout + passed.stderr)
 
     def main_guard_after(
         self, job_id: str, root: Path, origin: Path, commands: list[list[str]], ref: str, sha: str

@@ -69,7 +69,14 @@ MAIN_GUARD_ENV = {"REF": "${{ github.ref }}", "SHA": "${{ github.sha }}", "GIT_T
 # The main guard also reads the tag from origin (SEC-2): actions/checkout refetches +<github.sha>:<tag> when the tag has
 # moved, so the checkout's tag always names the run's commit. A read of the public repository, without credentials.
 MAIN_GUARD_NAME = "Refuse unless the tag names the checked-out commit and it is on main"
-LS_REMOTE = 'remote="$(git ls-remote origin "$REF" "$REF^{}")"'
+# The read is bounded as the Release lookup's curl is (F2): GNU timeout ends a git ls-remote that a stalled origin
+# holds, with exit status 124, and the guard fails through its "|| fail" (LS_REMOTE_FAILS) within LS_REMOTE_MAX_SECONDS
+# instead of at the job's timeout (10 minutes in the approval job, 30 in the build job). The limit is a positive number
+# of whole seconds (timeout 0 sets none), and timeout takes no option: with --foreground it would stop git alone and
+# leave git's transport helper (git-remote-http) running past the limit.
+LS_REMOTE = re.compile(r'remote="\$\(timeout (?P<seconds>[0-9]+) git ls-remote origin "\$REF" "\$REF\^\{\}"\)"')
+LS_REMOTE_FAILS = ' \\\n  || fail "The tag $REF could not be read from origin."\n'  # in the run script as parsed
+LS_REMOTE_MAX_SECONDS = 120
 # The Release lookup (owner decision D1): one read-only GET of the tag's Release with the job token, whose response the
 # Release guard after it reads from RUNNER_TEMP. Only these two steps of each Pages job see the token. A release run
 # looks the Release up as a dispatch does: a re-run keeps the event of the run it repeats, which no longer tells whether
@@ -467,11 +474,25 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
         self.assertNotIn("uses", main)
         self.assertEqual(main["name"], MAIN_GUARD_NAME)
         self.assertEqual(main["env"], MAIN_GUARD_ENV)
-        self.assertEqual(main["run"].count(LS_REMOTE), 1, "the tag as origin has it, peeled to its commit")
+        self.assertEqual(len(LS_REMOTE.findall(main["run"])), 1, "the tag as origin has it, peeled to its commit")
         self.assertIn('git merge-base --is-ancestor "$SHA" refs/remotes/origin/main', main["run"])
         for step in (event, lookup, release, main):
             with self.subTest(step=step["name"]):
                 self.assertTrue(step["run"].startswith('fail() { echo "::error::$1"; exit 1; }\n'))
+
+    def test_the_main_guard_bounds_its_read_of_origin(self):
+        """Each main guard reads origin with exactly one git ls-remote under timeout, whose limit is a positive number
+        of whole seconds no longer than LS_REMOTE_MAX_SECONDS, and fails through "|| fail" when the read fails or runs
+        over it (F2). tests/test_workflows_release_guards.py runs the guard when timeout ends the read."""
+        for job_id in ("approval", "build"):
+            script = self.guards(job_id)["main"]["run"]
+            reads = list(LS_REMOTE.finditer(script))
+            with self.subTest(job=job_id):
+                self.assertEqual(len(reads), 1, "one bounded read of origin")
+                self.assertRegex(reads[0].group("seconds"), r"^[1-9][0-9]*$", "a positive number of whole seconds")
+                self.assertLessEqual(int(reads[0].group("seconds")), LS_REMOTE_MAX_SECONDS)
+                self.assertEqual(script[reads[0].end() : reads[0].end() + len(LS_REMOTE_FAILS)], LS_REMOTE_FAILS)
+                self.assertEqual(script.count("git ls-remote"), 1)
 
     def test_the_retired_dispatch_gate_is_gone(self):
         text = (WORKFLOWS / "pages.yml").read_text(encoding="utf-8")
@@ -642,7 +663,7 @@ class ReleaseGateTests(PagesJobs, unittest.TestCase):
                 if role is not None:
                     self.assertIn(job_id, ("approval", "build"))
                     self.assertEqual(len(network), 1)
-                    self.assertIn(RELEASE_API if role == "lookup" else LS_REMOTE, network[0])
+                    self.assertRegex(network[0], re.escape(RELEASE_API) if role == "lookup" else LS_REMOTE)
                     found[role] += 1
                 if role == "lookup":
                     self.assertEqual(step["env"]["TOKEN"], "${{ github.token }}")

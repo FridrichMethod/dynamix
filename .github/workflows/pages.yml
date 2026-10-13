@@ -160,8 +160,10 @@ jobs:
           tagged="$(git rev-parse --verify --quiet "$REF^{commit}")" || fail "The tag $REF is not in the checkout."
           [ "$tagged" = "$SHA" ] || fail "The tag $REF names $tagged, not the release commit $SHA."
           # actions/checkout fetches the tag at the run's commit, so the checkout cannot show a tag moved since the run
-          # started. The tag as origin has it now, peeled to its commit, must name the same commit.
-          remote="$(git ls-remote origin "$REF" "$REF^{}")" || fail "The tag $REF could not be read from origin."
+          # started. The tag as origin has it now, peeled to its commit, must name the same commit. timeout ends a read
+          # that a stalled origin holds, as --max-time ends the Release lookup, so the guard fails within a minute.
+          remote="$(timeout 60 git ls-remote origin "$REF" "$REF^{}")" \
+            || fail "The tag $REF could not be read from origin."
           named="" peeled=""
           while read -r object name; do
             case "$name" in
@@ -310,8 +312,10 @@ jobs:
           tagged="$(git rev-parse --verify --quiet "$REF^{commit}")" || fail "The tag $REF is not in the checkout."
           [ "$tagged" = "$SHA" ] || fail "The tag $REF names $tagged, not the release commit $SHA."
           # actions/checkout fetches the tag at the run's commit, so the checkout cannot show a tag moved since the run
-          # started. The tag as origin has it now, peeled to its commit, must name the same commit.
-          remote="$(git ls-remote origin "$REF" "$REF^{}")" || fail "The tag $REF could not be read from origin."
+          # started. The tag as origin has it now, peeled to its commit, must name the same commit. timeout ends a read
+          # that a stalled origin holds, as --max-time ends the Release lookup, so the guard fails within a minute.
+          remote="$(timeout 60 git ls-remote origin "$REF" "$REF^{}")" \
+            || fail "The tag $REF could not be read from origin."
           named="" peeled=""
           while read -r object name; do
             case "$name" in
