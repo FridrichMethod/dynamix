@@ -1,11 +1,13 @@
 """The release text around .github/workflows/pages.yml: what its comments and the READMEs say about the release gate.
 
 A maintainer reads the pages.yml header when releasing, and the READMEs, which are staged with the website, describe the
-release. The header says what deploys and what fails closed (HEADER_REQUIRED); no comment of pages.yml says that a
-re-run without the approval job repeats no lookup (RERUN_STALE); the READMEs say that such a re-run deploys nothing and
-fails at the Re-run check job (README_RERUN) and no longer describe the retired environment rule (RETIRED_ENVIRONMENT);
-Gate 5 of docs/implementation/06-validation-and-release.md records the review fixes (GATE5_REVIEW_FIXES). Stale wording
-is matched as unformatted() reads it. tests/test_workflows_release_gate.py checks the workflow itself.
+release. The header (every comment before on:) says what deploys and what fails closed (HEADER_REQUIRED); no comment of
+pages.yml (comment_blocks()) and no part of README.md says that a re-run without the approval job repeats no lookup
+(RERUN_STALE); the READMEs say that such a re-run deploys nothing and fails at the Re-run check job (README_RERUN) and
+no longer describe the retired environment rules (RETIRED_ENVIRONMENT); Gate 5 of
+docs/implementation/06-validation-and-release.md records the review fixes and the environment from v1.1.2 on
+(GATE5_REVIEW_FIXES, GATE5_ENVIRONMENT). Stale wording is matched as unformatted() reads it.
+tests/test_workflows_release_gate.py checks the workflow itself.
 """
 
 import re
