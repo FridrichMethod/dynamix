@@ -142,10 +142,17 @@ HEADER_REQUIRED = (
 )
 
 
-# What unformatted() reads as markup, keeping only the text that it marks: an HTML tag (<code>main</code> reads main; an
-# autolink such as <https://...> goes whole) and the brackets and target of an inline Markdown link ([main](...) reads
-# main). A < that a letter or a / does not follow, as in "a < b", starts no tag.
-MARKUP = re.compile(r"</?[A-Za-z][^<>\n]*>|\[([^\[\]\n]*)\]\([^()\s]*\)")
+# What unformatted() reads as markup, keeping only the text that it marks, as CommonMark reads it on one line: an open
+# tag (a tag name, attributes after spaces or tabs, an optional / and >) or a closing tag, which goes (<code>main</code>
+# reads main); an autolink such as <https://...>, which goes whole; and the brackets and target of an inline link
+# ([main](...) reads main). Any other <, as in "a < b" or a version comparison such as "<v1.1.2 ... >=v1.1.2", starts
+# no tag and stays, as GitHub shows it (M1).
+_ATTRIBUTE = r"""[ \t]+[A-Za-z_:][A-Za-z0-9_.:-]*(?:[ \t]*=[ \t]*(?:[^\s"'=<>`]+|'[^'\n]*'|"[^"\n]*"))?"""
+MARKUP = re.compile(
+    rf"<[A-Za-z][A-Za-z0-9-]*(?:{_ATTRIBUTE})*[ \t]*/?>|</[A-Za-z][A-Za-z0-9-]*[ \t]*>"
+    r"|<[A-Za-z][A-Za-z0-9+.-]{1,31}:[^\s<>]*>"
+    r"|\[([^\[\]\n]*)\]\([^()\s]*\)"
+)
 # What unformatted() drops: code backticks, backslashes (Markdown escapes such as \*), the emphasis and strikethrough
 # markers *, _ and ~, straight and curly quotes, and invisible format characters (zero-width space, non-joiner and
 # joiner, word joiner, byte order mark and soft hyphen), which split a word without showing.
@@ -197,9 +204,9 @@ def header_comment(text: str) -> str:
 
 
 class ReleaseTextTests(unittest.TestCase):
-    # Texts and how unformatted() reads them (E2, E3): code, quotes, emphasis, Markdown escapes, extra spaces, HTML
+    # Texts and how unformatted() reads them (E2, E3, M1): code, quotes, emphasis, Markdown escapes, extra spaces, HTML
     # tags, links, strikethrough, invisible characters and case are dropped; a space next to CJK text too, while a
-    # space between Latin words and a < that starts no tag stay.
+    # space between Latin words and a < that starts no tag (MARKUP), as in a version comparison, stay.
     UNFORMATTED = {
         "allows `main`": "allows main",
         'allows "main"': "allows main",
@@ -211,6 +218,7 @@ class ReleaseTextTests(unittest.TestCase):
         "allows  main\n and\tmore": "allows main and more",
         "allows <code>main</code>": "allows main",
         'allows <span class="x">main</span><br/>': "allows main",
+        "allows <a href=x title=\"a b\" class='c'>main</a>": "allows main",
         "allows [main](https://example.invalid/main)": "allows main",
         "see <https://example.invalid/> now": "see now",
         "allows ~~main~~": "allows main",
@@ -219,10 +227,12 @@ class ReleaseTextTests(unittest.TestCase):
         ),
         "Allows MAIN": "allows main",
         "a < b and c > d": "a < b and c > d",
+        "a tag <v1.1.2 runs its workflow (>=v1.1.2 deploys)": "a tag <v1.1.2 runs its workflow (>=v1.1.2 deploys)",
         "环境允许`main`": "环境允许main",
         "环境允许 main 部署": "环境允许main部署",
         "不会再次查询 **Release**。": "不会再次查询release。",
         "（ v1.1.1 ）起": "（v1.1.1）起",
+        "早于 <v1.1.2 的标签（>=v1.1.2 不同）": "早于<v1.1.2的标签（>=v1.1.2不同）",
     }
 
     def test_unformatted_reads_formatted_text_as_plain_text(self):
@@ -238,6 +248,36 @@ class ReleaseTextTests(unittest.TestCase):
         ):
             with self.subTest(text=text, stale=stale):
                 self.assertIn(unformatted(stale), unformatted(text))
+
+    # Text in which a < starts no tag, as a version comparison such as "<v1.1.2 ... >=v1.1.2" does (M1), in README.md,
+    # README.zh-CN.md, a comment of pages.yml and its header, with the stale wording that v1.1.2 refused in each.
+    ANGLE_COMMENT = "On a tag <v1.1.2 a deploy-only re-run repeats no lookup (>=v1.1.2 differs)."
+    ANGLE_SAMPLES = (
+        (
+            "README.md",
+            "A run on a tag <v1.1.2 uses its own workflow; the environment allows main and refuses it (>=v1.1.2 "
+            "deploys).",
+            "allows main",
+        ),
+        (
+            "README.zh-CN.md",
+            "早于 <v1.1.2 的标签：只重新运行部署任务不会再次查询 Release（>=v1.1.2 不同）。",
+            "不会再次查询 Release",
+        ),
+        ("pages.yml", ANGLE_COMMENT, "repeats no lookup"),
+        ("pages.yml header", ANGLE_COMMENT, "repeats no lookup"),
+    )
+
+    def test_a_less_than_sign_that_starts_no_tag_hides_no_wording(self):
+        """unformatted() keeps the text between a < that starts no tag and the next >, so the stale wording in it is
+        still found, as v1.1.2 found it (M1)."""
+        for document, text, stale in self.ANGLE_SAMPLES:
+            if document == "pages.yml header":
+                text = header_comment(f"# {text}\non:\n")
+            with self.subTest(document=document):
+                self.assertIn(unformatted(stale), unformatted(text))
+                if document.startswith("pages.yml"):
+                    self.assertTrue(RERUN_STALE.search(unformatted(text)), text)
 
     def test_header_comment_describes_the_release_gate(self):
         """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Every comment
