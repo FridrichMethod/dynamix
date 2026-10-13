@@ -1,7 +1,8 @@
 """The release text around .github/workflows/pages.yml: what its comments and the READMEs say about the release gate.
 
 A maintainer reads the pages.yml header when releasing, and the READMEs, which are staged with the website, describe the
-release. The header (every comment before on:) says what deploys and what fails closed (HEADER_REQUIRED); no comment of
+release. The header (every comment before on:, and its lines that start with # alone: header_readings()) says what
+deploys and what fails closed (HEADER_REQUIRED) and has no stale wording (HEADER_STALE, RERUN_STALE); no comment of
 pages.yml (comment_blocks()) and no part of README.md says that a re-run without the approval job repeats no lookup
 (RERUN_STALE); the READMEs say that such a re-run deploys nothing and fails at the Re-run check job (README_RERUN) and
 no longer describe the retired environment rules (RETIRED_ENVIRONMENT); Gate 5 of
@@ -252,6 +253,33 @@ def header_comment(text: str) -> str:
     return " ".join(comment for _, comment in comment_blocks("\n".join(lines[:end])))
 
 
+def header_readings(workflow: str) -> tuple[str, str]:
+    """The two readings of the header of the workflow file ``workflow`` (N1): header_comment(), and its lines that
+    start with # alone, each without its leading #s and outer whitespace, joined with one space, as v1.1.2 read the
+    header. So an indented comment or a line of code with an end-of-line comment between two such lines splits no
+    stale phrase and no required one that v1.1.2 read across them (HEADER_LAYOUT_SAMPLES)."""
+    lines = workflow.splitlines()
+    end = next(number for number, line in enumerate(lines) if line.startswith("on:"))
+    column_zero = " ".join(line.lstrip("#").strip() for line in lines[:end] if line.startswith("#"))
+    return header_comment(workflow), column_zero
+
+
+def header_stale(workflow: str) -> list[str]:
+    """The stale wording in either reading of the header of ``workflow`` (header_readings()): each HEADER_STALE phrase
+    that has_stale() finds and what rerun_stale() finds."""
+    return [
+        found
+        for header in header_readings(workflow)
+        for found in (*(stale for stale in HEADER_STALE if has_stale(header, stale)), *rerun_stale(header))
+    ]
+
+
+def header_missing(workflow: str, required: tuple[str, ...] = HEADER_REQUIRED) -> list[str]:
+    """Each phrase of ``required`` (HEADER_REQUIRED) that either reading of the header of ``workflow``
+    (header_readings()) lacks as written."""
+    return [phrase for header in header_readings(workflow) for phrase in required if phrase not in header]
+
+
 class ReleaseTextTests(unittest.TestCase):
     # Texts and how unformatted() reads them (E2, E3, M1): code, quotes, emphasis, Markdown escapes, extra spaces, HTML
     # tags, links, strikethrough, invisible characters and case are dropped; a space next to CJK text too, while a
@@ -347,17 +375,39 @@ class ReleaseTextTests(unittest.TestCase):
 
     def test_header_comment_describes_the_release_gate(self):
         """A maintainer reads this comment when releasing: it says what deploys and what fails closed. Every comment
-        before on: counts (header_comment()), an indented or end-of-line one too, and stale wording counts with code
-        backticks, quotes, emphasis or extra spaces too, in either reading (readings()), as in the READMEs."""
-        text = header_comment((WORKFLOWS / "pages.yml").read_text(encoding="utf-8"))
-        for stale in HEADER_STALE:
-            with self.subTest(stale=stale):
-                self.assertFalse(has_stale(text, stale))
-        with self.subTest(stale=RERUN_STALE.pattern):
-            self.assertEqual(rerun_stale(text), [])
-        for required in HEADER_REQUIRED:
-            with self.subTest(required=required):
-                self.assertIn(required, text)
+        before on: counts (header_comment()), an indented or end-of-line one too, and so do the lines that start with #
+        alone, as v1.1.2 read them (header_readings()). Stale wording counts with code backticks, quotes, emphasis or
+        extra spaces too, in either reading of the text (readings()), as in the READMEs."""
+        workflow = (WORKFLOWS / "pages.yml").read_text(encoding="utf-8")
+        with self.subTest("stale"):
+            self.assertEqual(header_stale(workflow), [])
+        with self.subTest("required"):
+            self.assertEqual(header_missing(workflow), [])
+
+    # Headers in which an indented comment, or a line of code with an end-of-line comment, sits between lines that start
+    # with #, and what is wrong in them: the stale wording found (header_stale()) and the required wording "fails
+    # closed" missing (header_missing()), in the reading of the header that the comment before each group names.
+    HEADER_LAYOUT_SAMPLES = (
+        # The lines that start with # alone, as v1.1.2 read the header (N1).
+        ("# It allows\n  # (a note)\n# main. It fails closed.\non:\n", {"allows main"}),
+        ("# It allows\nrun-name: Pages  # a note\n# main. It fails closed.\non:\n", {"allows main"}),
+        ("# It repeats no\n  # (a note)\n# lookup. It fails closed.\non:\n", {"repeats no lookup"}),
+        ("  # It fails closed.\n# It deploys tags.\non:\n", {"fails closed"}),
+        ("# It fails\n#\n# closed.\non:\n", {"fails closed"}),
+        # Every comment before on: (header_comment(), E4).
+        ("# It fails\n  # (a note)\n# closed.\non:\n", {"fails closed"}),
+        ("# It fails\nrun-name: Pages  # a note\n# closed.\non:\n", {"fails closed"}),
+        ("# It fails closed.\n  # It allows main.\non:\n", {"allows main"}),
+        # Neither.
+        ("# It fails closed.\n  # (a note)\n# It refuses older tags.\non:\n", set()),
+    )
+
+    def test_a_comment_between_header_lines_hides_no_wording(self):
+        """Stale wording counts in either reading of the header, and required wording must be in both
+        (header_readings()), so nothing that v1.1.2 refused in the header passes for its layout (N1)."""
+        for workflow, wrong in self.HEADER_LAYOUT_SAMPLES:
+            with self.subTest(workflow=workflow):
+                self.assertEqual({*header_stale(workflow), *header_missing(workflow, ("fails closed",))}, wrong)
 
     # A workflow in the shapes that comments take in pages.yml, and its comment blocks and header (E4).
     SAMPLE_WORKFLOW = (
@@ -386,9 +436,11 @@ class ReleaseTextTests(unittest.TestCase):
 
     def test_every_comment_of_a_workflow_is_read(self):
         """comment_blocks() reads full-line comments at any indentation and end-of-line comments, in the YAML and in run
-        scripts, and no # inside a word or right after a quote; header_comment() is every comment before on:."""
+        scripts, and no # inside a word or right after a quote; header_comment() is every comment before on:, and
+        header_readings() adds the lines before on: that start with # alone."""
         self.assertEqual(comment_blocks(self.SAMPLE_WORKFLOW), self.SAMPLE_COMMENTS)
         self.assertEqual(header_comment(self.SAMPLE_WORKFLOW), self.SAMPLE_COMMENTS[0][1])
+        self.assertEqual(header_readings(self.SAMPLE_WORKFLOW), (self.SAMPLE_COMMENTS[0][1], "a header line"))
 
     def test_no_comment_of_pages_yml_has_the_retired_re_run_wording(self):
         """No comment of pages.yml (comment_blocks(), the header and end-of-line comments included), such as the
