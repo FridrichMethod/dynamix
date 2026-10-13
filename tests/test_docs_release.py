@@ -458,6 +458,15 @@ class ReleaseStateTests(unittest.TestCase):
             "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
         ),
     }
+    # Every release that the Releases section of each README dates, newest first, with its US Pacific release date (E1):
+    # the values, not only their agreement between the languages (release_state_problems()) or their order.
+    DATED_RELEASES = (
+        ("v1.1.3", "2026-10-13"),
+        ("v1.1.2", "2026-10-12"),
+        ("v1.1.1", "2026-10-12"),
+        ("v1.1.0", "2026-10-11"),
+        ("v1.0.0", "2026-10-11"),
+    )
 
     def test_no_document_names_the_retired_gate(self):
         for relative in (*DOCUMENTS, "NOTICE"):
@@ -875,6 +884,12 @@ class ReleaseStateTests(unittest.TestCase):
                 with self.subTest(document=relative, stale=stale):
                     self.assertNotIn(stale, text.lower(), f"{relative} still describes the release hold or old gate")
         self.assertEqual(release_state_problems({relative: read(relative) for relative in READMES}), [])
+
+    def test_readmes_date_every_release(self):
+        """The Releases section of each README dates exactly DATED_RELEASES, in that order (E1)."""
+        for relative in READMES:
+            with self.subTest(document=relative):
+                self.assertEqual(dated_releases(relative, read(relative)), list(self.DATED_RELEASES))
 
     def test_a_release_build_names_its_tag(self):
         """Where the checkout is a release tag (the Pages workflow's test run), both READMEs name that release."""
