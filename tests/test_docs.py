@@ -111,9 +111,14 @@ COUNT_CLAIMS = re.compile(
 BOLD_RUN = re.compile(r"(?<!\*)\*\*(?!\*)")
 LINK = re.compile(r"(?<!!)\[(?:[^\[\]]|\[[^\]]*\])*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
-# A code span as CommonMark reads it: a run of n backticks opens a span that the next run of exactly n backticks closes
-# ("``deploy``" holds deploy, "``a`b``" holds a`b), and a run that no such run closes is literal text. So the prose
-# between two spans ("``a`` prose ``b``") stays prose, and a span is never empty (backticks that touch are one run).
+# A code span, read one line at a time: a run of n backticks opens a span that the next run of exactly n backticks
+# closes ("``deploy``" holds deploy, "``a`b``" holds a`b), and a run that no such run closes is literal text. So the
+# prose between two spans ("``a`` prose ``b``") stays prose, and a span is never empty (backticks that touch are one
+# run). CommonMark reads spans so too, and it also lets a backslash escape a backtick outside a span, keeps a backtick
+# inside a link destination or an autolink as part of it, and continues a span on the next line of its paragraph: this
+# reading models none of the three, and no document has them
+# (test_documents_hold_only_code_spans_that_inline_code_reads). A span holds its text as written; CommonMark also drops
+# one space at each end when both ends have one.
 INLINE_CODE = re.compile(r"(?<!`)(?P<run>`+)(?!`)(?P<code>.+?)(?<!`)(?P=run)(?!`)")
 SCRIPT_CALL = re.compile(r"(?<![\w<>/.-])(?:(scripts|tests)/)?([a-z][a-z0-9_]*)\.py\b")
 FLAG = re.compile(r"(?<![\w-])(--[a-z][a-z0-9-]*)")
@@ -660,6 +665,20 @@ class CommandTests(unittest.TestCase):
         for line, spans in self.CODE_SPANS:
             with self.subTest(line=line):
                 self.assertEqual(code_lines(line), spans)
+
+    def test_documents_hold_only_code_spans_that_inline_code_reads(self):
+        """INLINE_CODE does not model a backslash before a run of backticks, a backtick in a link destination or an
+        autolink, or a span that continues on the next line, so no document has them: every backtick of a prose line
+        is part of a code span that closes on that line, no span opens right after a backslash, and no link
+        destination or autolink holds a backtick."""
+        for relative in DOCUMENTS:
+            for line in prose_lines(read(relative)):
+                with self.subTest(document=relative, line=line[:60]):
+                    self.assertNotIn("`", INLINE_CODE.sub("", line), "a backtick outside a code span of its line")
+                    spans = INLINE_CODE.finditer(line)
+                    escaped = [span.start() for span in spans if line[: span.start()].endswith("\\")]
+                    self.assertEqual(escaped, [], "a code span that opens right after a backslash")
+                    self.assertIsNone(re.search(r"\]\([^)]*`|<[^\s<>]*`[^\s<>]*>", line), "a backtick in a link")
 
     def test_documented_flags_exist(self):
         calls: dict[Path, set[str]] = {}
