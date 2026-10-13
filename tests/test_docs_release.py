@@ -352,9 +352,12 @@ class ReleaseStateTests(unittest.TestCase):
     # and v1.1.1 is the first release whose workflow looks the tag's Release up, so older tags are said to run their own
     # workflow, which the environment refuses to deploy. A re-run without the approval job deploys nothing (R1), and a
     # tag moved on GitHub after the run started fails closed (SEC-2); v1.1.2 is the first release whose workflow does
-    # both, so v1.1.1 is said to lack them and the dispatch example names the current release.
+    # both, so v1.1.1 is said to lack them and the dispatch example names the current release. The current release is
+    # dated by the US Pacific date of its release, as the earlier ones are (v1.1.0, tagged at 2026-10-11 20:18 PDT, is
+    # dated 2026-10-11): v1.1.2 is released on 2026-10-12 (DATE-1).
     RELEASE_MODEL = {
         "README.md": (
+            "Version `v1.1.2` (2026-10-12) is the current release",
             "published",
             "prerelease",
             "`vX.Y.Z`",
@@ -380,6 +383,7 @@ class ReleaseStateTests(unittest.TestCase):
             "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
         ),
         "README.zh-CN.md": (
+            "`v1.1.2`（2026-10-12）是当前版本",
             "发布",
             "预发布",
             "`vX.Y.Z`",
