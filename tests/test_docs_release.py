@@ -399,11 +399,12 @@ class ReleaseStateTests(unittest.TestCase):
     # Release (D1), and the tag ruleset beside the environment rule (D5). A run takes pages.yml from the tag's commit,
     # and v1.1.1 is the first release whose workflow looks the tag's Release up, so older tags are said to run their own
     # workflow, which the environment refuses to deploy. A re-run without the approval job deploys nothing (R1), and a
-    # tag moved on GitHub after the run started fails closed (SEC-2); v1.1.2 is the first release whose workflow does
-    # both, so v1.1.1 is said to lack them and the dispatch example names the current release. The current release is
-    # dated by the US Pacific date of its release, as the earlier ones are (v1.1.0, tagged at 2026-10-11 20:18 PDT, is
-    # dated 2026-10-11): v1.1.2 is released on 2026-10-12 (DATE-1). The two releases before it are named in order,
-    # v1.1.1 the previous one and v1.1.0 the one before it (TEST-1).
+    # tag moved on GitHub after the run started fails closed when the approval or the build job checks it, the only two
+    # reads of the tag on GitHub (SEC-2, DOC-1); v1.1.2 is the first release whose workflow does both, so v1.1.1 is said
+    # to lack them and the dispatch example names the current release. The current release is dated by the US Pacific
+    # date of its release, as the earlier ones are (v1.1.0, tagged at 2026-10-11 20:18 PDT, is dated 2026-10-11): v1.1.2
+    # is released on 2026-10-12 (DATE-1). The two releases before it are named in order, v1.1.1 the previous one and
+    # v1.1.0 the one before it (TEST-1).
     RELEASE_MODEL = {
         "README.md": (
             "Version `v1.1.2` (2026-10-12) is the current release",
@@ -429,7 +430,8 @@ class ReleaseStateTests(unittest.TestCase):
             "A re-run keeps the event of the run it repeats",
             'A re-run of the deploy job alone, or of any jobs without the first job ("Release approval"), deploys nothing; '
             're-run the whole run ("Re-run all jobs")',
-            "a tag that now names another commit on GitHub (one moved after the run started)",
+            "a tag that names another commit on GitHub when the approval or the build job checks it (one moved after "
+            "the run started)",
             "`github-pages` environment accepts deployments only from tags from `v1.1.1` on",
             "a repository ruleset named `Release tags v*` lets only repository admins create, move or delete `v*` tags",
         ),
@@ -456,7 +458,7 @@ class ReleaseStateTests(unittest.TestCase):
             "重新运行沿用它所重复的那次运行的事件",
             "只重新运行部署任务，或重新运行不含第一个任务（“Release approval”）的任何任务，都不会部署任何内容；"
             "应重新运行整次运行（“Re-run all jobs”）",
-            "在 GitHub 上现已指向另一个提交的标签（运行开始后被移动过）",
+            "在批准任务或构建任务检查时已在 GitHub 上指向另一个提交的标签（运行开始后被移动过）",
             "`github-pages` 环境只接受来自 `v1.1.1` 起的标签的部署",
             "名为 `Release tags v*` 的仓库规则集只允许仓库管理员创建、移动或删除 `v*` 标签",
         ),
